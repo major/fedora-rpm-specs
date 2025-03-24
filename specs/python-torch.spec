@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.7.0-rc1
-%global commit0 cdd7a2c72bbf0a72faf6fe4b4903c053f0465a2e
+# v2.7.0-rc2
+%global commit0 b1940b5867e40e40ebdce4db76f76d3d0b71d3f4
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250412
+%global date0 20250413
 %global pypi_version 2.7.0
 %global flatbuffers_version 23.3.3
 %global miniz_version 3.0.2
@@ -253,6 +253,10 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 # Overwrite with a git checkout of the pyproject.toml
 cp %{SOURCE1000} .
 
+# https://github.com/pytorch/pytorch/issues/149803
+# Tries to checkout nccl
+sed -i -e 's@    checkout_nccl()@#    checkout_nccl()@' tools/build_pytorch_libs.py
+
 %else
 %autosetup -p1 -n pytorch-v%{version}
 %endif
@@ -329,6 +333,12 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-depr
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt
+%if %{with gitcommit}
+sed -i -e 's@fmt::fmt-header-only@fmt@' aten/src/ATen/CMakeLists.txt
+sed -i -e 's@list(APPEND ATen_HIP_INCLUDE $<TARGET_PROPERTY:fmt,INTERFACE_INCLUDE_DIRECTORIES>)@@' aten/src/ATen/CMakeLists.txt
+
+sed -i -e 's@fmt::fmt-header-only@fmt@' third_party/kineto/libkineto/CMakeLists.txt
+%endif
 sed -i -e 's@fmt::fmt-header-only@fmt@' c10/CMakeLists.txt
 sed -i -e 's@fmt::fmt-header-only@fmt@' torch/CMakeLists.txt
 sed -i -e 's@fmt::fmt-header-only@fmt@' cmake/Dependencies.cmake
@@ -434,6 +444,10 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 
 ./tools/amd_build/build_amd.py
 # Fedora installs to /usr/include, not /usr/include/rocm-core
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable/TunableGemm.h
+%if %{with gitcommit}
+# https://github.com/pytorch/pytorch/issues/149805
+sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' cmake/public/LoadHIP.cmake
+%endif
 # use any hip, correct CMAKE_MODULE_PATH
 sed -i -e 's@lib/cmake/hip@lib64/cmake/hip@' cmake/public/LoadHIP.cmake
 sed -i -e 's@HIP 1.0@HIP MODULE@'            cmake/public/LoadHIP.cmake
@@ -512,14 +526,22 @@ export USE_SYSTEM_ONNX=ON
 export USE_SYSTEM_PYBIND11=OFF
 export USE_SYSTEM_LIBS=OFF
 export USE_TENSORPIPE=OFF
+%if %{with gitcommit}
+export USE_XNNPACK=OFF
+%else
 export USE_XNNPACK=ON
+%endif
 export USE_XPU=OFF
 export USE_SYSTEM_PTHREADPOOL=ON
 export USE_SYSTEM_CPUINFO=ON
 export USE_SYSTEM_FP16=ON
 export USE_SYSTEM_FXDIV=ON
 export USE_SYSTEM_PSIMD=ON
+%if %{with gitcommit}
+export USE_SYSTEM_XNNPACK=OFF
+%else
 export USE_SYSTEM_XNNPACK=ON
+%endif
 
 export USE_DISTRIBUTED=ON
 %if %{with tensorpipe}

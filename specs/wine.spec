@@ -31,8 +31,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.2
-Release:        3%{?dist}
+Version:        10.4
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1074,6 +1074,7 @@ fi
 %{_libdir}/wine/%{winepedir}/hostname.exe
 %{_libdir}/wine/%{winepedir}/ipconfig.exe
 %{_libdir}/wine/%{winepedir}/klist.exe
+%{_libdir}/wine/%{winepedir}/makecab.exe
 %{_libdir}/wine/%{winepedir}/mshta.exe
 %{_libdir}/wine/%{winepedir}/msidb.exe
 %{_libdir}/wine/%{winepedir}/msiexec.exe
@@ -1174,6 +1175,7 @@ fi
 %{_libdir}/wine/%{winepedir}/crtdll.dll
 %{_libdir}/wine/%{winesodir}/crypt32.so
 %{_libdir}/wine/%{winepedir}/crypt32.dll
+%{_libdir}/wine/%{winepedir}/cryptbase.dll
 %{_libdir}/wine/%{winepedir}/cryptdlg.dll
 %{_libdir}/wine/%{winepedir}/cryptdll.dll
 %{_libdir}/wine/%{winepedir}/cryptext.dll
@@ -1661,6 +1663,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.security.credentials.ui.userconsentverifier.dll
 %{_libdir}/wine/%{winepedir}/windows.storage.dll
 %{_libdir}/wine/%{winepedir}/windows.storage.applicationdata.dll
+%{_libdir}/wine/%{winepedir}/windows.system.profile.systemid.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.xaml.dll
@@ -2093,6 +2096,9 @@ fi
 %endif
 
 %changelog
+* Sat Mar 22 2025 Michael Cronenworth <mike@cchtml.com> - 10.4-1
+- version update
+
 * Sat Mar 01 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 10.2-3
 - Spec cleanups: drop EOL RHEL releases, arm32 support
 - Use %%license fields, updates for some conditionals (mpg123, OpenCL)

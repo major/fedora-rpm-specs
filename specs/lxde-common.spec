@@ -2,36 +2,55 @@
 
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=540034
 
-%global		git_snapshot 0
+%global		use_release  0
+%global		use_gitbare  1
 
-%if	0%{?git_snapshot}
-%global		git_rev		87c368d79eddf272cd356837256495168c5c72a2
-%global		git_date		20110328
-%global		git_short		%(echo %{git_rev} | cut -c-8)
-%global		git_version	%{git_date}git%{git_short}
+%if 0%{?use_gitbare} < 1
+# force
+%global		use_release  1
 %endif
 
-# Source0 was generated as follows: 
-# git clone git://lxde.git.sourceforge.net/gitroot/lxde/%{name}
-# cd %{name}
-# git archive --format=tar --prefix=%{name}/ %{git_short} | bzip2 > %{name}-%{?git_version}.tar.bz2
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
 
-%undefine		__brp_mangle_shebangs
-%undefine		_changelog_trimtime
+%global		main_version	0.99.3
+
+%if 0%{?use_gitbare}
+%global		gittardate		20250322
+%global		gittartime		1819
+%define		use_gitcommit_as_rel		0
+
+%global		gitbaredate	20250322
+%global		git_rev		f38621d0bed738857e651eef6c0b3e3381f9da8b
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
+
+%if 0%{?use_gitcommit_as_rel}
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%else
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+%endif
+
+%endif
 
 Name:			lxde-common
-Version:		0.99.2
-Release:		28%{?git_version:.%{?git_version}}%{?dist}
+Version:		%{main_version}%{git_ver_rpm}
+Release:		1%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
 License:		GPL-2.0-only
 URL:			http://lxde.sourceforge.net/
-%if 0%{?git_snapshot}
-Source0:		%{name}-%{?git_version}.tar.bz2
-%else
-Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+%if 0%{?use_release} >= 1
+Source0: 		http://downloads.sourceforge.net/pcmanfm/%{name}-%{mainver}%{?prever}.tar.xz
 %endif
+%if 0%{?use_gitbare} >= 1
+Source0: 		%{name}-%{gittardate}T%{gittartime}.tar.gz
+%endif
+Source100: 	create-%{name}-git-bare-tarball.sh
 Source1: 		lxde-lock-screen.desktop
 Source2:		lxde-desktop-preferences.desktop
 # Install custom gtkrc to enable gtk-menu-images by default (bug 1830588)
@@ -41,7 +60,7 @@ Source11:		libfm.conf.custom
 
 # Distro specific patches
 Patch10:		%{name}-0.99.2-pcmanfm-config.patch
-Patch11:		%{name}-0.99.2-lxpanel-config.patch
+Patch11:		%{name}-0.99.3-lxpanel-config.patch
 Patch12:		%{name}-0.5.5-openbox-menu.patch
 Patch13:		%{name}-0.3.2.1-logout-banner.patch
 # Use Adwaita Icon Theme
@@ -54,6 +73,7 @@ Patch16:		%{name}-0.99.2-office-no-sal-variable.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
+BuildRequires:	git
 BuildRequires:	desktop-file-utils
 # because of some patches:
 BuildRequires:	automake
@@ -82,7 +102,36 @@ Desktop Environment.
 
 
 %prep
-%setup -q %{?git_version:-n %{name}}
+%if 0%{?use_release} >= 1
+%setup -q -n %{name}-%{main_version}%{?prever}
+git init
+%endif
+
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
+
+%if !%{use_gitcommit_as_rel}
+git checkout -b fedora-%{version} %{version}
+%endif
+
+# Restore timestamps
+set +x
+echo "Restore timestamps"
+git ls-tree -r --name-only HEAD | while read f
+do
+	unixtime=$(git log -n 1 --pretty='%ct' -- $f)
+	touch -d "@${unixtime}" $f
+done
+set -x
+
+cp -a [A-Z]* ..
+%endif
+
+git config user.name "%{name} Fedora maintainer"
+git config user.email "%{name}-maintainer@fedoraproject.org"
+
 
 %patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig2
@@ -107,10 +156,18 @@ sed -i.f43 pcmanfm/pcmanfm.conf.in \
 autoreconf -fi
 
 %build
+%if 0%{?use_gitbare} >= 1
+cd %{name}
+%endif
+
 %configure
 
 
 %install
+%if 0%{?use_gitbare} >= 1
+cd %{name}
+%endif
+
 %make_install
 
 desktop-file-install \
@@ -167,6 +224,12 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-1
+- 0.99.3
+
+* Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-29
+- Use github source
+
 * Tue Feb 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-28
 - F-42+: change background image to jxl (ref: bug 2345684)
 

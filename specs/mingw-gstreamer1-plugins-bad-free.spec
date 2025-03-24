@@ -262,6 +262,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstjp2kdecimator.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstjpegformat.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstlegacyrawparse.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstmediafoundation.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstmidi.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstmpegpsdemux.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstmpegpsmux.dll
@@ -453,6 +454,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstjp2kdecimator.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstjpegformat.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstlegacyrawparse.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstmediafoundation.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstmidi.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstmpegpsdemux.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstmpegpsmux.dll

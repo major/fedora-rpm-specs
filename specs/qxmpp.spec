@@ -1,12 +1,10 @@
-%global forgeurl https://github.com/qxmpp-project/qxmpp
-Version:        1.10.1
 %global sover   5
-%forgemeta
 
 %bcond_without check
 %bcond_with all_tests
 
 Name:           qxmpp
+Version:        1.10.3
 Release:        %autorelease
 Summary:        Cross-platform C++ XMPP client and server library
 
@@ -14,8 +12,8 @@ Summary:        Cross-platform C++ XMPP client and server library
 # the files in doc/ directory are CC0-1.0 license.
 # the qxmpp logo is CC-BY-SA-4.0 license.
 License:        LGPL-2.1-or-later AND CC0-1.0 AND CC-BY-SA-4.0
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://invent.kde.org/libraries/qxmpp
+Source0:        %{url}/-/archive/v%{version}/qxmpp-v%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -85,7 +83,7 @@ BuildArch:      noarch
 This package contains documentation for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n qxmpp-v%{version}
 
 %build
 OPTIONS=(

@@ -36,7 +36,7 @@ web framework, while still being backward compatible with the existing
 TurboGears projects.
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %prep
 %setup -q -n %{modname}-%{version}

@@ -13,11 +13,11 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20250311
-%global	gittartime		2303
+%global	gittardate		20250322
+%global	gittartime		1006
 
-%global	gitbaredate	20250311
-%global	git_rev		30ebe893e1de03e57d06fd53447ab20eaa9b6c5a
+%global	gitbaredate	20250321
+%global	git_rev		28b2556ccb9eadaefa7131a4aa42965c46b86864
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -55,7 +55,7 @@ Patch52:		0002-SF-894-task-button-correctly-find-the-window-current.patch
 
 ## distro specific patches
 # default configuration
-Patch100:		lxpanel-0.5.9-default.patch
+Patch100:		lxpanel-0.10.2-default.patch
 # use nm-connection-editor to edit network connections
 # Applied in 0.8.2
 #Patch101:		lxpanel-0.8.1-nm-connection-editor.patch
@@ -224,6 +224,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250321git28b2556c-1
+- Update to the latest git
+
 * Tue Mar 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250311git30ebe893-1
 - Update to the latest git
 

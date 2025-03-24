@@ -1,10 +1,10 @@
-%global pypi_name eth-hash
+%global pypi_name eth_hash
 %global common_description %{expand:
 The Ethereum hashing function, keccak256, sometimes (erroneously) called sha256
 or sha3.}
 
-Name:          python-%{pypi_name}
-Version:       0.7.0
+Name:          python-eth-hash
+Version:       0.7.1
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       The Ethereum hashing function
@@ -14,38 +14,26 @@ VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 # Fedora-specific. Cryptodome shipped in Fedora is not drop-in replacement for
 # pycrypto. We have to adjust.
-Patch1:        python-eth_hash-0001-Fedora-use-cryptodome-explicitly.patch
+Patch:         python-eth-hash-0001-Fedora-use-cryptodome-explicitly.patch
 # Fedora-secific. We don't have pysha3
-Patch2:        python-eth_hash-0002-Remove-pysha3.patch
-BuildRequires: python3-devel
+Patch:         python-eth-hash-0002-Remove-pysha3.patch
 BuildRequires: python3-pycryptodomex
 BuildRequires: python3-pytest
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l %{pypi_name}
 
 %description  %{common_description}
 
-%package -n python3-%{pypi_name}
+%package -n python3-eth-hash
 Summary: %{summary}
 
-%description -n python3-%{pypi_name} %{common_description}
+%description -n python3-eth-hash %{common_description}
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l eth_hash
-
-%check
-%pyproject_check_import
+%check -a
 %pytest ./tests/core/ ./tests/backends/pycryptodome
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-eth-hash -f %{pyproject_files}
 %doc README.md
 
 %changelog

@@ -4,7 +4,7 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.19.4
+Version:        0.19.5
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
@@ -12,25 +12,17 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
 
-# Bump aioitertools from 0.11.0 to 0.12.0
-# https://github.com/python-openapi/openapi-core/pull/907
-Patch:          0001-Bump-aioitertools-from-0.11.0-to-0.12.0.patch
-# Allow Starlette 0.41.x and FastAPI 0.115.x
-# https://github.com/python-openapi/openapi-core/pull/933/commits/6db7a187939753a292b2b4704bd620632491d196
+# Allow Starlette 0.45 and 0.46
+# https://github.com/python-openapi/openapi-core/pull/977
+# (Without changes to poetry.lock)
+Patch:          %{url}/pull/977/commits/6714b46bbc20933dad48d5907908166cde7fa0c0.patch
+
+# Downstream-only: remove werkzeug version pin
 #
-# From:
-#
-# Allow Starlette 0.41.x and FastAPI 0.115.x; bump to 0.41.2 and 0.115.4,
-# respectively
-# https://github.com/python-openapi/openapi-core/pull/933
-Patch:          0002-Allow-Starlette-0.41.x-and-FastAPI-0.115.x.patch
-# Allow Starlette 0.45.x and 0.46.x
-#
-# We can’t offer this upstream until upstream updates to at least FastAPI
-# 0.115.7 (https://github.com/python-openapi/openapi-core/pull/957) for
-# 0.45.x, and until a released version of FastAPI officially supports
-# Starlette 0.46.x.
-Patch:          0003-Allow-Starlette-0.45.x-and-0.46.x.patch
+# Upstream added this to fix
+# https://github.com/python-openapi/openapi-core/issues/938, but we have no
+# choice: we must use the version that is packaged, even if this breaks things.
+Patch:          0001-Downstream-only-remove-werkzeug-version-pin.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -101,7 +93,7 @@ ignore="${ignore-} --ignore=tests/integration/contrib/falcon"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.md
 
 
 %changelog

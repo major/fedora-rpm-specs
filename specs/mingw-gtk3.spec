@@ -6,13 +6,13 @@
 
 Name:           mingw-gtk3
 # Drop Source2 on next update!
-Version:        3.24.43
-Release:        3%{?dist}
+Version:        3.24.49
+Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPL-2.0-or-later
 URL:            http://www.gtk.org
-Source0:        http://download.gnome.org/sources/gtk+/%{release_version}/gtk+-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/%{release_version}/gtk-%{version}.tar.xz
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gtk-query-immodules-3.0.exe | sed -e 's@Z:/usr/i686-w64-mingw32/sys-root/mingw@..@' -e 's@/usr/i686-w64-mingw32/sys-root/mingw@..@' > gtk.immodules
 Source1:        gtk.immodules
 
@@ -129,7 +129,7 @@ This package contains the MinGW Windows cross compiled gtk-update-icon-cache.
 
 
 %prep
-%autosetup -p1 -n gtk+-%{version}
+%autosetup -p1 -n gtk-%{version}
 
 
 %build
@@ -310,6 +310,9 @@ fi
 
 
 %changelog
+* Sat Mar 22 2025 Sandro Mani <manisandro@gmail.com> - 3.24.49-1
+- Update to 3.24.49
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

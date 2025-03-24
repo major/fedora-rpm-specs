@@ -1,6 +1,6 @@
 Name:       bottles
 Epoch:      1
-Version:    51.17
+Version:    51.21
 Release:    %autorelease
 Summary:    Run Windows in a Bottle
 
@@ -24,14 +24,12 @@ Patch:      0002-Catch-AttributeError-in-set_manager.patch
 # Catch AttributeError when closing window
 # https://bugzilla.redhat.com/show_bug.cgi?id=2313567
 Patch:      0003-Catch-AttributeError-when-window-is-closed.patch
-# Attempt to prevent segfaults when picking files
-# https://bugzilla.redhat.com/show_bug.cgi?id=2296214
-Patch:      0004-Use-FileDialog-for-all-file-path-pickers.patch
 # Downstream only patches counteracting upstream's enforcement of Flatpak
 Patch:      1001-Revert-meson-Add-check-for-Flatpak.patch
 Patch:      1002-Change-issue-URL-to-Bugzilla.patch
 Patch:      1003-Display-warning-regarding-issue-tracker.patch
 Patch:      1004-Do-not-require-Xdp.patch
+Patch:      1005-Revert-bottle-row-Port-to-AdwWrapBox.patch
 
 BuildArch:      noarch
 

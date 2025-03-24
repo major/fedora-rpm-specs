@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:          mingw-objfw
-Version:       1.2.4
+Version:       1.3
 Release:       1%{?dist}
 Summary:       MinGW port of ObjFW
 
@@ -103,6 +103,7 @@ popd
 
 pushd ucrt64
 %ucrt64_configure --with-tls=openssl                    \
+                  --enable-static                       \
                   --disable-silent-rules                \
                   OBJC="clang -target %{ucrt64_target}" \
                   OBJCFLAGS="$ucrt64_cflags"            \
@@ -208,10 +209,14 @@ popd
 %{ucrt64_includedir}/ObjFWRT
 %{ucrt64_includedir}/ObjFWTLS
 %{ucrt64_includedir}/ObjFWTest
+%{ucrt64_libdir}/libobjfw.a
 %{ucrt64_libdir}/libobjfw.dll.a
+%{ucrt64_libdir}/libobjfwhid.a
 %{ucrt64_libdir}/libobjfwhid.dll.a
+%{ucrt64_libdir}/libobjfwrt.a
 %{ucrt64_libdir}/libobjfwrt.dll.a
 %{ucrt64_libdir}/libobjfwtest.a
+%{ucrt64_libdir}/libobjfwtls.a
 %{ucrt64_libdir}/libobjfwtls.dll.a
 %{ucrt64_libdir}/objfw-config
 

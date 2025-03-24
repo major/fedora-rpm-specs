@@ -1,14 +1,16 @@
 %global libcall_ui_commit f66056ace818ff19b507335634dd67138a92c77f
 
 Name:       calls
-Version:    47.0
-Release:    2%{?dist}
+Version:    48.0
+Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/calls
 Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:    https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
+
+ExcludeArch:    i686
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -20,7 +22,7 @@ BuildRequires:  pkgconfig(libcallaudio-0.1)
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.74
 BuildRequires:  pkgconfig(glib-2.0) >= 2.74
 BuildRequires:  pkgconfig(gtk4) >= 4.12
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.5
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.6
 BuildRequires:  pkgconfig(gsound)
 BuildRequires:  pkgconfig(libpeas-2)
 BuildRequires:  pkgconfig(gom-1.0)

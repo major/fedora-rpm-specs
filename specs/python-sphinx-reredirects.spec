@@ -1,11 +1,11 @@
 %global giturl  https://github.com/documatt/sphinx-reredirects
 
 Name:           python-sphinx-reredirects
-Version:        0.1.5
+Version:        0.1.6
 Release:        %autorelease
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
-License:        BSD-3-Clause
+License:        MIT
 URL:            https://documatt.com/sphinx-reredirects/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/sphinx-reredirects-%{version}.tar.gz
@@ -36,8 +36,8 @@ Obsoletes:      python3-sphinx_reredirects < 0.1.2-3
 
 %package        doc
 Summary:        Documentation for %{name}
-# This project is BSD-3-Clause.  The Javascript and CSS bundled with the
-# documentation has the following licenses:
+# This project is MIT.  The Javascript and CSS bundled with the documentation
+# has the following licenses:
 # _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
 # _static/basic.css: BSD-2-Clause
 # _static/css: MIT
@@ -55,13 +55,16 @@ Summary:        Documentation for %{name}
 # genindex.html: BSD-2-Clause
 # search.html: BSD-2-Clause
 # searchindex.js: BSD-2-Clause
-License:        BSD-3-Clause AND BSD-2-Clause AND MIT
+License:        MIT AND BSD-3-Clause AND BSD-2-Clause
 
 %description    doc
 Documentation for %{name}.
 
 %prep
 %autosetup -n sphinx-reredirects-%{version}
+# Upstream forgot to change two files during the license change
+# https://github.com/documatt/sphinx-reredirects/issues/13
+sed -i 's/BSD3/MIT/;s/BSD/MIT/' setup.py README.rst
 
 %generate_buildrequires
 # Do not pin to specific package versions

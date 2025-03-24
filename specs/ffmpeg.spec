@@ -82,7 +82,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -859,6 +859,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Sat Mar 22 2025 Songsong Zhang <U2FsdGVkX1@gmail.com> - 7.1.1-3
+- Add missing source files for riscv64
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 7.1.1-2
 - Rebuild for noopenh264 2.6.0
 

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           cppcheck
-Version:        2.17.0
+Version:        2.17.1
 Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
@@ -109,6 +109,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Sat Mar 22 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.17.1-1
+- 2.17.1
+
 * Sun Feb 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.17.0-1
 - 2.17.0
 

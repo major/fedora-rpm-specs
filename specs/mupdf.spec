@@ -23,6 +23,8 @@ Patch:		0001-setup.py-do-not-bundle-c-and-c-libs-in-wheel.patch
 Patch:		0001-pdf_choice_widget_options2-avoid-core-dump-with-_GLI.patch
 # Do not apply CXXFLAGS to swig
 Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
+# https://github.com/ArtifexSoftware/mupdf/pull/68
+Patch:		0001-Work-around-pip-25-pyproject_hooks-1.2.0-path-meddli.patch
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
 BuildRequires:	libjpeg-devel freetype-devel libXext-devel curl-devel

@@ -1,6 +1,6 @@
 Name:           bibletime
-Version:        3.0.3
-Release:        7%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        An easy to use Bible study tool
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -13,8 +13,9 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(QtGui) >= 4.5.0
 BuildRequires:  sword-devel >= 1.8.1-15
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-linguist
+BuildRequires:  qt6-qttools-devel
 BuildRequires:  po4a
 BuildRequires:  libxslt
 
@@ -23,12 +24,12 @@ ExclusiveArch:  %{java_arches}
 BuildRequires:  fop
 
 BuildRequires:  docbook-style-xsl
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:  qt5-qtwebengine-devel
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:  qt6-qtwebengine-devel
 %else
-BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  qt6-qtwebkit-devel
 %endif
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  make
 
 %description
@@ -71,7 +72,7 @@ done
 desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTime.desktop
 
 %files -f %{name}.lang
-%doc ChangeLog README.md
+%doc README.md
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/info.%{name}.BibleTime.desktop
@@ -87,6 +88,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTim
 %{_datadir}/icons/hicolor/scalable/apps/info.%{name}.BibleTime.svg
 
 %changelog
+* Sat Mar 22 2025 Greg Hellings <greg.hellings@gmail.com> - 3.1.1-1
+- New upstream release
+- Now builds against Qt6 instead of Qt5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

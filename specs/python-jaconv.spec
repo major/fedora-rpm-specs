@@ -1,6 +1,6 @@
 Name:           python-jaconv
 Version:        0.3.4
-Release:        2%{?dist}                                                                       
+Release:        3%{?dist}
 Summary:        Pure-Python Japanese character interconverter for Hiragana, Katakana, Hankaku, Zenkaku and more
 
 License:        MIT-0
@@ -31,7 +31,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -51,6 +51,9 @@ rm -f %{buildroot}/usr/CHANGES.rst %{buildroot}/usr/README.rst
 %doc CHANGES.rst README.rst
 
 %changelog
+* Sat Mar 22 2025 Kevin Fenzi <kevin@scrye.com> - 0.3.4-3
+- Drop unneeded -t to pyproject_buildrequires. ( Fixes rhbz#2354111 )
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -17,6 +17,8 @@ Source2:        thunar-sendto-audacious-playlist.desktop
 Source3:        thunar-sendto-quodlibet-playlist.desktop
 Source4:        thunar-sendto-blueman.desktop
 
+Patch:          https://gitlab.xfce.org/xfce/thunar/-/merge_requests/620.patch
+
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(dbus-glib-1) >= 0.34
@@ -70,7 +72,7 @@ Requires: %{name} = %{version}-%{release}
 Thunarx GTK documentation files for the Thunar file manager.
 
 %prep
-%autosetup -n thunar-%{version}
+%autosetup -n thunar-%{version} -p1
 
 # fix icon in thunar-sendto-email.desktop
 sed -i 's!internet-mail!mail-message-new!' \

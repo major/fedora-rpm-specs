@@ -54,6 +54,11 @@ BuildRequires: %{py3_dist threadpoolctl} >= 2.0.0
 %prep
 %autosetup -n scikit_learn-%{version} -p1
 sed -i -e 's|numpy>=2|numpy|' pyproject.toml
+# EPEL 10 has Cython 3.0.9, and the only reason Cython 3.0.10
+# is required upstream is for Windows, see
+# https://github.com/scikit-learn/scikit-learn/pull/28743
+sed -i -e 's|Cython>=3.0.10|Cython>=3.0.9|' pyproject.toml
+sed -i -e 's|CYTHON_MIN_VERSION = "3.0.10"|CYTHON_MIN_VERSION = "3.0.9"|' sklearn/_min_dependencies.py
 find sklearn/metrics/_dist_metrics.pyx.tp -type f | xargs sed -i 's/cdef inline {{INPUT_DTYPE_t}} rdist/cdef {{INPUT_DTYPE_t}} rdist/g'
 
 %generate_buildrequires
@@ -83,21 +88,23 @@ pushd %{buildroot}%{python3_sitearch}
   --deselect "sklearn/linear_model/tests/test_bayes.py::test_toy_ard_object" \
   --deselect "sklearn/linear_model/tests/test_bayes.py::test_ard_accuracy_on_easy_problem[42-10-100]" \
   --deselect "sklearn/linear_model/tests/test_bayes.py::test_ard_accuracy_on_easy_problem[42-100-10]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_estimators_dtypes]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_regressors_no_decision_function]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_methods_sample_order_invariance]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_methods_subset_invariance]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_fit2d_1feature]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_dont_overwrite_parameters]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression()-check_fit2d_predict1d]" \
+%if 0%{?el10}
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_dont_overwrite_parameters]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_f_contiguous_array_estimator]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_regressors_no_decision_function]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_methods_sample_order_invariance]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_methods_subset_invariance]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_fit2d_1feature]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_dict_unchanged]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[ARDRegression(max_iter=5)-check_fit2d_predict1d]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[EllipticEnvelope()-check_fit2d_1feature]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[EmpiricalCovariance()-check_fit2d_1feature]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_methods_sample_order_invariance]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_methods_subset_invariance]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_fit2d_1feature]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_dict_unchanged]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_dont_overwrite_parameters]" \
-  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA()-check_fit2d_predict1d]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5)-check_dont_overwrite_parameters]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5)-check_methods_sample_order_invariance]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5)-check_methods_subset_invariance]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5)-check_fit2d_1feature]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5,n_components=1)-check_dict_unchanged]" \
+  --deselect "sklearn/tests/test_common.py::test_estimators[FastICA(max_iter=5)-check_fit2d_predict1d]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[KernelPCA()-check_fit2d_1sample]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[LedoitWolf()-check_fit2d_1feature]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[MinCovDet()-check_fit2d_1feature]" \
@@ -105,6 +112,8 @@ pushd %{buildroot}%{python3_sitearch}
   --deselect "sklearn/tests/test_common.py::test_estimators[RidgeCV()-check_fit2d_1sample]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[RidgeClassifierCV()-check_fit2d_1sample]" \
   --deselect "sklearn/tests/test_common.py::test_estimators[ShrunkCovariance()-check_fit2d_1feature]" \
+  --deselect "sklearn/tests/test_common.py::test_check_inplace_ensure_writeable[ARDRegression(max_iter=5)]" \
+%endif
   --deselect "sklearn/utils/tests/test_validation.py::test_check_is_fitted_with_attributes[list]" \
   --deselect "sklearn/utils/tests/test_validation.py::test_check_is_fitted" \
 %ifarch ppc64le

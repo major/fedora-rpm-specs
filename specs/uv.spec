@@ -200,16 +200,8 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
-# These patches are for the forked, bundled async_zip crate.
-#
-# Revert "Update zip requirement from 0.6.3 to 2.1.5"
-# This reverts commit ba532d50a943ecf0fadb3c0a20c5e51bcb81441d.
-# See: Concerns with zip version 1.x
-# https://github.com/astral-sh/uv/issues/3642
-Patch100:       0001-Revert-Update-zip-requirement-from-0.6.3-to-2.1.5.patch
-Patch101:       0002-Revert-Update-mod.rs.patch
 # Update sanitize-filename requirement from 0.5 to 0.6
-Patch102:       https://github.com/Majored/rs-async-zip/pull/153.patch
+Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
 
 # This patch is for the forked, bundled pubgrub crate.
 #

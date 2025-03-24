@@ -1,7 +1,7 @@
 %global	gem_name	clutter
 
 Name:		rubygem-%{gem_name}
-Version:	4.2.8
+Version:	4.2.9
 Release:	1%{?dist}
 Summary:	Ruby binding of Clutter
 
@@ -51,7 +51,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.2\.8|>= 4.2.8|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.9|>= 4.2.9|' %{gem_name}-%{version}.gemspec
 # clutter should be okay, pkgconfig(clutter-1.0) not strictly needed.
 # hacking
 sed -i dependency-check/Rakefile \
@@ -144,6 +144,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.9-1
+- 4.2.9
+
 * Thu Mar 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.8-1
 - 4.2.8
 

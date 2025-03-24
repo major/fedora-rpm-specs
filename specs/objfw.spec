@@ -3,7 +3,7 @@
 %global _lto_cflags %nil
 
 Name:          objfw
-Version:       1.2.4
+Version:       1.3
 Release:       1%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 

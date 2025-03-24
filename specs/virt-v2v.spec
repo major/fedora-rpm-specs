@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.8
+Version:       2.7.10
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -317,6 +317,9 @@ done
 
 
 %changelog
+* Sat Mar 22 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.10-1
+- New upstream development version 2.7.10
+
 * Tue Mar 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.8-1
 - New upstream development version 2.7.8
 

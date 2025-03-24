@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 105
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -49,6 +49,12 @@ Patch8:  0008-fix-systemd-ask-password-do-not-half-install-systemd.patch
 # feat(systemd-battery-check): always include the module if possible
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch9:  0009-feat-systemd-battery-check-always-include-the-module.patch
+# fix(dracut-install): initize fts pointer
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch10: 0010-fix-dracut-install-initize-fts-pointer.patch
+# feat: add openssl module
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch11: 0011-feat-add-openssl-module.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -63,6 +69,7 @@ BuildRequires: pkgconfig
 BuildRequires: systemd
 BuildRequires: bash-completion
 BuildRequires: cargo
+BuildRequires: openssl-devel
 
 %if %{with doc}
 BuildRequires: docbook-style-xsl docbook-dtds libxslt
@@ -264,6 +271,8 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/dracut-initramfs-restore
 %{dracutlibdir}/dracut-install
 %{dracutlibdir}/dracut-util
+%{dracutlibdir}/ossl-config
+%{dracutlibdir}/ossl-files
 %{dracutlibdir}/skipcpio
 %{dracutlibdir}/dracut-cpio
 %config(noreplace) %{_sysconfdir}/dracut.conf
@@ -390,6 +399,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/99busybox
 %{dracutlibdir}/modules.d/99memstrack
 %{dracutlibdir}/modules.d/99fs-lib
+%{dracutlibdir}/modules.d/99openssl
 %{dracutlibdir}/modules.d/99shutdown
 %attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/log/dracut.log
 %dir %{_sharedstatedir}/initramfs
@@ -468,6 +478,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Tue Mar 18 2025 Pavel Valena <pvalena@redhat.com> - 105-2
+- feat: add openssl module
+
 * Wed Jan 29 2025 Pavel Valena <pvalena@redhat.com> - 105-1
 - build: upgrade to dracut 105
 

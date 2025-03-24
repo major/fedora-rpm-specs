@@ -5,7 +5,7 @@
 %global crate g2poly
 
 Name:           rust-g2poly
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Primitive implementation of polynomials over the field GF(2)
 

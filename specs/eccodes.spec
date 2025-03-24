@@ -3,14 +3,9 @@
 %endif
 
 Name:           eccodes
-Version:        2.39.0
+Version:        2.40.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
-
-# NOTE: dont use version 2.34.0
-# This has some code issues when compiled with the g++ flag "-flto=auto"
-# (which is default at the moment) and this makes the library and tools
-# unusable.
 
 # force the shared libraries to have these so versions
 %global so_version       0.1
@@ -361,6 +356,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sat Mar 22 2025 Jos de Kloe <josdekloe@gmail.com> - 2.40.0-1
+- Update to 2.40.0
+
 * Sun Feb 02 2025 Jos de Kloe <josdekloe@gmail.com> - 2.39.0-1
 - Update to 2.39.0
 

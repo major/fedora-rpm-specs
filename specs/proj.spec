@@ -4,17 +4,20 @@
 %bcond_with mingw
 %endif
 
-%global data_version 1.20
+%global data_version 1.21
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.5.1
-Release:        2%{?dist}
+Version:        9.6.0
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
 URL:            https://proj.org
 Source0:        https://download.osgeo.org/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://download.osgeo.org/%{name}/%{name}-data-%{data_version}.tar.gz
+
+# Fix missing include
+Patch0:         proj_build.patch
 
 BuildRequires:  cmake
 BuildRequires:  curl-devel
@@ -42,6 +45,7 @@ BuildRequires: mingw64-sqlite
 Obsoletes:      proj-datumgrid < 1.8-6.3.2.6
 
 Requires:       proj-data = %{version}-%{release}
+Requires:       bash-completion
 
 %description
 Proj and invproj perform respective forward and inverse transformation of
@@ -186,6 +190,7 @@ Supplements:  proj\
 %data_subpkg -c hu -n Hungary
 %data_subpkg -c is -n Island -e ISL
 %data_subpkg -c jp -n Japan
+%data_subpkg -c lv -n Latvia
 %data_subpkg -c mx -n Mexico
 %data_subpkg -c no -n Norway
 %data_subpkg -c nc -n %{quote:New Caledonia}
@@ -260,7 +265,8 @@ rm -rf %{buildroot}%{mingw32_docdir}
 rm -rf %{buildroot}%{mingw32_mandir}
 rm -rf %{buildroot}%{mingw64_docdir}
 rm -rf %{buildroot}%{mingw64_mandir}
-
+rm -rf %{buildroot}%{mingw32_datadir}/bash-completion
+rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 %mingw_debug_install_post
 %endif
@@ -282,6 +288,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{_bindir}/projinfo
 %{_bindir}/projsync
 %{_libdir}/libproj.so.25*
+%{_datadir}/bash-completion/completions/projinfo
 
 %files devel
 %{_includedir}/*.h
@@ -346,6 +353,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 9.6.0-1
+- Update to 9.6.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

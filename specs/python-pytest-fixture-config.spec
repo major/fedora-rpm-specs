@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -30,7 +30,7 @@ Allows you to skip tests when their required config variables aren't set.
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -47,6 +47,9 @@ Allows you to skip tests when their required config variables aren't set.
 %doc README.md CHANGES.md
 
 %changelog
+* Sat Mar 22 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.0-3
+- Drop unneeded -t to pyproject_buildrequires. Fixes rhbz#2354119
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

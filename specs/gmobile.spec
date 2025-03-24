@@ -1,7 +1,7 @@
 %bcond docs 1
 
 Name:     gmobile
-Version:  0.2.1
+Version:  0.2.2
 Release:  %autorelease
 Summary:  Functions useful in mobile related, glib based projects
 
@@ -13,8 +13,8 @@ Source:   %{url}/-/archive/v%{version}/gmobile-v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  pkgconfig(glib-2.0) >= 2.66
-BuildRequires:  pkgconfig(gio-2.0) >= 2.66
+BuildRequires:  pkgconfig(glib-2.0) >= 2.78
+BuildRequires:  pkgconfig(gio-2.0) >= 2.78
 BuildRequires:  pkgconfig(json-glib-1.0) >= 1.6.2
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  marshalparser

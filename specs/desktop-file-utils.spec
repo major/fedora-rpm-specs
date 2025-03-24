@@ -1,12 +1,12 @@
 Summary: Utilities for manipulating .desktop files
 Name: desktop-file-utils
-Version: 0.27
-Release: 3%{?dist}
+Version: 0.28
+Release: 1%{?dist}
 URL: https://www.freedesktop.org/software/desktop-file-utils
 Source0: https://www.freedesktop.org/software/desktop-file-utils/releases/%{name}-%{version}.tar.xz
 Source1: desktop-entry-mode-init.el
-# Patch is from https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/merge_requests/22
-Patch0:  0001-validate-add-COSMIC.patch
+# https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/merge_requests/24
+Patch0: 0001-validate-Add-Phosh-to-list-of-valid-OnlyShowIn-envir.patch
 License: GPL-2.0-or-later
 
 BuildRequires: gcc
@@ -58,6 +58,11 @@ update-desktop-database &> /dev/null || :
 %{_emacs_sitelispdir}/desktop-file-utils/
 
 %changelog
+* Fri Jan 31 2025 Sam Day <me@samcday.com> - 0.28-1
+ - 0.28 update
+ - Drop COSMIC patch, it landed upstream in 0.28
+ - Add patch to recognize Phosh as a valid OnlyShowIn= environment
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

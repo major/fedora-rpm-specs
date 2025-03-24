@@ -59,8 +59,7 @@ Requires: hicolor-icon-theme
 Requires: fluid-soundfont-gm
 
 # Some libraries are loaded at runtime, see rhbz#2176658
-Requires: mesa-dri-drivers
-Requires: mesa-libEGL
+Requires: libEGL
 
 # src/lib/enet
 # Based on fork github.com/lsalzman/enet

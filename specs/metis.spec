@@ -193,7 +193,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./gpmetis test.mgraph 4
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./gpmetis copter2.graph 4
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./graphchk 4elt.graph
 cd ../../
-%ctest -- --test-dir ./
+%ctest --test-dir ./
 cd ../
 %if 0%{?arch64}
 cp -p %{buildroot}%{_bindir}/*metis64 metis64/src/graphs/
@@ -205,7 +205,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./gpmetis64 test.mgraph 
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./gpmetis64 copter2.graph 4
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH ./graphchk64 4elt.graph
 cd ../../
-%ctest -- --test-dir ./
+%ctest --test-dir ./
 cd ../
 %endif
 

@@ -4,8 +4,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1}')
 
 Name:           mingw-gsettings-desktop-schemas
-Version:        47.1
-Release:        2%{?dist}
+Version:        48.0
+Release:        1%{?dist}
 Summary:        MinGW Windows gsettings-desktop-schemas
 
 License:        LGPL-2.1-or-later
@@ -90,6 +90,9 @@ settings shared by various components of a desktop.
 
 
 %changelog
+* Sat Mar 22 2025 Sandro Mani <manisandro@gmail.com> - 48.0-1
+- Update to 48.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

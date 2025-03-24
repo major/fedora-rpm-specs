@@ -4,7 +4,7 @@
 %global crate inferno
 
 Name:           rust-inferno
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        Rust port of the FlameGraph performance profiling tool suite
 
@@ -31,7 +31,14 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        CDDL-1.0 AND MIT AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
+License:        %{shrink:
+    CDDL-1.0 AND
+    MIT AND
+    (Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT) AND
+    (Zlib OR Apache-2.0 OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -49,6 +56,7 @@ License:        CDDL-1.0 AND MIT AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Ap
 %{_bindir}/inferno-collapse-sample
 %{_bindir}/inferno-collapse-vsprof
 %{_bindir}/inferno-collapse-vtune
+%{_bindir}/inferno-collapse-xctrace
 %{_bindir}/inferno-diff-folded
 %{_bindir}/inferno-flamegraph
 

@@ -27,7 +27,8 @@ PICs, GALs and EPROMs) as well as testing logic devices.
 
 
 %build
-%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+# use -std=gnu17 until https://gitlab.com/DavidGriffith/minipro/-/issues/343 has been solved
+%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags} -std=gnu17" LDFLAGS="%{build_ldflags}"
 
 
 %install

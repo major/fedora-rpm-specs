@@ -1,17 +1,18 @@
+%global forgeurl https://github.com/Enigma-Game/Enigma
+%global version0 1.30
+# top of 'master' branch as of 2025-03-22
+%global commit ab9967a7c7440ce5d3908c8b6eb63cb5a22cfef1
+%forgemeta
+
 Name:           enigma
-Version:        1.30
+Version:        %forgeversion
 Release:        %autorelease
 Summary:        Game where you control a marble with the mouse
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.nongnu.org/enigma/
-Source0:        https://github.com/Enigma-Game/Enigma/releases/download/%{version}/Enigma-%{version}-src.tar.gz
-Patch0001:      0001-Clean-up-.desktop-file-categories.patch
-Patch0002:      0002-build-use-system-zipios.patch
-Patch0003:      0003-prevent-ImageMagick-inserting-timestamps-to-PNGs.patch
-Patch0004:      0004-quoting-inside-AM_COND_IF.patch
-Patch0005:      0005-Unbreak-the-build-on-modern-gcc-Werror-format-securi.patch
+Source0:        %forgesource
+# https://github.com/Enigma-Game/Enigma/pull/105
+Patch1:         0001-etc-enigma.desktop-use-standard-specified-Categories.patch
 
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -35,7 +36,6 @@ BuildRequires:  curl-devel
 BuildRequires:  ImageMagick
 BuildRequires:  git
 BuildRequires:  autoconf automake
-BuildRequires:  zipios++-devel
 BuildRequires:  pkgconfig(libenet)
 BuildRequires:  texi2html
 BuildRequires:  make
@@ -58,8 +58,8 @@ BuildArch:      noarch
 Data files (levels, graphics, sound, music) and documentation for Enigma.
 
 %prep
-%autosetup -S git_am
-rm -r lib-src/zipios++ lib-src/enet/*
+%forgeautosetup -p1
+rm -r attic/ dlls/ lib-src/enet/*
 
 %build
 aclocal -I m4 && autoheader && automake --add-missing --foreign --copy && autoconf

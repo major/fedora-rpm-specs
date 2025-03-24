@@ -6,7 +6,7 @@
 
 
 Name:           debconf
-Version:        1.5.89
+Version:        1.5.91
 Release:        1%{?dist}
 Summary:        Debian configuration management system
 
@@ -272,6 +272,10 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Mon Mar 10 2025 Packit <hello@packit.dev> - 1.5.91-1
+- Update to version 1.5.91
+- Resolves: rhbz#2350745
+
 * Mon Mar 03 2025 Packit <hello@packit.dev> - 1.5.89-1
 - Update to version 1.5.89
 - Resolves: rhbz#2333931

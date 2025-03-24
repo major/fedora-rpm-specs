@@ -3,10 +3,12 @@
 #
 
 Name: rshim
-Version: 2.0.41
+Version: 2.3.2
 Release: %autorelease
 Summary: User-space driver for Mellanox BlueField SoC
-License: GPL-2.0-only
+# Most code dual licensed: GPL-2.0 or BSD-3-Clause
+# fwpkg_unpack.py: MIT
+License: (GPL-2.0 or BSD-3-Clause) and MIT
 URL: https://github.com/mellanox/rshim-user-space
 Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{version}.tar.gz
 
@@ -50,10 +52,15 @@ via the virtual console or network interface.
 %{_sbindir}/rshim
 %{_sbindir}/bf-reg
 %{_sbindir}/bfb-install
+%{_sbindir}/bfb-tool
+%{_sbindir}/fwpkg_unpack.py
+%{_sbindir}/mlx-mkbfb
 %{_unitdir}/rshim.service
+%{_mandir}/man1/mlx-mkbfb.1.gz
 %{_mandir}/man8/rshim.8.gz
 %{_mandir}/man8/bf-reg.8.gz
 %{_mandir}/man8/bfb-install.8.gz
+%{_mandir}/man8/bfb-tool.8.gz
 
 %changelog
 %autochangelog

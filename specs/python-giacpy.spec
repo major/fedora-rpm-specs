@@ -5,7 +5,8 @@
 
 # Architectures currently not supported
 # http://xcas.e.ujf-grenoble.fr/XCAS/viewtopic.php?f=19&t=1723
-ExcludeArch: aarch64 %{power64} s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: aarch64 %{ix86} %{power64} s390x
 
 Name:           python-%{pypi_name}
 Version:        0.7.3
@@ -18,8 +19,8 @@ BuildRequires:  giac-devel >= %{giacver}
 BuildRequires:  giac-doc   >= %{giacver}
 BuildRequires:  gmp-devel, qt5-qtsvg-devel
 
-# math.sin(a) test fails randomly
-Patch0:         %{name}-skip_math_sin.patch
+# https://gitlab.math.univ-paris-diderot.fr/han/giacpy/-/commit/0e2875ceef9b2f4eb6883252c89dec66193b21c4
+Patch0:         %{name}-fix_doctest.patch
 
 %description
 A Cython frontend to the c++ library Giac (Computer Algebra System).
