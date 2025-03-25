@@ -3,7 +3,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
@@ -13,9 +13,6 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 Source10:       macros.kdevelop
 
 # upstreamable patches
-# https://invent.kde.org/kdevelop/kdevelop/-/merge_requests/725
-# https://fedoraproject.org/wiki/Changes/LLVM-20
-Patch0:         find-clang-f42.patch
 
 # upstream patches
 
@@ -221,7 +218,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{_qt6_qmldir}/org/kde/plasma/private/kdevelopsessions/qmldir
 
 %files libs
-%{_libdir}/libKDev*.so.{61,6.*}
+%{_libdir}/libKDev*.so.{61,62,6.*}
 %{_libdir}/libKDevelopSessionsWatch.so
 %{_kf6_qtplugindir}/kdevplatform/
 %{_kf6_plugindir}/krunner/kdevelopsessions.so
@@ -237,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 9:25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 9:24.12.3-1
 - 24.12.3
 

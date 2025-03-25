@@ -1,7 +1,7 @@
 %global pypi_name eth_typing
 
 Name:          python-eth-typing
-Version:       5.0.0
+Version:       5.2.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Python types for type hinting commonly used Ethereum types
@@ -9,8 +9,10 @@ License:       MIT
 URL:           https://github.com/ethereum/eth-typing
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
-BuildRequires: python3-devel
 BuildRequires: python3-pytest
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l %{pypi_name}
 
 %description
 %{summary}.
@@ -21,21 +23,10 @@ Summary: %{summary}
 %description -n python3-eth-typing
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%prep -a
+rm -f ./scripts/release/test_package.py
 
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 %pytest
 
 %files -n python3-eth-typing -f %{pyproject_files}

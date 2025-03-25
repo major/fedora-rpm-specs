@@ -2,7 +2,7 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-4.0 AND GPL-2.0-or-later
 Summary:        Clock app for Plasma Mobile
@@ -103,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

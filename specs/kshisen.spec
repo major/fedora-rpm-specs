@@ -1,6 +1,6 @@
 Name:    kshisen
 Summary: Shisen-Sho Mahjongg-like tile game
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -17,15 +17,16 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: kf6-kconfig-devel
-BuildRequires: kf6-kcoreaddons-devel
-BuildRequires: kf6-kdbusaddons-devel
-BuildRequires: kf6-kdeclarative-devel
-BuildRequires: kf6-kdnssd-devel
-BuildRequires: kf6-kdoctools-devel
-BuildRequires: kf6-kio-devel
-BuildRequires: kf6-knewstuff-devel
-BuildRequires: kf6-kxmlgui-devel
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6DNSSD)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6IconThemes)
 BuildRequires: kf6-rpm-macros
 BuildRequires: cmake(KF6Crash)
 
@@ -77,6 +78,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

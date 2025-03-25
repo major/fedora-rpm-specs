@@ -1,5 +1,5 @@
 Name:    mailcommon
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: Mail applications support library
 
@@ -14,6 +14,7 @@ Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Multimedia)
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -105,6 +106,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

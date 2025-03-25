@@ -2,7 +2,7 @@
 
 Name:          cogl
 Version:       1.22.8
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       A library for using 3D graphics hardware to draw pretty pictures
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -86,7 +86,7 @@ Requires:      %{name} = %{version}-%{release}
 Summary:       Tests for %{name}
 
 %description   tests
-This package contains the installable tests for %{cogl}.
+This package contains the installable tests for %{name}.
 %endif
 
 %prep
@@ -152,6 +152,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcogl-pango.so
 %endif
 
 %changelog
+* Sat Mar 22 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.22.8-14
+- Fix documentation for tests subpackage
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

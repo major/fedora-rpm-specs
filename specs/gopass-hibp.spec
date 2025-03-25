@@ -22,6 +22,10 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
+# [chore] Fix linter errors #74
+# Fixes FTBFS with Go 1.24
+Patch:          https://github.com/gopasspw/gopass-hibp/pull/74.patch
+
 BuildRequires:  go-vendor-tools
 
 %description %{common_description}

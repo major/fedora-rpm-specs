@@ -1,14 +1,11 @@
 Name:           kio-admin
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 Summary:        Manage files as administrator using the admin:// KIO protocol
 License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and FSFAP
 URL:            https://invent.kde.org/system/kio-admin
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-	
-# RHEL 9 cmake is at 3.20, lower the minimum cmake required
-Patch1:         kio-admin-lower-cmake-minimum.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -59,6 +56,9 @@ operations in root-scope.
 %{_kf6_datadir}/polkit-1/actions/org.kde.kio.admin.policy
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

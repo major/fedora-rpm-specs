@@ -1,5 +1,5 @@
 Name: merkuro
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -28,6 +28,7 @@ BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6QuickTest)
+BuildRequires:  cmake(Qt6Location)
 
 BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KF6ConfigWidgets)
@@ -44,6 +45,7 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Holidays)
 
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  gpgme-devel
@@ -61,6 +63,7 @@ BuildRequires:  cmake(KPim6Mbox)
 BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KF6TextTemplate)
 BuildRequires:  cmake(KPim6Libkdepim)
+BuildRequires:  cmake(KPim6AkonadiSearch)
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	libappstream-glib
@@ -138,6 +141,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

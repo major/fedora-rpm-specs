@@ -1,5 +1,5 @@
 Name:     skanpage
-Version:  24.12.3
+Version:  25.03.80
 Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
@@ -11,7 +11,7 @@ Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/
 
 ## Downstream patches
 # gcc fails to compile this project with -fopenmp even though it seems unused?
-Patch100: disable-openmp.patch
+# Patch100: disable-openmp.patch
 
 # https://invent.kde.org/utilities/skanpage/-/commit/9d94de32a3a1a9bb9ead8ae8c06743b2052beef7
 # The previous commit made qtwebengine a mandatory requirement :(
@@ -43,6 +43,7 @@ BuildRequires:  cmake(KF6Purpose)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KQuickImageEditor)
 BuildRequires:  cmake(KSaneCore6)
+BuildRequires:  cmake(KF6KIO)
 
 BuildRequires:  cmake(Tesseract) >= 4
 BuildRequires:  cmake(Leptonica)
@@ -88,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

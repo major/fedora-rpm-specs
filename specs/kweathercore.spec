@@ -1,11 +1,10 @@
 Name:           kweathercore
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 License:        LGPL-2.0-or-later
 Summary:        Library to facilitate retrieval of weather information
 Url:            https://invent.kde.org/libraries/kweathercore
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-                
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -57,6 +56,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_libdir}/libKWeatherCore.so.*.*
 %{_kf6_libdir}/libKWeatherCore.so.6
+%{_kf6_qmldir}/org/kde/weathercore/
 
 %files devel
 %license LICENSES/*.txt
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

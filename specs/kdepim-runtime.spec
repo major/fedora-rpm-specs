@@ -1,7 +1,7 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -62,6 +62,8 @@ BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6AkonadiNotes)
 BuildRequires:  cmake(KPim6MailTransport)
 BuildRequires:  cmake(KPim6IdentityManagementWidgets)
+BuildRequires:  cmake(KPim6PimCommonAkonadi)
+BuildRequires:  cmake(KPim6PimCommonActivities)
 BuildRequires:  cmake(KF6Contacts)
 BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KPim6CalendarUtils)
@@ -71,6 +73,7 @@ BuildRequires:  cmake(KPim6AkonadiNotes)
 BuildRequires:  cmake(KPim6AkonadiCalendar)
 BuildRequires:  cmake(KPim6GAPI)
 BuildRequires:  cmake(KPim6LdapWidgets)
+BuildRequires:  cmake(KPim6Libkdepim)
 BuildRequires:  cmake(KF6TextTemplate)
 
 # --- Optional
@@ -138,11 +141,14 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 %{_kf6_libdir}/libnewmailnotifier.so.*
 %{_kf6_plugindir}/kio/akonadi.so
 %{_kf6_qtplugindir}/pim6/akonadi/config/
-%{_kf6_qtplugindir}/pim6/kcms/kaddressbook/kcm_ldap.so
+%{_kf6_qtplugindir}/pim6/kcms/common/kcm_ldap.so
 %{_kf6_qtplugindir}/pim6/mailtransport/mailtransport_akonadiplugin.so
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 1:25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 1:24.12.3-1
 - 24.12.3
 

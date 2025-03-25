@@ -1,7 +1,7 @@
 %global kf6_min_version 6.0.0
 
 Name:           kasts
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+ - review is highly recommended.
 License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-3.0-or-later
@@ -41,6 +41,10 @@ BuildRequires:  cmake(KF6Config)         >= %{kf6_min_version}
 BuildRequires:  cmake(KF6ThreadWeaver)   >= %{kf6_min_version}
 BuildRequires:  cmake(KF6ColorScheme)    >= %{kf6_min_version}
 BuildRequires:  cmake(KF6Crash)          >= %{kf6_min_version}
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  pkgconfig(libvlc)
 BuildRequires:  kf6-rpm-macros           >= %{kf6_min_version}
 
 # QML module dependencies
@@ -76,10 +80,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}-tray-light.svg
 %{_kf6_libdir}/libKMediaSession.so
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_qmldir}/org/kde/kmediasession/kde-qmlmodule.version
+%{_kf6_qmldir}/org/kde/kmediasession/kmediasessionqmlplugin.qmltypes
+%{_kf6_qmldir}/org/kde/kmediasession/libkmediasessionqmlplugin.so
+%{_kf6_qmldir}/org/kde/kmediasession/qmldir
 %license LICENSES/*
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

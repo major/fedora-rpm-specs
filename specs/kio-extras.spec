@@ -1,5 +1,5 @@
 Name:    kio-extras
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -38,6 +38,7 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6Notifications)
 
 BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(PlasmaActivitiesStats)
@@ -45,6 +46,7 @@ BuildRequires:  cmake(PlasmaActivitiesStats)
 BuildRequires:  cmake(KDSoap) >= 1.9
 BuildRequires:  cmake(KDSoapWSDiscoveryClient)
 BuildRequires:  cmake(KExiv2Qt6)
+BuildRequires:  pkgconfig(libproxy-1.0)
 
 BuildRequires:  libjpeg-devel
 BuildRequires:  libmtp-devel
@@ -101,7 +103,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_plugindir}/kiod/
 %{_kf6_plugindir}/thumbcreator/
 %{_kf6_plugindir}/kfileitemaction/
-
 %{_datadir}/config.kcfg/jpegcreatorsettings5.kcfg
 %{_datadir}/dbus-1/services/org.kde.kmtpd5.service
 %{_datadir}/applications/kcm_*
@@ -110,15 +111,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_datadir}/konqueror/
 %dir %{_kf6_datadir}/kio_filenamesearch/
 %{_kf6_datadir}/kio_filenamesearch/kio-filenamesearch-grep
-
 %{_kf6_datadir}/qlogging-categories6/kio-extras*
 %{_kf6_datadir}/solid/actions/solid_afc.desktop
 %{_kf6_datadir}/solid/actions/solid_mtp.desktop
-
 %{_kf6_libdir}/libkioarchive6.so.6{,.*}
-
 %{_kf6_libexecdir}/smbnotifier
-
+%{_libexecdir}/wpad-detector-helper
 %{_kf6_qtplugindir}/kfileaudiopreview.so
 %{_kf6_qtplugindir}/kcm_trash.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_*.so
@@ -131,12 +129,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %files devel
 %{_includedir}/KioArchive6/*.h
-# no soname symlink? --rex
-#{_kf6_libdir}/libkioarchive.so
 %{_kf6_libdir}/cmake/KioArchive6/
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

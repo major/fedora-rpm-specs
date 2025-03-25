@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.42.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -14,18 +14,17 @@ Source0:        http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 # ./prepare_vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
 Source2:        %{name}-%{version}-vendor-licenses.txt
+Source3:        %{name}-%{version}-yarn.lock
 # Sample configuration files for QGIS server
-Source3:        %{name}-server-httpd.conf
-Source4:        %{name}-server-README.fedora
-# MIME definitions
-# Based on debian/qgis.xml but excluding already defined or proprietary types
-#TODO: Path; Still necessary?
-Source5:        %{name}-mime.xml
+Source4:        %{name}-server-httpd.conf
+Source5:        %{name}-server-README.fedora
 
 # Fix QGIS Server prefix calculation
 Patch0:         %{name}-serverprefix.patch
 # Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
 Patch1:         %{name}-yarn-offline.patch
+# Applied by prepare_vendor.sh
+# CVE-2024-55565.prebundle.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -156,9 +155,11 @@ Please refer to %{name}-server-README.fedora for details!
 
 # %%{name}-%%{version}-vendor-licenses.txt
 cp -a %{SOURCE2} .
+# %%{name}-%%{version}-yarn.lock
+cp -a %{SOURCE3} resources/server/src/landingpage/yarn.lock
 
 # Readme file for QGIS server configuration and Lighttpd example
-install -pm0644 %{SOURCE4} .
+install -pm0644 %{SOURCE5} .
 
 gzip ChangeLog
 
@@ -212,7 +213,7 @@ install -pm0644 images/icons/%{name}-mime-icon.png %{buildroot}%{_datadir}/pixma
 
 # Install basic QGIS Mapserver configuration for Apache
 install -pd %{buildroot}%{_sysconfdir}/httpd/conf.d
-install -pm0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/httpd/conf.d/qgis-server.conf
+install -pm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/qgis-server.conf
 
 # Remove install instructions
 rm -f %{buildroot}%{_datadir}/%{name}/doc/INSTALL*
@@ -302,6 +303,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 3.42.1-2
+- Fix CVE-2024-55565
+
 * Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 3.42.1-1
 - Update to 3.42.1
 

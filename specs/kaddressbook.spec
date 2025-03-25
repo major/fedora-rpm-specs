@@ -1,6 +1,6 @@
 Name:    kaddressbook
 Summary: Contact Manager
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -95,8 +95,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %files libs
 %{_kf6_libdir}/libkaddressbookprivate.so.*
 %{_kf6_qtplugindir}/kaddressbookpart.so
-%{_qt6_plugindir}/pim6/kcms/kaddressbook/kaddressbook_config_plugins.so
-%{_qt6_plugindir}/pim6/kcms/kaddressbook/kaddressbook_config_userfeedback.so
+%{_qt6_plugindir}/pim6/kcms/kaddressbook/
 %{_kf6_qtplugindir}/pim6/kontact/kontact_kaddressbookplugin.so
 %{_kf6_libdir}/libKPim6AddressbookImportExport.so.*
 
@@ -107,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

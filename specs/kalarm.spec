@@ -1,6 +1,6 @@
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -47,6 +47,7 @@ BuildRequires: cmake(KF6StatusNotifierItem)
 BuildRequires: cmake(Phonon4Qt6)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: cmake(KPim6CalendarUtils)
 BuildRequires: cmake(KPim6IdentityManagementWidgets)
@@ -58,6 +59,7 @@ BuildRequires: cmake(KPim6AkonadiMime)
 BuildRequires: cmake(KPim6MailTransport)
 BuildRequires: pkgconfig(libcanberra)
 BuildRequires: vlc-devel
+BuildRequires: mpv-devel
 
 Provides:  kf6-kalarmcal = %{version}-%{release}
 
@@ -98,7 +100,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_sysconfdir}/xdg/autostart/kalarm.autostart.desktop
 %{_kf6_libdir}/libkalarmcalendar.so.*
 %{_kf6_libdir}/libkalarmplugin.so.*
-%{_kf6_qtplugindir}/pim6/kalarm/akonadiplugin.so
+%{_kf6_qtplugindir}/pim6/kalarm/
 %{_kf6_datadir}/kconf_update/kalarm.upd
 %{_kf6_libdir}/kconf_update_bin/kalarm-3.10.0-run_mode
 %{_datadir}/icons/hicolor/22x22/actions/kalarm-*.png
@@ -111,6 +113,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

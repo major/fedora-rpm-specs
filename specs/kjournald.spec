@@ -1,5 +1,5 @@
 Name:          kjournald
-Version:       24.12.3
+Version:       25.03.80
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
@@ -22,6 +22,7 @@ BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: cmake(KF6Crash)
 
 # QML module dependencies
 Requires:      kf6-kirigami%{?_isa}
@@ -65,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

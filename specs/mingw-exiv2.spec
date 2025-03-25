@@ -3,8 +3,8 @@
 %global pkgname exiv2
 
 Name:          mingw-%{pkgname}
-Version:       0.27.7
-Release:       3%{?dist}
+Version:       0.28.5
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
 BuildArch:     noarch
@@ -16,17 +16,21 @@ BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gettext
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-brotli
+BuildRequires: mingw32-expat
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-gettext
-BuildRequires: mingw32-expat
+BuildRequires: mingw32-inih
 BuildRequires: mingw32-win-iconv
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-brotli
+BuildRequires: mingw64-expat
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-gettext
-BuildRequires: mingw64-expat
+BuildRequires: mingw64-inih
 BuildRequires: mingw64-win-iconv
 BuildRequires: mingw64-zlib
 
@@ -86,7 +90,6 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 %{mingw32_bindir}/exiv2.exe
 %{mingw32_bindir}/libexiv2.dll
 %{mingw32_libdir}/libexiv2.dll.a
-%{mingw32_libdir}/libexiv2-xmp.a
 %{mingw32_libdir}/cmake/exiv2/
 %{mingw32_libdir}/pkgconfig/exiv2.pc
 %{mingw32_includedir}/exiv2/
@@ -97,13 +100,15 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 %{mingw64_bindir}/exiv2.exe
 %{mingw64_bindir}/libexiv2.dll
 %{mingw64_libdir}/libexiv2.dll.a
-%{mingw64_libdir}/libexiv2-xmp.a
 %{mingw64_libdir}/cmake/exiv2/
 %{mingw64_libdir}/pkgconfig/exiv2.pc
 %{mingw64_includedir}/exiv2/
 
 
 %changelog
+* Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 0.28.5-1
+- Update to 0.28.5
+
 * Sat Mar 22 2025 Sandro Mani <manisandro@gmail.com> - 0.27.7-3
 - Rebuild
 

@@ -1,5 +1,5 @@
 Name:    kleopatra
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
@@ -53,15 +53,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  hicolor-icon-theme
 
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# The -libs subpackage no longer contained anything
+Obsoletes:      %{name}-libs < 25.03.80
 
 %description
-%{summary}.
-
-%package        libs
-Summary:        Runtime libraries for Kleopatra
-Requires:       %{name} = %{version}-%{release}
-%description    libs
 %{summary}.
 
 
@@ -104,12 +99,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_datadir}/qlogging-categories6/kleopatra.*
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
-%files libs
-%{_kf6_libdir}/libkleopatraclientcore.so.*
-%{_kf6_libdir}/libkleopatraclientgui.so.*
-%{_kf6_qtplugindir}/pim6/kcms/kleopatra/kleopatra_config_gnupgsystem.so
-
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

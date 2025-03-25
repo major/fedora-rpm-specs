@@ -17,13 +17,13 @@
 %global tag0            v%{gsub %{version0} ~ -}
 
 # https://github.com/docker/cli
-%global goipath1        github.com/docker/cli
-%global version1        %{version0}
-%global tag1            %{tag0}
+%global goipath2        github.com/docker/cli
+%global version2        %{version0}
+%global tag2            %{tag0}
 
 %gometa -L -a -f
 %global engine_dir ../%{topdir0}
-%global cli_dir ../%{topdir1}
+%global cli_dir ../%{topdir2}
 
 %global common_description %{expand:
 Docker is an open source project to build, ship and run any application as a
@@ -45,13 +45,13 @@ Summary:        The open-source application container engine
 # Generated with go-vendor-tools
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND (Apache-2.0 OR GPL-2.0-or-later)
 URL:            %{gourl}
-Source0:        %{gosource0}
-Source1:        %{gosource1}
 # We create our own vendor tarballs instead of using the built-in directoies.
 # This allows us to include the manpage build dependencies for docker-cli
 # and make any of our own changes to the deps included as necessary.
-Source2:        %{archivename0}-vendor.tar.bz2
-Source3:        %{archivename1}-vendor.tar.bz2
+Source0:        %{gosource0}
+Source1:        %{archivename0}-vendor.tar.bz2
+Source2:        %{gosource2}
+Source3:        %{archivename2}-vendor.tar.bz2
 
 Source100:      moby-engine-systemd-sysusers.conf
 Source101:      macros.moby
@@ -171,7 +171,7 @@ This package provides RPM macros for the Moby/Docker stack.
 # moby-engine
 cd %{_builddir}/%{extractdir0}
 # Unpack vendor archive
-%__rpmuncompress -x %{S:2}
+%__rpmuncompress -x %{S:1}
 # Apply patches 0-1000
 %autopatch -M999 -p1
 cp -p %{S:100} %{S:101} %{S:102} .
@@ -325,7 +325,7 @@ skiptest \
     %dnl Test panics
     "TestRunAttachTermination"
 
-%gocheck -z1 -t e2e
+%gocheck -z2 -t e2e
 %endif
 
 

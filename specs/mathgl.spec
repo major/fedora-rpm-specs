@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -185,14 +185,14 @@ Summary:       Python3 module for MathGL
 Requires:      %{name} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-mathgl
-%{Summary}.
+%{summary}.
 
 %package lua
 Summary:       Lua module for MathGL
 Requires:      %{name} = %{version}-%{release}
 
 %description lua
-%{Summary}.
+%{summary}.
 
 %if 0%{?with_octave}
 %package -n octave-mathgl
@@ -634,6 +634,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Sun Mar 23 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 8.0.1-20
+- Fix descriptions of subpackages mathgl-lua and python3-mathgl
+
 * Wed Feb 19 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 8.0.1-19
 - Update numpy.i to latest from python-numpy.
 

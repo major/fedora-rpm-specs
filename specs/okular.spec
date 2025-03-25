@@ -14,7 +14,7 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: GPL-2.0-only
@@ -222,6 +222,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

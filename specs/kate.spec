@@ -6,7 +6,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -168,6 +168,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf6_plugindir}/ktexteditor/rainbowparens.so
 %{_kf6_plugindir}/ktexteditor/tabswitcherplugin.so
 %{_kf6_plugindir}/ktexteditor/textfilterplugin.so
+%{_kf6_plugindir}/ktexteditor/templateplugin.so
 
 %files -n kwrite -f kwrite.lang
 %{_kf6_bindir}/kwrite
@@ -177,6 +178,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

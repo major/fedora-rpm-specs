@@ -1,9 +1,9 @@
 %global kf6min 5.240.0
 %global qt6min 6.5.0
-%global sover 12
+%global sover 13
 
 Name:           kpmcore
-Version:        24.12.3
+Version:        25.03.80
 Release:        %autorelease
 Summary:        Library for managing partitions by KDE programs
 License:        GPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0

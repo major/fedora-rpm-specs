@@ -1,6 +1,8 @@
+%bcond_without mingw
+
 Name:     inih
 Version:  58
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Simple INI file parser library
 
 License:  BSD-3-Clause
@@ -10,6 +12,14 @@ Source0:  %{url}/archive/r%{version}/%{name}-r%{version}.tar.gz
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: meson
+
+%if %{with mingw}
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc-c++
+
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc-c++
+%endif
 
 
 %description
@@ -38,6 +48,27 @@ pages of code, and it was designed to be small and simple, so it's good for
 embedded systems.
 
 
+%if %{with mingw}
+%package -n mingw32-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+
+%description -n mingw32-%{name}
+MinGW Windows %{pkgname} library.
+
+
+%package -n mingw64-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+
+%description -n mingw64-%{name}
+MinGW Windows %{name} library.
+%endif
+
+
+%{?mingw_debug_package}
+
+
 %prep
 %autosetup -n %{name}-r%{version}
 
@@ -46,12 +77,19 @@ embedded systems.
 %meson
 %meson_build
 
+%if %{with mingw}
+%mingw_meson
+%mingw_ninja
+%endif
+
 
 %install
 %meson_install
+%if %{with mingw}
+%mingw_ninja_install
+%endif
 
-
-%ldconfig_scriptlets
+%{?mingw_debug_install_post}
 
 
 %files
@@ -71,8 +109,33 @@ embedded systems.
 %{_libdir}/lib%{name}.so
 %{_libdir}/libINIReader.so
 
+%if %{with mingw}
+%files -n mingw32-%{name}
+%{mingw32_bindir}/lib%{name}-0.dll
+%{mingw32_bindir}/libINIReader-0.dll
+%{mingw32_includedir}/ini.h
+%{mingw32_includedir}/INIReader.h
+%{mingw32_libdir}/lib%{name}.dll.a
+%{mingw32_libdir}/libINIReader.dll.a
+%{mingw32_libdir}/pkgconfig/inih.pc
+%{mingw32_libdir}/pkgconfig/INIReader.pc
+
+%files -n mingw64-%{name}
+%{mingw64_bindir}/lib%{name}-0.dll
+%{mingw64_bindir}/libINIReader-0.dll
+%{mingw64_includedir}/ini.h
+%{mingw64_includedir}/INIReader.h
+%{mingw64_libdir}/lib%{name}.dll.a
+%{mingw64_libdir}/libINIReader.dll.a
+%{mingw64_libdir}/pkgconfig/inih.pc
+%{mingw64_libdir}/pkgconfig/INIReader.pc
+%endif
+
 
 %changelog
+* Sat Mar 22 2025 Sandro Mani <manisandro@gmail.com> - 58-4
+- Add mingw packages
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 58-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

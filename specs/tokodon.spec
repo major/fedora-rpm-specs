@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2 - review is highly recommended.
 License:        GPL-3.0-only AND CC0-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-or-later AND GPL-2.0-only
@@ -41,8 +41,10 @@ BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6WebView)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(KUnifiedPush)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6IconThemes)
 
 BuildRequires:  cmake(MpvQt)
 # Should not be required, but mpv is built against it, so...
@@ -90,7 +92,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_bindir}/%{name}
 %{_kf6_plugindir}/purpose/tokodonplugin.so
 %{_kf6_datadir}/applications/org.kde.%{name}.desktop
-%{_kf6_datadir}/icons/hicolor/scalable/actions/%{name}-*
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf6_datadir}/knotifications6/tokodon.notifyrc
 %{_kf6_datadir}/qlogging-categories6/tokodon.categories
@@ -98,6 +99,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.tokodon.service
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

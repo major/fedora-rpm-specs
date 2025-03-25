@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -15,8 +15,6 @@ BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel glew-devel
 BuildRequires: python3-devel swig flann-devel perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
-# contains deprecated distutils
-BuildRequires: python-setuptools
 
 %description
 hugin can be used to stitch multiple images together. The resulting image can
@@ -179,6 +177,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Fri Mar 21 2025 Lumír Balhar <lbalhar@redhat.com> - 2024.0.0-3
+- Drop dependency on python-setuptools
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

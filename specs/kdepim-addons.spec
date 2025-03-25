@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:    kdepim-addons
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
@@ -25,7 +25,6 @@ ExcludeArch:   %{ix86}
 ## upstream patches
 
 ## upstream patches (master)
-Patch0: 0001-use-adblock-0.9.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # libphonenumber is not build for i686 anymore (i686 is not in
@@ -55,6 +54,7 @@ BuildRequires:  cmake(KF6Parts)
 BuildRequires:  cmake(KF6Prison)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6KCMUtils)
 
 BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KPim6AkonadiNotes)
@@ -172,6 +172,9 @@ popd
 %{_kf6_qtplugindir}/plasmacalendarplugins/pimevents/
 %{_kf6_qtplugindir}/pim6/webengineviewer/
 %{_kf6_qtplugindir}/pim6/contacteditor/editorpageplugins/cryptopageplugin.so
+%{_kf6_qtplugindir}/pim6/kcms/kleopatra/kcm_kmail_gnupgsystem.so
+%{_kf6_qtplugindir}/pim6/ldapactivities/kldapactivitiesplugin.so
+%{_kf6_qtplugindir}/pim6/mailtransportactivities/kmailtransportactivitiesplugin.so
 %{_kf6_libdir}/libkaddressbookmergelibprivate.so*
 %{_kf6_qtplugindir}/pim6/kaddressbook/
 
@@ -196,6 +199,9 @@ popd
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

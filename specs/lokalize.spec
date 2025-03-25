@@ -1,6 +1,6 @@
 Name:    lokalize
 Summary: Computer-aided translation system
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
@@ -31,6 +31,7 @@ BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6Sonnet)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: pkgconfig(hunspell)
 
@@ -91,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

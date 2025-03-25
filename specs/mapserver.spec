@@ -234,11 +234,13 @@ export CXXFLAGS="%{optflags} -fno-strict-aliasing"
 %install
 %cmake_install
 
+%if 0%{python_mapscript}
 # cmake tries to invoke pip and download things. we'll just use setuptools.
 mkdir -p %{buildroot}%{python3_sitearch}
 pushd redhat-linux-build/src/mapscript/python
 %py3_install
 popd
+%endif
 
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -p -m 644 src/xmlmapfile/mapfile.xsd %{buildroot}%{_datadir}/%{name}
@@ -315,7 +317,7 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %doc src/mapscript/python/README.rst
 %doc src/mapscript/python/examples
 %doc src/mapscript/python/tests
-%{python3_sitearch}/*mapscript*
+%{python3_sitearch}/mapscript*
 %endif
 
 %if %{with java}

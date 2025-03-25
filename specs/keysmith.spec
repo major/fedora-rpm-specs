@@ -1,5 +1,5 @@
 Name:           keysmith
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -23,6 +23,10 @@ BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6QQC2DesktopStyle)
 BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Config)
+# Runtime dependancy, but it's required to build...
+BuildRequires:  cmake(KF6Prison)
+
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Gui)
@@ -30,11 +34,13 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Qt6Concurrent)
 
+BuildRequires:  pkgconfig(openssl)
+
 Requires:       kf6-kirigami
 Requires:       hicolor-icon-theme
 Requires:       kf6-kirigami-addons
 Requires:       kf6-qqc2-desktop-style
-
+Requires:       kf6-prison
 
 %description
 OTP client for Plasma Mobile and Desktop
@@ -61,9 +67,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_bindir}/%{name}
 %{_kf6_datadir}/applications/org.kde.%{name}.desktop
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

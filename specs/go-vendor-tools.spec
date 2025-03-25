@@ -3,13 +3,18 @@
 # License text: https://spdx.org/licenses/MIT
 
 %bcond manpages 1
+# Whether to build the scancode extra
+%bcond scancode %{defined fedora}
+# Only run scancode tests when arch is not i386
+%bcond scancode_tests %[ %{with scancode} && "%{_arch}" != "i386"]
+
 %global forgeurl https://gitlab.com/fedora/sigs/go/go-vendor-tools
 %define tag v%{version_no_tilde %{quote:%nil}}
 
 Name:           go-vendor-tools
-Version:        0.6.0
+Version:        0.7.0
 %forgemeta
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora [SEE NOTE IN DESCRIPTION]
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -19,14 +24,17 @@ Source0:        %{forgesource}
 
 BuildArch:      noarch
 
-BuildRequires:  tomcli
 BuildRequires:  python3-devel
+
+# Test dependencies
+BuildRequires:  askalono-cli
+BuildRequires:  trivy
 
 %if %{with manpages}
 BuildRequires:  scdoc
 %endif
 
-Recommends:     (askalono-cli or trivy)
+Recommends:     (askalono-cli or trivy or go-vendor-tools+scancode)
 Recommends:     go-vendor-tools+all
 
 
@@ -55,14 +63,10 @@ Enhances:       go-vendor-tools
 
 %prep
 %autosetup -p1 %{forgesetupargs}
-# Remove scancode-toolkit test dependency.
-# It's not available on s390x and not needed for unit tests.
-tomcli-set pyproject.toml lists delitem \
-    'project.optional-dependencies.test' 'scancode-toolkit.*'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x all,test
+%pyproject_buildrequires -x all,test%{?with_scancode_tests:,scancode}
 
 
 %build
@@ -99,6 +103,7 @@ cp -rL doc/* %{buildroot}%{_docdir}/go-vendor-tools-doc
 # Install manpages
 %if %{with manpages}
 install -Dpm 0644 doc/man/*.1 -t %{buildroot}%{_mandir}/man1/
+install -Dpm 0644 doc/man/*.5 -t %{buildroot}%{_mandir}/man5/
 %endif
 
 # Install completions
@@ -108,6 +113,7 @@ install -Dpm 0644 zsh_completions/* -t %{buildroot}%{zsh_completions_dir}/
 
 
 %check
+export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 %pytest
 
 
@@ -122,14 +128,18 @@ install -Dpm 0644 zsh_completions/* -t %{buildroot}%{zsh_completions_dir}/
 %{_rpmmacrodir}/macros.go_vendor_tools
 %if %{with manpages}
 %{_mandir}/man1/go*.1*
+%{_mandir}/man5/go*.5*
 %endif
 
 %files doc
 %doc %{_docdir}/go-vendor-tools-doc/
 
-%pyproject_extras_subpkg -n go-vendor-tools all
+%pyproject_extras_subpkg -n go-vendor-tools all %{?with_scancode:scancode}
 
 %changelog
+* Sun Mar 23 2025 Maxwell G <maxwell@gtmx.me> - 0.7.0-1
+- Update to 0.7.0.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

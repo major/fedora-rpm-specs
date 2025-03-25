@@ -10,12 +10,14 @@
 
 
 %global pkgname llvm
-%global libver 18
+%global libver 20
 
 Name:          mingw-%{pkgname}
-Version:       19.1.7
+Version:       20.1.1
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
+# Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
+ExcludeArch:   i686
 
 License:       NCSA
 URL:           http://llvm.org
@@ -23,22 +25,18 @@ Source0:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{
 Source1:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/cmake-%{version}.src.tar.xz
 # Set LLVM_INCLUDE_BENCHMARKS=OFF by default
 Patch0:        llvm-no-benchmarks.patch
-# Export less symbols
-# Avoid ld: error: export ordinal too large
-# See https://discourse.llvm.org/t/export-ordinal-too-large-when-linking-llvm-dll-with-mingw64/52293/2
-Patch1:        llvm-shlib-syms.patch
 
 BuildRequires: chrpath
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libffi
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libffi
 BuildRequires: mingw64-zlib
@@ -140,35 +138,30 @@ EOF
 
 CMAKE_OPTS="
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_SHARED_LIBS=OFF \
-    -DLLVM_TARGETS_TO_BUILD="X86" \
-    -DLLVM_TARGET_ARCH="X86" \
-    -DLLVM_INFERRED_HOST_TRIPLE=%{_target} \
-    -DLLVM_TABLEGEN=$PWD/%{_vpath_builddir}/bin/llvm-tblgen \
-    -DLLVM_ENABLE_LIBCXX=OFF \
-    -DLLVM_ENABLE_ZLIB=ON \
-    -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_RTTI=ON \
-    -DLLVM_BUILD_RUNTIME=ON \
-    -DLLVM_BUILD_LLVM_DYLIB=ON \
-    -DLLVM_LINK_LLVM_DYLIB=ON \
-    -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
-    -DLLVM_INCLUDE_TESTS=OFF \
     -DLLVM_INCLUDE_DOCS=OFF \
-    -DLLVM_INCLUDE_TOOLS=ON \
-    -DLLVM_INCLUDE_EXAMPLES=OFF \
-    -DLLVM_ENABLE_ASSERTIONS=OFF \
-    -DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=OFF \
+     -DLLVM_INCLUDE_UTILS=OFF \
+     -DLLVM_INCLUDE_EXAMPLES=OFF \
+     -DLLVM_INCLUDE_TESTS=OFF \
+     -DLLVM_BUILD_TOOLS=OFF \
+     -DBUILD_SHARED_LIBS=OFF \
+     -DLLVM_BUILD_LLVM_DYLIB=ON \
+     -DLLVM_ENABLE_BINDINGS=OFF \
+     -DLLVM_ENABLE_FFI=ON \
+     -DLLVM_ENABLE_RTTI=ON \
+     -DLLVM_ENABLE_Z3_SOLVER=OFF \
+     -DLLVM_INCLUDE_BENCHMARKS=OFF \
+     -DLLVM_ENABLE_ASSERTIONS=OFF \
+     -DLLVM_TARGETS_TO_BUILD="X86" \
+     -DLLVM_TARGET_ARCH="X86" \
+     -DLLVM_NATIVE_TOOL_DIR=../%{_vpath_builddir}/bin/ \
+     -DLLVM_INFERRED_HOST_TRIPLE=%{_target}
 "
 mkdir build_win32
 pushd build_win32
 %mingw32_cmake \
     $CMAKE_OPTS \
     -DLLVM_DEFAULT_TARGET_TRIPLE=%{mingw32_target} \
-    -DFFI_INCLUDE_DIR=%{mingw32_libdir}/libffi-%{ffi_ver}/include \
-    -DCMAKE_C_FLAGS_RELWITHDEBINFO="${mingw32_cflags_} -DNDEBUG" \
-    -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="${mingw32_cflags_} -DNDEBUG"
+    -DFFI_INCLUDE_DIR=%{mingw32_libdir}/libffi-%{ffi_ver}/include
 
 popd
 
@@ -177,9 +170,7 @@ pushd build_win64
 %mingw64_cmake \
     $CMAKE_OPTS \
     -DLLVM_DEFAULT_TARGET_TRIPLE=%{mingw64_target} \
-    -DFFI_INCLUDE_DIR=%{mingw64_libdir}/libffi-%{ffi_ver}/include \
-    -DCMAKE_C_FLAGS_RELWITHDEBINFO="${mingw64_cflags_} -DNDEBUG" \
-    -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="${mingw64_cflags_} -DNDEBUG"
+    -DFFI_INCLUDE_DIR=%{mingw64_libdir}/libffi-%{ffi_ver}/include
 popd
 
 %mingw_make_build
@@ -187,10 +178,6 @@ popd
 
 %install
 %mingw_make_install
-
-# Install host llmv-config
-install -Dpm 0755 build_win32/NATIVE/bin/llvm-config %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-config
-install -Dpm 0755 build_win64/NATIVE/bin/llvm-config %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-config
 
 # Unversioned symlink
 ln -s %{mingw32_libdir}/libLLVM-%{libver}.dll.a %{buildroot}%{mingw32_libdir}/libLLVM.dll.a
@@ -205,8 +192,6 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 # Kill rpaths
-chrpath --delete %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-config
-chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-config
 chrpath --delete %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-tblgen
 chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
@@ -224,7 +209,6 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 %{mingw32_libdir}/libLLVM.dll.a
 %{mingw32_libdir}/libLTO.dll.a
 %{mingw32_libdir}/libRemarks.dll.a
-%{_prefix}/%{mingw32_target}/bin/llvm-config
 %{_prefix}/%{mingw32_target}/bin/llvm-tblgen
 
 %files -n mingw32-%{pkgname}-static
@@ -248,7 +232,6 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 %{mingw64_libdir}/libLLVM-%{libver}.dll.a
 %{mingw64_libdir}/libLTO.dll.a
 %{mingw64_libdir}/libRemarks.dll.a
-%{_prefix}/%{mingw64_target}/bin/llvm-config
 %{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 %files -n mingw64-%{pkgname}-static
@@ -261,6 +244,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 20.1.1-1
+- Update to 20.1.1
+
 * Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 19.1.7-1
 - Update to 19.1.7
 

@@ -1,16 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:           xiphos
-Version:        4.2.1
-Release:        28%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://xiphos.org/
 Source0:        https://github.com/crosswire/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-Patch0:         glib_version.patch
-Patch1:         minizip.patch
-Patch2:         no_editor.patch
 BuildRequires:  biblesync-devel >= 2.0.1-3
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -49,9 +46,6 @@ Project and elsewhere.
 %prep
 %setup -q
 rm -rf src/biblesync
-%patch -P0 -p0
-%patch -P1 -p1
-%patch -P2 -p1
 
 %build
 export CFLAGS="$CFLAGS -fPIC"
@@ -88,7 +82,7 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %license COPYING
 %{_bindir}/xiphos
 %{_bindir}/xiphos-nav
-%{_datadir}/appdata/xiphos.appdata.xml
+%{_datadir}/metainfo/xiphos.appdata.xml
 %{_datadir}/applications/xiphos.desktop
 %{_datadir}/icons/hicolor/scalable/apps/xiphos.svg
 %{_datadir}/xiphos/
@@ -100,6 +94,11 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Sun Mar 23 2025 Greg Hellings <greg.hellings@gmail.com> - 4.3.1-1
+- New upstream version 4.3.1 which already has editor fixed
+- Updated dependencies
+- Removed all patches
+
 * Wed Jan 29 2025 Aaron Rainbolt <arraybolt3@gmail.com> - 4.2.1-28
 - Strip out editor component to resolve FTBFS
 

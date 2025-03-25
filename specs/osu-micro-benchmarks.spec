@@ -2,7 +2,7 @@
 %bcond mpich %[!(0%{?rhel} >= 10)]
 
 Name:           osu-micro-benchmarks
-Version:        7.4
+Version:        7.5
 Release:        %autorelease
 Summary:        OSU Micro-Benchmarks for MPI
 License:        BSD-3-Clause

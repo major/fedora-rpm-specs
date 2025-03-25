@@ -1,6 +1,6 @@
 Name:    kapptemplate
 Summary: KDE Template generator
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -29,7 +29,7 @@ BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: cmake(KF6XmlGui)
-
+BuildRequires: cmake(KF6IconThemes)
 
 %description
 Factory for the easy creation of KDE/Qt components and programs
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

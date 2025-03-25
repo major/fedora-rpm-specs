@@ -1,24 +1,25 @@
 Name:           meld
-Version:        3.22.3
-Release:        2%{?dist}
+Version:        3.23.0
+Release:        1%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://meldmerge.org/
-Source0:        https://download.gnome.org/sources/meld/3.22/meld-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/meld/3.23/meld-%{version}.tar.xz
 
-BuildRequires:  meson >= 0.47.0
+BuildRequires:  meson >= 1.2.0
 BuildRequires:  python3-devel
 # glib-complie-schemas
 BuildRequires:  glib2-devel
 BuildRequires:  gettext
+BuildRequires:  gtk-update-icon-cache
 BuildRequires:  itstool
 
 BuildRequires:  /usr/bin/desktop-file-validate
 BuildRequires:  /usr/bin/appstream-util
 
-Requires:       gtk3 >= 3.20
+Requires:       gtk3 >= 3.22
 Requires:       glib2 >= 2.48
 Requires:       gtksourceview4 >= 4.0
 Requires:       python3-gobject >= 3.30
@@ -74,7 +75,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_bindir}/meld
 %{_mandir}/man1/meld.1*
 %{_datadir}/meld/
-%{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.Meld.gschema.xml
 %{_datadir}/applications/org.gnome.Meld.desktop
 %{_datadir}/mime/packages/org.gnome.Meld.xml
 %{_datadir}/metainfo/org.gnome.Meld.appdata.xml
@@ -82,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{python3_sitelib}/meld/
 
 %changelog
+* Sun Mar 23 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 3.23.0-1
+- New upstream release 3.23.0 (RHBZ#2354309)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

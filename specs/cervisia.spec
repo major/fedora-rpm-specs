@@ -1,6 +1,6 @@
 Name:    cervisia
 Summary: CVS frontend
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.2-or-later
@@ -62,18 +62,14 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.cervisia.
 %doc ChangeLog README
 %{_kf5_bindir}/cervisia
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_qtplugindir}/cervisiapart5.so
-%{_kf5_libdir}/libkdeinit5_cervisia.so
+%{_kf5_qtplugindir}/kf5/parts/cervisiapart.so
 %{_kf5_datadir}/applications/org.kde.cervisia.desktop
 %{_kf5_metainfodir}/org.kde.cervisia.appdata.xml
 %{_kf5_datadir}/config.kcfg/cervisiapart.kcfg
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.cervisia5.*.xml
-%{_kf5_datadir}/kservices5/org.kde.cervisiapart5.desktop
 %{_mandir}/man1/cervisia*
 %{_kf5_bindir}/cvsaskpass
 %{_kf5_bindir}/cvsservice5
-%{_kf5_libdir}/libkdeinit5_cvsaskpass.so
-%{_kf5_libdir}/libkdeinit5_cvsservice.so
 %{_kf5_datadir}/knotifications5/cervisia.notifyrc
 %{_kf5_datadir}/kservices5/org.kde.cvsservice5.desktop
 %{_kf5_datadir}/kxmlgui5/cervisia/
@@ -81,6 +77,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.cervisia.
 
 
 %changelog
+* Fri Mar 21 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

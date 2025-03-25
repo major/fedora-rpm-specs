@@ -1,6 +1,6 @@
 Name:    krdc
 Summary: Remote desktop client
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -37,13 +37,14 @@ BuildRequires: cmake(KF6StatusNotifierItem)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(PlasmaActivities)
-BuildRequires: (cmake(FreeRDP) >= 2.10 with cmake(FreeRDP) < 3)
-BuildRequires: (cmake(FreeRDP-Client) >= 2.10 with cmake(FreeRDP-Client) < 3)
+BuildRequires: (cmake(FreeRDP) >= 3.00 with cmake(FreeRDP) < 4)
+BuildRequires: (cmake(FreeRDP-Client) >= 3.00 with cmake(FreeRDP-Client) < 4)
 BuildRequires: cmake(WinPR)
 # winpr-makecert
 BuildRequires: freerdp
 BuildRequires: libvncserver-devel
 BuildRequires: pkgconfig(libssh)
+BuildRequires: fuse3-devel
 
 # see icon hack in %%install
 BuildRequires: oxygen-icon-theme
@@ -118,6 +119,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

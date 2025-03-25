@@ -2,17 +2,11 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.47.0
 
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
-URL:     http://maxima.sourceforge.net/
-Source:  http://downloads.sourceforge.net/sourceforge/maxima/maxima-%{version}%{?beta}.tar.gz
-%if 0%{?fedora}
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
-%endif
-%if 0%{?rhel}
-ExclusiveArch: %{ix86} x86_64 ppc sparcv9
-%endif
+URL:     https://maxima.sourceforge.io/
+Source:  https://downloads.sourceforge.net/sourceforge/maxima/maxima-%{version}%{?beta}.tar.gz
 
 ## upstreamable patches
 # https://bugzilla.redhat.com/show_bug.cgi?id=837142
@@ -43,47 +37,20 @@ BuildRequires: emacs
 Requires: emacs-filesystem >= %{_emacs_version}
 %define texmf %{_datadir}/texmf
 
-%ifarch %{ix86} x86_64
+# overridden below for some arches
+%define default_lisp gcl
+# available on all arches
+%define _enable_gcl --enable-gcl
+
+# not available for riscv64 or s390x
+%ifarch %{ix86} x86_64 aarch64 ppc64le
 %define default_lisp sbcl
 %define _enable_sbcl --enable-sbcl-exec
-%if 0%{?fedora} && !0%{?flatpak}
+%endif
+
+# not available for riscv64
+%ifarch %{ix86} x86_64 aarch64 ppc64le s390x
 %define _enable_clisp --enable-clisp-exec
-#define _enable_ecl --enable-ecl
-%define _enable_gcl --enable-gcl
-%endif
-%endif
-
-%ifarch aarch64
-%define default_lisp sbcl
-%define _enable_sbcl --enable-sbcl-exec
-%if 0%{?fedora} && !0%{?flatpak}
-%define _enable_gcl --enable-gcl
-#define _enable_ecl --enable-ecl
-%endif
-%endif
-
-%ifarch %{arm}
-%define default_lisp sbcl
-%define _enable_sbcl --enable-sbcl-exec
-%if 0%{?fedora} && !0%{?flatpak}
-#define _enable_gcl --enable-gcl
-#define _enable_ecl --enable-ecl
-%endif
-%endif
-
-%ifarch ppc
-%define default_lisp sbcl
-%define _enable_sbcl --enable-sbcl-exec
-%if 0%{?fedora} && !0%{?flatpak}
-# clisp: http://bugzilla.redhat.com/166347 (resolved) - clisp/ppc (still) awol.
-#define _enable_clisp --enable-clisp
-%define _enable_gcl --enable-gcl
-%endif
-%endif
-
-%ifarch sparcv9
-%define default_lisp sbcl
-%define _enable_sbcl --enable-sbcl-exec
 %endif
 
 %if "x%{?_enable_cmucl}" == "x%{nil}"
@@ -114,14 +81,6 @@ Source11: http://maxima.sourceforge.net/docs/maximabook/maximabook-19-Sept-2004.
 # workaround debug-id conflicts (with sbcl)
 %global _build_id_links none
 
-# upstream langpack upgrades, +Provides too? -- Rex
-Obsoletes: %{name}-lang-es < %{version}-%{release}
-Obsoletes: %{name}-lang-es-utf8 < %{version}-%{release}
-Obsoletes: %{name}-lang-pt < %{version}-%{release}
-Obsoletes: %{name}-lang-pt-utf8 < %{version}-%{release}
-Obsoletes: %{name}-lang-pt_BR < %{version}-%{release}
-Obsoletes: %{name}-lang-pt_BR-utf8 < %{version}-%{release}
-
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(bash-completion)
 %global bash_completionsdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo '/etc/bash_completion.d')
@@ -142,7 +101,9 @@ BuildRequires: tk >= 1:9.0
 # Needed for the sbcl tests
 BuildRequires: gnuplot
 
-Requires: %{name}-runtime%{?default_lisp:-%{default_lisp}} = %{version}-%{release}
+Requires: %{name}-runtime = %{version}-%{release}
+Suggests: %{name}-runtime%{?default_lisp:-%{default_lisp}} = %{version}-%{release}
+
 Requires: gnuplot
 Requires: rlwrap
 
@@ -317,7 +278,7 @@ touch debugfiles.list
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/net.sourceforge.maxima.xmaxima.desktop
 %ifnarch %{ix86}
-make -k check ||:
+make -k check || cat tests/test-suite.log
 %endif
 
 %triggerin -- tetex-latex,texlive-latex
@@ -418,6 +379,9 @@ fi
 
 
 %changelog
+* Fri Mar 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.47.0-8
+- Enable on all arches with backends available on each
+
 * Fri Feb 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.47.0-7
 - Fix for https://fedoraproject.org/wiki/Changes/TclTk9.0 (rhbz#2337728)
 

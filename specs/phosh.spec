@@ -2,12 +2,12 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.45.0
+Version:	0.46~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
-Source:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v0.46_rc1/%{name}-v0.46_rc1.tar.gz
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
 Source:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
@@ -37,7 +37,7 @@ BuildRequires:	pkgconfig(gsettings-desktop-schemas) >= 47
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.24.36
 BuildRequires:	pkgconfig(gtk+-wayland-3.0) >= 3.22
 BuildRequires:	pkgconfig(gudev-1.0)
-BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.4.0
+BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.7.0
 BuildRequires:	pkgconfig(libhandy-1) >= 1.8.0
 BuildRequires:	pkgconfig(libnm) >= 1.14
 BuildRequires:	pkgconfig(polkit-agent-1) >= 0.122
@@ -62,7 +62,7 @@ BuildRequires:	dbus-daemon
 BuildRequires:	desktop-file-utils
 BuildRequires:	systemd-rpm-macros
 
-Requires:	phoc >= 0.44.0
+Requires:	phoc >= 0.45.0
 Requires:	iio-sensor-proxy
 Requires:	gnome-session
 Requires:	gnome-shell
@@ -107,7 +107,7 @@ Requires:   lib%{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Development headers for libphosh.
 
 %prep
-%setup -a1 -a2 -q -n %{name}-v%{version}
+%setup -a1 -a2 -q -n %{name}-v0.46_rc1
 
 mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 mv libcall-ui-v%{libcall_ui_version} subprojects/libcall-ui

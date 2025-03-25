@@ -1,5 +1,5 @@
 Name:    kmouth
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: A program that speaks for you 
 
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmouth.de
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

@@ -1,6 +1,6 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -28,6 +28,8 @@ BuildRequires: cmake(PlasmaActivitiesStats)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Widgets)
+
+Requires: hicolor-icon-theme
 
 %description
 Sweeper helps to clean unwanted traces the user leaves on the system.
@@ -60,9 +62,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.sw
 %{_kf6_datadir}/applications/org.kde.sweeper.desktop
 %{_kf6_metainfodir}/org.kde.sweeper.appdata.xml
 %{_datadir}/dbus-1/interfaces/org.kde.sweeper.xml
-
+%{_datadir}/icons/hicolor/scalable/apps/sweeper.svg
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

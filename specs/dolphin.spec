@@ -2,7 +2,7 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        24.12.3
+Version:        25.03.80
 Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -134,6 +134,8 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_datadir}/kconf_update/dolphin_detailsmodesettings.upd
 %{_kf6_datadir}/kconf_update/dolphin_directorysizemode.py
 %{_kf6_datadir}/kconf_update/dolphin_directorysizemode.upd
+%{_kf6_libdir}/kconf_update_bin/dolphin_25.04_update_statusandlocationbarssettings
+%{_kf6_datadir}/kconf_update/dolphin_statusandlocationbarssettings.upd
 %dir %{_kf6_datadir}/dolphin
 %{_kf6_datadir}/dolphin/dolphinpartactions.desktop
 %{_kf6_datadir}/zsh/site-functions/_dolphin
@@ -155,6 +157,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

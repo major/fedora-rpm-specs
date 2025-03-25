@@ -22,16 +22,17 @@
 ##
 #
 Name:           soci
-Version:        4.0.3
-%global ups_ver 4.0.3
+Version:        4.1.0.rc1
+%global ups_ver 4.1.0-rc1
 Release:        %autorelease
 Summary:        The database access library for C++ programmers
 License:        BSL-1.0
 URL:            https://github.com/SOCI/%{name}
-Source0:        %{url}/archive/%{ups_ver}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{ups_ver}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Works around a false positive -Wuninitialized error exposed by LTO
 Patch0:         soci-uninit.patch
+Patch1:         soci-unicode.patch
 
 BuildRequires:  dos2unix
 BuildRequires:  gcc gcc-c++
@@ -183,6 +184,7 @@ library. The documentation is the same as at the %{name} web page.
 %prep
 %setup -q -n %{name}-%{ups_ver}
 %patch -P0 -p1
+%patch -P1 -p1
 
 # Rename change-log and license file, so that they comply with
 # packaging standard
@@ -234,68 +236,68 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_core.so.*
-%{?with_empty:%{_libdir}/lib%{name}_empty.so.*}
+%{_libdir}/%{name}/lib%{name}_core.so.*
+%{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so.*}
 
 %{?with_sqlite3:%files sqlite3
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_sqlite3.so.*}
+%{_libdir}/%{name}/lib%{name}_sqlite3.so.*}
 
 %{?with_mysql:%files mysql
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_mysql.so.*}
+%{_libdir}/%{name}/lib%{name}_mysql.so.*}
 
 %{?with_postgresql:%files postgresql
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_postgresql.so.*}
+%{_libdir}/%{name}/lib%{name}_postgresql.so.*}
 
 %{?with_odbc:%files odbc
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_odbc.so.*}
+%{_libdir}/%{name}/lib%{name}_odbc.so.*}
 
 %{?with_oracle:%files oracle
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/lib%{name}_oracle.so.*}
+%{_libdir}/%{name}/lib%{name}_oracle.so.*}
 
 
 %files devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*.h
-%{?with_empty:%{_includedir}/%{name}/empty/}
-%{_libdir}/lib%{name}_core.so
-%{?with_empty:%{_libdir}/lib%{name}_empty.so}
+#%%{?with_empty:%%{_includedir}/%%{name}/empty/}
+%{_libdir}/%{name}/lib%{name}_core.so
+%{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so}
 %{_datadir}/%{name}/CMake
 
 %{?with_sqlite3:%files sqlite3-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/sqlite3/
-%{_libdir}/lib%{name}_sqlite3.so}
+%{_libdir}/%{name}/lib%{name}_sqlite3.so}
 
 %{?with_mysql:%files mysql-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/mysql
-%{_libdir}/lib%{name}_mysql.so}
+%{_libdir}/%{name}/lib%{name}_mysql.so}
 
 %{?with_postgresql:%files postgresql-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/postgresql
-%{_libdir}/lib%{name}_postgresql.so}
+%{_libdir}/%{name}/lib%{name}_postgresql.so}
 
 %{?with_odbc:%files odbc-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/odbc/
-%{_libdir}/lib%{name}_odbc.so}
+%{_libdir}/%{name}/lib%{name}_odbc.so}
 
 %{?with_oracle:%files oracle-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/oracle
-%{_libdir}/lib%{name}_oracle.so}
+%{_libdir}/%{name}/lib%{name}_oracle.so}
 
 
 %files doc

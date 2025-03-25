@@ -1,8 +1,8 @@
 # SUSE guys use OBS to automatically handle release numbers,
 # when rebasing check what they are using on
-# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_42/src/
+# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_Rawhide/src/
 # update the obsrel to match the upstream release number
-%global obsrel 434.3
+%global obsrel 443.762
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.13.0
+Version:        1.14.0
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -92,11 +92,17 @@ PYTHONPATH=. argparse-manpage \
 %py3_install
 
 mkdir -p %{buildroot}%{_localstatedir}/lib/osc-plugins
-# mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
+
 install -Dm0644 contrib/complete.csh %{buildroot}%{_sysconfdir}/profile.d/osc.csh
-install -Dm0644 contrib/complete.sh %{buildroot}%{_datadir}/bash-completion/completions/osc
+install -Dm0644 contrib/git-obs-complete.zsh %{buildroot}%{zsh_completions_dir}/git-obs.zsh
+
+install -Dm0644 contrib/complete.sh %{buildroot}%{bash_completions_dir}/osc
+install -Dm0644 contrib/git-obs-complete.bash %{buildroot}%{bash_completions_dir}/git-obs.bash
+
 install -Dm0755 contrib/osc.complete %{buildroot}%{_datadir}/osc/complete
-install -Dm0644 contrib/osc.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/osc.fish
+
+install -Dm0644 contrib/osc.fish %{buildroot}%{fish_completions_dir}/osc.fish
+install -Dm0644 contrib/git-obs-complete.fish %{buildroot}%{fish_completions_dir}/git-obs.fish
 
 # symlink /usr/bin/git-obs to /usr/libexec/git/obs
 mkdir -p %{buildroot}%{_libexecdir}/git
@@ -114,6 +120,9 @@ install -Dm0644 macros.osc %{buildroot}%{_rpmmacrodir}/macros.osc
 # install man page
 install -Dm0644 osc.1 %{buildroot}%{_mandir}/man1/osc.1
 
+# inject argcomplete marker to the generated git-obs executable
+sed -i '3i # PYTHON_ARGCOMPLETE_OK'  %{buildroot}%{_bindir}/git-obs
+
 %check
 python3 -m unittest
 
@@ -125,8 +134,11 @@ python3 -m unittest
 %{_libexecdir}/git/obs
 %{python3_sitelib}/osc*
 %{_sysconfdir}/profile.d/osc.csh
-%{_datadir}/bash-completion/completions/osc
-%{_datadir}/fish/vendor_completions.d/osc.fish
+%{zsh_completions_dir}/git-obs.zsh
+%{bash_completions_dir}/osc
+%{bash_completions_dir}/git-obs.bash
+%{fish_completions_dir}/osc.fish
+%{fish_completions_dir}/git-obs.fish
 %dir %{_localstatedir}/lib/osc-plugins
 %{_mandir}/man1/osc.*
 %{_datadir}/osc
@@ -136,6 +148,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Sun Mar 23 2025 Dan Čermák  <dan.cermak@cgc-instruments.com> - 1.14.0-443.762.1
+- New upstream release 1.14.0, fixes rhbz#2354010
+
 * Mon Mar 03 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.13.0-434.3.1
 - New upstream release 1.13.0, fixes rhbz#2345576
 

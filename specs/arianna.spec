@@ -1,5 +1,5 @@
 Name:          arianna
-Version:       24.12.3
+Version:       25.03.80
 Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
@@ -38,7 +38,9 @@ BuildRequires: cmake(KF6QuickCharts)
 BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: cmake(KF6QQC2DesktopStyle)
 BuildRequires: cmake(Qt6WebEngineQuick)
+BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6Baloo)
+BuildRequires: cmake(KF6ColorScheme)
 BuildRequires: reuse
 BuildRequires: fdupes
 BuildRequires: desktop-file-utils
@@ -88,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ar
 %{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

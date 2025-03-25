@@ -4,7 +4,7 @@
 #global tests 1
 
 Name:    konqueror
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
@@ -166,6 +166,7 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_sysconfdir}/xdg/autostart/konqy_preload.desktop
 %{_kf6_sysconfdir}/xdg/translaterc
 %{_kf6_sysconfdir}/xdg/konqs*
+%{_kf6_sysconfdir}/xdg/konqautofiltersrc
 %{_kf6_sysconfdir}/xdg/useragenttemplatesrc
 %{_kf6_datadir}/konqsidebartng/
 
@@ -210,6 +211,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

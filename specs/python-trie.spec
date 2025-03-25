@@ -4,7 +4,7 @@ Self-describing content-addressed identifiers for distributed systems
 implementation in Python.}
 
 Name:          python-%{pypi_name}
-Version:       3.0.1
+Version:       3.1.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Library which implements the Ethereum Trie structure
@@ -13,11 +13,13 @@ URL:           https://github.com/ethereum/py-trie
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 # PyuPi archive lacks tests-suite
-Patch1:        python-trie-0001-Readd-tools.patch
-Patch2:        python-trie-0002-Re-add-Trie-fixtures.patch
-BuildRequires: python3-devel
+Patch:         python-trie-0001-Readd-tools.patch
+Patch:         python-trie-0002-Re-add-Trie-fixtures.patch
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pytest
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l %{pypi_name}
 
 %description %{common_description}
 
@@ -26,21 +28,10 @@ Summary: %{summary}
 
 %description -n python3-%{pypi_name} %{common_description}
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
+%prep -a
+rm -f ./scripts/release/test_package.py
 
 %check
-%pyproject_check_import
 PYTHONPATH=$(pwd) %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

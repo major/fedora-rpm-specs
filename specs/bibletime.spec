@@ -6,6 +6,10 @@ Summary:        An easy to use Bible study tool
 License:        GPL-2.0-only
 URL:            http://www.bibletime.info/
 Source0:        http://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+# These lack qtwebengine/qtwebkit
+ExclusiveArch:  %{qt6_qtwebengine_arches}
+
 BuildRequires:  gcc-c++
 BuildRequires:  clucene-core-devel >= 2.0
 BuildRequires:  cmake
@@ -16,21 +20,18 @@ BuildRequires:  sword-devel >= 1.8.1-15
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-linguist
 BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qtwebengine-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  po4a
 BuildRequires:  libxslt
+BuildRequires:  docbook-style-xsl
+BuildRequires:  make
 
 # fop is java_arches exclusive
-ExclusiveArch:  %{java_arches}
+# However, this line is more inclusive of arches that do not have
+# qtwebengine
+#ExclusiveArch:  %{java_arches}
 BuildRequires:  fop
-
-BuildRequires:  docbook-style-xsl
-%ifarch %{qt6_qtwebengine_arches}
-BuildRequires:  qt6-qtwebengine-devel
-%else
-BuildRequires:  qt6-qtwebkit-devel
-%endif
-BuildRequires:  qt6-qtsvg-devel
-BuildRequires:  make
 
 %description
 BibleTime is a free and easy to use cross-platform bible study tool. It
@@ -91,6 +92,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTim
 * Sat Mar 22 2025 Greg Hellings <greg.hellings@gmail.com> - 3.1.1-1
 - New upstream release
 - Now builds against Qt6 instead of Qt5
+- Limited builds to WebEngine targets, as Fedora no longer builds QtWebKit
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

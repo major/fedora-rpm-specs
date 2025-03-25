@@ -1,5 +1,5 @@
 Name:    calendarsupport
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80 (Beta)
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

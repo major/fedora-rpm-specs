@@ -15,9 +15,11 @@ Patch2:        python-eth-event-0002-Update-to-hexbytes-1.0.0.patch
 Patch3:        python-eth-event-0003-Update-to-eth-abi-5.0.1.patch
 # Fedora-specific
 Patch4:        python-eth-event-0004-Relax-deps.patch
-BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cov
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l eth_event
 
 %description
 %{summary}.
@@ -28,21 +30,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l eth_event
-
-%check
-%pyproject_check_import
+%check -a
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

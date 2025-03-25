@@ -1,5 +1,5 @@
 Name:       intel-media-driver-free
-Version:    24.4.4
+Version:    25.1.4
 Release:    %autorelease
 Summary:    The Intel Media Driver for VAAPI
 License:    MIT and BSD
@@ -13,10 +13,6 @@ URL:        https://github.com/intel/media-driver
 Source0:    intel-media-%{version}-free.tar.gz
 Source1:    intel-media-driver.metainfo.xml
 Source2:    strip.py
-
-# GCC 15 Fix
-# https://github.com/intel/media-driver/commit/46a7058714b17a13cf62c052ab1134031fa5f706
-Patch01:    46a7058714b17a13cf62c052ab1134031fa5f706.patch
 
 # This is an Intel only vaapi backend
 ExclusiveArch:  i686 x86_64
