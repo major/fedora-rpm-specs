@@ -1,6 +1,6 @@
 Name:           libxo
-Version:        1.6.0
-Release:        9%{?dist}
+Version:        1.7.5
+Release:        1%{?dist}
 Summary:        A Library for Generating Text, XML, JSON, and HTML Output
 
 
@@ -10,7 +10,7 @@ URL:            https://github.com/Juniper/libxo
 Source0:        https://github.com/Juniper/libxo/releases/download/%{version}/libxo-%{version}.tar.gz
 
 # Remove include line for header file not present in glibc
-Patch0:         libxo-1.6.0-sysctl.patch
+# Patch0:         libxo-1.6.0-sysctl.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

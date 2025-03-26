@@ -2,10 +2,10 @@ Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
 License:	GPL-2.0-only
 
-%global		releasenum 2023-04-04a
+%global		releasenum 2024-02-06b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	6%{?dist}
+Release:	1%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -15,23 +15,24 @@ Patch1:		dokuwiki-rm-bundled-libs.patch
 
 BuildArch:	noarch
 
-Requires:	php-gd
-Requires:	php-json
-Requires:	php-xml
+Requires:	php-gd >= 7.4
+Requires:	php-json >= 7.4
+Requires:	php-xml >= 7.4
 
 Requires:	php-composer(aziraphale/email-address-validator) >= 2.0.1
 # dokuwiki relies on a certain bugfix backported into geshi/geshi,
 # hence the requirement also includes the RPM release number
 Requires:	php-composer(geshi/geshi) >= 1.0.9.1-5
-Requires:	php-composer(kissifrot/php-ixr) >= 1.8.3
-Requires:	php-composer(marcusschwarz/lesserphp) >= 0.5.5
-Requires:	php-composer(openpsa/universalfeedcreator) >= 1.8.4.1
-Requires:	php-composer(phpseclib/phpseclib) >= 2.0.31
-Requires:	php-composer(simplepie/simplepie) >= 1.5.6
-Requires:	php-composer(splitbrain/php-archive) >= 1.2.1
-Requires:	php-composer(splitbrain/php-cli) >= 1.1.8
+Requires:	php-composer(kissifrot/php-ixr) >= 1.8.4
+Requires:	php-composer(openpsa/universalfeedcreator) >= 1.8.6
+Requires:	php-composer(paragonie/constant_time_encoding) >= 2.6.3
+Requires:	php-composer(phpseclib/phpseclib) >= 3.0.35
+Requires:	php-composer(simplepie/simplepie) >= 1.8.0
+Requires:	php-composer(splitbrain/lesserphp) >= 0.10.0
+Requires:	php-composer(splitbrain/php-archive) >= 1.3.1
+Requires:	php-composer(splitbrain/php-cli) >= 1.3.1
 Requires:	php-composer(splitbrain/php-jsstrip) >= 1.0.1
-Requires:	php-composer(splitbrain/slika) >= 1.0.5
+Requires:	php-composer(splitbrain/slika) >= 1.0.6
 
 
 %description
@@ -67,24 +68,26 @@ rmdir vendor/geshi || true
 #  kissifrot/php-ixr
 rm -r vendor/kissifrot/php-ixr
 rmdir vendor/kissifrot || true
-#  lesserphp
-rm -r vendor/marcusschwarz/lesserphp
-rmdir vendor/marcusschwarz || true
 #  universalfeedcreator
 rm -r vendor/openpsa/universalfeedcreator
 rmdir vendor/openpsa || true
+#  paragonie
+rm -r vendor/paragonie/constant_time_encoding
+rm -r vendor/paragonie/random_compat
+rmdir vendor/paragonie || true
 #  phpseclib
 rm -r vendor/phpseclib/phpseclib
 rmdir vendor/phpseclib || true
 #  simplepie
 rm -r vendor/simplepie/simplepie
 rmdir vendor/simplepie || true
-#  splitbrain/php-archive, splitbrain/php-cli, splitbrain/slika
+#  splitbrain/php-archive, splitbrain/php-cli, splitbrain/slika, splitbrain/php-jsstrip, splitbrain/lesserphp
 rm -r vendor/splitbrain/php-archive
 rm -r vendor/splitbrain/php-cli
 rm -r vendor/splitbrain/slika
-# rm -r vendor/splitbrain/php-jsstrip
-# rmdir vendor/splitbrain || true
+rm -r vendor/splitbrain/php-jsstrip
+rm -r vendor/splitbrain/lesserphp
+rmdir vendor/splitbrain || true
 
 %patch -P1 -p1 -b .bundled
 
@@ -232,6 +235,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Mon Mar 24 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20240206b-1
+- Update to version 2024-02-06b "Kaos"
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230404a-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

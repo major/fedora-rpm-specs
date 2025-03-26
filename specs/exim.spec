@@ -42,10 +42,10 @@ Source24: exim.service
 Source25: exim-gen-cert
 Source26: clamd.exim.service
 
-Patch0: exim-4.97-config.patch
-Patch1: exim-4.94-libdir.patch
-Patch2: exim-4.97-dlopen-localscan.patch
-Patch3: exim-4.96-pic.patch
+Patch: exim-4.97-config.patch
+Patch: exim-4.94-libdir.patch
+Patch: exim-4.97-dlopen-localscan.patch
+Patch: exim-4.96-pic.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -205,6 +205,8 @@ m exim mail
 EOF
 
 %build
+# https://bugs.exim.org/show_bug.cgi?id=3135
+export CFLAGS="%{build_cflags} -std=gnu17"
 %ifnarch s390 s390x sparc sparcv9 sparcv9v sparc64 sparc64v
 	export PIE=-fpie
 	export PIC=-fpic

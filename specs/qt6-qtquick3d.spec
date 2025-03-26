@@ -1,9 +1,9 @@
 
 %global qt_module qtquick3d
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
@@ -15,7 +15,7 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -189,49 +189,72 @@ popd
 %{_qt6_includedir}/QtQuick3DHelpersImpl
 %{_qt6_includedir}/QtQuick3DGlslParser
 %{_qt6_includedir}/QtQuick3DXr
-%{_qt6_libdir}/cmake/Qt6/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker
-%{_qt6_libdir}/cmake/Qt6Quick3DIblBaker/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DParticles
-%{_qt6_libdir}/cmake/Qt6Quick3DParticles/*.cmake
-%{_qt6_libdir}/cmake/Qt6/FindWrapQuick3DAssimp.cmake
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
-%{_qt6_libdir}/cmake/Qt6Qml/*.cmake
-%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %ifarch x86_64 aarch64
 %dir %{_qt6_libdir}/cmake/Qt6BundledEmbree/
 %{_qt6_libdir}/cmake/Qt6/FindWrapBundledEmbreeConfigExtra.cmake
 %{_qt6_libdir}/cmake/Qt6BundledEmbree/*.cmake
 %endif
-
-%dir %{_qt6_libdir}/cmake/Qt6Quick3D/
 %if !0%{?system_openxr}
-%{_qt6_libdir}/cmake/Qt6BundledOpenXR/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6BundledOpenXR/
+%{_qt6_libdir}/cmake/Qt6BundledOpenXR/*.cmake
 %endif
-%{_qt6_libdir}/cmake/Qt6Quick3DXr/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DXr/
-%{_qt6_libdir}/cmake/Qt6Quick3D/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3D/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetImport/
-%{_qt6_libdir}/cmake/Qt6Quick3DAssetImport/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRender/
-%{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRender/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DTools/
-%{_qt6_libdir}/cmake/Qt6Quick3DTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DUtils/
-%{_qt6_libdir}/cmake/Qt6Quick3DUtils/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetImportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtils/
-%{_qt6_libdir}/cmake/Qt6Quick3DAssetUtils/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtilsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DEffects/
-%{_qt6_libdir}/cmake/Qt6Quick3DEffects/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/
-%{_qt6_libdir}/cmake/Qt6Quick3DHelpers/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/
-%{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DEffectsPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate
-%{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBakerPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffectsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DParticles
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DParticlesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRender/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRenderPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DTools/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DUtils/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DUtilsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DXr/
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DXrPrivate
+%{_qt6_libdir}/cmake/Qt6/*.cmake
+%{_qt6_libdir}/cmake/Qt6/FindWrapQuick3DAssimp.cmake
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3D/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DAssetImport/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DAssetImportPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DAssetUtils/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DAssetUtilsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DEffects/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DEffectsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DHelpers/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DHelpersPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DHelpersImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DIblBaker/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DIblBakerPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DParticleEffectsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DParticles/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DParticlesPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRender/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DRuntimeRenderPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DUtils/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DUtilsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DXr/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DXrPrivate/*.cmake
 %ifarch x86_64 aarch64
 %{_qt6_libdir}/libQt6BundledEmbree.a
 %endif
@@ -274,6 +297,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

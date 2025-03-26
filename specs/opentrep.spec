@@ -3,7 +3,7 @@
 
 #
 Name:           opentrep
-Version:        0.07.17
+Version:        0.07.18
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
@@ -173,8 +173,8 @@ rm -f %{_bindir}/py%{name}
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 

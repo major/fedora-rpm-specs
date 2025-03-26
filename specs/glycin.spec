@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        1.1.6
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -44,14 +44,17 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.gnome.org/GNOME/glycin
-Source0:        https://download.gnome.org/sources/glycin/1.1/glycin-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/glycin/1.2/glycin-%{tarball_version}.tar.xz
 
 # fixup for issue that makes "cargo tree" fail to parse tests/Cargo.toml
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # https://gitlab.gnome.org/GNOME/glycin/-/issues/101
 # https://gitlab.gnome.org/GNOME/glycin/-/merge_requests/143
-Patch:          0001-Update-glycin-jxl-to-0.11.1.patch
-Patch:          0002-loaders-relax-jpegxl-rs-dependency-from-0.11.1-to-0..patch
+Patch:          0002-Update-glycin-jxl-to-0.11.1.patch
+Patch:          0003-loaders-relax-jpegxl-rs-dependency-from-0.11.1-to-0..patch
+Patch:          0004-loaders-glycin-image-rs-relax-zune-zpeg-dependency.patch
+# partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
+Patch:          0005-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -143,6 +146,9 @@ rm -rf vendor
 %cargo_prep
 %endif
 
+# drop glycin-raw loader (missing dependencies, not enabled by default)
+rm -r loaders/glycin-raw
+
 
 %if %{without bundled_rust_deps}
 %generate_buildrequires
@@ -203,14 +209,14 @@ rm -rf vendor
 %{_libdir}/libglycin-1.so
 %{_libdir}/pkgconfig/glycin-1.pc
 %{_datadir}/gir-1.0/Gly-1.gir
-%{_datadir}/vala/vapi/libglycin-1.{deps,vapi}
+%{_datadir}/vala/vapi/glycin-1.{deps,vapi}
 
 %files gtk4-devel
 %{_includedir}/glycin-gtk4-1/
 %{_libdir}/libglycin-gtk4-1.so
 %{_libdir}/pkgconfig/glycin-gtk4-1.pc
 %{_datadir}/gir-1.0/GlyGtk4-1.gir
-%{_datadir}/vala/vapi/libglycin-gtk4-1.{deps,vapi}
+%{_datadir}/vala/vapi/glycin-gtk4-1.{deps,vapi}
 
 
 %changelog

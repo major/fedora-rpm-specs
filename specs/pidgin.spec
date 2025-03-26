@@ -124,8 +124,8 @@
 %endif
 
 Name:           pidgin
-Version:        2.14.13
-Release:        8%{?dist}
+Version:        2.14.14
+Release:        1%{?dist}
 # Automatically converted from old format: BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
@@ -165,7 +165,6 @@ Patch0:         pidgin-NOT-UPSTREAM-2.5.2-rhel4-sound-migration.patch
 Patch1:         pidgin-2.14.4-valgrind.patch
 
 ## Patches 100+: To be Included in Future Upstream
-Patch101:       pidgin-2.4.13-nss-cert-get-fix.patch
 
 
 Summary:        A Gtk+ based multiprotocol instant messaging client
@@ -206,8 +205,8 @@ BuildRequires:  evolution-data-server-devel
 
 BuildRequires:  gettext
 BuildRequires:  intltool
-BuildRequires:  tcl-devel
-BuildRequires:  tk-devel
+BuildRequires:  tcl-devel < 1:9.0
+BuildRequires:  tk-devel < 1:9.0
 BuildRequires:  libxml2-devel
 BuildRequires:  libgnt-devel
 
@@ -465,7 +464,6 @@ echo "FEDORA=%{fedora} RHEL=%{rhel}"
 %patch -P1 -p1 -b .valgrind
 
 ## Patches 100+: To be Included in Future Upstream
-%patch -P101 -p1 -b .nss-cert-get-fix
 
 
 # Our preferences
@@ -701,6 +699,9 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Fri Mar 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.14.14-1
+- Update to 2.14.14
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.14.13-8
 - gstreamer1-plugins-bad-free rebuild
 

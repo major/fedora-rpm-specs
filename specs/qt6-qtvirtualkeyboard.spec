@@ -1,21 +1,21 @@
 
 %global qt_module qtvirtualkeyboard
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - VirtualKeyboard component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt.io
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global  majmin %(echo %{version} | cut -d. -f1-2)
 %global  qt_version %(echo %{version} | cut -d~ -f1)
 
 %if 0%{?unstable}
@@ -92,6 +92,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6HunspellInputMethod.so.6*
 %{_qt6_libdir}/libQt6VirtualKeyboard.so.6*
 %{_qt6_libdir}/libQt6VirtualKeyboardSettings.so.6*
+%{_qt6_libdir}/libQt6VirtualKeyboardQml.so.6*
 %{_qt6_plugindir}/platforminputcontexts/libqtvirtualkeyboardplugin.so
 %{_qt6_qmldir}/QtQuick/VirtualKeyboard/
 
@@ -99,22 +100,41 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_headerdir}/QtHunspellInputMethod/
 %{_qt6_headerdir}/QtVirtualKeyboard/
 %{_qt6_headerdir}/QtVirtualKeyboardSettings/
+%{_qt6_headerdir}/QtVirtualKeyboardQml/
 %{_qt6_libdir}/libQt6HunspellInputMethod.prl
 %{_qt6_libdir}/libQt6HunspellInputMethod.so
 %{_qt6_libdir}/libQt6VirtualKeyboard.prl
 %{_qt6_libdir}/libQt6VirtualKeyboard.so
 %{_qt6_libdir}/libQt6VirtualKeyboardSettings.prl
 %{_qt6_libdir}/libQt6VirtualKeyboardSettings.so
-%{_qt6_libdir}/cmake/Qt6/
-%{_qt6_libdir}/cmake/Qt6HunspellInputMethod/
-%{_qt6_libdir}/cmake/Qt6VirtualKeyboard/
-%{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettings/
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtVirtualKeyboardTestsConfig.cmake
-%{_qt6_libdir}/cmake/Qt6BundledOpenwnn/Qt6BundledOpenwnnDependencies.cmake
-%{_qt6_libdir}/cmake/Qt6BundledPinyin/Qt6BundledPinyinDependencies.cmake
-%{_qt6_libdir}/cmake/Qt6BundledTcime/Qt6BundledTcimeDependencies.cmake
-%{_qt6_libdir}/cmake/Qt6Gui/Qt6QVirtualKeyboardPlugin*.cmake
+%{_qt6_libdir}/libQt6VirtualKeyboardQml.prl
+%{_qt6_libdir}/libQt6VirtualKeyboardQml.so
+%dir %{_qt6_libdir}/cmake/Qt6BundledOpenwnn/
+%dir %{_qt6_libdir}/cmake/Qt6BundledPinyin/
+%dir %{_qt6_libdir}/cmake/Qt6BundledTcime/
+%dir %{_qt6_libdir}/cmake/Qt6HunspellInputMethod/
+%dir %{_qt6_libdir}/cmake/Qt6HunspellInputMethodPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboard/
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardQml
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardQmlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettings/
+%dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettingsPrivate
+%{_qt6_libdir}/cmake/Qt6/*.cmake
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
+%{_qt6_libdir}/cmake/Qt6BundledOpenwnn/*.cmake
+%{_qt6_libdir}/cmake/Qt6BundledPinyin/*.cmake
+%{_qt6_libdir}/cmake/Qt6BundledTcime/*.cmake
+%{_qt6_libdir}/cmake/Qt6Gui/*.cmake
+%{_qt6_libdir}/cmake/Qt6HunspellInputMethod/*.cmake
+%{_qt6_libdir}/cmake/Qt6HunspellInputMethodPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboard/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboardPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboardQml/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboardQmlPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettings/*.cmake
+%{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettingsPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_hunspellinputmethod*.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_virtualkeyboard*.pri
 %{_qt6_libdir}/qt6/modules/*.json
@@ -127,6 +147,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

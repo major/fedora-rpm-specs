@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc7.20250321gitb3ee1e460951.60
+%define pkgrelease 63
 %define kversion 6
-%define tarfile_release 6.14-rc7-179-gb3ee1e460951
+%define tarfile_release 6.14
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.20250321gitb3ee1e460951.60%{?buildid}%{?dist}
+%define specrelease 63%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,14 +4212,33 @@ fi\
 #
 #
 %changelog
-* Fri Mar 21 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc7.20250321gitb3ee1e460951.60]
-- Turn VIRTIO_BLK and VIRTIO_CONSOLE inline for Fedora (Justin M. Forbes)
-
-* Fri Mar 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.b3ee1e460951.60]
-- mei: vsc: Fix fortify-panic caused by invalid counted_by() use (Hans de Goede)
+* Mon Mar 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-63]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Mar 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-62]
+- arm64: cleanup and de-dupe erratum (Peter Robinson)
+- arm64: cleanup and de-dupe configs (Peter Robinson)
+- cleanup: x86: cleanup some x86_32 leftovers (Peter Robinson)
+- all: cleanup CAN_ROCKCHIP_CANFD (Peter Robinson)
+- aarch64: Options required for UEFI HTTP boot on SystemReady-DT (Peter Robinson)
+- common: Move ZONE_DEVICE to generic (Peter Robinson)
+- common: Cleanup BTT (Peter Robinson)
+- cleanup: move DEV_DAX_PMEM to common/generic (Peter Robinson)
+- generic: cleanup the NVDIMM options (Peter Robinson)
+- cleanup: move OF_PMEM to common/generic (Peter Robinson)
+- cleanup: Remove DEV_DAX_PMEM_COMPAT option (Peter Robinson)
+- mei: vsc: Fix fortify-panic caused by invalid counted_by() use (Hans de Goede)
+- Linux v6.14.0
+
+* Sun Mar 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.586de92313fc.61]
+- Linux v6.14.0-0.rc7.586de92313fc
+
+* Sat Mar 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.88d324e69ea9.60]
+- Consolidate configs into common for 6.14 (Justin M. Forbes)
+- Turn VIRTIO_BLK and VIRTIO_CONSOLE inline for Fedora (Justin M. Forbes)
+- Linux v6.14.0-0.rc7.88d324e69ea9
 
 * Fri Mar 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.b3ee1e460951.59]
 - Linux v6.14.0-0.rc7.b3ee1e460951

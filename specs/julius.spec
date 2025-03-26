@@ -1,13 +1,16 @@
 %global dkcommit 1ceb4de
 
+# julius has code that takes advantage of using func() to allow for different number/type of parameters
+# c23 no longer permits this, and instead of rewriting this, i'm just going to pretend it is 2017
+%global optflags %{optflags} -std=gnu17
+
 Name:		julius
 Version:	4.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Large vocabulary continuous speech recognition (LVCSR) decoder software
 License:	BSD-3-Clause AND MIT
 URL:		https://github.com/julius-speech/julius
 Source0:	https://github.com/julius-speech/julius/archive/v%{version}.tar.gz
-# Source1:	http://julius.sourceforge.jp/archive/japanese-models.tar.gz
 # Need to generate from git
 # BE SURE YOU HAVE git-lfs installed before doing a clone
 # git clone https://github.com/julius-speech/dictation-kit.git
@@ -163,6 +166,9 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %{_datadir}/julius/model/
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 4.6-8
+- fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

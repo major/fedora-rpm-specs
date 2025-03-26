@@ -2,18 +2,21 @@
 %global project  php-ixr
 Name: php-%{author}-%{project}
 
-%global git_date 20220717
-%global git_commit 4a17452e1af84742a9fa2a0fe33a1cbde15bf047
-%global git_cmmt %(c="%{git_commit}"; echo "${c:0:7}")
-
-Version: 1.8.3
-Release: 8.%{git_date}git%{git_cmmt}%{?dist}
+Version: 1.8.4
+Release: 1%{?dist}
 
 Summary: XML-RPC library for PHP
 License: BSD
 
 URL: https://github.com/%{author}/%{project}
-Source0: %{URL}/archive/%{git_commit}/%{project}-%{git_commit}.tar.gz
+
+# Starting with v1.8.4, upstrean marked tests
+# as excluded from auto-generated tarballs.
+Source0: %{name}-%{version}.zip
+
+# Script to clone git repo (will include the tests!)
+# and zip it up
+Source1: makesrc.sh
 
 BuildArch: noarch
 
@@ -62,7 +65,7 @@ Autoloader: %{pkgdir}/autoload.php
 
 
 %prep
-%setup -q -n %{project}-%{git_commit}
+%autosetup -p1
 
 # Remove tests from composer.json autoload list
 sed -e '/"IXR\\\\tests\\\\":/d' -i composer.json
@@ -99,6 +102,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Mon Mar 24 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.4-1
+- Update to v1.8.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-8.20220717git4a17452
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

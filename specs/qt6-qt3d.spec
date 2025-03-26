@@ -1,14 +1,14 @@
 
 %global qt_module qt3d
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 %global examples 1
@@ -133,18 +133,31 @@ popd
 
 %files devel
 %dir %{_qt6_libdir}/cmake/Qt63DAnimation
+%dir %{_qt6_libdir}/cmake/Qt63DAnimationPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DCore/
+%dir %{_qt6_libdir}/cmake/Qt63DCorePrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DExtras
+%dir %{_qt6_libdir}/cmake/Qt63DExtrasPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DInput
+%dir %{_qt6_libdir}/cmake/Qt63DInputPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DLogic
+%dir %{_qt6_libdir}/cmake/Qt63DLogicPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuick
 %dir %{_qt6_libdir}/cmake/Qt63DQuickAnimation
+%dir %{_qt6_libdir}/cmake/Qt63DQuickAnimationPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickExtras
+%dir %{_qt6_libdir}/cmake/Qt63DQuickExtrasPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickInput
+%dir %{_qt6_libdir}/cmake/Qt63DQuickInputPrivate/
+%dir %{_qt6_libdir}/cmake/Qt63DQuickPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickRender/
+%dir %{_qt6_libdir}/cmake/Qt63DQuickRenderPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickScene2D
+%dir %{_qt6_libdir}/cmake/Qt63DQuickScene2DPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickScene3D
+%dir %{_qt6_libdir}/cmake/Qt63DQuickScene3DPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DRender/
+%dir %{_qt6_libdir}/cmake/Qt63DRenderPrivate/
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %{_qt6_includedir}/Qt3DAnimation
 %{_qt6_includedir}/Qt3DCore/
@@ -160,20 +173,33 @@ popd
 %{_qt6_includedir}/Qt3DQuickScene3D
 %{_qt6_includedir}/Qt3DRender/
 %{_qt6_libdir}/cmake/Qt6/FindWrapQt3DAssimp.cmake
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt3DTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt63DAnimation/*.cmake
+%{_qt6_libdir}/cmake/Qt63DAnimationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DCore/*.cmake
+%{_qt6_libdir}/cmake/Qt63DCorePrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DExtras/*.cmake
+%{_qt6_libdir}/cmake/Qt63DExtrasPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DInput/*.cmake
+%{_qt6_libdir}/cmake/Qt63DInputPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DLogic/*.cmake
+%{_qt6_libdir}/cmake/Qt63DLogicPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuick/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickAnimation/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickAnimationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickExtras/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickExtrasPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickInput/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickInputPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickRender/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickRenderPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickScene2D/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickScene2DPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickScene3D/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickScene3DPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DRender/*.cmake
+%{_qt6_libdir}/cmake/Qt63DRenderPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt3DTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/libQt63DAnimation.prl
 %{_qt6_libdir}/libQt63DAnimation.so
@@ -212,6 +238,9 @@ popd
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

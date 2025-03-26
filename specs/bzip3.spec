@@ -1,6 +1,6 @@
 Name:           bzip3
 Version:        1.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
 # bz3grep:                  BSD-2-Clause
@@ -39,6 +39,9 @@ Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
 # <https://github.com/kspalaiologos/bzip3/pull/75>.
 Patch0:         bzip3-1.5.0-Do-not-use-usr-bin-env-in-shell-bangs.patch
+# Fix bz3cat processing a standard input, bug #2354263, in upstream after
+# 1.5.1, <https://github.com/kspalaiologos/bzip3/issues/155>
+Patch1:         bzip3-1.5.1-batch-mode-fall-back-to-stdin-input-with-no-auxiliar.patch
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -158,6 +161,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Mon Mar 24 2025 Petr Pisar <ppisar@redhat.com> - 1.5.1-3
+- Fix bz3cat processing a standard input (bug #2354263)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

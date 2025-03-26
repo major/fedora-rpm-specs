@@ -1,8 +1,8 @@
 %global qt_module qttools
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
@@ -11,8 +11,8 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.8.2
-Release: 2%{?dist}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -330,32 +330,38 @@ popd
 %{_qt6_libdir}/libQt6Designer*.so
 %{_qt6_libdir}/libQt6Help.so
 %{_qt6_libdir}/libQt6UiTools.so
+%dir %{_qt6_libdir}/cmake/Qt6Designer
+%dir %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6DesignerPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Help/
+%dir %{_qt6_libdir}/cmake/Qt6HelpPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Linguist
+%dir %{_qt6_libdir}/cmake/Qt6LinguistTools
+%dir %{_qt6_libdir}/cmake/Qt6LinguistTools
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Tools/
+%dir %{_qt6_libdir}/cmake/Qt6ToolsTools/
+%dir %{_qt6_libdir}/cmake/Qt6UiPlugin/
+%dir %{_qt6_libdir}/cmake/Qt6UiToolsPrivate
 %{_qt6_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Designer
 %{_qt6_libdir}/cmake/Qt6Designer/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate
 %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6QDocCatchPrivate
-%{_qt6_libdir}/cmake/Qt6QDocCatchPrivate/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate
-%{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate
-%{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Help/
+%{_qt6_libdir}/cmake/Qt6DesignerPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Help/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Linguist
+%{_qt6_libdir}/cmake/Qt6HelpPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Linguist/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6LinguistTools
 %{_qt6_libdir}/cmake/Qt6LinguistTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6UiPlugin/
-%{_qt6_libdir}/cmake/Qt6UiPlugin/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Tools/
+%{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QDocCatchPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Tools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ToolsTools/
 %{_qt6_libdir}/cmake/Qt6ToolsTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6LinguistTools
+%{_qt6_libdir}/cmake/Qt6UiPlugin/*.cmake
 %{_qt6_libdir}/cmake/Qt6UiTools/
+%{_qt6_libdir}/cmake/Qt6UiToolsPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatch_private.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchconversions_private.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchgenerators_private.pri
@@ -385,6 +391,9 @@ popd
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Sun Mar 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.8.2-2
 - Rebuilt for LLVM 20
 

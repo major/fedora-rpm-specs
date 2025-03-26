@@ -1,12 +1,17 @@
 %global qt_module qtspeech
 
+%global unstable 1
+%if 0%{?unstable}
+%global prerelease rc
+%endif
+
 %global examples 1
 
 %bcond flite 0%{?fedora}
 
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
@@ -14,8 +19,14 @@ Release: 1%{?dist}
 # Examples are under BSD-3-Clause
 License: (GPL-2.0-only OR LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0) AND BSD-3-Clause
 Url:     http://www.qt.io
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+%global  qt_version %(echo %{version} | cut -d~ -f1)
+
+%if 0%{?unstable}
+Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/submodules/%{qt_module}-everywhere-src-%{qt_version}-%{prerelease}.tar.xz
+%else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
+%endif
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -77,7 +88,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -n %{qt_module}-everywhere-src-%{version} -p1
+%autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
 %build
@@ -106,7 +117,7 @@ popd
 
 %files
 %license LICENSES/GPL* LICENSES/LGPL* LICENSES/BSD*
-%{_qt6_archdatadir}/sbom/%{qt_module}-%{version}.spdx
+%{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6TextToSpeech.so.6{,.*}
 %dir %{_qt6_plugindir}/texttospeech
 %{_qt6_plugindir}/texttospeech/libqtexttospeech_mock.so
@@ -133,8 +144,9 @@ popd
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6TextToSpeech
-%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6QTextToSpeechMockPlugin*.cmake
-%{_qt6_libdir}/cmake/Qt6TextToSpeech/Qt6TextToSpeech*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6TextToSpeechPrivate
+%{_qt6_libdir}/cmake/Qt6TextToSpeech/*.cmake
+%{_qt6_libdir}/cmake/Qt6TextToSpeechPrivate/*.cmake
 %{_qt6_libdir}/pkgconfig/Qt6TextToSpeech.pc
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_texttospeech*.pri
 %{_qt6_libdir}/qt6/modules/*.json
@@ -146,6 +158,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

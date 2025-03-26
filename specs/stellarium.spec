@@ -1,11 +1,12 @@
 Name:           stellarium
-Version:        24.4
-Release:        4%{?dist}
+Version:        25.1
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
 URL:            http://www.stellarium.org
 Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
+Patch0:         md4c.patch
 
 # Disabled due to lconvert segfaulting on armv7hl
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
@@ -40,6 +41,7 @@ BuildRequires:  libnova-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  exiv2-devel
 BuildRequires:  NLopt-devel
+BuildRequires:  md4c-devel
 
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -60,6 +62,8 @@ Data files for the stellarium package.
 
 %prep
 %setup -q
+
+%patch -P 0 -p0
 
 %build
 # Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
@@ -103,6 +107,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Mon Mar 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 25.1-1
+- 25.1
+
 * Thu Feb 06 2025 Björn Esser <besser82@fedoraproject.org> - 24.4-4
 - Rebuild (NLopt)
 

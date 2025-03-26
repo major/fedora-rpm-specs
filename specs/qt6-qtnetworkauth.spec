@@ -1,16 +1,16 @@
 
 %global qt_module qtnetworkauth
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - NetworkAuth component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -95,7 +95,9 @@ popd
 %{_qt6_libdir}/libQt6NetworkAuth.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtNetworkAuthTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6NetworkAuth/
+%dir %{_qt6_libdir}/cmake/Qt6NetworkAuthPrivate/
 %{_qt6_libdir}/cmake/Qt6NetworkAuth/*.cmake
+%{_qt6_libdir}/cmake/Qt6NetworkAuthPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_networkauth*.pri
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
@@ -108,6 +110,9 @@ popd
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

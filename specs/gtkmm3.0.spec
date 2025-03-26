@@ -10,7 +10,7 @@
 %global atkmm_version 2.24.2
 
 Name:           gtkmm3.0
-Version:        3.24.9
+Version:        3.24.10
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 

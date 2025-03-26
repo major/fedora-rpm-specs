@@ -5,7 +5,7 @@
 %global crate rustls-platform-verifier
 
 Name:           rust-rustls-platform-verifier
-Version:        0.4.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Supports verifying TLS certificates in rustls with the operating system verifier
 
@@ -99,18 +99,6 @@ This package contains library source intended for building other packages which
 use the "ffi-testing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ffi-testing-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+paste-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+paste-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "paste" feature of the "%{crate}" crate.
-
-%files       -n %{name}+paste-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

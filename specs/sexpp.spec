@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for sexpp
 #
-# Copyright (c) 2023-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2023-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -15,8 +15,8 @@
 
 Name:          sexpp
 Summary:       S-expressions parser and generator tools
-Version:       0.9.0
-Release:       2%{?dist}
+Version:       0.9.2
+Release:       1%{?dist}
 License:       MIT
 
 URL:           https://github.com/rnpgp/%{name}
@@ -123,6 +123,9 @@ rm $LST
 
 
 %changelog
+* Sun Mar 23 2025 Remi Collet <remi@remirepo.net> - 0.9.2-1
+- update to 0.9.2
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

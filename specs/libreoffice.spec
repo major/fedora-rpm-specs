@@ -933,7 +933,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l fy -n Frisian -F -H -X
 %langpack -l ga -n Irish -F -H -Y -M -A -X
 %langpack -l gl -n Galician -F -H -Y -T -X
-%langpack -l ka -n Georgian -F -T -X
+%langpack -l ka -n Georgian -F -H -T -X
 %langpack -l gu -n Gujarati -F -H -Y -s ctl -T -X
 %langpack -l he -n Hebrew -F -H -s ctl -T -X
 %langpack -l hi -n Hindi -F -H -Y -s ctl -T -X

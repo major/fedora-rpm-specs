@@ -5,7 +5,7 @@
 %endif
 
 Name:           ansible-collection-community-mysql
-Version:        3.12.0
+Version:        3.13.0
 Release:        %autorelease
 Summary:        MySQL collection for Ansible
 

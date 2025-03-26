@@ -1,16 +1,16 @@
 
 %global qt_module qtgrpc
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -115,27 +115,41 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6GrpcQuick.prl
 %{_qt6_libdir}/libQt6ProtobufQuick.so
 %{_qt6_libdir}/libQt6ProtobufQuick.prl
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtGrpcTestsConfig.cmake
-%{_qt6_libdir}/cmake/Qt6/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6GrpcTools/
-%{_qt6_libdir}/cmake/Qt6GrpcTools/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Grpc/
-%{_qt6_libdir}/cmake/Qt6Grpc/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Protobuf/
-%{_qt6_libdir}/cmake/Qt6Protobuf/*.cmake*
-%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypes/
-%{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypes/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypes/
-%{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypes/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ProtobufTools/
-%{_qt6_libdir}/cmake/Qt6ProtobufTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypes/
-%{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypes/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6GrpcPrivate
 %dir %{_qt6_libdir}/cmake/Qt6GrpcQuick
-%{_qt6_libdir}/cmake/Qt6GrpcQuick/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6GrpcQuickPrivate
+%dir %{_qt6_libdir}/cmake/Qt6GrpcTools/
+%dir %{_qt6_libdir}/cmake/Qt6Protobuf/
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypes/
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypes/
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypesPrivate
 %dir %{_qt6_libdir}/cmake/Qt6ProtobufQuick
-%{_qt6_libdir}/cmake/Qt6ProtobufQuick/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufQuickPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufTools/
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypes/
+%dir %{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypesPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
+%{_qt6_libdir}/cmake/Qt6/*.cmake
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtGrpcTestsConfig.cmake
+%{_qt6_libdir}/cmake/Qt6Grpc/*.cmake
+%{_qt6_libdir}/cmake/Qt6GrpcPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6GrpcQuick/*.cmake
+%{_qt6_libdir}/cmake/Qt6GrpcQuickPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6GrpcTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6Protobuf/*.cmake*
+%{_qt6_libdir}/cmake/Qt6ProtobufPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypes/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQtCoreTypesPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypes/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQtGuiTypesPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQuick/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufQuickPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypes/*.cmake
+%{_qt6_libdir}/cmake/Qt6ProtobufWellKnownTypesPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -149,6 +163,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

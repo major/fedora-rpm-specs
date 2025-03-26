@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        28
+Version:        29
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,12 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Mar 24 2025 Packit <hello@packit.dev> - 29-1
+- storage: cockpit-storage-integration: ensure selected disks are
+  re-configured after removing devices (rhbz#2351830)
+- Ensure that translations are not requested at file load time
+  (rhbz#2351026)
+
 * Thu Mar 20 2025 Packit <hello@packit.dev> - 28-1
 - po: Update from Fedora Weblate (rhbz#2351026)
 - Fix translations that were prepared as string concatenation (rhbz#2351026)

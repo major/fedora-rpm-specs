@@ -5,7 +5,7 @@ Summary: Tool for controlling liquid coolers, case fans and RGB LED strips
 License: GPL-3.0-or-later
 
 Version: 1.14.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/jonasmalacofilho/liquidctl
 Source0: %{pypi_source}
@@ -40,9 +40,8 @@ Summary: Module for controlling liquid coolers, case fans and RGB LED devices
 A python module providing classes for communicating with various cooling devices
 and RGB LED solutions.
 
-Currently supported devices are: %{supported_devices}
-
-Devices with experimental support: %{supported_devices_experimental}
+For a full list of supported devices, visit:
+https://github.com/liquidctl/liquidctl#supported-devices
 
 
 %package udev
@@ -119,6 +118,9 @@ XDG_RUNTIME_DIR=$(pwd)/test-run-dir pytest-3
 
 
 %changelog
+* Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.14.0-3
+- Fix package description for python3-liquidctl
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

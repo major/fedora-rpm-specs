@@ -2,13 +2,15 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ftao/%{name}
 Source0:        https://github.com/ftao/%{name}/archive/releases/%{version}/%{name}-releases-%{version}.tar.gz
+
+# Not yet submitted upstream
+Patch0:         %{name}-0.21-drop-nose.patch
 
 BuildArch:      noarch
 
@@ -24,7 +26,7 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-nose
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  iproute
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
@@ -54,7 +56,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %check
-%{__python3} -m nose tests
+%pytest \
+  --override-ini 'python_files=*_tests.py' \
+  tests
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -65,6 +69,10 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Mon Mar 24 2025 Scott K Logan <logans@cottsay.net> - 0.21-18
+- Switch test execution from Nosetest to Pytest (rhbz#2349845)
+- Review SPDX Licensing
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

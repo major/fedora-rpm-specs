@@ -1,5 +1,5 @@
 Name:           sopwith
-Version:        2.7.0
+Version:        2.8.0
 Release:        1%{?dist}
 Summary:        SDL port of the sopwith game
 
@@ -67,6 +67,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{_datadir}/metainfo/*.xml
 
 %changelog
+* Mon Mar 24 2025 josef radinger <cheese@nosuchhost.net> - 2.8.0-1
+- bump version
+
 * Sat Feb 08 2025 josef radinger <cheese@nosuchhost.net> - 2.7.0-1
 - bump version
 - source is now on github

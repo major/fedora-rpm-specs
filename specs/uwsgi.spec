@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.28
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1962,6 +1962,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Mon Mar 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.28-7
+- Rebuild for new libgo
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.28-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

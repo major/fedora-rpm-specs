@@ -1,16 +1,16 @@
 
 %global qt_module qtserialbus
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - SerialBus component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -92,7 +92,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6SerialBus.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialBusTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6SerialBus/
+%dir %{_qt6_libdir}/cmake/Qt6SerialBusPrivate/
 %{_qt6_libdir}/cmake/Qt6SerialBus/*.cmake
+%{_qt6_libdir}/cmake/Qt6SerialBusPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -105,6 +107,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

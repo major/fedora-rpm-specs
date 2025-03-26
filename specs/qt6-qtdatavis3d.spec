@@ -1,16 +1,16 @@
 
 %global qt_module qtdatavis3d
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Qt Data Visualization component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -77,7 +77,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files devel
 %dir %{_qt6_libdir}/cmake/Qt6DataVisualization
+%dir %{_qt6_libdir}/cmake/Qt6DataVisualizationPrivate
 %dir %{_qt6_libdir}/cmake/Qt6DataVisualizationQml
+%dir %{_qt6_libdir}/cmake/Qt6DataVisualizationQmlPrivate
 %{_qt6_headerdir}/QtDataVisualization/
 %{_qt6_headerdir}/QtDataVisualizationQml/
 %{_qt6_libdir}/libQt6DataVisualization.so
@@ -85,7 +87,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6DataVisualizationQml.prl
 %{_qt6_libdir}/libQt6DataVisualizationQml.so
 %{_qt6_libdir}/cmake/Qt6DataVisualization/*.cmake
+%{_qt6_libdir}/cmake/Qt6DataVisualizationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6DataVisualizationQml/*.cmake
+%{_qt6_libdir}/cmake/Qt6DataVisualizationQmlPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtDataVisualizationTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
@@ -100,6 +104,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

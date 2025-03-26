@@ -12,9 +12,6 @@ Summary:        Inspect JPEG image structure
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-jpeg
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused encoder feature and jpeg-encoder dependency
-Patch:          gufo-jpeg-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -49,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+encoder-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+encoder-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "encoder" feature of the "%{crate}" crate.
+
+%files       -n %{name}+encoder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

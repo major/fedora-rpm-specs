@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.8
+Version: 43.9
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 24 2025 Packit <hello@packit.dev> - 43.9-1
+- Start/stop locale-sync systemd unit in liveinst (jkonecny)
+- Fix WantedBy in locale1-x11-sync service (jkonecny)
+- platform: set PLATFORM_RAID_METADATA and PLATFORM_RAID_LEVEL for x86
+  (k.koukiou)
+- pyanaconda: storage: when checking the md device validity check also parent
+  (k.koukiou)
+- Use tmpfs for /var/tmp in CI containers (jkonecny)
+- Support redirects in apply-updates (jkonecny)
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 43.8-1
 - network: do not use lo device to fetch kickstart (rvykydal)
 

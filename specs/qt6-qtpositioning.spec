@@ -1,16 +1,16 @@
 
 %global qt_module qtpositioning
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Positioning component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -128,11 +128,16 @@ popd
 %{_qt6_libdir}/libQt6PositioningQuick.so
 %{_qt6_libdir}/libQt6PositioningQuick.prl
 %dir %{_qt6_libdir}/cmake/Qt6Positioning
+%dir %{_qt6_libdir}/cmake/Qt6PositioningPrivate
+%dir %{_qt6_libdir}/cmake/Qt6PositioningQuick/
+%dir %{_qt6_libdir}/cmake/Qt6PositioningQuickPrivate/
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtPositioningTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Bundled_Clip2Tri/Qt6Bundled_Clip2TriDependencies.cmake
 %{_qt6_libdir}/cmake/Qt6Positioning/*.cmake
+%{_qt6_libdir}/cmake/Qt6PositioningPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6PositioningQuick/*.cmake
+%{_qt6_libdir}/cmake/Qt6PositioningQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
@@ -146,6 +151,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

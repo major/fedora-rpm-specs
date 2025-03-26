@@ -1,15 +1,16 @@
 %global qt_module qtcoap
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global tar_prerelease rc1
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - CoAP component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -17,7 +18,11 @@ Url:     http://www.qt.io
 %global  majmin %(echo %{version} | cut -d. -f1-2)
 %global  qt_version %(echo %{version} | cut -d~ -f1)
 
+%if 0%{?unstable}
+Source0: https://github.com/qt/%{qt_module}/archive/refs/tags/v%{qt_version-%{tar_prerelease}}/%{qt_module}-%{qt_version}-%{tar_prerelease}.tar.gz
+%else
 Source0: https://github.com/qt/%{qt_module}/archive/refs/tags/v%{version}/%{qt_module}-%{version}.tar.gz
+%endif
 
 ## upstreamable patches
 
@@ -50,8 +55,7 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -n %{qt_module}-%{version}
-
+%autosetup -n %{qt_module}-%{qt_version}%{?unstable:-%{tar_prerelease}} -p1
 
 %build
 %cmake_qt6 \
@@ -76,7 +80,9 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6Coap.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtCoapTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Coap/
+%dir %{_qt6_libdir}/cmake/Qt6CoapPrivate/
 %{_qt6_libdir}/cmake/Qt6Coap/*.cmake
+%{_qt6_libdir}/cmake/Qt6CoapPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -88,6 +94,9 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

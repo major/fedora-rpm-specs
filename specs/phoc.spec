@@ -10,6 +10,7 @@ Source:	https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version}/%{name}-
 BuildRequires:	gcc
 BuildRequires:	meson
 BuildRequires:	cmake
+BuildRequires:	/usr/bin/rst2man
 
 BuildRequires:	pkgconfig(gio-2.0) >= 2.80
 BuildRequires:	pkgconfig(glib-2.0) >= 2.80
@@ -45,7 +46,7 @@ pronounced like the English word fog.
 %setup -q -n %{name}-v%{version}
 
 %build
-%meson -Dembed-wlroots=disabled
+%meson -Dembed-wlroots=disabled -Dman=true
 %meson_build
 
 %install
@@ -68,6 +69,9 @@ HERE
 %{_datadir}/glib-2.0/schemas/sm.puri.phoc.gschema.xml
 %{_datadir}/applications/mobi.phosh.Phoc.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Phoc.svg
+%{_mandir}/man1/phoc.1.gz
+%{_mandir}/man5/phoc.gsettings.5.gz
+%{_mandir}/man5/phoc.ini.5.gz
 
 %changelog
 %autochangelog

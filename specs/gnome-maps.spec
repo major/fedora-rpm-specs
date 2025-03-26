@@ -7,7 +7,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        48.0
+Version:        48.1
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Mon Mar 24 2025 nmontero <nmontero@redhat.com> - 48.1-1
+- Update to 48.1
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

@@ -1,14 +1,14 @@
 
 %global qt_module qtquicktimeline
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 Summary: Qt6 - QuickTimeline plugin
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -73,9 +73,13 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6QuickTimeline/
+%dir %{_qt6_libdir}/cmake/Qt6QuickTimelinePrivate
 %{_qt6_libdir}/cmake/Qt6QuickTimeline/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickTimelinePrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6QuickTimelineBlendTrees/
 %{_qt6_libdir}/cmake/Qt6QuickTimelineBlendTrees/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6QuickTimelineBlendTreesPrivate
+%{_qt6_libdir}/cmake/Qt6QuickTimelineBlendTreesPrivate/*.cmake
 %{_qt6_libdir}/libQt6QuickTimeline.prl
 %{_qt6_libdir}/libQt6QuickTimeline.so
 %{_qt6_libdir}/libQt6QuickTimeline.prl
@@ -88,6 +92,9 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

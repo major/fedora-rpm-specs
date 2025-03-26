@@ -1,13 +1,11 @@
 Name:		orc
-Version:	0.4.39
-Release:	2%{?dist}
+Version:	0.4.41
+Release:	1%{?dist}
 Summary:	The Oil Run-time Compiler
 
 License:	BSD-2-Clause AND BSD-3-Clause
 URL:		http://cgit.freedesktop.org/gstreamer/orc/
 Source0:	http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-
-Patch0001:	0001-powerpc-fix-div255w-which-still-used-the-inexact-sub.patch
 
 BuildRequires:	meson >= 0.47.0
 BuildRequires:  gcc
@@ -89,6 +87,9 @@ rm -rf %{buildroot}/%{_libdir}/orc
 
 
 %changelog
+* Sun Mar 23 2025 Fabio Valentini <decathorpe@gmail.com> - 0.4.41-1
+- Update to 0.4.41
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

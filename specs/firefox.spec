@@ -194,7 +194,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        136.0.2
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1243,6 +1243,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Mar 24 2025 Martin Stransky <stransky@redhat.com> - 136.0.2-2
+- Stop overriding user settings on every update (rhbz#2353895)
+- Remove browser.display.use_system_colors override (rhbz#2353953)
+
 * Wed Mar 19 2025 Martin Stransky <stransky@redhat.com> - 136.0.2-1
 - Updated to 136.0.2
 

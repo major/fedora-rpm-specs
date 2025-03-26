@@ -37,6 +37,8 @@ Summary:        Rsync for cloud storage
 License:        MIT AND BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
+# bisync: fix go vet problems with go1.24
+Patch:          %{gourl}/commit/719473565e62f21f3e321d7591756941b152b77b.patch
 
 %description %{common_description}
 

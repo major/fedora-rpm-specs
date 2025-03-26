@@ -1,15 +1,11 @@
-%global gitcommit da129ccadc519317051cfbf98acd02b1befa42a6
-%global gitdate 20241206.203647
-%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
-
 Name:          qrca
-Version:       0.1~%{gitdate}.%{shortcommit}
-Release:       3%{?dist}
+Version:       25.03.80
+Release:       1%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
 URL:           https://apps.kde.org/%{name}/
 
-Source0:       https://invent.kde.org/utilities/%{name}/-/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+Source0:       https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
@@ -32,7 +28,6 @@ BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6Prison)
 BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6Purpose)
 BuildRequires: cmake(KF6Service)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Crash)
@@ -43,7 +38,6 @@ Requires: qt6qml(org.kde.config)
 Requires: qt6qml(org.kde.kirigami)
 Requires: qt6qml(org.kde.kirigamiaddons.formcard)
 Requires: qt6qml(org.kde.prison)
-Requires: qt6qml(org.kde.purpose)
 
 %description
 Qrca is a simple application for Plasma Desktop
@@ -51,7 +45,7 @@ and Plasma Mobile that lets you scan many barcode
 formats and create your own QR code images.
 
 %prep
-%autosetup -p1 -n %{name}-%{gitcommit}
+%autosetup -p1
 
 %build
 %cmake_kf6
@@ -62,18 +56,21 @@ formats and create your own QR code images.
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.qrca.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
 %{_kf6_bindir}/qrca
-%{_kf6_datadir}/applications/org.kde.qrca.desktop
+%{_kf6_datadir}/applications/org.kde.qrca*.desktop
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.qrca.svg
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Mon Mar 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.03.80-1
+- 25.03.80
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 0.1~20241206.203647.da129cc-3
 - Rebuild for ppc64le enablement
 

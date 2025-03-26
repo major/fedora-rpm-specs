@@ -1,22 +1,22 @@
 
 %global qt_module qtconnectivity
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Connectivity components
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt.io
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global  majmin %(echo %{version} | cut -d. -f1-2)
 %global  qt_version %(echo %{version} | cut -d~ -f1)
 
 %if 0%{?unstable}
@@ -97,19 +97,27 @@ popd
 
 %files devel
 %{_qt6_headerdir}/QtBluetooth/
+%{_qt6_headerdir}/QtConnectivity/
 %{_qt6_libdir}/libQt6Bluetooth.so
 %{_qt6_libdir}/libQt6Bluetooth.prl
 %{_qt6_headerdir}/QtNfc/
 %{_qt6_libdir}/libQt6Nfc.so
 %{_qt6_libdir}/libQt6Nfc.prl
 %dir %{_qt6_libdir}/cmake/Qt6Bluetooth/
+%dir %{_qt6_libdir}/cmake/Qt6BluetoothPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Connectivity
+%dir %{_qt6_libdir}/cmake/Qt6NfcPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Nfc/
 %{_qt6_libdir}/cmake/Qt6/FindBlueZ.cmake
 %{_qt6_libdir}/cmake/Qt6/FindPCSCLITE.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Bluetooth/*.cmake
+%{_qt6_libdir}/cmake/Qt6BluetoothPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Connectivity/*.cmake
+%{_qt6_libdir}/cmake/Qt6NfcPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Nfc/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_bluetooth*.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_connectivity_private.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_nfc*.pri
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
@@ -121,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

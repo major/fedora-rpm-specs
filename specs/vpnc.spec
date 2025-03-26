@@ -1,14 +1,14 @@
-%define snapshot .svn550
+%global commit 11e15a143d6a00fb4e532cad271c70b401a6b9ef
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		vpnc
-Version:	0.5.3
-Release:	50%{snapshot}%{?dist}
+Version:	0.5.3^20241114.git%{shortcommit}
+Release:	1%{?dist}
 Summary:	IPSec VPN client compatible with Cisco equipment
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
-URL:		http://www.unix-ag.uni-kl.de/~massar/vpnc/
+License:	GPL-2.0-or-later and BSD-2-Clause
+URL:		https://davidepucci.it/doc/vpnc/
 
-Source0:	http://www.unix-ag.uni-kl.de/~massar/vpnc/%{name}-%{version}%{snapshot}.tar.gz
+Source0:	https://github.com/streambinder/vpnc/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:	generic-vpnc.conf
 Source2:	vpnc.consolehelper
 Source3:	vpnc-disconnect.consolehelper
@@ -17,9 +17,6 @@ Source5:	vpnc-helper
 Source8:	%{name}-tmpfiles.conf
 # script used to generate the svn snapshot, not used in the actual build process
 Source99:	fetch-sources.sh
-
-Patch1:		vpnc-0.5.1-dpd.patch
-Patch2:		vpnc-0.5.3-use-autodie.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -30,14 +27,15 @@ BuildRequires:	perl-interpreter
 BuildRequires:	perl(autodie)
 BuildRequires:	perl(filetest)
 BuildRequires:	perl(if)
-BuildRequires: systemd
+BuildRequires:  systemd-rpm-macros
 Requires:	iproute vpnc-script
 
 %description
-A VPN client compatible with Cisco's EasyVPN equipment.
+An IPSec VPN client with support for IP tunelling, Xauth, ESP,
+Mode Configuration and shared-secret IPSec authentication.
 
-Supports IPSec (ESP) with Mode Configuration and Xauth.  Supports only
-shared-secret IPSec authentication, 3DES, MD5, and IP tunneling.
+Compatible with Cisco's EasyVPN equipment.
+
 
 %package consoleuser
 Summary:	Allows console user to run the VPN client directly
@@ -49,7 +47,7 @@ Allows the console user to run the IPSec VPN client directly without
 switching to the root account.
 
 %prep
-%autosetup
+%autosetup -p1 -n %{name}-%{commit}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -fPIE" LDFLAGS="$RPM_OPT_FLAGS -pie" make PREFIX=/usr
@@ -57,7 +55,7 @@ CFLAGS="$RPM_OPT_FLAGS -fPIE" LDFLAGS="$RPM_OPT_FLAGS -pie" make PREFIX=/usr
 %install
 make install DESTDIR="$RPM_BUILD_ROOT" PREFIX=/usr
 rm -f $RPM_BUILD_ROOT%{_bindir}/pcf2vpnc
-chmod 0644 pcf2vpnc
+chmod 0644 src/pcf2vpnc
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pcf2vpnc.1
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/vpnc.8
 install -m 0600 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/vpnc/default.conf
@@ -77,13 +75,23 @@ ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/vpnc-disconnect
 rm -f $RPM_BUILD_ROOT%{_datadir}/doc/vpnc/COPYING
 # vpnc-script is packaged in a separate package
 rm -f $RPM_BUILD_ROOT%{_sysconfdir}/vpnc/vpnc-script
+rm -f $RPM_BUILD_ROOT%{_docdir}/vpnc/*.md
 
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
+%post
+%systemd_post vpnc@.service
+
+%preun
+%systemd_preun vpnc@.service
+
+%postun
+%systemd_postun vpnc@.service
+
 %files
-%license COPYING
-%doc README pcf2vpnc pcf2vpnc.1
+%license LICENSE LICENSE.BSD2
+%doc docs/*.md src/pcf2vpnc src/pcf2vpnc.1
 
 %{_tmpfilesdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/vpnc/default.conf
@@ -92,6 +100,7 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %{_sbindir}/vpnc-disconnect
 %{_mandir}/man8/vpnc.*
 %{_mandir}/man1/cisco-decrypt.*
+%{_unitdir}/vpnc@.service
 
 %files consoleuser
 %config(noreplace) %{_sysconfdir}/security/console.apps/vpnc*
@@ -101,6 +110,9 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog
+* Mon Mar 24 2025 Lubomir Rintel <lkundrak@v3.sk> - 0.5.3^20241114.gitc4837a1-1
+- Update to a snapshot from an active upstream Git repository
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-50.svn550
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,16 +1,16 @@
 
 %global qt_module qtserialport
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - SerialPort component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -96,7 +96,9 @@ popd
 %{_qt6_libdir}/libQt6SerialPort.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialPortTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6SerialPort/
+%dir %{_qt6_libdir}/cmake/Qt6SerialPortPrivate/
 %{_qt6_libdir}/cmake/Qt6SerialPort/*.cmake
+%{_qt6_libdir}/cmake/Qt6SerialPortPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_serialport*.pri
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -108,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

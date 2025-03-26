@@ -5,8 +5,8 @@ BuildRequires:	%1 \
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	3.0.3
-Release:	6%{?dist}
+Version:	3.0.4
+Release:	1%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -33,6 +33,8 @@ BuildRequires:	rubygems-devel
 Requires:	ruby(rubygems)
 
 %BothRequires	rubygem(coderay)
+%BothRequires	rubygem(csv)
+%BothRequires	rubygem(drb)
 # Dependency removed on 3.0.2
 #%%BothRequires	rubygem(faraday)
 %BothRequires	rubygem(gettext)
@@ -44,6 +46,7 @@ Requires:	rubygem-kramdown >= 2.0
 %BothRequires	rubygem(kramdown-parser-gfm)
 %BothRequires	rubygem(nokogiri)
 %BothRequires	rubygem(poppler)
+%BothRequires	rubygem(ostruct)
 %BothRequires	rubygem(rouge)
 %BothRequires	rubygem(rsvg2)
 %BothRequires	rubygem(rdtool)
@@ -139,10 +142,8 @@ LANG=C.utf8
 pushd .%{gem_instdir}
 
 # F-39: skip blockdiag related test
-%if 0%{?fedora} >= 39
 sed -i.skip test/parser/test-markdown.rb \
 	-e 's|\(def test_codeblock_fence\)|\1 ; omit|'
-%endif
 
 xvfb-run \
 	ruby test/run-test.rb
@@ -182,6 +183,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Mon Mar 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.4-1
+- 3.0.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %endif
 
 Name:		calf
-Version:	0.90.4
-Release:	2%{?dist}
+Version:	0.90.5
+Release:	1%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
 # The GUI code is LGPLv2+
@@ -88,6 +88,8 @@ This package contains DSSI synthesizers and effects, also GUI extensions.
 %build
 # Add GenericName to the .desktop file
 echo "GenericName= Audio Effects" >> %{name}.desktop.in
+# autotools is deprecated in favour of cmake but isn't ready for prime time yet. -GC 2025-03-24
+mv configure.ac.deprecated configure.ac
 ./autogen.sh
 # Make sure that optflags are not overriden.
 sed -i 's|-O3||' configure
@@ -129,7 +131,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}/dssi
 ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 
 %files
-%doc AUTHORS ChangeLog README TODO
+%doc AUTHORS ChangeLog README.md TODO
 %license COPYING*
 %{_bindir}/%{name}*
 %{_libdir}/%{name}
@@ -155,6 +157,9 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Mon Mar 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.90.5-1
+- 0.90.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary:   Fedora AppStream metadata
 Name:      appstream-data
-Version:   42
+Version:   43
 Release:   %autorelease
 BuildArch: noarch
 License:   CC0-1.0 AND CC-BY-1.0 AND CC-BY-SA-1.0 AND GFDL-1.1-or-later

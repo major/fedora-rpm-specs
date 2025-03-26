@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.51.14
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A stylish alternative for caching your map tiles
 
 License:        BSD-3-Clause
@@ -56,7 +56,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-gdal
 BuildRequires:  python%{python3_pkgversion}-memcached
 BuildRequires:  python%{python3_pkgversion}-modestmaps >= 1.3.0
-BuildRequires:  python%{python3_pkgversion}-nose
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-shapely
 BuildRequires:  python%{python3_pkgversion}-werkzeug
@@ -106,8 +106,9 @@ cp -a examples %{buildroot}%{_datadir}/%{srcname}/
 
 
 %check
-NO_DATABASE=1 OFFLINE_TESTS=1 %{__python3} -m nose \
-  -I vectiles_tests.py \
+NO_DATABASE=1 OFFLINE_TESTS=1 %pytest \
+  --override-ini 'python_files=*_tests.py' \
+  --ignore tests/vectiles_tests.py \
   tests
 
 
@@ -136,6 +137,9 @@ NO_DATABASE=1 OFFLINE_TESTS=1 %{__python3} -m nose \
 
 
 %changelog
+* Mon Mar 24 2025 Scott K Logan <logans@cottsay.net> - 1.51.14-20
+- Switch test execution from Nosetest to Pytest (rhbz#2349854)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.14-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

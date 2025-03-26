@@ -14,10 +14,10 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 
 # But actually:
 %global forgeurl https://github.com/rwmjones/%{name}
-%global commit 6ee1282259f46e5e44e5bb69d9fa0cf2a255b07d
+%global commit 4dffa3d6f9ff6aa41aee2ebd3aa6d80b01af1637
 %forgemeta
 
-Release:        0.3%{?dist}
+Release:        0.4%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -25,6 +25,7 @@ Source0:        %{forgesource}
 # need to provide our own gnulib submodule.  I created this by doing:
 # git archive --format=tar --prefix=.gnulib/ HEAD | gzip -9 > gnulib-2f7479a16a.tar.gz
 Source1:        gnulib-2f7479a16a.tar.gz
+
 Provides:       bundled(gnulib)
 
 BuildRequires:  autoconf, automake, libtool
@@ -200,6 +201,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Mon Mar 24 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.14.2-0.4
+- rhbz#235444: CVE-2025-2588
+
 * Mon Feb 24 2025 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.3
 - Move to fork of Augeas which contains a small number of PRs:
 - lenses/tmpfiles.aug: Permit '$' character in /usr/lib/tmpfiles.d/*.conf

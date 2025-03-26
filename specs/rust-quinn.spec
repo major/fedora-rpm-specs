@@ -5,13 +5,15 @@
 %global crate quinn
 
 Name:           rust-quinn
-Version:        0.11.6
+Version:        0.11.7
 Release:        %autorelease
 Summary:        Versatile QUIC transport protocol implementation
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/quinn
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          quinn-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only bencher dev-dependency
 Patch:          quinn-fix-metadata.diff

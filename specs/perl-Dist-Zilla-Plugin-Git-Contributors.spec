@@ -2,20 +2,19 @@
 %bcond_without perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test
 
 Name:           perl-Dist-Zilla-Plugin-Git-Contributors
-Version:        0.037
-Release:        3%{?dist}
+Version:        0.038
+Release:        1%{?dist}
 Summary:        Add contributor names from git to your distribution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git-Contributors
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Dist-Zilla-Plugin-Git-Contributors-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -51,6 +50,7 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 %if %{with perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test}
 # Optional tests:
+BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Dist::Zilla::Plugin::PodWeaver)
 BuildRequires:  perl(Module::Runtime::Conflicts)
@@ -95,8 +95,10 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n Dist-Zilla-Plugin-Git-Contributors-%{version}
 %if !%{with perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test}
-rm t/04-podweaver-warning.t
-perl -i -ne 'print $_ unless m{^t/04-podweaver-warning\.t}' MANIFEST
+for T in t/04-podweaver-warning.t t/zzz-check-breaks.t; do
+    rm -- "$T"
+    perl -i -ne 'print $_ unless m{^\Q'"$T"'\E}' MANIFEST
+done
 %endif
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -105,12 +107,11 @@ for F in t/*.t; do
 done
 
 %build
-export PERL_MM_FALLBACK_SILENCE_WARNING=1
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+perl Build.PL --installdir=vendor
+./Build
 
 %install
-%{make_install}
+./Build install --destdir=%{buildroot} --create_packlist=0
 %{_fixperms} %{buildroot}
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -125,7 +126,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %check
 unset AUTHOR_TESTING
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
-make test
+./Build test
 
 %files
 %license LICENCE
@@ -141,6 +142,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 24 2025 Petr Pisar <ppisar@redhat.com> - 0.038-1
+- 0.038 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.037-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

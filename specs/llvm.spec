@@ -2427,6 +2427,7 @@ fi
 %if %{maj_ver} >= 21
 %{expand_bins %{expand:
     llvm-ml64
+    llvm-gpu-loader
 }}
 %endif
 

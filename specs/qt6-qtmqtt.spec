@@ -1,15 +1,28 @@
 %global qt_module qtmqtt
 
+%global unstable 1
+%if 0%{?unstable}
+%global tar_prerelease rc1
+%global prerelease rc
+%endif
+
 %global examples 1
 
-Name:           qt6-%{qt_module}
-Version:        6.8.2
-Release:        1%{?dist}
-Summary:        Qt6 - Mqtt module
+Summary: Qt6 - Mqtt module
+Name:    qt6-%{qt_module}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
-License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
-URL:            https://github.com/qt/qtmqtt/
-Source0:        https://github.com/qt/%{qt_module}/archive/refs/tags/v%{version}/%{qt_module}-%{version}.tar.gz
+License: GPL-3.0-only WITH Qt-GPL-exception-1.0
+Url:     http://www.qt.io
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+%global  qt_version %(echo %{version} | cut -d~ -f1)
+
+%if 0%{?unstable}
+Source0: https://github.com/qt/%{qt_module}/archive/refs/tags/v%{qt_version-%{tar_prerelease}}/%{qt_module}-%{qt_version}-%{tar_prerelease}.tar.gz
+%else
+Source0: https://github.com/qt/%{qt_module}/archive/refs/tags/v%{version}/%{qt_module}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake >= 3.16
 BuildRequires:  gcc-c++
@@ -40,7 +53,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -n %{qt_module}-%{version}
+%autosetup -n %{qt_module}-%{qt_version}%{?unstable:-%{tar_prerelease}} -p1
 
 %build
 %cmake_qt6 \
@@ -54,12 +67,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files
 %license LICENSES/*
-%{_qt6_archdatadir}/sbom/%{qt_module}-%{version}.spdx
+%{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6Mqtt.so.6*
 
 %files devel
-%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMqttTestsConfig.cmake
-%{_qt6_libdir}/cmake/Qt6Mqtt/*.cmake
 %{_qt6_libdir}/libQt6Mqtt.prl
 %{_qt6_libdir}/libQt6Mqtt.so
 %{_qt6_libdir}/pkgconfig/Qt6Mqtt.pc
@@ -68,12 +79,20 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %dir %{_qt6_libdir}/cmake/Qt6Mqtt/
+%dir %{_qt6_libdir}/cmake/Qt6MqttPrivate/
+%{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMqttTestsConfig.cmake
+%{_qt6_libdir}/cmake/Qt6Mqtt/*.cmake
+%{_qt6_libdir}/cmake/Qt6MqttPrivate/*.cmake
+
 %dir %{_qt6_headerdir}/QtMqtt
 
 %files examples
 %{_qt6_examplesdir}
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

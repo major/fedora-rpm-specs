@@ -1,6 +1,6 @@
 Name:		mcrypt
 Version:	2.6.8
-Release:	36%{?dist}
+Release:	37%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Replacement for crypt()
@@ -29,6 +29,8 @@ Patch5:		mcrypt-CVE-2012-4409.patch
 Patch6:		mcrypt-2.6.8-no-gaa.patch
 # Fix for CVE-2012-4527 (workaround, really)
 Patch7:		mcrypt-CVE-2012-4527-80-width-patch
+# c23
+Patch8:		mcrypt-2.6.8-c23.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -50,6 +52,7 @@ to encrypt files or data streams without having to be cryptographers.
 %patch -P5 -p1 -b .CVE-2012-4409
 %patch -P6 -p1 -b .no-gaa
 %patch -P7 -p1 -b .CVE-2012-4527
+%patch -P8 -p1 -b .c23
 
 %build
 %configure
@@ -67,6 +70,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/*
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.6.8-37
+- fix c23 issues causing FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

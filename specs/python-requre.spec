@@ -5,7 +5,7 @@ output to functions.}
 
 
 Name:           python-requre
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        Python library that allows re/store output of various objects for testing
 
@@ -57,6 +57,11 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Mar 21 2025 Packit <hello@packit.dev> - 0.9.1-1
+- Adjusted `requre-purge` to not replace GitHub tokens with dummy token that
+  still looks like a legit one and also case-sensitiveness on the cookies from
+  Pagure.
+
 * Fri Feb 14 2025 Packit <hello@packit.dev> - 0.9.0-1
 - Supports recording of the requests done by `httpx` via `record_httpx()` and `recording_httpx()` decorators. (#297)
 

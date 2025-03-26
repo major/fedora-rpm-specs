@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 24.3.1
+%global base_version 25.0.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -84,21 +84,21 @@ Packages" or "Pip Installs Python".
 # You can generate it with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
-Provides: bundled(python%{1}dist(cachecontrol)) = 0.14
+Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.1
 Provides: bundled(python%{1}dist(certifi)) = 2024.8.30
 Provides: bundled(python%{1}dist(distlib)) = 0.3.9
 Provides: bundled(python%{1}dist(distro)) = 1.9
-Provides: bundled(python%{1}dist(idna)) = 3.7
-Provides: bundled(python%{1}dist(msgpack)) = 1.0.8
-Provides: bundled(python%{1}dist(packaging)) = 24.1
-Provides: bundled(python%{1}dist(platformdirs)) = 4.2.2
+Provides: bundled(python%{1}dist(idna)) = 3.10
+Provides: bundled(python%{1}dist(msgpack)) = 1.1
+Provides: bundled(python%{1}dist(packaging)) = 24.2
+Provides: bundled(python%{1}dist(platformdirs)) = 4.3.6
 Provides: bundled(python%{1}dist(pygments)) = 2.18
-Provides: bundled(python%{1}dist(pyproject-hooks)) = 1
+Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
 Provides: bundled(python%{1}dist(requests)) = 2.32.3
 Provides: bundled(python%{1}dist(resolvelib)) = 1.0.1
-Provides: bundled(python%{1}dist(rich)) = 13.7.1
+Provides: bundled(python%{1}dist(rich)) = 13.9.4
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
-Provides: bundled(python%{1}dist(tomli)) = 2.0.1
+Provides: bundled(python%{1}dist(tomli)) = 2.2.1
 Provides: bundled(python%{1}dist(truststore)) = 0.10
 Provides: bundled(python%{1}dist(typing-extensions)) = 4.12.2
 Provides: bundled(python%{1}dist(urllib3)) = 1.26.20
@@ -159,6 +159,7 @@ Summary:        A documentation for a tool for installing and managing Python pa
 
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx-inline-tabs
+BuildRequires:  python%{python3_pkgversion}-sphinx-issues
 BuildRequires:  python%{python3_pkgversion}-sphinx-copybutton
 BuildRequires:  python%{python3_pkgversion}-myst-parser
 

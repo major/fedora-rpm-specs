@@ -5,29 +5,50 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           loupe
-Version:        47.4
+Version:        48.0
 Release:        %autorelease
 Summary:        Image viewer
 
 # loupe: GPL-3.0-or-later
 # Rust dependencies:
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # GPL-3.0-or-later
 # ISC
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
+# MIT OR Zlib OR Apache-2.0
 # MPL-2.0 OR LGPL-2.1-or-later
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-3.0-or-later AND BSD-2-Clause AND ISC AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MPL-2.0 OR LGPL-2.1-or-later) AND (Unlicense OR MIT)
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    ISC AND
+    MIT AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (MPL-2.0 OR LGPL-2.1-or-later) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/loupe
-Source0:        https://download.gnome.org/sources/loupe/47/loupe-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/loupe/48/loupe-%{tarball_version}.tar.xz
+# To create the vendor tarball:
+#   tar Jxvf loupe-%%{tarball_version}.tar.xz ; \
+#   pushd loupe-%%{tarball_version} ; \
+#   cargo vendor --versioned-dirs ; \
+#   tar Jcvf ../loupe-%%{tarball_version}-vendor.tar.xz vendor/ ; \
+#   popd
+Source1:        loupe-%{tarball_version}-vendor.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -71,14 +92,13 @@ Features:
 
 
 %prep
-%autosetup -p1 -n loupe-%{tarball_version}
-
 %if %{with bundled_rust_deps}
+%autosetup -n loupe-%{tarball_version} -p1 -a1
 %cargo_prep -v vendor
 %else
-rm -rf vendor
-sed -i -e '/Cargo.lock/d' meson.build
+%autosetup -n loupe-%{tarball_version} -p1
 %cargo_prep
+sed -i -e '/Cargo.lock/d' meson.build
 %endif
 
 

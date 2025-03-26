@@ -1,16 +1,16 @@
 
 %global qt_module qtlocation
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Location Libraries
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 # Rest of the licenses are for Qt code in src/location and src/plugins
@@ -110,8 +110,10 @@ popd
 %{_qt6_libdir}/libQt6Location.so
 %{_qt6_libdir}/libQt6Location.prl
 %dir %{_qt6_libdir}/cmake/Qt6Location
+%dir %{_qt6_libdir}/cmake/Qt6LocationPrivate
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtLocationTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Location/*.cmake
+%{_qt6_libdir}/cmake/Qt6LocationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_location*.pri
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
@@ -124,6 +126,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

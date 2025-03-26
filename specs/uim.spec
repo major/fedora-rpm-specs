@@ -6,7 +6,7 @@
 
 Name:		uim
 Version:	1.9.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -20,7 +20,7 @@ BuildRequires:	gtk2-devel gtk3-devel ncurses-devel
 %if %{with canna}
 BuildRequires:	Canna-devel
 %endif
-BuildRequires:	anthy-devel eb-devel gettext desktop-file-utils
+BuildRequires:	anthy-unicode-devel eb-devel gettext desktop-file-utils
 BuildRequires:	qt-devel cmake
 BuildRequires:	libedit-devel libcurl-devel sqlite-devel expat-devel
 BuildRequires:	m17n-lib-devel m17n-db-devel
@@ -35,6 +35,8 @@ Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
 Patch4:		uim-ftbfs.patch
+# https://github.com/uim/uim/pull/189
+Patch5:		uim-anthy-unicode.patch
 
 
 Summary:	A multilingual input method library
@@ -91,7 +93,7 @@ Obsoletes:	uim-kde3 < 1.8.6-11
 
 %package	anthy
 Summary:	Anthy support for Uim
-Requires:	anthy >= 9100h-11
+Requires:	anthy-unicode
 Requires:	uim = %{version}-%{release}
 Requires(post):	gtk3 /usr/bin/uim-module-manager
 Requires(postun): gtk3 /usr/bin/uim-module-manager
@@ -129,7 +131,7 @@ This package provides the input method library, the XIM
 bridge and most of the input methods.
 
 For the Japanese input methods you need to install
-- uim-anthy for Anthy
+- uim-anthy for Anthy Unicode
 - uim-canna for Canna
 - uim-skk for SKK.
 
@@ -198,7 +200,7 @@ autoconf
 %if %{with canna}
 	--with-canna \
 %endif
-	--with-anthy --with-anthy-utf8 \
+	--with-anthy-utf8 \
 	--with-m17nlib \
 	--with-eb --with-eb-conf=%{_libdir}/eb.conf \
 	--without-scim \
@@ -457,7 +459,6 @@ fi
 %files	anthy
 %doc AUTHORS NEWS README
 %license COPYING
-%{_libdir}/uim/plugin/libuim-anthy.so
 %{_libdir}/uim/plugin/libuim-anthy-utf8.so
 %{_datadir}/uim/anthy*.scm
 # BSD or LGPLv2
@@ -495,6 +496,9 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Sat Mar 22 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.9.0-2
+- Replace anthy with anthy-unicode
+
 * Tue Feb 25 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.0-1
 - New upstream release.
   Resolves: rhbz#2347165

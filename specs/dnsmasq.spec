@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.90
-Release:        5%{?extraversion:.%{extraversion}}%{?dist}
+Release:        6%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -46,6 +46,10 @@ Patch1:         dnsmasq-2.77-underflow.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1852373
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
+Patch7:         dnsmasq-2.90-dbus-interfaces.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2340085
+# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=da2cc84854a01dd08a8bb4161428be20b83a5ec7
+Patch8:         dnsmasq-2.90-C23-compatibility.patch
 
 
 Requires:       nettle
@@ -136,7 +140,7 @@ sed -i "s|\(#\s*define RUNFILE\) \"/var/run/dnsmasq.pid\"|\1 \"%{_rundir}/dnsmas
 sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE_CONNTRACK -DHAVE_NFTSET|' Makefile
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" \
+%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" BINDIR=%{_sbindir} \
 %if %{with i18n}
   all-i18n
 %else
@@ -176,7 +180,7 @@ rm -rf %{buildroot}%{_initrddir}
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %if %{with i18n}
-%make_install PREFIX=/usr install-i18n
+%make_install PREFIX=/usr BINDIR=%{_sbindir} install-i18n
 %find_lang %{name} --with-man
 %endif
 
@@ -217,6 +221,12 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Feb 07 2025 Petr Menšík <pemensik@redhat.com> - 2.90-6
+- Fix building after GCC 15 update (rhbz#2340085)
+
+* Thu Jan 16 2025 Petr Menšík <pemensik@redhat.com> - 2.90-6
+- Refresh interface after each DBus servers reset (v2)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

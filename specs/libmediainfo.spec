@@ -1,8 +1,8 @@
 %global libzen_version  0.4.41
 
 Name:           libmediainfo
-Version:        24.11
-Release:        3%{?dist}
+Version:        25.03
+Release:        1%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 
 License:        BSD-2-Clause
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Mon Mar 24 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.03-1
+- Update to 25.03
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

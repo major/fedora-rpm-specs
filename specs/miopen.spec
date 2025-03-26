@@ -89,6 +89,7 @@ BuildRequires:  zlib-devel
 %if 0%{?suse_version}
 BuildRequires:  libbz2-devel
 BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libzstd-devel-static
 %else
 BuildRequires:  pkgconfig(bzip2)
 %endif

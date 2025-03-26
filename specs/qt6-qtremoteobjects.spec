@@ -1,16 +1,16 @@
 
 %global qt_module qtremoteobjects
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Qt Remote Objects
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -86,16 +86,22 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6RemoteObjects.prl
 %{_qt6_libdir}/libQt6RemoteObjectsQml.prl
 %{_qt6_libdir}/libQt6RemoteObjectsQml.so
+%dir %{_qt6_libdir}/cmake/Qt6RemoteObjects/
+%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsQml
+%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsQmlPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsTools
+%dir %{_qt6_libdir}/cmake/Qt6RepParser
+%dir %{_qt6_libdir}/cmake/Qt6RepParserPrivate/
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtRemoteObjectsTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6RemoteObjects/
 %{_qt6_libdir}/cmake/Qt6RemoteObjects/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsQml
+%{_qt6_libdir}/cmake/Qt6RemoteObjectsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6RemoteObjectsQml/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6RepParser
-%{_qt6_libdir}/cmake/Qt6RepParser/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6RemoteObjectsTools
+%{_qt6_libdir}/cmake/Qt6RemoteObjectsQmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6RemoteObjectsTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6RepParser/*.cmake
+%{_qt6_libdir}/cmake/Qt6RepParserPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/features/*
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
@@ -109,6 +115,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

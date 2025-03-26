@@ -1,6 +1,6 @@
 Name:           python-ibm-vpc
-Version:        0.26.3
-Release:        2%{?dist}
+Version:        0.27.0
+Release:        1%{?dist}
 Summary:        Python client library for IBM Cloud VPC Services
 
 License:        Apache-2.0
@@ -56,6 +56,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Mar 24 2025 Packit <hello@packit.dev> - 0.27.0-1
+- Update to version 0.27.0
+- Resolves: rhbz#2351745
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

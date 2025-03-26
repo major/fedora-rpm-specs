@@ -1,16 +1,16 @@
 
 %global qt_module qtscxml
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - ScXml component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -87,6 +87,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files devel
 %{_qt6_headerdir}/QtScxml/
+%{_qt6_headerdir}/QtScxmlGlobal/
 %{_qt6_headerdir}/QtScxmlQml/
 %{_qt6_headerdir}/QtStateMachineQml
 %{_qt6_headerdir}/QtStateMachine/
@@ -98,17 +99,28 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6StateMachine.so
 %{_qt6_libdir}/libQt6StateMachineQml.prl
 %{_qt6_libdir}/libQt6StateMachineQml.so
-%{_qt6_libdir}/cmake/Qt6Scxml
+%dir %{_qt6_libdir}/cmake/Qt6Scxml
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlGlobal
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlQml
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlQmlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlTools
+%dir %{_qt6_libdir}/cmake/Qt6StateMachine
+%dir %{_qt6_libdir}/cmake/Qt6StateMachinePrivate
+%dir %{_qt6_libdir}/cmake/Qt6StateMachineQml/
+%dir %{_qt6_libdir}/cmake/Qt6StateMachineQmlPrivate/
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtScxmlTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ScxmlQml
+%{_qt6_libdir}/cmake/Qt6Scxml/*.cmake
+%{_qt6_libdir}/cmake/Qt6ScxmlGlobal/*.cmake
+%{_qt6_libdir}/cmake/Qt6ScxmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6ScxmlQml/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6ScxmlTools
+%{_qt6_libdir}/cmake/Qt6ScxmlQmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6ScxmlTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6StateMachine
 %{_qt6_libdir}/cmake/Qt6StateMachine/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6StateMachineQml/
+%{_qt6_libdir}/cmake/Qt6StateMachinePrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6StateMachineQml/*.cmake
+%{_qt6_libdir}/cmake/Qt6StateMachineQmlPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/features/qscxmlc.prf
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/modules/*.json
@@ -122,6 +134,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

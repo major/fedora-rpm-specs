@@ -1,9 +1,9 @@
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:           memchan
 Version:        2.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        In-memory channels for Tcl
 # All files MIT except isaac/rand.h and isaac/randport.c which
 # are public domain.
@@ -11,9 +11,10 @@ Summary:        In-memory channels for Tcl
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
 URL:            http://memchan.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/Memchan%{version}.tar.gz
-BuildRequires: make
+Patch0:         memchan-2.3-c23.patch
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  tcl-devel, tcllib
+BuildRequires:  tcl8-devel, tcllib
 Requires:       tcl(abi) = 8.6
 
 %description
@@ -29,6 +30,7 @@ Development files for compiling against the Tcl memchan extension
 
 %prep
 %setup -q -n Memchan%{version}
+%patch -P0 -p1 -b .c23
 
 %build
 %configure --enable-threads --libdir=%{tcl_sitearch}
@@ -64,6 +66,9 @@ make test
 %{tcl_sitearch}/Memchan%{version}/*.a
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.3-32
+- force to tcl8 (this code was last touched in 2010)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

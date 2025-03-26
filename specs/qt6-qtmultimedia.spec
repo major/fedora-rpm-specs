@@ -11,16 +11,16 @@
 %bcond_without ffmpeg
 %endif
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -159,14 +159,19 @@ popd
 %endif
 
 %files devel
+%{_qt6_headerdir}/QtFFmpegMediaPluginImpl/
+%{_qt6_headerdir}/QtGstreamerMediaPluginImpl/
 %{_qt6_headerdir}/QtMultimedia/
 %{_qt6_headerdir}/QtMultimediaTestLib/
 %{_qt6_headerdir}/QtMultimediaQuick/
 %{_qt6_headerdir}/QtMultimediaWidgets/
 %{_qt6_headerdir}/QtSpatialAudio/
 %{_qt6_headerdir}/QtQuick3DSpatialAudio/
-%{_qt6_headerdir}/QtQGstreamerMediaPluginImpl/
 %{_qt6_libdir}/libQt6BundledResonanceAudio.a
+%{_qt6_libdir}/libQt6FFmpegMediaPluginImpl.a
+%{_qt6_libdir}/libQt6FFmpegMediaPluginImpl.prl
+%{_qt6_libdir}/libQt6GstreamerMediaPluginImpl.a
+%{_qt6_libdir}/libQt6GstreamerMediaPluginImpl.prl
 %{_qt6_libdir}/libQt6Multimedia.so
 %{_qt6_libdir}/libQt6Multimedia.prl
 %{_qt6_libdir}/libQt6MultimediaTestLib.a
@@ -179,28 +184,34 @@ popd
 %{_qt6_libdir}/libQt6SpatialAudio.prl
 %{_qt6_libdir}/libQt6Quick3DSpatialAudio.so
 %{_qt6_libdir}/libQt6Quick3DSpatialAudio.prl
-%{_qt6_libdir}/libQt6QGstreamerMediaPluginImpl.a
-%{_qt6_libdir}/libQt6QGstreamerMediaPluginImpl.prl
+%dir  %{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate
+%dir %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/
+%dir %{_qt6_libdir}/cmake/Qt6FFmpegMediaPluginImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Multimedia
+%dir %{_qt6_libdir}/cmake/Qt6MultimediaPrivate
+%dir %{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets
+%dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgetsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate
+%dir %{_qt6_libdir}/cmake/Qt6SpatialAudio/
+%dir %{_qt6_libdir}/cmake/Qt6SpatialAudioPrivate
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/
 %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/
-%{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/*.cmake
-%dir  %{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate
-%{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Multimedia
+%{_qt6_libdir}/cmake/Qt6FFmpegMediaPluginImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Multimedia/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets
+%{_qt6_libdir}/cmake/Qt6MultimediaPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaWidgets/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6SpatialAudio/
-%{_qt6_libdir}/cmake/Qt6SpatialAudio/*cmake
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate
-%{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate/*cmake
-%dir %{_qt6_libdir}/cmake/Qt6QGstreamerMediaPluginImplPrivate
-%{_qt6_libdir}/cmake/Qt6QGstreamerMediaPluginImplPrivate/*cmake
-%dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
+%{_qt6_libdir}/cmake/Qt6MultimediaWidgetsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate/*cmake
+%{_qt6_libdir}/cmake/Qt6SpatialAudio/*cmake
+%{_qt6_libdir}/cmake/Qt6SpatialAudioPrivate/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -213,6 +224,9 @@ popd
 
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

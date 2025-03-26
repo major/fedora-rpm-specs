@@ -6,7 +6,7 @@
 %global with_doc 1
 
 Name:             python-%{mod_name}
-Version:          2.0.6
+Version:          2.1.2
 Release:          1%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
@@ -16,9 +16,6 @@ URL:              https://github.com/dpkp/%{project_name}
 Source0:          https://github.com/dpkp/%{project_name}/archive/refs/tags/%{version}.tar.gz
 # License file for jslibs using in -doc subpkg
 Source1:          LICENSE_doc
-# This patch is temporary until upstream stops supporting multi-versioned python.
-# https://github.com/dpkp/kafka-python/pull/2516
-Patch0:           stop-using-mock.patch
 
 BuildArch:        noarch
 BuildRequires:    pyproject-rpm-macros
@@ -30,6 +27,7 @@ BuildRequires:    python3-wheel
 %if %{with test}
 BuildRequires:    python3-pytest
 BuildRequires:    python3-pytest-mock
+BuildRequires:    python3-pytest-timeout
 BuildRequires:    python3-snappy
 BuildRequires:    python3-lz4
 BuildRequires:    python3-zstandard
@@ -125,6 +123,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Mon Mar 24 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.1.2-1
+- update to 2.1.2 (rhbz#2352756)
+
 * Sat Mar 08 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.0.6-1
 - Update to upstream version 2.0.6
 - Resolves: rhbz#1653049

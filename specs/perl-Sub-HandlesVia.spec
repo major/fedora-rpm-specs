@@ -1,6 +1,6 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.050000
-Release:        8%{?dist}
+Version:        0.050001
+Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,10 +58,6 @@ you should have a fairly good idea what this does.
 
 %prep
 %setup -q -n Sub-HandlesVia-%{version}
-# Work-around RHBZ#2310796
-# 'has' is no longer supported; use 'field' instead
-# API change in Object::Pad >= 0.813
-sed -i -e 's,has,field,' t/50objectpad.t
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -81,6 +77,9 @@ sed -i -e 's,has,field,' t/50objectpad.t
 %{_mandir}/man3/*
 
 %changelog
+* Mon Mar 24 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.050001-1
+- Upstream update.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.050000-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

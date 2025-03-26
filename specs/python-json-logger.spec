@@ -1,31 +1,24 @@
-%{?python_enable_dependency_generator}
-%global pypi_name python-json-logger
+%global pypi_name python_json_logger
 
 Name:           python-json-logger
-Version:        2.0.4
-Release:        10%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        A python library adding a json log formatter
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            http://github.com/madzak/python-json-logger
-Source0:        %{pypi_source}
-# Patch for compatibility with Python 3.12, doesn't work with older Pythons
-# https://github.com/madzak/python-json-logger/pull/178
-Patch:          Adjust-tests-for-taskName-attribute-added-in-Python-.patch
-# Compatibility with Python 3.13
-# https://github.com/madzak/python-json-logger/pull/192
-Patch:          Python-3.13-compatibility-logger-creates-values-with.patch
+URL:            http://github.com/nhairs/python-json-logger
+Source:         %{pypi_source %{pypi_name}}
 BuildArch:      noarch
- 
+
 %description
 A python library adding a json log formatter
 
 %package -n     python3-json-logger
 Summary:        A python library adding a json log formatter
-%{?python_provide:%python_provide python3-json-logger}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
+BuildRequires:  python3-freezegun
 
 %description -n python3-json-logger
 A python library adding a json log formatter
@@ -34,27 +27,31 @@ A python library adding a json log formatter
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf src/%{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pythonjsonlogger
 
 
 %check
-PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest discover
+%pytest --verbose
 
 
-%files -n python3-json-logger
-%license LICENSE
-%{python3_sitelib}/pythonjsonlogger
-%{python3_sitelib}/python_json_logger-%{version}-py%{python3_version}.egg-info
+%files -n python3-json-logger -f %{pyproject_files}
+
 
 %changelog
+* Sun Mar 16 2025 Romain Geissler <romain.geissler@amadeus.com> - 3.3.0-1
+- Update to 3.3.0 (rhbz#2169227)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

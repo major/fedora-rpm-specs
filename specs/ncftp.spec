@@ -2,7 +2,7 @@
 
 Summary: Improved console FTP client
 Name: ncftp
-Version: 3.2.8
+Version: 3.2.9
 Release: 1%{?dist}
 Epoch: 2
 License: ClArtistic AND NTP
@@ -54,6 +54,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Mon Mar 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.9-1
+- 3.2.9
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.8-1
 - 3.2.8
 

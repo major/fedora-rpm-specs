@@ -1,18 +1,27 @@
 %global        qt_module qtgraphs
 
-Name:          qt6-qtgraphs
-Version:       6.8.2
-Release:       1%{?dist}
+%global unstable 1
+%if 0%{?unstable}
+%global prerelease rc
+%endif
 
 %global examples 1
 
-%global        majmin %(echo %{version} | cut -d. -f1-2)
-%global        qt_version %(echo %{version} | cut -d~ -f1)
+Summary: The Qt Graphs module enables you to visualize data in 3D
+Name:    qt6-%{qt_module}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
-Summary:       The Qt Graphs module enables you to visualize data in 3D
-License:       BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
-URL:           https://doc.qt.io/qt-6/qtgraphs-index.html
-Source0:       https://download.qt.io/official_releases/qt/%{majmin}/%{qt_version}/submodules/%{qt_module}-everywhere-src-%{qt_version}.tar.xz
+License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
+URL:     https://doc.qt.io/qt-6/qtgraphs-index.html
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+%global  qt_version %(echo %{version} | cut -d~ -f1)
+
+%if 0%{?unstable}
+Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/submodules/%{qt_module}-everywhere-src-%{qt_version}-%{prerelease}.tar.xz
+%else
+Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
+%endif
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -55,7 +64,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -n %{qt_module}-everywhere-src-%{qt_version} -p1
+%autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 %build
 %cmake_qt6 \
@@ -94,8 +103,12 @@ popd
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtGraphsTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Graphs
 %{_qt6_libdir}/cmake/Qt6Graphs/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6GraphsPrivate
+%{_qt6_libdir}/cmake/Qt6GraphsPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6GraphsWidgets
 %{_qt6_libdir}/cmake/Qt6GraphsWidgets/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6GraphsWidgetsPrivate
+%{_qt6_libdir}/cmake/Qt6GraphsWidgetsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6Graphsplugin*.cmake
 %{_qt6_libdir}/libQt6Graphs.so
 %{_qt6_libdir}/pkgconfig/Qt6Graphs*.pc
@@ -112,6 +125,9 @@ popd
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

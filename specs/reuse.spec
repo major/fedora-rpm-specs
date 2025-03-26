@@ -14,7 +14,7 @@ Patch:          0001-Use-importlib-mode-for-pytest.patch
 BuildRequires:  python3-devel
 BuildRequires:  gettext
 # Test + patching
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  mercurial
 # These are development dependencies in the Poetry config, not build
 # dependencies. They are build dependencies for Fedora packaging.
@@ -39,7 +39,7 @@ generates a project's bill of materials.
 %autosetup -n %{name}-%{version} -S git_am
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

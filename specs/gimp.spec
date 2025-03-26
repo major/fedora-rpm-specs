@@ -56,7 +56,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.0
+Version:        3.0.2
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -105,6 +105,49 @@ ExcludeArch:    s390x
 # patterns are CC0-1.0
 License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND BSD-3-Clause AND CC-BY-SA-3.0 AND CC-BY-SA-4.0 AND CC0-1.0
 URL:            https://www.gimp.org
+
+# Have macros for required minimum versions, so they can be set in one place where they need to be
+# specified for runtime, too.
+%global alsa_minver 1.0.0
+%global appstream_glib_minver 0.7.7
+%global atk_minver 2.4.0
+%global babl_minver 0.1.112
+%global cairo_minver 1.14.0
+%global cairopdf_minver 1.12.2
+%global fontconfig_minver 2.12.4
+%global freetype2_minver 2.1.7
+%global gdk_pixbuf_minver 2.30.8
+%global gegl_minver 0.4.58
+%global exiv2_minver 0.27.4
+%global gettext_minver 0.19.8
+%global gexiv2_minver 0.14.0
+%global glib_minver 2.70.0
+%global gtk3_minver 3.24.0
+%global gudev_minver 167
+%global harfbuzz_minver 2.8.2
+%global jpegxl_minver 0.7.0
+%global json_glib_minver 1.2.6
+%global lcms_minver 2.8
+%global libheif_minver 1.15.1
+%global liblzma_minver 5.0.0
+%global libpng_minver 1.6.25
+%global libmypaint_minver 1.3.0
+%global libtiff_minver 4.0.0
+%global libunwind_minver 1.1.0
+%global lua_minver 5.4
+%global openexr_minver 1.6.1
+%global openjpeg_minver 2.1.0
+%global pango_minver 1.50.0
+%global perl_minver 5.10.0
+%global poppler_minver 0.69.0
+%global poppler_data_minver 0.4.9
+%global python3_minver 3.6
+%global pygobject_minver 3.0
+%global rsvg_minver 2.40.6
+%global webkit_minver 2.20.3
+%global webp_minver 0.6.0
+%global wmf_minver 0.2.8
+
 %if %{with label_overlay}
 BuildRequires:  ImageMagick
 %endif
@@ -116,7 +159,7 @@ BuildRequires:  dbus-daemon
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gegl04-tools
-BuildRequires:  gettext >= 0.19.8
+BuildRequires:  gettext >= %gettext_minver
 BuildRequires:  gi-docgen
 BuildRequires:  gjs
 BuildRequires:  glib-networking
@@ -127,84 +170,93 @@ BuildRequires:  libxslt
 BuildRequires:  lua-lgi-compat
 BuildRequires:  luajit
 %else
-BuildRequires:  lua >= 5.4
+BuildRequires:  lua >= %lua_minver
 BuildRequires:  lua-lgi
 %endif
 BuildRequires:  meson
-BuildRequires:  perl >= 5.10.0
-BuildRequires:  pkgconfig(alsa) >= 1.0.0
-BuildRequires:  pkgconfig(appstream-glib) >= 0.7.7
-BuildRequires:  pkgconfig(atk) >= 2.4.0
-BuildRequires:  pkgconfig(babl-0.1) >= 0.1.112
+BuildRequires:  perl >= %perl_minver
+BuildRequires:  pkgconfig(alsa) >= %alsa_minver
+BuildRequires:  pkgconfig(appstream-glib) >= %appstream_glib_minver
+BuildRequires:  pkgconfig(atk) >= %atk_minver
+BuildRequires:  pkgconfig(babl-0.1) >= %babl_minver
 BuildRequires:  pkgconfig(bzip2)
-BuildRequires:  pkgconfig(cairo) >= 1.14.0
-BuildRequires:  pkgconfig(cairo-pdf) >= 1.12.2
+BuildRequires:  pkgconfig(cairo) >= %cairo_minver
+BuildRequires:  pkgconfig(cairo-pdf) >= %cairopdf_minver
 BuildRequires:  pkgconfig(cfitsio)
-BuildRequires:  pkgconfig(fontconfig) >= 2.12.4
-BuildRequires:  pkgconfig(freetype2) >= 2.1.7
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.30.8
-BuildRequires:  pkgconfig(gegl-0.4) >= 0.4.56
-BuildRequires:  pkgconfig(gexiv2) >= 0.14.0
+BuildRequires:  pkgconfig(fontconfig) >= %fontconfig_minver
+BuildRequires:  pkgconfig(freetype2) >= %freetype2_minver
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %gdk_pixbuf_minver
+BuildRequires:  pkgconfig(gegl-0.4) >= %gegl_minver
+BuildRequires:  pkgconfig(gexiv2) >= %gexiv2_minver
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(glib-2.0) >= 2.70.0
+BuildRequires:  pkgconfig(glib-2.0) >= %glib_minver
 BuildRequires:  pkgconfig(gmodule-no-export-2.0)
-BuildRequires:  pkgconfig(gobject-2.0) >= 2.70.0
+BuildRequires:  pkgconfig(gobject-2.0) >= %glib_minver
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.0
-BuildRequires:  pkgconfig(gudev-1.0) >= 167
-BuildRequires:  pkgconfig(harfbuzz) >= 2.8.2
+BuildRequires:  pkgconfig(gtk+-3.0) >= %gtk3_minver
+BuildRequires:  pkgconfig(gudev-1.0) >= %gudev_minver
+BuildRequires:  pkgconfig(harfbuzz) >= %harfbuzz_minver
 BuildRequires:  pkgconfig(iso-codes)
-BuildRequires:  pkgconfig(json-glib-1.0) >= 1.2.6
-BuildRequires:  pkgconfig(lcms2) >= 2.8
-BuildRequires:  pkgconfig(libheif) >= 1.15.1
+BuildRequires:  pkgconfig(json-glib-1.0) >= %json_glib_minver
+BuildRequires:  pkgconfig(lcms2) >= %lcms_minver
+BuildRequires:  pkgconfig(libheif) >= %libheif_minver
 BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libjxl) >= 0.7.0
-BuildRequires:  pkgconfig(libjxl_threads) >= 0.7.0
-BuildRequires:  pkgconfig(liblzma) >= 5.0.0
+BuildRequires:  pkgconfig(libjxl) >= %jpegxl_minver
+BuildRequires:  pkgconfig(libjxl_threads) >= %jpegxl_minver
+BuildRequires:  pkgconfig(liblzma) >= %liblzma_minver
 BuildRequires:  pkgconfig(libmng)
-BuildRequires:  pkgconfig(libmypaint) >= 1.3.0
-BuildRequires:  pkgconfig(libopenjp2) >= 2.1.0
-BuildRequires:  pkgconfig(libpng) >= 1.6.25
-BuildRequires:  pkgconfig(librsvg-2.0) >= 2.40.6
-BuildRequires:  pkgconfig(libtiff-4) >= 4.0.0
+BuildRequires:  pkgconfig(libmypaint) >= %libmypaint_minver
+BuildRequires:  pkgconfig(libopenjp2) >= %openjpeg_minver
+BuildRequires:  pkgconfig(libpng) >= %libpng_minver
+BuildRequires:  pkgconfig(librsvg-2.0) >= %rsvg_minver
+BuildRequires:  pkgconfig(libtiff-4) >= %libtiff_minver
 %if %{with libunwind}
-BuildRequires:  pkgconfig(libunwind) >= 1.1.0
+BuildRequires:  pkgconfig(libunwind) >= %libunwind_minver
 %endif
-BuildRequires:  pkgconfig(libwebp) >= 0.6.0
-BuildRequires:  pkgconfig(libwebpdemux) >= 0.6.0
-BuildRequires:  pkgconfig(libwebpmux) >= 0.6.0
-BuildRequires:  pkgconfig(libwmf) >= 0.2.8
-BuildRequires:  pkgconfig(mypaint-brushes-1.0) >= 1.3.0
-BuildRequires:  pkgconfig(OpenEXR) >= 1.6.1
-BuildRequires:  pkgconfig(pango) >= 1.50.0
-BuildRequires:  pkgconfig(pangocairo) >= 1.50.0
-BuildRequires:  pkgconfig(pangoft2) >= 1.50.0
-BuildRequires:  pkgconfig(poppler-data) >= 0.4.9
-BuildRequires:  pkgconfig(poppler-glib) >= 0.69.0
-BuildRequires:  pkgconfig(python3) >= 3.6.0
+BuildRequires:  pkgconfig(libwebp) >= %webp_minver
+BuildRequires:  pkgconfig(libwebpdemux) >= %webp_minver
+BuildRequires:  pkgconfig(libwebpmux) >= %webp_minver
+BuildRequires:  pkgconfig(libwmf) >= %wmf_minver
+BuildRequires:  pkgconfig(mypaint-brushes-1.0) >= %libmypaint_minver
+BuildRequires:  pkgconfig(OpenEXR) >= %openexr_minver
+BuildRequires:  pkgconfig(pango) >= %pango_minver
+BuildRequires:  pkgconfig(pangocairo) >= %pango_minver
+BuildRequires:  pkgconfig(pangoft2) >= %pango_minver
+BuildRequires:  pkgconfig(poppler-data) >= %poppler_data_minver
+BuildRequires:  pkgconfig(poppler-glib) >= %poppler_minver
+BuildRequires:  pkgconfig(python3) >= %python3_minver
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  python3dist(pygobject) >= 3.0
+BuildRequires:  python3dist(pygobject) >= %pygobject_minver
 BuildRequires:  vala
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  yelp-tools
 
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+# GIMP refuses to run if minimum version requirements of certain libraries aren’t fulfilled.
+Requires:       babl%{?_isa} >= %babl_minver
+Requires:       fontconfig%{?_isa} >= %fontconfig_minver
+Requires:       freetype%{?_isa} >= %freetype2_minver
+Requires:       gdk-pixbuf2%{?_isa} >= %gdk_pixbuf_minver
+Requires:       gegl04%{?_isa} >= %gegl_minver
 Requires:       gjs
+Requires:       glib2%{?_isa} >= %glib_minver
 Requires:       hicolor-icon-theme
+Requires:       lcms2%{?_isa} >= %lcms_minver
 %ifnarch %plain_lua_arches
 Requires:       lua-lgi-compat
 Requires:       luajit
 %else
-Requires:       lua >= 5.4
+Requires:       lua >= %lua_minver
 Requires:       lua-lgi
 %endif
+Requires:       pango%{?_isa} >= %pango_minver
+Requires:       python3dist(pygobject) >= %pygobject_minver
 Requires:       xdg-utils
-Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:       python3dist(pygobject) >= 3.0
 
 Recommends:     mypaint-brushes
 
@@ -249,6 +301,16 @@ Summary:        GIMP libraries
 License:        LGPL-3.0-or-later
 Obsoletes:      gimp3-libs < %{version}-%{release}
 Provides:       gimp3-libs = %{version}-%{release}
+
+# GIMP refuses to run if minimum version requirements of certain libraries aren’t fulfilled.
+Requires:       babl%{?_isa} >= %babl_minver
+Requires:       cairo%{?_isa} >= %cairo_minver
+Requires:       fontconfig%{?_isa} >= %fontconfig_minver
+Requires:       gdk-pixbuf2%{?_isa} >= %gdk_pixbuf_minver
+Requires:       gegl04%{?_isa} >= %gegl_minver
+Requires:       glib2%{?_isa} >= %glib_minver
+Requires:       lcms2%{?_isa} >= %lcms_minver
+Requires:       pango%{?_isa} >= %pango_minver
 
 %description libs
 The %{name}-libs package contains shared libraries needed for the GNU Image

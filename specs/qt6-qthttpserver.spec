@@ -1,12 +1,16 @@
-#global unstable 0
 %global qt_module qthttpserver
+
+%global unstable 1
+%if 0%{?unstable}
+%global prerelease rc
+%endif
 
 %global examples 1
 
-Name:       qt6-qthttpserver
-Version:    6.8.2
-Release:    1%{?dist}
-Summary:    Library to facilitate the creation of an http server with Qt
+Summary: Library to facilitate the creation of an http server with Qt
+Name:    qt6-qthttpserver
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 License:    BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:        http://qt-project.org/
@@ -52,7 +56,7 @@ to the usage of %{name}.
 %endif
 
 %prep
-%autosetup -n %{qt_module}-everywhere-src-%{version} -p1
+%autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
 %build
@@ -75,8 +79,10 @@ to the usage of %{name}.
 %dir %{_qt6_headerdir}/QtHttpServer
 %{_qt6_headerdir}/QtHttpServer/*
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtHttpServerTestsConfig.cmake
-%dir %{_qt6_libdir}/cmake/Qt6HttpServer
-%{_qt6_libdir}/cmake/Qt6HttpServer/*
+%dir %{_qt6_libdir}/cmake/Qt6HttpServer/
+%dir %{_qt6_libdir}/cmake/Qt6HttpServerPrivate/
+%{_qt6_libdir}/cmake/Qt6HttpServer/*.cmake
+%{_qt6_libdir}/cmake/Qt6HttpServerPrivate/*.cmake
 %{_qt6_libdir}/libQt6HttpServer.prl
 %{_qt6_libdir}/libQt6HttpServer.so
 %{_qt6_libdir}/pkgconfig/Qt6HttpServer.pc
@@ -91,6 +97,9 @@ to the usage of %{name}.
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

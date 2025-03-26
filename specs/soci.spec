@@ -33,6 +33,7 @@ Source0:        %{url}/archive/v%{ups_ver}.tar.gz#/%{name}-%{version}.tar.gz
 # Works around a false positive -Wuninitialized error exposed by LTO
 Patch0:         soci-uninit.patch
 Patch1:         soci-unicode.patch
+Patch2:		soci-empty-headers.patch
 
 BuildRequires:  dos2unix
 BuildRequires:  gcc gcc-c++
@@ -185,6 +186,7 @@ library. The documentation is the same as at the %{name} web page.
 %setup -q -n %{name}-%{ups_ver}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 # Rename change-log and license file, so that they comply with
 # packaging standard
@@ -221,6 +223,10 @@ dos2unix AUTHORS README ChangeLog COPYING NEWS
 %install
 %cmake_install
 
+# The SOCI libraries are now released in a non-standard location
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{_libdir}/%{name}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}64.conf
+
 # CMake helpers
 mkdir -p %{buildroot}%{_datadir}/%{name}
 mv -f %{buildroot}%{_libdir}/cmake %{buildroot}%{_datadir}/%{name}/CMake
@@ -236,6 +242,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README
+%{_sysconfdir}/ld.so.conf.d/%{name}64.conf
 %{_libdir}/%{name}/lib%{name}_core.so.*
 %{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so.*}
 
@@ -264,7 +271,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*.h
-#%%{?with_empty:%%{_includedir}/%%{name}/empty/}
+%{?with_empty:%{_includedir}/%{name}/empty/}
 %{_libdir}/%{name}/lib%{name}_core.so
 %{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so}
 %{_datadir}/%{name}/CMake

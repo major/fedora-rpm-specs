@@ -1,7 +1,11 @@
+#gkrellm has c23 issues so...
+
+%global optflags %{optflags} -std=gnu17
+
 Name:		gxmms2
 Summary: 	A graphical audio player
 Version:	0.7.1
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	GPL-2.0-only
 # If we need to use a git checkout to support an xmms2 release...
 # git clone git://git.xmms.se/xmms2/gxmms2.git
@@ -12,6 +16,7 @@ Source1:	%{name}.desktop
 Patch0:		gxmms2-0.7.0-implicit-DSO-libX11.patch
 Patch1:		gxmms2-0.7.1-xmms2-0.9.3.patch
 Patch2:		gxmms2-0.7.1-stdio.patch
+Patch3:		gxmms2-0.7.1-c23.patch
 URL:		http://wejp.k.vu/projects/xmms2/
 BuildRequires:	xmms2-devel >= 0.7, gtk2-devel, pango-devel, atk-devel
 BuildRequires:	desktop-file-utils, gcc
@@ -38,6 +43,7 @@ library window.
 %patch -P0 -p1 -b .DSO
 %patch -P1 -p1 -b .093
 %patch -P2 -p1 -b .stdio
+%patch -P3 -p1 -b .c23
 sed -i 's|/lib/|/%{_lib}/|g' Makefile
 
 %build
@@ -65,6 +71,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_libdir}/gkrellm2/plugins/gkrellxmms2.so
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 0.7.1-32
+- fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

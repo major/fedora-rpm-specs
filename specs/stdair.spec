@@ -1,6 +1,6 @@
 #
 Name:           stdair
-Version:        1.00.17
+Version:        1.00.19
 Release:        %autorelease
 
 Summary:        C++ Standard Airline IT Object Library
@@ -57,7 +57,7 @@ online (https://%{name}.org).
 %autosetup
 
 %build
-%cmake 
+%cmake
 %cmake_build
 
 %install
@@ -117,8 +117,8 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}uicl.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
@@ -128,4 +128,5 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 %changelog
 %autochangelog
+
 

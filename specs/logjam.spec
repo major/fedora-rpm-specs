@@ -1,8 +1,11 @@
 %global use_xmms 0
+# this thing is oooold and depends on gtk2.
+%global optflags %{optflags} -std=gnu17
+
 
 Name:		logjam
 Version:	4.6.2
-Release:	36%{?dist}
+Release:	37%{?dist}
 Epoch:		1
 Summary:	GTK2 client for LiveJournal
 License:	GPL-2.0-or-later
@@ -93,6 +96,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 1:4.6.2-37
+- fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

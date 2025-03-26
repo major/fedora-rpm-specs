@@ -5,12 +5,12 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.16.2
+%global xyz_version 3.17.1
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
@@ -123,6 +123,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Mon Mar 24 2025 Pavel Reichl <preichl@redhat.com> - 3.17.1-1
+- Update to upstream v3.17.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

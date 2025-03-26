@@ -9,7 +9,7 @@ URL:		https://github.com/cnr-isti-vclab/meshlab
 License:	GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND BSL-1.0
 Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
 # Matches 2023.12:
-%global vcglibver 6ac9e0c
+%global vcglibver 88c881d
 # Probably belongs in its own package, but nothing else seems to depend on it.
 Source2:	https://github.com/cnr-isti-vclab/vcglib/archive/%{vcglibver}/vcglib-%{vcglibver}.tar.gz
 # Notes for Fedora users (around issues with Wayland)
@@ -51,6 +51,14 @@ Patch2:		meshlab-2023.12-system-levmar.patch
 Patch3:         meshlab-2023.12-e57-gcc13.patch
 # Include cstdint when corto uses uint32_t
 Patch4:		meshlab-2023.12-corto-cstdint.patch
+# Cmake fix
+Patch5:		meshlab-2023.12-cmake-fix.patch
+# Comment out LoadCamera (it is broken and unused)
+Patch6:		meshlab-2023.12-vcglib-no-LoadCamera.patch
+# This struct doesn't define "value". I think it actually wants to use "point" in the - operator, like it does in the + operator, but... who knows.
+Patch7:		meshlab-2023.12-fix-nonexistent-value.patch
+# There are also undefined variables in a function that does not seem to be called. :/
+Patch8:		meshlab-2023.12-fix-invalid-vars.patch
 
 # Bundled things
 Provides:	bundled(u3d) = 1.5.1
@@ -75,6 +83,7 @@ BuildRequires:	lib3ds-devel
 BuildRequires:	muParser-devel
 BuildRequires:	qhull-devel
 BuildRequires:	qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtxmlpatterns-devel qt5-qtscript-devel
+BuildRequires:  tbb-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	ImageMagick
 BuildRequires:	xerces-c-devel
@@ -123,6 +132,12 @@ popd
 # These patches need to apply after we build the bundled tree
 %patch -P 3 -p1 -b .e57-gcc13
 %patch -P 4 -p1 -b .cstdint
+
+%patch -P 5 -p1 -b .cmake-fix
+%patch -P 6 -p1 -b .no-LoadCamera
+%patch -P 7 -p1 -b .fix-nonexistent-value
+%patch -P 8 -p1 -b .fix-invalid-vars
+
 
 # remove some bundles
 %if 0

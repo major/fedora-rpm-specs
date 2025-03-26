@@ -1,6 +1,6 @@
 Name: cfdg
-Version:  3.4.1
-Release:  2%{?dist}
+Version:  3.4.2
+Release:  1%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
@@ -21,27 +21,30 @@ create images that can contain millions of shapes.
 %prep
 %setup -qcn ContextFreeSource%{version}
 
-%patch -P0 -p0
+%patch -P0 -p1
 
 # Remove -march=native everywhere.
 find -type f -print0 | xargs -0 sed -i 's/-march=native//g'
 
 %build
-pushd context-free%{version}
+#pushd ContextFreeSource%{version}
 OPTFLAGS=$RPM_OPT_FLAGS make %{?_smp_mflags}
-popd
+#popd
 
 %install
-pushd context-free%{version}
+#pushd ContextFreeSource%{version}
 install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
-popd
+#popd
 
 %files
 %{_bindir}/cfdg
-%license context-free%{version}/LICENSE.txt
-%doc context-free%{version}/input/* context-free%{version}/README* context-free%{version}/ChangeLog
+%license LICENSE.txt
+%doc input/* README* ChangeLog
 
 %changelog
+* Mon Mar 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.2-1
+- 3.4.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

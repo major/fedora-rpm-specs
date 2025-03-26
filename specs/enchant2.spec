@@ -2,7 +2,7 @@
 
 Name:          enchant2
 Version:       2.8.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -99,7 +99,7 @@ Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
 
 %description -n mingw32-%{name}
-MinGW Windows %{pkgname} library.
+MinGW Windows %{name} library.
 
 
 %package -n mingw64-%{name}
@@ -241,6 +241,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 2.8.2-6
+- Fix package description for mingw32-enchant2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
