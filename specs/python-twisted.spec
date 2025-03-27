@@ -6,7 +6,7 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        24.10.0
+Version:        24.11.0
 Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 
@@ -15,7 +15,9 @@ URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
 Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # downstream-only disable tests that fail in the buildsystem or due to sha1
-Patch0:         python-twisted-24.10.0-disable-tests.patch
+Patch0:         python-twisted-24.11.0-disable-tests.patch
+# https://github.com/twisted/twisted/pull/12442
+Patch1:         fix-HelperTests-test_refuteCryptedPassword-on-EPEL10.patch
 
 BuildArch:      noarch
 

@@ -1,55 +1,64 @@
 Name:           perl-DateTime-Format-XSD
 Version:        0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Format DateTime according to xsd:dateTime
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-XSD
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-XSD-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Runtime
+BuildRequires:  perl(base)
 BuildRequires:  perl(DateTime::Format::ISO8601)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Test Suite
 BuildRequires:  perl(Test::More)
-Requires:       perl(DateTime::Format::ISO8601)
-
-#Not autodetermined.
-Provides:       perl(DateTime::Format::XSD) = %{version}
+# Dependencies
+# (none)
 
 %description
-XML Schema defines a usage profile which is a subset of the ISO8601
+XML Schema defines a usage profile that is a subset of the ISO8601
 profile. This profile defines that
   'YYYY-MM-DD"T"HH:MI:SS(Z|[+-]zh:zm)' 
-is the only possible representation for a dateTime, despite 
-all other options ISO provides.
+is the only possible representation for a dateTime, despite all other
+options ISO provides.
 
 %prep
 %setup -q -n DateTime-Format-XSD-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
+%license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime/
+%{_mandir}/man3/DateTime::Format::XSD.3*
 
 %changelog
+* Tue Mar 25 2025 Paul Howarth <paul@city-fan.org> - 0.4-13
+- Spec modernization
+  - Specify all dependencies
+  - Use %%{make_build} and %%{make_install}
+  - Drop redundant buildroot cleaning in %%install section
+  - Fix permissions verbosely
+  - Make %%files section more explicit
+  - Package LICENSE file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

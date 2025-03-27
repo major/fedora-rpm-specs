@@ -1,6 +1,6 @@
 Name:           SDL_sound
 Version:        1.0.3
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Library handling decoding of several popular sound file formats
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -36,8 +36,6 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       SDL-devel
 
 %description    devel
-%{description}
-
 This package contains the headers and libraries for SDL_sound development.
 
 
@@ -107,6 +105,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.0.3-40
+- Fix documentation for devel subpackage
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

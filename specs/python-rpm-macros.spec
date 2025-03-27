@@ -33,6 +33,8 @@ Source402:      brp-python-hardlink
 # This one is from redhat-rpm-config < 190
 # It has no upstream yet
 Source403:      brp-fix-pyc-reproducibility
+# brp script to write "rpm" string into the .dist-info/INSTALLER file
+Source404:      brp-python-rpm-in-distinfo
 
 # macros and lua: MIT
 # import_all_modules.py: MIT
@@ -53,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 BuildArch:      noarch
 
@@ -136,6 +138,7 @@ install -m 755 brp-* %{buildroot}%{_rpmconfigdir}/redhat/
 %global __brp_python_bytecompile %{add_buildroot __brp_python_bytecompile}
 %global __brp_python_hardlink %{add_buildroot __brp_python_hardlink}
 %global __brp_fix_pyc_reproducibility %{add_buildroot __brp_fix_pyc_reproducibility}
+%global __brp_python_rpm_in_distinfo %{add_buildroot __brp_python_rpm_in_distinfo}
 
 
 %check
@@ -156,6 +159,7 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 %{_rpmconfigdir}/redhat/brp-python-bytecompile
 %{_rpmconfigdir}/redhat/brp-python-hardlink
 %{_rpmconfigdir}/redhat/brp-fix-pyc-reproducibility
+%{_rpmconfigdir}/redhat/brp-python-rpm-in-distinfo
 %{_rpmluadir}/fedora/srpm/python.lua
 
 %files -n python3-rpm-macros
@@ -163,6 +167,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Mon Feb 10 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13-5
+- Add brp script to modify .dist-info/INSTALLER file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

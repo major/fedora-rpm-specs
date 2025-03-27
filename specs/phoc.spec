@@ -1,11 +1,11 @@
 Name:		phoc
-Version:	0.45.0
+Version:	0.46~rc1
 Release:	%{autorelease}
 Summary:	Display compositor designed for phones
 
 License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phoc
-Source:	https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source:	https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -43,7 +43,7 @@ Phoc is a wlroots based Phone compositor as used on the Librem5. Phoc is
 pronounced like the English word fog.
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -q -n %{name}-v%{version_no_tilde _}
 
 %build
 %meson -Dembed-wlroots=disabled -Dman=true

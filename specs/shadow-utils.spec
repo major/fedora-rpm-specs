@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -18,10 +18,6 @@ Source7: passwd.pamd
 %global includesubiddir %{_includedir}/shadow
 # Fail linking if there are undefined symbols.
 %global _ld_strict_symbol_defs 1
-# workaround: _pam_confdir definition disappeared
-%if ! %{defined _pam_confdir}
-%define _pam_confdir /etc/pam.d
-%endif
 
 ### Patches ###
 # Misc manual page changes - non-upstreamable
@@ -56,6 +52,7 @@ BuildRequires: libtool
 BuildRequires: libxcrypt-devel
 BuildRequires: libxslt
 BuildRequires: make
+BuildRequires: pam
 BuildRequires: pam-devel
 
 ### Provides ###
@@ -279,6 +276,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Mar 25 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-2
+- Add pam dependency for _pam_confdir missing macro. Resolves: #2354806
+
 * Thu Mar 20 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-1
 - Rebase to version 4.17.4. Resolves: #2353491
 - Fixes problems with expiration dates

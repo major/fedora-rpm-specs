@@ -23,6 +23,7 @@ Source0: https://github.com/jfriesse/%{name}/releases/download/%{version}/%{name
 
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: git
 %{?systemd_requires}
 BuildRequires: systemd
 
@@ -34,7 +35,7 @@ BuildRequires: pkgconfig(vmguestlib)
 Utility to detect and log scheduler pause
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -S git_am
 
 %build
 %set_build_flags

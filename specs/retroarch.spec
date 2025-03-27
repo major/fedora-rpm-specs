@@ -124,7 +124,9 @@ BuildRequires:  gcc-c++ >= 7
 BuildRequires:  glslang-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+%if 0%{?fedora} < 42
 BuildRequires:  mbedtls-devel
+%endif
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  spirv-tools-libs
 BuildRequires:  systemd-devel
@@ -222,6 +224,10 @@ Provides:       bundled(rcheevos) = 10.7
 Provides:       bundled(SPIRV-Cross)
 Provides:       bundled(stb)
 
+%if 0%{?fedora} >= 42
+Provides:       bundled(mbedtls) = 2.5.1
+%endif
+
 %global _description %{expand:
 libretro is an API that exposes generic audio/video/input callbacks. A frontend
 for libretro (such as RetroArch) handles video output, audio output, input and
@@ -301,8 +307,10 @@ rm -rf                      \
         %{nil}
 popd
 
+%if 0%{?fedora} < 42
 # * Not part of the 'mbedtls' upstream source
 find deps/mbedtls/ ! -name 'cacert.h' -type f -exec rm -f {} +
+%endif
 
 # Use system assets, libretro cores, libretro's core info and audio/video,
 # filters, database files (cheatcode, content data, cursors)
@@ -348,7 +356,11 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 ./configure                     \
     --prefix=%{_prefix}         \
     --disable-builtinflac       \
+%if 0%{?fedora} < 42
     --disable-builtinmbedtls    \
+%else
+    --enable-builtinmbedtls    \
+%endif
     --disable-builtinzlib       \
     --enable-dbus               \
     --enable-libdecor           \

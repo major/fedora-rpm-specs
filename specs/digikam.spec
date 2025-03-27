@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.6.0
-Release: 2%{?beta}%{?dist}
+Release: 3%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -334,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 8.6.0-3
+- Rebuild (qt6)
+
 * Sun Mar 16 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.6.0-2
 - new digiKam-8.6.0 tarball
 

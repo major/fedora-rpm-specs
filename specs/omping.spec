@@ -8,13 +8,14 @@ Source0: https://github.com/jfriesse/%{name}/releases/download/%{version}/%{name
 
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: git
 
 %description
 Omping (Open Multicast Ping) is tool to test IP multicast functionality
 primarily in local network.
 
 %prep
-%setup -q
+%autosetup -S git_am
 
 %build
 %set_build_flags

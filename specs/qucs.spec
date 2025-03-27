@@ -3,21 +3,20 @@
 
 Summary: Circuit simulator
 Name:    qucs
-Version: 0.0.20~rc2
-Release: 9%{?dist}
+Version: 0.0.20
+Release: 1%{?dist}
 License: GPL-1.0-or-later
 URL:     http://qucs.sourceforge.net/
-Source0: https://github.com/Qucs/%{name}/archive/%{name}-%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# Desktop file categories must terminate with a semicolon, bug #1424234
-Patch0:  qucs-0.0.19-fix-desktop-file.patch
-# https://github.com/Qucs/qucs/pull/1069
-Patch1:  qucs-0.0.20-rc2-gcc13.patch
+Source0: https://github.com/Qucs/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Qucs/qucs/issues/1103
+Patch:   qucs-0.0.20-soname-fix.patch
+# https://github.com/Qucs/qucs/issues/1103
+Patch:   qucs-0.0.20-fix-libdir.patch
+# https://github.com/Qucs/qucs/issues/1103
+Patch:   qucs-0.0.20-install-headers.patch
 
 BuildRequires: make
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
+BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: coreutils
 BuildRequires: desktop-file-utils
@@ -72,31 +71,18 @@ Qucs circuit simulator development headers
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version_no_tilde} -p1
-
-# fix file modes
-chmod 644 qucs/{AUTHORS,COPYING,ChangeLog,NEWS,README,THANKS,TODO}
+%autosetup -p1
 
 
 %build
-export CFLAGS="%{optflags}"
-export CXXFLAGS="$CFLAGS"
-
-autoreconf -fi
-# latex docs seems broken, disable for now
-%configure --disable-dependency-tracking --enable-debug=yes --disable-doc
-
-# remove rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' qucs-core/libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' qucs-core/libtool
-
-# drop rpath from the LDFLAGS
-# parallel build not working
-%make_build -j1 qucsconv_LDFLAGS= qucsator_LDFLAGS=
+%cmake -DENABLE_RPATH=OFF \
+  -DCMAKE_SKIP_RPATH=ON \
+  -DCMAKE_INSTALL_LIBDIR=%{_libdir}
+%cmake_build
 
 
 %install
-%make_install
+%cmake_install
 install -d %{buildroot}%{_datadir}/applications
 
 %if !%{with qucs_enables_freehdl}
@@ -105,39 +91,34 @@ rm -f %{buildroot}/%{_mandir}/man1/qucsdigi*
 rm -f %{buildroot}/%{_datadir}/qucs/docs/*/{qucsdigi.png,start_digi.html}
 %endif
 
-desktop-file-install \
-    --add-category "X-Fedora" \
-    --add-category "Engineering" \
-    --set-icon "qucs" \
-    --dir=%{buildroot}%{_datadir}/applications \
-    qucs/qucs/%{name}.desktop
-
-# drop .la
-rm -f %{buildroot}%{_libdir}/libqucs.la
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %files
-%license qucs/COPYING
-%doc qucs/AUTHORS qucs/ChangeLog qucs/NEWS NEWS.md README.md qucs/README qucs/THANKS qucs/TODO
+%license COPYING
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
 %{_bindir}/qucs*
 %{_bindir}/ps2sp*
 %{_datadir}/%{name}
-%{_datadir}/qucsator
 %{_datadir}/applications/*
 %{_mandir}/man1/*
 %{_datadir}/icons/*/*/*
 
 
 %files lib
-%{_libdir}/libqucsator.so.*
+%{_libdir}/libqucsschematic.so.*
 
 
 %files devel
 %{_includedir}/*
-%{_libdir}/libqucsator.so
+%{_libdir}/libqucsschematic.so
 
 
 %changelog
+* Tue Mar 18 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.20-1
+- New version
+  Resolves: rhbz#2341258
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20~rc2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

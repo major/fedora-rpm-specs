@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       25.0
+Version:       25.0.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -117,6 +117,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Tue Mar 25 2025 Sandro Mani <manisandro@gmail.com> - 25.0.1-1
+- Update to 25.0.1
+
 * Sun Feb 02 2025 Sandro Mani <manisandro@gmail.com> - 25.0-1
 - Update to 25.0
 

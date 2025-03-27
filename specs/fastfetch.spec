@@ -1,7 +1,7 @@
 Name:           fastfetch
-Version:        2.36.1
+Version:        2.39.1
 Release:        1%{?dist}
-Summary:        Like neofetch, but much faster because written in c
+Summary:        Fast neofetch-like system information tool
 
 License:        MIT
 URL:            https://github.com/fastfetch-cli/fastfetch
@@ -13,7 +13,6 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  hwdata-devel
 BuildRequires:  wayland-devel
-BuildRequires:  libxcb-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  dconf-devel
 BuildRequires:  dbus-devel
@@ -48,20 +47,19 @@ BuildRequires:  chafa-devel
 BuildRequires:  yyjson-devel
 
 Recommends:     hwdata
-Recommends:     libxcb
-Recommends:     libXrandr
-Recommends:     dconf
-Recommends:     sqlite
-Recommends:     zlib
-Recommends:     libglvnd-glx
-Recommends:     ImageMagick
-Recommends:     glib2
-Recommends:     ocl-icd
-Recommends:     chafa
-Recommends:     ddcutil
-Recommends:     libdrm
-Recommends:     pulseaudio-libs
-Recommends:     elfutils-libelf
+Suggests:       libXrandr
+Suggests:       dconf
+Suggests:       sqlite-libs
+Suggests:       zlib
+Suggests:       libglvnd-glx
+Suggests:       ImageMagick-libs
+Suggests:       glib2
+Suggests:       ocl-icd
+Suggests:       chafa-libs
+Suggests:       libddcutil
+Suggests:       libdrm
+Suggests:       pulseaudio-libs
+Suggests:       elfutils-libelf
 
 # The shell completion files were previously provided as separate subpackages
 # which depended on their respective shell.  That was necessary to avoid the
@@ -111,7 +109,12 @@ mechanisms like multithreading and caching to finish as fast as possible.
 %{_datadir}/fish/vendor_completions.d/%{name}.fish
 %{_datadir}/zsh/site-functions/_%{name}
 
+
 %changelog
+* Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 2.39.1-1
+- update to 2.39.1 rhbz#2346605
+- improve recommends/suggests for lighter installs rhbz#2346954
+
 * Thu Feb 13 2025 Jonathan Wright <jonathan@almalinux.org> - 2.36.1-1
 - update to 2.36.1 rhbz#2342117
 

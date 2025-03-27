@@ -34,7 +34,7 @@
 
 Name:           obs-studio
 Version:        31.0.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -360,6 +360,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Tue Mar 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 31.0.2-4
+- Rebuild for mbedtls 3.6
+
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 31.0.2-3
+- Rebuild (qt6)
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 31.0.2-2
 - Rebuild for mbedtls 3.6
 

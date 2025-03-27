@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 5 Tier 4 module with porting aid from KDELibs 4
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
@@ -139,8 +139,8 @@ cp all.lang %{name}.lang
 ## use ca-certificates' ca-bundle.crt, symlink as what most other
 ## distros do these days (http://bugzilla.redhat.com/521902)
 if [  -f %{buildroot}%{_kf5_datadir}/kf5/kssl/ca-bundle.crt -a \
-      -f /etc/pki/tls/certs/ca-bundle.crt ]; then
-  ln -sf /etc/pki/tls/certs/ca-bundle.crt \
+      -f /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then
+  ln -sf /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
          %{buildroot}%{_kf5_datadir}/kf5/kssl/ca-bundle.crt
 fi
 
@@ -191,6 +191,9 @@ rm -fv %{buildroot}%{_kf5_sysconfdir}/xdg/kdebugrc
 
 
 %changelog
+* Tue Mar 25 2025 Than Ngo <than@redhat.com> - 5.116.0-5
+- Fixed rhbz#2338971, Change path to certificates file
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

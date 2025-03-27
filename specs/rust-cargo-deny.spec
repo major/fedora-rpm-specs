@@ -4,7 +4,7 @@
 %global crate cargo-deny
 
 Name:           rust-cargo-deny
-Version:        0.16.4
+Version:        0.18.2
 Release:        %autorelease
 Summary:        Cargo plugin to help you manage large dependency graphs
 
@@ -48,7 +48,25 @@ Summary:        %{summary}
 # MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND CC0-1.0 AND ISC AND MIT AND MPL-2.0 AND OpenSSL AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    Apache-2.0 AND
+    Apache-2.0 WITH LLVM-exception AND
+    BSD-3-Clause AND
+    CC0-1.0 AND
+    ISC AND
+    MIT AND
+    MPL-2.0 AND
+    OpenSSL AND
+    Unicode-DFS-2016 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 Provides:       bundled(spdx-license-list-data) = 3.22

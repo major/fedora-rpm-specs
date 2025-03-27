@@ -1,21 +1,17 @@
 %global pypi_name pygmars
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Craft simple regex-based small language lexers and parser
 
 License:        Apache-2.0
 URL:            https://github.com/nexB/pygmars
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# setup.cfg: fix invalid version spec
-Patch:          https://github.com/nexB/pygmars/commit/984f52c5a4f8ab2705177ee38a9d326be11fa713.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %global common_description %{expand:
 pygmars is a simple lexing and parsing library designed to craft lightweight
@@ -70,9 +66,10 @@ This package is providing the documentation for %{pypi_name}.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
+sed -i '/doc8/d' setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x docs
 
 %build
 %pyproject_wheel

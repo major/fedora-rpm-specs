@@ -1,6 +1,6 @@
 Name:          sailcut
-Version:       1.4.1
-Release:       18%{?dist}
+Version:       1.5.0
+Release:       1%{?dist}
 Summary:       A sail design and plotting software
 
 License:       GPL-2.0-only
@@ -9,14 +9,11 @@ Source0:       https://github.com/sailcut/%{name}/archive/v%{version}/%{name}-%{
 Source1:       sailcut.desktop
 Source2:       sailcut.xml
 
-# Add a couple of missing includes
-Patch0:        sailcut_includes.patch
-
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qttools-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qttools-devel
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: transfig
@@ -35,7 +32,7 @@ development of all panels in flat sheets.
 
 
 %build
-%qmake_qt5 PREFIX=%{_prefix} %{name}.pro
+%qmake_qt6 PREFIX=%{_prefix} %{name}.pro
 %make_build
 pushd doc
 mkdir build
@@ -54,8 +51,8 @@ install -p -D -m 644 icons/%{name}-file.svg %{buildroot}%{_datadir}/icons/hicolo
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog README doc/build/en/*
-%license COPYING
+%doc AUTHORS ChangeLog README.md doc/build/en/*
+%license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
@@ -64,6 +61,9 @@ install -p -D -m 644 icons/%{name}-file.svg %{buildroot}%{_datadir}/icons/hicolo
 
 
 %changelog
+* Tue Mar 25 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-1
+- Update to 1.5.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.39
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -18,6 +18,7 @@ Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 %bcond_without rbd
 %bcond_without rados
 %endif
+%bcond_with tcmalloc
 %else
 %bcond nbd 1
 %ifarch x86_64 ppc64le
@@ -27,6 +28,8 @@ Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 %bcond rbd 1
 %bcond rados 1
 %endif
+# set to %%{undefined rhel} if enabling for Fedora
+%bcond tcmalloc 0
 %endif
 
 %bcond_with xnvme
@@ -50,6 +53,10 @@ BuildRequires:	libpmem-devel
 BuildRequires:	librbd1-devel
 %endif
 
+%if %{with tcmalloc}
+BuildRequires:	gperftools-devel
+%endif
+
 %if %{with xnvme}
 BuildRequires:	xnvme-devel
 %endif
@@ -64,8 +71,6 @@ BuildRequires:	librdmacm-devel
 BuildRequires:  libnl3-devel
 %endif
 BuildRequires: make
-
-Requires: gperftools-libs
 
 # Don't create automated dependencies for the fio engines.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884954
@@ -284,6 +289,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Mon Mar 10 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.39-3
+- Properly enable tcmalloc, only in Fedora
+- Related: rhbz#2299495
+
 * Fri Mar 07 2025 Pavel Reichl <preichl@redhat.com> - 3.39-2
 - Add dependency on gperftools-libs
 - Related: rhbz#2299495

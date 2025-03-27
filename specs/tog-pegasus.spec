@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        79%{?dist}
+Release:        80%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -576,6 +576,9 @@ fi
 
 
 %changelog
+* Tue Mar 25 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-80
+- Remove deprecated path from systemd service file
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2:2.14.1-79
 - Add explicit BR: libxcrypt-devel
 

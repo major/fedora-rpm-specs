@@ -9,8 +9,8 @@
 %global min_python_copr_version 1.128.1
 
 Name:       copr-cli
-Version:    2.0
-Release:    2%{?dist}
+Version:    2.1
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -124,8 +124,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
+- add a workaround for recursive fedora-review file downloads
+- drop python-six dependency
 
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.0-1
 - Allow admins to set storage for new projects

@@ -6,8 +6,8 @@
 %global with_doc 1
 
 Name:             python-%{mod_name}
-Version:          2.1.2
-Release:          1%{?dist}
+Version:          2.1.3
+Release:          2%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -107,7 +107,6 @@ install -pm 755 kafka/record/_crc32c.py %{buildroot}/%{python3_sitelib}/%{mod_na
 # zstd's extras_requires causes an incorrect dependency.
 %package -n python3-%{mod_name}+zstd
 Summary: Metapackage for python3-kafka: zstd extras
-Requires: python(abi) = %{python3_version}
 Requires: python3-kafka = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: python%{python3_version}dist(zstandard)
 Provides: python-kafka+zstd = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -123,6 +122,12 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Wed Mar 26 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.1.3-2
+- Fixed a warning on rpmmacro
+
+* Wed Mar 26 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.1.3-1
+- update to 2.1.3 (rhbz#2354887)
+
 * Mon Mar 24 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.1.2-1
 - update to 2.1.2 (rhbz#2352756)
 

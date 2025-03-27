@@ -1,14 +1,17 @@
 Name:           python-syrupy
-Version:        4.6.1
-Release:        4%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 Summary:        Pytest snapshot plugin
 
 License:        Apache-2.0
-URL:            https://tophat.github.io/syrupy
-Source:         https://github.com/tophat/syrupy/archive/v%{version}/syrupy-%{version}.tar.gz
+URL:            https://syrupy-project.github.io/syrupy/
+Source:         https://github.com/syrupy-project/syrupy/archive/v%{version}/syrupy-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+# for tests
+BuildRequires:  python3-pytest-xdist
 
 %global _description %{expand:
 Syrupy is a pytest snapshot plugin. It enables developers
@@ -48,6 +51,15 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Mar 25 2025 Jonathan Wright <jonathan@almalinux.org> - 4.9.1-1
+- update to 4.9.1
+
+* Tue Mar 25 2025 Jonathan Wright <jonathan@almalinux.org> - 4.8.3-1
+- update to 4.8.3
+
+* Tue Mar 25 2025 Jonathan Wright <jonathan@almalinux.org> - 4.7.2-1
+- update to 4.7.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

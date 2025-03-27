@@ -165,6 +165,8 @@ Source200: nodejs-sources.sh
 Source201: npmrc.builtin.in
 Source202: nodejs.pc.in
 Source203: v8.pc.in
+Source300: test-runner.sh
+Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
 Patch: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
@@ -802,6 +804,9 @@ sed -e 's#@PREFIX@#%{_prefix}#g' \
 
 
 %check
+#run unit test that should pass from list
+bash %{SOURCE300} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} %{_builddir}/node-v%{nodejs_version}/test/ %{SOURCE301}
+	
 # Fail the build if the versions don't match
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"

@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.9
+Version: 7.0.10
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
@@ -195,6 +195,9 @@ fi
 %{_sysusersdir}/suricata.conf
 
 %changelog
+* Tue Mar 25 2025 Steve Grubb <sgrubb@redhat.com> 7.0.10-1
+- New bugfix release
+
 * Tue Mar 18 2025 Steve Grubb <sgrubb@redhat.com> 7.0.9-1
 - New security and bugfix release
 

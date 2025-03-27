@@ -4,16 +4,13 @@
 %bcond_without userflags
 %bcond_with runautogen
 
-%global gitver %{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}
-%global gittarver %{?numcomm:.%{numcomm}}%{?alphatag:-%{alphatag}}%{?dirty:-%{dirty}}
-
 Name: corosync-qdevice
 Summary: The Corosync Cluster Engine Qdevice
 Version: 3.0.3
-Release: 9%{?gitver}%{?dist}
+Release: 9%{?dist}
 License: BSD-3-Clause
 URL: https://github.com/corosync/corosync-qdevice
-Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}%{?gittarver}/%{name}-%{version}%{?gittarver}.tar.gz
+Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 # Runtime bits
 Requires: corosync >= 2.4.0
@@ -36,9 +33,10 @@ BuildRequires: nss-devel
 BuildRequires: autoconf automake libtool
 %endif
 BuildRequires: make
+BuildRequires: git
 
 %prep
-%setup -q -n %{name}-%{version}%{?gittarver}
+%autosetup -S git_am
 
 # Create a sysusers.d config file
 cat >corosync-qnetd.sysusers.conf <<EOF

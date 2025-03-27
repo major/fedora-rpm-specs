@@ -9,7 +9,7 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.9.2
+Version: 7.0
 Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
@@ -29,8 +29,10 @@ BuildRequires: emacs-nox
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: pkgconfig
+BuildRequires: python3-build
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-setuptools_scm
 BuildRequires: python3-docutils
 %if %{with rust}
 BuildRequires: rust-packaging
@@ -135,7 +137,7 @@ done
 chmod -x hgweb.cgi contrib/hgweb.fcgi
 
 %build
-PYTHON=%{python3} make all
+%py3_build
 
 # chg will invoke the 'hg' command - no direct Python dependency
 pushd contrib/chg
@@ -248,6 +250,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Tue Mar 25 2025 Mads Kiilerich <mads@kiilerich.com> - 7.0-1
+- mercurial 7.0
+
 * Thu Feb 20 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.2-1
 - mercurial 6.9.2
 

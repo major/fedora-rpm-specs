@@ -1,7 +1,7 @@
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
 Version: 6.3.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -85,6 +85,9 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.3-2
+- Rebuild (qt6)
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
 - 6.3.3
 

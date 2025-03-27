@@ -1,24 +1,24 @@
 %{?mingw_package_header}
 
 Name:           mingw-libidn
-Version:        1.42
-Release:        5%{?dist}
+Version:        1.43
+Release:        1%{?dist}
 Summary:        MinGW Windows Internationalized Domain Name support library
 
-License:        LGPL-2.0-or-later
+License:        (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            http://www.gnu.org/software/libidn/
 Source0:        http://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-gettext
 BuildRequires:  mingw32-win-iconv
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-gettext
@@ -103,7 +103,7 @@ find %{buildroot} -name "*.la" -delete
 
 # Win32
 %files -n mingw32-libidn
-%license COPYING COPYING.LESSERv2 COPYING.LESSERv3 COPYINGv2 COPYINGv3
+%license COPYING*
 %{mingw32_bindir}/idn.exe
 %{mingw32_bindir}/libidn-12.dll
 %{mingw32_libdir}/libidn.dll.a
@@ -115,7 +115,7 @@ find %{buildroot} -name "*.la" -delete
 
 # Win64
 %files -n mingw64-libidn
-%license COPYING COPYING.LESSERv2 COPYING.LESSERv3 COPYINGv2 COPYINGv3
+%license COPYING*
 %{mingw64_bindir}/idn.exe
 %{mingw64_bindir}/libidn-12.dll
 %{mingw64_libdir}/libidn.dll.a
@@ -127,6 +127,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Mar 25 2025 Sandro Mani <manisandro@gmail.com> - 1.43-1
+- Update to 1.43
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

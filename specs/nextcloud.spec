@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        31.0.0
+Version:        31.0.2
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -41,7 +41,7 @@ Source303:      %{name}-MIGRATION.fedora
 # version are possible
 Patch0:         0000-disable-update-version-check.patch
 # Add the ability to exclude files we specify from the nextcloud integrity checker
-Patch1:         nextcloud-integritycheck-exclusion.patch
+Patch1:         nextcloud30-integritycheck-exclusion.patch
 
 BuildArch:      noarch
 

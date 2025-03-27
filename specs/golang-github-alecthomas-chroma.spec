@@ -1,6 +1,6 @@
 # https://github.com/alecthomas/chroma
 %global goipath         github.com/alecthomas/chroma
-Version:                0.10.0
+Version:                2.15.0
 
 %gometa
 
@@ -15,7 +15,7 @@ lexers and styles.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        1%{?dist}
 Summary:        General purpose syntax highlighter in pure Go
 
 License:        MIT
@@ -49,11 +49,15 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %files
 %license COPYING
 %doc README.md
-%{_bindir}/*
+%{_bindir}/chroma
+%{_bindir}/chromad
 
 %gopkgfiles
 
 %changelog
+* Tue Mar 25 2025 Athos Ribeiro <athoscr@fedoraproject.org> - 2.15.0-1
+- Update to latest revision. Thanks to Yaakov Selkowitz.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

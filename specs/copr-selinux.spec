@@ -10,8 +10,8 @@
 %global selinuxvariants targeted
 
 Name:       copr-selinux
-Version:    1.55
-Release:    6%{?dist}
+Version:    1.56
+Release:    1%{?dist}
 Summary:    SELinux module for COPR
 
 License:    GPL-2.0-or-later
@@ -65,9 +65,9 @@ done
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
 install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
-install -d %{buildroot}%{_sbindir}
-install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
-install -p -m 755 %{name}-relabel %{buildroot}%{_sbindir}/%{name}-relabel
+install -d %{buildroot}%{_bindir}
+install -p -m 755 %{name}-enable %{buildroot}%{_bindir}/%{name}-enable
+install -p -m 755 %{name}-relabel %{buildroot}%{_bindir}/%{name}-relabel
 install -d %{buildroot}%{_mandir}/man8
 install -p -m 644 man/%{name}-enable.8 %{buildroot}/%{_mandir}/man8/
 install -p -m 644 man/%{name}-relabel.8 %{buildroot}/%{_mandir}/man8/
@@ -104,26 +104,14 @@ done
 %{_datadir}/selinux/*/%{modulename}.pp.bz2
 # empty, do not distribute it for now
 %exclude %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
-%{_sbindir}/%{name}-enable
-%{_sbindir}/%{name}-relabel
+%{_bindir}/%{name}-enable
+%{_bindir}/%{name}-relabel
 %{_mandir}/man8/%{name}-enable.8*
 %{_mandir}/man8/%{name}-relabel.8*
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.56-1
+- unify bindir and sbindir
 
 * Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.55-1
 - Use spdx license

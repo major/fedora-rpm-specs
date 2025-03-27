@@ -3,7 +3,7 @@
 
 # https://github.com/hickford/git-credential-azure
 %global goipath         github.com/hickford/git-credential-azure
-Version:                0.3.0
+Version:                0.3.1
 
 %gometa -f
 

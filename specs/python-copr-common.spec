@@ -1,8 +1,8 @@
 %global srcname copr-common
 
 Name:       python-copr-common
-Version:    1.0
-Release:    2%{?dist}
+Version:    1.1
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -63,8 +63,8 @@ version=%version %py3_install
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
+- lock the pulp-redirect.txt file
 
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.0-1
 - Drop support for rhel7 and rhel6

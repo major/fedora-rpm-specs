@@ -12,6 +12,7 @@ License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        %{name}.rpmlintrc
+Patch0:         rhbz2354388.patch
 
 BuildRequires:  gcc
 BuildRequires:  git

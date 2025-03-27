@@ -1,7 +1,7 @@
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
 Version: 6.3.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -81,6 +81,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.3-2
+- Rebuild (qt6)
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
 - 6.3.3
 

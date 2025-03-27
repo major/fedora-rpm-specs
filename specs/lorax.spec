@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/weldr/lorax
 
 Name:           lorax
-Version:        43.1
+Version:        43.2
 Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
@@ -92,19 +92,29 @@ Requires: lorax = %{version}-%{release}
 %description docs
 Includes the full html documentation for lorax, livemedia-creator, and the pylorax library.
 
+%if ! (0%{?rhel} >= 10 && "%{_arch}" == "ppc64le")
 %package lmc-virt
 Summary:  livemedia-creator libvirt dependencies
 Requires: lorax = %{version}-%{release}
+%if 0%{?rhel}
+# RHEL doesn't have qemu, just qemu-kvm
+Requires: qemu-kvm
+%else
 Requires: qemu
+Recommends: qemu-kvm
+%endif
 
-# Fedora edk2 builds currently only support these arches
-%ifarch x86_64 aarch64
+# edk2 builds currently only support these arches
+%ifarch x86_64
 Requires: edk2-ovmf
 %endif
-Recommends: qemu-kvm
+%ifarch aarch64
+Requires: edk2-aarch64
+%endif
 
 %description lmc-virt
 Additional dependencies required by livemedia-creator when using it with qemu.
+%endif
 
 %package lmc-novirt
 Summary:  livemedia-creator no-virt dependencies
@@ -162,7 +172,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %files docs
 %doc docs/html/*
 
+%if ! (0%{?rhel} >= 10 && "%{_arch}" == "ppc64le")
 %files lmc-virt
+%endif
 
 %files lmc-novirt
 
@@ -171,6 +183,10 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Tue Mar 25 2025 Brian C. Lane <bcl@redhat.com> 43.2-1
+- spec: update lorax-lmc-virt dependencies (yselkowi@redhat.com)
+- livemedia-creator: Set 0755 permission on / cpio overlay (bcl@redhat.com)
+
 * Mon Mar 10 2025 Brian C. Lane <bcl@redhat.com> 43.1-1
 - runtime-postinstall: Remove systemd-gpt-auto-generator (bcl@redhat.com)
 

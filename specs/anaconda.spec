@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.9
+Version: 43.10
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 25 2025 Packit <hello@packit.dev> - 43.10-1
+- Fix condition to run locale1-sync script (jkonecny)
+- Update doc after disabling keyboard shortcuts (jkonecny)
+- Add release note for disabling keyboard shortcuts (jkonecny)
+- Disable keyboard shortcuts for layouts switching (jkonecny)
+- Stop parsing PLATFORM_ID from os-release (mkolman)
+
 * Mon Mar 24 2025 Packit <hello@packit.dev> - 43.9-1
 - Start/stop locale-sync systemd unit in liveinst (jkonecny)
 - Fix WantedBy in locale1-x11-sync service (jkonecny)

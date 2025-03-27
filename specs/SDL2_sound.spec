@@ -1,6 +1,6 @@
 Name:           SDL2_sound
 Version:        2.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An abstract soundfile decoder library
 # src/stb_vorbis.h: MIT or Unlicense
 # src/libmodplug: Public-Domain
@@ -50,8 +50,6 @@ Requires:       SDL2-devel
 Conflicts:      SDL_sound-devel
 
 %description    devel
-%{description}
-
 This package contains the headers and libraries for SDL_sound development.
 
 %prep
@@ -111,6 +109,9 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 2.0.4-3
+- Fix documentation for devel subpackage
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

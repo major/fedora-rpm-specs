@@ -1,9 +1,9 @@
 Name:    vsomeip3
-Version: 3.3.8
-Release: 6%{?dist}
+Version: 3.5.5
+Release: 1%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
-License: MPL-2.0 AND BSL-1.0
+License: MPL-2.0
 URL:     https://github.com/COVESA/vsomeip
 Source0: %{URL}/archive/%{VERSION}/vsomeip-%{VERSION}.tar.gz
 Source1: routingmanagerd.service
@@ -14,14 +14,16 @@ Source5: vsomeip.fc
 Source6: vsomeip.if
 Source7: vsomeip.te
 
-# Install libs, etc into /usr
-Patch0: vsomeip-install-dirs.patch
 # Use -fPIC, not -fPIE
-Patch1: vsomeip-compiler-flags.patch
+Patch0: vsomeip-compiler-flags.patch
+# Install libs, etc into /usr
+Patch1: vsomeip-install-dirs.patch
 # Build/Install tools and examples
 Patch2: vsomeip-build-extra.patch
-
-Patch3: vsomeip-big-endian.patch
+# Fix items gcc-14 finds
+Patch3: vsomeip-fix-gcc_errors.patch
+# Fix items with /usr/lib/cmake
+Patch4: vsomeip-fix-cmake_libdir.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake
@@ -99,7 +101,7 @@ Requires: %{name}-compat%{?_isa} = %{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup -n vsomeip-%{version} -p1 
+%autosetup -n vsomeip-%{version} -p1
 mkdir vsomeip-selinux
 cp %{SOURCE5} %{SOURCE6} %{SOURCE7} vsomeip-selinux/
 
@@ -134,7 +136,7 @@ EOF
 %install
 %cmake_install
 # Install samples
-DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/tools"
+DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/tools/vsomeip_ctrl"
 DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/examples"
 DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/examples/hello_world"
 
@@ -185,7 +187,7 @@ fi
 
 %files
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_libdir}/libvsomeip3.so.*
 %{_libdir}/libvsomeip3-*.so.*
 %{_tmpfilesdir}/%{name}.conf
@@ -197,12 +199,12 @@ fi
 
 %files compat
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_libdir}/libvsomeip.so.*
 
 %files routingmanager
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %attr(755,routingmanagerd,routingmanagerd) %dir /var/lib/routingmanagerd
 %{_bindir}/routingmanagerd
 %{_unitdir}/routingmanagerd.service
@@ -211,12 +213,12 @@ fi
 
 %files tools
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_bindir}/vsomeip_ctrl
 
 %files examples
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_bindir}/vsomeip-*-sample
 %{_bindir}/vsomeip-hello_world*
 # Example configurations:
@@ -224,7 +226,7 @@ fi
 
 %files compat-devel
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_includedir}/compat
 %{_libdir}/libvsomeip.so
 %{_libdir}/cmake/vsomeip
@@ -232,7 +234,7 @@ fi
 
 %files devel
 %doc AUTHORS CHANGES README.md
-%license LICENSE LICENSE_boost
+%license LICENSE
 %{_includedir}/vsomeip
 %{_libdir}/libvsomeip3.so
 %{_libdir}/libvsomeip3-*.so
@@ -240,6 +242,12 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Mon Mar 17 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.4-1
+- Moved from 3.3.x to 3.5.x
+- License has changed from MPLv2 AND Boost to MPLv2
+- No longer need to carry the big-endian patch
+- Needed to fix some entries which did not include cstdint
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.8-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

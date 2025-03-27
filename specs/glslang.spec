@@ -1,4 +1,4 @@
-%global sdkver 1.4.304.0
+%global sdkver 1.4.309.0
 
 Name:           glslang
 Version:        15.1.0

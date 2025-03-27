@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.8.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -364,6 +364,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2.1-3
+- Rebuild (qt6)
+
 * Sun Mar 16 2025 Marie Loise Nolden <loise@kde.org> - 6.8.2.1-2
 - fix build due to %cmake macro change after removal of -DLIB_SUFFIX in rawhide
 - prepare documentation build

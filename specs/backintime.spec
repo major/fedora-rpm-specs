@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.5.3
-Release:          3%{?dist}
+Version:          1.5.4
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -191,6 +191,9 @@ make -C common test-v
 
 
 %changelog
+* Tue Mar 25 2025 Johannes Lips <hannes@fedoraproject.org> - 1.5.4-1
+- update to latest upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - fix build for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

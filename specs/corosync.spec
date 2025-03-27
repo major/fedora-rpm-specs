@@ -12,16 +12,13 @@
 %bcond_without runautogen
 %bcond_without userflags
 
-%global gitver %{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}
-%global gittarver %{?numcomm:.%{numcomm}}%{?alphatag:-%{alphatag}}%{?dirty:-%{dirty}}
-
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.9
-Release: 2%{?gitver}%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
-Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}%{?gittarver}.tar.gz
+Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}.tar.gz
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -68,9 +65,10 @@ Requires: libxslt
 BuildRequires: readline-devel
 %endif
 BuildRequires: make
+BuildRequires: git
 
 %prep
-%setup -q -n %{name}-%{version}%{?gittarver}
+%autosetup -S git_am
 
 %build
 %if %{with runautogen}
@@ -116,7 +114,7 @@ BuildRequires: make
 
 %if %{with dbus}
 mkdir -p -m 0700 %{buildroot}/%{_sysconfdir}/dbus-1/system.d
-install -m 644 %{_builddir}/%{name}-%{version}%{?gittarver}/conf/corosync-signals.conf %{buildroot}/%{_datadir}/dbus-1/system.d/corosync-signals.conf
+install -m 644 %{_builddir}/%{name}-%{version}/conf/corosync-signals.conf %{buildroot}/%{_datadir}/dbus-1/system.d/corosync-signals.conf
 %endif
 
 ## tree fixup

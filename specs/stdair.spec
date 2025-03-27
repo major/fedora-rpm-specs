@@ -1,6 +1,6 @@
 #
 Name:           stdair
-Version:        1.00.19
+Version:        1.00.20
 Release:        %autorelease
 
 Summary:        C++ Standard Airline IT Object Library
@@ -128,5 +128,4 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 %changelog
 %autochangelog
-
 

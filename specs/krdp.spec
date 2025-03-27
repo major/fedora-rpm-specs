@@ -4,7 +4,7 @@
 Name:           krdp
 Summary:        Desktop sharing using RDP
 Version:        6.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -106,6 +106,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.3-2
+- Rebuild (qt6)
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
 - 6.3.3
 

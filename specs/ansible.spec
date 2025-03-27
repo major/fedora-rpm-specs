@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        11.3.0
+Version:        11.4.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -169,6 +169,10 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Tue Mar 25 2025 Packit <hello@packit.dev> - 11.4.0-1
+- Update to version 11.4.0
+- Resolves: rhbz#2354912
+
 * Mon Mar 17 2025 Packit <hello@packit.dev> - 11.3.0-1
 - Update to version 11.3.0
 

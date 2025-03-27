@@ -5,7 +5,7 @@
 %global crate krates
 
 Name:           rust-krates
-Version:        0.17.5
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Create graphs of crates gathered from cargo metadata
 
@@ -63,6 +63,18 @@ This package contains library source intended for building other packages which
 use the "metadata" feature of the "%{crate}" crate.
 
 %files       -n %{name}+metadata-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serialize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serialize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serialize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serialize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+targets-devel

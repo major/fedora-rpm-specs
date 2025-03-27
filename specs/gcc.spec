@@ -352,17 +352,17 @@ Autoreq: false
 %if !%{build_ada}
 Obsoletes: libgnat < %{version}-%{release}
 %endif
-Obsoletes: libmudflap
-Obsoletes: libmudflap-devel
-Obsoletes: libmudflap-static
+Obsoletes: libmudflap < %{version}-%{release}
+Obsoletes: libmudflap-devel < %{version}-%{release}
+Obsoletes: libmudflap-static < %{version}-%{release}
 Obsoletes: libgcj < %{version}-%{release}
 Obsoletes: libgcj-devel < %{version}-%{release}
 Obsoletes: libgcj-src < %{version}-%{release}
 %ifarch %{ix86} x86_64
-Obsoletes: libcilkrts
-Obsoletes: libcilkrts-static
-Obsoletes: libmpx
-Obsoletes: libmpx-static
+Obsoletes: libcilkrts < %{version}-%{release}
+Obsoletes: libcilkrts-static < %{version}-%{release}
+Obsoletes: libmpx < %{version}-%{release}
+Obsoletes: libmpx-static < %{version}-%{release}
 %endif
 
 %description -n libgcc

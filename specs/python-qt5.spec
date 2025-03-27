@@ -20,7 +20,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -77,8 +77,6 @@ BuildRequires: %{py3_dist sip} >= 5.3
 %if 0%{?webengine}
 Obsoletes: python-qt5 < 5.5.1-10
 %endif
-# When python-qt5-webkit was dropped
-Obsoletes: python%{python3_pkgversion}-qt5-webkit < 5.15.11-4
 
 %description
 %{summary}.
@@ -106,6 +104,8 @@ Provides: python%{python3_pkgversion}-PyQt5 = %{version}-%{release}
 Provides: python%{python3_pkgversion}-PyQt5%{?_isa} = %{version}-%{release}
 Requires: python%{python3_pkgversion}-qt5-base%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-qt5}
+# When python-qt5-webkit was dropped
+Obsoletes: python%{python3_pkgversion}-qt5-webkit < 5.15.11-4
 %description -n python%{python3_pkgversion}-qt5
 %{summary}.
 
@@ -291,6 +291,9 @@ sed -i \
 
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.11-6
+- Move -webkit obsoletes to python3-qt5 package
+
 * Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.11-5
 - Fix -webkit obsoletes
 

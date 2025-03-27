@@ -31,12 +31,11 @@ BuildRequires:	python3-devel
 %package -n python3-%{srcname}
 Summary:	%{summary}
 
-%description -n python3-%{srcname}
-%_desc
-
 # Added in f28 cycle.
 Obsoletes: python2-%{srcname} < 2.1-6
 Obsoletes: python-%{srcname} < 2.1-6
+
+%description -n python3-%{srcname} %_desc
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}

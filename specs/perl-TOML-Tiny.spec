@@ -1,5 +1,5 @@
 Name:           perl-TOML-Tiny
-Version:        0.19
+Version:        0.20
 Release:        %autorelease
 Summary:        A minimal, pure perl TOML parser and serializer
 

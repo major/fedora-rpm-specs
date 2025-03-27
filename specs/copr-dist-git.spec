@@ -1,8 +1,8 @@
 %global copr_common_version 0.25.1~~dev0
 
 Name:       copr-dist-git
-Version:    1.0
-Release:    2%{?dist}
+Version:    1.1
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -34,7 +34,7 @@ Requires: /usr/bin/crudini
 Requires: dist-git >= 1.12
 Requires: python3-copr-common >= %copr_common_version
 Requires: python3-requests
-Requires: python3-rpkg >= 1.66-6
+Requires: python3-rpkg >= 1.67-4
 Requires: python3-munch
 Requires: python3-setproctitle
 Requires: python3-daemon
@@ -48,6 +48,7 @@ Recommends: python3-copr
 
 %{?fedora:Requires(post): policycoreutils-python-utils}
 %{?rhel:Requires(post): policycoreutils-python}
+%{?fedora:Requires(pre): group(apache)}
 
 %description
 COPR is lightweight build system. It allows you to create new project in WebUI
@@ -63,14 +64,6 @@ This package contains Copr services for Dist Git server.
 %build
 %py3_build
 
-
-%pre
-getent group packager >/dev/null || groupadd -r packager
-getent group copr-dist-git >/dev/null || groupadd -r copr-dist-git
-getent group apache >/dev/null || groupadd -r apache
-getent passwd copr-dist-git >/dev/null || \
-useradd -r -m -g copr-dist-git -G packager,apache -c "copr-dist-git user" copr-dist-git
-/usr/bin/passwd -l copr-dist-git >/dev/null
 
 %install
 %py3_install
@@ -97,8 +90,7 @@ cp -a conf/logrotate %{buildroot}%{_sysconfdir}/logrotate.d/copr-dist-git
 # for ghost files
 touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 
-%py_byte_compile %{__python3} %{buildroot}%{_datadir}/copr/dist_git
-
+install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/copr-dist-git.conf
 
 %check
 ./run_tests.sh -vv --no-cov
@@ -131,14 +123,18 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 
 %dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/copr-dist-git
-%attr(0755, copr-dist-git, copr-dist-git) %{_var}/log/copr-dist-git
-%attr(0644, copr-dist-git, copr-dist-git) %{_var}/log/copr-dist-git/main.log
-%ghost %{_var}/log/copr-dist-git/*.log
+%dir %attr(0755, copr-dist-git, copr-dist-git) %{_var}/log/copr-dist-git
+%ghost %attr(0644, copr-dist-git, copr-dist-git) %{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
+%{_sysusersdir}/copr-dist-git.conf
+
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
+- add sysusers.d config file to allow rpm to create users/groups automatically
+- remove redundant byte compile lines, these dirs are empty already
+- migrate os.listdir() to os.scandir() to increase performance
+- depend on python3-rpkg >= 1.67-4
 
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.0-1
 - Don't check that specfile matches the repository name

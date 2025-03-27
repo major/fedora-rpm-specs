@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-179-gc5113a838b
+%global glibcsrcdir glibc-2.41.9000-194-g0544df4f4a
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,6 +341,7 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-configure-disable-libsupport.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -1392,6 +1393,8 @@ build build-%{target}-32 \
   CXX="g++ -m32" \
   CFLAGS="${glibc_flags_cflags/-m64/-m32}" \
   --host=i686-linux-gnu \
+%dnl There is no libgcc_s.so.1, but building support/ requires it.
+  --disable-libsupport \
 #
 %endif
 
@@ -2379,6 +2382,27 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Mar 25 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-6
+- Add glibc-configure-disable-libsupport.patch and --disable-support
+  to work around missing libgcc_s.so.1 in glibc32 build.
+- Auto-sync with upstream branch master,
+  commit 0544df4f4a9c6ce72de589e95f5bdadce8f103d0:
+- mach: Use the host_get_time64 to replace the deprecated host_get_time for CLOCK_REALTIME when it's available
+- aio_suspend64: Fix clock discrepancy [BZ #32795]
+- Add _FORTIFY_SOURCE support for inet_pton
+- Prepare inet_pton to be fortified
+- Update kernel version to 6.13 in header constant tests
+- support: Link links-dso-program-c with libgcc_s only if available
+- elf: Use +nolink-deps to add make-only dependency for tst-origin
+- Makeconfig: Support $(+nolink-deps) in link flags
+- debug: Improve '%n' fortify detection (BZ 30932)
+- Remove eloop-threshold.h
+- malloc: missing initialization of tcache in _mid_memalign
+- support: Link links-dso-program-c against libgcc_s
+- Add _FORTIFY_SOURCE support for inet_ntop
+- Add missing guards in include/arpa/inet.h
+- Prepare inet_ntop to be fortified
+
 * Thu Mar 20 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-5
 - Auto-sync with upstream branch master,
   commit c5113a838b28a8894da19794ca7a69c5ace959a3:

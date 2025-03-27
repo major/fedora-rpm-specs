@@ -2,8 +2,8 @@
 %global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    2.0
-Release:    3%{?dist}
+Version:    2.1
+Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -79,11 +79,6 @@ This package contains document for copr-keygen service.
 %prep
 %setup -q
 
-# Create a sysusers.d config file
-cat >copr-keygen.sysusers.conf <<EOF
-u copr-signer - 'Copr rpm signer' %{_datadir}/copr-keygen /bin/bash
-EOF
-
 
 %build
 %py3_build
@@ -132,12 +127,10 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %{__install} -p -m 0644 configs/sign/sign.conf.example %{buildroot}%{_pkgdocdir}/sign/sign.conf.example
 %endif
 
-install -m0644 -D copr-keygen.sysusers.conf %{buildroot}%{_sysusersdir}/copr-keygen.conf
+install -m0644 -D configs/copr-keygen.sysusers.conf %{buildroot}%{_sysusersdir}/copr-keygen.conf
 
 %check
 ./run_tests.sh -vv --no-cov
-
-
 
 
 %post
@@ -176,11 +169,8 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0-3
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
+- add sysusers.d config file to allow rpm to create users/groups automatically
 
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.0-1
 - Drop support for python2

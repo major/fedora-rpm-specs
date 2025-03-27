@@ -1,7 +1,7 @@
 Name:		gbdfed
 Summary: 	Bitmap Font Editor
 Version:	1.6
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	MIT
 Source0:	http://www.math.nmsu.edu/~mleisher/Software/gbdfed/%{name}-%{version}.tar.bz2
 Source1:	http://www.math.nmsu.edu/~mleisher/Software/gbdfed/%{name}16x16.png
@@ -9,6 +9,8 @@ Source2:	gbdfed.desktop
 Patch0:		gbdfed-1.6-format-security-fix.patch
 # Fix some of the gtk issues
 Patch2:		gbdfed-1.6-gtkfix.patch
+# c23
+Patch3:		gbdfed-1.6-c23.patch
 URL:		http://www.math.nmsu.edu/~mleisher/Software/gbdfed/
 BuildRequires:  gcc
 BuildRequires:	freetype-devel, pango-devel, libX11-devel, libICE-devel, gtk2-devel
@@ -25,6 +27,7 @@ editing font properties. The editor works natively with BDF fonts.
 %setup -q
 %patch -P0 -p1 -b .format-security-fix
 %patch -P2 -p1 -b .gtkfix
+%patch -P3 -p1 -b .c23
 
 # This is incredibly hackish, and will likely not work when these deprecated bits are removed outright.
 sed "s:-D.*_DISABLE_DEPRECATED::" -i Makefile.in
@@ -51,6 +54,9 @@ desktop-file-install					\
 %{_mandir}/man1/gbdfed*
 
 %changelog
+* Tue Mar 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.6-26
+- fix FTBFS (c23)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

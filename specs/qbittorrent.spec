@@ -2,7 +2,7 @@ Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
 Version: 5.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://www.qbittorrent.org
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/ru/man1/qbittorrent-nox.1*
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1:5.0.4-2
+- Rebuild (qt6)
+
 * Wed Feb 26 2025 Charalampos Stratakis <cstratak@redhat.com> - 1:5.0.4-1
 - Update to 5.0.4
 - Fixes: rhbz#2346210

@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   12%{?dist}
+Release:   13%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -352,6 +352,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Wed Mar 26 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-13
+- Rebuild for noopenh264 2.6.0, once more
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 1:0.10.2-12
 - Rebuild for noopenh264 2.6.0
 

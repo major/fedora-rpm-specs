@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.15.0
+Version:        3.15.1
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -98,7 +98,7 @@ the libraries in other localization tools.
 %setup -q -n %{upstream_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 LANG=C.utf8
@@ -132,6 +132,10 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Wed Mar 26 2025 Sudip Shil <sshil@redhat.com> - 3.15.1-1
+- update to 3.15.1 (rhbz#2352380)
+- Fix FTBFS with tox 4 (rhbz#2354144)
+
 * Wed Mar 05 2025 Sudip Shil <sshil@redhat.com> - 3.15.0-1
 - update to 3.15.0 (rhbz#2345309)
 

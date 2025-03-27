@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:		HepMC3
-Version:	3.3.0
-Release:	6%{?dist}
+Version:	3.3.1
+Release:	1%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -13,14 +13,6 @@ URL:		https://hepmc.web.cern.ch/hepmc
 Source0:	%{url}/releases/%{name}-%{version}.tar.gz
 #		Valgrind suppression file for memory leak in dlopen (EPEL 10)
 Source1:	valgrind-epel10.supp
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/357
-Patch0:		0001-Do-not-require-the-static-libzstd-library-to-be-pres.patch
-Patch1:		0002-Fix-for-a-Conditional-jump-or-move-depends-on-uninit.patch
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/358
-Patch2:		0001-Avoid-assert-due-to-implicit-narrowing-cast-on-32-bi.patch
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/issues/101
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/377
-Patch3:		0001-Update-minimal-cmake-version-to-be-compatible-with-c.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -170,10 +162,6 @@ This package provides HepMC manuals and examples.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
 
 %if %{?rhel}%{!?rhel:0} == 10
 sed 's!MEMORYCHECK_COMMAND_OPTIONS "!&--suppressions=%{SOURCE1} !' \
@@ -363,6 +351,10 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Tue Mar 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-1
+- Update to version 3.3.1
+- Drop patches accepted upstream or previously backported
+
 * Thu Feb 27 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.0-6
 - Update minimal cmake version to be compatible with cmake 4
 

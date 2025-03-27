@@ -1,6 +1,6 @@
 Name:          libfm-qt
 Version:       2.1.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -81,6 +81,9 @@ This package provides translations for the libfm-qt package.
 %dir %{_datadir}/libfm-qt6/translations
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 2.1.0-3
+- Rebuild (qt6)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

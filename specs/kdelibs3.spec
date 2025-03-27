@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 131%{?dist}
+Release: 132%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -181,7 +181,7 @@ Patch308: kdelibs3-c99-2.patch
 # https://src.fedoraproject.org/rpms/kdebase3/c/91233a5b909d09775930236bd21556faa993176f?branch=rawhide
 Patch309: kde3-autoconf-2.72.patch
 
-Requires: ca-certificates
+Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 Requires: hicolor-icon-theme
 Requires: kde-settings >= 3.5
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
@@ -256,6 +256,7 @@ BuildRequires: OpenEXR-devel
 BuildRequires: automake libtool
 BuildRequires: chrpath
 BuildRequires: make
+BuildRequires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 %if "%{name}" != "kdelibs" && "%{?apidocs}" != "1"
 Obsoletes: kdelibs-apidocs < 6:%{version}-%{release}
@@ -577,8 +578,8 @@ sed -i -e "s,^OnlyShowIn=KDE;,OnlyShowIn=KDE3;," %{buildroot}%{_datadir}/applica
 # use ca-certificates' ca-bundle.crt, symlink as what most other
 # distros do these days (http://bugzilla.redhat.com/521902)
 if [  -f %{buildroot}%{_datadir}/apps/kssl/ca-bundle.crt -a \
-      -f /etc/pki/tls/certs/ca-bundle.crt ]; then
-  ln -sf /etc/pki/tls/certs/ca-bundle.crt \
+      -f /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then
+  ln -sf /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
          %{buildroot}%{_datadir}/apps/kssl/ca-bundle.crt
 fi
 
@@ -724,6 +725,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Tue Mar 25 2025 Than Ngo <than@redhat.com> - 3.5.10-132
+- Fixed rhbz#2338971, Change path to certificates file
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-131
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

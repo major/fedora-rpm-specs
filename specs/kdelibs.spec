@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 47%{?dist}
+Release: 48%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -84,11 +84,12 @@ BuildRequires: kde4-filesystem
 %else
 BuildRequires: kde-filesystem >= 4-23
 %endif
+BuildRequires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # for the RPM dependency generators
 BuildRequires: kde-settings
 BuildRequires: docbook-dtds docbook-style-xsl
 BuildRequires: perl-generators
-Requires: ca-certificates
+Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 Requires: dbusmenu-qt%{?_isa} >= %{dbusmenu_qt_version}
 Requires: docbook-dtds docbook-style-xsl
 Requires: hicolor-icon-theme
@@ -604,8 +605,8 @@ mkdir -p %{buildroot}%{_datadir}/mime/all
 ## use ca-certificates' ca-bundle.crt, symlink as what most other
 ## distros do these days (http://bugzilla.redhat.com/521902)
 if [  -f %{buildroot}%{_kde4_appsdir}/kssl/ca-bundle.crt -a \
-      -f /etc/pki/tls/certs/ca-bundle.crt ]; then
-  ln -sf /etc/pki/tls/certs/ca-bundle.crt \
+      -f /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem ]; then
+  ln -sf /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
          %{buildroot}%{_kde4_appsdir}/kssl/ca-bundle.crt 
 fi
 
@@ -909,6 +910,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Tue Mar 25 2025 Than Ngo <than@redhat.com> - 6:4.14.38-48
+- Fixed rhbz#2338968, Change path to certificates file
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

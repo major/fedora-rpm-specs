@@ -14,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.2
+Version: 1.3
 Summary: Run COPR build tasks
-Release: 3%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -24,9 +24,9 @@ License: GPL-2.0-or-later
 # git clone %%url && cd copr
 # tito build --tgz --tag %%name-%%version-%%release
 Source0:    %name-%version.tar.gz
+ 	
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if !%{defined fc40} && !%{defined fc41}
+%if 0%{?fedora} > 41
 ExcludeArch:   %{ix86}
 %endif
 
@@ -303,11 +303,12 @@ EOF
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2-2
-- Drop i686 support beginning in Fedora 42 (leaf package)
+* Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.3-1
+- ignore unicode errors some commands' output
+- custom method - do not rely on working `/bin/su` in chroot
+- migrate os.listdir() to os.scandir() to increase performance
+- do not build package for i686 architecture
+- skip build only there are no unexpanded macros in ExclusiveArch/ExcludeArch
 
 * Tue Nov 19 2024 Pavel Raiskup <praiskup@redhat.com> 1.2-1
 - change the pyp2spec invocation for v0.10.0+

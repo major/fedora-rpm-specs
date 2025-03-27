@@ -16,23 +16,24 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250211
-%global		gittartime		1538
+%global		gittardate		20250325
+%global		gittartime		1621
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20241025
-%global		git_rev		b51af4c5bb1eb4393847ea883c05af3c6bec9b26
+%global		gitbaredate	20250324
+%global		git_rev		96e09b05b1897bdca72d8fdfeb1bd8ec68942c42
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
  
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
 
 
-%global		main_version	0.6.3
+%global		main_version	0.6.4
 
 Name:			lxappearance
 Version:		%{main_version}%{git_ver_rpm}
@@ -191,6 +192,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Mar 25 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.4-1
+- 0.6.4
+
 * Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20241025gitb51af4c5-1
 - Update to the latest git
 

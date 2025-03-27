@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        10.4.0
+Version:        10.5.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -86,6 +86,10 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog
+* Mon Mar 24 2025 Packit <hello@packit.dev> - 10.5.0-1
+- Update to version 10.5.0
+- Resolves: rhbz#2354653
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 10.4.0-1
 - Update to version 10.4.0
 - Resolves: rhbz#2342216

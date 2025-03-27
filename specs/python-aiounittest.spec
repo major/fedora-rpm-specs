@@ -1,19 +1,13 @@
 %global pypi_name aiounittest
 
 Name:           python-%{pypi_name}
-Version:        1.3.1
-Release:        20%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Test asyncio code more easily
 
 License:        MIT
 URL:            https://github.com/kwarunek/aiounittest
-Source0:        https://github.com/kwarunek/aiounittest/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Don't run @asyncio.coroutine tests with Python 3.11
-Patch:          https://github.com/kwarunek/aiounittest/pull/21.patch
-
-# test_sync_async_add: After closing the default event loop, set a new one
-Patch:          https://github.com/kwarunek/aiounittest/pull/22.patch
+Source:         %{pypi_source aiounittest}
 
 BuildArch:      noarch
 
@@ -25,13 +19,12 @@ when writing tests of asynchronous code (:code:asyncio). You can test:
 - asynchronous code, it supports syntax with async/await (Python 3.5+) and
   asyncio.coroutine/yield from (Python 3.4)
 
+
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 The aiounittest is a helper library to ease your pain (and boilerplate),
@@ -43,25 +36,29 @@ when writing tests of asynchronous code (:code:asyncio). You can test:
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files aiounittest
 
-# %%check
-# No support for pytest 8, https://github.com/kwarunek/aiounittest/issues/25
-# %%pytest -v
+%check
+%pytest -v
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Mar 21 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.5.0-1
+- Update to version 1.5.0
+- Port to pyproject macros
+- Re-enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global git_date 20250305
-%global git_commit a35b0fa19ccfe823962bfbef2db2abcbaab7762b
+%global git_date 20250324
+%global git_commit 37143547a6dcf01c2657f3d472d3ef50d6e23633
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        3.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -35,7 +35,7 @@ BuildRequires: sequoia-policy-config
 BuildRequires: systemd-rpm-macros
 BuildRequires: oqsprovider
 
-Conflicts: openssl-libs < 1:3.2.4-3
+Conflicts: openssl-libs < 1:3.5.0-1
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
 Conflicts: openssh < 9.9
@@ -86,10 +86,10 @@ touch %{buildroot}%{_sysconfdir}/crypto-policies/state/CURRENT.pol
 # Drop pre-generated GOST-ONLY & BSI policies, we do not need to ship the files
 rm -rf %{buildroot}%{_datarootdir}/crypto-policies/GOST-ONLY
 rm -rf %{buildroot}%{_datarootdir}/crypto-policies/BSI
-# Same for the experimental test-only TEST-FEDORA41
-rm -rf %{buildroot}%{_datarootdir}/crypto-policies/TEST-FEDORA41
-# and FEDORA40, a legacy snapshot of Fedora 40 DEFAULT
-rm -rf %{buildroot}%{_datarootdir}/crypto-policies/FEDORA40
+# Same for the FEDORA42 policy for those who want to lag behind
+rm -rf %{buildroot}%{_datarootdir}/crypto-policies/FEDORA42
+# Same for the projected FEDORA43 policy
+rm -rf %{buildroot}%{_datarootdir}/crypto-policies/FEDORA43
 # Not having symlinks is also more robust for upgraders when policies go away
 
 # Create back-end configs for mounting with read-only /etc/
@@ -109,7 +109,7 @@ done
 %check
 make test %{?_smp_mflags} SKIP_LINTING=1
 
-# Migrate away from removed policies; can be dropped 3 releases later
+# Migrate away from removed policies; each rule can be dropped 3 releases later
 %pretrans -p <lua>
 if posix.access("%{_sysconfdir}/crypto-policies/config") then
     local cf = io.open("%{_sysconfdir}/crypto-policies/config", "r")
@@ -117,17 +117,13 @@ if posix.access("%{_sysconfdir}/crypto-policies/config") then
         local prev = cf:read()
         cf:close()
         local new
-        if prev == "TEST-FEDORA39" or prev:sub(1, 14) == "TEST-FEDORA39:" then
+        if prev == "TEST-FEDORA41" or prev:sub(1, 14) == "TEST-FEDORA41:" then
             new = "DEFAULT" .. prev:sub(14)
-        elseif prev == "FEDORA38" or prev:sub(1, 9) == "FEDORA38:" then
-            new = "DEFAULT" .. prev:sub(9)
+        elseif prev == "FEDORA40" or prev:sub(1, 9) == "FEDORA40:" then
+            new = "FEDORA42" .. prev:sub(9)
         else
             new = prev
         end
-        while new:find(":FEDORA32:") ~= nil do
-            new = new:gsub(":FEDORA32:", ":")
-        end
-        new = new:gsub(":FEDORA32$", "")
         if new ~= prev then
             cf = io.open("%{_sysconfdir}/crypto-policies/config", "w")
             if cf then
@@ -288,6 +284,15 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Mon Mar 24 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250324-1.git3714354
+- sequoia: add sha3, x25519, ed25519, x448, ed448, but not for rpm-sequoia
+- _openssl_block_sha1_signatures: flip the default to 1
+- FEDORA40: drop this lag-behind policy, migrating users to FEDORA42
+- TEST-FEDORA41: drop as it never happenend, migrating users to DEFAULT
+- FEDORA42: introduce at the pre-update DEFAULT values
+- FEDORA43: introduce at the post-update DEFAULT values
+- LEGACY, DEFAULT, FUTURE: enable ML-KEM and ML-DSA
+
 * Thu Mar 13 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250305-3.gita35b0fa
 - Add a build dependency on oqsprovider as openssh config check is now fussy
 

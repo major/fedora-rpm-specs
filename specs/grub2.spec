@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -605,6 +605,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Tue Mar 25 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-28
+- Fix the fallback mechanism when menu entries fail to boot
+
 * Wed Mar 19 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-27
 - powerpc: increase MIN RMA size for CAS negotiation
 

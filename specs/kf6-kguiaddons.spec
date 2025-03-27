@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.12.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
@@ -94,6 +94,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.12.0-3
+- Rebuild (qt6)
+
 * Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> - 6.12.0-2
 - add pyside6 python bindings build and packaging
 

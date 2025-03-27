@@ -3,8 +3,8 @@
 %endif
 
 Name: mbedtls
-Version: 3.6.2
-Release: 3%{?dist}
+Version: 3.6.3
+Release: 1%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0
 URL: https://www.trustedfirmware.org/projects/mbed-tls
@@ -96,6 +96,9 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Tue Mar 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.6.3-1
+- Update to 3.6.3
+
 * Wed Mar 19 2025 Bill Roberts <bill.roberts@arm.com> - 3.6.2-3
 - Rebuild for mbedtls 3.6
 

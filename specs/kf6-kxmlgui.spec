@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.12.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -100,6 +100,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.12.0-4
+- Rebuild (qt6)
+
 * Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> - 6.12.0-3
 - add pyside6 python bindings build and packaging
 

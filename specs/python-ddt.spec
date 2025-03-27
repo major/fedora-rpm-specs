@@ -13,11 +13,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pyyaml
 BuildRequires:  python3-six
-%if %{undefined el10}
-# aiounittest is not yet available for EL10
-# https://bugzilla.redhat.com/show_bug.cgi?id=2346738
 BuildRequires:  python3-aiounittest
-%endif
 %endif
 
 %global common_description %{expand:
@@ -54,8 +50,7 @@ Summary:        %{summary}
 
 %check
 %if %{with tests}
-# skip tests that require aiounittest on EL10
-%pytest %{?el10:--ignore test/test_async.py}
+%pytest
 %else
 %pyproject_check_import
 %endif

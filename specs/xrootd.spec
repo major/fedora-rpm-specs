@@ -13,8 +13,8 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.7.3
-Release:	4%{?dist}
+Version:	5.8.0
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
@@ -396,7 +396,7 @@ XrdCl::LocalFileHandlerTest.XAttrTest|\
 XrdCl::ThreadingTest|\
 XrdCl::WorkflowTest.CheckpointTest|\
 XrdCl::WorkflowTest.XAttrWorkflowTest|\
-XrdEc::|\
+XrdEc::XrdEcTests|\
 XRootD::cluster::test|\
 XRootD::http::test"
     %ctest -- -E $exclude
@@ -569,6 +569,7 @@ fi
 %{_libdir}/libXrdOfsPrepGPI-5.so
 %{_libdir}/libXrdOssCsi-5.so
 %{_libdir}/libXrdOssSIgpfsT-5.so
+%{_libdir}/libXrdOssStats-5.so
 %{_libdir}/libXrdPfc-5.so
 %{_libdir}/libXrdPss-5.so
 %{_libdir}/libXrdSsi-5.so
@@ -652,6 +653,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Mar 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.0-1
+- Update to version 5.8.0
+
 * Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.3-4
 - Move user/group creation logic to sysusers.d fragment
 

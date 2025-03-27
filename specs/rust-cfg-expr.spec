@@ -5,13 +5,16 @@
 %global crate cfg-expr
 
 Name:           rust-cfg-expr
-Version:        0.17.2
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Parser and evaluator for Rust cfg() expressions
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cfg-expr
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax target-lexicon dependency from =0.13.2 to ^0.13.2
+Patch:          cfg-expr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

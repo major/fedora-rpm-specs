@@ -3,9 +3,9 @@
 #
 # remirepo spec file for php-pecl-redis6
 #
-# Copyright (c) 2012-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -24,18 +24,20 @@
 %endif
 %bcond_without       valkey
 
+%global pie_vend     phpredis
+%global pie_proj     phpredis
 %global pecl_name    redis
 # after 20-json, 40-igbinary and 40-msgpack
 %global ini_name     50-%{pecl_name}.ini
 
-%global upstream_version 6.1.0
+%global upstream_version 6.2.0
 #global upstream_prever  RC2
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:       PHP extension for interfacing with key-value stores
 Name:          php-pecl-redis6
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       4%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/redis
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -77,10 +79,12 @@ Requires:      php-igbinary%{?_isa}
 Requires:      php-msgpack%{?_isa}
 %endif
 
-Provides:      php-%{pecl_name}               = %{version}
-Provides:      php-%{pecl_name}%{?_isa}       = %{version}
-Provides:      php-pecl(%{pecl_name})         = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:      php-%{pecl_name}                 = %{version}
+Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
 %if 0%{?fedora} >= 42 || 0%{?rhel} >= 10 || "%{php_version}" > "8.4"
 Obsoletes:     php-pecl-%{pecl_name}          < 6
@@ -300,6 +304,11 @@ exit $ret
 
 
 %changelog
+* Tue Mar 25 2025 Remi Collet <remi@remirepo.net> - 6.2.0-1
+- update to 6.2.0
+- re-license spec file to CECILL-2.1
+- add virtual provides for pie
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
