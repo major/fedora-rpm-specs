@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -36,13 +36,13 @@ Source0:          https://github.com/grafana/grafana/archive/v%{version}/%{name}
 # Source1 contains the bundled Go and Node.js dependencies
 # Note: In case there were no changes to this tarball, the NVR of this tarball
 # lags behind the NVR of this package.
-Source1:          grafana-vendor-%{version}-2.tar.xz
+Source1:          grafana-vendor-%{version}-12.tar.xz
 
 %if %{compile_frontend} == 0
 # Source2 contains the precompiled frontend
 # Note: In case there were no changes to this tarball, the NVR of this tarball
 # lags behind the NVR of this package.
-Source2:          grafana-webpack-%{version}-2.tar.gz
+Source2:          grafana-webpack-%{version}-12.tar.gz
 %endif
 
 # Source3 contains the systemd-sysusers configuration
@@ -77,6 +77,8 @@ Patch8:           0008-replace-faulty-slices-sort.patch
 Patch9:           0009-update-wrappers-and-systemd-with-distro-paths.patch
 # https://github.com/grafana/grafana/commit/bae86dbeb0ad68a205454e98e76985dc393183d4
 Patch10:          0010-remove-bcrypt-references.patch
+Patch11:          0011-fix-dompurify-CVE.patch
+Patch12:          0012-fix-jwt-CVE.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -250,7 +252,7 @@ Provides: bundled(golang(github.com/andybalholm/brotli)) = 1.0.4
 Provides: bundled(golang(github.com/go-kit/log)) = 0.2.1
 Provides: bundled(golang(github.com/go-openapi/loads)) = 0.21.2
 Provides: bundled(golang(github.com/go-openapi/runtime)) = 0.26.0
-Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.0
+Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.2
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.3
 Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.0
@@ -539,7 +541,7 @@ Provides: bundled(npm(date-fns)) = 2.30.0
 Provides: bundled(npm(debounce-promise)) = 3.1.2
 Provides: bundled(npm(devtools-protocol)) = 0.0.927104
 Provides: bundled(npm(diff)) = 4.0.2
-Provides: bundled(npm(dompurify)) = 2.4.5
+Provides: bundled(npm(dompurify)) = 2.5.7
 Provides: bundled(npm(emotion)) = 10.0.27
 Provides: bundled(npm(esbuild)) = 0.17.19
 Provides: bundled(npm(esbuild-loader)) = 3.0.1
@@ -779,6 +781,8 @@ cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} SELinux
 %patch -P 8 -p1
 %patch -P 9 -p1
 %patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -1032,6 +1036,11 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Wed Mar 26 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-12
+- fix CVE-2025-30204
+- fix CVE-2024-47875
+- move grafana home directory from /usr/share/grafana to /var/lib/grafana
+
 * Thu Feb 13 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-11
 - Conditionally drop call to %sysusers_create_compat
 

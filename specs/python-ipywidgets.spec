@@ -24,11 +24,6 @@ Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
 
 %prep
 %autosetup -p3 -n %{pypi_name}-%{version}
-# Jupyterlab_widgets is a new dependency in ipywidgets 7.6
-# and it contains code which enables widgets in Jupyter lab
-# not requiring any manual steps. But we don't have Jupyter lab
-# in Fedora yet so we do not need this package at all.
-sed -i "/jupyterlab_widgets/d" setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

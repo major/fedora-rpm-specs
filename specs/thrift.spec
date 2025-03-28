@@ -91,6 +91,8 @@ Source2: https://raw.github.com/apache/%{name}/%{version}/bootstrap.sh
 
 # fix configure.ac insistence on using /usr/local/lib for JAVA_PREFIX
 Patch2: configure-java-prefix.patch
+# fix build with GCC 15: https://github.com/apache/thrift/pull/3078
+Patch3: gcc15.patch
 
 
 # BuildRequires for language-specific bindings are listed under these

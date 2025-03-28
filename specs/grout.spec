@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.8.3
+Version: 0.8.4
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -62,6 +62,7 @@ This package contains the development headers to build %{name} API clients.
 %autopatch -p1
 
 %build
+export GROUT_VERSION=v%{version}-%{release}
 %meson
 %meson_build
 

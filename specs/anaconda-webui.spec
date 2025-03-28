@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        29
+Version:        30
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -40,11 +40,11 @@ Requires: fedora-logos
 BuildRequires: desktop-file-utils
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.3.0
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.14
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -121,6 +121,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 30-1
+- storage: fix parsing of usable devices for manual partitioning
+- Ensure that translations are not requested at file load time (rhbz#2351026)
+- storage: support disks with filesystem directly on them for installation (rhbz#2352385)
+
 * Mon Mar 24 2025 Packit <hello@packit.dev> - 29-1
 - storage: cockpit-storage-integration: ensure selected disks are
   re-configured after removing devices (rhbz#2351830)

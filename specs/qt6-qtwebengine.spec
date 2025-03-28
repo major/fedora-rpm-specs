@@ -38,8 +38,6 @@
 # webcore_debug v8base_debug
 %endif
 
-#global prerelease rc
-
 # spellchecking dictionary directory
 %global _qtwebengine_dictionaries_dir %{_qt6_datadir}/qtwebengine_dictionaries
 
@@ -48,22 +46,34 @@
 # and designer plugins
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
 
+#global unstable 1
+%if 0%{?unstable}
+%global prerelease rc
+%endif
+
 %global examples 1
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.8.2
-Release: 5%{?dist}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 0.1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
 # The other licenses are from Chromium and the code it bundles
 License: (LGPLv2 with exceptions or GPLv3 with exceptions) and BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
 URL:     http://www.qt.io
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+%global  qt_version %(echo %{version} | cut -d~ -f1)
+
 # cleaned tarball with patent-encumbered codecs removed from the bundled FFmpeg
 # ./qtwebengine-release.sh
-# ./clean_qtwebengine.sh 6.4.1
-Source0: qtwebengine-everywhere-src-%{version}-clean.tar.xz
+# ./clean_qtwebengine.sh 6.9.0
+%if 0%{?unstable}
+Source0: %{qt_module}-everywhere-src-%{qt_version}-%{prerelease}-clean.tar.xz
+%else
+Source0: %{qt_module}-everywhere-src-%{version}-clean.tar.xz
+%endif
 
 # cleanup scripts used above
 Source2: clean_qtwebengine.sh
@@ -91,13 +101,15 @@ Patch50:  qtwebengine-fix-build.patch
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
 Patch80:  qtwebengine-fix-arm-build.patch
-Patch81:  qtwebengine-fix-building-system-ffmpeg.patch
+Patch81:  qtwebengine-webrtc-fix-build-with-pipewire.patch
 
 ## Upstreamable patches:
 
 ## ppc64le port
 Patch200: qtwebengine-6.7-ppc64.patch
 Patch201: qtwebengine-chromium-ppc64.patch
+# https://src.fedoraproject.org/rpms/chromium/c/c675db4ac0623d2d97344be0b3b2d9f1ac931446?branch=rawhide
+Patch202: chromium-130-size-assertions.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # FIXME use/update qt6_qtwebengine_arches
@@ -384,7 +396,7 @@ Summary: Example files for qt6-qtpdf
 %{summary}.
 
 %prep
-%setup -q -n %{qt_module}-everywhere-src-%{version}%{?prerelease:-%{prerelease}} -a20
+%setup -q -n %{qt_module}-everywhere-src-%{qt_version}%{?prerelease:-%{prerelease}} -a20
 
 mv pulse src/3rdparty/chromium/
 
@@ -400,7 +412,7 @@ popd
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
-%patch -P81 -p1 -b .fix-building-system-ffmpeg
+%patch -P81 -p1 -b .webrtc-fix-build-with-pipewire
 
 ## upstreamable patches
 
@@ -408,6 +420,7 @@ popd
 %patch -P200 -p1
 pushd src/3rdparty/chromium
 %patch -P201 -p1
+%patch -P202 -p1
 popd
 
 
@@ -444,9 +457,10 @@ system_libs=()
 %if %{?use_system_libxslt}
     system_libs+=(libxslt)
 %endif
+system_libs+=(ffmpeg)
 system_libs+=(openh264)
 
-# Use system OpenH264
+# Use system libraries
 src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py --system-libraries ${system_libs[@]}
 
 # consider doing this as part of the tarball creation step instead?  rdieter
@@ -636,21 +650,29 @@ done
 %{_qt6_libdir}/libQt6WebEngineQuick.prl
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.prl
 %{_qt6_libdir}/libQt6WebEngineWidgets.prl
+%dir %{_qt6_libdir}/cmake/Qt6Designer
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineCore
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineCorePrivate
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuick
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQmlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickPrivate
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgets
+%dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgetsPrivate
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebEngine*
-%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtwebengine*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6Designer
 %{_qt6_libdir}/cmake/Qt6Designer/Qt6QWebEngine*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuick
-%{_qt6_libdir}/cmake/Qt6WebEngineQuick/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgets
-%{_qt6_libdir}/cmake/Qt6WebEngineWidgets/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineCore
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtwebengine*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineCore/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools
+%{_qt6_libdir}/cmake/Qt6WebEngineCorePrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml
+%{_qt6_libdir}/cmake/Qt6WebEngineQuick/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml/*.cmake
+%{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQmlPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6WebEngineQuickPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6WebEngineWidgets/*.cmake
+%{_qt6_libdir}/cmake/Qt6WebEngineWidgetsPrivate/*.cmake
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineCore.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineQuick.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineQuickDelegatesQml.pc
@@ -690,13 +712,19 @@ done
 %{_qt6_libdir}/libQt6Pdf.prl
 %{_qt6_libdir}/libQt6PdfQuick.prl
 %{_qt6_libdir}/libQt6PdfWidgets.prl
-%{_qt6_libdir}/cmake/Qt6Gui/Qt6QPdf*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Pdf
-%{_qt6_libdir}/cmake/Qt6Pdf/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6PdfPrivate
 %dir %{_qt6_libdir}/cmake/Qt6PdfQuick
-%{_qt6_libdir}/cmake/Qt6PdfQuick/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6PdfQuickPrivate
 %dir %{_qt6_libdir}/cmake/Qt6PdfWidgets
+%dir %{_qt6_libdir}/cmake/Qt6PdfWidgetsPrivate
+%{_qt6_libdir}/cmake/Qt6Gui/Qt6QPdf*.cmake
+%{_qt6_libdir}/cmake/Qt6Pdf/*.cmake
+%{_qt6_libdir}/cmake/Qt6PdfPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6PdfQuick/*.cmake
+%{_qt6_libdir}/cmake/Qt6PdfQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6PdfWidgets/*.cmake
+%{_qt6_libdir}/cmake/Qt6PdfWidgetsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6Pdf*.cmake
 %{_qt6_libdir}/pkgconfig/Qt6Pdf.pc
 %{_qt6_libdir}/pkgconfig/Qt6PdfQuick.pc
@@ -709,6 +737,9 @@ done
 %endif
 
 %changelog
+* Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-0.1
+- 6.9.0 RC
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 6.8.2-5
 - Rebuild for noopenh264 2.6.0
 

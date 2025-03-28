@@ -1,5 +1,16 @@
 %global forgeurl    https://github.com/G-node/nixpy
 
+%global desc \
+The NIX project started as an initiative within the Electrophysiology Task \
+Force a part of the INCF Data sharing Program. The NIX data model allows to \
+store fully annotated scientific data-set, i.e. the data together with its \
+metadata within the same container. Our aim is to achieve standardization by \
+providing a common/generic data structure for a multitude of data types. See \
+the wiki for more information \
+ \
+The current implementations store the actual data using the HDF5 file format as \
+a storage backend.
+
 Name:       python-nixio
 Version:    1.5.4
 Release:    %autorelease
@@ -39,22 +50,12 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%description
-The NIX project started as an initiative within the Electrophysiology Task
-Force a part of the INCF Data sharing Program. The NIX data model allows to
-store fully annotated scientific data-set, i.e. the data together with its
-metadata within the same container. Our aim is to achieve standardization by
-providing a common/generic data structure for a multitude of data types. See
-the wiki for more information
-
-The current implementations store the actual data using the HDF5 file format as
-a storage backend.
+%description %{desc}
 
 %package -n python3-nixio
 Summary:        %{summary}
 
-%description -n python3-nixio
-%{description}
+%description -n python3-nixio %{desc}
 
 %prep
 %autosetup -n nixpy-%{version} -p1

@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        3.0.1
-Release:        2%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -263,7 +263,7 @@ install -dm 0755 %{buildroot}%{_localstatedir}/log/letsencrypt
 %check
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
 pushd $module
-%pytest -v
+%pytest -v -W ignore::DeprecationWarning
 popd
 done
 %endif
@@ -373,6 +373,15 @@ fi
 
 
 %changelog
+* Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 3.3.0-1
+- update to 3.3.0 rhbz#2336260
+
+* Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 3.2.0-1
+- update to 3.2.0
+
+* Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 3.1.0-1
+- update to 3.1.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

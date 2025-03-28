@@ -1,7 +1,7 @@
 %global	mainver		1.18.5
 #%%global	prever		.rc4
 
-%global	baserelease		1
+%global	baserelease		2
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -275,6 +275,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Wed Mar 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.5-2
+- Suppress warnings from Nokogiri::VERSION_INFO (bug 2354787)
+
 * Thu Mar 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.5-1
 - 1.18.5
 

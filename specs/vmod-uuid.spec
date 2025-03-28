@@ -1,15 +1,10 @@
-%if 0%{?rhel} == 7
-%global docutils python34-docutils
-%global rst2man rst2man-3.4
-%else
 %global docutils python3-docutils
 %global rst2man rst2man
-%endif
 
 Name: vmod-uuid
 Summary: UUID module for Varnish Cache
 Version: 1.10
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://github.com/otto-de/libvmod-uuid
@@ -76,6 +71,9 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
+* Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-23
+- Rebuild for varnish-7.7.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:           jemalloc
 Version:        5.3.0
 
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -11,6 +11,7 @@ License:        LicenseRef-Callaway-BSD
 URL:            https://jemalloc.net/
 VCS:            git:%{forgeurl}
 Source0:        %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Patch1:         jemalloc-5.3.0_fno-builtin.patch
 
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/xsltproc
@@ -33,7 +34,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup
 
 # Override PAGESIZE, bz #1545539
 %ifarch %ix86 %arm x86_64 s390x riscv64
@@ -51,14 +52,12 @@ developing applications that use %{name}.
 
 
 %build
-%ifarch %ix86
-%if 0%{?fedora} >= 21
-CFLAGS="%{optflags} -msse2"
-%endif
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} < 7
 export LDFLAGS="%{?__global_ldflags} -lrt"
+%endif
+
+%if 0%{?fedora} > 41
+export CFLAGS="$CFLAGS -std=gnu17"
 %endif
 
 echo "For debugging package builders"
@@ -109,6 +108,9 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.3.0-11
+- Added build fix from upstream for new gcc
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

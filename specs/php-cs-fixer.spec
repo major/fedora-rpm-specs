@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    900389362c43d116fee1ffc51f7878145fa61b57
+%global gh_commit    ffcb8200a42045e65049af7910cfd022f631b064
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-03-13
+%global gh_date      2025-03-19
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.72.0
+Version:        3.73.1
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -102,6 +102,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Mar 20 2025 Remi Collet <remi@remirepo.net> - 3.73.1-1
+- update to 3.73.1
+
 * Thu Mar 13 2025 Remi Collet <remi@remirepo.net> - 3.72.0-1
 - update to 3.72.0
 

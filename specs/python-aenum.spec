@@ -1,8 +1,8 @@
 %global pypi_name aenum
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
-Release:        13%{?dist}
+Version:        3.1.15
+Release:        1%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -32,7 +32,6 @@ Enum capabilities, however.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -54,24 +53,32 @@ Enum capabilities, however.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+rm %{pypi_name}/_py2.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 # https://github.com/ethanfurman/aenum/issues/7
 # PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
 
 %files -n python3-%{pypi_name}
-%doc README aenum/doc aenum/CHANGES
+%doc README.md aenum/doc aenum/CHANGES
 %license aenum/LICENSE
-%{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{pypi_name}/
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Mar 26 2025 Umut Demir <umutd3401@posteo.com> - 3.1.15-1
+- Update to 3.1.15 (rhbz#2018761)
+- Use pyproject macros
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

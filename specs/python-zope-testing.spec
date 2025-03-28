@@ -1,20 +1,16 @@
 %global modname zope.testing
 
+# The upstream tarball got renamed with an underscore
+# but the package name still has a dot in it.
+
 
 Name:           python-zope-testing
-Version:        5.0.1
-Release:        12%{?dist}
+Version:        5.1
+Release:        1%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPL-2.1
 URL:            https://pypi.io/project/%{modname}
-Source0:        https://pypi.io/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
-# Upstream report: https://github.com/zopefoundation/zope.testing/issues/41
-Patch:          0001-Fix-doctest-failure-with-Python-3.11.patch
-
-# Picked relevant bits from:
-# https://github.com/zopefoundation/zope.testing/commit/4ece516d4a495e3b46ee0
-Patch:          Support-for-Sphinx-8.patch
-
+Source0:        https://pypi.io/packages/source/z/%{modname}/zope_testing-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -31,7 +27,7 @@ This package provides a number of testing frameworks. It includes a
 flexible test runner, and supports both doctest and unittest.
 
 %prep
-%autosetup -p1 -n %{modname}-%{version}
+%autosetup -p1 -n zope_testing-%{version}
 
 rm -rf %{modname}.egg-info
 
@@ -58,6 +54,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Wed Mar 26 2025 Dan Radez <dradez@redhat.com> - 5.1-1
+- updating to upstream release - rhbz#2345713
+
 * Wed Jan 29 2025 Karolina Surma <ksurma@redhat.com> - 5.0.1-12
 - fixing build to be compatible with Sphinx 8+ rhbz#2329902
 

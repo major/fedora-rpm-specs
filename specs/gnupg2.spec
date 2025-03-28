@@ -3,7 +3,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -18,8 +18,6 @@ Patch2:  gnupg-2.4.7-file-is-digest.patch
 # Disable brainpool tests as they are not built into our libgcrypt
 # Disable MD160 in FIPS mode (#879047)
 Patch3:  gnupg-2.4.7-fips-algo.patch
-# allow 8192 bit RSA keys in keygen UI with large RSA
-Patch4:  gnupg-2.4.7-large-rsa.patch
 
 # Patches from FreePG:
 # https://gitlab.com/freepg/gnupg/-/tree/main/STABLE-BRANCH-2-4-freepg
@@ -35,6 +33,10 @@ Patch28: 0010-Ship-sample-systemd-unit-files.patch
 Patch29: 0011-el-gamal-default-to-3072-bits.patch
 Patch30: 0012-gpg-default-digest-algorithm-SHA512.patch
 Patch31: 0013-gpg-Prefer-SHA-512-and-SHA-384-in-personal-digest.patch
+Patch32: 0018-Avoid-simple-memory-dumps-via-ptrace.patch
+Patch33: 0019-Disallow-compressed-signatures-and-certificates.patch
+Patch34: 0029-Add-keyboxd-systemd-support.patch
+Patch35: 0033-Support-large-RSA-keygen-in-non-batch-mode.patch
 
 # Fixes for issues found in Coverity scan - reported upstream
 Patch40: gnupg-2.4.7-coverity.patch
@@ -123,7 +125,6 @@ to the base GnuPG package
 %patch 1 -p1 -b .secmem
 %patch 2 -p1 -b .file-is-digest
 %patch 3 -p1 -b .fips
-%patch 4 -p1 -b .large-rsa
 
 %patch 20 -p1 -b .good_revoc
 %patch 21 -p1 -b .prev_known_key
@@ -137,6 +138,10 @@ to the base GnuPG package
 %patch 29 -p1 -b .elgamal-3k
 %patch 30 -p1 -b .default-sha512
 %patch 31 -p1 -b .prefer-sha512
+%patch 32 -p1 -b .dump-ptrace
+%patch 33 -p1 -b .compressed
+%patch 34 -p1 -b .keyboxd-units
+%patch 35 -p1 -b .large-rsa
 
 %patch 40 -p1 -b .coverity
 
@@ -247,6 +252,9 @@ make -k check
 
 
 %changelog
+* Wed Mar 26 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.7-3
+- Pull more patches from FreePG project
+
 * Thu Jan 23 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.7-2
 - Regenerate patches and pull new from FreePG project
 

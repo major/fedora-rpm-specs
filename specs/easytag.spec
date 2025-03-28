@@ -53,6 +53,9 @@ easier access to EasyTAG when opening directories and audio files.
 
 
 %build
+%set_build_flags
+# id3lib C interface uses int bool, not compatible with C23
+CFLAGS="$CFLAGS -std=gnu11"
 %configure --disable-appdata-validate
 make V=1 %{?_smp_mflags}
 

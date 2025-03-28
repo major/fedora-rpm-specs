@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        336
+Version:        336.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -597,6 +597,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 336.1-1
+- storage: Fix passphrase remembering with "Reuse encryption" (rhbz#2354497)
+- Translation updates (rhbz#2354986)
+
 * Mon Mar 24 2025 Packit <hello@packit.dev> - 336-1
 - storage: Implement deletion of multi-device btrfs (rhbz#2352385)
 - storage: Use mdraid metadata version 1.0 when in Anaconda mode (rhbz#2352953)

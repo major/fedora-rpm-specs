@@ -6,7 +6,7 @@
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
 Version: 24.02.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -16,8 +16,8 @@ Source0: https://github.com/wxMaxima-developers/wxmaxima/archive/Version-%{versi
 ## upstream patches
 # none at this time
 
-# match archs maxima uses
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc sparcv9
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: dos2unix
 BuildRequires: gcc
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Fri Feb 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.02.1-5
+- Enable on all 64-bit arches
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

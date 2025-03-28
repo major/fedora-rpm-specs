@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.10
+Version: 43.11
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 43.11-1
+- pyanaconda: add support for Mac OS detection (k.koukiou)
+
 * Tue Mar 25 2025 Packit <hello@packit.dev> - 43.10-1
 - Fix condition to run locale1-sync script (jkonecny)
 - Update doc after disabling keyboard shortcuts (jkonecny)

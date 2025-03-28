@@ -12,11 +12,12 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.94
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
+Patch0:		https://patch-diff.githubusercontent.com/raw/radiator-software/p5-net-ssleay/pull/514.patch
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
 # =========== Module Build ===========================
 BuildRequires:	coreutils
@@ -89,6 +90,9 @@ so you can write servers or clients for more complicated applications.
 %prep
 %setup -q -n Net-SSLeay-%{version}
 
+# Fix for test suite compatibility with OpenSSL 3.4
+%patch -P 0 -p 1
+
 # Get libraries to link against from pkg-config
 # https://github.com/radiator-software/p5-net-ssleay/pull/127
 %patch -P 10
@@ -129,6 +133,10 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Wed Mar 26 2025 Paul Howarth <paul@city-fan.org> - 1.94-9
+- Fix for test suite compatibility with OpenSSL 3.4
+  (https://github.com/radiator-software/p5-net-ssleay/pull/514)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

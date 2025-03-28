@@ -78,6 +78,16 @@ ExcludeArch: %{ix86}
 Squeekboard is a virtual keyboard supporting Wayland, built primarily
 for the Librem 5 phone. It squeaks because some Rust got inside.
 
+%package phosh-osk-provider
+Summary:  Use squeekboard as Phosh's default OSK
+BuildArch: noarch
+Requires: %{name}
+Provides: phosh-osk = 1.0
+Conflicts: phosh-osk
+
+%description phosh-osk-provider
+%{summary}.
+
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 %cargo_prep
@@ -97,15 +107,13 @@ export RUSTFLAGS="%build_rustflags"
 
 %install
 %meson_install
-mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart/
-cp %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/autostart/
 chmod +x %{buildroot}%{_bindir}/squeekboard-entry
 
 cp tools/squeekboard-restyled %{buildroot}%{_bindir}
 chmod +x %{buildroot}%{_bindir}/squeekboard-restyled
 
-sed -i 's/Phosh/X-Phosh/g' %{buildroot}%{_datadir}/applications/sm.puri.Squeekboard.desktop
-sed -i 's/X-X-Phosh/X-Phosh/g' %{buildroot}%{_datadir}/applications/sm.puri.Squeekboard.desktop
+ln -s sm.puri.Squeekboard.desktop \
+      %{buildroot}%{_datadir}/applications/sm.puri.OSK0.desktop
 
 %find_lang %{name}
 
@@ -113,7 +121,8 @@ sed -i 's/X-X-Phosh/X-Phosh/g' %{buildroot}%{_datadir}/applications/sm.puri.Sque
 # ensure standard Rust compiler flags are set
 export RUSTFLAGS="%build_rustflags"
 %meson_test
-desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.desktop
+# TODO: re-enable when desktop-file-utils 0.28-1 is available
+# desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.desktop
 
 %files -f %{name}.lang
 %{_bindir}/squeekboard
@@ -122,9 +131,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %{_bindir}/squeekboard-restyled
 %{_datadir}/applications/sm.puri.Squeekboard.desktop
 %{_datadir}/glib-2.0/schemas/sm.puri.Squeekboard.gschema.xml
-%{_sysconfdir}/xdg/autostart/squeekboard.desktop
 %doc README.md
 %license COPYING LICENSE.dependencies
+
+%files phosh-osk-provider
+%{_datadir}/applications/sm.puri.OSK0.desktop
 
 %changelog
 %autochangelog

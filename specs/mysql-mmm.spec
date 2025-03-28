@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -102,6 +102,9 @@ find . -type f -name "*.orig" -print0 | xargs -0r rm
 %install
 make install DESTDIR=%{buildroot}
 
+mkdir -p %{buildroot}%{_bindir}
+mv %{buildroot}/usr/sbin/mmm_* %{buildroot}%{_bindir}
+
 %{__install} -D -p -m 0644 %SOURCE1 %{buildroot}%{_sysconfdir}/logrotate.d/mysql-mmm
 %{__install} -d -m 0755 %{buildroot}%{_localstatedir}/lib/%{name}
 
@@ -150,16 +153,16 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/mysql-mmm/mmm_tools.conf
 %{perl_vendorlib}/MMM/Tools
 %{_libexecdir}/mysql-mmm/tools/
-%{_sbindir}/mmm_backup
-%{_sbindir}/mmm_clone
-%{_sbindir}/mmm_restore
+%{_bindir}/mmm_backup
+%{_bindir}/mmm_clone
+%{_bindir}/mmm_restore
 
 %files agent
 %doc README
 %config(noreplace) %attr(640,root,root) %{_sysconfdir}/mysql-mmm/mmm_agent.conf
 %{perl_vendorlib}/MMM/Agent
 %{_libexecdir}/mysql-mmm/agent/
-%{_sbindir}/mmm_agentd
+%{_bindir}/mmm_agentd
 %{_unitdir}/mysql-mmm-agent.service
 
 %files monitor
@@ -168,12 +171,15 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %attr(640,root,root) %{_sysconfdir}/mysql-mmm/mmm_mon_log.conf
 %{perl_vendorlib}/MMM/Monitor
 %{_libexecdir}/mysql-mmm/monitor/
-%{_sbindir}/mmm_mond
-%{_sbindir}/mmm_control
+%{_bindir}/mmm_mond
+%{_bindir}/mmm_control
 %{_unitdir}/mysql-mmm-monitor.service
 
 
 %changelog
+* Wed Mar 26 2025 David Beveridge <dave@bevhost.com> 2.2.1-38
+- Unify bin and sbin
+
 * Sun Feb 02 2025 David Beveridge <dave@bevhost.com> 2.2.1-37
 - fix patchN deprecated
 

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.5.0
+Version:        1.5.1
 %global tag %{version}
 
 %forgemeta
@@ -149,6 +149,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Wed Mar 26 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.1-1
+- new version
+
 * Wed Mar 12 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.0-1
 - new version
 

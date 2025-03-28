@@ -3,7 +3,7 @@
 
 Name:		mpssh
 Version:	1.3.3
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Parallel ssh tool
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -29,6 +29,10 @@ specified in the hosts file and execute the same command on all of them
 %build
 # No configure, so set compiler FLAGS manually
 CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ;
+%if 0%{?fedora} > 41
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
+
 LDFLAGS="${LDFLAGS:-%?__global_ldflags}"; export LDFLAGS
 make %{?_smp_mflags}
 sed -i "s,/usr/local,%{_prefix},g" %{name}.1
@@ -55,6 +59,9 @@ install -p -D -m 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.3.3-24
+- Added build fix for new gcc in f43
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

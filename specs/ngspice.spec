@@ -222,7 +222,7 @@ for nonUTF8 in \
 	ChangeLog \
 	%{nil}
 do
-	%{_bindir}/iconv -f ISO-8859-1 -t utf-8 $nonUTF8 > $nonUTF8.conv
+	iconv -f ISO-8859-1 -t utf-8 $nonUTF8 > $nonUTF8.conv
 	%{__mv} -f $nonUTF8.conv $nonUTF8
 done
 git commit -m "Change files to UTF8" -a
@@ -286,7 +286,7 @@ cd %{name}
 
 # ---- Tclspice ----------------------------------------------------------------
 # Adding BLT support
-export CFLAGS="%{optflags} -I%{_includedir}/blt"
+export CFLAGS="%{optflags} -I$(pkg-config --variable=includedir tcl)/blt"
 
 # Make builddir for tclspice
 %{__mkdir} -p tclspice
@@ -326,7 +326,7 @@ export CPPFLAGS=-DUSE_INTERP_RESULT
 	--enable-predictor \
 	--enable-shared \
 	--with-readline=yes \
-	--with-tcl=%{_libdir}/ \
+	--with-tcl=$(pkg-config --variable=libdir tcl) \
 	--libdir=%{_libdir}/tclspice \
 	%{nil}
 

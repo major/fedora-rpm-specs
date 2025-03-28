@@ -20,6 +20,9 @@ Patch:     21.patch
 # https://github.com/cdrdao/cdrdao/pull/25
 # fixes the "cdrdao version" command broken in 1.2.5 that brasero relies on
 Patch1:    cdrdao-1.2.5-Fix-version-command.patch
+# https://github.com/cdrdao/cdrdao/pull/35
+# Fix build with GCC 15 (C23)
+Patch2:    cdrdao-1.2.5-gcc15.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  gtkmm3.0-devel

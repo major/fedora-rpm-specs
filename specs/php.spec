@@ -60,8 +60,8 @@
 %bcond_with      modphp
 %bcond_without   lmdb
 
-%global upver        8.4.5
-#global rcver        RC1
+%global upver        8.4.6
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
@@ -100,7 +100,7 @@ Source53: 20-ffi.ini
 # Build fixes
 Patch1: php-8.4.0-httpd.patch
 Patch5: php-8.4.0-includedir.patch
-Patch6: php-8.4.0-embed.patch
+Patch6: php-8.4.6-embed.patch
 Patch8: php-8.4.0-libdb.patch
 
 # Functional changes
@@ -1498,6 +1498,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Mar 26 2025 Remi Collet <remi@remirepo.net> - 8.4.6~RC1-1
+- Update to 8.4.6RC1
+
 * Wed Mar 12 2025 Remi Collet <remi@remirepo.net> - 8.4.5-1
 - Update to 8.4.5 - http://www.php.net/releases/8_4_5.php
 

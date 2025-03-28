@@ -2,21 +2,20 @@
 %global pypi_name ansible-runner
 
 Name:           python-%{pypi_name}
-Version:        2.4.0
-Release:        7%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/ansible/ansible-runner
 Source0:        https://github.com/ansible/%{pypi_name}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-# https://github.com/ansible/ansible-runner/pull/1377
-# Fix a test failure with Python 3.13(?)
-Patch:          0001-Base64IO-set-write-buffer-before-doing-attr-check.patch
 
-# Compatibility with pytest 8
-# https://github.com/ansible/ansible-runner/commit/877a4f16.patch
-Patch:          Fix-test-for-get_role_list.patch
+# Fix a test failure with Python 3.13(?)
+# https://github.com/ansible/ansible-runner/pull/1377
+# https://github.com/ansible/ansible-runner/pull/1379
+# merged and looks staged for next release.
+Patch:          0001-Base64IO-set-write-buffer-before-doing-attr-check.patch
 
 BuildArch:      noarch
 
@@ -102,6 +101,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_bindir}/ansible-runner
 
 %changelog
+* Wed Mar 26 2025 Dan Radez <dradez@redhat.com> - 2.4.1-1
+- new upstream release rhbz #2355070
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

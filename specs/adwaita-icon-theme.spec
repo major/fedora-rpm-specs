@@ -4,7 +4,7 @@
 
 Name:           adwaita-icon-theme
 Version:        48.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
@@ -16,7 +16,10 @@ BuildArch:      noarch
 BuildRequires:  meson
 BuildRequires:  /usr/bin/gtk4-update-icon-cache
 
+# Only require the legacy icon package on Fedora
+%if 0%{?fedora}
 Requires:       %{name}-legacy >= %{adwlegacy_ver}
+%endif
 Requires:       adwaita-cursor-theme = %{version}-%{release}
 
 %description
@@ -31,7 +34,9 @@ designed for the GNOME desktop.
 
 %package        devel
 Summary:        Development files for %{name}
+%if 0%{?fedora}
 Requires:       %{name}-legacy-devel >= %{adwlegacy_ver}
+%endif
 Requires:       %{name} = %{version}-%{release}
 
 %description    devel
@@ -74,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Tue Mar 25 2025 Tomas Popela <tpopela@redhat.com> - 48.0-2
+- Only require the legacy icon theme on Fedora
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

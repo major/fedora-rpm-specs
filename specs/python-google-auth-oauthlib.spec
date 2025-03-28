@@ -40,7 +40,7 @@ rm -rf /docs/
 %pyproject_save_files google_auth_oauthlib
 
 %check
-%pytest
+%pytest -k 'not test_run_local_server_bind_addr'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

@@ -31,6 +31,9 @@ Contains library and header files for psiconv
 %patch -P1 -p1
 %patch -P2 -p1
 
+# assure use of system getopt
+rm -f compat/getopt.{c,h}
+
 
 %build
 %configure --disable-static

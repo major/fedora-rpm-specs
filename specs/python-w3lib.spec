@@ -1,8 +1,8 @@
 %global srcname w3lib
 
 Name:           python-%{srcname}
-Version:        2.0.1
-Release:        9%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        Library of web-related functions
 
 License:        BSD-3-Clause
@@ -31,8 +31,6 @@ This is a Python library of web-related functions, such as:
 %package -n python3-%{srcname}
 Summary:    %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname} %_desc
 
@@ -63,6 +61,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Fri Mar 21 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.3.1-1
+- Update to upstream version 2.3.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

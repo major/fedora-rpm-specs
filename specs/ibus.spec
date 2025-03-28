@@ -50,7 +50,7 @@
 %else
 %{!?gtk4_binary_version: %global gtk4_binary_version ?.?.?}
 %endif
-%global glib_ver %([ -a %{_libdir}/pkgconfig/glib-2.0.pc ] && pkg-config --modversion glib-2.0 | cut -d. -f 1,2 || echo -n "999")
+%global glib_ver %([ -a /usr/%{_lib}/pkgconfig/glib-2.0.pc ] && pkg-config --modversion glib-2.0 | cut -d. -f 1,2 || echo -n "999")
 %else
 %{!?gtk2_binary_version: %global gtk2_binary_version ?.?.?}
 %{!?gtk3_binary_version: %global gtk3_binary_version ?.?.?}
@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32~rc2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -637,6 +637,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Mar 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.32~rc2-2
+- Fix flatpak build
+
 * Wed Mar 19 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc2-1
 - Resolves #2341930 Clear object pointers with task free in engineproxy
 - Update Unicode table with keysym

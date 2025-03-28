@@ -109,7 +109,6 @@ This package contains various miners and metadata extractors for tinysparql.
   -Dwriteback=false \
   -Dsystemd_user_services=false \
   -Diso=disabled \
-  -Dnetwork_manager=disabled \
   -Dbattery_detection=none \
   -Ddomain_prefix=%{domain_ontology} \
 %endif
@@ -159,16 +158,20 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %{_libexecdir}/localsearch-3
 %{_libexecdir}/localsearch-control-3
 %{_libexecdir}/localsearch-extractor-3
+%if ! 0%{?flatpak}
 %{_libexecdir}/localsearch-writeback-3
+%endif
 %dir %{_datadir}/dbus-1
 %dir %{_datadir}/dbus-1/interfaces
 %dir %{_datadir}/dbus-1/services
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Tracker3.Miner.Files.Index.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Tracker3.Miner.xml
-%{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.Control.service
-%{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
-%{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Writeback.service
-%{_datadir}/dbus-1/services/%{domain_ontology}.LocalSearch*
+%{_datadir}/dbus-1/services/%{domain_ontology}.LocalSearch3.*
+%{_datadir}/dbus-1/services/%{domain_ontology}.Tracker3.*
+%if 0%{?flatpak}
+%exclude %{_datadir}/dbus-1/services/org.freedesktop.LocalSearch3.service
+%exclude %{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
+%endif
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/localsearch3/
 %{_mandir}/man1/localsearch*.1*
@@ -176,7 +179,6 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %{_userunitdir}/localsearch*.service
 %endif
 %if 0%{?flatpak}
-%{_datadir}/localsearch3/domain-ontologies/%{domain_ontology}.domain.rule
 %{_bindir}/%{name}-flatpak-fixup.sh
 %endif
 

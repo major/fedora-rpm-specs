@@ -4,17 +4,13 @@
 %global crate tiny-dfr
 
 Name:           rust-tiny-dfr
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Most basic dynamic function row daemon possible
 
 License:        MIT AND Apache-2.0
 URL:            https://crates.io/crates/tiny-dfr
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Bump freedesktop-icons to 0.3.1
-# * https://github.com/AsahiLinux/tiny-dfr/commit/c3f87a1e08810fcd0362280d8f8610e30af335c6
-Patch:          tiny-dfr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
@@ -29,24 +25,17 @@ The most basic dynamic function row daemon possible.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD OR MIT OR Apache-2.0
-# Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # ISC
-# LGPL-2.1-or-later
 # MIT
 # MIT AND Apache-2.0
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
-# MIT OR Zlib OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND LGPL-2.1-or-later AND MIT AND (MIT AND Apache-2.0) AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
+License:        (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT AND Apache-2.0) AND (MIT OR Apache-2.0) AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

@@ -15,6 +15,9 @@ Version:   3.6.0
 %if 0%{?rhel} >= 9
 %global golang_arches   x86_64 aarch64 ppc64le s390x
 %endif
+%if 0%{?rhel} >= 10
+%global golang_arches   x86_64 aarch64 ppc64le s390x riscv64
+%endif
 # Go sources can contain arch-specific files and our macros will package the
 # correct files for each architecture. Therefore, move gopath to _libdir and
 # make Go devel packages archful

@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/toreanderson/clatd
 
 Name:		clatd
-Version:	2.0.0
-Release:	2%{?dist}
+Version:	2.1.0
+Release:	1%{?dist}
 Summary:	CLAT / SIIT-DC Edge Relay implementation for Linux
 
 License:	MIT
@@ -82,6 +82,9 @@ install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.ser
 
 
 %changelog
+* Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linrpo.com> - 2.1.0-1
+- New upstream release 2.1.0
+
 * Thu Feb 13 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 2.0.0-2
 - Unified sbin/bin from f42
 

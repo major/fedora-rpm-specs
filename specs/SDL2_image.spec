@@ -1,5 +1,5 @@
 Name:           SDL2_image
-Version:        2.8.6
+Version:        2.8.8
 Release:        1%{?dist}
 Summary:        Image loading library for SDL
 
@@ -82,6 +82,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Thu Mar 27 2025 Sérgio Basto <sergio@serjux.com> - 2.8.8-1
+- Update SDL2_image to 2.8.8
+- Resolves: rhbz#2354332
+
 * Mon Mar 03 2025 Sérgio Basto <sergio@serjux.com> - 2.8.6-1
 - Update SDL2_image to 2.8.6
 

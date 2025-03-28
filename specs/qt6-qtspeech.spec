@@ -12,7 +12,7 @@
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
 Version: 6.9.0%{?unstable:~%{prerelease}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
 # See e.g. src/plugins/speechdispatcher or src/tts
@@ -76,6 +76,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel%{?_isa}
+%if %{with flite}
+Requires: qt6-qtspeech-flite
+%endif
+Requires: qt6-qtspeech-speechd
 %description devel
 %{summary}.
 
@@ -158,6 +162,9 @@ popd
 %endif
 
 %changelog
+* Wed Mar 26 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-2
+- Make -devel to require -flite and -speechd plugins
+
 * Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
 - 6.9.0 RC
 

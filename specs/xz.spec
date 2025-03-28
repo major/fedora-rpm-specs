@@ -4,8 +4,8 @@
 Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
-Version:	5.6.3
-Release:	3%{?dist}
+Version:	5.8.0
+Release:	1%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -141,6 +141,8 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %lang(ko) %{_mandir}/ko/man1/*xz*
 %lang(ro) %{_mandir}/ro/man1/*xz*
 %lang(uk) %{_mandir}/uk/man1/*xz*
+%lang(it) %{_mandir}/it/man1/*xz*
+%lang(sr) %{_mandir}/sr/man1/*xz*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/*xz*
 %{profiledir}/*
 
@@ -172,10 +174,16 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %lang(ko) %{_mandir}/ko/man1/*lz*
 %lang(ro) %{_mandir}/ro/man1/*lz*
 %lang(uk) %{_mandir}/uk/man1/*lz*
+%lang(it) %{_mandir}/it/man1/*lz*
+%lang(sr) %{_mandir}/sr/man1/*lz*
 %lang(pt_BR) %{_mandir}/pt_BR/man1/*lz*
 
 
 %changelog
+* Wed Mar 26 2025 Jakub Martisko <jamartis@redhat.com> - 1:5.8.0-1
+- New upstream version 5.8.0
+Resolves: rhbz#2341818
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

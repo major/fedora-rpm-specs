@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.15.3
+Version:        3.16.2
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  inotify-tools-devel
 BuildRequires:  libcloudproviders-devel
 BuildRequires:  libappstream-glib
+BuildRequires:  libp11-devel
 BuildRequires:  neon-devel
 BuildRequires:  openssl-devel
 BuildRequires:  openssl-devel-engine

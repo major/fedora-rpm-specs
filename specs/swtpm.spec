@@ -8,7 +8,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -18,6 +18,8 @@ Patch2:         0001-swtpm-Fix-build-error-on-32bit-systems-due-to-incons.patch
 Patch3:         0001-SELinux-allow-to-map-state-file.patch
 Patch4:         0002-SELinux-add-NFS-permissions-for-swtpm_t.patch
 Patch5:         0001-selinux-Add-rule-to-allow-swtpm_t-opening-of-virt_lo.patch
+Patch6:         0001-swtpm-setup-fix-invalid-path.patch
+Patch7:         0001-swtpm_setup-Use-DISTRO_PROFILES_DIR-when-listing-pro.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -207,6 +209,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Wed Mar 26 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-9
+- Add 2 patches fixing invalid path issues for distro profiles
+
 * Mon Feb 24 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-8
 - Add another patch with more SELinux permissions
 

@@ -11,6 +11,8 @@ Source0:        http://mediaarea.net/download/source/%{name}/%{version}/%{name}_
 Source1:        mediainfo-qt.desktop
 Source2:        mediainfo-qt.kde4.desktop
 
+ExclusiveArch:  %qt6_qtwebengine_arches
+
 BuildRequires:  make
 BuildRequires:  pkgconfig(libmediainfo) >= %{version}
 BuildRequires:  pkgconfig(libzen) >= %{libzen_version}
@@ -27,6 +29,7 @@ BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  pkgconfig(Qt6Network)
 BuildRequires:  pkgconfig(Qt6Xml)
 BuildRequires:  pkgconfig(Qt6WebEngineWidgets)
+BuildRequires:  qt6-linguist
 BuildRequires:  libappstream-glib
 
 %description
@@ -129,6 +132,13 @@ popd
 
 sed -i 's|TARGET = "mediainfo-gui"|TARGET = "mediainfo-qt"|' Project/QMake/GUI/MediaInfoQt.pro
 sed -i 's|-ldl|-ldl -lmediainfo -lzen|' Project/QMake/GUI/MediaInfoQt.pro
+
+pushd Source/GUI/Qt/Qt_Translations_Updater
+    sed -i -e 's|lupdate|lupdate-qt6|' \
+        -e 's|lrelease|lrelease-qt6|' update_Qt_translations.sh
+    chmod +x ./update_Qt_translations.sh
+    ./update_Qt_translations.sh
+popd
 
 %build
 # build CLI

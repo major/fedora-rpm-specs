@@ -9,8 +9,8 @@
 %global copr_common_version 0.25.1~~dev0
 
 Name:       copr-backend
-Version:    2.1
-Release:    3%{?dist}
+Version:    2.3
+Release:    1%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -24,6 +24,7 @@ Source1:    https://github.com/fedora-copr/%{tests_tar}/archive/v%{tests_version
 
 BuildArch:  noarch
 BuildRequires: asciidoc
+BuildRequires: argparse-manpage
 BuildRequires: createrepo_c >= 0.16.1
 BuildRequires: libappstream-glib-builder
 BuildRequires: libxslt
@@ -107,6 +108,8 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
+%{?fedora:Requires(pre): lighttpd-filesystem}
+
 %description
 COPR is lightweight build system. It allows you to create new project in WebUI,
 and submit new builds and COPR will create yum repository from latest builds.
@@ -127,17 +130,12 @@ only.
 %prep
 %setup -q -a 1
 
-# Create a sysusers.d config file
-cat >copr-backend.sysusers.conf <<EOF
-u copr - 'COPR user' - /bin/bash
-m copr lighttpd
-EOF
-
 
 %build
 make -C docs %{?_smp_mflags} html
 %py3_build
-
+PYTHONPATH=`pwd` argparse-manpage --pyfile run/copr-backend-resultdir-cleaner \
+    --function _get_arg_parser > copr-backend-resultdir-cleaner.1
 
 %install
 %py3_install
@@ -151,13 +149,12 @@ install -d %{buildroot}%{_unitdir}
 install -d %{buildroot}/%{_var}/log/copr-backend
 install -d %{buildroot}/%{_var}/run/copr-backend/
 install -d %{buildroot}/%{_tmpfilesdir}
-install -d %{buildroot}/%{_sbindir}
 install -d %{buildroot}%{_sysconfdir}/cron.daily
 install -d %{buildroot}%{_sysconfdir}/cron.weekly
 install -d %{buildroot}%{_sysconfdir}/sudoers.d
 install -d %{buildroot}%{_bindir}/
 
-cp -a copr-backend-service %{buildroot}/%{_sbindir}/
+cp -a copr-backend-service %{buildroot}/%{_bindir}/
 cp -a run/* %{buildroot}%{_bindir}/
 cp -a conf/copr-be.conf.example %{buildroot}%{_sysconfdir}/copr/copr-be.conf
 
@@ -186,12 +183,13 @@ cp -a conf/logstash/copr_backend.conf %{buildroot}%{_pkgdocdir}/examples/%{_sysc
 
 cp -a docs/build/html %{buildroot}%{_pkgdocdir}/
 
-install -m0644 -D copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/copr-backend.conf
+install -d %{buildroot}%{_mandir}/man1
+install -p -m 644 copr-backend-resultdir-cleaner.1 %{buildroot}/%{_mandir}/man1/
 
+install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/copr-backend.conf
 
 %check
 ./run_tests.sh -vv --no-cov
-
 
 %post
 %systemd_post copr-backend.target
@@ -226,28 +224,48 @@ install -m0644 -D copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/copr-ba
 %{_unitdir}/*.target
 %{_tmpfilesdir}/copr-backend.conf
 %{_bindir}/*
-%{_sbindir}/*
+
 
 %config(noreplace) %{_sysconfdir}/cron.daily/copr-backend
 %config(noreplace) %{_sysconfdir}/cron.weekly/copr-backend
 %{_datadir}/logstash/patterns/lighttpd.pattern
 
-
 %config(noreplace) %attr(0600, root, root)  %{_sysconfdir}/sudoers.d/copr
+
+%{_mandir}/man1/copr-backend*.1*
+
 %{_sysusersdir}/copr-backend.conf
 
 %files doc
 %license LICENSE
-%doc
 %{_pkgdocdir}/
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1-3
-- Add sysusers.d config file to allow rpm to create users/groups automatically
+* Wed Mar 26 2025 Pavel Raiskup <praiskup@redhat.com> 2.3-1
+- lighttpd-filesystem provides group(lighttpd) on F42+ only
 
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Wed Mar 26 2025 Pavel Raiskup <praiskup@redhat.com> 2.2-1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+- unify bindir and sbindir
+- lock the pulp-redirect.txt file
+- add HTTP redirect for new Pulp projects
+- fix FTBFS in openEuler 24.03 LTS
+- create HTTP redirects for migrated projects
+- fix pylint - Too many local variables
+- migrate os.listdir() to os.scandir() to increase performance
+- add resalloc ticket info to backend.log
+- drop unused attributes in RemoteHost class
+- per-arch/per-owner limit fixed
+- fix createrepo action for Pulp CoprDirs
+- add test-case for CoprDir's BuildJob.chroot_dir
+- add script to migrate existing build results to Pulp
+- typo in the per arch+owner limit option documentation
+- resultdir-cleaner: remove old appstream failures
+- copr-backend-resultdir-cleaner logs into config["log_dir"]
+- copr-backend-resultdir-cleaner to skip module dirs
+- manpage for copr-backend-resultdir-cleaner && logger fix
+- allow using crt+key pair for Pulp authentication
 
 * Tue Oct 22 2024 Jakub Kadlcik <frostyx@email.cz> 2.1-1
 - Activate Red Hat subscription on demand

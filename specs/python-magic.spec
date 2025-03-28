@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.4.27
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        File type identification using libmagic
 
 License:        MIT
@@ -23,7 +23,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-Requires:       file-devel
+Requires:       file-libs
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -41,6 +41,9 @@ rm -rf %{pypi_name}.egg-info
 %install
 %py3_install
 
+%check
+%py3_check_import magic
+
 %files -n python3-%{srcname}
 %doc README.md
 %license LICENSE
@@ -48,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_magic-%{version}-py*.egg-info
 
 %changelog
+* Wed Mar 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.27-11
+- Update file/libmagic dependency
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.27-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

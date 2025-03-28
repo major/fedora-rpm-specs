@@ -21,7 +21,7 @@ Patch3: 0003-rt-tests-Turn-off-Wunused-parameter.patch
 Patch4: 0004-rt-tests-Enable-Werror.patch
 Patch5: 0005-rt-tests-Remove-unused-parameter-annotations.patch
 
-# Fix build with glibc 2.41 (development), uses GLIBC_HAS_SCHED_ATTR
+# Fix build with glibc 2.41
 Patch101: 0101-rt-tests-Fix-build-with-glibc-2-41.patch
 
 %description
@@ -34,10 +34,6 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 
 %build
 %set_build_flags
-%if 0%{?fedora} > 41 || 0%{?rhel} > 10
-# For patch 101; this can be removed once glibc 2.41 is released
-export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
-%endif
 %make_build
 
 %install

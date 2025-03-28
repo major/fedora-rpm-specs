@@ -6,7 +6,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.13.0~rc2
+Version: 8.13.0~rc3
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -17,10 +17,7 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 Source2: mykey.asc
 
 # patch making libcurl multilib ready
-# Patch101: 0101-curl-7.32.0-multilib.patch
-
-# test3026: disable valgrind
-Patch102: 0102-curl-7.84.0-test3026.patch
+Patch101: 0101-curl-7.32.0-multilib.patch
 
 # test616: disable valgrind
 Patch105: 0105-curl-8.11.1-test616.patch
@@ -407,6 +404,10 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Mar 26 2025 Jan Macku <jamacku@redhat.com> - 8.13.0~rc3-1
+- new upstream release candidate
+- drop: 0102-curl-7.84.0-test3026.patch (no longer needed)
+
 * Tue Mar 18 2025 Jan Macku <jamacku@redhat.com> - 8.13.0~rc2-1
 - new upstream release candidate
 

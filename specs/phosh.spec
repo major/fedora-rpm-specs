@@ -14,8 +14,6 @@ Source:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_c
 # Similar situation as gvc
 Source:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/v%{libcall_ui_version}/libcall-ui-v%{libcall_ui_version}.tar.gz
 Source:	phosh
-# Needed when not using the OSK package
-Source:	sm.puri.OSK0.desktop
 
 ExcludeArch:	i686
 
@@ -68,9 +66,10 @@ Requires:	gnome-session
 Requires:	gnome-shell
 Requires:	lato-fonts
 Requires:	hicolor-icon-theme
+Requires:	phosh-osk = 1.0
 
-Recommends:	squeekboard >= 1.21.0
 Recommends:	phosh-mobile-settings
+Suggests:	squeekboard-phosh-osk-provider
 
 %description
 Phosh is a simple shell for Wayland compositors speaking the layer-surface
@@ -120,9 +119,6 @@ mv libcall-ui-v%{libcall_ui_version} subprojects/libcall-ui
 install -d %{buildroot}%{_sysconfdir}/pam.d/
 cp %{SOURCE3} %{buildroot}%{_sysconfdir}/pam.d/
 
-install -d %{buildroot}%{_datadir}/applications
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
-
 %meson_install
 %find_lang %{name}
 
@@ -155,7 +151,6 @@ SH
 %{_userunitdir}/gnome-session@phosh.target.d/session.conf
 %{_userunitdir}/mobi.phosh.Shell.service
 %{_userunitdir}/mobi.phosh.Shell.target
-%{_datadir}/applications/sm.puri.OSK0.desktop
 %{_datadir}/xdg-desktop-portal/portals/phosh-shell.portal
 %{_datadir}/xdg-desktop-portal/phosh-portals.conf
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg

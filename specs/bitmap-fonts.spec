@@ -8,7 +8,7 @@ BuildRequires: make
 %global fontconf 66-%{fontname}
 
 Version: 0.3
-Release: 49%{?dist}
+Release: 50%{?dist}
 License: GPL-2.0-only AND MIT AND LicenseRef-Lucida
 
 %global foundry           Bitmap
@@ -157,8 +157,7 @@ Requires: %{fontname}-fixed-fonts = %{version}-%{release}
 Requires: ucs-miscfixed-fonts
 Conflicts: %{fontname}-opentype-fonts-all
 
-%description -n %{fontname}-fonts-all
-%common_desc
+%description -n %{fontname}-fonts-all %common_description
 Meta-package for installing all font families of bitmap.
 
 %files -n %{fontname}-fonts-all
@@ -174,8 +173,7 @@ Requires: %{fontname}-fixed-opentype-fonts = %{version}-%{release}
 Requires: ucs-miscfixed-opentype-fonts
 Conflicts: %{fontname}-fonts-all
 
-%description -n %{fontname}-opentype-fonts-all
-%common_desc
+%description -n %{fontname}-opentype-fonts-all %common_description
 Meta-package for installing all font families of opentype bitmap.
 
 %files -n %{fontname}-opentype-fonts-all
@@ -222,6 +220,9 @@ gzip *.pcf fixfont-3.5/*.pcf
 %fontfiles -a
 
 %changelog
+* Tue Mar 25 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.3-50
+- Fix descriptions for *-fonts-all subpackages
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

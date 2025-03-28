@@ -1,16 +1,21 @@
-%global __cmake_in_source_build 1
+# Tests require a "EBU R128 test vector" suite of wav files behind a paywall:
+%bcond tests 0
+
 Name:           libebur128
 Version:        1.2.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A library that implements the EBU R 128 standard for loudness normalization
 License:        MIT
 URL:            https://github.com/jiixyj/%{name}
 
-Source0:        https://github.com/jiixyj/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 2.8.11
-BuildRequires: make
+BuildRequires:  make
+%if %{with tests}
+BuildRequires:  pkgconfig(sndfile)
+%endif
 
 %description
 A library that implements the EBU R 128 standard for loudness normalization.
@@ -29,34 +34,41 @@ developing applications that use %{name}.
 
 %prep
 %autosetup
-# EPEL has CMake 2.8.11 but project requires 2.8.12
-sed -i -e 's/2.8.12/2.8.11/g' CMakeLists.txt
 
 %build
-%cmake %{?_cmake_skip_rpath}
-%make_build
+%cmake -DENABLE_TESTS:BOOL=%{?_with_tests:ON}%{!?_with_tests:OFF}
+%cmake_build
 
+%if %{with tests}
 %check
-pushd test
+pushd %{_vpath_builddir}/test
 make
+LD_LIBRARY_PATH=. ./r128-test-library
+%endif
 
 %install
-%make_install
-find %{buildroot} -name '*.a' -delete
-
-%ldconfig_scriptlets
+%cmake_install
 
 %files
 %license COPYING
 %doc README.md
-%{_libdir}/*.so.*
+%{_libdir}/%{name}.so.1
+%{_libdir}/%{name}.so.%{version}
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/ebur128.h
+%{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 26 2025 Simone Caronni <negativo17@gmail.com> - 1.2.6-12
+- Drop ldconfig scriptlets.
+- Be more explicit for files.
+- Use cmake macros everywhere.
+- Small cleanups.
+- Trim changelog.
+- Adjust tests properly.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -77,67 +89,3 @@ find %{buildroot} -name '*.a' -delete
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Feb 16 2021 Gwyn Ciesla <gwync@protonmail.com> - 1.2.6-1
-- 1.2.6
-
-* Wed Feb 03 2021 Gwyn Ciesla <gwync@protonmail.com> - 1.2.5-1
-- 1.2.5
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Nov 23 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.2.4-6
-- Fix FTBFS.
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Feb 28 2019 Simone Caronni <negativo17@gmail.com> - 1.2.4-1
-- Update to 1.2.4.
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Fri Dec 08 2017 Simone Caronni <negativo17@gmail.com> - 1.2.3-1
-- Update to 1.2.3.
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sun Feb 12 2017 Simone Caronni <negativo17@gmail.com> - 1.2.2-1
-- Update to 1.2.2.
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Nov 18 2016 Simone Caronni <negativo17@gmail.com> - 1.2.0-1
-- First build.

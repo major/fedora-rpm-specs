@@ -62,6 +62,10 @@ cp man/needrestart.1 %{buildroot}/%{_mandir}/man1/
 %find_lang needrestart-notify
 # useless files
 rm -rf %{buildroot}/%{perl_archlib}
+# binary install path is hardcoded in the Makefile
+# (see https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin)
+mkdir -p %{buildroot}/usr/bin
+mv %{buildroot}/usr/sbin/%{name} %{buildroot}/usr/bin/%{name}
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1489569
 cp %{SOURCE1} %{buildroot}/%{_datadir}/%{name}/needrestart.templates
 # workaround for https://github.com/liske/needrestart/issues/75
@@ -95,7 +99,7 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 %doc README.md README.batch.md README.Cont.md README.Interp.md README.nagios.md README.uCode.md NEWS ChangeLog
 %config(noreplace) %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/default/intel-microcode
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{perl_vendorlib}/*
 # %%{_libdir} resolves to /usr/lib64 on 64-bits systems, but the software does not handle this
 /usr/lib/%{name}
@@ -112,6 +116,8 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Wed Mar 26 2025 Marc Dequènes (Duck) <duck@redhat.com> - 3.8-3
+- Work around hardcoded binary install path for bin+sbin merge.
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

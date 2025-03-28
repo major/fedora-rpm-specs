@@ -45,7 +45,7 @@
 %endif
 
 Name:           neovim
-Version:        0.10.4
+Version:        0.11.0
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT
@@ -91,11 +91,12 @@ BuildRequires:  jemalloc-devel
 %endif
 BuildRequires:  msgpack-devel >= 3.1.0
 BuildRequires:  pkgconfig(termkey)
-BuildRequires:  pkgconfig(libuv) >= 1.42.0
+BuildRequires:  pkgconfig(libuv) >= 1.50.0
 BuildRequires:  pkgconfig(vterm) >= %{vterm_min_ver}
 # need the build with the fix for the resize buffer issue
 Requires:       libvterm >= %{vterm_min_ver}
 BuildRequires:  pkgconfig(unibilium)
+BuildRequires:  pkgconfig(libutf8proc) >= 2.10.0
 %if %{with system_treesitter}
 BuildRequires:  pkgconfig(tree-sitter) >= %{tree_sitter_min_ver}
 # tree-sitter didn't do an soname bump. enforce the min version
@@ -110,6 +111,7 @@ Suggests:       (python3-neovim if python3)
 Recommends:     xsel
 Recommends:     wl-clipboard
 Recommends:     ripgrep
+Recommends:     inotify-tools
 
 %description
 Neovim is a refactor - and sometimes redactor - in the tradition of
@@ -133,8 +135,6 @@ mv ../%{name}-%{version}-vendor-treesitter/* \
 
 cp %{SOURCE4} .
 
-%patch -P 0 -p1
-%patch -P 1 -p1
 %if %{without luajit}
 %patch -P 1000 -p1
 %endif
@@ -164,7 +164,8 @@ ln -sfr ../%{name}-%{version}-vendor .deps/build/downloads
        -DPREFER_LUA=%{?with_luajit:OFF}%{!?with_luajit:ON} \
        -DLUA_PRG=%{lua_prg} \
        -DENABLE_JEMALLOC=%{?with_jemalloc:ON}%{!?with_jemalloc:OFF} \
-       -DLIBLUV_INCLUDE_DIR:PATH=%{luv_include_dir}
+       -DLIBLUV_INCLUDE_DIR:PATH=%{luv_include_dir} \
+       -DENABLE_TRANSLATIONS=ON
 %cmake_build
 
 %install
@@ -239,9 +240,6 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/autoload/xml
 %{_datadir}/nvim/runtime/autoload/xml/*.vim
 
-%dir %{_datadir}/nvim/runtime/autoload/zig
-%{_datadir}/nvim/runtime/autoload/zig/*.vim
-
 %dir %{_datadir}/nvim/runtime/colors
 %{_datadir}/nvim/runtime/colors/*.lua
 %{_datadir}/nvim/runtime/colors/*.vim
@@ -269,33 +267,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 
 %dir %{_datadir}/nvim/runtime/indent/testdir/
 %{_datadir}/nvim/runtime/indent/testdir/README.txt
-%{_datadir}/nvim/runtime/indent/testdir/bitbake.in
-%{_datadir}/nvim/runtime/indent/testdir/bitbake.ok
-%{_datadir}/nvim/runtime/indent/testdir/dts.in
-%{_datadir}/nvim/runtime/indent/testdir/dts.ok
-%{_datadir}/nvim/runtime/indent/testdir/html.in
-%{_datadir}/nvim/runtime/indent/testdir/html.ok
-%{_datadir}/nvim/runtime/indent/testdir/krl.in
-%{_datadir}/nvim/runtime/indent/testdir/krl.ok
-%{_datadir}/nvim/runtime/indent/testdir/matlab.in
-%{_datadir}/nvim/runtime/indent/testdir/matlab.ok
-%{_datadir}/nvim/runtime/indent/testdir/python.in
-%{_datadir}/nvim/runtime/indent/testdir/python.ok
-%{_datadir}/nvim/runtime/indent/testdir/rapid.in
-%{_datadir}/nvim/runtime/indent/testdir/rapid.ok
-%{_datadir}/nvim/runtime/indent/testdir/runtest.vim
-%{_datadir}/nvim/runtime/indent/testdir/sshconfig.in
-%{_datadir}/nvim/runtime/indent/testdir/sshconfig.ok
-%{_datadir}/nvim/runtime/indent/testdir/tcl.in
-%{_datadir}/nvim/runtime/indent/testdir/tcl.ok
-%{_datadir}/nvim/runtime/indent/testdir/vb.in
-%{_datadir}/nvim/runtime/indent/testdir/vb.ok
-%{_datadir}/nvim/runtime/indent/testdir/vim.in
-%{_datadir}/nvim/runtime/indent/testdir/vim.ok
-%{_datadir}/nvim/runtime/indent/testdir/xml.in
-%{_datadir}/nvim/runtime/indent/testdir/xml.ok
-%{_datadir}/nvim/runtime/indent/testdir/yaml.in
-%{_datadir}/nvim/runtime/indent/testdir/yaml.ok
+%{_datadir}/nvim/runtime/indent/testdir/*.in
+%{_datadir}/nvim/runtime/indent/testdir/*.ok
+%{_datadir}/nvim/runtime/indent/testdir/*.vim
 
 %dir %{_datadir}/nvim/runtime/keymap
 %{_datadir}/nvim/runtime/keymap/*.vim
@@ -304,34 +278,23 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/lua
 %{_datadir}/nvim/runtime/lua/*.lua
 
-%dir %{_datadir}/nvim/runtime/lua/nvim
-%{_datadir}/nvim/runtime/lua/nvim/health.lua
-
-%dir %{_datadir}/nvim/runtime/lua/provider
-
-%dir %{_datadir}/nvim/runtime/lua/provider/clipboard
-%{_datadir}/nvim/runtime/lua/provider/clipboard/*.lua
-
-%dir %{_datadir}/nvim/runtime/lua/provider/node
-%{_datadir}/nvim/runtime/lua/provider/node/*.lua
-
-%dir %{_datadir}/nvim/runtime/lua/provider/perl
-%{_datadir}/nvim/runtime/lua/provider/perl/*.lua
-
-%dir %{_datadir}/nvim/runtime/lua/provider/python
-%{_datadir}/nvim/runtime/lua/provider/python/*.lua
-
-%dir %{_datadir}/nvim/runtime/lua/provider/ruby
-%{_datadir}/nvim/runtime/lua/provider/ruby/*.lua
-
 %dir %{_datadir}/nvim/runtime/lua/vim
 %{_datadir}/nvim/runtime/lua/vim/*.lua
+
+%dir %{_datadir}/nvim/runtime/lua/vim/_ftplugin
+%{_datadir}/nvim/runtime/lua/vim/_ftplugin/*.lua
 
 %dir %{_datadir}/nvim/runtime/lua/vim/_meta
 %{_datadir}/nvim/runtime/lua/vim/_meta/*.lua
 
+%dir %{_datadir}/nvim/runtime/lua/vim/deprecated
+%{_datadir}/nvim/runtime/lua/vim/deprecated/health.lua
+
 %dir %{_datadir}/nvim/runtime/lua/vim/filetype
 %{_datadir}/nvim/runtime/lua/vim/filetype/*.lua
+
+%dir %{_datadir}/nvim/runtime/lua/vim/health
+%{_datadir}/nvim/runtime/lua/vim/health/*.lua
 
 %dir %{_datadir}/nvim/runtime/lua/vim/func
 %{_datadir}/nvim/runtime/lua/vim/func/*.lua
@@ -348,14 +311,12 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/lua/vim/treesitter
 %{_datadir}/nvim/runtime/lua/vim/treesitter/*.lua
 
+%dir %{_datadir}/nvim/runtime/lua/vim/treesitter/_meta
+%{_datadir}/nvim/runtime/lua/vim/treesitter/_meta/*.lua
+
 %dir %{_datadir}/nvim/runtime/lua/vim/ui
 %dir %{_datadir}/nvim/runtime/lua/vim/ui/clipboard
 %{_datadir}/nvim/runtime/lua/vim/ui/clipboard/*.lua
-
-%dir %{_datadir}/nvim/runtime/macros
-%{_datadir}/nvim/runtime/macros/*.vim
-%{_datadir}/nvim/runtime/macros/less.bat
-%{_datadir}/nvim/runtime/macros/less.sh
 
 %dir %{_datadir}/nvim/runtime/pack
 %dir %{_datadir}/nvim/runtime/pack/dist
@@ -368,6 +329,28 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/pack/dist/opt/justify
 %dir %{_datadir}/nvim/runtime/pack/dist/opt/justify/plugin
 %{_datadir}/nvim/runtime/pack/dist/opt/justify/plugin/*.vim
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/netrw
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/LICENSE.txt
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/README.md
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/netrw/autoload
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/autoload/*.vim
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/netrw/doc
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/doc/*.txt
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/doc/tags
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/netrw/plugin
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/plugin/*.vim
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/netrw/syntax
+%{_datadir}/nvim/runtime/pack/dist/opt/netrw/syntax/*.vim
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/nohlsearch
+
+%dir %{_datadir}/nvim/runtime/pack/dist/opt/nohlsearch/plugin
+%{_datadir}/nvim/runtime/pack/dist/opt/nohlsearch/plugin/*.vim
 
 %dir %{_datadir}/nvim/runtime/pack/dist/opt/shellmenu
 %dir %{_datadir}/nvim/runtime/pack/dist/opt/shellmenu/plugin
@@ -419,6 +402,12 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/queries/vimdoc/
 %{_datadir}/nvim/runtime/queries/vimdoc/*.scm
 
+%dir %{_datadir}/nvim/runtime/scripts
+%{_datadir}/nvim/runtime/scripts/*.lua
+%{_datadir}/nvim/runtime/scripts/*.vim
+%{_datadir}/nvim/runtime/scripts/less.bat
+%{_datadir}/nvim/runtime/scripts/less.sh
+
 %dir %{_datadir}/nvim/runtime/spell
 %{_datadir}/nvim/runtime/spell/cleanadd.vim
 %{_datadir}/nvim/runtime/spell/en.utf-8.spl
@@ -438,9 +427,6 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/syntax/shared
 %{_datadir}/nvim/runtime/syntax/shared/*.vim
 %{_datadir}/nvim/runtime/syntax/shared/README.txt
-
-%dir %{_datadir}/nvim/runtime/tools
-%{_datadir}/nvim/runtime/tools/*.vim
 
 %dir %{_datadir}/nvim/runtime/tutor
 %{_datadir}/nvim/runtime/tutor/tutor.tutor

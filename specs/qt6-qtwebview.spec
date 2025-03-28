@@ -1,16 +1,27 @@
 %global qt_module qtwebview
 
+%global unstable 1
+%if 0%{?unstable}
+%global prerelease rc
+%endif
+
 %global examples 1
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
-Release: 2%{?dist}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+%global  qt_version %(echo %{version} | cut -d~ -f1)
+
+%if 0%{?unstable}
+Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/submodules/%{qt_module}-everywhere-src-%{qt_version}-%{prerelease}.tar.xz
+%else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
+%endif
 
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
@@ -46,7 +57,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -n %{qt_module}-everywhere-src-%{version}%{?unstable:-%{prerelease}} -p1
+%autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
 %build
@@ -63,7 +74,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files
 %license LICENSES/GPL* LICENSES/LGPL*
-%{_qt6_archdatadir}/sbom/%{qt_module}-%{version}.spdx
+%{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6WebView.so.6{,.*}
 %{_qt6_libdir}/libQt6WebViewQuick.so.6{,.*}
 %{_qt6_qmldir}/QtWebView/
@@ -75,12 +86,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_headerdir}/QtWebView/*
 %dir %{_qt6_headerdir}/QtWebViewQuick
 %{_qt6_headerdir}/QtWebViewQuick/*
+%dir %{_qt6_libdir}/cmake/Qt6WebView
+%dir %{_qt6_libdir}/cmake/Qt6WebViewPrivate
+%dir %{_qt6_libdir}/cmake/Qt6WebViewQuick
+%dir %{_qt6_libdir}/cmake/Qt6WebViewQuickPrivate
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebViewTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebView
 %{_qt6_libdir}/cmake/Qt6WebView/*.cmake
-%dir %{_qt6_libdir}/cmake/Qt6WebViewQuick
+%{_qt6_libdir}/cmake/Qt6WebViewPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebViewQuick/*.cmake
+%{_qt6_libdir}/cmake/Qt6WebViewQuickPrivate/*.cmake
 %{_qt6_libdir}/libQt6WebView.so
 %{_qt6_libdir}/libQt6WebView.prl
 %{_qt6_libdir}/libQt6WebViewQuick.so
@@ -98,6 +113,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Mar 26 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.8.2-2
 - Fix package to use qtwebengine arches
 

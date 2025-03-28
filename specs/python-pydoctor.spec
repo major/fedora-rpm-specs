@@ -5,6 +5,20 @@
 %global date             20241208
 %forgemeta
 
+%global desc \
+This is pydoctor, a standalone API documentation generator that works by \
+static analysis. \
+\
+It was written primarily to replace epydoc for the purposes of the Twisted \
+project as epydoc has difficulties with zope.interface. If you are looking \
+for a successor to epydoc after moving to Python 3, pydoctor might be the \
+right tool for your project as well. \
+\
+pydoctor puts a fair bit of effort into resolving imports and computing \
+inheritance hierarchies and, as it aims at documenting Twisted, knows about \
+zope.interface's declaration API and can present information about which \
+classes implement which interface, and vice versa.
+
 Name:           python-%{srcname}
 Version:        %{pydoctor_version}
 Release:        %autorelease
@@ -37,26 +51,13 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest-subtests
 
 
-%description
-This is pydoctor, a standalone API documentation generator that works by 
-static analysis.
-
-It was written primarily to replace epydoc for the purposes of the Twisted 
-project as epydoc has difficulties with zope.interface. If you are looking 
-for a successor to epydoc after moving to Python 3, pydoctor might be the 
-right tool for your project as well.
-
-pydoctor puts a fair bit of effort into resolving imports and computing 
-inheritance hierarchies and, as it aims at documenting Twisted, knows about 
-zope.interface's declaration API and can present information about which 
-classes implement which interface, and vice versa.
+%description %{desc}
 
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
-%description -n python3-%{srcname}
-%{description}
+%description -n python3-%{srcname} %{desc}
 
 
 %prep

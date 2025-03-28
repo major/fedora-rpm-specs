@@ -28,6 +28,8 @@ different units of angular measure.
 %patch -P1 -p1 -b .build
 
 %build
+%set_build_flags
+CFLAGS="$CFLAGS -std=gnu11"
 %configure
 make %{?_smp_mflags}
 

@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.39.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -100,6 +100,8 @@ a library and facilitate easy integration into other applications.
 
 %package libs
 Summary: Dynamic library for Mpv frontends
+Recommends: (yt-dlp or youtube-dl)
+Suggests: yt-dlp
 
 %description libs
 This package contains the dynamic library libmpv, which provides access to Mpv.
@@ -217,6 +219,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.39.0-5
+- mpv-libs should also depend on yt-dlp
+
 * Wed Jan 29 2025 Simone Caronni <negativo17@gmail.com> - 0.39.0-4
 - Rebuild for updated VapourSynth.
 

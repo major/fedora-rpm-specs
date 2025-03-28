@@ -5,12 +5,12 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
-%global mozjs115_version 115.7.0
+%global mozjs128_version 128.5.1
 
 Name:          cjs
 Epoch:         1
 Version:       6.4.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -25,6 +25,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %endif
+Patch0:         %{url}/compare/6.4.0...master.patch#/switch_to_mozjs128.patch
 
 ExcludeArch:   %{ix86}
 
@@ -36,7 +37,7 @@ BuildRequires: pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(mozjs-115) >= %{mozjs115_version}
+BuildRequires: pkgconfig(mozjs-128) >= %{mozjs128_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
 # Required for checks
@@ -48,7 +49,7 @@ BuildRequires: xorg-x11-server-Xvfb
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: mozjs115%{?_isa} >= %{mozjs115_version}
+Requires: mozjs128%{?_isa} >= %{mozjs128_version}
 
 %description
 Cjs allows using Cinnamon libraries from Javascript. It's based on the
@@ -117,6 +118,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Wed Mar 26 2025 Leigh Scott <leigh123linux@gmail.com> - 1:6.4.0-3
+- Switch to mozjs128
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

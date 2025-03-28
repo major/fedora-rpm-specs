@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -9,6 +9,7 @@ BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
 
 Patch0:  0001-Set-LUKS-format-before-creating-the-LUKS-device.patch
+Patch1:  0002-Fix-detection-of-empty-disks-for-NVMe-drives.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -76,6 +77,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Mar 26 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-4
+- Fix detection of empty disks for NVMe drives (#2352541)
+
 * Tue Feb 25 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-3
 - Set LUKS format before creating the LUKS device (#2332338)
 

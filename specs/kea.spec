@@ -1,5 +1,5 @@
 Name:           kea
-Version:        2.6.1
+Version:        2.6.2
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -374,23 +374,23 @@ sed -i -e 's|log\/|log\/kea\/|g' \
 %{_libdir}/libkea-cfgclient.so.65*
 %{_libdir}/libkea-cryptolink.so.50*
 %{_libdir}/libkea-d2srv.so.46*
-%{_libdir}/libkea-database.so.61*
+%{_libdir}/libkea-database.so.62*
 %{_libdir}/libkea-dhcp_ddns.so.56*
-%{_libdir}/libkea-dhcp++.so.90*
-%{_libdir}/libkea-dhcpsrv.so.109*
+%{_libdir}/libkea-dhcp++.so.91*
+%{_libdir}/libkea-dhcpsrv.so.110*
 %{_libdir}/libkea-dns++.so.56*
 %{_libdir}/libkea-eval.so.69*
 %{_libdir}/libkea-exceptions.so.33*
-%{_libdir}/libkea-hooks.so.98*
+%{_libdir}/libkea-hooks.so.99*
 %{_libdir}/libkea-http.so.71*
 %{_libdir}/libkea-log.so.61*
-%{_libdir}/libkea-mysql.so.70*
-%{_libdir}/libkea-pgsql.so.70*
-%{_libdir}/libkea-process.so.72*
+%{_libdir}/libkea-mysql.so.71*
+%{_libdir}/libkea-pgsql.so.71*
+%{_libdir}/libkea-process.so.73*
 %{_libdir}/libkea-stats.so.41*
 %{_libdir}/libkea-tcp.so.18*
 %{_libdir}/libkea-util-io.so.0*
-%{_libdir}/libkea-util.so.84*
+%{_libdir}/libkea-util.so.85*
 
 %files keama
 %license COPYING

@@ -29,9 +29,9 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
-Source: openssl-%{version}-alpha1.tar.gz
+Source: openssl-%{version}-beta1.tar.gz
 Source2: Makefile.certificate
 Source3: genpatches
 Source4: openssl.rpmlintrc
@@ -39,7 +39,6 @@ Source6: make-dummy-cert
 Source7: renew-dummy-cert
 Source9: configuration-switch.h
 Source10: configuration-prefix.h
-#Source14: 0025-for-tests.patch
 
 Patch0001: 0001-RH-Aarch64-and-ppc64le-use-lib64.patch
 Patch0002: 0002-Add-a-separate-config-file-to-use-for-rpm-installs.patch
@@ -59,40 +58,41 @@ Patch0015: 0015-RH-version-aliasing.patch
 Patch0016: 0016-RH-Export-two-symbols-for-OPENSSL_str-n-casecmp.patch
 Patch0017: 0017-RH-TMP-KTLS-test-skip.patch
 Patch0018: 0018-RH-Allow-disabling-of-SHA1-signatures.patch
-Patch0019: 0019-FIPS-Force-fips-provider-on.patch
-Patch0020: 0020-FIPS-Embed-hmac-in-fips.so-NOTE.patch
-Patch0021: 0021-FIPS-Add-script-to-hmac-ify-the-fips.so-provider.patch
-Patch0022: 0022-FIPS-disable-fipsinstall.patch
-Patch0023: 0023-FIPS-FIPS-140-3-key-checks-REVIEW.patch
-Patch0024: 0024-FIPS-Execute-KATS-before-HMAC-verification-REVIEW.patch
-Patch0025: 0025-FIPS-limit-rsa-encrypt-REVIEW.patch
-Patch0026: 0026-FIPS-Deny-SHA-1-signature-verification.patch
-Patch0027: 0027-NEEDS-REWORK-FIPS-Use-OAEP-in-KATs-support-fixed-OAE.patch
-Patch0028: 0028-FIPS-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
-Patch0029: 0029-FIPS-rand-Forbid-truncated-hashes-SHA-3.patch
-Patch0030: 0030-FIPS-Remove-X9.31-padding-for-signatures.patch
-Patch0031: 0031-FIPS-Set-minimum-password-length-for-pbkdf2.patch
-Patch0032: 0032-FIPS-Disallow-SHAKE-in-RSA-OAEP-and-RSA-PSS.patch
-Patch0033: 0033-FIPS-RSA-encapsulate.patch
-Patch0034: 0034-FIPS-Disable-FIPS-186-4-DH-type-parameters.patch
-Patch0035: 0035-FIPS-Enforce-EMS-in-TLS-1.2-NOTE.patch
-Patch0036: 0036-FIPS-Set-default-padding-to-OAEP-in-CMS.patch
-Patch0037: 0037-FIPS-PBMAC1-PKCS12-defaults.patch
-Patch0038: 0038-FIPS-Fix-encoder-decoder-negative-test.patch
-Patch0039: 0039-FIPS-disable-weak-EC-curves.patch
-Patch0040: 0040-FIPS-NO-DSA-Support.patch
-Patch0041: 0041-FIPS-Red-Hat-s-FIPS-module-name-and-version.patch
-Patch0042: 0042-FIPS-NO-DES-support.patch
-Patch0043: 0043-FIPS-RSA-size-mode-restrictions.patch
-Patch0044: 0044-FIPS-NO-Kmac.patch
-Patch0045: 0045-FIPS-NO-ECX-Ed-X-25519-448.patch
-Patch0046: 0046-FIPS-NO-PQ-ML-SLH-DSA.patch
-Patch0047: 0047-Revert-FIPS-NO-ECX-Ed-X-25519-448.patch
-Patch0048: 0048-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
-Patch0049: 0049-Current-Rebase-status.patch
-# #26964, #27012
-Patch0050: 0050-RCU-ppc64.patch
-
+Patch0019: 0019-RH-Set-default-certificate-digest-to-sha256.patch
+Patch0020: 0020-FIPS-Red-Hat-s-FIPS-module-name-and-version.patch
+Patch0021: 0021-FIPS-disable-fipsinstall.patch
+Patch0022: 0022-FIPS-Force-fips-provider-on.patch
+Patch0023: 0023-FIPS-INTEG-CHECK-Embed-hmac-in-fips.so-NOTE.patch
+Patch0024: 0024-FIPS-INTEG-CHECK-Add-script-to-hmac-ify-fips.so.patch
+Patch0025: 0025-FIPS-INTEG-CHECK-Execute-KATS-before-HMAC-REVIEW.patch
+Patch0026: 0026-FIPS-RSA-encrypt-limits-REVIEW.patch
+Patch0027: 0027-FIPS-RSA-PCTs.patch
+Patch0028: 0028-FIPS-RSA-encapsulate-limits.patch
+Patch0029: 0029-FIPS-RSA-Disallow-SHAKE-in-OAEP-and-PSS.patch
+Patch0030: 0030-FIPS-RSA-size-mode-restrictions.patch
+Patch0031: 0031-FIPS-RSA-Mark-x931-as-not-approved-by-default.patch
+Patch0032: 0032-FIPS-RSA-Remove-X9.31-padding-signatures-tests.patch
+Patch0033: 0033-FIPS-RSA-NEEDS-REWORK-FIPS-Use-OAEP-in-KATs-support-.patch
+Patch0034: 0034-FIPS-Deny-SHA-1-signature-verification.patch
+Patch0035: 0035-FIPS-RAND-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
+Patch0036: 0036-FIPS-RAND-Forbid-truncated-hashes-SHA-3.patch
+Patch0037: 0037-FIPS-PBKDF2-Set-minimum-password-length.patch
+Patch0038: 0038-FIPS-DH-PCT.patch
+Patch0039: 0039-FIPS-DH-Disable-FIPS-186-4-type-parameters.patch
+Patch0040: 0040-FIPS-TLS-Enforce-EMS-in-TLS-1.2-NOTE.patch
+Patch0041: 0041-FIPS-CMS-Set-default-padding-to-OAEP.patch
+Patch0042: 0042-FIPS-PKCS12-PBMAC1-defaults.patch
+Patch0043: 0043-FIPS-Fix-encoder-decoder-negative-test.patch
+Patch0044: 0044-FIPS-EC-DH-DSA-PCTs.patch
+Patch0045: 0045-FIPS-EC-disable-weak-curves.patch
+Patch0046: 0046-FIPS-NO-DSA-Support.patch
+Patch0047: 0047-FIPS-NO-DES-support.patch
+Patch0048: 0048-FIPS-NO-Kmac.patch
+Patch0049: 0049-FIPS-NO-ECX-Ed-X-25519-448.patch
+Patch0050: 0050-FIPS-NO-PQ-ML-SLH-DSA.patch
+Patch0051: 0051-Revert-FIPS-NO-ECX-Ed-X-25519-448.patch
+Patch0052: 0052-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
+Patch0053: 0053-Current-Rebase-status.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -168,7 +168,7 @@ package provides Perl scripts for converting certificates and keys
 from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
-%autosetup -S git -n %{name}-%{version}-alpha1
+%autosetup -S git -n %{name}-%{version}-beta1
 
 %build
 # Figure out which flags we want to use.
@@ -476,7 +476,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
-* Wed Mar 21 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-1
+* Wed Mar 26 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-2
+- Early rebasing to OpenSSL 3.5-beta
+
+* Fri Mar 21 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-1
 - Early rebasing to OpenSSL 3.5-alpha
 
 * Thu Mar 13 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.4-3

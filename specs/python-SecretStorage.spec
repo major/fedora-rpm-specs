@@ -1,5 +1,6 @@
+%bcond bootstrap 0
 %bcond docs 1
-%bcond tests 1
+%bcond tests %{without bootstrap}
 
 %global commit 3e5097c3c9a9c4fbfec74df4ceb0387308648525
 %global shortcommit %(c=%{commit}; echo ${c:0:7})

@@ -1,11 +1,11 @@
-%global commit0 e44d1d404a2ff2e042c36300f986bd0fa0b8d643
+%global commit0 c4b5190229616f7ebf8197f43990b4429de3e420
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
 %global snapdate 20250313
 
 Name:           yosys
 Version:        0.51
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Wed Mar 26 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.51.2.20250313gitc4b5190
+- pick earliest 0.51 snapshot, buy time to fix subsequent upstream regression
+
 * Thu Mar 13 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.51.1.20250313gite44d1d4
 - update to 0.51 snapshot
 

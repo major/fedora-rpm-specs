@@ -5,9 +5,13 @@ Summary: Polish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 6.0_20061121
-Release: 33%{?dist}
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+Release: 34%{?dist}
+# List of all licences each with file containing the licence text, the list can be also found in the Copyright file
+# CC-SA-1.0             /doc/CC-SA-1.0
+# LGPL-2.0-or-later     /doc/GPL
+# LGPL-2.1-or-later     /doc/LGPL
+# MPL-1.1               /doc/MPL-1.1.txt
+License: CC-SA-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-1.1
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell%{aspellversion}-%{lang}-%{version}-%{langrelease}.tar.bz2
 
@@ -44,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Mar 13 2025 Nikola Davidova <ndavidov@redhat.com> - 50:6.0_20061121-34
+- Update license tag
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:6.0_20061121-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
