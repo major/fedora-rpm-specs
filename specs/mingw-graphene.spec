@@ -1,8 +1,14 @@
 %{?mingw_package_header}
 
+%global desc \
+Graphene provides a small set of mathematical types needed to implement graphic \
+libraries that deal with 2D and 3D transformations and projections. \
+\
+This package contains the MinGW Windows cross compiled graphene library.
+
 Name:           mingw-graphene
 Version:        1.10.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Thin layer of types for graphic libraries
 
 License:        MIT
@@ -22,11 +28,7 @@ BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
 
 
-%description
-Graphene provides a small set of mathematical types needed to implement graphic
-libraries that deal with 2D and 3D transformations and projections.
-
-This package contains the MinGW Windows cross compiled graphene library.
+%description %{desc}
 
 %package -n mingw32-graphene
 Summary:        MinGW Windows graphene library
@@ -37,8 +39,7 @@ Summary:        MinGW Windows graphene library
 %package -n mingw64-graphene
 Summary:        MinGW Windows graphene library
 
-%description -n mingw64-graphene
-%{description}
+%description -n mingw64-graphene %{desc}
 
 %{?mingw_debug_package}
 
@@ -85,6 +86,9 @@ rm -rf %{buildroot}%{mingw64_libexecdir}/installed-tests/
 
 
 %changelog
+* Wed Mar 26 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.10.8-7
+- Fix description for mingw64-graphene
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

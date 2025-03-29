@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2025.02.19
+Version:        2025.03.26
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -115,7 +115,7 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %check
 %if %{with tests}
 # See https://github.com/yt-dlp/yt-dlp/blob/master/devscripts/run_tests.sh
-%pytest -k "not download"
+%pytest -k "not download and not test_verify_cert[Websockets]"
 %endif
 
 %files -f %{pyproject_files}

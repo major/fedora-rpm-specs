@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 24.12.3
+Version: 25.03.80
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -58,7 +58,8 @@ BuildRequires: cmake(Qt6NetworkAuth)
 BuildRequires: librttr-devel
 BuildRequires: pkgconfig(libv4l2)
 BuildRequires: pkgconfig(mlt++-7) >= 7.12.0
-
+BuildRequires: cmake(OpenTimelineIO)
+BuildRequires: ffmpeg-free-devel
 
 Requires: dvdauthor
 Requires: /usr/bin/ffmpeg
@@ -91,7 +92,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{cmake_kf6} \
   -DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON -Wno-dev \
   -DQT_MAJOR_VERSION=6 \
-  -DBUILD_QCH:BOOL=OFF
+  -DBUILD_QCH:BOOL=OFF \
+  -DFETCH_OTIO=OFF
 
 %cmake_build
 
@@ -132,6 +134,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 27 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
+- 25.03.80
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

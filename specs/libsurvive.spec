@@ -1,5 +1,5 @@
-%global date 20250317
-%global commit 3e6edf135b64a3cbba5fcde2e62429f0c7e390ea
+%global date 20250326
+%global commit 8d4765a067ad2170f389a3d6226fe8bc555feb13
 %global shortcommit %{sub %{commit} 1 7}
 
 # These are artifacts used by the unit tests
@@ -42,9 +42,6 @@ Source1:        %{extras_data_url}/archive/%{extras_data_commit}/%{name}-extras-
 
 # Do not attempt to get the test artifacts from the Internet
 Patch:          %{name}-no-external-project.patch
-# Drop unused python binding from cnkalman:
-# https://github.com/collabora/libsurvive/pull/329
-Patch:          %{name}-drop-pybind11.patch
 
 # Build fails on i686 due to incompatible pointer types
 ExcludeArch:    %{ix86}

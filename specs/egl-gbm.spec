@@ -1,12 +1,12 @@
 %global commit0 b24587d4871a630d05e9e26da94c95e6ce4324f2
 %global date 20240919
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 Name:           egl-gbm
 Epoch:          2
-Version:        1.1.2%{!?tag:^%{date}git%{shortcommit0}}
-Release:        4%{?dist}
+Version:        1.1.2.1%{!?tag:^%{date}git%{shortcommit0}}
+Release:        1%{?dist}
 Summary:        Nvidia egl gbm libary
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -49,6 +49,10 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 %{_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
 
 %changelog
+* Thu Mar 27 2025 Simone Caronni <negativo17@gmail.com> - 2:1.1.2.1-1
+- Update to 1.1.2.1.
+- Trim changelog.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.2^20240919gitb24587d-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -79,18 +83,3 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 
 * Wed Jan 03 2024 Leigh Scott <leigh123linux@gmail.com> - 1.1.1-1
 - Update to 1.1.1
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Dec 22 2021 Leigh Scott <leigh123linux@gmail.com> - 1.1.0-1
-- Initial build

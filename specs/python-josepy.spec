@@ -96,8 +96,6 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %if %{with docs}
 %files -n python-%{pypi_name}-doc
 %doc README.rst
-%doc %{python3_sitelib}/CHANGELOG.rst
-%doc %{python3_sitelib}/CONTRIBUTING.md
 %{_mandir}/man1/*
 %endif
 

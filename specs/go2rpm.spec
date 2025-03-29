@@ -2,7 +2,7 @@
 %define tag v%{version}
 
 Name:           go2rpm
-Version:        1.15.0
+Version:        1.16.0
 %forgemeta
 Release:        %autorelease
 Summary:        Convert Go packages to RPM

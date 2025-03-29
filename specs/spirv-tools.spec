@@ -3,7 +3,7 @@
 %global sdkver 1.4.309.0
 
 Name:           spirv-tools
-Version:        2024.4
+Version:        2025.1
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 

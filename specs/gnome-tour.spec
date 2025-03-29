@@ -7,8 +7,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-tour
-Version:        47.0
-Release:        2%{?dist}
+Version:        48.1
+Release:        1%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPL-3.0-or-later
@@ -16,13 +16,12 @@ Summary:        GNOME Tour and Greeter
 # * rust crate dependencies are:
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
-# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND CC-BY-SA-3.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
+License:        (Apache-2.0 OR MIT) AND CC-BY-SA-3.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/gnome-tour
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
 
@@ -57,6 +56,7 @@ install -p %{SOURCE1} data/resources/assets/welcome.svg
 %cargo_prep -v vendor
 %else
 %cargo_prep
+rm -rf vendor/
 %endif
 
 
@@ -104,6 +104,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Thu Mar 27 2025 Fabio Valentini <decathorpe@gmail.com> - 48.1-1
+- Update to 48.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

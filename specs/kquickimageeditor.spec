@@ -6,7 +6,7 @@
 
 Name:    kquickimageeditor
 Version: 0.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -109,6 +109,9 @@ popd
 %{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog
+* Thu Mar 27 2025 Jan Grulich <jgrulich@redhat.com> - 0.5.0-2
+- Rebuild (qt6)
+
 * Sat Jan 18 2025 Steve Cossette <farchord@gmail.com> - 0.5.0-1
 - 0.5.0
 

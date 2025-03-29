@@ -1,5 +1,5 @@
 Name:           xarchiver
-Version:        0.5.4.24
+Version:        0.5.4.25
 Release:        1%{?dist}
 Summary:        Archive manager for Xfce
 
@@ -60,6 +60,9 @@ rm %{buildroot}%{_docdir}/%{name}/ChangeLog
 
 
 %changelog
+* Thu Mar 27 2025 Dan Čermák  <dan.cermak@cgc-instruments.com> - 0.5.4.25-1
+- Update to 0.5.4.25 (rhzb#2354300)
+
 * Mon Mar 17 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.5.4.24-1
 - Update to 0.5.4.24 (rhbz#2352812)
 

@@ -37,11 +37,15 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
+
+# Fix for h2 switch in varnishtest
+# https://github.com/varnishcache/varnish-cache/issues/4298
+Patch1:  varnish-7.7.0_fix_4298.patch
 
 %if 0%{?fedora} > 29 || 0%{?rhel} > 7
 Provides: varnish%{_isa} = %{version}-%{release}
@@ -140,6 +144,7 @@ Documentation files for %name
 
 %prep
 %setup -q
+%patch 1 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -162,7 +167,7 @@ export CFLAGS="$CFLAGS -ffloat-store -fexcess-precision=standard"
 %endif
 %endif
 
-%if 0%{?fedora} > 41
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
 export CFLAGS="$CFLAGS -std=gnu17"
 %endif
 
@@ -213,9 +218,9 @@ sed -i 's/thread_pool_stack 80k/thread_pool_stack 128k/g;' bin/varnishtest/tests
 sed -i 's/file,2M/file,8M/' bin/varnishtest/tests/r04036.vtc
 
 # This is a bug in varnishtest making it incompatible with nghttp2 >= 1.65
-%if 0%{?fedora} > 41
-rm bin/varnishtest/tests/a02022.vtc
-%endif
+#if 0#{?fedora} > 41 || 0#{?rhel} > 10
+#rm bin/varnishtest/tests/a02022.vtc
+#endif
 
 
 # Just a hack to avoid too high load on secondary arch builders
@@ -224,7 +229,7 @@ rm bin/varnishtest/tests/a02022.vtc
 rm bin/varnishtest/tests/t02014.vtc
 make -j2 check
 %else
-#make_build check
+%make_build check
 %endif
 
 %install
@@ -263,7 +268,7 @@ chmod 644 lib/libvmod_*/*.h
 %endif
 
 %files
-%if 0%{?rhel} > 0 || 0%{?fedora} < 42
+%if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/*
 %endif
 %{_bindir}/*
@@ -325,6 +330,10 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Mar 27 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.7.0-2
+- Fix for eln build (merged from yselkowitz)
+- Fix for failing h2 switch check. Enabling full test suite again
+
 * Mon Mar 24 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.7.0-1
 - New upstream release
 - fedora now has completed the bin/sbin merge

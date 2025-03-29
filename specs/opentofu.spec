@@ -22,6 +22,11 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
+# Fix: Ensure constant format strings in fmt and printf calls
+Patch:          %{forgeurl}/commit/66765bdab3a052fb6a58d59f9def6fc4bbf38d56.patch
+# plans/objchange: Fix go vet warnings
+Patch:          %{forgeurl}/commit/e70913a609eb65e7e610b9a6b9e0665788df7198.patch
+
 BuildRequires:  go-vendor-tools
 
 %description %{common_description}

@@ -1,6 +1,26 @@
 %global utf8_range_commit 72c943dea2b9240cd09efde15191e144bc7c7d38
 %global utf8_range_name utf8_range-%( echo %utf8_range_commit | cut -c1-7 )
 
+%if 0%{?fedora}
+%ifarch x86_64
+%bcond rocm 1
+%else
+%bcond rocm 0
+%endif
+%else
+%bcond rocm 0
+%endif
+
+%bcond rocm_test 0
+%bcond test 1
+
+# $backend will be evaluated below
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-${backend}
+%global backends cpu
+%if %{with rocm}
+%global backends %backends rocm
+%endif
+
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.20.1
@@ -95,6 +115,30 @@ BuildRequires:  zlib-devel
 Buildrequires:  eigen3-devel >= 1.34
 BuildRequires:  pybind11-devel
 
+%if %{with rocm}
+BuildRequires:  hipcc
+BuildRequires:  hipify
+BuildRequires:  hipblas-devel
+BuildRequires:  hipcub-devel
+BuildRequires:  hipfft-devel
+BuildRequires:  hiprand-devel
+BuildRequires:  hipsparse-devel
+BuildRequires:  miopen-devel
+BuildRequires:  rccl-devel
+BuildRequires:  rocblas-devel
+BuildRequires:  rocm-clang
+BuildRequires:  rocm-compilersupport-macros
+BuildRequires:  rocm-core-devel
+BuildRequires:  rocm-cmake
+BuildRequires:  rocm-device-libs
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-smi-devel
+BuildRequires:  rocthrust-devel
+BuildRequires:  roctracer-devel
+%endif
+
 Provides:       bundled(utf8_range)
 
 %description
@@ -109,6 +153,28 @@ Requires:   %{name}%{_isa} = %{version}-%{release}
 %description devel
 The development part of the %{name} package
 
+%if %{with rocm}
+%package rocm
+Summary:    The ROCm runtime backend for the %{name} package
+
+%description rocm
+%{summary}
+
+%package rocm-devel
+Summary:    The ROCm development part of the %{name} package
+Requires:   %{name}-rocm%{_isa} = %{version}-%{release}
+
+%description rocm-devel
+%{summary}
+
+%package rocm-test
+Summary:    The ROCm tests for the %{name} package
+Requires:   %{name}-rocm%{_isa} = %{version}-%{release}
+
+%description rocm-test
+%{summary}
+%endif
+
 %package -n python3-onnxruntime
 Summary:    %{summary}
 Requires:   %{name}%{_isa} = %{version}-%{release}
@@ -122,15 +188,20 @@ Summary:    Documentation files for the %{name} package
 %description doc
 Documentation files for the %{name} package
 
-%prep
-%autosetup -p1
+%if %{with rocm}
+%endif
 
+%prep
+
+%autosetup -p1
 # Downstream-only: do not pin the version of abseil-cpp; use what we have.
 sed -r -i 's/(FIND_PACKAGE_ARGS[[:blank:]]+)[0-9]{8}/\1/' \
     cmake/external/abseil-cpp.cmake
 
-mkdir -p ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/
-mv %{SOURCE1} ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/%{utf8_range_commit}.zip
+for backend in %backends; do
+  mkdir -p ./%{_vpath_builddir}/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/
+  cp -r %{SOURCE1} ./%{_vpath_builddir}/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/%{utf8_range_commit}.zip
+done
 
 %build
 # Broken test in aarch64
@@ -148,27 +219,53 @@ CXXFLAGS+="-Wno-error"
 # Overrides BUILD_SHARED_LIBS flag since onnxruntime compiles individual components as static, and links
 # all together into a single shared library when onnxruntime_BUILD_SHARED_LIB is ON.
 # The array-bounds and dangling-reference checks have false positives.
-%cmake \
+%global cmake_config \\\
+ -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
+ -Donnxruntime_BUILD_BENCHMARKS=OFF \\\
+ -Donnxruntime_BUILD_SHARED_LIB=ON \\\
+ -Donnxruntime_BUILD_UNIT_TESTS=ON \\\
+ -Donnxruntime_ENABLE_PYTHON=ON \\\
+ -DPYTHON_VERSION=%{python3_version} \\\
+ -Donnxruntime_DISABLE_ABSEIL=ON \\\
+ -Donnxruntime_USE_FULL_PROTOBUF=ON \\\
+ -Donnxruntime_USE_NEURAL_SPEED=OFF \\\
+ -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \\\
+ -Deigen_SOURCE_PATH=/usr/include/eigen3 \\\
+ -S cmake \\\
+
+%if %{with rocm}
+backend=rocm
+%cmake %cmake_config \
+    -DCMAKE_INSTALL_BINDIR=%{_lib}/rocm/bin \
+    -DCMAKE_INSTALL_INCLUDEDIR=%{_lib}/rocm/include \
+    -DCMAKE_INSTALL_LIBDIR=%{_lib}/rocm/lib \
+    -Donnxruntime_ENABLE_CPUINFO=ON \
+    -DCMAKE_HIP_ARCHITECTURES=%rocm_gpu_list_default \
+    -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
+    -DCMAKE_HIP_PLATFORM=amd \
+%if %{with rocm_test}
+    -Donnxruntime_INSTALL_UNIT_TESTS=ON \
+%else
+    -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
+%endif
+    -Donnxruntime_ROCM_HOME=%{_prefix} \
+    -Donnxruntime_USE_COMPOSABLE_KERNEL=OFF \
+    -Donnxruntime_USE_ROCM=ON
+
+%cmake_build
+%endif
+
+backend=cpu
+%cmake %cmake_config \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DCMAKE_INSTALL_INCLUDEDIR=include \
-    -Donnxruntime_BUILD_SHARED_LIB=ON \
-    -Donnxruntime_BUILD_UNIT_TESTS=ON \
-    -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
-    -Donnxruntime_BUILD_BENCHMARKS=OFF \
-    -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \
-    -Donnxruntime_USE_FULL_PROTOBUF=ON \
-    -DPYTHON_VERSION=%{python3_version} \
 %ifarch ppc64le
     -Donnxruntime_ENABLE_CPUINFO=OFF \
 %else
     -Donnxruntime_ENABLE_CPUINFO=ON \
 %endif
-    -Donnxruntime_DISABLE_ABSEIL=ON \
-    -Donnxruntime_USE_NEURAL_SPEED=OFF \
-    -Donnxruntime_ENABLE_PYTHON=ON \
-    -Deigen_SOURCE_PATH=/usr/include/eigen3 \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -S cmake
+    -Donnxruntime_INSTALL_UNIT_TESTS=OFF
+
 %cmake_build
 
 # Build python libs
@@ -178,6 +275,12 @@ cp ./%{__cmake_builddir}/requirements.txt ./requirements.txt
 %pyproject_wheel
 
 %install
+%if %{with rocm}
+backend=rocm
+%cmake_install
+%endif
+
+backend=cpu
 %cmake_install
 mkdir -p "%{buildroot}/%{_docdir}/"
 cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
@@ -187,9 +290,12 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 
 ln -s "../../../../libonnxruntime_providers_shared.so.%{version}" "%{buildroot}/%{python3_sitearch}/onnxruntime/capi/libonnxruntime_providers_shared.so"
 
+%if %{with test}
 %check
+backend=cpu
 export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %ctest
+%endif
 
 %files
 %license LICENSE
@@ -211,6 +317,29 @@ export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 
 %files doc
 %{_docdir}/%{name}
+
+%if %{with rocm}
+%files rocm
+%license LICENSE
+%doc ThirdPartyNotices.txt
+%{_libdir}/rocm/lib/libonnxruntime.so.%{version}
+%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so.%{version}
+%{_libdir}/rocm/lib/libonnxruntime_providers_rocm.so
+
+%files rocm-devel
+%dir %{_libdir}/rocm/include/onnxruntime/
+%dir %{_libdir}/rocm/lib/cmake/onnxruntime/
+%{_libdir}/rocm/include/onnxruntime/*
+%{_libdir}/rocm/lib/libonnxruntime.so*
+%{_libdir}/rocm/lib/libonnxruntime_providers_shared.so
+%{_libdir}/rocm/lib/pkgconfig/libonnxruntime.pc
+%{_libdir}/rocm/lib/cmake/onnxruntime/*
+
+%if %{with rocm_test}
+%files rocm-test
+%{_libdir}/rocm/bin/*
+%endif
+%endif
 
 %changelog
 %autochangelog

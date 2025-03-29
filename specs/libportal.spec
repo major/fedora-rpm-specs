@@ -10,6 +10,9 @@ License:        LGPL-3.0-only AND LGPL-2.1-or-later
 Url:            https://github.com/flatpak/libportal
 Source:         https://github.com/flatpak/libportal/releases/download/%{version}/%{name}-%{version}.tar.xz
 
+# https://github.com/flatpak/libportal/pull/200
+Patch0:         libportal-fix-build-with-qt-6_9.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gi-docgen

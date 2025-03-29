@@ -5,7 +5,9 @@
 %bcond  qt6     1
 %bcond  ninja   1
 
-%dnl %global llvm_compat 19
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+%global llvm_compat 19
+%endif
 
 Name:           openshadinglanguage
 Version:        1.13.12.0

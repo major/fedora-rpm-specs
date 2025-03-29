@@ -1,7 +1,7 @@
 %global build_type_safety_c 0
 
 Name:           deepin-system-monitor
-Version:        6.0.23
+Version:        6.5.8
 Release:        %autorelease
 Summary:        A more user-friendly system monitor
 License:        GPL-3.0-or-later
@@ -12,19 +12,18 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Svg)
 
 BuildRequires:  cmake(KF5Wayland)
-BuildRequires:  cmake(DtkCore)
-BuildRequires:  cmake(DtkGui)
-BuildRequires:  cmake(DtkWidget)
+BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Gui)
+BuildRequires:  cmake(Dtk6Widget)
 
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(xcb)
@@ -38,7 +37,7 @@ BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libnl-route-3.0)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  cmake(PolkitQt5-1)
+BuildRequires:  cmake(PolkitQt6-1)
 
 BuildRequires:  deepin-gettext-tools
 
@@ -93,6 +92,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/deepin-manual/
 %{_datadir}/deepin-service-manager/user/deepin-system-monitor-daemon.json
 %{_datadir}/dsg/configs/org.deepin.system-monitor/*.json
+%{_datadir}/dde-dock/icons/dcc-setting/dcc-system-monitor.dci
 
 %changelog
 %autochangelog

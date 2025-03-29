@@ -2,17 +2,15 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.099
-Version:        2.99.0
-Release:        2%{?dist}
+%global cpan_version 2.100
+Version:        2.100.0
+Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
 Source0:        https://cpan.metacpan.org/modules/by-module/PDL/PDL-%{cpan_version}.tar.gz
 # Fix numbering of line in test when shebang is added
 Patch1:         PDL-2.72.0-Fix-numbering-of-line-in-test.patch
-# Fix for GCC 15, in upsteeam after PDL-2.099
-Patch2:         PDL-2.099-give-full-prototype-for-y0-y1-log-in-Math-yn.c-528.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc-c++
@@ -153,7 +151,6 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n PDL-%{cpan_version}
 %patch -P1 -p1
-%patch -P2 -p1
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -225,6 +222,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.100.0-1
+- 2.100 bump (rhbz#2355223)
+
 * Mon Jan 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.99.0-2
 - Add missing provides PDL::PP::PdlParObj
 

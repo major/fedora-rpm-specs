@@ -1,8 +1,8 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.22.1
-Release:        2%{?dist}
+Version:        0.23.0
+Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -88,9 +88,13 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 %attr(0755,-,-) %{_datadir}/%{name}/tools/*.bt
 %attr(0755,-,-) %{_datadir}/%{name}/tools/old/*.bt
 %{_datadir}/%{name}/tools/doc/*.txt
+%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Thu Mar 27 2025 Augusto Caringi <acaringi@redhat.com> - 0.23.0-1
+- Rebased to version 0.23.0
+
 * Thu Feb 13 2025 David Abdurachmanov <davidlt@rivosinc.com> - 0.22.1-2
 - Enable riscv64
 

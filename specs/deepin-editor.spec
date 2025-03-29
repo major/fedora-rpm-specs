@@ -1,10 +1,13 @@
 Name:           deepin-editor
-Version:        6.5.4
+Version:        6.5.18
 Release:        %autorelease
 Summary:        Text editor for DDE
 License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-editor
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# patch from https://github.com/linuxdeepin/deepin-editor/pull/338.patch
+Patch0:         fix-build-with-icu-75+.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

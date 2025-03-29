@@ -1,13 +1,13 @@
 Name:           python-zope-i18nmessageid
-Version:        6.1.0
-Release:        4%{?dist}
+Version:        7.0
+Release:        1%{?dist}
 Summary:        Message Identifiers for internationalization
 
 # Check if the automatically generated License and its spelling is correct for Fedora
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 License:        ZPL-2.1
 URL:            https://github.com/zopefoundation/zope.i18nmessageid
-Source:         %{pypi_source zope.i18nmessageid}
+Source:         %{pypi_source zope_i18nmessageid}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
@@ -26,10 +26,13 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n zope.i18nmessageid-%{version}
+%autosetup -p1 -n zope_i18nmessageid-%{version}
 
 # Use local objects.inv for intersphinx
-sed -i "s|\('http://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
+sed -i "s|'http://docs\.python\.org/3'|'%{_docdir}/python3-docs/html'|" docs/conf.py
+
+# Unnecessarily wants to control the setuptools version
+sed -i -e '/setuptools/s/<[0-9]\+//' pyproject.toml tox.ini
 
 
 %generate_buildrequires
@@ -59,6 +62,9 @@ sed -i "s|\('http://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/
 
 
 %changelog
+* Wed Mar 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.0-1
+- Update to 7.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

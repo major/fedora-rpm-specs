@@ -8,6 +8,9 @@ License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/lxqt/libqtxdg/commit/35ce74f1510a9f41b2aff82fd1eda63014c3fe2b.patch
+Patch0:         libqtxdg-adapt-to-changes-in-private-headers-qt-v6.9.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(Qt6Widgets)

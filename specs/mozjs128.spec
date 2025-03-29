@@ -25,7 +25,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        128.5.1
+Version:        128.8.1
 Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 
@@ -58,9 +58,6 @@ Patch16:        firefox-112.0-commasplit.patch
 
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
-
-# Tests Fixes
-Patch30:        tests-Replace-pipes-with-shlex-for-Python-3.13.patch
 
 BuildRequires:  cargo
 %if "%{toolchain}" == "clang"

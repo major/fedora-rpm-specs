@@ -1,5 +1,5 @@
 Name:           python-logdetective
-Version:        0.2.11
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Uses LLM AI to search for build/test failure and provide ideas how to fix it
 
@@ -28,7 +28,7 @@ Provides:       logdetective
 %description -n python3-logdetective %_description
 
 %pyproject_extras_subpkg -n python3-logdetective server
-%pycached %{python3_sitelib}/logdetective/server.py
+%pycached %{python3_sitelib}/logdetective/server/*.py
 
 %prep
 %autosetup -p1 -n logdetective-%{version}
@@ -56,7 +56,8 @@ Provides:       logdetective
 %{_bindir}/logdetective
 %license LICENSE
 %doc README.md
-%pycached %exclude %{python3_sitelib}/logdetective/server.py
+%pycached %exclude %{python3_sitelib}/logdetective/server/*.py
+
 
 %changelog
 %autochangelog

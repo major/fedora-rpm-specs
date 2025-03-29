@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
-Version:       1.0.2
-Release:       3%{?dist}
+Version:       1.0.3
+Release:       1%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.rncbc.qsyn
 
 
 %changelog
+* Thu Mar 27 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 1.0.3-1
+- Update to version 1.0.3
+
 * Tue Mar 04 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.0.2-3
 - Fix build: ensure that jack.so from pipewire can be found by cmake's tests
 

@@ -6,6 +6,8 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/linuxdeepin/dtk6log
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         dtk6log-fix-qt6.9-build.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 

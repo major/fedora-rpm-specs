@@ -1,7 +1,7 @@
 Summary:       Qt based JACK control application
 Name:          qjackctl
-Version:       1.0.3
-Release:       2%{?dist}
+Version:       1.0.4
+Release:       1%{?dist}
 URL:           http://qjackctl.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qjackctl/files/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Thu Mar 27 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 1.0.4-1
+- Update to version 1.0.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

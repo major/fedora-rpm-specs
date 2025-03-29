@@ -29,6 +29,7 @@ URL:     https://github.com/KDAB/GammaRay
 Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 Patch1:  gammaray-fix-build-with-qt6.8.patch
+Patch2:  gammaray-fix-build-for-qt-6.9.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake

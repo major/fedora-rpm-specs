@@ -1,12 +1,13 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
-Version: 3.10
-Release: 9%{?dist}
+Version: 3.11
+Release: 3%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
-# Multibyte
-Patch0: diffutils-i18n.patch
-Patch1: diffutils-3.10-cmp-s-empty.patch
+# upstream fixes
+Patch10: 0001-diff-don-t-treat-empty-files-as-a-different-file-typ.patch
+Patch11: 0001-diff-fix-allocation-size-computation-that-could-caus.patch
+
 License: GPL-3.0-or-later
 Provides: bundled(gnulib)
 BuildRequires: gcc
@@ -56,6 +57,15 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Thu Mar 27 2025 Than Ngo <than@redhat.com> - 3.11-3
+- diff does not show a unified diff when one of the file is empty
+
+* Thu Mar 27 2025 Than Ngo <than@redhat.com> - 3.11-2
+- Backported upstream patch, Fixed allocation typo leading to crash
+
+* Thu Mar 27 2025 Than Ngo <than@redhat.com> - 3.11-1
+- Fixed rhbz#2343469, Update to 3.11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

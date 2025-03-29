@@ -12,6 +12,8 @@ Source1: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 Source2: https://github.com/qbittorrent/qBittorrent/raw/master/5B7CC9A2.asc
 Source3: qbittorrent-nox.README
 
+Patch0:  qbittorrent-fix-qt6.9-build.patch
+
 ExcludeArch:   %{ix86}
 
 BuildRequires: cmake
@@ -51,7 +53,7 @@ It aims to be as fast as possible and to provide multi-OS, unicode support.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 cp %{SOURCE3} .
 
 %build

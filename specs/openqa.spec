@@ -100,7 +100,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -134,6 +134,19 @@ Source6:        openQA-worker.conf
 # https://progress.opensuse.org/issues/164613
 # Do not retry jobs that were obsoleted
 Patch:          0001-Do-not-retry-jobs-that-were-obsoleted.patch
+
+# https://github.com/os-autoinst/openQA/pull/6158
+# Allows using an arbitrary oauth2 field as the 'user id', which we
+# need as there's no 'id' field in ipsilon data
+Patch:          0001-Support-OpenID-Connect-better-in-the-OAuth2-custom-p.patch
+
+# https://github.com/os-autoinst/openQA/pull/6236
+# Fixes some errors in the above patch
+Patch:          0001-Fix-non-custom-OAuth2-providers.patch
+
+# https://github.com/os-autoinst/openQA/pull/6335
+# Fix(?) redirect_uri generation in the oauth2 plugin
+Patch:          0001-oauth2-use-openQA-base_url-not-url_from-to-create-re.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -774,6 +787,12 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Mar 27 2025 Adam Williamson <awilliam@redhat.com> - 4.6^20240729gitd5cf789-6
+- Backport some OAuth2 fixes we need
+
+* Wed Feb 12 2025 Adam Williamson <awilliam@redhat.com> - 4.6^20240729gitd5cf789-5
+- Exclude our custom plugins from the main package
+
 * Thu Jan 23 2025 Adam Williamson <awilliam@redhat.com> - 4.6^20240729gitd5cf789-4
 - Fix an eternal loop issue in the Fedora messaging plugin
 

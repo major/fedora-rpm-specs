@@ -2,7 +2,7 @@ Name:           libdsk
 Version:        1.5.21
 Release:        %autorelease
 Summary:        Library for accessing disk images
-License:        LGPL-2-or-later
+License:        LGPL-2.0-or-later
 URL:            http://www.seasip.info/Unix/LibDsk
 Source0:        http://www.seasip.info/Unix/LibDsk/%{name}-%{version}.tar.gz
 BuildRequires:  gcc

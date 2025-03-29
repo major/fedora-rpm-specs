@@ -25,7 +25,7 @@
 Name: gutenprint
 Summary: Printer Drivers Package
 Version: 5.3.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://gimp-print.sourceforge.net/
 Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -329,6 +329,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Thu Mar 27 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-4
+- Georgian translation creates non-UTF-8 data (fedora#2355091)
+
 * Wed Mar 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-3
 - fix rpminspect report - require libs-ui in devel if built with gtk2
 

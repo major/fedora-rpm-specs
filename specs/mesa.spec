@@ -85,6 +85,15 @@ Patch10:        gnome-shell-glthread-disable.patch
 # to fix clover with libclc from LLVM 20.
 Patch20:        e4eb5e80c316c0af3fff310ca89e1175d81556c1.patch
 
+# Backport of https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/32038
+# and fixes: vulkan/wsi: implement the Wayland color management protocol
+Patch21:        0001-increase-required-wayland-protocols-version-to-1.41.patch
+Patch22:        0002-vulkan-wsi-implement-the-Wayland-color-management-pr.patch
+Patch23:        0003-vulkan-wsi-implement-support-for-VK_EXT_hdr_metadata.patch
+Patch24:        0004-vulkan-wsi-handle-the-compositor-not-supporting-exte.patch
+Patch25:        0001-meson-update-wayland-protocols-source_hash.patch
+Patch26:        0001-docs-features-add-VK_EXT_hdr_metadata.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

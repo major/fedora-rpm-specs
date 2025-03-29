@@ -1,12 +1,14 @@
 %global pypi_name PyQt6_Charts
 
+%define snap dev2503181029
+
 Name:           python-pyqt6-charts
-Version:        6.8.0
-Release:        %autorelease
+Version:        6.9.0
+Release:        0.1%{?snap:^%{snap}}%{?dist}
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqtchart/
-Source0:        %pypi_source
+Source0:        https://pypi.python.org/packages/source/P/PyQt6_Charts/pyqt6_charts-%{version}%{?snap:.%{snap}}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -42,7 +44,7 @@ Development files for PyQt6_Charts, such as sip files.
 
 
 %prep
-%autosetup -p1 -n PyQt6_Charts-%{version}
+%autosetup -p1 -n pyqt6_charts-%{version}%{?snap:.%{snap}} -p1
 
 
 %build
@@ -74,7 +76,7 @@ grep %{buildroot} %{buildroot}%{python3_sitearch}/*.dist-info/* && exit 1 || tru
 %files -n python3-pyqt6-charts
 %license LICENSE
 %doc ChangeLog NEWS README.md
-%{python3_sitearch}/PyQt6_Charts-%{version}.dist-info
+%{python3_sitearch}/PyQt6_Charts-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt6/QtCharts.*
 
 %files -n python3-pyqt6-charts-devel

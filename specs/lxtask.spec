@@ -13,26 +13,27 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20241002
-%global		gittartime		2221
+%global		gittardate		20250327
+%global		gittartime		1511
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20240905
-%global		git_rev		6aaa2949c8caf63cda04ee4068fe389751aa1e7b
+%global		gitbaredate	20250325
+%global		git_rev		33d3f23801089589e3e866fd43c4c96fd0b9d325
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
 
 
-%global		main_version	0.1.11
+%global		main_version	0.1.12
 
 Name:			lxtask
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		Lightweight and desktop independent task manager
 
 # SPDX confirmed
@@ -77,6 +78,17 @@ git clone ./%{name}.git/
 cd %{name}
 
 git checkout -b %{main_version}-fedora %{git_rev}
+
+# Restore timestamps
+set +x
+echo "Restore timestamps"
+git ls-tree -r --name-only HEAD | while read f
+do
+	unixtime=$(git log -n 1 --pretty='%ct' -- $f)
+	touch -d "@${unixtime}" $f
+done
+set -x
+
 cp -a [A-Z]* ..
 %endif
 
@@ -131,6 +143,9 @@ cd ..
 
 
 %changelog
+* Thu Mar 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.12-1
+- 0.1.12
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11^20240905git6aaa2949-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

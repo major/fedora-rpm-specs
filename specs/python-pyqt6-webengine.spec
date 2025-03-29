@@ -1,17 +1,18 @@
 %global pypi_name PyQt6_WebEngine
 
+%define snap dev2503211447
+
 Name:          python-pyqt6-webengine
-Version:       6.8.0
-Release:       %autorelease
+Version:       6.9.0
+Release:       0.1%{?snap:^%{snap}}%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
-Source0:       %pypi_source
+Source0:      https://pypi.python.org/packages/source/P/PyQt6_WebEngine/pyqt6_webengine-%{version}%{?snap:.%{snap}}.tar.gz
 
 ExclusiveArch: %{qt6_qtwebengine_arches}
 
 ## downstream patches
-Patch0:        pyqt6-webengine-fix-build.patch
 
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -44,9 +45,7 @@ Requires: python3-pyqt6-devel
 
 
 %prep
-%setup -q -n PyQt6_WebEngine-%{version}
-
-%patch -P0 -p1 -b .fix-build
+%autosetup -p1 -n pyqt6_webengine-%{version}%{?snap:.%{snap}} -p1
 
 %build
 sip-build \
@@ -73,7 +72,7 @@ done
 %files -n python%{python3_pkgversion}-pyqt6-webengine
 %doc README.md
 %license LICENSE
-%{python3_sitearch}/PyQt6_WebEngine-%{version}.dist-info/
+%{python3_sitearch}/PyQt6_WebEngine-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt6/QtWebEngineCore.*
 %{python3_sitearch}/PyQt6/QtWebEngineQuick.*
 %{python3_sitearch}/PyQt6/QtWebEngineWidgets.*

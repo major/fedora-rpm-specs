@@ -9,6 +9,7 @@ Summary:        Content discovery framework
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Grilo
 Source0:        https://download.gnome.org/sources/grilo/%{release_version}/grilo-%{version}.tar.xz
+Patch0:         fix-possible-regressions-from-gtask-port.patch
 
 BuildRequires:  meson
 BuildRequires:  git

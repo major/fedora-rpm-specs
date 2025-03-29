@@ -57,7 +57,10 @@ Summary:        %{summary}
 %pyproject_save_files myst_parser
 
 %check
-%pytest
+# All skipped tests fail with sphinx 8.2 & pygments 2.19 - differences in HTML output
+# https://github.com/executablebooks/MyST-Parser/issues/1030
+%pytest -k "not test_sphinx_directives and not test_references_singlehtml \
+  and not test_extended_syntaxes and not test_includes and not test_fieldlist_extension"
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

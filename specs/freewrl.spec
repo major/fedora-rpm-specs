@@ -1,7 +1,7 @@
-%global majorrel 4.3.0
-%global commit e99ab4a000411dace7d3423ec37bdb7772998b1c
+%global majorrel 6.7
+%global commit b3254b11e9e340b08eb5b38ccc1a34785693261e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20200221
+%global commitdate 20240420
 
 %ifarch %{java_arches}
 %bcond_without java
@@ -12,13 +12,14 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	23.%{commitdate}git%{shortcommit}%{?dist}
+Release:	1.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPL-3.0-or-later
 URL:		http://freewrl.sourceforge.net
 # Source0:	http://sourceforge.net/projects/freewrl/files/freewrl-linux/3.0/%%{name}-%%{version}.tar.bz2
 # git clone https://git.code.sf.net/p/freewrl/git freewrl-git
 # cd freewrl-git
+# git checkout develop
 # cp -a freex3d/ ../freewrl-%%{version}-%%{commitdate}git%%{shortcommit}
 # cd ..
 # tar --exclude-vcs -cjf %%{name}-%%{version}-%%{commitdate}git%%{shortcommit}.tar.bz2 freewrl-%%{version}-%%{commitdate}git%%{shortcommit}
@@ -33,13 +34,38 @@ Patch4:		freewrl-4.3.0-use-memcpy-instead-of-strncpy.patch
 # main/ProdCon.c:424:29: warning: implicit declaration of function 'convertBinarySTL' [-Wimplicit-function-declaration]
 Patch5:		freewrl-4.3.0-missing-functions.patch
 # lots of indent issues caught by -Wmisleading-indentation
-Patch6:		freewrl-4.3.0-fix-indent-issues.patch
+Patch6:		freewrl-6.7-fix-indent-issues.patch
 # lots of signedness fixes like
 # io_files.c:627:17: warning: pointer targets in passing argument 1 of 'stlDTFT' differ in signedness [-Wpointer-sign]
-Patch7:		freewrl-4.3.0-sign-fixes.patch
-Patch8: freewrl-c99.patch
+Patch7:		freewrl-6.7-sign-fixes.patch
+Patch8:		freewrl-6.7-c99.patch
 # Fix issue with incompatible pointer type
-Patch9:		freewrl-4.3.0-fix-cast.patch
+Patch9:		freewrl-6.7-fix-cast.patch
+# C requires the existence of functions before they are called.
+Patch10:	freewrl-6.7-fix-function-references.patch
+# Add missing includes for std headers
+Patch11:	freewrl-6.7-fix-headers.patch
+# Fix makefile
+Patch12:	freewrl-6.7-fix-makefile.patch
+# Fixes for C23
+Patch13:	freewrl-6.7-c23.patch
+# Do not use pointproperties_pointmethod (we don't actually use the enum, just the defines and it gets its symbol EVERYWHERE)
+Patch14:	freewrl-6.7-no-pointproperties_pointmethod.patch
+# Fix stubs to not duplicate function symbols
+Patch15:	freewrl-6.7-fix-stubs.patch
+# Gotta define before you use
+Patch16:	freewrl-6.7-fix-peek_audio_context.patch
+# Fix missing types
+Patch17:	freewrl-6.7-fix-missing-types.patch
+# Fix MIDI symbols
+Patch18:	freewrl-6.7-fix-midi-symbols.patch
+# Fix Sound stubs (symbols in lib)
+Patch19:	freewrl-6.7-fix-sound-stubs.patch
+# updateCursorStyle0 is win32 only
+Patch20:	freewrl-6.7-fix-win32-only.patch
+# move C function into C code, extern is causing naming mismatch
+Patch21:	freewrl-6.7-fix-lookup_brotoDefname.patch
+
 BuildRequires:	gcc-c++
 BuildRequires:	zlib-devel, freetype-devel, fontconfig-devel
 BuildRequires:	imlib2-devel, nspr-devel
@@ -124,15 +150,31 @@ rm -rf appleOSX/
 %patch -P5 -p1 -b .missing-functions
 %patch -P6 -p1 -b .fixindent
 %patch -P7 -p1 -b .signfix
-%patch -P8 -p1
+%patch -P8 -p1 -b .c99
 %patch -P9 -p1 -b .fix-cast
+%patch -P10 -p1 -b .fix-function-references
+%patch -P11 -p1 -b .fix-headers
+%patch -P12 -p1 -b .fix-makefile
+%patch -P13 -p1 -b .c23
+%patch -P14 -p1 -b .no-pointproperties_pointmethod
+%patch -P15 -p1 -b .fix-stubs
+%patch -P16 -p1 -b .fix-peek_audio_context
+%patch -P17 -p1 -b .fix-missing-types
+%patch -P18 -p1 -b .fix-midi
+%patch -P19 -p1 -b .fix-sound-stubs
+%patch -P20 -p1 -b .fix-win32-only
+%patch -P21 -p1 -b .fix-lookup_brotoDefname
+
+# no snapshot testing
+sed -i 's|AC_DEFINE(USE_SNAPSHOT_TESTING|#AC_DEFINE(USE_SNAPSHOT_TESTING|g' configure.ac
+
 autoreconf --force --install
 
 # hardcoding /usr/local/lib is a no-no
 sed -i 's|libpath = "/usr/local/lib"|libpath = "%{_libdir}"|g' src/bin/main.c
 
 %build
-%global optflags %{optflags} -Wno-comment -Wno-unused-variable
+%global optflags %{optflags} -Wno-comment -Wno-unused-variable -std=gnu17 -Wno-error=incompatible-pointer-types
 export LDFLAGS="-Wl,--as-needed"
 %configure --with-target=x11 \
 	   --enable-fontconfig \
@@ -147,7 +189,7 @@ export LDFLAGS="-Wl,--as-needed"
 	   --with-javadir=/usr/lib/jvm/java-openjdk/jre/lib/ext \
 	   --with-javascript=duk \
 	   --with-statusbar=hud
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 pushd doc
 make html/index.html
 popd
@@ -225,6 +267,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Thu Mar 27 2025 Tom Callaway <spot@fedoraproject.org> - 6.7-1.20240420gitb3254b1
+- update to 6.7 ... with a lot of glue. This code is very fragile. It built and kinda runs, but not well.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-23.20200221gite99ab4a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

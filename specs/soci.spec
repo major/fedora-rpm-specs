@@ -1,19 +1,19 @@
 #
 ##
-# Default values are --with empty --with sqlite3 --with mysql --with postgresql
-#                    --with odbc --without oracle
+# Default values are %%{?with_empty} %%{?with_sqlite3} %%{?with_mysql}
+#                    %%{?with_postgresql} %%{?with_odbc} %%{!?with_oracle}
 # Note that, for Oracle, when enabled, the following options should
 # also be given:
 # --with-oracle-include=/opt/oracle/app/oracle/product/11.1.0/db_1/rdbms/public
 # --with-oracle-lib=/opt/oracle/app/oracle/product/11.1.0/db_1/lib
 # If the macros are defined, redefine them with the correct compilation flags.
-%bcond_without empty
-%bcond_without sqlite3
-%bcond_without mysql
-%bcond_without postgresql
-%bcond_without odbc
-%bcond_with oracle
-%bcond_without tests
+%bcond empty 1
+%bcond sqlite3 1
+%bcond mysql 1
+%bcond postgresql 1
+%bcond odbc 1
+%bcond oracle 0
+%bcond tests 1
 
 %global _default_oracle_dir /opt/oracle/app/oracle/product/11.1.0/db_1
 %{!?_with_oracle_incdir: %define _with_oracle_incdir --with-oracle-include=%{_default_oracle_dir}/rdbms/public}
@@ -22,8 +22,8 @@
 ##
 #
 Name:           soci
-Version:        4.1.0.rc1
-%global ups_ver 4.1.0-rc1
+Version:        4.1.0.rc3
+%global ups_ver 4.1.0-rc3
 Release:        %autorelease
 Summary:        The database access library for C++ programmers
 License:        BSL-1.0
@@ -31,9 +31,8 @@ URL:            https://github.com/SOCI/%{name}
 Source0:        %{url}/archive/v%{ups_ver}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Works around a false positive -Wuninitialized error exposed by LTO
+# Patch submitted upstream: https://github.com/SOCI/soci/pull/1223
 Patch0:         soci-uninit.patch
-Patch1:         soci-unicode.patch
-Patch2:		soci-empty-headers.patch
 
 BuildRequires:  dos2unix
 BuildRequires:  gcc gcc-c++
@@ -45,6 +44,16 @@ BuildRequires:  boost-devel
 illusion of embedding SQL in regular C++ code, staying entirely within
 the C++ standard.
 
+
+%{?with_empty:%package        empty
+Summary:        Empty back-end for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    empty
+This package contains the Empty back-end for %{name}, i.e.,
+dynamic library specific to the Empty database. If you would like to
+use %{name} in your programs with an empty database, you will need to
+install %{name}-empty.}
 
 %{?with_sqlite3:%package        sqlite3
 Summary:        SQLite3 back-end for %{name}
@@ -110,6 +119,17 @@ Requires:       pkgconfig
 This package contains the header files, dynamic libraries and
 development documentation for %{name}. If you would like to develop
 programs using %{name}, you will need to install %{name}-devel.
+
+%{?with_empty:%package        empty-devel
+Summary:        Empty back-end for %{name}
+Requires:       %{name}-devel = %{version}-%{release}
+Requires:       %{name}-empty = %{version}-%{release}
+
+%description    empty-devel
+This package contains the Empty back-end for %{name}, i.e., header
+files and dynamic libraries specific to an empty database. If you
+would like to develop programs using %{name} and an empty database,
+you will need to install %{name}-empty.}
 
 %{?with_sqlite3:%package        sqlite3-devel
 Summary:        SQLite3 back-end for %{name}
@@ -185,16 +205,14 @@ library. The documentation is the same as at the %{name} web page.
 %prep
 %setup -q -n %{name}-%{ups_ver}
 %patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 
 # Rename change-log and license file, so that they comply with
 # packaging standard
 mv README.md README
 mv CHANGES ChangeLog
 mv LICENSE_1_0.txt COPYING
-echo "2019-11-09:" > NEWS
-echo "- Version 4.0.0" >> NEWS
+echo "2025-03-27:" > NEWS
+echo "- Version 4.1.0" >> NEWS
 echo "- See the ChangeLog file for more details." >> NEWS
 # Remove the spurious executable permission
 chmod a-x AUTHORS README ChangeLog COPYING NEWS
@@ -206,17 +224,16 @@ dos2unix AUTHORS README ChangeLog COPYING NEWS
 # Support for building tests.
 %define soci_testflags -DBUILD_TESTS="NONE"
 %if %{with tests}
-%define soci_testflags -DSOCI_TEST=ON -DSOCI_TEST_EMPTY_CONNSTR="dummy" -DSOCI_TEST_SQLITE3_CONNSTR="test.db" -DSOCI_TEST_POSTGRESQL_CONNSTR:STRING="dbname=soci_test" -DSOCI_TEST_MYSQL_CONNSTR:STRING="db=soci_test user=mloskot password=pantera"
+%define soci_testflags -DSOCI_TEST=ON -DSOCI_EMPTY_TEST_CONNSTR="dummy" -DSOCI_SQLITE3_TEST_CONNSTR="test.db" -DSOCI_POSTGRESQL_TEST_CONNSTR:STRING="dbname=soci_test" -DSOCI_MYSQL_TEST_CONNSTR:STRING="db=soci_test user=mloskot password=pantera"
 %endif
 
 %cmake \
- -DSOCI_CXX11=ON \
- -DSOCI_EMPTY=%{?with_empty:ON}%{?without_empty:OFF} \
- -DSOCI_SQLITE3=%{?with_sqlite3:ON}%{?without_sqlite3:OFF} \
- -DSOCI_POSTGRESQL=%{?with_postgresql:ON}%{?without_postgresql:OFF} \
- -DSOCI_MYSQL=%{?with_mysql:ON}%{?without_mysql:OFF} \
- -DSOCI_ODBC=%{?with_odbc:ON}%{?without_odbc:OFF} \
- -DWITH_ORACLE=%{?with_oracle:ON %{?_with_oracle_incdir} %{?_with_oracle_libdir}}%{?without_oracle:OFF} \
+ -DSOCI_EMPTY=%{?with_empty:ON}%{!?with_empty:OFF} \
+ -DSOCI_SQLITE3=%{?with_sqlite3:ON}%{!?with_sqlite3:OFF} \
+ -DSOCI_POSTGRESQL=%{?with_postgresql:ON}%{!?with_postgresql:OFF} \
+ -DSOCI_MYSQL=%{?with_mysql:ON}%{!?with_mysql:OFF} \
+ -DSOCI_ODBC=%{?with_odbc:ON}%{!?with_odbc:OFF} \
+ -DSOCI_ORACLE=%{?with_oracle:ON %{?_with_oracle_incdir} %{?_with_oracle_libdir}}%{!?with_oracle:OFF} \
  %{soci_testflags}
 %cmake_build
 
@@ -225,7 +242,7 @@ dos2unix AUTHORS README ChangeLog COPYING NEWS
 
 # The SOCI libraries are now released in a non-standard location
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{_libdir}/%{name}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}64.conf
+#echo "%%{_libdir}/%%{name}" > %%{buildroot}%%{_sysconfdir}/ld.so.conf.d/%%{name}64.conf
 
 # CMake helpers
 mkdir -p %{buildroot}%{_datadir}/%{name}
@@ -242,69 +259,76 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_sysconfdir}/ld.so.conf.d/%{name}64.conf
-%{_libdir}/%{name}/lib%{name}_core.so.*
-%{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so.*}
+#%%{_sysconfdir}/ld.so.conf.d/%%{name}64.conf
+%{_libdir}/lib%{name}_core.so.*
+
+%{?with_empty:%files empty
+%doc AUTHORS ChangeLog COPYING NEWS README
+%{_libdir}/lib%{name}_empty.so.*}
 
 %{?with_sqlite3:%files sqlite3
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/%{name}/lib%{name}_sqlite3.so.*}
+%{_libdir}/lib%{name}_sqlite3.so.*}
 
 %{?with_mysql:%files mysql
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/%{name}/lib%{name}_mysql.so.*}
+%{_libdir}/lib%{name}_mysql.so.*}
 
 %{?with_postgresql:%files postgresql
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/%{name}/lib%{name}_postgresql.so.*}
+%{_libdir}/lib%{name}_postgresql.so.*}
 
 %{?with_odbc:%files odbc
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/%{name}/lib%{name}_odbc.so.*}
+%{_libdir}/lib%{name}_odbc.so.*}
 
 %{?with_oracle:%files oracle
 %doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/%{name}/lib%{name}_oracle.so.*}
+%{_libdir}/lib%{name}_oracle.so.*}
 
 
 %files devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*.h
-%{?with_empty:%{_includedir}/%{name}/empty/}
-%{_libdir}/%{name}/lib%{name}_core.so
-%{?with_empty:%{_libdir}/%{name}/lib%{name}_empty.so}
+%{_libdir}/lib%{name}_core.so
 %{_datadir}/%{name}/CMake
+
+%{?with_empty:%files empty-devel
+%doc AUTHORS ChangeLog COPYING NEWS README
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/empty/
+%{_libdir}/lib%{name}_empty.so}
 
 %{?with_sqlite3:%files sqlite3-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/sqlite3/
-%{_libdir}/%{name}/lib%{name}_sqlite3.so}
+%{_libdir}/lib%{name}_sqlite3.so}
 
 %{?with_mysql:%files mysql-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/mysql
-%{_libdir}/%{name}/lib%{name}_mysql.so}
+%{_libdir}/lib%{name}_mysql.so}
 
 %{?with_postgresql:%files postgresql-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/postgresql
-%{_libdir}/%{name}/lib%{name}_postgresql.so}
+%{_libdir}/lib%{name}_postgresql.so}
 
 %{?with_odbc:%files odbc-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/odbc/
-%{_libdir}/%{name}/lib%{name}_odbc.so}
+%{_libdir}/lib%{name}_odbc.so}
 
 %{?with_oracle:%files oracle-devel
 %doc AUTHORS ChangeLog COPYING NEWS README
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/oracle
-%{_libdir}/%{name}/lib%{name}_oracle.so}
+%{_libdir}/lib%{name}_oracle.so}
 
 
 %files doc

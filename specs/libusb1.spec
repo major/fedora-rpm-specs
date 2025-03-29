@@ -2,15 +2,18 @@
 
 Summary:        Library for accessing USB devices
 Name:           libusb1
-Version:        1.0.27
+Version:        1.0.28
 Release:        %autorelease
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2
+Source1:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2.asc
+Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xc68187379b23de9efc46651e2c80ff56c6830a0e#/%{name}.keyring
 License:        LGPL-2.1-or-later
 URL:            http://libusb.info
 BuildRequires:  systemd-devel doxygen libtool
 BuildRequires:  umockdev-devel
 BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 # libusbx was removed in F34
 Provides:       libusbx = %{version}-%{release}
 Obsoletes:      libusbx < %{version}-%{release}
@@ -86,11 +89,12 @@ MinGW Windows %{name} library.
 %endif
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n libusb-%{version}
 chmod -x examples/*.c
 mkdir -p m4
 sed -i '/AM_LDFLAGS = -static/d' tests/Makefile.am
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+%if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 11)
 autoscan
 aclocal
 autoconf

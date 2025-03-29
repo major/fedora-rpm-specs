@@ -1,6 +1,6 @@
 Name:           mpv
-Version:        0.39.0
-Release:        5%{?dist}
+Version:        0.40.0
+Release:        1%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -37,6 +37,7 @@ BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
 BuildRequires:  pkgconfig(libplacebo) >= 5.264.1
@@ -197,13 +198,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_docdir}/%{name}/
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%dir %{_datadir}/bash-completion/
-%dir %{_datadir}/bash-completion/completions/
-%{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
-%dir %{_datadir}/zsh/
-%dir %{_datadir}/zsh/site-functions/
-%{_datadir}/zsh/site-functions/_%{name}
+%{bash_completions_dir}/%{name}
+%{zsh_completions_dir}/_%{name}
+%{fish_completions_dir}/%{name}.fish
 %{_mandir}/man1/%{name}.*
 %{_metainfodir}/%{name}.metainfo.xml
 %dir %{_sysconfdir}/%{name}/
@@ -219,6 +217,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 26 2025 Sérgio Basto <sergio@serjux.com> - 0.40.0-1
+- Update mpv to 0.40.0
+- filesystem package owns completions folders, no need to co-own
+  these directories anymore
+
 * Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.39.0-5
 - mpv-libs should also depend on yt-dlp
 

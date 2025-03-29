@@ -54,7 +54,7 @@
 %global source_directory 1.43-development
 
 Name:           nbdkit
-Version:        1.43.1
+Version:        1.43.2
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -742,7 +742,7 @@ BuildRequires: selinux-policy-devel
 %{?selinux_requires}
 
 %description selinux
-%{nbdkit} SELinux policy module.
+%{name} SELinux policy module.
 %endif
 
 
@@ -1513,6 +1513,12 @@ fi
 
 
 %changelog
+* Thu Mar 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.2-1
+- New upstream development branch version 1.43.2
+
+* Wed Mar 26 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.43.1-2
+- Fix description for nbdkit-selinux
+
 * Thu Mar 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.1-1
 - New upstream development branch version 1.43.1
 

@@ -76,7 +76,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %check
-%pytest tests %{!?with_asyncio_tests:--ignore tests/test_async.py --ignore tests/test_async_filters.py}
+# test_elif_deep is flaky for an unknown reason
+# https://github.com/pallets/jinja/issues/2079
+%pytest tests -k "not test_elif_deep" %{!?with_asyncio_tests:--ignore tests/test_async.py --ignore tests/test_async_filters.py}
 
 
 %files -n python3-jinja2 -f %{pyproject_files}

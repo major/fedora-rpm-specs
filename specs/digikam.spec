@@ -34,6 +34,7 @@ Source10: digikam-import.desktop
 ## upstream patches
 
 ## upstreamable patches
+Patch0:  digikam-fix-qt6.9-build.patch
 
 %if 0%{?ninja}
 BuildRequires: ninja-build

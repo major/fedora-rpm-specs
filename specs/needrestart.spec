@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPL-2.0-or-later

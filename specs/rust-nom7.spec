@@ -4,8 +4,8 @@
 
 %global crate nom
 
-Name:           rust-nom
-Version:        8.0.0
+Name:           rust-nom7
+Version:        7.1.3
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -13,8 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/nom
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax proptest dev-dependency from =1.0.0 to ^1.0.0
-# * drop tests with unresolved imports from the nom-language crate
+# * drop references to example code that is not shipped with the crate
 Patch:          nom-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

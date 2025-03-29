@@ -9,6 +9,7 @@ Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
 
 Patch:          0001-Use-importlib-mode-for-pytest.patch
+Patch:          0002-Skip-tests-with-old-freezegun.patch
 
 # Build
 BuildRequires:  python3-devel

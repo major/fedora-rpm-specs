@@ -20,12 +20,19 @@
 
 Name:    gtk3
 Version: 3.24.49
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk/3.24/gtk-%{version}.tar.xz
+
+# Fix gjs tests
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8332
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8338
+# https://gitlab.gnome.org/GNOME/gjs/-/issues/681
+Patch01: 8332.patch
+Patch02: 8338.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
@@ -308,6 +315,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Mar 27 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.24.49-2
+- Backport #8332 and #8338 to fix gjs tests
+
 * Tue Mar 11 2025 nmontero <nmontero@redhat.com> - 3.24.49-1
 - Update to 3.24.49
 

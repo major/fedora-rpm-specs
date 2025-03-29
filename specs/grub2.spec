@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -605,6 +605,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Tue Mar 25 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-29
+- ieee1275/ofnet: Fix grub_malloc() removed after added safe
+
 * Tue Mar 25 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-28
 - Fix the fallback mechanism when menu entries fail to boot
 

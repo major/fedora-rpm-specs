@@ -12,20 +12,23 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250211
-%global		gittartime		1608
+%global		gittardate		20250327
+%global		gittartime		1528
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20241127
-%global		git_rev		fde013ecb9b910fdbd7b28411c9c47eedb37c099
+%global		gitbaredate	20250326
+%global		git_rev		69715abaa2e9089c69c96d61ad69f8e431c52fb8
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
+%endif
 
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
 
 
-%global		main_version	0.3.2
+%global		main_version	0.3.3
 
 Name:			lxrandr
 Version:		%{main_version}%{git_ver_rpm}
@@ -83,6 +86,17 @@ git clone ./%{name}.git/
 cd %{name}
 
 git checkout -b %{main_version}-fedora %{git_rev}
+
+# Restore timestamps
+set +x
+echo "Restore timestamps"
+git ls-tree -r --name-only HEAD | while read f
+do
+	unixtime=$(git log -n 1 --pretty='%ct' -- $f)
+	touch -d "@${unixtime}" $f
+done
+set -x
+
 cp -a [A-Z]* ..
 %endif
 
@@ -135,6 +149,9 @@ cd ..
 
 
 %changelog
+* Thu Mar 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-1
+- 0.3.3
+
 * Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2^20241127gitfde013ec-1
 - Update to the latest git
 

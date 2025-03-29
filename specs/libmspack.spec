@@ -3,7 +3,8 @@ Version:        0.10.1
 Release:        0.14.alpha%{?dist}
 Summary:        Library for CAB and related files compression and decompression
 
-License:        LGPL-2.1-only AND LicenseRef-CRC32 AND MIT
+# CRC32 is LicenseRef-Fedora-UltraPermissive
+License:        LGPL-2.1-only AND LicenseRef-Fedora-UltraPermissive AND MIT
 URL:            http://www.cabextract.org.uk/libmspack/
 Source0:        http://www.cabextract.org.uk/libmspack/%{name}-%{version}alpha.tar.gz
 #Source0:        https://github.com/kyz/libmspack/archive/v%{version}alpha/%{name}-v%{version}alpha.tar.gz

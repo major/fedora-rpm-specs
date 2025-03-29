@@ -1,8 +1,8 @@
 Name:           perl-Pod-Usage
 # Compete with perl.spec's epoch
 Epoch:          4
-Version:        2.03
-Release:        512%{?dist}
+Version:        2.04
+Release:        1%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -37,10 +37,9 @@ BuildRequires:  perl(Pod::Text) >= 4
 BuildRequires:  perl(blib)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Pod::Perldoc) >= 3.28
-BuildRequires:  perl(Pod::PlainText)
+BuildRequires:  perl(Pod::Text)
 BuildRequires:  perl(Test::More) >= 0.6
 BuildRequires:  perl(vars)
-# VMS::Filespec not used
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
@@ -66,7 +65,7 @@ verbose level is 2, then the entire manual page is printed.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Pod::PlainText)
+Requires:       perl(Pod::Text)
 
 %description tests
 Tests from %{name}. Execute them
@@ -74,9 +73,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Pod-Usage-%{version}
-# Remove bundled modules
-rm -rf t/inc
-perl -i -ne 'print $_ unless m{^t/inc/}' MANIFEST
 
 # Help generators to recognize Perl scripts
 for F in `find t -name *.t -o -name *.pl`; do
@@ -131,6 +127,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.04-1
+- 2.04 bump (rhbz#2354901)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.03-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
