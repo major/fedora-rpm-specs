@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -73,7 +73,6 @@ BuildRequires: unixODBC-devel
 BuildRequires: cracklib-devel
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 %description
 OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
@@ -132,7 +131,6 @@ and are available for compatibility reasons.
 Summary: LDAP server
 Requires: openldap%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
-Requires(pre): shadow-utils
 # migrationtools (slapadd functionality):
 Provides: ldif2ldbm
 
@@ -393,10 +391,6 @@ rm %{buildroot}%{_libdir}/*.la  # because we do not want files in %{_libdir}/ope
 %ldconfig_scriptlets
 
 %if %{with servers}
-%pre servers
-# create ldap user and group
-# sysusers.d format https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format
-%sysusers_create_compat %{SOURCE6}
 
 %post servers
 %systemd_post slapd.service
@@ -555,6 +549,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.9-5
+- Drop call to %sysusers_create_compat
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.6.9-4
 - Add explicit BR: libxcrypt-devel
 

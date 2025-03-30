@@ -68,8 +68,8 @@
 
 
 Name:		erlang
-Version:	26.2.5.9
-Release:	2%{?dist}
+Version:	26.2.5.10
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -1961,6 +1961,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Fri Mar 28 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.10-1
+- Ver. 26.2.5.10
+
 * Mon Mar 10 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 26.2.5.9-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

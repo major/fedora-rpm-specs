@@ -13,6 +13,11 @@ Source0:        https://files.pythonhosted.org/packages/source/a/%{pypi_name}/%{
 # https://github.com/admesh/python-admesh/issues/15
 Source1:        %{url}/raw/v%{version}/test/utils.py
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  gcc
 
 BuildRequires:  admesh-devel >= 0.98

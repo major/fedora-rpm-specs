@@ -18,9 +18,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # Test dependencies:
 BuildRequires:  python3dist(pytest)
-
-# Allow users to install this rpm as 'zarrsum'
-Provides: zarrsum = %{version}-%{release}
+BuildRequires:  python3dist(boto3)
+BuildRequires:  python3dist(zarr)
 
 %global _description %{expand:
 Algorithms for calculating a zarr checksum against local or cloud storage.}
@@ -29,6 +28,8 @@ Algorithms for calculating a zarr checksum against local or cloud storage.}
  
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
+# Allow users to install this rpm as 'zarrsum'
+Provides: zarrsum = %{version}-%{release}
  
 %description -n python3-%{pypi_name} %_description
  
@@ -38,7 +39,7 @@ Summary:        %{summary}
  
  
 %generate_buildrequires
-%pyproject_buildrequires -e test
+%pyproject_buildrequires
  
  
 %build
@@ -50,7 +51,7 @@ Summary:        %{summary}
  
  
 %check
-%tox -e test
+%pytest -r fEs
 %pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

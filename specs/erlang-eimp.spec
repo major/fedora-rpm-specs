@@ -3,14 +3,14 @@
 
 
 Name:    erlang-%{srcname}
-Version: 1.0.23
+Version: 1.0.24
 Release: %autorelease
 License: Apache-2.0
 Summary: Erlang Image Manipulation Process
 URL:     https://github.com/processone/%{srcname}
 VCS:     git:%{url}.git
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch1:  erlang-eimp-0001-Disable-Rebar3-plugins.patch
+Patch:   erlang-eimp-0001-Disable-Rebar3-plugins.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: erlang-p1_utils >= %{p1_utils_ver}

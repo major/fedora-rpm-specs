@@ -1,5 +1,3 @@
-%global pypi_name PyQtChart
-
 Name:           python-pyqtchart
 Version:        5.15.5
 Release:        %autorelease
@@ -7,9 +5,9 @@ Summary:        Set of Python bindings for The Qt Charts library
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqtchart/
-Source0:        %pypi_source
+Source0:        %{pypi_source PyQtChart}
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-qt5-devel
 BuildRequires:  python3dist(sip) >= 5.3
@@ -17,6 +15,11 @@ BuildRequires:  python3dist(pyqt-builder) >= 1.6
 BuildRequires:  qt5-qtcharts-devel
 # as of 2020-04-18, depends on libQt5Charts.so.5(Qt_5.14.2_PRIVATE_API)(64bit)
 BuildRequires:  qt5-qtbase-private-devel
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
 
 %global distinfo %{python3_sitearch}/PyQtChart-%{version}.dist-info
 
@@ -27,7 +30,6 @@ The bindings sit on top of PyQt5 and are implemented as a single module.
 
 %package -n python3-pyqtchart
 Summary:    %{summary}
-%{?python_provide:%python_provide python3-pyqtchart}
 Requires:   python3-qt5
 
 %description -n python3-pyqtchart
@@ -37,7 +39,6 @@ The bindings sit on top of PyQt5 and are implemented as a single module.
 
 %package -n python3-pyqtchart-devel
 Summary:    Development files for PyQtChart
-%{?python_provide:%python_provide python3-pyqtchart-devel}
 Requires:   python3-pyqtchart%{_isa} == %{version}-%{release}
 # For the directories:
 Requires:   python3-qt5-devel

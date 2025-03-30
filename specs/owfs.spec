@@ -8,12 +8,12 @@
 %bcond_without  php
 %endif
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 Name:		owfs
 Version:	3.2p4
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -23,7 +23,9 @@ Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name
 Source1:	owserver.xml
 # install into 'vendor' perl directories; not suitable for upstream
 Patch0:		owfs-0001-install-into-vendor-perl-directories.patch
-Patch1: owfs-configure-c99.patch
+Patch1: 	owfs-configure-c99.patch
+# submitted upstream
+Patch2:		owfs-0002-configure-deal-with-colons-in-TCL_PACKAGE_PATH.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
@@ -162,7 +164,7 @@ BuildRequires: php-devel >= 4.3.0
 Summary: Tcl interface for the 1-wire file-system
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: tcl >= 8.1
-BuildRequires: tcl-devel >= 8.1
+BuildRequires: tcl8-devel >= 8.1
 
 %description tcl
 %{name}-tcl is a Tcl interface for the 1-wire file-system
@@ -179,10 +181,7 @@ and owpresent.
 
 
 %prep
-%setup -q
-# Perl dirs
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1
 
 sed -i -e 's/) Makefile.PL/& INSTALLDIRS=vendor/' \
 	module/swig/perl5/Makefile.am \
@@ -376,6 +375,9 @@ install -m0644 -D owfs.sysusers.conf %{buildroot}%{_sysusersdir}/owfs.conf
 
 
 %changelog
+* Fri Mar 28 2025 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.2p4-12
+- adjust to TCL8 compat packages (rhbz#2340991, rhbz#2337745)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2p4-11
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

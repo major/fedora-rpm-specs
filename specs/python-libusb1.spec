@@ -1,6 +1,6 @@
 Name:           python-libusb1
 Version:        3.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-python wrapper for libusb-1.0
 
 License:        LGPL-2.1-or-later
@@ -39,7 +39,7 @@ Summary: %{summary}
 rm -rf libusb1.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -57,6 +57,9 @@ rm -rf libusb1.egg-info
 %doc README.rst PKG-INFO
 
 %changelog
+* Fri Mar 28 2025 Peter Lemenkov <lemenkov@gmail.com> - 3.2.0-3
+- Fix FTBFS
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

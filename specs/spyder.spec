@@ -1,5 +1,5 @@
 Name:           spyder
-Version:        6.0.4
+Version:        6.0.5
 Release:        %autorelease
 Summary:        Scientific Python Development Environment
 

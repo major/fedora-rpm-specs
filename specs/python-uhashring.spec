@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        2.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python module uhashring
 
 License:        BSD-3-Clause
@@ -33,7 +33,7 @@ sed -i 's/ *"black",//g' pyproject.toml
 sed -i 's/ *"flake8",//g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -51,6 +51,9 @@ sed -i 's/ *"flake8",//g' pyproject.toml
 %license LICENSE
 
 %changelog
+* Fri Mar 28 2025 Alfredo Moralejo <amoralej@redhat.com> - 2.3-9
+- Remove references to tox config during build
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

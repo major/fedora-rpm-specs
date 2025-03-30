@@ -1,14 +1,19 @@
-%global unversion 2_7_0
+%global unversion 2_7_1
 
 Summary: An XML parser library
 Name: expat
 Version: %(echo %{unversion} | sed 's/_/./g')
 Release: %autorelease
-Source: https://github.com/libexpat/libexpat/archive/R_%{unversion}.tar.gz#/expat-%{version}.tar.gz
+Source0: https://github.com/libexpat/libexpat/releases/download/R_%{unversion}/expat-%{version}.tar.gz
+Source1: https://github.com/libexpat/libexpat/releases/download/R_%{unversion}/expat-%{version}.tar.gz.asc
+# Sebastian Pipping's PGP public key
+Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/3176EF7DB2367F1FCA4F306B1F9B0E909AF37285
+
 URL: https://libexpat.github.io/
 License: MIT
 BuildRequires: autoconf, libtool, xmlto, gcc-c++
 BuildRequires: make
+BuildRequires: gnupg2
 
 %description
 This is expat, the C library for parsing XML, written by James Clark. Expat
@@ -35,7 +40,8 @@ The expat-static package contains the static version of the expat library.
 Install it if you need to link statically with expat.
 
 %prep
-%autosetup -n libexpat-R_%{unversion}/expat
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 sed -i 's/install-data-hook/do-nothing-please/' lib/Makefile.am
 ./buildconf.sh
 

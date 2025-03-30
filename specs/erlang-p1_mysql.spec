@@ -1,7 +1,7 @@
 %global srcname p1_mysql
 
 Name:       erlang-%{srcname}
-Version:    1.0.25
+Version:    1.0.26
 Release:    %autorelease
 BuildArch:  noarch
 Summary:    Pure Erlang MySQL driver, used by ejabberd

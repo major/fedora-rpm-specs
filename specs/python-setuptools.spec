@@ -18,16 +18,16 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        74.1.3
+Version:        76.1.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # autocommand is LGPL-3.0-only
 # backports-tarfile is MIT
 # importlib-metadata is Apache-2.0
-# importlib-resources is Apache-2.0
 # inflect is MIT
 # jaraco-context is MIT
+# jaraco-collections is MIT
 # jaraco-functools is MIT
 # jaraco-text is MIT
 # more-itertools is MIT
@@ -50,9 +50,12 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 
-# Compatibility of a single test with packaging 24.2
-# Patch from: https://github.com/pypa/setuptools/pull/4740
-Patch:          packaging_24_2_compatibility.patch
+# setuptools rewrites all shebangs to "#!python" which breaks workflows
+# where no external installers (usually rewriting this) are involved.
+# https://github.com/pypa/setuptools/issues/4883
+# - Resolution: deprecated functionality won't be fixed.
+# brp-mangle-shebang script cannot mangle this and fails for many pkgs.
+Patch:          Revert-Always-rewrite-a-Python-shebang-to-python.patch
 
 BuildArch:      noarch
 
@@ -89,13 +92,13 @@ execute the software that requires pkg_resources.
 Provides: bundled(python%{python3_pkgversion}dist(autocommand)) = 2.2.2
 Provides: bundled(python%{python3_pkgversion}dist(backports-tarfile)) = 1.2
 Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 8
-Provides: bundled(python%{python3_pkgversion}dist(importlib-resources)) = 6.4
 Provides: bundled(python%{python3_pkgversion}dist(inflect)) = 7.3.1
+Provides: bundled(python%{python3_pkgversion}dist(jaraco-collections)) = 5.1
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-context)) = 5.3
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-functools)) = 4.0.1
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 3.12.1
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 10.3
-Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 24.1
+Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 24.2
 Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.2.2
 Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
 Provides: bundled(python%{python3_pkgversion}dist(typeguard)) = 4.3
@@ -209,7 +212,7 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 # Upstream tests
 # --ignore=setuptools/tests/integration/
 # --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py
-# -k "not test_pip_upgrade_from_source"
+# -k "not test_pip_upgrade_from_source and not test_equivalent_output"
 #   the tests require internet connection
 # --ignore=setuptools/tests/test_editable_install.py
 #   the tests require pip-run which we don't have in Fedora
@@ -223,7 +226,7 @@ PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
  --ignore=tools \
- -k "not test_pip_upgrade_from_source and not test_wheel_includes_cli_scripts"
+ -k "not test_pip_upgrade_from_source and not test_wheel_includes_cli_scripts and not test_equivalent_output"
 %endif # with tests
 
 

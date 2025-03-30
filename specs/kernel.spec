@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc0.20250327git1a9239bb4253.5
+%define pkgrelease 0.rc0.20250328gitacb4f33713b9.6
 %define kversion 6
-%define tarfile_release 6.14-5877-g1a9239bb4253
+%define tarfile_release 6.14-7422-gacb4f33713b9
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250327git1a9239bb4253.5%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250328gitacb4f33713b9.6%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4212,11 +4212,13 @@ fi\
 #
 #
 %changelog
-* Thu Mar 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.1a9239bb4253.5]
-- kernel.spec: update license field (Scott Weaver)
-- kernel.spec.template: cpupower: adjust lib versioning (Thorsten Leemhuis)
+* Fri Mar 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.acb4f33713b9.6]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
-- x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Fri Mar 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.acb4f33713b9.5]
+- kernel.spec.template: cpupower: adjust lib versioning (Thorsten Leemhuis)
+- redhat/configs: automotive: builtin virtio-mmio (Eric Chanudet)
+- Linux v6.15.0-0.rc0.acb4f33713b9
 
 * Thu Mar 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.1a9239bb4253.4]
 - Linux v6.15.0-0.rc0.1a9239bb4253

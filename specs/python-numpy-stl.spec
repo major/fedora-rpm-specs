@@ -13,12 +13,12 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
-
-%ifnarch armv7hl
-# the test is optional based on the presence of PyQt5
-# xvfb somehow fails on this arch
 BuildRequires:  python3-PyQt5
 BuildRequires:  /usr/bin/xvfb-run
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
 %endif
 
 %description

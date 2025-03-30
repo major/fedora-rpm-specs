@@ -11,7 +11,7 @@ compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
 Version: 0.23.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Zstandard bindings for Python
 License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
@@ -45,11 +45,7 @@ Provides: bundled(zstd) = 1.5.6
 rm -r %{pypi_name}.egg-info
 
 %generate_buildrequires
-%if %{with check}
-%pyproject_buildrequires -x cffi -t
-%else
 %pyproject_buildrequires -x cffi
-%endif
 
 %build
 %pyproject_wheel
@@ -73,6 +69,10 @@ mv zstandard{.src,}
 %doc README.rst
 
 %changelog
+* Fri Mar 28 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.23.0-3
+- drop -t from %%pyproject_buildrequires (fails due to missing tox.ini,
+  resolves rhbz#2354136)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

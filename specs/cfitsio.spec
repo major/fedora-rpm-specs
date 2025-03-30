@@ -1,5 +1,5 @@
 Name: cfitsio
-Version: 4.6.0
+Version: 4.6.2
 Release: %autorelease
 Summary: Library for manipulating FITS data files
 

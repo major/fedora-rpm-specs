@@ -1,7 +1,3 @@
-#global commit 1ef69340afc918e662a1d7ad94784ef5360bb6c2
-#global commitdate 20230508
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
@@ -9,8 +5,8 @@
 
 Name:          cjs
 Epoch:         1
-Version:       6.4.0
-Release:       3%{?dist}
+Version:       128.0
+Release:       1%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -20,31 +16,29 @@ License:       LicenseRef-Callaway-MIT AND (LicenseRef-Callaway-MPLv1.1 OR GPL-2
 # The console module (modules/console.c)
 # Stack printer (gjs/stack.c)
 URL:           https://github.com/linuxmint/%{name}
-%if 0%{?commitdate}
-Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%else
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%endif
-Patch0:         %{url}/compare/6.4.0...master.patch#/switch_to_mozjs128.patch
 
 ExcludeArch:   %{ix86}
 
-BuildRequires: dbus-daemon
 BuildRequires: gcc-c++
+BuildRequires: gettext
 BuildRequires: meson
 BuildRequires: pkgconfig(cairo-gobject)
-BuildRequires: pkgconfig(dbus-glib-1)
-BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires: pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(mozjs-128) >= %{mozjs128_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
+# For GTK+ 3 tests
+BuildRequires: gtk3
+# For dbus tests
+BuildRequires: dbus-daemon
 # Required for checks
-%ifnarch s390 s390x
 BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: mesa-dri-drivers
+BuildRequires: mutter
+BuildRequires: xwayland-run
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
@@ -75,13 +69,11 @@ the functionality of the installed cjs package.
 
 
 %prep
-%autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
+%autosetup -p1
 
 
 %build
-%meson \
- --libexecdir=%{_libexecdir}/cjs/ \
- -D installed_tests=true
+%meson
 %meson_build
 
 
@@ -90,9 +82,7 @@ the functionality of the installed cjs package.
 
 
 %check
-%ifnarch s390 s390x
-%{shrink:xvfb-run -s "-screen 0 1600x1200x24" %meson_test --timeout-multiplier=5}
-%endif
+%{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5}
 
 %files
 %doc NEWS README.md
@@ -112,12 +102,15 @@ the functionality of the installed cjs package.
 
 
 %files tests
-%{_libexecdir}/cjs/
+%{_libexecdir}/installed-tests/
 %{_datadir}/installed-tests/
 %{_datadir}/glib-2.0/schemas/org.cinnamon.CjsTest.gschema.xml
 
 
 %changelog
+* Fri Mar 28 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.0-1
+- Update to 128.0
+
 * Wed Mar 26 2025 Leigh Scott <leigh123linux@gmail.com> - 1:6.4.0-3
 - Switch to mozjs128
 

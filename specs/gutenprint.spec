@@ -141,6 +141,7 @@ uses gutenprint package.
 %package plugin
 Summary:        GIMP plug-in for gutenprint
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs-ui%{?_isa} = %{version}-%{release}
 Requires:       gimp
 
 %description plugin

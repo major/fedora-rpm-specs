@@ -1,5 +1,5 @@
 Name:           perl-Math-BigInt-GMP
-Version:        1.7002
+Version:        1.7003
 Release:        1%{?dist}
 Summary:        Use the GMP library for Math::BigInt routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,10 +24,11 @@ BuildRequires:  perl(XSLoader) >= 0.02
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Math::BigFloat) >= 1.994
-BuildRequires:  perl(Math::BigInt) >= 2.004001
+BuildRequires:  perl(Math::BigInt) >= 2.005001
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(threads)
+Requires:       perl(Math::BigInt) >= 2.005001
 
 %{?perl_default_filter}
 
@@ -46,7 +47,7 @@ also reduces the memory footprint by not loading Math::GMP and Carp at all.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Math::BigInt) >= 2.004001
+Requires:       perl(Math::BigInt) >= 2.005001
 
 %description tests
 Tests from %{name}. Execute them
@@ -99,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.7003-1
+- 1.7003 bump (rhbz#2355195)
+
 * Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.7002-1
 - 1.7002 bump (rhbz#2349245)
 

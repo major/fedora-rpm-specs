@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 2.004001
+%global cpan_version 2.005001
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
 Release:        1%{?dist}
@@ -106,7 +106,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
-* Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com>
+* Fri Mar 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0050.01-1
+- 2.005001 bump (rhbz#2355194)
+
+* Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0040.01-1
 - 2.004001 bump (rhbz#2349247)
 
 * Fri Jan 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0030.04-1

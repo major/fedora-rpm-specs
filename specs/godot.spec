@@ -15,15 +15,14 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.4
-Release:        2%{?dist}
+Version:        4.4.1
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
 %endif
 # Godot itself is MIT-licensed, the rest is from vendored thirdparty libraries
-# Automatically converted from old format: MIT and CC-BY and ASL 2.0 and BSD and zlib and OFL and Bitstream Vera and ISC and MPLv2.0 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY AND Apache-2.0 AND LicenseRef-Callaway-BSD AND Zlib AND LicenseRef-Callaway-OFL AND Bitstream-Vera AND ISC AND MPL-2.0
+License:        MIT AND AML-glslang AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND CC-BY-4.0 AND MPL-2.0 AND OFL-1.1 AND Unlicense AND Zlib
 URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz
 Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz.sha256
@@ -273,6 +272,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Fri Mar 28 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.4.1-1
+- Version 4.4.1-stable
+- Update license to correct SPDX identifiers, sync with COPYRIGHT.txt
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4-2
 - Rebuild for mbedtls 3.6
 

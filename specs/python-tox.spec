@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.24.1
+Version:        4.25.0
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -34,9 +34,6 @@ Source:         %{pypi_source tox}
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 # Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
 Patch:          fix-tests.patch
-
-# Python 3.14.0a6+ test fix
-Patch:          https://github.com/tox-dev/tox/pull/3500.patch
 
 BuildArch:      noarch
 

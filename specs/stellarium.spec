@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        25.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -10,10 +10,10 @@ Patch0:         md4c.patch
 # https://github.com/Stellarium/stellarium/commit/bbcd60ae52b6f1395ef2390a2d2ba9d0f98db548
 Patch1:         stellarium-fix-qt6.9-build.patch
 
-# Disabled due to lconvert segfaulting on armv7hl
+# Disabled due to lconvert segfaulting on armv7hl and i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
 %if 0%{?fedora} > 32
-ExcludeArch:    armv7hl
+ExcludeArch:    armv7hl i686
 %endif
 
 BuildRequires:  make
@@ -110,6 +110,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Fri Mar 28 2025 Jan Grulich <jgrulich@redhat.com: - 25.1-3
+- Disable builds on i686
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 25.1-2
 - Rebuild (qt6)
 

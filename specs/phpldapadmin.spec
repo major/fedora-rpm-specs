@@ -1,8 +1,8 @@
 
 Name: phpldapadmin
 Summary: Web-based tool for managing LDAP servers
-Version: 1.2.6.6
-Release: 7%{?dist}
+Version: 1.2.6.7
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://www.phpldapadmin.org
@@ -10,6 +10,13 @@ URL: https://www.phpldapadmin.org
 Source: https://github.com/leenooks/phpLDAPadmin/refs/tags/%{version}.tar.gz
 
 Patch0: phpldapadmin-1.2.6-config.patch
+
+# From https://sources.debian.org/src/phpldapadmin/1.2.6.7-3/debian/patches/
+Patch1: Fix-dynamic-property-PHP-8.2.patch
+Patch2: Update-the-VERSION-file.patch
+Patch3: 0004-Replace-E_STRICT-by-E_DEPRECATED.patch
+Patch4: 0005-Stop-using-xml_set_object-for-PHP-8.4.patch
+Patch5: 0006-Fix-deprecation-for-the-Serialization-of-SensitivePa.patch
 
 BuildArch: noarch
 
@@ -45,6 +52,11 @@ access by remote web-clients.
 cp config/config.php.example config/config.php
 
 %patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%patch 5 -p1
 
 
 %build
@@ -126,6 +138,12 @@ fi
 
 
 %changelog
+* Fri Mar 28 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2.6.7-2
+- add Debian patches for php-8.x
+
+* Fri Mar 28 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2.6.7-1
+- update to 1.2.6.7
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

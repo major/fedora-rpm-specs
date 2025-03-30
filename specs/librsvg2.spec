@@ -12,7 +12,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.59.2
+Version:        2.60.0
 Release:        %autorelease
 
 # librsvg itself is LGPL-2.1-or-later
@@ -33,7 +33,7 @@ SourceLicense:  LGPL-2.1-or-later
 # Zlib OR Apache-2.0 OR MIT
 License:        LGPL-2.1-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 URL:            https://wiki.gnome.org/Projects/LibRsvg
-Source0:        https://download.gnome.org/sources/librsvg/2.59/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.60/librsvg-%{version}.tar.xz
 # upstream dropped vendoring since 2.55.0 (GNOME/librsvg#718), to create:
 #   tar xf librsvg-%%{version}.tar.xz ; pushd librsvg-%%{version} ; \
 #   cargo vendor --versioned-dirs && tar Jcvf ../librsvg-%%{version}-vendor.tar.xz vendor/ ; popd
@@ -42,7 +42,6 @@ Source1:        librsvg-%{version}-vendor.tar.xz
 # Patches to build with Fedora-packaged rust crates
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 Patch:          0002-bump-dependencies-to-markup5ever-0.14-xml5ever-0.20.patch
-Patch:          0003-drop-avif-feature-and-unsatisfiable-dependencies.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 1.2.0
@@ -121,7 +120,7 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 %endif
 
 %build
-%meson -Davif=disabled
+%meson %{?rhel:-Davif=disabled}
 %meson_build
 
 %cargo_license_summary

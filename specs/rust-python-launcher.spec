@@ -17,6 +17,11 @@ Patch:          python-launcher-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42
+ExcludeArch:    %{ix86}
+%endif
+
 %global _description %{expand:
 The Python Launcher for Unix.
 

@@ -1,11 +1,6 @@
-#
-# If a patch requires that autoreconf
-# be run, set enable_autoreconf to 1
-#
-%define enable_autoreconf 0
 
 Name:          pam-u2f
-Version:       1.3.2
+Version:       1.4.0
 Release:       1%{?dist}
 Summary:       Implements PAM authentication over U2F
 
@@ -15,16 +10,13 @@ Source0:       https://developers.yubico.com/pam-u2f/Releases/pam_u2f-%{version}
 Source1:       https://developers.yubico.com/pam-u2f/Releases/pam_u2f-%{version}.tar.gz.sig
 Source2:       yubico-release-gpgkeys.asc
 
+BuildRequires: asciidoc
+BuildRequires: cmake
 BuildRequires: gnupg2
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: pam-devel
+BuildRequires: pkgconfig(pam)
 BuildRequires: pkgconfig(libfido2)
-%if 0%{?enable_autoreconf}
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
-%endif
 
 %description
 The PAM U2F module provides an easy way to integrate the Yubikey (or
@@ -44,19 +36,14 @@ over U2F.
 %autosetup -n pam_u2f-%{version}
 
 %build
-%if 0%{?enable_autoreconf}
-autoreconf -vif
-%endif
-%configure --with-pam-dir=%{_libdir}/security
-%make_build
+%cmake
+%cmake_build
 
 %install
-%make_install
-#remove libtool files
-find %{buildroot} -name '*.la' -delete
+%cmake_install
 
 %check
-make check
+%ctest
 
 %files
 %doc AUTHORS NEWS README
@@ -69,6 +56,11 @@ make check
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Fri Mar 28 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.4.0-1
+- Update to 1.4.0 - resolves rhbz#2354803
+- Add new yubico release developer gpg key to keyring
+- Migrate to cmake builds (upstream change)
+
 * Thu Jan 16 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.2-1
 - Update to 1.3.2 - resolves rhbz#2338418
   1.3.2 fixes a potentially breaking issue with tightened authfile checking with 1.3.1

@@ -3,11 +3,19 @@
 # Originally created by Firejail authors
 
 Name: firejail
-Version: 0.9.72
-Release: 7%{?dist}
 Summary: Linux namespaces sandbox program
-BuildRequires: gcc make python3-devel
+
+Version: 0.9.74
+Release: 1%{?dist}
+
+BuildRequires: coreutils
+BuildRequires: gcc
+BuildRequires: make
+
 BuildRequires: libselinux-devel
+BuildRequires: kernel-headers
+BuildRequires: python3-devel
+
 Requires: xdg-dbus-proxy
 
 # spec released under GPLv2+, contacted upstream whether it can be 
@@ -21,25 +29,47 @@ Firejail is a SUID sandbox program that reduces the risk of security
 breaches by restricting the running environment of untrusted applications
 using Linux namespaces. It includes a sandbox profile for Mozilla Firefox.
 
+
 %prep
 %autosetup -p1
 
+
 %build
-%configure --enable-selinux
+# For some features, if --enable-feature is requested, but the requirements
+# are not satisfied (e.g. missing library headers), configure will only print
+# a warning, instead of erroring out. Capture the output to a file...
+%configure --enable-ids --enable-landlock --enable-selinux | tee fedconfig.txt
+
+# ...and make sure that all the features we're interested in are enabled.
+for FEATURE in DBUSPROXY IDS LANDLOCK SELINUX X11 ; do
+	grep -e "-DHAVE_${FEATURE}$" fedconfig.txt
+done
+
+# Also ensure that stuff we don't want is not enabled.
+for ANTIFEATURE in ; do
+	if grep -e "-DHAVE_${ANTIFEATURE}$" fedconfig.txt; then
+		exit 1
+	fi
+done
+
 %make_build
+
 
 %install
 %make_install
 chmod 0755 %{buildroot}%{_libdir}/%{name}/lib*.so
+
 for f in \
-%{buildroot}%{_libdir}/%{name}/fj-mkdeb.py \
-%{buildroot}%{_libdir}/%{name}/fjclip.py \
-%{buildroot}%{_libdir}/%{name}/fjdisplay.py \
-%{buildroot}%{_libdir}/%{name}/fjresize.py
+	%{buildroot}%{_libdir}/%{name}/fj-mkdeb.py \
+	%{buildroot}%{_libdir}/%{name}/fjclip.py \
+	%{buildroot}%{_libdir}/%{name}/fjdisplay.py \
+	%{buildroot}%{_libdir}/%{name}/fjresize.py
 do
-    sed -i "1 s/^.*$/\#\!\/usr\/bin\/python3/" "$f";
+	sed -i "1 s/^.*$/\#\!\/usr\/bin\/python3/" "$f";
 done
+
 rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
+
 
 %files
 %doc README RELNOTES CONTRIBUTING.md
@@ -64,6 +94,9 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Fri Mar 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.74-1
+- Upgrade to v0.9.74
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.72-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

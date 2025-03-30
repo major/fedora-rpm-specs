@@ -1,4 +1,4 @@
-%global		gittag0			2025-02-10-Release-2.10.0
+%global		gittag0			2025-03-27-Release-2.10.1
 
 %define			lang_subpkg() \
 %package		langpack-%{1}\
@@ -15,7 +15,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 %{_datadir}/oracle/translations/oracle_%{1}.qm
 
 Name:		cockatrice
-Version:	2.10.0
+Version:	2.10.1
 Release:	%autorelease
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 

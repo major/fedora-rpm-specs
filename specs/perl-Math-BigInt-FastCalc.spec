@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt-FastCalc
-%global cpan_version 0.5019
-Version:        0.501.900
+%global cpan_version 0.5020
+Version:        0.502.000
 Release:        1%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -20,13 +20,14 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(:VERSION) >= 5.6.1
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Math::BigInt::Calc) >= 2.004001
+BuildRequires:  perl(Math::BigInt::Calc) >= 2.005001
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Math::BigFloat)
 BuildRequires:  perl(Math::BigInt) >= 2.003001
 BuildRequires:  perl(Test::More) >= 0.88
 Conflicts:      perl < 4:5.22.0-348
+Requires:       perl(Math::BigInt) >= 2.005001
 
 # Filter modules bundled for tests
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(.::t/.*.inc\\)
@@ -39,7 +40,7 @@ This Perl module provides support for fast big integer calculations.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Math::BigInt) >= 2.004001
+Requires:       perl(Math::BigInt) >= 2.005001
 
 %description tests
 Tests from %{name}. Execute them
@@ -94,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.502.000-1
+- 0.5020 bump (rhbz#2355196)
+
 * Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.900-1
 - 0.5019 bump (rhbz#2349246)
 

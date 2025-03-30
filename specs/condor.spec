@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -19,6 +19,7 @@ Source0:        https://github.com/htcondor/htcondor/archive/v%{version}/%{name}
 
 Patch1: exit_37.sif.patch
 Patch2: unified-bin.patch
+Patch3: CVE-2025-30093.patch
 
 # This is a stopgap until I can conditionalize the cmake files
 # use the system libfmt if suitable version available
@@ -306,6 +307,7 @@ HTCondor V9 to V10 check for for known breaking changes:
 %setup -q -n %{name}-%{version}
 %patch 1 -p1
 %patch 2 -p1
+%patch 3 -p1
 
 # fix errant execute permissions
 find src -perm /a+x -type f -name "*.[Cch]" -exec chmod a-x {} \;
@@ -943,6 +945,9 @@ install -m0644 -D condor.sysusers.conf %{buildroot}%{_sysusersdir}/condor.conf
 /sbin/ldconfig
 
 %changelog
+* Fri Mar 28 2025 Tim Theisen <ttheisen@fedoraproject.org> - 23.9.6-6
+- Address CVE-2025-30093 - rhbz#2355671
+
 * Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 23.9.6-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

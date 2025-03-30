@@ -10,8 +10,8 @@ doesn't create a new task.
 %endif
 
 Name:           python-%{srcname}
-Version:        4.0.3
-Release:        2%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        An asyncio-compatible timeout context manager
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Sat Mar 08 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.0.1-1
+- Update to latest upstream release 5.0.1 (closes rhbz#2323243)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

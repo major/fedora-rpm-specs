@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2_image
-Version:        2.8.6
+Version:        2.8.8
 Release:        1%{?dist}
 Summary:        MinGW Windows port of the Image loading library for SDL2
 
@@ -106,6 +106,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 2.8.8-1
+- Update to 2.8.8
+
 * Wed Mar 05 2025 Sandro Mani <manisandro@gmail.com> - 2.8.6-1
 - Update to 2.8.6
 

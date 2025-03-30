@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:		voms
-Version:	2.1.0
-Release:	5%{?dist}
+Version:	2.1.2
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -12,8 +12,6 @@ Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{ve
 Source1:	%{name}.INSTALL
 #		System user creation config
 Source2:	%{name}-sysusers.conf
-#		https://github.com/italiangrid/voms/pull/140
-Patch0:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -106,7 +104,6 @@ This package provides the VOMS service.
 
 %prep
 %setup -q
-%patch -P0 -p1
 
 ./autogen.sh
 
@@ -299,6 +296,10 @@ fi
 %doc README.Fedora
 
 %changelog
+* Thu Mar 27 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.2-1
+- Update to version 2.1.2
+- Drop patch accepted upstream
+
 * Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-5
 - Move user/group creation logic to sysusers.d fragment
 

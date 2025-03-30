@@ -3,7 +3,7 @@
 
 Name:           glm
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
@@ -97,7 +97,7 @@ export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 
 # Some tests are disabled due to failing tests (to be reported)
 # - test-gtc_packing      fails on s390x
-%ctest -- --output-on-failure -E 'test-gtc_packing'
+%ctest --output-on-failure -E 'test-gtc_packing'
 
 %install
 %cmake_install
@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 %doc doc/api/
 
 %changelog
+* Wed Mar 26 2025 Sandro Bonazzola <sbonazzo@redhat.com> - 1.0.1-4
+- Fix building on el10
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

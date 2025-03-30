@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.11
+Version: 43.12
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 28 2025 Packit <hello@packit.dev> - 43.12-1
+- storage: remove EFI and BIOS boot partition requirements for MBR disks
+  (k.koukiou)
+- Limit support for only RAID1 on /boot (jkonecny)
+
 * Wed Mar 26 2025 Packit <hello@packit.dev> - 43.11-1
 - pyanaconda: add support for Mac OS detection (k.koukiou)
 

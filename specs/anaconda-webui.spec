@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        30
+Version:        31
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,12 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Mar 28 2025 Packit <hello@packit.dev> - 31-1
+- cockpit-storage-integration: Prevent crash when deleting an encrypted device
+- language: fix markup to specify lang attribute (rhbz#2355246)
+- mount-point-assignment: support disks as target devices (rhbz#2354044)
+- storage: cockpit-storage: prevent bootloader partitions on MDRAID devices (rhbz#2352953)
+
 * Wed Mar 26 2025 Packit <hello@packit.dev> - 30-1
 - storage: fix parsing of usable devices for manual partitioning
 - Ensure that translations are not requested at file load time (rhbz#2351026)

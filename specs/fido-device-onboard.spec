@@ -3,7 +3,7 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.5.3
+Version:        0.5.4
 Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
@@ -11,7 +11,7 @@ License:        BSD-3-Clause
 URL:            https://github.com/fdo-rs/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
-Patch1:         0001-Revert-chore-use-git-fork-for-aws-nitro-enclaves-cos.patch
+Patch1:         0001-use-released-aws-nitro-enclaves-cose-version.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -312,6 +312,23 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Fri Mar 28 2025 Packit <hello@packit.dev> - 0.5.4-1
+## What's Changed
+ * packit: drop centos propose downstream and jobs by @runcom in https://github.com/fdo-rs/fido-device-onboard-rs/pull/743
+ * fix: packit: bring back pkg_tool centpkg by @runcom in https://github.com/fdo-rs/fido-device-onboard-rs/pull/744
+ * Makefile tarball targets by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/745
+ * chore: describe how to release a new version by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/746
+ * chore: allow libcryptsetup-rs >= 0.11.2 by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/739
+ * chore: bump diesel from 2.2.3 to 2.2.7 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/728
+ * Update to latest version of aws-nitro-enclaves-cose by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/724
+ * chore: bump reqwest from 0.12.7 to 0.12.9 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/751
+ * chore: bump ring from 0.17.8 to 0.17.13 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/754
+ * chore: bump futures from 0.3.30 to 0.3.31 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/753
+ * chore: prepare 0.5.4 release by @nullr0ute in https://github.com/fdo-rs/fido-device-onboard-rs/pull/757
+
+
+ **Full Changelog**: https://github.com/fdo-rs/fido-device-onboard-rs/compare/v0.5.3...v0.5.4
+
 * Fri Feb 07 2025 Packit <hello@packit.dev> - 0.5.3-1
 ## What's Changed
  * chore: update CONTRIBUTING with additional deps by @miabbott in https://github.com/fdo-rs/fido-device-onboard-rs/pull/721

@@ -27,7 +27,6 @@ Patch5:         freeopcua-gcc14-headers.patch
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  mbedtls-devel
 BuildRequires:  spdlog-devel
 
 %description
@@ -37,7 +36,6 @@ A LGPL C++ library to develop server and client OPC-UA applications.
 Summary:    Development files for %{name}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 # The dependencies are not picked up automatically
-Requires:   mbedtls-devel
 Requires:   spdlog-devel
 
 %description  devel
@@ -52,7 +50,7 @@ rm -rf include/opc/spdlog
 
 
 %build
-%cmake -DCMAKE_INSTALL_LIBDIR=%{?_lib}
+%cmake -DCMAKE_INSTALL_LIBDIR=%{?_lib} -DSSL_SUPPORT_MBEDTLS=OFF
 %cmake_build
 
 

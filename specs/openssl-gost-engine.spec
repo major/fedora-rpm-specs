@@ -1,9 +1,9 @@
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/gost-engine/engine
-License: OpenSSL
+License: Apache-2.0
 Summary: A reference implementation of the Russian GOST crypto algorithms for OpenSSL
 
 Source: https://github.com/gost-engine/engine/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -68,6 +68,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Fri Mar 28 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-7
+- Update license to match upstream and switched to SPDX identifier
+
 * Sat Jan 25 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-6
 - Fix dependency on openssl engine
 

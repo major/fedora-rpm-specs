@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.6.0
+Version:       4.6.2
 Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
@@ -110,6 +110,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/speed.exe
 
 %changelog
+* Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 4.6.2-1
+- Update to 4.6.2
+
 * Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 4.6.0-1
 - Update to 4.6.0
 

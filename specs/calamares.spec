@@ -1,6 +1,6 @@
 Name:           calamares
 Version:        3.3.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Fri Mar 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.3.12-4
+- Rebuild for kpmcore 25.03.80
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

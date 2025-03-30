@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        143
+Version:        144
 
 %forgemeta
 
@@ -325,6 +325,27 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 144-1
+Changes with 144
+----------------
+  * Update images dependency ref to latest (#2044)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Update images dependency ref to latest (#2051)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages/coreos.live-artifacts: loosen requirements on modules dir (#2049)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages/rpm: add new kernel_install_env options (HMS-5635) (#2045)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Tomáš Hozza
+  * stages: add insights-client config stage (HMS-5568) (#2030)
+    * Author: rverdile, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * tests/CI: Add rhel 9.7 and 10.1 nightly runners (HMS-5646) (#2046)
+    * Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Michael Vogt
+  * tests/CI: Upgrade rhel 9.4 GA to 9.5 GA (#2031)
+    * Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-03-26
+
+
 * Wed Mar 12 2025 Packit <hello@packit.dev> - 143-1
 Changes with 143
 ----------------

@@ -4,7 +4,7 @@ Version:        2.0.0
 %global prerel  rc8
 %global uver    %{version}%{?prerel}
 %global tag     %{name}-%{uver}
-Release:        0.34.%{prerel}%{?dist}
+Release:        0.35.%{prerel}%{?dist}
 
 Summary:        RepRap printer interface and tools
 # Only AppData is FSFAP
@@ -13,6 +13,11 @@ License:        GPL-3.0-or-later AND FSFAP
 
 URL:            https://github.com/kliment/Printrun
 Source0:        https://github.com/kliment/Printrun/archive/%{tag}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
 
 # Fix a crashes on Python 3.10
 Patch1:         %{url}/pull/1224.patch
@@ -195,6 +200,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 
 %changelog
+* Fri Mar 28 2025 Miro Hrončok <mhroncok@redhat.com> - 1:2.0.0-0.35.rc8
+- Exclude i686 on Fedora 42+
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-0.34.rc8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

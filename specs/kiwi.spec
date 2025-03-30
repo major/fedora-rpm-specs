@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.2.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -513,6 +513,23 @@ done
 %endif
 
 
+%post cli
+if [ -x /usr/sbin/semanage -a -x /usr/sbin/restorecon ]; then
+    # file contexts
+    semanage fcontext --add --type install_exec_t        '%{_bindir}/kiwi'               2> /dev/null || :
+    semanage fcontext --add --type install_exec_t        '%{_bindir}/kiwi-ng(.*)'        2> /dev/null || :
+    restorecon -r %{_bindir}/kiwi %{_bindir}/kiwi-ng* || :
+fi
+
+%postun cli
+if [ $1 -eq 0 ]; then
+    if [ -x /usr/sbin/semanage ]; then
+        # file contexts
+        semanage fcontext --delete --type install_exec_t        '%{_bindir}/kiwi'               2> /dev/null || :
+        semanage fcontext --delete --type install_exec_t        '%{_bindir}/kiwi-ng(.*)'        2> /dev/null || :
+    fi
+fi
+
 %files -n python3-%{name}
 %license LICENSE
 %{_bindir}/kiwi-ng-3*
@@ -596,6 +613,9 @@ done
 
 
 %changelog
+* Fri Mar 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-2
+- Apply install_exec_t SELinux file context to kiwi executables
+
 * Tue Mar 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-1
 - Update to 10.2.16
 

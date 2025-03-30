@@ -1,4 +1,4 @@
-%bcond 	        hip 1
+%bcond 	        hip %{undefined flatpak}
 %bcond          ninja 1
 #%%global	        prerelease beta
 Name:           oidn

@@ -10,6 +10,11 @@ BuildRequires:  gcc
 BuildRequires:  make
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
+
 %description
 ADMesh is a program for diagnosing and/or repairing commonly encountered
 problems with STL (STereo Lithography) data files. It can remove degenerate

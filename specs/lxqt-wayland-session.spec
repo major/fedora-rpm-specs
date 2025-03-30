@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -253,6 +253,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Mar 28 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-13
+- Add LABWC_CONFIG_DIR env variable to labwc session 
+
 * Thu Mar 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-12
 - Refresh miriway session patch with latest version of upstream submission
 

@@ -26,6 +26,11 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(XML::Parser)
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
+
 %description
 gcolor2 is a simple color selector that was originally based on gcolor, 
 ported to use GTK+2, and now has a completely new UI. 

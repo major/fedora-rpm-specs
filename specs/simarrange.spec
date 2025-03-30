@@ -16,6 +16,11 @@ BuildRequires:  argtable-devel
 BuildRequires:  opencv-devel
 BuildRequires:  uthash-devel
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+ExcludeArch:    %{ix86}
+%endif
+
 %description
 Simarrange is a program that simulates collisions between STL meshes in 2D in
 order to generate tightly packed sets of parts. It takes a directory of STL

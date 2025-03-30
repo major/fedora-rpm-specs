@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.24.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -105,6 +105,7 @@ Patch20: 0016-syswrap-generic-Emit-pp_ExeContext-after-the-file-de.patch
 Patch21: 0017-add_hardwired_spec-for-ld-linux-x86-64.so.2-memcmp.patch
 Patch22: 0018-gdbserver_tests-filter-out-new-Missing-rpms-message.patch
 
+Patch50: valgrind-3.24.0-syscall-cancel.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -299,6 +300,8 @@ Valgrind User Manual for details.
 %patch -P20 -p1
 %patch -P21 -p1
 %patch -P22 -p1
+
+%patch -P50 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -538,6 +541,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Fri Mar 28 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-7
+- Add valgrind-3.24.0-syscall-cancel.patch
+
 * Wed Mar 12 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-6
 - More VALGRIND_3_24_BRANCH patches
   0016-syswrap-generic-Emit-pp_ExeContext-after-the-file-de.patch

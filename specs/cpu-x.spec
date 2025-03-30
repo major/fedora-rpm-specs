@@ -8,7 +8,7 @@ Version:        5.2.0
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more
 
-ExclusiveArch:  i686 x86_64
+ExclusiveArch:  i686 x86_64 aarch64
 
 License:        GPL-3.0-or-later
 URL:            https://thetumultuousunicornofdarkness.github.io/CPU-X/
@@ -31,9 +31,9 @@ BuildRequires:  pkgconfig(glfw3) >= 3.3
 BuildRequires:  pkgconfig(gtkmm-3.0) >= 3.12.0
 BuildRequires:  pkgconfig(json-c)
 %if 0%{?flatpak}
-BuildRequires:  libcpuid-static >= 0.6.5
+BuildRequires:  libcpuid-static >= 0.7.0
 %else
-BuildRequires:  pkgconfig(libcpuid) >= 0.6.4  %dnl # Upstream recommends 0.6.5
+BuildRequires:  pkgconfig(libcpuid) >= 0.7.0
 %endif
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)
@@ -82,7 +82,7 @@ Data files for %{name}.
 %prep
 %forgeautosetup -p1
 %if 0%{?flatpak}
-sed -i -e 's|lib/x86_64-linux-gnu|lib64|' src/daemon_client.cpp
+sed -i -e 's#lib/\(aarch64\|x86_64\)-linux-gnu#lib64#' src/daemon/client.cpp
 %endif
 
 

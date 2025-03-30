@@ -113,12 +113,12 @@ sed -i 's|SBINDIR := \$(PREFIX)/sbin|SBINDIR := %_sbindir|' Makefile
 
 %build
 %set_build_flags
-%{make_build} PREFIX=%{_prefix} LIBDIR=%{_libdir} MANDIR=%{_mandir} \
+%{make_build} PREFIX=%{_prefix} LIBDIR=%{_libdir} MANDIR=%{_mandir} ETCDIR=%{_sysconfdir} \
   EXLDFLAGS="$LDFLAGS" PROG_EXTRA=sensord BUILD_STATIC_LIB=0 user
 
 
 %install
-make PREFIX=%{_prefix} LIBDIR=%{_libdir} MANDIR=%{_mandir} PROG_EXTRA=sensord \
+make PREFIX=%{_prefix} LIBDIR=%{_libdir} MANDIR=%{_mandir} ETCDIR=%{_sysconfdir} PROG_EXTRA=sensord \
   DESTDIR=$RPM_BUILD_ROOT BUILD_STATIC_LIB=0 user_install
 
 ln -s sensors.conf.5.gz $RPM_BUILD_ROOT%{_mandir}/man5/sensors3.conf.5.gz

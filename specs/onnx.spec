@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -71,7 +71,7 @@ sed -r \
     -i pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t requirements-reference.txt
+%pyproject_buildrequires requirements-reference.txt
 
 %build
 %cmake \
@@ -122,6 +122,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Fri Mar 28 2025 Miro Hrončok <mhroncok@redhat.com> - 1.17.0-4
+- Don't needlessly try to generate test requirements by tox
+- Fixes: rhbz#2354087
+
 * Sat Jan 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.17.0-3
 - Drop i686 support (leaf package on that architecture)
 

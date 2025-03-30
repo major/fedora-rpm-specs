@@ -159,7 +159,9 @@ popd
 %endif
 
 %files devel
+%if %{with ffmpeg}
 %{_qt6_headerdir}/QtFFmpegMediaPluginImpl/
+%endif
 %{_qt6_headerdir}/QtGstreamerMediaPluginImpl/
 %{_qt6_headerdir}/QtMultimedia/
 %{_qt6_headerdir}/QtMultimediaTestLib/
@@ -168,8 +170,10 @@ popd
 %{_qt6_headerdir}/QtSpatialAudio/
 %{_qt6_headerdir}/QtQuick3DSpatialAudio/
 %{_qt6_libdir}/libQt6BundledResonanceAudio.a
+%if %{with ffmpeg}
 %{_qt6_libdir}/libQt6FFmpegMediaPluginImpl.a
 %{_qt6_libdir}/libQt6FFmpegMediaPluginImpl.prl
+%endif
 %{_qt6_libdir}/libQt6GstreamerMediaPluginImpl.a
 %{_qt6_libdir}/libQt6GstreamerMediaPluginImpl.prl
 %{_qt6_libdir}/libQt6Multimedia.so
@@ -186,7 +190,9 @@ popd
 %{_qt6_libdir}/libQt6Quick3DSpatialAudio.prl
 %dir  %{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate
 %dir %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/
+%if %{with ffmpeg}
 %dir %{_qt6_libdir}/cmake/Qt6FFmpegMediaPluginImplPrivate
+%endif
 %dir %{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Multimedia
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaPrivate
@@ -200,7 +206,9 @@ popd
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/*.cmake
+%if %{with ffmpeg}
 %{_qt6_libdir}/cmake/Qt6FFmpegMediaPluginImplPrivate/*.cmake
+%endif
 %{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Multimedia/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaPrivate/*.cmake

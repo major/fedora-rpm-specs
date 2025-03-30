@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate gufo-common
+%global crate per-thread-mutex
 
-Name:           rust-gufo-common0.1
-Version:        0.1.3
-Release:        %autorelease
-Summary:        Common features used in gufo crates
+Name:           rust-per-thread-mutex
+Version:        0.1.4
+Release:        1%{?dist}
+Summary:        Synchronization lock designed for wrapping thread-unsafe C libraries
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/gufo-common
+License:        MPL-2.0
+URL:            https://crates.io/crates/per-thread-mutex
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Common features used in gufo crates.}
+Synchronization lock designed for wrapping thread-unsafe C libraries.}
 
 %description %{_description}
 
@@ -31,8 +31,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -78,4 +66,5 @@ use the "serde" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-%autochangelog
+* Tue Mar 25 2025 Chung Chung <cchung@redhat.com> - 0.1.4-1
+- Initial package

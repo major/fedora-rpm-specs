@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -52,6 +52,9 @@ Patch7: %{name}-3.1.1-fix_bug2223.patch
 Patch8: %{name}-3.1.1-fix_bug2217.patch
 Patch9: %{name}-3.1.1-bug2378.patch
 Patch10: %{name}-3.1.1-bug2493.patch
+
+# (temporarily) disable some tests on: riscv64
+Patch11: %{name}-disable-tests-riscv64.patch
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -178,6 +181,9 @@ Ruby wrapper for the Open Babel library.
 %patch -P 8 -p1 -b .backup
 %patch -P 9 -p1 -b .backup
 %patch -P 10 -p1 -b .backup
+%ifarch riscv64
+%patch -P 11 -p1 -b .riscv64
+%endif
 
 %if 0%{?fedora}
 rm -rf src/formats/libinchi
@@ -269,7 +275,7 @@ rm -f %{_vpath_builddir}/%{_lib}/openbabel.so
 export CTEST_OUTPUT_ON_FAILURE=1
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # See https://github.com/openbabel/openbabel/issues/2138, https://github.com/openbabel/openbabel/issues/2766
-%ifarch aarch64 %{arm} %{power64} s390x x86_64
+%ifarch aarch64 %{arm} %{power64} s390x x86_64 riscv64
 %ctest --test-dir %{_vpath_builddir} -VV -E 'pybindtest_bindings|pybindtest_obconv_writers|test_align_4|test_align_5'
 %else
 %ctest
@@ -329,6 +335,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Fri Mar 21 2025 Kristina Hanicova <khanicov@redhat.com> - 3.1.1-33
+- Fix tests for riscv64 (Thanks: David Abdurachmanov <davidlt@rivosinc.com>)
+
 * Tue Jan 21 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-32
 - Exclude failed test_align_ with GCC15
 

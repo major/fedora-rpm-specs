@@ -1,6 +1,6 @@
 Name:           rpm-spec-language-server
 Version:        0.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Language Server for RPM spec files
 
 License:        GPL-2.0-or-later
@@ -9,16 +9,9 @@ Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-poetry-core
-BuildRequires:  python3-pygls
 
 # Test dependencies
-BuildRequires:  ruff
-BuildRequires:  twine
 BuildRequires:  python3-pytest
-BuildRequires:  python3-mypy
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-coverage
 BuildRequires:  python3-typeguard
 
 
@@ -37,7 +30,7 @@ Supported LSP endpoints:
 %autosetup
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -61,6 +54,9 @@ Supported LSP endpoints:
 
 
 %changelog
+* Mon Feb 03 2025 Miro Hrončok <mhroncok@redhat.com> - 0.0.1-5
+- Remove unused and duplicated BuildRequires
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

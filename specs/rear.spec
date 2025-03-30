@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -60,10 +60,15 @@ ExclusiveArch: %ix86 x86_64 ppc ppc64 ppc64le ia64 s390x
 Requires: syslinux-extlinux
 %endif
 %ifarch ppc ppc64 ppc64le
-# Called by grub2-install (except on PowerNV)
+# ofpathname called by grub2-install (except on PowerNV)
+# bootlist needed to make PowerVM LPARs bootable
+%if "%{_sbindir}" == "%{_bindir}"
+Requires:   /usr/bin/ofpathname
+Requires:   /usr/bin/bootlist
+%else
 Requires:   /usr/sbin/ofpathname
-# Needed to make PowerVM LPARs bootable
 Requires:   /usr/sbin/bootlist
+%endif
 %endif
 %ifarch s390x
 # Contain many utilities for working with DASDs
@@ -167,6 +172,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Fri Mar 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.9-3
+- Update ppc64le dependencies for bin-sbin merge
+
 * Wed Feb 05 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-2
 - require syslinux-extlinux which is necessary for USB devices bootable on
   legacy BIOS
