@@ -2,7 +2,7 @@
 
 Name:       python-cssmin
 Version:    0.2.0
-Release:    36%{?dist}
+Release:    37%{?dist}
 Summary:    A Python port of the YUI CSS compression algorithm
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -24,8 +24,7 @@ merging and compressing CSS files.
 Summary: %{summary}
 Requires:   python3-setuptools
 
-%description -n python3-%{pypi_name}
-%{description}
+%description -n python3-%{pypi_name} %_description
 
 This is the version for Python 3.x.
 
@@ -62,6 +61,9 @@ cd src && \
 %{_bindir}/*
 
 %changelog
+* Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.2.0-37
+- Fix description for python3-cssmin
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.3.2
+Version:        5.3.3
 Release:        %autorelease
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        BSD-3-Clause

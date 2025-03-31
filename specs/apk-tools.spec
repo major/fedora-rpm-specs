@@ -1,33 +1,42 @@
-%global somajor 2
+%global basever 3.0.0
+%global prerel rc4
+%global commit 3abcd400bdbfc61a2f53f7cf7b240130169154b2
+%global shortcommit %{sub %{commit} 1 7}
+%global snapdate 20250324
+
+%global somajor 3.0
 
 %global luaver 5.4
-
-%global makeopts SBINDIR=%{_sbindir} \\\
-     LIBDIR=%{_libdir} \\\
-     DOCDIR=%{_docdir}/apk-tools \\\
-     PKGCONFIGDIR=%{_libdir}/pkgconfig \\\
-     LUA=lua LUA_VERSION=%{luaver} LUA_PC=lua LUA_LIBDIR=%{_libdir}/lua/%{luaver} \\\
-     %{nil}
 
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 %global optflags %optflags -DOPENSSL_NO_ENGINE
 
 Name:           apk-tools
-Version:        2.14.1
-Release:        4%{?dist}
+Version:        %{basever}%{?prerel:~%{prerel}}%{?snapdate:^git%{snapdate}.%{shortcommit}}
+Release:        1%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
 License:        GPL-2.0-only
 URL:            https://gitlab.alpinelinux.org/alpine/apk-tools
-Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+%dnl Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
 
-BuildRequires:  make
+# From: https://gitlab.alpinelinux.org/alpine/apk-tools/-/merge_requests/302
+## Fix how meson builds and installs the Python module
+Patch0001:      0001-meson-Build-Python-module-using-standard-Meson-pytho.patch
+## Fix how meson finds Lua
+Patch0002:      0001-meson-Allow-overriding-the-names-of-the-Lua-binary-a.patch
+
 BuildRequires:  gcc
+BuildRequires:  git-core
 BuildRequires:  lua-zlib
+BuildRequires:  meson
+BuildRequires:  pkgconfig(cmocka)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(lua)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  pkgconfig(zlib)
 
@@ -53,6 +62,21 @@ package management solution made for Alpine Linux.
 
 %dnl --------------------------------------------------------------------
 
+%package -n python3-apk
+Summary:        Python 3 module for the Alpine Package Keeper
+Requires:       libapk%{?_isa} = %{version}-%{release}
+
+%description -n python3-apk
+The python3-apk package contains a Python 3 module to interface with the
+Alpine Package Keeper system.
+
+
+%files -n python3-apk
+%license LICENSE
+%{python3_sitearch}/apk*.so
+
+%dnl --------------------------------------------------------------------
+
 %package -n lua-apk
 Summary:        Lua module for the Alpine Package Keeper
 Requires:       libapk%{?_isa} = %{version}-%{release}
@@ -64,7 +88,7 @@ Package Keeper system.
 
 %files -n lua-apk
 %license LICENSE
-%{_libdir}/lua/*/apk.so
+%{_libdir}/lua/%{luaver}/apk.so
 
 %dnl --------------------------------------------------------------------
 
@@ -103,16 +127,20 @@ developing applications that use libapk.
 %dnl --------------------------------------------------------------------
 
 %prep
-%autosetup -n %{name}-v%{version}
+%dnl %autosetup -n %{name}-v%{version} -S git_am
+%autosetup -n %{name}-%{commit} -S git_am
+
+
+%conf
+%meson -Dlua_version="%{luaver}" -Dlua_bin="lua" -Dlua_pc="lua"
 
 
 %build
-%set_build_flags
-%make_build %{makeopts}
+%meson_build
 
 
 %install
-%make_install %{makeopts}
+%meson_install
 
 # Delete static archives
 find %{buildroot} -name '*.a' -exec rm -f {} ';'
@@ -129,10 +157,13 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %check
-%make_build %{makeopts} check
+%meson_test
 
 
 %changelog
+* Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc4^git20250324.3abcd40-1
+- Update to post-release git snapshot on 3.0.0~rc4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

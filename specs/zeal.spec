@@ -11,12 +11,7 @@ URL:            https://zealdocs.org/
 Source:         https://github.com/zealdocs/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-apply-websettings.patch
 
-# We should use %%qt6_qtwebengine_arches provided by qt6-srpm-macros
-# but one of our dependency qt6-qtwebengine is available only
-# for aarch64 and x86_64.
-# BZ for the macro: https://bugzilla.redhat.com/show_bug.cgi?id=2215703
-# Ticket about the arch supoort: https://bugreports.qt.io/browse/QTBUG-102143
-ExclusiveArch:  aarch64 x86_64
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  cmake(Qt6Core) >= 6.2.0
 BuildRequires:  cmake(Qt6Gui)

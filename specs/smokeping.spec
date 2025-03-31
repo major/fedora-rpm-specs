@@ -1,7 +1,7 @@
 Summary:          Latency Logging and Graphing System
 Name:             smokeping
 Version:          2.9.0
-Release:          12%{?dist}
+Release:          13%{?dist}
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:              https://oss.oetiker.ch/smokeping/
 Source0:          https://oss.oetiker.ch/smokeping/pub/smokeping-%{version}.tar.gz
@@ -12,6 +12,7 @@ Source4:          http://oss.oetiker.ch/smokeping-demo/img/rrdtool.png
 Source5:          smokeping-tmpfs.conf
 Source6:          smokeping-fix-ownership
 Source7:          README.fedora
+Source8:          smokeping.sysusers.conf
 Patch0:           smokeping-2.9.0-paths.patch
 Patch1:           smokeping-2.9.0-config.patch
 Patch2:           smokeping-2.6.7-silence.patch
@@ -73,7 +74,9 @@ Requires:         perl-interpreter >= 5.6.1
 Requires:         rrdtool >= 1.0.33
 Requires:         traceroute
 Requires(pre):    httpd
+%if 0%{?rhel} || 0%{?fedora} < 43
 Requires(pre):    shadow-utils
+%endif
 BuildArch:        noarch
 %global __provides_exclude_from %{_datadir}/%{name}/
 %global __requires_exclude ^perl\\((Authen::.*|Net::OpenSSH|Smokeping)
@@ -124,11 +127,17 @@ mv %{buildroot}%{_bindir}/smokeping_cgi %{buildroot}%{_datadir}/smokeping/cgi
 ln -s smokeping_cgi %{buildroot}%{_datadir}/smokeping/cgi/smokeping.fcgi
 rm -f %{buildroot}%{_datadir}/smokeping/htdocs/smokeping.fcgi.dist
 
+%if 0%{?fedora} > 42
+install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/smokeping.conf
+%endif
+
+%if 0%{?rhel} || 0%{?fedora} < 43
 %pre
 getent passwd smokeping >/dev/null || \
     useradd -r -g apache -d /var/lib/smokeping -s /sbin/nologin \
     -c "Smokeping" smokeping
 exit 0
+%endif
 
 %post
 %systemd_post smokeping.service
@@ -156,6 +165,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/smokeping/tmail
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/smokeping.conf
 %{_tmpfilesdir}/smokeping.conf
+%if 0%{?fedora} > 42
+%{_sysusersdir}/smokeping.conf
+%endif
 %{_datadir}/smokeping
 %dir %{_localstatedir}/lib/smokeping
 %attr(0755, smokeping, apache) %{_localstatedir}/lib/smokeping/rrd
@@ -169,6 +181,9 @@ exit 0
 %{_mandir}/man7/smokeping_*.7*
 
 %changelog
+* Sat Mar 29 2025 Terje Rosten <terjeros@gmail.com> - 2.9.0-13
+- Use sysusers for fc43+
+
 * Sun Mar 02 2025 Terje Rosten <terjeros@gmail.com> - 2.9.0-12
 - Fix epel build
 

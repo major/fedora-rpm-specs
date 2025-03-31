@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.7.0-rc2
-%global commit0 b1940b5867e40e40ebdce4db76f76d3d0b71d3f4
+# v2.7.0-rc3
+%global commit0 b04d8358d959925bee0adfd67cc17987af9fbb9d
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250413
+%global date0 20250326
 %global pypi_version 2.7.0
 %global flatbuffers_version 23.3.3
 %global miniz_version 3.0.2
@@ -104,6 +104,13 @@ Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
 # Patches need to be refactored for ToT
 # These are ROCm packages
 Patch101:      0001-cuda-hip-signatures.patch
+%else
+# https://github.com/pytorch/pytorch/issues/150187
+# The hack job
+# Patch11:       0001-python-torch-disable-ck.patch
+# Cleaned up hack job
+Patch11:       0001-Add-cmake-varaible-USE_ROCM_CK.patch
+
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -159,6 +166,9 @@ BuildRequires:  python3dist(sympy)
 %endif
 
 %if %{with rocm}
+%if %{with gitcommit}
+BuildRequires:  composable_kernel-devel
+%endif
 BuildRequires:  hipblas-devel
 BuildRequires:  hipblaslt-devel
 BuildRequires:  hipcub-devel
@@ -330,6 +340,8 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-pass
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unused-command-line-argument@' cmake/Dependencies.cmake
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unused-result@' cmake/Dependencies.cmake
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-deprecated-declarations@' cmake/Dependencies.cmake
+# Use parallel jobs
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel-jobs=4@' cmake/Dependencies.cmake
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt
@@ -447,6 +459,9 @@ sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable
 %if %{with gitcommit}
 # https://github.com/pytorch/pytorch/issues/149805
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' cmake/public/LoadHIP.cmake
+# Fedora installs to /usr/include, not /usr/include/rocm-core
+sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable/Tunable.cpp
+sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/cuda/tunable/Tunable.cpp
 %endif
 # use any hip, correct CMAKE_MODULE_PATH
 sed -i -e 's@lib/cmake/hip@lib64/cmake/hip@' cmake/public/LoadHIP.cmake
@@ -574,6 +589,7 @@ export BUILD_TEST=ON
 %if %{with rocm}
 
 export USE_ROCM=ON
+export USE_ROCM_CK=OFF
 export USE_MAGMA=ON
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
@@ -595,6 +611,7 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
 %if %{with rocm}
 export USE_ROCM=ON
+export USE_ROCM_CK=OFF
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
 RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
@@ -620,8 +637,10 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.md 
+%if %{without gitcommit}
 %{_bindir}/convert-caffe2-to-onnx
 %{_bindir}/convert-onnx-to-caffe2
+%endif
 %{_bindir}/torchrun
 %{_bindir}/torchfrtrace
 %{python3_sitearch}/%{pypi_name}

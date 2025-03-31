@@ -41,6 +41,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING.LIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/src/cairo_path.rs~
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

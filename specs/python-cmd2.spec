@@ -1,13 +1,14 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          2.5.8
-Release:          1%{?dist}
+Version:          2.5.11
+Release:          2%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
 URL:              https://pypi.python.org/pypi/cmd2
 Source0:          %{pypi_source}
+Patch0:           python-cmd2-2.5.11-disable-cov-tests.patch
 BuildArch:        noarch
 
 %global _description\
@@ -39,10 +40,14 @@ See docs at http://packages.python.org/cmd2/
 %package -n python3-cmd2
 Summary:          %{summary}
 BuildRequires:    python3-devel
+BuildRequires:    python3-pytest
+BuildRequires:    python3-pytest-mock
+# An editor is needed for tests; vim works too
+BuildRequires:    nano
 Requires:         /usr/bin/which
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %description -n python3-%{pypi_name} %_description
 
@@ -58,13 +63,20 @@ Requires:         /usr/bin/which
 %pyproject_save_files -l cmd2
 
 %check
-%tox
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGELOG.md README.md docs
 
 %changelog
+* Sat Mar 29 2025 Miro Hrončok <mhroncok@redhat.com> - 2.5.11-2
+- Enable all tests
+
+* Sat Mar 29 2025 Kevin Fenzi <kevin@scrye.com> - 2.5.11-1
+- Update to 2.5.11. Fixes rhbz#2342086
+- Fix FTBFS issue with tox. Fixes rhbz#2354096
+
 * Mon Jan 20 2025 Joel Capitao <jcapitao@redhat.com> - 2.5.8-1
 - Update to 2.5.8. Fixes rhbz#2323520
 

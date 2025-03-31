@@ -1,9 +1,9 @@
 %global srcname aw-qt
-%global commit 43864b2f7ec3b71d5b181eafb47b4ded6c197b8f
+%global commit 6ab7e3f13934b80a92e596452bea9de766c5446e
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        0^20240903.%{short_commit}
+Version:        0^20250329.%{short_commit}
 Release:        %autorelease
 Summary:        Service manager and tray icon managing aw-server and watchers, built with Qt
 
@@ -12,12 +12,14 @@ URL:            https://github.com/ActivityWatch/aw-qt
 Source0:        %{url}/archive/%{commit}/%{srcname}-%{short_commit}.tar.gz
 Source1:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo.png
 Source2:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo-128.png
+Patch:          0001-Avoid-FTBFS-on-upcoming-Fedora.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  help2man
 BuildRequires:  desktop-file-utils
 BuildRequires:  hicolor-icon-theme
+Requires:       python3dist(pyqt6-base)
 
 %global _description %{expand:
 A service manager and tray icon managing aw-server and watchers, built with Qt.}

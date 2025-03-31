@@ -1,46 +1,24 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
-%global commit d35c3bee434900deedd610b7b08a9bd8504e4c41
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210424
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 36
+%global baserelease 1
 
 Name:		lincity-ng
-Version:	2.9
-Release:	0.%{baserelease}.%{commitdate}git%{shortcommit}%{?dist}
+Version:	2.13.1
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Summary:	City Simulation Game
 URL:		http://lincity-ng.berlios.de/
-Source0:	https://github.com/lincity-ng/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-# use PHYSFS_getLastErrorCode() and PHYSFS_getErrorByCode instead of deprecated
-# PHYSFS_getLastError()
-Patch0:		lincity-ng-PHYSFS-use-getErrorByCode.patch
-# use PHYSFS_readBytes and PHYSFS_writeBytes instead of
-# deprecated PHYSFS_read and PHYSFS_write
-Patch1:		lincity-ng-PHYSFS-readwriteBytes.patch
-# use PHYSFS_getPrefDir instead of
-# deprecated PHYSFS_getUserDir
-Patch2:		lincity-ng-PHYSFS-getPrefDir.patch
-# use PHYSFS_stat instead of
-# deprecated PHYSFS_isDirectory
-Patch3:         lincity-ng-PHYSFS-stat.patch
-# use PHYSFS_stat instead of
-# deprecated PHYSFS_getLastModTime
-Patch4:		lincity-ng-PHYSFS-remove-getLastModTime.patch
-# use PHYSFS_mount instead of
-# deprecated PHYSFS_addToSearchPath
-Patch5:		lincity-ng-PHYSFS-remove-addToSearchPath.patch
-Patch6: lincity-ng-configure-c99.patch
-
-BuildRequires:  gcc-c++
-BuildRequires:	jam, physfs-devel, zlib-devel, libxml2-devel
+Source0:	https://github.com/lincity-ng/lincity-ng/releases/download/lincity-ng-%{version}/lincity-ng-%{version}-Source.tar.xz
+Patch0:		lincity-ng-2.13.1-manfix.patch
+BuildRequires:	gcc-c++
+BuildRequires:	cmake, physfs-devel, zlib-devel, zlib-static, libxml2-devel, libxml++50-devel, xz-devel
+BuildRequires:	libxslt-devel
 BuildRequires:	SDL2-devel, SDL2_mixer-devel, SDL2_image-devel, SDL2_gfx-devel
 BuildRequires:	SDL2_ttf-devel, desktop-file-utils
 BuildRequires:	xorg-x11-proto-devel, libX11-devel, mesa-libGL-devel, mesa-libGLU-devel
-BuildRequires:	autoconf, automake, libtool
 BuildRequires:	fontconfig %{fonts} dejavu-sans-fonts
 Requires:	%{name}-data = %{version}-%{release}
 
@@ -52,7 +30,7 @@ a new iso-3D graphics engine and a completely redone and modern GUI.
 %package data
 Summary:	Data files needed to run lincity-ng
 # data bits are dual licensed GPLv2+ or CC-BY-SA
-License:	GPLv2+ or CC-BY-SA
+License:	GPL-2.0-or-later OR CC-BY-SA
 Requires:	%{name} = %{version}-%{release}
 Requires:	dejavu-sans-fonts
 BuildArch: noarch
@@ -62,19 +40,15 @@ This package contains the data files (graphics, models, audio) necessary to
 play Lincity-NG.
 
 %prep
-%autosetup -n %{name}-%{commit} -p 1
-sed -i "s|CFLAGS += -O3 -g -Wall|CFLAGS += $RPM_OPT_FLAGS|" Jamrules
-sed -i "s|CXXFLAGS += -O3 -g -Wall|CXXFLAGS += $RPM_OPT_FLAGS|" Jamrules
-sed -i 's|lincity-ng.png|lincity-ng|g' lincity-ng.desktop
+%setup -q -n %{name}-%{version}-Source
+%patch -P0 -p1 -b .manfix
 
 %build
-./autogen.sh
-touch CREDITS
-%configure
-jam
+%cmake -DCMAKE_BUILD_TYPE=Release
+%cmake_build
 
 %install
-DESTDIR=$RPM_BUILD_ROOT jam -sappdocdir=%{_pkgdocdir} install
+%cmake_install
 
 # Make a symlink to system font, rather than include a copy of DejaVu Sans
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/fonts/sans.ttf
@@ -128,14 +102,18 @@ EOF
 %files
 %doc %{_pkgdocdir}
 %{_bindir}/lincity-ng
-%{_datadir}/pixmaps/*
 %{_datadir}/appdata/*.appdata.xml
 %{_datadir}/applications/*lincity-ng.desktop
+%{_datadir}/icons/hicolor/*/apps/lincity-ng.png
+%{_mandir}/man6/lincity-ng.*
 
 %files data
 %{_datadir}/lincity-ng/
 
 %changelog
+* Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.13.1-1
+- update to 2.13.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-0.36.20210424gitd35c3be
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

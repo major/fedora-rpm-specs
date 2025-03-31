@@ -5,36 +5,36 @@
 Summary:       Graphics Layout Engine
 Name:          gle
 Version:       4.2.5
-Release:       28%{?dist}
+Release:       29%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gle-graphics.org/
 Source0:       http://downloads.sourceforge.net/glx/gle-graphics-%{version}f-src.tar.gz
 Source1:       http://downloads.sourceforge.net/glx/GLEusersguide.pdf
 # https://sourceforge.net/p/glx/mailman/glx-devel/?viewmonth=201708
-Patch0:        gle-4.2.5-gcc7.patch
-
-BuildRequires: gcc-c++
+Patch:         gle-4.2.5-gcc7.patch
+Patch:         gle-gcc15-complex.patch
 BuildRequires: cairo-devel
-BuildRequires: libstdc++-devel >= 3.0
-BuildRequires: libpng-devel
-BuildRequires: libtiff-devel
-BuildRequires: libjpeg-devel
-BuildRequires: ncurses-devel
-BuildRequires: poppler-glib-devel
-BuildRequires: zlib-devel
-BuildRequires: xorg-x11-proto-devel
+BuildRequires: dos2unix
+BuildRequires: gcc-c++
+BuildRequires: ghostscript
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
+BuildRequires: libjpeg-devel
+BuildRequires: libpng-devel
+BuildRequires: libstdc++-devel >= 3.0
+BuildRequires: libtiff-devel
+BuildRequires: make
 BuildRequires: mesa-libGL-devel
 BuildRequires: mesa-libGLU-devel
+BuildRequires: ncurses-devel
+BuildRequires: poppler-glib-devel
 BuildRequires: qt-devel >= 4.1.1
-BuildRequires: dos2unix
 BuildRequires: tex(latex)
 BuildRequires: tex(rotating.sty)
 BuildRequires: tex(supertabular.sty)
-BuildRequires: ghostscript
-BuildRequires: make
+BuildRequires: xorg-x11-proto-devel
+BuildRequires: zlib-devel
 Requires:      ghostscript
 Requires:      tex(latex)
 Requires:      tex(rotating.sty)
@@ -136,6 +136,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/gle-graphics.pc
 %doc gle-manual.pdf GLEusersguide.pdf
 
 %changelog
+* Sat Mar 29 2025 Terje Rosten <terjeros@gmail.com> - 4.2.5-29
+- Fix build
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

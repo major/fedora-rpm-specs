@@ -5,8 +5,8 @@
 %global app_id org.gnome.Shell.Extensions.GSConnect
 
 Name:           gnome-shell-extension-gsconnect
-Version:        58
-Release:        2%{?dist}
+Version:        62
+Release:        1%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
 License:        GPL-2.0-or-later
@@ -36,8 +36,7 @@ Requires:       openssl
 Requires:       /usr/bin/ffmpeg
 Requires(post): firewalld-filesystem
 Recommends:     evolution-data-server
-Recommends:     gsound
-Recommends:     libcanberra-gtk3
+Recommends:     (gsound or libcanberra-gtk3)
 Suggests:       (nautilus-gsconnect = %{version}-%{release} if nautilus)
 Suggests:       (nemo-gsconnect = %{version}-%{release} if nemo)
 Suggests:       webextension-gsconnect = %{version}-%{release}
@@ -158,6 +157,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Mar 30 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 62-1
+- Update to 62
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 58-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

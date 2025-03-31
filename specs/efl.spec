@@ -13,8 +13,8 @@
 %bcond avif 1
 
 Name:		efl
-Version:	1.28.0
-Release:	2%{?dist}
+Version:	1.28.1
+Release:	1%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -548,6 +548,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 1.28.1-1
+- update to 1.28.1
+
 * Fri Feb 14 2025 Tom Callaway <spot@fedoraproject.org> - 1.28.0-2
 - rebuild for poppler
 

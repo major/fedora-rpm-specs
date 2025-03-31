@@ -1,5 +1,5 @@
 Name:           Zim
-Version:        0.76.1
+Version:        0.76.3
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 

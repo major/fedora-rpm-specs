@@ -1,8 +1,8 @@
 %global use_wayland 1
 
 Name:		enlightenment
-Version:	0.26.0
-Release:	4%{?dist}
+Version:	0.27.1
+Release:	1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Summary:	Enlightenment window manager
@@ -15,7 +15,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	dbus-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
-BuildRequires:	efl-devel >= 1.26.0
+BuildRequires:	efl-devel >= 1.28.0
 %if %{use_wayland}
 BuildRequires:	wayland-protocols-devel
 BuildRequires:	wayland-devel
@@ -116,7 +116,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 %files data -f %{name}.lang
 %if %{use_wayland}
-%{_datadir}/wayland-sessions/enlightenment.desktop
+%{_datadir}/wayland-sessions/enlightenment-wayland.desktop
 %endif
 %{_datadir}/xsessions/enlightenment.desktop
 %{_datadir}/enlightenment
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/enlightenment
 
 %changelog
+* Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 0.27.1-1
+- update to 0.27.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

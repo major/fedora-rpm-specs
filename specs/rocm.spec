@@ -1,6 +1,6 @@
 Name:           rocm
 Version:        6.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -71,6 +71,7 @@ Requires: rocm-clang-devel
 Requires: rocm-cmake
 Requires: rocm-compilersupport-macros
 Requires: rocm-core-devel
+Requires: rocm-examples
 Requires: rocm-hip-devel
 Requires: rocm-omp-static
 Requires: rocm-opencl-devel
@@ -111,6 +112,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Sat Mar 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-3
+- Add rocm-examples
+
 * Fri Mar 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-2
 - Add rocal
 - Move hipify to devel

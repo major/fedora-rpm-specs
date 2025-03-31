@@ -1,9 +1,11 @@
+# gtk2 deps aren't C23 clean, can't build here with that until they are (if they ever are)
+%global optflags %{optflags} -std=gnu17
+
 Summary:	Model to synchronize multiple instances over DBus
 Name:		dee
 Version:	1.2.7
-Release:	57%{?dist}
+Release:	58%{?dist}
 # GPLv3-licensed tests and examples are in the tarball, but not installed
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:	LGPL-3.0-only
 URL:		https://launchpad.net/dee
 Source0:	http://launchpad.net/dee/1.0/%{version}/+download/%{name}-%{version}.tar.gz
@@ -81,6 +83,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_datadir}/vala/vapi/*.deps
 
 %changelog
+* Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 1.2.7-58
+- fix FTBFS (gtk2 stack is not C23 clean, use -std=gnu17 here)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

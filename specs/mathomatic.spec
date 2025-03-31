@@ -1,7 +1,7 @@
 Summary:       Small, portable symbolic math program
 Name:          mathomatic
 Version:       16.0.5
-Release:       33%{?dist}
+Release:       34%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2
 URL:           http://www.mathomatic.org/math/
@@ -11,11 +11,11 @@ Source1:       http://mathomatic.orgserve.de/math/png/mathomatic192x195.png
 Patch0:        mathomatic-16.0.5-libedit.patch
 Patch1:        mathomatic-16.0.5-py3.patch
 Patch2:        mathomatic-16.0.5-shebang.patch
-BuildRequires: make
+BuildRequires: ImageMagick
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: libedit-devel
-BuildRequires: ImageMagick
+BuildRequires: make
 # for make test
 BuildRequires: time
 Requires:      m4
@@ -41,10 +41,11 @@ This package contains small math tools from mathomatic to
 %autosetup -p1
 
 %build
-make %{?_smp_mflags} OPTFLAGS="%{optflags}" EDITLINE=1 prefix=%{_prefix} 
+export CFLAGS="%{optflags} -std=gnu17"
+make %{?_smp_mflags} EDITLINE=1 prefix=%{_prefix}
 #make pdf
 pushd primes
-make %{?_smp_mflags} prefix=%{_prefix} CFLAGS="%{optflags}"
+make %{?_smp_mflags} prefix=%{_prefix}
 
 %install
 make m4install-degrees DESTDIR=%{buildroot} prefix=%{_prefix}
@@ -94,6 +95,9 @@ make test
 %{_mandir}/man1/primorial.1*
 
 %changelog
+* Tue Mar 18 2025 Terje Rosten <terjeros@gmail.com> - 16.0.5-34
+- Fix build with GCC 15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

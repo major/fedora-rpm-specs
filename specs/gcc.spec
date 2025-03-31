@@ -1,5 +1,5 @@
-%global DATE 20250313
-%global gitrev 4fe62f20633b8e1bf4d776d7f4644ce485efd0b2
+%global DATE 20250329
+%global gitrev 3d14ac28b1c0233636b21171759b471b39ecee35
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -37,6 +37,7 @@
 %global build_go 0
 %global build_d 0
 %global build_m2 0
+%global build_cobol 0
 %else
 %ifarch %{ix86} x86_64 ia64 ppc %{power64} alpha s390x %{arm} aarch64 riscv64
 %global build_ada 1
@@ -58,6 +59,11 @@
 %global build_m2 1
 %else
 %global build_m2 0
+%endif
+%ifarch x86_64 aarch64
+%global build_cobol 1
+%else
+%global build_cobol 0
 %endif
 %endif
 %ifarch %{ix86} x86_64 ia64 ppc64le
@@ -143,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.10%{?dist}
+Release: %{gcc_release}.11%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -299,6 +305,9 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
+Patch13: gcc15-pr119291-1.patch
+Patch14: gcc15-pr119291-2.patch
+Patch15: gcc15-pr119327.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -546,6 +555,32 @@ Requires: gcc-gm2 = %{version}-%{release}
 
 %description -n libgm2-static
 This package contains static Modula-2 libraries.
+
+%package gcobol
+Summary: COBOL support
+Requires: gcc = %{version}-%{release}
+Requires: libgcobol = %{version}-%{release}
+Autoreq: true
+
+%description gcobol
+The gcc-gcobol package provides support for compiling COBOL
+programs with the GNU Compiler Collection.
+
+%package -n libgcobol
+Summary: COBOL runtime
+Autoreq: true
+
+%description -n libgcobol
+This package contains COBOL shared libraries which are needed to run
+COBOL dynamically linked programs.
+
+%package -n libgcobol-static
+Summary: Static COBOL libraries
+Requires: libgcobol = %{version}-%{release}
+Requires: gcc-gcobol = %{version}-%{release}
+
+%description -n libgcobol-static
+This package contains static COBOL libraries.
 
 %package -n libgomp
 Summary: GCC OpenMP v4.5 shared support library
@@ -1090,6 +1125,8 @@ enablelgo=
 enablelada=
 enablelobjc=
 enableld=
+enablelm2=
+enablelcob=
 %if %{build_objc}
 enablelobjc=,objc,obj-c++
 %endif
@@ -1104,6 +1141,9 @@ enableld=,d
 %endif
 %if %{build_m2}
 enablelm2=,m2
+%endif
+%if %{build_cobol}
+enablelcob=,cobol
 %endif
 offloadtgts=
 %if %{build_offload_nvptx}
@@ -1283,7 +1323,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 		  | sed 's/ -Wformat-security / -Wformat -Wformat-security /'`" \
 	XCFLAGS="$OPT_FLAGS" TCFLAGS="$OPT_FLAGS" \
 	../configure --enable-bootstrap \
-	--enable-languages=c,c++,fortran${enablelobjc}${enablelada}${enablelgo}${enableld}${enablelm2},lto \
+	--enable-languages=c,c++,fortran${enablelobjc}${enablelada}${enablelgo}${enableld}${enablelm2}${enablelcob},lto \
 	$CONFIGURE_OPTS
 
 %ifarch sparc sparcv9 sparc64
@@ -1339,7 +1379,7 @@ cd ../..
 
 # Copy various doc files here and there
 cd ..
-mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2,libgdiagnostics-devel}
+mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2,libgdiagnostics-devel,gcobol,libgcobol}
 mkdir -p rpm.doc/go rpm.doc/libgo rpm.doc/libquadmath rpm.doc/libitm
 mkdir -p rpm.doc/changelogs/{gcc/cp,gcc/ada,gcc/jit,libstdc++-v3,libobjc,libgomp,libcc1,libatomic,libsanitizer}
 
@@ -1375,10 +1415,21 @@ done)
 	cp -p $i ../rpm.doc/libgm2/$i.libgm2
 done)
 %endif
+%if %{build_cobol}
+(cd gcc/cobol; for i in ChangeLog* LICENSE; do
+	cp -p $i ../../rpm.doc/gcobol/$i.gcobol
+done
+cp -p LICENSE ../../rpm.doc/libgcobol/$i.libgcobol)
+(cd libgcobol; for i in ChangeLog*; do
+	cp -p $i ../rpm.doc/libgcobol/$i.libgcobol
+done)
+%endif
 %if %{build_libquadmath}
 (cd libquadmath; for i in ChangeLog* COPYING.LIB; do
 	cp -p $i ../rpm.doc/libquadmath/$i.libquadmath
-done)
+done;
+sed -n '/==========/,/==========/{/==========/d;s/^ \* *//p}' math/cosq.c \
+  > ../rpm.doc/libquadmath/LICENSE.SunPro)
 %endif
 %if %{build_libitm}
 (cd libitm; for i in ChangeLog*; do
@@ -1725,6 +1776,9 @@ for i in cor iso log min pim; do
   ln -sf ../../../libm2$i.so.20.* libm2$i.so
 done
 %endif
+%if %{build_cobol}
+ln -sf ../../../libgcobol.so.1.* libgcobol.so
+%endif
 %if %{build_libitm}
 ln -sf ../../../libitm.so.1.* libitm.so
 %endif
@@ -1759,6 +1813,9 @@ ln -sf ../../../../%{_lib}/libgphobos.so.6.* libgphobos.so
 for i in cor iso log min pim; do
   ln -sf ../../../../%{_lib}/libm2$i.so.20.* libm2$i.so
 done
+%endif
+%if %{build_cobol}
+ln -sf ../../../../%{_lib}/libgcobol.so.1.* libgcobol.so
 %endif
 %if %{build_libitm}
 ln -sf ../../../../%{_lib}/libitm.so.1.* libitm.so
@@ -1812,6 +1869,9 @@ for i in cor iso log min pim; do
   ln -sf ../../libm2$i.so m2/m2$i/
   ln -sf ../../libm2$i.a m2/m2$i/
 done
+%endif
+%if %{build_cobol}
+mv -f %{buildroot}%{_prefix}/%{_lib}/libgcobol.*a $FULLLPATH/
 %endif
 %if %{build_libitm}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libitm.*a $FULLLPATH/
@@ -1913,6 +1973,11 @@ for i in cor iso log min pim; do
   ln -sf ../../libm2$i.a 64/m2/m2$i/
 done
 %endif
+%if %{build_cobol}
+rm -f libgcobol.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > 64/libgcobol.so
+%endif
 %if %{build_libitm}
 rm -f libitm.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libitm.so.1.* | sed 's,^.*libi,libi,'`' )' > libitm.so
@@ -1963,6 +2028,10 @@ for i in cor iso log min pim; do
   ln -sf lib32/libm2$i.a libm2$i.a
   ln -sf ../lib64/libm2$i.a 64/libm2$i.a
 done
+%endif
+%if %{build_cobol}
+ln -sf lib32/libgcobol.a libgcobol.a
+ln -sf ../lib64/libgcobol.a 64/libgcobol.a
 %endif
 %if %{build_libitm}
 ln -sf lib32/libitm.a libitm.a
@@ -2030,6 +2099,11 @@ for i in cor iso log min pim; do
   ln -sf ../../libm2$i.a 32/m2/m2$i/
 done
 %endif
+%if %{build_cobol}
+rm -f libgcobol.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
+#echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > 32/libgcobol.so
+%endif
 %if %{build_libitm}
 rm -f libitm.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libitm.so.1.* | sed 's,^.*libi,libi,'`' )' > libitm.so
@@ -2083,6 +2157,10 @@ for i in cor iso log min pim; do
   ln -sf lib64/libm2$i.a libm2$i.a
 done
 %endif
+%if %{build_cobol}
+ln -sf ../lib32/libgcobol.a 32/libgcobol.a
+ln -sf lib64/libgcobol.a libgcobol.a
+%endif
 %if %{build_libitm}
 ln -sf ../lib32/libitm.a 32/libitm.a
 ln -sf lib64/libitm.a libitm.a
@@ -2132,6 +2210,9 @@ for i in cor iso log min pim; do
   ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libm2$i.a 32/libm2$i.a
 done
 %endif
+%if %{build_cobol}
+#ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libgcobol.a 32/libgcobol.a
+%endif
 %if %{build_libitm}
 ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libitm.a 32/libitm.a
 %endif
@@ -2172,7 +2253,7 @@ for d in . $FULLLSUBDIR; do
 		-o -name libobjc.a -o -name libgdruntime.a -o -name libgphobos.a \
 		-o -name libm2\*.a -o -name libquadmath.a -o -name libstdc++.a \
 		-o -name libstdc++fs.a -o -name libstdc++exp.a \
-		-o -name libsupc++.a \
+		-o -name libsupc++.a -o -name libgcobol.a \
 		-o -name libtsan.a -o -name libubsan.a \) -a -type f`; do
     cp -a $f $RPM_BUILD_ROOT%{_prefix}/lib/debug%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/$d/
   done
@@ -2185,7 +2266,8 @@ strip -g `find . \( -name libgfortran.a -o -name libobjc.a -o -name libgomp.a \
 		    -o -name libgdruntime.a -o -name libgphobos.a -o -name libm2\*.a \
 		    -o -name libitm.a -o -name libgo.a -o -name libcaf\*.a \
 		    -o -name libatomic.a -o -name libasan.a -o -name libtsan.a \
-		    -o -name libubsan.a -o -name liblsan.a -o -name libcc1.a \) \
+		    -o -name libubsan.a -o -name liblsan.a -o -name libcc1.a \
+		    -o -name libgcobol.a \) \
 		 -a -type f`
 popd
 chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgfortran.so.5.*
@@ -2202,6 +2284,9 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.6.*
 for i in cor iso log min pim; do
   chmod 755 %{buildroot}%{_prefix}/%{_lib}/libm2$i.so.20.*
 done
+%endif
+%if %{build_cobol}
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgcobol.so.1.*
 %endif
 %if %{build_libitm}
 chmod 755 %{buildroot}%{_prefix}/%{_lib}/libitm.so.1.*
@@ -2646,7 +2731,6 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2copyintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2mediaintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2minmaxintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2roundingintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2satcvtintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/movrsintrin.h
 %endif
@@ -3191,6 +3275,31 @@ end
 %endif
 %endif
 
+%if %{build_cobol}
+%files gcobol
+%{_prefix}/bin/gcobol
+%{_prefix}/bin/gcobc
+%{_mandir}/man1/gcobol.1*
+%{_mandir}/man3/gcobol.3*
+%dir %{_prefix}/libexec/gcc
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
+%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cobol1
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.so
+%{_datadir}/gcobol
+%doc rpm.doc/gcobol/*
+
+%files -n libgcobol
+%{_prefix}/%{_lib}/libgcobol.so.1*
+%doc rpm.doc/libgcobol/*
+
+%files -n libgcobol-static
+%dir %{_prefix}/lib/gcc
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.a
+%endif
+
 %if %{build_ada}
 %files gnat
 %{_prefix}/bin/gnat
@@ -3659,6 +3768,47 @@ end
 %endif
 
 %changelog
+* Sat Mar 29 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.11
+- update from trunk
+  - PRs ada/119265, ada/119440, analyzer/119278, bootstrap/119513, c/116545,
+	c/118061, c/118765, c/119311, c/119350, c/119366, c++/101881,
+	c++/114525, c++/114992, c++/118104, c++/118920, c++/118961,
+	c++/119194, c++/119233, c++/119316, c++/119344, c++/119370,
+	c++/119378, c++/119379, cobol/119213, cobol/119214, cobol/119241,
+	cobol/119242, cobol/119244, cobol/119290, cobol/119301, cobol/119390,
+	d/117621, d/118545, debug/101533, driver/101544, fortran/60560,
+	fortran/85836, fortran/116706, fortran/118796, fortran/119272,
+	fortran/119338, fortran/119349, fortran/119380, fortran/119403,
+	fortran/119406, fortran/119419, gcov-profile/118442, ipa/98265,
+	ipa/116572, ipa/119147, ipa/119376, ipa/119484, libfortran/85836,
+	libgomp/96835, libitm/88319, libstdc++/101527, libstdc++/101587,
+	libstdc++/108487, libstdc++/111055, libstdc++/111138,
+	libstdc++/116440, libstdc++/117214, libstdc++/117983,
+	libstdc++/118699, libstdc++/119135, libstdc++/119282,
+	libstdc++/119358, libstdc++/119415, libstdc++/119429,
+	libstdc++/119469, libstdc++/119488, middle-end/93437,
+	middle-end/112938, middle-end/113546, middle-end/117811,
+	middle-end/118627, middle-end/118795, middle-end/119325,
+	modula2/115111, modula2/118045, modula2/118600, modula2/119449,
+	modula2/119504, other/42270, other/119218, other/119250, other/119510,
+	preprocessor/108900, rtl-optimization/118615, rtl-optimization/118914,
+	rtl-optimization/119285, rtl-optimization/119307, rust/119333,
+	target/55583, target/91614, target/92713, target/96226, target/98743,
+	target/101544, target/112980, target/117069, target/117092,
+	target/117452, target/118068, target/119010, target/119114,
+	target/119120, target/119172, target/119224, target/119235,
+	target/119270, target/119286, target/119355, target/119357,
+	target/119408, target/119421, target/119425, target/119428,
+	target/119450, target/119465, testsuite/113634, testsuite/113965,
+	testsuite/116163, testsuite/119220, testsuite/119382,
+	testsuite/119489, tree-optimization/37143, tree-optimization/105820,
+	tree-optimization/118616, tree-optimization/119155,
+	tree-optimization/119274, tree-optimization/119287,
+	tree-optimization/119389, tree-optimization/119417,
+	tree-optimization/119483
+- package gcc-gcobol on x86_64 and aarch64 so far
+- turn unversioned obsoletes into versioned ones
+
 * Thu Mar 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.10
 - update from trunk
   - PRs analyzer/117262, c/60440, c/67301, c/112960, c/113515, c/117029,

@@ -3,8 +3,8 @@
 %bcond_without tests
 
 Name:           python-cssselect
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Parses CSS3 Selectors and translates them to XPath 1.0
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -23,13 +23,7 @@ matching elements in an XML or HTML document.
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if %{with tests}
-BuildRequires:  python3-lxml
-BuildRequires:  python3-pytest
-%endif
 
 %description -n python3-%{modname} %{_description}
 
@@ -38,24 +32,29 @@ Python 3 version.
 %prep
 %autosetup -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-t}
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 %if %{with tests}
 %check
 %pytest
 %endif
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGES AUTHORS
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Mar 22 2025 Fedora Release Engineering <romain.geissler@amadeus.com> - 1.3.0-1
+- Update to version 1.3.0.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

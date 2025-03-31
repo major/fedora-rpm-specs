@@ -11,22 +11,23 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250212
-%global		gittartime		2356
+%global		gittardate		20250329
+%global		gittartime		1449
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20241011
-%global		git_rev		4dbf512562ff00df2c3476f52f1e568d7c873090
+%global		gitbaredate	20250327
+%global		git_rev		ca13623c6176585db4759ce4371fbf89c56fa630
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
 
 
-%global		main_version	0.2.6
+%global		main_version	0.3.1
 
 Name:			gpicview
 Version:		%{main_version}%{git_ver_rpm}
@@ -146,6 +147,9 @@ cd ..
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Mar 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.1-1
+- 0.3.1
+
 * Wed Feb 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.6^20241011git4dbf5125-1
 - Update to the latest git
 

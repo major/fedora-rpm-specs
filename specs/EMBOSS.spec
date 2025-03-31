@@ -20,7 +20,7 @@
 
 Name:           EMBOSS
 Version:        6.6.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        The European Molecular Biology Open Software Suite
 
 # Files under jemboss/, ajax/ensembl/ are LGPLv2+
@@ -72,6 +72,9 @@ Patch12:	EMBOSS-s390-too.patch
 
 # Set the proper type for nkeys in ajindex.c
 Patch13:	EMBOSS-6.6.0-ajax-nkeys-right-type.patch
+
+# Fix C23 issues (do not use "bool" as a variable name)
+Patch14:	EMBOSS-6.6.0-c23.patch
 
 BuildRequires:  gd-devel
 BuildRequires:  pam-devel
@@ -177,6 +180,7 @@ necessary for developing programs which will use the eplplot library.
 %patch -P11 -p1 -b .pcre2
 %patch -P12 -p1 -b .s390-too
 %patch -P13 -p1 -b .nkeys-right-type
+%patch -P14 -p1 -b .c23
 
 # Remove bundled expat, pcre and zlib files to make sure that system versions are used
 rm -rf ajax/{expat,pcre,zlib}/*
@@ -340,6 +344,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/EMBOSS/jemboss
 %{_includedir}/EMBOSS/eplplot/
 
 %changelog
+* Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 6.6.0-33
+- fix FTBFS
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

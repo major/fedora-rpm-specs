@@ -1,5 +1,5 @@
 Name:           spdlog
-Version:        1.15.1
+Version:        1.15.2
 Release:        %autorelease
 
 License:        MIT

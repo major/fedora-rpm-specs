@@ -3,22 +3,22 @@
 %global __suggests_exclude ^R\\((BSgenome\\.Hsapiens\\.UCSC\\.hg19|GenomicFeatures|TxDb\\.Hsapiens\\.UCSC\\.hg19\\.knownGene|genefilter|hgu133plus2\\.db|humanStemCell|limma|microRNA|org\\.Hs\\.eg\\.db)\\)
 
 Name:             R-%{packname}
-Version:          1.62.0
-Release:          4%{dist}
+Version:          1.66.0
+Release:          1%{dist}
 Summary:          R interface to genome browsers and their annotation tracks
 # Automatically converted from old format: Artistic 2.0 and BSD - review is highly recommended.
 License:          Artistic-2.0 AND LicenseRef-Callaway-BSD
 URL:              http://www.bioconductor.org/packages/release/bioc/html/rtracklayer.html
 Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{version}.tar.gz
 Source1:          rtracklayer_jimkent_license.txt
-Patch0:           0001-fix-format-security.patch
+Patch0:           R-rtracklayer-1.66.0-c23.patch
 Requires:         texlive-latex
 BuildRequires:    R-devel >= 3.3.0, R-methods, R-RCurl >= 1.4.2, R-XML >= 1.98.0
 BuildRequires:    R-IRanges-devel >= 2.13.13, R-GenomicRanges >= 1.37.2, R-Biostrings-devel >= 2.47.6
 BuildRequires:    R-Rsamtools-devel >= 1.31.2, zlib-devel
 BuildRequires:    R-XVector-devel >= 0.19.7, R-BiocGenerics >= 0.35.3, R-S4Vectors-devel >= 0.23.18
-BuildRequires:    R-GenomeInfoDb >= 1.15.2, R-GenomicAlignments >= 1.15.6, R-tools
-BuildRequires:    openssl-devel
+BuildRequires:    R-GenomeInfoDb >= 1.15.2, R-GenomicAlignments >= 1.15.6, R-tools, R-curl, R-httr
+BuildRequires:    openssl-devel, libcurl-devel
 BuildRequires:    R-BiocIO, R-restfulr >= 0.0.13
 
 %description
@@ -33,8 +33,9 @@ modify the browser state, such as the current viewport.
 sed -i -e 's|zlibbioc,||' rtracklayer/DESCRIPTION
 sed -i -e 's|import(zlibbioc)||' rtracklayer/NAMESPACE
 pushd %{packname}
-%patch -P0 -p1
+%patch -P0 -p1 -b .c23
 popd
+
 
 # This email confirms that we have permission to use the Jim Kent
 # copyrighted files under the BSD license.
@@ -80,6 +81,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/tests/quickload/T_species_Oc
 %{_libdir}/R/library/%{packname}/unitTests/
 
 %changelog
+* Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 1.66.0-1
+- update to 1.66.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.62.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

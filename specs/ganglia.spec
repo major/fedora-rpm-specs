@@ -14,7 +14,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            56%{?dist}
+Release:            57%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                http://ganglia.sourceforge.net/
@@ -25,6 +25,7 @@ Source3:            gmetad.service
 Source4:            ganglia-httpd24.conf.d
 Source5:            ganglia-httpd.conf.d
 Source6:            conf.php
+Source7:            ganglia.sysusers.conf
 Patch0:             ganglia-3.7.2-185ab6.patch
 Patch1:             ganglia-3.7.2-gcc14-cast.patch
 Patch10:            ganglia-3.7.2-tirpc-hack.patch
@@ -335,10 +336,17 @@ chmod 0644 %{buildroot}%{_datadir}/%{name}/css/smoothness/jquery-ui-1.10.2.custo
 # Remove shebang
 %{?with_python:sed -i '1{\@^#!@d}' %{buildroot}%{_libdir}/%{name}/python_modules/*.py}
 
+# Sysusers
+%if 0%{?fedora} > 42
+install -m0644 -D %{SOURCE7} %{buildroot}%{_sysusersdir}/ganglia.conf
+%endif
+
+%if 0%{?rhel} || 0%{?fedora} < 43
 %pre
 ## Add the "ganglia" user
 /usr/sbin/useradd -c "Ganglia Monitoring System" \
         -s /sbin/nologin -r -d %{_localstatedir}/lib/%{name} ganglia 2> /dev/null || :
+%endif
 
 %if 0%{?systemd}
 %post gmond
@@ -396,6 +404,9 @@ end
 %dir %{_libdir}/ganglia
 %{_libdir}/ganglia/*.so
 %{?with_python:%exclude %{_libdir}/ganglia/modpython.so}
+%if 0%{?fedora} > 42
+%{_sysusersdir}/ganglia.conf
+%endif
 
 %files gmetad
 %dir %{_localstatedir}/lib/%{name}
@@ -466,20 +477,24 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sat Mar 29 2025 Terje Rosten <terjeros@gmail.com> - 3.7.2-57
+- Use sysusers on FC43+
+- Fix changelog
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Mon Nov 04 2024 Terje Rosten <terjeros@gmail.com> - 3.7.6-55
+* Mon Nov 04 2024 Terje Rosten <terjeros@gmail.com> - 3.7.2-55
 - Add forgotten int() conversion patch
 
-* Tue Oct 15 2024 Terje Rosten <terjeros@gmail.com> - 3.7.6-54
+* Tue Oct 15 2024 Terje Rosten <terjeros@gmail.com> - 3.7.2-54
 - Various fixes to improve Python 3 support
 - Add back regex support on Fedora (patch from Debian, thanks!)
 
-* Sat Sep 28 2024 Terje Rosten <terjeros@gmail.com> - 3.7.6-53
+* Sat Sep 28 2024 Terje Rosten <terjeros@gmail.com> - 3.7.2-53
 - Add patch to improve compat with PHP 8
 
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7.6-52
+* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7.2-52
 - convert license to SPDX
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-51

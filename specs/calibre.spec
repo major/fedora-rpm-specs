@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        8.0.1
+Version:        8.1.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -22,7 +22,7 @@ Patch:          calibre-nodisplay.patch
 # https://codereview.qt-project.org/c/qt/qtbase/+/609639
 Patch:          calibre-fix-qt6.9-build.patch
 
-ExclusiveArch: aarch64 x86_64
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

@@ -261,7 +261,7 @@
 %endif
 
 Name:	chromium
-Version: 134.0.6998.165
+Version: 135.0.7049.41
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -283,7 +283,7 @@ Patch21: chromium-123-screen-ai-service.patch
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
-Patch89: chromium-125-system-brotli.patch
+Patch89: chromium-135-system-brotli.patch
 
 # patch for using system libxml
 Patch90: chromium-121-system-libxml.patch
@@ -430,6 +430,7 @@ Patch407: 0002-Add-ppc64-trap-instructions.patch
 
 Patch408: fix-ppc64-linux-syscalls-headers.patch
 Patch409: use-sysconf-page-size-on-ppc64.patch
+Patch410: 0001-Enable-ppc64-pointer-compression.patch
 
 Patch411: dawn-fix-ppc64le-detection.patch
 Patch412: add-ppc64-architecture-to-extensions.diff
@@ -1114,6 +1115,7 @@ Qt6 UI for chromium.
 %patch -P407 -p1 -b .0002-Add-ppc64-trap-instructions
 %patch -P408 -p1 -b .fix-ppc64-linux-syscalls-headers
 %patch -P409 -p1 -b .use-sysconf-page-size-on-ppc64
+%patch -P410 -p1 -b .0001-Enable-ppc64-pointer-compression
 %patch -P411 -p1 -b .dawn-fix-ppc64le-detection
 %patch -P412 -p1 -b .add-ppc64-architecture-to-extensions
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
@@ -1766,6 +1768,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 28 2025 Than Ngo <than@redhat.com> - 135.0.7049.41-1
+- Update to 135.0.7049.41
+
 * Mon Mar 24 2025 Than Ngo <than@redhat.com> - 134.0.6998.165-1
 - Update to 134.0.6998.165
 - Fixed rhbz#2354377 - Enable ppc64le support for el10

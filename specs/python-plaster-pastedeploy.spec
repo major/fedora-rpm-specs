@@ -1,5 +1,10 @@
 %global srcname plaster-pastedeploy
 %global sum A PasteDeploy binding to the plaster configuration loader
+%global desc \
+plaster_pastedeploy is a plaster plugin that provides a \
+plaster.Loader that can parse ini files according to the standard set \
+by PasteDeploy. It supports the wsgi plaster protocol, implementing \
+the plaster.protocols.IWSGIProtocol interface.
 
 Name: python-%{srcname}
 Version: 1.0.1
@@ -14,19 +19,14 @@ Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildRequires: python3-devel
 
 
-%description
-plaster_pastedeploy is a plaster plugin that provides a
-plaster.Loader that can parse ini files according to the standard set
-by PasteDeploy. It supports the wsgi plaster protocol, implementing
-the plaster.protocols.IWSGIProtocol interface.
+%description %{desc}
 
 
 %package -n python3-%{srcname}
 Summary: %{sum}
 
 
-%description -n python3-%{srcname}
-%{description}
+%description -n python3-%{srcname} %{desc}
 
 
 %prep

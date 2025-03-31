@@ -1,5 +1,5 @@
 Name:    dosbox-staging
-Version: 0.82.0
+Version: 0.82.1
 Release: %autorelease
 Summary: Modern continuation of DOSBox with advanced features
 URL:     https://www.dosbox-staging.org/
@@ -27,8 +27,6 @@ URL:     https://www.dosbox-staging.org/
 License: GPL-2.0-or-later AND Unlicense AND (MIT-0 OR Unlicense) AND MIT AND GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND Fair AND LGPL-2.1-or-later AND (MIT OR Unlicense) AND (MIT OR WTFPL) AND BSD-2-Clause
 
 Source: https://github.com/dosbox-staging/dosbox-staging/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix platform specific parameters for ppc64le
-Patch:  https://github.com/dosbox-staging/dosbox-staging/pull/3996.patch
 # This package is a drop-in replacement for dosbox
 Provides:  dosbox = %{version}-%{release}
 

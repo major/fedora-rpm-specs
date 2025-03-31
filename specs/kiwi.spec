@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.2.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,6 +17,11 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
+
+# Proposed upstream
+## Allow the C locale
+## From: https://github.com/OSInside/kiwi/pull/2759
+Patch0101:      0101-schema-Allow-C-as-a-valid-locale.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -613,6 +618,9 @@ fi
 
 
 %changelog
+* Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-3
+- Add patch to allow the C locale in images
+
 * Fri Mar 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-2
 - Apply install_exec_t SELinux file context to kiwi executables
 

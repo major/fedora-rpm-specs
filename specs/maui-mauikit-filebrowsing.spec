@@ -1,6 +1,6 @@
 Name:          maui-mauikit-filebrowsing
 Version:       4.0.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       CC0-1.0 AND BSD-2-Clause AND LGPL-2.1-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later
 Summary:       MauiKit File Browsing utilities and controls
 URL:           https://invent.kde.org/maui/mauikit-filebrowsing/
@@ -61,6 +61,9 @@ on %{name}.
 %{_kf6_libdir}/libMauiKitFileBrowsing4.so
 
 %changelog
+* Sun Mar 30 2025 Steve Cossette <farchord@gmail.com> - 4.0.0-5
+- Rebuild for new qt version
+
 * Fri Mar 28 2025 Jan Grulich <jgrulich@redhat.com> - 4.0.0-4
 - Rebuild (qt6)
 
