@@ -64,6 +64,7 @@ BuildRequires:  ghc-deepseq-devel
 BuildRequires:  ghc-entropy-devel
 BuildRequires:  ghc-hslogger-devel
 BuildRequires:  ghc-network-devel
+BuildRequires:  ghc-network-bsd-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-random-devel
 BuildRequires:  ghc-regex-tdfa-devel

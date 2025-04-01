@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.24.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -104,8 +104,10 @@ Patch19: 0015-ppc-test_dfp2-build-fix-for-GCC-15.patch
 Patch20: 0016-syswrap-generic-Emit-pp_ExeContext-after-the-file-de.patch
 Patch21: 0017-add_hardwired_spec-for-ld-linux-x86-64.so.2-memcmp.patch
 Patch22: 0018-gdbserver_tests-filter-out-new-Missing-rpms-message.patch
-
-Patch50: valgrind-3.24.0-syscall-cancel.patch
+Patch23: 0019-filter_gdb.in-__syscall_cancel_arch-is-just-in-a-sys.patch
+Patch24: 0020-Bug-501893-Missing-suppression-for-__wcscat_avx2-str.patch
+Patch25: 0021-filter_gdb.in-filter-out-__libc_do_syscall.patch
+Patch26: 0022-Handle-top-__syscall_cancel-frames-when-getting-stac.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -300,8 +302,10 @@ Valgrind User Manual for details.
 %patch -P20 -p1
 %patch -P21 -p1
 %patch -P22 -p1
-
-%patch -P50 -p1
+%patch -P23 -p1
+%patch -P24 -p1
+%patch -P25 -p1
+%patch -P26 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -541,6 +545,14 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Sun Mar 30 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-8
+- Add new VALGRIND_3_24_BRANCH patches
+  - 0019-filter_gdb.in-__syscall_cancel_arch-is-just-in-a-sys.patch
+  - 0020-Bug-501893-Missing-suppression-for-__wcscat_avx2-str.patch
+  - 0021-filter_gdb.in-filter-out-__libc_do_syscall.patch
+  - 0022-Handle-top-__syscall_cancel-frames-when-getting-stac.patch
+- Remove valgrind-3.24.0-syscall-cancel.patch (replaced by 0022).
+
 * Fri Mar 28 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-7
 - Add valgrind-3.24.0-syscall-cancel.patch
 

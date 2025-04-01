@@ -1,8 +1,8 @@
 %global     full_version C_ICAP_%{version}
 
 Name:       c-icap
-Version:    0.6.2
-Release:    4%{?dist}
+Version:    0.6.3
+Release:    2%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -11,6 +11,7 @@ Source0:    https://github.com/%{name}/%{name}-server/archive/%{full_version}.ta
 Source1:    %{name}.logrotate
 Source3:    %{name}.tmpfiles.conf
 Source4:    %{name}.service
+Source5:    %{name}.sysusers.conf
 
 # Adjust some paths to standard Fedora/EPEL ones:
 Patch0:     %{name}-conf.in.patch
@@ -38,6 +39,9 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 
 Requires:       logrotate
+%if 0%{?fedora} < 42
+Requires(pre):	shadow-utils
+%endif
 
 %description
 C-icap is an implementation of an ICAP server. It can be used with HTTP proxies
@@ -67,11 +71,6 @@ utilities.
 # See RECONF
 echo "master-%{full_version}" > VERSION.m4
 autoreconf -vif
-
-# Create a sysusers.d config file
-cat >c-icap.sysusers.conf <<EOF
-u c-icap - 'C-ICAP Service user' /run/%{name} -
-EOF
 
 %build
 %configure \
@@ -121,6 +120,7 @@ mkdir -p %{buildroot}%{_datadir}/c_icap/{contrib,templates}/
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}/
 mkdir -p %{buildroot}/run/%{name}/
 
+# Required before bin/sbin merge in F42
 %if 0%{?fedora} < 42
 mv -f %{buildroot}%{_bindir}/%{name} %{buildroot}%{_sbindir}/
 %endif
@@ -129,13 +129,26 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.service
 
+%if 0%{?fedora} >= 42
+install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
+%endif
+
 # Do not add default configuration files
 rm -f %{buildroot}%{_sysconfdir}/%{name}/*.default
 
 # Let rpm pick up the docs in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
 
-install -m0644 -D c-icap.sysusers.conf %{buildroot}%{_sysusersdir}/c-icap.conf
+
+# Required prior to sysusers.d support in F42
+%if 0%{?fedora} < 42
+%pre
+getent group %{name} >/dev/null || groupadd -r %{name}
+getent passwd %{name} >/dev/null ||
+    useradd -r -g %{name} -d /run/%{name} -s /sbin/nologin \
+    -c "C-ICAP Service user" %{name}
+exit 0
+%endif
 
 
 %post
@@ -183,7 +196,10 @@ install -m0644 -D c-icap.sysusers.conf %{buildroot}%{_sysusersdir}/c-icap.conf
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %attr(750,%{name},%{name}) %dir %{_localstatedir}/log/%{name}
-%{_sysusersdir}/c-icap.conf
+
+%if 0%{?fedora} >= 42
+%{_sysusersdir}/%{name}.conf
+%endif
 
 %files devel
 %{_bindir}/%{name}-config
@@ -198,6 +214,12 @@ install -m0644 -D c-icap.sysusers.conf %{buildroot}%{_sysusersdir}/c-icap.conf
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Sun Mar 30 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.6.3-2
+- Add sysusers.d config as a source file for F42 and above.
+
+* Mon Mar 24 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.6.3-1
+- Update to 0.6.3 release.
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

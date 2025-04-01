@@ -1,6 +1,6 @@
 #
 Name:           simfqt
-Version:        1.00.9
+Version:        1.00.10
 Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library
@@ -85,13 +85,13 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}_parseFareRules.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 

@@ -3,7 +3,7 @@
 
 #
 Name:           trademgen
-Version:        1.00.12
+Version:        1.00.13
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library
@@ -15,6 +15,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
+BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
@@ -93,7 +94,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/installdox
 rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 
 %check
-#ctest
+%ctest
 
 %if %{with python3}
 %post -n python3-%{name}
@@ -119,16 +120,16 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man1/%{name}_drawBookingArrivals.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/%{name}-config-version.cmake
+%{_libdir}/cmake/%{name}/%{name}-config.cmake
+%{_libdir}/cmake/%{name}/%{name}-library-depends.cmake
+%{_libdir}/cmake/%{name}/%{name}-library-depends-debug.cmake
 %{_datadir}/aclocal/%{name}.m4
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake/%{name}-config-version.cmake
-%{_datadir}/%{name}/CMake/%{name}-config.cmake
-%{_datadir}/%{name}/CMake/%{name}-library-depends.cmake
-%{_datadir}/%{name}/CMake/%{name}-library-depends-debug.cmake
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
@@ -140,9 +141,9 @@ rm -f %{_bindir}/py%{name}
 %files -n python3-%{name}
 %{python3_sitearch}/py%{name}/
 %{_mandir}/man1/py%{name}.1.*
-%{_datadir}/%{name}/CMake/%{name}-config-python.cmake
-%{_datadir}/%{name}/CMake/%{name}-python-library-depends-debug.cmake
-%{_datadir}/%{name}/CMake/%{name}-python-library-depends.cmake
+%{_libdir}/cmake/%{name}/%{name}-config-python.cmake
+%{_libdir}/cmake/%{name}/%{name}-python-library-depends-debug.cmake
+%{_libdir}/cmake/%{name}/%{name}-python-library-depends.cmake
 %endif
 
 

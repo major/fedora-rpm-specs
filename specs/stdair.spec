@@ -1,6 +1,6 @@
 #
 Name:           stdair
-Version:        1.00.20
+Version:        1.00.21
 Release:        %autorelease
 
 Summary:        C++ Standard Airline IT Object Library

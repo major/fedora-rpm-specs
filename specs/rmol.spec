@@ -3,7 +3,7 @@
 
 #
 Name:           rmol
-Version:        1.00.13
+Version:        1.00.14
 Release:        %autorelease
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
@@ -121,6 +121,7 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man1/%{name}_extractBPC.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so

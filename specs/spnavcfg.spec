@@ -2,16 +2,14 @@
 %global _hardened_build 1
 
 Name:           spnavcfg
-Version:        1.1
-Release:        6%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        Spacenav daemon interactive configuration program
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://spacenav.sourceforge.net/
 Source0:        https://github.com/FreeSpacenav/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         spnavcfg-qt.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -40,7 +38,7 @@ export LDFLAGS="%{optflags}"
 %configure 
 
 # Remove -O3 from build flags
-sed -i 's/\-O3//g' Makefile
+sed -i 's/\-O3/\-O2/g' Makefile
 
 %make_build
 
@@ -62,6 +60,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Mar 30 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2-1
+- Update to 1.2.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -76,6 +77,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+>>>>>>> de073f8487a55804bf35ba00188433a12caf83c3
 
 * Sun May 21 2023 Richard Shaw <hobbes1069@gmail.com> - 1.1-1
 - Update to 1.1.

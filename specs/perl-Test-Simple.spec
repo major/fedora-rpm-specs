@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302209
+Version:        1.302210
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -404,6 +404,14 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar 30 2025 Paul Howarth <paul@city-fan.org> - 3:1.302210-1
+- Update to 1.302210
+  - Fix typo in Test2::Util::Trace docs
+  - Documentation fixes throughout for affect vs. effect
+  - Test2::Tools::Warnings warns called in void context
+  - Remove unnecessary empty list assignments
+  - Calculate CAN_SIGSYS when called rather than as a constant
+
 * Thu Jan 23 2025 Paul Howarth <paul@city-fan.org> - 3:1.302209-1
 - Update to 1.302209
   - Don't use base as much (GH#1021)

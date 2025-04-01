@@ -1,8 +1,8 @@
-%global rctag rc8
+#global rctag rc8
 
 Name:		wsjtx
 Version:	2.7.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
@@ -161,6 +161,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Mar 31 2025 Richard Shaw <hobbes1069@gmail.com> - 2.7.0-13
+- Update to 2.8.0 final release.
+
 * Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 2.7.0-12
 - Rebuild for hamlib 4.6.
 

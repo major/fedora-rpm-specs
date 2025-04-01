@@ -1,6 +1,6 @@
 #
 Name:           airrac
-Version:        1.00.11
+Version:        1.00.12
 Release:        %autorelease
 
 Summary:        C++ Simulated Revenue Accounting (RAC) System Library
@@ -85,6 +85,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so

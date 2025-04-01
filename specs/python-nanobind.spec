@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        2.5.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Tiny and efficient C++/Python bindings
 
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Fri Mar 28 2025 Konrad Kleine <kkleine@redhat.com> - 2.6.1-1
+- Update to nanobind 2.6.1
+
 * Tue Mar 18 2025 Konrad Kleine <kkleine@redhat.com> - 2.5.0-1
 - Update to nanobind 2.5.0
 

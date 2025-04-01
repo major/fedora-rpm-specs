@@ -169,7 +169,7 @@
   --with-sundials-include=%{_includedir} \\\
   --with-sundials-lib="-lsundials_nvecserial -lsundials_cvode" \\\
  %endif \
- %ifarch %{valgrind_arches} \
+ %ifnarch riscv64 \
   --with-valgrind=1 \\\
  %endif \
   --with-pthread=1
@@ -272,7 +272,7 @@
   --with-fftw-include= \\\
   --with-fftw-lib="-L$MPI_LIB -lfftw3_mpi -lfftw3" \\\
  %endif \
- %ifarch %{valgrind_arches} \
+ %ifnarch riscv64 \
   --with-valgrind=1 \\\
  %endif \
   --with-pthread=1
@@ -344,7 +344,9 @@ BuildRequires: tcsh
 BuildRequires: tetgen-devel
 %endif
 BuildRequires: xorg-x11-server-Xvfb
+%ifnarch riscv64
 BuildRequires: valgrind
+%endif
 
 %description
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
@@ -1017,12 +1019,14 @@ export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildopenmpi_dir/share/pets
 export OMPI_PRTERUN=$MPI_BIN/prterun
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
+%ifnarch riscv64
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
+%endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
 export TESTFLAGS="-o"
-xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
+xvfb-run -a make alltests V=1 %{?valgrind_arches:VALGRIND=1} TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=1 NP=4
@@ -1063,11 +1067,13 @@ export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/share/petsc/datafiles
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
+%ifnarch riscv64
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
+%endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
-xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
+xvfb-run -a make alltests V=1 %{?valgrind_arches:VALGRIND=1} TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=1 NP=4
@@ -1086,11 +1092,13 @@ export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/%{name}-%{version}/share/petsc/datafiles
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
+%ifnarch riscv64
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
+%endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
+xvfb-run -a make alltests V=1 %{?valgrind_arches:VALGRIND=1} TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=1
@@ -1110,11 +1118,13 @@ export MPIEXEC=$MPI_BIN/mpiexec
 ln -s %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc64.so %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc.so
 
 %if %{with debug}
+%ifnarch riscv64
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
+%endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
+xvfb-run -a make alltests V=1 %{?valgrind_arches:VALGRIND=1} TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=0

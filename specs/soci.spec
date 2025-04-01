@@ -22,17 +22,13 @@
 ##
 #
 Name:           soci
-Version:        4.1.0.rc3
-%global ups_ver 4.1.0-rc3
+Version:        4.1.0.rc4
+%global ups_ver 4.1.0-rc4
 Release:        %autorelease
 Summary:        The database access library for C++ programmers
 License:        BSL-1.0
 URL:            https://github.com/SOCI/%{name}
 Source0:        %{url}/archive/v%{ups_ver}.tar.gz#/%{name}-%{version}.tar.gz
-
-# Works around a false positive -Wuninitialized error exposed by LTO
-# Patch submitted upstream: https://github.com/SOCI/soci/pull/1223
-Patch0:         soci-uninit.patch
 
 BuildRequires:  dos2unix
 BuildRequires:  gcc gcc-c++
@@ -204,19 +200,17 @@ library. The documentation is the same as at the %{name} web page.
 
 %prep
 %setup -q -n %{name}-%{ups_ver}
-%patch -P0 -p1
 
 # Rename change-log and license file, so that they comply with
 # packaging standard
 mv README.md README
 mv CHANGES ChangeLog
 mv LICENSE_1_0.txt COPYING
-echo "2025-03-27:" > NEWS
+echo "2025-03-30:" > NEWS
 echo "- Version 4.1.0" >> NEWS
 echo "- See the ChangeLog file for more details." >> NEWS
 # Remove the spurious executable permission
 chmod a-x AUTHORS README ChangeLog COPYING NEWS
-find docs -type f -exec chmod a-x {} \;
 # Unix ends of line
 dos2unix AUTHORS README ChangeLog COPYING NEWS
 
@@ -332,7 +326,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 
 %files doc
-%doc AUTHORS ChangeLog NEWS README docs
+%doc AUTHORS ChangeLog NEWS README
 %license COPYING
 
 %changelog

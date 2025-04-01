@@ -1,15 +1,12 @@
 Name:           squidclamav
-Version:        7.3
-Release:        6%{?dist}
+Version:        7.4
+Release:        1%{?dist}
 Summary:        HTTP Antivirus for Squid based on ClamAv and the ICAP protocol
 License:        GPL-3.0-or-later
 URL:            https://squidclamav.darold.net/
 
 Source0:        https://github.com/darold/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-httpd.conf
-
-# Patch for gcc15 in F42
-Patch:		squidclamav-gcc15.patch
 
 BuildRequires:  bzip2-devel
 BuildRequires:  c-icap-devel
@@ -69,6 +66,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Mar 30 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.4-1
+- Update to 7.4.
+
 * Sun Jan 26 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.3-6
 - Patch for GCC15 issues - BZ2341381.
 

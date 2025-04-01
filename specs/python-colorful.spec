@@ -1,13 +1,10 @@
 Name:           python-colorful
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        Terminal string styling done right
 License:        MIT
 URL:            https://github.com/timofurrer/colorful
-# pypi tarball missing tests
-Source:         %{url}/archive/v%{version}/colorful-%{version}.tar.gz
-# downstream only patch to permit the use of older setuptools
-Patch:          remove-setuptools-environment-marker.patch
+Source:         %{pypi_source colorful}
 BuildArch:      noarch
 
 
@@ -39,7 +36,7 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files colorful
+%pyproject_save_files -l colorful
 
 
 %check

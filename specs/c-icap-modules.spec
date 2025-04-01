@@ -1,15 +1,15 @@
-%global commit0 56d01798c210db75f21f4f77ad447e8dde50f3c2
-%global date 20240112
+%global commit0 36a66881fceface8732daf413b68a9e06626b31f
+%global date 20250117
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       c-icap-modules
 Version:    0.5.7
-Release:    4.%{date}git%{shortcommit0}%{?dist}
+Release:    5.%{date}git%{shortcommit0}%{?dist}
 Summary:    Services for the c-icap server
 License:    LGPL-2.0-or-later
 URL:        http://c-icap.sourceforge.net/
 
-Source0:    https://github.com/c-icap/c-icap-modules/archive/%{commit0}.tar.gz#/c-icap-modules-%{shortcommit0}.tar.gz
+Source0:    https://github.com/c-icap/c-icap-modules/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man8/c-icap-mktcb.8*
 
 %changelog
+* Sun Mar 30 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.5.7-5.20250117git36a6688
+- Updated to latest repo commits.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-4.20240112git56d0179
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

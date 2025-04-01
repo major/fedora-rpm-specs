@@ -7,7 +7,7 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.9.0
+Version:   4.9.1
 Release:   %autorelease
 Summary:   An Open Source software construction tool
 License:   MIT

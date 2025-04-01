@@ -1,6 +1,6 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.32
-Release:        12%{?dist}
+Version:        1.33
+Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-DAG_Node
@@ -8,17 +8,17 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Tree/Tree-DAG_Node-%
 BuildArch:      noarch
 # Module Build ---------------------------------------------------------------
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  sed
 # Module Runtime -------------------------------------------------------------
-BuildRequires:  perl(File::Slurp::Tiny) >= 0.003
+BuildRequires:  perl(File::Slurper) >= 0.014
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test Suite -----------------------------------------------------------------
+BuildRequires:  findutils
 BuildRequires:  perl(File::Spec) >= 3.4
 BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Test::More) >= 1.001002
@@ -43,12 +43,11 @@ mothers).
 sed -i -e 's|^#!/usr/bin/env perl|#!/usr/bin/perl|' scripts/*.pl
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -57,11 +56,18 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 %files
 %license LICENSE
-%doc Changes README scripts/
+%doc Changes README scripts/ SECURITY.md
 %{perl_vendorlib}/Tree/
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Sun Mar 30 2025 Paul Howarth <paul@city-fan.org> - 1.33-1
+- Update to 1.33
+  - Replace the discouraged File::Slurp::Tiny with File::Slurper
+  - Add a security policy file SECURITY.md
+  - Update Makefile.PL to include both ExtUtils::MakeMaker and perl
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

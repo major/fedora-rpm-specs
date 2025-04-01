@@ -1,14 +1,11 @@
 Name:           perl-Data-Pond
-Version:        0.005
-Release:        28%{?dist}
+Version:        0.006
+Release:        1%{?dist}
 Summary:        Perl-based open notation for data
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Data-Pond
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Data-Pond-%{version}.tar.gz
-# https://rt.cpan.org/Ticket/Display.html?id=150404
-Patch0:         Data-Pond-0.005-uvchr_to_utf8_flags.patch
+Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/Data-Pond-%{version}.tar.gz
 
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -39,7 +36,6 @@ JavaScript, but Pond represents fewer data types directly.
 
 %prep
 %setup -q -n Data-Pond-%{version}
-%patch 0
 
 %build
 /usr/bin/perl Build.PL installdirs=vendor optimize="%{optimize}"
@@ -59,6 +55,10 @@ JavaScript, but Pond represents fewer data types directly.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 30 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.006-1
+- Update to 0.006, with new maintainer (#2355690)
+- Drop upstreamed patch
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

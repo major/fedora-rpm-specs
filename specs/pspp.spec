@@ -11,8 +11,6 @@ Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # Follow up to CVE-2022-39831
 Patch1:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
-# FIXME retest on F-40+
-Patch2:		pspp-0002-FIXME-disable-tests-failing-on-F-40.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel
@@ -42,9 +40,8 @@ BuildRequires:  python3
 BuildRequires:  readline-devel
 BuildRequires:  spread-sheet-widget-devel
 BuildRequires:  texinfo
-# FIXME not sure what's going on there. It passes TeX-tests perfectly fine on my machine.
-#BuildRequires:  texlive-tex
-#BuildRequires:  texlive-wasy
+BuildRequires:  texlive-tex
+BuildRequires:  texlive-wasy
 Requires:	hicolor-icon-theme
 
 

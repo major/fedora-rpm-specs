@@ -1,5 +1,5 @@
 Name:          feather
-Version:       2.7.0
+Version:       2.8.0
 Release:       %autorelease
 Summary:       Monero desktop wallet
 
@@ -23,6 +23,7 @@ BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtsvg-devel
 BuildRequires: qt6-qtwebsockets-devel
 BuildRequires: qt6-qtmultimedia-devel
+BuildRequires: qt6-qtwayland-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: openssl-devel
 BuildRequires: libzip-devel
@@ -36,6 +37,7 @@ BuildRequires: libsodium-devel
 BuildRequires: protobuf-lite-devel
 BuildRequires: libusb1-devel
 BuildRequires: unbound-devel
+BuildRequires: wayland-devel
 BuildRequires: zxing-cpp-devel
 Requires:      tor
 
@@ -61,7 +63,7 @@ install -Dpm644 %{SOURCE3} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %license LICENSE
 %{_bindir}/feather
 %{_datadir}/applications/feather.desktop
-%{_datadir}/icons/hicolor/256x256/apps/feather.png
+%{_datadir}/icons/hicolor/*/apps/feather.png
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog

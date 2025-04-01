@@ -1,25 +1,33 @@
 %global apiver 6
 
-Name:           tepl
-Version:        6.8.0
+Name:           libgedit-tepl
+Version:        6.12.0
 Release:        %autorelease
 Summary:        Text editor product line library
 License:        LGPL-3.0-or-later
-URL:            https://gitlab.gnome.org/swilmet/tepl
-Source0:        https://download.gnome.org/sources/tepl/6.8/tepl-%{version}.tar.xz
+URL:            https://gedit-text-editor.org/
+Source0:        https://download.gnome.org/sources/%{name}/6.12/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
 BuildRequires:  meson
-BuildRequires:  pkgconfig(amtk-5)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.62
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
-#BuildRequires:  pkgconfig(libgedit-amtk-5)
-BuildRequires:  pkgconfig(libgedit-gtksourceview-300)
+BuildRequires:  pkgconfig(libgedit-amtk-5)
+BuildRequires:  pkgconfig(libgedit-gfls-1) >= 0.2
+BuildRequires:  pkgconfig(libgedit-gtksourceview-300) >= 2.99.4
+BuildRequires:  pkgconfig(libhandy-1) >= 1.6
 BuildRequires:  pkgconfig(icu-uc) pkgconfig(icu-i18n)
+# test dependencies
+BuildRequires:  xwayland-run
+BuildRequires:  mutter
+BuildRequires:  mesa-libEGL
+
+# renamed upstream except for the gobject-introspection
+Obsoletes:      tepl < 6.10.0
 
 %description
 Tepl is a library that eases the development of GtkSourceView-based text
@@ -29,6 +37,8 @@ editors and IDEs. Tepl is the acronym for “Text editor product line”.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# renamed upstream except for the gobject-introspection
+Obsoletes:      tepl-devel < 6.10.0
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -37,9 +47,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup
-
-# renamed with no API changes
-sed -i -e 's|libgedit-amtk|amtk|g' meson.build docs/reference/meson.build
 
 
 %build
@@ -50,25 +57,29 @@ sed -i -e 's|libgedit-amtk|amtk|g' meson.build docs/reference/meson.build
 %install
 %meson_install
 
-%find_lang tepl-%{apiver}
+%find_lang %{name}-%{apiver}
 
 
-%files -f tepl-%{apiver}.lang
+%check
+%{shrink:xwfb-run -c mutter -- %meson_test}
+
+
+%files -f %{name}-%{apiver}.lang
 %license LICENSES/*
 %doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Tepl-%{apiver}.typelib
-%{_libdir}/libtepl-%{apiver}.so.4{,.*}
+%{_libdir}/libgedit-tepl-%{apiver}.so.2{,.*}
 
 %files devel
-%{_includedir}/tepl-%{apiver}/
-%{_libdir}/libtepl-%{apiver}.so
-%{_libdir}/pkgconfig/tepl-%{apiver}.pc
+%{_includedir}/libgedit-tepl-%{apiver}/
+%{_libdir}/libgedit-tepl-%{apiver}.so
+%{_libdir}/pkgconfig/libgedit-tepl-%{apiver}.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Tepl-%{apiver}.gir
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
-%{_datadir}/gtk-doc/html/tepl-%{apiver}/
+%{_datadir}/gtk-doc/html/libgedit-tepl-%{apiver}/
 
 
 %changelog

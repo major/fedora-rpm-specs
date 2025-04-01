@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           2%{?dist}
+Release:           3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -70,7 +70,7 @@ EOF
 
 
 %build
-%configure --runstatedir=%{rundir}
+%configure --runstatedir=%{rundir} --with-confdir='${sysconfdir}'
 make
 
 
@@ -143,6 +143,9 @@ fi
 
 
 %changelog
+* Tue Mar 25 2025 Scott Talbert <swt@techie.net> - 4.0.0-3
+- Restore expected ddclient.conf dir to pre-4.0 location (#2354194)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.0-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

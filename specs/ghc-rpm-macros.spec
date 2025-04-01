@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -212,6 +212,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sun Mar 30 2025 Jens Petersen  <petersen@redhat.com> - 2.8.1-1
+- ghc_delete_rpaths: also remove system libdir from middle of rpath
+
 * Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 2.8.0-1
 - place ghc9.12 dynamic prof files in prof subpackage
 

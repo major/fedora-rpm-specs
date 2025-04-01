@@ -1,4 +1,4 @@
-%global candidate rc4
+%global candidate rc5
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.04
-Release:  0.6%{?candidate:.%{candidate}}%{?dist}
+Release:  0.7%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -21,28 +21,27 @@ Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candid
 Source1:  aarch64-boards
 Source2:  riscv64-boards
 
-# This is now legacy, most devices use bootflow, we keep this for the laggards
-Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
-# Identify VFAT partitions as ESP, allows EFI setvar on our images
-Patch2:   uefi-Add-all-options-for-EFI-System-Partitions.patch
-# New function to find fdt for loading from disk
-Patch3:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 # Fedora patches to enable/disable features
-Patch4:   disable-VBE-by-default.patch
-Patch5:   enable-bootmenu-by-default.patch
+Patch1:   disable-VBE-by-default.patch
+Patch2:   enable-bootmenu-by-default.patch
+# This is now legacy, most devices use bootflow, we keep this for the laggards
+Patch3:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
+# Identify VFAT partitions as ESP, allows EFI setvar on our images
+Patch4:   uefi-Add-all-options-for-EFI-System-Partitions.patch
+# New function to find fdt for loading from disk
+Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
+# Enable UEFI SetVariable for devices without backed storage
+Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Should be upstream but it's taking time
-Patch6:   Add-video-damage-tracking.patch
+Patch8:   Add-video-damage-tracking.patch
 # For HTTP boot installs
-Patch7:   Add-pmem-node-for-preserving-distro-ISO-s.patch
-# USB-PD improvements
-Patch8:   USB-PD-TCPM-improvements.patch
+Patch9:   Add-pmem-node-for-preserving-distro-ISO-s.patch
 
 # Device improvments
-# RPi
-Patch10:  rpi-fixes.patch
 # Rockchips improvements
-Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
-#Patch12:  rockchip-Modernise-Geekbox-config.patch
+Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
+# USB-PD improvements
+Patch11:   USB-PD-TCPM-improvements.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -269,6 +268,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Mar 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.7.rc5
+- Update to 2025.04 RC5
+
 * Wed Mar 12 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.6.rc4
 - Update to 2025.04 RC4
 

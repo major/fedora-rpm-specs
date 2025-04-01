@@ -4,8 +4,8 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       122
-Release:       2%{?dist}
+Version:       123
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -109,6 +109,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Sun Mar 30 2025 Dominik Mierzejewski <dominik@greysector.net> - 123-1
+- update to 123 (resolves rhbz#2354967)
+
 * Tue Mar 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 122-2
 - unbundle FP16
 

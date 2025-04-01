@@ -1,7 +1,7 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Wikipedia Reader for the GNOME Desktop
 

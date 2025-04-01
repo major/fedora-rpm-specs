@@ -14,6 +14,9 @@ URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 # rust: bump glib to 0.19.5
 Patch:          %{url}/-/commit/3b45d15c29da4f854e601b9b20e7da005e3792e6.patch
+Patch:          %{url}/-/commit/6f8231043fb64d3b25079d9b620a272bd073911f.patch
+# rust: bump glib to 0.20
+Patch:          %{url}/-/commit/27531ae2ec060f5739d246388fd89a6912246393.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake

@@ -1,5 +1,5 @@
 Name:           gammastep
-Version:        2.0.10
+Version:        2.0.11
 Release:        %autorelease
 Summary:        Adjusts the color temperature of your screen according to time of day
 
@@ -7,8 +7,6 @@ Summary:        Adjusts the color temperature of your screen according to time o
 License:        GPL-3.0-or-later AND HPND-sell-variant
 URL:            https://gitlab.com/chinstrap/gammastep
 Source:         %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-
-Patch:          gammastep-fix-gamma-wl-Wincompatible-pointer-types-in-output-l.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

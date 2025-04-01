@@ -74,7 +74,6 @@ Requires:	xorg-x11-xinit
 Requires:   lightdm-greeter = 1.2
 Suggests:   slick-greeter
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 Obsoletes: lightdm-qt < %{version}-%{release}
 Obsoletes: lightdm-qt-devel < %{version}-%{release}
@@ -200,8 +199,6 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %endif
 
 
-%pre
-%sysusers_create_compat %{SOURCE16}
 
 %post
 # todo: document need/purpose for this snippet

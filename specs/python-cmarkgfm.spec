@@ -1,7 +1,7 @@
 %global pypi_name cmarkgfm
 
 Name:           python-%{pypi_name}
-Version:        2024.1.14
+Version:        2024.11.20
 Release:        %autorelease
 Summary:        Minimal bindings to GitHub's fork of cmark
 

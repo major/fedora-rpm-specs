@@ -1,12 +1,11 @@
 Name:           perl-Data-Entropy
-Version:        0.007
-Release:        27%{?dist}
+Version:        0.008
+Release:        1%{?dist}
 Summary:        Entropy (randomness) management
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Data-Entropy
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Data-Entropy-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Entropy-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  perl-interpreter
@@ -14,6 +13,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(CPAN)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::Rijndael)
+BuildRequires:  perl(Crypt::URandom) >= 0.36
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Float) >= 0.008
 BuildRequires:  perl(Errno) >= 1.00
@@ -51,15 +51,15 @@ explicitly configure a source at all.
 %setup -q -n Data-Entropy-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
-./Build
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-./Build test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -67,6 +67,9 @@ explicitly configure a source at all.
 %{_mandir}/man3/Data*
 
 %changelog
+* Sun Mar 30 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.008-1
+- Update to 0.008, with new maintainer (#2355612)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,38 +2,11 @@
 
 Summary: Utility for modifying/upgrading files
 Name: patch
-Version: 2.7.6
-Release: 26%{?dist}
+Version: 2.8
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
-Patch0: patch-2.7.6-avoid-set_file_attributes-sign-conversion-warnings.patch
-patch1: patch-2.7.6-test-suite-compatibility-fixes.patch
-Patch2: patch-2.7.6-fix-korn-shell-incompatibility.patch
-Patch3: patch-2.7.6-fix-segfault-with-mangled-rename-patch.patch
-Patch4: patch-2.7.6-allow-input-files-to-be-missing-for-ed-style-patches.patch
-Patch5: patch-CVE-2018-1000156.patch
-Patch6: patch-2.7.6-CVE-2019-13638-invoked-ed-directly-instead-of-using-the-shell.patch
-Patch7: patch-2.7.6-switch-from-fork-execlp-to-execute.patch
-Patch8: patch-2.7.6-cleanups-in-do_ed_script.patch
-Patch9: patch-2.7.6-avoid-warnings-gcc8.patch
-Patch10: patch-2.7.6-check-of-return-value-of-fwrite.patch
-Patch11: patch-2.7.6-fix-ed-style-test-failure.patch
-Patch12: patch-2.7.6-dont-leak-temporary-file-on-failed-ed-style-patch.patch
-Patch13: patch-2.7.6-dont-leak-temporary-file-on-failed-multi-file-ed-style-patch.patch
-Patch14: patch-2.7.6-make-debug-output-more-useful.patch
-Patch15: patch-2.7.6-CVE-2018-6952-fix-swapping-fake-lines-in-pch_swap.patch
-Patch16: patch-2.7.6-improve_support_for_memory_leak_detection.patch
-patch17: patch-2.7.6-skip-ed-test-when-the-ed-utility-is-not-installed.patch
-Patch18: patch-2.7.6-abort_when_cleaning_up_fails.patch
-Patch19: patch-2.7.6-crash-RLIMIT_NOFILE.patch
-Patch20: patch-2.7.6-CVE-2019-13636-symlinks.patch
-Patch21: patch-2.7.6-avoid-invalid-memory-access-in-context-format-diffs.patch
-Patch22: patch-2.7.6-CVE-2018-17942.patch
-Patch23: patch-2.7.6-failed_assertion.patch
-Patch100: patch-selinux.patch
-Patch101: patch-configure-c99.patch
-
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libselinux-devel
@@ -56,42 +29,9 @@ Patch should be installed because it is a common way of upgrading
 applications.
 
 %prep
-%setup -q
-%patch 0 -p1 -b .avoid-set_file_attributes-sign-conversion-warnings
-%patch 1 -p1 -b .test-suite-compatibility-fixes
-%patch 2 -p1 -b .fix-korn-shell-incompatibility
-%patch 3 -p1 -b .fix-segfault-with-mangled-rename-patch
-%patch 4 -p1 -b .allow-input-files-to-be-missing-for-ed-style-patches
-# CVE-2018-1000156, Malicious patch files cause ed to execute arbitrary commands
-%patch 5 -p1 -b .CVE-2018-1000156
-%patch 6 -p1 -b .CVE-2019-13638-invoked-ed-directly-instead-of-using-the-shell
-%patch 7 -p1 -b .switch-from-fork-execlp-to-execute
-%patch 8 -p1 -b .cleanups-in-do_ed_script
-%patch 9 -p1 -b .avoid-warnings-gcc8
-%patch 10 -p1 -b .check-of-return-value-of-fwrite
-%patch 11 -p1 -b .fix-ed-style-test-failure
-%patch 12 -p1 -b .dont-leak-temporary-file-on-failed-ed-style-patch
-%patch 13 -p1 -b .dont-leak-temporary-file-on-failed-multi-file-ed-style-patch
-%patch 14 -p1 -b .make-debug-output-more-useful
-%patch 15 -p1 -b .CVE-2018-6952-fix-swapping-fake-lines-in-pch_swap
-%patch 16 -p1 -b .improve_support_for_memory_leak_detection
-%patch 17 -p1 -b .skip-ed-test-when-the-ed-utility-is-not-installed
-%patch 18 -p1 -b .abort_when_cleaning_up_fails
-%patch 19 -p1 -b .crash-RLIMIT_NOFILE
-%patch 20 -p1 -b .CVE-2019-13636-symlinks
-%patch 21 -p1 -b .avoid-invalid-memory-access-in-context-format-diffs
-# CVE-2018-17942 gnulib: heap-based buffer overflow
-%patch 22 -p1 -b .CVE-2018-17942-gnulib_buffer_overflow
-%patch 23 -p1 -b .failed_assertion
-# SELinux support.
-%patch 100 -p1 -b .selinux
-%patch 101 -p1
+%autosetup -p1
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE"
-%ifarch sparcv9
-CFLAGS=`echo $CFLAGS|sed -e 's|-fstack-protector||g'`
-%endif
 autoreconf
 %configure --disable-silent-rules
 %make_build
@@ -109,6 +49,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Sun Mar 30 2025 Than Ngo <than@redhat.com> - 2.8-1
+- Fixed rhbz#2355942 -  Update to 2.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

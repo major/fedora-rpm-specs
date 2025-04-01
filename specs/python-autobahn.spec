@@ -1,13 +1,16 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        23.6.2
-Release:        9%{?dist}
+Version:        24.4.2
+Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
 URL:            https://autobahn.readthedocs.io/en/latest/
 Source0:        https://github.com/crossbario/autobahn-python/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+# fix some deprecations in tests
+Patch0:         https://github.com/crossbario/autobahn-python/pull/1647.patch
+
 BuildArch:      noarch
 
 %description
@@ -57,7 +60,7 @@ Documentation for %{name}.
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info twisted}
 
 %prep
-%autosetup -n %{pypi_name}-python-%{version}
+%autosetup -n %{pypi_name}-python-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 # There is a requirement for pytest 6.2+ in pytest.ini and we don't have that yet
 # it works with 6.0 just fine and the config file is not needed
@@ -121,6 +124,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %license LICENSE
 
 %changelog
+* Thu Mar 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.4.2-1
+- Update to 24.4.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.6.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

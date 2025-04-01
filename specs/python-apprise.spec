@@ -1,7 +1,7 @@
-# BSD 3-Clause License
+# BSD 2-Clause License
 #
 # Apprise - Push Notification Library.
-# Copyright (c) 2024, Chris Caron <lead2gold@gmail.com>
+# Copyright (c) 2025, Chris Caron <lead2gold@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -39,8 +39,8 @@ Apprise is a Python package for simplifying access to all of the different
 notification services that are out there. Apprise opens the door and makes
 it easy to access:
 
-Africas Talking, Apprise API, APRS, AWS SES, AWS SNS, Bark, Burst SMS,
-BulkSMS, BulkVS, Chantify, ClickSend, DAPNET, DingTalk, Discord, E-Mail, Emby,
+Africas Talking, Apprise API, APRS, AWS SES, AWS SNS, Bark, BlueSky, Burst SMS,
+BulkSMS, BulkVS, Chanify, ClickSend, DAPNET, DingTalk, Discord, E-Mail, Emby,
 FCM, Feishu, Flock, Free Mobile, Google Chat, Gotify, Growl, Guilded, Home
 Assistant, httpSMS, IFTTT, Join, Kavenegar, KODI, Kumulos, LaMetric, Line,
 LunaSea, MacOSX, Mailgun, Mastodon, Mattermost,Matrix, MessageBird, Microsoft
@@ -48,17 +48,17 @@ Windows, Microsoft Teams, Misskey, MQTT, MSG91, MyAndroid, Nexmo, Nextcloud,
 NextcloudTalk, Notica, Notifiarr, Notifico, ntfy, Office365, OneSignal,
 Opsgenie, PagerDuty, PagerTree, ParsePlatform, Plivo, PopcornNotify, Prowl,
 Pushalot, PushBullet, Pushjet, PushMe, Pushover, PushSafer, Pushy, PushDeer,
-Revolt, Reddit, Rocket.Chat, RSyslog, SendGrid, ServerChan, Seven, SFR, Signal,
-SimplePush, Sinch, Slack, SMSEagle, SMS Manager, SMTP2Go, SparkPost, Splunk,
-Super Toasty, Streamlabs, Stride, Synology Chat, Syslog, Techulus Push,
+Revolt, Reddit, Resend, Rocket.Chat, RSyslog, SendGrid, ServerChan, Seven, SFR,
+Signal, SimplePush, Sinch, Slack, SMSEagle, SMS Manager, SMTP2Go, SparkPost,
+Splunk, Super Toasty, Streamlabs, Stride, Synology Chat, Syslog, Techulus Push,
 Telegram, Threema Gateway, Twilio, Twitter, Twist, VictorOps, Voipms, Vonage,
 WeCom Bot, WhatsApp, Webex Teams, Workflows, WxPusher, XBMC}
 
 Name:           python-%{pypi_name}
-Version:        1.9.1
-Release:        2%{?dist}
+Version:        1.9.3
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -149,8 +149,14 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Sun Mar 30 2025 Chris Caron <lead2gold@gmail.com> - 1.9.3
+- Updated to v1.9.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Wed Jan  8 2025 Chris Caron <lead2gold@gmail.com> - 1.9.2
+- Updated to v1.9.2
 
 * Tue Dec 17 2024 Chris Caron <lead2gold@gmail.com> - 1.9.1
 - Updated to v1.9.1

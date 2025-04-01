@@ -1,14 +1,13 @@
 Name:           genius
-Version:        1.0.25
-Release:        13%{?dist}
+Version:        1.0.27
+Release:        1%{?dist}
 Summary:        An arbitrary precision integer and multiple precision floatingpoint calculator
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            http://www.jirka.org/genius.html
+URL:            https://www.jirka.org/genius.html
 Source0:        https://download.gnome.org/sources/genius/1.0/genius-%{version}.tar.xz
 
-BuildRequires:  amtk-devel
 BuildRequires:  gcc
 BuildRequires:  vte291-devel
 BuildRequires:  readline-devel
@@ -49,16 +48,15 @@ GNOME frontend for Genius.
 find -name \*.c | xargs chmod 0644
 
 %build
-%configure
-make %{?_smp_mflags}
+%configure --disable-update-mimedb
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 rm -rf $RPM_BUILD_ROOT%{_libdir}
 rm -f $RPM_BUILD_ROOT%{_datadir}/genius/plugins/test.plugin
 rm -rf $RPM_BUILD_ROOT%{_datadir}/application-registry
 rm -rf $RPM_BUILD_ROOT%{_datadir}/mime-info
-rm -rf $RPM_BUILD_ROOT%{_datadir}/mime/{subclasses,text,XMLnamespaces,aliases,globs,magic,mime.cache,icons,generic-icons,treemagic,types,globs2,version}
 rm -rf $RPM_BUILD_ROOT/var
 desktop-file-install \
     --add-category Utility \
@@ -90,6 +88,9 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 %changelog
+* Mon Jan 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.27-1
+- Update to 1.0.27
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.25-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

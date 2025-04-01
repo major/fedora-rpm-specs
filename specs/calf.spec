@@ -4,7 +4,7 @@
 %endif
 
 Name:		calf
-Version:	0.90.5
+Version:	0.90.6
 Release:	1%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
@@ -157,6 +157,12 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Sun Mar 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.90.6-1
+- 0.90.6
+
+* Sun Mar 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.90.5.2-1
+- 0.90.5.2
+
 * Mon Mar 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.90.5-1
 - 0.90.5
 
