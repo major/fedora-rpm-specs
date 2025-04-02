@@ -37,9 +37,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.34.04
+Version:	6.34.06
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -80,22 +80,13 @@ Patch4:		%{name}-32bit-tests.patch
 #		Adjust test/stressGraphics.ref
 #		https://github.com/root-project/root/pull/17398
 Patch5:		%{name}-Adjust-test-stressGraphics.ref.patch
-#		Fix out of bounds error reported with gcc 15
-#		https://github.com/root-project/root/pull/17249
-Patch6:		%{name}-gpad-Fix-Debug-Assertion-Failure-in-libGpad.patch
-#		Fix out of bounds errors reported with gcc 15
-#		https://github.com/root-project/root/pull/17551
-Patch7:		%{name}-Fix-out-of-bounds-error-in-pyroot.patch
-#		Fix roofit/roostats test failures with gcc 15
-#		https://github.com/root-project/root/pull/17702
-Patch8:		%{name}-PyROOT-Add-__hash_not_enabled-to-names-from-std-name.patch
+#		Revert test change that breaks the test
+Patch6:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
 BuildRequires:	make
-#		root on Linux requires cmake 3.16
-#		but 3.19 is needed for flexiblas support
-BuildRequires:	cmake >= 3.19
+BuildRequires:	cmake >= 3.20
 BuildRequires:	libX11-devel
 BuildRequires:	libXpm-devel
 BuildRequires:	libXft-devel
@@ -165,12 +156,7 @@ BuildRequires:	flexiblas-devel
 %if ! %{bundlejson}
 BuildRequires:	json-devel >= 3.9
 %endif
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-#		Disable uring in EPEL 8 (liburing is available,
-#		but uring not supported by the RHEL 8 kernel)
-#		Supported by the RHEL kernel since RHEL 9.3
 BuildRequires:	liburing-devel
-%endif
 %if %{tmvasofieparser}
 BuildRequires:	protobuf-devel >= 3.0
 %endif
@@ -848,9 +834,7 @@ from marked up sources.
 %package io
 Summary:	Input/output of ROOT objects
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
 Requires:	liburing-devel
-%endif
 
 %description io
 This package provides I/O routines for ROOT objects.
@@ -1974,8 +1958,6 @@ This package contains utility functions for ntuples.
 %patch -P4 -p1
 %patch -P5 -p1
 %patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2181,11 +2163,7 @@ done
        -Dtpython:BOOL=ON \
        -Dunfold:BOOL=ON \
        -Dunuran:BOOL=ON \
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
        -During:BOOL=ON \
-%else
-       -During:BOOL=OFF \
-%endif
        -Dvc:BOOL=OFF \
        -Dvdt:BOOL=OFF \
        -Dveccore:BOOL=OFF \
@@ -2408,20 +2386,8 @@ ln -s ../../files files
 popd
 pushd runtutorials
 ln -s ../../files files
-for x in df014_CsvDataSource_MuRun2010B_cpp.csv \
-	 df014_CsvDataSource_MuRun2010B_py.csv \
-	 df015_CsvDataSource_MuRun2010B.csv ; do
-    ln -sf ../../files/tutorials/df014_CsvDataSource_MuRun2010B.csv $x
-done
-popd
-pushd tmva/tmva/test
-ln -s ../../../../files files
-popd
-pushd tmva/tmva/test/DNN
-ln -s ../../../../../files files
-popd
-pushd tmva/tmva/test/envelope
-ln -s ../../../../../files files
+ln -s ../../files/tutorials/df014_CsvDataSource_MuRun2010B.csv CsvDataSource_MuRun2010B.csv
+ln -s ../../files/usa.root usa.root
 popd
 
 # Exclude some tests that can not be run
@@ -3660,6 +3626,10 @@ fi
 %endif
 
 %changelog
+* Fri Mar 28 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.06-1
+- Update to 6.34.06
+- Drop patches accepted upstream or previously backported
+
 * Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.04-2
 - Fix roofit/roostats test failures with gcc 15
 

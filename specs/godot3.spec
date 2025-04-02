@@ -18,7 +18,7 @@
 
 Name:           godot3
 Version:        3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -34,6 +34,8 @@ Patch0:         godot3-dist-files-rebranding.patch
 Patch1:         godot3-miniupnp228.patch
 # https://github.com/godotengine/godot/pull/102023
 Patch2:         0001-embree-Fix-invalid-output-operators-raising-errors-w.patch
+# Partial port of https://github.com/godotengine/godot/pull/90482
+Patch3: 90428.diff
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -284,6 +286,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Mar 31 2025 Bill Roberts <bill.roberts@arm.com> - 3.6-3
+- Update to support mbedtls 3
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.6-2
 - Rebuild for mbedtls 3.6
 

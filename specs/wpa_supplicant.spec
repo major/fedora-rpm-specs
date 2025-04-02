@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -43,6 +43,10 @@ Patch9: wpa_supplicant-allow-legacy-renegotiation.patch
 # 4-way HS offload") as it break authentication on at least brcmfmac.
 # see https://bugzilla.redhat.com/show_bug.cgi?id=2302577
 Patch10: wpa_supplicant-Revert-Mark-authorization-completed-on-driver-indica.patch
+# Move signal strength change messages to debug to drastically reduce logging spew
+# see https://bugzilla.redhat.com/2309148
+# From: https://w1.fi/cgit/hostap/commit/?id=c330b5820eefa8e703dbce7278c2a62d9c69166a
+Patch11: wpa_supplicant-Send-signal-change-as-debug-msg.patch
 
 URL: http://w1.fi/wpa_supplicant/
 
@@ -204,6 +208,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 1:2.11-5
+- Backport fix to eliminate signal strength change messages from journal (#2309148)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

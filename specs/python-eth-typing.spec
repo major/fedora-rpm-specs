@@ -23,11 +23,8 @@ Summary: %{summary}
 %description -n python3-eth-typing
 %{summary}.
 
-%prep -a
-rm -f ./scripts/release/test_package.py
-
 %check -a
-%pytest
+%pytest -k 'not test_install_local_wheel'
 
 %files -n python3-eth-typing -f %{pyproject_files}
 %doc README.md

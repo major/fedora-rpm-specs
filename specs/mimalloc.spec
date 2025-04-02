@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           mimalloc
-Version:        2.1.9
-Release:        3%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
 License:        MIT
@@ -62,6 +62,9 @@ rm -rf bin
 
 
 %changelog
+* Mon Mar 31 2025 Vasiliy Glazov <vascom2@gmail.com> - 2.2.3-1
+- Update to 2.2.3
+
 * Sat Jan 25 2025 Christoph Erhardt <fedora@sicherha.de> - 2.1.9-3
 - Disable architecture-specific optimizations
 

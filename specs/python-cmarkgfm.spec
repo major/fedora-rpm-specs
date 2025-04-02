@@ -1,51 +1,43 @@
-%global pypi_name cmarkgfm
-
-Name:           python-%{pypi_name}
+Name:           python-cmarkgfm
 Version:        2024.11.20
 Release:        %autorelease
 Summary:        Minimal bindings to GitHub's fork of cmark
 
 License:        MIT
-URL:            https://github.com/jonparrott/cmarkgfm
-Source0:        %{pypi_source}
+URL:            https://github.com/theacodes/cmarkgfm
+Source:         %{pypi_source cmarkgfm}
 
 BuildRequires:  gcc
 
 %description
 Bindings to GitHub's cmark Minimalist bindings to GitHub's fork of cmark.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-cmarkgfm
 Summary:        %{summary}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-cffi
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-cmarkgfm
 Bindings to GitHub's cmark Minimalist bindings to GitHub's fork of cmark.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
-chmod -x README.rst LICENSE.txt
+%autosetup -n cmarkgfm-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l cmarkgfm
 
 %check
 %pytest -v tests
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%files -n python3-cmarkgfm -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
 %autochangelog
-

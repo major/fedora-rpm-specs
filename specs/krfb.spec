@@ -4,7 +4,7 @@ Version: 25.03.80
 Release: 2%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
-URL:     https://www.kde.org/applications/network/krfb/
+URL:     https://apps.kde.org/krfb/
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 

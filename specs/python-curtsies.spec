@@ -1,10 +1,11 @@
 Summary:       Curses-like terminal wrapper, with colored strings
 Name:          python-curtsies
 Version:       0.4.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       MIT
 URL:           https://github.com/bpython/curtsies
 Source0:       https://files.pythonhosted.org/packages/source/c/curtsies/curtsies-%{version}.tar.gz
+Patch:         curtsies-0.4.2-py314.patch
 BuildArch:     noarch
 BuildRequires: python3-blessed
 BuildRequires: python3-blessings
@@ -48,8 +49,11 @@ Requires:       python3-cwcwidth
 %{python3_sitelib}/curtsies-*-py*.egg-info
 
 %changelog
+* Mon Mar 31 2025 Terje Rosten <terjeros@gmail.com> - 0.4.2-9
+- Add patch to fix Python 3.14 issue
+
 * Sun Mar 09 2025 Terje Rosten <terjeros@gmail.com> - 0.4.2-8
-- Usr pytest over nose
+- Use pytest over nose
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

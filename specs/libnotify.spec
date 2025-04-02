@@ -1,7 +1,7 @@
 %define glib2_version 2.38.0
 
 Name:           libnotify
-Version:        0.8.4
+Version:        0.8.6
 Release:        1%{?dist}
 Summary:        Desktop notification library
 
@@ -62,6 +62,9 @@ development of programs using %{name}.
 %doc %{_docdir}/libnotify/spec/
 
 %changelog
+* Mon Mar 31 2025 nmontero <nmontero@redhat.com> - 0.8.6-1
+- Update to 0.8.6
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 0.8.4-1
 - Update to 0.8.4
 

@@ -4,9 +4,9 @@
 
 Name: gnucash
 Summary: Finance management application
-Version: 5.10
+Version: 5.11
 URL: https://gnucash.org/
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -14,7 +14,6 @@ ExcludeArch: %{ix86}
 
 Patch0: rpath.patch
 Patch1: no-implicit.patch
-Patch2: gnucash-5.9-swig-4.3.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
@@ -125,6 +124,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.11-1
+- 5.11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

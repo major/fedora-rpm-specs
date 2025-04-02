@@ -1,8 +1,13 @@
 # SystemTap support is disabled by default
 %{!?sdt:%global sdt 0}
 
-#http://lists.fedoraproject.org/pipermail/devel/2011-August/155358.html
-%global _hardened_build 1
+%if 0%{?rhel} >= 10
+%bcond_with dhclient
+%bcond_with dhcpd
+%else
+%bcond_without dhclient
+%bcond_without dhcpd
+%endif
 
 # Where dhcp configuration files are stored
 %global dhcpconfdir %{_sysconfdir}/dhcp
@@ -12,6 +17,10 @@
 %global DHCPVERSION %{version}%{?prever}%{?patchver:-%{patchver}}
 # Bundled bind version
 %global BINDVERSION 9.11.36
+
+%global dhcp_EOL_text DHCP is no longer maintained by ISC. This package is provided on\
+best effort basis to cover functionality that is not provided by Kea\
+and should not be used on production systems.
 
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
@@ -106,6 +115,9 @@ BuildRequires: systemd-rpm-macros
 %description
 DHCP (Dynamic Host Configuration Protocol)
 
+%{dhcp_EOL_text}
+
+%if %{with dhcpd}
 %package server
 Summary: Provides the ISC DHCP server
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
@@ -124,6 +136,9 @@ easier to administer a large network.
 
 This package provides the ISC DHCP server.
 
+%{dhcp_EOL_text}
+%endif
+
 %package relay
 Summary: Provides the ISC DHCP relay agent
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
@@ -141,6 +156,9 @@ easier to administer a large network.
 
 This package provides the ISC DHCP relay agent.
 
+%{dhcp_EOL_text}
+
+%if %{with dhclient}
 %package client
 Summary: Provides the ISC DHCP client daemon and dhclient-script
 Provides: dhclient = %{epoch}:%{version}-%{release}
@@ -161,6 +179,9 @@ easier to administer a large network.
 
 This package provides the ISC DHCP client.
 
+%{dhcp_EOL_text}
+%endif
+
 %package common
 Summary: Common files used by ISC dhcp client, server and relay agent
 BuildArch: noarch
@@ -176,6 +197,8 @@ easier to administer a large network.
 
 This package provides common files used by dhcp and dhclient package.
 
+%{dhcp_EOL_text}
+
 %package libs-static
 Summary: Shared libraries used by ISC dhcp client and server
 Provides: %{name}-libs%{?_isa} =  %{epoch}:%{version}-%{release}
@@ -187,6 +210,8 @@ Provides: deprecated()
 %description libs-static
 This package contains shared libraries used by ISC dhcp client and server
 
+%{dhcp_EOL_text}
+
 %package devel
 Summary: Development headers and libraries for interfacing to the DHCP server
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -195,6 +220,8 @@ Provides: deprecated()
 %description devel
 Header files and API documentation for using the ISC DHCP libraries.  The
 libdhcpctl and libomapi static libraries are also included in this package.
+
+%{dhcp_EOL_text}
 
 %if ! 0%{?_module_build}
 %package devel-doc
@@ -208,6 +235,8 @@ This documentation is intended for developers, contributors and other
 programmers that are interested in internal operation of the code.
 This package contains doxygen-generated documentation.
 %endif
+
+%{dhcp_EOL_text}
 
 %prep
 %if 0%{?fedora}
@@ -268,7 +297,7 @@ CFLAGS="%{optflags} -fno-strict-aliasing -fcommon" \
     --enable-paranoia --enable-early-chroot \
     --enable-binary-leases \
     --with-systemd
-make -j1
+%make_build
 
 %if ! 0%{?_module_build}
 pushd doc
@@ -277,12 +306,13 @@ popd
 %endif
 
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+%make_install
 
 # We don't want example conf files in /etc
 rm -f %{buildroot}%{_sysconfdir}/dhclient.conf.example
 rm -f %{buildroot}%{_sysconfdir}/dhcpd.conf.example
 
+%if %{with dhclient}
 # dhclient-script
 install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_sbindir}/dhclient-script
 
@@ -298,22 +328,30 @@ install -p -m 0755 %{SOURCE3} %{buildroot}%{_prefix}/lib/NetworkManager/dispatch
 
 # pm-utils script to handle suspend/resume and dhclient leases
 install -D -p -m 0755 %{SOURCE5} %{buildroot}%{_libdir}/pm-utils/sleep.d/56dhclient
+%endif
 
 # systemd unit files
 mkdir -p %{buildroot}%{_unitdir}
+%if %{with dhcpd}
 install -m 644 %{SOURCE6} %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE7} %{buildroot}%{_unitdir}
+%endif
 install -m 644 %{SOURCE8} %{buildroot}%{_unitdir}
 
 # systemd-sysusers
 install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/dhcp.conf
 
+%if %{with dhcpd}
 # Start empty lease databases
 mkdir -p %{buildroot}%{_localstatedir}/lib/dhcpd/
 touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd.leases
 touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd6.leases
+%endif
+%if %{with dhclient}
 mkdir -p %{buildroot}%{_localstatedir}/lib/dhclient/
+%endif
 
+%if %{with dhcpd}
 # default sysconfig file for dhcpd
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 cat <<EOF > %{buildroot}%{_sysconfdir}/sysconfig/dhcpd
@@ -336,11 +374,15 @@ cat <<EOF > %{buildroot}%{_sysconfdir}/sysconfig/dhcpd
 # $ systemctl --system daemon-reload
 # $ systemctl restart dhcpd.service
 EOF
+%endif
 
+%if %{with dhcpd}
 # Copy sample conf files into position (called by doc macro)
 cp -p doc/examples/dhclient-dhcpv6.conf client/dhclient6.conf.example
 cp -p doc/examples/dhcpd-dhcpv6.conf server/dhcpd6.conf.example
+%endif
 
+%if %{with dhclient}
 cat << EOF > client/dhclient-enter-hooks
 #!/bin/bash
 
@@ -357,7 +399,9 @@ echo "reason: ${reason}"
 ( set -o posix ; set ) | grep "alias_"
 ( set -o posix ; set ) | grep "requested_"
 EOF
+%endif
 
+%if %{with dhcpd}
 # Install default (empty) dhcpd.conf:
 mkdir -p %{buildroot}%{dhcpconfdir}
 cat << EOF > %{buildroot}%{dhcpconfdir}/dhcpd.conf
@@ -379,10 +423,41 @@ EOF
 
 # Install dhcp.schema for LDAP configuration
 install -D -p -m 0644 contrib/ldap/dhcp.schema %{buildroot}%{_sysconfdir}/openldap/schema/dhcp.schema
+%endif
 
 # Don't package libtool *.la files
 find %{buildroot} -type f -name "*.la" -delete -print
 
+%if %{without dhcpd}
+rm -frv \
+    %{buildroot}%{_sysusersdir}/dhcp.conf \
+    %{buildroot}%{_sbindir}/dhcpd \
+    %{buildroot}%{_bindir}/omshell \
+    %{buildroot}%{_mandir}/man1/omshell.1 \
+    %{buildroot}%{_mandir}/man3/dhcpctl.3 \
+    %{buildroot}%{_mandir}/man3/omapi.3 \
+    %{buildroot}%{_mandir}/man5/dhcpd.conf.5 \
+    %{buildroot}%{_mandir}/man5/dhcpd.leases.5 \
+    %{buildroot}%{_mandir}/man8/dhcpd.8 \
+    %{buildroot}%{_includedir} \
+    %{buildroot}/usr/lib64/libdhcp.a \
+    %{buildroot}/usr/lib64/libdhcpctl.a \
+    %{buildroot}/usr/lib64/libomapi.a \
+    %{buildroot}/usr/lib/debug/usr/bin/omshell-*.debug \
+    %{buildroot}/usr/lib/debug/usr/sbin/dhcpd-*.debug
+%endif
+
+%if %{without dhclient}
+rm -fv \
+    %{buildroot}%{_sbindir}/dhclient \
+    %{buildroot}%{_mandir}/man5/dhclient.conf.5 \
+    %{buildroot}%{_mandir}/man5/dhclient.leases.5 \
+    %{buildroot}%{_mandir}/man8/dhclient-script.8 \
+    %{buildroot}%{_mandir}/man8/dhclient.8 \
+    %{buildroot}/usr/lib/debug/usr/sbin/dhclient-*.debug
+%endif
+
+%if %{with dhcpd}
 %pre server
 %sysusers_create_compat %{SOURCE11}
 
@@ -399,6 +474,7 @@ for servicename in dhcpd dhcpd6; do
   fi
 done
 exit 0
+%endif
 
 %post relay
 # Initial installation
@@ -413,18 +489,22 @@ for servicename in dhcrelay; do
 done
 exit 0
 
+%if %{with dhcpd}
 %preun server
 # Package removal, not upgrade
 %systemd_preun dhcpd.service dhcpd6.service
+%endif
 
 %preun relay
 # Package removal, not upgrade
 %systemd_preun dhcrelay.service
 
 
+%if %{with dhcpd}
 %postun server
 # Package upgrade, not uninstall
 %systemd_postun_with_restart dhcpd.service dhcpd6.service
+%endif
 
 %postun relay
 # Package upgrade, not uninstall
@@ -433,7 +513,12 @@ exit 0
 
 %triggerun -- dhcp
 # convert DHC*ARGS from /etc/sysconfig/dhc* to /etc/systemd/system/dhc*.service
-for servicename in dhcpd dhcpd6 dhcrelay; do
+%if %{with dhcpd}
+SERVICE_NAMES="dhcpd dhcpd6 dhcrelay"
+%else
+SERVICE_NAMES="dhcrelay"
+%endif
+for servicename in ${SERVICE_NAMES}; do
   if [ -f %{_sysconfdir}/sysconfig/${servicename} ]; then
     # get DHCPDARGS/DHCRELAYARGS value from /etc/sysconfig/${servicename}
     source %{_sysconfdir}/sysconfig/${servicename}
@@ -454,6 +539,7 @@ for servicename in dhcpd dhcpd6 dhcrelay; do
   fi
 done
 
+%if %{with dhcpd}
 %files server
 %doc server/dhcpd.conf.example server/dhcpd6.conf.example
 %doc contrib/ldap/ contrib/dhcp-lease-list.pl
@@ -478,12 +564,14 @@ done
 %if %{sdt}
 %{tapsetdir}/*.stp
 %endif
+%endif
 
 %files relay
 %{_sbindir}/dhcrelay
 %attr(0644,root,root) %{_unitdir}/dhcrelay.service
 %attr(0644,root,root) %{_mandir}/man8/dhcrelay.8.gz
 
+%if %{with dhclient}
 %files client
 %doc README.dhclient.d
 %doc client/dhclient.conf.example client/dhclient6.conf.example client/dhclient-enter-hooks
@@ -500,6 +588,7 @@ done
 %attr(0644,root,root) %{_mandir}/man5/dhclient.leases.5.gz
 %attr(0644,root,root) %{_mandir}/man8/dhclient.8.gz
 %attr(0644,root,root) %{_mandir}/man8/dhclient-script.8.gz
+%endif
 
 %files common
 %{!?_licensedir:%global license %%doc}
@@ -508,6 +597,7 @@ done
 %attr(0644,root,root) %{_mandir}/man5/dhcp-options.5.gz
 %attr(0644,root,root) %{_mandir}/man5/dhcp-eval.5.gz
 
+%if %{with dhcpd}
 %files libs-static
 %{_libdir}/libdhcp*.a
 %{_libdir}/libomapi.a
@@ -522,6 +612,7 @@ done
 %if ! 0%{?_module_build}
 %files devel-doc
 %doc doc/html/
+%endif
 %endif
 
 %changelog

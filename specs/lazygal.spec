@@ -1,5 +1,5 @@
 Name:           lazygal
-Version:        0.10.10
+Version:        0.10.11
 Release:        %autorelease
 Summary:        A static web gallery generator
 
@@ -47,7 +47,7 @@ It can be summed up by the following features :
 %autosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

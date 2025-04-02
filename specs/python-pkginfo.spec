@@ -9,7 +9,7 @@ checkout" (e.g, created by running setup.py develop).}
 
 Name:           python-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
-Version:        1.12.0
+Version:        1.12.1.2
 Release:        %autorelease
 License:        MIT
 

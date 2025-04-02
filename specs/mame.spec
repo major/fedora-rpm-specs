@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 275
+%global baseversion 276
 
 %undefine _auto_set_build_flags
 
@@ -67,7 +67,7 @@ Provides:       bundled(linenoise)
 #Below have no fedora packages ATM and are very tiny
 Provides:       bundled(lsqlite3)
 #check if lua can be unbundled
-Provides:       bundled(lua) = 5.4.4
+Provides:       bundled(lua) = 5.4.7
 Provides:       bundled(luafilesystem)
 Provides:       bundled(lua-linenoise)
 Provides:       bundled(lua-zlib)

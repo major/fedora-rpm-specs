@@ -1,6 +1,6 @@
 #
 Name:           simcrs
-Version:        1.01.10
+Version:        1.01.11
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library
@@ -16,6 +16,7 @@ BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(cppzmq)
 BuildRequires:  mysql-devel
+BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
@@ -99,9 +100,8 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 

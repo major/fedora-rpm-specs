@@ -22,7 +22,7 @@ Patch:          calibre-nodisplay.patch
 # https://codereview.qt-project.org/c/qt/qtbase/+/609639
 Patch:          calibre-fix-qt6.9-build.patch
 
-ExclusiveArch:  %{qt6_qtwebengine_arches}
+ExclusiveArch: aarch64 x86_64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

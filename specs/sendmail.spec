@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -97,7 +97,7 @@ Patch15: sendmail-8.17.2-noversion.patch
 # do not accept localhost.localdomain as valid address from SMTP
 Patch16: sendmail-8.18.1-localdomain.patch
 # build libmilter as DSO
-Patch17: sendmail-8.14.3-sharedmilter.patch
+Patch17: sendmail-8.18.1-sharedmilter.patch
 # skip colon separator when parsing service name in ServiceSwitchFile
 Patch18: sendmail-8.17.1-switchfile.patch
 # silence warning about missing sasl2 config in /usr/lib*, now in /etc/sasl2
@@ -245,6 +245,7 @@ EOF
 # generate redhat config file
 cat > redhat.config.m4 << EOF
 define(\`confMAPDEF', \`%{?with_db:-DNEWDB }-DCDB %{?nis_cflags} -DMAP_REGEX -DSOCKETMAP -DNAMED_BIND=1')
+# problem with gcc-15 (C23 standard) reported upstream
 define(\`confOPTIMIZE', \`\`\`\`${CFLAGS} -std=gnu17'''')
 define(\`confENVDEF', \`%{?with_db:-I%{_includedir}/libdb }-I%{_prefix}/kerberos/include -Wall -DXDEBUG=0 -DNETINET6 -DHES_GETMAILHOST -DUSE_VENDOR_CF_PATH=1 -D_FFR_LINUX_MHNL -D_FFR_QOS -D_FILE_OFFSET_BITS=64 -DHAS_GETHOSTBYNAME2 -DHASFLOCK')
 define(\`confLIBDIRS', \`-L%{_prefix}/kerberos/%{_lib}')
@@ -746,6 +747,9 @@ exit 0
 
 
 %changelog
+* Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-10
+- Fixed FTBFS
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.18.1-9
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

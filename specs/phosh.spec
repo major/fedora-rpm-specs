@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.46~rc1
+Version:	0.46.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -60,14 +60,17 @@ BuildRequires:	dbus-daemon
 BuildRequires:	desktop-file-utils
 BuildRequires:	systemd-rpm-macros
 
-Requires:	phoc >= 0.45.0
-Requires:	iio-sensor-proxy
 Requires:	gnome-session
-Requires:	gnome-shell
-Requires:	lato-fonts
+Requires:	gnome-settings-daemon
+Requires:	gnome-shell-common
 Requires:	hicolor-icon-theme
+Requires:	lato-fonts
+Requires:	mutter-common
+Requires:	phoc >= 0.45.0
 Requires:	phosh-osk = 1.0
+Requires:	xorg-x11-server-Xwayland
 
+Recommends:	gnome-control-center
 Recommends:	phosh-mobile-settings
 Suggests:	squeekboard-phosh-osk-provider
 

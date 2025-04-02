@@ -28,11 +28,8 @@ Summary: %{summary}
 
 %description -n python3-%{pypi_name} %{common_description}
 
-%prep -a
-rm -f ./scripts/release/test_package.py
-
 %check
-PYTHONPATH=$(pwd) %pytest
+PYTHONPATH=$(pwd) %pytest -k 'not test_install_local_wheel'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

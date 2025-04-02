@@ -1,6 +1,6 @@
 #
 Name:           airinv
-Version:        1.00.10
+Version:        1.00.12
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Inventory Management System library
@@ -14,6 +14,7 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(cppzmq)
+BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
@@ -93,13 +94,13 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 %{_mandir}/man1/AirInvServer.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 

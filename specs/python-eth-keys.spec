@@ -28,11 +28,8 @@ Summary: %{summary}
 %description -n python3-eth-keys
 %{summary}.
 
-%prep -a
-rm -f ./scripts/release/test_package.py
-
 %check -a
-%pytest
+%pytest -k 'not test_install_local_wheel'
 
 %files -n python3-eth-keys -f %{pyproject_files}
 %doc README.md

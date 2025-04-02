@@ -9,16 +9,13 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        3.0.5
+Version:        3.0.6
 Release:        %autorelease
 Summary:        Simple SSL certificate generator
 
-License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
+License:        GPLv3+ with exceptions
 URL:            https://%{provider_prefix}
-Source0:        sscg-3.0.5.tar.gz
-# Extend maximum DNS name to 255
-# Author: Stephen Gallagher <sgallagh@redhat.com>
-Patch1:         0001-Extend-maximum-DNS-name-to-255.patch
+Source0:        %{URL}/archive/refs/tags/sscg-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
 BuildRequires:  openssl
@@ -39,7 +36,7 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%autosetup -p1 -n sscg-3.0.5
+%autosetup -p1 -n sscg-sscg-%{version}
 
 
 %build

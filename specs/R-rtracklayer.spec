@@ -21,6 +21,9 @@ BuildRequires:    R-GenomeInfoDb >= 1.15.2, R-GenomicAlignments >= 1.15.6, R-too
 BuildRequires:    openssl-devel, libcurl-devel
 BuildRequires:    R-BiocIO, R-restfulr >= 0.0.13
 
+# curl issues?
+ExcludeArch:      i686
+
 %description
 Extensible framework for interacting with multiple genome browsers (currently
 UCSC built-in) and manipulating annotation tracks in various formats

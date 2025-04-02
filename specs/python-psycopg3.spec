@@ -18,9 +18,15 @@
 %bcond_with			tests
 %endif
 
+%global desc \
+Psycopg 3 is a PostgreSQL database adapter for the Python programming language. \
+Psycopg 3 presents a familiar interface for everyone who has used Psycopg 2 or \
+any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL \
+and Python features.
+
 Name:		python-%{src_name}
 Version:	3.2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -58,20 +64,15 @@ BuildRequires:	cython gcc
 # https://github.com/psycopg/psycopg/blob/master/README.rst
 Requires:		libpq
 
-%description
-Psycopg 3 is a PostgreSQL database adapter for the Python programming language.
-Psycopg 3 presents a familiar interface for everyone who has used Psycopg 2 or
-any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL
-and Python features.
+%description %{desc}
 
 %package -n python3-%{src_name}
 
-Summary:		%{Summary}
+Summary:		%{summary}
 BuildArch:		noarch
 Requires:		libpq
 
-%description -n python3-%{src_name}
-%{description}
+%description -n python3-%{src_name} %{desc}
 
 %package -n python3-%{src_name}_pool
 Summary:		Connection pooling for Psycopg 3
@@ -186,6 +187,9 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 %endif
 
 %changelog
+* Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 3.2.1-5
+- Fix summary and description for python3-psycopg3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

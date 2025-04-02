@@ -2,25 +2,33 @@
 %{bcond_without perl_Data_Float_enables_optional_test}
 
 Name:           perl-Data-Float
-Version:        0.013
-Release:        23%{?dist}
+Version:        0.014
+Release:        1%{?dist}
 Summary:        Details of the floating point data type
+# README:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# SECURITY.md:  Relicensed by the author from CC-BY-SA-4.0 to
+#               GPL-1.0-or-later OR Artistic-1.0-Perl
+#               <https://github.com/robrwo/Data-Float/issues/3>
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Float
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Data-Float-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Float-%{version}.tar.gz
+# License clarification for SECURITY.md
+Source1:        security.md.license_clarification
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(integer)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
 %if %{with perl_Data_Float_enables_optional_test}
@@ -49,13 +57,14 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Data-Float-%{version}
+install -m 0644 %{SOURCE1} security.md.license_clarification
 
 %build
-perl Build.PL installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install destdir=%{buildroot} create_packlist=0
+%{make_install}
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -70,17 +79,22 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
-./Build test
+make test
 
 %files
-%doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license security.md.license_clarification
+%doc Changes README SECURITY.md
+%dir %{perl_vendorlib}/Data
+%{perl_vendorlib}/Data/Float.pm
+%{_mandir}/man3/Data::Float.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 31 2025 Petr Pisar <ppisar@redhat.com> - 0.014-1
+- 0.014 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

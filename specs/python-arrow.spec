@@ -1,94 +1,64 @@
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%{!?python3_pkgversion: %global python3_pkgversion 3}
-%else
-%{!?python3_pkgversion: %global python3_pkgversion 34}
-%endif
-
-%global modname arrow
-
-Name:               python-%{modname}
-Version:            1.2.3
+Name:               python-arrow
+Version:            1.3.0
 Release:            %autorelease
 Summary:            Better dates and times for Python
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:            Apache-2.0
-URL:                https://pypi.io/project/arrow
-Source0:            %pypi_source arrow
-# This lets us drop a hard to port dep for py3 on epel7.
-Patch0:             python-arrow-remove-simplejson-test.patch
+URL:                https://github.com/arrow-py/arrow
+Source:             %{pypi_source arrow}
+# https://github.com/arrow-py/arrow/commit/7225592f8e1d85ecc49ff0ad4b4291386520802f
+Patch:              0001-Move-dateutil-types-to-test-requirements-1183.patch
+# downstream-only
+Patch:              0002-Fedora-dependency-adjustments.patch
+
 
 BuildArch:          noarch
 
-%description
-Arrow is a Python library that offers a sensible, human-friendly approach to
-creating, manipulating, formatting and converting dates, times, and timestamps.
+%global _description %{expand:
+Arrow is a Python library that offers a sensible and human-friendly approach to
+creating, manipulating, formatting and converting dates, times and timestamps.
+It implements and updates the datetime type, plugging gaps in functionality and
+providing an intelligent module API that supports many common creation
+scenarios.  Simply put, it helps you work with dates and times with fewer
+imports and a lot less code.}
 
-It implements and updates the datetime type, plugging gaps in functionality,
-and provides an intelligent module API that supports many common creation
-scenarios.
 
-Simply put, it helps you work with dates and times with fewer imports and a lot
-less code.
+%description %_description
 
-%package -n         python%{python3_pkgversion}-%{modname}
-Summary:            Better dates and times for Python
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 
-BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
-BuildRequires:      python%{python3_pkgversion}-chai
-BuildRequires:      python%{python3_pkgversion}-dateutil
-BuildRequires:      python%{python3_pkgversion}-pytz
-BuildRequires:      python%{python3_pkgversion}-pytest
-BuildRequires:      python%{python3_pkgversion}-pytest-mock
-BuildRequires:      python%{python3_pkgversion}-pytest-cov
-BuildRequires:      python%{python3_pkgversion}-six
-BuildRequires:      python%{python3_pkgversion}-simplejson
-BuildRequires:      python%{python3_pkgversion}-dateparser
+%package -n         python3-arrow
+Summary:            %{summary}
+BuildRequires:      python3-devel
 
-Requires:           python%{python3_pkgversion}-dateutil
-Requires:           python%{python3_pkgversion}-six
 
-%description -n python%{python3_pkgversion}-%{modname}
-Arrow is a Python library that offers a sensible, human-friendly approach to
-creating, manipulating, formatting and converting dates, times, and timestamps.
+%description -n python3-arrow %_description
 
-It implements and updates the datetime type, plugging gaps in functionality,
-and provides an intelligent module API that supports many common creation
-scenarios.
-
-Simply put, it helps you work with dates and times with fewer imports and a lot
-less code.
 
 %prep
-%setup -q -n %{modname}-%{version}
-
-# Don't enforce a certain coverage when we build the RPM, that's an upstream's
-# problem
-sed -i -e "s|--cov-fail-under=100 ||" tox.ini
-
-#%patch0 -p1
+%autosetup -p 1 -n arrow-%{version}
 
 
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 
 %build
-%{py3_build}
+%pyproject_wheel
+
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files arrow
+
 
 %check
-pytest-%{python3_version} tests
+%pytest
 
-%files -n python%{python3_pkgversion}-%{modname}
+
+%files -n python3-arrow -f %{pyproject_files}
 %doc README.rst CHANGELOG.rst
 %license LICENSE
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*
+
 
 %changelog
 %autochangelog

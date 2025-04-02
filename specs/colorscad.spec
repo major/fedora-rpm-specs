@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/jschobben/colorscad
 
 Name:    colorscad
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 Summary: Helps with exporting an OpenSCAD model with color information preserved
 
@@ -9,8 +9,6 @@ Summary: Helps with exporting an OpenSCAD model with color information preserved
 License: MIT
 URL:     %{forgeurl}
 Source0: %{forgesource}
-
-Patch0:  https://patch-diff.githubusercontent.com/raw/jschobben/colorscad/pull/23.patch
 
 Requires: openscad
 Requires: sed
@@ -36,7 +34,7 @@ like the preview (F5) view in OpenSCAD.
 
 %prep
 %forgesetup
-%patch 0 -p1
+
 
 %build
 %cmake
@@ -60,5 +58,8 @@ PATH=%{buildroot}%{_bindir}:$PATH test/run.sh
 %{_bindir}/3mfmerge
 
 %changelog
+* Mon Mar 31 2025 Jonny Heggheim <hegjon@gmail.com> - 0.6.2-1
+- Updated to version 0.6.2
+
 * Sat Mar 15 2025 Jonny Heggheim <hegjon@gmail.com> - 0.6.1-1
 - Initial package

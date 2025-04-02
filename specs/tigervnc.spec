@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -32,6 +32,7 @@ Patch2:         tigervnc-sbin-bin-merge.patch
 %endif
 
 # Upstream patches
+Patch10:        tigervnc-more-responsive-initial-full-screen.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -195,6 +196,7 @@ runs properly under an environment with SELinux enabled.
 %endif
 
 # Upstream patches
+%patch -P10 -p1 -b .more-responsive-initial-full-screen
 
 %if %{with server}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -403,6 +405,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Mon Mar 31 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-3
+- Backport upstream fix for fullscreen option in vncviewer
+
 * Mon Mar 03 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-2
 - Rebuild (xorg-x11-server)
   Fixes CVE-2025-26594, CVE-2025-26595, CVE-2025-26596, CVE-2025-26597,

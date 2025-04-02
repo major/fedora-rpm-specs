@@ -1,13 +1,11 @@
 Name:           python-rapidfuzz
-Version:        3.11.0
+Version:        3.12.2
 Release:        %autorelease
 Summary:        Rapid fuzzy string matching in Python and C++ using the Levenshtein Distance
 
 License:        MIT
 URL:            https://github.com/maxbachmann/RapidFuzz
 Source:         %{pypi_source rapidfuzz}
-
-Patch:          https://github.com/rapidfuzz/RapidFuzz/pull/433.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -97,7 +97,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		12.2.1
-Release:		4%{?dist}
+Release:		5%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -113,8 +113,9 @@ BuildRequires:		ksh
 BuildRequires:		bison
 BuildRequires:		m4
 BuildRequires:		flex
-BuildRequires:		tk-devel
-BuildRequires:		tcl-devel >= 8.3
+# Reported upstream: https://gitlab.com/graphviz/graphviz/-/issues/2668
+BuildRequires:		tk-devel < 1:9.0
+BuildRequires:		tcl-devel < 1:9.0
 BuildRequires:		swig
 BuildRequires:		sed
 BuildRequires:		fontconfig-devel
@@ -710,6 +711,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 12.2.1-5
+- Built with Tcl/Tk 8.6
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 12.2.1-4
 - Add explicit BR: libxcrypt-devel
 

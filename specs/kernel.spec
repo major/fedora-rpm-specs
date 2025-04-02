@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc0.20250328gitacb4f33713b9.6
+%define pkgrelease 0.rc0.20250331git4e82c87058f4.6
 %define kversion 6
-%define tarfile_release 6.14-7422-gacb4f33713b9
+%define tarfile_release 6.14-10892-g4e82c87058f4
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250328gitacb4f33713b9.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250331git4e82c87058f4.6%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4023,6 +4023,7 @@ fi\
 %{_mandir}/man1/rv-mon-wip.1.gz
 %{_mandir}/man1/rv-mon-wwnr.1.gz
 %{_mandir}/man1/rv-mon.1.gz
+%{_mandir}/man1/rv-mon-sched.1.gz
 %{_mandir}/man1/rv.1.gz
 
 # with_tools
@@ -4212,8 +4213,14 @@ fi\
 #
 #
 %changelog
-* Fri Mar 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.acb4f33713b9.6]
+* Mon Mar 31 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc0.20250331git4e82c87058f4.6]
+- automotive: enable CONFIG_PROBE_EVENTS_BTF_ARGS (Scott Weaver)
+- handle man-page for rv-mon-sched in redhat/kernel.spec.template (Thorsten Leemhuis)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+
+* Mon Mar 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.4e82c87058f4.6]
+- redhat: make ENABLE_WERROR enable also KVM_WERROR (Jan Stancek)
+- Linux v6.15.0-0.rc0.4e82c87058f4
 
 * Fri Mar 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.acb4f33713b9.5]
 - kernel.spec.template: cpupower: adjust lib versioning (Thorsten Leemhuis)

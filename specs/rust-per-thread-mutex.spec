@@ -6,7 +6,7 @@
 
 Name:           rust-per-thread-mutex
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Synchronization lock designed for wrapping thread-unsafe C libraries
 
 License:        MPL-2.0
@@ -66,5 +66,4 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Tue Mar 25 2025 Chung Chung <cchung@redhat.com> - 0.1.4-1
-- Initial package
+%autochangelog

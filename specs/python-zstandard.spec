@@ -19,6 +19,8 @@ Source0: %{pypi_source}
 Patch0: %{name}-py313.patch
 # relax dependencies so that auto BR generation works
 Patch1: %{name}-deps.patch
+# https://github.com/indygreg/python-zstandard/issues/238
+Patch2: %{name}-py314.patch
 
 %description
 %{desc}

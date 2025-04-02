@@ -12,6 +12,9 @@ License: GPL-3.0-or-later
 Url:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
+
+Patch0:  copyq-fix-qt6.9-build.patch
+
 BuildRequires: cmake, extra-cmake-modules, gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils, git

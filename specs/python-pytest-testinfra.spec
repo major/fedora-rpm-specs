@@ -10,9 +10,6 @@ Source:         %{pypi_source pytest-testinfra}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-# TODO 'crypt' test requirement for Python 3.13 - remove in next release
-BuildRequires:  python3-crypt-r
-
 %global _description %{expand:
 With Testinfra you can write unit tests in Python to test actual state of your
 servers configured by management tools like Salt, Ansible, Puppet, Chef and so

@@ -6,10 +6,14 @@
 # bcond_without is built by default, unless --without X is passed
 # bcond_with is built only when --with X is passed to build
 %bcond_with    SYSTEMTEST
+# enable RSA1 during SYSTEMTEST
+%bcond_with    CRYPTO_POLICY_RSA1
 %bcond_without GSSTSIG
 %bcond_without JSON
 # New MaxMind GeoLite support
 %bcond_without GEOIP2
+# Jemalloc linked together
+%bcond_with    JEMALLOC
 # Disabled temporarily until kyua is fixed on rawhide, bug #1926779
 %bcond_without UNITTEST
 # Do not set CI environment, include more unit tests, even less stable
@@ -29,7 +33,7 @@
 %bcond_with    QUERYTRACE
 %if 0%{?fedora} >= 41 && ! 0%{?rhel}
 # Make this enabled on recent Fedora, but not in ELN or RHEL
-  %bcond_without OPENSSL_ENGINE
+  %bcond_with  OPENSSL_ENGINE
 %endif
 
 %{!?_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -81,7 +85,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.33
+Version:  9.18.35
 Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -129,6 +133,8 @@ Patch28: bind-9.20-nsupdate-tls.patch
 Patch29: bind-9.20-nsupdate-tls-doc.patch
 # Test suport for patch28 nsupdate
 Patch30: bind-9.20-nsupdate-tls-test.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2123076
+Patch31: bind-9.18-pkcs11-provider.patch
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -152,8 +158,10 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  selinux-policy
 BuildRequires:  findutils sed
 BuildRequires:  libnghttp2-devel
-%if 0%{?fedora}
+%if %{with JEMALLOC} && 0%{?fedora}
 BuildRequires:  jemalloc-devel
+%endif
+%if 0%{?fedora}
 BuildRequires:  gnupg2
 %endif
 BuildRequires:  libuv-devel
@@ -167,6 +175,7 @@ BuildRequires:  softhsm
 %if %{with SYSTEMTEST}
 # bin/tests/system dependencies
 BuildRequires:  perl(Net::DNS) perl(Net::DNS::Nameserver) perl(Time::HiRes) perl(Getopt::Long)
+BuildRequires:  perl(English)
 BuildRequires:  python3-dns
 # manual configuration requires this tool
 BuildRequires:  iproute
@@ -330,6 +339,10 @@ for i in bin/named/Makefile.am; do
 done
 %endif
 
+# allow running as root from mock or test machines
+sed -e 's, "enable-developer",& \&\& systemctl is-system-running \&>/dev/null \&\& ! [ -e /mnt/tests ],' \
+    -i bin/tests/system/run.sh
+
 :;
 
 
@@ -398,6 +411,9 @@ export LIBDIR_SUFFIX
 %endif
 %if %{with UNITTEST}
   --with-cmocka \
+%endif
+%if %{without JEMALLOC}
+  --without-jemalloc \
 %endif
   --enable-fixed-rrset \
   --enable-full-report \
@@ -475,15 +491,29 @@ else
   sh bin/tests/system/ifconfig.sh up
   perl bin/tests/system/testsock.pl && CONFIGURED=build
 fi
+
 if [ -n "$CONFIGURED" ]
 then
   set -e
+  %if %{with CRYPTO_POLICY_RSA1}
+    # Override crypto-policy to allow RSASHA1 key operations
+    OPENSSL_CONF="$(mktemp openssl-XXXXXX.cnf)"
+    cat > "$OPENSSL_CONF" << 'EOF'
+.include = /etc/ssl/openssl.cnf
+[evp_properties]
+rh-allow-sha1-signatures = yes
+EOF
+    export OPENSSL_CONF
+  %endif
   pushd build/bin/tests
   chown -R ${USER} . # Can be unknown user
-  %make_build test 2>&1 | tee test.log
+  %make_build test
   e=$?
   popd
   [ "$CONFIGURED" = build ] && sh bin/tests/system/ifconfig.sh down
+  %if %{with CRYPTO_POLICY_RSA1}
+    export -b OPENSSL_CONF
+  %endif
   if [ "$e" -ne 0 ]; then
     echo "ERROR: this build of BIND failed 'make test'. Aborting."
     exit $e;
@@ -627,12 +657,6 @@ install -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
 install -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
-
-%pre
-if [ "$1" -eq 1 ]; then
-  %sysusers_create_compat %{SOURCE50}
-fi;
-:;
 
 %post
 %?ldconfig
@@ -898,6 +922,16 @@ fi;
 %endif
 
 %changelog
+* Wed Mar 26 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.35-2
+- Backport support for OpenSSL provider required for PKCS11 labels
+- Deactivate jemalloc default linking
+
+* Wed Mar 26 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.35-1
+- Update to 9.18.35 (rhbz#2346607)
+
+* Thu Mar 20 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.33-3
+- Remove pre scriptlet
+
 * Mon Feb 10 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.33-2
 - Permanently remove DLZ parts build
 

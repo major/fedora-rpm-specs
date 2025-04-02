@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/dino/libomemo-c
-Version:        0.5.0
+Version:        0.5.1
 %forgemeta
 
 Name:           libomemo-c
@@ -10,10 +10,6 @@ Summary:        Fork of libsignal-protocol-c adding support for OMEMO XEP-0384 0
 License:        GPL-3.0-only AND BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# remove bundled version of protobuf-c and link to system lib
-Patch0:         https://github.com/dino/libomemo-c/commit/80dd43d3375148b3cd67f99b9df2fd8b64267f3e.patch
-# add '-lprotobuf-c' to pkg-config's Libs: line
-Patch1:         https://github.com/dino/libomemo-c/commit/8b6f2ebfe16c27e1037c9a3f4fcbb78ad9da10ea.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

@@ -49,7 +49,7 @@ sed -i 's/setuptools <=.*/setuptools/'  tox.ini
 
 %files -n python3-zope-deprecation -f %{pyproject_files}
 %doc README.rst LICENSE.txt
-%{python3_sitelib}/zope.deprecation-5.1-py3.13-nspkg.pth
+%{python3_sitelib}/zope.deprecation-5.1-py%{python3_version}-nspkg.pth
 
 
 %changelog

@@ -195,6 +195,7 @@ desktop-file-validate \
 %{_datadir}/applications/org.gnome.Crosswords.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.Editor.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Crosswords.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Crosswords-symbolic.svg
 %{_datadir}/mime/packages/org.gnome.Crosswords.xml
@@ -228,7 +229,6 @@ desktop-file-validate \
 %{_datadir}/%{name}/word-lists/wordnik.gresource
 %{_datadir}/applications/org.gnome.Crosswords.Editor.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.Editor.service
-%{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.Editor.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Crosswords.Editor.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Crosswords.Editor-symbolic.svg
 %{_metainfodir}/org.gnome.Crosswords.Editor.metainfo.xml

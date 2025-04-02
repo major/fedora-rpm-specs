@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.13
+Version:        6.14
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -159,6 +159,10 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 6.14-1
+- Update to version 6.14
+- Resolves: rhbz#2355205
+
 * Fri Feb 14 2025 Packit <hello@packit.dev> - 6.13-1
 - Update to version 6.13
 - Resolves: rhbz#2345871

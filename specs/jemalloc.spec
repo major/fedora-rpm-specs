@@ -3,7 +3,7 @@
 Name:           jemalloc
 Version:        5.3.0
 
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,7 +72,7 @@ cat /sys/kernel/mm/transparent_hugepage/enabled || true
 echo "What kernel version and config is this?"
 uname -a
 
-%configure %{?disable_thp} %{?lg_page}
+%configure %{?disable_thp} %{?lg_page} --enable-prof
 make %{?_smp_mflags}
 
 
@@ -108,6 +108,9 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Mon Mar 31 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.3.0-12
+- Support allocation profiling, i.e. build with --enable-prof flag
+
 * Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.3.0-11
 - Added build fix from upstream for new gcc
 

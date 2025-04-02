@@ -2,7 +2,7 @@
 %global shell_version %%(cut -d "." -f 1 <<<%{version})
 
 Name:           gnome-shell-extension-background-logo
-Version:        47.0
+Version:        48.0
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 

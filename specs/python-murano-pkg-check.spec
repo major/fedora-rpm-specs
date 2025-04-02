@@ -14,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Murano package validator tool
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -63,7 +63,7 @@ Requires:       python2-oslo-i18n >= 2.1.0
 Requires:       python2-setuptools
 
 %description -n python2-%{pypi_name}
-%{description}
+Murano package validator tool
 %endif
 
 
@@ -110,7 +110,7 @@ Requires:       python3-oslo-i18n >= 2.1.0
 Requires:       python3-setuptools
 
 %description -n python3-%{pypi_name}
-%{description}
+Murano package validator tool
 %endif
 
 %prep
@@ -205,6 +205,9 @@ PYTHON=python3 %{__python3} setup.py test
 %endif
 
 %changelog
+* Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.3.0-37
+- Fix descriptions for python2 and python3 subpackages
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

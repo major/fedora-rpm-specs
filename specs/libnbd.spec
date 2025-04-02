@@ -17,10 +17,10 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.22-stable
+%global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.22.1
+Version:        1.23.1
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Mar 31 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.1-1
+- New upstream development version 1.23.1
+
 * Mon Mar 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.22.1-1
 - New upstream stable version 1.22.1
 

@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        135
+Version:        136
 
 %gometa
 
@@ -230,7 +230,7 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.120.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.123.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -698,6 +698,21 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 19 2025 Packit <hello@packit.dev> - 136-1
+Changes with 136
+----------------
+  * Return compose request details as part of metadata response (#4451)
+    * Author: Brian C. Lane, Reviewers: Florian Schüller, Tomáš Hozza
+  * cloudapi: silence logrus in tests (#4614)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * go.mod: update osbuild/images to v0.123.0 (#4642)
+    * Author: Sanne Raymaekers, Reviewers: Simon Steinbeiß, Simon de Vlieger
+  * templates/dashboards: increase timespan readability (#4633)
+    * Author: Florian Schüller, Reviewers: Gianluca Zuccarelli, Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-03-19
+
+
 * Wed Mar 05 2025 Packit <hello@packit.dev> - 135-1
 Changes with 135
 ----------------

@@ -14,34 +14,25 @@ Patch3:		vyper-0003-Remove-unnecessary-shebang.patch
 Patch4:		vyper-0004-Relax-lark-dependency.patch
 BuildRequires:	git
 BuildRequires:	python3-cached_property
-BuildRequires:	python3-devel
 BuildRequires:	python3-eth-abi
 BuildRequires:	python3-eth-keys
 BuildRequires:	python3-eth-stdlib
 BuildRequires:	python3-hypothesis
 BuildRequires:	python3-pytest
 BuildRequires:	python3-rlp
+BuildSystem:	pyproject
+BuildOption(install): -l %{name}
 
 %description
 %{summary}.
 
-%prep
-%autosetup -p1
+%prep -a
 echo %{sub %git_commit 0 7} > ./vyper/vyper_git_commithash.txt
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{name}
+%install -a
 rm -f %{buildroot}/usr/vyper_git_commithash.txt
 
-%check
-%pyproject_check_import
+%check -a
 # FIXME requires https://github.com/ethereum/py-evm
 # FIXME requires https://github.com/paradigmxyz/pyrevm
 #%%pytest

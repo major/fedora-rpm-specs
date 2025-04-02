@@ -2,12 +2,12 @@
 %global sphinx_docs 1
 
 Name:		boom-boot
-Version:	1.6.5
-Release:	2%{?dist}
+Version:	1.6.6
+Release:	1%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
-URL:		https://github.com/snapshotmanager/boom
+URL:		https://github.com/snapshotmanager/boom-boot
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
@@ -15,6 +15,9 @@ BuildArch:	noarch
 BuildRequires:	make
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-wheel
+BuildRequires:  python3-pytest
 %if 0%{?sphinx_docs}
 BuildRequires:	python3-dbus
 BuildRequires:	python3-sphinx
@@ -24,7 +27,11 @@ BuildRequires: make
 Requires: python3-boom = %{version}-%{release}
 Requires: %{name}-conf = %{version}-%{release}
 Requires: python3-dbus
+%if 0%{?rhel} == 9
+Requires: systemd >= 252-18
+%else
 Requires: systemd >= 254
+%endif
 
 Obsoletes: boom-boot-grub2 <= 1.3
 # boom-grub2 was not an official name of subpackage in fedora, but was used upstream:
@@ -84,10 +91,18 @@ mv doc/_build/html doc/html
 rm -r doc/_build
 %endif
 
+%if 0%{?centos} || 0%{?rhel}
 %py3_build
+%else
+%pyproject_wheel
+%endif
 
 %install
+%if 0%{?centos} || 0%{?rhel}
 %py3_install
+%else
+%pyproject_install
+%endif
 
 # Make configuration directories
 # mode 0700 - in line with /boot/grub2 directory:
@@ -105,9 +120,8 @@ install -m 644 man/man5/boom.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
 rm doc/Makefile
 rm doc/conf.py
 
-# Test suite currently does not operate in rpmbuild environment
-#%%check
-#%%{__python3} setup.py test
+%check
+pytest-3 --log-level=debug -v
 
 %files
 %license COPYING
@@ -119,7 +133,11 @@ rm doc/conf.py
 %license COPYING
 %doc README.md
 %{python3_sitelib}/boom/*
-%{python3_sitelib}/boom_boot-*.egg-info/
+%if 0%{?centos} || 0%{?rhel}
+%{python3_sitelib}/boom*.egg-info/
+%else
+%{python3_sitelib}/boom*.dist-info/
+%endif
 %doc doc
 %doc examples
 %doc tests
@@ -136,6 +154,35 @@ rm doc/conf.py
 
 
 %changelog
+* Mon Mar 31 2025 Bryn M. Reeves <bmr@redhat.com> - 1.6.6-1
+- tests: drop remaining Python2 compat handling
+- boom.config: drop Python2 compat handling for ConfigParser
+- dist: update example boom.conf
+- boom: use correct option names in BoomConfig.__str__()
+- boom: use write_boom_config() in boom.command.create_config()
+- config: add missing [cache] section to boom.config.__make_config()
+- config: add missing [cache] section handling to boom.config._sync_config()
+- config: treat {boom,boot}_root and {boom,boot}_path as synonyms
+- dist: enable check in boom-boot.spec
+- dist: replace license classifier with SPDX expressions
+- boom: replace __make_map_key() function with dictionary comprehension
+- dist: clean up copyright statements and convert to SPDX license headers
+- dist: update GPLv2 text in COPYING
+- boom: use lazy printf formatting when logging
+- boom: fix report argument formatting
+- tests: drop separate coverage runs and split out reporting step
+- tests: switch Fedora tests to fedora:latest
+- tests: bracket test cases with log messages
+- tests: fix duplicate log handlers in test suite
+- report: strip trailing whitespace from report output
+- legacy: use 'is' instead of explicit type comparison
+- boom: clean up new OsProfile if setting uname_pattern fails
+- boom: add CentOS Stream to uname heuristics table
+- boom: fix license headers across tree
+- dist: update spec file changelog and release
+- dist: drop unused systemd-rpm-macros BuildRequires
+- dist: fix Source URL and autosetup invocation
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

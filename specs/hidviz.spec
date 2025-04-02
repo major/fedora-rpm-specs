@@ -1,6 +1,6 @@
 Name:		hidviz
 Version:	0.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A tool for in-depth analysis of USB HID devices communication
 License:	GPL-3.0-or-later
 URL:		https://hidviz.org/
@@ -12,6 +12,8 @@ BuildRequires:	qt6-qtbase-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	libusbx-devel
 BuildRequires:	asio-devel
+# https://github.com/hidviz/hidviz/pull/42
+Patch:		hidviz-0.2-gcc-15-fix.patch
 
 %description
 Hidviz is a GUI application for in-depth analysis of USB HID class devices.
@@ -37,6 +39,9 @@ Hidviz is a GUI application for in-depth analysis of USB HID class devices.
 %{_datadir}/applications/hidviz.desktop
 
 %changelog
+* Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2-8
+- Fixed FTBFS with gcc-15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

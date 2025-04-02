@@ -1,23 +1,39 @@
-%global git_commit 32ee5af8935406578a2b811bd3cec65e980d2918
-%global git_date 20170220
+%global git_commit 84dcf73625513af44e711b2c99e21ee2c33b7eff
+%global git_date 20250331
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
 
+# export name=%%{name}
+# export version=%%{version}
+# export git_commit=%%{git_commit}
+# export git_suffix=%%{git_suffix}
 # git clone git://git.osmocom.org/libosmocore.git
-# cd %%{name}
-# git archive --format=tar --prefix=%%{name}-%%{version}/ %%{git_commit} | \
-# bzip2 > ../%%{name}-%%{version}-%%{git_suffix}.tar.bz2
+# cd ${name}
+# git archive --format=tar --prefix=${name}-${version}/ ${git_commit} | \
+# bzip2 > ../${name}-${version}-${git_suffix}.tar.bz2
 
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
 Version:          0.9.6
-Release:          25.%{git_suffix}%{?dist}
+Release:          26.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
-BuildRequires:    autoconf, automake, libtool, pcsc-lite-devel, doxygen
-BuildRequires:    libtalloc-devel, findutils, sed, python3
-BuildRequires: make
+BuildRequires:    autoconf
+BuildRequires:    automake
+BuildRequires:    libtool
+BuildRequires:    pcsc-lite-devel
+BuildRequires:    doxygen
+BuildRequires:    libtalloc-devel
+BuildRequires:    liburing-devel
+BuildRequires:    libusb1-devel
+BuildRequires:    libmnl-devel
+BuildRequires:    lksctp-tools-devel
+BuildRequires:    gnutls-devel
+BuildRequires:    findutils
+BuildRequires:    sed
+BuildRequires:    python3
+BuildRequires:    make
 Summary:          Utility functions for OsmocomBB, OpenBSC and related projects
 Source0:          %{name}-%{version}-%{git_suffix}.tar.bz2
 
@@ -43,36 +59,23 @@ BuildArch:      noarch
 Documentation files for libosmocore.
 
 %prep
-%setup -q
-
-# fix hashbangs for python3
-sed -i '1 s|.*|#!%{__python3}|' utils/conv_gen.py utils/conv_codes_gsm.py
-
-# use python3 instead of python2
-sed -i '/python2/ s/python2/python3/g' src/gsm/Makefile.am
+%autosetup -p1
 
 %build
-# Fix pkg-config version, workaround for rhbz#1692517, the fix should be upstreamed
-# so it could be dropped upon next rebase
-test -x ./git-version-gen && echo %{version}-%{release} > .tarball-version 2>/dev/null
-
 autoreconf -fi
 %configure
-
-# Fix unused direct shlib dependency
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-
-make %{?_smp_mflags} V=1
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 # Remove libtool archives
 find %{buildroot} -name '*.la' -exec rm -f {} \;
 
 %check
+# reported upstream
+%ifnarch s390x
 make check
-
-%ldconfig_scriptlets
+%endif
 
 %files
 %doc %{_docdir}/%{name}
@@ -88,8 +91,10 @@ make check
 
 %files devel
 %{_includedir}/osmocom/*
+%{_includedir}/osmo-release.mk
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_datadir}/aclocal/osmo_*.m4
 
 %files doc
 %doc %{_docdir}/%{name}/codec
@@ -98,6 +103,9 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.9.6-26.20250331git84dcf736
+- New snapshot
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-25.20170220git32ee5af8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

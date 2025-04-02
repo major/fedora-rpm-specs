@@ -25,12 +25,8 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep -a
-# FIXME requires internet-access
-rm -f scripts/release/test_package.py
-
 %check -a
-%pytest
+%pytest -k 'not test_install_local_wheel'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

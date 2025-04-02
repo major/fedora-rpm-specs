@@ -26,11 +26,16 @@
 
 %global rpmver 4.20.1
 #global snapver rc1
-%global baserelease 1
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
 %global srcdir %{?snapver:testing}%{!?snapver:rpm-%(echo %{rpmver} | cut -d'.' -f1-2).x}
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2356219
+%ifarch %{ix86}
+%global _lto_cflags %{nil}
+%endif
 
 Summary: The RPM package management system
 Name: rpm
@@ -122,7 +127,6 @@ rpm-4.9.90-no-man-dirs.patch
 
 # Use systemd-sysusers due to https://github.com/shadow-maint/shadow/issues/940
 rpm-4.20-sysusers.patch
-rpm-4.19.91-weak-user-group.patch
 
 # Temporarily disable the deprecation warning for
 # %%clamp_mtime_to_source_date_epoch, details here:
@@ -433,6 +437,15 @@ if [ -d /var/lib/rpm ]; then
     done
 fi
 
+%post
+%systemd_post rpmdb-rebuild.service
+
+%preun
+%systemd_preun rpmdb-rebuild.service
+
+%postun
+%systemd_postun rpmdb-rebuild.service
+
 %files -f _build/rpm.lang
 %license COPYING
 %doc CREDITS docs/manual/[a-z]*
@@ -616,6 +629,13 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Mar 31 2025 Panu Matilainen <pmatilai@redhat.com> - 4.20.1-3
+- Disable LTO on x86 as a workaround for #2356219
+
+* Mon Mar 31 2025 Panu Matilainen <pmatilai@redhat.com> - 4.20.1-2
+- Re-enable hard dependencies for users and groups as a part of
+  https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+
 * Wed Feb 26 2025 Michal Domonkos <mdomonko@redhat.com> - 4.20.1-1
 - Rebase to 4.20.1
 

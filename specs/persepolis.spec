@@ -1,6 +1,6 @@
 Name:           persepolis
-Version:        4.1.0
-Release:        5%{?dist}
+Version:        5.0.2
+Release:        1%{?dist}
 Summary:        A powerful download manager powered by aria2
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -14,8 +14,9 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  meson ninja-build
 BuildRequires:  libappstream-glib
 # libnotify is required for notify-send
-Requires:       aria2 libnotify python3-requests pulseaudio-utils
-Requires:       python3-setproctitle sound-theme-freedesktop python3-psutil
+Requires:       libnotify pulseaudio-utils sound-theme-freedesktop
+Requires:       python3-pysocks python3-urllib3 python3-requests
+Requires:       python3-setproctitle python3-psutil
 %if 0%{?fedora} >= 41
 Requires:       python3-pyside6 qt6-qtsvg
 %else
@@ -67,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Mon Mar 31 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.0.2-1
+- New upstream release: 5.0.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

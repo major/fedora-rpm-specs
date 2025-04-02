@@ -8,7 +8,7 @@
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
 Name:           mozilla-privacy-badger
-Version:        2025.3.3
+Version:        2025.3.27
 Release:        %autorelease
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 License:        Apache-2.0 AND GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0) AND MIT AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0

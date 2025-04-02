@@ -1,6 +1,6 @@
 #
 Name:           travelccm
-Version:        1.00.10
+Version:        1.00.11
 Release:        %autorelease
 
 Summary:        C++ Travel Customer Choice Model (CCM) Library
@@ -13,6 +13,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  mysql-devel
+BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(readline)
@@ -101,13 +102,13 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}.1.*
 
 %files devel
+%license COPYING
 %{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 %{_datadir}/aclocal/%{name}.m4
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 

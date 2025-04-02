@@ -1,5 +1,5 @@
 Name:      plasma-welcome-fedora
-Version:   6.3.3
+Version:   6.3.4
 Release:   1%{?dist}
 Summary:   Fedora-related customizations for Plasma-welcome
 # License is specified in 01-EnableExtraRepos.qml
@@ -39,6 +39,9 @@ make build_all
 %{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg
 
 %changelog
+* Mon Mar 31 2025 Steve Cossette <farchord@gmail.com> - 6.3.4-1
+- 6.3.4
+
 * Wed Mar 19 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
 - 6.3.3
 

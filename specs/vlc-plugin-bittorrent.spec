@@ -1,7 +1,7 @@
 %global srcname vlc-bittorrent
 
 Name:           vlc-plugin-bittorrent
-Version:        2.14
+Version:        2.15
 Release:        %autorelease -b 4
 Summary:        Bittorrent plugin for VLC
 License:        GPL-3.0-or-later

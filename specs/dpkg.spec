@@ -3,7 +3,7 @@
 
 Name:           dpkg
 Version:        1.22.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
 # lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
@@ -61,7 +61,6 @@ BuildRequires: perl(Tie::Handle)
 # ./t/dpkg_buildpackage.t ........ skipped: requires command fakeroot
 BuildRequires: fakeroot
 
-Requires(post): coreutils
 # Needed for --clamp-mtime in dpkg-source -b.
 Requires:      tar >= 2:1.28
 
@@ -489,6 +488,9 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 
 
 %changelog
+* Mon Mar 31 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.22.15-2
+- Remove obsolete requirement for %%post scriptlet
+
 * Tue Mar 04 2025 Packit <hello@packit.dev> - 1.22.15-1
 - Update to version 1.22.15
 - Resolves: rhbz#2335431
