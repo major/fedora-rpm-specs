@@ -118,8 +118,8 @@
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
 
-# Fix for RHBZ#2117342
-%global bind_version 32:9.18.7-1
+# Support for Encrypted DNS and OpenSSL Provider API
+%global bind_version 32:9.18.35-2
 
 # Don't use Fedora's Python dependency generator on Fedora 30/rawhide yet.
 # Some packages don't provide new dist aliases.
@@ -133,13 +133,11 @@
 %endif
 
 # BIND employs 'pkcs11' OpenSSL engine instead of native PKCS11
-# Fedora 31+ uses OpenSSL engine, as well as Fedora ELN (RHEL9)
-%if 0%{?fedora} || 0%{?rhel} >= 9
-    %global openssl_pkcs11_version 0.4.10-6
-    %global softhsm_version 2.5.0-4
-%else
-    %global with_bind_pkcs11 1
-%endif
+# Fedora 31+ uses OpenSSL engine, as well as RHEL9
+# Howevever, Fedora 42+ and RHEL10+ use OpenSSL provider
+%global openssl_pkcs11_version 1.0-1
+%global openssl_pkcs11_name pkcs11-provider
+%global softhsm_version 2.6.1
 
 %if 0%{?rhel} == 8
 # Make sure to use PKI versions that work with 389-ds fix for https://github.com/389ds/389-ds-base/issues/4609
@@ -200,7 +198,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        10%{?rc_version:.%rc_version}%{?dist}
+Release:        13%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -227,6 +225,32 @@ Patch0005:      freeipa-9734-oauth.patch
 Patch0006:      freeipa-9471-post.patch
 Patch0007:      freeipa-9725-certmonger-timeouts-0.patch
 Patch0008:      freeipa-9725-certmonger-timeouts.patch
+# Patches from c10s build that already merged upstream but no release has been done yet
+Patch0032:      0032-Use-OpenSSL-provider-with-BIND-for-Fedora-41-and-RHE.patch
+Patch0033:      freeipa-upgrade-DoT-configuration.patch
+Patch0059:      0059-Fix-pylint-issue-in-ipatests-i18n.py.patch
+Patch0060:      0060-ipatests-skip-test_ipahealthcheck_ds_configcheck-for.patch
+Patch0061:      0061-ipatests-restart-dirsrv-after-time-jumps.patch
+Patch0063:      0063-Migrate-Keycloak-tests-to-JDK-21-and-Keycloak-26.patch
+Patch0065:      0065-Add-DNS-over-TLS-support.patch
+Patch0066:      0066-ipatests-on-rhel10-do-not-install-firefox.patch
+Patch0067:      0067-Configure-the-pki-tomcatd-service-systemd-timeout.patch
+Patch0068:      0068-Align-startup_timeout-with-the-systemd-default-and-d.patch
+Patch0069:      0069-dns-only-disable-unbound-when-DoT-is-enabled.patch
+Patch0070:      0070-ipa-migrate-do-not-migrate-tombstone-entries-ignore-.patch
+Patch0071:      0071-Replace-fips-mode-setup.patch
+Patch0072:      0072-Skip-for-unpatched-freeipa-healthcheck.patch
+Patch0073:      0073-WebUI-fix-the-tooltip-for-Search-Size-limit.patch
+Patch0074:      0074-Leapp-upgrade-skip-systemctl-calls.patch
+Patch0075:      0075-Disable-raw-and-structured-together.patch
+Patch0076:      0076-config-mod-allow-disabling-subordinate-ID-integratio.patch
+Patch0077:      0077-update_dna_shared_config-do-not-fail-when-config-is-.patch
+Patch0078:      0078-baseuser-allow-uidNumber-and-gidNumber-of-32-bit-ran.patch
+Patch0079:      0079-ipatests-add-a-test-to-use-full-32-bit-ID-range-spac.patch
+Patch0080:      0080-idrange-use-minvalue-0-for-baserid-and-secondarybase.patch
+Patch0081:      0081-ipatests-Tests-to-check-data-in-journal-log.patch
+Patch0082:      0082-Disallow-removal-of-dogtag-and-ipa-dnskeysyncd-servi.patch
+Patch0083:      0083-Don-t-require-certificates-to-have-unique-ipaCertSub.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -598,7 +622,7 @@ If you are installing an IPA server, you need to install this package.
 Summary: IPA integrated DNS server with support for automatic DNSSEC signing
 BuildArch: noarch
 Requires: %{name}-server = %{version}-%{release}
-Requires: bind-dyndb-ldap >= 11.2-2
+Requires: bind-dyndb-ldap >= 11.11-3
 Requires: bind >= %{bind_version}
 Requires: bind-utils >= %{bind_version}
 # bind-dnssec-utils is required by the OpenDNSSec integration
@@ -608,7 +632,7 @@ Requires: bind-dnssec-utils >= %{bind_version}
 Requires: bind-pkcs11 >= %{bind_version}
 %else
 Requires: softhsm >= %{softhsm_version}
-Requires: openssl-pkcs11 >= %{openssl_pkcs11_version}
+Requires: %{openssl_pkcs11_name} >= %{openssl_pkcs11_version}
 %endif
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1825812
 # RHEL 8.3+ and Fedora 32+ have 2.1
@@ -1869,6 +1893,16 @@ fi
 %endif
 
 %changelog
+* Tue Apr 01 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-13
+- Upgrade from OpenSSL Engine use to OpenSSL provider API
+
+* Tue Apr 01 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-12
+- Actually include OpenSSL provider API support
+
+* Tue Apr 01 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-11
+- Synchronize patchset with C10S
+- Enable Encrypted DNS support
+
 * Mon Feb 10 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-10
 - Rebuild for Samba 4.22.0 RC1
 

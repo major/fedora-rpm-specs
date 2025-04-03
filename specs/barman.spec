@@ -1,6 +1,6 @@
 Name:       barman
-Version:    3.12.1
-Release:    3%{?dist}
+Version:    3.13.2
+Release:    %autorelease
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPL-3.0-only
 URL:        http://www.pgbarman.org/
@@ -155,71 +155,4 @@ install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 
 
 %changelog
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.12.1-3
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 27 2024 Simone Caronni <negativo17@gmail.com> - 3.12.1-1
-- Update to 3.12.1.
-- Switch to Python packaging guidelines.
-- Trim changelog.
-
-* Sun Aug 25 2024 Simone Caronni <negativo17@gmail.com> - 3.11.1-1
-- Update to 3.11.1.
-
-* Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 3.10.1-3
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jun 24 2024 Simone Caronni <negativo17@gmail.com> - 3.10.1-1
-- Update to 3.10.1.
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 3.10.0-2
-- Rebuilt for Python 3.13
-
-* Thu Jan 25 2024 Simone Caronni <negativo17@gmail.com> - 3.10.0-1
-- Update to 3.10.0.
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Oct 10 2023 Simone Caronni <negativo17@gmail.com> - 3.9.0-1
-- Update to 3.9.0.
-
-* Mon Sep 04 2023 Simone Caronni <negativo17@gmail.com> - 3.8.0-1
-- Update to 3.8.0.
-
-* Mon Aug 07 2023 Simone Caronni <negativo17@gmail.com> - 3.7.0-1
-- Update to 3.7.0.
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 3.6.0-2
-- Rebuilt for Python 3.12
-
-* Thu Jun 22 2023 Simone Caronni <negativo17@gmail.com> - 3.6.0-1
-- Update to 3.6.0.
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5.0-4
-- Rebuilt for Python 3.12
-
-* Tue Jun 13 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-3
-- Remove Python dependencies version, pep-0440 is enforced when building
-  packages.
-
-* Mon May 15 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-2
-- Adjust Python dependencies.
-
-* Mon May 08 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-1
-- Update to 3.5.0.
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+%autochangelog

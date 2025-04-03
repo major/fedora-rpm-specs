@@ -5,7 +5,7 @@ BuildRequires:	%1 \
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	3.0.4
+Version:	3.0.5
 Release:	1%{?dist}
 
 Summary:	RD-document-based presentation application
@@ -183,6 +183,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Tue Apr 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.5-1
+- 3.0.5
+
 * Mon Mar 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.4-1
 - 3.0.4
 

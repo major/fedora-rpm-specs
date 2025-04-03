@@ -1,6 +1,6 @@
 Name:           python-libusb1
-Version:        3.2.0
-Release:        3%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 Summary:        Pure-python wrapper for libusb-1.0
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ rm -rf libusb1.egg-info
 %doc README.rst PKG-INFO
 
 %changelog
+* Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 3.3.1-1
+- Update to version 3.3.1
+
 * Fri Mar 28 2025 Peter Lemenkov <lemenkov@gmail.com> - 3.2.0-3
 - Fix FTBFS
 

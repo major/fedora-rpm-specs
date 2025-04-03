@@ -22,8 +22,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.10.2
-Release:   13%{?dist}
+Version:   0.10.3
+Release:   1%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -38,7 +38,7 @@ Source7:   xrdp-polkit-1.rules
 Source8:   %{name}-tmpfiles.conf
 Source9:   %{name}.sysusers
 Patch0:    xrdp-0.10.2-sesman.patch
-Patch1:    xrdp-0.10.2-xrdp-ini.patch
+Patch1:    xrdp-0.10.3-xrdp-ini.patch
 Patch2:    xrdp-0.10.1-service.patch
 Patch3:    xrdp-0.10.0-scripts-libexec.patch
 Patch4:    xrdp-0.9.6-script-interpreter.patch
@@ -47,7 +47,6 @@ Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 Patch7:    xrdp-0.10.2-sesman-ini.patch
 %endif
-Patch8:    xrdp-0.10.2-utmpfix.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -352,6 +351,10 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Tue Apr  1 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.3-1
+- Update to 0.10.3
+- Enable Xvnc over Unix domain socket
+
 * Wed Mar 26 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-13
 - Rebuild for noopenh264 2.6.0, once more
 
@@ -365,33 +368,33 @@ fi
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.10.2-10
 - Drop call to %sysusers_create_compat
 
-* Thu Feb  6 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~9
+* Thu Feb  6 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-9
 - Add utmp support contributed upstream by Magnus Lewis-Smith
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~7
+* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-7
 - Comment out generic RDP proxy in xrdp.ini
 
-* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~6
+* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-6
 - Set permissions of cert, key and rsakeys.ini to 0640
 - Revert optional dependency on noopenh264, library dependency exists
 
-* Fri Dec 27 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~5
+* Fri Dec 27 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-5
 - Move README.Fedora to README.md
 - Adjust ownership/permissions of certs/keys for unprivileged user
 
-* Thu Dec 26 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~4
+* Thu Dec 26 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-4
 - If openh264 is not present, require noopenh264 instead
 
-* Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~3
+* Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-3
 - Run as unprivileged user
 
 * Wed Dec 25 2024 Koichiro Iwao <meta@almalinux.org> - 1:0.10.2-2
 - Enable OpenH264
 
-* Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~1
+* Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-1
 - Update to 0.10.2
 
 * Tue Dec 24 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~0.rc1.1

@@ -9,6 +9,7 @@ Source:         https://github.com/msiemens/tinydb/archive/refs/tags/v%{version}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 
 %global _description %{expand:
@@ -24,10 +25,12 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n tinydb-%{version}
+# don't run coverage in %%check:
+rm pytest.ini
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -40,9 +43,8 @@ Summary:        %{summary}
 
 
 %check
-# fails on mypy-plugin
-#%%pyproject_check_import
-%tox
+%pyproject_check_import -e '*mypy*'
+%pytest
 
 
 %files -n python3-tinydb -f %{pyproject_files}

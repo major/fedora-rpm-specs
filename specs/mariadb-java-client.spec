@@ -6,7 +6,8 @@ License:        LGPL-2.1-only
 URL:            https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/
 Source0:        https://github.com/mariadb-corporation/mariadb-connector-j/archive/refs/tags/%{version}.tar.gz#/mariadb-connector-j-%{version}.tar.gz
 # optional dependency not in Fedora
-Patch0:         remove_waffle-jna.patch
+Patch:          0001-Remove_waffle-jna.patch
+Patch:          0002-Remove-usage-of-junit-pioneer.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -14,9 +15,14 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
 BuildRequires:  mvn(net.java.dev.jna:jna)
 BuildRequires:  mvn(net.java.dev.jna:jna-platform)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.osgi:osgi.cmpn)
 BuildRequires:  mvn(org.osgi:osgi.core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
+
+BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 
 %description
 MariaDB Connector/J is a Type 4 JDBC driver, also known as the Direct to
@@ -29,15 +35,21 @@ Summary:        Javadoc for %{name}
 %description    javadoc
 This package contains the API documentation for %{name}.
 
+%package        tests
+Summary:        Tests for %{name}
+
+%description    tests
+This package contains tests for %{name}.
+
 %prep
 %autosetup -p1 -n mariadb-connector-j-%{version}
 
-%pom_remove_dep com.github.waffle:waffle-jna
 %pom_remove_dep ch.qos.logback:logback-classic
+grep -l -r '^import ch\.qos\.logback\.classic' src/test | xargs rm -v
+
+%pom_remove_dep com.github.waffle:waffle-jna
 %pom_remove_dep software.amazon.awssdk:bom
 %pom_remove_dep software.amazon.awssdk:rds
-%pom_remove_dep org.junit:junit-bom
-%pom_remove_dep org.junit.jupiter:junit-jupiter-engine
 
 # used in buildtime for generating OSGI metadata
 %pom_remove_plugin biz.aQute.bnd:bnd-maven-plugin
@@ -56,13 +68,14 @@ This package contains the API documentation for %{name}.
 rm -r src/main/java/org/mariadb/jdbc/plugin/credential/aws
 
 # removing dependencies and 'provides', which mariadb-java-client cannot process from module-info.java
-sed -i '/aws/d' src/main/java9/module-info.java
-sed -i '/waffle/d' src/main/java9/module-info.java
+sed -i -e '/aws/d' -e '/waffle/d' src/main/java9/module-info.java
 
 # removing missing dependencies form META-INF, so that the mariadb-java-client module would be valid
-sed -i '/aws/d' src/main/resources/META-INF/services/org.mariadb.jdbc.plugin.CredentialPlugin
-sed -i '/aws/d' src/test/resources/META-INF/services/org.mariadb.jdbc.plugin.CredentialPlugin
+sed -i '/aws/d' src/{main,test}/resources/META-INF/services/org.mariadb.jdbc.plugin.CredentialPlugin
 rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsNativeSspiAuthentication.java
+
+# disable tests using junit.pioneer annotations
+%pom_remove_dep org.junit-pioneer:junit-pioneer
 
 %mvn_file org.mariadb.jdbc:%{name} %{name}
 %mvn_alias org.mariadb.jdbc:%{name} mariadb:mariadb-connector-java
@@ -73,18 +86,37 @@ rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsN
 %pom_remove_plugin -r :maven-gpg-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 
+# Install -tests Jar as well
+%pom_xpath_inject 'pom:build/pom:plugins/pom:plugin[pom:artifactId="maven-jar-plugin"]' '
+<executions>
+  <execution>
+    <goals>
+      <goal>test-jar</goal>
+    </goals>
+  </execution>
+</executions>'
+%mvn_package org.mariadb.jdbc:mariadb-java-client::tests: tests
+
 %build
 # tests are skipped, while they require running application server
-%mvn_build -f
+# NOTE this parameter skips running tests but still compiles them (instead of -f)
+%mvn_build -- -DskipTests=true
+
+xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
 
 %install
 %mvn_install
+install -m 644 -D tests-classpath %{buildroot}/%{_datadir}/%{name}-tests/classpath
 
 %files -f .mfiles
 %doc README.md
 %license LICENSE
 
 %files javadoc -f .mfiles-javadoc
+%license LICENSE
+
+%files tests -f .mfiles-tests
+%{_datadir}/%{name}-tests
 %license LICENSE
 
 %changelog

@@ -1,9 +1,6 @@
-%global pypi_name aiorpcX
-%global srcname aiorpcx
-
-Name:      python-%{srcname}
-Version:   0.23.1
-Release:   4%{?dist}
+Name:      python-aiorpcx
+Version:   0.24.0
+Release:   1%{?dist}
 Summary:   Generic async RPC implementation
 
 # https://github.com/kyuupichan/aiorpcX/issues/11
@@ -11,8 +8,7 @@ Summary:   Generic async RPC implementation
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:   LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 URL:       https://pypi.org/project/aiorpcX/
-Source:    %{pypi_source %{pypi_name}}
-Source2:   https://raw.githubusercontent.com/kyuupichan/aiorpcX/%{version}/LICENCE
+Source:    %{pypi_source aiorpcx}
 
 BuildArch: noarch
 
@@ -22,16 +18,15 @@ and server implementation.}
 
 %description %_description
 
-%package -n python3-%{srcname}
+%package -n python3-aiorpcx
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-%description -n python3-%{srcname} %_description
+%description -n python3-aiorpcx %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-install -m 644 %SOURCE2 .
+%autosetup -n aiorpcx-%{version}
 rm -vrf *.egg-info
 
 %build
@@ -40,13 +35,16 @@ rm -vrf *.egg-info
 %install
 %py3_install
 
-%files -n python3-%{srcname}
+%files -n python3-aiorpcx
 %doc README.rst
 %license LICENCE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%{python3_sitelib}/aiorpcx/
+%{python3_sitelib}/aiorpcX-*.egg-info/
 
 %changelog
+* Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 0.24.0-1
+- Updated to 0.24.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

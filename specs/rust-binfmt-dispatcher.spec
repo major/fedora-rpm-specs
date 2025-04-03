@@ -4,7 +4,7 @@
 %global crate binfmt-dispatcher
 
 Name:           rust-binfmt-dispatcher
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Smart dispatcher for binfmt_misc
 
@@ -35,6 +35,7 @@ License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BS
 Requires:       polkit
 Requires:       systemd
 Recommends:     xdg-terminal-exec
+Recommends:     zenity
 
 %description -n %{crate} %{_description}
 

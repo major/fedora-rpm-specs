@@ -76,7 +76,7 @@ export CONDA_EXE
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.md
-%license %{python3_sitelib}/conda_package_streaming-%{version}.dist-info/LICENSE
+%license LICENSE
 
 
 %changelog

@@ -4,14 +4,13 @@
 %global pypi_name pytest-aiohttp
 
 Name:           python-%{pypi_name}
-Version:        1.0.5
-Release:        5%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Pytest plugin for aiohttp support
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/pytest-aiohttp/
-Source0:        %{pypi_source}
+Source0:        %{pypi_source pytest_aiohttp}
 BuildArch:      noarch
 
 %description
@@ -29,7 +28,7 @@ The library allows to use aiohttp pytest plugin without need for implicitly
 loading it like pytest_plugins = 'aiohttp.pytest_plugin'.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n pytest_aiohttp-%{version} -p1
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -55,6 +54,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.1.0-1
+- Update to latest upstream release (closes rhbz#2341772)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

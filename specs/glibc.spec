@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1439,17 +1439,6 @@ for d in $usrmove_file_names ; do
     ln -s "usr/$d" "%{glibc_sysroot}/$d"
 done
 
-%ifarch riscv64
-# RISC-V ABI wants to install everything in /usr/lib64/lp64d.
-# Make these be symlinks to /usr/lib64.  See:
-# Make these be symlinks to /lib64 or /usr/lib64 respectively.  See:
-# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/DRHT5YTPK4WWVGL3GIN5BF2IKX2ODHZ3/
-for d in %{glibc_sysroot}%{_libdir}; do
-	mkdir -p $d
-	(cd $d && ln -sf . lp64d)
-done
-%endif
-
 %ifarch x86_64
 # Install for the glibc32 package.
 pushd build-%{target}-32
@@ -1558,6 +1547,19 @@ install_different "$RPM_BUILD_ROOT/%{_libdir}/glibc-hwcaps" power10 ..
 popd
 %endif
 
+
+##############################################################################
+# Move files to the expected location
+##############################################################################
+
+# On riscv64 libraries end up installed into the lp64d/ subdirectory
+# by default, but in Fedora that's a compatibility symlink (owned by
+# the filesystem package) that we don't want to show up in paths.
+# Let's move everything out.
+%ifarch riscv64
+mv %{glibc_sysroot}%{_libdir}/lp64d/* %{glibc_sysroot}/%{_libdir}/
+rm -rf %{glibc_sysroot}%{_libdir}/lp64d/
+%endif
 
 ##############################################################################
 # Remove the files we don't want to distribute
@@ -1807,10 +1809,6 @@ for lib in lib lib64;  do
 		set +x
 		slbase=$(basename $sl)
 		sltarget=$(basename $(readlink $sl))
-		if test "$sltarget" = . ; then
-		    # This is the lp64d symbolic link on riscv64, see above.
-		    continue
-		fi
 		if ! test -r usr/$lib/$sltarget; then
 		    echo "$sl: inferred $sltarget ($(readlink $sl)) missing"
 		    exit 1
@@ -2382,6 +2380,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Apr 01 2025 Andrea Bolognani <abologna@redhat.com> - 2.41.9000-7
+- Update riscv64 handling (thanks David Abdurachmanov)
+
 * Tue Mar 25 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-6
 - Add glibc-configure-disable-libsupport.patch and --disable-support
   to work around missing libgcc_s.so.1 in glibc32 build.

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -364,6 +364,18 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00452 # eb11d070c5af7d1b5e47f4e02186152d08eaf793
+# Properly apply exported CFLAGS for dtrace/systemtap builds
+#
+# When using --with-dtrace the resulting object file could be missing
+# specific CFLAGS exported by the build system due to the systemtap
+# script using specific defaults.
+#
+# Exporting the CC and CFLAGS variables before the dtrace invocation
+# allows us to properly apply CFLAGS exported by the build system
+# even when cross-compiling.
+Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -1683,6 +1695,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Mar 31 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.9-3
+- Properly apply exported CFLAGS for dtrace/systemtap builds
+- Fixes: rhbz#2356301
+
 * Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.9-2
 - Rebuilt with mpdecimal 4.0.0
 

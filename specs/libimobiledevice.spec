@@ -9,7 +9,7 @@ Release:        %autorelease
 Summary:        Library for connecting to mobile devices
 
 License:        LGPL-2.0-or-later
-URL:            https://www.libimobiledevice.org/
+URL:            https://libimobiledevice.org/
 Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildRequires:  autoconf

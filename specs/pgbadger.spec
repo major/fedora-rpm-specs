@@ -1,5 +1,5 @@
 Name:           pgbadger
-Version:        13.0
+Version:        13.1
 Release:        %autorelease
 Summary:        PostgreSQL log analyzer with fully detailed reports and graphs
 
@@ -15,10 +15,8 @@ License:        PostgreSQL AND MIT AND Artistic-2.0 AND OFL-1.1 AND CC-BY-3.0 AN
 URL:            https://github.com/darold/%{name}
 Source:         https://github.com/darold/%{name}/archive/refs/tags/v%{version}.tar.gz
 
-# upstream commit: https://github.com/darold/pgbadger/commit/31978811d1ce4ef7f07813a17cf4e736d92d7428
-Patch0:         %{name}-13.0-Fix-for-perl-5.40.patch
 # Update Makefile.PL to not ignore command line arguments
-Patch1:         %{name}-13.0-Update-Makefile.patch
+Patch0:         %{name}-13.0-Update-Makefile.patch
 
 BuildArch:      noarch
 

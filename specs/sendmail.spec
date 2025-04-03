@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -106,6 +106,8 @@ Patch23: sendmail-8.17.2-sasl2-in-etc.patch
 # upstream reserved option ID 0xe7 for testing of this new feature, #576643
 Patch25: sendmail-8.18.1-qos.patch
 Patch26: sendmail-8.17.1-libmilter-socket-activation.patch
+# upstream approved patch, it will be included in the next release
+Patch27: sendmail-8.18.1-gcc-15-fix.patch
 
 BuildRequires: make
 %{?with_db:BuildRequires: libdb-devel}
@@ -226,6 +228,7 @@ cp devtools/M4/UNIX/{,shared}library.m4
 %patch -P23 -p1 -b .sasl2-in-etc
 %patch -P25 -p1 -b .qos
 %patch -P26 -p1 -b .libmilter-socket-activation
+%patch -P27 -p1 -b .gcc-15-fix
 
 for f in RELEASE_NOTES contrib/etrn.0; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -246,7 +249,7 @@ EOF
 cat > redhat.config.m4 << EOF
 define(\`confMAPDEF', \`%{?with_db:-DNEWDB }-DCDB %{?nis_cflags} -DMAP_REGEX -DSOCKETMAP -DNAMED_BIND=1')
 # problem with gcc-15 (C23 standard) reported upstream
-define(\`confOPTIMIZE', \`\`\`\`${CFLAGS} -std=gnu17'''')
+define(\`confOPTIMIZE', \`\`\`\`${CFLAGS}'''')
 define(\`confENVDEF', \`%{?with_db:-I%{_includedir}/libdb }-I%{_prefix}/kerberos/include -Wall -DXDEBUG=0 -DNETINET6 -DHES_GETMAILHOST -DUSE_VENDOR_CF_PATH=1 -D_FFR_LINUX_MHNL -D_FFR_QOS -D_FILE_OFFSET_BITS=64 -DHAS_GETHOSTBYNAME2 -DHASFLOCK')
 define(\`confLIBDIRS', \`-L%{_prefix}/kerberos/%{_lib}')
 define(\`confLIBS', \`%{?nis_ldadd} -lcrypt %{?with_db:-ldb }-lcdb -lresolv')
@@ -747,6 +750,9 @@ exit 0
 
 
 %changelog
+* Tue Apr  1 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-11
+- Added fix for gcc-15
+
 * Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-10
 - Fixed FTBFS
 

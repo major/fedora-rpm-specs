@@ -1,5 +1,5 @@
 Name:      python-typing-extensions
-Version:   4.13.0~rc1
+Version:   4.13.0
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
@@ -41,7 +41,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-4.13.0rc1
+%autosetup -n typing_extensions-%{version}
 
 
 %generate_buildrequires
@@ -70,7 +70,10 @@ cd src
 
 
 %changelog
-* Tue Mar 18 2025 Jonny Heggheim <hegjon@gmail.com>
+* Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 4.13.0-1
+- Updated to version 4.13.0
+
+* Tue Mar 18 2025 Jonny Heggheim <hegjon@gmail.com> - 4.13.0~rc1-1
 - Updated to version 4.13.0rc1
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-4

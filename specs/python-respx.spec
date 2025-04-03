@@ -1,7 +1,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-respx
-Version:        0.21.1
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Utility for mocking out the HTTPX and HTTP Core libraries
 

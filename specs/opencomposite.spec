@@ -5,7 +5,7 @@
 %global _lto_cflags %nil
 
 %global forgeurl0  https://gitlab.com/znixian/OpenOVR
-%global oc_version 1.0.1473
+%global oc_version 1.0.1506
 %global tag0       %{oc_version}
 
 # Bundled openxr 1.0.x for the bubblewraped environments (i.e. steam)

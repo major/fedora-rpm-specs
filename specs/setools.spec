@@ -3,7 +3,7 @@
 
 Name:           setools
 Version:        4.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only AND LGPL-2.1-only
@@ -67,7 +67,6 @@ This package includes the following console tools:
 Summary:     Policy analysis tools for SELinux
 License:     LGPL-2.1-only
 Obsoletes:   setools-libs < 4.0.0
-Requires:    python3-setuptools
 
 %description -n python3-setools
 SETools is a collection of graphical tools, command-line tools, and
@@ -146,6 +145,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Tue Apr 01 2025 Miro Hrončok <mhroncok@redhat.com> - 4.5.1-6
+- Drop redundant runtime requirement on python3-setuptools, dropped in setools 4.5.1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

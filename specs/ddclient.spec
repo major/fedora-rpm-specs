@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           3%{?dist}
+Release:           4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -143,6 +143,9 @@ fi
 
 
 %changelog
+* Tue Apr 01 2025 Scott Talbert <swt@techie.net> - 4.0.0-4
+- Switch systemd service to use exec and remove pid file (#2355909)
+
 * Tue Mar 25 2025 Scott Talbert <swt@techie.net> - 4.0.0-3
 - Restore expected ddclient.conf dir to pre-4.0 location (#2354194)
 

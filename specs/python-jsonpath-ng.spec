@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of JSONPath for Python
 
 # Main library: ASL 2.0
@@ -32,7 +32,7 @@ Summary:        %{summary}
 sed -i -e '/^#!\//, 1d' jsonpath_ng/bin/jsonpath.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -49,6 +49,9 @@ sed -i -e '/^#!\//, 1d' jsonpath_ng/bin/jsonpath.py
 %{_bindir}/jsonpath_ng
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.7.0-3
+- Remove -t (closes rhbz#2354112)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

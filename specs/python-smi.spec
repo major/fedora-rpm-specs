@@ -2,7 +2,7 @@
 
 Name:           python-smi
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python implementation of SNMP/SMI MIB parsing and conversion library
 
 License:        LicenseRef-Callaway-BSD
@@ -34,7 +34,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -55,6 +55,9 @@ Summary:        %{summary}
 %{_bindir}/mibdump
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.0-3
+- Remove -t (closes rhbz#2354124)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

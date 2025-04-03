@@ -1,5 +1,5 @@
 Name:           python-outcome
-Version:        1.2.0
+Version:        1.3.0.post0
 Release:        %autorelease
 Summary:        Capture the outcome of Python function calls
 License:        MIT OR Apache-2.0
@@ -38,7 +38,7 @@ sed -i '/^pytest-cov\b/d' test-requirements.txt
 
 %install
 %pyproject_install
-%pyproject_save_files outcome
+%pyproject_save_files -l outcome
 
 
 %check

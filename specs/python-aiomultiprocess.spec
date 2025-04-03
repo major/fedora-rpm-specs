@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Asyncio version of the standard multiprocessing module
 
 License:        MIT
@@ -31,7 +31,7 @@ coroutines at once, limited only by the workload and number of cores available.
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -45,6 +45,9 @@ coroutines at once, limited only by the workload and number of cores available.
 %doc README.md
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.1-3
+- Remove -t (closes rhbz#2354092)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -31,7 +31,7 @@ Summary:        %{summary}
 sed -i -e '/^#!\//, 1d' rpyc/cli/*.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

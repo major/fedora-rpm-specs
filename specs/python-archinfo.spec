@@ -1,7 +1,7 @@
 %global pypi_name archinfo
 
 Name:           python-%{pypi_name}
-Version:        9.2.146
+Version:        9.2.148
 Release:        1%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
@@ -29,7 +29,7 @@ information. It is useful for cross-architecture tools.
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -43,6 +43,10 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.148-1
+- Remove -t (closes rhbz#2354093)
+- Update to latest upstream release (closes rhbz#2346301)
+
 * Fri Mar 21 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.146-1
 - Update to latest upstream release (closes rhbz#2346301)
 

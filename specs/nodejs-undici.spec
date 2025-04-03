@@ -14,7 +14,7 @@
 
 Name:       nodejs-%{npm_name}
 Summary:    An HTTP/1.1 client, written from scratch for Node.js
-Version:    7.4.0
+Version:    7.6.0
 Release:    %autorelease
 
 License:    MIT
@@ -25,7 +25,7 @@ Source1:    %{npm_name}-%{version}-nm-prod.tgz
 Source2:    %{npm_name}-%{version}-nm-dev.tgz
 Source3:    %{npm_name}-%{version}-bundled-licenses.txt
 Source4:    %{npm_name}-sources.sh
-
+Source5:    test-runner.sh
 
 # Binary artifacts in this package are aimed at the wasm32-wasi "architecture".
 %global     _binaries_in_noarch_packages_terminate_build 0
@@ -93,8 +93,10 @@ install -p -Dt %{buildroot}%{nodejs_sitelib}/%{npm_name}/            loader.js
 tar -xzf %{S:2}
 ln -fsrt node_modules/      node_modules_dev/*
 ln -fsrt node_modules/.bin/ node_modules_dev/.bin/*
-# Depends on the environment/OpenSSL version, etc. Informational only.
-npm --offline run test || :
+
+# Built-in test run using borp. Some tests are ignored on purpose.
+# See Source5 aka test-runner.sh for details.
+bash %{S:5} || exit
 
 %files
 %doc README.md

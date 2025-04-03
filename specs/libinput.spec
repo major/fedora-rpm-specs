@@ -4,7 +4,7 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
@@ -156,6 +156,9 @@ intended to be run by users.
 
 
 %changelog
+* Tue Apr 01 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.1-1
+- libinput 1.28.1
+
 * Mon Mar 24 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.0-1
 - libinput 1.28.0
 

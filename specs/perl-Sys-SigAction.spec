@@ -1,6 +1,6 @@
 Name:           perl-Sys-SigAction
-Version:        0.23
-Release:        26%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        Perl extension for Consistent Signal Handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-SigAction
@@ -9,23 +9,25 @@ BuildArch:      noarch
 BuildRequires:  %{_bindir}/pod2man
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >=  5.5
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# threads not helpful
+BuildRequires:  perl(Time::HiRes)
+# Run-time:
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# Tests:
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Test::More)
 Requires:       perl(Time::HiRes)
-
 
 %description
 Sys::SigAction provides EASY access to POSIX::sigaction() for signal
@@ -59,6 +61,9 @@ make test
 %{_mandir}/man3/Sys::SigAction.*
 
 %changelog
+* Tue Apr 01 2025 Petr Pisar <ppisar@redhat.com> - 0.24-1
+- 0.24 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

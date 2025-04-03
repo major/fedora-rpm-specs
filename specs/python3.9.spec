@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Python
 
 
@@ -400,6 +400,18 @@ Patch438: 00438-fix-threadedvsocksocketstreamtest-gh-119465-gh-119479-119484.pat
 # 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
 # CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
 Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
+
+# 00452 # eb11d070c5af7d1b5e47f4e02186152d08eaf793
+# Properly apply exported CFLAGS for dtrace/systemtap builds
+#
+# When using --with-dtrace the resulting object file could be missing
+# specific CFLAGS exported by the build system due to the systemtap
+# script using specific defaults.
+#
+# Exporting the CC and CFLAGS variables before the dtrace invocation
+# allows us to properly apply CFLAGS exported by the build system
+# even when cross-compiling.
+Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -1848,6 +1860,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Mar 31 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.9.21-5
+- Properly apply exported CFLAGS for dtrace/systemtap builds
+- Fixes: rhbz#2356304
+
 * Mon Feb 10 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.9.21-4
 - Security fix for CVE-2025-0938
 - Fixes: rhbz#2343278

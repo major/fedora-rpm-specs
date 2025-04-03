@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
@@ -154,6 +154,9 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Tue Apr 01 2025 Bryn M. Reeves <bmr@redhat.com> - 1.6.6-2.fc43
+- Rebuilt to verify new gating configuration
+
 * Mon Mar 31 2025 Bryn M. Reeves <bmr@redhat.com> - 1.6.6-1
 - tests: drop remaining Python2 compat handling
 - boom.config: drop Python2 compat handling for ConfigParser

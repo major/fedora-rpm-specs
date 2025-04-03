@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.24.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python text parser
 
 License:        MIT
@@ -27,7 +27,7 @@ Summary:        %{summary}
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -44,6 +44,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.24.0-3
+- Remove -t (closes rhbz#2354128)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.13.0
+Version:   1.15.0
 Release:   %autorelease
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
@@ -24,6 +24,7 @@ Requires: ((feh and xrandr) if Xserver)
 Requires: ((swaybg and wlr-randr) if wayfire)
 Requires: python3-cairo
 
+Recommends: python3-pillow-jxl-plugin
 Recommends: python3-send2trash
 Recommends: ImageMagick
 Recommends: ((maim and slop) if Xserver)

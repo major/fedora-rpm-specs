@@ -14,13 +14,13 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# The top of tree ~3/25/24
-%global commit0 c3bcae7c6c75f29d1e627eaf92f0d5414abe793b
+# release/3.3.x 3/27/25
+%global commit0 65c6b88165a169a659935443dafe887f24f1592a
 
 # from cmake/llvm-hash
-%global commit1 4017f04e310454ccced4c404a23f7698eec735ca
+%global commit1 a66376b0dc3b2ea8a84fda26faca287980986f78
 
-%global pypi_version 3.0.0
+%global pypi_version 3.3.0
 %else
 
 %global pypi_version 3.1.0
@@ -47,8 +47,8 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"         xz level 7 using %%{getncpus} threads
-%define _source_payload         w7T0.xzdio
-%define _binary_payload         w7T0.xzdio
+%global _source_payload         w7T0.xzdio
+%global _binary_payload         w7T0.xzdio
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
@@ -66,9 +66,13 @@ Source1:        https://github.com/llvm/llvm-project/archive/%{commit1}.tar.gz
 Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v2.11.1.tar.gz
 %endif
 
+%if %{without gitcommit}
 # Can not download things
 # Can not use git on a tarball
 Patch1:         0001-Prepare-triton-setup-for-fedora.patch
+%else
+Patch1:         0001-triton-3.3-prepare-for-fedora.patch
+%endif
 
 # GPUs really only work on x86_64
 ExclusiveArch:  x86_64
@@ -79,6 +83,9 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(filelock)
+%if %{with gitcommit}
+BuildRequires:  python3-nanobind-devel
+%endif
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(pytest)
@@ -130,8 +137,16 @@ rm -rf %{pypi_name}.egg-info
 # Path to rocm compiler is not /opt/rocm/llvm
 sed --i -e 's@/opt/rocm/llvm/bin@%{rocmllvm_bindir}@' third_party/amd/backend/compiler.py
 
+%if %{without gitcommit}
 # Not building proton, so the profiler package is never there
 sed -i -e "/triton\/profiler/d" python/setup.py
+%else
+# No tools/extra to package, fake one
+mkdir -p python/triton/tools/extra
+mkdir -p python/triton/tools/extra/cuda
+mkdir -p python/triton/language/extra/cuda
+mkdir -p python/triton/language/extra/hip
+%endif
 
 # Logic for the backends is a little broken, give it some help
 cp -r third_party/{amd,nvidia} python/triton/backends
@@ -156,7 +171,11 @@ sed -i -e 's@${CMAKE_C_FLAGS} -D__STDC_FORMAT_MACROS @-O1 -g -D__STDC_FORMAT_MAC
 
 %if %{without test}
 # no knob to turn off downloading of googletest
+%if %{with gitcommit}
+sed -i -e 's@"Build C++ Triton Unit Tests" ON)@"Build C++ Triton Unit Tests" OFF)@' CMakeLists.txt
+%else
 sed -i -e 's@add_subdirectory(unittest)@#add_subdirectory(unittest)@' CMakeLists.txt
+%endif
 %else
 # E   ValueError: option names {'--device'} already added
 sed -i -e 's@--device@--ddevice@' python/test/unit/operators/conftest.py

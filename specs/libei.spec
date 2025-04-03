@@ -4,7 +4,7 @@
 # Here there are packaged as libei, libeis and liboeffis plus respective subpackages.
 
 Name:           libei
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Summary:        Library for Emulated Input
 

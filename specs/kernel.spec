@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc0.20250331git4e82c87058f4.6
+%define pkgrelease 0.rc0.20250401git08733088b566.8
 %define kversion 6
-%define tarfile_release 6.14-10892-g4e82c87058f4
+%define tarfile_release 6.14-11270-g08733088b566
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250331git4e82c87058f4.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250401git08733088b566.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -766,6 +766,7 @@ BuildRequires: libnl3-devel
 
 %if %{with_tools} && %{with_ynl}
 BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools >= 61
+BuildRequires: (python3-wheel if python3-setuptools < 70)
 %endif
 
 %if %{with_tools} || %{signmodules} || %{signkernel}
@@ -822,12 +823,15 @@ BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
 %define cross_opts CROSS_COMPILE=%{_build_arch}-linux-gnu-
 %define __strip %{_build_arch}-linux-gnu-strip
 
+%if 0%{?fedora} && 0%{?fedora} <= 41
 # Work around find-debuginfo for cross builds.
 # find-debuginfo doesn't support any of CROSS options (RHEL-21797),
 # and since debugedit > 5.0-16.el10, or since commit
 #   dfe1f7ff30f4 ("find-debuginfo.sh: Exit with real exit status in parallel jobs")
-# it now aborts and build fails.
+# it now aborts on failure and build fails.
+# debugedit-5.1-5 in F42 added support to override tools with target versions.
 %undefine _include_gdb_index
+%endif
 %endif
 
 # These below are required to build man pages
@@ -3276,12 +3280,24 @@ find Documentation -type d | xargs chmod u+w
   rm -rf $RPM_BUILD_ROOT/usr/lib/debug/usr/src; \
 %{nil}
 
+# Make debugedit and gdb-add-index use target versions of tools
+# when cross-compiling. This is supported since debugedit-5.1-5.fc42
+# https://inbox.sourceware.org/debugedit/20250220153858.963312-1-mark@klomp.org/
+%if %{with_cross}
+%define __override_target_tools_for_debugedit \
+	export OBJCOPY=%{_build_arch}-linux-gnu-objcopy \
+	export NM=%{_build_arch}-linux-gnu-nm \
+	export READELF=%{_build_arch}-linux-gnu-readelf \
+%{nil}
+%endif
+
 #
 # Disgusting hack alert! We need to ensure we sign modules *after* all
 # invocations of strip occur, which is in __debug_install_post if
 # find-debuginfo.sh runs, and __os_install_post if not.
 #
 %define __spec_install_post \
+  %{?__override_target_tools_for_debugedit:%{__override_target_tools_for_debugedit}}\
   %{?__debug_package:%{__debug_install_post}}\
   %{__arch_install_post}\
   %{__os_install_post}\
@@ -4213,10 +4229,15 @@ fi\
 #
 #
 %changelog
-* Mon Mar 31 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc0.20250331git4e82c87058f4.6]
-- automotive: enable CONFIG_PROBE_EVENTS_BTF_ARGS (Scott Weaver)
-- handle man-page for rv-mon-sched in redhat/kernel.spec.template (Thorsten Leemhuis)
+* Tue Apr 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.08733088b566.8]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+
+* Tue Apr 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.08733088b566.7]
+- redhat/kernel.spec: list python3-wheel explicitly for Fedora<42 (Jan Stancek)
+- handle man-page for rv-mon-sched in redhat/kernel.spec.template (Thorsten Leemhuis)
+- redhat: find-debuginfo workaround is no longer needed on F42 (Jan Stancek)
+- redhat/kernel.spec: use target versions of tools for debugedit and gdb-add-index (Jan Stancek)
+- Linux v6.15.0-0.rc0.08733088b566
 
 * Mon Mar 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.4e82c87058f4.6]
 - redhat: make ENABLE_WERROR enable also KVM_WERROR (Jan Stancek)

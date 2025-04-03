@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    11%{?dist}
+Release:    12%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -58,6 +58,9 @@ Patch101:   net-snmp-5.8-modern-rpm-api.patch
 
 #disable this patch due compatibility issues
 Patch102:   net-snmp-5.9-python3.patch
+
+# make Mail::Sender optional
+Patch103:   net-snmp-5.9-mail-sender.patch
 
 Requires:        %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:        %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -247,6 +250,9 @@ cp %{SOURCE10} .
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
+%if 0%{?rhel}
+%patch 103 -p1
+%endif
 
 # disable failing test - see https://bugzilla.redhat.com/show_bug.cgi?id=680697
 rm testing/fulltests/default/T200*
@@ -515,6 +521,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Thu Mar 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.4-12
+- Avoid Mail::Sender dependency on RHEL
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:5.9.4-11
 - Add explicit BR: libxcrypt-devel
 

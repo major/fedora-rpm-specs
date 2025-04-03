@@ -32,7 +32,7 @@
 
 Name:           wine
 Version:        10.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -263,6 +263,7 @@ Requires(preun):       %{_sbindir}/alternatives
 Requires:       wine-filesystem = %{version}-%{release}
 
 %ifarch %{ix86}
+Requires:       (wine-wow32 = %{version}-%{release} if wine-core(x86-64))
 # CUPS support uses dlopen - rhbz#1367537
 Requires:       cups-libs(x86-32)
 Requires:       freetype(x86-32)
@@ -297,6 +298,7 @@ Requires:  mingw32-zlib
 %endif
 
 %ifarch x86_64
+Requires:       (wine-wow64 = %{version}-%{release} if wine-core(x86-32))
 # CUPS support uses dlopen - rhbz#1367537
 Requires:       cups-libs(x86-64)
 Requires:       freetype(x86-64)
@@ -644,8 +646,24 @@ This package adds an alsa driver for wine.
 Summary: OpenCL support for wine
 Requires: wine-core = %{version}-%{release}
 
-%Description opencl
+%description opencl
 This package adds the opencl driver for wine.
+%endif
+
+%ifarch %{ix86}
+%package wow32
+Summary:        Wine wow32 package
+
+%description wow32
+This package adds symlinks for wine wow64 functionality.
+%endif
+
+%ifarch x86_64
+%package wow64
+Summary:        Wine wow64 package
+
+%description wow64
+This package adds symlinks for wine wow64 functionality.
 %endif
 
 %prep
@@ -743,6 +761,16 @@ touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10_1.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10core.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d11.dll
+
+# setup new wow64
+%ifarch x86_64
+ln -sf /usr/lib/wine/i386-unix %{buildroot}%{_libdir}/wine/i386-unix
+ln -sf /usr/lib/wine/i386-windows %{buildroot}%{_libdir}/wine/i386-windows
+%endif
+%ifarch %{ix86}
+ln -sf /usr/lib64/wine/x86_64-unix %{buildroot}%{_libdir}/wine/x86_64-unix
+ln -sf /usr/lib64/wine/x86_64-windows %{buildroot}%{_libdir}/wine/x86_64-windows
+%endif
 
 # remove rpath
 chrpath --delete %{buildroot}%{_bindir}/wmc
@@ -2095,7 +2123,22 @@ fi
 %{_libdir}/wine/%{winesodir}/opencl.so
 %endif
 
+%ifarch %{ix86}
+%files wow32
+%{_libdir}/wine/x86_64-unix
+%{_libdir}/wine/x86_64-windows
+%endif
+
+%ifarch x86_64
+%files wow64
+%{_libdir}/wine/i386-unix
+%{_libdir}/wine/i386-windows
+%endif
+
 %changelog
+* Tue Apr 01 2025 Michael Cronenworth <mike@cchtml.com> - 10.4-2
+- Initial support for new Wow64 mode
+
 * Sat Mar 22 2025 Michael Cronenworth <mike@cchtml.com> - 10.4-1
 - version update
 

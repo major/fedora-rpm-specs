@@ -5,7 +5,7 @@ Summary:        Unit testing for config-managed server state
 
 License:        Apache-2.0
 URL:            https://github.com/pytest-dev/pytest-testinfra
-Source:         %{pypi_source pytest-testinfra}
+Source:         %{pypi_source pytest_testinfra}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

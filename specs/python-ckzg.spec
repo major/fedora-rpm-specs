@@ -1,7 +1,7 @@
 %global pypi_name ckzg
 
 Name:          python-%{pypi_name}
-Version:       2.1.0
+Version:       2.1.1
 Release:       %autorelease
 Summary:       An implementation of the Polynomial Commitments API for EIP-4844/7594
 License:       Apache-2.0

@@ -2,20 +2,18 @@
 %undefine __cmake_in_source_build
 
 Name:           android-file-transfer
-Version:        4.2
-Release:        14%{?dist}
+Version:        4.4
+Release:        1%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
 URL:            https://github.com/whoozle/android-file-transfer-linux
 Source0:        %{url}/archive/v%{version}/%{name}-linux-%{version}.tar.gz
 
-Patch0001:      0001-Fix-build-with-GCC-13-330.patch
-
 Requires:       hicolor-icon-theme
 BuildRequires:  cmake
 BuildRequires:  cmake(pybind11)
-BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
@@ -23,7 +21,7 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libmagic)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt6)
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(taglib)
 
@@ -75,6 +73,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Tue Apr 01 2025 Marek Blaha <mblaha@redhat.com> - 4.4-1
+- Update to version 4.4
+- Switch to Qt6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

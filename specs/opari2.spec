@@ -1,12 +1,11 @@
 Name:           opari2
-Version:        2.0.8
-Release:        3%{?dist}
+Version:        2.0.9
+Release:        1%{?dist}
 Summary:        An OpenMP runtime performance measurement instrumenter
 
 License:        BSD-3-Clause
 URL:            https://www.vi-hps.org/projects/score-p/
-Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/opari2/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
-
+Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/opari2/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -29,10 +28,11 @@ instrumentation of OpenMP 3.0 tied tasks.
 
 %build
 # I don't immediately see why using %%configure broke the check target
-# in 2.0.7, which worked before.
-./configure --disable-silent-rules --with-platform=linux --prefix=%_prefix \
-            CFLAGS="%build_cflags" CXXFLAGS="%build_cxxflags" \
-            LDFLAGS="%build_ldflags" FCFLAGS="%build_fcflags"
+# in 2.0.7, which worked before.  configure fails if we don't pass the
+# flags as args, rather than in the environment.
+./configure --disable-silent-rules --prefix=%_prefix \
+	    CFLAGS="%build_cflags" CXXFLAGS="%build_cxxflags" \
+	    LDFLAGS="%build_ldflags" FCFLAGS="%build_fcflags"
 %make_build
 
 
@@ -59,6 +59,9 @@ make check || ( cat */test-suite.log && exit 1 )
 
 
 %changelog
+* Tue Apr  1 2025 Dave Love <loveshack@fedoraproject.org> - 2.0.9-1
+- Update to 2.0.9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

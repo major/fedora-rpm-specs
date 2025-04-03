@@ -11,7 +11,7 @@
 
 Name:           SLOF
 Version:        %{gittagdate}
-Release:        6.git%{gittagcommit}%{?dist}
+Release:        7.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
 License:        BSD-3-Clause
@@ -19,6 +19,9 @@ URL:            http://www.openfirmware.info/SLOF
 
 Source0:        https://github.com/aik/SLOF/archive/qemu-slof-%{gittagdate}.tar.gz
 
+# the bundled libc stdbool.h is not compatible with C23
+# https://github.com/aik/SLOF/pull/5
+Patch0:         0001-libc-fix-build-in-C23-mode.patch
 
 %if 0%{?cross:1}
 BuildArch:      noarch
@@ -73,6 +76,9 @@ install -c -m 0644 boot_rom.bin %{buildroot}%{_datadir}/%{targetdir}/slof.bin
 
 
 %changelog
+* Tue Apr 01 2025 Cole Robinson <crobinso@redhat.com> - 20220719-7.git6b6c16b4
+- Fix build with cross-gcc 15 (Yaakov Selkowitz)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20220719-6.git6b6c16b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

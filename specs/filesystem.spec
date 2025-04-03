@@ -92,6 +92,9 @@ ln -snf usr/bin bin
 ln -snf usr/sbin sbin
 ln -snf usr/lib lib
 ln -snf usr/%{_lib} %{_lib}
+%ifarch riscv64
+ln -snf . usr/%{_lib}/lp64d
+%endif
 ln -snf ../run var/run
 ln -snf ../run/lock var/lock
 ln -snf usr/bin usr/lib/debug/bin
@@ -200,6 +203,9 @@ posix.symlink("usr/%{_lib}", "/usr/lib/debug/%{_lib}")
 posix.symlink("../.dwz", "/usr/lib/debug/usr/.dwz")
 posix.symlink("usr/sbin", "/usr/lib/debug/sbin")
 posix.symlink("usr/%{_lib}", "/%{_lib}")
+if "%{_arch}" == "riscv64" then
+  posix.symlink(".", "/usr/%{_lib}/lp64d")
+end
 posix.mkdir("/run")
 posix.mkdir("/proc")
 posix.mkdir("/sys")
@@ -459,11 +465,14 @@ end
 %ghost /usr/lib/debug/sbin
 %attr(555,root,root) /usr/lib/games
 %ifarch x86_64 ppc64 sparc64 s390x aarch64 ppc64le mips64 mips64el riscv64
-%attr(555,root,root) /usr/%{_lib}
-%else
-%attr(555,root,root) /usr/lib/bpf
-%attr(555,root,root) /usr/lib/X11
-%attr(555,root,root) /usr/lib/pm-utils
+%dir %attr(555,root,root) /usr/%{_lib}
+%attr(555,root,root) /usr/%{_lib}/games
+%endif
+%attr(555,root,root) /usr/%{_lib}/bpf
+%attr(555,root,root) /usr/%{_lib}/X11
+%attr(555,root,root) /usr/%{_lib}/pm-utils
+%ifarch riscv64
+/usr/%{_lib}/lp64d
 %endif
 /usr/libexec
 %dir /usr/local

@@ -1,7 +1,7 @@
 %global pypi_name claripy
 
 Name:           python-%{pypi_name}
-Version:        9.2.141
+Version:        9.2.148
 Release:        1%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
@@ -29,7 +29,7 @@ Claripy is an abstracted constraint-solving wrapper.
 sed -i 's/, "z3-solver==4.13.0.0"//' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -43,6 +43,10 @@ sed -i 's/, "z3-solver==4.13.0.0"//' pyproject.toml
 %doc README.md
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.148-1
+- Remove -t (closes rhbz#2354095)
+- Update to latest upstream release (closes rhbz#2346341)
+
 * Sun Feb 16 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.141-1
 - Update to latest upstream release (closes rhbz#2337960)
 

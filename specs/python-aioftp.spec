@@ -3,10 +3,9 @@
 
 Name:           python-%{pypi_name}
 Version:        0.23.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FTP client/server for asyncio
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/aioftp
 Source0:        %{pypi_source}
@@ -37,7 +36,7 @@ BuildRequires:  %{py3_dist trustme}
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -57,6 +56,9 @@ BuildRequires:  %{py3_dist trustme}
 %doc README.rst
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.23.1-3
+- Remove -t (closes rhbz#2354091)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

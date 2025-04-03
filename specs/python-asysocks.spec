@@ -27,7 +27,7 @@ BuildRequires:  python3-devel
 sed -i -e '/^#!\//, 1d' asysocks/__init__.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -1,13 +1,13 @@
-%global svndate 20241208
-%global svnrev 13596
+#global svndate 20250315
+#global svnrev 13634
 %global snapshot 0%{?svndate}
 %if %{snapshot}
 %global svnrelease .%{svndate}svn%{svnrev}
 %endif
 
 Name:		codeblocks
-Version:	20.03
-Release:	31%{?svnrelease}%{?dist}
+Version:	25.03
+Release:	1%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -16,14 +16,11 @@ URL:		http://www.codeblocks.org/
 # fedora-getsvn codeblocks svn://svn.code.sf.net/p/codeblocks/code/trunk %%{svnrev}
 Source0:	%{name}-svn%{svnrev}.tar.bz2
 %else
-Source0:	https://sourceforge.net/projects/%{name}/files/Sources/%{version}/%{name}-%{version}.tar.xz
+Source0:	https://sourceforge.net/projects/%{name}/files/Sources/%{version}/%{name}_%{version}.tar.xz
 %endif
 Patch0:		codeblocks-autorev.patch
 # use distro compiler standards
 Patch1:		codeblocks-flags.patch
-# GCC 15 fixes
-Patch2:		0001-clangd_client-include-missing-header.patch
-Patch3:		0002-sdk-drop-including-ciso646.patch
 
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	boost-devel
@@ -110,11 +107,9 @@ Additional Code::Blocks plug-ins.
 %setup -q -n %{name}
 %patch -P 0 -p1
 %else
-%setup -q
+%setup -q -n %{name}_%{version}
 %endif
 %patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
 
 
 %if %{snapshot}
@@ -348,6 +343,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Tue Apr 01 2025 Dan Horák <dan[at]danny.cz> - 25.03-1
+- Code::Blocks release 25.03 (rhbz#2356294)
+
 * Fri Jan 31 2025 Dan Horák <dan[at]danny.cz> - 20.03-31.20241208svn13596
 - fix build with GCC 15 (rhbz#2339982)
 

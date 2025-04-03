@@ -1,6 +1,6 @@
-%global pkgver 2.2.16
+%global pkgver 2.2.17
 #global prerel rc1
-%global baserelease 3
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -11,15 +11,13 @@ URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.16-shellbang.patch
-Patch2:		bluefish-2.2.16-gcc14.patch
-Patch3:		bluefish-2.2.16-gcc15.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant2-devel
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	gettext >= 0.19.7
-BuildRequires:	glib2-devel >= 2.24
+BuildRequires:	glib2-devel >= 2.76
 BuildRequires:	gtk3-devel >= 3.2
 BuildRequires:	gucharmap-devel >= 2.90
 BuildRequires:	hardlink
@@ -42,10 +40,6 @@ Provides:	bluefish-unstable = %{version}-%{release}
 # XML Catalog registration
 Requires(post): /usr/bin/xmlcatalog, xml-common
 Requires(postun): /usr/bin/xmlcatalog, xml-common
-
-# Move to unversioned documentation directories from F-20
-# https://fedoraproject.org/wiki/Changes/UnversionedDocdirs
-%global bluefish_docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
 # Explicitly disable automatic byte-compilation of python in non-python library locations
 %global _python_bytecompile_extra 0
@@ -78,25 +72,17 @@ Files common to every architecture version of %{name}.
 # Also change /usr/bin/python → /usr/bin/python3
 %patch -P 1
 
-# Fix for type issue causing FTBFS with gcc 14
-# https://sourceforge.net/p/bluefish/tickets/95/
-%patch -P 2 -p2
-
-# Fix for type issues causing FTBFS with gcc 15
-# https://sourceforge.net/p/bluefish/tickets/101/
-%patch -P 3
-
 %build
 %configure	--disable-dependency-tracking \
 		--disable-static \
 		--disable-update-databases \
 		--disable-xml-catalog-update \
-		--docdir=%{bluefish_docdir}
-make %{?_smp_mflags}
+		--docdir=%{_pkgdocdir}
+%{make_build}
 
 %install
 mkdir -p %{buildroot}%{_datadir}/applications
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%{make_install}
 
 # Make zencoding plugin scripts executable to placate rpmlint
 find %{buildroot}%{_datadir}/bluefish/plugins/zencoding -name '*.py' |
@@ -121,9 +107,9 @@ desktop-file-validate \
 	%{buildroot}%{_datadir}/applications/bluefish.desktop
 
 # Manually install docs so that they go into
-# %%{bluefish_docdir} even though we put them in the
+# %%{_pkgdocdir} even though we put them in the
 # shared-data subpackage
-install -m 644 -p -t %{buildroot}%{bluefish_docdir}/ \
+install -m 644 -p -t %{buildroot}%{_pkgdocdir}/ \
 	AUTHORS ChangeLog README TODO
 
 # Unpackaged files
@@ -157,7 +143,7 @@ fi
 %{_libdir}/bluefish/
 
 %files shared-data -f %{name}.lang
-%doc %{bluefish_docdir}/
+%doc %{_pkgdocdir}/
 %{_datadir}/bluefish/
 %{_datadir}/metainfo/bluefish.appdata.xml
 %{_datadir}/applications/bluefish.desktop
@@ -172,6 +158,14 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Tue Apr  1 2025 Paul Howarth <paul@city-fan.org> - 2.2.17-1
+- Update to 2.2.17 (rhbz#2356356)
+  - Bluefish 2.2.17 is a maintenance release that has only code clean-up fixes
+    to comply better with modern compiler standards
+  - It furthermore has fixes for a 64-bit Windows build of Bluefish with Msys2
+- Use %%{make_build} and %%{make_install}
+- Assume %%{_pkgdocdir} macro always available
+
 * Thu Jan 16 2025 Paul Howarth <paul@city-fan.org> - 2.2.16-3
 - Fix for gcc 15
 

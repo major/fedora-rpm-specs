@@ -5,18 +5,13 @@
 # writing of non-sionlib traces.
 
 Name:           otf2
-Version:        3.0.3
-Release:        8%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
 URL:            http://score-p.org
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/otf2/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
-# fedpkg new-sources apparently can't cope with both otf2-1.5.1 and
-# otf2-2.2 tarballs.
-%{?el7:Source1:        https://www.vi-hps.org/cms/upload/packages/otf2/otf2-1.5.1.tar.gz}
-# Fix AC_CONFIG_MACRO_DIR and remove $(srcdir) from TESTS (1.5.1 source)
-%{?el7:Patch3:         otf2-autoconf.patch}
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  chrpath dos2unix
@@ -59,23 +54,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description -n python%{python3_pkgversion}-otf2
 Python 3 bindings for %{name}.
 
-%if 0%{?el7}
-%package compat
-Summary:        Compatibility library for %name version 1.
-BuildRequires:  libtool automake
-
-%description compat
-Compatibility library for %name version 1.
-%endif
-
 %prep
 %setup -q
 dos2unix doc/examples/otf2_high_level_writer_example.py
-%if 0%{?el7}
-tar fx %SOURCE1
-cd otf2-1.5.1
-%patch -P3 -p1
-%endif
 rm build-config/py-compile
 for d in . build-backend build-frontend
 do
@@ -99,13 +80,6 @@ sed -i -e '/"pythondir".*=/s;=.*$;="%{python3_sitearch}";' build-backend/config.
 sed -i -e '/HARDCODE_INTO_LIBS/s/1/0/' build-backend/config.status
 ./config.status
 %make_build
-%if 0%{?el7}
-pushd otf2-1.5.1
-%configure --disable-static --enable-shared --disable-silent-rules \
- --docdir=%{_pkgdocdir} --with-platform=linux
-%make_build
-popd
-%endif
 
 
 %install
@@ -114,10 +88,6 @@ find %{buildroot} -name '*.la' -delete
 cp -p AUTHORS ChangeLog README %{buildroot}%{_pkgdocdir}/
 chrpath -d %{buildroot}%{_bindir}/otf2-{marker,print,snapshots,estimator,config}
 rm %{buildroot}%{_pkgdocdir}/python/.buildinfo
-%if 0%{?el7}
-%make_install -C otf2-1.5.1 DESTDIR=$(pwd)/otf2-1.5.1
-cp -a otf2-1.5.1%{_libdir}/libotf2.so.5* %{buildroot}%{_libdir}
-%endif
 
 
 %check
@@ -125,7 +95,6 @@ make check
 
 
 %ldconfig_scriptlets
-%{?el7:%ldconfig_scriptlets compat}
 
 
 %files
@@ -159,18 +128,18 @@ make check
 %{_pkgdocdir}/pdf/
 %{_pkgdocdir}/tags/
 %{_pkgdocdir}/python/
+%{_pkgdocdir}/CITATION.cff
 
 %files -n python%{python3_pkgversion}-otf2
 %{python3_sitearch}/%{name}/
 %{python3_sitearch}/_%{name}/
 %{_datadir}/%{name}/python
 
-%if 0%{?el7}
-%files compat
-%{_libdir}/libotf2.so.5*
-%endif
-
 %changelog
+* Tue Apr  1 2025 Dave Love <loveshack@fedoraproject.org> - 3.1.1-1
+- Update to 3.1.1
+- Remove el7-isms
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

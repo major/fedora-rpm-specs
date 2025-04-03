@@ -1,5 +1,5 @@
 Name:           iwd
-Version:        3.4
+Version:        3.5
 Release:        %autorelease
 Summary:        Wireless daemon for Linux
 License:        LGPL-2.1-or-later

@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2025.6
+Version: 2025.7
 Release: %{autorelease}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
@@ -11,18 +11,12 @@ URL: https://github.com/coreos/rpm-ostree
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
-# Fast track https://github.com/coreos/rpm-ostree/pull/5325
-Patch0: 0001-daemon-app-Support-rebasing-deploying-specific-diges.patch
-Patch1: 0002-daemon-Support-deployment-finalization-by-OCI-digest.patch
+# Fast track https://github.com/coreos/rpm-ostree/pull/5351
+Patch0: 0001-treefile-support-inlined-conditional-includes.patch
 
 # Fix libdnf use of CMake
 # https://github.com/rpm-software-management/libdnf/commit/099600ca94f3b205461cc010dd257d9d1abd068d
-Patch2: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
-
-# rpmostree-core: Emulate new %sysusers RPM scriplet
-# https://github.com/coreos/rpm-ostree/issues/5333
-# https://github.com/coreos/rpm-ostree/pull/5334
-Patch3: 0001-rpmostree-core-Emulate-new-sysusers-RPM-scriplet.patch
+Patch1: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

@@ -1,11 +1,10 @@
 %global srcname queuelib
 
 Name:           python-queuelib
-Version:        1.5.0
-Release:        23%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
-# Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/scrapy/queuelib
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -19,34 +18,37 @@ Python. Queuelib goals are speed and simplicity.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
+BuildRequires:  python3-hatchling
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 Queuelib is a collection of persistent (disk-based) queues for
 Python. Queuelib goals are speed and simplicity.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files queuelib
 
 %check
-nosetests-%{python3_version} queuelib/tests
+%pytest -v
 
-%files -n python3-%{srcname}
-%doc NEWS README.rst
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.8.0-1
+- Update to latest upstream release (closes rhbz#2349851)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -150,7 +152,7 @@ nosetests-%{python3_version} queuelib/tests
 
 * Sat Nov 14 2015  Fabian Affolter <mail@fabian-affolter.ch> - 1.4.2-1
 - Cleanup
-- Upate to latest upstream release 1.4.2
+- Update to latest upstream release 1.4.2
 
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5

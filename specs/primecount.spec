@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.15
-Release:        2%{?dist}
+Version:        7.16
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -104,6 +104,22 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Apr 01 2025 Kim Walisch <walki@fedoraproject.org> - 7.16-1
+- fast_div.hpp: Fix "Warning: mnemonic suffix used with `div'"
+- libdivide.h: Fix "Warning: mnemonic suffix used with `div'"
+- LoadBalancerS2.cpp: Tune load balancing
+- LoadBalancerAC.cpp: Tune load balancing
+- primecount-internal.hpp: Update default CPU cache sizes
+- Sieve.cpp: Improve count balancing
+- Sieve.cpp: Add multiarch count methods
+- Sieve.hpp: New multiarch count methods
+- D.cpp: Runtime dispatching changes
+- D_multiarch_avx512.cpp: New file
+- D_multiarch_arm_sve.cpp: New file
+- S2_hard.cpp: Runtime dispatching changes
+- S2_hard_multiarch_avx512.cpp: New file
+- S2_hard_multiarch_arm_sve.cpp: New file
+
 * Mon Mar 03 2025 Kim Walisch <walki@fedoraproject.org> - 7.15-2
 - multiarch_arm_sve.cmake: Update to latest ARM SVE code
 

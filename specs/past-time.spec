@@ -2,7 +2,7 @@
 
 Name:           past-time
 Version:        0.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Visualizer for the days of the year
 
 License:        MIT
@@ -21,7 +21,7 @@ A simple tool to visualize the progress of the year based on the past days.
 %autosetup -p1 -n %{name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -39,6 +39,9 @@ A simple tool to visualize the progress of the year based on the past days.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.1-3
+- Remove -t (closes rhbz#2354088)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,22 +2,22 @@
 %global gem_name sprockets-rails
 
 Name: rubygem-%{gem_name}
-Version: 3.4.2
-Release: 5%{?dist}
+Version: 3.5.2
+Release: 1%{?dist}
 Summary: Sprockets Rails integration
 License: MIT
 URL: https://github.com/rails/sprockets-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Get the tests
-# git clone --no-checkout https://github.com/rails/sprockets-rails.git
-# cd sprockets-rails && git archive -v -o sprockets-rails-3.4.2-tests.txz v3.4.2 test/
-Source1: sprockets-rails-%{version}-tests.txz
+# git clone --no-checkout https://github.com/rails/sprockets-rails.git && cd sprockets-rails
+# git archive -v -o sprockets-rails-3.5.2-tests.tar.gz v3.5.2 test/
+Source1: sprockets-rails-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(railties) >= 3.0
-BuildRequires: rubygem(rake)
+BuildRequires: rubygem(railties) >= 6.1
+%dnl BuildRequires: rubygem(rake)
 BuildRequires: rubygem(sprockets)
 BuildArch: noarch
 
@@ -36,9 +36,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-pushd %{_builddir}
-popd
-
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -49,11 +46,11 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/test .
+( cd .%{gem_instdir}
+ln -s %{builddir}/test .
 
 ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -67,6 +64,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Apr 01 2025 Vít Ondruch <vondruch@redhat.com> - 3.5.2-1
+- Update to Sprockets Rails 3.5.2.
+  Resolves: rhbz#2290690
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

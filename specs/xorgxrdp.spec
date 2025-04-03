@@ -1,6 +1,6 @@
 Name:           xorgxrdp
-Version:        0.10.3
-Release:        6%{?dist}
+Version:        0.10.4
+Release:        1%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -10,7 +10,7 @@ Source0:        https://github.com/neutrinolabs/xorgxrdp/releases/download/v%{ve
 BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  xorg-x11-server-devel
-BuildRequires:  xrdp-devel >= 1:0.10.2
+BuildRequires:  xrdp-devel >= 1:0.10.3
 %if 0%{?fedora} > 0 && 0%{?fedora} <= 24
 BuildRequires:  libXfont-devel
 %else
@@ -133,6 +133,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Tue Apr  1 2025 Bojan Smojver <bojan@rexursive.com> - 0.10.4-1
+- Bump up to 0.10.4
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

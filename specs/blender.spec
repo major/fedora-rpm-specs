@@ -1,4 +1,4 @@
-%global blender_api 4.3
+%global blender_api 4.4
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %bcond clang	0
@@ -22,6 +22,11 @@
 %bcond hidapi	1
 %ifarch x86_64
 %bcond hip	1
+# Ray tracing acceleration for AMD hardware
+# hiprt-devel for Fedora 42 is missing some headers
+%if 0%{?fedora} >= 43
+%bcond hiprt	1
+%endif
 %bcond oidn	1
 %bcond oneapi   0
 %bcond opgl	1
@@ -41,27 +46,29 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.3.2
+Version:        4.4.0
 Release:        %autorelease
 
-
 Summary:        3D modeling, animation, rendering and post-production
-License:        GPL-2.0-or-later
+# Blender source is under GPL-2.0-or-later by default
+# Apache-2.0 for Blender Cycles rendering engine
+# BSD License for Open Shading Language
+# Zlib License for Bullets
+# GPL-3.0-or-later for the whole project
+# https://www.blender.org/about/license/
+License:	%{shrink:
+		Apache-2.0 AND
+  		BSD-3-Clause AND
+  		GPL-2.0-or-later AND
+  		GPL-3.0-or-later AND
+  		Zlib
+		}
 URL:            https://www.blender.org
 
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 
 # Rename macros extension to avoid clashing with upstream version
 Source1:        %{name}-macros-source
-# FFmpeg 7 compatibility for audaspace plugin
-# https://projects.blender.org/blender/blender/pulls/121960.patch
-Patch1:         121960.patch
-# Fix crash on creating fluid domain with python 3.12 and up #130160
-# https://projects.blender.org/blender/blender/pulls/130160.patch
-Patch3:         130160.patch
-# Upstream patches cherry-picked from main branch
-Patch4:         PyAPI-support-Python-3.13.patch
-Patch5:         Fix-Remove-internal-ffmpeg-API-usage-fix-ffmpeg-7-co.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -290,6 +297,10 @@ BuildRequires:  libappstream-glib
 # HIP stuff
 # https://developer.blender.org/docs/handbook/building_blender/cycles_gpu_binaries/#linux
 %if %{with hip}
+%if %{with hiprt}
+BuildRequires:  hiprt-devel
+%endif
+BuildRequires:	hipcc
 BuildRequires:  rocm-core
 BuildRequires:  rocm-device-libs
 BuildRequires:  rocm-hip-devel
@@ -307,7 +318,11 @@ Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}
 
 # Starting from 2.90, Blender support only 64-bits architectures
-ExcludeArch:	%{ix86} %{arm}
+# Temporarily disable s390x build due to failure
+# /builddir/build/BUILD/blender-4.4.0-build/blender-4.4.0/source/blender/blenloader/intern/writefile.cc:313:3: error: 
+# ‘BLI_endian_switch_uint32’ was not declared in this scope
+#  313 |   BLI_endian_switch_uint32(&val);
+ExcludeArch:	%{ix86} %{arm} s390x
 
 %description
 Blender is the essential software solution you need for 3D, from modeling,
@@ -325,10 +340,7 @@ This package provides rpm macros to support the creation of third-party addon
 packages to extend Blender.
 
 %prep
-# %%autosetup -a1 failed to extract all tarball #2495
-# https://github.com/rpm-software-management/rpm/issues/2495
-%autosetup -N
-%autopatch -p1
+%autosetup -p1
 
 # Delete the bundled FindOpenJPEG to make find_package use the system version
 # instead (the local version hardcodes the openjpeg version so it is not update
@@ -341,7 +353,6 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 # Work around CMake boost module needing the python version to find the library
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     build_files/cmake/platform/platform_unix.cmake
-
 
 %build
 %if %{with hip}
@@ -397,14 +408,18 @@ export PATH=${PATH}:${HIP_CLANG_PATH}
 %endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
 %if %{with hip}
-    -DHIP_HIPCC_EXECUTABLE=${HIP_CLANG_PATH}/clang++ \
+    -DHIP_HIPCC_EXECUTABLE=%{_bindir}/hipcc \
+%if %{with hiprt}
+    -DWITH_CYCLES_DEVICE_HIPRT=ON \
+%endif
     -DWITH_CYCLES_HIP_BINARIES=ON \
 %endif
 %if %{with oneapi}
     -DWITH_CYCLES_DEVICE_ONEAPI=ON \
 %endif
     -DWITH_OPENCOLLADA=OFF \
-    -DWITH_LIBS_PRECOMPILED=OFF
+    -DWITH_LIBS_PRECOMPILED=OFF \
+    -W no-dev
 
 %cmake_build
 
@@ -428,7 +443,7 @@ install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-sof
 # rpm macros
 mkdir -p %{buildroot}%{macrosdir}
 install -pm 644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
-sed -e 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
+sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
 
 # Metainfo
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \

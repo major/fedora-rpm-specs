@@ -1,13 +1,13 @@
 %global pypi_name sybil
 
 Name:           python-%{pypi_name}
-Version:        8.0.0
-Release:        3%{?dist}
+Version:        9.1.0
+Release:        1%{?dist}
 Summary:        Automated testing for the examples in your documentation
 
 License:        MIT
 URL:            https://sybil.readthedocs.io/
-Source0:        https://github.com/cjw296/sybil/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://github.com/simplistix/sybil/archive/refs/tags/%{version}.tar.gz
 # seedir is not available in Fedora yet
 Patch:          drop-dependency-on-seedir.patch
 BuildArch:      noarch
@@ -54,6 +54,9 @@ sed -i "/seeddir/d" setup.py
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.1.0-1
+- Update to latest upstream release (closes rhbz#2322732)
+
 * Sun Feb  2 2025 Orion Poplawski <orion@nwra.com> - 8.0.0-3
 - Drop unneeded BR on python3-pytest-cov
 

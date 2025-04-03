@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2023.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python API for IQVIA data
 
 License:        MIT
@@ -25,7 +25,7 @@ A Python API for IQVIA data.
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -39,6 +39,9 @@ A Python API for IQVIA data.
 %doc README.md
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2023.12.0-3
+- Remove -t (closes rhbz#2354117)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

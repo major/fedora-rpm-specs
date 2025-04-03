@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python library for Simple Service Discovery Protocol (SSDP)
 
 License:        MIT
@@ -21,7 +21,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pbr)
-BuildRequires:  python3dist(pytest)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %_description
@@ -30,7 +29,7 @@ BuildRequires:  python3dist(pytest)
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -40,15 +39,16 @@ BuildRequires:  python3dist(pytest)
 
 %pyproject_save_files %{pypi_name}
 
-%check
-%tox
-
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 %{_bindir}/ssdp
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.3.0-7
+- Remove -t (closes rhbz#2354125)
+- Remove tests as they are not shipped anymore
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

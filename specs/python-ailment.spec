@@ -1,7 +1,7 @@
 %global pypi_name ailment
 
 Name:           python-%{pypi_name}
-Version:        9.2.141
+Version:        9.2.148
 Release:        1%{?dist}
 Summary:        The angr intermediate language
 
@@ -27,7 +27,7 @@ AIL is the angr intermediate language.
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -41,6 +41,10 @@ AIL is the angr intermediate language.
 %license LICENSE
 
 %changelog
+* Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.148-1
+- Remove -t (closes rhbz#2354090)
+- Update to latest upstream release (closes rhbz#2346300)
+
 * Sun Feb 16 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.141-1
 - Update to latest upstream release (closes rhbz#2337858)
 

@@ -1,6 +1,6 @@
 Name:    vsomeip3
 Version: 3.5.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0
@@ -14,7 +14,7 @@ Source5: vsomeip.fc
 Source6: vsomeip.if
 Source7: vsomeip.te
 
-# Use -fPIC, not -fPIE
+# Use -fPIC, not -fPIE see https://github.com/COVESA/vsomeip/issues/873
 Patch0: vsomeip-compiler-flags.patch
 # Install libs, etc into /usr
 Patch1: vsomeip-install-dirs.patch
@@ -242,6 +242,10 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Mon Mar 31 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.5-2
+- Updated 3.5.4 to 3.5.5.
+- Try to make the Cmake pic vs pie patch upstreamable
+
 * Mon Mar 17 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.4-1
 - Moved from 3.3.x to 3.5.x
 - License has changed from MPLv2 AND Boost to MPLv2

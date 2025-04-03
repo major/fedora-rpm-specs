@@ -169,7 +169,7 @@
   --with-sundials-include=%{_includedir} \\\
   --with-sundials-lib="-lsundials_nvecserial -lsundials_cvode" \\\
  %endif \
- %ifnarch riscv64 \
+ %ifarch %{valgrind_arches} \
   --with-valgrind=1 \\\
  %endif \
   --with-pthread=1
@@ -272,7 +272,7 @@
   --with-fftw-include= \\\
   --with-fftw-lib="-L$MPI_LIB -lfftw3_mpi -lfftw3" \\\
  %endif \
- %ifnarch riscv64 \
+ %ifarch %{valgrind_arches} \
   --with-valgrind=1 \\\
  %endif \
   --with-pthread=1
@@ -344,7 +344,7 @@ BuildRequires: tcsh
 BuildRequires: tetgen-devel
 %endif
 BuildRequires: xorg-x11-server-Xvfb
-%ifnarch riscv64
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
 
@@ -1019,7 +1019,7 @@ export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildopenmpi_dir/share/pets
 export OMPI_PRTERUN=$MPI_BIN/prterun
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
-%ifnarch riscv64
+%ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 %endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
@@ -1067,7 +1067,7 @@ export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/share/petsc/datafiles
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
-%ifnarch riscv64
+%ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 %endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
@@ -1092,7 +1092,7 @@ export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/%{name}-%{version}/share/petsc/datafiles
 export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
-%ifnarch riscv64
+%ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 %endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
@@ -1118,7 +1118,7 @@ export MPIEXEC=$MPI_BIN/mpiexec
 ln -s %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc64.so %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc.so
 
 %if %{with debug}
-%ifnarch riscv64
+%ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 %endif
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"

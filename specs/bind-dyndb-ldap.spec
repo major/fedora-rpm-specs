@@ -1,18 +1,25 @@
-
 %define VERSION %{version}
 
-%define bind_version 32:9.16.16
+%define bind_name bind
+%define bind_version 32:9.18.35-2
 
 %if 0%{?fedora} >= 31 || 0%{?rhel} > 8
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 10
+    %global openssl_pkcs11_version 1.0
+    %global openssl_pkcs11_name pkcs11-provider
+    %global softhsm_version 2.6.1
+%else
     %global openssl_pkcs11_version 0.4.10-6
+    %global openssl_pkcs11_name openssl-pkcs11
     %global softhsm_version 2.5.0-4
+%endif
 %else
     %global with_bind_pkcs11 1
 %endif
 
 Name:           bind-dyndb-ldap
 Version:        11.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPL-2.0-or-later
@@ -38,9 +45,9 @@ Requires: bind-pkcs11 >= %{bind_version}
 Requires: bind-pkcs11-utils >= %{bind_version}
 %else
 Requires: softhsm >= %{softhsm_version}
-Requires: openssl-pkcs11 >= %{openssl_pkcs11_version}
-Requires(pre): bind >= %{bind_version}
-Requires: bind >= %{bind_version}
+Requires: %{openssl_pkcs11_name} >= %{openssl_pkcs11_version}
+Requires(pre): %{bind_name} >= %{bind_version}
+Requires: %{bind_name} >= %{bind_version}
 %endif
 
 %description
@@ -118,6 +125,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Tue Apr 01 2025 Alexander Bokovoy <abokovoy@redhat.com> - 11.11-3
+- Rebuilt for BIND 9.18.35 and use of OpenSSL provider API
+
 * Mon Feb 03 2025 Petr Menšík <pemensik@redhat.com> - 11.11-2
 - Rebuilt for BIND 9.16.33 (rhbz#2342784)
 

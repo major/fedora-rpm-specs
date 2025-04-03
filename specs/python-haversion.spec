@@ -30,7 +30,7 @@ A Python module to get the version number of Home Assistant.
 sed -i -e 's/"0"/"%{version}"/g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

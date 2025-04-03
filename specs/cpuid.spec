@@ -1,9 +1,8 @@
 Name:           cpuid
-Version:        20241023
+Version:        20250316
 Release:        %autorelease
 Summary:        Dumps information about the CPU(s)
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.etallen.com/cpuid.html
 Source0:        http://www.etallen.com/%{name}/%{name}-%{version}.src.tar.gz

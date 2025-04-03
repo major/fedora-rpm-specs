@@ -1,5 +1,5 @@
 Name:           tldr
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Simplified and community-driven man pages
 
@@ -43,6 +43,7 @@ popd
 
 install -Dp --mode=0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
 install -Dp --mode=0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
+rm -rf %{buildroot}%{_mandir}/man1/.doctrees/
 
 
 %check
