@@ -1,7 +1,7 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 6.3.3
+Version: 6.3.4
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
@@ -16,7 +16,7 @@ Source10: plymouth-theme-breeze.conf
 # Fixes the cmake requirement
 # Should be fixed on 6.4
 # https://invent.kde.org/plasma/breeze-plymouth/-/merge_requests/9
-Patch0:  6.3.3-cmake-version.patch
+Patch0: cmake-version.patch
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
@@ -56,6 +56,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
+- 6.3.4
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
 - 6.3.3
 

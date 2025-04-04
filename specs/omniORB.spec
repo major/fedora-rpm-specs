@@ -8,8 +8,8 @@
 %bcond_without openssl
 
 Name:           omniORB
-Version:        4.3.2
-Release:        8%{?dist}
+Version:        4.3.3
+Release:        1%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -242,6 +242,9 @@ fi
 
 
 %changelog
+* Wed Apr 02 2025 Sandro Mani <manisandro@gmail.com> - 4.3.3-1
+- Update to 4.3.3
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.3.2-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.24.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -241,6 +241,9 @@ Patch71: hplip-locale-format.patch
 # function prototype did not specify argument's data types
 # https://bugs.launchpad.net/hplip/+bug/2096650
 Patch72: hplip-gcc15-stdc23.patch
+# status history table shows unformatted QDateTime values
+# https://bugs.launchpad.net/hplip/+bug/1956547
+Patch73: hplip-format-qdatetime.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -598,6 +601,8 @@ done
 %patch -P 71 -p1 -b .locale-format
 # https://bugs.launchpad.net/hplip/+bug/2096650
 %patch -P 72 -p1 -b .gcc-strc23
+# https://bugs.launchpad.net/hplip/+bug/1956547
+%patch -P 73 -p1 -b .format-qdatetime
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -969,6 +974,12 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Wed Apr 02 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.24.4-5
+- Format QDateTime strings in Status History table, elsewhere
+
+* Wed Apr 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.24.4-5
+- hp-plugin-download did not follow redirections and was missing '-o' in grep
+
 * Mon Mar 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.24.4-4
 - enable following links with curl in all use cases (fedora#2349177)
 

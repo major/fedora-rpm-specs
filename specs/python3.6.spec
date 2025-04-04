@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 43%{?dist}
+Release: 44%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -803,6 +803,18 @@ Patch446: 00446-Resolve-sinpi-name-clash-with-libm.patch
 # 00450 # 31aa7c11975e890489e31d8b293c3f92d3ea1180
 # CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
 Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
+
+# 00452 # dab1c136301f0beac6ec132a8e5b08206b698bc8
+# Properly apply exported CFLAGS for dtrace/systemtap builds
+#
+# When using --with-dtrace the resulting object file could be missing
+# specific CFLAGS exported by the build system due to the systemtap
+# script using specific defaults.
+#
+# Exporting the CC and CFLAGS variables before the dtrace invocation
+# allows us to properly apply CFLAGS exported by the build system
+# even when cross-compiling.
+Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -2073,6 +2085,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Apr 01 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-44
+- Properly apply exported CFLAGS for dtrace/systemtap builds
+- Fixes: rhbz#2356306
+
 * Fri Feb 14 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-43
 - Security fix CVE-2025-0938
 - Fixes: rhbz#2343277

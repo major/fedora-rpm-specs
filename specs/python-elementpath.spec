@@ -1,6 +1,6 @@
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
-Version:        4.5.0
+Version:        4.8.0
 Release:        %autorelease
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
@@ -41,6 +41,9 @@ Summary:        %{summary}
 # https://github.com/sissaschool/elementpath/commit/3431f6d907bda73512edbe1d68507f675b234384
 # Upstream has been notified: https://github.com/sissaschool/elementpath/issues/64#issuecomment-1696519082
 sed -i '/lxml-stubs/d' tox.ini
+
+# Unset environment variable which enables a test requiring a network connection
+sed -i '/TEST_UNICODE_INSTALLATION/d' tox.ini
 
 %generate_buildrequires
 %if %{with tests}

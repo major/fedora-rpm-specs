@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        80%{?dist}
+Release:        81%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -112,6 +112,9 @@ Patch47:        pegasus-2.14.1-snmp-disable-des.patch
 Patch48:        add-riscv64-support.patch
 # 49: bin and sbin unify
 Patch49:        tog-pegasus-2.14.1-bin-sbin-unify.patch
+# 50: use sscg to generate cert, openssl as fallback, obtain correct key length
+#  based upon crypto policy level
+Patch50:        pegasus-2.14.1-ssl-certs-gen-changes.patch
 
 BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -271,6 +274,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch -P47 -p1 -b .snmp-disable-des
 %patch -P48 -p1 -b .add-riscv64-support
 %patch -P49 -p1 -b .bin-sbin-unify
+%patch -P50 -p1 -b .ssl-certs-gen-changes.patch
 
 
 %build
@@ -576,6 +580,9 @@ fi
 
 
 %changelog
+* Wed Apr 02 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-81
+- Updated OpenSSL certificates set up
+
 * Tue Mar 25 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-80
 - Remove deprecated path from systemd service file
 

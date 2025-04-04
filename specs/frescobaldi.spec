@@ -1,8 +1,8 @@
-%{!?qt5_qtwebengine_arches:%global qt5_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
+%{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        3.3.0
-Release:        9%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -10,24 +10,25 @@ Summary:        Edit LilyPond sheet music with ease!
 License:        GPLv2+ and LGPL-2.0-or-later
 URL:            http://www.frescobaldi.org/
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         frescobaldi-3.1.2-setup.patch
 
 BuildArch:      noarch
-ExclusiveArch: %{qt5_qtwebengine_arches}
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:	python3-pyqt6-webengine
+BuildRequires:  python3-ly >= 0.9.5
+BuildRequires:  python3-qpageview
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires: make
 Requires:       alsa-utils
 Recommends:     lilypond
-Requires:       python3-poppler-qt5
 Requires:       portmidi
 Requires:       python3-portmidi
-Requires:       python3-ly >= 0.9.4
-Requires:	python3-qt5-webengine
+Requires:       python3-ly >= 0.9.5
+Requires:	python3-pyqt6-webengine
 Requires:       python3-qpageview
 
 %description
@@ -56,14 +57,16 @@ yet lightweight and easy to use. It features:
 %setup -q
 find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
-%patch -P 0 -p0
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-python3 ./setup.py build
-make -C linux/
+%pyproject_wheel
+cp linux/org.frescobaldi.Frescobaldi.desktop.in linux/org.frescobaldi.Frescobaldi.desktop
+cp linux/org.frescobaldi.Frescobaldi.metainfo.xml.in linux/org.frescobaldi.Frescobaldi.metainfo.xml
 
 %install
-python3 ./setup.py install --skip-build --root $RPM_BUILD_ROOT
+%pyproject_install
 
 # desktop file
 desktop-file-install                                         \
@@ -80,18 +83,25 @@ install -m 0644 \
 	%{buildroot}%{_metainfodir}/org.frescobaldi.Frescobaldi.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+
+cp frescobaldi/userguide/*.md %{buildroot}%{python3_sitelib}/%{name}/userguide/
+
 %files
-%license COPYING
+%license LICENSE
 %doc CHANGELOG.md README* THANKS TODO
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}_app
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}
+%{python3_sitelib}/%{name}-*.dist-info
 %{_datadir}/applications/org.frescobaldi.Frescobaldi.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.frescobaldi.Frescobaldi.svg
-%{_mandir}/man1/*
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
+- 4.0.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,13 +2,14 @@
 %{bcond_without perl_Data_Float_enables_optional_test}
 
 Name:           perl-Data-Float
-Version:        0.014
+Version:        0.015
 Release:        1%{?dist}
 Summary:        Details of the floating point data type
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
 # SECURITY.md:  Relicensed by the author from CC-BY-SA-4.0 to
 #               GPL-1.0-or-later OR Artistic-1.0-Perl
 #               <https://github.com/robrwo/Data-Float/issues/3>
+#               Later, CC-BY-SA-4.0 changed to CC0-1.0.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Float
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Float-%{version}.tar.gz
@@ -92,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 02 2025 Petr Pisar <ppisar@redhat.com> - 0.015-1
+- 0.015 bump
+
 * Mon Mar 31 2025 Petr Pisar <ppisar@redhat.com> - 0.014-1
 - 0.014 bump
 

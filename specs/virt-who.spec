@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.26
-Release:        %{release_number}%{?dist}.4
+Release:        %{release_number}%{?dist}.5
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -36,7 +36,6 @@ BuildRequires:  %{python_ver}-devel
 BuildRequires:  %{python_ver}-setuptools
 BuildRequires:  %{python_ver}-pyyaml
 
-Requires:      %{python_ver}-setuptools
 # libvirt python required for libvirt support
 %if (0%{?rhel} && 0%{?rhel} > 7 || 0%{?fedora})
 Requires:       %{python_ver}-libvirt
@@ -165,6 +164,9 @@ fi
 
 
 %changelog
+* Tue Apr 01 2025 Miro Hrončok <mhroncok@redhat.com> - 1.31.26-1.5
+- Drop unused runtime requirement on python3-setuptools
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.26-1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

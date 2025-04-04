@@ -1,7 +1,7 @@
 Name:    kgamma
 Summary: A monitor calibration tool
 Epoch:   1
-Version: 6.3.3
+Version: 6.3.4
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -61,6 +61,9 @@ Conflicts: kdegraphics < 7:4.6.95-10
 
 
 %changelog
+* Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.3.4-1
+- 6.3.4
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.3-1
 - 6.3.3
 

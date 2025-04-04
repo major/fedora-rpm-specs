@@ -1,26 +1,17 @@
-%{?python_enable_dependency_generator}
-
 %global modname parsel
 
 Name:           python-%{modname}
 Version:        1.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to extract data from HTML and XML using XPath and CSS selectors
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/scrapy/parsel
 Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-# for tests
-BuildRequires:  python3-sybil
-BuildRequires:  python3-cssselect
-
-Patch:          psutil-version.patch
-
 
 %description
 %{summary}.
@@ -35,9 +26,10 @@ Python 3 version.
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
+sed -e '/psutil/ s/==/>=/' -i tests/requirements.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires tests/requirements.txt
 
 %build
 %pyproject_wheel
@@ -48,14 +40,18 @@ Python 3 version.
 %pyproject_save_files parsel
 
 %check
-#%%tox
 %pyproject_check_import
+%pytest -v tests
 
 %files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst NEWS
 
 %changelog
+* Wed Apr 02 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.10.0-3
+- Switch to SPDX license notation
+- Enable tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

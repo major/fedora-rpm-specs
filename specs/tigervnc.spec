@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -405,6 +405,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-4
+- Rebuild (fltk)
+
 * Mon Mar 31 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-3
 - Backport upstream fix for fullscreen option in vncviewer
 

@@ -10,6 +10,7 @@ Source0:        https://github.com/neutrinolabs/xorgxrdp/releases/download/v%{ve
 BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  xorg-x11-server-devel
+BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  xrdp-devel >= 1:0.10.3
 %if 0%{?fedora} > 0 && 0%{?fedora} <= 24
 BuildRequires:  libXfont-devel
@@ -28,7 +29,7 @@ BuildRequires:  libtool
 Conflicts: %{name}-glamor
 %endif
 
-Requires:       xrdp >= 1:0.10.2
+Requires:       xrdp >= 1:0.10.3
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
@@ -41,7 +42,7 @@ Summary:        Implementation of xrdp backend as Xorg modules with glamor
 RemovePathPostfixes: .glamor
 Conflicts: %{name}
 
-Requires:       xrdp >= 1:0.10.2
+Requires:       xrdp >= 1:0.10.3
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 Requires:       xorg-x11-server-Xorg

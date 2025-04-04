@@ -69,6 +69,9 @@ Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 
 # Rename macros extension to avoid clashing with upstream version
 Source1:        %{name}-macros-source
+#  Fix #136860: Build failure on big endian platforms
+#  https://projects.blender.org/blender/blender/pulls/136864
+Patch:		%{name}-Fix-Build-failure-on-big-endian-platforms.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -281,6 +284,7 @@ BuildRequires:  pkgconfig(freealut)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(opus)
+BuildRequires:	pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(vorbis)
@@ -318,11 +322,7 @@ Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}
 
 # Starting from 2.90, Blender support only 64-bits architectures
-# Temporarily disable s390x build due to failure
-# /builddir/build/BUILD/blender-4.4.0-build/blender-4.4.0/source/blender/blenloader/intern/writefile.cc:313:3: error: 
-# ‘BLI_endian_switch_uint32’ was not declared in this scope
-#  313 |   BLI_endian_switch_uint32(&val);
-ExcludeArch:	%{ix86} %{arm} s390x
+ExcludeArch:	%{ix86} %{arm}
 
 %description
 Blender is the essential software solution you need for 3D, from modeling,

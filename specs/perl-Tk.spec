@@ -2,10 +2,11 @@
 %if 0%{?fedora} || 0%{?rhel} > 9
 %global use_xwayland_run 1
 %endif
+%bcond perl_Tk_enables_optional_test %{undefined rhel}
 
 Name:           perl-Tk
 Version:        804.036
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -102,7 +103,9 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Optional tests:
+%if %{with perl_Tk_enables_optional_test}
 BuildRequires:  perl(Devel::Leak)
+%endif
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Test::Pod)
 %endif
@@ -273,6 +276,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 804.036-21
+- Avoid perl-Devel-Leak dependency on RHEL
+
 * Thu Mar 20 2025 Xavier Bachelot <xavier@bachelot.org> - 804.036-20
 - Fix build with gcc 15
 - BR: perl-Devel-Leak and perl-Test-Pod to increase tests coverage

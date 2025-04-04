@@ -28,9 +28,6 @@ Summary:        %{summary}
 Provides:       virt-firmware
 Conflicts:      python3-virt-firmware-peutils < 23.9
 Obsoletes:      python3-virt-firmware-peutils < 23.9
-Requires:       python3dist(cryptography)
-Requires:       python3dist(setuptools)
-Requires:       python3dist(pefile)
 Requires:       virt-sb-certs
 Recommends:     qemu-img
 Recommends:     dialog

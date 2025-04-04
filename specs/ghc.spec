@@ -14,6 +14,10 @@
 %undefine with_haddock
 %endif
 
+%ifarch %{ix86}
+%undefine with_haddock
+%endif
+
 # disable to allow parallel install of ghcX.Y-X.Y.(Z+1) and ghc-X.Y.Z
 %if 1
 %global ghc_major 9.8
@@ -54,7 +58,7 @@ Version: 9.8.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 147%{?dist}
+Release: 148%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -96,6 +100,12 @@ Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b
 
 # https://github.com/haskell/directory/pull/184
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25904
+# on ix86 undo Unique Word64 by reverting these three 9.8.4 commits
+Patch59: https://gitlab.haskell.org/ghc/ghc/-/commit/7a274a7f71c30b556b20152bdd2996aa106ac9a5.patch
+Patch60: https://gitlab.haskell.org/ghc/ghc/-/commit/f4f6c1cd151731c69f2f984e051eb8f1e2c73f63.patch
+Patch61: https://gitlab.haskell.org/ghc/ghc/-/commit/ea2ea2d58c6d3b8b80becfe89f5ca23ee82235de.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -407,6 +417,12 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P40 -p1 -b .orig
 #GHCi support
 %patch -P41 -p1 -b .orig
+%endif
+
+%ifarch %{ix86}
+%patch -P59 -p1 -R
+%patch -P60 -p1 -R
+%patch -P61 -p1 -R
 %endif
 
 # https://github.com/haskell/directory/pull/184
@@ -831,6 +847,11 @@ make test
 
 
 %changelog
+* Thu Apr 03 2025 Jens Petersen  <petersen@redhat.com> - 9.8.4-148
+- revert Unique Word64 on i686 to avoid compilation crashes
+  https://gitlab.haskell.org/ghc/ghc/-/issues/25904
+- disable haddock for ix86
+
 * Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 9.8.4-147
 - rebase to 9.8.4 from ghc9.8
 - https://downloads.haskell.org/~ghc/9.8.1/docs/users_guide/9.8.1-notes.html

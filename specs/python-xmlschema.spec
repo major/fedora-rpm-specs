@@ -1,6 +1,6 @@
 %global pypi_name xmlschema
 Name:           python-%{pypi_name}
-Version:        3.4.2
+Version:        3.4.5
 Release:        %autorelease
 Summary:        A Python XML Schema validator and decoder
 
@@ -42,7 +42,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-sed -i 's/~=/>=/' setup.py tox.ini  # https://bugzilla.redhat.com/show_bug.cgi?id=1758141
 sed -i 's/==/>=/' tox.ini  # too strict test deps
 sed -i '/memory_profiler/d' tox.ini # optional test dep, not packaged in Fedora, not worth testing
 %py3_shebang_fix %{pypi_name}

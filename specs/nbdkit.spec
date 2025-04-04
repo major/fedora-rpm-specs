@@ -54,7 +54,7 @@
 %global source_directory 1.43-development
 
 Name:           nbdkit
-Version:        1.43.3
+Version:        1.43.4
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1513,6 +1513,9 @@ fi
 
 
 %changelog
+* Wed Apr 02 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.4-1
+- New upstream development branch version 1.43.4
+
 * Mon Mar 31 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.3-1
 - New upstream development branch version 1.43.3
 

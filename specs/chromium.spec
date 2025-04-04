@@ -51,11 +51,11 @@
 %endif
 
 # set nodejs_version
-%global nodejs_version v20.6.1
+%global nodejs_version v22.14.0
 
 %global system_nodejs 1
-# RHEL 8 needs newer nodejs
-%if 0%{?rhel} == 8
+# RHEL 9 needs newer nodejs
+%if 0%{?rhel} == 9
 %global system_nodejs 0
 %endif
 
@@ -262,7 +262,7 @@
 
 Name:	chromium
 Version: 135.0.7049.52
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -447,6 +447,9 @@ Patch417: flatpak-Adjust-paths-for-the-sandbox.patch
 Patch418: flatpak-Expose-Widevine-into-the-sandbox.patch
 
 # upstream patches
+# https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4636
+# https://chromium-review.googlesource.com/c/chromium/src/+/6421030
+Patch500: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -473,13 +476,14 @@ Source11: master_preferences
 %if ! %{system_nodejs}
 Source12: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-x64.tar.xz
 Source13: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-arm64.tar.xz
+Source14: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-ppc64le.tar.xz
 %endif
 
 # esbuild binary from https://github.com/evanw/esbuild
 %if 0%{?rhel} && 0%{?rhel} < 10
-Source14: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
-Source15: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
-Source16: https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-%{esbuild_version}.tgz
+Source15: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
+Source16: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
+Source17: https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-%{esbuild_version}.tgz
 %endif
 
 # esbuild binary from fedora/el10
@@ -1129,6 +1133,9 @@ Qt6 UI for chromium.
 %patch -P418 -p1 -b .flatpak-widevine
 %endif
 
+# Upstream patches
+%patch -P500 -p1 -b .add-cfi-suppressions-for-pipewire-functions
+
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
@@ -1138,13 +1145,17 @@ find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env py
   pushd third_party/node/linux
 %ifarch x86_64
   tar xf %{SOURCE12}
-  mv node-%{nodejs_version}-linux-x64 node-linux-x64
+  ln -s node-%{nodejs_version}-linux-x64 node-linux-x64
 %endif
 %ifarch aarch64
   tar xf %{SOURCE13}
-  mv node-%{nodejs_version}-linux-arm64 node-linux-arm64
   # This is weird, but whatever
-  ln -s node-linux-arm64 node-linux-x64
+  ln -s  node-%{nodejs_version}-linux-arm64 node-linux-x64
+%endif
+%ifarch ppc64le
+  tar xf %{SOURCE14}
+  # This is weird, but whatever
+  ln -s node-%{nodejs_version}-linux-ppc64le node-linux-x64
 %endif
 popd
 %else
@@ -1157,13 +1168,13 @@ popd
   ln -sf $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
 %else
   %ifarch x86_64
-    tar -zxf %{SOURCE14} --directory %{_tmppath}
-  %endif
-  %ifarch aarch64
     tar -zxf %{SOURCE15} --directory %{_tmppath}
   %endif
-  %ifarch ppc64le
+  %ifarch aarch64
     tar -zxf %{SOURCE16} --directory %{_tmppath}
+  %endif
+  %ifarch ppc64le
+    tar -zxf %{SOURCE17} --directory %{_tmppath}
   %endif
   mv %{_tmppath}/package/bin/esbuild third_party/devtools-frontend/src/third_party/esbuild/esbuild
 %endif
@@ -1764,6 +1775,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 135.0.7049.52-2
+- Add CFI suppressions for inline PipeWire functions
+
 * Tue Apr 01 2025 Than Ngo <than@redhat.com> - 135.0.7049.52-1
 - Update to 135.0.7049.52
 

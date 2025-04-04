@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        31
+Version:        32
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,14 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 02 2025 Packit <hello@packit.dev> - 32-1
+- cockpit-storage-integration: Fix disk selection after MD array deletion (rhbz#2354798)
+- cockpit-storage-integration: move storage check steps to custom hook with step handling (rhbz#2354798)
+- cockpit-storage-integration: reuse code when one of the storage preparation steps fail (rhbz#2354798)
+- cockpit-storage-integration: seperate luks unlock wait logic from luks unlock itself (rhbz#2354798)
+- cockpit-storage-integration: the waitForUnlockedDevices method is not destructive (rhbz#2354798)
+- Do not offer home reuse if there is no GPT disk (rhbz#2353002)
+
 * Fri Mar 28 2025 Packit <hello@packit.dev> - 31-1
 - cockpit-storage-integration: Prevent crash when deleting an encrypted device
 - language: fix markup to specify lang attribute (rhbz#2355246)

@@ -1,10 +1,8 @@
-# Created by pyp2rpm-3.3.8
 %global pypi_name qpageview
-%global pypi_version 0.6.2
 
 Name:           python-%{pypi_name}
-Version:        %{pypi_version}
-Release:        10%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Widget to display page-based documents for Qt5/PyQt5
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
@@ -13,9 +11,10 @@ Source0:        %{pypi_source %pypi_name}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-qt5
+BuildRequires:  python3dist(sphinx-mdinclude)
+BuildRequires:  python3dist(hatchling)
+BuildRequires:  python3-pyqt6
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(wheel)
 BuildRequires:  python3-docs
@@ -45,11 +44,14 @@ Summary:        Documentation for qpageview
 Documentation for qpageview
 
 %prep
-%autosetup -n %{pypi_name}-%{pypi_version}
+%autosetup -n %{pypi_name}-%{version}
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
   -i docs/source/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -74,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE docs/source/license.rst
 
 %changelog
+* Wed Apr 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-1
+- 1.0.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -35,7 +35,7 @@ License:       Apache-2.0
 URL:           http://tomcat.apache.org/
 Source0:       http://www.apache.org/dist/tomcat/tomcat-%{major_version}/v%{version}/src/%{packdname}.tar.gz
 Source1:       http://www.apache.org/dist/tomcat/tomcat-%{major_version}/v%{version}/src/%{packdname}.tar.gz.asc
-# https://www.apache.org/dist/tomcat/tomcat-%{major_version}/KEYS
+# https://www.apache.org/dist/tomcat/tomcat-10/KEYS
 Source2:       KEYS
 Source3:       %{name}-%{major_version}.%{minor_version}.conf
 Source4:       %{name}-%{major_version}.%{minor_version}.service
@@ -270,7 +270,7 @@ touch HACK
 asciidoctor -b manpage -D ${RPM_BUILD_ROOT}%{_mandir}/man1 -o tomcat-user-instance-create.1 %{SOURCE10}
 
 for jar in output/build/lib/*.jar; do
-    # Skip Jar if empty, applies to tomcat-coyote-ffm.jar atm
+    # Skip Jar if empty, applies to tomcat-coyote-ffm.jar atm since it requires to be built with Java>=23
     jar tf ${jar} | grep -E -q '.*\.class' || continue
 
     jarname=$(basename $jar .jar)
@@ -304,8 +304,8 @@ sed -i "s/@MAVEN.DEPLOY.VERSION@/%{version}/g" res/maven/tomcat-juli.pom
 # bootstrap does not have a pom, generate one
 %mvn_artifact 'org.apache.tomcat:tomcat-bootstrap:%{version}' output/build/bin/bootstrap.jar
 
-%mvn_file org.apache.tomcat:tomcat-bootstrap tomcat/tomcat-bootstrap %{libdir}/tomcat-bootstrap
-%mvn_file org.apache.tomcat:tomcat-juli tomcat/tomcat-juli %{libdir}/tomcat-juli
+%mvn_file org.apache.tomcat:tomcat-bootstrap tomcat/tomcat-bootstrap
+%mvn_file org.apache.tomcat:tomcat-juli tomcat/tomcat-juli
 
 # tomcat-parent pom
 sed -i "s/@MAVEN.DEPLOY.VERSION@/%{version}/g" res/maven/tomcat.pom
@@ -326,6 +326,7 @@ jar ufm ${RPM_BUILD_ROOT}%{libdir}/servlet-api.jar <(echo "JavaPackages-GroupId:
 
 # move things into place
 pushd output/build
+    rm -f bin/daemon.sh
     %{__cp} -ap bin/* ${RPM_BUILD_ROOT}%{bindir}
     %{__cp} -ap conf/*.{policy,properties,xml} ${RPM_BUILD_ROOT}%{confdir}
     %{__cp} -ap conf/*.{policy,properties,xml} ${RPM_BUILD_ROOT}%{userinstancedir}/conf

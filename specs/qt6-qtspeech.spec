@@ -1,6 +1,6 @@
 %global qt_module qtspeech
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -11,8 +11,8 @@
 
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
-Version: 6.9.0%{?unstable:~%{prerelease}}
-Release: 2%{?dist}
+Version: 6.9.0
+Release: 1%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
 # See e.g. src/plugins/speechdispatcher or src/tts
@@ -162,6 +162,12 @@ popd
 %endif
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
 * Wed Mar 26 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-2
 - Make -devel to require -flite and -speechd plugins
 

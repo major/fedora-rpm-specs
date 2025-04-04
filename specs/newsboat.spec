@@ -2,7 +2,7 @@
 %bcond check 0
 
 Name:    newsboat
-Version: 2.38
+Version: 2.39
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -33,7 +33,7 @@ BuildRequires: pkgconfig(ncursesw)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(stfl)
 # Rust parts
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  rust-packaging
 
 Provides: podboat = %{version}-%{release}

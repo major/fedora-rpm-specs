@@ -1,7 +1,7 @@
 
 %global qt_module qtscxml
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - ScXml component
 Name:    qt6-%{qt_module}
-Version: 6.9.0%{?unstable:~%{prerelease}}
+Version: 6.9.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -100,7 +100,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6StateMachineQml.prl
 %{_qt6_libdir}/libQt6StateMachineQml.so
 %dir %{_qt6_libdir}/cmake/Qt6Scxml
-%dir %{_qt6_libdir}/cmake/Qt6ScxmlGlobal
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlGlobalPrivate
 %dir %{_qt6_libdir}/cmake/Qt6ScxmlPrivate
 %dir %{_qt6_libdir}/cmake/Qt6ScxmlQml
 %dir %{_qt6_libdir}/cmake/Qt6ScxmlQmlPrivate
@@ -112,7 +112,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtScxmlTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/cmake/Qt6Scxml/*.cmake
-%{_qt6_libdir}/cmake/Qt6ScxmlGlobal/*.cmake
+%{_qt6_libdir}/cmake/Qt6ScxmlGlobalPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6ScxmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6ScxmlQml/*.cmake
 %{_qt6_libdir}/cmake/Qt6ScxmlQmlPrivate/*.cmake
@@ -134,6 +134,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
 * Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
 - 6.9.0 RC
 

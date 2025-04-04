@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.3.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Mar 31 2025 Packit <hello@packit.dev> - 1.5.0-1
+- Packit now supports `--base-nvr` option while submitting scans to OpenScanHub. The base nvr is pulled in from koji to perform a differential scan. (#2569)
+- Resolves: rhbz#2356218
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 1.3.0-1
 - Cached values of OpenSUSE aliases are used for any exception coming from `opensuse_distro_aliases` to not break a code flow if there is any problem with getting the online ones. (#2548)
 - A couple of other small improvements.

@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -463,7 +463,6 @@ tools as well as libraries with equivalent functionality.
 Summary: LLVM lit test runner for Python 3
 
 BuildArch: noarch
-Requires: python%{python3_pkgversion}-setuptools
 %if 0%{?rhel} == 8
 # Became python3.12-clang in LLVM 19
 Obsoletes: python3-lit < 18.9
@@ -3028,6 +3027,9 @@ fi
 
 #region changelog
 %changelog
+* Tue Apr 01 2025 Miro Hrončok <mhroncok@redhat.com> - 20.1.1-2
+- Drop redundant runtime requirement on python3-setuptools from python3-lit
+
 * Wed Mar 19 2025 Nikita Popov <npopov@redhat.com> - 20.1.1-1
 - Update to LLVM 20.1.1
 

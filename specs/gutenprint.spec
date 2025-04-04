@@ -25,7 +25,7 @@
 Name: gutenprint
 Summary: Printer Drivers Package
 Version: 5.3.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: http://gimp-print.sourceforge.net/
 Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -36,6 +36,9 @@ Patch1: gutenprint-postscriptdriver.patch
 Patch2: gutenprint-yyin.patch
 Patch3: gutenprint-manpage.patch
 Patch4: gutenprint-python36syntax.patch
+# fix utf-8 support in translations
+# https://sourceforge.net/p/gimp-print/source/ci/96819fadd5ee6d0
+Patch5: 0001-genppd-Ensure-we-don-t-improperly-truncate-utf-8-enc.patch
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 
@@ -186,6 +189,8 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 
 # Python 3.6 invalid escape sequence deprecation fixes, COPYING as license (bug #1448303)
 %patch -P 4 -p1 -b .python36syntax
+# fix utf-8 support
+%patch -P 5 -p1 -b .utf8-ka
 
 # sbin is hardcoded in stp_cups.m4 - root it out (idea taken from Arch Linux)
 %if 0%{?fedora} > 41 || 0%{?rhel} > 10
@@ -330,6 +335,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Wed Apr 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-5
+- fix utf-8 handling when generating PPD translations
+
 * Thu Mar 27 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-4
 - Georgian translation creates non-UTF-8 data (fedora#2355091)
 

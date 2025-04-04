@@ -10,8 +10,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:       gnome-abrt
-Version:    1.5.0
-Release:    2%{?dist}
+Version:    1.5.1
+Release:    1%{?snapshot:.git%{shortcommit}}%{?dist}
 Summary:    A utility for viewing problems that have occurred with the system
 
 License:    GPL-2.0-or-later
@@ -50,8 +50,6 @@ Requires:   python3-gobject
 Requires:   python3-dbus
 Requires:   python3-humanize
 Requires:   python3-beautifulsoup4
-Requires:   gtk4
-Requires:   libadwaita
 
 %description
 A GNOME application allows users to browse through detected problems and
@@ -87,6 +85,9 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Mon Mar 31 2025 Packit <hello@packit.dev> - 1.5.1-1
+- Update to version 1.5.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

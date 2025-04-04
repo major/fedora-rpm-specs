@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.2.2
-Release:        3%{?dist}
+Version:        7.2.5
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -837,6 +837,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Wed Apr 02 2025 Orion Poplawski <orion@nwra.com> - 1:7.2.5-1
+- Update to 7.2.5 (CVE-2024-36469, CVE-2024-42325, CVE-2024-45700)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:7.2.2-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

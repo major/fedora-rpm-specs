@@ -140,7 +140,7 @@ Source201:	gnutls-3.8.8-tests-rsa-default.patch
 %endif
 
 %if %{with leancrypto}
-Source300:	leancrypto-1.2.0.tar.gz
+Source300:	leancrypto-1.3.0.tar.gz
 %endif
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174

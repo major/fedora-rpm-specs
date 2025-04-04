@@ -40,12 +40,12 @@ BuildRequires: pkgconfig(libsystemd)
 ## skip for now, until we're better at it --rex
 #global tests 1
 
-%global unstable 1
+#global unstable 0
 %global prerelease rc
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.9.0%{?unstable:~%{prerelease}}
+Version: 6.9.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -926,6 +926,9 @@ make check -k ||:
 
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
 * Fri Mar 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0 RC
 

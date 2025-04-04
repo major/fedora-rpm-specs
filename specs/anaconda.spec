@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.12
+Version: 43.13
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 01 2025 Packit <hello@packit.dev> - 43.13-1
+- Add release notes for TERM passthrough (jkonecny)
+- pyanaconda: storage: when checking the md device validity check also parent
+  (k.koukiou)
+- anaconda-tmux (butirsky)
+
 * Fri Mar 28 2025 Packit <hello@packit.dev> - 43.12-1
 - storage: remove EFI and BIOS boot partition requirements for MBR disks
   (k.koukiou)

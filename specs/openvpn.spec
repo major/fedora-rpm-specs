@@ -21,8 +21,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.13
-Release:           2%{?dist}
+Version:           2.6.14
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -237,6 +237,10 @@ done
 
 
 %changelog
+* Wed Apr 2 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-1
+- Update to upstream OpenVPN 2.6.14
+- Fixes CVE-2025-2704
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.13-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -1,6 +1,6 @@
 %global qt_module qtmqtt
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global tar_prerelease rc1
 %global prerelease rc
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Mqtt module
 Name:    qt6-%{qt_module}
-Version: 6.9.0%{?unstable:~%{prerelease}}
+Version: 6.9.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -90,6 +90,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_examplesdir}
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
 * Mon Mar 24 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
 - 6.9.0 RC
 

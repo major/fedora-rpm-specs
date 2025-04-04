@@ -9,7 +9,9 @@ Release:        %autorelease
 Summary:        Daemon for communicating with Apple's iOS devices
 License:        GPL-3.0-only OR GPL-2.0-only
 URL:            https://www.libimobiledevice.org/
-Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:        %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source1:        %{name}.sysusers
+Source2:        %{name}.tmpfiles
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -18,11 +20,14 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  sed
 BuildRequires:  systemd
+%{?sysusers_requires_compat}
 
 BuildRequires:  libimobiledevice-devel
 BuildRequires:  libplist-devel
 BuildRequires:  libusbx-devel
 
+Requires:       systemd-udev
+Recommends:     systemd
 
 %description
 usbmuxd is a daemon used for communicating with Apple's iPod Touch, iPhone, 
@@ -40,11 +45,6 @@ echo %{version} > .tarball-version
 sed -i.owner 's/OWNER="usbmux"/OWNER="usbmuxd"/' udev/39-usbmuxd.rules.in
 sed -i.user 's/--user usbmux/--user usbmuxd/' systemd/usbmuxd.service.in
 
-# Create a sysusers.d config file
-cat >usbmuxd.sysusers.conf <<EOF
-u usbmuxd 113 'usbmuxd user' - -
-EOF
-
 %build
 NOCONFIGURE=1 ./autogen.sh
 %configure
@@ -53,8 +53,12 @@ NOCONFIGURE=1 ./autogen.sh
 %install
 %make_install
 
-install -m0644 -D usbmuxd.sysusers.conf %{buildroot}%{_sysusersdir}/usbmuxd.conf
+mkdir -p %{buildroot}%{_localstatedir}/lib/lockdown/
+install -Dpm0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/usbmuxd.conf
+install -Dpm0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/usbmuxd.conf
 
+%pre
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post usbmuxd.service
@@ -72,7 +76,9 @@ install -m0644 -D usbmuxd.sysusers.conf %{buildroot}%{_sysusersdir}/usbmuxd.conf
 %{_udevrulesdir}/39-usbmuxd.rules
 %{_sbindir}/usbmuxd
 %{_datadir}/man/man8/usbmuxd.8.gz
+%attr(2775, usbmuxd, usbmuxd) %dir %{_localstatedir}/lib/lockdown/
 %{_sysusersdir}/usbmuxd.conf
+%{_tmpfilesdir}/usbmuxd.conf
 
 %changelog
 %autochangelog

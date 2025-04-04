@@ -1,7 +1,7 @@
 %global sover 1
 
 Name:           dtkmultimedia
-Version:        6.0.0
+Version:        6.0.1
 Release:        %autorelease
 Summary:        Development Tool Kit Multimedia
 

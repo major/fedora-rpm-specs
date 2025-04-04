@@ -1,6 +1,6 @@
 Name:		virglrenderer
-Version:	1.1.0
-Release:	2%{?dist}
+Version:	1.1.1
+Release:	1%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
@@ -16,6 +16,7 @@ BuildRequires:	python3
 BuildRequires:	libdrm-devel
 BuildRequires:  libva-devel
 BuildRequires:  vulkan-loader-devel
+BuildRequires:  python3-pyyaml
 
 %description
 The virgil3d rendering library is a library used by
@@ -65,6 +66,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Wed Apr 02 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.1.1-1
+- new version, fixes rhbz#2357013
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

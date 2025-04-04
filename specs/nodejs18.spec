@@ -30,7 +30,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 18
 %global nodejs_minor 20
-%global nodejs_patch 7
+%global nodejs_patch 8
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 108
 %global nodejs_abi %{nodejs_soversion}
@@ -150,6 +150,8 @@ Source200: nodejs-sources.sh
 Source201: npmrc.builtin.in
 Source202: nodejs.pc.in
 Source203: v8.pc.in
+Source300: test-runner.sh
+Source301: test-should-pass.txt
 
 Patch: 0001-Fedora-specific-patches.patch
 Patch: 0001-missing-cstdint-fix.patch
@@ -328,7 +330,7 @@ Provides: bundled(ada) = 2.8.0
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
 %if %{with bootstrap}
 Provides: bundled(nodejs-cjs-module-lexer) = 1.2.2
-Provides: bundled(nodejs-undici) = 5.28.5
+Provides: bundled(nodejs-undici) = 5.29.0
 %else
 BuildRequires: nodejs-cjs-module-lexer nodejs-undici
 Requires: nodejs-cjs-module-lexer nodejs-undici
@@ -772,6 +774,10 @@ sed -e 's#@PREFIX@#%{_prefix}#g' \
 
 
 %check
+#run unit test that should pass from list
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
+bash %{SOURCE300} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} %{_builddir}/node-v%{nodejs_version}/test/ %{SOURCE301}
+	
 # Fail the build if the versions don't match
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"

@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        14
+Version:        15
 
 %gometa
 
@@ -43,7 +43,7 @@ BuildRequires:  btrfs-progs-devel
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.1
-Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.4.0
+Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.5.0
 Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.12.9
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
@@ -61,6 +61,7 @@ Provides: bundled(golang(github.com/containers/image/v5)) = 5.34.0
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
 Provides: bundled(golang(github.com/containers/storage)) = 1.57.1
+Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
 Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = ba74d44
 Provides: bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.3.6
 Provides: bundled(golang(github.com/davecgh/go-spew)) = d8f796a
@@ -122,8 +123,9 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.1.0
 Provides: bundled(golang(github.com/osbuild/bootc-image-builder/bib)) = a00d61b
-Provides: bundled(golang(github.com/osbuild/images)) = 67d46b6
+Provides: bundled(golang(github.com/osbuild/images)) = 0.127.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -207,6 +209,7 @@ export GOFLAGS+=" -mod=vendor"
 GOTAGS="exclude_graphdriver_btrfs"
 %endif
 
+export LDFLAGS="${LDFLAGS} -X 'main.BuildVersion=%{version}'"
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o %{gobuilddir}/bin/image-builder %{goipath}/cmd/image-builder
 
 %install
@@ -231,6 +234,41 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Apr 02 2025 Packit <hello@packit.dev> - 15-1
+Changes with 15
+----------------
+  * README: document that cross building works (#168)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * Revert "blueprintload: enable strict checking for toml" (#174)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  * blueprintload: enable strict checking for toml (#163)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * go.mod: update to latest version of `github.com/osbuild/blueprint` (#172)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * import: `progress` from `bootc-image-builder` (#179)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  * import: `setup`, `util`, `podmanutil` from `bootc-image-builder` (#178)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  * main: Add a --version flag to show the build version (#175)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  * main: allow seed setting (#176)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  * main: automatically cross build when --arch <foreign> is passed (#164)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * main: show output directory content after image build (#162)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane
+  * main: tweak handling of --output-name to avoid adding double extensions (#161)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * main: tweak how ibcli determines if bootstraping is needed (#167)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * many: move to use the new github.com/osbuild/blueprint module (HMS-5804) (#169)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * progress: set --cache-max-size in osbuild (#182)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+
+— Somewhere on the Internet, 2025-04-02
+
+
 * Fri Mar 14 2025 Packit <hello@packit.dev> - 14-1
 Changes with 14
 ----------------

@@ -157,6 +157,8 @@ Source200: nodejs-sources.sh
 Source201: npmrc.builtin.in
 Source202: nodejs.pc.in
 Source203: v8.pc.in
+Source300: test-runner.sh
+Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
 Patch: 0001-missing-cstdint-fix.patch
@@ -783,6 +785,10 @@ sed -e 's#@PREFIX@#%{_prefix}#g' \
 
 
 %check
+#run unit test that should pass from list
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
+bash %{SOURCE300} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} %{_builddir}/node-v%{nodejs_version}/test/ %{SOURCE301}
+	
 # Fail the build if the versions don't match
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"
@@ -796,39 +802,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_pkg_
 
 # Make sure i18n support is working
 NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
-
-
-%if 0%{?rhel} && 0%{?rhel} < 8
-%pretrans %{pkgname}-npm -p <lua>
--- Remove all of the symlinks from the bundled npm node_modules directory
-base_path = "%{_prefix}/lib/node_modules/npm/node_modules/"
-d_st = posix.stat(base_path)
-if d_st then
-  for f in posix.files(base_path) do
-    path = base_path..f
-    st = posix.stat(path)
-    if st and st.type == "link" then
-      os.remove(path)
-    end
-  end
-end
-%endif
-
-# This can be removed once F37 is EOL
-%pretrans -n %{pkgname} -p <lua>
-path = "/usr/lib/node_modules"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
 
 
 %files -n %{pkgname}

@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.44.50
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -462,7 +462,9 @@ using libelf instead of BFD.
 
 %package gold
 Summary: The GOLD linker, a faster alternative to the BFD linker
-Provides: gold = %{version}-%{release}
+# The GOLD linker is now deprecated as it is not being developed upstream.
+# For more details see: https://fedoraproject.org/wiki/Changes/DeprecateGoldLinker
+Provides: deprecated()
 Requires: binutils >= %{version}
 
 %description gold
@@ -1426,6 +1428,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Apr 02 2025 Nick Clifton <nickc@redhat.com> - 2.44.50-6
+- Deprecate the GOLD linker.
+
 * Mon Mar 31 2025 Nick Clifton <nickc@redhat.com> - 2.44.50-5
 - Rebase to commit 7109ea04ac7
 

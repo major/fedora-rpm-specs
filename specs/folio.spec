@@ -9,6 +9,7 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/toolstack/Folio
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 Patch0:         storage-location.patch
+Patch1:         gtk-init.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc

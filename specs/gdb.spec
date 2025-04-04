@@ -923,6 +923,9 @@ fi
 # endif scl
 
 %changelog
+* Wed Apr 02 2025 Alexandra Hájková <ahajkova@redhat.com>
+- Remove upstreamed gdb-rhbz-818343-set-solib-absolute-prefix-testcase.patch.
+
 * Fri Mar 28 2025 Keith Seitz <keiths@redhat.com> - 16.2-3
 - Backport "Fix gstack issues" from upstream.
   (Keith Seitz, RH BZ 2354997)

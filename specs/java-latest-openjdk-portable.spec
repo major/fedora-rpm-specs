@@ -402,7 +402,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
+%global rpmrelease      4
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -701,8 +701,10 @@ Source18: TestTranslations.java
 # OpenJDK patches which missed last update
 #
 #############################################
-
-# Currently empty
+# 8352692: Add support for extra jlink options
+Patch2000: 0001-8352692-Add-support-for-extra-jlink-options.patch
+# 8352689: Allow for hash sum overrides when linking from the run-time image
+Patch2001: 0002-8352689-Allow-for-hash-sum-overrides-when-linking-fr.patch
 
 #############################################
 #
@@ -1008,6 +1010,9 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # Skipping fips patch whil eit is not ready for jdk22 %%patch -P1001 -p1
 # Patches in need of upstreaming
+# Patches which missed the 24+36 GA release
+%patch -P2000 -p1
+%patch -P2001 -p1
 popd # openjdk
 
 
@@ -1077,6 +1082,14 @@ gcc ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
 
 echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
+function create_jlink_argfile() {
+    local argfile=${1}
+
+    # Ensure parent directory exists
+    mkdir -p $(dirname ${argfile})
+    echo "--sha-overrides=@\${java.home}/conf/runtimelink-sha-overrides.conf" > ${argfile}
+}
+
 function buildjdk() {
     local outputdir=${1}
     local buildjdk=${2}
@@ -1087,6 +1100,8 @@ function buildjdk() {
 
     local top_dir_abs_src_path=$(pwd)/%{top_level_dir_name}
     local top_dir_abs_build_path=$(pwd)/${outputdir}
+    # Only used for "internal" debug symbols builds
+    local jlink_args_file=$top_dir_abs_build_path/jlink-args-file
 
     # This must be set using the global, so that the
     # static libraries still use a dynamic stdc++lib
@@ -1094,6 +1109,17 @@ function buildjdk() {
         libc_link_opt="static";
     else
         libc_link_opt="dynamic";
+    fi
+    # For internal debug symbols the binaries and libraries
+    # get stripped by RPM post-build. Therefore add custom
+    # jlink arg-file which gets built into the lib/modules
+    # file so that we have a chance to override the recorded
+    # hash sums.
+    if [ "x${debug_symbols}" = "xinternal" ] ; then
+        jlink_flags="--save-jlink-argfiles=${jlink_args_file}"
+        create_jlink_argfile ${jlink_args_file}
+    else
+        jlink_flags=""
     fi
 
     echo "Using output directory: ${outputdir}";
@@ -1103,6 +1129,9 @@ function buildjdk() {
     echo "Using debuglevel: ${debuglevel}"
     echo "Using link_opt: ${link_opt}"
     echo "Using debug_symbols: ${debug_symbols}"
+    if [ -n "${jlink_flags}" ]; then
+      echo "Using extra jlink flags: '${jlink_flags}'"
+    fi
     echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
     mkdir -p ${outputdir}
@@ -1137,6 +1166,7 @@ function buildjdk() {
     --enable-unlimited-crypto \
     --enable-linkable-runtime \
     --enable-keep-packaged-modules \
+    --with-extra-jlink-flags="${jlink_flags}" \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
     --with-libjpeg=${link_opt} \

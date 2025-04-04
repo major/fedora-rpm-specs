@@ -26,7 +26,7 @@ and Python features.
 
 Name:		python-%{src_name}
 Version:	3.2.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -139,7 +139,12 @@ export PGTESTS_LOCALE=C.UTF-8
 export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*:} sslmode=disable"
 
 # Remove tests that need to use internet or specific settings
+# Disable test_psycopg_dbapi20.py for riscv64
+# https://github.com/psycopg/psycopg/issues/883
 %pytest tests/ -k "not (\
+%ifarch riscv64
+		test_psycopg_dbapi20.py or \
+%endif
 		test_typing or \
 		test_module or \
 		test_conninfo_attempts_async or \
@@ -187,6 +192,9 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 %endif
 
 %changelog
+* Wed Apr 02 2025 Jason Montleon <jmontleo@redhat.com> - 3.2.1-6
+- Added specific test to skip for riscv64
+
 * Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 3.2.1-5
 - Fix summary and description for python3-psycopg3
 

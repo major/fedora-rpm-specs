@@ -1,13 +1,10 @@
 Name:           pmix
-Version:        4.2.8
-Release:        4%{?dist}
+Version:        5.0.7
+Release:        1%{?dist}
 Summary:        Process Management Interface Exascale (PMIx)
 License:        BSD-3-Clause
 URL:            https://pmix.org/
 Source0:        https://github.com/openpmix/openpmix/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-# file missing from release
-Source1:        construct_event_strings.py
-Patch1:         https://github.com/openpmix/openpmix/pull/3245.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -63,7 +60,6 @@ based starters (e.g., mpirun).
 
 %prep
 %autosetup -p1
-cp %{S:1} contrib/
 
 # touch lexer sources to recompile them
 find src -name \*.l -print -exec touch --no-create {} \;
@@ -121,6 +117,9 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_bindir}/*
 
 %changelog
+* Tue Apr 01 2025 Sérgio Basto <sergio@serjux.com> - 5.0.7-1
+- Update pmix to 5.0.7
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

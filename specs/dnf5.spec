@@ -7,11 +7,15 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-spec-Set-mode-to-ghost-files.patch
+Patch2:         0002-expired-pgp-keys-Respect-install-root.patch
+Patch3:         0003-Add-i-and-f-shoft-options-for-repoquery.patch
+Patch4:         0004-doc-Environment-variables-for-a-terminal-and-tempora.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -397,7 +401,7 @@ Package management library.
 %else
 %exclude %{_sysconfdir}/dnf/dnf.conf
 %endif
-%ghost %{_sysconfdir}/dnf/versionlock.toml
+%ghost %attr(0644, root, root) %{_sysconfdir}/dnf/versionlock.toml
 %dir %{_datadir}/dnf5/libdnf.conf.d
 %dir %{_sysconfdir}/dnf/libdnf5.conf.d
 %dir %{_datadir}/dnf5/repos.override.d
@@ -408,7 +412,19 @@ Package management library.
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
 %dir %{_prefix}/lib/sysimage/libdnf5
-%verify(not md5 size mtime) %ghost %{_prefix}/lib/sysimage/libdnf5/*
+%dir %{_prefix}/lib/sysimage/libdnf5
+%attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/comps_groups
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/environments.toml
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/groups.toml
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/modules.toml
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/nevras.toml
+%attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/offline
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/offline/offline-transaction-state.toml
+%attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/offline/packages
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/offline/transaction.json
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/packages.toml
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/system.toml
+%verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/transaction_history.sqlite{,-shm,-wal}
 %license lgpl-2.1.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
 %ghost %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
@@ -822,11 +838,11 @@ Alternative command-line interface "dnf upgrade" suitable to be executed
 automatically and regularly from systemd timers, cron jobs or similar.
 
 %files plugin-automatic -f dnf5-plugin-automatic.lang
-%ghost %{_sysconfdir}/motd.d/dnf5-automatic
+%ghost %attr(0644, root, root) %{_sysconfdir}/motd.d/dnf5-automatic
 %{_libdir}/dnf5/plugins/automatic_cmd_plugin.so
 %{_datadir}/dnf5/dnf5-plugins/automatic.conf
-%ghost %config(noreplace) %{_sysconfdir}/dnf/automatic.conf
-%ghost %config(noreplace) %{_sysconfdir}/dnf/dnf5-plugins/automatic.conf
+%ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/automatic.conf
+%ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/dnf5-plugins/automatic.conf
 %{_mandir}/man8/dnf*-automatic.8.*
 %{_unitdir}/dnf5-automatic.service
 %{_unitdir}/dnf5-automatic.timer
@@ -963,6 +979,13 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Wed Apr 02 2025 Petr Pisar <ppisar@redhat.com> - 5.2.12.0-2
+- Set a mode for ghost files to 0644 (bug #2343342)
+- Respect install root in expired-pgp-keys plugin (bug #2356528)
+- Add "-i" and "-f" short options for repoquery command (bug #2338174)
+- Document environment variables for a terminal and temporary files
+  (bug #2353349)
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 5.2.12.0-1
 - Update to version 5.2.12.0
 
