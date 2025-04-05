@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 20.1.1
+%global libclc_version 20.1.2
 #global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -106,6 +106,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Thu Apr 03 2025 Nikita Popov <npopov@redhat.com> - 20.1.2-1
+- Update to LLVM 20.1.2
+
 * Thu Mar 20 2025 Nikita Popov <npopov@redhat.com> - 20.1.1-1
 - Update to LLVM 20.1.1
 

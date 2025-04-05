@@ -1,5 +1,5 @@
 Name:		qmmp
-Version:	2.2.3
+Version:	2.2.4
 Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
@@ -151,6 +151,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Apr 03 2025 Karel Volný <kvolny@redhat.com> 2.2.4-1
+- new version 2.2.4 (rhbz#2355924)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Thu Feb 06 2025 Karel Volný <kvolny@redhat.com> 2.2.3-1
 - new version 2.2.3 (rhbz#2335320)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

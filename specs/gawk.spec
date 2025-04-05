@@ -46,7 +46,7 @@
 
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
-Version:          5.3.1
+Version:          5.3.2
 Release:          1%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
@@ -136,9 +136,6 @@ BuildRequires: make
 # Patches to be removed -- deprecated functionality which shall be removed at
 # ---------------------    some point in the future:
 #Patch200: gawk-4.2.1-200-fix-build-for-f29.patch
-
-#Pma is en experimental feature added in 5.2.0, and the tests is currently not very stable.
-Patch201: disable-the-pma-test.patch
 
 %description
 The gawk package contains the GNU version of AWK text processing utility. AWK is
@@ -295,6 +292,12 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Thu Apr 03 2025 Jakub Martisko <jamartis@redhat.com> - 5.3.2-1
+- New upstream release - 5.3.2
+- Reenable the PMA test (5.2.2-1)
+- Resolves: rhbz#2313035
+- Related: rhbz#2341653
+
 * Thu Jan 23 2025 Jakub Martisko <jamartis@redhat.com> - 5.3.1-1
 - New upstream release - 5.3.1
 

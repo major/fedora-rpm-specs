@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.10
+Version:       2.7.11
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -69,14 +69,7 @@ BuildRequires: ocaml-libguestfs-devel
 BuildRequires: ocaml-libvirt-devel
 BuildRequires: ocaml-libnbd-devel
 BuildRequires: ocaml-fileutils-devel
-%if 0%{?fedora} <= 42
-# Disable ocaml-gettext-devel in Rawhide temporarily.
-# https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3
 BuildRequires: ocaml-gettext-devel
-%endif
-%if !0%{?rhel}
-BuildRequires: ocaml-ounit-devel
-%endif
 
 # These are for running our limited test.
 BuildRequires: glibc-utils
@@ -317,6 +310,11 @@ done
 
 
 %changelog
+* Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.11-1
+- New upstream development version 2.7.11
+- Enable ocaml-gettext again
+- Remove oUnit
+
 * Sat Mar 22 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.10-1
 - New upstream development version 2.7.10
 

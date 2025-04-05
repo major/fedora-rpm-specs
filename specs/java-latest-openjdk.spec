@@ -343,7 +343,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -829,6 +829,7 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp-strict.properties.template
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/net.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/sound.properties
+%config(noreplace) %{etcjavadir -- %{?1}}//conf/runtimelink-sha-overrides.conf
 %{_jvmdir}/%{sdkdir -- %{?1}}/conf
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/security
 %if %is_system_jdk
@@ -1228,6 +1229,10 @@ Source16: CheckVendor.java
 
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
+
+# Regenerate jmod-less jlink hashsums after the build do all evil things
+# The stripped debuginfo may fail this operation, but that is currently broken anyway
+Source19: BuildShaSumFile.java
 
 BuildRequires: %{portable_name}-sources >= %{portable_version}
 BuildRequires: %{portable_name}-misc >= %{portable_version}
@@ -1752,6 +1757,12 @@ portablebuilddir=/builddir/build/BUILD
   done
 
 %install
+function create_jlink_argfile() {
+    local imagepath=${1} 
+    #since jdk24 the runtime compilation is pretty good
+    ${imagepath}/bin/java --add-opens=jdk.jlink/jdk.tools.jlink.internal.runtimelink=ALL-UNNAMED %{SOURCE19} ${imagepath}/conf/runtimelink-sha-overrides.conf
+}
+
 function installjdk() {
     local imagepath=${1}
 
@@ -1784,6 +1795,8 @@ function installjdk() {
         # Install cacerts symlink needed by some apps which hard-code the path
         ln -sv /etc/pki/java/cacerts ${imagepath}/lib/security
 
+        #regenerate jmodless-jlink hash summs
+        create_jlink_argfile ${imagepath}
         # add alt-java man page
 	#  alt-java man and bianry are here from portables. Or not?
     fi

@@ -1,8 +1,7 @@
 Name:           perl-Alien-cmake3
-Version:        0.08
-Release:        12%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Find or download or build cmake 3 or better
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-cmake3
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-cmake3-%{version}.tar.gz
@@ -26,13 +25,13 @@ BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  cmake >= 3.0.0
+BuildRequires:  (cmake >= 3.0.0 with cmake < 4)
 BuildRequires:  perl(Alien::Base) >= 0.92
 BuildRequires:  perl(base)
 # Tests:
 BuildRequires:  perl(Test2::V0) >= 0.000060
 BuildRequires:  perl(Test::Alien) >= 0.92
-Requires:       cmake >= 3.0.0
+Requires:       (cmake >= 3.0.0 with cmake < 4)
 Requires:       perl(Alien::Base) >= 0.92
 
 # Remove under-specified dependencies
@@ -85,14 +84,22 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Alien*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Alien
+%{perl_vendorarch}/auto/Alien/cmake3
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/Alien-cmake3
+%dir %{perl_vendorarch}/Alien
+%{perl_vendorarch}/Alien/cmake3.pm
+%{_mandir}/man3/Alien::cmake3.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 03 2025 Petr Pisar <ppisar@redhat.com> - 0.09-1
+- 0.09 bump
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

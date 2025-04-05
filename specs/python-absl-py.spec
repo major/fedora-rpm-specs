@@ -1,5 +1,5 @@
 Name:           python-absl-py
-Version:        2.2.0
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Abseil Python Common Libraries
 

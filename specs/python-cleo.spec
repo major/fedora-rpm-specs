@@ -6,12 +6,12 @@ components and utilities comes from it. Refer to its documentation for
 more information.}
 
 #global prerel ...
-%global base_version 2.2.1
+%global base_version 2.1.0
 
 Name:           python-cleo
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        %autorelease
+Release:        %autorelease -b 5
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo

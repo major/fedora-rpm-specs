@@ -17,6 +17,8 @@ Patch0: 0001-treefile-support-inlined-conditional-includes.patch
 # Fix libdnf use of CMake
 # https://github.com/rpm-software-management/libdnf/commit/099600ca94f3b205461cc010dd257d9d1abd068d
 Patch1: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
+Patch2: 0001-core-Move-sysusers-docstring-to-the-Rust-side.patch
+Patch3: 0001-core-Process-ostree-layers-before-running-sysusers.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

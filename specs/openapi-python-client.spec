@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           openapi-python-client
-Version:        0.24.2
+Version:        0.24.3
 Release:        %autorelease
 Summary:        Generate modern Python clients from OpenAPI
 

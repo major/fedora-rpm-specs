@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -36,11 +36,7 @@ BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-curses-devel >= 1.0.3-7
 BuildRequires:  ocaml-calendar-devel
 BuildRequires:  ocaml-libvirt-devel >= 0.6.1.5
-%if 0%{?fedora} <= 42
-# Disable ocaml-gettext-devel in Rawhide temporarily.
-# https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3
 BuildRequires:  ocaml-gettext-devel >= 0.3.3
-%endif
 BuildRequires:  ocaml-fileutils-devel
 # For msgfmt:
 BuildRequires:  gettext
@@ -122,6 +118,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-2
+- Enable ocaml-gettext again
+
 * Fri Feb 28 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-1
 - New upstream version 1.1.2
 - Disable gettext support in Fedora Rawhide

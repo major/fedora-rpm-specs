@@ -1,9 +1,9 @@
 #global candidate rc0
-%global with_python 0
+%global with_python 1
 
 Name:          libgpiod
-Version:       2.2
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Version:       2.2.1
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -27,6 +27,7 @@ BuildRequires: pkgconf
 BuildRequires: python3-build
 BuildRequires: python3-devel
 BuildRequires: python3-packaging
+BuildRequires: python3-pip
 BuildRequires: python3-setuptools
 BuildRequires: python3-wheel
 %endif
@@ -93,10 +94,9 @@ Files for development with %{name}.
 
 %prep
 %autosetup -p1
-# to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
-# see https://github.com/pypa/setuptools/issues/3143
-# and https://github.com/pypa/pip/issues/11501
-sed -i 's/--prefix=$(DESTDIR)$(prefix)/--root=$(DESTDIR) --prefix=$(prefix)/' bindings/python/Makefile*
+# python bindings build is set to use isolation. Remove this for distro build so it uses the
+# system installed dependencies instead of trying to use pip to install from the network
+sed -i 's/-m build/-m build --no-isolation/' bindings/python/Makefile*
 
 %build
 %configure \
@@ -137,7 +137,7 @@ find %{buildroot} -name '*.la' -delete
 
 %files
 %license COPYING
-%doc README
+%doc README.md
 %{_libdir}/libgpiod.so.3*
 %{_libdir}/libgpiodbus.so.1*
 %{_sysusersdir}/gpiod.conf
@@ -186,6 +186,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Feb 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.1-1
+- Update to 2.2.1
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2-2
 - Drop call to %sysusers_create_compat
 

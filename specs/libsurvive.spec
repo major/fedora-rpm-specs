@@ -1,5 +1,5 @@
-%global date 20250326
-%global commit 8d4765a067ad2170f389a3d6226fe8bc555feb13
+%global date 20250328
+%global commit 440518bb7b0015a235f2e209b3fb454b2cf13ea2
 %global shortcommit %{sub %{commit} 1 7}
 
 # These are artifacts used by the unit tests
@@ -49,8 +49,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cmake
 BuildRequires:  blas-devel
 BuildRequires:  eigen3-devel
-# Excluded as it currently breaks the build
-# BuildRequires:  gattlib-devel
+BuildRequires:  gattlib-devel
 BuildRequires:  gcc-c++
 BuildRequires:  lapack-devel
 BuildRequires:  libpcap-devel
@@ -59,7 +58,7 @@ BuildRequires:  libX11-devel
 BuildRequires:  openblas-devel
 BuildRequires:  opencv-devel
 BuildRequires:  python3-devel
-BuildRequires:  sciplot0.2-devel
+BuildRequires:  sciplot-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 

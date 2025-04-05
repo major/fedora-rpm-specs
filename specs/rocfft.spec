@@ -39,12 +39,12 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -114,6 +114,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
 
+# Do not care so much about the sqlite version
+sed -i -e 's@SQLite3 3.36 @SQLite3 @' cmake/sqlite.cmake
 
 %build
 
@@ -180,6 +182,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
+- Remove sqlite version check for ol9
+
 * Fri Feb 14 2025 Christoph Junghans <junghans@votca.org> - 6.3.0-6
 - Add missing dep on rocm-hic-devel
 

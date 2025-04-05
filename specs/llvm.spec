@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 1
+%global patch_ver 2
 #global rc_ver 3
 
 %bcond_with snapshot_build
@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -3027,6 +3027,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Apr 03 2025 Nikita Popov <npopov@redhat.com> - 20.1.2-3
+- Update to LLVM 20.1.2
+
 * Tue Apr 01 2025 Miro Hrončok <mhroncok@redhat.com> - 20.1.1-2
 - Drop redundant runtime requirement on python3-setuptools from python3-lit
 

@@ -28,7 +28,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 Name:           argparse-manpage
 Version:        4.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -103,6 +103,9 @@ Requires:       python3-setuptools
 
 %prep
 %setup -q
+
+# https://github.com/praiskup/argparse-manpage/pull/116
+sed -i "/parser-file/s/-/_/" examples/old_format_file_name/setup.cfg
 
 %if %{with pyproject}
 %generate_buildrequires
@@ -185,6 +188,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 4.6-5
+- Fix build with newer setuptools
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

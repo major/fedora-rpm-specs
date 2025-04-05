@@ -6,7 +6,7 @@
 %endif
 
 Name:           pcsc-lite
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
@@ -181,6 +181,9 @@ fi
 
 
 %changelog
+* Thu Apr 03 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.3-1
+- New upstream release (#2356956)
+
 * Thu Mar 27 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.2-1
 - New upstream release (#2355105)
 

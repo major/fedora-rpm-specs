@@ -13,7 +13,7 @@
 %bcond_with toolchain_gcc
 
 Name:           zpaqfranz
-Version:        61.1
+Version:        62.2
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -23,7 +23,10 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from zpaq:    LicenseRef-Fedora-Public-Domain
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/306>
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/728>
-# zpaqfranz.cpp parts from libtom/libtomcrypt: Unlicense
+# zpaqfranz.cpp parts from libtom/libtomcrypt:  LicenseRef-Fedora-Public-Domain OR WTFPL
+#                                               (this bundle)
+#                                   (relicensed to Unlicense later
+#                                   <https://github.com/libtom/libtomcrypt/commit/3630bee6fc0f73dd9c7923fd43f8ae15a2c0fb70>)
 # zpaqfranz.cpp parts from salsa20: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from 7-zip:   LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from libdivsufsort-lite:  MIT
@@ -58,7 +61,7 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
 # ZSFX/zsfx.cpp:    MIT
-License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
+License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND (LicenseRef-Fedora-Public-Domain OR WTFPL) AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
 SourceLicense:  %{license} AND curl
 URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +90,8 @@ Recommends:     libcurl-full
 %if 0%(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
 Recommends:     %(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4)
 %endif
+# For "zpaq mysqldump" subcommand
+Recommends:     (mariadb or mysql)
 
 %description
 This is a Swiss army knife for backup and disaster recovery with deduplicated
@@ -147,6 +152,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Thu Apr 03 2025 Petr Pisar <ppisar@redhat.com> - 62.2-1
+- 62.2 bump
+
 * Mon Feb 17 2025 Petr Pisar <ppisar@redhat.com> - 61.1-1
 - 61.1 bump
 

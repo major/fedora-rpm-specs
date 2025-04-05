@@ -6,7 +6,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.13.0~rc3
+Version: 8.13.0
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -48,6 +48,7 @@ BuildRequires: make
 BuildRequires: openldap-devel
 BuildRequires: openssh-clients
 BuildRequires: openssh-server
+BuildRequires: openssl
 BuildRequires: openssl-devel
 %if %{with openssl_engine_support} && 0%{?fedora} >= 41
 BuildRequires:  openssl-devel-engine
@@ -404,6 +405,10 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Apr 02 2025 Jan Macku <jamacku@redhat.com> - 8.13.0-1
+- new upstream release
+- add build time dependency on openssl (required by tests)
+
 * Wed Mar 26 2025 Jan Macku <jamacku@redhat.com> - 8.13.0~rc3-1
 - new upstream release candidate
 - drop: 0102-curl-7.84.0-test3026.patch (no longer needed)

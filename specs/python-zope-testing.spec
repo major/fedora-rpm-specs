@@ -6,7 +6,7 @@
 
 Name:           python-zope-testing
 Version:        5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPL-2.1
 URL:            https://pypi.io/project/%{modname}
@@ -31,6 +31,10 @@ flexible test runner, and supports both doctest and unittest.
 
 rm -rf %{modname}.egg-info
 
+# Allow newer version of setuptools
+sed -i 's/"setuptools <= .*"/"setuptools"/' pyproject.toml
+sed -i 's/setuptools <= .*/setuptools/' tox.ini
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 
@@ -54,6 +58,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 5.1-2
+- Allow building with newer setuptools
+
 * Wed Mar 26 2025 Dan Radez <dradez@redhat.com> - 5.1-1
 - updating to upstream release - rhbz#2345713
 

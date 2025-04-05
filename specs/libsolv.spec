@@ -14,6 +14,7 @@
 %bcond_without suse_repo
 %bcond_without debian_repo
 %bcond_without arch_repo
+%bcond_without apk_repo
 # For handling deb + rpm at the same time
 %bcond_without multi_semantics
 %if %{defined rhel}
@@ -26,16 +27,13 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.31
+Version:        0.7.32
 Release:        %autorelease
 Summary:        Package dependency solver
 
 License:        BSD-3-Clause
 URL:            https://github.com/openSUSE/libsolv
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix building with GCC 15, bug #2340762, in upstream after 0.7.31,
-# <https://github.com/openSUSE/libsolv/pull/580>
-Patch0:         libsolv-0.7.31-Fix-building-in-ISO-C23.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -166,6 +164,7 @@ Python 3 version.
   -DENABLE_SUSEREPO=%{__cmake_switch -b suse_repo}        \
   -DENABLE_DEBIAN=%{__cmake_switch -b debian_repo}        \
   -DENABLE_ARCHREPO=%{__cmake_switch -b arch_repo}        \
+  -DENABLE_APK=%{__cmake_switch -b apk_repo}              \
   -DMULTI_SEMANTICS=%{__cmake_switch -b multi_semantics}  \
   -DENABLE_COMPLEX_DEPS=%{__cmake_switch -b complex_deps} \
   -DENABLE_CONDA=%{__cmake_switch -b conda}               \
@@ -237,6 +236,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %if %{with arch_repo}
   %solv_tool archpkgs2solv
   %solv_tool archrepo2solv
+%endif
+%if %{with apk_repo}
+%dnl no man page
+%dnl  %solv_tool apk2solv
+  %{_bindir}/apk2solv
 %endif
 %if %{with helix_repo}
   %solv_tool helix2solv

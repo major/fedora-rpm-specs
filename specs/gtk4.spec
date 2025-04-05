@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.18.2
+Version:        4.18.3
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -189,6 +189,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_libdir}/girepository-1.0/
 %{_mandir}/man1/gtk4-launch.1*
 %{_mandir}/man1/gtk4-update-icon-cache.1*
+%{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Inspector.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.ColorChooser.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.Debug.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.EmojiChooser.gschema.xml

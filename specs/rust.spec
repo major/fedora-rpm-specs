@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.85.1
+Version:        1.86.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.84.0
-%global bootstrap_channel 1.84.0
-%global bootstrap_date 2025-01-09
+%global bootstrap_version 1.85.0
+%global bootstrap_channel 1.85.0
+%global bootstrap_date 2025-02-20
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -28,7 +28,8 @@ ExclusiveArch:  %{rust_arches}
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-25
+#global wasi_libc_ref wasi-sdk-25
+%global wasi_libc_ref 640c0cfc19a96b099e0791824be5ef0105ce2084
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -45,17 +46,15 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
 %global bundled_llvm_version 19.1.7
-%if 0%{?fedora} >= 42 || 0%{?rhel} > 10
-%global llvm_compat_version 19
-%endif
+#global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
-# Requires stable libgit2 1.8, and not the next minor soname change.
+# Requires stable libgit2 1.9, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.8.1
-%global next_libgit2_version 1.9.0~
-%global bundled_libgit2_version 1.8.1
+%global min_libgit2_version 1.9.0
+%global next_libgit2_version 1.10.0~
+%global bundled_libgit2_version 1.9.0
 %if 0%{?fedora} >= 41
 %bcond_with bundled_libgit2
 %else
@@ -73,7 +72,7 @@ ExclusiveArch:  %{rust_arches}
 
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.46.0
+%global bundled_sqlite3_version 3.48.0
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -139,10 +138,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.85.0-unbundle-sqlite.patch
-
-# https://github.com/rust-lang/cc-rs/issues/1354
-Patch7:         0001-Only-translate-profile-flags-for-Clang.patch
+Patch6:         rustc-1.86.0-unbundle-sqlite.patch
 
 ### RHEL-specific patches below ###
 
@@ -153,7 +149,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.85.0-disable-libssh2.patch
+Patch100:       rustc-1.86.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -686,7 +682,6 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %if %without bundled_sqlite3
 %patch -P6 -p1
 %endif
-%patch -P7 -p1 -d vendor/cc-1.2.6
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -706,7 +701,7 @@ mkdir -p src/llvm-project/libunwind/
 # Remove submodules we don't need.
 rm -rf src/gcc
 rm -rf src/tools/enzyme
-rm -rf src/tools/rustc-perf
+rm -rf src/tools/rustc-perf/collector/*-benchmarks/
 
 # Remove other unused vendored libraries. This leaves the directory in place,
 # because some build scripts watch them, e.g. "cargo:rerun-if-changed=curl".
@@ -1072,6 +1067,8 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_mandir}/man1/rustc.1*
 %{_mandir}/man1/rustdoc.1*
 %license build/manifests/rustc/cargo-vendor.txt
+%license %{_pkgdocdir}/COPYRIGHT.html
+%license %{_pkgdocdir}/licenses/
 
 
 %files std-static
@@ -1081,6 +1078,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{rustlibdir}/%{rust_triple}/lib/*.rlib
 %{rustlibdir}/%{rust_triple}/lib/*.so
 %license build/manifests/std/cargo-vendor.txt
+%license %{_pkgdocdir}/COPYRIGHT-library.html
 
 %global target_files()      \
 %files std-static-%1        \

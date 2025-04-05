@@ -10,6 +10,7 @@ Source0:	%pypi_source ipyparallel
 BuildArch:	noarch
 BuildRequires:	make
 BuildRequires:	python3-devel >= 3.8
+BuildRequires:	pyproject-rpm-macros
 BuildRequires:	python3-pip
 BuildRequires:	python3dist(hatchling) >= 0.25
 BuildRequires:	(python3dist(importlib-metadata) if python3 < 3.10)

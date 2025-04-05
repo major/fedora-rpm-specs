@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.9.0
+Version:        4.9.1
 Release:        1%{?dist}
 Summary:        Distribution compose tool
 
@@ -139,6 +139,16 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Apr 03 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.1-1
+- util: Fix typo in regex for container digests (lsedlar)
+- Resolve container tags to digests (lsedlar)
+- kojiwrapper: Remove unused code (lsedlar)
+- Add basic telemetry support (lsedlar)
+- Reorder ostree and ostree_installer phases (hlin)
+- Fix test data generation script (lsedlar)
+- extra_isos: Mention all extra files in the manifest (lsedlar)
+- scm: Add retries to container-image download (lsedlar)
+
 * Fri Feb 14 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.0-1
 - buildinstall: Add support for rootfs-type lorax option (lsedlar)
 - scm: Stop trying to download src arch (lsedlar)

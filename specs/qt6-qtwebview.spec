@@ -1,6 +1,6 @@
 %global qt_module qtwebview
 
-%global unstable 1
+#global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -9,7 +9,7 @@
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.9.0%{?unstable:~%{prerelease}}
+Version: 6.9.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -113,6 +113,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0
+
 * Wed Mar 26 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
 - 6.9.0 RC
 

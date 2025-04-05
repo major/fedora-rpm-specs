@@ -1,6 +1,6 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 2.4
+Version: 2.4.1
 Release: 1%{?dist}
 License: Apache-2.0
 URL:     https://github.com/linux-nvme/nvme-stas
@@ -95,7 +95,10 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
-* Mon 17 Mar 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.4-1
+* Thu Apr 03 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.4.1-1
+- Upstream v2.4.1 release
+
+* Mon Mar 17 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.4-1
 - Upstream v2.4 release
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-6

@@ -19,6 +19,10 @@ License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# Fix the configuration file name in the documentation
+# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/69
+Patch:          0001-doc-Specify-the-right-configuration-file-name.patch
+
 Provides:       firstboot(windowmanager) = %{name}
 
 BuildRequires:  dconf
@@ -80,7 +84,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 
 %files
 %license COPYING
-%doc NEWS README.md
+%doc NEWS README.md CONFIG.md
 %{_bindir}/gnome-kiosk
 %{_datadir}/applications/org.gnome.Kiosk.desktop
 %{_datadir}/dconf/profile/gnomekiosk

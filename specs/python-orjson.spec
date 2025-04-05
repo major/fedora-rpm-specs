@@ -6,15 +6,22 @@
 # Specfile compatability: EPEL >= 9 or Fedora >= 37 and RPM >= 4.16
 
 %bcond tests 1
+# Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2356387
+%bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.10.14
+Version:        3.10.16
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
+
+# Manual patches for Cargo.toml
+# - For now, allow compact_str 0.8;
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2347456
+Patch:          orjson-fix-metadata.diff
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -23,13 +30,15 @@ BuildRequires:  %{py3_dist pytest-forked}
 # versions and architectures, but we would like to run the corresponding tests
 # everywhere.
 BuildRequires:  %{py3_dist numpy}
+%if %{with pendulum}
 BuildRequires:  %{py3_dist pendulum}
+%endif
 # These are not in tests/requirements.txt, but they enable additional tests
 %ifnarch %{ix86}
 BuildRequires:  %{py3_dist pandas}
 %endif
 BuildRequires:  %{py3_dist psutil}
-BuildRequires:  rust-packaging
+BuildRequires:  cargo-rpm-macros >= 24
 
 
 %global _description %{expand:
@@ -85,8 +94,6 @@ tomcli-set Cargo.toml del 'features.avx512'
 # “Avoid bundling libgcc on musl.”
 tomcli-set Cargo.toml del 'features.unwind'
 tomcli-set Cargo.toml del 'dependencies.unwinding'
-# Remove strict dependencies
-sed -Ei 's|(version = ")=|\1|' Cargo.toml
 # Remove bundled rust crates
 rm -r include/cargo
 # Remove bundled yyjson.
@@ -96,6 +103,12 @@ rm -rv include/yyjson/
 mkdir -p LICENSES.vendored/pyo3
 cp -vp include/pyo3/LICENSE* LICENSES.vendored/pyo3/
 
+%if %{without pendulum}
+sed -i '/^pendulum\b/d' test/requirements.txt
+%endif
+# Test dependency on arrow appears spurious
+# https://github.com/ijl/orjson/issues/559
+sed -i '/^arrow\b/d' test/requirements.txt
 # Remove unpackaged PyPI plugin
 sed -i '/pytest-random-order/d' test/requirements.txt
 

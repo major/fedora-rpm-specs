@@ -144,7 +144,7 @@
 # enable|disable control flow integrity support
 %global cfi 0
 %ifarch x86_64 aarch64
-%global cfi 1
+%global cfi 0
 %endif
 
 # enable qt backend
@@ -439,17 +439,19 @@ Patch412: add-ppc64-architecture-to-extensions.diff
 Patch413: fix-unknown-warning-option-messages.diff
 Patch414: cargo-add-ppc64.diff
 Patch415: add-ppc64-pthread-stack-size.patch
+# Fix build error on el10
+Patch416: fix-ppc64-rust_png-build-error.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
-Patch416: flatpak-Add-initial-sandbox-support.patch
-Patch417: flatpak-Adjust-paths-for-the-sandbox.patch
-Patch418: flatpak-Expose-Widevine-into-the-sandbox.patch
+Patch500: flatpak-Add-initial-sandbox-support.patch
+Patch501: flatpak-Adjust-paths-for-the-sandbox.patch
+Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 
 # upstream patches
 # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4636
 # https://chromium-review.googlesource.com/c/chromium/src/+/6421030
-Patch500: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
+Patch600: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1125,16 +1127,17 @@ Qt6 UI for chromium.
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
 %patch -P414 -p1 -b .rust-add-ppc64-case
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
+%patch -P416 -p1 -b .ppc64-rust_png-build-error
 %endif
 
 %if 0%{?flatpak}
-%patch -P416 -p1 -b .flatpak-initial-sandbox
-%patch -P417 -p1 -b .flatpak-sandbox-paths
-%patch -P418 -p1 -b .flatpak-widevine
+%patch -P500 -p1 -b .flatpak-initial-sandbox
+%patch -P501 -p1 -b .flatpak-sandbox-paths
+%patch -P502 -p1 -b .flatpak-widevine
 %endif
 
 # Upstream patches
-%patch -P500 -p1 -b .add-cfi-suppressions-for-pipewire-functions
+%patch -P600 -p1 -b .add-cfi-suppressions-for-pipewire-functions
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works

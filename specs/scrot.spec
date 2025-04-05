@@ -1,5 +1,5 @@
 Name:           scrot
-Version:        1.12
+Version:        1.12.1
 Release:        %autorelease
 Summary:        Command line screen capture utility
 

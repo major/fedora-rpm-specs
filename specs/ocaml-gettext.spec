@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gettext
 Version:        0.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -21,11 +21,15 @@ VCS:            git:%{url}.git
 
 Source0:        %{url}/archive/v%{version}.tar.gz
 
+# Fix to stop using dune-site
+# https://github.com/gildor478/ocaml-gettext/issues/36
+# https://github.com/gildor478/ocaml-gettext/pull/37
+Patch:          https://github.com/gildor478/ocaml-gettext/pull/37.patch
+
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-fileutils-devel >= 0.6.6-1
 BuildRequires:  ocaml-dune >= 1.11.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-dune-site-devel
 BuildRequires:  ocaml-cppo
 # This was orphaned and dropped from Fedora back in 2023, but may be
 # needed to run the tests.
@@ -64,7 +68,6 @@ Constraints :
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-fileutils-devel%{?_isa} >= 0.6.6
-Requires:       ocaml-dune-site-devel%{?_isa}
 
 
 %description    devel
@@ -155,6 +158,9 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-3
+- Remove use of dune-site
+
 * Thu Feb 27 2025 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-2
 - Add dependency from devel to ocaml-dune-site-devel.
   https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3#comment-249424

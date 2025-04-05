@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.2
-Release: 2%{?dist}
+Version: %{majorversion}.4
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 16
-%global prevversion %{prevmajorversion}.6
+%global prevversion %{prevmajorversion}.8
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1347,6 +1347,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu Apr 03 2025 Packit <hello@packit.dev> - 17.4-1
+- Update to version 17.4
+- Resolves: rhbz#2326274
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 17.2-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

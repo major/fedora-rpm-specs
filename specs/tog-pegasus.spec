@@ -274,7 +274,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch -P47 -p1 -b .snmp-disable-des
 %patch -P48 -p1 -b .add-riscv64-support
 %patch -P49 -p1 -b .bin-sbin-unify
-%patch -P50 -p1 -b .ssl-certs-gen-changes.patch
+%patch -P50 -p1 -b .ssl-certs-gen-changes
 
 
 %build

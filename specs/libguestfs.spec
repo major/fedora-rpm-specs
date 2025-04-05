@@ -41,7 +41,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.7
+Version:       1.55.8
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -145,7 +145,6 @@ BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-ocamldoc
 BuildRequires: ocaml-findlib-devel
 %if !0%{?rhel}
-BuildRequires: ocaml-ounit-devel
 BuildRequires: lua
 BuildRequires: lua-devel
 %endif
@@ -1104,6 +1103,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.8-1
+- New upstream development version 1.55.8
+- Remove oUnit
+
 * Tue Mar 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.7-1
 - New upstream development version 1.55.7
 

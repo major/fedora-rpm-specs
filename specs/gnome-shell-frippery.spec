@@ -2,15 +2,13 @@
 %global gschemadir %{_datadir}/glib-2.0/schemas
 
 Name:           gnome-shell-frippery
-Version:        47.0
+Version:        48.0
 Release:        %autorelease
 Summary:        Extensions to provide a user experience more like that of GNOME 2
 
 License:        GPL-2.0-or-later
 URL:            http://frippery.org/extensions
 Source:         %{url}/%{name}-%{version}.tgz
-# Add GNOME 48 as a supported shell version
-Patch:          frippery-gnome-48-compat.patch
 
 BuildArch:      noarch
 

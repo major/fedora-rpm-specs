@@ -296,6 +296,10 @@ BuildRequires: sane-backends-devel
 # macros: %%{_tmpfilesdir}, %%{_udevrulesdir}
 BuildRequires: systemd
 
+%if 0%{?fedora} || 0%{?rhel} <= 8
+Recommends: (%{name}-gui%{?_isa} = %{version}-%{release} if qt5-qtbase-gui%{?_isa})
+Suggests: hplip-gui
+%endif
 # uses avahi-browse for discovering IPP-over-USB printers
 Recommends: avahi-tools
 # 1733449 - Scanner on an HP AIO printer is not detected unless libsane-hpaio is installed
@@ -974,6 +978,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Apr 03 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.24.4-5
+- Use weak rich dependency for hplip-gui
+
 * Wed Apr 02 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.24.4-5
 - Format QDateTime strings in Status History table, elsewhere
 

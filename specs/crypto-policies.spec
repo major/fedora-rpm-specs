@@ -1,5 +1,5 @@
-%global git_date 20250324
-%global git_commit 37143547a6dcf01c2657f3d472d3ef50d6e23633
+%global git_date 20250402
+%global git_commit 86c0178416fe7998bbf553a3e713a9c4b7205757
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -284,6 +284,10 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Wed Apr 02 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250402-1.git86c0178
+- policies, alg_lists, openssl: remove KYBER from allowed values
+- sequoia, rpm-sequoia: use ignore_invalid with sha3, x25519, ...
+
 * Mon Mar 24 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250324-1.git3714354
 - sequoia: add sha3, x25519, ed25519, x448, ed448, but not for rpm-sequoia
 - _openssl_block_sha1_signatures: flip the default to 1

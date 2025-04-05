@@ -13,7 +13,7 @@ Version:        3.0.6
 Release:        %autorelease
 Summary:        Simple SSL certificate generator
 
-License:        GPLv3+ with exceptions
+License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://%{provider_prefix}
 Source0:        %{URL}/archive/refs/tags/sscg-%{version}.tar.gz
 BuildRequires:  gcc

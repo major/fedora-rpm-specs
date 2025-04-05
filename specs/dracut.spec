@@ -55,6 +55,12 @@ Patch10: 0010-fix-dracut-install-initize-fts-pointer.patch
 # feat: add openssl module
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch11: 0011-feat-add-openssl-module.patch
+# fix(multipath): skip default multipath.conf with mpathconf
+# Author: Benjamin Marzinski <bmarzins@redhat.com>
+Patch12: 0012-fix-multipath-skip-default-multipath.conf-with-mpath.patch
+# fix(ossl): ignore compiler warnings
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch13: 0013-fix-ossl-ignore-compiler-warnings.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git

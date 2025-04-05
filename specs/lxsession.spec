@@ -15,20 +15,23 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250213
-%global		gittartime		2350
+%global		gittardate		20250403
+%global		gittartime		1600
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20241019
-%global		git_rev		c72db4f8c06c2d6be6dcb13fad838f619f51f8a7
+%global		gitbaredate	20250330
+%global		git_rev		886b9ad90f98b12c775313331431769295138f69
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
+%endif
 
 
-%global		main_version	0.5.5
+%global		main_version	0.5.6
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
@@ -304,6 +307,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Thu Apr 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.6-1
+- 0.5.6
+
 * Thu Feb 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20241019gitc72db4f8-1
 - Update to the latest git
 

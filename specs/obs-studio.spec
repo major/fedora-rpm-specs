@@ -34,7 +34,7 @@
 
 Name:           obs-studio
 Version:        31.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -58,6 +58,9 @@ Patch0102:      0102-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 
 Patch0104:      add_missing_include.patch
+## From: https://github.com/obsproject/obs-studio/pull/11906
+## https://github.com/obsproject/obs-studio/commit/52d57cf70ca70f55378112f6eeb5708fb7680a6b.patch
+Patch0105:      52d57cf70ca70f55378112f6eeb5708fb7680a6b.patch
 # Downstream Fedora patches
 ## Use fdk-aac by default
 Patch1001:      obs-studio-UI-use-fdk-aac-by-default.patch
@@ -360,6 +363,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Tue Apr 01 2025 Michael J Gruber <mjg@fedoraproject.org> - 31.0.2-6
+- fix v4loopback usage
+
 * Fri Mar 28 2025 Jan Grulich <jgrulich@redhat.com> - 31.0.2-5
 - Rebuild (qt6)
 

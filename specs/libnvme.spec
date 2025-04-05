@@ -4,10 +4,13 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://github.com/linux-nvme/libnvme/pull/981
+Patch0:  libnvme-1.12+_iouring_return_values.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -99,6 +102,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Apr 03 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.12-2
+- Fix iouring admin commands status codes
+
 * Mon Mar 17 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.12-1
 - Upstream v1.12 release
 

@@ -8,8 +8,8 @@
 %bcond_with tests
 
 Name:              valkey
-Version:           8.0.2
-Release:           2%{?dist}
+Version:           8.1.0
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -23,9 +23,12 @@ Source1:           %{name}.logrotate
 Source2:           %{name}-sentinel.service
 Source3:           %{name}.service
 Source4:           %{name}.sysusers
+Source5:           %{name}.tmpfiles
 Source8:           macros.%{name}
 Source9:           migrate_redis_to_valkey.sh
 Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{version}/%{name}-doc-%{version}.tar.gz
+
+Patch0:            used_memory_thread_type.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -155,6 +158,7 @@ Provides:          redis-doc = %{version}-%{release}
 %prep
 # no autosetup due to no support for multiple source extraction
 %setup -n %{name}-%{version} -a50
+%autopatch -p1
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -235,6 +239,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 # System user
 install -p -D -m 0644 %{S:4} %{buildroot}%{_sysusersdir}/%{name}.conf
 
+# Install tmpfiles.d file
+install -p -D -m 0644 %{S:5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
 # Filesystem.
 install -d %{buildroot}%{_sharedstatedir}/%{name}
 install -d %{buildroot}%{_localstatedir}/log/%{name}
@@ -283,8 +290,6 @@ taskset -c 1 ./runtest --clients 50 --skiptest "Active defrag - AOF loading"
 #./runtest-sentinel
 %endif
 
-%pre
-%sysusers_create_compat %{S:4}
 
 
 %post
@@ -367,6 +372,7 @@ fi
 %{_unitdir}/%{name}-sentinel.service
 %dir %attr(0755, valkey, valkey) %ghost %{_localstatedir}/run/%{name}
 %{_sysusersdir}/%{name}.conf
+%{_tmpfilesdir}/%{name}.conf
 %if %{with docs}
 %{_mandir}/man1/%{name}*.gz
 %{_mandir}/man5/%{name}.conf.5.gz
@@ -399,6 +405,14 @@ fi
 
 
 %changelog
+* Fri Apr 04 2025 Nathan Scott <nathans@redhat.com> - 8.1.0-1
+- include tmpfiles.d configuration file
+- redis.log transition rhbz#2316030
+- update to 8.1.0 rhbz#22356280
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.0.2-3
+- Drop call to %sysusers_create_compat
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

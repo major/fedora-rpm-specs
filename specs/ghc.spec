@@ -270,7 +270,8 @@ Installing this package causes %{name}-*-doc packages corresponding to
 Summary: GHC library documentation indexing
 License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
-BuildArch: noarch
+# workaround for ix86 no docs
+#BuildArch: noarch
 %obsoletes_ghcXY doc-index
 
 %description doc-index
@@ -850,7 +851,7 @@ make test
 * Thu Apr 03 2025 Jens Petersen  <petersen@redhat.com> - 9.8.4-148
 - revert Unique Word64 on i686 to avoid compilation crashes
   https://gitlab.haskell.org/ghc/ghc/-/issues/25904
-- disable haddock for ix86
+- disable haddock for ix86 and make doc-index arch
 
 * Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 9.8.4-147
 - rebase to 9.8.4 from ghc9.8

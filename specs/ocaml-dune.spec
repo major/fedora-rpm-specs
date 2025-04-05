@@ -13,14 +13,13 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.17.2
+Version:        3.18.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
 # ISC:
 # - vendor/cmdliner
-# - vendor/fmt
 # - vendor/notty
 # - vendor/sha
 # - vendor/uutf
@@ -77,7 +76,6 @@ BuildRequires:  ocaml-lwt-devel >= 5.6.0
 Provides:       bundled(ocaml-build-path-prefix-map) = 0.3
 Provides:       bundled(ocaml-cmdliner) = 1.2.0
 Provides:       bundled(ocaml-fiber) = 3.7.0
-Provides:       bundled(ocaml-fmt) = 0.8.10
 Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
 Provides:       bundled(ocaml-inotify) = 2.3
 Provides:       bundled(ocaml-lwd) = 0.3
@@ -475,6 +473,7 @@ rm -fr otherlibs/dune-rpc-lwt dune-rpc-lwt.opam
 
 %build
 ./configure \
+  --prefix %{_prefix} \
   --bindir %{_bindir} \
   --datadir %{_datadir} \
   --docdir %{_prefix}/doc \
@@ -590,6 +589,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Apr  3 2025 Jerry James <loganjerry@gmail.com> - 3.18.0-1
+- Version 3.18.0
+
 * Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 3.17.2-1
 - Version 3.17.2
 
