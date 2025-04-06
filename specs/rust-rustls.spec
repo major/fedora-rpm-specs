@@ -17,6 +17,8 @@ Source:         %{crates_source}
 # * default to the ring crypto backend
 # * drop support for the aws-lc-rs crypto backend
 # * drop unused, benchmark-only bencher dev-dependency
+# * update rust crate zlib-rs to 0.5:
+#   https://github.com/rustls/rustls/commit/2495192
 Patch:          rustls-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

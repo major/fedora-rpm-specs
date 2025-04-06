@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.7.2
+Version:        0.7.3
 Release:        %{autorelease}
 Summary:        Missing widgets and components for PyQt/PySide
 %forgemeta

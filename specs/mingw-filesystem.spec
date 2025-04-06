@@ -9,8 +9,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           mingw-filesystem
-Version:        148
-Release:        8%{?dist}
+Version:        149
+Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPL-2.0-or-later
@@ -378,6 +378,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 149-1
+- Only add cross host tools bin dir to PATH
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 148-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

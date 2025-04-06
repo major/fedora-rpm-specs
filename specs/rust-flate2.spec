@@ -5,7 +5,7 @@
 %global crate flate2
 
 Name:           rust-flate2
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        DEFLATE compression and decompression exposed as Read/BufRead/Write streams
 
@@ -36,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/MAINTENANCE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

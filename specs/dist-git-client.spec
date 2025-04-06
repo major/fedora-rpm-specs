@@ -1,6 +1,6 @@
 Name:      dist-git-client
-Version:   1.0
-Release:   4%{?dist}
+Version:   1.1
+Release:   1%{?dist}
 Summary:   Get sources for RPM builds from DistGit repositories
 BuildArch: noarch
 
@@ -73,16 +73,15 @@ PYTHON=python3 ./run_tests.sh -vv --no-coverage
 %{_mandir}/man1/dist-git-client.1*
 %dir %{_sysconfdir}/dist-git-client
 %config(noreplace) %{_sysconfdir}/dist-git-client/default.ini
-%python3_sitelib/dist_git_client.*
-%python3_sitelib/__pycache__/dist_git_client*
+%{python3_sitelib}/dist_git_client.*
+%{python3_sitelib}/__pycache__/dist_git_client*
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Fri Apr 04 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
+- more powerful parsing for ssh clone urls
+- nicer error output for not-matched origin.url hostnames
+- apply Fedora Review fixes
 
 * Fri Jun 21 2024 Pavel Raiskup <praiskup@redhat.com> - 1.0-2
 - Fedora Review fixes (rhbz#2293067)

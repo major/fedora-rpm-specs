@@ -61,6 +61,9 @@ sed -i "/\['jupytext.reads', {'fmt'/d" doc/conf.py
 # This extension links the code examples to their respective documentation,
 # its absence doesn't break the nbsphinx' docs
 sed -i "/'sphinx_codeautolink',  # automatic links from code to documentation/d" doc/conf.py
+# Remove the upper bound from Sphinx, this is what upstream has also done
+# https://github.com/spatialaudio/nbsphinx/commit/a921973a5d8ecc39c6e0218457
+sed -i "s/'sphinx >= 1.8, < 8.2'/'sphinx >= 1.8'/" setup.py
 
 %build
 %py3_build

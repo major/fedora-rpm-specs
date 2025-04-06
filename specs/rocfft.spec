@@ -42,9 +42,12 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+# Use rocm-llvm strip
+%global __strip %rocmllvm_bindir/llvm-strip
+
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -124,9 +127,14 @@ export LDFLAGS="${LDFLAGS} -pie"
 
 # OpenMP tests are disabled because upstream sets rpath in that case without
 # a way to skip
+#
+# RHEL 9 has an issue with missing symbol __truncsfhf2 in libgcc.
+# So switch from libgcc to rocm-llvm's libclang-rt.builtins with
+# the rtlib=compiler-rt. Leave unwind unchange with unwindlib=libgcc
 
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \
     -DCMAKE_C_COMPILER=hipcc \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
@@ -182,6 +190,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-8
+- Work around old gcc for rhel 9
+
 * Thu Apr 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
 - Remove sqlite version check for ol9
 

@@ -1,7 +1,7 @@
 %{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        4.0.0
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
@@ -86,7 +86,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 
-cp frescobaldi/userguide/*.md %{buildroot}%{python3_sitelib}/%{name}/userguide/
 
 %files
 %license LICENSE
@@ -99,6 +98,9 @@ cp frescobaldi/userguide/*.md %{buildroot}%{python3_sitelib}/%{name}/userguide/
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Fri Apr 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-1
+- 4.0.1
+
 * Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
 - 4.0.0
 

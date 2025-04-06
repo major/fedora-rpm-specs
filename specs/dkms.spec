@@ -8,6 +8,7 @@ URL:            http://linux.dell.com/dkms
 BuildArch:      noarch
 
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/dell/dkms/commit/3c9fb67fda3ed400b2dcb28e559856ad1e858576.patch
 
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros

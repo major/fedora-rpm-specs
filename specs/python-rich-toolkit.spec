@@ -1,5 +1,5 @@
 Name:           python-rich-toolkit
-Version:        0.13.2
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Rich toolkit for building command-line applications
 

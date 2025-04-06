@@ -1,6 +1,6 @@
 Name:           celluloid
-Version:        0.27
-Release:        4%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPL-3.0-or-later
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_p
  %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Apr 04 2025 Vasiliy Glazov <vascom2@gmail.com> - 0.28-1
+- Update to 0.28
+
 * Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.27-4
 - Update yt-dlp dependency
 

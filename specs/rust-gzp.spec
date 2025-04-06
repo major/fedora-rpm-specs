@@ -14,7 +14,6 @@ License:        Unlicense OR MIT
 URL:            https://crates.io/crates/gzp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Remove criterion dev dependency
 Patch:          gzp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -100,18 +99,6 @@ use the "deflate_rust" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate_rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deflate_zlib-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+deflate_zlib-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "deflate_zlib" feature of the "%{crate}" crate.
-
-%files       -n %{name}+deflate_zlib-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+deflate_zlib_ng-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -160,18 +147,6 @@ use the "libdeflater" feature of the "%{crate}" crate.
 %files       -n %{name}+libdeflater-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libz-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+libz-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "libz-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+libz-sys-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+snap-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -182,30 +157,6 @@ This package contains library source intended for building other packages which
 use the "snap" feature of the "%{crate}" crate.
 
 %files       -n %{name}+snap-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+snappy-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+snappy-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "snappy" feature of the "%{crate}" crate.
-
-%files       -n %{name}+snappy-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+snappy_default-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+snappy_default-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "snappy_default" feature of the "%{crate}" crate.
-
-%files       -n %{name}+snappy_default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -9,6 +9,9 @@ Source:         %pypi_source numpydoc
 
 # Compatibility with sphinx 8
 Patch:          https://github.com/numpy/numpydoc/commit/1338660.patch
+# Upstream's already fixed it, but the fix is mixed with other changes that
+# don't apply cleanly: https://github.com/numpy/numpydoc/pull/611
+Patch:          Add-compatibility-with-sphinx-8.patch
 
 BuildArch:      noarch
 

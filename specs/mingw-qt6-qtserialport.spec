@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Serial Port component
 
@@ -99,6 +99,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_bindir}/Qt6SerialPort.dll
 %{mingw32_includedir}/qt6/QtSerialPort/
 %{mingw32_libdir}/cmake/Qt6SerialPort/
+%{mingw32_libdir}/cmake/Qt6SerialPortPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialPortTestsConfig.cmake
 %{mingw32_libdir}/pkgconfig/Qt6SerialPort.pc
 %{mingw32_libdir}/libQt6SerialPort.dll.a
@@ -116,6 +117,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_bindir}/Qt6SerialPort.dll
 %{mingw64_includedir}/qt6/QtSerialPort/
 %{mingw64_libdir}/cmake/Qt6SerialPort/
+%{mingw64_libdir}/cmake/Qt6SerialPortPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialPortTestsConfig.cmake
 %{mingw64_libdir}/pkgconfig/Qt6SerialPort.pc
 %{mingw64_libdir}/libQt6SerialPort.dll.a
@@ -128,6 +130,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

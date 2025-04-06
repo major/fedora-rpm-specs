@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.52.1
+Version:        0.53.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Apr 04 2025 Packit <hello@packit.dev> - 0.53.0-1
+- Added support for Forgejo projects. (#893)
+- Resolves: rhbz#2357503
+
 * Mon Mar 31 2025 Packit <hello@packit.dev> - 0.52.1-1
 - Update to version 0.52.1
 - Resolves: rhbz#2349248

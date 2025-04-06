@@ -5,7 +5,7 @@
 %global crate libz-rs-sys
 
 Name:           rust-libz-rs-sys
-Version:        0.4.2
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -70,6 +70,18 @@ use the "custom-prefix" feature of the "%{crate}" crate.
 %files       -n %{name}+custom-prefix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+export-symbols-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+export-symbols-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "export-symbols" feature of the "%{crate}" crate.
+
+%files       -n %{name}+export-symbols-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+rust-allocator-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -80,6 +92,18 @@ This package contains library source intended for building other packages which
 use the "rust-allocator" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rust-allocator-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+semver-prefix-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+semver-prefix-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "semver-prefix" feature of the "%{crate}" crate.
+
+%files       -n %{name}+semver-prefix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -17,10 +17,13 @@ License:        MIT
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:         0001-prepare-hipify-cmake-for-fedora.patch
 
-BuildRequires:  clang-devel
-BuildRequires:  llvm-devel
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  perl
+# System clang may be too old, use rocm-llvm
+BuildRequires:  rocm-llvm-static
+BuildRequires:  rocm-clang-devel
+BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  zlib-devel
 
 Requires:       perl
@@ -36,8 +39,11 @@ HIP C++ automatically.
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
+%cmake \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/..
 
-%cmake 
 %cmake_build
 
 %check
@@ -70,6 +76,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- Use rocm clang
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

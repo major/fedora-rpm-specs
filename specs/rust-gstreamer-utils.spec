@@ -2,24 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zlib-rs
+%global crate gstreamer-utils
 
-Name:           rust-zlib-rs
-Version:        0.5.0
+Name:           rust-gstreamer-utils
+Version:        0.23.5
 Release:        %autorelease
-Summary:        Memory-safe zlib implementation written in rust
+Summary:        GStreamer Rust APIs for linking producers and consumers
 
-License:        Zlib
-URL:            https://crates.io/crates/zlib-rs
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/gstreamer-utils
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop dependencies and internal-only features for fuzz-testing
-Patch:          zlib-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A memory-safe zlib implementation written in rust.}
+Exposes an object to build several Gst pipeline with one producer and
+several consumer.}
 
 %description %{_description}
 
@@ -33,7 +32,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/COPYRIGHT
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,40 +51,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+c-allocator-devel
+%package     -n %{name}+v1_22-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+c-allocator-devel %{_description}
+%description -n %{name}+v1_22-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "c-allocator" feature of the "%{crate}" crate.
+use the "v1_22" feature of the "%{crate}" crate.
 
-%files       -n %{name}+c-allocator-devel
+%files       -n %{name}+v1_22-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rust-allocator-devel
+%package     -n %{name}+v1_24-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rust-allocator-devel %{_description}
+%description -n %{name}+v1_24-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rust-allocator" feature of the "%{crate}" crate.
+use the "v1_24" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rust-allocator-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+v1_24-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

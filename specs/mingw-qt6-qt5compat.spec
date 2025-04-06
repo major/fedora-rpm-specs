@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
@@ -103,6 +103,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/libQt6Core5Compat.dll.a
 %{mingw32_libdir}/Qt6Core5Compat.prl
 %{mingw32_libdir}/cmake/Qt6Core5Compat/
+%{mingw32_libdir}/cmake/Qt6Core5CompatPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWrapIconv.cmake
 %{mingw32_libdir}/pkgconfig/Qt6Core5Compat.pc
@@ -120,6 +121,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/libQt6Core5Compat.dll.a
 %{mingw64_libdir}/Qt6Core5Compat.prl
 %{mingw64_libdir}/cmake/Qt6Core5Compat/
+%{mingw64_libdir}/cmake/Qt6Core5CompatPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWrapIconv.cmake
 %{mingw64_libdir}/pkgconfig/Qt6Core5Compat.pc
@@ -131,6 +133,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

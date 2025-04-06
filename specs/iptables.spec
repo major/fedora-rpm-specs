@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -20,7 +20,11 @@ Source4: iptables-config
 Source5: iptables.service
 Source6: sysconfig_iptables
 Source7: sysconfig_ip6tables
-Source8: arptables-nft-helper
+Source8: arptables-helper
+Source9: arptables.service
+Source10: ebtables.service
+Source11: ebtables-helper
+Source12: ebtables-config
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -89,9 +93,8 @@ Summary: iptables legacy libraries
 %description legacy-libs
 iptables libraries.
 
-Please remember that libip*tc libraries do neither have a stable API nor a real so version.
-
-For more information about this, please have a look at
+Please remember that libip*tc libraries do neither have a stable API nor a real
+so version. For more information about this, please have a look at
 
   http://www.netfilter.org/documentation/FAQ/netfilter-faq-4.html#ss4.5
 
@@ -125,6 +128,14 @@ Requires: %{name}-utils = %{version}-%{release}
 Obsoletes: %{name} < 1.4.16.1
 # obsolete ipv6 sub package
 Obsoletes: %{name}-ipv6 < 1.4.11.1
+# Look at me, I'm the new arptables-services now!
+Conflicts: %{name}-nft < 1.8.11-5
+Obsoletes: arptables-services < 0.0.5-16
+Provides: arptables-services = %{version}-%{release}
+# Look at me, I'm the new ebtables-services now!
+# (With epoch to turn our version number higher value)
+Obsoletes: ebtables-services < 2.0.11-20
+Provides: ebtables-services = 1:%{version}-%{release}
 BuildArch: noarch
 
 %description services
@@ -155,6 +166,9 @@ Provides: arptables-helper
 Provides: iptables
 Provides: arptables
 Provides: ebtables
+# allowing old arptables-legacy will break when switching alternatives
+# due to the dropped arptables-helper symlink
+Conflicts: arptables-legacy < 0.0.5-16
 
 %sbin_merge_compat %{_prefix}/sbin/iptables
 
@@ -188,16 +202,20 @@ install -d -m 755 %{buildroot}%{script_path}
 install -c -m 755 %{SOURCE3} %{buildroot}%{script_path}/iptables.init
 sed -e 's;iptables;ip6tables;g' -e 's;IPTABLES;IP6TABLES;g' < %{SOURCE3} > ip6tables.init
 install -c -m 755 ip6tables.init %{buildroot}%{script_path}/ip6tables.init
+install -p -m 755 %{SOURCE8} %{SOURCE11} %{buildroot}%{_libexecdir}/
 install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig
 install -c -m 600 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/iptables-config
 sed -e 's;iptables;ip6tables;g' -e 's;IPTABLES;IP6TABLES;g' < %{SOURCE4} > ip6tables-config
 install -c -m 600 ip6tables-config %{buildroot}%{_sysconfdir}/sysconfig/ip6tables-config
 install -c -m 600 %{SOURCE6} %{buildroot}%{_sysconfdir}/sysconfig/iptables
 install -c -m 600 %{SOURCE7} %{buildroot}%{_sysconfdir}/sysconfig/ip6tables
+echo '# Configure prior to use' > %{buildroot}%{_sysconfdir}/sysconfig/arptables
+install -c -m 600 %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/
+touch %{buildroot}%{_sysconfdir}/sysconfig/ebtables
 
 # install systemd service files
 install -d -m 755 %{buildroot}/%{_unitdir}
-install -c -m 644 %{SOURCE5} %{buildroot}/%{_unitdir}
+install -c -m 644 %{SOURCE5} %{SOURCE9} %{SOURCE10} %{buildroot}/%{_unitdir}
 sed -e 's;iptables;ip6tables;g' -e 's;IPv4;IPv6;g' -e 's;/usr/libexec/ip6tables;/usr/libexec/iptables;g' < %{SOURCE5} > ip6tables.service
 install -c -m 644 ip6tables.service %{buildroot}/%{_unitdir}
 
@@ -224,23 +242,15 @@ install -c -m 755 ip6tabes.panic-legacy %{buildroot}/%{legacy_actions}/ip6tables
 # Remove /etc/ethertypes (now part of setup)
 rm -f %{buildroot}%{_sysconfdir}/ethertypes
 
-install -p -D -m 755 %{SOURCE8} %{buildroot}%{_libexecdir}/
-touch %{buildroot}%{_libexecdir}/arptables-helper
-
 # prepare for alternatives
 touch %{buildroot}%{_mandir}/man8/arptables.8
 touch %{buildroot}%{_mandir}/man8/arptables-save.8
 touch %{buildroot}%{_mandir}/man8/arptables-restore.8
 touch %{buildroot}%{_mandir}/man8/ebtables.8
+rm %{buildroot}%{_prefix}/bin/{ip,ip6,arp,eb}tables{,-save,-restore}
 
 # fix absolute symlink
 ln -sf --relative %{buildroot}%{_sbindir}/xtables-legacy-multi %{buildroot}%{_bindir}/iptables-xml
-
-%if "%{_sbindir}" == "%{_bindir}"
-# We keep those symlinks in /usr/sbin for compatibility
-mkdir -p %{buildroot}%{_prefix}/sbin
-mv %{buildroot}%{_prefix}/bin/{ip,ip6,arp,eb}tables{,-save,-restore} %{buildroot}%{_prefix}/sbin/
-%endif
 
 %ldconfig_scriptlets
 
@@ -285,17 +295,37 @@ rm /var/tmp/alternatives.iptables.current
 mv /var/tmp/alternatives.iptables.setup /var/lib/alternatives/iptables
 
 %post services
+%systemd_post arptables.service ebtables.service
 %systemd_post iptables.service ip6tables.service
 
 %preun services
+%systemd_preun arptables.service ebtables.service
 %systemd_preun iptables.service ip6tables.service
 
 %postun services
 %?ldconfig
+%systemd_postun arptables.service ebtables.service
 %systemd_postun iptables.service ip6tables.service
 
 %post -e nft
 [[ %%{_excludedocs} == 1 ]] || do_man=true
+
+# remove non-symlinks in spots managed by alternatives
+# to cover for updates from not-yet-alternatived versions
+for pfx in %{_prefix}/sbin/{eb,arp}tables; do
+	for sfx in "" "-restore" "-save"; do
+		if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
+			rm -f $pfx$sfx
+		fi
+	done
+done
+for manpfx in %{_mandir}/man8/{eb,arp}tables; do
+	for sfx in {,-restore,-save}.8.gz; do
+		if [ "$(readlink -e $manpfx$sfx)" == $manpfx$sfx ]; then
+			rm -f $manpfx$sfx
+		fi
+	done
+done
 
 pfx=%{_prefix}/sbin/iptables
 pfx6=%{_prefix}/sbin/ip6tables
@@ -309,14 +339,6 @@ update-alternatives --install \
 
 pfx=%{_prefix}/sbin/ebtables
 manpfx=%{_mandir}/man8/ebtables
-for sfx in "" "-restore" "-save"; do
-	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
-		rm -f $pfx$sfx
-	fi
-done
-if [ "$(readlink -e $manpfx.8.gz)" == $manpfx.8.gz ]; then
-	rm -f $manpfx.8.gz
-fi
 update-alternatives --install \
 	$pfx ebtables $pfx-nft 10 \
 	--slave $pfx-save ebtables-save $pfx-nft-save \
@@ -325,26 +347,13 @@ update-alternatives --install \
 
 pfx=%{_prefix}/sbin/arptables
 manpfx=%{_mandir}/man8/arptables
-lepfx=%{_libexecdir}/arptables
-for sfx in "" "-restore" "-save"; do
-	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
-		rm -f $pfx$sfx
-	fi
-	if [ "$(readlink -e $manpfx$sfx.8.gz)" == $manpfx$sfx.8.gz ]; then
-		rm -f $manpfx$sfx.8.gz
-	fi
-done
-if [ "$(readlink -e $lepfx-helper)" == $lepfx-helper ]; then
-	rm -f $lepfx-helper
-fi
 update-alternatives --install \
 	$pfx arptables $pfx-nft 10 \
 	--slave $pfx-save arptables-save $pfx-nft-save \
 	--slave $pfx-restore arptables-restore $pfx-nft-restore \
 	${do_man:+--slave $manpfx.8.gz arptables-man $manpfx-nft.8.gz} \
 	${do_man:+--slave $manpfx-save.8.gz arptables-save-man $manpfx-nft-save.8.gz} \
-	${do_man:+--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-nft-restore.8.gz} \
-	--slave $lepfx-helper arptables-helper $lepfx-nft-helper
+	${do_man:+--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-nft-restore.8.gz}
 
 %postun nft
 if [ $1 -eq 0 ]; then
@@ -361,7 +370,7 @@ fi
 %{_mandir}/man8/xtables-legacy*
 %dir %{_datadir}/xtables
 %{_datadir}/xtables/iptables.xslt
-%ghost %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
+%ghost %attr(0755,root,root) %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
 
 %files libs
 %license COPYING
@@ -390,9 +399,13 @@ fi
 %dir %{script_path}
 %{script_path}/ip{,6}tables.init
 %config(noreplace) %{_sysconfdir}/sysconfig/ip{,6}tables{,-config}
-%{_unitdir}/ip{,6}tables.service
+%config(noreplace) %{_sysconfdir}/sysconfig/arptables
+%config(noreplace) %{_sysconfdir}/sysconfig/ebtables-config
+%ghost %{_sysconfdir}/sysconfig/ebtables
+%{_unitdir}/{arp,eb,ip,ip6}tables.service
 %dir %{legacy_actions}/ip{,6}tables
 %{legacy_actions}/ip{,6}tables/{save,panic}
+%{_libexecdir}/{arp,eb}tables-helper
 
 %files utils
 %license COPYING
@@ -415,21 +428,22 @@ fi
 %{_sbindir}/arptables-translate
 %dir %{_libdir}/xtables
 %{_libdir}/xtables/lib{arp,eb}t*
-%{_libexecdir}/arptables-nft-helper
 %{_mandir}/man8/xtables-monitor*
 %{_mandir}/man8/xtables-translate*
 %{_mandir}/man8/*-nft*
 %{_mandir}/man8/ip{,6}tables{,-restore}-translate*
 %{_mandir}/man8/ebtables-translate*
 %{_mandir}/man8/arptables-translate*
-%ghost %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
-%ghost %{_prefix}/sbin/{eb,arp}tables{,-save,-restore}
-%ghost %{_libexecdir}/arptables-helper
+%ghost %attr(0755,root,root) %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
+%ghost %attr(0755,root,root) %{_prefix}/sbin/{eb,arp}tables{,-save,-restore}
 %ghost %{_mandir}/man8/arptables{,-save,-restore}.8.gz
 %ghost %{_mandir}/man8/ebtables.8.gz
 
 
 %changelog
+* Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 1.8.11-5
+- iptables-services to assimilate arptables- and ebtables-services
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

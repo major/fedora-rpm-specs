@@ -49,20 +49,19 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.78
-Release: 2%{?dist}
+Version: 1.4.79
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
 Source1: lighttpd.logrotate
 Source2: php.d-lighttpd.ini
-Source3: lighttpd.service
 Source10: index.html
 Source11: http://www.lighttpd.net/favicon.ico
 Source12: http://www.lighttpd.net/light_button.png
 Source13: http://www.lighttpd.net/light_logo.png
 Source14: lighttpd-empty.png
-Patch0: lighttpd-1.4.77-defaultconf.patch
+Patch0: lighttpd-1.4.79-defaultconf.patch
 Requires: system-logos
 Requires: %{name}-filesystem
 Requires(post): systemd
@@ -373,8 +372,8 @@ install -D -p -m 0644 %{SOURCE1} \
 install -D -p -m 0644 %{SOURCE2} \
     %{buildroot}%{_sysconfdir}/php.d/lighttpd.ini
 
-# Install our own systemd service
-install -D -p -m 0644 %{SOURCE3} \
+# Install upstream systemd service
+install -D -p -m 0644 doc/systemd/lighttpd.service \
     %{buildroot}%{_unitdir}/lighttpd.service
 
 # Install our own default web page and images
@@ -400,6 +399,9 @@ chmod -x doc/scripts/*.sh
 # Install (*patched above*) sample config files
 mkdir -p %{buildroot}%{_sysconfdir}/lighttpd
 cp -a config/*.conf config/*.d %{buildroot}%{_sysconfdir}/lighttpd/
+mkdir -p %{buildroot}/usr/lib/modules-load.d
+echo tls > %{buildroot}/usr/lib/modules-load.d/lighttpd-mod_gnutls.conf
+echo tls > %{buildroot}/usr/lib/modules-load.d/lighttpd-mod_openssl.conf
 
 # Install empty log directory to include
 mkdir -p %{buildroot}%{_var}/log/lighttpd
@@ -437,6 +439,7 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 %exclude %{_sysconfdir}/lighttpd/conf.d/fastcgi.conf
 %exclude %{_sysconfdir}/lighttpd/conf.d/magnet.conf
 %exclude %{_sysconfdir}/lighttpd/conf.d/webdav.conf
+%exclude %{_sysconfdir}/lighttpd/conf.d/tls.conf.defaultconf
 %config %{_sysconfdir}/lighttpd/conf.d/mod.template
 %config %{_sysconfdir}/lighttpd/vhosts.d/vhosts.template
 %config(noreplace) %{_sysconfdir}/logrotate.d/lighttpd
@@ -512,6 +515,7 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 
 %if %{with gnutls}
 %files mod_gnutls
+%config(noreplace) /usr/lib/modules-load.d/lighttpd-mod_gnutls.conf
 %dir %{_libdir}/lighttpd/
 %{_libdir}/lighttpd/mod_gnutls.so
 %endif
@@ -544,6 +548,7 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 
 %if %{with openssl}
 %files mod_openssl
+%config(noreplace) /usr/lib/modules-load.d/lighttpd-mod_openssl.conf
 %dir %{_libdir}/lighttpd/
 %{_libdir}/lighttpd/mod_openssl.so
 %endif
@@ -595,6 +600,10 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 %{_sysusersdir}/lighttpd.conf
 
 %changelog
+* Fri Apr 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.79-1
+- 1.4.79
+- Switch to upstream unit file.
+
 * Tue Mar 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.78-2
 - Rebuild for mbedtls 3.6
 

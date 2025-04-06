@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-194-g0544df4f4a
+%global glibcsrcdir glibc-2.41.9000-234-gaaf94ec804
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,50 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Apr 03 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-8
+- Auto-sync with upstream branch master,
+  aaf94ec804830e0e273cfb45d54f4a04ab778fe5:
+- stdio: fix hurd link for tst-setvbuf2
+- stdlib: Fix qsort memory leak if callback throws (BZ 32058)
+- sysdeps: powerpc: restore -mlong-double-128 check
+- stdio: Add more setvbuf tests
+- add ptmx support to test-container
+- Update syscall lists for Linux 6.14
+- x86: Link tst-gnu2-tls2-x86-noxsave{,c,xsavec} with libpthread
+- elf: Fix tst-origin build when toolchain defaults to --as-needed (BZ 32823)
+- Raise the minimum GCC version to 12.1 [BZ #32539]
+- Fix typo in comment
+- manual: tidy the longopt.c example
+- manual: Document functions adopted by POSIX.1-2024.
+- aarch64: Fix _dl_tlsdesc_dynamic unwind for pac-ret (BZ 32612)
+- x86: Use separate variable for TLSDESC XSAVE/XSAVEC state size (bug 32810)
+- x86: Skip XSAVE state size reset if ISA level requires XSAVE
+- malloc: Improve performance of __libc_malloc
+- stdio-common: Reject real data w/o exponent digits in scanf [BZ #12701]
+- stdio-common: Reject significand prefixes in scanf [BZ #12701]
+- stdio-common: Reject integer prefixes in scanf [BZ #12701]
+- stdio-common: Also reject exp char w/o significand in i18n scanf [BZ #13988]
+- stdio-common: Add tests for formatted vsscanf input specifiers
+- stdio-common: Add tests for formatted vfscanf input specifiers
+- stdio-common: Add tests for formatted vscanf input specifiers
+- stdio-common: Add tests for formatted sscanf input specifiers
+- stdio-common: Add tests for formatted fscanf input specifiers
+- stdio-common: Add scanf long double data for Intel/Motorola 80-bit format
+- Implement C23 pown
+- support: Use unwinder in links-dso-program-c only with libgcc_s
+- malloc: Use __always_inline for simple functions
+- linux: Fix integer overflow warnings when including <sys/mount.h> [BZ #32708]
+- malloc: Use _int_free_chunk for remainders
+- Use MPFR 4.2.2 and Linux 6.14 in build-many-glibcs.py
+- stdio-common: Add scanf long double data for IBM 128-bit format
+- stdio-common: Add scanf long double data for IEEE 754 binary64 format
+- stdio-common: Add scanf long double data for IEEE 754 binary128 format
+- stdio-common: Add scanf double data for IEEE 754 binary64 format
+- stdio-common: Add scanf float data for IEEE 754 binary32 format
+- stdio-common: Add scanf integer data for LP64 targets
+- stdio-common: Add scanf integer data for ILP32 targets
+- stdio-common: Add tests for formatted scanf input specifiers
+
 * Tue Apr 01 2025 Andrea Bolognani <abologna@redhat.com> - 2.41.9000-7
 - Update riscv64 handling (thanks David Abdurachmanov)
 

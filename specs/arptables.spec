@@ -1,18 +1,15 @@
 Summary: User space tool to set up tables of ARP rules in kernel
 Name:    arptables
 Version: 0.0.5
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
 URL:     http://ebtables.sourceforge.net/
 Source0: http://ftp.netfilter.org/pub/arptables/%{name}-%{version}.tar.gz
-Source1: arptables.service
-Source2: arptables-legacy-helper
 
 BuildRequires:  gcc
 BuildRequires: perl-generators
-BuildRequires: systemd
 BuildRequires: make
 
 %description
@@ -23,9 +20,10 @@ user space tool, but is less complicated.
 
 %package legacy
 Summary: Legacy user space tool to set up tables of ARP rules in kernel
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
-Provides:  arptables-helper
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
+
+%sbin_merge_compat %{_prefix}/sbin/arptables
 
 %description legacy
 The arptables is a user space tool used to set up and maintain
@@ -37,21 +35,6 @@ Note that it is considered legacy upstream since nftables provides the same
 functionality in a much newer code-base. To aid in migration, there is
 arptables-nft utility, a drop-in replacement for the legacy one which uses
 nftables internally. It is provided by iptables-arptables package.
-
-%package services
-Summary: arptables systemd services
-%{?systemd_ordering}
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
-Requires: arptables-helper
-Obsoletes: arptables-compat < 0.0.4-20
-
-%description services
-arptables systemd services
-
-This package provides the systemd arptables service that has been split
-out of the base package for better integration with alternatives.
 
 %prep
 %autosetup -p1
@@ -69,23 +52,14 @@ pfx=%{buildroot}%{_sbindir}
 manpfx=%{buildroot}%{_mandir}/man8
 for sfx in "-restore" "-save"; do
 	mv $pfx/arptables$sfx $pfx/arptables-legacy$sfx
-	touch $pfx/arptables$sfx
 	mv $manpfx/arptables${sfx}.8 $manpfx/arptables-legacy${sfx}.8
-	touch $manpfx/arptables${sfx}.8
 done
 
-install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/arptables.service
-mkdir -p %{buildroot}%{_libexecdir}/
-install -p -D -m 755 %{SOURCE2} %{buildroot}%{_libexecdir}/
-touch %{buildroot}%{_libexecdir}/arptables-helper
 rm -rf %{buildroot}%{_initrddir}
-mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
-echo '# Configure prior to use' > %{buildroot}%{_sysconfdir}/sysconfig/arptables
 
 %post legacy
-pfx=%{_sbindir}/arptables
+pfx=%{_prefix}/sbin/arptables
 manpfx=%{_mandir}/man8/arptables
-lepfx=%{_libexecdir}/arptables
 for sfx in "" "-restore" "-save"; do
 	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
 		rm -f $pfx$sfx
@@ -94,57 +68,39 @@ for sfx in "" "-restore" "-save"; do
 		rm -f $manpfx${sfx}.8.gz
 	fi
 done
-if [ "$(readlink -e $lepfx-helper)" == $lepfx-helper ]; then
-	rm -f $lepfx-helper
-fi
-%{_sbindir}/update-alternatives --install \
+# drop the extra entry linking to /usr/bin which previous version installed
+update-alternatives --remove arptables /usr/bin/arptables-legacy 2>/dev/null
+update-alternatives --install \
 	$pfx arptables $pfx-legacy 10 \
 	--slave $pfx-save arptables-save $pfx-legacy-save \
 	--slave $pfx-restore arptables-restore $pfx-legacy-restore \
 	--slave $manpfx.8.gz arptables-man $manpfx-legacy.8.gz \
 	--slave $manpfx-save.8.gz arptables-save-man $manpfx-legacy-save.8.gz \
-	--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-legacy-restore.8.gz \
-	--slave $lepfx-helper arptables-helper $lepfx-legacy-helper
-
-%preun legacy
-%systemd_preun arptables.service
+	--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-legacy-restore.8.gz
 
 %postun legacy
-%systemd_postun_with_restart arptables.service
 if [ $1 -eq 0 ]; then
-	%{_sbindir}/update-alternatives --remove \
-		arptables %{_sbindir}/arptables-legacy
+	update-alternatives --remove \
+		arptables %{_prefix}/sbin/arptables-legacy
 fi
-
-%post services
-%systemd_post arptables.service
-
-%preun services
-%systemd_preun arptables.service
-
-%postun services
-%?ldconfig
-%systemd_postun arptables.service
 
 %files legacy
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %{_sbindir}/arptables-legacy*
-%{_libexecdir}/arptables-legacy-helper
 %{_mandir}/*/arptables-legacy*
-%ghost %{_sbindir}/arptables
-%ghost %{_sbindir}/arptables-save
-%ghost %{_sbindir}/arptables-restore
-%ghost %{_mandir}/man8/arptables.8.gz
-%ghost %{_mandir}/man8/arptables-save.8.gz
-%ghost %{_mandir}/man8/arptables-restore.8.gz
-%ghost %{_libexecdir}/arptables-helper
-
-%files services
-%{_unitdir}/arptables.service
-%config(noreplace) %{_sysconfdir}/sysconfig/arptables
+%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables
+%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables-save
+%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables-restore
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables.8.gz
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-save.8.gz
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-restore.8.gz
 
 %changelog
+* Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 0.0.5-16
+- Drop arptables-services package
+- Add fixes/hooks for bin-sbin merge, analogous to iptables.spec
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

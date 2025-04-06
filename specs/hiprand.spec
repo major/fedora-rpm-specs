@@ -14,9 +14,6 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
-# $gpu will be evaluated in the loops below
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
-
 %bcond_with debug
 %if %{with debug}
 %global build_type DEBUG
@@ -36,16 +33,16 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
-License:        MIT and BSD
+License:        MIT AND BSD-3-Clause
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
@@ -159,6 +156,10 @@ fi
 %endif
 
 %changelog
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- Use correct spdx license
+- cleanup
+
 * Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Remove split building
 - Fix SLE 15.6

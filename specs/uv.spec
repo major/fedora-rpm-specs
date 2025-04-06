@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.9
+Version:        0.6.12
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -86,6 +86,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # 0BSD
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSD-2-Clause
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
@@ -97,7 +98,6 @@ Summary:        An extremely fast Python package installer and resolver, written
 # BSD-3-Clause
 # BSL-1.0
 # ISC
-# ISC AND MIT AND OpenSSL
 # LGPL-3.0-or-later OR MPL-2.0
 # MIT
 # MIT OR Apache-2.0
@@ -130,7 +130,6 @@ License:        %{shrink:
                 MIT AND
                 (MIT OR Unlicense) AND
                 MPL-2.0 AND
-                OpenSSL AND
                 Unicode-3.0 AND
                 Unicode-DFS-2016 AND
                 Zlib
@@ -548,7 +547,7 @@ tomcli set crates/uv-auth/Cargo.toml del dev-dependencies.wiremock
 mods="${mods-}${mods+|}branching_urls"
 mods="${mods-}${mods+|}build_backend"
 mods="${mods-}${mods+|}pip_(check|list|show|tree|uninstall)"
-mods="${mods-}${mods+|}python_(dir|find|install|pin)"
+mods="${mods-}${mods+|}python_(dir|find|install|list|pin)"
 mods="${mods-}${mods+|}venv"
 mods="${mods-}${mods+|}workspace"
 comment='Downstream-only: skip, needs specific Python interpreter versions'
@@ -576,11 +575,11 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
 # etcetera
-#   wanted: 0.9.0
+#   wanted: 0.10.0
 #   currently packaged: 0.8.0
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2348721
 tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
-    '>=0.8.0, <0.10.0'
+    '>=0.8.0, <0.11.0'
 
 # unicode-width
 #   wanted: 0.1.13

@@ -16,9 +16,20 @@
 
 Name:           libsodium
 Version:        1.0.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The Sodium crypto library
-License:        ISC
+# Most source code is ISC, except:
+# BSD-2-Clause:
+#   src/libsodium/crypto_hash/sha256/cp/hash_sha256_cp.c
+#   src/libsodium/crypto_hash/sha512/cp/hash_sha512_cp.c
+#   src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt.h
+#   src/libsodium/crypto_pwhash/scryptsalsa208sha256/nosse/pwhash_scryptsalsa208sha256_nosse.c
+#   src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.c
+#   src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.h
+#   src/libsodium/crypto_pwhash/scryptsalsa208sha256/sse/pwhash_scryptsalsa208sha256_sse.c
+# CC0-1.0:
+#   src/libsodium/crypto_pwhash/argon2/argon2-encoding.c
+License:        ISC AND BSD-2-Clause AND CC0-1.0
 URL:            https://libsodium.org/
 
 Source0:        https://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
@@ -184,6 +195,9 @@ make -C build_native check
 
 
 %changelog
+* Sun Mar 30 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.0.20-5
+- Add missing SPDX identifiers to license field
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

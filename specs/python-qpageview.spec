@@ -3,7 +3,7 @@
 Name:           python-%{pypi_name}
 Version:        1.0.0
 Release:        1%{?dist}
-Summary:        Widget to display page-based documents for Qt5/PyQt5
+Summary:        Widget to display page-based documents for Qt6/PyQt6
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
 URL:            https://github.com/frescobaldi/qpageview
@@ -21,9 +21,9 @@ BuildRequires:  python3-docs
 
 %description
 The qpageview module *qpageview* provides a page based document viewer widget
-for Qt5/PyQt5.It has a flexible architecture potentionally supporting many
+for Qt6/PyQt6.It has a flexible architecture potentionally supporting many
 formats. Currently, it supports SVG documents, images, and, using the Poppler-
-Qt5 binding, PDF documents.:: import qpageview from PyQt5.Qt import * a
+Qt6 binding, PDF documents.:: import qpageview from PyQt6.Qt import * a
 QApplication([]) v qpageview.View() v.show() v.loadPdf("path/to/afile.pdf")
 Homepage < •...
 
@@ -32,9 +32,9 @@ Summary:        %{summary}
 
 %description -n python3-%{pypi_name}
 The qpageview module *qpageview* provides a page based document viewer widget
-for Qt5/PyQt5.It has a flexible architecture potentionally supporting many
+for Qt6/PyQt6.It has a flexible architecture potentionally supporting many
 formats. Currently, it supports SVG documents, images, and, using the Poppler-
-Qt5 binding, PDF documents.:: import qpageview from PyQt5.Qt import * a
+Qt6 binding, PDF documents.:: import qpageview from PyQt6.Qt import * a
 QApplication([]) v qpageview.View() v.show() v.loadPdf("path/to/afile.pdf")
 Homepage < •...
 

@@ -11,6 +11,8 @@ Summary:        Library for connecting to mobile devices
 License:        LGPL-2.0-or-later
 URL:            https://libimobiledevice.org/
 Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
+# Use SHA256 signature, instead of SHA1 for pairing
+Patch:          %{forgeurl}/pull/1616.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

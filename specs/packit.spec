@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.5.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Apr 04 2025 Packit <hello@packit.dev> - 1.6.0-1
+- When using `fast_forward_merge_into`, `version_update_mask` is now correctly being taken into consideration. (#2551)
+- We have introduced a new command group `config` for configuration-related commands and moved `validate-config` command under it, resulting in the new command being `packit config validate`. (#2559)
+- Resolves: rhbz#2357504
+
 * Mon Mar 31 2025 Packit <hello@packit.dev> - 1.5.0-1
 - Packit now supports `--base-nvr` option while submitting scans to OpenScanHub. The base nvr is pulled in from koji to perform a differential scan. (#2569)
 - Resolves: rhbz#2356218

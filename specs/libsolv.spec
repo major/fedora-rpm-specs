@@ -31,11 +31,28 @@ Version:        0.7.32
 Release:        %autorelease
 Summary:        Package dependency solver
 
+# LICENSE.BSD:      BSD-3-Clause text
+# other files:      "read LICENSE.BSD"
+# src/sha2.c:       BSD-3-Clause
+# src/sha2.h:       BSD-3-Clause
+## Used at build time but not in any binary package
+# cmake/modules/_CMakeParseArguments.cmake:             BSD-3-Clause
+# cmake/modules/FindPackageHandleStandardArgs.cmake:    BSD-3-Clause
+# cmake/modules/FindRuby.cmake:                         BSD-3-Clause
+# package/libsolv.spec.in:  (project's license IF open-source) XOR (MIT IF not in open-source project)
+## Not used at build time and not in any binary package
+# src/qsort_r.c:    BSD-3-Clause
+# win32/LICENSE:    MIT text AND BSD-2-Clause text
+# win32/regcomp.c:  BSD-2-Clause
+# win32/regexec.c:  BSD-2-Clause
+# win32/tre.h:      BSD-2-Clause
+# win32/tre-mem.c:  BSD-2-Clause
 License:        BSD-3-Clause
+SourceLicense:  %{license} AND BSD-2-Clause AND MIT
 URL:            https://github.com/openSUSE/libsolv
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(rpm)
@@ -46,7 +63,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  xz-devel
 # -DENABLE_BZIP2_COMPRESSION=ON
 BuildRequires:  bzip2-devel
-%if %{with zstd}
+%if %{with zchunk} || %{with zstd} || %{with apk}
 # -DENABLE_ZSTD_COMPRESSION=ON
 BuildRequires:  libzstd-devel
 %endif
@@ -149,6 +166,8 @@ Python 3 version.
   -DENABLE_RPMDB_LIBRPM=ON                                \
   -DENABLE_RPMPKG_LIBRPM=ON                               \
   -DENABLE_RPMMD=ON                                       \
+  -DENABLE_STATIC_BINDINGS=OFF                            \
+  -DENABLE_STATIC_TOOLS=OFF                               \
   -DENABLE_COMPS=%{__cmake_switch -b comps}               \
   -DENABLE_APPDATA=%{__cmake_switch -b appdata}           \
   -DUSE_VENDORDIRS=ON                                     \
@@ -190,7 +209,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files
 %license LICENSE*
-%doc README
+%doc NEWS README
 %{_libdir}/%{name}.so.*
 %{_libdir}/%{name}ext.so.*
 

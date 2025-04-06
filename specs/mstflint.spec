@@ -1,5 +1,3 @@
-%bcond openssl %[!(0%{?rhel} >= 10)]
-
 %global __remake_config 1
 
 Name:		mstflint
@@ -23,12 +21,7 @@ Source0: 	%{forgesource}
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
 BuildRequires:  libcurl-devel, boost-devel, libxml2-devel
-%if %{with openssl}
 BuildRequires:  openssl-devel
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
-%endif
 BuildRequires:  expat-devel
 %if %{__remake_config}
 BuildRequires:  libtool, autoconf, automake
@@ -50,13 +43,7 @@ find . -type f -perm /a+x \( -name '*.[ch]' -o -name '*.cpp' \) -exec chmod a-x 
 %if %{__remake_config}
 ./autogen.sh
 %endif
-%configure \
-%if %{with openssl}
-    --enable-fw-mgr --enable-openssl \
-%else
-    --disable-openssl \
-%endif
-    --enable-adb-generic-tools
+%configure --enable-fw-mgr --enable-openssl --enable-adb-generic-tools
 %make_build
 
 %install
@@ -72,9 +59,7 @@ chmod +x %{buildroot}/%{_libdir}/mstflint/{python_tools,sdk}/*.so
 %files
 %doc README
 %_bindir/*
-%if %{with openssl}
 %{_sysconfdir}/mstflint
-%endif
 %{_libdir}/mstflint
 
 %{_datadir}/mstflint

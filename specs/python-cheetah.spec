@@ -3,7 +3,14 @@ Version:        3.4.0
 Release:        %autorelease
 Summary:        Template engine and code generator
 
-License:        MIT
+# Most source code is MIT, except:
+# BSD-3-Clause-HP:
+#   Cheetah/c/_namemapper.h
+# LGPL-2.1-or-later:
+#   Cheetah/Utils/statprof.py
+# LicenseRef-Fedora-Public-Domain:
+#   Cheetah/Tests/xmlrunner.py
+License:        MIT AND BSD-3-Clause-HP AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            https://cheetahtemplate.org/
 Source:         https://github.com/CheetahTemplate3/cheetah3/archive/%{version}/cheetah3-%{version}.tar.gz
 BuildRequires:  gcc

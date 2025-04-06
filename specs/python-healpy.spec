@@ -2,7 +2,7 @@
 %global sum Python healpix maps tools
 
 Name:           python-%{srcname}
-Version:        1.18.0
+Version:        1.18.1
 Release:        %autorelease
 Summary:        %{sum}
 

@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.5.1
-Release:        2%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -12,6 +12,7 @@ Summary:        Fast, header-only C++ machine learning library
 License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
+Patch0:		cmake_stb_available.patch
 
 # Drop support for i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -111,7 +112,7 @@ methods and related documentation.
 %package devel
 Summary:   Development headers for mlpack (C++ machine learning library)
 Requires:  %{name}-licenses
-Requires:  armadillo-devel >= 9.800.0
+Requires:  armadillo-devel >= 10.8.2
 Requires:  ensmallen-devel >= 2.10.0
 Requires:  cereal-devel
 Requires:  lapack-devel
@@ -313,6 +314,9 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Fri Apr 04 2025 Ryan Curtin <ryan@ramtl.org> - 4.6.0-1
+- Update to latest stable version.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

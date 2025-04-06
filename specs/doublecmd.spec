@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.1.22
+Version:        1.1.23
 Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Fri Apr 04 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.23-1
+- Update to 1.1.23
+
 * Tue Jan 21 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.22-1
 - Update to 1.1.22
 

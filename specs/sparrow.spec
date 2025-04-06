@@ -1,5 +1,5 @@
 Name:           sparrow
-Version:        0.4.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        C++20 idiomatic APIs for the Apache Arrow Columnar Format
 License:        Apache-2.0
@@ -12,8 +12,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  doctest-devel
 
 Patch0: 0001-Remove-tests-that-depend-on-nanoarrow.patch
-Patch1: 0001-Fix-out-of-bound-access-in-test_time_array.cpp.patch
-Patch2: 0001-better-defaults-for-SPARROW_USE_LARGE_INT_PLACEHOLDE.patch
 
 %global _description \
 sparrow is an implementation of the Apache Arrow Columnar format in C++. It \

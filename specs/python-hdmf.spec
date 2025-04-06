@@ -78,22 +78,6 @@ Obsoletes:      python3-hdmf+zarr < 1.14.2-1
 
 %pyproject_extras_subpkg -n python3-hdmf tqdm %{?with_zarr:zarr} sparse %{?with_termset:termset}
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
-%pretrans -p <lua> -n python3-hdmf
-path = "%{python3_sitelib}/hdmf/common/hdmf-common-schema"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
-
 %prep
 %forgeautosetup -p1
 rm -vrf src/hdmf/common/hdmf-common-schema/
@@ -128,7 +112,8 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 # symbolic link
 %{python3_sitelib}/hdmf/common/hdmf-common-schema
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
+# A backed-up bundled schema directory from a previous upgrade (from Fedora 38
+# or older) may be present; if so, we should continue to own it.
 %ghost %{python3_sitelib}/hdmf/common/hdmf-common-schema.rpmmoved
 
 %changelog

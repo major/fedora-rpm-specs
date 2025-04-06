@@ -21,16 +21,26 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+# Threaded compression reduces the build time.
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           rocthrust
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Thrust libary
 
-Url:            https://github.com/ROCm
-License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT and Public Domain
+Url:            https://github.com/ROCm/%{upstreamname}
+%if 0%{?suse_version}
+# https://en.opensuse.org/openSUSE:Accepted_licences
+# Uses 'Public Domain' but this is not a spdx tag and hangs up the SLE 15.7 autochecker
+# The license should also include Public Domain
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
+%else
+# https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+# Uses 'LicenseRef-Fedora-Public-Domain'
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT AND LicenseRef-Fedora-Public-Domain
+%endif
 # All files are Apache 2.0 with some exceptions:
 # ./cmake contains only files under MIT
 # ./internal/benchmark/*.py are dual licensed Apache 2.0 and Boost 1.0
@@ -40,7 +50,7 @@ License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT and Public 
 # ./thrust/detail/allocator/allocator_traits.h is dual Apache 2.0 and MIT
 # ./thrust/detail/complex contains BSD 2 clause licensed headers
 
-Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -118,6 +128,12 @@ rm %{buildroot}%{_bindir}/*
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-6
+- correct spdx license for suse
+
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-5
+- correct spdx license usage
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread compress
 

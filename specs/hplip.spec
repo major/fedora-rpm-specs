@@ -313,8 +313,6 @@ Requires: cups
 # switch to curl by downstream patch from wget to workaround openstack dropping IPv6
 # which causes great delays...
 Requires: curl
-# for bash script acting as hp-plugin (Source7)
-Requires: gawk
 # set require directly to /usr/bin/gpg, because gnupg2 and gnupg ships it,
 # but gnupg will be deprecated in the future
 Requires: %{_bindir}/gpg
@@ -978,6 +976,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Apr 03 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.24.5-5
+- hp-plugin: Use rpm queryformat to get version (no gawk dependency)
+
 * Thu Apr 03 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.24.4-5
 - Use weak rich dependency for hplip-gui
 

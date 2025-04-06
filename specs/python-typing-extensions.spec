@@ -1,5 +1,5 @@
 Name:      python-typing-extensions
-Version:   4.13.0
+Version:   4.13.1
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
@@ -70,6 +70,9 @@ cd src
 
 
 %changelog
+* Fri Apr 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.1-1
+- Updated to version 4.13.1 (close RHBZ#2357244)
+
 * Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 4.13.0-1
 - Updated to version 4.13.0
 

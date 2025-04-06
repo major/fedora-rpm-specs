@@ -1,6 +1,6 @@
 Name:    hotspot
 Version: 1.5.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
 License: GPL-2.0-or-later
@@ -10,6 +10,9 @@ Source0: https://github.com/KDAB/%{name}/releases/download/v%{version}/%{name}-v
 Source1: https://github.com/KDAB/hotspot/releases/download/v%{version}/hotspot-perfparser-v%{version}.tar.gz
 Source2: https://github.com/KDAB/hotspot/releases/download/v%{version}/hotspot-PrefixTickLabels-v%{version}.tar.gz
 
+# Fix build with Qt 6.9
+Patch: https://github.com/KDAB/hotspot/pull/694.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
@@ -17,6 +20,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  pkgconfig(libelf)
 BuildRequires:  elfutils-devel
 BuildRequires:  rust-zstd-devel
+BuildRequires:  librustc_demangle-devel
 
 Recommends:     binutils
 Requires:       hicolor-icon-theme
@@ -52,6 +56,7 @@ KCachegrind around Linux perf.
 
 %prep
 %setup -q -n %{name} -a 1 -a 2
+%autopatch -p1
 mv perfparser/* 3rdparty/perfparser/
 mv PrefixTickLabels/* 3rdparty/PrefixTickLabels/
 
@@ -75,6 +80,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/com.kdab.hotspot.des
 %{_kf6_datadir}/knotifications6/hotspot.notifyrc
 
 %changelog
+* Thu Apr 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-5
+- Support Rust symbol demangling
+
+* Thu Apr 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-4
+- Fix build with Qt 6.9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

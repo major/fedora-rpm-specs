@@ -72,6 +72,29 @@ Obsoletes:      maven-local-openjdk17 < 6.2.0-29
 %description -n maven-local-openjdk21
 This package provides macros and scripts to support packaging Maven artifacts.
 
+%package -n maven-local-openjdk25
+Summary:        Macros and scripts for Maven packaging support
+Requires:       java-25-openjdk-devel
+Requires:       %{name} = %{version}-%{release}
+Requires:       javapackages-local-openjdk25 = %{version}-%{release}
+Requires:       xmvn-minimal
+Requires:       xmvn-toolchain-openjdk25
+Requires:       mvn(org.fedoraproject.xmvn:xmvn-mojo)
+# Common Maven plugins required by almost every build. It wouldn't make
+# sense to explicitly require them in every package built with Maven.
+Requires:       mvn(org.apache.maven.plugins:maven-compiler-plugin)
+Requires:       mvn(org.apache.maven.plugins:maven-jar-plugin)
+Requires:       mvn(org.apache.maven.plugins:maven-resources-plugin)
+Requires:       mvn(org.apache.maven.plugins:maven-surefire-plugin)
+# Remove in Fedora 45
+Obsoletes:      maven-local < 6.3.0
+Obsoletes:      maven-local-openjdk8 < 6.2.0-29
+Obsoletes:      maven-local-openjdk11 < 6.2.0-29
+Obsoletes:      maven-local-openjdk17 < 6.2.0-29
+
+%description -n maven-local-openjdk25
+This package provides macros and scripts to support packaging Maven artifacts.
+
 %if %{with ivy}
 %package -n ivy-local
 Summary:        Local mode for Apache Ivy
@@ -108,6 +131,20 @@ Obsoletes:      javapackages-generators < 6.3.0
 %description -n javapackages-local-openjdk21
 This package provides non-essential macros and scripts to support Java packaging.
 
+%package -n javapackages-local-openjdk25
+Summary:        Non-essential macros and scripts for Java packaging support
+Obsoletes:      javapackages-local < 6.3.0
+Requires:       javapackages-common = %{version}-%{release}
+Requires:       xmvn-tools
+# Java build systems don't have hard requirement on java-devel, so it should be there
+Requires:       java-25-openjdk-devel
+Requires:       xmvn-generator
+Requires:       (ant-openjdk25 if ant)
+Obsoletes:      javapackages-generators < 6.3.0
+
+%description -n javapackages-local-openjdk25
+This package provides non-essential macros and scripts to support Java packaging.
+
 %package -n javapackages-common
 Summary:        Non-essential macros and scripts for Java packaging support
 Requires:       %{name} = %{version}-%{release}
@@ -133,7 +170,8 @@ support Java packaging as well as some additions to them.
 %configure --pyinterpreter=%{python_interpreter} \
     --rpmmacrodir=%{_rpmmacrodir} --rpmconfigdir=%{_rpmconfigdir} \
     --m2home=%{maven_home} \
-    --jvm=openjdk21=%{_jvmdir}/jre-21-openjdk
+    --jvm=openjdk21=%{_jvmdir}/jre-21-openjdk \
+    --jvm=openjdk25=%{_jvmdir}/jre-25-openjdk
 ./build
 
 %install
@@ -214,6 +252,10 @@ done
 %files -n javapackages-local-openjdk21 -f files-local-openjdk21
 
 %files -n maven-local-openjdk21
+
+%files -n javapackages-local-openjdk25 -f files-local-openjdk25
+
+%files -n maven-local-openjdk25
 
 %if %{with ivy}
 %files -n ivy-local -f files-ivy

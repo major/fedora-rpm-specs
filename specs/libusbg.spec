@@ -1,12 +1,11 @@
 Name:          libusbg
-Version:       0.2.0
-Release:       20%{?dist}
+Version:       0.3.0
+Release:       1%{?dist}
 Summary:       Library for USB gadget-configfs userspace functionality
 License:       LGPL-2.1-or-later
 
 URL:           https://github.com/libusbgx/libusbgx
 Source0:       https://github.com/libusbgx/libusbgx/archive/%{name}x-v%{version}.tar.gz
-Patch0:        libusbgx-fix-inc.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc gcc-c++
@@ -39,17 +38,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Files for development with %{name}.
 
 %prep
-%setup -q -n %{name}x-%{name}x-v%{version}
-%patch -P0 -p1 -b .inc
+%autosetup -p1 -n %{name}x-%{name}x-v%{version}
 
 %build
 autoreconf -vif
 %configure --disable-static
 
-make %{?_smp_mflags} V=1
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot} INSTALL='install -p'
+%{make_install}
 
 #Remove libtool archives.
 find %{buildroot} -type f -name "*.la" -delete
@@ -57,12 +55,10 @@ find %{buildroot} -type f -name "*.la" -delete
 %check
 make check
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING.LGPL
 %doc README AUTHORS ChangeLog
-%{_libdir}/*.so.*
+%{_libdir}/libusbgx.so.3*
 
 %files utils
 %doc COPYING
@@ -71,10 +67,14 @@ make check
 
 %files devel
 %{_includedir}/usbg
+%{_libdir}/libusbgx.so
 %{_libdir}/pkgconfig/libusbgx.pc
-%{_libdir}/*.so
+%{_libdir}/cmake/LibUsbgx/
 
 %changelog
+* Fri Apr 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

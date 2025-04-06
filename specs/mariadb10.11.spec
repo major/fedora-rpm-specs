@@ -116,10 +116,8 @@
 # MariaDB 10.0 and later requires pcre >= 10.34, otherwise we need to use
 # the bundled library, since the package cannot be build with older version
 #   https://mariadb.com/kb/en/pcre/
-%if 0%{?fedora} || 0%{?rhel} > 8
-%bcond_without unbundled_pcre
-%else
-%bcond_with unbundled_pcre
+%bcond bundled_pcre 1
+%if %{with bundled_pcre}
 %global pcre_bundled_version 10.44
 %endif
 
@@ -157,7 +155,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -170,6 +168,9 @@ Source1:          https://github.com/fmtlib/fmt/releases/download/%{fmt_bundled_
 %endif
 Source2:          mysql_config_multilib.sh
 Source3:          my.cnf.in
+%if %{with bundled_pcre}
+Source4:          https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{pcre_bundled_version}/pcre2-%{pcre_bundled_version}.zip
+%endif
 Source6:          README.mariadb-docs
 Source8:          README.wsrep_sst_rsync_tunnel
 Source10:         mariadb.tmpfiles.d.in
@@ -224,6 +225,8 @@ Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
 
+Patch15:          %{majorname}-pcre.patch
+
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
 %global pkgname %{majorname}
@@ -266,8 +269,8 @@ BuildRequires:    bison-devel >= 2.4
 %{?with_debug:BuildRequires:    valgrind-devel}
 
 # use either new enough version of pcre2 or provide bundles(pcre2)
-%{?with_unbundled_pcre:BuildRequires: pcre2-devel >= 10.34 pkgconf}
-%{!?with_unbundled_pcre:Provides: bundled(pcre2) = %{pcre_bundled_version}}
+%{?with_bundled_pcre:Provides: bundled(pcre2) = %{pcre_bundled_version}}
+%{!?with_bundled_pcre:BuildRequires: pcre2-devel >= 10.34 pkgconf}
 # Few utilities needs Perl
 BuildRequires:    perl-interpreter
 BuildRequires:    perl-generators
@@ -536,7 +539,6 @@ Requires:         (mysql-selinux >= 1.0.10 if selinux-policy-targeted)
 %endif
 
 Requires:         coreutils
-Requires(pre):    /usr/sbin/useradd
 # We require this to be present for %%{_tmpfilesdir}
 Requires:         systemd
 # Make sure it's there when scriptlets run, too
@@ -836,6 +838,10 @@ rm -r debian
 mkdir -p redhat-linux-build/extra/libfmt/
 mv %{SOURCE1} redhat-linux-build/extra/libfmt/
 %endif
+%if %{with bundled_pcre}
+mkdir -p redhat-linux-build/extra/pcre2/
+mv %{SOURCE4} redhat-linux-build/extra/pcre2/
+%endif
 
 # Remove JAR files that upstream puts into tarball
 find . -name "*.jar" -type f -exec rm --verbose -f {} \;
@@ -858,6 +864,10 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 
+%if %{with bundled_pcre}
+%patch -P15 -p1
+%endif
+
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
 
@@ -877,6 +887,12 @@ cat %{SOURCE53} | tee -a mysql-test/unstable-tests
 cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
    %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} %{SOURCE73} scripts
 
+# Create a sysusers.d config file
+# We no longer enforce the hardcoded UID/GID 27.
+cat > support-files/%{name}.sysusers.conf << EOF
+u mysql 'MySQL Server' %{dbdatadir} -
+EOF
+
 %if %{with galera}
 # prepare selinux policy
 mkdir selinux
@@ -885,10 +901,10 @@ sed 's/mariadb-server-galera/%{majorname}-server-galera/' %{SOURCE72} > selinux/
 
 
 # Get version of PCRE, that upstream use
-pcre_version=`grep -e "https://github.com/PCRE2Project/pcre2/releases/download" cmake/pcre.cmake | sed -r "s;.*pcre2-([[:digit:]]+\.[[:digit:]]+).*;\1;" `
+pcre_version=`grep -e "URL \"" cmake/pcre.cmake | sed -r "s;.*pcre2-([[:digit:]]+\.[[:digit:]]+).*;\1;" `
 
 # Check if the PCRE version in macro 'pcre_bundled_version', used in Provides: bundled(...), is the same version as upstream actually bundles
-%if %{without unbundled_pcre}
+%if %{with bundled_pcre}
 if [ %{pcre_bundled_version} != "$pcre_version" ] ; then
   echo -e "\n Error: Bundled PCRE version is not correct. \n\tBundled version number: %{pcre_bundled_version} \n\tUpstream version number: $pcre_version\n"
   exit 1
@@ -950,6 +966,7 @@ fi
          -DENABLED_LOCAL_INFILE=ON \
          -DENABLE_DTRACE=ON \
          -DSECURITY_HARDENED=OFF \
+         -DWITH_PCRE=%{?with_bundled_pcre:bundled}%{!?with_bundled_pcre:system} \
          -DWITH_WSREP=%{?with_galera:ON}%{!?with_galera:OFF} \
          -DWITH_INNODB_DISALLOW_WRITES=%{?with_galera:ON}%{!?with_galera:OFF} \
          -DWITH_EMBEDDED_SERVER=%{?with_embedded:ON}%{!?with_embedded:OFF} \
@@ -1095,6 +1112,11 @@ install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}
 # Install downstream version of tmpfiles
 install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
 echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{majorname}.conf
+
+# Remove any upstream variant of the sysusers.d config
+rm -r %{buildroot}%{_sysusersdir}/*
+# Install downstream version of sysusers.d config
+install -m0644 -D support-files/%{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # Install additional cracklib selinux policy
 %if %{with cracklib}
@@ -1373,11 +1395,6 @@ rm %{buildroot}%{_mandir}/man1/aria_s3_copy.1*
 %endif
 
 
-
-%pre -n %{pkgname}-server
-/usr/sbin/groupadd -g 27 -o -r mysql >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g mysql -o -r -d %{dbdatadir} -s /sbin/nologin \
-  -c "MySQL Server" -u 27 mysql >/dev/null 2>&1 || :
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
@@ -1675,7 +1692,7 @@ fi
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %{_tmpfilesdir}/%{majorname}.conf
-%{_sysusersdir}/%{majorname}.conf
+%{_sysusersdir}/%{name}.conf
 
 %if %{with cracklib}
 %files -n %{pkgname}-cracklib-password-check
@@ -1805,6 +1822,14 @@ fi
 %endif
 
 %changelog
+* Fri Apr 04 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-3
+- Switch from the RPM scriptlet to the sysusers.d configuration
+  for 'mysql' user / group creation
+- We no longer enforce the fixed UID/GID 27 !!!
+
+* Fri Apr 04 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-2
+- Bump release for package rebuild
+
 * Wed Feb 05 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-1
 - Rebase to 10.11.11
 

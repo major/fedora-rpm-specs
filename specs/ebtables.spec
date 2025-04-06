@@ -2,7 +2,7 @@
 
 Name:			ebtables
 Version:		2.0.11
-Release:		19%{?dist}
+Release:		20%{?dist}
 Summary:		Ethernet Bridge frame table administration tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:		GPL-2.0-or-later
@@ -10,16 +10,12 @@ URL:			http://ebtables.sourceforge.net/
 
 Source0:		ftp://ftp.netfilter.org/pub/ebtables/ebtables-%{version}.tar.bz2
 Source1:		ebtables-legacy-save
-Source2:		ebtables-helper
-Source3:		ebtables.service
-Source4:		ebtables-config
 
 BuildRequires:		autoconf
 BuildRequires:		automake
 BuildRequires:		libtool
 BuildRequires:		gcc
-BuildRequires:		systemd
-BuildRequires: make
+BuildRequires:		make
 
 %description
 Ethernet bridge tables is a firewalling tool to transparently filter network
@@ -34,9 +30,9 @@ like iptables. There are no known incompatibility issues.
 
 %package legacy
 Summary: Legacy user space tool to configure bridge netfilter rules in kernel
-Requires(post):   %{_sbindir}/update-alternatives
+Requires(post):   /usr/sbin/update-alternatives
 Requires(post):   %{_bindir}/readlink
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
 Conflicts:        setup < 2.10.4-1
 %if 0%{?rhel} >= 9
 # RHEL-9 provides ebtables via iptables-nft, but doesn't support ebtables
@@ -45,6 +41,8 @@ Conflicts:        setup < 2.10.4-1
 %else
 Provides:         ebtables
 %endif
+
+%sbin_merge_compat %{_prefix}/sbin/ebtables
 
 %description legacy
 Ethernet bridge tables is a firewalling tool to transparently filter network
@@ -62,17 +60,6 @@ functionality in a much newer code-base. To aid in migration, there is
 ebtables-nft utility, a drop-in replacement for the legacy one which uses
 nftables internally. It is provided by iptables-nft package.
 
-%package services
-Summary: ebtables systemd services
-%{?systemd_ordering}
-Obsoletes:	ebtables-compat < 2.0.10-39
-
-%description services
-ebtables systemd services
-
-This package provides the systemd ebtables service that has been split
-out of the base package for better integration with alternatives.
-
 %prep
 %autosetup -p1 -n ebtables-%{version}
 # Convert to UTF-8
@@ -85,10 +72,6 @@ f=THANKS; iconv -f iso-8859-1 -t utf-8 $f -o $f.utf8 ; mv $f.utf8 $f
 
 %install
 %make_install
-install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/ebtables.service
-install -D -m 755 %{SOURCE2} %{buildroot}%{_libexecdir}/ebtables-helper
-install -D -m 600 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/ebtables-config
-touch %{buildroot}%{_sysconfdir}/sysconfig/ebtables
 
 # install ebtables-legacy-save bash script
 install -m 755 %{SOURCE1} %{buildroot}%{_sbindir}/ebtables-legacy-save
@@ -102,14 +85,8 @@ rm -f %{buildroot}%{_sysconfdir}/ethertypes
 # Drop these binaries (for now at least)
 rm %{buildroot}/%{_sbindir}/ebtables{d,u}
 
-# Prepare for Alternatives system
-touch %{buildroot}%{_sbindir}/ebtables
-touch %{buildroot}%{_sbindir}/ebtables-save
-touch %{buildroot}%{_sbindir}/ebtables-restore
-touch %{buildroot}%{_mandir}/man8/ebtables.8
-
 %post legacy
-pfx=%{_sbindir}/ebtables
+pfx=%{_prefix}/sbin/ebtables
 manpfx=%{_mandir}/man8/ebtables
 for sfx in "" "-restore" "-save"; do
 	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
@@ -119,7 +96,9 @@ done
 if [ "$(readlink -e $manpfx.8.gz)" == $manpfx.8.gz ]; then
 	rm -f $manpfx.8.gz
 fi
-%{_sbindir}/update-alternatives --install \
+# drop the extra entry linking to /usr/bin which previous version installed
+update-alternatives --remove ebtables /usr/bin/ebtables-legacy 2>/dev/null
+update-alternatives --install \
 	$pfx ebtables $pfx-legacy 10 \
 	--slave $pfx-save ebtables-save $pfx-legacy-save \
 	--slave $pfx-restore ebtables-restore $pfx-legacy-restore \
@@ -128,30 +107,21 @@ fi
 %postun legacy
 if [ $1 -eq 0 ]; then
 	%{_sbindir}/update-alternatives --remove \
-		ebtables %{_sbindir}/ebtables-legacy
+		ebtables %{_prefix}/sbin/ebtables-legacy
 fi
 
 # When upgrading ebtables to ebtables-{legacy,services},
 # postun in ebtables thinks it is uninstalled and removes alternatives.
 # Counter this with a trigger here to have it installed again.
 %triggerpostun legacy -- ebtables
-pfx=%{_sbindir}/ebtables
+pfx=%{_prefix}/sbin/ebtables
 manpfx=%{_mandir}/man8/ebtables
-%{_sbindir}/update-alternatives --install \
+update-alternatives --install \
 	$pfx ebtables $pfx-legacy 10 \
 	--slave $pfx-save ebtables-save $pfx-legacy-save \
 	--slave $pfx-restore ebtables-restore $pfx-legacy-restore \
 	--slave $manpfx.8.gz ebtables-man $manpfx-legacy.8.gz
 
-
-%post services
-%systemd_post ebtables.service
-
-%preun services
-%systemd_preun ebtables.service
-
-%postun services
-%systemd_postun ebtables.service
 
 %files legacy
 %license COPYING
@@ -159,18 +129,16 @@ manpfx=%{_mandir}/man8/ebtables
 %{_sbindir}/ebtables-legacy*
 %{_mandir}/*/ebtables-legacy*
 %{_libdir}/libebtc.so*
-%ghost %{_sbindir}/ebtables
-%ghost %{_sbindir}/ebtables-save
-%ghost %{_sbindir}/ebtables-restore
-%ghost %{_mandir}/man8/ebtables.8.gz
-
-%files services
-%{_unitdir}/ebtables.service
-%{_libexecdir}/ebtables-helper
-%config(noreplace) %{_sysconfdir}/sysconfig/ebtables-config
-%ghost %{_sysconfdir}/sysconfig/ebtables
+%ghost %attr(0755,root,root) %{_prefix}/sbin/ebtables
+%ghost %attr(0755,root,root) %{_prefix}/sbin/ebtables-save
+%ghost %attr(0755,root,root) %{_prefix}/sbin/ebtables-restore
+%ghost %attr(0644,root,root) %{_mandir}/man8/ebtables.8.gz
 
 %changelog
+* Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 2.0.11-20
+- Drop ebtables-services package
+- Add fixes/hooks for bin-sbin merge, analogous to iptables.spec
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
@@ -118,8 +118,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw32_libdir}/cmake/Qt6Multimedia/
+%{mingw32_libdir}/cmake/Qt6MultimediaPrivate/
 %{mingw32_libdir}/cmake/Qt6MultimediaWidgets/
+%{mingw32_libdir}/cmake/Qt6MultimediaWidgetsPrivate/
 %{mingw32_libdir}/cmake/Qt6SpatialAudio/
+%{mingw32_libdir}/cmake/Qt6SpatialAudioPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Multimedia.pc
 %{mingw32_libdir}/pkgconfig/Qt6MultimediaWidgets.pc
 %{mingw32_libdir}/pkgconfig/Qt6SpatialAudio.pc
@@ -170,8 +173,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw64_libdir}/cmake/Qt6Multimedia/
+%{mingw64_libdir}/cmake/Qt6MultimediaPrivate/
 %{mingw64_libdir}/cmake/Qt6MultimediaWidgets/
+%{mingw64_libdir}/cmake/Qt6MultimediaWidgetsPrivate/
 %{mingw64_libdir}/cmake/Qt6SpatialAudio/
+%{mingw64_libdir}/cmake/Qt6SpatialAudioPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Multimedia.pc
 %{mingw64_libdir}/pkgconfig/Qt6MultimediaWidgets.pc
 %{mingw64_libdir}/pkgconfig/Qt6SpatialAudio.pc
@@ -200,6 +206,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

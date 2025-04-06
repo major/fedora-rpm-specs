@@ -4,7 +4,7 @@ Release: %autorelease
 Summary: Bash argument parsing code generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
-URL: https://argbash.io
+URL: https://argbash.dev
 Source0: https://github.com/matejak/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch

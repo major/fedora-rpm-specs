@@ -57,9 +57,12 @@
 # jobs.
 %global _make_output_sync %{nil}
 
+# OracleLinux 9 has a problem with it's strip not recognizing *.co's
+%global __strip %rocmllvm_bindir/llvm-strip
+
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -247,6 +250,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-11
+- Use rocm-llvm strip
+
 * Thu Feb 27 2025 Cristian Le <git@lecris.dev> - 6.3.0-10
 - Add hip requirement to devel package
 

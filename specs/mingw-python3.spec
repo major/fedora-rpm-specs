@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.11
-Release:       3%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -66,6 +66,8 @@ Patch11:       mingw-python3_win-modules.patch
 Patch12:       mingw-python3_module-socket.patch
 # MinGW fix for select module
 Patch13:       mingw-python3_module-select.patch
+# Add -lpython<VER> to Libs: in pkgconfig (windows extensions need to be linked against libpython)
+Patch14:       mingw-python3_pkgconfig.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -499,6 +501,12 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 3.11.11-5
+- Add host bindir to PATH when invoking mingwXX_python3_host
+
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 3.11.11-4
+- Add mingw-python3_pkgconfig.patch
+
 * Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 3.11.11-3
 - Ensure LIBPYTHON is set
 

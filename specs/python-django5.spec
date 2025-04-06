@@ -10,7 +10,7 @@
 %global major_ver 5
 
 Name:           python-django%{major_ver}
-Version:        5.1.7
+Version:        5.1.8
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 
@@ -146,16 +146,11 @@ cp -p docs/man/* %{buildroot}%{_mandir}/man1/
 # install bash completion script
 mkdir -p %{buildroot}%{bash_completions_dir}
 install -m 0644 -p extras/django_bash_completion \
-  %{buildroot}%{bash_completions_dir}/django-admin.py
+  %{buildroot}%{bash_completions_dir}/django-admin
 
-for file in django-admin django-admin-3 django-admin-%{python3_version} python3-django-admin manage.py ; do
+for file in manage.py ; do
    ln -s django-admin.py %{buildroot}%{bash_completions_dir}/$file
 done
-
-# Add backward compatible links to %%{_bindir}
-ln -s ./django-admin %{buildroot}%{_bindir}/django-admin-3
-ln -s ./django-admin %{buildroot}%{_bindir}/django-admin-%{python3_version}
-ln -s ./django-admin %{buildroot}%{_bindir}/python3-django-admin
 
 # remove .po files
 find %{buildroot} -name "*.po" | xargs rm -f
@@ -198,9 +193,6 @@ cd tests
 %license %{python3_sitelib}/django/contrib/gis/gdal/LICENSE
 %license %{python3_sitelib}/django/contrib/gis/geos/LICENSE
 %{_bindir}/django-admin
-%{_bindir}/django-admin-3
-%{_bindir}/django-admin-%{python3_version}
-%{_bindir}/python3-django-admin
 %{_mandir}/man1/django-admin.1*
 
 

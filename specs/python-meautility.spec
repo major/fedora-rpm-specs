@@ -1,28 +1,37 @@
-%bcond_without tests
+%bcond tests 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 %global pypi_name meautility
 %global pretty_name MEAutility
 
-%global _description %{expand:
-Python package for multi-electrode array (MEA) handling and stimulation.
-Documentation is available at https://meautility.readthedocs.io/}
-
 Name:           python-%{pypi_name}
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Package for multi-electrode array (MEA) handling and stimulation
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
+%global forgeurl https://github.com/alejoe91/MEAutility
+%global tag %{version}
+%forgemeta
+
 License:        GPL-3.0-only
-URL:            https://github.com/alejoe91/%{pretty_name}/
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+URL:            %forgeurl
+Source:         %forgesource
+# Upstream switched to pyproject.toml but declared a wrong license (MIT).
+# The shipped license is GPL-3.0-only as before.
+# https://github.com/alejoe91/MEAutility/pull/47
+Patch:          https://github.com/alejoe91/MEAutility/pull/47.patch
+
 BuildArch:      noarch
+
+%global _description %{expand:
+Python package for multi-electrode array (MEA) handling and stimulation.
+Documentation is available at:
+https://meautility.readthedocs.io/}
 
 %description %_description
 
@@ -49,10 +58,7 @@ BuildRequires:  latexmk
 %description doc %_description
 
 %prep
-%autosetup -n %{pretty_name}-%{version}
-
-# Apply fix for NumPy 2.x
-sed -r -i 's/np\.alltrue/np.all/g' MEAutility/tests/test_core.py
+%forgeautosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -77,7 +83,6 @@ PYTHONPATH="${PWD}:${PWD}/MEAutility" \
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%exclude %{python3_sitelib}/MEAutility/tests
 
 %files doc
 %license LICENSE

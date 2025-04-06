@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -2426,7 +2426,6 @@ fi
 %if %{maj_ver} >= 21
 %{expand_bins %{expand:
     llvm-ml64
-    llvm-gpu-loader
 }}
 %endif
 
@@ -3027,6 +3026,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Apr 03 2025 Timm Bäder <tbaeder@redhat.com> - 20.1.2-4
+- Remove gpu-loader binaries
+
 * Thu Apr 03 2025 Nikita Popov <npopov@redhat.com> - 20.1.2-3
 - Update to LLVM 20.1.2
 

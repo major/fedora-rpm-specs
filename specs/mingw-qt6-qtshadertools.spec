@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
@@ -106,6 +106,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6ShaderTools.dll
 %{mingw32_libdir}/cmake/Qt6ShaderTools/
+%{mingw32_libdir}/cmake/Qt6ShaderToolsPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtShaderToolsTestsConfig.cmake
 %{mingw32_libdir}/libQt6ShaderTools.dll.a
 %{mingw32_libdir}/Qt6ShaderTools.prl
@@ -123,6 +124,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6ShaderTools.dll
 %{mingw64_libdir}/cmake/Qt6ShaderTools/
+%{mingw64_libdir}/cmake/Qt6ShaderToolsPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtShaderToolsTestsConfig.cmake
 %{mingw64_libdir}/libQt6ShaderTools.dll.a
 %{mingw64_libdir}/Qt6ShaderTools.prl
@@ -136,6 +138,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

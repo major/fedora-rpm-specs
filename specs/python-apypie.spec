@@ -1,7 +1,7 @@
 %global pypi_name apypie
 
 Name:           python-%{pypi_name}
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Apipie bindings for Python
 
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Apr 04 2025 Packit <hello@packit.dev> - 0.7.1-1
+- New release 0.7.1
+
 * Thu Mar 13 2025 Packit <hello@packit.dev> - 0.7.0-1
 - New release 0.7.0
 

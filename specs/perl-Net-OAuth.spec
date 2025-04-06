@@ -1,6 +1,6 @@
 Name:           perl-Net-OAuth
-Version:        0.30
-Release:        2%{?dist}
+Version:        0.31
+Release:        1%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OAuth
@@ -8,7 +8,9 @@ Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Net-OAuth-%{versi
 BuildArch:      noarch
 
 # Build
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor) >= 0.31
@@ -16,12 +18,13 @@ BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::Data::Inheritable) >= 0.06
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Crypt::URandom) >= 0.37
-BuildRequires:  perl(Digest::HMAC_SHA1) >= 1.01
 BuildRequires:  perl(Digest::SHA) >= 5.47
+BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(LWP::UserAgent) >= 1
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Module::Build::Compat)
+BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(URI) >= 5.15
 BuildRequires:  perl(URI::Escape)
@@ -47,19 +50,17 @@ protected resources from a Service Provider on behalf of a user.
 
 
 %build
-%{__perl} Build.PL installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%make_build
 
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%make_install
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
-./Build test
+make test
 
 
 %files
@@ -69,6 +70,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Apr 04 2025 Xavier Bachelot <xacier@bachelot.org> -  0.31-1
+- Update to 0.31 (RHBZ#2357243)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

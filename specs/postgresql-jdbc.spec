@@ -61,6 +61,7 @@ Provides:       pgjdbc = %version-%release
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.ongres.scram:scram-client)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
@@ -88,6 +89,12 @@ Summary:        API docs for %{name}
 %description javadoc
 This package contains the API Documentation for %{name}.
 
+%package tests
+Summary:        Tests for %{name}
+
+%description tests
+This package contains tests for %{name}.
+
 %prep
 %autosetup -p1 -n postgresql-%{version}-jdbc-src
 
@@ -106,13 +113,19 @@ find -type f \( -name "*.jar" -or -name "*.class" \) -delete
 
 # remove unmet dependency
 %pom_remove_dep uk.org.webcompere:system-stubs-jupiter
-
 # remove tests that depend on the system-stubs-jupiter
-rm src/test/java/org/postgresql/test/jdbc2/DriverTest.java \
-   src/test/java/org/postgresql/util/OSUtilTest.java \
-   src/test/java/org/postgresql/jdbcurlresolver/PgServiceConfParserTest.java \
-   src/test/java/org/postgresql/jdbcurlresolver/PgPassParserTest.java \
-   src/test/java/org/postgresql/util/StubEnvironmentAndProperties.java
+grep -l -r '^import uk\.org\.webcompere\.systemstubs' src/test | xargs rm -v
+
+# Install -tests Jar as well
+%pom_xpath_inject 'pom:build/pom:plugins/pom:plugin[pom:artifactId="maven-jar-plugin"]' '
+<executions>
+  <execution>
+    <goals>
+      <goal>test-jar</goal>
+    </goals>
+  </execution>
+</executions>'
+%mvn_package org.postgresql:postgresql::tests: tests
 
 %build
 # Ideally we would run "sh update-translations.sh" here, but that results
@@ -143,18 +156,27 @@ EOF
 # Start the local PG cluster.
 %postgresql_tests_start
 %else
-# -f is equal to -Dmaven.test.skip=true
-opts="-f"
+# NOTE this parameter skips running tests but still compiles them
+opts="-DskipTests=true"
 %endif
 
-%mvn_build $opts --xmvn-javadoc
+%mvn_build -- $opts
+
+xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
 
 %install
 %mvn_install
+install -m 644 -D tests-classpath %{buildroot}/%{_datadir}/%{name}-tests/classpath
+install -m 644 -D -t %{buildroot}/%{_datadir}/%{name}-tests build.properties ssltest.properties
+cp -r -t %{buildroot}/%{_datadir}/%{name}-tests certdir
 
 %files -f .mfiles
 %license LICENSE
 %doc README.md
+
+%files tests -f .mfiles-tests
+%{_datadir}/%{name}-tests
+%license LICENSE
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE

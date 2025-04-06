@@ -5,8 +5,8 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.30.2
-Release:	7%{?dist}
+Version:	0.30.3
+Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -76,7 +76,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	72%{?dist}
+Release:	73%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -87,7 +87,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	72%{?dist}
+Release:	73%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -182,6 +182,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Fri Apr 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.3-1
+- Update to version 0.30.2
+
 * Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.2-7
 - Properly bump package versions
 

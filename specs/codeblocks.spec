@@ -38,6 +38,9 @@ BuildRequires:	tinyxml-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	zip
 BuildRequires:	zlib-devel
+%if 0%{?rhel} && 0%{?rhel} <= 9
+BuildRequires:	autoconf2.7x
+%endif
 
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	shared-mime-info
@@ -120,7 +123,11 @@ echo "m4_define([SVN_DATE], %{svndate})" >> revision.m4
 
 ./bootstrap
 %else
+%if 0%{?rhel} && 0%{?rhel} <= 9
+autoreconf27 -f -i
+%else
 autoreconf -f -i
+%endif
 %endif
 
 

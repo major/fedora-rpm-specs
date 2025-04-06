@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -346,23 +346,36 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/cmake/Qt6/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/
 %{mingw32_libdir}/cmake/Qt6Concurrent/
+%{mingw32_libdir}/cmake/Qt6ConcurrentPrivate/
 %{mingw32_libdir}/cmake/Qt6Core/
+%{mingw32_libdir}/cmake/Qt6CorePrivate/
 %{mingw32_libdir}/cmake/Qt6DBus/
+%{mingw32_libdir}/cmake/Qt6DBusPrivate/
 %{mingw32_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw32_libdir}/cmake/Qt6EntryPointPrivate/
 %{mingw32_libdir}/cmake/Qt6ExampleIconsPrivate/
 %{mingw32_libdir}/cmake/Qt6ExamplesAssetDownloaderPrivate/
 %{mingw32_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6Gui/
+%{mingw32_libdir}/cmake/Qt6GuiPrivate/
 %{mingw32_libdir}/cmake/Qt6HostInfo/
 %{mingw32_libdir}/cmake/Qt6Network/
+%{mingw32_libdir}/cmake/Qt6NetworkPrivate/
 %{mingw32_libdir}/cmake/Qt6OpenGL/
+%{mingw32_libdir}/cmake/Qt6OpenGLPrivate/
 %{mingw32_libdir}/cmake/Qt6OpenGLWidgets/
+%{mingw32_libdir}/cmake/Qt6OpenGLWidgetsPrivate/
 %{mingw32_libdir}/cmake/Qt6PrintSupport/
+%{mingw32_libdir}/cmake/Qt6PrintSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6Sql/
+%{mingw32_libdir}/cmake/Qt6SqlPrivate/
 %{mingw32_libdir}/cmake/Qt6Test/
+%{mingw32_libdir}/cmake/Qt6TestPrivate/
+%{mingw32_libdir}/cmake/Qt6TestInternalsPrivate/
 %{mingw32_libdir}/cmake/Qt6Widgets/
+%{mingw32_libdir}/cmake/Qt6WidgetsPrivate/
 %{mingw32_libdir}/cmake/Qt6Xml/
+%{mingw32_libdir}/cmake/Qt6XmlPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Concurrent.pc
 %{mingw32_libdir}/pkgconfig/Qt6Core.pc
 %{mingw32_libdir}/pkgconfig/Qt6DBus.pc
@@ -511,23 +524,36 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/cmake/Qt6/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/
 %{mingw64_libdir}/cmake/Qt6Concurrent/
+%{mingw64_libdir}/cmake/Qt6ConcurrentPrivate/
 %{mingw64_libdir}/cmake/Qt6Core/
+%{mingw64_libdir}/cmake/Qt6CorePrivate/
 %{mingw64_libdir}/cmake/Qt6DBus/
+%{mingw64_libdir}/cmake/Qt6DBusPrivate/
 %{mingw64_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw64_libdir}/cmake/Qt6EntryPointPrivate/
 %{mingw64_libdir}/cmake/Qt6ExampleIconsPrivate/
 %{mingw64_libdir}/cmake/Qt6ExamplesAssetDownloaderPrivate/
 %{mingw64_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6Gui/
+%{mingw64_libdir}/cmake/Qt6GuiPrivate/
 %{mingw64_libdir}/cmake/Qt6HostInfo/
 %{mingw64_libdir}/cmake/Qt6Network/
+%{mingw64_libdir}/cmake/Qt6NetworkPrivate/
 %{mingw64_libdir}/cmake/Qt6OpenGL/
+%{mingw64_libdir}/cmake/Qt6OpenGLPrivate/
 %{mingw64_libdir}/cmake/Qt6OpenGLWidgets/
+%{mingw64_libdir}/cmake/Qt6OpenGLWidgetsPrivate/
 %{mingw64_libdir}/cmake/Qt6PrintSupport/
+%{mingw64_libdir}/cmake/Qt6PrintSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6Sql/
+%{mingw64_libdir}/cmake/Qt6SqlPrivate/
 %{mingw64_libdir}/cmake/Qt6Test/
+%{mingw64_libdir}/cmake/Qt6TestPrivate/
+%{mingw64_libdir}/cmake/Qt6TestInternalsPrivate/
 %{mingw64_libdir}/cmake/Qt6Widgets/
+%{mingw64_libdir}/cmake/Qt6WidgetsPrivate/
 %{mingw64_libdir}/cmake/Qt6Xml/
+%{mingw64_libdir}/cmake/Qt6XmlPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Concurrent.pc
 %{mingw64_libdir}/pkgconfig/Qt6Core.pc
 %{mingw64_libdir}/pkgconfig/Qt6DBus.pc
@@ -556,6 +582,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

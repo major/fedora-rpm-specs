@@ -14,6 +14,8 @@ BuildArch:      noarch
 Source:         %{url}/archive/v47-%{version}/%{extension}-47-%{version}.tar.gz
 # downstream-only
 Patch:          0001-Adjust-makefile-for-Fedora.patch
+# https://github.com/forge-ext/forge/pull/438
+Patch:          0002-bump-gnome-version.patch
 
 BuildRequires:  make
 BuildRequires:  gettext

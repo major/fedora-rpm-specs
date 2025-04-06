@@ -8,7 +8,7 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,14 +54,6 @@ rm lib/error.*
 %check
 %{__make} check
 
-%post
-/sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir || :
-
-%preun
-if [ $1 = 0 ];then
-/sbin/install-info –delete %{_infodir}/%{name}.info %{_infodir}/dir || :
-fi
-
 %files -f %{name}.lang
 %{_bindir}/*
 %{_datadir}/datamash/
@@ -75,6 +67,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Thu Apr 03 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.8-9
+- Remove unnecessary %%post/%%preun scriptlets
+
 * Fri Jan 24 2025 Georg Sauthoff <mail@gms.tf> - 1.8-8
 - fix C23 compile error (fixes fedora#2340029)
 

@@ -334,7 +334,8 @@ Patch312: chromium-123-fstack-protector-strong.patch
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
 
-# build error: libadler2 not found
+# build error: libadler2 not found, rust-1.86 or newer replaces adler with adler2
+# we have rust-1.86 in f41 and newer
 Patch315: chromium-134-rust-libadler2.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
@@ -1044,7 +1045,9 @@ Qt6 UI for chromium.
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
+%if 0%{?rhel} || 0%{?fedora} == 40 
 %patch -P315 -p1 -b .rust-libadler2
+%endif
 %patch -P316 -p1 -b .clang-build-flags
 
 %if %{disable_bti}

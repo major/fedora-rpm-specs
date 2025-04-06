@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSvg component
 
@@ -108,7 +108,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Gui/Qt6QSvgPlugin*.cmake
 %{mingw32_libdir}/cmake/Qt6Gui/Qt6QSvgIconPlugin*.cmake
 %{mingw32_libdir}/cmake/Qt6Svg/
+%{mingw32_libdir}/cmake/Qt6SvgPrivate/
 %{mingw32_libdir}/cmake/Qt6SvgWidgets/
+%{mingw32_libdir}/cmake/Qt6SvgWidgetsPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw32_libdir}/pkgconfig/Qt6SvgWidgets.pc
 %{mingw32_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
@@ -139,7 +141,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Gui/Qt6QSvgPlugin*.cmake
 %{mingw64_libdir}/cmake/Qt6Gui/Qt6QSvgIconPlugin*.cmake
 %{mingw64_libdir}/cmake/Qt6Svg/
+%{mingw64_libdir}/cmake/Qt6SvgPrivate/
 %{mingw64_libdir}/cmake/Qt6SvgWidgets/
+%{mingw64_libdir}/cmake/Qt6SvgWidgetsPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw64_libdir}/pkgconfig/Qt6SvgWidgets.pc
 %{mingw64_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
@@ -157,6 +161,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

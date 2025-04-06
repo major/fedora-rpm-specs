@@ -12,6 +12,9 @@ URL:           http://www.openexr.com/
 BuildArch:     noarch
 Source0:       https://github.com/AcademySoftwareFoundation/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
+# Backport fix for build failure on MinGW
+Patch0:        https://github.com/AcademySoftwareFoundation/openexr/commit/5a675d69d3dcac4b0dc680221fb05b7835f5788c.patch
+
 BuildRequires: cmake
 BuildRequires: make
 

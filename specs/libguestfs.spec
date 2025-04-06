@@ -14,7 +14,10 @@ ExcludeArch: %{ix86}
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
 %if !0%{?rhel}
-%global test_arches aarch64 %{power64} s390x x86_64
+#%%global test_arches aarch64 %{power64} s390x x86_64
+# aarch64 broken in Rawhide:
+# https://gitlab.com/libvirt/libvirt/-/issues/762
+%global test_arches %{power64} s390x x86_64
 %else
 # RHEL 9 only:
 # x86-64:  "/lib64/libc.so.6: CPU ISA level is lower than required"

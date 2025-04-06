@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
@@ -37,6 +37,9 @@ BuildRequires: libedit-devel
 BuildRequires: python3-setuptools
 BuildRequires: gnupg2
 
+# XXX: Drop this dependency in F45 or so
+Requires:	%{name}-services = %{epoch}:%{version}-%{release}
+
 %generate_buildrequires
 cd py/
 %pyproject_buildrequires
@@ -56,9 +59,19 @@ Headers, man pages and other development files for the libnftables library.
 Summary:        Python module providing an interface to libnftables
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 %{?python_provide:%python_provide python3-nftables}
+BuildArch:	noarch
 
 %description -n python3-nftables
 The nftables python module provides an interface to libnftables via ctypes.
+
+%package	services
+Summary:	Systemd service for nftables
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+BuildArch:	noarch
+
+%description	services
+Manage an nftables-based firewall defined by ruleset snippets in /etc/nftables
+and /etc/sysconfig/nftables.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -100,26 +113,21 @@ cd py/
 %pyproject_install
 %pyproject_save_files nftables
 
-%post
+%post services
 %systemd_post nftables.service
-%ldconfig_post
 
-%preun
+%preun services
 %systemd_preun nftables.service
 
-%postun
+%postun services
 %systemd_postun_with_restart nftables.service
-%ldconfig_postun
 
 %files
 %license COPYING
-%config(noreplace) %{_sysconfdir}/nftables/
-%config(noreplace) %{_sysconfdir}/sysconfig/nftables.conf
 %{_sbindir}/nft
 %{_libdir}/libnftables.so.*
 %{_mandir}/man5/libnftables-json.5*
 %{_mandir}/man8/nft*
-%{_unitdir}/nftables.service
 %{_docdir}/nftables/
 
 %files devel
@@ -130,7 +138,16 @@ cd py/
 
 %files -n python3-nftables -f %{pyproject_files}
 
+%files services
+%config(noreplace) %{_sysconfdir}/nftables/
+%config(noreplace) %{_sysconfdir}/sysconfig/nftables.conf
+%{_unitdir}/nftables.service
+
 %changelog
+* Fri Apr 04 2025 Phil Sutter <psutter@redhat.com> - 1:1.1.1-4
+- nftables-services split-off
+- Build python3-nftables as noarch, it does not contain binaries
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
