@@ -130,30 +130,12 @@ appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 
-%pretrans -n python3-spyder -p <lua>
---[[Back up any bundled mathjax directory from the old package. See:
-https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement
-]]
-path = "%{python3_sitelib}/spyder/plugins/help/utils/js/mathjax"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
-
-
 %files -n python3-spyder -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.md
 
-# A backed-up bundled mathjax directory from a previous upgrade may be present:
+# A backed-up bundled mathjax directory from a previous upgrade (from Fedora 34
+# or older) may be present; if so, we should continue to own it.
 %ghost %{python3_sitelib}/spyder/plugins/help/utils/js/mathjax.rpmmoved
 %{python3_sitelib}/spyder/plugins/help/utils/js/mathjax
 

@@ -29,7 +29,7 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.1.2
+%global indi_version 2.1.3
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
@@ -52,9 +52,6 @@ URL:            http://indilib.org
 Source0:        %{name}-%{version}.tar.zst
 Source1:        generate-drivers-tarball.sh
 
-# Patch for building with libahp-xc >=1.4.4
-Patch:          ahp-xc-1.4.4.patch
-
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -62,9 +59,14 @@ BuildRequires:  boost-devel
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  indi-3rdparty-libapogee-devel = %{version}
 BuildRequires:  indi-3rdparty-libfli-devel = %{version}
+BuildRequires:  libahp-gt-devel
+BuildRequires:  libahp-xc-devel
 BuildRequires:  libnova-devel
 BuildRequires:  libindi = %{indi_version}
+# Fedora >= 43 and RHEL 10 don't have websocketcpp
+%if (0%{?fedora} && 0%{?fedora} >= 43) || (0%{?rhel} && 0%{?rhel} >= 10)
 BuildRequires:  websocketpp-devel
+%endif
 BuildRequires:  zlib-devel
 
 BuildRequires:  pkgconfig(cfitsio)
@@ -540,11 +542,13 @@ find . -mindepth 2 -name CMakeLists.txt \
 # -DINDI_BUILD_UNITTESTS=ON build and run tests
 # -DWITH_FFMV=OFF           needs libdc1394 which is not available on s390x
 # -DWITH_LIMESDR=OFF        needs limesuite to be packaged
+# -DWITH_AHP_GT=ON          install AHP GT eqmod controllers driver
 %cmake -DBUILD_LIBS=OFF \
     -DNO_PRE_BUILT=ON \
     -DINDI_BUILD_UNITTESTS=ON \
     -DWITH_FFMV=OFF \
     -DWITH_LIMESDR=OFF \
+    -DWITH_AHP_GT=ON \
     -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}"
 
 %cmake_build

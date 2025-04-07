@@ -1,11 +1,11 @@
 Name:           gnome-radio
-Version:        48.0
+Version:        49.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
 License:        GPL-3.0-or-later
 URL:            http://gnomeradio.org
-Source0:        http://www.gnomeradio.org/src/gnome-radio-48.0.tar.xz
+Source0:        http://www.gnomeradio.org/src/gnome-radio-49.0.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -48,7 +48,6 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_bindir}/gtk-radio
 %{_bindir}/org.gnome.Radio
 %{_datadir}/applications/gnome-radio.desktop
-%{_datadir}/applications/radio.desktop
 %{_datadir}/gnome-radio/doc/AAMOT.txt.xz
 %{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz
 %{_datadir}/gnome-radio/gnome-radio-48.0.dtd
@@ -57,6 +56,8 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/gnome-radio/org.gnome.Radio.xml
 %{_datadir}/gtk-internet-radio-locator/internet-radio-locator-48.0.dtd
 %{_datadir}/gtk-internet-radio-locator/internet-radio-locator.xml
+%{_datadir}/gtk-radio/gtk-radio-550.3.dtd
+%{_datadir}/gtk-radio/gtk-radio.xml
 %{_datadir}/icons/hicolor/scalable/apps/gnome-radio.svg
 %{_datadir}/locale/ca/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/cs/LC_MESSAGES/gnome-radio.mo
@@ -67,15 +68,19 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/locale/eu/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/fr/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/fur/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/hi/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/hr/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/hu/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/id/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/is/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/ka/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/nb/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/nl/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/oc/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/pl/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/pt_BR/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/ro/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/ru/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/sk/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/sl/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/sr/LC_MESSAGES/gnome-radio.mo
@@ -85,7 +90,6 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/locale/zh_CN/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/man/man1/gnome-radio.1.gz
 %{_datadir}/metainfo/gnome-radio.appdata.xml
-%{_datadir}/metainfo/radio.appdata.xml
 %doc README AUTHORS
 
 %changelog

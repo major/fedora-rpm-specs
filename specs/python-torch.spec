@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.7.0-rc3
-%global commit0 b04d8358d959925bee0adfd67cc17987af9fbb9d
+# v2.7.0-rc6
+%global commit0 06c6a81a987e271d35a5da9501b4a17915bb8206
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250326
+%global date0 20250403
 %global pypi_version 2.7.0
 %global flatbuffers_version 23.3.3
 %global miniz_version 3.0.2
@@ -166,9 +166,6 @@ BuildRequires:  python3dist(sympy)
 %endif
 
 %if %{with rocm}
-%if %{with gitcommit}
-BuildRequires:  composable_kernel-devel
-%endif
 BuildRequires:  hipblas-devel
 BuildRequires:  hipblaslt-devel
 BuildRequires:  hipcub-devel

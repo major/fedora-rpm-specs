@@ -35,12 +35,12 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -63,7 +63,9 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocsolver-devel
 BuildRequires:  rocsparse-devel
+%if 0%{?fedora}
 BuildRequires:  suitesparse-devel
+%endif
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -167,6 +169,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 5 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- suitesparse-devel is optional
+
 * Fri Feb 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - remove multi build
 - Fix SLE 15.6

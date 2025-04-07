@@ -1,31 +1,23 @@
 %global srcname ducc0
-%global stable 1
-#%%global commit 4a007f4bacf4d8b7e8cc5523f4d7dd515d7dc19f
-#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
-#%%global date 20230208
 
 Name:           python-%{srcname}
-%if "%{?stable}"
-Version:        0.36.0
-%else
-Version:        0.28.0^%{date}%{shortcommit}
-%endif
+Version:        0.37.1
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
 License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-3-Clause)
 URL:            https://pypi.python.org/pypi/%{srcname}
-%if "%{?stable}"
 Source0:        %{pypi_source ducc0}
-%else
-Source0:        https://github.com/mreineck/ducc/archive/%{commit}/ducc-%{commit}.tar.gz
-%endif
+
+# Backport upstream patch to allow setting custom build flags
+Patch:          allow_custom_cflags.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
+BuildRequires:  python3-nanobind-devel
 BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
@@ -50,23 +42,21 @@ Summary:        %{summary}
 
 
 %prep
-%if "%{?stable}"
 %autosetup -p1 -n %{srcname}-%{version}
 # Remove egg files from source
 rm -rf %{srcname}.egg-info
-%else
-%autosetup -p1 -n ducc-%{commit}
-%endif
 
-# there's no other way to disable ducc to inject custom C flags
-sed -i 's|extra_compile_args=extra_compile_args|extra_compile_args=\[\]|g' setup.py
-sed -i 's|extra_link_args=python_module_link_args|extra_link_args=\[\]|g' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 
 %build
+export DUCC0_OPTIMIZATION="portable-debug"
+export DUCC0_CFLAGS="%{build_cxxflags}"
+export DUCC0_LFLAGS="%{build_ldflags}"
+export SKBUILD_CMAKE_VERBOSE=true
+export DUCC0_USE_NANOBIND=true
 %pyproject_wheel
 
 
@@ -77,7 +67,11 @@ sed -i 's|extra_link_args=python_module_link_args|extra_link_args=\[\]|g' setup.
 
 %check
 %pyproject_check_import
+%ifarch ppc64le
+%pytest -q python/test -k "not test_nufft"
+%else
 %pytest -q python/test
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

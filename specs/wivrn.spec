@@ -2,19 +2,20 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global tag0           v0.23.2
-%global date           20250215
+%global wivrn_version  0.24
+%global tag0           v%{wivrn_version}
+%global date           20250404
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in CMakeLists.txt FetchContent_Declare(monado))
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        529aa5b092b592714812b4685aa0454a3cfb120e
+%global commit1        848a24aa106758fd6c7afcab6d95880c57dbe450
 %global monado_version 24.0.0
 
 %forgemeta
 
 Name:           wivrn
-Version:        0.23.2
+Version:        %{wivrn_version}
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
@@ -99,6 +100,14 @@ Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-Revert-a-bindings-improve-reproducibility-of-binding.patch
 # downstream-only - WiVRn specific Monado patches
 Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-store-alpha-channel-in-layer-1.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-st-oxr-bind-to-dynamic-role-s-profile.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0012:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0012-ipc-Initialize-hmd-data-from-static-role.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0013:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0013-c-main-allow-custom-pacing-app-factory.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0014:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0014-st-oxr-forward-0-refresh-rate.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -172,10 +181,10 @@ BuildRequires:  systemd-rpm-macros
 
 Requires:       android-tools
 Requires:       firewalld-filesystem
-Requires:       hicolor-icon-theme
 Requires:       opencomposite
 Requires:       openxr
-Requires:       qt6qml(org.kde.desktop)
+
+Recommends:     %{name}-dashboard
 
 Provides:       bundled(monado) = %{monado_version}
 
@@ -196,6 +205,19 @@ HTC Vive Focus 3 / HTC Vive XR elite
 and most other Android based headsets
 
 
+%package -n %{name}-dashboard
+Summary:        WiVRn dashboard
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       hicolor-icon-theme
+Requires:       qt6qml(org.kde.desktop)
+
+%description -n %{name}-dashboard
+WiVRn dashboard is a GUI for configuring and controlling WiVRn.
+
+It is used to manage the server configuration, client installation,
+and to assist in pairing the headset with the server.
+
+
 %prep
 %forgesetup
 
@@ -213,29 +235,33 @@ pushd _deps/monado-src
 %patch -P0007 -p1
 %patch -P0009 -p1
 %patch -P0010 -p1
+%patch -P0011 -p1
+%patch -P0012 -p1
+%patch -P0013 -p1
+%patch -P0014 -p1
 popd
 
 
 %build
 %cmake -GNinja \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
   -DCMAKE_PROJECT_VERSION=%{monado_version} \
+  -DENABLE_COLOURED_OUTPUT=OFF \
+  -DFETCHCONTENT_BASE_DIR="_deps" \
+  -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
   -DGIT_DESC=v%{version} \
+  -DOVR_COMPAT_SEARCH_PATH=%{_libdir}/opencomposite/runtime \
   -DWIVRN_BUILD_CLIENT=OFF \
-  -DWIVRN_BUILD_SERVER=ON \
+  -DWIVRN_BUILD_DASHBOARD=ON \
   -DWIVRN_BUILD_DISSECTOR=OFF \
+  -DWIVRN_BUILD_SERVER=ON \
+  -DWIVRN_BUILD_WIVRNCTL=ON \
+  -DWIVRN_USE_NVENC=ON \
   -DWIVRN_USE_PIPEWIRE=ON \
   -DWIVRN_USE_PULSEAUDIO=OFF \
-  -DWIVRN_USE_NVENC=ON \
-  -DWIVRN_USE_VAAPI=ON \
   -DWIVRN_USE_SYSTEMD=ON \
-  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-  -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
-  -DFETCHCONTENT_BASE_DIR="_deps" \
-  -DENABLE_COLOURED_OUTPUT=OFF \
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DWIVRN_OPENXR_INSTALL_ABSOLUTE_RUNTIME_PATH=OFF \
-  -DWIVRN_BUILD_DASHBOARD=ON \
-  -DOPENCOMPOSITE_SEARCH_PATH=%{_libdir}/opencomposite/runtime \
+  -DWIVRN_USE_VAAPI=ON \
 %if %{with x264}
   -DWIVRN_USE_X264=ON \
 %else
@@ -264,7 +290,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %license COPYING LICENSE-OFL-1.1 _deps/monado-src/LICENSES/*
 %doc README.md docs/
 %caps(cap_sys_nice=ep) %{_bindir}/wivrn-server
-%{_bindir}/wivrn-dashboard
 %{_bindir}/wivrnctl
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/libopenxr_wivrn.so
@@ -275,10 +300,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_userunitdir}/wivrn.service
 %{_userunitdir}/wivrn-application.service
 %{_prefix}/lib/firewalld/services/wivrn.xml
-%{_datarootdir}/applications/io.github.wivrn.wivrn.desktop
-%{_datarootdir}/icons/hicolor/scalable/apps/io.github.wivrn.wivrn.svg
 %{_metainfodir}/io.github.wivrn.wivrn.metainfo.xml
 %{_sysconfdir}/ld.so.conf.d/%{name}.conf
+
+%files -n %{name}-dashboard
+%{_bindir}/wivrn-dashboard
+%{_datarootdir}/applications/io.github.wivrn.wivrn.desktop
+%{_datarootdir}/icons/hicolor/scalable/apps/io.github.wivrn.wivrn.svg
 
 
 %post

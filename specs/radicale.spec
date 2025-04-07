@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.0
+%define radicale_version  3.5.1
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -521,6 +521,9 @@ fi
 
 
 %changelog
+* Sat Apr 05 2025 Peter Bieringer <pb@bieringer.de> - 3.5.1-1
+- Update to 3.5.1
+
 * Sun Mar 09 2025 Peter Bieringer <pb@bieringer.de> - 3.5.0-1
 - Update to 3.5.0
 - Bundle InfCloud 0.13.1 with dedicated sub packages

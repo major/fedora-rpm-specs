@@ -1,7 +1,5 @@
 %bcond tests 1
 %bcond desktop_tests 1
-# Currently unavailable in EPEL10, and used only for a single doctest
-%bcond pyfakefs %{expr:!0%{?el10}}
 
 Name:           python-keyring
 Version:        25.6.0
@@ -84,10 +82,6 @@ be installed.
 # the shebang should be removed.
 sed -r -i '1{/^#!/d}' keyring/cli.py
 
-%if %{without pyfakefs}
-sed -r -i 's/"pyfakefs",?/# &/' pyproject.toml
-%endif
-
 
 %generate_buildrequires
 %pyproject_buildrequires -x %{?with_tests:test,}completion
@@ -125,16 +119,28 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
 
 %check
 %if %{with tests}
-%if %{without pyfakefs}
-# Used only for a single doctest
-k="${k-}${k+ and }not keyring.core.disable"
-%endif
 
 %if %{with desktop_tests}
 %global __pytest xwfb-run -- pytest
+
+%if %{defined el10}
+# These hang; it is not clear what is going wrong. The issue is probably due to
+# something unexpected about the headless session, rather than a more serious
+# issue with keyring. It would be nice to try this in a virtualenv in an
+# interactive graphical session on a CentOS Stream 10 virtual machine and see
+# if the tests still hang. On Python 3.13, we see:
+#   tests/test_multiprocess.py::test_multiprocess_get
+#   tests/test_multiprocess.py::test_multiprocess_get_after_native_get
+#     /usr/lib64/python3.13/multiprocessing/popen_fork.py:67:
+#     DeprecationWarning: This process (pid=629) is multi-threaded, use of
+#     fork() may lead to deadlocks in the child.  self.pid = os.fork()
+# …which suggests the outline of one possible explanation.
+ignore="${ignore-} --ignore=tests/test_multiprocess.py"
 %endif
 
-%pytest -k "${k-}" -rs
+%endif
+
+%pytest -k "${k-}" ${ignore-} -rs
 %endif
 
 

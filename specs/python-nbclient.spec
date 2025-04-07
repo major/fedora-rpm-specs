@@ -24,7 +24,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%bcond_without check
+%bcond bootstrap 0
+%bcond check %{without bootstrap}
 
 %description
 %_description

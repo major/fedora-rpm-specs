@@ -6,7 +6,7 @@
 Summary:        Lua binding for OpenSSL library
 Name:           lua-sec
 Version:        1.3.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        MIT
 URL:            https://github.com/brunoos/luasec
 Source0:        https://github.com/brunoos/luasec/archive/v%{version}/luasec-%{version}.tar.gz
@@ -16,7 +16,11 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  lua >= %{lua_version}
 BuildRequires:  lua-devel >= %{lua_version}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel >= 1.0.2
+%else
+BuildRequires:  openssl3-devel
+%endif
 
 %description
 Lua binding for OpenSSL library to provide TLS/SSL communication.
@@ -48,6 +52,11 @@ cp -a . %{lua_compat_builddir}
 %endif
 
 %build
+%if 0%{?rhel} == 8
+OPENSSL_CFLAGS="$(pkg-config --cflags-only-I openssl3)"
+OPENSSL_LDFLAGS="$(pkg-config --libs-only-L openssl3)"
+%endif
+
 %make_build linux \
   CFLAGS="$RPM_OPT_FLAGS -fPIC -I. -I%{_includedir} -DWITH_LUASOCKET -DLUASOCKET_DEBUG -DLUA_COMPAT_APIINTCASTS $OPENSSL_CFLAGS" \
   LD="gcc -shared" LDFLAGS="-fPIC -shared -L./luasocket $RPM_LD_FLAGS $OPENSSL_LDFLAGS"
@@ -107,6 +116,9 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Sun Apr 06 2025 Robert Scheck <robert@fedoraproject.org> 1.3.2-6
+- Build against OpenSSL 3 on RHEL 8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

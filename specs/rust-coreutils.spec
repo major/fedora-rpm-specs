@@ -152,6 +152,7 @@ Obsoletes:      uu_yes < %{obsolete_uu_nvr}
 %doc README.md
 %{_bindir}/uutils-coreutils
 %{_bindir}/uu_*
+%dir %{_libexecdir}/uutils-coreutils
 %{_libexecdir}/uutils-coreutils/*
 %{_mandir}/man1/*
 %{bash_completions_dir}/*

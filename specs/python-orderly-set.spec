@@ -1,9 +1,9 @@
 %global pypi_name orderly-set
-%global pypi_version 5.2.2
+%global pypi_version 5.3.0
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A package containing multiple implementations of Ordered Set
 License:        MIT
 URL:            https://github.com/seperman/orderly-set
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/orderly_set-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Mar 31 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.3.0-1
+- Update to upstream version 5.3.0.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

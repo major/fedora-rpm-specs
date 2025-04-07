@@ -1,12 +1,8 @@
 %global appname include-what-you-use
 %global toolchain clang
 
-%if 0%{?fedora} && 0%{?fedora} >= 42
-%global llvm_legacy 1
-%else
 %global llvm_legacy 0
-%endif
-%global llvm_ver 19
+%global llvm_ver 20
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2215937
@@ -14,7 +10,7 @@
 %undefine _include_frame_pointers
 
 Name: iwyu
-Version: 0.23
+Version: 0.24
 Release: %autorelease
 
 License: NCSA
@@ -77,11 +73,10 @@ export CXX="clang++-%{llvm_ver}"
 %endif
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
 %if %{llvm_legacy}
     -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/lib/cmake/clang;%{_libdir}/llvm%{llvm_ver}/lib/cmake/llvm' \
 %endif
-    -DIWYU_RESOURCE_DIR='../../../lib/clang/%{llvm_ver}'
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 %cmake_build
 
 %install

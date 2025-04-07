@@ -3,18 +3,13 @@
 %bcond_without tests
 
 Name:           python-deepdiff
-Version:        8.0.1
-Release:        2%{?dist}
+Version:        8.4.1
+Release:        1%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
 Source:         https://github.com/seperman/deepdiff/archive/%{version}/%{name}-v%{version}.tar.gz
-
-# polar package is not available on Fedora at the moment, so remove its tests
-Patch0:         deepdiff-8.0.1-nopolar.patch
-# disable test that fails to load data
-Patch1:         deepdiff-8.0.1-diffcommand.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -66,8 +61,6 @@ Recommends:     python3-deepdiff+cli
 
 %prep
 %setup -n deepdiff-%{version}
-%patch -P0 -p 1 -b .nopolar
-%patch -P1 -p 1 -b .diffcommand
 
 find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 
@@ -76,6 +69,8 @@ find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 #  https://bugzilla.redhat.com/2246614
 # We replace all the version matching clauses with compatible release clauses:
 sed -i 's/==/~=/' requirements*.txt
+# Relax a bit the click version.
+sed -i 's/click~=8.1.8/click~=8.1.7/' requirements*.txt
 
 
 %generate_buildrequires
@@ -101,7 +96,8 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 %check
 %if %{with tests}
-%pytest tests/
+# polar package is not available on Fedora at the moment, so remove its tests
+%pytest -k 'not test_polars' tests/
 %endif
 %pyproject_check_import
 
@@ -117,6 +113,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Mar 31 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.4.1-1
+- Update to 8.4.1 (rhbz#2332738).
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

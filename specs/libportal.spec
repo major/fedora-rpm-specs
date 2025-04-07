@@ -1,8 +1,8 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           libportal
-Version:        0.9.0
-Release:        4%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Flatpak portal library
 # doc/urlmap.js is LGPL-2.1-or-later
 # everything else is LGPL-3.0-only
@@ -220,6 +220,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Sat Apr 5 2025 Tomi Lähteenmäki <lihis@lihis.net> - 0.9.1-1
+- Update to 0.9.1 (fedora#2345185)
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 0.9.0-4
 - Rebuild (qt6)
 

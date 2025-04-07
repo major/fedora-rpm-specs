@@ -3,8 +3,8 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.7
-Release:       3%{?dist}
+Version:       3.7.2
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPL-3.0-only
@@ -19,8 +19,6 @@ Patch1:        osgearth_fastdxt.patch
 Patch2:        osgearth_unbundle.patch
 # Link against liblerct
 Patch3:        osgearth_link-lerc.patch
-# Fix installation paths of plugins and cmake modules
-Patch4:        osgearth_cmake-install-paths.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -202,8 +200,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.7.0
-%{_libdir}/libosgEarth*.so.163
+%{_libdir}/libosgEarth*.so.3.7.2
+%{_libdir}/libosgEarth*.so.171
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
@@ -276,6 +274,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Sat Apr 05 2025 Sandro Mani <manisandro@gmail.com> - 3.7.2-1
+- Update to 3.7.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

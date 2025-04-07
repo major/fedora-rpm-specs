@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 38%{?dist}
+Release: 39%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -29,6 +29,8 @@ Provides: mysql-master-master = %{version}-%{release}
 Patch0: mysql-mmm-2.1.0-paths.patch
 Patch1: mysql-mmm-fix-bug-with-newer-net-arp.patch
 Patch2: mysql-mmm-fix-cve-remote-command-injection.patch
+Patch3: mysql-mmm-add-notify-cmd.patch
+Patch4: mysql-mmm-suppress-uninitialized-warning.patch
 
 %description
 MMM (MySQL Master-Master Replication Manager) is a set of flexible scripts
@@ -94,6 +96,8 @@ EOF
 %patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 find . -type f -name "*.orig" -print0 | xargs -0r rm
 
 %build
@@ -177,6 +181,11 @@ mv %{buildroot}/usr/sbin/mmm_* %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Apr 05 2025 avid Beveridge <dave@bevhost.com> 2.2.1-39
+- add feature notify_cmd
+- suppress fatal escalation of uninitialized variables warning
+- modify systemd unit files to refer to /usr/bin instead of /usr/sbin
+
 * Wed Mar 26 2025 David Beveridge <dave@bevhost.com> 2.2.1-38
 - Unify bin and sbin
 

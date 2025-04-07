@@ -4,8 +4,12 @@
 
 %global pypi_name nbconvert
 
-%bcond_without doc
-%bcond_without check
+%bcond bootstrap 0
+%bcond check %{without bootstrap}
+
+# Don't build the documentation on EPEL as it would require
+# too many dependencies.
+%bcond doc %{undefined rhel}
 
 Name:           python-%{pypi_name}
 Version:        7.16.4

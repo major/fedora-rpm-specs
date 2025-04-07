@@ -5,8 +5,8 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           0.12.5
-Release:           2%{?dist}
+Version:           13.0.1
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -18,12 +18,16 @@ Source5:           prosody.tmpfilesd
 Source6:           prosody.sysusersd
 Source7:           prosody-localhost.cfg.lua
 Source8:           prosody-example.com.cfg.lua
-Patch0:            prosody-0.12.3-config.patch
+Patch0:            prosody-13.0.0-config.patch
 BuildRequires:     gnupg2
 BuildRequires:     gcc
 BuildRequires:     make
 BuildRequires:     libicu-devel
-BuildRequires:     openssl-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:     openssl-devel >= 3.0.0
+%else
+BuildRequires:     openssl3-devel
+%endif
 BuildRequires:     lua
 BuildRequires:     lua-devel
 BuildRequires:     systemd-rpm-macros
@@ -64,8 +68,8 @@ added functionality, or prototype new protocols.
   --prefix=%{_prefix} \
   --libdir=%{_libdir} \
   --idn-library=icu \
-  --add-cflags="$RPM_OPT_FLAGS" \
-  --add-ldflags="$RPM_LD_FLAGS" \
+  --add-cflags="$RPM_OPT_FLAGS %{?el8:$(pkg-config --cflags-only-I openssl3)}" \
+  --add-ldflags="$RPM_LD_FLAGS %{?el8:$(pkg-config --libs-only-L openssl3)}" \
   --no-example-certs
 %make_build
 
@@ -120,16 +124,16 @@ cp -prf $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{*.cfg.lua,conf.d/} certs/ tests/
 sed -e '/^log = {/,/}/d' -e '/^\(certificates\|pidfile\) =/d' -i tests/%{name}.cfg.lua  # Avoid 'duplicate option' warnings
 echo 'certificates = "certs"' >> tests/%{name}.cfg.lua  # Relative to configuration
 echo 'log = { "*console" }' >> tests/%{name}.cfg.lua  # Create no log files
-echo 'pidfile = "'$(pwd)'/tests/prosody.pid"' >> tests/%{name}.cfg.lua  # Absolute path
+echo 'pidfile = "'$PWD'/tests/prosody.pid"' >> tests/%{name}.cfg.lua  # Absolute path
 echo 'unbound = { resolvconf = false, hoststxt = false }' >> tests/%{name}.cfg.lua  # Disable /etc/{resolv.conf,hosts} usage
-echo 'admin_socket = "prosody.sock"' >> tests/%{name}.cfg.lua  # Avoid bind error for /run/prosody/prosody.sock
+echo 'admin_socket = "'$PWD'/tests/prosody.sock"' >> tests/%{name}.cfg.lua  # Avoid bind error for /run/prosody/prosody.sock
 (. ./config.unix 2> /dev/null && sed -e "1s| lua\$| ${RUNWITH}|" -i %{name} %{name}ctl)
 sed -e 's/^keysize=.*/keysize=4096/' -i tests/certs/{GNUmakefile,makefile}
 make -C tests/certs localhost.crt
 export LUA_PATH="$RPM_BUILD_ROOT%{_libdir}/%{name}/?.lua;;"
 export LUA_CPATH="$RPM_BUILD_ROOT%{_libdir}/%{name}/?.so;;"
-export PROSODY_CFGDIR="$(pwd)/tests"
-export PROSODY_DATADIR="$(pwd)/tests/data"
+export PROSODY_CFGDIR="$PWD/tests"
+export PROSODY_DATADIR="$PWD/tests/data"
 
 # Run some common commands
 ./%{name}ctl about
@@ -138,11 +142,11 @@ export PROSODY_DATADIR="$(pwd)/tests/data"
 for cnt in $(seq 1 5); do ss -lnpt | grep :5222 && ss -lnpt | grep :5269 && break || sleep 1; done
 echo 'QUIT' | openssl s_client -connect localhost:5222 -starttls xmpp -name localhost -CAfile tests/certs/localhost.crt
 echo 'QUIT' | openssl s_client -connect localhost:5269 -starttls xmpp-server -name localhost -CAfile tests/certs/localhost.crt
-./%{name}ctl stop
 echo -e 'Fish\nFish' | ./%{name}ctl adduser tux@localhost
-ls -l tests/data/localhost/accounts/tux.dat
+ls -l tests/data/localhost/{accounts,account_roles}/tux.dat
 echo -e 'Penguin\nPenguin' | ./%{name}ctl passwd tux@localhost
 ./%{name}ctl deluser tux@localhost
+./%{name}ctl stop
 
 %pre
 %sysusers_create_compat %{SOURCE6}
@@ -199,6 +203,13 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Sun Apr 06 2025 Robert Scheck <robert@fedoraproject.org> 13.0.1-1
+- Upgrade to 13.0.1 (#2352897 #c1)
+
+* Tue Apr 01 2025 Robert Scheck <robert@fedoraproject.org> 13.0.0-1
+- Upgrade to 13.0.0 (#2352897)
+- Build against OpenSSL 3 on RHEL 8 (for openssl/param_build.h)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

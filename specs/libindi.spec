@@ -8,8 +8,8 @@ ExcludeArch:    %{ix86}
 
 # Define boolean to quickly set option and dependencies for
 # building with websocket support
-# RHEL 10 doesn't have websocketcpp
-%if 0%{?rhel} && 0%{?rhel} >= 10
+# Fedora >= 43 and RHEL 10 don't have websocketcpp
+%if (0%{?fedora} && 0%{?fedora} >= 43) || (0%{?rhel} && 0%{?rhel} >= 10)
 %bcond_with websocket
 %else
 %bcond_without websocket
@@ -20,7 +20,7 @@ ExcludeArch:    %{ix86}
 %global build_tests 1
 
 Name:       libindi
-Version:    2.1.2
+Version:    2.1.3
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 

@@ -82,6 +82,7 @@ Development files needed to build Code::Blocks plug-ins.
 
 %package contrib-libs
 Summary:	Libraries needed to run Code::Blocks contrib plug-ins
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description contrib-libs
 Libraries needed to run Code::Blocks contrib plug-ins.

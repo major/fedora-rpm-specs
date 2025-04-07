@@ -12,6 +12,10 @@ Summary:        File-driven snapshot testing for a function
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tryfn
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow libtest-mimic 0.8; see “chore(deps): Update Rust crate libtest-mimic to
+#   0.8.0”, https://github.com/assert-rs/snapbox/pull/369
+Patch:          tryfn-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

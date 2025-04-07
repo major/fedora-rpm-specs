@@ -1,11 +1,8 @@
-# NOTE: sphinx-gallery support requires a version <= 0.8.  Upstream will
-# accept patches to make it work with later versions.
-
 %global giturl  https://github.com/mwouts/jupytext
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.16.7
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
@@ -73,7 +70,7 @@ Requires:       jupyterlab >= 4.0
 Provides:       bundled(npm(base64-js)) = 1.5.1
 Provides:       bundled(npm(buffer)) = 6.0.3
 Provides:       bundled(npm(ieee754)) = 1.2.1
-Provides:       bundled(npm(jupyterlab-rise)) = 0.41.0
+Provides:       bundled(npm(jupyterlab-rise)) = 0.43.1
 
 %description -n python3-jupyterlab-jupytext %_desc
 

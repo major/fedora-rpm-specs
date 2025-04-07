@@ -1,6 +1,6 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        3.21.0
+Version:        3.21.1
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
@@ -87,7 +87,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.31*
+%{_libdir}/%{name}.so.32*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -97,6 +97,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Apr 05 2025 Robert Scheck <robert@fedoraproject.org> 3.21.1-1
+- Upgrade to 3.21.1 (#2357506)
+
 * Sun Mar 30 2025 Robert Scheck <robert@fedoraproject.org> 3.21.0-1
 - Upgrade to 3.21.0 (#2355014)
 

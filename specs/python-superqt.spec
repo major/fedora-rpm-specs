@@ -73,6 +73,11 @@ export QT_LOGGING_RULES="default.debug=true"
 k="${k-}${k+ and }not test_qiconify"
 # Test fails for unknown reason
 k="${k-}${k+ and }not test_wrapped_eliding_label"
+# Test fails on s390x since version 0.7.2
+# https://github.com/pyapp-kit/superqt/issues/287
+%if "%{_build_arch}" == "s390x"
+k="${k-}${k+ and }not test_cmap_draw_result"
+%endif
 %pytest -r fEs ${k+-k "${k-}"}
 %else
 %pyproject_check_import

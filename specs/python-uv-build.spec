@@ -199,10 +199,10 @@ tomcli set Cargo.toml false profile.release.strip
 
 
 %build
-%pyproject_wheel
-
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+
+%pyproject_wheel
 
 
 %install
@@ -223,9 +223,9 @@ skip="${skip-} --skip wheel::test::test_prepare_metadata"
 
 
 %files -n python3-uv-build -f %{pyproject_files}
-# The main license files, LICENSE-APACHE and LICENSE-MIT, are already in the
-# .dist-info directory. However, we still need to include these manually:
-%license LICENSE.dependencies LICENSE.bundled/
+# The other license files (LICENSE-APACHE, LICENSE-MIT, and
+# LICENSE.dependencies) are already handled in the .dist-info directory.
+%license LICENSE.bundled/
 %doc README.md
 
 %{_bindir}/uv-build

@@ -1,15 +1,15 @@
-%global srcname shamir-mnemonic
-
-Name:    python-%{srcname}
-Version: 0.2.2
-Release: 12%{?dist}
-Summary: Reference implementation of Shamir's Secret-Sharing for Mnemonic Codes
+Name:    python-shamir-mnemonic
+Version: 0.3.0
+Release: 1%{?dist}
+Summary: Reference implementation of SLIP-0039: Shamir’s Secret-Sharing for Mnemonic Codes
 
 License: MIT
 URL:     https://github.com/trezor/python-shamir-mnemonic
-Source0: %{pypi_source}
+Source0: %{pypi_source shamir_mnemonic}
 
-BuildArch: noarch
+BuildArch:     noarch
+BuildRequires: python3-devel
+
 
 %global _description %{expand:
 This SLIP describes a standard and interoperable implementation of
@@ -21,32 +21,45 @@ about the secret.}
 
 %description %_description
 
-%package -n python3-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+%package -n python3-shamir-mnemonic
+Summary: %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-shamir-mnemonic %_description
+
 
 %prep
-%autosetup -n %{srcname}-%{version}
-rm -rf *.egg-info/
+%autosetup -n shamir_mnemonic-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x cli
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{srcname}
+%pyproject_save_files shamir_mnemonic
+
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-shamir-mnemonic -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %doc CHANGELOG.rst
-%{python3_sitelib}/shamir_mnemonic-*.egg-info/
-%{python3_sitelib}/shamir_mnemonic/
 %{_bindir}/shamir
 
+
 %changelog
+* Sat Apr 05 2025 Jonny Heggheim <hegjon@gmail.com> - 0.3.0-1
+- Updated to 0.3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
