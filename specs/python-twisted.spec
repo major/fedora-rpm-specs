@@ -80,7 +80,9 @@ echo "%ghost %{python3_sitelib}/twisted/plugins/dropin.cache" >> %{pyproject_fil
 
 
 %check
-PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=$PWD/src %{buildroot}%{_bindir}/trial twisted
+# Temporarily allow SHA1 signature in the test suite, but ideally the test shall avoid
+# using it, reported upstream in https://github.com/twisted/twisted/issues/12443
+OPENSSL_ENABLE_SHA1_SIGNATURES= PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=$PWD/src %{buildroot}%{_bindir}/trial twisted
 
 
 %files -n python3-twisted  -f %{pyproject_files}

@@ -25,7 +25,10 @@ BuildRequires:  glib2-devel >= 2.42.0
 BuildRequires:  libnotify-devel >= 0.7.0
 BuildRequires:  sqlite-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  intltool
+BuildRequires:  gtk-layer-shell-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  libcanberra-gtk3
+BuildRequires:  meson
 BuildRequires:  systemd
 
 Requires:       dbus
@@ -50,11 +53,11 @@ Features:
 
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-config.desktop
 %find_lang %{name}

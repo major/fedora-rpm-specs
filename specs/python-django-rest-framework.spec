@@ -3,7 +3,7 @@
 # Some test dependencies are missing
 %bcond_with tests
 Name:           python-django-rest-framework
-Version:        3.15.2
+Version:        3.16.0
 Release:        %autorelease
 Summary:        Web APIs for Django, made easy
 

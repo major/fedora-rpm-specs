@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc0.20250404gite48e99b6edf4.11
+%define pkgrelease 0.rc0.20250406gitf4d2ef48250a.13
 %define kversion 6
-%define tarfile_release 6.14-13189-ge48e99b6edf4
+%define tarfile_release 6.14-13524-gf4d2ef48250a
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250404gite48e99b6edf4.11%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250406gitf4d2ef48250a.13%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4229,8 +4229,14 @@ fi\
 #
 #
 %changelog
-* Fri Apr 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.e48e99b6edf4.11]
+* Sun Apr 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.f4d2ef48250a.13]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+
+* Sun Apr 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.f4d2ef48250a.12]
+- Linux v6.15.0-0.rc0.f4d2ef48250a
+
+* Sat Apr 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.a8662bcd2ff1.11]
+- Linux v6.15.0-0.rc0.a8662bcd2ff1
 
 * Fri Apr 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc0.e48e99b6edf4.10]
 - Linux v6.15.0-0.rc0.e48e99b6edf4

@@ -8,14 +8,14 @@
 %bcond bootstrap 0
 
 %bcond inline_snapshot %{undefined el10}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2356388
 %bcond orjson %{undefined el10}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2321338
 %bcond passlib %{undefined el10}
 # Not yet packaged: https://pypi.org/project/PyJWT/
 %bcond pyjwt 0
 %bcond sqlmodel %{without bootstrap}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2335460
-%bcond uvicorn %{undefined el10}
+%bcond uvicorn 1
 
 # For translations, check docs/*/docs/index.md
 # Note that there are many other localized versions of the documentation

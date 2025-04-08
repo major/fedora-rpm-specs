@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.3
-Release:     6%{?dist}
+Release:     7%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -18,6 +18,14 @@ Source7:     raid-check.service
 Source8:     mdcheck
 Source10:    https://www.kernel.org/pub/linux/utils/raid/mdadm/%{name}-%{version}.tar.sign
 Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/6F9E3E9D4EDEBB11.asc
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2325906
+# see: https://github.com/md-raid-utilities/mdadm/pull/165
+# https://github.com/md-raid-utilities/mdadm/pull/160
+# https://github.com/md-raid-utilities/mdadm/pull/159
+# this is a reversion of the initial 'posix check' patch
+# that causes all the trouble
+Patch:       0001-Revert-mdadm-Follow-POSIX-Portable-Character-Set.patch
 
 # Fedora customization patches
 Patch:       mdadm-udev.patch
@@ -124,6 +132,9 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Sun Apr 06 2025 Adam Williamson <awilliam@redhat.com> - 4.3-7
+- revert 'posix' name check to fix rhbz#2325906
+
 * Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 4.3-6
 - fix FTBFS on gcc15 rhbz#2340833
 - fix permissions on /usr/share/mdadm to be world-readable rhbz#2322402

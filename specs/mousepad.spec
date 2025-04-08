@@ -1,20 +1,20 @@
 %global minorversion 0.6
 
 Name:           mousepad
-Version:        0.6.3
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Simple text editor for Xfce desktop environment
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://git.xfce.org/apps/mousepad/about/
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  xfce4-dev-tools
 BuildRequires:  gettext 
-BuildRequires:  intltool
+BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtksourceview4-devel
 BuildRequires:  dbus-glib-devel
@@ -72,11 +72,11 @@ Development files for Mousepad plugin development
 %autosetup
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %find_lang %{name}
 

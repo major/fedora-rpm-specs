@@ -2,7 +2,7 @@
 %global pypi_name_with_underscore %(echo "%{pypi_name}" | sed "s/-/_/g")
 
 Name:           python-%{pypi_name}
-Version:        33.0.0
+Version:        33.0.1
 Release:        %autorelease
 Summary:        Suite of analysis utilities and command line tools for Docker container images
 

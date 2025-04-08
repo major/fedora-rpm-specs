@@ -46,12 +46,12 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -70,6 +70,8 @@ Patch1:         0001-rocsolver-offload-compress.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+# RFE to replace fmt:: with std::
+# https://github.com/ROCm/rocSOLVER/issues/929
 BuildRequires:  fmt-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
@@ -210,6 +212,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- Document RFE to remove fmt dependency
+
 * Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Remove multibuild
 - Fix SLE 15.6

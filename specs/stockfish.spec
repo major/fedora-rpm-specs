@@ -2,12 +2,12 @@
 
 # In src/evaluate.h,
 # #define EvalFileDefaultNameBig "nn-HASH.nnue"
-%global nnuehash1 1111cefa1111
+%global nnuehash1 1c0000000000
 # #define EvalFileDefaultNameSmall "nn-HASH.nnue"
 %global nnuehash2 37f18f62d772
 
 Name:            stockfish
-Version:         17
+Version:         17.1
 Release:         %autorelease
 #Source0:        %%{url}/files/%%{name}-%%{version}-linux.zip
 Source0:         https://github.com/official-%{name}/%{srcname}/archive/sf_%{version}.zip
@@ -28,8 +28,6 @@ Source11:        https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/%{na
 
 # polyglot support
 Source20:        https://raw.githubusercontent.com/mpurland/%{name}/master/polyglot.ini#/%{name}-polyglot.ini
-
-Patch:           https://github.com/official-%{name}/%{srcname}/commit/1776448917e49b922a762d2d08c00a3f3be10205.patch#/001-fix-for-gcc-15.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 42
@@ -135,7 +133,8 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 %endif
 
 %ifarch ppc64le
-%global sfarch ppc-64
+# POWER8
+%global sfarch ppc-64-vsx
 %endif
 
 %ifarch aarch64

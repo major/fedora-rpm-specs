@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
@@ -101,6 +101,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_bindir}/Qt6WebSockets.dll
 %{mingw32_includedir}/qt6/QtWebSockets/
 %{mingw32_libdir}/cmake/Qt6WebSockets/
+%{mingw32_libdir}/cmake/Qt6WebSocketsPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebSocketsTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw32_libdir}/pkgconfig/Qt6WebSockets.pc
@@ -120,6 +121,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_bindir}/Qt6WebSockets.dll
 %{mingw64_includedir}/qt6/QtWebSockets/
 %{mingw64_libdir}/cmake/Qt6WebSockets/
+%{mingw64_libdir}/cmake/Qt6WebSocketsPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebSocketsTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw64_libdir}/pkgconfig/Qt6WebSockets.pc
@@ -134,6 +136,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

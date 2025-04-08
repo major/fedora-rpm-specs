@@ -1,20 +1,38 @@
 %global pypi_name gemfileparser2
 
 Name:           python-%{pypi_name}
-Version:        0.9.3
+Version:        0.9.4
 Release:        %autorelease
 Summary:        Library to parse Rubygem gemspec
 
-License:        GPL-3.0-or-later OR MIT
+# GPL-3.0-or-later OR MIT: main progran
+# Apache-2.0: 
+# - etc/scripts/check_thirdparty.py
+# - etc/scripts/fetch_thirdparty.py
+# - etc/scripts/gen_requirements.py
+# - etc/scripts/gen_requirements_dev.py
+# - etc/scripts/test_utils_pypi_supported_tags.py
+# - etc/scripts/test_utils_pypi_supported_tags.py.ABOUT
+# - etc/scripts/utils_dejacode.py
+# - etc/scripts/utils_pypi_supported_tags.py
+# - etc/scripts/utils_pypi_supported_tags.py.ABOUT
+# - etc/scripts/utils_requirements.py
+# - tests/test_skeleton_codestyle.py
+# - tests/data/gemspecs/logstash-mixin-ecs_compatibility_support.gemspec
+# MIT:
+# - etc/scripts/test_utils_pip_compatibility_tags.py
+# - etc/scripts/utils_pip_compatibility_tags.py
+# - tests/data/gemspecs/arel.gemspec
+# - tests/data/gemspecs/arel2.gemspec
+License:        (GPL-3.0-or-later OR MIT) AND Apache-2.0 AND MIT
 URL:            https://github.com/nexB/gemfileparser2
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# setup.cfg: fix invalid version spec
-Patch:          6270a8805c7fb964e545a56ca8a92829d240a96a.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-reredirects)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %global common_description %{expand:
@@ -71,6 +89,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc AUTHORS CHANGELOG.rst README.rst
+%license LICENSE LICENSE.GPLv3 LICENSE.MIT
 %pycached %{python3_sitelib}/gemfileparser.py
 
 %files -n python-%{pypi_name}-doc

@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSensors component
 
@@ -105,7 +105,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6/FindSensorfw.cmake
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSensorsTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6Sensors/
+%{mingw32_libdir}/cmake/Qt6SensorsPrivate/
 %{mingw32_libdir}/cmake/Qt6SensorsQuick/
+%{mingw32_libdir}/cmake/Qt6SensorsQuickPrivate/
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6SensorsQuickplugin*
 %{mingw32_libdir}/pkgconfig/Qt6Sensors.pc
 %{mingw32_libdir}/pkgconfig/Qt6SensorsQuick.pc
@@ -136,7 +138,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6/FindSensorfw.cmake
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSensorsTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6Sensors/
+%{mingw64_libdir}/cmake/Qt6SensorsPrivate/
 %{mingw64_libdir}/cmake/Qt6SensorsQuick/
+%{mingw64_libdir}/cmake/Qt6SensorsQuickPrivate/
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6SensorsQuickplugin*
 %{mingw64_libdir}/pkgconfig/Qt6Sensors.pc
 %{mingw64_libdir}/pkgconfig/Qt6SensorsQuick.pc
@@ -159,6 +163,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

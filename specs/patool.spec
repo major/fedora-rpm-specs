@@ -1,6 +1,6 @@
 %global forgeurl        https://github.com/wummel/patool
-Version:                3.1.3
-%global tag             3.1.3
+Version:                4.0.0
+%global tag             4.0.0
 
 %forgemeta
 
@@ -34,10 +34,11 @@ Summary:        Portable command line archive file manager
 License:        GPL-3.0-or-later
 URL:            http://wummel.github.io/patool/
 Source:         %{forgesource}
-Patch:          patool-3.1.3-fix_star_options.patch
+# https://github.com/wummel/patool/pull/181
+Patch:          0001-Fix-Star-testing-parameters.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel >= 3.11
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 
@@ -152,7 +153,7 @@ Python 3 sub-package.
 %autopatch -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

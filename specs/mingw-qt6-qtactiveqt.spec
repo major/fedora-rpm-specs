@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtActiveQt component
 
@@ -34,8 +34,6 @@ Patch0:         qtactiveqt_qt6suffix.patch
 Patch1:         0001-Handle-win64-in-dumpcpp-and-MetaObjectGenerator-read.patch
 # From ArchLinux package: don't attempt to build non-portable tools on host platform
 Patch2:         0002-Build-tools-for-the-target-platform.patch
-# From ArchLinux package: Fix compile error about missing QStringView overload
-Patch3:         0003-Fix-compile-error-about-missing-QStringView-overload.patch
 
 BuildArch:      noarch
 
@@ -116,9 +114,12 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_includedir}/qt6/QtAxContainer/
 %{mingw32_includedir}/qt6/QtAxServer/
 %{mingw32_libdir}/cmake/Qt6ActiveQt/
+%{mingw32_libdir}/cmake/Qt6ActiveQtPrivate/
 %{mingw32_libdir}/cmake/Qt6AxBasePrivate/
 %{mingw32_libdir}/cmake/Qt6AxContainer/
+%{mingw32_libdir}/cmake/Qt6AxContainerPrivate/
 %{mingw32_libdir}/cmake/Qt6AxServer/
+%{mingw32_libdir}/cmake/Qt6AxServerPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtActiveQtTestsConfig.cmake
 %{mingw32_libdir}/pkgconfig/Qt6ActiveQt.pc
 %{mingw32_libdir}/pkgconfig/Qt6AxContainer.pc
@@ -156,9 +157,12 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_includedir}/qt6/QtAxContainer/
 %{mingw64_includedir}/qt6/QtAxServer/
 %{mingw64_libdir}/cmake/Qt6ActiveQt/
+%{mingw64_libdir}/cmake/Qt6ActiveQtPrivate/
 %{mingw64_libdir}/cmake/Qt6AxBasePrivate/
 %{mingw64_libdir}/cmake/Qt6AxContainer/
+%{mingw64_libdir}/cmake/Qt6AxContainerPrivate/
 %{mingw64_libdir}/cmake/Qt6AxServer/
+%{mingw64_libdir}/cmake/Qt6AxServerPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtActiveQtTestsConfig.cmake
 %{mingw64_libdir}/pkgconfig/Qt6ActiveQt.pc
 %{mingw64_libdir}/pkgconfig/Qt6AxContainer.pc
@@ -187,6 +191,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

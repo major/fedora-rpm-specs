@@ -1,5 +1,5 @@
 Name:           pgcli
-Version:        4.2.0
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
@@ -76,6 +76,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %{_mandir}/man1/pgcli.1*
 
 %changelog
+* Sun Apr  6 2025 Dick Marinus <dick@mrns.nl> - 4.3.0-1
+- Update to 4.3.0 (close RHBZ#2354303)
+
 * Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.0-1
 - Update to 4.2.0 (close RHBZ#2350515)
 

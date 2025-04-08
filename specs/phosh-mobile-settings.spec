@@ -1,10 +1,10 @@
 Name:		phosh-mobile-settings
-Version:	0.45.0
+Version:	0.46.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
-Source:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version}/phosh-mobile-settings-v%{version}.tar.gz
+Source:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version_no_tilde _}/phosh-mobile-settings-v%{version_no_tilde _}.tar.gz
 # FIXME: tests fail if build directory is used a XDG_RUNTIME_DIR
 Patch0:	shorter-xdg_runtime_dir-path.patch
 
@@ -29,13 +29,14 @@ BuildRequires:	pkgconfig(libadwaita-1) >= 1.5
 BuildRequires:	pkgconfig(wayland-client) >= 1.14
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(gnome-desktop-4) >= 44
+BuildRequires:	pkgconfig(libportal-gtk4) >= 0.9.1
 BuildRequires:	appstream-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	dbus-daemon
-BuildRequires:	feedbackd >= 0.4.1
+BuildRequires:	feedbackd-devel >= 0.7.0
 
-Requires:	feedbackd >= 0.4.1
+Requires:	feedbackd >= 0.8.0
 Requires:	phoc >= 0.34.0
 Requires:	phosh >= 0.44.0
 
@@ -43,7 +44,7 @@ Requires:	phosh >= 0.44.0
 Mobile Settings App for phosh and related components
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version_no_tilde _}
 mkdir -p /tmp/runtime-dir
 chmod 0700 /tmp/runtime-dir
 

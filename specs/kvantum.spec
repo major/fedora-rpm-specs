@@ -1,14 +1,14 @@
 %global _vpath_srcdir Kvantum
-%bcond_without  qt5
+%bcond  qt5           1
 
 Name:           kvantum
-Version:        1.1.3
+Version:        1.1.4
 Release:        %autorelease
 Summary:        SVG-based theme engine for Qt, KDE and LXQt
 
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            https://github.com/tsujan/Kvantum
-Source0:        %url/archive/V%{version}/%{name}-%{version}.tar.gz
+Source:         %url/archive/V%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

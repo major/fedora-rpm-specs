@@ -2,11 +2,11 @@
 %global github_name python-%{pypi_name}
 
 Name:           python-%{pypi_name}
-Version:        6.2.0
+Version:        6.3.1
 Release:        %autorelease
 Summary:        Fixes mojibake and other glitches in Unicode text, after the fact
 
-License:        MIT
+License:        Apache-2.0
 URL:            https://github.com/rspeer/python-ftfy
 Source:         %url/archive/v%{version}/%{github_name}-%{version}.tar.gz
 
@@ -29,9 +29,10 @@ Summary:        %{summary}
 
 %package -n python-%{pypi_name}-doc
 Summary:        Documentation for python-%{pypi_name}
+# Main program: Apache-2.0
 # BSD-2-Clause: Sphinx javascript
 # MIT: jquery
-License:        MIT AND BSD-2-Clause
+License:        Apache-2.0 AND MIT AND BSD-2-Clause
 BuildArch:      noarch
 Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       bundled(js-sphinx_javascript_frameworks_compat)
@@ -65,7 +66,7 @@ rm -rf html/.{doctrees,buildinfo}
 rm -rfv %{buildroot}%{python3_sitelib}/*.md
 
 %check
-# Don't work in Mock
+# Doesn't work in Mock
 rm -rfv tests/test_cli.py
 %pytest
 

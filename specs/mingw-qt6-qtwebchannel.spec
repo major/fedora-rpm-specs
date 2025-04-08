@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebChannel component
 
@@ -106,9 +106,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_includedir}/qt6/QtWebChannelQuick/
 %{mingw32_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/cmake/Qt6WebChannel/
+%{mingw32_libdir}/cmake/Qt6WebChannelPrivate/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6WebChannelQuick*
 %{mingw32_libdir}/cmake/Qt6WebChannelQuick/
+%{mingw32_libdir}/cmake/Qt6WebChannelQuickPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6WebChannel.pc
 %{mingw32_libdir}/pkgconfig/Qt6WebChannelQuick.pc
 %{mingw32_libdir}/libQt6WebChannel.dll.a
@@ -134,9 +136,11 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_includedir}/qt6/QtWebChannelQuick/
 %{mingw64_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/cmake/Qt6WebChannel/
+%{mingw64_libdir}/cmake/Qt6WebChannelPrivate/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6WebChannelQuick*
 %{mingw64_libdir}/cmake/Qt6WebChannelQuick/
+%{mingw64_libdir}/cmake/Qt6WebChannelQuickPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6WebChannel.pc
 %{mingw64_libdir}/pkgconfig/Qt6WebChannelQuick.pc
 %{mingw64_libdir}/libQt6WebChannel.dll.a
@@ -155,6 +159,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

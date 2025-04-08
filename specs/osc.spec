@@ -2,7 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_Rawhide/src/
 # update the obsrel to match the upstream release number
-%global obsrel 443.762
+%global obsrel 447.3
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.14.0
+Version:        1.15.1
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -80,13 +80,23 @@ PYTHONPATH=. argparse-manpage \
     --output=osc.1 \
     --format=single-commands-section \
     --module=osc.commandline \
-    --function=get_parser \
+    --function=argparse_manpage_get_parser \
     --project-name=osc \
     --prog=osc \
-    --description="openSUSE Commander" \
+    --description="Command-line client for Open Build Service" \
     --author="Contributors to the osc project. See the project's GIT history for the complete list." \
     --url="https://github.com/openSUSE/osc/"
 
+PYTHONPATH=. argparse-manpage \
+    --output=git-obs.1 \
+    --format=single-commands-section \
+    --module=osc.commandline_git \
+    --function=argparse_manpage_get_parser \
+    --project-name=osc \
+    --prog=git-obs \
+    --description="Git based command-line client for Open Build Service" \
+    --author="Contributors to the osc project. See the project's GIT history for the complete list." \
+    --url="https://github.com/openSUSE/osc/"
 
 %install
 %py3_install
@@ -119,6 +129,7 @@ install -Dm0644 macros.osc %{buildroot}%{_rpmmacrodir}/macros.osc
 
 # install man page
 install -Dm0644 osc.1 %{buildroot}%{_mandir}/man1/osc.1
+install -Dm0644 git-obs.1 %{buildroot}%{_mandir}/man1/git-obs.1
 
 # inject argcomplete marker to the generated git-obs executable
 sed -i '3i # PYTHON_ARGCOMPLETE_OK'  %{buildroot}%{_bindir}/git-obs
@@ -141,6 +152,7 @@ python3 -m unittest
 %{fish_completions_dir}/git-obs.fish
 %dir %{_localstatedir}/lib/osc-plugins
 %{_mandir}/man1/osc.*
+%{_mandir}/man1/git-obs.*
 %{_datadir}/osc
 %{_rpmconfigdir}/macros.d/macros.osc
 %dir %{obsroot}
@@ -148,6 +160,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Sun Apr 06 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.15.1-447.3.1
+- New upstream release 1.15.1, fixes rhbz#2357463
+
 * Sun Mar 23 2025 Dan Čermák  <dan.cermak@cgc-instruments.com> - 1.14.0-443.762.1
 - New upstream release 1.14.0, fixes rhbz#2354010
 

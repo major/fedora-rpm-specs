@@ -1,7 +1,7 @@
 %global pypi_name packageurl-python
 
 Name:           python-%{pypi_name}
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Python implementation of the package url spec
 

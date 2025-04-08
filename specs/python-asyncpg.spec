@@ -1,5 +1,5 @@
-# Run tests with uvloop? Currently unavailable in EPEL10
-%bcond uvloop %{expr:!0%{?el10}}
+# Run tests with uvloop?
+%bcond uvloop 1
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio

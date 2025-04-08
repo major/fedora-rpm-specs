@@ -17,7 +17,7 @@
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
-Version:        1.0.95
+Version:        1.0.96
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -139,6 +139,9 @@ pushd usr
 %endif
 
 %changelog
+* Sun Apr 06 2025 Terje Rosten <terjeros@gmail.com> - 1.0.96-1
+- 1.0.96
+
 * Sun Mar 02 2025 Terje Rosten <terjeros@gmail.com> - 1.0.95-1
 - 1.0.95
 

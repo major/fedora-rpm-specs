@@ -14,9 +14,9 @@ License:        GPL-3.0-or-later and BSD-3-Clause
 URL:            https://github.com/Syllo/nvtop
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/Syllo/nvtop/pull/370
-Patch:          %{name}-fix-icon-path.diff
+Patch0:         %{name}-fix-icon-path.diff
 # https://github.com/Syllo/nvtop/pull/369
-Patch:          %{name}-fix-appstream-path.diff
+Patch1:         %{name}-fix-appstream-path.diff
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils

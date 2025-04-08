@@ -13,7 +13,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        28.0.2
+%global version0        28.0.4
 %global tag0            v%{gsub %{version0} ~ -}
 
 # https://github.com/docker/cli
@@ -60,9 +60,11 @@ Source102:      LICENSE.macros
 Source200:      engine_go-vendor-tools.toml
 Source201:      cli_go-vendor-tools.toml
 
+# Patches 0-999 are for moby/moby
 Patch0:         0001-systemd-adjust-docker.service-for-downstream.patch
 
-Patch1000:      0001-scripts-adjust-generate-man-for-Fedora-build-env.patch
+# Patches 1000+ are for docker/cli
+# Patch1000:
 
 BuildRequires:  git-core
 BuildRequires:  go-vendor-tools
@@ -173,6 +175,7 @@ cd %{_builddir}/%{extractdir0}
 # Unpack vendor archive
 %__rpmuncompress -x %{S:1}
 # Apply patches 0-1000
+# Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -M999 -p1
 cp -p %{S:100} %{S:101} %{S:102} .
 # See comment in go-vendor-tools.toml
@@ -184,6 +187,7 @@ cd %{cli_dir}
 # Unpack vendor archive
 %__rpmuncompress -x %{S:3}
 # Apply patches 1000+.
+# Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -m1000 -p1
 # See comment in go-vendor-tools.toml
 cp go.mod vendor.mod

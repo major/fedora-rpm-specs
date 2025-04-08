@@ -4,8 +4,8 @@
 
 %global crate pyo3
 
-Name:           rust-pyo3
-Version:        0.24.1
+Name:           rust-pyo3_0.23
+Version:        0.23.5
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -107,18 +107,6 @@ This package contains library source intended for building other packages which
 use the "abi3-py312" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py312-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+abi3-py313-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+abi3-py313-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "abi3-py313" feature of the "%{crate}" crate.
-
-%files       -n %{name}+abi3-py313-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py37-devel
@@ -325,18 +313,6 @@ use the "inventory" feature of the "%{crate}" crate.
 %files       -n %{name}+inventory-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jiff-02-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+jiff-02-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "jiff-02" feature of the "%{crate}" crate.
-
-%files       -n %{name}+jiff-02-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+macros-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -481,18 +457,6 @@ use the "unindent" feature of the "%{crate}" crate.
 %files       -n %{name}+unindent-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+uuid-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+uuid-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "uuid" feature of the "%{crate}" crate.
-
-%files       -n %{name}+uuid-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -500,10 +464,8 @@ use the "uuid" feature of the "%{crate}" crate.
 rm -r emscripten/ newsfragments/
 # drop stray executable bit from non-executable text files:
 # https://github.com/PyO3/pyo3/pull/5047
-chmod -x ./guide/src/conversions/traits.md
 chmod -x ./src/conversions/std/ipaddr.rs
 chmod -x ./src/conversions/std/time.rs
-chmod -x ./tests/test_intopyobject.rs
 
 %generate_buildrequires
 # unit tests require optional dependencies

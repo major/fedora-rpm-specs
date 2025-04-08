@@ -2,31 +2,35 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-build-config
+%global crate pyo3-ffi
 
-Name:           rust-pyo3-build-config
-Version:        0.24.1
+Name:           rust-pyo3-ffi0.23
+Version:        0.23.5
 Release:        %autorelease
-Summary:        Build configuration for the PyO3 ecosystem
+Summary:        Python-API bindings for the PyO3 ecosystem
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-build-config
+URL:            https://crates.io/crates/pyo3-ffi
 Source:         %{crates_source}
+# * Downstream-only patch: always allow unsupported versions of Python.
+#   We constantly attempt to integrate alpha and beta releases of Python
+#   and need to rebuild all dependent packages in Copr, also those that
+#   use pyo3-ffi without patching each and every one of them, hence we
+#   explicitly allow to skip version check when building RPMs.
+Patch2:         Allow-unsupported-Python-versions-in-RPM-builds.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  python3
-%endif
+BuildRequires:  python3-devel >= 3.7
 
 %global _description %{expand:
-Build configuration for the PyO3 ecosystem.}
+Python-API bindings for the PyO3 ecosystem.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3
+Requires:       python3-devel >= 3.7
 
 %description    devel %{_description}
 
@@ -36,6 +40,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -98,18 +103,6 @@ use the "abi3-py312" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py312-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+abi3-py313-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+abi3-py313-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "abi3-py313" feature of the "%{crate}" crate.
-
-%files       -n %{name}+abi3-py313-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -156,18 +149,6 @@ This package contains library source intended for building other packages which
 use the "extension-module" feature of the "%{crate}" crate.
 
 %files       -n %{name}+extension-module-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+resolve-config-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+resolve-config-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "resolve-config" feature of the "%{crate}" crate.
-
-%files       -n %{name}+resolve-config-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

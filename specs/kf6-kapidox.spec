@@ -1,7 +1,7 @@
 %global framework kapidox
 
 Name:    kf6-%{framework}
-Version: 6.12.0
+Version: 6.13.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 scripts and data for building API documentation
 
@@ -66,6 +66,9 @@ style.
 
 
 %changelog
+* Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
+- 6.13.0
+
 * Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
 - 6.12.0
 

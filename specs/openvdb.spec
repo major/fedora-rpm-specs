@@ -1,5 +1,5 @@
 # Use soversion
-%global soversion 11.0
+%global soversion 12.0
 
 # Set to 1 to enable testsuite. Fails everywhere with GCC 8+.
 %bcond tests 0
@@ -7,13 +7,13 @@
 # Optional supports
 %bcond openexr 1
 %bcond ax      0
-%bcond nanovdb 0
+%bcond nanovdb 1
 %bcond python  %{?fedora}
 %bcond imath   %{?fedora} || %{?rhel} >= 9
 %bcond docs    0
 
 # ax currently incompatible with newer llvm versions
-%global llvm_compat 15
+%global llvm_compat 18
 
 %global _description %{expand:
 OpenVDB is an Academy Award-winning open-source C++ library comprising a novel
@@ -23,10 +23,10 @@ It is developed and maintained by Academy Software Foundation for use in
 volumetric applications typically encountered in feature film production.}
 
 Name:           openvdb
-Version:        11.0.0
+Version:        12.0.1
 Release:        %autorelease
 Summary:        C++ library for sparse volumetric data discretized on three-dimensional grids
-License:        MPL-2.0
+License:        Apache-2.0
 URL:            https://www.openvdb.org/
 
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -110,9 +110,38 @@ Provides:       %{name}-doc = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for developing
 applications that use %{name}.
 
+%if %{with nanovdb}
+%package        nanovdb
+Summary:        Lightweigh GPU version of VDB
+BuildRequires:	python3-nanobind-devel
+BuildRequires:  pkgconfig(python3)
+BuildRequires:  python3dist(numpy)
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+
+%description    nanovdb %{_description}
+A lightweight GPU friendly version of VDB initially targeting rendering applications.
+
+%package        nanovdb-devel
+Summary:        Development files for nanovdb
+BuildRequires:	python3-nanobind-devel
+BuildRequires:  pkgconfig(python3)
+BuildRequires:  python3dist(numpy)
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+
+%description    nanovdb-devel %{_description}
+The %{name}-nanovdb-devel package contains libraries and header files for developing
+applications that use nanovdb.
+
+%endif
+
+
+
 %if %{with python}
 %package        -n python3-%{name}
 Summary:        OpenVDB Python module
+BuildRequires:	python3-nanobind-devel
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  python3dist(numpy)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -152,6 +181,7 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %endif
 %if %{with python}
     -DOPENVDB_BUILD_PYTHON_MODULE=ON \
+    -DCMAKE_PREFIX_PATH='%{python3_sitelib}/nanobind/cmake' \
 %endif
 %if 0%{?rhel}
     -DCONCURRENT_MALLOC=None \
@@ -171,7 +201,7 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %endif
 %if %{with nanovdb}
     -DUSE_NANOVDB=ON \
-    -DNANOVDB_USE_OPENVDB=ON \
+    -DNANOVDB_USE_OPENVDB=OFF \
 %endif
 %if %{with imath}
     -DUSE_IMATH_HALF=ON \
@@ -199,8 +229,13 @@ find %{buildroot} -name '*.a' -delete
 
 %files
 %{_bindir}/vdb_print
+
 %if %{with nanovdb}
+%files nanovdb
 %{_bindir}/nanovdb_{convert,print,validate}
+
+%files nanovdb-devel
+%{_includedir}/nanovdb
 %endif
 
 %files libs
@@ -211,14 +246,14 @@ find %{buildroot} -name '*.a' -delete
 
 %if %{with python}
 %files -n python3-%{name}
-%{python3_sitearch}/py%{name}.cpython-*.so
+%{python3_sitearch}/%{name}.cpython*.so
 %endif
 
 %files devel
 %if %{with docs}
 %doc html
 %endif
-%{_includedir}/*
+%{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/OpenVDB/
 

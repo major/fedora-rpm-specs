@@ -1,6 +1,4 @@
-# Blender is broken in F42 at the moment:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2350874
-%bcond blender %{undefined fc42}
+%bcond blender 1
 %bcond skimage 1
 
 # Not yet packaged: https://pypi.org/project/pymeshlab/
@@ -8,7 +6,7 @@
 %bcond pymeshlab 0
 
 Name:           python-trimesh
-Version:        4.6.5
+Version:        4.6.6
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -61,10 +59,13 @@ BuildRequires:  %{py3_dist pytest}
 #   pyright: linters/coverage/etc.
 BuildRequires:  %{py3_dist ezdxf}
 #   pytest-beartype: linters/coverage/etc.
+BuildRequires:  %{py3_dist matplotlib}
 %if %{with pymeshlab}
 BuildRequires:  %{py3_dist pymeshlab}
 %endif
 #   triangle: nonfree license
+BuildRequires:  %{py3_dist ipython}
+#   marimo: not packaged
 
 # Run tests in parallel:
 BuildRequires:  %{py3_dist pytest-xdist}
@@ -216,8 +217,6 @@ EOF
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
-#   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
-#           depends on https://github.com/jpcy/xatlas, also not yet packaged
 tomcli set pyproject.toml lists delitem --type regex --no-first \
     'project.optional-dependencies.easy' '(embreex|manifold3d|xatlas)\b.*'
 %ifarch s390x
@@ -228,8 +227,11 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
     'project.optional-dependencies.recommend' \
     '(cascadio)\b.*'
 %endif
+#   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
+#           depends on https://github.com/jpcy/xatlas, also not yet packaged
+#           (Currently commented out upstream)
 tomcli set pyproject.toml lists delitem --type regex --no-first \
-    'project.optional-dependencies.recommend' 'pyglet\b.*'
+    'project.optional-dependencies.recommend' '(xatlas|pyglet)\b.*'
 %if %{without skimage}
 tomcli set pyproject.toml lists delitem --type regex --no-first \
     'project.optional-dependencies.recommend' 'scikit-image\b.*'
@@ -295,6 +297,14 @@ PlyTest::test_vertex_attributes
 test_boolean
 test_multiple
 test_multiple_difference
+%endif
+
+%if 0%{?fedora} > 42
+# A few regressions with Pillow 11.2.0
+# https://github.com/mikedh/trimesh/issues/2386
+ExportTest::test_export
+OBJTest::test_compound_scene_export
+OBJTest::test_scene_export_material_name
 %endif
 
 # This test fails if it doesn’t finish within 30 seconds, and executing it in

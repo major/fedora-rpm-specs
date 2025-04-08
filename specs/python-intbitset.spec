@@ -1,15 +1,13 @@
 %global pypi_name intbitset
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Python C-based extension implementing fast integer bit sets
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/inveniosoftware-contrib/intbitset
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# Fix for Python 3.13: use new buffer protocols
-Patch:          0001-Convert-old-buffer-protocols-to-Python-3-buffer-prot.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

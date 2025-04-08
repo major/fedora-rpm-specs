@@ -20,6 +20,9 @@ License:        BSD-3-Clause
 URL:            http://jupyter.org
 Source0:        %pypi_source
 
+# Backport of https://github.com/jupyter/nbconvert/pull/2199
+Patch1:         backport-mistune-3.1.0-support.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

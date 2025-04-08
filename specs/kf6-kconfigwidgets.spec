@@ -1,8 +1,8 @@
 %global framework kconfigwidgets
 
 Name:    kf6-%{framework}
-Version: 6.12.0
-Release: 2%{?dist}
+Version: 6.13.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for creating configuration dialogs
 
 # The following licenses are in LICENSES but go unused: BSD-3-Clause, MIT
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
+- 6.13.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.12.0-2
 - Rebuild (qt6)
 

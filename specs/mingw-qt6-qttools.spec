@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
@@ -138,16 +138,19 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6DesignerComponentsPrivate/
 %{mingw32_libdir}/cmake/Qt6Designer/
+%{mingw32_libdir}/cmake/Qt6DesignerPrivate/
 %{mingw32_libdir}/cmake/Qt6QDocCatchConversionsPrivate/
 %{mingw32_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/
 %{mingw32_libdir}/cmake/Qt6QDocCatchPrivate/
 %{mingw32_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{mingw32_libdir}/cmake/Qt6Help/
+%{mingw32_libdir}/cmake/Qt6HelpPrivate/
 %{mingw32_libdir}/cmake/Qt6Linguist/
 %{mingw32_libdir}/cmake/Qt6LinguistTools
 %{mingw32_libdir}/cmake/Qt6Tools/
 %{mingw32_libdir}/cmake/Qt6UiPlugin/
 %{mingw32_libdir}/cmake/Qt6UiTools/
+%{mingw32_libdir}/cmake/Qt6UiToolsPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Designer.pc
 %{mingw32_libdir}/pkgconfig/Qt6Help.pc
 %{mingw32_libdir}/pkgconfig/Qt6Linguist.pc
@@ -216,16 +219,19 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6DesignerComponentsPrivate/
 %{mingw64_libdir}/cmake/Qt6Designer/
+%{mingw32_libdir}/cmake/Qt6DesignerPrivate/
 %{mingw64_libdir}/cmake/Qt6QDocCatchConversionsPrivate/
 %{mingw64_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/
 %{mingw64_libdir}/cmake/Qt6QDocCatchPrivate/
 %{mingw64_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{mingw64_libdir}/cmake/Qt6Help/
+%{mingw32_libdir}/cmake/Qt6HelpPrivate/
 %{mingw64_libdir}/cmake/Qt6Linguist/
 %{mingw64_libdir}/cmake/Qt6LinguistTools
 %{mingw64_libdir}/cmake/Qt6Tools/
 %{mingw64_libdir}/cmake/Qt6UiPlugin/
 %{mingw64_libdir}/cmake/Qt6UiTools/
+%{mingw32_libdir}/cmake/Qt6UiToolsPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Designer.pc
 %{mingw64_libdir}/pkgconfig/Qt6Help.pc
 %{mingw64_libdir}/pkgconfig/Qt6Linguist.pc
@@ -272,6 +278,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
+- Update to 6.9.0
+
 * Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

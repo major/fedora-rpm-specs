@@ -1,7 +1,7 @@
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        6.12.0
+Version:        6.13.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
@@ -27,6 +27,9 @@ BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
+
+# Others
+BuildRequires:  pkgconfig(openssl)
 
 %description
 KDE Frameworks 6 Tier 1 addon with archive functions.
@@ -73,6 +76,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
+- 6.13.0
+
 * Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
 - 6.12.0
 

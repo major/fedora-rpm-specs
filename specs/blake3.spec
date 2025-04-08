@@ -11,7 +11,7 @@
 %endif
 
 Name:           blake3
-Version:        1.7.0
+Version:        1.8.1
 Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
@@ -106,12 +106,12 @@ cd c
 
 %files
 %license LICENSE_A2
-%doc c/README.md
 %{_libdir}/lib%{name}.so.0
 %{_libdir}/lib%{name}.so.%{version}
 
 %files devel
 %doc c/example.c
+%doc c/README.md
 %{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/%{name}/

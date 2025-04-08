@@ -3,7 +3,7 @@
 %global namespc Libxfce4util
 
 Name:           libxfce4util
-Version:        4.20.0
+Version:        4.20.1
 Release:        %autorelease
 Summary:        Utility library for the Xfce4 desktop environment
 

@@ -1,11 +1,11 @@
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
+# We can generate PDF documentation as a substitute (but we no longer do).
+%bcond doc %[ %{defined fc42} || %{defined fc41} || %{defined fc40} || %{defined el10} ]
 
 Name:           python-plac
-Version:        1.4.3
+Version:        1.4.5
 Release:        %autorelease
 Summary:        The smartest command line arguments parser in the world
 
@@ -16,9 +16,17 @@ Source0:        %{url}/archive/v%{version}/plac-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        plac_runner.py.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l plac_core plac_ext plac_tk plac
+
+# Fix Tkinter imports on Python 3
+# https://github.com/ialbert/plac/pull/85
+Patch:          %{url}/pull/85.patch
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+# Required for plac_tk:
+BuildRequires:  python3-tkinter
 
 %if %{with doc}
 BuildRequires:  make
@@ -46,6 +54,13 @@ in your source code.}
 %package -n python3-plac
 Summary:        %{summary}
 
+# Required for plac_tk:
+Recommends:     python3-tkinter
+
+%if %{without doc}
+Obsoletes:      python-plac-doc < 1.4.5-1
+%endif
+
 %description -n python3-plac %{common_description}
 
 
@@ -57,17 +72,7 @@ Summary:        Documentation for plac
 %endif
 
 
-%prep
-%autosetup -n plac-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc}
 PYTHONPATH="${PWD}" sphinx-build -b latex -j%{?_smp_build_ncpus} \
     doc %{_vpath_builddir}/_latex
@@ -75,13 +80,11 @@ PYTHONPATH="${PWD}" sphinx-build -b latex -j%{?_smp_build_ncpus} \
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l plac_core plac_ext plac_tk plac
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE1}'
 
 
-%check
+%check -a
 %{py3_test_envvars} '%{python3}' doc/test_plac.py
 
 

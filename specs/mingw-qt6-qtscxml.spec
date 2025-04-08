@@ -12,7 +12,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.2
+Version:        6.9.0
 Release:        %autorelease
 Summary:        Qt6 for Windows - QtScxml component
 
@@ -101,8 +101,9 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw32_bindir}/Qt6ScxmlQml.dll
 %{mingw32_bindir}/Qt6StateMachineQml.dll
 %{mingw32_includedir}/qt6/QtScxml/
-%{mingw32_includedir}/qt6/QtStateMachine/
+%{mingw32_includedir}/qt6/QtScxmlGlobal/
 %{mingw32_includedir}/qt6/QtScxmlQml/
+%{mingw32_includedir}/qt6/QtStateMachine/
 %{mingw32_includedir}/qt6/QtStateMachineQml/
 %dir %{mingw32_libdir}/qt6/plugins/scxmldatamodel
 %{mingw32_libdir}/qt6/plugins/scxmldatamodel/qscxmlecmascriptdatamodel.dll
@@ -112,11 +113,16 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/mkspecs
 %{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
 %{mingw32_libdir}/cmake/Qt6Scxml/
+%{mingw32_libdir}/cmake/Qt6ScxmlPrivate/
+%{mingw32_libdir}/cmake/Qt6ScxmlGlobalPrivate/
 %{mingw32_libdir}/cmake/Qt6StateMachine/
+%{mingw32_libdir}/cmake/Qt6StateMachinePrivate/
 %{mingw32_libdir}/cmake/Qt6StateMachineQml/
-%{mingw32_libdir}/cmake/Qt6BuildInternals/
-%{mingw32_libdir}/cmake/Qt6Qml/
+%{mingw32_libdir}/cmake/Qt6StateMachineQmlPrivate/
+%{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtScxmlTestsConfig.cmake
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw32_libdir}/cmake/Qt6ScxmlQml/
+%{mingw32_libdir}/cmake/Qt6ScxmlQmlPrivate/
 %{mingw32_libdir}/cmake/Qt6/
 %{mingw32_libdir}/libQt6Scxml.dll.a
 %{mingw32_libdir}/pkgconfig/*.pc
@@ -133,8 +139,9 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw64_bindir}/Qt6ScxmlQml.dll
 %{mingw64_bindir}/Qt6StateMachineQml.dll
 %{mingw64_includedir}/qt6/QtScxml/
-%{mingw64_includedir}/qt6/QtStateMachine/
+%{mingw64_includedir}/qt6/QtScxmlGlobal/
 %{mingw64_includedir}/qt6/QtScxmlQml/
+%{mingw64_includedir}/qt6/QtStateMachine/
 %{mingw64_includedir}/qt6/QtStateMachineQml/
 %dir %{mingw64_libdir}/qt6/plugins/scxmldatamodel
 %{mingw64_libdir}/qt6/plugins/scxmldatamodel/qscxmlecmascriptdatamodel.dll
@@ -144,11 +151,16 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/mkspecs
 %{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
 %{mingw64_libdir}/cmake/Qt6Scxml/
+%{mingw64_libdir}/cmake/Qt6ScxmlPrivate/
+%{mingw64_libdir}/cmake/Qt6ScxmlGlobalPrivate/
 %{mingw64_libdir}/cmake/Qt6StateMachine/
+%{mingw64_libdir}/cmake/Qt6StateMachinePrivate/
 %{mingw64_libdir}/cmake/Qt6StateMachineQml/
-%{mingw64_libdir}/cmake/Qt6BuildInternals/
-%{mingw64_libdir}/cmake/Qt6Qml/
+%{mingw64_libdir}/cmake/Qt6StateMachineQmlPrivate/
+%{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtScxmlTestsConfig.cmake
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw64_libdir}/cmake/Qt6ScxmlQml/
+%{mingw64_libdir}/cmake/Qt6ScxmlQmlPrivate/
 %{mingw64_libdir}/cmake/Qt6/
 %{mingw64_libdir}/libQt6Scxml.dll.a
 %{mingw64_libdir}/pkgconfig/*.pc

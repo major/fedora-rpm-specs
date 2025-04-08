@@ -1,24 +1,30 @@
 Name:           rssguard
-Version:        4.5.1
+Version:        4.8.3
 Release:        %autorelease
 Summary:        Simple yet powerful feed reader
 
-# GPL-3.0-or-later: main program
+# GPL-3.0-only: main program
+# GPL-3.0-or-later: src/librssguard/network-web/webengine/networkurlinterceptor
+# LGPL-2.1-only: src/librssguard-gmail/src/3rd-party/richtexteditor/
+# LGPL-3.0-only: src/librssguard/miscellaneous/regexfactory
 # LGPL-3.0-or-later: src/librssguard/3rd-party/mimesis
-# BSD-3-Clause: src/librssguard/network-web/googlesuggest.*
-# BSD-4-Clause: src/librssguard/3rd-party/sc
+# AGPL-3.0-or-later: src/librssguard/network-web/oauth2service
+# BSD-3-Clause: 
+# - src/librssguard/network-web/googlesuggest.*
+# - src/librssguard/3rd-party/sc
 # MIT: src/librssguard/3rd-party/boolinq
-License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND BSD-4-Clause AND MIT
+# blessing: src/librssguard/3rd-party/sqlite/
+License:        GPL-3.0-only AND GPL-3.0-or-later AND # LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT AND AGPL-3.0-or-later AND blessing
 URL:            https://github.com/martinrotter/rssguard
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Qt5WebEngine is only available on those architectures
+# Qt6WebEngine is only available on those architectures
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
+BuildRequires:  cmake >= 3.14.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
-BuildRequires:  make
 BuildRequires:  pkgconfig(Qt6Concurrent)
 BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  pkgconfig(Qt6Core5Compat)
@@ -33,6 +39,7 @@ BuildRequires:  pkgconfig(Qt6WebEngineCore)
 BuildRequires:  pkgconfig(Qt6Widgets)
 BuildRequires:  pkgconfig(Qt6Xml)
 BuildRequires:  pkgconfig(libsqlite3x)
+BuildRequires:  pkgconfig(mpv)
 Requires:       hicolor-icon-theme
 
 Provides:       bundled(boolinq) = 3.0.1-1
@@ -48,7 +55,8 @@ using Qt framework which supports online feed synchronization.
 sed -i 's/\r$//' README.md
 
 %build
-%cmake -DBUILD_WITH_QT6=1
+%cmake -DREVISION_FROM_GIT=OFF \
+       -DNO_UPDATE_CHECK=OFF
 %cmake_build
 
 %install
@@ -62,11 +70,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.rssgua
 %doc README.md
 %license LICENSE.md
 %{_bindir}/%{name}
-%{_includedir}/lib%{name}/
-%{_libdir}/lib%{name}.so
 %{_datadir}/applications/io.github.martinrotter.rssguard.desktop
 %{_datadir}/icons/hicolor/*/apps/io.github.martinrotter.rssguard.png
 %{_datadir}/metainfo/io.github.martinrotter.rssguard.metainfo.xml
+%{_includedir}/lib%{name}/
+%{_libdir}/%{name}/
+%{_libdir}/lib%{name}.so
 
 %changelog
 %autochangelog

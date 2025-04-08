@@ -1,11 +1,11 @@
 Name:           perl-Mojo-IOLoop-ReadWriteProcess
-Version:        0.34
-Release:        5%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Execute external programs or internal code blocks as separate process
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Mojo-IOLoop-ReadWriteProcess/
-Source0:        https://cpan.metacpan.org/authors/id/S/SZ/SZARATE/Mojo-IOLoop-ReadWriteProcess-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/O/OK/OKURZ/Mojo-IOLoop-ReadWriteProcess-%{version}.tar.gz
 
 BuildArch:      noarch
 # Build requirements
@@ -39,14 +39,19 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Symbol)
+BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(constant)
 # Test requirements
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Mojo::IOLoop)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
+# needed for /usr/bin/pgrep
+BuildRequires:  procps-ng
 
 Requires:       perl(Mojo::EventEmitter)
 
@@ -77,6 +82,9 @@ It executes external programs or internal code blocks as separate process
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Sun Apr 06 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.1.0-1
+- Update to 1.1.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

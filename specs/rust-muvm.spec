@@ -16,6 +16,9 @@ URL:            https://crates.io/crates/muvm
 Source:         %{crates_source}
 Source2:        50-muvm-access.conf
 Source3:        access-muvm.lua
+# * Fix ordering of erofs images
+# * https://github.com/AsahiLinux/muvm/commit/9d035bc8aaea42763008fb15e370718811576d42
+Patch2:         fix-ordering-erofs.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

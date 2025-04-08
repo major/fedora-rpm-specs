@@ -1,7 +1,7 @@
 %global xfceversion 4.20
 
 Name:           xfce4-session
-Version:        4.20.0
+Version:        4.20.2
 Release:        %autorelease
 Summary:        Xfce session manager
 
@@ -111,6 +111,8 @@ cp -a %{SOURCE2} %{buildroot}%{_datadir}/applications/xfce-mimeapps.list
 
 %files wayland-session
 %{_datadir}/wayland-sessions/xfce-wayland.desktop
+%{_datadir}/xfce4/labwc/labwc-environment
+%{_datadir}/xfce4/labwc/labwc-rc.xml
 
 %changelog
 %autochangelog
