@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.1.4
 # can only be reset when subpkg bumped
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple interface to optparse-applicative
 
 License:        BSD-3-Clause
@@ -156,6 +156,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.1.1.4-14
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.1.1.4-13
 - Rebuild
 

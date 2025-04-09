@@ -14,16 +14,17 @@ install the MPI specific sub-packages for MPICH and OpenMPI builds.
 %global tarname nrn
 
 # fails somehow, disabled by default
-%bcond_with metis
+%bcond metis 0
 
-# Music support
-%bcond_with music
-
-%bcond_without mpich
-%bcond_without openmpi
+%bcond mpich 1
+%bcond openmpi 1
 
 Name:       neuron
-Version:    8.2.2
+Version:    8.2.6
+
+# used to generate version header, along with version
+%global version_commit 078a34a9dc12dab5a339d525ba159655ed703030
+
 Release:    %autorelease
 Summary:    A flexible and powerful simulator of neurons and networks
 
@@ -33,41 +34,53 @@ URL:        http://www.neuron.yale.edu/neuron/
 Source0:    https://github.com/neuronsimulator/%{tarname}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # they bundle HPC coding conventions as a git submodule
-%global conv_git_commit  5d4bcd2d410e67bdc1d23d3280c08ee5c9df943b
+%global conv_git_commit  943650f6dd9b58d4d94f9f6831bb87d8aad18a5d
 %global conv_short_commit %(c=%{conv_git_commit}; echo ${c:0:7})
 Source1:    https://github.com/BlueBrain/hpc-coding-conventions/archive/%{conv_git_commit}/hpc-coding-conventions-%{conv_short_commit}.tar.gz
 
-%global rxd_tests_commit 2a08564a45fac78f259d23203d737db924c224c8
+# test data is another submodule
+%global rxd_tests_commit 95b8384cc4f7a2d0fa7e95430bff703d41bce841
 %global rxd_short_commit %(c=%{rxd_tests_commit}; echo ${c:0:7})
 Source2:    https://github.com/neuronsimulator/rxdtestdata/archive/%{rxd_tests_commit}/rxdtestdata-%{rxd_short_commit}.tar.gz
 
-
-Patch0:     0001-Unbundle-Random123.patch
+# Patches generated from https://github.com/sanjayankur31/nrn/tree/version-8.2.6-fedora
+Patch:      0001-Unbundle-Random123.patch
 # libstdc++ bundled is from 1988: seems heavily modified. Headers from there
 # are not present in the current version
 # https://github.com/neuronsimulator/nrn/issues/145
 
 # Use system copy of Catch
-Patch1:     0002-Unbundle-catch.patch
+Patch:      0002-Unbundle-catch.patch
 # We install the python bits ourselves
-Patch2:     0003-Disable-python-build-and-install.patch
+Patch:      0003-Disable-python-build-and-install.patch
 # Set soversions for all shared objects
-Patch3:     0004-Set-soversions-for-libs.patch
+Patch:      0004-Set-soversions-for-libs.patch
 # Set the right path for libdir
 # Upstreamable
-Patch4:     0005-Correct-librxdmath-path-for-64bit.patch
+Patch:      0005-Correct-librxdmath-path-for-64bit.patch
 # stop build scripts from generating version during build
-Patch5:     0006-Do-not-generate-version-info-at-buildtime.patch
+Patch:      0006-Do-not-generate-version-info-at-buildtime.patch
 # Remove rpaths
-Patch6:     0007-Remove-rpaths.patch
+Patch:      0007-Remove-rpaths.patch
+# Move help data
+Patch:      0008-Move-help-data.patch
 # do not download data git submodule
-Patch7:     0008-Dont-download-testdata-submodule.patch
-# place help file in correct location
-Patch8:     0009-Add-help-file-as-package-data.patch
+Patch:      0009-Dont-download-testdata-submodule.patch
 # tries to create /usr/x86_64 etc dirs
-Patch9:     0010-Remove-unneeded-symlinks.patch
+Patch:      0010-Remove-unneeded-symlinks.patch
 # remove build time flags from the nrnmech makefile---it should not use these
-Patch10:    0011-Strip-build-flags-from-nrnmech_makefile.patch
+Patch:      0011-Strip-build-flags-from-nrnmech_makefile.patch
+# fixes for c23
+Patch:      0012-fix-c23-ftbfs.patch
+Patch:      0013-fix-function-declarations.patch
+Patch:      0014-fix-mesch-func-decs-with-cproto.patch
+Patch:      0015-fix-freeing-functions.patch
+Patch:      0016-fix-scopmath.patch
+# support numpy >=2
+Patch:      0017-Support-numpy-2-and-remove-numpy-2-pin-3040.patch
+
+# dont overwrite scripts in bindir with their wrapper and symlinks
+Patch:      0018-remove-py-script-installation.patch
 
 # Random123 does not build on these, so neither can NEURON
 # https://github.com/neuronsimulator/nrn/issues/114
@@ -82,8 +95,6 @@ BuildRequires:  bison
 BuildRequires:  bison-devel
 BuildRequires:  cmake
 BuildRequires:  catch-devel
-# Needs to be packaged separately
-# BuildRequires:  coreneuron-devel
 BuildRequires:  flex
 BuildRequires:  (flex-devel or libfl-devel)
 BuildRequires:  gcc
@@ -135,6 +146,7 @@ Requires:  %{name}%{?_isa} = %{version}-%{release}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
+BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
 
 %description -n python3-%{name} %_description
@@ -144,6 +156,8 @@ BuildRequires:  python3-pytest
 Summary:   %{name} built with MPICH support
 BuildRequires:  mpich-devel
 BuildRequires:  rpm-mpi-hooks
+BuildRequires:  MUSIC-mpich-devel
+BuildRequires:  python3-MUSIC-mpich
 BuildRequires:  python3-mpi4py-mpich
 
 Requires:       mpich
@@ -171,6 +185,8 @@ Requires:  %{name}-mpich%{?_isa} = %{version}-%{release}
 Summary:   %{name} built with OpenMPI support
 BuildRequires:  openmpi-devel
 BuildRequires:  rpm-mpi-hooks
+BuildRequires:  MUSIC-openmpi-devel
+BuildRequires:  python3-MUSIC-openmpi
 BuildRequires:  python3-mpi4py-openmpi
 
 Requires:       openmpi
@@ -195,15 +211,27 @@ Requires:  %{name}-openmpi%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -n %{tarname}-%{version} -S git
+export NEURON_WHEEL_VERSION=%{version}
+export NEURON_NIGHTLY_TAG=""
+
+# drop useless py requirement
+# disable hard coded dynamic python---we disable this in cmake lists
+sed -i \
+    -e '/find_libpython/ d' \
+    -e '/NRN_ENABLE_PYTHON_DYNAMIC=/ d' \
+    setup.py
 
 # Remove executable perms from source files
 find src -type f -executable ! -name '*.sh' -exec chmod -x {} +
 
-# remove shebangs: check again each release
+# fix and remove unneeded shebangs: check again each release
+sed -i 's|\(#!/usr/bin/env\).*python$|#!/usr/bin/python3|' share/lib/python/scripts/_binwrapper.py
+head -n2 share/lib/python/scripts/_binwrapper.py
+
 pushd share/lib/auditscripts/
 for f in *
 do
-sed -i -e "/^#!\/bin\/sh.*/ d" $f
+sed -i -e "/^#!\/usr\/bin\/env.*/ d" $f
 done
 popd
 
@@ -226,33 +254,28 @@ tar -xvf rxdtestdata*.tar.gz --strip-components=1
 rm -f rxdtestdata*.tar.gz
 popd
 
-# Create version file ourselves
-# To create this, we run the git2version.sh script in a checked out copy of neuron
+# Create version file ourselves, instead of using git2nrnversion_h.sh, which
+# requires a checked out copy of neuron
 export TIMESTAMP=$(date +%Y-%m-%d)
 cat > src/nrnoc/nrnversion.h << EOF
 #define GIT_DATE "$TIMESTAMP"
 #define GIT_BRANCH "master"
-#define GIT_CHANGESET "f0ca745418e942ad4763bdc47459c409f0b11512"
-#define GIT_DESCRIBE "8.0.2 (Fedora %{fedora})"
+#define GIT_CHANGESET "%{version_commit}"
+#define GIT_DESCRIBE "%{version} (Fedora %{fedora})"
 EOF
 
 # Stop system from using hard coded flags
 sed -i '/CompilerFlagsHelpers/ d' cmake/ReleaseDebugAutoFlags.cmake
 
-# Setting SETUPTOOLS_USE_DISTUTILS=stdlib does not work on Python 3.12
-# https://github.com/neuronsimulator/nrn/issues/2263
-#
-# We change each occurrence to SETUPTOOLS_USE_DISTUTILS=local (the default).
-# The find-then-modify pattern keeps us from discarding mtimes on any sources
-# that do not need modification.
-find . -type f -name 'CMakeLists.txt' -exec gawk \
-    '/export SETUPTOOLS_USE_DISTUTILS=stdlib/ { print FILENAME; nextfile }' \
-    '{}' '+' |
-  xargs -r -t sed -r -i 's/(export SETUPTOOLS_USE_DISTUTILS=)stdlib/\1local/'
+# doesn't do much, setup.py does it's own checks, but we include it for completeness.
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-# Not yet to be used
-# export SUNDIALS_SYSTEM_INSTALL="yes"
+export NEURON_WHEEL_VERSION=%{version}
+export NEURON_NIGHTLY_TAG=""
+
 %global do_build %{expand:
 echo
 echo "*** BUILDING %{name}-%{version}$MPI_COMPILE_TYPE ***"
@@ -272,6 +295,7 @@ echo
         -DBUILD_SHARED_LIBS:BOOL=ON \\\
         -DNRN_ENABLE_SHARED=ON \\\
         -DNRN_ENABLE_INTERVIEWS=ON \\\
+        -DNRN_ENABLE_MECH_DLL_STYLE=ON \\\
         -DNRN_ENABLE_PYTHON=ON \\\
         -DNRN_ENABLE_PYTHON_DYNAMIC=OFF \\\
         -DNRN_ENABLE_THREADS=ON \\\
@@ -280,25 +304,23 @@ echo
         -DNRN_ENABLE_CORENEURON=OFF \\\
         -DNRN_ENABLE_TESTS=OFF \\\
         -DNRN_ENABLE_REL_RPATH=OFF \\\
-        -DNRN_ENABLE_MODULE_INSTALL=ON \\\
+        -DNRN_ENABLE_MODULE_INSTALL=OFF \\\
         -DNRN_ENABLE_INTERNAL_READLINE=OFF \\\
         -DNRN_ENABLE_MPI=$MPI_YES \\\
+        -DNRN_ENABLE_MUSIC=OFF \\\
         -DNEURON_CMAKE_FORMAT:BOOL=OFF \\\
         -DMPI_INCLUDE_PATH=$MPI_INCLUDE \\\
+        -DMUSIC_INCDIR=$MPI_INCLUDE \\\
+        -DMUSIC_LIBDIR=$MPI_LIB \\\
         -DMPI_LIBRARY=$MPI_LIBFILE \\\
+        -DNRN_EXTRA_CXX_FLAGS="-DPROTOTYPES_IN_STRUCT" \\\
 %if "%{_lib}" == "lib64" \
         -DLIB_SUFFIX=64 -B $MY_CMAKE_BUILDDIR && \
 %else                      \
         -DLIB_SUFFIX="" -B $MY_CMAKE_BUILDDIR && \
 %endif
-%__cmake --build $MY_CMAKE_BUILDDIR %{_smp_mflags} \
 
-%if %{with music}
-pushd $MY_CMAKE_BUILDDIR/src/neuronmusic
-%__cmake --build %{_smp_mflags}
-%{py3_build}
-popd
-%endif
+%__cmake --build $MY_CMAKE_BUILDDIR %{_smp_mflags}
 }
 
 
@@ -325,7 +347,6 @@ export CXX=mpicxx
 export FC=mpif90
 export F77=mpif77
 export MPI_YES=ON
-# Python 3
 export MPI_COMPILE_TYPE="-mpich"
 export MY_CMAKE_BUILDDIR="%_vpath_builddir""-mpich"
 export MPI_LIBFILE="$MPI_LIB/libmpi.so"
@@ -341,7 +362,6 @@ export CXX=mpicxx
 export FC=mpif90
 export F77=mpif77
 export MPI_YES=ON
-# Python 3
 export MPI_COMPILE_TYPE="-openmpi"
 export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 export MPI_LIBFILE="$MPI_LIB/libmpi.so"
@@ -351,6 +371,8 @@ export MPI_LIBFILE="$MPI_LIB/libmpi.so"
 
 %install
 # Install everything
+export NEURON_WHEEL_VERSION=%{version}
+export NEURON_NIGHTLY_TAG=""
 
 %global do_install %{expand:
 echo
@@ -358,21 +380,24 @@ echo "*** INSTALLING %{name}-%{version}$MPI_COMPILE_TYPE ***"
 echo
 DESTDIR=%{buildroot} %__cmake --install $MY_CMAKE_BUILDDIR
 
-%if %{with music}
-pushd $MY_CMAKE_BUILDDIR/src/neuronmusic
-%{py3_install}
-popd
-%endif
-
-# Python bits from the post install hook
 # It requires the libraries before to be installed, not just built, so it must
 # be done here. The only alternative is a different package that requires this,
 # but this is simpler
-RPM_LD_FLAGS="%{?__global_ldflags} -L$RPM_BUILD_ROOT/$MPI_LIB"
-pushd $MY_CMAKE_BUILDDIR/src/nrnpython/
-%{py3_build}
-%{py3_install "--install-lib" "$MPI_PYTHON3_SITEARCH"}
-popd
+
+# build all of it
+if [ x"$MPI_SUFFIX" != "x" ]
+then
+    RPM_LD_FLAGS="%{?__global_ldflags} -L$RPM_BUILD_ROOT/$MPI_LIB" %{py3_build "build_ext" "--without-nrnpython" "--cmake-build-dir" "$MY_CMAKE_BUILDDIR"}
+    # install python modules
+    %{py3_install "--install-lib" "$MPI_PYTHON3_SITEARCH" "--without-nrnpython" "--cmake-build-dir" "$MY_CMAKE_BUILDDIR"}
+else
+    RPM_LD_FLAGS="%{?__global_ldflags} -L$RPM_BUILD_ROOT/$MPI_LIB" %{py3_build "build_ext" "--disable-mpi" "--without-nrnpython" "--cmake-build-dir" "$MY_CMAKE_BUILDDIR"} 
+    %{py3_install "--install-lib" "$MPI_PYTHON3_SITEARCH" "--disable-mpi" "--without-nrnpython" "--cmake-build-dir" "$MY_CMAKE_BUILDDIR"}
+fi
+
+
+# move over config file generated by cmake build: not installed by tooling
+install -v -p -m 0644 $MY_CMAKE_BUILDDIR/lib/python/neuron/_config_params.py $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/neuron/
 
 # set up second symlink for shared objects
 pushd $RPM_BUILD_ROOT/$MPI_LIB/
@@ -382,8 +407,6 @@ popd
 }
 
 %global do_post_install_tweaks %{expand:
-# Remove installed libfiles
-rm -rfv $RPM_BUILD_ROOT/$MPI_HOME/lib/python/neuron/
 # Post install clean up: remove stray object files
 # Must be done at end, otherwise it deletes object files required for other builds
 find . $RPM_BUILD_ROOT/$MPI_LIB/ -name "*.o" -exec rm -f '{}' \\;
@@ -392,13 +415,21 @@ find . $RPM_BUILD_ROOT/$MPI_LIB/ -name "*.la" -exec rm -f '{}' \\;
 # Remove installed copy of libtool
 # Remove iv header provided by iv package
 rm -rf $RPM_BUILD_ROOT/$MPI_HOME/include/ivstream.h
+# remove idraw, provided by iv already
+rm -f $RPM_BUILD_ROOT/$MPI_BIN/idraw
 # Delete installed libtool
 rm -fv $RPM_BUILD_ROOT/$MPI_HOME/share/%{tarname}/libtool
+
 
 # remove package note flag from nrnmech_makefile
 pushd $RPM_BUILD_ROOT/$MPI_BIN/
     sed -i "s|-Wl,-dT,.*\.ld||" nrnmech_makefile
 popd
+
+pushd $RPM_BUILD_ROOT/$MPI_HOME/share/nrn/lib/
+    chmod +x hocload.sh
+popd
+
 # Only needed for MPI builds
 if [ x"$MPI_SUFFIX" != "x" ]
 then
@@ -413,12 +444,19 @@ sed -i -e "s/nocmodl/nocmodl$MPI_SUFFIX/g" nrnmech_makefile
 sed -i -e "s/nocmodl/nocmodl$MPI_SUFFIX/g" mkthreadsafe
 
 # Rename files to include $MPI_SUFFIX
-for f in modlunit neurondemo nrngui nrniv sortspike mkthreadsafe nocmodl nrnivmodl nrnmech_makefile
+for f in modlunit neurondemo nrngui nrniv nrniv-core sortspike mkthreadsafe nocmodl nrnivmodl nrnivmodl-core nrnmech_makefile idraw
 do
-    mv -v "$f"{,$MPI_SUFFIX}
+    if [ -f "$f" ]
+    then
+        mv -v "$f"{,$MPI_SUFFIX}
+    else
+        echo "RPMBUILD: $f not found, skipping."
+    fi
 done
-mv -v nrnpyenv{,$MPI_SUFFIX}.sh
-mv -v set_nrnpyenv{,$MPI_SUFFIX}.sh
+# remove: not needed, single version does the job since we only have one system python installation
+rm -fv nrnpyenv.sh
+rm -fv set_nrnpyenv.sh
+
 popd
 fi
 }
@@ -433,9 +471,6 @@ export MPI_BIN="%{_bindir}"
 export MPI_SUFFIX=""
 %do_install
 %do_post_install_tweaks
-# Remove duplicate files. These are installed in the correct python locations already
-# rm -rf $RPM_BUILD_ROOT/%%{_datadir}/%%{tarname}/lib/python/%%{name}
-
 
 
 # mpich
@@ -465,6 +500,7 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_bindir}/neurondemo
 %{_bindir}/nrngui
 %{_bindir}/nrniv
+#%{_bindir}/nrniv-core
 %{_bindir}/sortspike
 # Not needed but I'll include them for completeness anyway
 %{_bindir}/nrnpyenv.sh
@@ -491,6 +527,7 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_bindir}/mkthreadsafe
 %{_bindir}/nocmodl
 %{_bindir}/nrnivmodl
+#%{_bindir}/nrnivmodl-core
 %{_bindir}/nrnmech_makefile
 # Headers
 %{_includedir}/*.h
@@ -514,9 +551,6 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_libdir}/mpich/bin/nrngui_mpich
 %{_libdir}/mpich/bin/nrniv_mpich
 %{_libdir}/mpich/bin/sortspike_mpich
-# Not needed but I'll include them for completeness anyway
-%{_libdir}/mpich/bin/nrnpyenv_mpich.sh
-%{_libdir}/mpich/bin/set_nrnpyenv_mpich.sh
 # Libs
 %{_libdir}/mpich/lib/libnrniv.so.0.0.0
 %{_libdir}/mpich/lib/libnrniv.so.0
@@ -559,9 +593,6 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_libdir}/openmpi/bin/nrngui_openmpi
 %{_libdir}/openmpi/bin/nrniv_openmpi
 %{_libdir}/openmpi/bin/sortspike_openmpi
-# Not needed but I'll include them for completeness anyway
-%{_libdir}/openmpi/bin/nrnpyenv_openmpi.sh
-%{_libdir}/openmpi/bin/set_nrnpyenv_openmpi.sh
 # Libs
 %{_libdir}/openmpi/lib/libnrniv.so.0.0.0
 %{_libdir}/openmpi/lib/libnrniv.so.0

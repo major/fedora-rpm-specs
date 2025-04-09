@@ -13,7 +13,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.14.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Constraint manipulation
 
 License:        BSD-2-Clause
@@ -152,6 +152,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.14.2-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.14.2-3
 - Rebuild
 

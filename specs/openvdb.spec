@@ -46,7 +46,6 @@ BuildRequires:  cmake >= 2.8
 %if %{with docs}
 BuildRequires:  doxygen >= 1.8.11
 %endif
-#BuildRequires:  epydoc
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript >= 8.70
 BuildRequires:  findutils
@@ -112,23 +111,15 @@ applications that use %{name}.
 
 %if %{with nanovdb}
 %package        nanovdb
-Summary:        Lightweigh GPU version of VDB
-BuildRequires:	python3-nanobind-devel
-BuildRequires:  pkgconfig(python3)
-BuildRequires:  python3dist(numpy)
+Summary:        GPU-optimized VDB implementation
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
 
 %description    nanovdb %{_description}
 A lightweight GPU friendly version of VDB initially targeting rendering applications.
 
 %package        nanovdb-devel
 Summary:        Development files for nanovdb
-BuildRequires:	python3-nanobind-devel
-BuildRequires:  pkgconfig(python3)
-BuildRequires:  python3dist(numpy)
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
+Requires:       %{name}-nanovdb%{?_isa} = %{version}-%{release}
 
 %description    nanovdb-devel %{_description}
 The %{name}-nanovdb-devel package contains libraries and header files for developing
@@ -162,7 +153,6 @@ This package contains the Python module.
 sed -i \
     -e 's|lib$|%{_lib}|g' \
     %{name}/%{name}/CMakeLists.txt %{name}/%{name}/python/CMakeLists.txt
-
 
 %build
 %ifarch ppc64le

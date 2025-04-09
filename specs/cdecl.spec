@@ -9,8 +9,8 @@ Summary: Translator for C gibberish
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/QBYRCIMQDXAD2ZKUWKKYSTDB6T6GW2SO/
 License: GPL-3.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-PublicDomain
 
-Version: 18.4.1
-Release: 2%{?dist}
+Version: 18.4.2
+Release: 1%{?dist}
 
 URL: https://github.com/paul-j-lucas/cdecl/
 Source0: %{URL}releases/download/cdecl-%{version}/cdecl-%{version}.tar.gz
@@ -69,6 +69,9 @@ make -C test/ check || { cat test/test-suite.log; exit 1; }
 
 
 %changelog
+* Mon Apr 07 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 18.4.2-1
+- Update to v18.4.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

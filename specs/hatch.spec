@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.14.0
+Version:        1.14.1
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -58,13 +58,17 @@ Source1620:     hatch-self-restore.1
 Source1630:     hatch-self-update.1
 Source1700:     hatch-test.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l hatch
+%if %{with tests}
+BuildOption(generate_buildrequires): _envs.hatch-test.extra-dependencies.txt
+%endif
+
 # Add pytest.mark.requires_internet to a few more tests
 # https://github.com/pypa/hatch/pull/1665
 Patch:          %{url}/pull/1665.patch
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 %if %{with tests}
 # Upstream uses “hatch test” to run the tests, but this wants to use Python
@@ -108,36 +112,13 @@ Features:
   • Responsive CLI, ~2-3x faster than equivalent tools
 
 
-%prep
-%autosetup -n %{archivename} -p1
-
+%prep -a
 # https://hatch.pypa.io/latest/config/environment/
 tomcli get hatch.toml -F newline-list envs.hatch-test.extra-dependencies |
   tee _envs.hatch-test.extra-dependencies.txt
 
 
-%generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires _envs.hatch-test.extra-dependencies.txt
-%else
-%pyproject_buildrequires
-%endif
-
-
-%build
-%pyproject_wheel
-
-# The Markdown documentation is meant to be built with mkdocs. The HTML result
-# is unsuitable for packaging due to various bundled and pre-minified
-# JavaScript and CSS. See https://bugzilla.redhat.com/show_bug.cgi?id=2006555
-# for discussion of similar problems with Sphinx and Doxygen. We therefore do
-# not build or install the documentation.
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l hatch
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' \
     '%{SOURCE200}' \
@@ -160,7 +141,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
       '%{SOURCE1540}' '%{SOURCE1550}'
 
 
-%check
+%check -a
 %if %{with tests}
 # These tests are actually for hatchling, and may fail due to small differences
 # between the state of hatchling in the hatch release tag and in the latest
@@ -195,8 +176,6 @@ k="${k-}${k+ and }not (TestDistributionPaths and test_pypy_custom)"
 k="${k-}${k+ and }not (TestDistributionVersions and test_pypy_custom)"
 
 %pytest -k "${k-}" ${ignore-} -vv
-%else
-%pyproject_check_import
 %endif
 
 

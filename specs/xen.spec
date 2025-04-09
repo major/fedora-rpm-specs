@@ -54,8 +54,8 @@
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.19.1
-Release: 7%{?dist}
+Version: 4.19.2
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -111,7 +111,6 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch49: xen.python3.12.patch
-Patch50: xsa467.patch
 
 
 %if %build_qemutrad
@@ -320,7 +319,6 @@ manage Xen virtual machines.
 %patch 45 -p1
 %patch 46 -p1
 %patch 49 -p1
-%patch 50 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -556,6 +554,13 @@ done
 ############ move sbin files to bin
 
 mv %{buildroot}/usr/sbin/* %{buildroot}/usr/bin/
+
+############ remove xen*.efi.elf files to avoid debuginfo failure
+
+%ifarch x86_64
+rm dist/install/usr/lib/debug/xen-*.efi.elf
+rm %{buildroot}/usr/lib/debug/xen-*.efi.elf
+%endif
 
 ############ all done now ############
 
@@ -932,6 +937,11 @@ fi
 %endif
 
 %changelog
+* Mon Apr 07 2025 Michael Young <m.a.young@durham.ac.uk> - 4.19.2-2
+- update to xen-4.19.2
+  remove patches now included or superceded upstream
+  remove xen*.efi.elf files to avoid debuginfo failure
+
 * Thu Feb 27 2025 Michael Young <m.a.young@durham.ac.uk> - 4.19.1-7
 - deadlock potential with VT-d and legacy PCI device pass-through
 	[XSA-467, CVE-2025-1713]

@@ -67,18 +67,6 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bench-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bench-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bench" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bench-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+databake-devel
 Summary:        %{summary}
 BuildArch:      noarch

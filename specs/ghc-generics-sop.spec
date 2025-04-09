@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.5.1.4
 # can only be reset when subpkg bumped
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Generic Programming using True Sums of Products
 
 License:        BSD-3-Clause
@@ -178,6 +178,9 @@ cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.5.1.4-20
+- Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 0.5.1.4-19
 - https://hackage.haskell.org/package/generics-sop-0.5.1.4/changelog
 

@@ -1,7 +1,7 @@
 %global pypi_name eth_keys
 
 Name:          python-eth-keys
-Version:       0.6.1
+Version:       0.7.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       A common API for Ethereum key operations

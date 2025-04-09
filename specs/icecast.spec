@@ -1,28 +1,28 @@
 Name:		icecast
 Version:	2.4.4
-Release:	21%{?dist}
+Release:	23%{?dist}
 Summary:	ShoutCast compatible streaming media server
 
-# admin/xspf.xsl:	GPLv2+
-# COPYING:		GPLv2 text
-# src/fserve.c:		GPLv2
-# src/thread/thread.c:	GPLv2+
-# src/avl/avl.c:	BSD
-# web/xml2json.xslt:	BSD
+# admin/xspf.xsl:	GPL-2.0-or-later
+# COPYING:		    GPL-2.0 text
+# src/fserve.c:		GPL-2.0-only
+# src/thread/thread.c:	GPL-2.0-or-later
+# src/avl/avl.c:	HPND
+# web/xml2json.xslt:	BSD-2-Clause
 ## In doc package only:
 # examples/icecast_auth-1.0.tar.gz:
-#   config.guess:	GPLv2+
+#   config.guess:	GPL-2.0-or-later WITH Autoconf-exception-generic
 #   configure:		FSFUL
-#   COPYING:		GPLv2 text
-#   install-sh:		MIT
-#   Makefile.in:	FSFULLR
+#   COPYING:		GPL-2.0 text
+#   install-sh:		HPND-sell-variant
+#   Makefile.in:	FSFULLRWD
 ## Not in any binary package:
-# config.guess:		GPLv3+
-# configure:		FSFUL
-# doc/assets/img/Makefile.in:	FSFULLR
-# install-sh:		MIT
-# Automatically converted from old format: GPLv2+ and GPLv2 and BSD - review is highly recommended.
-License:	GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
+# config.guess:		GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# configure:		FSFUL AND GPL-2.0-or-later WITH Libtool-exception
+# doc/assets/img/Makefile.in:	FSFULLRWD
+# install-sh:		X11
+License:	GPL-2.0-or-later AND GPL-2.0-only AND HPND AND BSD-2-Clause
+SourceLicense: %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Libtool-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND HPND-sell-variant AND X11 AND FSFULLRWD AND FSFUL
 URL:		http://www.%{name}.org/
 Source0:	https://downloads.xiph.org/releases/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.logrotate
@@ -50,7 +50,9 @@ BuildRequires:	speex-devel
 BuildRequires:	systemd-rpm-macros
 
 Requires:	mailcap
-%systemd_requires
+%if 0%{?rhel} < 9
+%{?systemd_requires}
+%endif
 %if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %sysusers_requires_compat
 %endif
@@ -68,8 +70,7 @@ communication and interaction.
 
 %package doc
 Summary:	Documentation files for %{name}
-# Automatically converted from old format: GPLv2+ and MIT and FSFULLR and FSFUL - review is highly recommended.
-License:	GPL-2.0-or-later AND LicenseRef-Callaway-MIT AND FSFULLR AND FSFUL
+License:	GPL-2.0-or-later WITH Autoconf-exception-generic AND HPND-sell-variant AND FSFULLRWD AND FSFUL
 BuildArch:	noarch
 
 %description doc
@@ -152,6 +153,12 @@ cp -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
 
 
 %changelog
+* Mon Apr 07 2025 Petr Pisar <ppisar@redhat.com> - 2.4.4-23
+- Correct a license declaration
+
+* Mon Apr 07 2025 Petr Pisar <ppisar@redhat.com> - 2.4.4-22
+- Correct expanding systemd_requires macro
+
 * Thu Feb 13 2025 Björn Esser <besser82@fedoraproject.org> - 2.4.4-21
 - Add conditionals for old-style user / group creation
 

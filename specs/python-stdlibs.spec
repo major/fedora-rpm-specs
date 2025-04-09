@@ -1,5 +1,5 @@
 Name:           python-stdlibs
-Version:        2024.12.3
+Version:        2025.4.4
 Release:        %autorelease
 Summary:        List of packages in the stdlib
 
@@ -55,7 +55,7 @@ rm stdlibs/fetch.py
 %install
 %pyproject_install
 
-%pyproject_save_files stdlibs
+%pyproject_save_files -L stdlibs
 
 
 %check
@@ -64,8 +64,7 @@ rm stdlibs/fetch.py
 
 
 %files -n python3-stdlibs -f %{pyproject_files}
-# license file not tagged correctly
-%license %{python3_sitelib}/stdlibs-%{version}.dist-info/LICENSE
+%license LICENSE
 %doc README.md
 
 

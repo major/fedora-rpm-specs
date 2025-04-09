@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.4.0.1
 # can only be reset when subpkg bumped
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Unicode normalization
 
 License:        BSD-3-Clause
@@ -133,6 +133,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.4.0.1-10
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.4.0.1-9
 - Rebuild
 

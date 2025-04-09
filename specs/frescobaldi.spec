@@ -2,14 +2,14 @@
 
 Name:           frescobaldi
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
 # The rest, including the core of the program, is GPLv2+
 License:        GPLv2+ and LGPL-2.0-or-later
 URL:            http://www.frescobaldi.org/
-Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -62,8 +62,6 @@ find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
 %build
 %pyproject_wheel
-cp linux/org.frescobaldi.Frescobaldi.desktop.in linux/org.frescobaldi.Frescobaldi.desktop
-cp linux/org.frescobaldi.Frescobaldi.metainfo.xml.in linux/org.frescobaldi.Frescobaldi.metainfo.xml
 
 %install
 %pyproject_install
@@ -98,6 +96,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Apr 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-2
+- Use release tarball
+
 * Fri Apr 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-1
 - 4.0.1
 

@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.0.6
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Decidable propositions
 
 License:        BSD-3-Clause
@@ -136,6 +136,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.0.6-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.0.6-3
 - Rebuild
 

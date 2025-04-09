@@ -16,13 +16,13 @@
 %endif
 
 Name:           sdl-hercules
-Version:        4.7
+Version:        4.8
 Release:        %autorelease
 Summary:        SoftDevLabs version of the Hercules S/370, ESA/390, and z/Arch Emulator
 
 # Hercules is under QPL, the rest is from bundled libraries
 License:        QPL-1.0 AND (QPL-1.0 AND BSD-3-Clause) AND (QPL-1.0 AND MIT) AND (QPL-1.0 AND BSD-4-Clause)
-URL:            https://sdl-hercules-390.github.io/html/
+URL:            https://www.sdl-hercules-390.org
 Source:         %{forgeurl}/archive/Release_%{version}/hyperion-Release_%{version}.tar.gz
 # Set the soversion for the internal libraries
 Patch:          sdl-hercules-set-soversion.patch
@@ -149,6 +149,7 @@ LD_LIBRARY_PATH="%{buildroot}%{_libdir}" make check
 %license COPYRIGHT license_dyn76.txt
 %doc README.md CHANGES RELEASE.NOTES _TODO.txt readme/
 %doc hercules.cnf hercules.cnf.rexx
+%{_bindir}/card2txt
 %{_bindir}/cckd*
 %{_bindir}/cfba*
 %{_bindir}/ckd*

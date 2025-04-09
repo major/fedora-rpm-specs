@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.4
 # can only be reset when all subpkgs bumped
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A declarative terminal user interface library
 
 License:        BSD-3-Clause
@@ -202,6 +202,9 @@ echo %{_bindir}/vty-unix-build-width-table >> %{vtyunix}/ghc-vty-unix.files
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 2.4-10
+- Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 2.4-9
 - https://hackage.haskell.org/package/brick-2.4/changelog
 

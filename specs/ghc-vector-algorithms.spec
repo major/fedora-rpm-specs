@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.9.1.0
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Efficient algorithms for vector arrays
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.9.1.0-4
+- Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 0.9.1.0-3
 - https://hackage.haskell.org/package/vector-algorithms-0.9.1.0/changelog
 

@@ -1,16 +1,17 @@
 Name:           perl-HTML-CalendarMonthSimple
-Version:        1.26
-Release:        13%{?dist}
+Version:        1.27
+Release:        1%{?dist}
 Summary:        Perl Module for Generating HTML Calendars
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/HTML-CalendarMonthSimple
 Source0:        https://cpan.metacpan.org/modules/by-module/HTML/HTML-CalendarMonthSimple-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Date::Calc)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  /usr/bin/iconv
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test
@@ -24,33 +25,27 @@ a faster and easier-to-use alternative to HTML::CalendarMonth.
 %prep
 %setup -q -n HTML-CalendarMonthSimple-%{version}
 
-# Fix UTF-8
-iconv -f ISO_8859-1 -t UTF-8 -o tmp.pm lib/HTML/CalendarMonthSimple.pm && \
-touch -r lib/HTML/CalendarMonthSimple.pm tmp.pm && \
-mv -f tmp.pm lib/HTML/CalendarMonthSimple.pm
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
 %make_build
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%make_install
 %{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc README Changes Todo
+%doc README.md Changes
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/HTML/
+%{_mandir}/man3/HTML::CalendarMonthSimple.3pm*
 
 %changelog
+* Mon Apr 07 2025 Xavier Bachelot <xavier@bachelot.org> - 1.27-1
+- Update to 1.27 (RHBZ#2354511)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

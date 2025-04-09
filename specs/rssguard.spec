@@ -14,7 +14,7 @@ Summary:        Simple yet powerful feed reader
 # - src/librssguard/3rd-party/sc
 # MIT: src/librssguard/3rd-party/boolinq
 # blessing: src/librssguard/3rd-party/sqlite/
-License:        GPL-3.0-only AND GPL-3.0-or-later AND # LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT AND AGPL-3.0-or-later AND blessing
+License:        GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT AND AGPL-3.0-or-later AND blessing
 URL:            https://github.com/martinrotter/rssguard
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

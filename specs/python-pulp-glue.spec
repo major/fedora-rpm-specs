@@ -1,5 +1,5 @@
 Name: python-pulp-glue
-Version: 0.31.1
+Version: 0.32.1
 Release: 1%{?dist}
 Summary: The version agnostic Pulp 3 client library in python
 
@@ -63,6 +63,12 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 
 
 %changelog
+* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-1
+- new version
+
+* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.0-1
+- new version
+
 * Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
 - new version
 - Removed upper bound on build-required setuptools.

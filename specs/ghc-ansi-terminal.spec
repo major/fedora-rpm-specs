@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1.2
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple ANSI terminal support, with Windows compatibility
 
 License:        BSD-3-Clause
@@ -127,6 +127,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.1.2-8
+- Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 1.1.2-7
 - https://hackage.haskell.org/package/ansi-terminal-1.1.2/changelog
 

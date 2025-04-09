@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SPDX license expression language, Extras
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.1-2
+- Rebuild
+
 * Wed Mar 26 2025 Jens Petersen <petersen@redhat.com> - 1.1-1
 - https://hackage.haskell.org/package/spdx-1.1/changelog
 - add puresat

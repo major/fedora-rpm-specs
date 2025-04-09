@@ -2,7 +2,7 @@
 %global pkgname With-Editor
 
 Name:           emacs-%{pkg}
-Version:        3.0.2
+Version:        3.4.3
 Release:        %autorelease
 Summary:        Use Emacsclient as the editor of child processes
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -28,13 +28,13 @@ of child processes.
 
 %install
 # With-Editor doesn't provide an install target.
-install -D -p -m 644 %{pkg}.info %{buildroot}/%{_infodir}/%{pkg}.info
+install -D -p -m 644 docs/%{pkg}.info %{buildroot}/%{_infodir}/%{pkg}.info
 install -D -p -m 644 -t %{buildroot}/%{_emacs_sitelispdir}/%{pkg} \
-  %{pkg}-autoloads.el %{pkg}.el %{pkg}.elc
+  lisp/%{pkg}-autoloads.el lisp/%{pkg}.el lisp/%{pkg}.elc
 
 %files
 %license LICENSE
-%doc README.md
+%doc README.org
 %{_emacs_sitelispdir}/%{pkg}
 %{_infodir}/%{pkg}.info.*
 

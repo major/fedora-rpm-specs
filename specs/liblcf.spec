@@ -7,30 +7,18 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 # to the Boost License.
 #
 # BSD-licensed:
-# - src/ini.cpp (removed before build)
-# - src/ini.h   (removed before build)
-# - src/inireader.cpp
-# - src/inireader.h
+# - src/lcf/inireader.cpp
+# - src/lcf/inireader.h
 #
 # Boost:
 # - src/lcf/third_party/span.h
-# - src/lcf/third_party/string_view.h
 License: MIT AND BSD-2-Clause AND BSL-1.0
 
-Version: 0.8
-Release: 9%{?dist}
+Version: 0.8.1
+Release: 1%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0: 0000-unbundle-inih.patch
-
-# Backport from upstream:
-# https://github.com/EasyRPG/liblcf/commit/cd228281af2412e970c1a6c89aff02d68d0f1731
-Patch1: 0001-fix-compilation-error.patch
-
-# libicu 75+ requires C++17 (or newer).
-Patch2: 0002-cpp17.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
@@ -79,9 +67,6 @@ This package contains documentation (in HTML format) for %{name}.
 %prep
 %autosetup -p1
 
-# Remove bundled inih library
-rm src/ini.cpp src/lcf/ini.h
-
 
 %build
 %cmake \
@@ -93,10 +78,6 @@ rm src/ini.cpp src/lcf/ini.h
 
 %install
 %cmake_install
-
-# liblcf bundles the "inih" library and exposes it as part of its API.
-# Symlink liblcf's "ini.h" file to the un-bundled library's version.
-ln -sr %{buildroot}%{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %check
@@ -127,6 +108,11 @@ ln -sr %{buildroot}%{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Mon Apr 07 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8.1-1
+- Update to v0.8.1
+- Drop Patch0 (unbundle inih - unbundled upstream)
+- Drop Patch1 & Patch2 (compilation errors - backports from this release)
+
 * Thu Feb 06 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-9
 - Fix FTBFS
 

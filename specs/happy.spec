@@ -15,7 +15,7 @@
 Name:           happy
 Version:        2.0.2
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parser Generator for Haskell
 
 License:        BSD-2-Clause
@@ -121,6 +121,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 2.0.2-2
+- Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 2.0.2-1
 - https://hackage.haskell.org/package/happy-2.0.2/changelog
 - add happy-lib

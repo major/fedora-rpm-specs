@@ -1,22 +1,21 @@
 %global pypi_name boolean.py
 
 Name:           python-%{pypi_name}
-Version:        4.0
+Version:        5.0
 Release:        %autorelease
 Summary:        Define boolean algebras, and create and parse boolean expressions
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/bastikr/boolean.py
-Source0:        %pypi_source
-
-Patch:          https://github.com/bastikr/boolean.py/pull/122.patch
+Source0:        %{pypi_source boolean_py}
 
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  %{py3_dist Sphinx}
+BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
 BuildRequires:  %{py3_dist pytest}
 
 %global _description \
@@ -37,7 +36,7 @@ Summary:        %{summary}
 Python 3 version.
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n boolean_py-%{version}
 
 %build
 %py3_build

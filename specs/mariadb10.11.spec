@@ -155,7 +155,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          5%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -890,7 +890,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 # Create a sysusers.d config file
 # We no longer enforce the hardcoded UID/GID 27.
 cat > support-files/%{name}.sysusers.conf << EOF
-u mysql - 'MySQL Server' %{dbdatadir} -
+u mysql - 'MariaDB and MySQL Server' %{dbdatadir} -
 EOF
 
 %if %{with galera}
@@ -1822,6 +1822,9 @@ fi
 %endif
 
 %changelog
+* Mon Apr 07 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-5
+- Bump release for package rebuild
+
 * Fri Apr 04 2025 Adam Williamson <awilliam@redhat.com> - 3:10.11.11-4
 - Emergency fix to sysusers config snippet syntax
 

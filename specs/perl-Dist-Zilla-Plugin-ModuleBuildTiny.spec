@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-ModuleBuildTiny
-Version:        0.017
-Release:        6%{?dist}
+Version:        0.018
+Release:        1%{?dist}
 Summary:        Build a Build.PL that uses Module::Build::Tiny
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-ModuleBuildTiny
@@ -9,7 +9,7 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Config)
 # Module::Build::Tiny version in META is from a previous version.
 # Zilla::Plugin::ModuleBuildTiny::version() outputs a minimal
@@ -26,6 +26,7 @@ BuildRequires:  perl(Dist::Zilla::Role::FileGatherer)
 BuildRequires:  perl(Dist::Zilla::Role::MetaProvider)
 BuildRequires:  perl(Dist::Zilla::Role::PrereqSource)
 BuildRequires:  perl(Dist::Zilla::Role::TextTemplate)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Moose)
@@ -116,6 +117,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 07 2025 Petr Pisar <ppisar@redhat.com> - 0.018-1
+- 0.018 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

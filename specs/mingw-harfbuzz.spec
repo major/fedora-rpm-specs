@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        11.0.0
+Version:        11.0.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -94,7 +94,6 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %files -n mingw32-harfbuzz
 %license COPYING
 %{mingw32_bindir}/hb-info.exe
-%{mingw32_bindir}/hb-ot-shape-closure.exe
 %{mingw32_bindir}/hb-shape.exe
 %{mingw32_bindir}/hb-subset.exe
 %{mingw32_bindir}/hb-view.exe
@@ -127,7 +126,6 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %files -n mingw64-harfbuzz
 %license COPYING
 %{mingw64_bindir}/hb-info.exe
-%{mingw64_bindir}/hb-ot-shape-closure.exe
 %{mingw64_bindir}/hb-shape.exe
 %{mingw64_bindir}/hb-subset.exe
 %{mingw64_bindir}/hb-view.exe
@@ -158,6 +156,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Mon Apr 07 2025 Sandro Mani <manisandro@gmail.com> - 11.0.1-1
+- Update to 11.0.1
+
 * Tue Mar 25 2025 Sandro Mani <manisandro@gmail.com> - 11.0.0-1
 - Update to 11.0.0
 

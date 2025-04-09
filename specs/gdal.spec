@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.10.2
-Release:       5%{?dist}
+Version:       3.10.3
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -648,6 +648,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Mon Apr 07 2025 Sandro Mani <manisandro@gmail.com> - 3.10.3-1
+- Update to 3.10.3
+
 * Thu Feb 27 2025 Laurențiu Nicola <lnicola@dend.ro> - 3.10.2-5
 - Enable blosc
 

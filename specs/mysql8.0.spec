@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -388,7 +388,6 @@ Requires:         %{_sysconfdir}/my.cnf.d
 Requires:         %{pkgname}-errmsg = %{sameevr}
 %{?mecab:Requires: mecab-ipadic}
 Requires:         coreutils
-Requires(pre):    /usr/sbin/useradd
 # We require this to be present for %%{_tmpfilesdir}
 Requires:         systemd
 # Make sure it's there when scriptlets run, too
@@ -646,6 +645,13 @@ install -D -p -m 644 %{_vpath_builddir}/scripts/mysql@.service %{buildroot}%{_un
 install -D -p -m 0644 %{_vpath_builddir}/scripts/mysql.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{daemon_name}.conf
 rm -r %{buildroot}%{_tmpfilesdir}/mysql.conf
 
+# Create a sysusers.d config file
+# We no longer enforce the hardcoded UID/GID 27
+mkdir -p %{buildroot}%{_sysusersdir}
+cat > %{buildroot}%{_sysusersdir}/%{name}.conf << EOF
+u mysql - 'MariaDB and MySQL Server' %{dbdatadir} -
+EOF
+
 # helper scripts for service starting
 install -D -p -m 755 %{_vpath_builddir}/scripts/mysql-prepare-db-dir %{buildroot}%{_libexecdir}/mysql-prepare-db-dir
 install -p -m 755 %{_vpath_builddir}/scripts/mysql-wait-stop %{buildroot}%{_libexecdir}/mysql-wait-stop
@@ -782,11 +788,6 @@ popd
 %endif
 
 
-
-%pre -n %{pkgname}-server
-/usr/sbin/groupadd -g 27 -o -r mysql >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g mysql -o -r -d %{dbdatadir} -s /sbin/nologin \
-  -c "MySQL Server" -u 27 mysql >/dev/null 2>&1 || :
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
@@ -979,6 +980,7 @@ fi
 %{_libexecdir}/mysql-scripts-common
 
 %{_tmpfilesdir}/%{daemon_name}.conf
+%{_sysusersdir}/%{name}.conf
 %attr(0755,mysql,mysql) %dir %{dbdatadir}
 %attr(0750,mysql,mysql) %dir %{_localstatedir}/lib/mysql-files
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
@@ -1104,6 +1106,11 @@ fi
 %endif
 
 %changelog
+* Sun Apr 06 2025 Michal Schorm <mschorm@redhat.com> - 8.0.41-2
+- Switch from the RPM scriptlet to the sysusers.d configuration
+  for 'mysql' user / group creation
+- We no longer enforce the fixed UID/GID 27 !!!
+
 * Fri Feb 28 2025 Michal Schorm <mschorm@redhat.com> - 8.0.41-1
 - Rebase to MySQL 8.0.41
 

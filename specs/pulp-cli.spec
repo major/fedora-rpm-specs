@@ -1,5 +1,5 @@
 Name: pulp-cli
-Version: 0.31.1
+Version: 0.32.1
 Release: 1%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
@@ -80,6 +80,12 @@ done
 
 
 %changelog
+* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-1
+- new version
+
+* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.0-1
+- new version
+
 * Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
 - new version
 - Removed upper bound on build-required setuptools.

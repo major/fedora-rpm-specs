@@ -5,13 +5,13 @@
 %bcond_with tests
 
 Name:               gfal2
-Version:            2.23.1
-Release:            5%{?dist}
+Version:            2.23.2
+Release:            1%{?dist}
 Summary:            Grid file access library 2.0
 License:            Apache-2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
-# git clone --depth=1 --branch=v2.23.1 https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.23.1
-# tar czf gfal2-2.23.1.tar.gz --exclude-vcs gfal2-2.23.1
+# git clone --depth=1 --branch=v2.23.2 https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.23.2
+# tar czf gfal2-2.23.2.tar.gz --exclude-vcs gfal2-2.23.2
 Source0:            %{name}-%{version}.tar.gz
 
 #main lib dependencies
@@ -285,6 +285,9 @@ fi
 
 
 %changelog
+* Mon Apr 07 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.23.2-1
+- Upstream release 2.23.2
+
 * Wed Jan 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.23.1-3
 - Rebuilt for gtest 1.15.2
 

@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Wadler/Leijen Pretty Printer for colored ANSI terminal output
 
 License:        BSD-3-Clause
@@ -135,6 +135,9 @@ sed -i 's/\r$//' README.md
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.0.2-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.0.2-3
 - Rebuild
 

@@ -18,14 +18,14 @@
 %global with_perl 0
 %global with_python 0
 %else
-%global with_ruby 1
+%global with_ruby 0
 %global with_perl 1
 %global with_python 1
 %endif
 
 Name:		openwsman
-Version:	2.7.2
-Release:	16%{?dist}
+Version:	2.8.1
+Release:	1%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -49,9 +49,7 @@ Patch2:		openwsman-2.4.12-ruby-binding-build.patch
 Patch3:		openwsman-2.6.2-openssl-1.1-fix.patch
 Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
-Patch6:		openwsman-2.7.2-fix-ftbfs.patch
-Patch7:		openwsman-2.7.2-gcc15-fix.patch
-Patch8:		openwsman-2.7.2-cmake-minimum.patch
+Patch6:		openwsman-2.7.2-gcc15-fix.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -260,6 +258,7 @@ rm -f %{buildroot}/%{_libdir}/openwsman/plugins/*.la
 rm -f %{buildroot}/%{_libdir}/openwsman/authenticators/*.la
 %if %{with_ruby}
 [ -d %{buildroot}/%{ruby_vendorlibdir} ] && rm -f %{buildroot}/%{ruby_vendorlibdir}/openwsmanplugin.rb
+[ -d %{buildroot}/%{ruby_sitelibdir} ] && rm -f %{buildroot}/%{ruby_sitelibdir}/openwsmanplugin.rb
 [ -d %{buildroot}/%{ruby_vendorlibdir} ] && rm -f %{buildroot}/%{ruby_vendorlibdir}/openwsman.rb
 %endif
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
@@ -411,6 +410,9 @@ fi
 %endif
 
 %changelog
+* Mon Apr 07 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-1
+- Update to openwsman-2.8.1
+
 * Fri Feb 28 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.2-16
 - Update minimum required cmake version
 

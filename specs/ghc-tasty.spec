@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.5.3
 # can only be reset when subpkg bumped
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Modern and extensible testing framework
 
 License:        MIT
@@ -143,6 +143,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.5.3-25
+- Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 1.5.3-24
 - https://hackage.haskell.org/package/tasty-1.5.3/changelog
 

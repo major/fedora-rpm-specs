@@ -5,6 +5,10 @@ URL: https://easyrpg.org
 # EasyRPG Player itself is GPLv3+.
 # The program's logos are CC-BY-SA 4.0.
 # --
+# The program makes use of some header-only libraries:
+# * dr_wav: Unlicense OR MIT-0
+# * nlohmann_json: MIT AND CC0-1.0
+# --
 # The program bundles several 3rd-party libraries.
 #
 # FMMidi files - licensed under the 3-clause BSD license:
@@ -12,16 +16,6 @@ URL: https://easyrpg.org
 # - src/midisequencer.h
 # - src/midisynth.cpp
 # - src/midisynth.h
-#
-# dr_wav files - licensed under (Unlicense or MIT-0):
-# - src/external/dr_wav.h
-# rang files - licensed under the Unlicense:
-# - src/external/rang.hpp
-# Note that both dr_wav and rang are un-bundled and replaced with versions
-# provided by Fedora packages. However, since these are header-only libraries,
-# their licenses are still included in the License tag.
-#
-# PicoJSON is used only for Emscripten builds (and unbundled before build).
 # --
 # The program also uses a couple of 3rd-party fonts. Since these are not
 # loaded at runtime, but rather baked into the executable at compile time,
@@ -43,23 +37,17 @@ URL: https://easyrpg.org
 #
 # The upstream tarball contains also "Teenyicons", under the MIT license,
 # but those are used only for Emscripten builds.
-License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-3-Clause AND (Unlicense OR MIT-0) AND Unlicense AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
+License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND (Unlicense OR MIT-0) AND (MIT AND CC0-1.0) AND BSD-3-Clause AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
-Version: 0.8
-Release: 11%{?dist}
+Version: 0.8.1
+Release: 1%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
 Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo_name}-%{version}.tar.gz
 
 # Unbundle libraries
-Patch1: 0001-unbundle-picojson.patch
 Patch2: 0002-unbundle-dr_wav.patch
-Patch3: 0003-unbundle-rang.patch
-
-# Fix compilation errors when building against fmt v10
-# Backport of upstream commit: https://github.com/EasyRPG/Player/commit/a4672d2e30db4e4918c8f3580236faed3c9d04c1.patch
-Patch4: 0004-update-for-fmt10.patch
 
 BuildRequires: cmake >= 3.13
 BuildRequires: desktop-file-utils
@@ -79,14 +67,15 @@ BuildRequires: pkgconfig(fmt)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(ibus-1.0)
-BuildRequires: pkgconfig(liblcf) >= 0.8
+BuildRequires: pkgconfig(liblcf) >= 0.8.1
+BuildRequires: pkgconfig(liblhasa)
 BuildRequires: pkgconfig(libmpg123)
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libxmp)
+BuildRequires: pkgconfig(nlohmann_json) >= 3.9.1
 BuildRequires: pkgconfig(opusfile)
 BuildRequires: pkgconfig(pixman-1)
-BuildRequires: pkgconfig(rang)
-BuildRequires: pkgconfig(sdl2) >= 2.0.5
+BuildRequires: pkgconfig(sdl3)
 BuildRequires: pkgconfig(sndfile)
 BuildRequires: pkgconfig(speexdsp)
 BuildRequires: pkgconfig(vorbis)
@@ -107,7 +96,7 @@ a RPG Maker 2000/2003 game project folder (same place as RPG_RT.exe).
 %autosetup -n %{repo_name}-%{version} -p1
 
 # These are all un-bundled and can be removed
-rm src/external/dr_wav.h src/external/picojson.h src/external/rang.hpp
+rm src/external/dr_wav.h
 
 
 %build
@@ -115,7 +104,8 @@ rm src/external/dr_wav.h src/external/picojson.h src/external/rang.hpp
 	-DPLAYER_BUILD_EXECUTABLE=ON \
 	-DPLAYER_BUILD_LIBLCF=OFF \
 	-DPLAYER_ENABLE_TESTS=ON \
-	-DPLAYER_TARGET_PLATFORM=SDL2 \
+	-DPLAYER_WITH_LHASA=ON \
+	-DPLAYER_TARGET_PLATFORM=SDL3 \
 	-DCMAKE_FIND_PACKAGE_PREFER_CONFIG=OFF \
 	-DCMAKE_BUILD_TYPE=Release
 
@@ -147,6 +137,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Mon Apr 07 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8.1-1
+- Update to v0.8.1
+- Drop Patch1 (unbundle picojson - replaced with nlohmann_json upstream)
+- Drop Patch3 (unbundle rang - dependency dropped upstream)
+- Drop Patch4 (libfmt10 compatibility - backport from this release)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

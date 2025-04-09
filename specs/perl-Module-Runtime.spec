@@ -1,15 +1,7 @@
 # This file is licensed under the terms of GNU GPLv2+.
-
-# Run optional tests
-%if ! (0%{?rhel})
-%{bcond_without perl_Module_Runtime_enables_optional_test}
-%else
-%{bcond_with perl_Module_Runtime_enables_optional_test}
-%endif
-
 Name:           perl-Module-Runtime
-Version:        0.016
-Release:        24%{?dist}
+Version:        0.017
+Release:        1%{?dist}
 Summary:        Runtime module handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Runtime
@@ -26,11 +18,6 @@ BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.41
 BuildRequires:  perl(warnings)
-%if %{with perl_Module_Runtime_enables_optional_test}
-# Optional tests:
-BuildRequires:  perl(Test::Pod) >= 1.00
-BuildRequires:  perl(Test::Pod::Coverage)
-%endif
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(t::Nested\\)$
@@ -80,6 +67,7 @@ make test
 
 %files
 %doc Changes README
+%license LICENSE
 %{perl_vendorlib}/Module/
 %{_mandir}/man3/Module::Runtime.3*
 
@@ -87,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 07 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.017-1
+- 0.017 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.016-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

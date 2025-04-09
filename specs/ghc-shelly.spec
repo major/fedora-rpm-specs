@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.12.1
 # can only be reset when subpkg bumped
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Shell-like (systems) programming in Haskell
 
 License:        BSD-3-Clause
@@ -177,6 +177,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.12.1-20
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.12.1-19
 - Rebuild
 

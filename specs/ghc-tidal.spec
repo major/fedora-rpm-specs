@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.9.5
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pattern language for improvised music
 
 License:        GPL-3.0-or-later
@@ -161,6 +161,9 @@ echo %{_bindir}/linktest >> %{tidallink}/ghc-tidal-link-devel.files
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.9.5-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.9.5-3
 - Rebuild
 

@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.6.11
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Trie-based memo functions
 
 License:        BSD-3-Clause
@@ -135,6 +135,9 @@ dos2unix -k -n %{SOURCE2} %{newtypegenerics}/newtype-generics.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.6.11-8
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.6.11-7
 - Rebuild
 

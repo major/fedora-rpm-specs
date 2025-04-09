@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parsing of ISO 8601 dates, originally from aeson
 
 License:        BSD-3-Clause
@@ -141,6 +141,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.1.1.0-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.1.1.0-3
 - bump integer-conversion to 0.1.1.0
 

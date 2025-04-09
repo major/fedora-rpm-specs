@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.4.7.0
 # can only be reset when subpkg bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A class for types that can be converted to a hash value
 
 License:        BSD-3-Clause
@@ -176,6 +176,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.4.7.0-5
+- Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 1.4.7.0-4
 - https://hackage.haskell.org/package/hashable-1.4.7.0/changelog
 

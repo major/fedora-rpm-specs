@@ -7,16 +7,16 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    f7a781073e1645062f163e058139e2f89355d420
+%global gh_commit    ed27e28a4c478f7f4015b5e7e7b1912af9e85f2b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2025-01-26
+%global gh_date      2025-04-03
 %global gh_project   TCPDF
 %global real_name    tcpdf
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.8.2
+Version:        6.9.1
 Release:        1%{?dist}
 
 URL:            http://www.tcpdf.org
@@ -316,6 +316,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Mon Apr  7 2025 Remi Collet <remi@remirepo.net> - 6.9.1-1
+- update to 6.9.1
+
 * Mon Jan 27 2025 Remi Collet <remi@remirepo.net> - 6.8.2-1
 - update to 6.8.2
 - remove examples from package (removed upstream)

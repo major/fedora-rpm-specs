@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/icu_collections
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
+# * Do not depend on postcard; it is needed only for one (skipped) test.
 Patch:          icu_collections-fix-metadata.diff
 # * Downstream-only: unconditionally skip compiling tests that would require
 #   postcard.
@@ -23,7 +24,6 @@ Patch10:        icu_collections-1.5.0-no-postcard.patch
 Patch11:        icu_collections-1.5.0-no-icu-dev-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Collection of API for use in ICU libraries.}
@@ -54,18 +54,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bench-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bench-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bench" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bench-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+databake-devel
@@ -106,8 +94,6 @@ use the "std" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Do not depend on postcard; it is needed only for one (skipped) test.
-tomcli set Cargo.toml del dev-dependencies.postcard
 # Avoid a dependency on the internal icu_benchmark_macros crate
 rm -rv examples/
 %cargo_prep

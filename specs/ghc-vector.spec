@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.13.2.0
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Efficient Arrays
 
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.13.2.0-4
+- Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 0.13.2.0-3
 - https://hackage.haskell.org/package/vector-0.13.2.0/changelog
 

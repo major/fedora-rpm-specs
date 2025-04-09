@@ -1,7 +1,7 @@
 %global srcname decNumber
-%global forgeurl https://github.com/SDL-Hercules-390/%{srcname}
-%global commit 3aa2f4531b5fcbd0478ecbaf72ccc47079c67280
-%forgemeta
+%global date 20250324
+%global commit 995184583107625015bb450228a5f3fb781d9502
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?el8}
 # Needed for epel8
@@ -26,13 +26,13 @@ This version is a fork by SoftDevLabs (SDL) to support the SDL-Hercules-390
 emulator.}
 
 Name:           sdl-decnumber
-Version:        3.68.0
-Release:        12%{?dist}
+Version:        3.68.0^%{date}git%{shortcommit}
+Release:        %autorelease
 Summary:        ANSI C General Decimal Arithmetic Library (SDL version)
 
 License:        MIT
-URL:            %{forgeurl}
-Source:         %{forgesource}
+URL:            https://github.com/SDL-Hercules-390/%{srcname}
+Source:         %{url}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -89,41 +89,4 @@ mv %{buildroot}%{_docdir}/%{name}-doc/decnumber.ICU-license.html .
 %doc examples
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 31 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 3.68.0-11
-- Properly obsolete the old decnumber package
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Mar 28 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 3.68.0-5.20220328git3aa2f45
-- Rename to sdl-decnumber (RHBZ#2068621)
-- Update summary and description to make it clear this is a fork
-- Update to 3aa2f45 git snapshot
-- Drop f32 logic and tidy up the specfile
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-4.20210321gitda66509
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-3.20210321gitda66509
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 30 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 3.68.0-2.20210321gitda66509
-- Fix build on f32 and epel8
-
-* Sun Mar 28 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 3.68.0-1.20210321gitda66509
-- Initial package
+%autochangelog

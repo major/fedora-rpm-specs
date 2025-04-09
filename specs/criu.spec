@@ -11,8 +11,8 @@
 %undefine _auto_set_build_flags
 
 Name: criu
-Version: 4.0
-Release: 4%{?dist}
+Version: 4.1
+Release: 1%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -22,9 +22,6 @@ Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{v
 # We use this patch because the protobuf-c package name
 # in RPM and DEB is different.
 Patch99: criu.pc.patch
-
-Patch100: Makefile.config-set-CR_PLUGIN_DEFAULT-variable.patch
-Patch101: vdso-handle-vvar_vclock-vma-s.patch
 
 Source5: criu-tmpfiles.conf
 
@@ -41,10 +38,9 @@ BuildRequires: perl-interpreter
 BuildRequires: libselinux-devel
 BuildRequires: gnutls-devel
 BuildRequires: libdrm-devel
+BuildRequires: libuuid-devel
 # Checkpointing containers with a tmpfs requires tar
 Recommends: tar
-# CRIU requires some version of iptables-restore for network locking
-Recommends: iptables
 %if 0%{?fedora}
 BuildRequires: libbsd-devel
 BuildRequires: nftables-devel
@@ -119,9 +115,6 @@ This script can help to workaround the so called "PID mismatch" problem.
 %setup -q
 %patch -P 99 -p1
 
-%patch -P 100 -p1
-%patch -P 101 -p1
-
 %build
 # This package calls LD directly without specifying the LTO plugins.  Until
 # that is fixed, disable LTO.
@@ -129,7 +122,7 @@ This script can help to workaround the so called "PID mismatch" problem.
 
 # %{?_smp_mflags} does not work
 # -fstack-protector breaks build
-CFLAGS+=`echo %{optflags} | sed -e 's,-fstack-protector\S*,,g'` make V=1 WERROR=0 PREFIX=%{_prefix} RUNDIR=/run/criu PYTHON=%{py_binary} PLUGINDIR=%{_libdir}/criu
+CFLAGS+=`echo %{optflags} | sed -e 's,-fstack-protector\S*,,g'` make V=1 WERROR=0 PREFIX=%{_prefix} RUNDIR=/run/criu PYTHON=%{py_binary} PLUGINDIR=%{_libdir}/criu NETWORK_LOCK_DEFAULT=NETWORK_LOCK_NFTABLES
 make V=1 WERROR=0 PREFIX=%{_prefix} PLUGINDIR=%{_libdir}/criu amdgpu_plugin
 make docs V=1
 
@@ -192,6 +185,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Mon Apr 07 2025 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 4.1-1
+- Update to 4.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

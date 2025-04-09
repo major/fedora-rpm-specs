@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.8
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Type level booleans
 
 License:        BSD-3-Clause
@@ -139,6 +139,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.1.8-4
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.1.8-3
 - Rebuild
 

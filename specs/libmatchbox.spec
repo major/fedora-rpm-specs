@@ -1,13 +1,14 @@
 Summary:        Libraries for the Matchbox Desktop
 Name:           libmatchbox 
 Version:        1.9
-Release:        38%{?dist}
+Release:        39%{?dist}
 Url:            http://projects.o-hand.com/matchbox/
 License:        LGPL-2.1-or-later
 Source:         http://projects.o-hand.com/matchbox/sources/libmatchbox/%{version}/%{name}-%{version}.tar.bz2
 Patch0:         libmatchbox-1.9-add-needed.patch
 Patch1:         libmatchbox-1.9-libpng.patch
 Patch2:         libmatchbox-c99.patch
+Patch3:         libmatchbox-hash_empty.patch
 BuildRequires:  pango-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -61,6 +62,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 %{_includedir}/libmb/*.h
 
 %changelog
+* Mon Apr 07 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.9-39
+- Fix hash_empty declaration
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

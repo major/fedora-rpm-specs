@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    efe64d2cd94d410ba85831a6d4c16ac48542751b
+%global gh_commit    fc7ed316430118cc7836bf45faff18d5dfc8de04
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   math
@@ -22,7 +22,7 @@
 %global ns_project   Math
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.13.0
+Version:        0.13.1
 Release:        1%{?dist}
 Summary:        Arbitrary-precision arithmetic library
 
@@ -122,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Mon Apr  7 2025 Remi Collet <remi@remirepo.net> - 0.13.1-1
+- update to 0.13.1
+
 * Mon Mar  3 2025 Remi Collet <remi@remirepo.net> - 0.13.0-1
 - update to 0.13.0
 

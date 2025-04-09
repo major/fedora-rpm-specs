@@ -1,20 +1,20 @@
 # remirepo/fedora spec file for php-cs-fixer
 #
-# Copyright (c) 2016-2025 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    ffcb8200a42045e65049af7910cfd022f631b064
+%global gh_commit    399a128ff2fdaf4281e4e79b755693286cdf325c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-03-19
+%global gh_date      2025-03-31
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.73.1
+Version:        3.75.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -102,6 +102,10 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Apr  1 2025 Remi Collet <remi@remirepo.net> - 3.75.0-1
+- update to 3.75.0
+- re-license spec file to CECILL-2.1
+
 * Thu Mar 20 2025 Remi Collet <remi@remirepo.net> - 3.73.1-1
 - update to 3.73.1
 

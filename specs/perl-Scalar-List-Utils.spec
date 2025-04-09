@@ -1,7 +1,7 @@
 Name:           perl-Scalar-List-Utils
 Epoch:          5
-Version:        1.68
-Release:        2%{?dist}
+Version:        1.69
+Release:        1%{?dist}
 Summary:        A selection of general-utility scalar and list subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-List-Utils
@@ -20,12 +20,12 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
 # Tests only
 BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
@@ -41,7 +41,6 @@ BuildRequires:  perl(Tie::Handle)
 BuildRequires:  perl(Tie::Scalar)
 BuildRequires:  perl(Tie::StdScalar)
 BuildRequires:  perl(vars)
-Requires:       perl(Carp)
 
 %{?perl_default_filter}
 
@@ -110,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5:1.69-1
+- 1.69 bump (rhbz#2356766)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.68-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

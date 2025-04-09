@@ -1,9 +1,10 @@
 %global pypi_name zstd
-%global zstd_version 1.5.5
+# grep "^VERSION = " zstd-*/setup.py
+%global zstd_version 1.5.6
 
 Name:           python-%{pypi_name}
-Version:        1.5.6.1
-Release:        2%{?dist}
+Version:        1.5.6.7
+Release:        1%{?dist}
 Summary:        Zstd Bindings for Python
 
 # original zstd bits are GPL-2.0-or-later OR BSD-2-Clause
@@ -62,6 +63,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Mon Apr 07 2025 Michel Lind <salimma@fedoraproject.org> - 1.5.6.7-1
+- Update to 1.5.6.7; Fixes: RHBZ#2339003
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

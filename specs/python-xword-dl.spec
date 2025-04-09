@@ -1,7 +1,7 @@
 %global pypi_name xword_dl
 
 Name:           python-xword-dl
-Version:        2024.7.20
+Version:        2025.4.2.1
 Release:        %autorelease
 Summary:        Download tool for online crossword puzzles
 
@@ -40,13 +40,12 @@ sed -i requirements.txt -e 's/==.*$//g'
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pyproject_check_import
 
 %files -n python3-xword-dl -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 %{_bindir}/xword-dl
 

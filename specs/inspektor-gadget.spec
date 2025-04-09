@@ -3,7 +3,7 @@
 # https://github.com/inspektor-gadget/inspektor-gadget
 # https://github.com/microsoft/azurelinux/tree/3.0/SPECS/ig
 %global goipath         github.com/inspektor-gadget/inspektor-gadget
-Version:                0.38.0
+Version:                0.39.0
 
 %gometa -L -f
 

@@ -40,9 +40,6 @@ Requires:       tmux >= %{tmux_minver}
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 %if %{without tests}
-# this depends on pytest, we don't want it installed
-rm src/libtmux/pytest_plugin.py
-rm src/libtmux/test.py
 %endif
 
 %generate_buildrequires
@@ -56,7 +53,8 @@ rm src/libtmux/test.py
 %pyproject_save_files -l libtmux
 
 %check
-%pyproject_check_import
+# Do not check import of test modules
+%pyproject_check_import -e 'libtmux.pytest_plugin' -e 'libtmux.test'
 %if %{with tests}
 PYTHONPATH=src %pytest tests
 %endif

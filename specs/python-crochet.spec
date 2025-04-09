@@ -1,16 +1,6 @@
-%global srcname crochet
-
-%global desc Crochet is an MIT-licensed library that makes it easier to use \
-Twisted from regular blocking code. Some use cases include easily using Twisted \
-from a blocking framework like Django or Flask, write a library that provides a \
-blocking API, but uses Twisted for its implementation, port blocking code to \
-Twisted more easily, by keeping a backwards compatibility layer, or allow \
-normal Twisted programs that use threads to interact with Twisted more cleanly \
-from their threaded parts
-
-Name:           python-%{srcname}
+Name:           python-crochet
 Version:        2.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
 # Patches needed for compatibility with Python 3.12
@@ -18,64 +8,69 @@ Patch1:         https://github.com/itamarst/crochet/pull/150.patch
 
 License:        MIT
 URL:            https://github.com/itamarst/crochet
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/crochet-%{version}.tar.gz
 BuildArch:      noarch
 
+%global _description %{expand:
+Crochet is an MIT-licensed library that makes it easier to use Twisted from
+regular blocking code. Some use cases include:
 
-%description
-%{desc}
+* Easily use Twisted from a blocking framework like Django or Flask.
+* Write a library that provides a blocking API, but uses Twisted for its
+  implementation.
+* Port blocking code to Twisted more easily, by keeping a backwards
+  compatibility layer.
+* Allow normal Twisted programs that use threads to interact with Twisted more
+  cleanly from their threaded parts. For example, this can be useful when using
+  Twisted as a WSGI container.}
+
+
+%description %_description
 
 
 %package doc
 Summary: Documentation for python-crochet
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-sphinx
 
 %description doc
 Documentation for python-crochet.
 
 
-%package -n python3-%{srcname}
-Summary: %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-
+%package -n python3-crochet
+Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-twisted
-BuildRequires:  python3-wrapt
-# crochet/_eventloop.py and crochet/tests/test_api.py imports imp
-BuildRequires:  (python3-zombie-imp if python3 >= 3.12)
-Requires:       (python3-zombie-imp if python3 >= 3.12)
 
 
-%description -n python3-%{srcname}
-%{desc}
+%description -n python3-crochet %_description
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p 1 -n crochet-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
-make %{?_smp_mflags} -C docs html
+%pyproject_wheel
+%make_build -C docs html
 rm docs/_build/html/.buildinfo
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l crochet
 
 
 %check
-%{__python3} -m unittest discover -v crochet.tests
+%{py3_test_envvars} %{python3} -m unittest discover -v crochet.tests
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-crochet -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/crochet/
-%{python3_sitelib}/crochet-*.egg-info/
 
 
 %files doc
@@ -84,6 +79,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Mon Mar 31 2025 Carl George <carlwgeorge@fedoraproject.org> - 2.1.1-7
+- Port to pyproject macros
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

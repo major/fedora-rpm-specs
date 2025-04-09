@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.1.7.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Safe, consistent, and easy exception handling
 
 License:        MIT
@@ -126,6 +126,9 @@ cp -bp %{SOURCE1} %{pkg_name}.cabal
 
 
 %changelog
+* Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.1.7.4-27
+- Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.1.7.4-26
 - Rebuild
 

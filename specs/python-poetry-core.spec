@@ -2,7 +2,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Poetry PEP 517 Build Backend
 # SPDX
@@ -75,8 +75,7 @@ rm -r src/poetry/core/_vendor
 %check
 %if %{with tests}
 # don't use %%tox here because tox.ini runs "poetry install"
-# TODO investigate failures in test_default_with_excluded_data, test_default_src_with_excluded_data
-%pytest -k "not with_excluded_data"
+%pytest
 %else
 %pyproject_check_import
 %endif

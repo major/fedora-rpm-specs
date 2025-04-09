@@ -1,12 +1,13 @@
 Name: dapl
 Version: 2.1.9
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Library providing access to the DAT 2.0 API
 # Automatically converted from old format: GPLv2 or BSD or CPL - review is highly recommended.
 License: GPL-2.0-only OR LicenseRef-Callaway-BSD OR CPL-1.0
 Url: https://www.openfabrics.org/
 Source0: https://www.openfabrics.org/downloads/%{name}/%{name}-%{version}.tar.gz
 Patch0: dapl-c99.patch
+Patch1: dapl-c23.patch
 BuildRequires: libibverbs-devel >= 1.2.1
 BuildRequires: librdmacm-devel >= 1.1.0
 BuildRequires: ibacm-devel
@@ -76,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/*
 
 %changelog
+* Mon Apr 07 2025 Honggang Li <honggangli@163.com> - 2.1.9-25
+- C23 compatibility fix (#2340028)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

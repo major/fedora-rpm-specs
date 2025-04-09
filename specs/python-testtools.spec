@@ -23,6 +23,7 @@ URL:            https://github.com/testing-cabal/testtools
 Source:         %{pypi_source testtools}
 # https://github.com/testing-cabal/testtools/pull/387
 Patch:          0001-Prepare-tests-for-upcoming-twisted-version.patch
+Patch:          https://github.com/testing-cabal/testtools/commit/79fa5d41a05c423cf43a65d2b347c7c566bcdfa5.patch#/testtools-fix-eq-for-py314.patch
 BuildArch:      noarch
 
 %global common_description %{expand:

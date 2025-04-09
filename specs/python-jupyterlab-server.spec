@@ -43,6 +43,8 @@ sed -i '/"codecov/d' pyproject.toml
 sed -i '/"hatch\b/d' pyproject.toml
 # Remove limit from pytest version
 sed -i '/pytest/s/,<8//' pyproject.toml
+# Remove dependency on doc spelling checker
+sed -i '/"sphinxcontrib_spelling/d' pyproject.toml
 
 
 %generate_buildrequires
