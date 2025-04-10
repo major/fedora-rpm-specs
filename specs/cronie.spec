@@ -14,6 +14,8 @@ Source0:   https://github.com/cronie-crond/cronie/releases/download/cronie-%{ver
 Patch:     0001-do-no-leak-file-descriptors.patch
 # https://github.com/cronie-crond/cronie/issues/193
 Patch:     make_error_func_prototype_complete.patch
+# https://github.com/cronie-crond/cronie/pull/200
+Patch:     fix_range_parsing.patch
 
 Requires:  dailyjobs
 

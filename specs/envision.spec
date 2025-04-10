@@ -1,9 +1,9 @@
 %bcond_without check
 %global cargo_install_lib  0
-%global envision_version   3.0.1
+%global envision_version   3.1.0
 %global forgeurl           https://gitlab.com/gabmus/envision
 %global tag                %{envision_version}
-%global date               20253002
+%global date               20250408
 %forgemeta
 
 # prevent library files from being installed
@@ -127,6 +127,7 @@ BuildRequires:  vulkan-headers
 BuildRequires:  vulkan-loader-devel
 
 Requires:       hicolor-icon-theme
+Requires:       patch
 Suggests:       android-tools
 
 

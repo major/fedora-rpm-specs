@@ -1,21 +1,16 @@
 %{?python_enable_dependency_generator}
 
 Name:           pywbem
-Version:        0.17.6
+Version:        1.7.3
 Epoch:          1
-Release:        12%{?dist}
+Release:        1%{?dist}
 Summary:        Python WBEM client interface and related utilities
 License:        LGPL-2.1-or-later
 URL:            https://github.com/pywbem/pywbem
 Source0:        https://github.com/pywbem/pywbem/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:         0001-use-unittest-mock.patch
-Patch2:         0002-coverity-deadcode.patch
-Patch3:         0003-coverity-forward-null.patch
-Patch4:         0004-coverity-identifier-typo.patch
-Patch5:         0005-python3_12.patch
-BuildRequires:  python3-pip python3-PyYAML python3-ply python3-rpm-macros
+Patch1:         0001_test_fixes.patch
+Patch2:         0002_correct_test_libraries.patch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildArch:      noarch
 
 %description
@@ -44,34 +39,34 @@ management tasks supported by systems running WBEM servers. See WBEM Standards
 for more information about WBEM.
 
 %prep
-%setup -q -n %{name}-%{version}
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-CFLAGS="%{optflags}" %{__python3} setup.py build
-
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-env PYTHONPATH=%{buildroot}/%{python3_sitelib} \
-    %{__python3} setup.py install -O1 --skip-build --root %{buildroot}
+%pyproject_install
+env PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} ./build_moftab.py
 rm -rf %{buildroot}/usr/bin/*.bat
-# wbemcli are conflicting with sblim-wbemcli
-mv -v %{buildroot}/%{_bindir}/wbemcli %{buildroot}/%{_bindir}/pywbemcli
-sed -i -e 's/wbemcli/pywbemcli/' %{buildroot}/%{_bindir}/pywbemcli
-mv -v %{buildroot}/%{_bindir}/wbemcli.py %{buildroot}/%{_bindir}/pywbemcli.py
 
-%files -n python3-pywbem
+%pyproject_save_files -l -M
+
+%files -n python3-pywbem -f %{pyproject_files}
 %license LICENSE.txt
-%{python3_sitelib}/*.egg-info
 %{python3_sitelib}/pywbem/
 %{python3_sitelib}/pywbem_mock/
 %{_bindir}/mof_compiler
-%{_bindir}/pywbemcli
-%{_bindir}/pywbemcli.py
-%doc README.rst
+%doc README.md
 
 %changelog
+* Thu Mar 13 2025 Tony Asleson  <tasleson@redhat.com> 1:1.7.3-1
+- Update to latest upstream release
+- Update spec. file
+- Correct test libraries
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

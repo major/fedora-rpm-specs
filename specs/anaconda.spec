@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.13
+Version: 43.14
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 08 2025 Packit <hello@packit.dev> - 43.14-1
+- Update to version 43.14
+
 * Tue Apr 01 2025 Packit <hello@packit.dev> - 43.13-1
 - Add release notes for TERM passthrough (jkonecny)
 - pyanaconda: storage: when checking the md device validity check also parent

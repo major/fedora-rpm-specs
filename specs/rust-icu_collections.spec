@@ -114,10 +114,6 @@ rm -rv examples/
 # * Tests using databake may fail due to trivial differences in the string
 #   representations of generated code, such as trailing commas without semantic
 #   significance.
-%{cargo_test -f databake,serde -- --lib -- --exact %{shrink:
-    --skip codepointinvlist::cpinvlist::tests::databake
-    --skip codepointtrie::cptrie::tests::databake
-}}
 %{cargo_test -f databake,serde -- --tests -- --exact %{shrink:
     --skip codepointinvlist::cpinvlist::tests::databake
     --skip codepointtrie::cptrie::tests::databake

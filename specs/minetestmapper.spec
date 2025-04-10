@@ -1,5 +1,5 @@
 %global         forgeurl https://github.com/minetest/minetestmapper
-%global         tag      20241111
+%global         tag      20250408
 Version:        %{tag}
 
 %forgemeta

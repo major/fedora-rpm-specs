@@ -2,21 +2,21 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.1.46
+Version:        1.1.47
 Release:        %autorelease
-Summary:        An API for writing VR and AR software
+Summary:        Cross-platform VR/AR runtime and API
 License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/%{pkgname}
 Source:         %{url}/archive/refs/tags/release-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  glslang
-BuildRequires:  glslang-devel
 BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(glslang)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(jsoncpp)
+BuildRequires:  pkgconfig(shaderc)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(xxf86vm)
@@ -30,48 +30,43 @@ BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  python3dist(jinja2)
 
 %description
-OpenXR is an API specification for writing portable, cross-platform,
-virtual reality (VR) and augmented reality (AR) software.
+OpenXR provides a vendor-neutral API for XR hardware, enabling portable
+mixed reality and virtual reality applications.
 
 %package libs
-Summary:        Libraries for writing VR and AR software
+Summary:        OpenXR runtime loader library
+%{?generate_subpackages:Requires: %{name}-devel = %{version}-%{release}}
 
 %description libs
-This package contains the library needed to run programs dynamically
-linked with OpenXR.
+Shared library implementing the OpenXR loader for XR hardware interaction.
 
 %package devel
 Summary:        Headers and development files of the OpenXR library
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Provides:       %{name}-devel = %{version}-%{release}
 
 %description devel
-Development files for the OpenXR library. Install this package if you
-want to compile applications using the OpenXR library.
+Headers and development files for building applications using OpenXR XR API.
 
 %prep
 %autosetup -n %{pkgname}-release-%{version}
+%generate_buildrequires
 
 %build
 %cmake \
     -DBUILD_ALL_EXTENSIONS=ON \
     -DBUILD_LOADER=ON \
+    -DBUILD_STATIC_LIBS=OFF \
     -DBUILD_TESTS=ON \
-    -DBUILD_WITH_STD_FILESYSTEM=OFF \
-    -DBUILD_WITH_WAYLAND_HEADERS=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS="%{optflags} -Wl,--as-needed" \
-    -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
-    -DDYNAMIC_LOADER=ON
+    -DDYNAMIC_LOADER=ON \
+    -DFILESYSTEM_USE_STD=ON \
+    -DGLSLANG_VALIDATOR=%{_bindir}/glslangValidator
 %cmake_build
 
 
 %install
 %cmake_install
-
-# We do not want static file .a
-rm -fr %{buildroot}%{_libdir}/*.a
 
 %check
 %ctest
@@ -88,6 +83,7 @@ rm -fr %{buildroot}%{_libdir}/*.a
 %{_libdir}/lib%{name}_loader.so.%{libmajor}{,.*}
 
 %files devel
+%doc README.md
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 %{_libdir}/lib*.so

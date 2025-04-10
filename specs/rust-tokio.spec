@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.44.0
+Version:        1.44.2
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -17,7 +17,8 @@ Patch:          tokio-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop tests that can only be compiled in-workspace
 Patch:          tokio-fix-metadata.diff
-Patch:          0001-skip-one-doctest-that-pulls-in-an-additional-depende.patch
+# * skip one doctest that pulls in an additional dev-dependency
+Patch2:         0001-skip-one-doctest-that-pulls-in-an-additional-depende.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

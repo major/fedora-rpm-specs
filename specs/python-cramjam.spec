@@ -33,8 +33,14 @@ Source1:        get_source
 
 %endif
 
-BuildRequires:  python3-devel
-BuildRequires:  tomcli
+BuildSystem:            pyproject
+BuildOption(install):   -l cramjam
+
+# Update PyO3 to 0.24
+# https://github.com/milesgranger/cramjam/pull/207
+Patch:          %{url}/pull/207/commits/217c375c2a2f96e28a1b3987f0eb5c730b4b361e.patch
+
+BuildRequires:  tomcli >= 0.8.0
 BuildRequires:  cargo-rpm-macros >= 24
 
 %if %{with tests}
@@ -74,9 +80,7 @@ License:        %{shrink:
 %description -n python3-cramjam %{common_description}
 
 
-%prep
-%autosetup -n cramjam-%{srcversion}
-
+%prep -a
 # Downstream-only: patch out the generate-import-lib feature, which is only
 # relevant on Windows, and which depends on the corresponding pyo3 feature –
 # which is not packaged for that reason.
@@ -91,9 +95,7 @@ tomcli set Cargo.toml del 'features.wasm32-compat'
 # extension with the default features, and we only want maturin to check
 # dependencies for those features.
 blosc2_isal_features="$(
-  # Once EPEL10 has tomcli>=0.8.0, we can use (without sed):
-  # tomcli get Cargo.toml features -F newline-keys
-  tomcli get Cargo.toml features -F toml | sed -r 's/ = .*//' |
+  tomcli get Cargo.toml features -F newline-keys |
     grep -E 'blosc2|ideflate|igzip|isal|izlib' |
     tr '\n' ' '
 )"
@@ -105,9 +107,7 @@ done
 # Downstream-only: remove all the static-linking features, and make the
 # dynamic-linking ones default, as we do in rust-libcramjam.
 static_features="$(
-  # Once EPEL10 has tomcli>=0.8.0, we can use (without sed):
-  # tomcli get Cargo.toml features -F newline-keys
-  tomcli get Cargo.toml features -F toml | sed -r 's/ = .*//' |
+  tomcli get Cargo.toml features -F newline-keys |
     grep -E '.-static$' |
     tr '\n' ' '
 )"
@@ -125,26 +125,17 @@ done
 %cargo_prep
 
 
-%generate_buildrequires
-%pyproject_buildrequires
+%generate_buildrequires -a
 %cargo_generate_buildrequires
 
 
-%build
+%build -p
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files cramjam
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
-%if %{undefined el10}
 # Test failures in test_variants_decompress_into with recent hypothesis
 # versions: https://github.com/milesgranger/cramjam/issues/201
 #
@@ -154,14 +145,12 @@ done
 # not reason to believe that the package has *new* problems. It *might* have
 # newly *revealed* problems. This merits further investigation.
 k="${k-}${k+ and }not test_variants_decompress_into"
-%endif
 
 %pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v -n auto
 %endif
 
 
 %files -n python3-cramjam -f %{pyproject_files}
-%license LICENSE LICENSES.dependencies
 %doc README.md
 
 

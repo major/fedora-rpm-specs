@@ -1,5 +1,5 @@
 %global vips_version_base 8.16
-%global vips_version %{vips_version_base}.0
+%global vips_version %{vips_version_base}.1
 %global vips_soname_major 42
 
 Name:		vips
@@ -10,9 +10,6 @@ Summary:	C/C++ library for processing large images
 License:	LGPL-2.1-or-later
 URL:		https://www.libvips.org/
 Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# https://github.com/libvips/libvips/pull/4242
-Patch0:         libvips-fix-big-endian-pfm.patch
 
 BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0)
@@ -78,8 +75,7 @@ Requires:	vips%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains the header files and
-libraries necessary for developing programs using VIPS. It also
-contains a C++ API and development documentation.
+libraries necessary for developing programs using VIPS.
 
 
 %package tools
@@ -96,8 +92,8 @@ Summary:	Documentation for %{name}
 Conflicts:	%{name} < %{version}-%{release}, %{name} > %{version}-%{release}
 
 %description doc
-The %{name}-doc package contains extensive documentation about VIPS in both
-HTML and PDF formats.
+The %{name}-doc package contains extensive HTML documentation about VIPS and
+its C++ API.
 
 
 %package jxl

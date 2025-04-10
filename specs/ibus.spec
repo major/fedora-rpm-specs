@@ -61,9 +61,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.32~rc2
+Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -637,6 +637,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Apr 08 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-1
+- Bump to 1.5.32
+
 * Mon Mar 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.32~rc2-2
 - Fix flatpak build
 

@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.7.2
+Version:        0.8.0
 Release:        %{autorelease}
 Summary:        Operations and utilities for Genomic Interval Dataframes
 
@@ -51,9 +51,6 @@ Recommends:     python3dist(pybbi)
 # Remove linter from `dev` extra
 sed -i '/"ruff"/ d' pyproject.toml
 
-# Allow building with NumPy 2.x
-sed -r -i 's/(numpy.*), ?<2/\1/' pyproject.toml
-
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x dev}
@@ -69,11 +66,12 @@ sed -r -i 's/(numpy.*), ?<2/\1/' pyproject.toml
 
 
 %check
-%pyproject_check_import
 %if %{with tests}
 # Disable tests requiring network
 k="${k-}${k+ and }not test_fetch"
-%pytest -v ${k+-k }"${k-}"
+%pytest -r fEs ${k+-k "${k-}"}
+%else
+%pyproject_check_import
 %endif
 
 

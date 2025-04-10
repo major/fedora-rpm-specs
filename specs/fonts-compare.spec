@@ -1,5 +1,5 @@
 Name:           fonts-compare
-Version:        1.5.5
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        Tool to compare fonts for a language
 
@@ -77,6 +77,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Apr 09 2025 Sudip Shil <sshil@redhat.com> - 1.6.0-1
+- Replace Gtk.AboutDialog with Adw.AboutWindow and add Ctrl+Q/E keybindings for quit/edit]
+- Port to AdwApplicationWindow and ToolbarView, enable label auto-wrap with screen-fit resizing
+- new modern README for users
+- copyright updated
+
 * Tue Feb 25 2025 Sudip Shil <sshil@redhat.com> - 1.5.5-1
 - Added support for multi-script text handling, auto-enable fallback like 안녕하세요 آپکیسہیں? শুভ সকল।
 - add feature in fonts-compare like fonts-compare --text "Hello こんにちは 你好"

@@ -57,6 +57,10 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
+# Ahead-of-time native compilation breaks some lisp without this patch.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=76523
+Patch:         0001-Fix-compilation-errors-due-to-insufficient-compiler-.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

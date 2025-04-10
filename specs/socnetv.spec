@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.1
-Release:	12%{?dist}
+Version:	3.2
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
@@ -33,8 +33,6 @@ free software application for social network analysis and visualization.
 
 %prep
 %autosetup -n app-%{version}
-gunzip changelog.gz
-chmod -x changelog
 
 %build
 lrelease-qt6 socnetv.pro
@@ -60,7 +58,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %license COPYING
-%doc AUTHORS changelog NEWS README.md
+%doc AUTHORS CHANGELOG.md README.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}/%{name}_*.qm
 %{_datadir}/applications/%{name}.desktop
@@ -70,8 +68,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
-* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 3.1-12
-- Rebuild (qt6)
+* Wed Apr 02 2025 RI_Eugene <ti.eugene@gmail.com> - 3.2-1
+- Version bump
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

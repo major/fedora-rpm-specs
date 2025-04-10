@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -13,6 +13,10 @@ License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
 Patch0:		cmake_stb_available.patch
+# Drop pytest-runner and "setup.py test" support
+# https://github.com/mlpack/mlpack/pull/3921
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch1:		https://github.com/mlpack/mlpack/pull/3921.patch
 
 # Drop support for i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -64,7 +68,7 @@ BuildRequires:  txt2man
 
 # Required for building Python bindings.
 BuildRequires: 	python3-devel, python3-Cython, python3-setuptools, python3-numpy
-BuildRequires:	python3-pandas, python3-pytest-runner, python3-wheel
+BuildRequires:	python3-pandas, python3-pytest, python3-wheel
 
 # something doesn't like size_t being unsigned long on s390
 ExcludeArch:    s390
@@ -314,6 +318,9 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Sun Apr 06 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.0-2
+- Drop pytest-runner / "setup.py test" support from setup.py
+
 * Fri Apr 04 2025 Ryan Curtin <ryan@ramtl.org> - 4.6.0-1
 - Update to latest stable version.
 

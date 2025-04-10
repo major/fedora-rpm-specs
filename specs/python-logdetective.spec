@@ -1,5 +1,5 @@
 Name:           python-logdetective
-Version:        0.3.2
+Version:        0.5.9
 Release:        %autorelease
 Summary:        Uses LLM AI to search for build/test failure and provide ideas how to fix it
 
@@ -12,6 +12,10 @@ BuildRequires:  python3-devel
 
 # this is what llama-cpp is on
 ExclusiveArch:  x86_64 aarch64
+
+# for man page
+BuildRequires:  asciidoc
+BuildRequires:  libxslt
 
 # Fill in the actual package description to submit package to Fedora
 %global _description %{expand:
@@ -40,12 +44,14 @@ Provides:       logdetective
 
 %build
 %pyproject_wheel
-
+a2x -d manpage -f manpage logdetective.1.asciidoc
 
 %install
 %pyproject_install
 %pyproject_save_files 'logdetective'
-
+install -d %{buildroot}%{_mandir}/man1
+install -p -m 644 logdetective.1 %{buildroot}/%{_mandir}/man1/
+rm %{buildroot}/%{python3_sitelib}/logdetective.1.asciidoc
 
 %check
 #server is broken for now
@@ -57,7 +63,7 @@ Provides:       logdetective
 %license LICENSE
 %doc README.md
 %pycached %exclude %{python3_sitelib}/logdetective/server/*.py
-
+%{_mandir}/man1/logdetective.1*
 
 %changelog
 %autochangelog

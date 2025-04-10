@@ -1,56 +1,76 @@
+# Perform optional tests
+%bcond_without perl_Convert_UU_enables_optional_test
+
 Name:           perl-Convert-UU
 Version:        0.5201
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Perl module for uuencode and uudecode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-UU
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/Convert-UU-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  sed
 # Run-time
+BuildRequires:  perl(:VERSION) >= 5.4
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-# Tests
+%if %{with perl_Convert_UU_enables_optional_test}
+# Optional tests
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
-# ext-uu.t needs sharutils, otherwise it's skipped
+# ext-uu.t needs sharutils for uudecode
 BuildRequires:  sharutils
+%endif
+Requires:       perl(:VERSION) >= 5.4
 
 %description
 %{summary}.
 
 %prep
 %setup -q -n Convert-UU-%{version}
-sed -i 's|local\/perl5\.002_01\/||' puudecode
+perl -i -pe 's|local\/perl5\.002_01\/||' puudecode
+%if !%{with perl_Convert_UU_enables_optional_test}
+for F in t/ext-uu.t t/pod.t t/podcover.t; do
+    rm -- "$F"
+    perl -i -ne 'print $_ unless m{^\E'"$F"'\Q}' MANIFEST
+done;
+%endif
 
 %build
-perl Makefile.PL INSTALLDIRS=perl NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=perl NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc ChangeLog README
 %{_bindir}/puudecode
 %{_bindir}/puuencode
-%{perl_privlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%dir %{perl_privlib}/Convert
+%{perl_privlib}/Convert/UU.pm
+%{_mandir}/man1/puudecode.*
+%{_mandir}/man1/puuencode.*
+%{_mandir}/man3/Convert::UU.*
 
 %changelog
+* Tue Apr 08 2025 Petr Pisar <ppisar@redhat.com> - 0.5201-40
+- Declare a minimal Perl version
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5201-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

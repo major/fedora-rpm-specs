@@ -10,8 +10,9 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:       gnome-abrt
-Version:    1.5.2
-Release:    1%{?dist}
+Version:    1.4.3
+Release:    4%{?snapshot:.git%{shortcommit}}%{?dist}
+Epoch:      1
 Summary:    A utility for viewing problems that have occurred with the system
 
 License:    GPL-2.0-or-later
@@ -34,8 +35,7 @@ BuildRequires: pkgconfig(pygobject-3.0)
 BuildRequires: libreport-gtk-devel > 2.14.0
 BuildRequires: python3-libreport
 BuildRequires: abrt-gui-devel > 2.14.0
-BuildRequires: gtk4-devel
-BuildRequires: libadwaita-devel
+BuildRequires: gtk3-devel
 %if 0%{?fedora}
 BuildRequires: python3-six
 BuildRequires: python3-gobject
@@ -45,7 +45,6 @@ BuildRequires: python3-humanize
 
 Requires:   glib2%{?_isa} >= 2.63.2
 Requires:   gobject-introspection%{?_isa} >= 1.63.1
-Requires:   libadwaita
 Requires:   python3-libreport
 Requires:   python3-gobject
 Requires:   python3-dbus
@@ -86,6 +85,10 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Apr 08 2025 Michal Srb <michal@redhat.com> - 1:1.4.3-4
+- Revert to 1.4.3 for now
+- Resolves: rhbz#2356257
+
 * Fri Apr 04 2025 Packit <hello@packit.dev> - 1.5.2-1
 - Update to version 1.5.2
 

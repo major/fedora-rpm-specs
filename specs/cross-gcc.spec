@@ -136,7 +136,7 @@ BuildRequires: binutils >= 2.31
 %else
 BuildRequires: binutils >= 2.24
 %endif
-BuildRequires: zlib-devel, gettext, dejagnu, bison, flex, texinfo, sharutils
+BuildRequires: zlib-devel, gettext, dejagnu, bison, flex, texinfo
 BuildRequires: %{cross}-binutils-common >= %{cross_binutils_version}
 
 # Make sure pthread.h doesn't contain __thread tokens

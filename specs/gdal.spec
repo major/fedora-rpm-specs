@@ -79,21 +79,36 @@ Patch2:        gdal-3.10.2-integer-types.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 
-BuildRequires: armadillo-devel
 BuildRequires: bison
+BuildRequires: curl-devel
+BuildRequires: expat-devel
+BuildRequires: geos-devel
+BuildRequires: json-c-devel
+BuildRequires: libarchive-devel
+BuildRequires: libpng-devel
+BuildRequires: libpq-devel
+BuildRequires: libtiff-devel
+BuildRequires: libtirpc-devel
+BuildRequires: mariadb-connector-c-devel
+BuildRequires: openjpeg2-devel
+BuildRequires: pcre2-devel
+BuildRequires: proj-devel >= 5.2.0
+BuildRequires: sqlite-devel
+BuildRequires: swig
+BuildRequires: unixODBC-devel
+BuildRequires: xz-devel
+BuildRequires: zlib-devel
+
+%if 0%{?fedora}
+BuildRequires: armadillo-devel
 BuildRequires: blosc-devel
 BuildRequires: cfitsio-devel
 BuildRequires: CharLS-devel
-BuildRequires: curl-devel
-BuildRequires: expat-devel
 BuildRequires: freexl-devel
-BuildRequires: geos-devel
 BuildRequires: giflib-devel
 BuildRequires: gtest-devel
 BuildRequires: hdf-devel
 BuildRequires: hdf5-devel
-BuildRequires: json-c-devel
-BuildRequires: libarchive-devel
 %ifnarch %{ix86} %{arm}
 BuildRequires: libarrow-devel
 BuildRequires: libarrow-dataset-devel
@@ -105,13 +120,9 @@ BuildRequires: libgta-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libkml-devel
 BuildRequires: liblerc-devel
-BuildRequires: libpng-devel
-BuildRequires: libpq-devel
 %if %{with_spatialite}
 BuildRequires: libspatialite-devel
 %endif
-BuildRequires: libtiff-devel
-BuildRequires: libtirpc-devel
 BuildRequires: libwebp-devel
 BuildRequires: libzstd-devel
 %if 0%{?with_mysql}
@@ -120,27 +131,50 @@ BuildRequires: mariadb-connector-c-devel
 BuildRequires: netcdf-devel
 BuildRequires: ogdi-devel
 BuildRequires: openexr-devel
-BuildRequires: openjpeg2-devel
-%if 0%{?fedora}
 BuildRequires: openssl-devel-engine
-%else
-BuildRequires: openssl-devel
-%endif
 %ifnarch %{ix86} %{arm}
 BuildRequires: parquet-libs-devel
 %endif
-BuildRequires: pcre2-devel
 %if 0%{?with_poppler}
 BuildRequires: poppler-devel
 %endif
-BuildRequires: proj-devel >= 5.2.0
 BuildRequires: qhull-devel
-BuildRequires: sqlite-devel
-BuildRequires: swig
-BuildRequires: unixODBC-devel
 BuildRequires: xerces-c-devel
-BuildRequires: xz-devel
-BuildRequires: zlib-devel
+
+# Python
+%if %{with python3}
+BuildRequires: python3-devel
+BuildRequires: python3-filelock
+BuildRequires: python3-numpy
+BuildRequires: python3-setuptools
+BuildRequires: python3dist(pytest) >= 3.6
+BuildRequires: python3dist(lxml) >= 4.5.1
+
+%if %{with mingw}
+BuildRequires: mingw32-python3
+BuildRequires: mingw32-python3-numpy
+BuildRequires: mingw32-python3-setuptools
+
+BuildRequires: mingw64-python3
+BuildRequires: mingw64-python3-numpy
+BuildRequires: mingw64-python3-setuptools
+%endif
+%endif
+
+# Java
+%if %{with java}
+# For 'mvn_artifact' and 'mvn_install'
+BuildRequires: ant
+BuildRequires: java-devel >= 1:1.6.0
+BuildRequires: javapackages-local
+BuildRequires: jpackage-utils
+%endif
+Requires:      gpsbabel
+Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+%else
+BuildRequires: libjpeg-turbo-devel
+BuildRequires: openssl-devel
+%endif
 
 %if %{with mingw}
 BuildRequires: mingw32-filesystem >= 102
@@ -206,39 +240,6 @@ BuildRequires: mingw64-zlib
 BuildRequires: mingw64-zstd
 %endif
 
-# Python
-%if %{with python3}
-BuildRequires: python3-devel
-BuildRequires: python3-filelock
-BuildRequires: python3-numpy
-BuildRequires: python3-setuptools
-BuildRequires: python3dist(pytest) >= 3.6
-BuildRequires: python3dist(lxml) >= 4.5.1
-
-%if %{with mingw}
-BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-numpy
-BuildRequires: mingw32-python3-setuptools
-
-BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-numpy
-BuildRequires: mingw64-python3-setuptools
-%endif
-%endif
-
-# Java
-%if %{with java}
-# For 'mvn_artifact' and 'mvn_install'
-BuildRequires: ant
-BuildRequires: java-devel >= 1:1.6.0
-BuildRequires: javapackages-local
-BuildRequires: jpackage-utils
-%endif
-
-# Run time dependency for gpsbabel driver
-Requires:      gpsbabel
-Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
-
 
 %description
 Geospatial Data Abstraction Library (GDAL/OGR) is a cross platform
@@ -267,6 +268,49 @@ Provides:      bundled(degrib) = 2.14
 
 %description libs
 This package contains the GDAL file format library.
+
+%if 0%{?fedora}
+# No complete java yet in EL8
+%if %{with java}
+%package java
+Summary:        Java modules for the GDAL file format library
+Requires:       jpackage-utils
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description java
+The GDAL Java modules provide support to handle multiple GIS file formats.
+
+
+%package javadoc
+Summary:        Javadocs for %{name}
+Requires:       jpackage-utils
+BuildArch:      noarch
+
+%description javadoc
+This package contains the API documentation for %{name}.
+%endif
+
+
+%if %{with python3}
+%package -n python3-gdal
+%{?python_provide:%python_provide python3-gdal}
+Summary:        Python modules for the GDAL file format library
+Requires:       python3-numpy
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description -n python3-gdal
+The GDAL Python 3 modules provide support to handle multiple GIS file formats.
+
+
+%package python-tools
+Summary:        Python tools for the GDAL file format library
+Requires:       python3-gdal
+
+%description python-tools
+The GDAL Python package provides number of tools for programming and
+manipulating GDAL file format library
+
+%endif
 
 %if %{with mingw}
 %package -n mingw32-%{name}
@@ -308,47 +352,6 @@ BuildArch:     noarch
 %description -n mingw64-%{name}-tools
 MinGW Windows GDAL library tools.
 %endif
-
-# No complete java yet in EL8
-%if %{with java}
-%package java
-Summary:        Java modules for the GDAL file format library
-Requires:       jpackage-utils
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description java
-The GDAL Java modules provide support to handle multiple GIS file formats.
-
-
-%package javadoc
-Summary:        Javadocs for %{name}
-Requires:       jpackage-utils
-BuildArch:      noarch
-
-%description javadoc
-This package contains the API documentation for %{name}.
-%endif
-
-
-%if %{with python3}
-%package -n python3-gdal
-%{?python_provide:%python_provide python3-gdal}
-Summary:        Python modules for the GDAL file format library
-Requires:       python3-numpy
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description -n python3-gdal
-The GDAL Python 3 modules provide support to handle multiple GIS file formats.
-
-
-%package python-tools
-Summary:        Python tools for the GDAL file format library
-Requires:       python3-gdal
-
-%description python-tools
-The GDAL Python package provides number of tools for programming and
-manipulating GDAL file format library
-
 
 %if %{with mingw}
 %package -n mingw32-python3-%{name}
@@ -402,8 +405,23 @@ cp -a %{SOURCE4} .
 %build
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
+%if 0%{?fedora}
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_JAVA_JNI_INSTALL_DIR=%{_jnidir}/%{name} \
+%endif
+%if ! 0%{?fedora}
+  -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
+  -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
+  -DGDAL_USE_JPEG=ON \
+  -DGDAL_USE_JPEG_INTERNAL=OFF \
+  -DGDAL_USE_GOOGLETEST=OFF \
+  -DGDAL_USE_LERC=OFF \
+  -DGDAL_USE_LERC_INTERNAL=OFF \
+  -DGDAL_USE_GEOTIFF=OFF \
+  -DGDAL_USE_GEOTIFF_INTERNAL=OFF \
+  -DBUILD_PYTHON_BINDINGS=OFF \
+  -DBUILD_TESTING=OFF \
+%endif
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
   -DENABLE_DEFLATE64=OFF
 %cmake_build
@@ -456,21 +474,18 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %endif
 
 
+%if 0%{?fedora}
 %files -f gdal_python_manpages_excludes.txt
-%{_bindir}/8211*
-%{_bindir}/gdal2tiles
-%{_bindir}/gdal2xyz
+%else
+%files
+%endif
+
 %{_bindir}/gdaladdo
-%{_bindir}/gdalattachpct
 %{_bindir}/gdalbuildvrt
-%{_bindir}/gdal_calc
-%{_bindir}/gdalcompare
 %{_bindir}/gdal_contour
 %{_bindir}/gdal_create
 %{_bindir}/gdaldem
-%{_bindir}/gdal_edit
 %{_bindir}/gdalenhance
-%{_bindir}/gdal_fillnodata
 %{_bindir}/gdal_footprint
 %{_bindir}/gdal_grid
 %{_bindir}/gdalinfo
@@ -478,14 +493,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/gdalmanage
 %{_bindir}/gdalmdiminfo
 %{_bindir}/gdalmdimtranslate
-%{_bindir}/gdal_merge
-%{_bindir}/gdalmove
-%{_bindir}/gdal_pansharpen
-%{_bindir}/gdal_polygonize
-%{_bindir}/gdal_proximity
 %{_bindir}/gdal_rasterize
-%{_bindir}/gdal_retile
-%{_bindir}/gdal_sieve
 %{_bindir}/gdalsrsinfo
 %{_bindir}/gdaltindex
 %{_bindir}/gdaltransform
@@ -497,14 +505,31 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/nearblack
 %{_bindir}/ogr2ogr
 %{_bindir}/ogrinfo
-%{_bindir}/ogr_layer_algebra
 %{_bindir}/ogrlineref
-%{_bindir}/ogrmerge
 %{_bindir}/ogrtindex
+%{_bindir}/sozip
+%if 0%{?fedora}
+%{_bindir}/8211*
+%{_bindir}/gdal2tiles
+%{_bindir}/gdal2xyz
+%{_bindir}/gdalattachpct
+%{_bindir}/gdal_calc
+%{_bindir}/gdalcompare
+%{_bindir}/gdal_edit
+%{_bindir}/gdal_fillnodata
+%{_bindir}/gdal_merge
+%{_bindir}/gdalmove
+%{_bindir}/gdal_pansharpen
+%{_bindir}/gdal_polygonize
+%{_bindir}/gdal_proximity
+%{_bindir}/gdal_retile
+%{_bindir}/gdal_sieve
+%{_bindir}/ogr_layer_algebra
+%{_bindir}/ogrmerge
 %{_bindir}/pct2rgb
 %{_bindir}/rgb2pct
 %{_bindir}/s57dump
-%{_bindir}/sozip
+%endif
 %{_datadir}/bash-completion/completions/*
 %exclude %{_datadir}/bash-completion/completions/*.py
 %{_mandir}/man1/*
@@ -592,6 +617,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{mingw64_bindir}/rgb2pct
 %endif
 
+%if 0%{?fedora}
 %if %{with python3}
 %files -n python3-gdal
 %doc swig/python/README.rst
@@ -644,6 +670,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files javadoc
 %{_jnidir}/%{name}/gdal-%{version}-javadoc.jar
+%endif
 %endif
 
 

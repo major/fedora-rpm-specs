@@ -40,7 +40,7 @@ This package supports the NEURON, NEST, and Brian simulators.}
 %global forgeurl https://github.com/NeuralEnsemble/PyNN
 
 Name:           python-pynn
-Version:        0.12.3
+Version:        0.12.4
 
 %global tag %{version}
 %forgemeta
@@ -54,6 +54,9 @@ License:        CECILL-2.0
 URL:            http://neuralensemble.org/PyNN/
 Source:         %forgesource
 
+Patch:          0001-fix-mod-files-for-C23.patch
+Patch:          0002-chore-mention-license-in-pyproject.toml.patch
+
 # Random123 does not build on these, so neither can NEURON, so nothing that
 # depends on NEURON supports them either
 # https://github.com/neuronsimulator/nrn/issues/114
@@ -65,6 +68,10 @@ Source:         %forgesource
 # https://bugzilla.redhat.com/show_bug.cgi?id=2155635
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  chrpath
 
 # For extensions
 BuildRequires:  boost-devel
@@ -122,8 +129,6 @@ Obsoletes:      python3-pynn-devel < 0:0.12.3-1
 
 %package -n python3-pynn
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-pynn %_description
 
@@ -135,22 +140,31 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 rm -rfv PyNN-%{version}/pyNN.egg-info
 
 # we install NEST libraries in standard directories, and that's where NEST expects to find extensions also
 sed -i 's|\${NEST_LIBDIR}/nest|\${NEST_LIBDIR}|' pyNN/nest/extensions/CMakeLists.txt
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-# TODO: investigate using pyproject macros, or other new non setup.py tools
+# cannot use pyproject because unclear how that will work for the mi builds
 %py3_build
 
 pushd ./build/lib/pyNN/neuron/nmodl/ || exit 1
     nrnivmodl .
+    chrpath --delete ./*/libnrnmech.so
+    chrpath --delete ./*/special
+    chrpath --delete ./*/.libs/libnrnmech.so
 popd
 # The tests however, look for these here, so we also build them
 pushd pyNN/neuron/nmodl || exit 1
     nrnivmodl .
+    chrpath --delete ./*/libnrnmech.so
+    chrpath --delete ./*/special
+    chrpath --delete ./*/.libs/libnrnmech.so
 popd
 
 # NEST extensions: we build and install them ourselves
@@ -182,7 +196,10 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/pyNN/nest/_build
 
 %check
 # skip pyNN.nest because it looks for nest extensions outside the buildroot
-%py3_check_import pyNN pyNN.neuron pyNN.brian2
+%py3_check_import pyNN pyNN.neuron 
+
+# temporarily disable brian2 which is affected by this: https://github.com/pypa/setuptools/issues/4874
+# pyNN.brian2
 
 %pytest test/unittests -k "not test_partitioning and not test_get"
 

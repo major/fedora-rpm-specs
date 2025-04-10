@@ -14,7 +14,7 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.16.10
+Version:	2.4.16.11
 Release:	1%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
@@ -97,6 +97,12 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Tue Apr 8 2025 Tomas Halman <thalman@redhat.com> - 2.4.16.11-1
+  Rebase to version 2.4.16.11
+- Resolves: rhbz#2357672 - mod_auth_openidc-2.4.16.11 is available
+- Resolves: CVE-2025-31492 mod_auth_openidc allows
+            OIDCProviderAuthRequestMethod POSTs to leak protected data
+
 * Mon Mar 31 2025 Tomas Halman <thalman@redhat.com> - 2.4.16.10-1
   Rebase to version 2.4.16.10
 - Resolves: rhbz#2346080 - mod_auth_openidc-2.4.16.10 is available

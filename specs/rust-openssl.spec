@@ -5,7 +5,7 @@
 %global crate openssl
 
 Name:           rust-openssl
-Version:        0.10.71
+Version:        0.10.72
 Release:        %autorelease
 Summary:        OpenSSL bindings
 
@@ -13,6 +13,7 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/openssl
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * drop feature and dependencies for AWS-LC support
 # * drop feature and dependencies for unstable BoringSSL support
 # * drop feature and dependencies for building against vendored OpenSSL sources
 Patch:          openssl-fix-metadata.diff

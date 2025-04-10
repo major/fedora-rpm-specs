@@ -56,12 +56,12 @@
 # Older hipcc was perl, it has been deprecated
 %bcond_with perl
 # Enable ppc and aarch64 builds
-%bcond_with alt_arch
+%bcond_without alt_arch
 
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        43.rocm%{rocm_version}%{?dist}
+Release:        44.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1206,6 +1206,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Tue Apr 08 2025 Dennis Gilmore <dennis@ausil.us> - 18-44.rocm6.3.2
+- enable alt_arch in rawhide same as Fedora 42
+
 * Tue Mar 11 2025 Tom Rix <Tom.Rix@amd.com> - 18-43.rocm6.3.2
 - Workaround gcc 15 assert in array
 

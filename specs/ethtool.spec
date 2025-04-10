@@ -1,8 +1,10 @@
+%global appstream_id org.kernel.software.network.ethtool
+
 Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
-Version:        6.11
-Release:        2%{?dist}
+Version:        6.14
+Release:        1%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
@@ -11,6 +13,7 @@ Source1:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{ve
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/D2CB120AB45957B721CD9596F4554567B91DE934
 BuildRequires:  gnupg2, xz
 BuildRequires:  gcc
+BuildRequires:  libappstream-glib
 BuildRequires:  libmnl-devel
 BuildRequires:  make
 Conflicts:      filesystem < 3
@@ -33,6 +36,7 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 
 %check
 make check
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %files
 %license COPYING LICENSE
@@ -42,8 +46,12 @@ make check
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/%{name}
 %{_mandir}/man8/%{name}.8*
+%{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %changelog
+* Tue Apr 08 2025 Robert Scheck <robert@fedoraproject.org> - 2:6.14-1
+- Upgrade to 6.14 (#2358091)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

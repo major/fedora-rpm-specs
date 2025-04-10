@@ -1,10 +1,17 @@
 Name:           libseccomp
-Version:        2.5.5
-Release:        3%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        Enhanced seccomp library
 License:        LGPL-2.1-only
 URL:            https://github.com/seccomp/libseccomp
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+
+# Backports from upstream
+
+# From https://github.com/seccomp/libseccomp/pull/459
+Patch0101:      fix-murmur-hash-strict-aliasing-violation.patch
+# https://github.com/seccomp/libseccomp/pull/452
+Patch0102: remove-fuzzer-test-from-62-sim-arch_transactions.patch
 
 BuildRequires:  gcc
 BuildRequires:  gperf
@@ -83,6 +90,9 @@ rm -f %{buildroot}/%{_libdir}/libseccomp.la
 %{_libdir}/libseccomp.a
 
 %changelog
+* Tue Feb 18 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.6.0-1
+- New upstream version (#2341880)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

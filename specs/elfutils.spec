@@ -349,7 +349,7 @@ trap 'cat config.log' EXIT
 %configure CFLAGS="$RPM_OPT_FLAGS" \
 %if "%{?dist_debuginfod_url}"
 	--enable-debuginfod \
-	--enable-debuginfod-urls=%{dist_debuginfod_url} \
+	--enable-debuginfod-urls="%{dist_debuginfod_url}" \
 %endif
 %if %{enable_stacktrace}
 	--enable-stacktrace \

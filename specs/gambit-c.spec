@@ -1,6 +1,6 @@
 Name:           gambit-c
 Version:        4.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scheme programming system
 
 License:        Apache-2.0 OR LGPL-2.1-only
@@ -37,8 +37,6 @@ Summary:        Documentation for %{name}
 
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires(post):  info
-Requires(preun): info
 # switch to noarch
 Obsoletes:      gambit-c-doc < %{version}-%{release}
 
@@ -131,6 +129,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Apr 08 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 4.9.6-2
+- Remove obsolete requirements for %%post/%%preun scriptlets
+
 * Fri Mar 14 2025 Benson Muite <fed500@fedoraproject.org> - 4.9.6-1
 - Update to release 4.9.6
 

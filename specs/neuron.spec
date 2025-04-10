@@ -82,6 +82,8 @@ Patch:      0017-Support-numpy-2-and-remove-numpy-2-pin-3040.patch
 # dont overwrite scripts in bindir with their wrapper and symlinks
 Patch:      0018-remove-py-script-installation.patch
 
+Patch:      0019-fix-mod-generation-for-c23.patch
+
 # Random123 does not build on these, so neither can NEURON
 # https://github.com/neuronsimulator/nrn/issues/114
 ExcludeArch:    mips64r2 mips32r2
@@ -500,7 +502,6 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_bindir}/neurondemo
 %{_bindir}/nrngui
 %{_bindir}/nrniv
-#%{_bindir}/nrniv-core
 %{_bindir}/sortspike
 # Not needed but I'll include them for completeness anyway
 %{_bindir}/nrnpyenv.sh
@@ -527,7 +528,6 @@ export MY_CMAKE_BUILDDIR="%_vpath_builddir""-openmpi"
 %{_bindir}/mkthreadsafe
 %{_bindir}/nocmodl
 %{_bindir}/nrnivmodl
-#%{_bindir}/nrnivmodl-core
 %{_bindir}/nrnmech_makefile
 # Headers
 %{_includedir}/*.h

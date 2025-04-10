@@ -1,22 +1,29 @@
-%bcond	gnome		1
-%bcond	gnome40		1
-%bcond	gnome45		%[0%{?fedora} || 0%{?rhel} >= 10]
-%bcond	gnome_flashback	%{undefined flatpak}
-%bcond	mate		%{undefined flatpak}
-%bcond	xfce		%{undefined flatpak}
+%bcond  gnome           1
+%bcond  gnome40         1
+%bcond  gnome45         %[0%{?fedora} || 0%{?rhel} >= 10]
+%bcond  gnome_flashback %{undefined flatpak}
+%bcond  mate            %{undefined flatpak}
+%bcond  xfce            %{undefined flatpak}
 
 %global app_id org.workrave.Workrave
 
 Name:          workrave
-Version:       1.11.0~beta.13
+Version:       1.11.0~rc.1
 Release:       %autorelease
 Summary:       Program that assists in the recovery and prevention of RSI
 # Based on older packages by Dag Wieers <dag@wieers.com> and Steve Ratcliffe
-License:       GPL-3.0-or-later AND LGPL-2.0-or-later
+# The workrave is released under the GPL-3.0-or-later license. Other licenses:
+# libs/config/include/config/IConfiguratorListener.hh: GPL-2.0-or-later
+# ui/app/toolkits/gtkmm/platforms/unix/gtktrayicon.{c,h}: LGPL-2.1-or-later
+# ui/app/toolkits/gtkmm/platforms/unix/protocols/wlr-layer-shell-unstable-v1.xml: HPND
+License:       GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND HPND
 URL:           https://workrave.org/
 %global tag %(echo %{version} | sed -e 's/[\\.~]/_/g')
 Source:        https://github.com/rcaelers/workrave/archive/v%{tag}/%{name}-v%{tag}.tar.gz
-
+# Fixes nullptr dereference
+# https://github.com/rcaelers/workrave/issues/606
+Patch:         https://github.com/rcaelers/workrave/commit/1be2073.patch
+ 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -63,7 +70,10 @@ BuildRequires: pkgconfig(libmatepanelapplet-4.0) >= 1.20.0
 # Logging
 BuildRequires: cmake(fmt)
 BuildRequires: cmake(spdlog)
+BuildRequires: fdupes
 
+
+Requires:      %{name}-common = %{version}-%{release}
 Requires:      dbus-common
 Requires:      hicolor-icon-theme
 Recommends:    (%{name}-cinnamon if cinnamon)
@@ -73,7 +83,6 @@ Recommends:    (%{name}-mate if mate-panel)
 Recommends:    (%{name}-xfce if xfce4-panel)
 Recommends:    gstreamer1-plugins-base
 Recommends:    gstreamer1-plugins-good
-Obsoletes:     %{name}-devel < %{version}-%{release}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -85,8 +94,17 @@ take micro-pauses, rest breaks and restricts you to your daily limit.
 %description
 %{_description}
 
+%package common
+Summary: Common data (sounds, icons, etc.) for Workrave
+BuildArch: noarch
+
+%description common
+%{_description}
+
+# cannot be marked noarch because it depends on the arched main package
 %package cinnamon
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Requires:      cinnamon
+Requires:      %{name} = %{version}-%{release}
 Summary:       Workrave applet for Cinnamon desktop
 
 %description cinnamon
@@ -95,6 +113,7 @@ Summary:       Workrave applet for Cinnamon desktop
 This package provides an applet for the Cinnamon desktop.
 
 %package gnome
+Requires:      gnome-shell
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Summary:       Workrave applet for GNOME desktop
 
@@ -104,6 +123,7 @@ Summary:       Workrave applet for GNOME desktop
 This package provides an applet for the GNOME desktop.
 
 %package gnome-flashback
+Requires:      gnome-panel
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Summary:       Workrave applet for GNOME Flashback
 
@@ -113,6 +133,8 @@ Summary:       Workrave applet for GNOME Flashback
 This package provides an applet for the GNOME Flashback panel.
 
 %package mate
+Requires:      mate-panel
+Requires:      mate-applets
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Summary:       Workrave applet for MATE
 
@@ -122,6 +144,7 @@ Summary:       Workrave applet for MATE
 This package provides an applet for the MATE panel.
 
 %package xfce
+Requires:      xfce4-panel
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Summary:       Workrave applet for Xfce
 
@@ -139,6 +162,8 @@ This package provides an applet for the Xfce panel.
 
 
 %build
+# without CMAKE_INSTALL_SYSCONFDIR set to /etc the autostart file
+# gets installed in /usr/etc
 %cmake \
   -DWITH_GNOME_CLASSIC_PANEL:BOOL=%{?with_gnome_flashback:ON}%{!?with_gnome_flashback:OFF} \
   -DWITH_GNOME45:BOOL=%{?with_gnome45:ON}%{!?with_gnome45:OFF} \
@@ -151,6 +176,7 @@ This package provides an applet for the Xfce panel.
   -DWITH_INDICATOR:BOOL=ON \
   -DWITH_APPINDICATOR:BOOL=ON \
   -DWITH_WAYLAND:BOOL=ON \
+  -DCMAKE_INSTALL_SYSCONFDIR:PATH=%{_sysconfdir} \
   %{nil}
 
 %cmake_build
@@ -168,31 +194,41 @@ rm -f %{buildroot}%{_libdir}/*indicators3/7/libworkrave.so*
 # fix appstream ID
 appstream-util modify %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml id %{app_id}
 
-%find_lang %{name}
+# remove zero-length to silence rpmlint
+rm -f %{buildroot}%{_datadir}/gnome-shell/extensions/workrave@workrave.org/stylesheet.css
 
+%find_lang %{name}
+# avoid cross-directory-hard-link
+ln -sf %{_datadir}/workrave/images/workrave-icon-medium.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/workrave.png
+%fdupes %{buildroot}%{_datadir}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{app_id}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING NEWS README.md
+%doc AUTHORS NEWS README.md
+%license COPYING 
 %{_bindir}/%{name}
-%{_datadir}/applications/%{app_id}.desktop
-%{_datadir}/dbus-1/services/%{app_id}.service
-%{_datadir}/glib-2.0/schemas/org.workrave.*.xml
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/sounds/%{name}/
-%{_datadir}/%{name}/
-%{_metainfodir}/%{app_id}.metainfo.xml
 # support library for gtk3 applets
 %{_libdir}/girepository-1.0/Workrave-1.0.typelib
 %{_libdir}/libworkrave-private-1.0.so.*
 
+%files common
+%license COPYING 
+%{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/dbus-1/services/%{app_id}.service
+%{_datadir}/glib-2.0/schemas/org.workrave.*.xml
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/%{name}/
+%{_datadir}/sounds/%{name}/
+# it isn't a conf file, so non-conffile-in-etc from rpmlint is a false positive here
+%{_sysconfdir}/xdg/autostart/%{app_id}.desktop
+%{_metainfodir}/%{app_id}.metainfo.xml
+
 %files cinnamon
-%dir %{_datadir}/cinnamon/
-%dir %{_datadir}/cinnamon/applets/
 %{_datadir}/cinnamon/applets/workrave@workrave.org/
 
 %if %{with gnome}
@@ -201,8 +237,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 %{_libdir}/girepository-1.0/Workrave-2.0.typelib
 %{_libdir}/libworkrave-gtk4-private-1.0.so.*
 %endif
-%dir %{_datadir}/gnome-shell/
-%dir %{_datadir}/gnome-shell/extensions/
 %{_datadir}/gnome-shell/extensions/workrave@workrave.org/
 %endif
 
@@ -222,7 +256,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 %{_libdir}/mate-applets/workrave-applet
 %{_datadir}/dbus-1/services/org.mate.panel.applet.WorkraveAppletFactory.service
 %{_datadir}/mate-panel/applets/org.workrave.WorkraveApplet.mate-panel-applet
-%{_datadir}/mate-panel/ui/workrave-menu.xml
+%{_datadir}/mate-panel/ui
 %endif
 
 %changelog

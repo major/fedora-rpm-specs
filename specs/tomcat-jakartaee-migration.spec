@@ -1,5 +1,5 @@
 Name:           tomcat-jakartaee-migration
-Version:        1.0.8
+Version:        1.0.9
 Release:        5%{?dist}
 Summary:        Tomcat Migration Tool for Jakarta EE
 

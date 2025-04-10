@@ -4,7 +4,7 @@
 %global crate sequoia-sop
 
 Name:           rust-sequoia-sop
-Version:        0.37.0
+Version:        0.37.1
 Release:        %autorelease
 Summary:        Implementation of the Stateless OpenPGP Interface using Sequoia
 
@@ -172,6 +172,7 @@ use the "crypto-rust" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires -f cli,cliv
 
 %build
+export ASSET_OUT_DIR=target/assets
 %cargo_build -f cli,cliv
 %{cargo_license_summary -f cli,cliv}
 %{cargo_license -f cli,cliv} > LICENSE.dependencies
@@ -180,19 +181,19 @@ use the "crypto-rust" feature of the "%{crate}" crate.
 %cargo_install -f cli,cliv
 # install manual pages
 mkdir -p %{buildroot}/%{_mandir}/man1
-cp -pav target/release/build/%{crate}-*/out/man-pages/sqop*.1 %{buildroot}/%{_mandir}/man1/
+cp -pav target/assets/man-pages/sqop*.1 %{buildroot}/%{_mandir}/man1/
 # install shell completions
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sqop.bash \
+install -Dpm 0644 target/assets/shell-completions/sqop.bash \
     %{buildroot}/%{bash_completions_dir}/sqop.bash
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sqopv.bash \
+install -Dpm 0644 target/assets/shell-completions/sqopv.bash \
     %{buildroot}/%{bash_completions_dir}/sqopv.bash
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sqop.fish \
+install -Dpm 0644 target/assets/shell-completions/sqop.fish \
     %{buildroot}/%{fish_completions_dir}/sqop.fish
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sqopv.fish \
+install -Dpm 0644 target/assets/shell-completions/sqopv.fish \
     %{buildroot}/%{fish_completions_dir}/sqopv.fish
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/_sqop \
+install -Dpm 0644 target/assets/shell-completions/_sqop \
     %{buildroot}/%{zsh_completions_dir}/_sqop
-install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/_sqopv \
+install -Dpm 0644 target/assets/shell-completions/_sqopv \
     %{buildroot}/%{zsh_completions_dir}/_sqopv
 
 %if %{with check}

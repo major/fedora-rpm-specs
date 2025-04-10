@@ -25,8 +25,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:      make
 BuildRequires:      gcc-c++
 BuildRequires:      SDL2_net-devel, desktop-file-utils, libtool
-Requires(post):     coreutils
-Requires(postun):   coreutils
 
 %description
 Maelstrom is a space combat game, originally ported from the Macintosh 

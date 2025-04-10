@@ -18,17 +18,17 @@ Source0: https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-%{tar
 
 Source1: gnome-mimeapps.list
 # Generated with:
-# for i in `cat /home/hadess/Projects/jhbuild/totem/data/mime-type-list.txt | grep -v audio/flac | grep -v ^#` ; do if grep MimeType /home/hadess/Projects/jhbuild/rhythmbox/data/rhythmbox.desktop.in.in | grep -q "$i;" ; then echo "$i=org.gnome.Rhythmbox3.desktop;rhythmbox.desktop;org.gnome.Totem.desktop;" >> totem-defaults.list ; else echo "$i=org.gnome.Totem.desktop;" >> totem-defaults.list ; fi ; done ; for i in `cat /home/hadess/Projects/jhbuild/totem/data/uri-schemes-list.txt | grep -v ^#` ; do echo "x-scheme-handler/$i=org.gnome.Totem.desktop;" >> totem-defaults.list ; done
-Source2: totem-defaults.list
+# for i in `grep MimeType= /usr/share/applications/org.gnome.Showtime.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Showtime.desktop\; >> showtime-defaults.list ; done
+Source2: showtime-defaults.list
 # Generated with:
-# for i in `cat /home/hadess/Projects/jhbuild/file-roller/data/supported-mime-types | sed 's/;//g'` application/x-source-rpm ; do if grep MimeType /usr/share/applications/org.gnome.Nautilus.desktop | grep -q "$i;" ; then echo "$i=org.gnome.Nautilus.desktop;org.gnome.FileRoller.desktop;" >> file-roller-defaults.list ; elif ! `grep -q $i gnome-mimeapps.list` ; then echo $i=org.gnome.FileRoller.desktop\; >> file-roller-defaults.list ; fi ; done && for i in `grep MimeType= /usr/share/applications/org.gnome.Nautilus.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do if ! `grep -q $i file-roller-defaults.list || grep -q $i gnome-mimeapps.list` ; then echo "missing handler $i" ; fi ; done
-Source3: file-roller-defaults.list
+# for i in `grep MimeType= /usr/share/applications/org.gnome.Decibels.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Decibels.desktop\; >> decibels-defaults.list ; done
+Source3: decibels-defaults.list
 # Generated with:
 # for i in `grep MimeType= /usr/share/applications/org.gnome.Loupe.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Loupe.desktop\; >> loupe-defaults.list ; done
 Source4: loupe-defaults.list
 # Generated with:
-# for i in `grep MimeType= /usr/share/applications/org.gnome.Evince.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Evince.desktop\; >> evince-defaults.list ; done
-Source5: evince-defaults.list
+# for i in `grep MimeType= /usr/share/applications/org.gnome.Papers.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Papers.desktop\; >> papers-defaults.list ; done
+Source5: papers-defaults.list
 
 BuildRequires: gcc
 BuildRequires: gettext

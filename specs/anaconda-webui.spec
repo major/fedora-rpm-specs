@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        32
+Version:        33
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,18 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Apr 08 2025 Packit <hello@packit.dev> - 33-1
+- storage: mount point mapping: fix wrapping of the custom mount points rows
+- cockpit-storage-integration: remove unused property from preparePartitioning method call
+- cockpit-storage-integration: report failures when preparing partitioning
+- cockpit-storage-integration: prevent race condition with selected disks
+- cockpit-storage-integration: ensure checkStep is defined before checking its properties
+- storage-actions: set IS_FETCHING to false after dispatching new devices
+- cockpit-storage-integration: remove unused property `scenarioAvailability`
+- storage: fix selected disk handling when replacing an MD RAID device (rhbz#2354798)
+- Override globally modals min-width to stretch according to the contents (rhbz#2357172)
+- storage: disable home reuse for existing non-linux systems
+
 * Wed Apr 02 2025 Packit <hello@packit.dev> - 32-1
 - cockpit-storage-integration: Fix disk selection after MD array deletion (rhbz#2354798)
 - cockpit-storage-integration: move storage check steps to custom hook with step handling (rhbz#2354798)

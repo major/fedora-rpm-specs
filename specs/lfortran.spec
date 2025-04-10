@@ -1,4 +1,4 @@
-Version:        0.50.0
+Version:        0.51.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -155,6 +155,9 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Tue Apr 08 2025 Benson Muite <fed500@fedoraproject.org> - 0.51.0-1
+- Version bump to v0.51.0 (bug #2358171)
+
 * Mon Mar 31 2025 Christoph Junghans <junghans@votca.org> - 0.50.0-1
 - Version bump to v0.50.0 (bug #2355916)
 

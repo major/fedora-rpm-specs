@@ -73,7 +73,7 @@ BuildRequires: javapackages-local
 BuildRequires: aqute-bnd
 BuildRequires: tomcat-jakartaee-migration
 BuildRequires: systemd
-BuildRequires:  rubygem-asciidoctor
+BuildRequires: rubygem-asciidoctor
 
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Requires: systemd
@@ -215,6 +215,8 @@ cat >tomcat.sysusers.conf <<EOF
 u tomcat %{tcuid} 'Apache Tomcat' %{homedir} -
 EOF
 
+sed -i -e "s/Server port=\"8005\" shutdown=\"SHUTDOWN\"/Server port=\"-1\" shutdown=\"SHUTDOWN\"/" "conf/server.xml"
+
 %build
 # we don't care about the tarballs and we're going to replace jars
 # so just create a dummy file for later removal
@@ -248,6 +250,7 @@ touch HACK
 %install
 # build initial path structure
 %{__install} -d ${RPM_BUILD_ROOT}%{appdir}
+%{__install} -d ${RPM_BUILD_ROOT}%{appdir}-javaee
 %{__install} -d ${RPM_BUILD_ROOT}%{bindir}
 %{__install} -d ${RPM_BUILD_ROOT}%{confdir}/Catalina/localhost
 %{__install} -d ${RPM_BUILD_ROOT}%{confdir}/conf.d
@@ -264,7 +267,7 @@ touch HACK
 %{__install} -D tomcat.sysusers.conf ${RPM_BUILD_ROOT}%{_sysusersdir}/tomcat.conf
 
 %{__install} -d ${RPM_BUILD_ROOT}%{userinstancedir}/conf
-%{__install} -D -p %{SOURCE8} ${RPM_BUILD_ROOT}%{_bindir}/tomcat-user-instance-create.sh
+%{__install} -D -p %{SOURCE8} ${RPM_BUILD_ROOT}%{_bindir}/tomcat-user-instance-create
 %{__install} -D -p %{SOURCE9} ${RPM_BUILD_ROOT}%{userinstancedir}/bin/setenv.sh
 
 asciidoctor -b manpage -D ${RPM_BUILD_ROOT}%{_mandir}/man1 -o tomcat-user-instance-create.1 %{SOURCE10}
@@ -335,6 +338,10 @@ popd
 
 ln -sr $(build-classpath ecj/ecj) ${RPM_BUILD_ROOT}%{libdir}/ecj-x.jar
 ln -sr $(build-classpath tomcat-jakartaee-migration/jakartaee-migration) ${RPM_BUILD_ROOT}%{libdir}/jakartaee-migration-x.jar
+ln -sr $(build-classpath apache-commons-compress/commons-compress) ${RPM_BUILD_ROOT}%{libdir}/commons-compress.jar
+ln -sr $(build-classpath apache-commons-io/commons-io) ${RPM_BUILD_ROOT}%{libdir}/commons-io.jar
+ln -sr $(build-classpath bcel/bcel) ${RPM_BUILD_ROOT}%{libdir}/bcel.jar
+ln -sr $(build-classpath apache-commons-lang3/commons-lang3) ${RPM_BUILD_ROOT}%{libdir}/commons-lang3.jar
 
 ln -sr %{confdir} ${RPM_BUILD_ROOT}%{baseconfdir}
 ln -sr %{cachedir} ${RPM_BUILD_ROOT}%{workdir}
@@ -363,6 +370,7 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %attr(2770,tomcat,adm) %dir %{logdir}
 %attr(750,tomcat,tomcat) %dir %{cachedir}
 %attr(2775,tomcat,tomcat) %dir %{appdir}
+%attr(2775,tomcat,tomcat) %dir %{appdir}-javaee
 
 %{confdir}/conf.d
 %config(noreplace) %{confdir}/%{name}.conf
@@ -383,7 +391,7 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %files user-instance
 %license LICENSE
 %{userinstancedir}
-%{_bindir}/tomcat-user-instance-create.sh
+%{_bindir}/tomcat-user-instance-create
 %{_mandir}/man1/tomcat-user-instance-create.1*
 
 %files common -f .mfiles-tomcat-common
@@ -396,6 +404,10 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %license LICENSE
 %{homedir}/lib
 %{libdir}/jakartaee-migration-x.jar
+%{libdir}/commons-compress.jar
+%{libdir}/commons-io.jar
+%{libdir}/bcel.jar
+%{libdir}/commons-lang3.jar
 %{libdir}/ecj-x.jar
 %exclude %{libdir}/tomcat-jni.pom
 

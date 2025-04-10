@@ -1,5 +1,5 @@
 Name:           pyp2spec
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Generate Fedora RPM spec files for Python projects
 

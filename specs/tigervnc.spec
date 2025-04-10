@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -33,6 +33,7 @@ Patch2:         tigervnc-sbin-bin-merge.patch
 
 # Upstream patches
 Patch10:        tigervnc-more-responsive-initial-full-screen.patch
+Patch11:        tigervnc-dont-print-xvnc-banner-before-parsing-args.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -197,6 +198,7 @@ runs properly under an environment with SELinux enabled.
 
 # Upstream patches
 %patch -P10 -p1 -b .more-responsive-initial-full-screen
+%patch -P11 -p1 -b .dont-print-xvnc-banner-before-parsing-args
 
 %if %{with server}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -405,6 +407,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Apr 08 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-5
+- Fix inetd mode not working (rhbz#2357952)
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-4
 - Rebuild (fltk)
 

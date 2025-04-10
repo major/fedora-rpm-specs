@@ -50,6 +50,9 @@ ExcludeArch:    %{ix86}
 # merged but not released
 Patch:          https://github.com/suny-downstate-medical-center/netpyne/pull/767.patch
 
+# fix mod files to work with c23
+Patch:          0001-fix-verbatim-function-defs-in-mod-files.patch
+
 %description %_description
 
 %package -n python3-netpyne

@@ -3,7 +3,7 @@
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
 %global brzmajor 3.3
-%global brzminor .9
+%global brzminor .11
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}

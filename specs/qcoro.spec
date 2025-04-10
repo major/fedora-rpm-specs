@@ -14,8 +14,8 @@ coroutine is co_awaiting, the Qt event loop runs as usual, meaning that your
 application remains responsive.}
 
 Name: qcoro
-Version: 0.11.0
-Release: 2%{?dist}
+Version: 0.12.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -181,6 +181,9 @@ popd
 %endif
 
 %changelog
+* Sat Apr 05 2025 Marie Loise Nolden <loise@kde.org> - 0.12.0-1
+- 0.12.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 0.11.0-2
 - Rebuild (qt6)
 

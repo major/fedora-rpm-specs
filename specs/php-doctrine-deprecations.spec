@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-doctrine-deprecations
 #
-# SPDX-FileCopyrightText:  Copyright 2021-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    31610dbb31faa98e6b5447b62340826f54fbc4e9
+%global gh_commit    459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,8 +21,8 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.4
-Release:        2%{?dist}
+Version:        1.1.5
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
@@ -36,13 +36,14 @@ BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json
 #    "require-dev": {
-#        "doctrine/coding-standard": "^9 || ^12",
-#        "phpstan/phpstan": "1.4.10 || 2.0.3",
+#        "doctrine/coding-standard": "^9 || ^12 || ^13",
+#        "phpstan/phpstan": "1.4.10 || 2.1.11",
 #        "phpstan/phpstan-phpunit": "^1.0 || ^2",
-#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",
 #        "psr/log": "^1 || ^2 || ^3"
 BuildRequires: (php-composer(psr/log) >= 1.0   with php-composer(psr/log) < 4)
-BuildRequires:  phpunit9 >= 9.5
+%global phpunit %{_bindir}/phpunit12
+BuildRequires:  phpunit12
 %endif
 
 # From composer.json
@@ -124,12 +125,13 @@ cat << 'EOF' | tee -a vendor/autoload.php
 EOF
 
 ret=0
-for cmd in php php81 php82 php83 php84; do
+for cmd in "php %{phpunit}" "php81 %{_bindir}/phpunit10" "php82 %{_bindir}/phpunit11" "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit12"; do
   if which $cmd; then
-    $cmd  -d auto_prepend_file=vendor/autoload.php \
-      %{_bindir}/phpunit9 \
+    set $cmd
+    $1 -d auto_prepend_file=vendor/autoload.php \
+      $2 \
         --filter '^((?!(testDeprecationTrackByEnv)).)*$' \
-        --verbose || ret=1
+        || ret=1
   fi
 done
 
@@ -147,6 +149,10 @@ exit $ret
 
 
 %changelog
+* Tue Apr  8 2025 Remi Collet <remi@remirepo.net> - 1.1.5-1
+- update to 1.1.5 (no change)
+- switch to phpunit12
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

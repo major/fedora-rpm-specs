@@ -11,7 +11,7 @@ patterns of your system or workloads and make data access-aware memory
 management optimizations.}
 
 Name:           python-%{srcname}
-Version:        2.7.3
+Version:        2.7.5
 Release:        %autorelease
 Summary:        Data Access Monitoring Operator
 
@@ -20,6 +20,10 @@ URL:            https://github.com/damonitor/damo
 # PyPI source does not contain tests
 # Source:         %%pypi_source
 Source:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Lift restrictions introduced in
+# https://github.com/damonitor/damo/commit/ceaf887babee90ccd2194d97e2ebfedfdea1d664
+# only needed for running twine on the current Debian stable (12.x)
+Patch:         damo-lift-setuptools-restriction.diff
 
 BuildArch:      noarch
 ExcludeArch:    %{ix86}
