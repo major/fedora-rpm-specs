@@ -1,6 +1,6 @@
-%global _bundled_pcre2_version 10.42
+%global _bundled_pcre2_version 10.44
 # read from libversion
-%global libversion 110
+%global libversion 111
 
 %bcond_without check
 %bcond_without samples
@@ -11,7 +11,7 @@
 %endif
 
 Name:           poco
-Version:        1.14.0
+Version:        1.14.1
 Release:        %autorelease
 Summary:        C++ class libraries for network-centric applications
 License:        BSL-1.0
@@ -208,6 +208,7 @@ Requires:       zlib-devel
 Requires:       pcre2-devel
 Requires:       expat-devel
 Requires:       openssl-devel
+Requires:       utf8proc-devel
 
 %description    devel
 This package contains development files for %{name}.

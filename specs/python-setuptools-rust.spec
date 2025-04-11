@@ -7,7 +7,7 @@
 %global integration_tests_exc '^(html-py-ever)'
 
 Name:           python-setuptools-rust
-Version:        1.10.2
+Version:        1.11.1
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 
@@ -20,9 +20,9 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 %if 0%{?fedora}
-BuildRequires:  rust-packaging
+BuildRequires:  cargo-rpm-macros >= 24
 %else
-# RHEL has rust-toolset instead of rust-packaging
+# RHEL has rust-toolset instead of cargo-rpm-macros
 BuildRequires:  rust-toolset >= 1.45
 %endif
 %if %{with integration_tests}

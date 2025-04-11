@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/osbuild/koji-image-builder
 
-Version:        3
+Version:        4
 
 %forgemeta
 
@@ -86,6 +86,15 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Apr 9 2025 Packit <hello@packit.dev> - 4-1
+Changes with 4
+----------------
+  * ci: pull osbuild from COPR (#3)
+    * Author: Simon de Vlieger, Reviewers: Nobody
+
+— Somewhere on the Internet, 2025-04-09
+
 
 * Thu Apr 3 2025 Packit <hello@packit.dev> - 3-1
 Changes with 3

@@ -19,7 +19,7 @@
 %bcond latex_tests 1
 
 Name:       python-sphinx
-%global     general_version 8.1.3
+%global     general_version 8.2.3
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
@@ -53,6 +53,10 @@ Patch:      sphinx-test_theming.patch
 # This is a downstream-only change - rejected upstream.
 # https://github.com/sphinx-doc/sphinx/pull/11747
 Patch:      Make-the-first-party-extensions-optional.patch
+
+# Compatibility with Python 3.14
+Patch:      https://github.com/sphinx-doc/sphinx/commit/8962398b761c3d85a.patch
+Patch:      https://github.com/sphinx-doc/sphinx/commit/e01e42f5fc738815b.patch
 
 BuildArch:     noarch
 
@@ -257,6 +261,16 @@ This package contains documentation in the HTML format.
 
 %prep
 %autosetup -n sphinx-%{upstream_version} -p1
+
+# Drop test-dependency on defusedxml,
+# use xml from the standard library instead.
+# defusedxml is safer but this is only used in tests.
+# Upstream uses defusedxml to be "safer for future contributors when they
+# create/open branches and pull requests" -- that does not concern us.
+# https://github.com/sphinx-doc/sphinx/pull/12168#discussion_r1535383868
+# We want to avoid the dependency in RHEL, but no harm in doing so unconditionally.
+sed -i '/"defusedxml/d' pyproject.toml
+sed -i 's/from defusedxml./from xml.etree./' sphinx/testing/util.py tests/test_theming/test_theming.py
 
 %if %{without imagemagick_tests}
 rm tests/test_extensions/test_ext_imgconverter.py

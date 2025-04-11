@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 23%{?dist}
+Release: 24%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -278,6 +278,9 @@ Patch6: ruby-2.7.0-Initialize-ABRT-hook.patch
 # Disable syntax_suggest test suite, which tries to download its dependencies.
 # https://bugs.ruby-lang.org/issues/19297
 Patch9: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
+# Fix the tests using SHA-1 Probabilistic Signature Scheme (PSS) parameters.
+# https://github.com/ruby/openssl/pull/879
+Patch10: ruby-3.4.2-openssl-Fix-SHA-1-PSS-tests.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -770,6 +773,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 4 -p1
 %patch 6 -p1
 %patch 9 -p1
+%patch 10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1875,6 +1879,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Tue Apr 08 2025 Jun Aruga <jaruga@redhat.com> - 3.4.2-24
+- Fix the tests using SHA-1 Probabilistic Signature Scheme (PSS) parameters.
+  Resolves: rhbz#2358256
+
 * Wed Feb 19 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.2-23
 - Upgrade to Ruby 3.4.2.
   Resolves: rhbz#2345875

@@ -8,7 +8,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -131,6 +131,9 @@ make %{?_smp_mflags} check VERBOSE=1
 %make_install
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.{a,la,so}
 
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
 %post selinux
 for pp in /usr/share/selinux/packages/swtpm.pp \
           /usr/share/selinux/packages/swtpm_svirt.pp \
@@ -141,7 +144,7 @@ restorecon %{_bindir}/swtpm
 
 %postun selinux
 if [ $1 -eq  0 ]; then
-  for p in swtpm_libvirt swtpm swtpm_svirt; do
+  for p in swtpm_svirt swtpm_libvirt swtpm; do
     %selinux_modules_uninstall -s %{selinuxtype} $p
   done
 fi
@@ -210,6 +213,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Wed Apr  9 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-11
+- Fix some SELinux related issues in the spec file
+
 * Sun Mar 30 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-10
 - Fix issue when --reconfigure'ing swtpm and a profile must not be passed
 

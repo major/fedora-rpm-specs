@@ -3,10 +3,31 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Signing utility for UEFI secure boot
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:       GPL-3.0-or-later
+# Most source code is GPL-3.0-or-later, except:
+# LicenseRef-Fedora-Public-Domain:
+#   lib/ccan/ccan/array_size
+#   lib/ccan/ccan/build_assert
+#   lib/ccan/ccan/check_type
+#   lib/ccan/ccan/compiler
+#   lib/ccan/ccan/container_of
+#   lib/ccan/ccan/hash
+#   lib/ccan/ccan/str
+#   lib/ccan/ccan/tcon
+# LGPL-2.1-or-later:
+#   lib/ccan/ccan/endian
+#   lib/ccan/ccan/htable
+#   lib/ccan/ccan/list
+#   lib/ccan/ccan/read_write_all
+#   lib/ccan/ccan/talloc
+#   lib/ccan/ccan/typesafe_cb
+# LGPL-3.0-only:
+#   lib/ccan/ccan/failtest
+#   lib/ccan/ccan/tlist
+# MIT:
+#   lib/ccan/ccan/time
+License:       GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:           https://build.opensuse.org/package/show/home:jejb1:UEFI/sbsigntools
 # upstream tarballs don't include bundled ccan
 # run sbsigntools-mktarball.sh
@@ -89,6 +110,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Wed Apr 09 2025 Carl George <carlwgeorge@fedoraproject.org> - 0.9.5-9
+- Add missing SPDX identifiers to license field
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

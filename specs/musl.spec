@@ -18,6 +18,10 @@
 
 
 # Ensure the value is set correctly
+%ifarch %{x86_64}
+%global _musl_target_cpu x86_64
+%endif
+
 %ifarch %{ix86}
 %global _musl_target_cpu i386
 %endif
@@ -53,7 +57,7 @@
 %endif
 %endif
 
-%ifnarch %{ix86} %{arm} %{mips} %{power64} ppc
+%ifnarch %{x86_64} %{ix86} %{arm} %{mips} %{power64} ppc
 %global _musl_target_cpu %{_target_cpu}
 %endif
 
@@ -88,7 +92,7 @@
 
 Name:		musl
 Version:	1.2.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Fully featured lightweight standard C library for Linux
 License:	MIT
 URL:		https://musl.libc.org
@@ -323,6 +327,9 @@ EOF
 
 
 %changelog
+* Tue Apr 01 2025 Eduard Abdullin <eabdullin@almalinux.org> - 1.2.5-3
+- Use the x86_64 target on x86_64 microarches
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

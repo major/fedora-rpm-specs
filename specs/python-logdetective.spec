@@ -51,7 +51,7 @@ a2x -d manpage -f manpage logdetective.1.asciidoc
 %pyproject_save_files 'logdetective'
 install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 logdetective.1 %{buildroot}/%{_mandir}/man1/
-rm %{buildroot}/%{python3_sitelib}/logdetective.1.asciidoc
+rm %{buildroot}/%{python3_sitelib}/logdetective.1.asciidoc || :
 
 %check
 #server is broken for now

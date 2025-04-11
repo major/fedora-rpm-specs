@@ -1,5 +1,5 @@
 Name:           python-py-tes
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Python SDK for the GA4GH Task Execution API
 
@@ -9,10 +9,6 @@ URL:            https://github.com/ohsu-comp-bio/py-tes
 # The PyPI sdist is missing the LICENSE and the tests, so we must use the
 # GitHub source archive.
 Source:         %{url}/archive/%{version}/py-tes-%{version}.tar.gz
-
-# Remove unused future dependency (again)
-# https://github.com/ohsu-comp-bio/py-tes/pull/72
-Patch:          %{url}/pull/72.patch
 
 BuildArch:      noarch
 

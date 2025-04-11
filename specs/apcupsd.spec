@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    34%{?dist}
+Release:    35%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPL-2.0-only
@@ -23,7 +23,11 @@ Patch1:       apcupsd-3.14.4-shutdown.patch
 # Fix format-security error so we can enable the checks
 Patch2:       patch-format-security
 Patch3:       disable_nologin.patch
-
+# fixes "increasing NUMXFERS" bug:
+# https://sourceforge.net/p/apcupsd/mailman/apcupsd-users/thread/ad9afb27-30f9-443f-a9fb-982c41ad1325%40okazoo.eu/
+# https://www.reddit.com/r/homelab/comments/1c3eo9n/apcupsd_and_proxmox_frequent_battery_disconnected/
+# patch source: https://sourceforge.net/p/apcupsd/mailman/message/58741334/
+Patch4:       99-apcupsd-xfer-glitch.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glibc-devel, gd-devel
@@ -173,6 +177,9 @@ rm examples/*.in
 
 
 %changelog
+* Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 3.14.14-35
+- Adds 99-apcupsd-xfer-glitch.patch
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.14-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -979,6 +979,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Wed Apr 09 2025 Marek Blaha <mblaha@redhat.com> - 5.2.12.0-3
+- Rebuilt for sdbus-cpp-2.1
+
 * Wed Apr 02 2025 Petr Pisar <ppisar@redhat.com> - 5.2.12.0-2
 - Set a mode for ghost files to 0644 (bug #2343342)
 - Respect install root in expired-pgp-keys plugin (bug #2356528)

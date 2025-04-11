@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Itself
-Version:        2.023
-Release:        10%{?dist}
+Version:        2.025
+Release:        1%{?dist}
 Summary:        Model editor for Config::Model
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -18,7 +18,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config::Model) >= 2.142
 BuildRequires:  perl(Config::Model::Tester::Setup)
-BuildRequires:  perl(Config::Model::TkUI) >= 1.370
+BuildRequires:  perl(Config::Model::TkUI) >= 1.378
 BuildRequires:  perl(Config::Model::Value)
 BuildRequires:  perl(Data::Compare)
 BuildRequires:  perl(Data::Dumper)
@@ -34,12 +34,12 @@ BuildRequires:  perl(Log::Log4perl) >= 1.11
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Mouse::Util::TypeConstraints)
-BuildRequires:  perl(Path::Tiny) >= 0.062
+BuildRequires:  perl(Path::Tiny) >= 0.125
 BuildRequires:  perl(Pod::POM)
-BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Differences)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More)
@@ -47,11 +47,11 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Text::Diff)
 BuildRequires:  perl(Tk)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(YAML::XS)
+BuildRequires:  perl(YAML::PP)
 BuildRequires:  sed
 Requires:       bash-completion
 Requires:       perl(App::Cme) >= 1.002
-Requires:       perl(Config::Model::TkUI) >= 1.370
+#Requires:       perl(Config::Model::TkUI) >= 1.378
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Config::Model\\)\s*$
 %global __requires_exclude %__requires_exclude|^perl\\(Config::Model\\) >= 2.064\s*$
@@ -83,11 +83,19 @@ install -D -m 0644 contrib/bash_completion.cme_meta %{buildroot}%{_sysconfdir}/b
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.md data README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/Cme*
+%dir %{perl_vendorlib}/Config
+%{perl_vendorlib}/Config/Model*
+%{_mandir}/man3/App::Cme::Command::meta*
+%{_mandir}/man3/Config::Model::Itself*
+%{_mandir}/man3/Config::Model::models::Itself*
 %config(noreplace) %{_sysconfdir}/bash_completion.d/cme_meta
 
 %changelog
+* Wed Apr 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.025-1
+- 2.025 bump (rhbz#2357956)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

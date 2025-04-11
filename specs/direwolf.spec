@@ -1,9 +1,8 @@
 Name:           direwolf
 Version:        1.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/wb2osz/direwolf/
 # This is the actual source
@@ -11,6 +10,8 @@ Source0:        https://github.com/wb2osz/direwolf/archive/%{version}/%{name}-%{
 Source1:        direwolf.service
 Source2:        direwolf.sysconfig
 Source3:        direwolf.logrotate
+# Only include externals when actually needed
+Patch:          %{url}/pull/565.patch
 
 ExcludeArch:    i686
 
@@ -21,6 +22,8 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  gpsd-devel
 BuildRequires:  hamlib-devel
 BuildRequires:  systemd systemd-devel
+BuildRequires:  avahi-devel
+BuildRequires:  hidapi-devel
 
 Requires:       ax25-tools ax25-apps
 
@@ -45,9 +48,11 @@ m direwolf audio
 m direwolf dialout
 EOF
 
+# Remove bundled libraries we're not using
+rm -r external/{hidapi,misc,regex}
 
 %build
-%cmake -DUNITTEST=1 -DENABLE_GENERIC=1
+%cmake -DUNITTEST=1 -DENABLE_GENERIC=1 -DUSE_SYSTEM_HIDAPI=ON
 %cmake_build
 
 %check
@@ -144,6 +149,11 @@ others.
 
 
 %changelog
+* Tue Apr 08 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 1.7-10
+- Use the journal for stdout/stderr
+- Move audio levels example to README.fedora
+- Backport upstream PR to use system libraries
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7-9
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

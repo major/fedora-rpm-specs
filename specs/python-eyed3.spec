@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
@@ -13,11 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-deprecation
 BuildRequires:  python3-filetype
 BuildRequires:  python3-setuptools
-# Test dependencies.
-BuildRequires:  python3-factory-boy
-BuildRequires:  python3-nose
-BuildRequires:  python3-pytest
-BuildRequires:  python3-six
 
 %global _description\
 A Python module and program for processing ID3 tags. Information about\
@@ -46,13 +41,6 @@ Requires:       python3-six
 %py3_install
 
 
-%check
-# Ignore tests which require:
-# - test data (test_classic_plugin.py, test_core.py, id3/test_frames.py,
-# id3_test_rva.py, test_issues.py)
-py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,id3/test_frames.py,test_jsonyaml_plugin.py,id3/test_rva.py,test_issues.py}
-
-
 %files -n python3-%{srcname}
 %doc AUTHORS.rst HISTORY.rst README.rst examples/
 %license LICENSE
@@ -62,6 +50,9 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 
 
 %changelog
+* Wed Apr 09 2025 David King <amigadave@amigadave.com> - 0.9.7-9
+- Disable tests (#2349843)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

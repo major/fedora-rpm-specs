@@ -1,7 +1,7 @@
 %global apiver  0
 
 Name:           gtk-layer-shell
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Library to create components for Wayland using the Layer Shell
 

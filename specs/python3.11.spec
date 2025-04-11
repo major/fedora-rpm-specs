@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.11
+%global general_version %{pybasever}.12
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -320,20 +320,17 @@ Patch251: 00251-change-user-install-location.patch
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
 
-# 00438 # be066d7a5aa1a8982dc0f38b6e90319ee8cf2bc2
-# Fix ThreadedVSOCKSocketStreamTest (GH-119465) (GH-119479) (#119484)
+# 00452 # eb11d070c5af7d1b5e47f4e02186152d08eaf793
+# Properly apply exported CFLAGS for dtrace/systemtap builds
 #
-# Fix ThreadedVSOCKSocketStreamTest: if get_cid() returns the host
-# address or the "any" address, use the local communication address
-# (loopback): VMADDR_CID_LOCAL.
+# When using --with-dtrace the resulting object file could be missing
+# specific CFLAGS exported by the build system due to the systemtap
+# script using specific defaults.
 #
-# On Linux 6.9, apparently, the /dev/vsock device is now available but
-# get_cid() returns VMADDR_CID_ANY (-1).
-Patch438: 00438-fix-threadedvsocksocketstreamtest-gh-119465-gh-119479-119484.patch
-
-# 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
-# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
-Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
+# Exporting the CC and CFLAGS variables before the dtrace invocation
+# allows us to properly apply CFLAGS exported by the build system
+# even when cross-compiling.
+Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -1650,6 +1647,13 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 09 2025 Miro Hrončok <mhroncok@redhat.com> - 3.11.12-1
+- Update to 3.11.12
+
+* Mon Mar 31 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.11-6
+- Properly apply exported CFLAGS for dtrace/systemtap builds
+- Fixes: rhbz#2356302
+
 * Mon Feb 10 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.11-5
 - Security fix for CVE-2025-0938
 - Fixes: rhbz#2343272

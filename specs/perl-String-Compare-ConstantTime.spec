@@ -1,11 +1,14 @@
 Name:           perl-String-Compare-ConstantTime
 Version:        0.321
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Timing side-channel protected string compare
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Compare-ConstantTime
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FRACTAL/String-Compare-ConstantTime-%{version}.tar.gz
+# Fix CVE-2024-13939, bug #2355705, posted upstream
+# <https://github.com/hoytech/String-Compare-ConstantTime/pull/21>
+Patch0:         String-Compare-ConstantTime-0.321-Prevent-from-revealing-a-length-of-the-secrect.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -30,7 +33,7 @@ which does not provide a timing side-channel. Such comparison is useful when
 matching against a secret string.
 
 %prep
-%setup -q -n String-Compare-ConstantTime-%{version}
+%autosetup -p1 -n String-Compare-ConstantTime-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -52,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 01 2025 Petr Pisar <ppisar@redhat.com> - 0.321-22
+- Fix CVE-2024-13939 (leaking the length of a secret string) (bug #2355705)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.321-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

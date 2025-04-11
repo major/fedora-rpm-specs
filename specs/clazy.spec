@@ -1,7 +1,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
@@ -12,6 +12,8 @@ Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%
 %endif
 
 Patch0:         clazy-no-rpath.patch
+# https://invent.kde.org/sdk/clazy/-/merge_requests/176
+Patch1:         clazy-fix-build-with-clang20.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -52,6 +54,9 @@ refactoring.
 
 
 %changelog
+* Wed Apr 09 2025 Jan Grulich <jgrulich@redhat.com> - 1.13-3
+- Fix build against Clang/LLVM 20
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

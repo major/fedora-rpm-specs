@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.5.1
-%define radicale_release  1
+%define radicale_release  2
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -385,7 +385,7 @@ rm -rf %{buildroot}%{_sharedstatedir}/%{name}/.Radicale.lock
 
 
 %pre -n %{radicale_package_name}
-%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
+%if ! (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
     useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
@@ -521,6 +521,9 @@ fi
 
 
 %changelog
+* Mon Apr 07 2025 Peter Bieringer <pb@bieringer.de> - 3.5.1-2
+- Fix missing user/group creation introduced with 3.5.0-1 (bz#2358635)
+
 * Sat Apr 05 2025 Peter Bieringer <pb@bieringer.de> - 3.5.1-1
 - Update to 3.5.1
 

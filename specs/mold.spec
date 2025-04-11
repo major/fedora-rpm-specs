@@ -59,7 +59,7 @@ BuildRequires:  llvm
 BuildRequires:  perl-interpreter
 
 Requires(post): %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.

@@ -1,5 +1,5 @@
 Name:		fprintd
-Version:	1.94.4
+Version:	1.94.5
 Release:	%autorelease
 Summary:	D-Bus service for Fingerprint reader access
 

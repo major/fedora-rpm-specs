@@ -1,6 +1,6 @@
 %global forgeurl    https://gitlab.freedesktop.org/upower/%{name}
 
-Version:        0.23
+Version:        0.30
 %forgemeta
 
 Name:           power-profiles-daemon

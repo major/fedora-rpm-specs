@@ -1,11 +1,5 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
-
 Name:           python-pdfminer
-Version:        20240706
+Version:        20250327
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
@@ -66,20 +60,30 @@ Source1:        get_source.sh
 Source2:        dumppdf.1
 Source3:        pdf2txt.1
 
+BuildSystem:            pyproject
+BuildOption(prep):      -S git
+BuildOption(install):   -l pdfminer
+BuildOption(generate_buildrequires): -x image
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+%if %[ %{defined fc43} || %{defined el10} ]
+# Workaround for setuptools<77.0.3; see
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
+# Once https://src.fedoraproject.org/rpms/python-setuptools/pull-request/124
+# lands in Rawhide, we can remove the fc43 term from the conditional (or,
+# really, remove it entirely from Rawhide, since we consider 20250327 a
+# breaking release.
+%global no_pep_639_backend 1
+
+BuildRequires:  tomcli
+%endif
+
 BuildRequires:  git-core
 BuildRequires:  make
 
 # We use the Japan1, Korea1, GB1, and CNS1 CMaps:
 BuildRequires:  adobe-mappings-cmap-devel >= 20190730
-
-%if %{with doc}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
 
 # We do not generate BR’s from the “dev” extra because it includes an exact
 # version requirement on mypy (and we do not intend to do typechecking), and it
@@ -141,44 +145,33 @@ Summary:        %{summary}
 Provides:       bundled(python3dist(pymongo))
 Provides:       bundled(python3dist(pyhanko))
 
+# We no longer bother to build and install the PDF manual. Since we removed the
+# -doc package for Fedora 43, this can be removed after Fedora 45.
+Obsoletes:      python-pdfminer-doc < 20240706-4
+
 %description -n python3-pdfminer %{common_description}
-
-
-%if %{with doc}
-%package doc
-Summary:        Documentation for pdfminer
-# See the base package License field for non-MIT sources; it appears that none
-# of these contribute to the documentation.
-License:        MIT
-
-%description doc %{common_description}
-%endif
 
 
 %pyproject_extras_subpkg -n python3-pdfminer image
 
 
-%prep
-%autosetup -n pdfminer.six-%{version} -S git
+%prep -a
+%if 0%{?no_pep_639_backend}
+tomcli set pyproject.toml del project.license
+%endif
 
 # Unbundle cmap data; it will be replaced in %%build.
 rm -vf cmaprsrc/* pdfminer/cmap/*
 
 # Remove shebang line in non-script source
 sed -r -i '1{/^#!/d}' pdfminer/psparser.py
-# Fix unversioned Python shebangs
-%py3_shebang_fix tools
 
 # Copy the pyHanko license to the top-level directory so it is automatically
 # included in the licenses in the installed dist-info directory.
 cp -p docs/licenses/LICENSE.pyHanko ./
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x %{?with_doc:docs,}image
-
-
-%build
+%build -p
 # Symlink the unbundled CMap resources and convert to the pickled format.
 for cmap in Japan1 Korea1 GB1 CNS1
 do
@@ -203,24 +196,19 @@ git add -A
 git commit -m 'Imitate upstream release %{version}'
 git tag '%{version}'
 
-%pyproject_wheel
+
+# %%build -a
 # Debug dynamic versioning:
 # git status
 # %%{python3} -m setuptools_git_versioning --verbose
 
-%if %{with doc}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
-%endif
 
-
-%install
-%pyproject_install
-%pyproject_save_files -l pdfminer
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE2}' '%{SOURCE3}'
+
+%py3_shebang_fix '%{buildroot}%{_bindir}'
+
 # Also, ship symlinks of the scripts without the .py extension.
 for script in pdf2txt dumppdf
 do
@@ -228,7 +216,7 @@ do
 done
 
 
-%check
+%check -a
 # Skipped tests (and ignored files) are those that require the sample PDFs,
 # which are not included in our version of the source tarball.
 k="${k-}${k+ and }not TestColorSpace"
@@ -252,23 +240,14 @@ ignore="${ignore-} --ignore=tests/test_tools_pdf2txt.py"
 
 
 %files -n python3-pdfminer -f %{pyproject_files}
-%if %{without doc}
 %doc CHANGELOG.md README.md
-%endif
+
 %{_bindir}/pdf2txt
 %{_bindir}/pdf2txt.py
 %{_mandir}/man1/pdf2txt.1*
 %{_bindir}/dumppdf
 %{_bindir}/dumppdf.py
 %{_mandir}/man1/dumppdf.1*
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc CHANGELOG.md README.md
-%doc docs/build/latex/pdfminersix.pdf
-%endif
 
 
 %changelog

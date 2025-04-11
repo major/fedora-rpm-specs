@@ -1,7 +1,7 @@
 %global cargo_install_lib 0
 
 Name:           selenium-manager
-Version:        4.29.0
+Version:        4.31.0
 Release:        %autorelease
 Summary:        Automated driver and browser management for Selenium
 # Full break down of the licenses is located in the LICENCE.dependencies file.

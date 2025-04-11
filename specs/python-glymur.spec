@@ -50,7 +50,7 @@ BuildRequires:  libtiff
 # lands in Rawhide, we can remove the fc43 term from the conditional.
 %global no_pep_639_backend 1
 
-BuildRequires: tomcli
+BuildRequires:  tomcli
 %endif
 
 %global _description %{expand:

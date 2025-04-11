@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        7.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -179,6 +179,8 @@ Requires:            traceroute
 Requires(post):      systemd
 Requires(preun):     systemd
 Requires(postun):    systemd
+Provides:            user(zabbixsrv)
+Provides:            group(zabbixsrv)
 
 %description server
 Zabbix server common files
@@ -837,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Wed Apr 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:7.2.5-2
+- Add user/group provides to -server to fix FTI
+
 * Wed Apr 02 2025 Orion Poplawski <orion@nwra.com> - 1:7.2.5-1
 - Update to 7.2.5 (CVE-2024-36469, CVE-2024-42325, CVE-2024-45700)
 

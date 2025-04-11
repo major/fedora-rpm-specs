@@ -29,6 +29,7 @@ Requires:       sed
 Requires:       tar
 Requires:       which
 
+Requires:       (kernel-64k-devel-matched if kernel-64k-core)
 Requires:       (kernel-debug-devel-matched if kernel-debug-core)
 Requires:       (kernel-devel-matched if kernel-core)
 # RT kernel has no matched:

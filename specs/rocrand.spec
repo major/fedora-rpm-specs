@@ -35,14 +35,27 @@
 # For docs
 %bcond_with doc
 
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
+
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -64,6 +77,16 @@ BuildRequires:  gtest-devel
 
 %if %{with doc}
 BuildRequires:  doxygen
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       rocrand = %{version}-%{release}
@@ -105,7 +128,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-%cmake \
+%cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -161,6 +184,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Reenable ninja build
+
 * Mon Feb 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - Remove split building
 - Fix SLE 15.6

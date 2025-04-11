@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.1
-Release:        2%{?dist}
+Version:        9.2
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -264,6 +264,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Apr 09 2025 Sandro Mani <manisandro@gmail.com> - 9.2-1
+- Update to 9.2
+
 * Wed Mar 12 2025 Sandro Mani <manisandro@gmail.com> - 9.1-2
 - Fix azure-mgmt-subscription requirement
 

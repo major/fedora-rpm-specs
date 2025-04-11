@@ -1,14 +1,13 @@
 Summary: A perfect hash function generator
 Name: gperf
-Version: 3.1
-Release: 21%{?dist}
+Version: 3.2
+Release: 1%{?dist}
 License: GPL-3.0-or-later
-Source: ftp://ftp.gnu.org/pub/gnu/gperf/gperf-%{version}.tar.gz
+Source: https://ftp.gnu.org/pub/gnu/gperf/gperf-%{version}.tar.gz
 URL: http://www.gnu.org/software/gperf/
 
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Gperf is a perfect hash function generator written in C++. Simply
@@ -37,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT{%{_mandir}/{dvi,html},%{_datadir}/doc}
 %{_infodir}/gperf.info*
 
 %changelog
+* Mon Apr 07 2025 Sérgio Basto <sergio@serjux.com> - 3.2-1
+- Update gperf to 3.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

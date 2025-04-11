@@ -10,6 +10,7 @@ Source0:        %{url}/archive/%{version}/%{version}.tar.gz
 # The protobuf dependency is too strict, this patch relaxes the requirement
 # https://github.com/tgalal/python-axolotl/issues/44
 Patch0:         python-axolotl-protobuf.patch
+Patch1:         python-axolotl-remove-nose.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

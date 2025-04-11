@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.13
+Version:        0.6.14
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -580,19 +580,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2348721
 tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
     '>=0.8.0, <0.11.0'
-
-# unicode-width
-#   wanted: 0.1.13
-#   currently packaged: 0.1.12 (or 0.1.13+really0.1.12)
-# This is a whole mess: https://github.com/unicode-rs/unicode-width/issues/55,
-# https://github.com/unicode-rs/unicode-width/issues/66
-#
-# Once upstream switches to 0.2.0, https://github.com/astral-sh/uv/pull/7632,
-# we will no longer need to patch this; however, for now the upstream change is
-# waiting for textwrap to make a release that includes
-# https://github.com/mgeisler/textwrap/commit/ef91a27bcf5f4cf50ee12993032b227982ecf52e.
-tomcli set Cargo.toml str \
-    workspace.dependencies.unicode-width.version '0.1.12'
 
 %cargo_prep
 

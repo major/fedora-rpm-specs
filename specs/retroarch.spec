@@ -131,6 +131,11 @@ BuildRequires:  mesa-libEGL-devel
 BuildRequires:  spirv-tools-libs
 BuildRequires:  systemd-devel
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+BuildRequires:  stb_image-static
+BuildRequires:  stb_rect_pack-static
+BuildRequires:  stb_truetype-static
+
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dbus-1)
@@ -222,7 +227,8 @@ Provides:       bundled(lua) = 5.3.6
 
 Provides:       bundled(rcheevos) = 10.7
 Provides:       bundled(SPIRV-Cross)
-Provides:       bundled(stb)
+# Unbundling this in the manner of the other stb libraries does not work.
+Provides:       bundled(stb_vorbis)
 
 %if 0%{?fedora} >= 42
 Provides:       bundled(mbedtls) = 2.5.1
@@ -306,6 +312,10 @@ rm -rf                      \
         wayland-protocols   \
         %{nil}
 popd
+for lib in image rect_pack truetype
+do
+  ln -svf /usr/include/stb/stb_${lib}.h deps/stb/stb_${lib}.h
+done
 
 %if 0%{?fedora} < 42
 # * Not part of the 'mbedtls' upstream source

@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.2.1
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -130,10 +130,13 @@ find %{buildroot} -name '*.la' -delete
 
 
 %post manager
-%systemd_user_post gpio-manager.service
+%systemd_post gpio-manager.service
 
 %preun manager
-%systemd_user_preun gpio-manager.service
+%systemd_preun gpio-manager.service
+
+%postun manager
+%systemd_postun_with_restart gpio-manager.service
 
 %files
 %license COPYING
@@ -186,6 +189,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Apr 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 2.2.1-2
+- Fix scriptlets for service enablement
+
 * Wed Feb 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.1-1
 - Update to 2.2.1
 

@@ -768,9 +768,6 @@ run_target_configuration()
 
     export CFLAGS="$RPM_OPT_FLAGS"
 
-    # Some GNU extensions to the C11 standard are used.
-    export CFLAGS="$CFLAGS -std=gnu11"
-
 %ifarch %{power64}
     export CFLAGS="$CFLAGS -Wno-error"
 %endif
@@ -781,6 +778,10 @@ run_target_configuration()
 %endif
 
     export CXXFLAGS="$CXXFLAGS $CFLAGS"
+
+    # Some GNU extensions to the C11 standard are used.
+    # Note set here as -std=gnu11 is not a valid G++ command line option.
+    export CFLAGS="$CFLAGS -std=gnu11"
 
     # BZ 1541027 - include the linker flags from redhat-rpm-config as well.
     export LDFLAGS=$RPM_LD_FLAGS

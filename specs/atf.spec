@@ -1,7 +1,7 @@
 Summary: Automated Testing Framework
 Name:    atf
-Version: 0.22
-Release: 2%{?dist}
+Version: 0.23
+Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL:     https://github.com/freebsd/atf
@@ -160,7 +160,6 @@ rm %{buildroot}%{_libdir}/libatf*.la
 %{_includedir}/atf-c
 %{_libdir}/libatf-c.so
 %{_libdir}/pkgconfig/atf-c.pc
-%{_mandir}/man3/atf-c-api.3.gz
 
 %files -n libatf-c++
 %{_libdir}/libatf-c++.so.2
@@ -173,7 +172,6 @@ rm %{buildroot}%{_libdir}/libatf*.la
 %{_includedir}/atf-c++
 %{_libdir}/libatf-c++.so
 %{_libdir}/pkgconfig/atf-c++.pc
-%{_mandir}/man3/atf-c++-api.3.gz
 
 %files -n libatf-sh
 %{_bindir}/atf-sh
@@ -189,10 +187,13 @@ rm %{buildroot}%{_libdir}/libatf*.la
 %{_datadir}/aclocal/atf-sh.m4
 %{_libdir}/pkgconfig/atf-sh.pc
 %{_mandir}/man1/atf-check.1.gz
-%{_mandir}/man3/atf-sh-api.3.gz
 
 
 %changelog
+* Tue Apr 08 2025 Sérgio Basto <sergio@serjux.com> - 0.23-1
+- Update atf to 0.23
+- Resolves: rhbz#2355972
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

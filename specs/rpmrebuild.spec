@@ -2,8 +2,6 @@ Name:           rpmrebuild
 Version:        2.20
 Release:        3%{?dist}
 Summary:        A tool to build rpm file from rpm database
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://rpmrebuild.sourceforge.net
 
@@ -21,104 +19,32 @@ A tool to build an RPM file from a package that has already been installed.
 %setup -q -c 
 
 %build
-make %{?_smp_mflags}
+%make_build
+
 
 %install
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"
-make install DESTDIR="$RPM_BUILD_ROOT"
+%make_install
+
 
 %files
 %doc AUTHORS Changelog LISEZ.MOI News README Todo rpmrebuild.lsm Version
 %license COPYING COPYRIGHT
-%dir %{_prefix}/lib/rpmrebuild/
-%dir %{_prefix}/lib/rpmrebuild/plugins/
-%dir %{_prefix}/lib/rpmrebuild/locale/
-%dir %{_prefix}/lib/rpmrebuild/locale/fr_FR.UTF-8
-%dir %{_prefix}/lib/rpmrebuild/locale/en
-%dir %{_prefix}/lib/rpmrebuild/locale/fr_FR
-%attr(0755,root,root) %{_prefix}/bin/rpmrebuild
-%config(noreplace)    %{_prefix}/lib/rpmrebuild/optional_tags.cfg
-%attr(0644,root,root) %{_prefix}/lib/rpmrebuild/Version
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/nodoc.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_parser.src
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_extract_tags.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/processing_func.src
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_rpmqf.src
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_buildroot.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/spec_func.src
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_lib.src
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/uniq.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/un_prelink.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/unset_tag.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/demo.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/set_tag.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/file2pacDep.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/demofiles.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_ghost.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_files.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/compat_digest.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/exclude_file.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/empty_section.sh
-%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/replacefile.sh
-%{_prefix}/lib/rpmrebuild/plugins/set_tag.plug
-%{_prefix}/lib/rpmrebuild/plugins/compat_digest.plug
-%{_prefix}/lib/rpmrebuild/plugins/nodoc.plug
-%{_prefix}/lib/rpmrebuild/plugins/demo.plug
-%{_prefix}/lib/rpmrebuild/plugins/file2pacDep.plug
-%{_prefix}/lib/rpmrebuild/plugins/uniq.plug
-%{_prefix}/lib/rpmrebuild/plugins/demofiles.plug
-%{_prefix}/lib/rpmrebuild/plugins/un_prelink.plug
-%{_prefix}/lib/rpmrebuild/plugins/unset_tag.plug
-%{_prefix}/lib/rpmrebuild/plugins/exclude_file.plug
-%{_prefix}/lib/rpmrebuild/plugins/empty_section.plug
-%{_prefix}/lib/rpmrebuild/plugins/replacefile.plug
-%{_prefix}/lib/rpmrebuild/locale/en/rpmrebuild.lang
-%{_prefix}/lib/rpmrebuild/locale/fr_FR.UTF-8/rpmrebuild.lang
-%{_prefix}/lib/rpmrebuild/locale/fr_FR/rpmrebuild.lang
-
-%doc %{_mandir}/man1/rpmrebuild.1*
-%doc %{_mandir}/fr_FR/man1/rpmrebuild.1*
-%doc %{_mandir}/fr_FR.UTF-8/man1/rpmrebuild.1*
-%doc %{_mandir}/man1/rpmrebuild_plugins.1*
-%doc %{_mandir}/fr_FR/man1/rpmrebuild_plugins.1*
-%doc %{_mandir}/fr_FR.UTF-8/man1/rpmrebuild_plugins.1*
-%doc %{_mandir}/man1/compat_digest.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/compat_digest.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/compat_digest.plug.1rrp*
-%doc %{_mandir}/man1/demo.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/demo.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/demo.plug.1rrp*
-%doc %{_mandir}/man1/file2pacDep.plug.1rrp*
-%doc %{_mandir}/man1/demofiles.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/demofiles.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/demofiles.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/file2pacDep.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/file2pacDep.plug.1rrp*
-%doc %{_mandir}/man1/nodoc.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/nodoc.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/nodoc.plug.1rrp*
-%doc %{_mandir}/man1/set_tag.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/set_tag.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/set_tag.plug.1rrp*
-%doc %{_mandir}/man1/un_prelink.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/un_prelink.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/un_prelink.plug.1rrp*
-%doc %{_mandir}/man1/unset_tag.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/unset_tag.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/unset_tag.plug.1rrp*
-%doc %{_mandir}/man1/uniq.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/uniq.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/uniq.plug.1rrp*
-%doc %{_mandir}/man1/exclude_file.plug.1rrp*
-%doc %{_mandir}/fr_FR/man1/exclude_file.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/exclude_file.plug.1rrp*
-%doc %{_mandir}/fr_FR.UTF-8/man1/empty_section.plug.1rrp.gz
-%doc %{_mandir}/fr_FR.UTF-8/man1/replacefile.plug.1rrp.gz
-%doc %{_mandir}/fr_FR/man1/empty_section.plug.1rrp.gz
-%doc %{_mandir}/fr_FR/man1/replacefile.plug.1rrp.gz
-%doc %{_mandir}/man1/empty_section.plug.1rrp.gz
-%doc %{_mandir}/man1/replacefile.plug.1rrp.gz
+%{_bindir}/rpmrebuild
+%{_prefix}/lib/rpmrebuild
+%{_mandir}{,/*}/man1/compat_digest.plug.1rrp*
+%{_mandir}{,/*}/man1/demo.plug.1rrp*
+%{_mandir}{,/*}/man1/demofiles.plug.1rrp*
+%{_mandir}{,/*}/man1/empty_section.plug.1rrp*
+%{_mandir}{,/*}/man1/exclude_file.plug.1rrp*
+%{_mandir}{,/*}/man1/file2pacDep.plug.1rrp*
+%{_mandir}{,/*}/man1/nodoc.plug.1rrp*
+%{_mandir}{,/*}/man1/replacefile.plug.1rrp*
+%{_mandir}{,/*}/man1/rpmrebuild.1*
+%{_mandir}{,/*}/man1/rpmrebuild_plugins.1*
+%{_mandir}{,/*}/man1/set_tag.plug.1rrp*
+%{_mandir}{,/*}/man1/un_prelink.plug.1rrp*
+%{_mandir}{,/*}/man1/uniq.plug.1rrp*
+%{_mandir}{,/*}/man1/unset_tag.plug.1rrp*
 
 
 %changelog

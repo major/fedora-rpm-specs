@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.9
+%global general_version %{pybasever}.10
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -71,28 +71,28 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 24.3.1
+%global pip_version 25.0.1
 %global setuptools_version 67.6.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14
+Provides: bundled(python3dist(cachecontrol)) = 0.14.1
 Provides: bundled(python3dist(certifi)) = 2024.8.30
 Provides: bundled(python3dist(distlib)) = 0.3.9
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.7
-Provides: bundled(python3dist(msgpack)) = 1.0.8
-Provides: bundled(python3dist(packaging)) = 24.1
-Provides: bundled(python3dist(platformdirs)) = 4.2.2
+Provides: bundled(python3dist(idna)) = 3.10
+Provides: bundled(python3dist(msgpack)) = 1.1
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.3.6
 Provides: bundled(python3dist(pygments)) = 2.18
-Provides: bundled(python3dist(pyproject-hooks)) = 1
+Provides: bundled(python3dist(pyproject-hooks)) = 1.2
 Provides: bundled(python3dist(requests)) = 2.32.3
 Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.7.1
+Provides: bundled(python3dist(rich)) = 13.9.4
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(tomli)) = 2.2.1
 Provides: bundled(python3dist(truststore)) = 0.10
 Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
@@ -364,18 +364,6 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00452 # eb11d070c5af7d1b5e47f4e02186152d08eaf793
-# Properly apply exported CFLAGS for dtrace/systemtap builds
-#
-# When using --with-dtrace the resulting object file could be missing
-# specific CFLAGS exported by the build system due to the systemtap
-# script using specific defaults.
-#
-# Exporting the CC and CFLAGS variables before the dtrace invocation
-# allows us to properly apply CFLAGS exported by the build system
-# even when cross-compiling.
-Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -1695,6 +1683,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 09 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.10-1
+- Update to 3.12.10
+
 * Mon Mar 31 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.9-3
 - Properly apply exported CFLAGS for dtrace/systemtap builds
 - Fixes: rhbz#2356301

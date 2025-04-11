@@ -17,7 +17,7 @@
 
 
 Name:           certbot
-Version:        3.3.0
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -373,6 +373,9 @@ fi
 
 
 %changelog
+* Wed Apr 09 2025 Jonathan Wright <jonathan@almalinux.org> - 4.0.0-1
+- update to 4.0.0 rhbz#2336260
+
 * Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 3.3.0-1
 - update to 3.3.0 rhbz#2336260
 

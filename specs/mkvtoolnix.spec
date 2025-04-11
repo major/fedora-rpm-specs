@@ -83,7 +83,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.bunkus.mkvtoolnix
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.bunkus.mkvtoolnix-gui.appdata.xml
 
 install -pm 755 \
-    src/tools/{base64tool,diracparser,dovic_dump,dts_dump,ebml_validator,hevcc_dump,pgs_dump,vc1parser,xyzvc_dump}\
+    src/tools/{base64tool,bluray_dump,diracparser,dovic_dump,dts_dump,ebml_validator,hevcc_dump,pgs_dump,vc1parser,xyzvc_dump}\
     $RPM_BUILD_ROOT%{_bindir}
 
 %find_lang %{name}
@@ -102,6 +102,7 @@ drake tests:run_unit
 %license COPYING
 %doc AUTHORS README.md
 %{_bindir}/base64tool
+%{_bindir}/bluray_dump
 %{_bindir}/diracparser
 %{_bindir}/dovic_dump
 %{_bindir}/dts_dump

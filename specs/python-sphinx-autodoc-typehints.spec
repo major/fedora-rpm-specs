@@ -6,7 +6,7 @@ This extension allows you to use Python 3 annotations for documenting
 acceptable argument types and return value types of functions.}
 
 Name:           python-%{srcname}
-Version:        2.5.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Type hints support for the Sphinx autodoc extension
 
@@ -31,7 +31,7 @@ Summary:        %{summary}
 # Requires sphinx>=8.0.2, sphinx in Fedora lacks 6 months behind at the moment
 sed -i -e "s/sphinx>=[0-9.]*/sphinx/g" pyproject.toml
 # Relax the version constraint of hatchling, it is unnecessarily strict for EL10
-sed -i -e "s/hatchling>=1.25/hatchling>=1.24/" pyproject.toml
+sed -i -e "s/hatchling>=1.27/hatchling>=1.24/" pyproject.toml
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

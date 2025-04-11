@@ -24,16 +24,11 @@ Summary: Speedrun-oriented Doom source port
 # Check the discussion at: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/310
 License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
-Version: 0.28.3
+Version: 0.29.0
 Release: 1%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
-
-# Fix missing includes.
-#
-# Submitted upstream: https://github.com/kraflab/dsda-doom/pull/578/
-Patch1: 0001-missing-includes.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -59,6 +54,9 @@ BuildRequires: pkgconfig(SDL2_net)
 BuildRequires: pkgconfig(vorbisfile)
 
 Requires: %{name}-data = %{version}-%{release}
+
+# Used for playing music in XM format; used by some custom level sets.
+Recommends: libxmp%{?_isa}
 
 
 %description
@@ -124,6 +122,10 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Wed Apr 09 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.0-1
+- Update to v0.29.0 (rhbz#2358523)
+- Add weak dependency on libxmp (rhbz#2333738)
+
 * Fri Jan 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.28.3-1
 - Update to v0.28.3
 

@@ -11,14 +11,14 @@
 %global uuid netspeed@hedayaty.gmail.com
 
 Name:           gnome-shell-extension-netspeed
-Version:        47
+Version:        48
 Release:        %autorelease.1
 Summary:        A gnome-shell extension to show speed of the internet
 BuildArch:      noarch
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/martinkg/NetSpeed
-Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/gnome-shell-extension-netspeed-47.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/gnome-shell-extension-netspeed-48.tar.gz
 
 BuildRequires: gettext
 BuildRequires: glib2
@@ -60,6 +60,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Wed Apr 09 2025 Martin Gansser <martinkg@fedoraproject.org> - 48-1
+- Add gnome 48 Support
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

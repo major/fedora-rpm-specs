@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.30.2
+%global up_version   1.30.3
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -215,7 +215,7 @@ make check || ret=1
 [ -s server.pid ] && kill $(cat server.pid)
 %endif
 
-if grep -r static %{buildroot}%{_libdir}/cmake; then
+if grep -r static %{buildroot}%{_libdir}/cmake/*%{libver}; then
   : cmake configuration file contain reference to static library
   ret=1
 fi
@@ -239,6 +239,7 @@ exit $ret
 %{_libdir}/pkgconfig/%{libname}-*.pc
 %{_libdir}/cmake/%{libname}-%{libver}
 %{_libdir}/cmake/mongoc-%{libver}
+%{_libdir}/cmake/mongoc-%{version}
 %{_mandir}/man3/mongoc*
 
 %files -n libbson
@@ -253,12 +254,17 @@ exit $ret
 %{_libdir}/libbson*.so
 %{_libdir}/cmake/libbson-%{libver}
 %{_libdir}/cmake/bson-%{libver}
+%{_libdir}/cmake/bson-%{version}
 %{_libdir}/pkgconfig/libbson-*.pc
 %{_mandir}/man3/bson*
 %{_mandir}/man3/libbson*
 
 
 %changelog
+* Wed Apr  9 2025 Remi Collet <remi@remirepo.net> - 1.30.3-1
+- update to 1.30.3
+- add configuration for mongoc and bson cmake targets
+
 * Wed Mar  5 2025 Remi Collet <remi@remirepo.net> - 1.30.2-1
 - update to 1.30.2
 

@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.21
+%global general_version %{pybasever}.22
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -385,21 +385,6 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # 00407 # 17dbfc39d1118a479e7ea244ad46fb6eeeb38280
 # gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
 Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
-
-# 00438 # 640f507108d102da99fa2f39d268a43f86c97acb
-# Fix ThreadedVSOCKSocketStreamTest (GH-119465) (GH-119479) (#119484)
-#
-# Fix ThreadedVSOCKSocketStreamTest: if get_cid() returns the host
-# address or the "any" address, use the local communication address
-# (loopback): VMADDR_CID_LOCAL.
-#
-# On Linux 6.9, apparently, the /dev/vsock device is now available but
-# get_cid() returns VMADDR_CID_ANY (-1).
-Patch438: 00438-fix-threadedvsocksocketstreamtest-gh-119465-gh-119479-119484.patch
-
-# 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
-# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
-Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
 
 # 00452 # eb11d070c5af7d1b5e47f4e02186152d08eaf793
 # Properly apply exported CFLAGS for dtrace/systemtap builds
@@ -1860,6 +1845,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 09 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.22-1
+- Update to 3.9.22
+
 * Mon Mar 31 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.9.21-5
 - Properly apply exported CFLAGS for dtrace/systemtap builds
 - Fixes: rhbz#2356304

@@ -261,8 +261,8 @@
 %endif
 
 Name:	chromium
-Version: 135.0.7049.52
-Release: 2%{?dist}
+Version: 135.0.7049.84
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -362,7 +362,7 @@ Patch356: chromium-133-pipewire-cast.patch
 Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
-Patch358: chromium-127-rust-clanglib.patch
+Patch358: chromium-135-rust-clanglib.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -1781,6 +1781,10 @@ fi
 %endif
 
 %changelog
+* Wed Apr 09 2025 Than Ngo <than@redhat.com> - 135.0.7049.84-1
+- Update to 135.0.7049.84
+  * CVE-2025-3066: Use after free in Site Isolation
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 135.0.7049.52-2
 - Add CFI suppressions for inline PipeWire functions
 

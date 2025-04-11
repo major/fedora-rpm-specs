@@ -1,9 +1,14 @@
+# It is not possible to unbundle libelectronic-id, read
+# https://github.com/web-eid/libelectronic-id/issues/120 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2325424
+
+
 %global _hardened_build 1
 %define debug_package %{nil}
 
 Name:    web-eid
 Version: 2.5.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -37,6 +42,7 @@ Provides: webextension-token-signing = %{version}-%{release}
 # sufficiently compatible replacement as defined above, use only the Obsoletes:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/
 Obsoletes: firefox-pkcs11-loader
+Provides: bundled(libelectronic-id)
 
 %description
 The Web eID application performs cryptographic digital signing and
@@ -92,6 +98,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 2.5.0-7
+- Adds Provides: bundled(libelectronic-id)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

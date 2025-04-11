@@ -5,7 +5,7 @@
 %bcond_without docs
 
 Name:           python-%{pypi_name}
-Version:        1.15.0
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        JOSE protocol implementation in Python
 
@@ -100,6 +100,10 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Wed Apr 09 2025 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-1
+- update to 2.0.0 rhbz#2344768
+- fixes python 3.14 compatibility rhbz#2342557
+
 * Thu Jan 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.15.0-1
 - update to 1.15.0
 

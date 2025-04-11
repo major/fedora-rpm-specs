@@ -1,17 +1,12 @@
-# Build from git HEAD for OCaml 5.x support
-%global commit      d53390d788027fe0a2282c4745eb3d1626341f99
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20240529
-
 Name:           ocaml-stdcompat
-Version:        19^%{date}.%{shortcommit}
-Release:        2%{?dist}
+Version:        20.1
+Release:        %autorelease
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
-URL:            https://github.com/thierry-martinez/stdcompat
+URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
-Source:         %{url}/archive/%{commit}/stdcompat-%{shortcommit}.tar.gz
+Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz
 # Fix detection of OCaml tools
 # https://github.com/thierry-martinez/stdcompat/pull/31
 Patch:          %{name}-configure.patch
@@ -57,7 +52,7 @@ The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n stdcompat-%{commit} -p1
+%autosetup -n stdcompat-%{version} -p1
 
 %conf
 # Regenerate configure after Patch0 and Patch1
@@ -105,86 +100,4 @@ LD_LIBRARY_PATH=$PWD make test
 %files devel -f .ofiles-devel
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19^20240529.d53390d-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 19^20240529.d53390d-1
-- OCaml 5.3.0 rebuild for Fedora 42
-- Update to git HEAD for OCaml 5.x compatibility
-- Add patch for OCaml 5.3.0 compatibility
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 19 2024 Richard W.M. Jones <rjones@redhat.com> - 19-17
-- OCaml 5.2.0 ppc64le fix
-
-* Wed May 29 2024 Richard W.M. Jones <rjones@redhat.com> - 19-16
-- OCaml 5.2.0 for Fedora 41
-
-* Thu May 23 2024 Jerry James <loganjerry@gmail.com> - 19-15
-- Add patch for OCaml 5.2.0 compatibility
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 19-13
-- Bump release and rebuild
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 19-12
-- OCaml 5.1.1 + s390x code gen fix for Fedora 40
-
-* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 19-11
-- OCaml 5.1.1 rebuild for Fedora 40
-
-* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 19-10
-- OCaml 5.1 rebuild for Fedora 40
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 19-8
-- OCaml 5.0 rebuild for Fedora 39
-
-* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 19-7
-- OCaml 5.0.0 rebuild
-- Add patch to fix tool detection on bytecode-only arches
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 19-6
-- Rebuild OCaml packages for F38
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 19-4
-- Convert License tag to SPDX
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 19-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 19-3
-- Use new OCaml macros
-
-* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 19-3
-- Bump release and rebuild.
-
-* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 19-2
-- OCaml 4.14.0 rebuild
-
-* Thu Jun 16 2022 Jerry James <loganjerry@gmail.com> - 19-1
-- Version 19
-
-* Mon Feb 28 2022 Jerry James <loganjerry@gmail.com> - 18-1
-- Version 18
-
-* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 17-3
-- OCaml 4.13.1 rebuild to remove package notes
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 17-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Dec 31 2021 Jerry James <loganjerry@gmail.com> - 17-1
-- Initial RPM
+%autochangelog

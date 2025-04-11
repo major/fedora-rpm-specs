@@ -1,6 +1,12 @@
+%if (0%{?rhel} == 10)
+%global docs 0
+%else
+%global docs 1
+%endif
+
 Name: dlt-daemon
 Version: 2.18.10
-Release: 1%{?dist}
+Release: 4%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
@@ -9,11 +15,19 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0: dlt-daemon-config.patch
 
 BuildRequires: cmake
+%if 0%{?docs}
 BuildRequires: pandoc
+%endif
+
 BuildRequires: systemd
 BuildRequires: systemd-devel
 BuildRequires: gcc-c++
+%if ((0%{?fedora} >= 38) || (0%{?rhel} >= 10))
 BuildRequires: zlib-ng-compat-devel
+%else
+BuildRequires: zlib-devel
+%endif
+
 Requires(pre): shadow-utils
 
 %description
@@ -66,7 +80,9 @@ cd build
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DWITH_DLT_USE_IPv6=OFF \
         -DDLT_IPC=UNIX_SOCKET \
+%if 0%{?docs}
         -DWITH_MAN=ON \
+%endif
         -DWITH_SYSTEMD=ON \
         -DWITH_SYSTEMD_WATCHDOG=ON \
         -DWITH_SYSTEMD_JOURNAL=ON \
@@ -95,9 +111,11 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_unitdir}/dlt.service
 %attr(0755,root,root)
 %{_bindir}/dlt-daemon
+%if 0%{?docs}
 %{_mandir}/man1/dlt-daemon.1*
 %{_mandir}/man5/dlt.conf.5*
 %{_mandir}/man5/dlt_gateway.conf.5*
+%endif
 %{_sysusersdir}/dlt-daemon.conf
 
 %files -n dlt-examples
@@ -137,6 +155,7 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_unitdir}/dlt-receive.service
 %{_unitdir}/dlt-system.service
 %{_unitdir}/dlt-adaptor-udp.service
+%if 0%{?docs}
 %{_mandir}/man1/dlt-adaptor-stdin.1*
 %{_mandir}/man1/dlt-adaptor-udp.1*
 %{_mandir}/man1/dlt-control.1*
@@ -147,6 +166,7 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_mandir}/man1/dlt-sortbytimestamp.1*
 %{_mandir}/man1/dlt-system.1*
 %{_mandir}/man5/dlt-system.conf.5*
+%endif
 
 %files -n dlt-libs
 %{_libdir}/libdlt.so.*
@@ -158,6 +178,12 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Wed Apr 9 2025 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.10-3
+- Unify EL9,EL10,F42,rawhide
+
+* Thu Mar 20 2025 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.10-2
+- EL10 does not have pandoc so man pages cant be made
+
 * Wed Mar 19 2025 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.10-1
 - Update to final 2.18.10 version
 
@@ -187,11 +213,9 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 - migrated to SPDX license
 - Update patchset for fat finger problem in upstream on udp package.
 
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Wed Mar 2 2022 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.8-4
+- Make temporary changes to remove pandoc requirements. This removes
+  man pages from the EPEL-9 package.
 
 * Tue Feb 22 2022 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.8-3
 - Require shadow-utils in pre for user creation
