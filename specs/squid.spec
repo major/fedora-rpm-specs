@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  6.13
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -26,7 +26,12 @@ Source98: perl-requires-squid.sh
 # Upstream patches
 
 # Backported patches
-# Patch101: patch
+# Upstream PR: https://github.com/squid-cache/squid/pull/1442
+Patch101: squid-6.1-crash-half-closed.patch
+# Upstream PR: https://github.com/squid-cache/squid/pull/1914
+Patch102: squid-6.11-ignore-wsp-after-chunk-size.patch
+# Upstream commit: https://github.com/squid-cache/squid/commit/022dbabd89249f839d1861aa87c1ab9e1a008a47
+Patch103: squid-6.13-cache-peer-connect-errors.patch
 
 # Local patches
 # Applying upstream patches first makes it less likely that local patches
@@ -37,10 +42,6 @@ Patch203: squid-6.1-perlpath.patch
 # revert this upstream patch - https://bugzilla.redhat.com/show_bug.cgi?id=1936422
 # workaround for #1934919
 Patch204: squid-6.1-symlink-lang-err.patch
-# Upstream PR: https://github.com/squid-cache/squid/pull/1442
-Patch205: squid-6.1-crash-half-closed.patch
-# Upstream PR: https://github.com/squid-cache/squid/pull/1914
-Patch206: squid-6.11-ignore-wsp-after-chunk-size.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -315,6 +316,9 @@ fi
 
 
 %changelog
+* Wed Mar 12 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.13-2
+- Do not blame cache_peer for 4xx CONNECT responses
+
 * Tue Feb 04 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.13-1
 - new version 6.13
 

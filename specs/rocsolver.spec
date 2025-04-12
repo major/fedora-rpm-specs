@@ -49,9 +49,22 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
+
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -92,6 +105,16 @@ BuildRequires:  blas-static
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
 BuildRequires:  lapack-static
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       rocsolver = %{version}-%{release}
@@ -161,7 +184,7 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
     JOBS=$LINK_JOBS
 fi
 
-%cmake \
+%cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -176,9 +199,15 @@ fi
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
-    -DBUILD_CLIENTS_TESTS=%{build_test}
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DROCSOLVER_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
+    -DROCSOLVER_PARALLEL_LINK_JOBS=${LINK_JOBS}
 
+%if %{with ninja}
+%cmake_build
+%else
 %cmake_build -j ${JOBS}
+%endif
 
 %install
 %cmake_install
@@ -212,6 +241,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
+- Reenable ninja
+
 * Sun Apr 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
 - Document RFE to remove fmt dependency
 

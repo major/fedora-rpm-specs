@@ -1045,7 +1045,7 @@ Qt6 UI for chromium.
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
-%if 0%{?rhel} || 0%{?fedora} == 40 
+%if 0%{?rhel}
 %patch -P315 -p1 -b .rust-libadler2
 %endif
 %patch -P316 -p1 -b .clang-build-flags

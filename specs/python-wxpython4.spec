@@ -11,8 +11,8 @@ systems with a native look and feel and requiring very little (if any) platform\
 specific code.
 
 Name:           python-wxpython4
-Version:        4.2.2
-Release:        3%{?dist}
+Version:        4.2.3
+Release:        1%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -23,8 +23,6 @@ Summary:        %{sum}
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND BSD-2-Clause
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch:          fix-datetime-docs.patch
-Patch:          https://github.com/wxWidgets/Phoenix/commit/de9aa4be5bb49adf82991c7582ea3c42ed505bf7.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -51,6 +49,7 @@ Summary:        %{sum}
 BuildRequires:  python3-cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-pillow
+BuildRequires:  python3-requests
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  python3dist(sip) >= 6.8.5
@@ -104,7 +103,6 @@ sed -i 's/\r$//' docs/sphinx/rest_substitutions/snippets/python/contrib/*.py
 sed -i 's/\r$//' docs/sphinx/rest_substitutions/snippets/python/converted/*.py
 sed -i 's/\r$//' docs/sphinx/_downloads/i18nwxapp/locale/I18Nwxapp.pot
 sed -i 's/\r$//' docs/sphinx/make.bat
-sed -i 's/\r$//' docs/sphinx/phoenix_theme/theme.conf
 sed -i 's/\r$//' samples/floatcanvas/BouncingBall.py
 # Remove spurious executable perms
 chmod -x demo/*.py
@@ -158,6 +156,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Fri Apr 11 2025 Scott Talbert <swt@techie.net> - 4.2.3-1
+- Update to new upstream release 4.2.3 (#2358774)
+
 * Sat Feb 22 2025 Scott Talbert <swt@techie.net> - 4.2.2-3
 - Fix FTBFS w/ sip 6.10.0
 

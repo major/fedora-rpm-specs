@@ -54,7 +54,7 @@
 %global source_directory 1.43-development
 
 Name:           nbdkit
-Version:        1.43.4
+Version:        1.43.5
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -111,6 +111,10 @@ BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libnbd)
+%if !0%{?rhel}
+# We require libnfs >= 6, but the internal version is >= 16
+BuildRequires:  pkgconfig(libnfs) >= 16
+%endif
 BuildRequires:  pkgconfig(libssh)
 BuildRequires:  e2fsprogs
 BuildRequires:  pkgconfig(ext2fs)
@@ -428,6 +432,16 @@ Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 %description nbd-plugin
 This package lets you forward NBD connections from %{name}
 to another NBD server.
+
+
+%if !0%{?rhel}
+%package nfs-plugin
+Summary:        NFS (Network File Server) plugin for %{name}
+Requires:       %{name}-server%{?_isa} = %{version}-%{release}
+
+%description nfs-plugin
+This package contains Network File Server (NFS) support for %{name}.
+%endif
 
 
 %if !0%{?rhel} && 0%{?have_ocaml}
@@ -1218,6 +1232,15 @@ fi
 %{_mandir}/man1/nbdkit-nbd-plugin.1*
 
 
+%if !0%{?rhel}
+%files nfs-plugin
+%doc README.md
+%license LICENSE
+%{_libdir}/%{name}/plugins/nbdkit-nfs-plugin.so
+%{_mandir}/man1/nbdkit-nfs-plugin.1*
+%endif
+
+
 %if !0%{?rhel} && 0%{?have_ocaml}
 %files ocaml-plugin
 %doc README.md
@@ -1513,6 +1536,10 @@ fi
 
 
 %changelog
+* Thu Apr 10 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.5-1
+- New upstream development branch version 1.43.5
+- New subpackage nbdkit-nfs-plugin
+
 * Wed Apr 02 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.4-1
 - New upstream development branch version 1.43.4
 

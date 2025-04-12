@@ -38,12 +38,25 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
+
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -71,6 +84,16 @@ BuildRequires:  gtest-devel
 BuildRequires:  libomp-devel
 BuildRequires:  python3-pyyaml
 BuildRequires:  rocblas-devel
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       rocsparse = %{version}-%{release}
@@ -112,7 +135,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-%cmake \
+%cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -166,6 +189,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
+- Reenable ninja
+
 * Wed Feb 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Remove multi build
 - Fix SLE 15.6

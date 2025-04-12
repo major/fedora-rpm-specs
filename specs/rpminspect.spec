@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Build deviation analysis and compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPL-3.0-or-later, and:
@@ -168,15 +168,28 @@ control files.
 
 
 %install
+# Install bundled library docs and licenses
+install -D -m 0644 libxdiff/AUTHORS %{buildroot}%{_pkgdocdir}/libxdiff/AUTHORS
+install -D -m 0644 libxdiff/README %{buildroot}%{_pkgdocdir}/libxdiff/README
+install -D -m 0644 libxdiff/COPYING %{buildroot}%{_defaultlicensedir}/%{name}/libxdiff/COPYING
+
+install -D -m 0644 libtoml/README.md %{buildroot}%{_pkgdocdir}/libtoml/README.md
+install -D -m 0644 libtoml/README.rpminspect %{buildroot}%{_pkgdocdir}/libtoml/README.rpminspect
+install -D -m 0644 libtoml/LICENSE %{buildroot}%{_defaultlicensedir}/%{name}/libtoml/LICENSE
+
 %meson_install
 %find_lang %{name}
 
 
 %files -f %{name}.lang
 %doc AUTHORS.md CHANGES.md README.md TODO
-%doc libxdiff/AUTHORS libxdiff/README
-%doc libtoml/README.md libtoml/README.rpminspect
-%license COPYING libxdiff/COPYING libtoml/LICENSE
+%doc %{_pkgdocdir}/libxdiff/AUTHORS
+%doc %{_pkgdocdir}/libxdiff/README
+%doc %{_pkgdocdir}/libtoml/README.md
+%doc %{_pkgdocdir}/libtoml/README.rpminspect
+%license COPYING
+%license %{_defaultlicensedir}/%{name}/libxdiff/COPYING
+%license %{_defaultlicensedir}/%{name}/libtoml/LICENSE
 %{_bindir}/rpminspect
 %{_mandir}/man1/rpminspect.1*
 
@@ -198,6 +211,9 @@ control files.
 
 
 %changelog
+* Thu Apr 10 2025 David Cantrell <dcantrell@redhat.com> - 2.0-4
+- Fixed the FTBFS erors on rawhide (SWMBZBUGSM-411)
+
 * Mon Dec 09 2024 Pete Walter <pwalter@fedoraproject.org> - 2.0-3
 - Rebuild for ICU 76
 

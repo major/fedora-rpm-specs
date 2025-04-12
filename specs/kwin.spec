@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 6.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -14,6 +14,8 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# backends/drm: also clean up pending commits with legacy modesetting
+Patch0:  https://invent.kde.org/plasma/kwin/-/commit/93bf2f98ae22e654d997c7140b7fe9936fa3f2d3.patch
 
 ## proposed patches
 
@@ -304,6 +306,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Thu Apr 10 2025 Alessandro Astone <ales.astone@gmail.com> - 6.3.4-2
+- Backport patch to fix a common crash
+
 * Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
 - 6.3.4
 

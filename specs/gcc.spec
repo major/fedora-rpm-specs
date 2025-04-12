@@ -1,12 +1,12 @@
-%global DATE 20250329
-%global gitrev 3d14ac28b1c0233636b21171759b471b39ecee35
+%global DATE 20250410
+%global gitrev 5f1acb12c814822a776336abcae1988c1e42858e
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 0
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
-%global newlib_cygwin_gitrev 2e4db338ac125579d555aeee516e48588a628a16
+%global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
 %if 0%{?fedora:1}
 %global _performance_build 1
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.11%{?dist}
+Release: %{gcc_release}.12%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -305,9 +305,7 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
-Patch13: gcc15-pr119291-1.patch
-Patch14: gcc15-pr119291-2.patch
-Patch15: gcc15-pr119327.patch
+Patch13: gcc15-pr119327.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -559,6 +557,7 @@ This package contains static Modula-2 libraries.
 %package gcobol
 Summary: COBOL support
 Requires: gcc = %{version}-%{release}
+Requires: gcc-c++ = %{version}-%{release}
 Requires: libgcobol = %{version}-%{release}
 Autoreq: true
 
@@ -3768,6 +3767,42 @@ end
 %endif
 
 %changelog
+* Thu Apr 10 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.12
+- update from trunk
+  - PRs ada/119571, analyzer/113253, bootstrap/119680, c/78008, c/81831,
+	c/101440, c/114957, c/117689, c/118118, c/119173, c/119582, c/119612,
+	c++/60972, c++/64500, c++/90468, c++/99546, c++/106976, c++/109961,
+	c++/113925, c++/116285, c++/116960, c++/117336, c++/117530,
+	c++/117849, c++/118249, c++/118626, c++/118629, c++/118698,
+	c++/118982, c++/119303, c++/119383, c++/119387, c++/119401,
+	c++/119462, c++/119518, c++/119551, c++/119563, c++/119564,
+	c++/119574, c++/119608, c++/119652, cobol/119283, cobol/119295,
+	cobol/119364, cobol/119414, cobol/119521, cobol/119682, d/117002,
+	d/117832, d/118309, driver/58973, fortran/101602, fortran/119460,
+	fortran/119656, gcov-profile/119535, gcov-profile/119553,
+	gcov-profile/119618, ipa/119599, libfortran/119460, libstdc++/109162,
+	libstdc++/110498, libstdc++/114758, libstdc++/114945,
+	libstdc++/115046, libstdc++/119517, libstdc++/119545,
+	libstdc++/119550, libstdc++/119593, libstdc++/119620,
+	libstdc++/119642, libstdc++/119671, middle-end/78874,
+	middle-end/101018, middle-end/112589, middle-end/116595,
+	middle-end/118965, middle-end/119442, middle-end/119482,
+	middle-end/119537, middle-end/119541, middle-end/119559,
+	middle-end/119613, middle-end/119662, preprocessor/118674,
+	preprocessor/119391, rtl-optimization/119291, rtl-optimization/119594,
+	rtl-optimization/119672, rtl-optimization/119689, target/117759,
+	target/119308, target/119369, target/119473, target/119539,
+	target/119549, target/119556, target/119572, target/119573,
+	target/119645, target/119664, target/119678, testsuite/116398,
+	testsuite/118597, tree-optimization/80331, tree-optimization/87502,
+	tree-optimization/103827, tree-optimization/113281,
+	tree-optimization/118924, tree-optimization/119491,
+	tree-optimization/119493, tree-optimization/119532,
+	tree-optimization/119534, tree-optimization/119586,
+	tree-optimization/119614, tree-optimization/119616,
+	tree-optimization/119640, web/119227
+  - fix up LTO opts handling (##2356219, PR lto/119625)
+
 * Sat Mar 29 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.11
 - update from trunk
   - PRs ada/119265, ada/119440, analyzer/119278, bootstrap/119513, c/116545,

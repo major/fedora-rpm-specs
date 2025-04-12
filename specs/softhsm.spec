@@ -4,7 +4,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}11%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}13%{?prever:.%{prever}}%{?dist}
 License: BSD-2-clause
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
@@ -27,6 +27,7 @@ Patch6: softhsm-rhbz2337819.patch
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
 BuildRequires: gcc-c++, pkgconfig, p11-kit-devel
+BuildRequires: systemd-rpm-macros
 
 Requires(pre): shadow-utils
 Requires: p11-kit
@@ -145,6 +146,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Wed Apr 09 2025 Andrea Bolognani <abologna@redhat.com> - 2.6.1-13
+- Add BuildRequires on systemd-rpm-macros
+
 * Mon Jan 27 2025 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-12
 - Add support for zero-length AAD in AES-GCM
 - Resolves: rhbz#2337819

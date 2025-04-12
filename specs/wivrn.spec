@@ -2,9 +2,9 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  0.24
+%global wivrn_version  0.24.1
 %global tag0           v%{wivrn_version}
-%global date           20250404
+%global date           20250410
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in CMakeLists.txt FetchContent_Declare(monado))

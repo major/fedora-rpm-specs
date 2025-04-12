@@ -1,11 +1,11 @@
 Name:      python-typing-extensions
-Version:   4.13.1
+Version:   4.13.2
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
-Source0:   %{pypi_source typing_extensions}
+Source:    %{pypi_source typing_extensions}
 
 BuildArch: noarch
 
@@ -70,6 +70,9 @@ cd src
 
 
 %changelog
+* Thu Apr 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.2-1
+- Update to 4.13.2
+
 * Fri Apr 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.1-1
 - Updated to version 4.13.1 (close RHBZ#2357244)
 

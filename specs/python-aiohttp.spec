@@ -2,11 +2,10 @@
 # Build dependencies gunicorn and uvloop are required only for integration
 # tests, which can be omitted if they are not available.
 %bcond gunicorn 1
-# Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2332434
-%bcond uvloop %{undefined el10}
+%bcond uvloop 1
 
 Name:           python-aiohttp
-Version:        3.11.13
+Version:        3.11.16
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 

@@ -1,6 +1,21 @@
+# We have gnulib and we will unbundle their sources
+%if 0%{?rhel} == 10
+# bug #2358779
+%bcond_with gnulib
+%else
+%bcond_without gnulib
+%endif
+
+# Package bz3most tool
+%if 0%{?rhel} && 0%{?rhel} >= 10
+%bcond_with most
+%else
+%bcond_without most
+%endif
+
 Name:           bzip3
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
 # bz3grep:                  BSD-2-Clause
@@ -11,6 +26,8 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # LICENSE:                  LGPL-3.0 text
 # src/libbz3.c:             LGPL-3.0-or-later
 # src/main.c:               LGPL-3.0-or-later
+## Used at build time but not in any binary package
+# build-aux/git-version-gen:    GPL-3.0-or-later
 ## Unbundled and not in any binary package
 # aclocal.m4:               FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/ax_build_date_epoch.m4: GPL-3.0-or-later WITH Autoconf-exception-macro
@@ -20,7 +37,6 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-generic
-# build-aux/git-version-gen:    GPL-3.0-or-later
 # build-aux/install-sh:     X11 AND "FSF changes to this file are in the public domain"
 # build-aux/libtool.m4:     FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
 #                           AND FSFUL
@@ -52,8 +68,10 @@ BuildRequires:  findutils
 # awk in configure.ac, configure, Makefile.in
 BuildRequires:  gawk
 BuildRequires:  gcc
+%if %{with gnulib}
 # For git-version-gen script executed from autoconf.ac
 BuildRequires:  gnulib-devel
+%endif
 BuildRequires:  libtool
 BuildRequires:  make
 # PKG_PROG_PKG_CONFIG in configure.ac
@@ -62,15 +80,13 @@ BuildRequires:  pkgconf-pkg-config
 BuildRequires:  sed
 # Tests:
 # md5sum is not helpful
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-# Executed by bz3grep
-Requires:       grep
-# Executed by bz3less
-Requires:       less
-# Executed by bz3more
-Requires:       util-linux-core
-# Executed by bz3most
-Requires:       most
+Requires:       %{name}-grep = %{version}-%{release}
+Requires:       %{name}-less = %{version}-%{release}
+Requires:       %{name}-more = %{version}-%{release}
+%if %{with most}
+Requires:       %{name}-most = %{version}-%{release}
+%endif
+Requires:       %{name}-tools%{?_isa} = %{version}-%{release}
 
 %description
 These are tools for compressing, decompressing, printing, and searching bzip3
@@ -79,6 +95,9 @@ bzip2 thanks to an order-0 context mixing entropy coder, a fast
 Burrows-Wheeler transform code making use of suffix arrays and a run-length
 encoding with Lempel-Ziv prediction pass based on LZ77-style string matching
 and PPM-style context modeling.
+
+If you only need bzip3 tool, consider installing %{name}-tools package
+instead.
 
 %package libs
 Summary:        Shared libraries for bzip3 compression and decompression
@@ -104,6 +123,67 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Header files, a pkg-config module and link objects for building applications
 which use a bzip3 library.
 
+%package grep
+Summary:        Print lines matching a pattern in bzip3-compressed files
+License:        LGPL-3.0-or-later
+BuildArch:      noarch
+Requires:       %{name}-tools = %{version}-%{release}
+Requires:       grep
+
+%description grep
+This package contains a bz3most tool. It displays bzip3-compressed files with
+the "most" pager.
+
+%package less
+Summary:        View bzip3-compressed files with less pager
+License:        LGPL-3.0-or-later
+BuildArch:      noarch
+Requires:       %{name}-tools = %{version}-%{release}
+Requires:       less
+
+%description less
+This package contains a bz3less tool. It displays bzip3-compressed files with
+the "less" pager.
+
+%package more
+Summary:        View bzip3-compressed files with more pager
+License:        LGPL-3.0-or-later
+BuildArch:      noarch
+Requires:       %{name}-tools = %{version}-%{release}
+# For "more" program
+Requires:       util-linux-core
+
+%description more
+This package contains a bz3more tool. It displays bzip3-compressed files with
+the "more" pager.
+
+%if %{with most}
+%package most
+Summary:        View bzip3-compressed files with most pager
+License:        LGPL-3.0-or-later
+BuildArch:      noarch
+Requires:       %{name}-tools = %{version}-%{release}
+Requires:       most
+
+%description most
+This package contains a bz3most tool. It displays bzip3-compressed files with
+the "most" pager.
+%endif
+
+%package tools
+Summary:        Tools for compressing and decompressing bzip3 archives
+License:        LGPL-3.0-or-later
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Recommends:     (%{name}-grep if grep)
+Recommends:     (%{name}-less if less)
+Recommends:     (%{name}-more if util-linux-core)
+%if %{with most}
+Recommends:     (%{name}-most if most)
+%endif
+
+%description tools
+This package contains bunzip3, bz3cat, and bzip3 tools.
+
 %prep
 %autosetup -p1
 # Remove generated autoconf files
@@ -115,12 +195,17 @@ done
 # Unbundle autoconf macros and scripts, except those not yet packaged in
 # autoconf-archive
 find build-aux -type f \! \( \
+%if %{without gnulib}
+    -name git-version-gen -o \
+%endif
     -name ax_progvar.m4 -o \
     -name ax_subst_man_date.m4 -o \
     -name ax_subst_transformed_package_name.m4 \
     \) -delete
+%if %{with gnulib}
 # Execute git-version-gen from a system location
 ln -s %{_datadir}/gnulib/build-aux/git-version-gen build-aux/git-version-gen
+%endif
 
 %build
 autoreconf -vfi
@@ -146,9 +231,7 @@ if cmp %{buildroot}%{_mandir}/man1/{bz3cat,bunzip3}.1; then
 fi
 
 %files
-%define programs \{bunzip3,bz3cat,bz3grep,bz3less,bz3more,bz3most,bzip3\}
-%{_bindir}/%{programs}
-%{_mandir}/man1/%{programs}.1*
+# An umbrella metapackage.
 
 %files libs
 %license 3rdparty/libsais-LICENSE LICENSE
@@ -160,7 +243,40 @@ fi
 %{_libdir}/libbzip3.so
 %{_libdir}/pkgconfig/bzip3.pc
 
+%files grep
+%{_bindir}/bz3grep
+%{_mandir}/man1/bz3grep.1*
+
+%files less
+%{_bindir}/bz3less
+%{_mandir}/man1/bz3less.1*
+
+%files more
+%{_bindir}/bz3more
+%{_mandir}/man1/bz3more.1*
+
+%if %{with most}
+%files most
+%{_bindir}/bz3most
+%{_mandir}/man1/bz3most.1*
+%else
+%exclude %{_bindir}/bz3most
+%exclude %{_mandir}/man1/bz3most.1*
+%endif
+
+%files tools
+%define programs \{bunzip3,bz3cat,bzip3\}
+%{_bindir}/%{programs}
+%{_mandir}/man1/%{programs}.1*
+
 %changelog
+* Thu Apr 10 2025 Petr Pisar <ppisar@redhat.com> - 1.5.1-4
+- Move bunzip3, bz3cat, and bzip3 to bzip3-tools package
+- Move bz3grep to bzip3-grep package
+- Move bz3less to bzip3-less package
+- Move bz3more to bzip3-more package
+- Move bz3most to bzip3-most package
+
 * Mon Mar 24 2025 Petr Pisar <ppisar@redhat.com> - 1.5.1-3
 - Fix bz3cat processing a standard input (bug #2354263)
 

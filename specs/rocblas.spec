@@ -49,8 +49,8 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 # SUSE/OSB times out because -O is added to the make args
 # This accumulates all the output from the long running tensile
@@ -60,9 +60,22 @@
 # OracleLinux 9 has a problem with it's strip not recognizing *.co's
 %global __strip %rocmllvm_bindir/llvm-strip
 
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
+
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -115,6 +128,16 @@ BuildRequires:  libomp-devel
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       rocblas = %{version}-%{release}
@@ -183,8 +206,7 @@ if [ ${CORES} = 1 ]; then
     fi
 fi
 
-
-%cmake \
+%cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -250,6 +272,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-12
+- Reenable ninja
+
 * Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-11
 - Use rocm-llvm strip
 

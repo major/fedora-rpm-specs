@@ -49,7 +49,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.11
+Version:        0.115.12
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -66,7 +66,8 @@ Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 
 # Allow httpx 0.28.x, relax pins
 # https://github.com/fastapi/fastapi/pull/13114
-Patch:          %{url}/pull/13114.patch
+# Rebased on 0.115.12.
+Patch:          0001-Allow-httpx-0.28.x-relax-pins.patch
 
 BuildRequires:  python3-devel
 

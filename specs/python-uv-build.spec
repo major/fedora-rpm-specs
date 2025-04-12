@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.6.13
+Version:        0.6.14
 Release:        %autorelease
 Summary:        The uv build backend
 

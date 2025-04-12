@@ -1,8 +1,8 @@
 %global mod_name flask-whooshee
 
 Name:           python-flask-whooshee
-Version:        0.9.0
-Release:        8%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Whoosh integration
 
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ Python 3 version.
 
 
 %changelog
+* Thu Apr 10 2025 Pavel Raiskup <praiskup@redhat.com> - 0.9.1-1
+- New upstream release: https://github.com/fedora-copr/flask-whooshee/releases/tag/v0.9.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

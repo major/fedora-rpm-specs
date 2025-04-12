@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-234-gaaf94ec804
+%global glibcsrcdir glibc-2.41.9000-241-g63c99cd50b
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Apr 09 2025 Carlos O'Donell <carlos@redhat.com> - 2.41.9000-9
+- Auto-sync with upstream branch master,
+  commit 63c99cd50bc9c10f0692f7cb31f4c5f02ff526df:
+- math: Fix up THREEp96 constant in expf128 [BZ #32411]
+- elf: Extend glibc.rtld.execstack tunable to force executable stack (BZ 32653)
+- stdlib: Implement C2Y uabs, ulabs, ullabs and uimaxabs
+- stdio-common: In tst-setvbuf2, close helper thread descriptor only if opened
+- Remove duplicates from binaries-shared-tests when creating make rules
+- x86: Optimize xstate size calculation
+- NEWS: update for GCC 12.1 requirement [BZ #32539]
+
 * Thu Apr 03 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-8
 - Auto-sync with upstream branch master,
   aaf94ec804830e0e273cfb45d54f4a04ab778fe5:

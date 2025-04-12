@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/polenta
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.10
+Version:        1.3.11
 Release:        %autorelease
 Summary:        Polycyclic presentations for matrix groups
 

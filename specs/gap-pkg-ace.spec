@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/ace
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.6.2
+Version:        5.7.0
 Release:        %autorelease
 Summary:        Advanced Coset Enumerator
 

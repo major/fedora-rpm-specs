@@ -46,12 +46,25 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
+
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -107,6 +120,16 @@ BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
 BuildRequires:  blas-static
 BuildRequires:  hipcc-libomp-devel
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       hipblaslt = %{version}-%{release}
@@ -227,7 +250,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Only gfx90a seems to be useful and works
 # gfx942 has some unknown to llvm17 asm directives
 # Use ld.lld to work around a problem with ld
-%cmake \
+%cmake %{cmake_generator} \
        -DAMDGPU_TARGETS=%{amdgpu_targets} \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -283,6 +306,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-12
+- Reenable ninja
+
 * Fri Mar 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-11
 - msgpack is manditory
 

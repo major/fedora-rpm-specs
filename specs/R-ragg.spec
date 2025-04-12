@@ -2,7 +2,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.3.3
+Version:          1.4.0
 Release:          %autorelease
 Summary:          Graphic Devices Based on AGG
 

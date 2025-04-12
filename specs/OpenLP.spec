@@ -3,7 +3,7 @@
 Summary: Open source Church presentation and lyrics projection application
 Name: OpenLP
 Version: 3.1.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://get.openlp.org/%{version}/OpenLP-%{version}.tar.gz
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -11,10 +11,14 @@ BuildArch: noarch
 
 URL: http://openlp.org/
 
+# Remove pytest-runner from setup_requires
+# https://gitlab.com/openlp/openlp/-/merge_requests/848
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          https://gitlab.com/openlp/openlp/-/merge_requests/848.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest-runner
 
 Requires:       python3-qt5
 Requires:       python3-beautifulsoup4
@@ -49,7 +53,7 @@ used to display slides of Songs, Bible verses, videos, images, and
 presentations via LibreOffice using a computer and projector.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %{__python3} setup.py build
@@ -92,6 +96,9 @@ cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
 
 %changelog
+* Wed Mar 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.6-3
+- Remove the pytest-runner dependency
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

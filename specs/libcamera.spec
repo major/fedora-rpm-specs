@@ -1,25 +1,17 @@
 Name:    libcamera
-Version: 0.4.0
-Release: 4%{?dist}
+Version: 0.5.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
 URL:     http://libcamera.org/
 
-# Upstream is still under development and does not release tarballs,
-# but they do tag releases (https://git.libcamera.org/libcamera/libcamera.git/)
-#
-# For use the following to do generate a tarball from a git tag:
-#
-# git archive --format=tar --prefix=%%{name}-%%{version}/ %%{version} | xz > %%{name}-%%{version}.tar.xz
-Source0: %{name}-%{version}.tar.xz
+Source0: %{name}-v%{version}.tar.bz2
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
-Patch1: 0001-libcamera-missing-include.patch
-Patch2: 0002-libcamera-gcc15-templates.patch
-Patch3: 0003-libcamera-gcc15-gtest-workaround.patch
+Patch1: 0001-disable-rpi-pisp.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -126,7 +118,7 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 Python bindings for %{name}
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 # cam/qcam crash with LTO
@@ -143,7 +135,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
-    %{_builddir}/%{name}-%{version}/src/ipa/ipa-sign-install.sh %{_builddir}/%{name}-%{version}/%{_vpath_builddir}/src/ipa-priv-key.pem %{buildroot}/%{_libdir}/libcamera/ipa_*.so \
+    %{_builddir}/%{name}-v%{version}/src/ipa/ipa-sign-install.sh %{_builddir}/%{name}-v%{version}/%{_vpath_builddir}/src/ipa-priv-key.pem %{buildroot}/%{_libdir}/libcamera/ipa_*.so \
 %{nil}
 
 %install
@@ -168,7 +160,7 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
 # We leave the version here explicitly to know when it bumps
-%{_libdir}/libcamera*.so.0.4
+%{_libdir}/libcamera*.so.0.5
 %{_libdir}/libcamera*.so.%{version}
 %{_udevrulesdir}/70-libcamera.rules
 
@@ -208,6 +200,12 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Mon Apr 07 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.0-1
+- Update to version 0.5.0
+- Switch to upstream tarballs.
+- Disable the newly introduced rpi/pisp pipeline temporarily (see rhbz#2357897).
+- Resolves: rhbz#2357205
+
 * Thu Jan 23 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-4
 - No longer applied patch file dropped.
 - Missing include added to fix FBTS with gcc 15.

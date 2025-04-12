@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -162,6 +162,7 @@ Requires:	libwsman1 = %{version}-%{release}
 This package provides Perl bindings to access the openwsman client API.
 %endif
 
+%if %{with_ruby}
 %package winrs
 Summary:	Windows Remote Shell
 Requires:	rubygem-%{gem_name} = %{version}-%{release}
@@ -169,6 +170,7 @@ Requires:	rubygem-%{gem_name} = %{version}-%{release}
 %description winrs
 This is a command line tool for the Windows Remote Shell protocol.
 You can use it to send shell commands to a remote Windows hosts.
+%endif
 
 %if 0%{?with_selinux}
 # SELinux subpackage
@@ -285,6 +287,8 @@ rm -rf %{buildroot}%{gem_instdir}/ext
 
 mkdir -p %{buildroot}%{gem_extdir_mri}
 cp -a ./build%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri}/
+%else
+rm -f %{buildroot}%{_bindir}/winrs
 %endif
 
 %if 0%{?with_selinux}
@@ -399,8 +403,10 @@ fi
 %{_libdir}/libwsman_clientpp.so.*
 %config(noreplace) %{_sysconfdir}/openwsman/openwsman_client.conf
 
+%if %{with_ruby}
 %files winrs
 %{_bindir}/winrs
+%endif
 
 %if 0%{?with_selinux}
 %files selinux
@@ -410,6 +416,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-2
+- Build winrs only when ruby binding is enabled
+
 * Mon Apr 07 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-1
 - Update to openwsman-2.8.1
 

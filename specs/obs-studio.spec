@@ -33,8 +33,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.0.2
-Release:        6%{?dist}
+Version:        31.0.3
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -188,7 +188,9 @@ software for video recording and live streaming.
 %{_datadir}/icons/hicolor/*/apps/com.obsproject.Studio.*
 %{_datadir}/obs/
 %exclude %{_datadir}/obs/obs-plugins/vlc-video/
+%if %{with cef}
 %exclude %{_datadir}/obs/obs-plugins/obs-browser*
+%endif
 
 # --------------------------------------------------------------------------
 
@@ -363,6 +365,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Apr 09 2025 Sérgio M. Basto <sergio@serjux.com> - 31.0.3-1
+- Update obs-studio to 31.0.3
+- Resolves: rhbz#2309473
+
 * Tue Apr 01 2025 Michael J Gruber <mjg@fedoraproject.org> - 31.0.2-6
 - fix v4loopback usage
 

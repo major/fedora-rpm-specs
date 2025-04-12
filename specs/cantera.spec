@@ -165,7 +165,7 @@ gzip -dc %{S:1} | tar -xvvf - --strip-components=1 -C data/example_data
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/Cantera-%{version}.dist-info/
+%{python3_sitearch}/*-%{version}.dist-info/
 
 %files devel
 %{_includedir}/%{name}

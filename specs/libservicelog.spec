@@ -1,6 +1,6 @@
 Name:          libservicelog
 Version:       1.1.19
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Servicelog Database and Library
 
 #v29_notify_gram.c v29_notify_gram.h are GPLv2+
@@ -8,10 +8,15 @@ License:       LGPL-2.0-only AND GPL-2.0-or-later
 
 URL:           https://github.com/power-ras/%{name}/releases
 Source:        https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# sysusers.d config file
+Source1:       libservicelog.sysusers.conf
 
 # Link with needed libraries
 Patch0: libservicelog-1.1.9-libs.patch
 
+# sysusers_create_compat macro
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 BuildRequires: sqlite-devel autoconf libtool bison librtas-devel flex
 BuildRequires: make
 
@@ -38,10 +43,6 @@ Contains header files for building with libservicelog.
 %setup -q
 %patch 0 -p1 -b .libs
 
-# Create a sysusers.d config file
-cat >libservicelog.sysusers.conf <<EOF
-g service -
-EOF
 
 %build
 autoreconf -fiv
@@ -57,11 +58,13 @@ make CFLAGS="$CFLAGS" %{?_smp_mflags}
 make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/*.la
 
-install -m0644 -D libservicelog.sysusers.conf %{buildroot}%{_sysusersdir}/libservicelog.conf
+install -m0644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/libservicelog.conf
 
 %check
 make check || true
 
+%pre
+%sysusers_create_compat %{SOURCE1}
 
 %post -p /sbin/ldconfig
 
@@ -83,6 +86,9 @@ make check || true
 
 
 %changelog
+* Thu Apr 10 2025 Than Ngo <than@redhat.com> - 1.1.19-15
+- Manual creation of users and groups for fedora release before f42
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.19-14
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

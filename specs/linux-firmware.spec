@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250311
+Version:	20250410
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -555,6 +555,37 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Thu Apr 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250410-1
+- Update to 20250410
+- qcom:x1e80100: Iris Support for Lenovo T14s G6 Qualcomm platform
+- qcom:x1e80100: Support for Lenovo Yoga Slim 7 Snapdragon platform
+- Mellanox: Add new mlxsw_spectrum firmware xx.2014.4012
+- add firmware for Aeonsemi AS21x1x 1G/2.5G/5G/10G Ethernet Phy
+- QCA: Add 8 bluetooth nvm files for WCN785x btusb
+- QCA: Update WCN785x btusb firmware to 2.0.0-00790-3
+- qcom: update firmware binary for SM8250
+- mediatek: Add new mt8188/mt8195 SOF firmware
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x17E9_16ED
+- intel_vpu: Update NPU firmware
+- cirrus: cs35l56: Correct filenames of SSID 103c8e1b and 103c8e1c
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x0471_70A6
+- amdgpu: update dcn 3.5 and dcn 3.5.1 firmware to 9.0.27.0
+- amdgpu: update dcn 3.1.4 firmware to 8.0.78.0
+- amdgpu: update dcn 4.01 firmware to 0.1.3.0
+- amdgpu: update dcn 3.5 firmware to 0.1.0.0
+- cirrus: cs35l41: Add Firmware for various HP Laptops using CS35L41 HDA
+- cirrus: Add cs35l56 firmware symlinks for Asus UM5606KA
+- qcom: Add DSP firmware for QCS8300 platform
+- mediatek: Add MT8188 SCP firmware
+- Update firmware file for Intel BlazarI core
+- qcom: Add Audio firmware for Lenovo Slim 7x/T14s
+- amdgpu: DMCUB updates for various ASICs
+- rtw88: Add firmware v33.6.0 for RTL8814AE/RTL8814AU
+- rtw89: 8922a: update fw to v0.35.64.0
+- rtw89: 8852c: update fw to v0.27.125.0
+- iwlwifi: add Bz/gl FW for core94-91 release
+- iwlwifi: update ty/So/Ma/cc/Qu/QuZ firmwares for core94-91 release
+
 * Tue Mar 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250311-1
 - Update to 20250311
 - amdgpu: many firmware updates

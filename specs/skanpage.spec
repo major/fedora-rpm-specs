@@ -51,6 +51,7 @@ BuildRequires:  cmake(Leptonica)
 Requires: qt6-qtquickcontrols2
 Requires: kf6-kirigami
 Requires: kquickimageeditor-qt6
+Requires: tesseract
 
 Recommends: sane-backends-drivers-scanners
 

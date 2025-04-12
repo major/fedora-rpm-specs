@@ -45,9 +45,22 @@
 # Use rocm-llvm strip
 %global __strip %rocmllvm_bindir/llvm-strip
 
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
+
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -79,6 +92,16 @@ Requires:  rocm-hip-devel
 
 %if %{with doc}
 BuildRequires:  python3-sphinx
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 Provides:       rocfft = %{version}-%{release}
@@ -132,7 +155,7 @@ export LDFLAGS="${LDFLAGS} -pie"
 # So switch from libgcc to rocm-llvm's libclang-rt.builtins with
 # the rtlib=compiler-rt. Leave unwind unchange with unwindlib=libgcc
 
-%cmake \
+%cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \
     -DCMAKE_C_COMPILER=hipcc \
@@ -190,6 +213,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-9
+- Reenble ninja
+
 * Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-8
 - Work around old gcc for rhel 9
 

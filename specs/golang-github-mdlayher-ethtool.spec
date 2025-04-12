@@ -4,7 +4,7 @@
 
 # https://github.com/mdlayher/ethtool
 %global goipath         github.com/mdlayher/ethtool
-Version:                0.2.0
+Version:                0.4.0
 
 %gometa -L -f
 

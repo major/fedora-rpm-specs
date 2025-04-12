@@ -343,7 +343,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1642,18 +1642,21 @@ tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.docs.%{_arch}.t
 
 %if %{include_normal_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.unstripped.jdk.%{_arch}.tar.xz
+# it have jmods embedded
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif

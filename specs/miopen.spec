@@ -41,12 +41,25 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
+
+# Use ninja if it is available
+%if 0%{?fedora} || 0%{?suse_version}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
 
 Name:           miopen
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -97,6 +110,16 @@ BuildRequires:  pkgconfig(bzip2)
 %if %{with test}
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
+%endif
+
+%if %{with ninja}
+%if 0%{?fedora}
+BuildRequires:  ninja-build
+%endif
+%if 0%{?suse_version}
+BuildRequires:  ninja
+%define __builder ninja
+%endif
 %endif
 
 # Only x86_64 works right now:
@@ -184,7 +207,8 @@ fi
 LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
-%cmake -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+%cmake %{cmake_generator} \
+       -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_CXX_COMPILER=hipcc \
        -DCMAKE_C_COMPILER=hipcc \
        -DROCM_SYMLINK_LIBS=OFF \
@@ -251,6 +275,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
+- Reenable ninja
+
 * Sun Feb 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Remove multi build
 

@@ -4,22 +4,22 @@
 
 
 %global _hardened_build 1
-%define debug_package %{nil}
+%global build_number 654-2004
 
 Name:    web-eid
-Version: 2.5.0
-Release: 7%{?dist}
+Version: 2.6.0
+Release: 1%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
-Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0: %{url}/releases/download/v%{version}/%{name}_%{version}.%{build_number}.tar.xz
 
 BuildRequires: bash
 BuildRequires: desktop-file-utils
 BuildRequires: git
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qttools-devel
+BuildRequires: qt6-qtbase-devel >= 6.7.1
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qttools-devel
 BuildRequires: pcsc-lite
 BuildRequires: pcsc-lite-devel
 BuildRequires: clang
@@ -31,9 +31,10 @@ BuildRequires: openssl-devel
 
 Requires: hicolor-icon-theme
 Requires: mozilla-filesystem
-Requires: qt5-qtbase
-Requires: qt5-qtsvg
+Requires: qt6-qtbase
+Requires: qt6-qtsvg
 
+%if %{defined fedora} && 0%{?fedora} <= 40
 Obsoletes: webextension-token-signing <= 1.1.5
 Provides: webextension-token-signing = %{version}-%{release}
 # Provides for firefox-pkcs11-loader is not necessary, see:
@@ -41,7 +42,8 @@ Provides: webextension-token-signing = %{version}-%{release}
 # If a package supersedes/replaces an existing package without being a
 # sufficiently compatible replacement as defined above, use only the Obsoletes:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/
-Obsoletes: firefox-pkcs11-loader
+Obsoletes: firefox-pkcs11-loader <= 3.13.6
+%endif
 Provides: bundled(libelectronic-id)
 
 %description
@@ -51,15 +53,14 @@ browser extension (it is the native messaging host for the extension). Also
 works standalone without the extension in command-line mode.
 
 %prep
-%autosetup -N
+%autosetup -n %{name}
+
 
 %build
-pushd web-eid-app
-%cmake
+%cmake -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
 %cmake_build
 
 %install
-pushd web-eid-app
 %cmake_install
 
 install -m 644 -Dt %{buildroot}/%{_sysconfdir}/chromium/native-messaging-hosts %{buildroot}/%{_datadir}/web-eid/eu.webeid.json
@@ -68,7 +69,6 @@ install -m 644 -Dt %{buildroot}/%{_sysconfdir}/opt/chrome/native-messaging-hosts
 rm -f %{buildroot}/%{_datadir}/web-eid/eu.webeid.json
 
 %check
-pushd web-eid-app
 export QT_QPA_PLATFORM='offscreen' # needed for running headless tests
 %ctest
 
@@ -94,10 +94,17 @@ fi
 %{_sysconfdir}/opt/chrome/native-messaging-hosts/
 %{_libdir}/mozilla/native-messaging-hosts/
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/chromium/extensions/ncibgoaomkmdpilpocfeponihegamlic.json
 %{_datadir}/google-chrome/extensions/
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-1
+- 2.6.0 release
+- Removed %%define debug_package %%{nil}
+- Added -DCMAKE_INSTALL_SYSCONFDIR=%%{_sysconfdir}
+- Modified %%files section
+
 * Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 2.5.0-7
 - Adds Provides: bundled(libelectronic-id)
 

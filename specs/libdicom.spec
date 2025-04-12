@@ -1,15 +1,11 @@
 Name:           libdicom
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        C library and tools for reading DICOM data sets
 
 License:        MIT
 URL:            https://github.com/ImagingDataCommons/%{name}
 Source0:        https://github.com/ImagingDataCommons/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# Fix build on EL 8
-# https://github.com/ImagingDataCommons/libdicom/pull/85
-Patch0:         support-uthash-2.0.2.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

@@ -1,6 +1,6 @@
 Name:           openiked
-Version:        7.3
-Release:        6%{?dist}
+Version:        7.4
+Release:        2%{?dist}
 Summary:        A free Internet Key Exchange (IKEv2) implementation
 
 License:        ISC
@@ -85,6 +85,12 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 
 
 %changelog
+* Thu Apr 10 2025 Henrik Boeving <hargonix@gmail.com> 7.4-2
+- Updated to new release 7.4
+
+* Thu Apr 10 2025 Henrik Boeving <hargonix@gmail.com> 7.4-1
+- Updated to new release 7.4
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.3-6
 - Drop call to %sysusers_create_compat
 

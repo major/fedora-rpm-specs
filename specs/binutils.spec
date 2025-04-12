@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.44.50
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -86,9 +86,9 @@ URL: https://sourceware.org/binutils
 
 # Enable the use of separate code and data segments.  Whilst potentially
 # useful from a security point of view, it is problematic from a file
-# size point of view.  So for now, only enable it for the i686 and x86_64
-# architectures as these are the ones that have the most potential
-# vulnerability.
+# size point of view.  So for now, only enable it for the i686, x86_64
+# and riscv64 architectures as these are the ones that have the most
+# potential vulnerability.
 %ifarch %{ix86} x86_64 riscv64
 %define enable_separate_code 1
 %else
@@ -337,6 +337,10 @@ Provides: bundled(libiberty)
 # Perl, sed and touch are all used in the %%prep section of this spec file.
 BuildRequires: autoconf, automake, perl, sed, coreutils, make
 
+# bison is used to generate either gold/yyscript.c or ld/ldgram.c depending
+# on the build architecture.
+BuildRequires: bison
+
 %if %{with clang}
 BuildRequires: clang compiler-rt
 %else
@@ -344,8 +348,8 @@ BuildRequires: gcc
 %endif
 
 %if %{with gold}
-# Gold needs bison in order to build gold/yyscript.c.  The GOLD testsuite needs a static libc++
-BuildRequires: bison, m4, gcc-c++, libstdc++-static
+# The GOLD testsuite needs a static libc++
+BuildRequires: libstdc++-static
 
 %if ! %{with clang}
 BuildRequires: gcc-c++
@@ -489,7 +493,6 @@ linker, and it may become deprecated in the future.
 Summary: Next Generating code profiling tool
 Provides: gprofng = %{version}-%{release}
 Requires: binutils = %{version}-%{release}
-BuildRequires: bison
 
 %description gprofng
 GprofNG is the GNU Next Generation Profiler for analyzing the performance 
@@ -1429,6 +1432,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Apr 10 2025 Andrea Bolognani <abologna@redhat.com> - 2.44.50-7
+- Fix BuildRequires on bison
+
 * Wed Apr 02 2025 Nick Clifton <nickc@redhat.com> - 2.44.50-6
 - Deprecate the GOLD linker.
 

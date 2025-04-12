@@ -262,6 +262,13 @@ This package contains documentation in the HTML format.
 %prep
 %autosetup -n sphinx-%{upstream_version} -p1
 
+# Drop test-dependency on pytest-xdist
+# This allows for parallel testing, but has a lot of dependencies.
+# We want to avoid the dependency in RHEL, where it is not available.
+%if 0%{?rhel}
+sed -i -e '/pytest-xdist/d' pyproject.toml
+%endif
+
 # Drop test-dependency on defusedxml,
 # use xml from the standard library instead.
 # defusedxml is safer but this is only used in tests.

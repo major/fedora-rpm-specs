@@ -1,5 +1,5 @@
 Name:           python-expandvars
-Version:        0.12.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Expand system variables Unix style
 
@@ -8,9 +8,10 @@ License:        MIT
 URL:            https://github.com/sayanarijit/expandvars
 Source:         %{pypi_source expandvars}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l expandvars
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Most of the dependencies in the “test” extra and almost everything tox.ini
 # pertain to linting and coverage analysis. Rather than working around all of
@@ -35,26 +36,12 @@ Summary:        %{summary}
 %description -n python3-expandvars %{common_description}
 
 
-%prep
-%autosetup -n expandvars-%{version}
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i "s/--cov[^[:blank:]'\"]*[[:blank:]]*//g" pyproject.toml
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l expandvars
-
-
-%check
+%check -a
 %pytest
 
 

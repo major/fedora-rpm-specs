@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.3
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -303,6 +303,9 @@ EOF
 
 
 %changelog
+* Thu Apr 10 2025 David Cantrell <dcantrell@redhat.com> 1.3-2
+- Rebuild
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.3-1
 - ignore unicode errors some commands' output
 - custom method - do not rely on working `/bin/su` in chroot

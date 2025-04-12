@@ -8,7 +8,7 @@ Version:        1.1.1^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Daemon for communicating with Apple's iOS devices
 License:        GPL-3.0-only OR GPL-2.0-only
-URL:            https://www.libimobiledevice.org/
+URL:            https://libimobiledevice.org
 Source0:        %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        %{name}.sysusers
 Source2:        %{name}.tmpfiles

@@ -1,27 +1,20 @@
 %global github_owner    nomacs
-# https://github.com/nomacs/nomacs/issues/530
-%global git_build    224
 
 Name:		nomacs
 Summary:	Lightweight image viewer
-Version:	3.17.2295
-Release:	8%{?dist}
+Version:	3.21.0
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
-Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/refs/tags/%{name}-plugins-3.16.tar.gz
-# plugins install path (https://github.com/nomacs/nomacs-plugins/issues/34)
-Patch0:		%{name}-plugins-3.16-instpath.diff
-# plugins loading path (https://github.com/nomacs/nomacs/issues/1047)
-Patch1:         %{name}-3.17-plugins.diff
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
-BuildRequires:	qt5-linguist
-BuildRequires:	cmake(Qt5Gui)
-# qt5-qtsvg-devel
-BuildRequires:	cmake(Qt5Svg)
+BuildRequires:	qt6-linguist
+BuildRequires:	qt6-qttools-devel
+# qt6-qtsvg-devel
+BuildRequires:	cmake(Qt6Svg)
 # exiv2-devel
 BuildRequires:	pkgconfig(exiv2) >= 0.20
 # opencv-devel
@@ -32,12 +25,12 @@ BuildRequires:	pkgconfig(libraw) >= 0.12.0
 BuildRequires:	pkgconfig(libtiff-4)
 # libwebp-devel >= 0.3.1
 BuildRequires:	pkgconfig(libwebp)
-# quazip-qt5-devel >= 0.7
-BuildRequires:	quazip-qt5-devel
 # libheif-devel (rpmfusion-free)
 # BuildRequires:	pkgconfig(libheif)
 BuildRequires:	lcov
-Recommends:	qt5-qtimageformats
+Obsoletes:	nomacs-plugins < %{version}
+Recommends:	qt6-qtimageformats
+Recommends:	kf6-ktimageformats
 
 %description
 nomacs is image viewer based on Qt5 library.
@@ -47,38 +40,15 @@ running on the same computer or via LAN is possible.
 It allows to compare images and spot the differences
 e.g. schemes of architects to show the progress).
 
-%package	plugins
-Summary:	Plugins for nomacs image viewer.
-Requires:	%{name} = %{version}-%{release}
-
-%description	plugins
-Some usefull plugins for nomacs:
-- Affine transformations
-- RGB image from greyscales
-- Fake miniature filter
-- Page extractions
-- Painting
-
-
 %prep
 %setup
 %setup -T -D -a 1 -n %{name}-%{version}
-# plug them in
-mv nomacs-plugins-3.16/* ImageLounge/plugins/
-%patch 0
-%patch 1
 # Be sure
 rmdir {3rd-party/*,3rd-party}
 
 
 %build
-%cmake -S ImageLounge \
-  -DCMAKE_BUILD_TYPE=Release\
-  -DENABLE_RAW=1 \
-  -DUSE_SYSTEM_WEBP=ON \
-  -DUSE_SYSTEM_QUAZIP=ON \
-  -DENABLE_TRANSLATIONS=ON
-#  -DENABLE_HEIF=1
+%cmake -S ImageLounge -DCMAKE_BUILD_TYPE=Release
 %{cmake_build}
 
 
@@ -107,12 +77,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_mandir}/man1/%{name}.*
 
-%files	plugins
-%license ImageLounge/license/*
-%{_libdir}/nomacs-plugins/
-
 
 %changelog
+* Thu Apr 10 2025 TI_Eugene <ti.eugene@gmail.com> 3.21.0-1
+- Version bump
+- Plugins removed (Qt6 incompatible)
+
 * Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 3.17.2295-8
 - Rebuild for opencv-4.11.0
 

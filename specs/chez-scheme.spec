@@ -6,7 +6,7 @@
 Name:           chez-scheme
 Summary:        Scheme incremental optimizing compiler
 Version:        10.1.0
-Release:        1%{?dist}
+Release:        %autorelease
 URL:            https://cisco.github.io/ChezScheme
 # zlib and lz4 source are removed in prep
 # $ licensecheck -r . | grep -v UNKNOWN | grep -v Apache
@@ -23,8 +23,6 @@ BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  zlib-devel
 Provides:       bundled(nanopass)
-# 10.0 fails with "illegal pb instruction"
-ExcludeArch:    s390x
 
 %description
 Chez Scheme is both a programming language and an implementation of
@@ -139,56 +137,4 @@ rm -rf %{buildroot}%{_libdir}/csv%{version}/examples
 
 
 %changelog
-* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 10.1.0-1
-- https://cisco.github.io/ChezScheme/release_notes/v10.1.0/release_notes.html
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jul 13 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-7
-- include nanopass Copyright file (#2281419, Benson Muite)
-- drop bundled(stex) provides since not used
-
-* Thu Jun 13 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-6
-- remove the isa suffix from the static provides
-
-* Wed Jun 12 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-5
-- also subpackage the examples
-- rename static to devel
-
-* Wed Jun 12 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-4
-- add a static subpackage (#2281419, Benson Muite)
-
-* Sat Jun  1 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-3
-- provides bundled(nanopass) and bundled(stex) (#2281419, Benson Muite)
-
-* Sun May 19 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-2
-- add license and doc files (#2281419, Benson Muite)
-- add source license comments (#2281419, Benson Muite)
-
-* Sat May 18 2024 Jens Petersen <petersen@redhat.com> - 10.0.0-1
-- update to 10.0.0
-- https://cisco.github.io/ChezScheme/release_notes/v10.0/release_notes.html
-
-* Sun Jan 21 2024 Quentin Dufour <quentin@dufour.io> - 9.6.4
-- Skipped 4 versions (9.5.6, 9.5.8, 9.5.8a and 9.6.2)
-- Check all the release notes: https://cisco.github.io/ChezScheme/release_notes/v9.6/release_notes.html
-
-* Fri Nov 20 2020 Quentin Dufour <quentin@dufour.io> - 9.5.4
-- Upgrade sources from 9.5.2 to 9.5.4 (there is no 9.5.3 release on github). Changelog is available here: https://github.com/cisco/ChezScheme/blob/v9.5.4/LOG
-
-* Wed Jul 01 2020 Quentin Dufour <quentin@dufour.io> - 9.5.2-2
-- Compile with thread support (appending --thread to ./configure), thanks Jens-Ulrik Peterson for the notification.
-
-* Mon Jun 15 2020 Quentin Dufour <quentin@dufour.io> - 9.5.2-1
-- Upgrade sources from 9.5 to 9.5.2. Changelog is avalaible here: https://github.com/cisco/ChezScheme/blob/v9.5.2/LOG
-- Patch makefile to fix binary stripping on fedora rawhide that causes a fatal error
-
-* Mon Jun 11 2018 Quentin Dufour <quentin@dufour.io> - 9.5-2
-- Update symlink patch to use a hard link instead as recommended in https://github.com/cisco/ChezScheme/pull/307
-
-* Sat May 19 2018 Quentin Dufour <quentin@dufour.io> - 9.5-1
-- Initial packaging of Chez Scheme
+%autochangelog

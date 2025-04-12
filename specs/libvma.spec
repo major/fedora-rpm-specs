@@ -1,17 +1,13 @@
 %{!?configure_options: %global configure_options %{nil}}
 
 Name: libvma
-Version: 9.8.60
-Release: 5%{?dist}
+Version: 9.8.71
+Release: %autorelease
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
-# Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
-License: GPL-2.0-only OR LicenseRef-Callaway-BSD
+License: GPL-2.0-only OR BSD-2-Clause
 Url: https://github.com/Mellanox/libvma
 Source0: https://github.com/Mellanox/libvma/archive/%{version}/%{name}-%{version}.tar.gz
-# Patches from upstream 'master' branch
-Patch1: 0001-Fix-compilation-with-GCC-14.patch
-Patch2: 0002-issue-4223310-VMA-support-for-kernel-6.10.patch
 
 # libvma currently supports only the following architectures
 ExclusiveArch: x86_64 ppc64le ppc64 aarch64
@@ -102,109 +98,4 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.60-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.60-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Michal Schmidt <mschmidt@redhat.com> - 9.8.60-3
-- Remove redundant %%setup invocation.
-- Replace custom patch files with "git format-patch" from upstream git.
-
-* Tue Jan 14 2025 Igor Ivanov <igori@nvidia.com> 9.8.60-2
-- Fix memory leak and style issues
-
-* Sat Jan 11 2025 Honggang Li <honggangli@163.com> - 9.8.60-1
-- Bump version to 9.8.60
-- VMA support for kernel 6.10
-
-* Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 9.8.40-5
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.40-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.40-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.40-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Oct 27 2023 Igor Ivanov <igori@nvidia.com> 9.8.40-1
-- Bump version to 9.8.40
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Feb 20 2023 Igor Ivanov <igori@nvidia.com> 9.8.1-2
-- Fix gcc13 compilation issue
-
-* Mon Feb 20 2023 Igor Ivanov <igori@nvidia.com> 9.8.1-1
-- Bump version to 9.8.1
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jul 26 2022 Igor Ivanov <igori@nvidia.com> 9.6.4-1
-- Bump version to 9.6.4
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Apr 29 2022 Igor Ivanov <igori@nvidia.com> 9.5.3-1
-- Bump version to 9.5.3
-
-* Thu Apr  7 2022 Igor Ivanov <igori@nvidia.com> 9.5.2-1
-- Bump version to 9.5.2
-
-* Mon Jan 31 2022 Fedora Release Engineering <igori@nvidia.com> - 9.4.0-3
-- Fix gcc12 compilation issue
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 09 2021 Honggang Li <honli@redhat.com> - 9.4.0-1
-- Bump version to 9.4.0
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 17 2021 Igor Ivanov <igori@nvidia.com> 9.3.1-1
-- Bump version to 9.3.1
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.2.2-3
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 16 2020 Igor Ivanov <igor.ivanov.va@gmail.com> 9.2.2-1
-- Bump version to 9.2.2
-- Fix issues for gcc-11
-
-* Thu Dec 10 2020 Jeff Law <law@redhat.com> 9.1.1-2
-- Don't use "register" in C++17.  Still FTBFS though.
-
-* Sun Nov 15 2020 Igor Ivanov <igor.ivanov.va@gmail.com> 9.1.1-1
-- Bump version to 9.1.1
-
-* Fri Apr 17 2020 Igor Ivanov <igor.ivanov.va@gmail.com> 9.0.2-1
-- Align with Fedora guidelines
-- Bump version to 9.0.2
-
-* Thu Feb 7 2019 Igor Ivanov <igor.ivanov.va@gmail.com> 8.8.2-1
-- Improve package update processing
-
-* Tue Dec 19 2017 Igor Ivanov <igor.ivanov.va@gmail.com> 8.5.1-1
-- Add systemd support
-
-* Tue May 9 2017 Ophir Munk <ophirmu@mellanox.com> 8.3.4-1
-- Add libvma-debug.so installation
-
-* Mon Nov 28 2016 Igor Ivanov <igor.ivanov.va@gmail.com> 8.2.2-1
-- Add daemon
-
-* Mon Jan  4 2016 Avner BenHanoch <avnerb@mellanox.com> 7.0.12-1
-- Initial Packaging
+%autochangelog
