@@ -59,9 +59,6 @@ A command line interface for the FASJSON API.
 %pyproject_install
 %pyproject_save_files fasjson_client
 
-# extra files we don't want to package
-rm %{buildroot}%{python3_sitelib}/{config.toml.example,tox.ini}
-
 
 %check
 %if %{with tests}

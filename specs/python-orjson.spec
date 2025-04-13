@@ -138,7 +138,7 @@ export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
 
 %install
 %pyproject_install
-%pyproject_save_files orjson
+%pyproject_save_files -l orjson
 
 
 %check
@@ -151,7 +151,7 @@ export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
 
 
 %files -n python3-orjson -f %{pyproject_files}
-%license LICENSE-MIT LICENSE-APACHE LICENSES.dependencies LICENSES.vendored/
+%license LICENSES.vendored/
 %doc README.md
 
 

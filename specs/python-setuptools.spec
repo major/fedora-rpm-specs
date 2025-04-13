@@ -18,7 +18,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        76.1.0
+Version:        78.1.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -103,7 +103,7 @@ Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.2.2
 Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
 Provides: bundled(python%{python3_pkgversion}dist(typeguard)) = 4.3
 Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.12.2
-Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.43
+Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.45.1
 Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.19.2
 }
 

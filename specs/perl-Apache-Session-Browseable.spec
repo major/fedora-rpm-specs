@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
-Version:	1.3.14
-Release:	2%{?dist}
+Version:	1.3.15
+Release:	1%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -35,6 +35,7 @@ BuildRequires:	perl(JSON)
 BuildRequires:	perl(MIME::Base64)
 BuildRequires:	perl(Net::LDAP) >= 0.38
 BuildRequires:	perl(Net::LDAP::Util)
+# Prefers Redis::Fast but only Redis is available in Fedora at the moment
 BuildRequires:	perl(Redis)
 BuildRequires:	perl(Storable)
 BuildRequires:	perl(strict)
@@ -99,11 +100,19 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Fri Apr 11 2025 Paul Howarth <paul@city-fan.org> - 1.3.15-1
+- Update to 1.3.15
+  - Improve Redis driver performance
+  - Implement searchOn/deleteIfLowerThan into Redis
+  - Prefer Redis::Fast
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Thu Dec 19 2024 Xavier Bachelot <xavier@bachelot.org> - 1.3.14-1
 - Update to 1.3.14
+  - Restrict mysql_enable_utf8 to DBD::mysql
+  - PgJSON: Fix GKFAS when called with a column list
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

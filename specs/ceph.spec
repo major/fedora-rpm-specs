@@ -184,8 +184,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	19.2.1
-Release:	7%{?dist}
+Version:	19.2.2
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2720,6 +2720,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Apr 10 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
+- ceph-19.2.2 GA
+
 * Thu Mar 13 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-7
 - rebuild with libarrow-19.0.1 (and liborc-2.1.1)
 
@@ -2735,7 +2738,7 @@ exit 0
 * Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.1-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 
-* Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
+* Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-2
 - ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
 
 * Thu Feb 6 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1

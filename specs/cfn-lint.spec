@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        1.32.3
+Version:        1.33.1
 Release:        %autorelease
 
 # The entire source is MIT-0, except that some sources are derived from
@@ -31,9 +31,26 @@ Source0:        %{url}/archive/v%{version}/cfn-lint-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        cfn-lint.1
 
+%if %[ %{defined fc42} || %{defined fc41} ]
+# Workaround for setuptools<77.0.3; see
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
+%global no_pep_639_backend 1
+%endif
+
+# This patch is conditionally applied only on releases without PEP 639 support
+# in setuptools; see the conditional definition of no_pep_639_backend, above.
+#
+# Revert "Update to PEP 0639 (#4067)"
+#
+# This reverts commit dc591808548fcc586668687225342bd5fb68dbd3.
+# https://github.com/aws-cloudformation/cfn-lint/pull/4067
+Patch100:       0001-Revert-Update-to-PEP-0639-4067.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l cfnlint
 BuildOption(generate_buildrequires): -x full,graph,junit,sarif
+# Allow conditional patch application
+BuildOption(prep):      -N
 
 BuildArch:      noarch
 
@@ -74,6 +91,13 @@ for resource properties and best practices.
 
 
 %pyproject_extras_subpkg -n cfn-lint full graph junit sarif
+
+
+%prep -a
+%autopatch -M 99
+%if 0%{?no_pep_639_backend}
+%patch -P 100 -p1
+%endif
 
 
 %install -a

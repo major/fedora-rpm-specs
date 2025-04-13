@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 25.2.2
+%global libo_version 25.2.3
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
@@ -82,7 +82,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.2
+Version:        %{libo_version}.1
 %if %{defined libo_prerelease} && 0%{?libo_prerelease} != 0
 Release:        %autorelease -e %(e=%{libo_prerelease}; echo ${e:1})
 %else

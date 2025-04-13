@@ -1,6 +1,7 @@
 # Tests depend on pytest-jupyter and that depends back
 # on jupyter-server[test] so we might need to break this loop.
-%bcond_without tests
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 
 Name:           python-jupyter-server
 Version:        2.15.0

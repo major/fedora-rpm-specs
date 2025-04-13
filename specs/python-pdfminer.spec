@@ -67,18 +67,6 @@ BuildOption(generate_buildrequires): -x image
 
 BuildArch:      noarch
 
-%if %[ %{defined fc43} || %{defined el10} ]
-# Workaround for setuptools<77.0.3; see
-# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
-# Once https://src.fedoraproject.org/rpms/python-setuptools/pull-request/124
-# lands in Rawhide, we can remove the fc43 term from the conditional (or,
-# really, remove it entirely from Rawhide, since we consider 20250327 a
-# breaking release.
-%global no_pep_639_backend 1
-
-BuildRequires:  tomcli
-%endif
-
 BuildRequires:  git-core
 BuildRequires:  make
 
@@ -156,10 +144,6 @@ Obsoletes:      python-pdfminer-doc < 20240706-4
 
 
 %prep -a
-%if 0%{?no_pep_639_backend}
-tomcli set pyproject.toml del project.license
-%endif
-
 # Unbundle cmap data; it will be replaced in %%build.
 rm -vf cmaprsrc/* pdfminer/cmap/*
 

@@ -1,7 +1,7 @@
 %global libcall_ui_commit f66056ace818ff19b507335634dd67138a92c77f
 
 Name:       calls
-Version:    48.0
+Version:    48.1
 Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 

@@ -1,5 +1,5 @@
 Name:           python-jupyterlab-widgets
-Version:        3.0.13
+Version:        3.0.14
 Release:        %autorelease
 Summary:        Jupyter interactive widgets for JupyterLab
 # Based on the output of:

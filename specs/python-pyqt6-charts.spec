@@ -1,10 +1,10 @@
 %global pypi_name PyQt6_Charts
 
-%define snap dev2503181029
+#define snap dev2503181029
 
 Name:           python-pyqt6-charts
 Version:        6.9.0
-Release:        0.1%{?snap:^%{snap}}%{?dist}
+Release:        1%{?snap:^%{snap}}%{?dist}
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqtchart/

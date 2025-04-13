@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/stripe/stripe-python
-Version:        11.4.1
+Version:        12.0.0
 %forgemeta
 
 Name:           python-stripe
@@ -60,6 +60,7 @@ Summary:        %{summary}
 # 6. python3-pytest
 # 7. python3-pytest-mock
 # 8. python3-trio
+# 9. python3-xdist
 #
 # Then execute:
 # In first shell:

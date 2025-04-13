@@ -33,7 +33,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -135,6 +135,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Fri Apr 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.30-3
+- rebuilt with goipp 1.2.0
+
 * Wed Mar 26 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.30-2
 - update SPEC file with new changes from go2rpm
 

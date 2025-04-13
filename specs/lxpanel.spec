@@ -13,12 +13,12 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20250404
-%global	gittartime		1522
+%global	gittardate		20250411
+%global	gittartime		1403
 %global	use_gitcommit_as_rel		0
 
-%global	gitbaredate	20250403
-%global	git_rev		4458f44605120381664d3a93c01c21d2944da0b0
+%global	gitbaredate	20250409
+%global	git_rev		b90d169002d4ac9c8b24a577c8be8f2e654409a8
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -30,7 +30,7 @@
 
 %dnl	%global		use_gcc_strict_sanitize	1
 
-%global		main_version	0.11.0
+%global		main_version	0.11.1
 %global		baserelease	1
 
 Name:			lxpanel
@@ -225,6 +225,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Apr 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.1-1
+- 0.11.1
+
 * Fri Apr 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.0-1
 - 0.11.0
 

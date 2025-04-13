@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate idna
+%global crate uguid
 
-Name:           rust-idna
-Version:        1.0.3
+Name:           rust-uguid
+Version:        2.2.1
 Release:        %autorelease
-Summary:        IDNA (Internationalizing Domain Names in Applications) and Punycode
+Summary:        GUID (Globally Unique Identifier) no_std library
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/idna
+URL:            https://crates.io/crates/uguid
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only bencher dev-dependency
-Patch:          idna-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-IDNA (Internationalizing Domain Names in Applications) and Punycode.}
+GUID (Globally Unique Identifier) no_std library.}
 
 %description %{_description}
 
@@ -35,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,28 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+bytemuck-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+bytemuck-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "bytemuck" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+bytemuck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+compiled_data-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+compiled_data-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "compiled_data" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+compiled_data-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -91,17 +89,17 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f bytemuck,serde
 
 %build
-%cargo_build
+%cargo_build -f bytemuck,serde
 
 %install
-%cargo_install
+%cargo_install -f bytemuck,serde
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f bytemuck,serde
 %endif
 
 %changelog

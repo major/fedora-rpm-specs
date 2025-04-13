@@ -14,7 +14,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a6
+%global prerel a7
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -350,6 +350,19 @@ Source11: idle3.appdata.xml
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
+
+# 00454 # 1d5d7e9ce724fbbd89645d637303d12731c2a622
+# Invoke regen-token rst with rstfile as an argument
+#
+# Proposed upstream: https://github.com/python/cpython/pull/132304
+Patch454: 00454-invoke-regen-token-rst-with-rstfile-as-an-argument.patch
+
+# 00456 # 8f50cf7170e39c02d52cb5f99d647eeefad2f685
+# Find the correct group name in test_group_no_follow_symlinks
+#
+# Reported: https://github.com/python/cpython/issues/132356
+# Fix proposed upstream: https://github.com/python/cpython/pull/132357
+Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.patch
 
 # (New patches go here ^^^)
 #
@@ -1406,6 +1419,7 @@ CheckPython freethreading
 %{1}/_elementtree.%{2}.so\
 %{1}/_hashlib.%{2}.so\
 %{1}/_heapq.%{2}.so\
+%{1}/_hmac.%{2}.so\
 %{1}/_interpchannels.%{2}.so\
 %{1}/_interpqueues.%{2}.so\
 %{1}/_interpreters.%{2}.so\
@@ -1698,6 +1712,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Apr 08 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a7-1
+- Update to Python 3.14.0a7
+
 * Mon Mar 17 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a6-1
 - Update to Python 3.14.0a6
 

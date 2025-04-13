@@ -1,4 +1,4 @@
-%global sdl3_minver 3.2.6
+%global sdl3_minver 3.2.10
 
 # Features disabled for RHEL
 %if 0%{?rhel}
@@ -8,7 +8,7 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.32.52
+Version:        2.32.54
 Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
@@ -147,12 +147,13 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_datadir}/aclocal/sdl2.m4
 %{_includedir}/SDL2/
 %dir %{_libdir}/cmake/SDL2
+%{_libdir}/cmake/SDL2/sdl2-config*.cmake
 %{_libdir}/cmake/SDL2/SDL2Config*.cmake
 %{_libdir}/cmake/SDL2/SDL2Targets*.cmake
 %{_libdir}/cmake/SDL2/SDL2mainTargets*.cmake
 %{_libdir}/libSDL2-2.0.so
 %{_libdir}/libSDL2.so
-%{_libdir}/pkgconfig/sdl2_compat.pc
+%{_libdir}/pkgconfig/sdl2-compat.pc
 %{_libdir}/libSDL2main.a
 %{_libdir}/libSDL2_test.a
 %{_libdir}/cmake/SDL2/SDL2_testTargets*.cmake
@@ -166,6 +167,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Fri Apr 11 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.54-1
+- Update to 2.32.54
+
 * Sun Mar 16 2025 Simone Caronni <negativo17@gmail.com> - 2.32.52-1
 - Update to 2.32.52.
 - Drop patches.

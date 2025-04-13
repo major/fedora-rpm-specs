@@ -1,6 +1,6 @@
-%global srcname PySnooper
+%global srcname pysnooper
 Name:           python-pysnooper
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Poor man's debugger for Python
 
@@ -34,7 +34,7 @@ Summary:        %{summary}
 %description -n python3-pysnooper %_description
 
 %prep
-%autosetup -n PySnooper-%{version}
+%autosetup -n %{srcname}-%{version}
 
 %build
 %py3_build

@@ -1,12 +1,10 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
-Version: 3.11
-Release: 3%{?dist}
+Version: 3.12
+Release: 1%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 # upstream fixes
-Patch10: 0001-diff-don-t-treat-empty-files-as-a-different-file-typ.patch
-Patch11: 0001-diff-fix-allocation-size-computation-that-could-caus.patch
 
 License: GPL-3.0-or-later
 Provides: bundled(gnulib)
@@ -57,6 +55,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Fri Apr 11 2025 Than Ngo <than@redhat.com> - 3.12-1
+- Fixed rhbz#2358545, Update to 3.12
+
 * Thu Mar 27 2025 Than Ngo <than@redhat.com> - 3.11-3
 - diff does not show a unified diff when one of the file is empty
 

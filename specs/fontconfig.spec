@@ -4,7 +4,7 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.16.1
+Version:	2.16.2
 Release:	1%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
@@ -202,6 +202,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Fri Apr 11 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.2-1
+- New upstream release.
+
 * Thu Mar 13 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.1-1
 - New upstream release.
 

@@ -101,14 +101,13 @@ Summary:        An extremely fast Python package installer and resolver, written
 # LGPL-3.0-or-later OR MPL-2.0
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR LGPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 0BSD AND
                 (0BSD OR Apache-2.0 OR MIT) AND

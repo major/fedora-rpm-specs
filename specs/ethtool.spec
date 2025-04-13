@@ -4,7 +4,7 @@ Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
 Version:        6.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
@@ -34,6 +34,10 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 %install
 %make_install
 
+# Fix wrong component type in AppStream metadata (#2359069)
+sed -e 's/"desktop"/"console-application"/' -i $RPM_BUILD_ROOT%{_metainfodir}/%{appstream_id}.metainfo.xml
+touch -c -r %{appstream_id}.metainfo.xml $RPM_BUILD_ROOT%{_metainfodir}/%{appstream_id}.metainfo.xml
+
 %check
 make check
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream_id}.metainfo.xml
@@ -49,6 +53,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream
 %{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %changelog
+* Fri Apr 11 2025 Robert Scheck <robert@fedoraproject.org> - 2:6.14-2
+- Fix wrong component type in AppStream metadata (#2359069)
+
 * Tue Apr 08 2025 Robert Scheck <robert@fedoraproject.org> - 2:6.14-1
 - Upgrade to 6.14 (#2358091)
 

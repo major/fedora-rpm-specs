@@ -4,7 +4,7 @@
 %global nmlibdir %{_prefix}/lib/NetworkManager
 
 Name:           nvme-cli
-Version:        2.12
+Version:        2.13
 Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
@@ -24,7 +24,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  kernel-headers
 %endif
 
-BuildRequires:  libnvme-devel >= 1.12
+BuildRequires:  libnvme-devel >= 1.13
 BuildRequires:  json-c-devel >= 0.14
 
 BuildRequires:  asciidoc
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Fri Apr 11 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.13-1
+- Update to 2.13
+
 * Mon Mar 17 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.12-1
 - Update to 2.12
 

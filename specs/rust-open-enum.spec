@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate idna
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-idna
-Version:        1.0.3
+%global crate open-enum
+
+Name:           rust-open-enum
+Version:        0.5.2
 Release:        %autorelease
-Summary:        IDNA (Internationalizing Domain Names in Applications) and Punycode
+Summary:        Attribute for generating "open" fieldless enums that accept any integer value
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/idna
+License:        Apache-2.0
+URL:            https://crates.io/crates/open-enum
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only bencher dev-dependency
-Patch:          idna-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-IDNA (Internationalizing Domain Names in Applications) and Punycode.}
+An attribute for generating "open" fieldless enums, those that accept
+any integer value, by using a newtype struct and associated constants.}
 
 %description %{_description}
 
@@ -33,8 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,28 +50,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+libc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+libc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "libc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+libc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+compiled_data-devel
+%package     -n %{name}+libc_-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+compiled_data-devel %{_description}
+%description -n %{name}+libc_-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "compiled_data" feature of the "%{crate}" crate.
+use the "libc_" feature of the "%{crate}" crate.
 
-%files       -n %{name}+compiled_data-devel
+%files       -n %{name}+libc_-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -9,7 +9,7 @@
 
 # https://github.com/OpenPrinting/goipp
 %global goipath         github.com/OpenPrinting/goipp
-Version:                1.1.0
+Version:                1.2.0
 
 %gometa -L
 

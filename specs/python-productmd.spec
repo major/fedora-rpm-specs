@@ -1,6 +1,6 @@
 Name:           python-productmd
-Version:        1.43
-Release:        2%{?dist}
+Version:        1.44
+Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Fri Apr 11 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.44-1
+- New upstream release 1.44
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

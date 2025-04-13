@@ -10,7 +10,7 @@ Version:        1.13
 Release:        %autorelease
 Summary:        A variety of alternative parser combinator libraries
 
-License:        LicenseRef-LGPL-2.1-or-later-with-exceptions
+License:        LGPL-2.1-or-later WITH polyparse-exception
 URL:            https://hackage.haskell.org/package/polyparse
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz

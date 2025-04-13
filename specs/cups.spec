@@ -21,8 +21,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.11
-Release: 13%{?dist}
+Version: 2.4.12
+Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -73,9 +73,6 @@ Patch10: cups-web-devices-timeout.patch
 Patch11: cups-failover-backend.patch
 # add device id for dymo printer
 Patch12: cups-dymo-deviceid.patch
-# use monotonic time for cups_enum_dests (rhbz #2316066)
-# https://github.com/OpenPrinting/cups/pull/1083
-Patch13: 0001-Use-monotonic-time-clock_gettime-for-cups_enum_dests.patch
 
 %if %{lspp}
 # selinux and audit enablement for CUPS - needs work and CUPS upstream wants
@@ -84,22 +81,6 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-# fix reading proper configs as root via cupsGetNamedDest()
-# https://github.com/OpenPrinting/cups/commit/8dce8d76c
-Patch1000: 0001-dest.c-Don-t-look-for-user-config-in-cupsGetNamedDes.patch
-# coverity fix
-# https://github.com/OpenPrinting/cups/commit/08d2576b02fc
-Patch1001: 0001-Fix-Coverity-discovered-issues.patch
-# https://github.com/OpenPrinting/cups/commit/5cc470c8d9
-Patch1002: 0001-Fix-make-and-model-whitespace-trimming-Issue-1096.patch
-# https://github.com/OpenPrinting/cups/commit/2e3f1583
-Patch1003: 0001-scheduler-Clean-up-failed-IPP-Everywhere-permanent-q.patch
-# inability to disable cipher via crypto policies
-# https://github.com/OpenPrinting/cups/commit/331a202a87
-Patch1004: 0001-tls-gnutls.c-Use-system-crypto-policy-if-available.patch
-# give a way how to opt-out from crypto policy
-# https://github.com/OpenPrinting/cups/commit/40e62848ab3
-Patch1005: 0001-Add-NoSystem-SSLOptions-value.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -329,8 +310,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch -P 11 -p1 -b .failover
 # Added IEEE 1284 Device ID for a Dymo device (bug #747866).
 %patch -P 12 -p1 -b .dymo-deviceid
-# use monotonic time (clock_gettime) for cups_enum_dests (bug #2316066).
-%patch -P 13 -p1 -b .monotonic
 
 %if %{lspp}
 # LSPP support.
@@ -338,18 +317,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %endif
 
 # UPSTREAM PATCHES
-# fix reading proper configs as root via cupsGetNamedDest()
-%patch -P 1000 -p1 -b .root-getnameddest
-# coverity fixes
-%patch -P 1001 -p1 -b .coverity-fix
-# fix make model trimming issue
-%patch -P 1002 -p1 -b .make-model-trim
-# clean up failed IPP Everywhere queues
-%patch -P 1003 -p1 -b .ipp-eve-fail
-# inability to disable cipher via crypto policies
-%patch -P 1004 -p1 -b .tls-system-policy
-# give a way how to opt-out from crypto policy
-%patch -P 1005 -p1 -b .nosystem-ssloption
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -850,6 +817,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Apr 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.12-1
+- cups-2.4.12 is available (fedora#2358327)
+
 * Thu Feb 20 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-13
 - every scriptlet has to return 0 (fedora#2346160)
 

@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -118,7 +118,7 @@ Provides:       dnf5-command(versionlock)
 %bcond_with    dnf5daemon_tests
 
 # Disable SOLVER_FLAG_FOCUS_NEW only for RHEL
-%if 0%{?rhel} && 0%{?rhel} < 10
+%if 0%{?rhel} && 0%{?rhel} < 11
 %bcond_with    focus_new
 %else
 %bcond_without focus_new
@@ -979,6 +979,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Fri Apr 11 2025 Jonathan Wright <jonathan@almalinux.org> - 5.2.12.0-4
+- Fix conditional controlling SOLVER_FLAG_FOCUS_NEW support on RHEL
+
 * Wed Apr 09 2025 Marek Blaha <mblaha@redhat.com> - 5.2.12.0-3
 - Rebuilt for sdbus-cpp-2.1
 

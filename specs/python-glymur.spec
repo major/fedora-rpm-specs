@@ -43,11 +43,9 @@ BuildRequires:  %{py3_dist gdal}
 BuildRequires:  openjpeg2
 BuildRequires:  libtiff
 
-%if %[ %{defined fc43} || %{defined fc42} || %{defined fc41} || %{defined fc40} || %{defined el9} ]
+%if %[ %{defined fc42} || %{defined fc41} || %{defined fc40} || %{defined el9} ]
 # Workaround for setuptools<77.0.3; see
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
-# Once https://src.fedoraproject.org/rpms/python-setuptools/pull-request/124
-# lands in Rawhide, we can remove the fc43 term from the conditional.
 %global no_pep_639_backend 1
 
 BuildRequires:  tomcli

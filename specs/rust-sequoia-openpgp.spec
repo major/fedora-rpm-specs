@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax idna dependency to allow building with v0.5
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          sequoia-openpgp-fix-metadata.diff
 

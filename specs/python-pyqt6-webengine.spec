@@ -1,6 +1,6 @@
 %global pypi_name PyQt6_WebEngine
 
-%define snap dev2503211447
+#define snap dev2503211447
 
 Name:          python-pyqt6-webengine
 Version:       6.9.0
@@ -8,7 +8,7 @@ Release:       0.1%{?snap:^%{snap}}%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
-Source0:      https://pypi.python.org/packages/source/P/PyQt6_WebEngine/pyqt6_webengine-%{version}%{?snap:.%{snap}}.tar.gz
+Source0:       https://pypi.python.org/packages/source/P/PyQt6_WebEngine/pyqt6_webengine-%{version}%{?snap:.%{snap}}.tar.gz
 
 ExclusiveArch: %{qt6_qtwebengine_arches}
 

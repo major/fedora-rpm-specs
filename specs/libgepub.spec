@@ -1,8 +1,8 @@
 %global apiver 0.7
 
 Name:           libgepub
-Version:        0.7.1
-Release:        7%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 Summary:        Library for epub documents
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Apr 11 2025 nmontero <nmontero@redhat.com> - 0.7.3-1
+- Update to 0.7.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

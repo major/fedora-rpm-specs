@@ -2696,6 +2696,12 @@ fi
     clang-format-diff
     run-clang-tidy
 }}
+%if %{maj_ver} >= 21
+%{expand_bins %{expand:
+    offload-arch
+}}
+%endif
+
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
 %{_emacs_sitestartdir}/clang-include-fixer.el

@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           valijson
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Header-only JSON Schema validation library for C++11
 
@@ -41,10 +41,7 @@ BuildRequires:  boost-devel
 BuildRequires:  cmake(gtest)
 BuildRequires:  cmake(jsoncpp)
 BuildRequires:  cmake(nlohmann_json)
-# Disable Poco adaptor. The test suite fails to build against
-# Poco >= 1.14.0.
-# https://github.com/tristanpenman/valijson/issues/204
-#BuildRequires:  cmake(pocojson)
+BuildRequires:  cmake(pocojson)
 BuildRequires:  cmake(qt5core)
 BuildRequires:  cmake(rapidjson)
 BuildRequires:  cmake(yaml-cpp)
@@ -68,10 +65,7 @@ Summary:        Header files for %{name}
 Requires:       boost-devel
 Requires:       cmake(jsoncpp)
 Requires:       cmake(nlohmann_json)
-# Disable Poco adaptor. The test suite fails to build against
-# Poco >= 1.14.0.
-# https://github.com/tristanpenman/valijson/issues/204
-#Requires:       cmake(pocojson)
+Requires:       cmake(pocojson)
 Requires:       cmake(qt5core)
 Requires:       cmake(rapidjson)
 Requires:       cmake(yaml-cpp)
@@ -103,11 +97,6 @@ mv -v thirdparty/JSON-Schema-Test-Suite-%{tag1}/ thirdparty/JSON-Schema-Test-Sui
 # Remove `json11` headers
 rm -v include/valijson/utils/json11_utils.hpp
 rm -v include/valijson/adapters/json11_adapter.hpp
-
-# Don't turn warnings into errors
-# Link against system `yaml-cpp`
-sed -r 's/-Werror ?//' \
-    -i CMakeLists.txt
 
 %build
 %cmake \

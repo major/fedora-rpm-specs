@@ -3,7 +3,7 @@ Summary:        Documentation for the Python 3 programming language
 
 # The Version should be in-sync with the python3 package:
 %global         pybasever 3.13
-%global         general_version %{pybasever}.2
+%global         general_version %{pybasever}.3
 #global         prerel ...
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
@@ -17,9 +17,6 @@ Source1:        %{url}ftp/python/%{general_version}/Python-%{upstream_version}.t
 # The release manager for Python 3.13 is Thomas Wouters
 Source2: https://github.com/Yhg1s.gpg
 
-# Fix bad link in documentation
-Patch:   https://github.com/python/cpython/pull/129691.patch
-
 BuildArch:      noarch
 
 Recommends:     python3 = %{version}
@@ -28,7 +25,7 @@ Recommends:     python3 = %{version}
 BuildRequires: make
 BuildRequires:  %{__python3}
 BuildRequires:  python3-docs-theme >= 2022.1
-BuildRequires:  (python3-sphinx < 1:3 or python3-sphinx >= 1:3.2)
+BuildRequires:  python3-sphinx >= 1:8.2.0
 BuildRequires:  python3-docutils
 BuildRequires:  python3-pygments
 BuildRequires:  gnupg2

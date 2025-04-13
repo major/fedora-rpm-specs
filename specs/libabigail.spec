@@ -5,8 +5,8 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.6
-Release: 3%{?dist}
+Version: 2.7
+Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -21,8 +21,7 @@ BuildRequires: libtool
 BuildRequires: elfutils-devel
 BuildRequires: libxml2-devel
 BuildRequires: xxhash-devel
-# libabigail builds with XXH_INLINE_ALL, so depend on (virtual) xxhash-static
-BuildRequires: xxhash-static
+BuildRequires: xz-devel >= 5.2.0
 BuildRequires: doxygen
 BuildRequires: python3-sphinx
 BuildRequires: texinfo
@@ -146,8 +145,8 @@ time make %{?_smp_mflags} check-self-compare ENABLE_SLOW_TEST=yes || (cat tests/
 %if %{with abidb}
 %{_bindir}/abidb
 %endif
-%{_libdir}/libabigail.so.5
-%{_libdir}/libabigail.so.5.0.0
+%{_libdir}/libabigail.so.6
+%{_libdir}/libabigail.so.6.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -171,6 +170,13 @@ time make %{?_smp_mflags} check-self-compare ENABLE_SLOW_TEST=yes || (cat tests/
 %endif
 
 %changelog
+* Fri Apr 11 2025 Dodji Seketeli  <dodji@redhat.com> - 2.7-1
+- Update to upstream 2.7 tarball
+- Do not build with by default XXH_INLINE_ALL anymore
+- Drop xxhash-static dependency
+- Add xz-devel >= 5.2.0 dependency to support reading xz-compressed binaries
+- Support new libabigail.so.6.0.0 SONAME
+
 * Tue Feb 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6-3
 - Limit fedabipkgdiff to Fedora and EPEL
 

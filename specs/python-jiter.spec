@@ -70,15 +70,15 @@ tomcli set crates/jiter-python/Cargo.toml lists delitem \
 
 
 %build
-%pyproject_wheel
-
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+
+%pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -l %{srcname}
 
 
 %check
@@ -87,7 +87,6 @@ tomcli set crates/jiter-python/Cargo.toml lists delitem \
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE LICENSE.dependencies
 %doc README.md
 
 

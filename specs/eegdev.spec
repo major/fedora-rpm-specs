@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Library to acquire data from various EEG recording devices
 
 License:        LGPL-3.0-or-later
-URL:            http://cnbi.epfl.ch/software/eegdev.html
+URL:            https://archiveweb.epfl.ch/cnbi.epfl.ch/index.html%3Fp=228.html
 Source0:        http://download.sourceforge.net/eegdev/%{name}-%{version}.tar.bz2
 Patch0:         fix-biosemi-on-bigendian.patch
 Patch1:         fix-racecond-in-biosemi-tests.patch

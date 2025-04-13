@@ -6,10 +6,10 @@ Version:    1.6
 Release:    39.%{posttag}%{?dist}
 Summary:    Convert man pages to HTML - CGI scripts
 
-# man2html.c and debian/sources/man2html.cgi.c are Copyright Only
-# utils.c is GPL+
-# everything else is GPLv2
-License:    GPLv2+ and GPL+ and Copyright only
+# man2html.c and debian/sources/man2html.cgi.c are man2html
+# utils.c is GPL-1.0-or-later
+# everything else is GPL-2.0-or-later
+License:    GPL-2.0-or-later AND GPL-1.0-or-later AND man2html
 
 URL:        http://www.kapiti.co.nz/michael/vhman2html.html
 Source0:    http://primates.ximian.com/~flucifredi/man/man-%{version}%{posttag}.tar.gz

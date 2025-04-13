@@ -6,7 +6,7 @@
 %global crate adblock
 
 Name:           rust-adblock
-Version:        0.9.3
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Native Rust module for Adblock Plus syntax
 
@@ -14,9 +14,6 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/adblock
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump base64 dependency from 0.13 to 0.22
-# * bump idna dependency from 0.2 to 0.5
-# * bump itertools dependency from 0.10 to 0.13
 # * bump rmp-serde dependency from 0.15 to 1
 # * relax mock_instant dev-dependency
 # * bump sha2 dev-dependency from 0.9 to 0.10
@@ -25,7 +22,7 @@ Source:         %{crates_source}
 # * drop unused css-validation feature with outdated dependencies
 Patch:          adblock-fix-metadata.diff
 # * drop tests that require unshipped support code
-Patch:          0001-drop-tests-that-require-unshipped-support-code.patch
+Patch10:        0001-drop-tests-that-require-unshipped-support-code.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

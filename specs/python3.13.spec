@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.2
+%global general_version %{pybasever}.3
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -57,28 +57,28 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 24.3.1
+%global pip_version 25.0.1
 %global setuptools_version 67.6.1
 %global wheel_version 0.43.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14
+Provides: bundled(python3dist(cachecontrol)) = 0.14.1
 Provides: bundled(python3dist(certifi)) = 2024.8.30
 Provides: bundled(python3dist(distlib)) = 0.3.9
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.7
-Provides: bundled(python3dist(msgpack)) = 1.0.8
-Provides: bundled(python3dist(packaging)) = 24.1
-Provides: bundled(python3dist(platformdirs)) = 4.2.2
+Provides: bundled(python3dist(idna)) = 3.10
+Provides: bundled(python3dist(msgpack)) = 1.1
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.3.6
 Provides: bundled(python3dist(pygments)) = 2.18
-Provides: bundled(python3dist(pyproject-hooks)) = 1
+Provides: bundled(python3dist(pyproject-hooks)) = 1.2
 Provides: bundled(python3dist(requests)) = 2.32.3
 Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.7.1
+Provides: bundled(python3dist(rich)) = 13.9.4
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(tomli)) = 2.2.1
 Provides: bundled(python3dist(truststore)) = 0.10
 Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
@@ -357,6 +357,18 @@ Source11: idle3.appdata.xml
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
+
+# 00454 # 1d5d7e9ce724fbbd89645d637303d12731c2a622
+# Invoke regen-token rst with rstfile as an argument
+#
+# Proposed upstream: https://github.com/python/cpython/pull/132304
+Patch454: 00454-invoke-regen-token-rst-with-rstfile-as-an-argument.patch
+
+# 00456 # 8f50cf7170e39c02d52cb5f99d647eeefad2f685
+# Find the correct group name in test_group_no_follow_symlinks
+#
+# Proposed upstream: https://github.com/python/cpython/pull/132357
+Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.patch
 
 # (New patches go here ^^^)
 #
@@ -1711,6 +1723,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Apr 09 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.3-1
+- Update to 3.13.1
+
 * Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.2-2
 - Rebuilt with mpdecimal 4.0.0
 

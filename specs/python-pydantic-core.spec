@@ -13,17 +13,17 @@
 
 Name:           python-pydantic-core
 Version:        2.27.2
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
 URL:            https://github.com/pydantic/pydantic-core
 Source:         %{url}/archive/v%{version}/pydantic-core-%{version}.tar.gz
 
-# Downstream-only: allow an older version of idna
-#
-# The many new dependencies of idna 1.x mean it will take some time to update.
-Patch:          0001-Downstream-only-allow-an-older-version-of-idna.patch
+# Bump url from 2.5.2 to 2.5.4 (#1585)
+# https://github.com/pydantic/pydantic-core/pull/1585
+# Backported to 2.27.2, without changes to Cargo.lock.
+Patch:          0001-Bump-url-from-2.5.2-to-2.5.4-1585.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging
@@ -61,17 +61,16 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
-# MIT OR Apache-2.0 (duplicate)
-# MIT OR Apache-2.0 OR Zlib
+# MIT OR Apache-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT (duplicate)
 License:        %{shrink:
                 (MIT OR Apache-2.0)
-                AND Unicode-DFS-2016
-                AND (BSD-2-Clause OR Apache-2.0 OR MIT)
-                AND (Apache-2.0 OR BSL-1.0)
                 AND MIT
-                AND (MIT OR Apache-2.0 OR zlib)
+                AND Unicode-3.0
+                AND Unicode-DFS-2016
+                AND (Apache-2.0 OR BSL-1.0)
+                AND (BSD-2-Clause OR Apache-2.0 OR MIT)
                 AND (Unlicense OR MIT)
                 }
 
@@ -113,7 +112,7 @@ export RUSTFLAGS="%{build_rustflags}"
 
 %install
 %pyproject_install
-%pyproject_save_files pydantic_core
+%pyproject_save_files -l pydantic_core
 
 
 %check
@@ -129,10 +128,15 @@ ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 
 %files -n python3-pydantic-core -f %{pyproject_files}
 %doc README.md
-%license LICENSE LICENSES.dependencies
 
 
 %changelog
+* Fri Apr 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-5
+- Rebuilt with idna 1.x; no longer allow older idna versions
+
+* Fri Apr 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-4
+- Expect maturin to handle license files
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.27.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

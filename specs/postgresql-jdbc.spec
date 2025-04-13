@@ -48,7 +48,7 @@
 
 Summary:        JDBC driver for PostgreSQL
 Name:           postgresql-jdbc
-Version:        42.7.4
+Version:        42.7.5
 Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
@@ -56,16 +56,13 @@ Source0:        https://repo1.maven.org/maven2/org/postgresql/postgresql/%{versi
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Provides:       pgjdbc = %version-%release
+Provides:       pgjdbc = %{version}-%{release}
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.ongres.scram:scram-client)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
-BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
 BuildRequires:  mvn(se.jiderhamn:classloader-leak-test-framework)
 
 %if %runselftest
@@ -73,21 +70,16 @@ BuildRequires:  postgresql-contrib
 BuildRequires:  postgresql-test-rpm-macros
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 42.7.4-9
+
 # gettext is only needed if we try to update translations
 # BuildRequires:  gettext
-
-Obsoletes:      %{name}-parent-poms < 42.2.2-2
 
 %description
 PostgreSQL is an advanced Object-Relational database management system. The
 postgresql-jdbc package includes the .jar files needed for Java programs to
 access a PostgreSQL database.
-
-%package javadoc
-Summary:        API docs for %{name}
-
-%description javadoc
-This package contains the API Documentation for %{name}.
 
 %package tests
 Summary:        Tests for %{name}
@@ -160,7 +152,7 @@ EOF
 opts="-DskipTests=true"
 %endif
 
-%mvn_build -- $opts
+%mvn_build -j -- $opts
 
 xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
 
@@ -176,9 +168,6 @@ cp -r -t %{buildroot}/%{_datadir}/%{name}-tests certdir
 
 %files tests -f .mfiles-tests
 %{_datadir}/%{name}-tests
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

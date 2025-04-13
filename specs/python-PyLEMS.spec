@@ -9,7 +9,7 @@ used to run NeuroML2 (http://neuroml.org/neuroml2.php) models.
 
 
 Name:           python-PyLEMS
-Version:        0.6.7
+Version:        0.6.8
 Release:        %autorelease
 Summary:        LEMS interpreter implemented in Python
 
