@@ -2,8 +2,8 @@
 %bcond_with python
 
 Name:           falkon
-Version:        25.03.80
-Release:        2%{?dist}
+Version:        25.04.0
+Release:        1%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -179,6 +179,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.80-2
 - Rebuild (qt6)
 

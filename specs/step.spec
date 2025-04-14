@@ -1,6 +1,6 @@
 Name:    step
 Summary: Interactive Physics Simulator 
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

@@ -1,5 +1,5 @@
 Name:    libksieve
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 Summary: Sieve support library
 
@@ -97,6 +97,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

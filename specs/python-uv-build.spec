@@ -90,11 +90,9 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 
 # This patch is for the forked, bundled pubgrub crate.
 #
-# Downstream-only: Revert "feat: ensure successful round-trip of RON (#193)"
-#   This reverts commit 21c6a215432fea9a75b7d15d9a9936af9ccc17cb.
-# We will not be packaging an alpha version of rust-ron. We can adjust this
-# after ron 0.9.x is released.
-Patch200:       0001-Downstream-only-Revert-feat-ensure-successful-round-.patch
+# build(deps): bump ron from 0.9.0-alpha.1 to 0.9.0
+# https://github.com/pubgrub-rs/pubgrub/pull/330
+Patch200:       https://github.com/pubgrub-rs/pubgrub/pull/330.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Also, there are a couple of test failures on 32-bit platforms.

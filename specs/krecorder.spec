@@ -1,5 +1,5 @@
 Name:           krecorder
-Version:        25.03.80
+Version:        25.04.0
 Release:        1%{?dist}
 License:        BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND GPL-3.0-or-later
 Summary:        Convergent KDE audio recording application
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

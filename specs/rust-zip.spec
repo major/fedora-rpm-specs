@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        2.2.3
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -23,15 +23,17 @@ Source11:       get_test_data.sh
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zip-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax bzip2 dependency to allow building with both v0.4 and v0.5
 # * drop unused benchmark-only / example-only dev-dependencies
+# * Remove the wasm_js feature from the getrandom dependency for the getrandom
+#   feature, and from the getrandom dev-dependency. Our rust-getrandom does not
+#   provide this feature; see also “Unconditional use of getrandom’s wasm_js
+#   feature is counter to upstream guidance,”
+#   https://github.com/zip-rs/zip2/issues/336.
+# * patch out the nt-time features; rust-nt-time not yet packaged
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
 Patch10:        zip-2.1.4-omitted-test-files.patch
-# * fix(test): Conditionalize a zip64 doctest
-# * https://github.com/zip-rs/zip2/pull/308
-Patch11:        https://github.com/zip-rs/zip2/pull/308.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -55,6 +57,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 %exclude %{crate_instdir}/cliff.toml
 %exclude %{crate_instdir}/pull_request_template.md
@@ -252,6 +255,18 @@ use the "flate2" feature of the "%{crate}" crate.
 %files       -n %{name}+flate2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+getrandom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+getrandom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "getrandom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+hmac-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -262,6 +277,18 @@ This package contains library source intended for building other packages which
 use the "hmac" feature of the "%{crate}" crate.
 
 %files       -n %{name}+hmac-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jiff-02-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff-02-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff-02" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff-02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+lzma-devel
@@ -300,16 +327,16 @@ use the "pbkdf2" feature of the "%{crate}" crate.
 %files       -n %{name}+pbkdf2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand-devel
+%package     -n %{name}+proc-macro2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand-devel %{_description}
+%description -n %{name}+proc-macro2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
+use the "proc-macro2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand-devel
+%files       -n %{name}+proc-macro2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sha1-devel
@@ -414,20 +441,7 @@ use the "zstd" feature of the "%{crate}" crate.
 # Extract test data (only) from the GitHub archive
 tar -xzvf '%{SOURCE10}' --strip-components=1 'zip2-%{version}/tests/data/'
 cp -vp '%{SOURCE11}' tests/data/
-%ifnarch s390x
 %cargo_test -a
-%else
-# A few test failures on s390x (big-endian)
-# https://github.com/zip-rs/zip2/issues/309
-%{cargo_test -a -- -- --exact %{shrink:
-    --skip write::test::fuzz_crash_2024_07_17
-    --skip write::test::fuzz_crash_2024_07_19
-    --skip write::test::test_deep_copy
-    --skip write::test::test_fuzz_crash_2024_06_17a
-    --skip write::test::test_fuzz_crash_2024_06_18b
-    --skip write::test::test_fuzz_failure_2024_06_08
-}}
-%endif
 %endif
 
 %changelog

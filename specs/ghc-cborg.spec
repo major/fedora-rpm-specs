@@ -5,10 +5,6 @@
 %global pkgver %{pkg_name}-%{version}
 %{?haskell_setup}
 
-# https://github.com/well-typed/cborg/issues/207
-%ifnarch i686 armv7hl s390x
-%bcond tests 0
-%endif
 
 Name:           ghc-%{pkg_name}
 Version:        0.2.10.0
@@ -17,12 +13,14 @@ Summary:        Concise Binary Object Representation (CBOR)
 
 License:        BSD-3-Clause
 URL:            https://hackage.haskell.org/package/cborg
-# https://github.com/well-typed/cborg/issues/309
-ExcludeArch:    %{ix86}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
+# https://github.com/well-typed/cborg/issues/309
+# https://github.com/well-typed/cborg/pull/337
+Patch0:         https://patch-diff.githubusercontent.com/raw/well-typed/cborg/pull/337.patch
+Patch1:         cborg-Magic-ix86.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  dos2unix
@@ -120,6 +118,10 @@ This package provides the Haskell %{pkg_name} profiling library.
 %setup -q -n %{pkgver}
 dos2unix -k -n %{SOURCE1} %{pkg_name}.cabal
 # End cabal-rpm setup
+%ifarch %{ix86}
+%patch -P0 -p2 -b .orig
+%patch -P1 -p1
+%endif
 
 
 %build

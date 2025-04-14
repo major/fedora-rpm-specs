@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # * https://github.com/pubgrub-rs/pubgrub/pull/267
 Source2:        https://github.com/pubgrub-rs/pubgrub/raw/216f3fd/LICENSE
 # Manually created patch for downstream crate metadata changes
-# * downgrade ron dev-dependency to the available stable version
+# * bump ron from 0.9.0-alpha.1 to 0.9.0:
+#   https://github.com/pubgrub-rs/pubgrub/pull/330
 # * drop incomplete package.include setting:
 #   https://github.com/pubgrub-rs/pubgrub/pull/329
 Patch:          version-ranges-fix-metadata.diff

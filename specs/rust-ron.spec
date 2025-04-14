@@ -5,7 +5,7 @@
 %global crate ron
 
 Name:           rust-ron
-Version:        0.8.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Rusty Object Notation
 
@@ -15,10 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop missing option_set dev-dependency. Only one test needs it, and the
 #   crate is not otherwise widely used.
-# * Update base64 to 0.22, as in
-#   https://github.com/ron-rs/ron/commit/b70745691ddcb12204a5eef227668210cf12500e;
-#   the test that had to be patched in that commit is not included in the 0.8.1
-#   release.
+# * Omit the test source that requires option_set.
 Patch:          ron-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

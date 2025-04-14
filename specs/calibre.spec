@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        8.1.0
+Version:        8.2.100
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -18,9 +18,6 @@ Patch:          calibre-no-update.patch
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
 Patch:          calibre-nodisplay.patch
-
-# https://codereview.qt-project.org/c/qt/qtbase/+/609639
-Patch:          calibre-fix-qt6.9-build.patch
 
 ExclusiveArch: aarch64 x86_64
 

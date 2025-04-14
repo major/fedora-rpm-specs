@@ -12,6 +12,10 @@ Summary:        Rust bindings for GStreamer
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gstreamer
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update to ron 0.9:
+#   https://gitlab.freedesktop.org/gstreamer/gstreamer-rs/-/commit/c8d752affc
+Patch:          gstreamer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

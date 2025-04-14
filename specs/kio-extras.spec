@@ -1,5 +1,5 @@
 Name:    kio-extras
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -61,6 +61,7 @@ BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  taglib-devel > 1.11
+BuildRequires:  qt6-qtbase-private-devel
 
 # This package provides plugins for KIO
 Supplements:    kf6-kio-core
@@ -133,6 +134,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

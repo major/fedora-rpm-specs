@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.10.0~rc1
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -35,10 +35,6 @@ Source1:        get_source
 
 BuildSystem:            pyproject
 BuildOption(install):   -l cramjam
-
-# Update PyO3 to 0.24
-# https://github.com/milesgranger/cramjam/pull/207
-Patch:          %{url}/pull/207/commits/217c375c2a2f96e28a1b3987f0eb5c730b4b361e.patch
 
 BuildRequires:  tomcli >= 0.8.0
 BuildRequires:  cargo-rpm-macros >= 24

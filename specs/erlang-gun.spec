@@ -1,8 +1,7 @@
 %global realname gun
 
-
 Name:		erlang-%{realname}
-Version:	2.1.0
+Version:	2.2.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Erlang HTTP client with support for HTTP/1.1, HTTP/2, Websocket and more
@@ -15,33 +14,26 @@ BuildRequires:	erlang-cowlib
 BuildRequires:	erlang-ct_helper
 BuildRequires:	erlang-rebar3
 
-
 %description
 %{summary}.
-
 
 %prep
 %autosetup -p1 -n %{realname}-%{version}
 
-
 %build
 %{erlang3_compile}
 
-
 %install
 %{erlang3_install}
-
 
 %check
 # FIXME requires Golang utility for code generation
 #%%{erlang3_test}
 
-
 %files
 %license LICENSE
 %doc README.asciidoc
 %{erlang_appdir}/
-
 
 %changelog
 %autochangelog

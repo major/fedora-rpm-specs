@@ -2,8 +2,8 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    yakuake
-Version: 25.03.80
-Release: 2%{?dist}
+Version: 25.04.0
+Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -91,6 +91,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.80-2
 - Rebuild (qt6)
 

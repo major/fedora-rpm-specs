@@ -14,8 +14,6 @@ Summary:        A binary serialisation library for Haskell values
 
 License:        BSD-3-Clause
 URL:            https://hackage.haskell.org/package/serialise
-# https://github.com/well-typed/cborg/issues/309
-ExcludeArch:    %{ix86}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 Source1:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal

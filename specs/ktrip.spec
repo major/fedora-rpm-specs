@@ -1,5 +1,5 @@
 Name:          ktrip
-Version:       25.03.80
+Version:       25.04.0
 Release:       1%{?dist}
 Summary:       Public transport navigation, allows you to find journeys between specified locations, departures for a specific station and shows real-time delay and disruption information.
 
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

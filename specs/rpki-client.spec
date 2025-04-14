@@ -8,8 +8,8 @@
 
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
-Version:        9.4
-Release:        2%{?with_snapshot:.git%{gitdate}}%{?dist}
+Version:        9.5
+Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -26,11 +26,10 @@ Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/B5B6416FEA6DDA05E
 Source0:        https://github.com/rpki-client/rpki-client-portable/archive/%{portable_commit}/%{name}-portable-%{version}-%{portable_shortcommit}.tar.gz
 Source1:        https://github.com/rpki-client/rpki-client-openbsd/archive/%{openbsd_commit}/%{name}-openbsd-%{version}-%{openbsd_shortcommit}.tar.gz
 %endif
-Source3:        TALs.md
-Source4:        %{name}.sysusersd
-Source5:        %{name}.service
-Source6:        %{name}.timer
-Source7:        %{name}.service.el8
+Source3:        %{name}.sysusersd
+Source4:        %{name}.service
+Source5:        %{name}.timer
+Source6:        %{name}.service.el8
 %if !0%{?with_snapshot}
 BuildRequires:  gnupg2
 %else
@@ -71,7 +70,6 @@ tar xfz %{SOURCE1}
 mv -f %{name}-openbsd-%{openbsd_commit} openbsd
 ./autogen.sh
 %endif
-cp -pf %{SOURCE3} .
 
 %build
 %configure \
@@ -83,13 +81,13 @@ cp -pf %{SOURCE3} .
 
 %install
 %make_install
-install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
-install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
-install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
-%{?el8:install -D -p -m 0644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service}
+install -D -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
+install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
+%{?el8:install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service}
 
 %pre
-%sysusers_create_compat %{SOURCE4}
+%sysusers_create_compat %{SOURCE3}
 
 %post
 %systemd_post %{name}.timer
@@ -102,7 +100,7 @@ install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
 
 %files
 %license LICENSE
-%doc AUTHORS README.md TALs.md
+%doc AUTHORS README.md
 %{_sbindir}/%{name}
 %{_sysconfdir}/pki/tals/
 %{_unitdir}/%{name}.service
@@ -113,6 +111,9 @@ install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sat Apr 12 2025 Robert Scheck <robert@fedoraproject.org> 9.5-1
+- Upgrade to 9.5 (#2359198)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

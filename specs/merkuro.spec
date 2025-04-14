@@ -1,6 +1,6 @@
 Name: merkuro
-Version: 25.03.80
-Release: 2%{?dist}
+Version: 25.04.0
+Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License: GPL-3.0-or-later
@@ -9,8 +9,6 @@ URL:     https://invent.kde.org/pim/%{name}
 Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
-# https://invent.kde.org/pim/merkuro/-/commit/15be32bea0f052a9058959176a1a86101646fc7c
-Patch0: 15be32bea0f052a9058959176a1a86101646fc7c.patch
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
@@ -136,11 +134,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_libdir}/libMerkuroComponents.so.{6,%{version}}
 %{_kf6_libdir}/libmerkuro_contact.so
 %{_kf6_libdir}/libmerkuro_contact.so.{6,%{version}}
-%{_kf6_libdir}/libmerkuro_contact_plugin.so
 %{_kf6_datadir}/knotifications6/merkuro.mail.notifyrc
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.80-2
 - Rebuild (qt6)
 

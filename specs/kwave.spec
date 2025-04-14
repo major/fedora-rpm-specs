@@ -3,7 +3,7 @@
 %undefine _include_frame_pointers
 
 Name:           kwave
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
@@ -108,6 +108,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_docdir}/HTML/*/%{name}
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

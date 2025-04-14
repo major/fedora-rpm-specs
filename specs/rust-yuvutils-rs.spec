@@ -5,15 +5,13 @@
 %global crate yuvutils-rs
 
 Name:           rust-yuvutils-rs
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        High performance utilities for YUV format handling and conversion
 
 License:        BSD-3-Clause OR Apache-2.0
 URL:            https://crates.io/crates/yuvutils-rs
 Source:         %{crates_source}
-# * https://github.com/awxkee/yuvutils-rs/pull/71
-Patch10:        0001-Fix-test-build-on-i686.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

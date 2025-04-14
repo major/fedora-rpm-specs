@@ -1,5 +1,5 @@
 Name:          qrca
-Version:       25.03.80
+Version:       25.04.0
 Release:       1%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Mon Mar 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.03.80-1
 - 25.03.80
 

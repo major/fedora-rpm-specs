@@ -1,5 +1,5 @@
 Name:          arianna
-Version:       25.03.80
+Version:       25.04.0
 Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ar
 %{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

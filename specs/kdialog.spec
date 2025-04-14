@@ -1,6 +1,6 @@
 Name:    kdialog
 Summary: Nice dialog boxes from shell scripts
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -55,6 +55,9 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

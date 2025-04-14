@@ -13,7 +13,7 @@
 
 Name:           libxfce4windowing
 Version:        4.20.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -51,6 +51,9 @@ BuildRequires:  pkgconfig(libwnck-3.0) >= 3.14
 BuildRequires:  pkgconfig(xrandr) >= 1.5.0
 %endif
 
+# Require gdk-pixbuf2-modules-extra for loaders needed for icons
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359089
+Requires: gdk-pixbuf2-modules-extra
 
 %description
 Libxfce4windowing is an abstraction library that attempts to present
@@ -104,6 +107,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Apr 12 2025 Kevin Fenzi <kevin@scrye.com> - 4.20.2-2
+- Add a Requires on gdk-pixbuf2-modules-extra. Fixes rhbz#2359089
+
 * Sat Feb 15 2025 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.20.2-1
 - Update to v4.20.2
 - Update source to correct location

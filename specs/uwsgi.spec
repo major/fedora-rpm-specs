@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit 9606cb0ee032e77113a043b21fcc386738de301b
+%global commit b9da5eadc78985ec6dff7e3a755ca7be42f9f4c2
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -249,8 +249,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.28
-Release:        7%{?dist}
+Version:        2.0.29
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1962,6 +1962,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Sat Apr 12 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.29-1
+- Update to 2.0.29
+
 * Mon Mar 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.28-7
 - Rebuild for new libgo
 

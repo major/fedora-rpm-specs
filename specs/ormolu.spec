@@ -28,6 +28,8 @@ Source1:        https://hackage.haskell.org/package/%{markdownunlit}/%{markdownu
 Source2:        https://hackage.haskell.org/package/%{thenv}/%{thenv}.tar.gz
 Source3:        https://hackage.haskell.org/package/%{pkgver}/%{name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
+# due to removal of ghc.i686 Unique Word
+ExcludeArch:    %{ix86}
 
 # Begin cabal-rpm deps:
 BuildRequires:  dos2unix

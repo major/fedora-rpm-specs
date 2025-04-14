@@ -29,7 +29,7 @@ it compatible with cython.
 %endif
 
 %global forgeurl https://github.com/the-virtual-brain/tvb-gdist
-%global tag 2.2.1
+%global tag 2.9.2
 
 
 Name:           python-tvb-gdist

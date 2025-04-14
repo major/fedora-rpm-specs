@@ -10,7 +10,7 @@
 Name:           cabal-rpm
 Version:        2.3.0
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
 License:        GPL-3.0-or-later
@@ -41,6 +41,27 @@ BuildRequires:  ghc-simple-cmd-args-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-unix-devel
+%if %{with ghc_prof}
+BuildRequires:  ghc-Cabal-prof
+BuildRequires:  ghc-aeson-prof
+BuildRequires:  ghc-base-prof
+BuildRequires:  ghc-bytestring-prof
+BuildRequires:  ghc-cached-json-file-prof
+BuildRequires:  ghc-directory-prof
+BuildRequires:  ghc-extra-prof
+BuildRequires:  ghc-filepath-prof
+#BuildRequires:  ghc-html-entities-prof
+BuildRequires:  ghc-http-client-prof
+BuildRequires:  ghc-http-client-tls-prof
+BuildRequires:  ghc-http-query-prof
+BuildRequires:  ghc-safe-prof
+BuildRequires:  ghc-simple-cabal-prof
+BuildRequires:  ghc-simple-cmd-prof
+BuildRequires:  ghc-simple-cmd-args-prof
+BuildRequires:  ghc-text-prof
+BuildRequires:  ghc-time-prof
+BuildRequires:  ghc-unix-prof
+%endif
 BuildRequires:  help2man
 # for missing dep 'html-entities':
 BuildRequires:  ghc-attoparsec-devel
@@ -135,7 +156,9 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/cblrpm.1
 
 
 %changelog
-%changelog
+* Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 2.3.0-2
+- Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 2.2.1-5
 - https://hackage.haskell.org/package/cabal-rpm-2.3.0/changelog
 

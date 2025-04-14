@@ -1,5 +1,5 @@
 Name:           kweathercore
-Version:        25.03.80
+Version:        25.04.0
 Release:        1%{?dist}
 License:        LGPL-2.0-or-later
 Summary:        Library to facilitate retrieval of weather information
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

@@ -39,9 +39,6 @@ sed -r -i 's/^file:/# &/' tests/requirements.in
 # Remove test dependency not available and unused in Fedora
 sed -i -e /pytest-run-parallel/d tests/requirements.in
 
-# Undo PEP639 until maturin supports it
-sed -i -e /license-files/d pyproject.toml
-
 %cargo_prep
 
 
@@ -60,7 +57,7 @@ export RUSTFLAGS='%{build_rustflags}'
 %install
 %pyproject_install
 
-%pyproject_save_files rpds
+%pyproject_save_files -l rpds
 
 
 %check
@@ -68,7 +65,6 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE LICENSES.dependencies
 %doc README.rst
 
 

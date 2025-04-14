@@ -453,6 +453,8 @@ Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4636
 # https://chromium-review.googlesource.com/c/chromium/src/+/6421030
 Patch600: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
+# https://chromium-review.googlesource.com/c/chromium/src/+/6445471
+Patch601: chromium-135-gperf.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1141,6 +1143,7 @@ Qt6 UI for chromium.
 
 # Upstream patches
 %patch -P600 -p1 -b .add-cfi-suppressions-for-pipewire-functions
+%patch -P601 -p1 -b .gperf-3.2
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works

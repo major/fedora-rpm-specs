@@ -1320,15 +1320,13 @@ pushd %{buildroot}%{sdkinstdir}
         -e "s,@OO_SDK_CAT_HOME@,/usr/bin," \
         -e "s,@OO_SDK_SED_HOME@,/usr/bin," \
         -e "s,@OO_SDK_CC_55_OR_HIGHER@,," \
-        -e "s,@OO_SDK_JAVA_HOME@,$JAVA_HOME," \
+        -e "s,@OO_SDK_JAVA_HOME@,%{_jvmdir}/java," \
         -e "s,@OO_SDK_OUTPUT_DIR@,\$HOME," \
         -e "s,@SDK_AUTO_DEPLOYMENT@,NO," \
         setsdkenv_unix.sh.in > setsdkenv_unix.sh
     # ensure no unexpanded vars sneaked in
     grep '@[A_Z0-9_]\+@' setsdkenv_unix.sh && exit 1
     chmod 755 setsdkenv_unix.sh
-    # we don't want to install the input file
-    rm -f setsdkenv_unix.sh.in
 # TODO: is this still necessary?
 #fix permissions
     find examples -type f -exec chmod -x {} \;

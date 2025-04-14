@@ -4,7 +4,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -128,6 +128,12 @@ Summary:        Dummy package to obsolete deprecated Haskell packages
 %ghc_obsoletes_lib x509-system 1.6.7.0
 %ghc_obsoletes_lib x509-validation 1.6.12.0
 %endif
+%if 0%{?fedora} >= 43
+%ghc_obsoletes_lib aeson-compat 0.3.11
+%ghc_obsoletes_lib fclabels 2.0.5.2
+%ghc_obsoletes_lib system-fileio 0.3.16.7
+%ghc_obsoletes_lib libiserv 9.8
+%endif
 
 %description -n ghc-obsoletes
 Meta package for obsoleting deprecated Haskell packages.
@@ -212,6 +218,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sun Apr 13 2025 Jens Petersen <petersen@redhat.com> - 2.8.1-2
+- F43 obsoletes: aeson-compat, fclabels, libiserv, system-fileio
+
 * Sun Mar 30 2025 Jens Petersen  <petersen@redhat.com> - 2.8.1-1
 - ghc_delete_rpaths: also remove system libdir from middle of rpath
 

@@ -5,7 +5,7 @@
 %global kpmcoremin 24.01
 
 Name:           kde-partitionmanager
-Version:        25.03.80
+Version:        25.04.0
 Release:        %autorelease
 Summary:        KDE Partition Manager
 

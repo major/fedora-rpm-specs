@@ -22,6 +22,17 @@ Patch02: cve-2024-25768.patch
 # gcc15 includes stricter check for header detection
 Patch: 0001-Fix-gcc15-stricter-check-for-headers.patch
 
+# rhbz 2177653
+# Fix for several segfauls
+# https://github.com/trusteddomainproject/OpenDMARC/pull/223
+# https://github.com/trusteddomainproject/OpenDMARC/pull/224
+# https://github.com/trusteddomainproject/OpenDMARC/pull/225
+# https://github.com/trusteddomainproject/OpenDMARC/issues/183
+# https://github.com/trusteddomainproject/OpenDMARC/issues/222
+Patch: 223.patch
+Patch: 224.patch
+Patch: 225.patch
+
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
 BuildRequires: autoconf

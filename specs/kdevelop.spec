@@ -3,7 +3,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        25.03.80
+Version:        25.04.0
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
@@ -234,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 9:25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 9:25.03.80-1
 - 25.03.80 (Beta)
 

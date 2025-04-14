@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -244,6 +244,9 @@ Requires:	ceph-mds = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mgr = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mon = %{_epoch_prefix}%{version}-%{release}
 Requires(post):	binutils
+Requires(pre):	/usr/sbin/useradd 
+Requires(pre):	/usr/sbin/groupadd
+
 %if 0%{with cephfs_java}
 BuildRequires:	java-devel
 BuildRequires:	jpackage-utils
@@ -1732,6 +1735,10 @@ if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph.target ceph-crash.service >/dev/null 2>&1 || :
 fi
 
+%pre base
+getent group ceph > /dev/null || groupadd -r ceph
+getent passwd ceph > /dev/null || useradd -r -g ceph -d %{_rundir}/ceph -s /sbin/nologin -c "Ceph" ceph
+
 %preun base
 %if 0%{?suse_version}
 %service_del_preun ceph.target ceph-crash.service
@@ -2720,6 +2727,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Sat Apr 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
+- ceph-19.2.2, rhbz#2359214
+
 * Thu Apr 10 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
 - ceph-19.2.2 GA
 

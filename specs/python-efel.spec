@@ -1,9 +1,7 @@
-%bcond_without tests
+%bcond tests 1
 
-%global forgeurl  https://github.com/BlueBrain/eFEL
-# Use github commit tar instead of pypi which does not include tests
-%global commit cc9a2b71c14a507fabf509ba73cb053bae14a53c
-
+%global commit 7748ef6508f2723be0220a3548ed2a630164393e
+%global forgeurl  https://github.com/openbraininstitute/eFEL
 
 %global desc %{expand: \
 The Electrophys Feature Extraction Library (eFEL) allows neuroscientists to
@@ -19,14 +17,16 @@ the moment we provide a way to automatically compile and install the library as
 a Python module.}
 
 Name:           python-efel
-Version:        5.4.0
+Version:        5.7.16
 Release:        %autorelease
 Summary:        Electrophys Feature Extraction Library
+%global tag     %{version}
 %forgemeta
 
 # python-pyedflib does not support s390x$
 # https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec$
-ExcludeArch:    s390x
+# pandas does not do ix86
+ExcludeArch:    s390x %{ix86}
 
 # spdx
 # pyfeatures/* and tests/* are BSD 3-Clause, the rest are LGPLv3
@@ -35,8 +35,7 @@ URL:            http://efel.readthedocs.io/
 Source0:        %{forgesource}
 # Use the _version.py from pypi
 Source1:        _version.py
-# Backport patch fixing pytest
-Patch:          pytest.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -79,8 +78,8 @@ rm -rf %{buildroot}/%{python3_sitearch}/efel/cppcore/
 %check
 %pyproject_check_import
 %if %{with tests}
-# https://github.com/BlueBrain/eFEL/blob/master/Makefile#L36: is obsolete
-%pytest -vv
+# reported upstream: https://github.com/openbraininstitute/eFEL/issues/6
+%pytest -vv  -k 'not test_load_neo_file_nwb and not test_save_feature'
 %endif
 
 %files -n python3-efel -f %{pyproject_files}

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/glotzerlab/gsd
-Version:        3.3.2
+Version:        3.4.2
 %forgemeta
 
 Name:           python-gsd

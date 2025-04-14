@@ -1,6 +1,6 @@
 Name:    kidentitymanagement
-Version: 25.03.80
-Release: 2%{?dist}
+Version: 25.04.0
+Release: 1%{?dist}
 Summary: The KIdentityManagement Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -85,6 +85,9 @@ find ./po -type f -name libkpimidentities5.po -execdir mv {} libkpimidentities6.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.80-2
 - Rebuild (qt6)
 

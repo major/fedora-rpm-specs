@@ -1,5 +1,5 @@
 Name:    ksmtp
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 Summary: KDE SMTP libraries
 
@@ -78,6 +78,9 @@ find ./po -type f -name libksmtp5.po -execdir mv {} libksmtp6.po \;
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

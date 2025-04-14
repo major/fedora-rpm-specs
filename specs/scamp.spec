@@ -1,6 +1,6 @@
 
 Name:           scamp
-Version:        2.13.1
+Version:        2.14.0
 Release:        %autorelease
 Summary:        compute astrometric and photometric solutions from sextractor catalogs
 

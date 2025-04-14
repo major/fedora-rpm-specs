@@ -1,5 +1,5 @@
 Name:    kleopatra
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

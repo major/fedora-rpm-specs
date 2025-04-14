@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # * remove feature for building / statically linking vendored OpenSSL sources
 # * relax parking_lot_core dependency from =0.9.9 to ^0.9.9
 # * allow which 7.0.0: https://github.com/extrawurst/gitui/pull/2418
+# * update ron (to 0.9):
+#   https://github.com/gitui-org/gitui/commit/5755c096b42553de98490cf788dff1a4925bc574
 Patch:          gitui-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

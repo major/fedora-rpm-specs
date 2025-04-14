@@ -1,14 +1,13 @@
 Name:           abcm2ps
 Version:        8.14.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A program to typeset ABC tunes into Postscript
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://moinejf.free.fr
 Source0:        https://github.com/leesavide/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:        http://abcplus.sourceforge.net/abcplus_en-2012-03-30.zip
-Source2:        http://abcplus.sourceforge.net/abcplus_en-DRAFT3.pdf
+Source1:        https://sourceforge.net/projects/abcplus/files/Abcplus/abcplus_en-2024-07-10.zip
 Patch0:		abcm2ps-gnu23.patch
 
 BuildRequires:  gcc make
@@ -31,7 +30,6 @@ Some sample ABC files with output as mp3, mid, and pdf.
 %prep
 %setup -q
 %setup -q -a 1
-cp -p %{SOURCE2} .
 %patch -P 0 -p 2
 
 %build
@@ -50,7 +48,7 @@ make install \
 
 
 %files 
-%doc INSTALL README.md abcplus_en-DRAFT3.pdf _docs_staging/abcm2ps/*
+%doc INSTALL README.md _docs_staging/abcm2ps/*
 %license COPYING
 %{_bindir}/abcm2ps
 %{_datadir}/abcm2ps
@@ -60,6 +58,9 @@ make install \
 %doc abcplus_en*/* 
 
 %changelog
+* Sat Apr 12 2025 Stuart Gathman <stuart@gathman.org> - 8.14.15-6
+- Update examples and pdf manual
+
 * Fri Jan 24 2025 Stuart Gathman <stuart@gathman.org> - 8.14.15-5
 - Patch to compile with gcc-15 (gnu23)
 

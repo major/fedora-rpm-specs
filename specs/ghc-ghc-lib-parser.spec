@@ -15,6 +15,8 @@ URL:            https://hackage.haskell.org/package/ghc-lib-parser
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
+# due to Unique Word revert in Fedora ghc
+ExcludeArch: %{ix86}
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel

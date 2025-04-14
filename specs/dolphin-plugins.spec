@@ -1,6 +1,6 @@
 Name:    dolphin-plugins
 Summary: Dolphin plugins
-Version: 25.03.80
+Version: 25.04.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -65,6 +65,9 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 
 
 %changelog
+* Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
+- 25.04.0
+
 * Thu Mar 20 2025 Steve Cossette <farchord@gmail.com> - 25.03.80-1
 - 25.03.80 (Beta)
 

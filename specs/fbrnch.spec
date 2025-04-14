@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.6.2
 # can only be reset when all subpkgs bumped
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -197,6 +197,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.6.2-27
+- Rebuild
+
 * Wed Mar 05 2025 Jens Petersen  <petersen@redhat.com> - 1.6.2-26
 - 'diff': use git diff's builtin filtering
 - 'fetch': add --lenient to skip non dist-git directories
