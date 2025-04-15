@@ -1,15 +1,15 @@
 Name:           perl-MooseX-Iterator
 Version:        0.11
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Iterate over collections
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/MooseX-Iterator
+URL:            https://metacpan.org/dist/MooseX-Iterator
 Source0:        https://cpan.metacpan.org/authors/id/R/RL/RLB/MooseX-Iterator-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(inc::Module::Install)
@@ -18,35 +18,26 @@ BuildRequires:  perl(Test::More) >= 0.42
 
 %{?perl_default_filter}
 
+# Filter requires
+%global __requires_exclude ^perl\\(MooseX::Iterator::(Array|Hash|Meta::Iterable)\\)$
+
 %description
-This is an attempt to add smalltalk-like streams to Moose. It currently
+This is an attempt to add Smalltalk-like streams to Moose. It currently
 works with ArrayRefs and HashRefs.
 
 %prep
 %setup -q -n MooseX-Iterator-%{version}
 
-# Filter requires
-cat << \EOF > %{name}-req
-#!/bin/sh
-%{__perl_requires} $* |\
-sed -e '/perl(MooseX::Iterator::Array)/d' |\
-sed -e '/perl(MooseX::Iterator::Hash)/d' |\
-sed -e '/perl(MooseX::Iterator::Meta::Iterable)/d'
-EOF
-
-%define __perl_requires %{_builddir}/MooseX-Iterator-%{version}/%{name}-req
-chmod +x %{__perl_requires}
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc
@@ -54,6 +45,11 @@ make test
 %{_mandir}/man3/Moose*
 
 %changelog
+* Fri Apr 11 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.11-46
+- Fix dependency filter
+- Fix spelling error in package description
+- Use %%make_* macros where possible
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,11 +1,11 @@
-%global commit0 c4b5190229616f7ebf8197f43990b4429de3e420
+%global commit0 fee39a3284c90249e1d9684cf6944ffbbcbb8f90
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250313
+%global snapdate 20250411
 
 Name:           yosys
-Version:        0.51
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.52
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -14,7 +14,7 @@ Source0:        https://github.com/YosysHQ/%{name}/archive/%{commit0}/%{name}-%{
 Source1:        https://github.com/mdaines/viz.js/releases/download/0.0.3/viz.js
 
 # man pages written for Debian:
-Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.33-6.debian.tar.xz
+Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.52-1.debian.tar.xz
 # requested that upstream include those man pages:
 #   https://github.com/YosysHQ/yosys/issues/278
 
@@ -34,12 +34,15 @@ Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 # referencing the cxxopts.hpp include file.
 Patch3:         0003-fedora-yosys-cxxopts-patch.patch
 
+# fix upstream regression (https://github.com/YosysHQ/yosys/issues/4964)
+Patch4:         0004-fix-upstream-regression.patch
+
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.46
+BuildRequires:  yosyshq-abc >= 0.52
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
@@ -173,6 +176,10 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Fri Apr 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.52.1.20250411gitfee39a3
+- update to 0.52 snapshot
+- update man pages from Debian
+
 * Wed Mar 26 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.51.2.20250313gitc4b5190
 - pick earliest 0.51 snapshot, buy time to fix subsequent upstream regression
 

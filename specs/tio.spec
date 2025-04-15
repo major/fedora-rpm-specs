@@ -1,7 +1,7 @@
 Summary:        Simple TTY terminal I/O application
 Name:           tio
-Version:        3.8
-Release:        2%{?dist}
+Version:        3.9
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://tio.github.io/
 Source0:        https://github.com/tio/tio/releases/download/v%{version}/%{name}-%{version}.tar.xz
@@ -39,6 +39,9 @@ commandline interface to easily connect to TTY devices for basic input/output.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Apr 13 2025 Robert Scheck <robert@fedoraproject.org> 3.9-1
+- Upgrade to 3.9 (#2359218)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

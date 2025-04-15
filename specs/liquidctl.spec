@@ -4,8 +4,8 @@ Name: liquidctl
 Summary: Tool for controlling liquid coolers, case fans and RGB LED strips
 License: GPL-3.0-or-later
 
-Version: 1.14.0
-Release: 3%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 
 URL: https://github.com/jonasmalacofilho/liquidctl
 Source0: %{pypi_source}
@@ -118,6 +118,9 @@ XDG_RUNTIME_DIR=$(pwd)/test-run-dir pytest-3
 
 
 %changelog
+* Sun Apr 13 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.15.0-1
+- Upgrade to v1.15.0
+
 * Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.14.0-3
 - Fix package description for python3-liquidctl
 

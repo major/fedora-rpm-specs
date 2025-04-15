@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.7
-Release:  1%{?dist}
+Version:  12.8
+Release:  4%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,30 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sun Apr 13 2025 Kim Walisch <walki@fedoraproject.org> - 12.8-4
+- Fix changelog issue in primesieve.spec
+
+* Sun Apr 13 2025 Kim Walisch <walki@fedoraproject.org> - 12.8-3
+- Improve littleendian_cast.hpp for big-endian CPUs
+
+* Sun Apr 13 2025 Kim Walisch <walki@fedoraproject.org> - 12.8-2
+- Revert littleendian_cast.hpp to fix s390x test failures
+
+* Sun Apr 13 2025 Kim Walisch <walki@fedoraproject.org> - 12.8-1
+- Vectorize primesieve::iterator.prev_prime() using AVX512
+- api.cpp: Tune sieve array size
+- PreSieve.cpp: Simplify SIMD code
+- PreSieve_default.hpp: New algorithm that is also fast using -Os and -O2
+- PreSieve_arm_neon.hpp: New file, contains ARM NEON algorithm
+- PreSieve_arm_sve.hpp: New file, contains ARM SVE algorithm
+- PreSieve_x86_avx512.hpp: New file, contains AVX512 algorithm
+- PreSieve_x86_sse2.hpp: New file, contains SSE2 algorithm
+- ci/benchmark.yaml: Add CI test to detect performance regressions
+- README.md: Fix Markdown math formula
+- README.md: Add stress testing section
+- C_API.md: Fix Markdown math formula
+- CPP_API.md: Fix Markdown math formula
+
 * Sun Mar 02 2025 Kim Walisch <walki@fedoraproject.org> - 12.7-1
 - multiarch_sve_arm.cmake: Improve ARM SVE detection
 - src/arch/arm/sve.cpp: Detect ARM SVE on Linux and Windows

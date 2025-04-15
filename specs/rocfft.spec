@@ -10,9 +10,6 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-# rocFFT has a version seperate from the ROCm version that it is released with
-%global rocfft_version 1.0.31
-
 %global toolchain rocm
 
 # hipcc does not support some clang flags
@@ -60,7 +57,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -180,7 +177,7 @@ export LDFLAGS="${LDFLAGS} -pie"
 %cmake_install
 
 # we don't need the rocfft_rtc_helper binary, don't package it
-find %{buildroot} -type d -name "%{rocfft_version}" -print0 | xargs -0 -I {} /usr/bin/rm -rf "{}"
+find %{buildroot} -type f -name "rocfft_rtc_helper" -print0 | xargs -0 -I {} /usr/bin/rm -rf "{}"
 
 # we don't need or want the client-info file installed by rocfft
 rm -rf %{buildroot}/%{_prefix}/.info
@@ -213,6 +210,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-10
+- Remove global rocfft_version
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-9
 - Reenble ninja
 

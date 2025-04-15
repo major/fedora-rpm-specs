@@ -1,5 +1,5 @@
 Name:		perl-Apache-Session-Browseable
-Version:	1.3.15
+Version:	1.3.16
 Release:	1%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Sun Apr 13 2025 Paul Howarth <paul@city-fan.org> - 1.3.16-1
+- Update to 1.3.16
+  - Optimize deleteIfLowerThan for Redis
+
 * Fri Apr 11 2025 Paul Howarth <paul@city-fan.org> - 1.3.15-1
 - Update to 1.3.15
   - Improve Redis driver performance

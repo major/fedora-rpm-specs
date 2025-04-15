@@ -35,6 +35,9 @@ Patch: 225.patch
 
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
+%if (0%{?rhel} < 11) || (0%{?fedora} < 43)
+Requires(pre):    shadow-utils
+%endif
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: make
@@ -95,11 +98,13 @@ required for developing applications against libopendmarc.
 %prep
 %autosetup -p1 -n OpenDMARC-rel-opendmarc-1-4-2
 
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 # Create a sysusers.d config file
 cat >opendmarc.sysusers.conf <<EOF
 u opendmarc - 'OpenDMARC Milter' %{_rundir}/%{name} -
 m opendmarc mail
 EOF
+%endif
 
 %build
 autoreconf -v -i
@@ -175,7 +180,16 @@ cp -R contrib/rddmarc/ %{buildroot}%{_datadir}/%{name}/contrib
 rm -f %{buildroot}%{_datadir}/%{name}/contrib/rddmarc/Makefile*
 rm -f %{buildroot}%{_datadir}/%{name}/db/Makefile*
 
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 install -m0644 -D opendmarc.sysusers.conf %{buildroot}%{_sysusersdir}/opendmarc.conf
+%else
+%pre
+getent group %{name} >/dev/null || groupadd -r %{name}
+getent passwd %{name} >/dev/null || \
+        useradd -r -g %{name} -G mail -d %{_rundir}/%{name} -s /sbin/nologin \
+        -c "OpenDMARC Milter" %{name}
+exit 0
+%endif
 
 
 %post
@@ -204,7 +218,9 @@ install -m0644 -D opendmarc.sysusers.conf %{buildroot}%{_sysusersdir}/opendmarc.
 %dir %attr(710,%{name},mail) %{_rundir}/%{name}
 %dir %attr(-,%{name},%{name}) %{_sysconfdir}/%{name}
 %attr(0644,root,root) %{_unitdir}/%{name}.service
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 %{_sysusersdir}/opendmarc.conf
+%endif
 
 %files -n opendmarc-tools
 %{_sbindir}/opendmarc-expire

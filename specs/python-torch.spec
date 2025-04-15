@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.7.0-rc8
-%global commit0 c7ff78dfc0c38847bf5daa78ab8b3669e1734246
+# v2.7.0-rc9
+%global commit0 073912749d667fcfb2de1c15e1e664dc0ccd3460
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250408
+%global date0 20250410
 %global pypi_version 2.7.0
 %global flatbuffers_version 23.3.3
 %global miniz_version 3.0.2

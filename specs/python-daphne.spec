@@ -1,13 +1,18 @@
 %bcond_without  tests
 
 Name:           python-daphne
-Version:        4.0.0
+Version:        4.1.2
 Release:        %autorelease
 Summary:        Django ASGI (HTTP/WebSocket) server
 License:        BSD-3-Clause
 URL:            https://github.com/django/daphne
-# PyPI tarball doesn't have tests
+# PyPI tarball is missing a file needed to run tests.
+# https://github.com/django/daphne/issues/522
+# Should be resolved in 4.1.3.
+# https://github.com/django/daphne/pull/530
 Source:         %{url}/archive/%{version}/daphne-%{version}.tar.gz
+# https://github.com/django/daphne/pull/526
+Patch:          0001-fix-tests-with-Twisted-24.7.0-526.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -29,8 +34,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n daphne-%{version}
-sed -e '/setup_requires/d' -i setup.py
+%autosetup -p 1 -n daphne-%{version}
 
 
 %generate_buildrequires

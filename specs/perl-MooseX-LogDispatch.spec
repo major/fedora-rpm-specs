@@ -1,11 +1,10 @@
 Name:           perl-MooseX-LogDispatch
 Version:        1.2002
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Logging Role for Moose
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/MooseX-LogDispatch
+URL:            https://metacpan.org/dist/MooseX-LogDispatch
 Source0:        https://cpan.metacpan.org/authors/id/J/JG/JGOULAH/MooseX-LogDispatch-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -38,6 +37,11 @@ Provides:       perl(MooseX::LogDispatch::ConfigMaker) = %{version}
 Provides:       perl(MooseX::LogDispatch::Interface) = %{version}
 Provides:       perl(MooseX::LogDispatch::Logger) = %{version}
 
+%{?perl_default_filter}
+
+# Filter requires
+%global __requires_exclude ^perl\\(MooseX::LogDispatch::(ConfigMaker|Interface|Logger)\\)$
+
 %description
 Log::Dispatch role for use with your Moose classes.
 
@@ -47,28 +51,16 @@ Log::Dispatch role for use with your Moose classes.
 rm -r inc
 sed -i -e '/^inc\// d' MANIFEST
 
-# Filter requires
-cat << \EOF > %{name}-req
-#!/bin/sh
-%{__perl_requires} $* |\
-sed -e '/perl(MooseX::LogDispatch::ConfigMaker)/d' |\
-sed -e '/perl(MooseX::LogDispatch::Interface)/d' |\
-sed -e '/perl(MooseX::LogDispatch::Logger)/d'
-EOF
-
-%define __perl_requires %{_builddir}/MooseX-LogDispatch-%{version}/%{name}-req
-chmod +x %{__perl_requires}
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 --skipdeps
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -76,6 +68,11 @@ make test
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Fri Apr 11 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.2002-42
+- Fix dependency filter
+- Remove non-working --skipdeps option to Makefile.PL
+- Use %%make_* macros where possible
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2002-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
