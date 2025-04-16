@@ -1,6 +1,6 @@
 Name:           nfoview
-Version:        2.0.1
-Release:        2%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Viewer for NFO files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.otsaloma.nf
 %{_datadir}/icons/hicolor/*/apps/io.otsaloma.nfoview*
 
 %changelog
+* Sun Apr 13 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.1-1
+- Update to 2.1 (#2359262)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

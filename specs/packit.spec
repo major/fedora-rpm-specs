@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.6.0
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Apr 13 2025 Packit <hello@packit.dev> - 1.7.0-1
+- We have implemented a set of options `osh_options` that allow you to customize OpenScanHub scans via config. (#2570)
+- Resolves: rhbz#2359309
+
 * Fri Apr 04 2025 Packit <hello@packit.dev> - 1.6.0-1
 - When using `fast_forward_merge_into`, `version_update_mask` is now correctly being taken into consideration. (#2551)
 - We have introduced a new command group `config` for configuration-related commands and moved `validate-config` command under it, resulting in the new command being `packit config validate`. (#2559)

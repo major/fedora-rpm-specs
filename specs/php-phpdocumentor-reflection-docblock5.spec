@@ -1,12 +1,12 @@
 # Fedora/remirepo spec file for php-phpdocumentor-reflection-docblock5
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    e5e784149a09bd69d9a5e3b01c5cbd2e2bd653d8
+%global gh_commit    92dde6a5919e34835c506ac8c523ef095a95ed62
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,8 +14,8 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        5.6.1
-Release:        3%{?dist}
+Version:        5.6.2
+Release:        1%{?dist}
 Summary:        DocBlock parser
 
 License:        MIT
@@ -165,6 +165,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Apr 14 2025 Remi Collet <remi@remirepo.net> - 5.6.2-1
+- update to 5.6.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

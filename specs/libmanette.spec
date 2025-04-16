@@ -1,5 +1,5 @@
 Name:           libmanette
-Version:        0.2.11
+Version:        0.2.12
 Release:        1%{?dist}
 Summary:        Game controller library
 
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Mon Apr 14 2025 nmontero <nmontero@redhat.com> - 0.2.12-1
+- Update to 0.2.12
+
 * Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 0.2.11-1
 - Update to 0.2.11
 

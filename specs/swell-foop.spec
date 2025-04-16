@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           swell-foop
-Version:        48.0
+Version:        48.1
 Release:        1%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SwellFoo
 
 
 %changelog
+* Mon Apr 14 2025 nmontero <nmontero@redhat.com> - 48.1-1
+- Update to 48.1
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

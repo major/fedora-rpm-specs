@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -11,7 +11,7 @@ Requires: %{name}-base = %{version}-%{release}
 BuildRequires: gcc-c++
 BuildRequires: libpano13-devel zlib-devel libtiff-devel libjpeg-devel
 BuildRequires: libpng-devel gettext-devel wxGTK-devel boost-devel freeglut-devel
-BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel glew-devel
+BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel libepoxy-devel
 BuildRequires: python3-devel swig flann-devel perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
@@ -39,7 +39,7 @@ src/hugin_script_interface/*.py \
 src/hugin_script_interface/plugins/*.py
 
 %build
-%cmake -DBUILD_HSI=1 -DUSE_GDKBACKEND_X11=ON
+%cmake -DBUILD_HSI=1 -DUSE_GDKBACKEND_X11=ON -DBUILD_WITH_EPOXY=ON
 %cmake_build
 
 %install
@@ -177,6 +177,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Mon Apr 14 2025 Andreas Schneider <asn@redhat.com> - 2024.0.0-4
+- Use libepoxy instead of GLEW
+
 * Fri Mar 21 2025 Lumír Balhar <lbalhar@redhat.com> - 2024.0.0-3
 - Drop dependency on python-setuptools
 

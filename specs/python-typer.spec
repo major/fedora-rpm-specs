@@ -38,14 +38,7 @@ BuildRequires:  %{py3_dist pytest-xdist} >= 1.32
 
 %global common_description %{expand:
 Typer is a library for building CLI applications that users will love using and
-developers will love creating. Based on Python type hints.  Typer CLI
-
-This package, typer-cli, only provides a command typer in the shell with the
-same functionality of python -m typer.
-
-The only reason why this is a separate package is to allow developers to opt
-out of the typer command by installing typer-slim, that doesn’t include
-typer-cli.}
+developers will love creating. Based on Python type hints.}
 
 %description %{common_description}
 
@@ -86,7 +79,22 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-typer-slim = %{version}-%{release}
 
+# File conflicts: /usr/bin/typer with erlang-dialyzer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359557
+# File conflicts: /usr/bin/typer between erlang-dialyzer and python3-typer-cli
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359567
+# A proper resolution for Fedora 43 and later is currently under active
+# discussion.
+Conflicts:      erlang-dialyzer
+
 %description -n python3-typer-cli %{common_description}
+
+This package only provides a command typer in the shell with the same
+functionality of python -m typer.
+
+The only reason why this is a separate package is to allow developers to opt
+out of the typer command by installing typer-slim, that doesn’t include
+typer-cli.
 
 
 %pyproject_extras_subpkg -n python3-typer-slim -i %{python3_sitelib}/typer_slim-%{version}.dist-info standard

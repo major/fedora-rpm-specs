@@ -133,6 +133,15 @@ find . -type f -perm /0111 -exec chmod a-x {} +
 chmod a+x ansi-tests/make-tar compile config.guess config.sub configure \
   depcomp gcl-tk/gcltksrv.in install-sh missing xbin/*
 
+# Temporary workaround for problems detecting architecture.  Remove this on the
+# next release.
+%ifarch ppc64le
+sed -i 's,output_mach=`.*`,output_mach=ppc64,' configure
+%endif
+%ifarch s390x
+sed -i 's,output_mach=`.*`,output_mach=s390_64,' configure
+%endif
+
 %build
 %configure \
   --disable-dependency-tracking \

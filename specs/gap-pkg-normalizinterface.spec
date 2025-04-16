@@ -3,7 +3,7 @@
 %global giturl  https://github.com/gap-packages/NormalizInterface
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.7
+Version:        1.4.0
 Release:        %autorelease
 Summary:        GAP wrapper for Normaliz
 
@@ -13,8 +13,6 @@ ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/NormalizInterface/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{upname}-%{version}.tar.bz2
-# Adapt to normaliz 3.10.*
-Patch:          https://github.com/gap-packages/NormalizInterface/pull/114.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc

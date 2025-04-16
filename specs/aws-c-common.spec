@@ -3,14 +3,13 @@ Core c99 package for AWS SDK for C. Includes cross-platform primitives,
 configuration, data structures, and error handling.}
 
 Name:           aws-c-common
-Version:        0.10.6
+Version:        0.12.2
 Release:        2%{?dist}
 Summary:        Core c99 package for AWS SDK for C
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         aws-c-common-cmake.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -77,22 +76,21 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %{_includedir}/aws/testing/aws_test_harness.h
 %dir %{_libdir}/cmake/aws-c-common
 %dir %{_libdir}/cmake/aws-c-common/shared
+%dir %{_libdir}/cmake/aws-c-common/modules
 %{_libdir}/cmake/aws-c-common/aws-c-common-config.cmake
-%{_libdir}/cmake/aws-c-common/shared/aws-c-common-targets-noconfig.cmake
-%{_libdir}/cmake/aws-c-common/shared/aws-c-common-targets.cmake
-%{_libdir}/cmake/AwsCFlags.cmake
-%{_libdir}/cmake/AwsCheckHeaders.cmake
-%{_libdir}/cmake/AwsFeatureTests.cmake
-%{_libdir}/cmake/AwsFindPackage.cmake
-%{_libdir}/cmake/AwsLibFuzzer.cmake
-%{_libdir}/cmake/AwsSIMD.cmake
-%{_libdir}/cmake/AwsSanitizers.cmake
-%{_libdir}/cmake/AwsSharedLibSetup.cmake
-%{_libdir}/cmake/AwsTestHarness.cmake
-%{_libdir}/cmake/AwsCRuntime.cmake
+%{_libdir}/cmake/aws-c-common/shared/*.cmake
+%{_libdir}/cmake/aws-c-common/modules/*.cmake
 
 
 %changelog
+* Mon Apr 14 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.12.2-2
+- Remove unused and obsolete .patch files to fix build issues
+- Simplify file definition of devel sub-package by using '*.cmake' instead of individual names
+
+* Wed Mar 26 2025 Packit <hello@packit.dev> - 0.12.2-1
+- Update to version 0.12.2
+- Resolves: rhbz#2341874
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

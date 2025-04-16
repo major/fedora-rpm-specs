@@ -1,5 +1,5 @@
 Name:           python-trove-classifiers
-Version:        2025.3.19.19
+Version:        2025.4.11.15
 Release:        1%{?dist}
 Summary:        Canonical source for classifiers on PyPI (pypi.org)
 
@@ -58,6 +58,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Apr 11 2025 Packit <hello@packit.dev> - 2025.4.11.15-1
+- Update to 2025.4.11.15
+- Resolves rhbz#2359114
+
 * Wed Mar 19 2025 Packit <hello@packit.dev> - 2025.3.19.19-1
 - Update to 2025.3.19.19
 - Resolves rhbz#2353466

@@ -2,15 +2,14 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.2.3
-Release:	4%{?dist}
+Version:	4.2.4
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:     kpathsea-header-files.patch
 
 ExcludeArch:    %{ix86}
 
@@ -170,6 +169,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Mon Apr 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.4-1
+- Update to 4.2.4
+
 * Fri Mar 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-4
 - rebuilt
 

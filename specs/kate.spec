@@ -7,7 +7,7 @@
 Name:    kate
 Summary: Advanced Text Editor
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -50,6 +50,7 @@ BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6NewStuff)
 BuildRequires: cmake(KF6Wallet)
 BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Archive)
 
 %if 0%{?tests}
 BuildRequires: make
@@ -178,6 +179,12 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Apr 14 2025 Pavel Solovev <daron439@gmail.com> - 25.04.0-3
+- Add optional KF6Archive
+
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

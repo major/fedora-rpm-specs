@@ -1,9 +1,9 @@
-%define		baseversion 1.2.12
+%define		baseversion 1.2.14
 
 Summary:	Python binding for the ALSA library
 Name:		python-alsa
 Version:	%{baseversion}
-Release:	4%{?dist}
+Release:	1%{?dist}
 License:	LGPL-2.1-or-later
 Source0:	ftp://ftp.alsa-project.org/pub/pyalsa/pyalsa-%{version}.tar.bz2
 URL:		http://www.alsa-project.org/
@@ -39,6 +39,9 @@ Summary: %summary
 %{python3_sitearch}/*
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-1
+- Updated to 1.2.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

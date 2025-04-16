@@ -10,6 +10,9 @@
 %bcond bootstrap 0
 
 %bcond tests 1
+# Which packages to mask and which tests to do with native wrappers
+%global wrapped_pkgs pygit2 rpm
+%global wrappers_relevant_tests tests/rpmautospec/test_pkg_history.py tests/rpmautospec/subcommands/
 
 # While bootstrapping, ignore manpages
 %bcond manpages %{without bootstrap}
@@ -40,6 +43,14 @@
 %endif
 %endif
 
+# Although this supports a range of libgit2 and librpm versions upstream,
+# we want to ensure newer versions don’t accidentally break all packages using this.
+# Hence we artificially restrict the Required version to what was tested during the build.
+# When libgit2/librpm soname is bumped, this package needs to be rebuilt (and tested).
+%define libgit2_lower_bound 1.7
+%define libgit2_upper_bound 1.10
+%define libgit2_requires %(rpm -q --provides libgit2 | grep '^libgit2\.so\.' | sed 's/()(64bit)$//' | head -n 1)
+
 %global srcname rpmautospec
 
 Name: python-%{srcname}
@@ -66,6 +77,7 @@ BuildRequires: git
 # the langpacks are needed for tests
 BuildRequires: glibc-langpack-de
 BuildRequires: glibc-langpack-en
+
 BuildRequires: python3-devel >= 3.9.0
 # Needed to build man pages
 %if %{with manpages}
@@ -93,6 +105,10 @@ BuildRequires: python3dist(setuptools)
 %{?python_provide:%python_provide python3-%{srcname}}
 %endif
 
+BuildRequires: (libgit2 >= %libgit2_lower_bound and libgit2 < %libgit2_upper_bound)
+BuildRequires: rpm-libs
+BuildRequires: rpm-build-libs
+
 %global _description %{expand:
 A package and CLI tool to generate RPM release fields and changelogs.}
 
@@ -106,8 +122,17 @@ Summary: %{summary}
 
 %package -n %{srcname}
 Summary: CLI tool for generating RPM releases and changelogs
-Requires: libgit2 >= 1.4
+
+%if "%libgit2_requires" != ""
+Requires: (%{libgit2_requires}()(64bit) or %{libgit2_requires})
+Suggests: %{libgit2_requires}()(64bit)
+%else
+Requires: this-is-broken-libgit2-missing-during-build
+%endif
 Requires: rpm-libs
+Requires: rpm-build-libs
+
+Recommends: python3-%{srcname} = %{version}-%{release}
 Recommends: python3-%{srcname}+click = %{version}-%{release}
 Recommends: python3-%{srcname}+pygit2 = %{version}-%{release}
 Recommends: python3-%{srcname}+rpm = %{version}-%{release}
@@ -233,10 +258,30 @@ touch -r %{S:1} %{buildroot}%{_bindir}/rpmautospec
 %endif
 
 %if %{with tests}
-%pytest -v \
+%pytest \
 %if %{with xdist}
 --numprocesses=auto
 %endif
+
+# And redo tests that are relevant for native bindings, but with the direct native wrappers.
+
+# Poison the official package names…
+for mod in %wrapped_pkgs; do
+    echo "raise ImportError" > "${mod}.py"
+done
+
+%py3_test_envvars \
+PYTHONPATH="$PWD:$PYTHONPATH" \
+%__pytest \
+%if %{with xdist}
+--numprocesses=auto \
+%endif
+%wrappers_relevant_tests
+
+# … and unpoison them again, just in case.
+for mod in %wrapped_pkgs; do
+    rm -f "${mod}.py"
+done
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

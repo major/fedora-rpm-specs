@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
-Version: 3.11
-Release: 10%{?dist}
+Version: 3.12
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL: https://www.gnu.org/software/grep/
 
@@ -14,9 +14,9 @@ Source5: GREP_COLORS
 Source6: grepconf.sh
 
 # upstream ticket 39445
-Patch0: grep-3.5-help-align.patch
-# upstream ticket 63965, maybe glibc bug, temporal drop of some gnulib tests and y2038 test, it shouldn't cause any harm
-Patch1: grep-3.11-tests-drop.patch
+Patch: grep-3.5-help-align.patch
+# upstream ticket 77800
+Patch: grep-3.12-test-write-error-msg-drop.patch
 
 BuildRequires: gcc
 BuildRequires: pcre2-devel
@@ -60,14 +60,7 @@ GNU grep is needed by many scripts, so it shall be installed on every system.
 %global BUILD_FLAGS %{BUILD_FLAGS} -mlong-double-64
 %endif
 
-# Temporarily switch to the included regex until glibc bug is fixed:
-# https://sourceware.org/bugzilla/show_bug.cgi?id=11053
-#%%configure --without-included-regex --disable-silent-rules \
-
-# temporal for gnulib patch, remove with the patch
-autoreconf -fi
-%configure --disable-silent-rules \
-  CPPFLAGS="-I%{_includedir}/pcre" CFLAGS="%{BUILD_FLAGS}"
+%configure --without-included-regex --disable-silent-rules CFLAGS="%{BUILD_FLAGS}"
 %make_build
 
 %install
@@ -96,6 +89,10 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.12-1
+- New version
+  Resolves: rhbz#2358901
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,18 +1,17 @@
 Name:		zinnia
-Version:	0.06
-Release:	72%{?dist}
+Version:	0.07
+Release:	1%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
-URL:		http://zinnia.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/zinnia/%{name}-%{version}.tar.gz
-Source1:	http://zinnia.svn.sourceforge.net/viewvc/zinnia/zinnia/tomoe2s.pl
+URL:		https://github.com/silverhikari/zinnia
+Source0:	https://github.com/silverhikari/zinnia/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:	https://raw.githubusercontent.com/silverhikari/%{name}/master/%{name}/tomoe2s.pl
 Source2:	Makefile.tomoe
 Patch0:		zinnia-0.05-bindings.patch
-Patch1:		zinnia-0.06-fixes-ppc-float.patch
 Patch2:		always-store-data-in-little-endian-format.patch
-Patch3:		zinnia-fixes-gcc6-compile.patch
 Patch4:		zinnia-fixes-python-setuptools.patch
+Patch5:		zinnia-fixes-divide-by-zero.patch
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	libdb-devel, python3-devel
@@ -99,10 +98,9 @@ This package contains Simplified Chinese tomoe model files for %{name}.
 %prep
 %setup -q -n %{name}-%{version}
 %patch -P0 -p1 -b .bindings
-%patch -P1 -p1 -b .ppc
 %patch -P2 -p1 -R -b .little-endian
-%patch -P3 -p1 -b .gcc6
 %patch -P4 -p1 -b .python
+%patch -P5 -p1 -b .divide-by-zero
 
 find . -type f -name "*.pyc" -exec rm -f {} ';'
 cp %{SOURCE1} .
@@ -197,6 +195,9 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Mon Apr 14 2025 Peng Wu <pwu@redhat.com> - 0.07-1
+- Update to 0.07
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

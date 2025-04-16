@@ -1,7 +1,7 @@
 %bcond pyside6 1
 
 Name:           python-ezdxf
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Python package to create/manipulate DXF drawings
 

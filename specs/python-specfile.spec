@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.34.2
+%global base_version 0.35.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -77,6 +77,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Sun Apr 13 2025 Packit <hello@packit.dev> - 0.35.0-1
+- Added support for creating Specfile instances from file objects and strings. (#458)
+- The `context_management` type stubs now use `ParamSpec` from `typing_extensions` to support Python < 3.10. (#466)
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 0.34.2-1
 - context_management: add a type stub override to fix typing. Type checkers like mypy and pyright can now correctly determine the types for `.sources()`, `.sections()`, and the other `Specfile` methods that return context managers. (#457)
 

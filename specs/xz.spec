@@ -11,7 +11,7 @@ Release:	1%{?dist}
 # xz{,dec}, lzma{dec,info} - 0BSD
 #    - getopt_long - LGPL-2.1-or-later - not built in Fedora
 # xz{grep,diff,less,more} - GPL-2.0-or-later
-# docs - BS[OD0 AND LicenseRef-Fedora-Public-Domain
+# docs - BSD0 AND LicenseRef-Fedora-Public-Domain
 # man pages and translations - 0BSD AND LicenseRef-Fedora-Public-Domain
 # See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/547
 License:	0BSD AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain

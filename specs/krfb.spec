@@ -1,7 +1,7 @@
 Name:    krfb
 Summary: Desktop sharing
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://apps.kde.org/krfb/
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

@@ -8,12 +8,13 @@
 
 Name:    web-eid
 Version: 2.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
 Source0: %{url}/releases/download/v%{version}/%{name}_%{version}.%{build_number}.tar.xz
-
+# https://github.com/web-eid/web-eid-app/issues/359#issuecomment-2796312287
+Patch0: 126.patch
 BuildRequires: bash
 BuildRequires: desktop-file-utils
 BuildRequires: git
@@ -53,7 +54,7 @@ browser extension (it is the native messaging host for the extension). Also
 works standalone without the extension in command-line mode.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 
 %build
@@ -99,6 +100,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Fri Apr 11 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-2
+- Adds 126.patch
+
 * Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-1
 - 2.6.0 release
 - Removed %%define debug_package %%{nil}

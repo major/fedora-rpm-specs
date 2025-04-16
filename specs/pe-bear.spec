@@ -2,7 +2,7 @@
 %global appname PE-bear
 
 # Git revision of bearparser...
-%global commit1 04460e75201226442c054cda3aeb8bee75156615
+%global commit1 425087c8e87a9f130c5f39446f001079b12134ff
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # Git revision of capstone...
@@ -14,7 +14,7 @@
 %global shortcommit3 %(c=%{commit3}; echo ${c:0:7})
 
 Name: pe-bear
-Version: 0.7.0
+Version: 0.7.0.4
 Release: %autorelease
 
 # main - GPL-2.0-or-later

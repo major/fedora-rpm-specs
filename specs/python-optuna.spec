@@ -2,7 +2,7 @@
 %global pypi_name optuna
 
 Name:           python-%{pypi_name}
-Version:        4.2.1
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
@@ -12,6 +12,12 @@ Source0:        %{pypi_source}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(alembic)
+BuildRequires:  python3dist(colorlog)
+BuildRequires:  python3dist(numpy)
+BuildRequires:  python3dist(pyyaml)
+BuildRequires:  python3dist(sqlalchemy)
+BuildRequires:  python3dist(tqdm)
 
 BuildArch:      noarch
 
@@ -57,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Apr 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.3.0-1
+- 4.3.0
+
 * Wed Feb 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
 - 4.2.1
 

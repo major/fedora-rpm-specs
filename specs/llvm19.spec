@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -366,6 +366,10 @@ Patch1903: 0001-profile-Use-base-vaddr-for-__llvm_write_binary_ids-n.patch
 # https://github.com/llvm/llvm-project/issues/124001
 Patch1803: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
 Patch1912: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
+
+# Backport TLI check to prevent crash
+# https://github.com/llvm/llvm-project/commit/83a5c7cb62e404a713a35445b755cf0109650279
+Patch1915: 0001-ConstantFolding-Ensure-TLI-is-valid-when-simplifying.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -3111,6 +3115,9 @@ fi
 
 #region changelog
 %changelog
+* Mon Apr 14 2025 Jan Drögehoff <sentrycraft123@gmail.com> - 19.1.7-13
+- Backport patch to fix zig build crash
+
 * Thu Mar 06 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-12
 - Add conflicts on clang-resource-filesystem
 

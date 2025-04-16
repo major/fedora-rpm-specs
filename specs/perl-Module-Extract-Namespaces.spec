@@ -1,5 +1,5 @@
 Name:		perl-Module-Extract-Namespaces
-Version:	1.025
+Version:	1.026
 Release:	1%{?dist}
 Summary:	Extract the package declarations from a module
 License:	Artistic-2.0
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Extract-Names
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(Test::Manifest) >= 1.21
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -25,6 +24,7 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More) >= 1
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
+BuildRequires:	perl(version) >= 0.86
 # Dependencies
 # (none)
 
@@ -41,12 +41,11 @@ It does not extract:
 %setup -q -n Module-Extract-Namespaces-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -59,6 +58,11 @@ make test
 %{_mandir}/man3/Module::Extract::Namespaces.3*
 
 %changelog
+* Mon Apr 14 2025 Paul Howarth <paul@city-fan.org> - 1.026-1
+- Update to 1.026
+  - Require a newer version.pm for v5.10.1 tests
+- Use %%{make_build} and %%{make_install}
+
 * Mon Jan 27 2025 Paul Howarth <paul@city-fan.org> - 1.025-1
 - Update to 1.025
   - Refresh distro

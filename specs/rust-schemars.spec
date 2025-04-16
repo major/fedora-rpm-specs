@@ -13,6 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/schemars
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * drop unused support for arrayvec v0.5
+# * drop unused support for bigdecimal v0.3
 # * drop unused support for uuid v0.8
 Patch:          schemars-fix-metadata.diff
 
@@ -49,30 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arrayvec-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+arrayvec-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "arrayvec" feature of the "%{crate}" crate.
-
-%files       -n %{name}+arrayvec-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+arrayvec05-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+arrayvec05-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "arrayvec05" feature of the "%{crate}" crate.
-
-%files       -n %{name}+arrayvec05-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+arrayvec07-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -83,30 +61,6 @@ This package contains library source intended for building other packages which
 use the "arrayvec07" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arrayvec07-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bigdecimal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bigdecimal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bigdecimal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bigdecimal-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bigdecimal03-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bigdecimal03-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bigdecimal03" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bigdecimal03-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bigdecimal04-devel
@@ -364,6 +318,10 @@ use the "uuid1" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# drop tests that pull in arrayvec v0.5
+rm tests/arrayvec.rs
+# drop tests that pull in bigdecimal v0.3
+rm tests/decimal.rs
 # drop tests that pull in uuid v0.8
 rm tests/uuid.rs
 

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Classes to read and interact with KColorScheme
 License: BSD-2-Clause and CC0-1.0 and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-3.0-only and (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -64,6 +64,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-2
+- Rebuild (qt6)
+
 * Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
 - 6.13.0
 

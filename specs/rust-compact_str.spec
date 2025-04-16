@@ -6,7 +6,7 @@
 %global crate compact_str
 
 Name:           rust-compact_str
-Version:        0.8.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Memory efficient string type
 
@@ -145,6 +145,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

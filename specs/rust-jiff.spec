@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.6
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -111,6 +111,18 @@ use the "logging" feature of the "%{crate}" crate.
 %files       -n %{name}+logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+perf-inline-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+perf-inline-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "perf-inline" feature of the "%{crate}" crate.
+
+%files       -n %{name}+perf-inline-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -205,8 +217,6 @@ use the "tzdb-zoneinfo" feature of the "%{crate}" crate.
 %patch -P 1009 -p1
 %endif
 
-# We do not yet have a rust-icu package (although one would be desirable)
-tomcli set Cargo.toml del dev-dependencies.icu
 # Drop dev-dependency hifitime: not packaged, and only for doctests",
 tomcli set Cargo.toml del \
     "target.'cfg(not(target_family = \"wasm\"))'.dev-dependencies.hifitime"

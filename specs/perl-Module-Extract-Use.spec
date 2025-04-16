@@ -1,18 +1,18 @@
 Summary:	Pull out the modules a module explicitly uses
 Name:		perl-Module-Extract-Use
-Version:	1.053
-Release:	2%{?dist}
+Version:	1.054
+Release:	1%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-Use
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Extract-Use-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
-BuildRequires:	perl-interpreter >= 4:5.10.0
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.10.0
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Spec::Functions)
 BuildRequires:	perl(Test::Manifest) >= 1.21
@@ -23,6 +23,7 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(File::Basename)
 BuildRequires:	perl(Test::More) >= 1.0
+BuildRequires:	perl(version) >= 0.86
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
@@ -41,12 +42,11 @@ returns.
 %setup -q -n Module-Extract-Use-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -54,11 +54,17 @@ make test
 
 %files
 %license LICENSE
-%doc Changes examples/ README.pod
+%doc Changes examples/ README.pod SECURITY.md
 %{perl_vendorlib}/Module/
 %{_mandir}/man3/Module::Extract::Use.3*
 
 %changelog
+* Mon Apr 14 2025 Paul Howarth <paul@city-fan.org> - 1.054-1
+- Update to 1.054
+  - Require a newer version.pm for v5.10.1 tests
+- Use %%{make_build} and %%{make_install}
+- Package new SECURITY.md file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.053-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

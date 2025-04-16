@@ -3,7 +3,7 @@
 %global mozjs128_version 128.8.1
 
 Name:           gjs
-Version:        1.84.1
+Version:        1.84.2
 Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -99,6 +99,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Apr 14 2025 nmontero <nmontero@redhat.com> - 1.84.2-1
+- Update to 1.84.2
+
 * Thu Mar 27 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.84.1-1
 - Update to 1.84.1
 - Rebuild against mozjs128-128.8.1-1

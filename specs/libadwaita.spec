@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.7.0
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -96,7 +96,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license COPYING
 %doc README.md AUTHORS NEWS
 %{_bindir}/adwaita-%{apiver}-demo
-%{_libdir}/%{name}-%{apiver}-internal.a
 %{_libdir}/%{name}-%{apiver}.so.0*
 %{_libdir}/girepository-1.0/*.typelib
 

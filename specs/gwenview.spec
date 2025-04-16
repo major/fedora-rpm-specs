@@ -2,7 +2,7 @@ Name:    gwenview
 Summary: An image viewer
 Epoch:   1
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 1:25.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.0-1
 - 25.04.0
 

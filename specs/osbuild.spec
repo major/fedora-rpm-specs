@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        144
+Version:        146
 
 %forgemeta
 
@@ -325,6 +325,29 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Apr 09 2025 Packit <hello@packit.dev> - 146-1
+Changes with 146
+----------------
+  * GH Action/create-tag: allow passing the version when run manually (#2062)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  * New stage: org.osbuild.hmac (HMS-5826) (#2055)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Tomáš Hozza
+  * Update images dependency ref to latest (#2066)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Update snapshots to 20250404 (#2065)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou
+  * github: bump ubuntu runners to 24.04 (#2069)
+    * Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  * osbuild: add experimental flag `debug-qemu-user` (#2059)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * stages/systemd.unit.create: support StandardOutput (RHEL-79065) (#2067)
+    * Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * stages: fix description for org.osbuild.containers.unit.create (#2054)
+    * Author: Luiza de Melo, Reviewers: Achilleas Koutsou, Brian C. Lane
+
+— Somewhere on the Internet, 2025-04-09
+
+
 * Wed Mar 26 2025 Packit <hello@packit.dev> - 144-1
 Changes with 144
 ----------------

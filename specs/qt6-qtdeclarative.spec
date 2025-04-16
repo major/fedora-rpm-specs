@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,6 +34,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
+Patch0:  qtdeclarative-qmlcompiler-error-out-on-unstorable-types.patch
 
 ## upstreamable patches
 
@@ -712,6 +713,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-2
+- Fix qmlcachegen crash in QQmlJSTypeResolver::genericType
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

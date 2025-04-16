@@ -1,5 +1,5 @@
 Name:           python-productmd
-Version:        1.44
+Version:        1.45
 Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Mon Apr 14 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.45-1
+- New upstream release 1.45
+
 * Fri Apr 11 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.44-1
 - New upstream release 1.44
 

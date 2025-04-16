@@ -5,7 +5,7 @@
 %global protozero_version 1.7.1
 
 Name:           osm2pgsql
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 

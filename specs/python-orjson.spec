@@ -18,11 +18,6 @@ License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
 
-# Manual patches for Cargo.toml
-# - For now, allow compact_str 0.8;
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2347456
-Patch:          orjson-fix-metadata.diff
-
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest-forked}

@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
 Version: 6.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -88,6 +88,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.4-2
+- Rebuild (qt6)
+
 * Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
 - 6.3.4
 

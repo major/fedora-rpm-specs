@@ -9,12 +9,15 @@
 Summary: Alternative packet radio system for Linux
 Name: uronode
 Version: 2.15
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://uronode.sourceforge.net
 BuildRequires: make
-BuildRequires: gcc, zlib-devel, libax25-devel, systemd
+BuildRequires: gcc
+BuildRequires: zlib-devel
+BuildRequires: libax25-devel
+BuildRequires: systemd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -25,9 +28,11 @@ Source3: uronode.socket
 Source4: uronode.xinetd
 Source5: uronode-README.fedora
 # Sent upstream
-Patch0: uronode-2.7-install-fix.patch
+Patch: uronode-2.7-install-fix.patch
 # Sent upstream
-Patch1: uronode-2.7-configure-non-interactive.patch
+Patch: uronode-2.7-configure-non-interactive.patch
+# Sent upstream
+Patch: uronode-2.15-gcc-15-fix.patch
 
 %description
 URONode is an alternative packet radio system for Linux. It supports
@@ -35,9 +40,7 @@ cross-port digipeating, automatic importing of flexnet routing,
 various IP functions, and ANSI colors.
 
 %prep
-%setup -qn %{name}-%{version}
-%patch -P0 -p1 -b .install-fix
-%patch -P1 -p1 -b .configure-non-interactive
+%autosetup -p1
 
 # Copy Fedora readme into place
 cp -p %{SOURCE5} README.fedora
@@ -47,13 +50,13 @@ rm -rf include
 
 %build
 export NON_INTERACTIVE=1
-export ETC_DIR=/etc/ax25
-export SBIN_DIR=/usr/sbin
-export BIN_DIR=/usr/bin
-export LIB_DIR=/usr/lib
-export DATA_DIR=/usr/share
-export MAN_DIR=$DATA_DIR/man
-export VAR_DIR=/var
+export ETC_DIR=%{_sysconfdir}/ax25
+export SBIN_DIR=%{_sbindir}
+export BIN_DIR=%{_bindir}
+export LIB_DIR=%{_prefix}/lib
+export DATA_DIR=%{_datadir}
+export MAN_DIR=%{_mandir}
+export VAR_DIR=%{_var}
 ./configure
 make %{?_smp_mflags} CFLAGS="%{optflags} %{?cflags_harden}" LDFLAGS="%{?__global_ldflags} %{?ldflags_harden}"
 
@@ -114,6 +117,10 @@ touch %{buildroot}/%{_var}/lib/flexd/destinations
 %ghost %{_var}/lib/flexd/destinations
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.15-10
+- Fixed FTBFS with gcc-15
+  Resolves: rhbz#2341489
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-# Fedora spec file for php-pecl-mongodb
+# Fedora spec file for php-pecl-mongodb2
 # without SCL compatibility, from
 #
 # remirepo spec file for php-pecl-mongodb
@@ -16,23 +16,23 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.21.0
+%global upstream_version  2.0.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.30.1
+%global minimal_libmongo  1.30.3
 %global minimal_libcrypt  1.12.0
 
 # Build dependencies
 %global system_libmongo   1.30
 %global system_libcrypt   1.12
 
-Summary:        MongoDB driver for PHP
-Name:           php-pecl-%{pecl_name}
+Summary:        MongoDB driver for PHP version 2
+Name:           php-pecl-%{pecl_name}2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -56,6 +56,17 @@ Provides:       php-pecl(%{pecl_name})           = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+Obsoletes:      php-%{pecl_name}                 < 2
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Obsoletes:      php-pecl-%{pecl_name}            < 2
+Provides:       php-pecl-%{pecl_name}            = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
+%else
+# A single version can be installed
+Conflicts:     php-pecl-%{pecl_name}             < 2
+%endif
 
 
 %description
@@ -157,6 +168,13 @@ OPT="-n"
 
 
 %changelog
+* Thu Apr 10 2025 Remi Collet <remi@remirepo.net> - 2.0.0-2
+- also obsolete php-mongodb
+
+* Thu Apr 10 2025 Remi Collet <remi@remirepo.net> - 2.0.0-1
+- update to 2.0.0
+- rename to php-pecl-mongodb2 for new API
+
 * Fri Feb 28 2025 Remi Collet <remi@remirepo.net> - 1.21.0-1
 - update to 1.21.0
 - raise dependency on PHP 8.1
@@ -164,9 +182,6 @@ OPT="-n"
 - raise dependency on libmongocrypt 1.12
 - re-license spec file to CECILL-2.1
 - add pie virtual provides
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Thu Nov 28 2024 Remi Collet <remi@remirepo.net> - 1.20.1-1
 - update to 1.20.1

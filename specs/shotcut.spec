@@ -4,7 +4,7 @@
 
 Name:           shotcut
 Version:        25.03.29
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -235,6 +235,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.29-3
+- Rebuild (qt6)
+
 * Tue Apr 01 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.03.29-2
 - Add "Irish Gaeilge" language
 

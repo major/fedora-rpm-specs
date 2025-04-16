@@ -15,7 +15,9 @@ Source0: https://github.com/fedora-infra/%{canonicalname}/releases/download/%{ve
 # … but rpmautospec is currently blocked on PyPI. See https://github.com/pypi/support/issues/3312
 BuildArch: noarch
 BuildRequires: python3-devel >= 3.9.0
-# The dependencies needed for testing don’t get auto-generated.
+# Optional dependencies don’t get pulled in automatically.
+BuildRequires: python3dist(rpmautospec[all])
+# Dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(pytest-cov)
 BuildRequires: sed

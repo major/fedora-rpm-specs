@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.9.0
+Version:        2.9.2
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -24,16 +24,17 @@ License:        AGPL-3.0-only
 URL:            https://github.com/prusa3d/PrusaSlicer/
 Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.tar.gz
 Source2:        %name.appdata.xml
-%global libbgcode_commit d33a277a3ce2c0a7f9ba325caac6d730e0f7a412
+%global libbgcode_commit 5041c093b33e2748e76d6b326f2251310823f3df
 Source3:        https://github.com/prusa3d/libbgcode/archive/%{libbgcode_commit}.tar.gz#/libbgcode-%{libbgcode_commit}.tar.gz
 Source4:        https://github.com/atomicobject/heatshrink/archive/refs/tags/v0.4.1.tar.gz#/heatshrink-0.4.1.tar.gz
 Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb8b13d7555183ab10aa5.tar.gz#/openvdb-8.2.tar.gz
+Source6:        https://github.com/catchorg/Catch2/archive/refs/tags/v3.8.0.tar.gz#/Catch2-3.8.0.tar.gz
 
 # Fix a couple of segfaults that happen with wxWidgets 3.2 (from Debian)
 Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 
-# https://github.com/prusa3d/PrusaSlicer/pull/13896
-Patch6:		prusa-slicer-pr-13896.patch
+# Workaround fatal error: z3++.h: No such file or directory
+Patch6:         prusa-slicer-libseqarrange-notest.patch
 
 # Beware!
 # Patches >= 340 are only applied on Fedora 34+
@@ -43,16 +44,12 @@ Patch6:		prusa-slicer-pr-13896.patch
 # OpenEXR 3 fixes
 Patch351:       https://github.com/archlinux/svntogit-community/blob/1dea61c0b5/trunk/prusa-slicer-openexr3.patch
 
-# https://github.com/prusa3d/PrusaSlicer/pull/11769
-Patch394:       prusa-slicer-pr-11769.patch
 # Work with OpenCASCADE 7.8.0 which is in Fedora 41
 Patch395:       prusa-slicer-opencascade.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13761
 Patch396:	prusa-slicer-pr-13761.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13081
 Patch421:       prusa-slicer-pr-13081.patch
-# https://github.com/prusa3d/PrusaSlicer/pull/14060
-Patch422:       14060.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le
@@ -65,7 +62,6 @@ ExcludeArch:    %{ix86}
 %endif
 
 BuildRequires:  boost-devel
-BuildRequires:  catch2-devel
 BuildRequires:  cmake
 BuildRequires:  cereal-devel
 BuildRequires:  CGAL-devel
@@ -94,6 +90,7 @@ BuildRequires:  systemd-devel
 BuildRequires:  tbb-devel
 BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  wxGTK-devel
+BuildRequires:  z3-devel
 
 # Things we wish we could unbundle
 #BuildRequires:  admesh-devel >= 0.98.1
@@ -281,9 +278,12 @@ sed -i 's#URL https.*#SOURCE_DIR ../../bundled_deps/heatshrink#' deps/+heatshrin
 ( cd bundled_deps && tar xvzf %SOURCE5 && mv openvdb-* openvdb )
 sed -i 's#URL https.*#SOURCE_DIR ../../bundled_deps/openvdb#; s/-DUSE_BLOSC=ON/-DUSE_BLOSC=OFF/' deps/+OpenVDB/OpenVDB.cmake
 
+( cd bundled_deps && tar xvzf %SOURCE6 && mv Catch2-* Catch2 )
+sed -i 's#URL "https.*#SOURCE_DIR ../../bundled_deps/Catch2#' deps/+Catch2/Catch2.cmake
+
 mkdir deps/ignored
 mv deps/+* deps/ignored
-mv deps/ignored/+LibBGCode deps/ignored/+heatshrink deps/ignored/+OpenVDB deps
+mv deps/ignored/+LibBGCode deps/ignored/+heatshrink deps/ignored/+OpenVDB deps/ignored/+Catch2 deps
 
 # Copy out specific license files so we can reference them later.
 license () { basename=$( basename $1 ) ; mv bundled_deps/$1/$2 $2-$basename; git add $2-$basename; echo %%license $2-$basename >> license-files; }

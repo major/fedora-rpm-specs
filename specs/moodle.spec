@@ -6,13 +6,13 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.5.3
+Version:        5.0
 Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
 URL:            https://moodle.org/
-Source0:        https://download.moodle.org/download.php/direct/stable405/%{name}-%{version}.tgz
+Source0:        https://download.moodle.org/download.php/direct/stable500/%{name}-%{version}.tgz
 Source1:        moodle.conf
 Source2:        moodle-config.php
 Source3:        moodle.cron
@@ -54,8 +54,6 @@ cp %{SOURCE6} README-rpm
 
 find . -type f \! -name \*.pl -exec chmod a-x {} \;
 find . -name \*.cgi -exec chmod a+x {} \;
-chmod a+x admin/process_email.php
-chmod a+x mod/chat/chatd.php
 
 %build
 rm config-dist.php install.php filter/tex/mimetex.* filter/tex/README.mimetex
@@ -171,6 +169,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Mon Apr 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0-1
+- 5.0
+
 * Mon Mar 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.5.3-1
 - 4.5.3
 

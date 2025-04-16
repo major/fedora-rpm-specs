@@ -1,5 +1,5 @@
 Name:           perl-Business-ISMN
-Version:        1.204
+Version:        1.205
 Release:        %autorelease
 Summary:        Perl library for International Standard Music Numbers
 License:        Artistic-2.0

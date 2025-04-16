@@ -1,31 +1,32 @@
 %bcond_without wcheck
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 %define major_ver 8.4
 %define upversion 8.5
-%define tcltk_ver 8.4.13
 #define for 8.4 is needed, tclx wasn't updated on higher version
 
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 47%{?dist}
+Release: 48%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
-Requires: tcl%{?_isa} >= %{tcltk_ver}, tk%{?_isa} >= %{tcltk_ver}
+Requires: tcl{?_isa} < 1:9.0
+Requires: tk{?_isa} < 1:9.0
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: tcl-devel >= %{tcltk_ver}, tk-devel >= %{tcltk_ver}
-#BuildRequires: autoconf
-Patch1: tclx-%{major_ver}-varinit.patch
-Patch2: tclx-%{major_ver}-relid.patch
-Patch3: tclx-%{major_ver}-man.patch
-Patch4: tclx-%{major_ver}-tcl86.patch
-Patch5: tclx-configure-c99.patch
+BuildRequires: gcc
+# Tcl 9.0 isn't supported: https://sourceforge.net/p/tclx/bugs/85/
+BuildRequires: tcl-devel < 1:9.0
+BuildRequires: tk-devel < 1:9.0
+Patch: tclx-%{major_ver}-varinit.patch
+Patch: tclx-%{major_ver}-relid.patch
+Patch: tclx-%{major_ver}-man.patch
+Patch: tclx-%{major_ver}-tcl86.patch
+Patch: tclx-configure-c99.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -43,16 +44,14 @@ This package contains the tclx development files needed for building
 applications embedding tclx.
 
 %prep
-%setup -q -n tclx%{major_ver}
-%patch -P1 -p1 -b .1.varinit
-%patch -P2 -p1 -b .2.relid
-%patch -P3 -p1 -b .3.patch
-%patch -P4 -p1 -b .4.tcl86
-%patch -P5 -p1 -b .5.configure-c99
+%autosetup -p1 -n tclx%{major_ver}
 
 # patch2 touches tcl.m4
 
 %build
+# https://sourceforge.net/p/tclx/bugs/86/
+export CFLAGS="%{build_cflags} -std=gnu17"
+
 %configure \
    --enable-tk=YES \
    --with-tclconfig=%{_libdir} \
@@ -63,8 +62,7 @@ applications embedding tclx.
    --disable-threads \
    --enable-64bit \
    --libdir=%{tcl_sitearch}
-# smp building doesn't work
-make %{?_smp_mflags}
+%make_build
 
 %check
 # run "make test" by default
@@ -73,16 +71,10 @@ make %{?_smp_mflags}
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%make_install
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/
 echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
 
 %files
 %doc ChangeLog README
@@ -101,6 +93,11 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-48
+- Fixed FTBFS
+  Resolves: rhbz#2341422
+  Resolves: rhbz#2337793
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

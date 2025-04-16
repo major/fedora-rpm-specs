@@ -1,11 +1,14 @@
 Name:    pcp
 Version: 6.3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
 Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
+
+Patch0: selinux-proc_psi_t.patch
+
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
@@ -3609,6 +3612,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Tue Apr 15 2025 Nathan Scott <nathans@redhat.com> - 6.3.7-2
+- Add selinux policy for new proc_psi_t-induced failure (BZ 2358326)
+
 * Mon Mar 31 2025 Nathan Scott <nathans@redhat.com> - 6.3.7-1
 - Update PCP selinux policy (BZs 2354510, 2333727, 2333726, 2333725)
 - Update to latest upstream PCP version.

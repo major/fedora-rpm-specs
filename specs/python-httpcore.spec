@@ -1,11 +1,9 @@
 %global pypi_name httpcore
 
-%if %{defined fedora}
 %bcond_without tests
-%endif
 
 Name:           python-%{pypi_name}
-Version:        1.0.7
+Version:        1.0.8
 Release:        %autorelease
 Summary:        Minimal low-level HTTP client
 

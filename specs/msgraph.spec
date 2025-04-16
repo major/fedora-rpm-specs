@@ -6,7 +6,7 @@
 
 Name:           msgraph
 Version:        0.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to access MS Graph API for Microsoft 365
 
 License:        LGPL-3.0-or-later
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Apr 14 2025 Nieves Montero <nmontero@redhat.com> - 0.3.3-2
+- Rebuilt against a side tag
+
 * Fri Feb 14 2025 Ondrej Holy <oholy@redhat.com> - 0.3.3-1
 - Update to 0.3.3
 

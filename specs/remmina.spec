@@ -1,7 +1,7 @@
-%global commit cc2a72fdf4bbcd56edf4cc339cce02c12af4ccf4
+%global commit f1e9e8a6725de57bcbca1b4bf1b5d817123cb260
 
 Name: remmina
-Version: 1.4.39
+Version: 1.4.40
 Release: 5%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
@@ -353,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Mon Apr 14 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.40-1
+- Update to 1.4.40 rhbz#2358278
+
 * Wed Feb 26 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.39-5
 - Revert patch to align with upstream
 

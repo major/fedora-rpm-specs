@@ -149,7 +149,15 @@ ln -s ../tests/ ../pytest.ini ./
 # do. Adding the working directory to PYTHONPATH is a workaround.
 export PYTHONPATH="%{buildroot}%{python3_sitearch}:${PWD}"
 
-%pytest -v -rs tests/
+%if v"0%{?python3_version}" >= v"3.14"
+# BUG: Test regressions related to garbage collection on Python 3.14.0a7
+# https://github.com/zeromq/pyzmq/issues/2091
+k="${k-}${k+ and }not (TestFrame and test_above_30)"
+k="${k-}${k+ and }not (TestFrame and test_lifecycle1)"
+k="${k-}${k+ and }not (TestFrame and test_lifecycle2)"
+%endif
+
+%pytest -k "${k-}" -v -rs tests/
 
 
 %files -n python3-pyzmq -f %{pyproject_files}

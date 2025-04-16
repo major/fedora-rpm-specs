@@ -11,8 +11,8 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.80.0
-Release:        2%{?dist}
+Version:        0.80.1
+Release:        1%{?dist}
 Summary:        GTK terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
@@ -181,6 +181,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Mon Apr 14 2025 nmontero <nmontero@redhat.com> - 0.80.1-1
+- Update to 0.80.1
+
 * Mon Mar 17 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.80.0-2
 - Avoid fast_float dependency
 

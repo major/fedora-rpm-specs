@@ -64,7 +64,7 @@ Requires:       cosmic-workspaces >= %{cosmic_minver}
 Requires:       xdg-desktop-portal-cosmic >= %{cosmic_minver}
 Requires:       open-sans-fonts
 Requires:       google-noto-sans-mono-fonts
-Requires:       xorg-x11-server-Xwayland
+Requires:       xdg-user-dirs
 Recommends:     cosmic-wallpapers >= %{cosmic_minver}
 
 # Include the distribution extra desktop configuration

@@ -2,7 +2,8 @@
 
 Name:           kasts
 Version:        25.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
+
 # Automatically converted from old format: GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+ - review is highly recommended.
 License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-3.0-or-later
 Summary:        A mobile podcast application
@@ -57,7 +58,7 @@ Requires:  qt6-qtmultimedia%{?_isa}
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake_kf6
@@ -88,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

@@ -12,9 +12,6 @@ BuildArch:      noarch
 %description
 Operating System AppStream Metadata for Fedora Linux
 
-%prep
-sed -i '/<release / s/type="snapshot"/type="development"/' %{SOURCE1}
-
 %build
 
 %install

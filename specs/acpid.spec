@@ -8,7 +8,7 @@
 Summary: ACPI Event Daemon
 Name: acpid
 Version: 2.0.34
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-2.0-or-later
 Source: http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source3: acpid.power.conf
@@ -18,7 +18,6 @@ Source6: acpid.sysconfig
 Source7: acpid.socket
 # https://sourceforge.net/p/acpid2/tickets/14/
 Patch0: acpid-2.0.32-kacpimon-dynamic-connections.patch
-ExclusiveArch: ia64 x86_64 %{ix86} %{arm} aarch64 riscv64
 URL: http://sourceforge.net/projects/acpid2/
 BuildRequires: systemd, gcc
 BuildRequires: make
@@ -97,6 +96,11 @@ fi
 	/bin/systemctl try-restart acpid.service >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.34-12
+- Dropped exclusivearch, the package is still useless on POWER (no firmware support
+  yet), but it is required by some dependency
+  Resolves: rhbz#2355763
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.34-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

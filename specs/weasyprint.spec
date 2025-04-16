@@ -2,7 +2,7 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        65.0
+Version:        65.1
 Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Mon Apr 14 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 65.1-1
+- update to 65.1
+
 * Sun Mar 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 65.0-1
 - update to 65.0
 

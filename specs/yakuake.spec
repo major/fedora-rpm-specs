@@ -3,7 +3,7 @@
 
 Name:    yakuake
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A drop-down terminal emulator
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -91,6 +91,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
+- Rebuild (qt6)
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

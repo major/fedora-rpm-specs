@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-241-g63c99cd50b
+%global glibcsrcdir glibc-2.41.9000-248-g7b47b3dd21
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Apr 14 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-10
+- Auto-sync with upstream branch master,
+  commit 7b47b3dd214c8ff2c699f13efe5533941be53635:
+- libio: Synthesize ESPIPE error if lseek returns 0 after reading bytes
+- x86: Detect Intel Diamond Rapids
+- x86: Handle unknown Intel processor with default tuning
+- conform: Add initial support for C23.
+- x86: Add ARL/PTL/CWF model detection support
+- timezone: Enhance tst-bz28707 diagnostics
+- powerpc: Remove relocation cache flush code for power64
+
 * Wed Apr 09 2025 Carlos O'Donell <carlos@redhat.com> - 2.41.9000-9
 - Auto-sync with upstream branch master,
   commit 63c99cd50bc9c10f0692f7cb31f4c5f02ff526df:

@@ -571,13 +571,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
-# etcetera
-#   wanted: 0.10.0
-#   currently packaged: 0.8.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2348721
-tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
-    '>=0.8.0, <0.11.0'
-
 %cargo_prep
 
 
@@ -670,31 +663,6 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 # build area; they might also require network access.
 # -p uv-client --test it:
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
-
-# This snapshot test fails due to a trivial difference in error message text
-# between url 2.5.2 and 2.5.3. The meaning of the message is the same. See
-# https://github.com/astral-sh/uv/commit/9368268e494cbf05374165f25cdf1e9f6d2cceb9.
-# We can stop skipping this test once the rust-url package is updated to 2.5.3,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2323618.
-#
-# ---- metadata::requires_dist::test::invalid_url stdout ----
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Snapshot Summary ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Snapshot: invalid_url
-# Source: crates/uv-distribution/src/metadata/requires_dist.rs:460
-# ────────────────────────────────────────────────────────────────────────────────
-# Expression: format_err(input).await
-# ────────────────────────────────────────────────────────────────────────────────
-# -old snapshot
-# +new results
-# ────────────┬───────────────────────────────────────────────────────────────────
-#     0     0 │ error: TOML parse error at line 8, column 16
-#     1     1 │   |
-#     2     2 │ 8 | tqdm = { url = "§invalid#+#*Ä" }
-#     3     3 │   |                ^^^^^^^^^^^^^^^^^
-#     4       │-relative URL without a base: "§invalid#+#*Ä"
-#           4 │+invalid value: string "§invalid#+#*Ä", expected relative URL without a base
-# ────────────┴───────────────────────────────────────────────────────────────────
-skip="${skip-} --skip metadata::requires_dist::test::invalid_url"
 
 %if %[ %{defined fc41} || %{defined fc40} || %{defined el10} || %{defined el9} ]
 # Trivial difference in snapshots: packages appear in a different order.

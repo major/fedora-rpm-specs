@@ -21,9 +21,9 @@ Patch1:         uvw-2.10-test-libuv-dynamic.patch
 # https://github.com/skypjack/uvw/pull/273
 Patch2:         uvw-2.12-stdint.patch
 
-BuildRequires:  gcc-c++, cmake
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  libuv-devel >= %{libuv_ver}
-BuildRequires:  libcxx-devel
 BuildRequires:  doxygen
 BuildRequires:  gtest-devel
 BuildRequires:  sed

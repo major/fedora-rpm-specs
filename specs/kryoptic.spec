@@ -10,7 +10,7 @@
 %global soname libkryoptic_pkcs11
 
 Name:           kryoptic
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -29,9 +29,9 @@ License: Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (BSD
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/latchset/kryoptic
-Source0:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source0:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz
 %if %{with gpgcheck}
-Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
+Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 
@@ -62,16 +62,16 @@ Most notably a migration tool for the SoftHSM database.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f dynamic,nssdb,standard
+%cargo_generate_buildrequires -f dynamic,nssdb,pqc
 
 %build
 export CONFDIR=%{_sysconfdir}
-%cargo_build -f dynamic,nssdb,standard
-%{cargo_license_summary -f dynamic,nssdb,standard}
-%{cargo_license -f dynamic,nssdb,standard} > LICENSE.dependencies
+%cargo_build -f dynamic,nssdb,pqc
+%{cargo_license_summary -f dynamic,nssdb,pqc}
+%{cargo_license -f dynamic,nssdb,pqc} > LICENSE.dependencies
 
 %install
-%cargo_install -f dynamic,nssdb,standard
+%cargo_install -f dynamic,nssdb,pqc
 install -Dp target/rpm/%{soname}.so $RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/conformance
 
@@ -80,7 +80,7 @@ echo "module: %{soname}.so" > $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/kryopti
 
 %if %{with check}
 %check
-%cargo_test -f dynamic,nssdb,standard
+%cargo_test -f dynamic,nssdb,pqc
 %endif
 
 %files

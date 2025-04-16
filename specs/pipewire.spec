@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 4
-%global microversion 1
+%global microversion 2
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -885,6 +885,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Apr 14 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.2-1
+- Update version to 1.4.2
+
 * Fri Mar 14 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.1-1
 - Update version to 1.4.1
 - Remove the Conflicts: with JACK, we can install both but if the

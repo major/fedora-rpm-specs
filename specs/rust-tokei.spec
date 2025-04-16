@@ -21,6 +21,7 @@ Source:         %{crates_source %{crate} %{crate_version}}
 #   to create git repositories for testing using git2::Repository::init(…),
 #   there is almost no exposure to future API changes, and this keeps us from
 #   having to adjust the patch for every new git2 release.
+# * Update etcetera to 0.10: https://github.com/XAMPPRocky/tokei/pull/1253
 Patch:          tokei-fix-metadata.diff
 # * Fix a minor typo in CLI help text
 # * https://github.com/XAMPPRocky/tokei/pull/1217

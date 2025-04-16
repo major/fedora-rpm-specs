@@ -11,7 +11,7 @@
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -68,6 +68,7 @@ Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel%{?_isa}
 Requires: qt6-qtdeclarative-devel%{?_isa}
+Requires: wayland-devel%{?_isa}
 %description devel
 %{summary}.
 
@@ -215,6 +216,9 @@ popd
 %endif
 
 %changelog
+* Mon Apr 14 2025 Pavel Solovev <daron439@gmail.com> - 6.9.0-2
+- Require wayland-devel in the devel package
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

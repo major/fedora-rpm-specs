@@ -1,7 +1,7 @@
 Summary:        Test case module for Perl
 Name:           perl-Test-Manifest
-Version:        2.025
-Release:        2%{?dist}
+Version:        2.026
+Release:        1%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Manifest
 Source0:        https://www.cpan.org/modules/by-module/Test/Test-Manifest-%{version}.tar.gz
@@ -27,6 +27,7 @@ BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 1
+BuildRequires:  perl(version) >= 0.86
 # Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
@@ -68,6 +69,10 @@ make test
 %{_mandir}/man3/Test::Manifest.3*
 
 %changelog
+* Mon Apr 14 2025 Paul Howarth <paul@city-fan.org> - 2.026-1
+- Update to 2.026
+  - Require a newer version.pm for v5.10.1 tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.025-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

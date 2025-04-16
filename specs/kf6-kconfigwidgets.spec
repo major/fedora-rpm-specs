@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for creating configuration dialogs
 
 # The following licenses are in LICENSES but go unused: BSD-3-Clause, MIT
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-2
+- Rebuild (qt6)
+
 * Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
 - 6.13.0
 

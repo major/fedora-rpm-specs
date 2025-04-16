@@ -1,18 +1,17 @@
+%global pie_vend   imagick
+%global pie_proj   imagick
 %global pecl_name  imagick
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
 Summary:        Provides a wrapper to the ImageMagick library
 Name:           php-pecl-%pecl_name
-Version:        3.7.0
-Release:        16%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%pecl_name
 
 Source0:        https://pecl.php.net/get/%{sources}.tgz
-
-Patch0:        %{pecl_name}-tests.patch
-Patch1:        %{pecl_name}-pr690.patch
 
 ExcludeArch:    %{ix86}
 
@@ -23,10 +22,12 @@ BuildRequires:  pkgconfig(ImageMagick)
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
-Provides:       php-%pecl_name               = %{version}
-Provides:       php-%pecl_name%{?_isa}       = %{version}
-Provides:       php-pecl(%pecl_name)         = %{version}
-Provides:       php-pecl(%pecl_name)%{?_isa} = %{version}
+Provides:       php-%pecl_name                   = %{version}
+Provides:       php-%pecl_name%{?_isa}           = %{version}
+Provides:       php-pecl(%pecl_name)             = %{version}
+Provides:       php-pecl(%pecl_name)%{?_isa}     = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 Conflicts:      php-pecl-gmagick
 
@@ -62,9 +63,6 @@ then : "Font files detected!"
 fi
 
 cd %{sources}
-%patch -P0 -p1
-%patch -P1 -p1
-
 : Avoid arginfo to be regenerated
 rm *.stub.php
 
@@ -145,7 +143,7 @@ rm tests/244_Tutorial_psychedelicFontGif_basic.phpt
 # very long, and erratic results
 rm tests/073_Imagick_forwardFourierTransformImage_basic.phpt
 rm tests/086_Imagick_forwardFourierTransformImage_basic.phpt
-# https://github.com/Imagick/imagick/issues/645
+rm tests/151_Imagick_subImageMatch_basic.phpt
 rm tests/316_Imagick_getImageKurtosis.phpt
 
 : upstream test suite for the extension
@@ -168,6 +166,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Apr 11 2025 Remi Collet <remi@remirepo.net> - 3.8.0-1
+- update to 3.8.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

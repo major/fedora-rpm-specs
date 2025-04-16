@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        48.0
+Version:        48.1
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 

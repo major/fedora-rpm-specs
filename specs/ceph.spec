@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -609,7 +609,7 @@ Requires:	python%{python3_pkgversion}-pyyaml
 Utility to bootstrap a Ceph cluster and manage Ceph daemons deployed
 with systemd and podman.
 
-%package -n ceph-common
+%package common
 Summary:	Ceph Common
 %if 0%{?suse_version}
 Group:		System/Filesystems
@@ -636,7 +636,9 @@ Requires:	libradosstriper1 = %{_epoch_prefix}%{version}-%{release}
 %if 0%{?suse_version}
 Requires(pre):	pwdutils
 %endif
-%description -n ceph-common
+Provides:	group(ceph)
+Provides:	user(ceph)
+%description common
 Common utilities to mount and interact with a ceph storage cluster.
 Comprised of files that are common to Ceph clients and servers.
 
@@ -1735,18 +1737,6 @@ if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph.target ceph-crash.service >/dev/null 2>&1 || :
 fi
 
-%pre base
-getent group ceph > /dev/null || groupadd -r ceph
-getent passwd ceph > /dev/null || useradd -r -g ceph -d %{_rundir}/ceph -s /sbin/nologin -c "Ceph" ceph
-
-%preun base
-%if 0%{?suse_version}
-%service_del_preun ceph.target ceph-crash.service
-%endif
-%if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph.target ceph-crash.service
-%endif
-
 %postun base
 %{?ldconfig}
 %systemd_postun ceph.target
@@ -1758,6 +1748,14 @@ getent passwd ceph > /dev/null || useradd -r -g ceph -d %{_rundir}/ceph -s /sbin
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
 %config(noreplace) %attr(0600,cephadm,cephadm) %{_sharedstatedir}/cephadm/.ssh/authorized_keys
 %{_sysusersdir}/ceph.conf
+
+%preun common
+%if 0%{?suse_version}
+%service_del_preun ceph.target ceph-crash.service
+%endif
+%if 0%{?fedora} || 0%{?rhel}
+%systemd_preun ceph.target ceph-crash.service
+%endif
 
 %files common
 %dir %{_docdir}/ceph
@@ -2727,7 +2725,10 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
-* Sat Apr 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
+* Mon Apr 14 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-3
+- ceph-19.2.2, rhbz#2359214 again
+
+* Sat Apr 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-2
 - ceph-19.2.2, rhbz#2359214
 
 * Thu Apr 10 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1

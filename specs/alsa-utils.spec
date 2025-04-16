@@ -1,11 +1,11 @@
-%define   baseversion     1.2.13
+%define   baseversion     1.2.14
 #define   fixversion      .2
 %global   _hardened_build 1
 
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
@@ -15,7 +15,7 @@ Source5: alsaunmute.1
 Source11: alsactl.conf
 Source20: alsa-restore.service
 Source22: alsa-state.service
-Patch1:  alsa-git.patch
+#Patch1:  alsa-git.patch
 
 BuildRequires: gcc
 BuildRequires: autoconf automake libtool
@@ -161,7 +161,7 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{_mandir}/man1/iecset.1.gz
 %{_mandir}/man1/speaker-test.1.gz
 %{_mandir}/man1/aconnect.1.gz
-%{_mandir}/man1/alsa-info.sh.1.gz
+%{_mandir}/man8/alsa-info.sh.8.gz
 %{_mandir}/man1/nhlt-dmic-info.1.gz
 
 %dir /etc/alsa/
@@ -206,6 +206,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-1
+* Updated to 1.2.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

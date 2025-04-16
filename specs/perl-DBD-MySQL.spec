@@ -6,8 +6,8 @@
 %global mysqlname mysql
 
 Name:           perl-DBD-MySQL
-Version:        5.011
-Release:        2%{?dist}
+Version:        5.012
+Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -188,6 +188,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 14 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.012-1
+- 5.012 bump (rhbz#2359138)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.011-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

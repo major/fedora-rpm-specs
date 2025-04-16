@@ -1,5 +1,5 @@
 Name:           quisk
-Version:        4.2.41
+Version:        4.2.42
 Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
@@ -86,6 +86,10 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.42-1
+- New version
+  Resolves: rhbz#2359144
+
 * Thu Feb  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.41-1
 - New version
   Resolves: rhbz#2343021

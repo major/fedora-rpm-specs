@@ -148,7 +148,7 @@
 %global unprefixed_libdir lib
 
 %if 0%{?rhel}
-%global targets_to_build "X86;AMDGPU;PowerPC;NVPTX;SystemZ;AArch64;ARM;Mips;BPF;WebAssembly"
+%global targets_to_build "X86;AMDGPU;PowerPC;NVPTX;SystemZ;AArch64;BPF;WebAssembly"
 %global experimental_targets_to_build ""
 %else
 %global targets_to_build "all"
@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -1448,6 +1448,8 @@ fi
 cd ..
 
 %if %{with bundle_compat_lib}
+# MIPS and Arm targets were disabled in LLVM 20, but we still need them
+# enabled for the compat libraries.
 %cmake -S ../llvm-project-%{compat_ver}.src/llvm -B ../llvm-compat-libs -G Ninja \
     -DCMAKE_INSTALL_PREFIX=%{buildroot}%{_libdir}/llvm%{compat_maj_ver}/ \
     -DCMAKE_SKIP_RPATH=ON \
@@ -1455,7 +1457,11 @@ cd ..
     -DLLVM_ENABLE_PROJECTS="clang;lldb" \
     -DLLVM_INCLUDE_BENCHMARKS=OFF \
     -DLLVM_INCLUDE_TESTS=OFF \
-    %{cmake_common_args}
+    %{cmake_common_args} \
+%if %{compat_maj_ver} <= 19
+    -DLLVM_TARGETS_TO_BUILD="$(echo %{targets_to_build});Mips;ARM" \
+%endif
+    %{nil}
 
 %ninja_build -C ../llvm-compat-libs LLVM
 %ninja_build -C ../llvm-compat-libs libclang.so
@@ -3032,6 +3038,9 @@ fi
 
 #region changelog
 %changelog
+* Fri Apr 04 2025 Tom Stellard <tstellar@redhat.com> - 20.1.2-5
+- Drop ARM and Mips targets on RHEL
+
 * Thu Apr 03 2025 Timm Bäder <tbaeder@redhat.com> - 20.1.2-4
 - Remove gpu-loader binaries
 

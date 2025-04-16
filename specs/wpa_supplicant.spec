@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -47,6 +47,8 @@ Patch10: wpa_supplicant-Revert-Mark-authorization-completed-on-driver-indica.pat
 # see https://bugzilla.redhat.com/2309148
 # From: https://w1.fi/cgit/hostap/commit/?id=c330b5820eefa8e703dbce7278c2a62d9c69166a
 Patch11: wpa_supplicant-Send-signal-change-as-debug-msg.patch
+# use pkcs11-provider instead of OpenSSL engine
+Patch12: wpa_supplicant-OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
 
 URL: http://w1.fi/wpa_supplicant/
 
@@ -60,11 +62,17 @@ BuildRequires: libnl3-devel
 BuildRequires: systemd-units
 BuildRequires: docbook-utils
 BuildRequires: gcc
+%if 0%{?fedora} >= 41
 BuildRequires: openssl-devel-engine
+%endif
 Requires(post): systemd-sysv
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
+%if 0%{?rhel} >= 10
+Requires: pkcs11-provider >= 1.0
+%endif
+
 # libeap used to be built from wpa_supplicant with some fairly horrible
 # hackery, solely for use by WiMAX. We dropped all WiMAX support around
 # F21. This is here so people don't wind up with obsolete libeap packages
@@ -98,6 +106,9 @@ Graphical User Interface for wpa_supplicant written using QT
 pushd wpa_supplicant
   cp defconfig .config
   export CFLAGS="${CFLAGS:-%optflags} -fPIE -DPIE"
+%if 0%{?rhel} >= 10
+  export CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE"
+%endif
   export CXXFLAGS="${CXXFLAGS:-%optflags} -fPIE -DPIE"
   export LDFLAGS="${LDFLAGS:-%optflags} -pie -Wl,-z,now"
   # yes, BINDIR=_sbindir
@@ -208,6 +219,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Fri Apr 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.11-6
+- DIsable OpenSSL ENGINE in RHEL builds
+
 * Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 1:2.11-5
 - Backport fix to eliminate signal strength change messages from journal (#2309148)
 

@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-mines
-Version:        48.0
+Version:        48.1
 Release:        1%{?dist}
 Summary:        GNOME Mines Sweeper game
 
@@ -50,6 +50,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 %license COPYING
 %{_bindir}/gnome-mines
 %{_datadir}/applications/org.gnome.Mines.desktop
+%{_datadir}/dbus-1/services/org.gnome.Mines.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Mines.gschema.xml
 %{_datadir}/gnome-mines/
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Mines*svg
@@ -58,6 +59,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 
 
 %changelog
+* Mon Apr 14 2025 nmontero <nmontero@redhat.com> - 48.1-1
+- Update to 48.1
+
 * Mon Mar 31 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

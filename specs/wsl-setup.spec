@@ -1,5 +1,11 @@
-%if 0%{?eln}
+%if %{defined eln}
   %global default_name ELN
+%elif %{defined epel} && %{defined centos}
+  %global default_name CentosStream-EPEL-%{?centos}
+%elif %{defined centos}
+  %global default_name CentosStream-%{?centos}
+%elif %{defined fedora}
+  %global default_name Fedora-%{?fedora}
 %else
   %global default_name Fedora
 %endif
@@ -32,11 +38,7 @@ Provides WSL specific configuration files and first-time setup script.
 
 
 %prep
-%if 0%{?fedora}
-sed -i 's,$NAME,Fedora,' %{SOURCE3}
-%else
-sed -i 's,$NAME,ELN,' %{SOURCE3}
-%endif
+sed -i 's,$NAME,%{default_name},' %{SOURCE3}
 
 
 %build

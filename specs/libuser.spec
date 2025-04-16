@@ -2,12 +2,13 @@
 
 Name: libuser
 Version: 0.64
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
 # https://pagure.io/libuser/pull-request/71
 Patch: 0001-tests-use-crypt_r-with-Python-3.13.patch
+Patch1:  libuser-0.64-editlocation.patch
 
 BuildRequires: glib2-devel
 BuildRequires: linuxdoc-tools
@@ -130,6 +131,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Apr 02 2025 Michal Hlavinka <mhlavink@redhat.com> - 0.64-14
+- create temporary edit files at symlink target location (pr#73)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.64-13
 - Add explicit BR: libxcrypt-devel
 
