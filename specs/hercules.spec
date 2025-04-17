@@ -21,6 +21,9 @@ BuildRequires: make
 Conflicts: sdl-hercules
 Conflicts: sdl-hercules-data
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 Hercules is an emulator for the IBM System/370, ESA/390, and z/Architecture
 series of mainframe computers. It is capable of running any IBM operating
@@ -51,7 +54,7 @@ rm util/Makefile*
 %build
 %configure \
     --enable-external-gui \
-    --enable-optimization="%{optflags}"
+    --enable-optimization="%{optflags} -std=gnu17"
 
 make %{?_smp_mflags} V=1
 
@@ -88,12 +91,21 @@ rm %{buildroot}%{_libdir}/*.la
 %dir %{_sysconfdir}/hercules/
 %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/hercules/hercules.cnf
 %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/hercules/generic.prm
-%{_bindir}/*
-%{_sbindir}/*
+%{_bindir}/cckd*
+%{_bindir}/cfba*
+%{_bindir}/ckd*
+%{_bindir}/dasd*
+%{_bindir}/dmap*
+%{_bindir}/fba*
+%{_bindir}/herc*
+%{_bindir}/het*
+%{_bindir}/tape*
 %{_datadir}/hercules/
 %dir %{_libdir}/hercules/
 %{_libdir}/hercules/*.so
-%{_libdir}/*.so
+%{_libdir}/libherc*.so
+%{_libdir}/libdecNumber.so
+%{_libdir}/libsoftfloat.so
 %{_mandir}/man?/*
 %dir %{_sharedstatedir}/hercules/
 

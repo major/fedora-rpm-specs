@@ -17,7 +17,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        11.2.0
+Version:        11.2.1
 Release:        1%{?dist}
 Summary:        Python image processing library
 
@@ -308,6 +308,9 @@ popd
 
 
 %changelog
+* Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 11.2.1-1
+- Update to 11.2.1
+
 * Wed Apr 02 2025 Sandro Mani <manisandro@gmail.com> - 11.2.0-1
 - Update to 11.2.0
 

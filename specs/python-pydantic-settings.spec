@@ -9,7 +9,7 @@
 Name:           python-pydantic-settings
 Version:        2.8.1
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Settings management using pydantic
 
 License:        MIT
@@ -60,7 +60,12 @@ ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
 %endif
 
-%pytest ${ignore-} -rs -v
+# Regression with typing-extensions 4.13:
+# test_cli_metavar_format_type_alias_312
+# https://github.com/pydantic/pydantic-settings/issues/591
+k="${k-}${k+ and }not test_cli_metavar_format_type_alias_312"
+
+%pytest ${ignore-} -k "${k-}" -rs -v
 %endif
 
 
@@ -72,6 +77,9 @@ ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
 
 
 %changelog
+* Tue Apr 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-2
+- Report and skip a test regression with typing-extensions 4.13
+
 * Thu Feb 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-1
 - Update to 2.8.1 (close RHBZ#2348704)
 

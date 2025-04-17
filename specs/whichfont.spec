@@ -1,5 +1,5 @@
 Name:          whichfont
-Version:       1.0.9
+Version:       2.1.0
 Release:       4%{?dist}
 Summary:       Querying Fontconfig
 
@@ -34,6 +34,13 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Apr 15 2025 Sudip Shil <sshil@redhat.com> - 2.1.0-0
+- Added --language (-l) CLI option to detect the default font for a given language code, which detects and prints the default font family that supports the specified language.
+- Introduced valid_langs[] array containing known language codes supported by fontconfig, Rejects invalid language codes early with a clear error message.
+- Checks not only if a font is returned, but whether it actually supports the given language.
+- Updated --help output to include usage for --language option.
+- updated readme with installation, build section.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

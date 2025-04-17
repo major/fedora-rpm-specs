@@ -343,7 +343,7 @@ for _,path in pairs({"/usr/sbin", "/usr/local/sbin"}) do
           print("Could not stat "..v)
         else
           if st.type ~= "link" then
-            print("/usr/sbin cannot be merged, found "..v)
+            print(path.." cannot be merged yet, found "..v)
             good = false
             break
           end
@@ -351,7 +351,7 @@ for _,path in pairs({"/usr/sbin", "/usr/local/sbin"}) do
           target = posix.readlink(v)
           name = v:match("^.+/(.+)$")
           if target ~= "../bin/"..name then
-            print("/usr/sbin cannot be merged, "..v.." points to "..target)
+            print(path.." cannot be merged yet, "..v.." points to "..target)
             good = false
             break
           end

@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 10.0.1
+Version: 10.1.3
 Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
@@ -114,7 +114,7 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.10
-%{_libdir}/librocksdb.so.10.0.1
+%{_libdir}/librocksdb.so.10.1.3
 
 
 %files tools
@@ -141,6 +141,9 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Tue Apr 15 2025 Jonny Heggheim <hegjon@gmail.com> - 10.1.3-1
+- Updated to version 10.1.3
+
 * Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 10.0.1-1
 - Updated to version 10.0.1
 

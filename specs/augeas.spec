@@ -3,21 +3,11 @@ Version:        1.14.2
 Summary:        A library for changing configuration files
 License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND Kazlib AND GPL-2.0-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
-# Upstream Augeas is missing several important fixes which affect
-# Fedora.  For this reason I have taken the regrettable but hopefully
-# temporary step of forking upstream with some extra patches, here:
-# https://github.com/rwmjones/augeas/tree/fedora-43
-
-# Based on:
-#%%global forgeurl https://github.com/hercules-team/%%{name}
-#%%global commit cd37b0945385705afb936caa9d2fd9a7388bb441
-
-# But actually:
-%global forgeurl https://github.com/rwmjones/%{name}
-%global commit 4dffa3d6f9ff6aa41aee2ebd3aa6d80b01af1637
+%global forgeurl https://github.com/hercules-team/%%{name}
+%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
 %forgemeta
 
-Release:        0.4%{?dist}
+Release:        0.5%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -25,6 +15,13 @@ Source0:        %{forgesource}
 # need to provide our own gnulib submodule.  I created this by doing:
 # git archive --format=tar --prefix=.gnulib/ HEAD | gzip -9 > gnulib-2f7479a16a.tar.gz
 Source1:        gnulib-2f7479a16a.tar.gz
+
+# Upstream Augeas is missing several important fixes which affect
+# Fedora.  For this reason I have taken the regrettable but hopefully
+# temporary step of forking upstream with some extra patches, here:
+# https://github.com/rwmjones/augeas/tree/fedora-43
+Patch:          0001-lenses-fstab.aug-Tighten-parsing-of-the-vfstype-fiel.patch
+Patch:          0002-lenses-fstab.aug-Allow-individual-mount-options-to-b.patch
 
 Provides:       bundled(gnulib)
 
@@ -201,6 +198,10 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Tue Apr 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.5
+- Rebase our branch on top of Augeas
+- Use patches to make it clearer what we are adding on top of upstream.
+
 * Mon Mar 24 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.14.2-0.4
 - rhbz#235444: CVE-2025-2588
 

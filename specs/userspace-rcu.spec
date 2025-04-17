@@ -1,12 +1,12 @@
 Name:           userspace-rcu
-Version:        0.15.1
+Version:        0.15.2
 Release:        1%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
 License:        LGPL-2.1-or-later
-URL:            http://liburcu.org
+URL:            https://liburcu.org
 
-Source0:        http://lttng.org/files/urcu/%{name}-%{version}.tar.bz2
-Source1:        http://lttng.org/files/urcu/%{name}-%{version}.tar.bz2.asc
+Source0:        https://lttng.org/files/urcu/%{name}-%{version}.tar.bz2
+Source1:        https://lttng.org/files/urcu/%{name}-%{version}.tar.bz2.asc
 # gpg2 --export --export-options export-minimal 2A0B4ED915F2D3FA45F5B16217280A9781186ACF > gpgkey-2A0B4ED915F2D3FA45F5B16217280A9781186ACF.gpg
 Source2:        gpgkey-2A0B4ED915F2D3FA45F5B16217280A9781186ACF.gpg
 Patch0:         regtest-without-bench.patch
@@ -91,6 +91,9 @@ make regtest
 
 
 %changelog
+* Tue Apr 15 2025 Michael Jeanson <mjeanson@efficios.com> - 0.15.2-1
+- New upstream release
+
 * Tue Feb 18 2025 Michael Jeanson <mjeanson@efficios.com> - 0.15.1-1
 - New upstream release
 

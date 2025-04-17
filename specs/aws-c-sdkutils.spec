@@ -1,12 +1,11 @@
 Name:           aws-c-sdkutils
-Version:        0.2.2
+Version:        0.2.3
 Release:        2%{?dist}
 Summary:        Utility package for AWS SDK for C
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         aws-c-sdkutils-cmake.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -15,7 +14,7 @@ BuildRequires:  aws-c-common-devel
 Requires:       aws-c-common-libs
 
 # Dependency aws-c-common doesn't build on s390x
-# To-do: Create related Bug
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359729
 ExcludeArch: s390x
 
 %description
@@ -77,6 +76,13 @@ Utility package for AWS SDK for C
 
 
 %changelog
+* Tue Apr 15 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.2.3-2
+- Patch 'aws-c-sdkutils-cmake.patch' removed, not required anymore
+
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 0.2.3-1
+- Update to version 0.2.3
+- Resolves: rhbz#2342722
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

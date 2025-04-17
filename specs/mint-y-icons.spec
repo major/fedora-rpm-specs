@@ -1,6 +1,6 @@
 Name:           mint-y-icons
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -53,6 +53,9 @@ done
 
 
 %changelog
+* Tue Apr 15 2025 Leigh Scott <leigh123linux@gmail.com> - 1.8.3-1
+- Update to 1.8.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:		mingw-libsoup
 Version:	2.74.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -20,33 +20,52 @@ Patch1:         CVE-2024-52532.patch
 # Backport fix for CVE-2024-52530
 # https://gitlab.gnome.org/GNOME/libsoup/-/commit/04df03bc092ac20607f3e150936624d4f536e68b
 Patch2:         CVE-2024-52530.patch
+# Backport fix for CVE-2025-32050
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/9bb0a55de55c6940ced811a64fbca82fe93a9323
+Patch3:         CVE-2025-32050.patch
+# Backport fix for CVE-2025-32052
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/f182429e5b1fc034050510da20c93256c4fa9652
+Patch4:         CVE-2025-32052.patch
+# Backport fix for CVE-2025-32053
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/eaed42ca8d40cd9ab63764e3d63641180505f40a
+Patch5:         CVE-2025-32053.patch
+# Backport fix for CVE-2025-32906
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/af5b9a4a3945c52b940d5ac181ef51bb12011f1f
+Patch6:         CVE-2025-32906.patch
+# Backport fix for CVE-2025-32907
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/452
+Patch7:         CVE-2025-32907.patch
+# Backport fix for CVE-2025-32909
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/ba4c3a6f988beff59e45801ab36067293d24ce92
+Patch8:         CVE-2025-32909.patch
 
-BuildArch:	noarch
 
-BuildRequires: gcc
-BuildRequires: meson
+BuildArch:      noarch
 
-BuildRequires: mingw32-filesystem >= 107
-BuildRequires: mingw32-binutils
-BuildRequires: mingw32-gcc
-BuildRequires: mingw32-glib2
-BuildRequires: mingw32-libxml2
-BuildRequires: mingw32-brotli
-BuildRequires: mingw32-libpsl
-BuildRequires: mingw32-sqlite
+BuildRequires:  gcc
+BuildRequires:  meson
 
-BuildRequires: mingw64-filesystem >= 107
-BuildRequires: mingw64-binutils
-BuildRequires: mingw64-gcc
-BuildRequires: mingw64-glib2
-BuildRequires: mingw64-libxml2
-BuildRequires: mingw64-brotli
-BuildRequires: mingw64-libpsl
-BuildRequires: mingw64-sqlite
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-binutils
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-glib2
+BuildRequires:  mingw32-libxml2
+BuildRequires:  mingw32-brotli
+BuildRequires:  mingw32-libpsl
+BuildRequires:  mingw32-sqlite
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-binutils
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-glib2
+BuildRequires:  mingw64-libxml2
+BuildRequires:  mingw64-brotli
+BuildRequires:  mingw64-libpsl
+BuildRequires:  mingw64-sqlite
 
 # For glib-genmarshal
-BuildRequires:	glib2-devel
-BuildRequires:	intltool
+BuildRequires: glib2-devel
+BuildRequires: intltool
 
 %description
 Libsoup is an HTTP library implementation in C. It was originally part
@@ -119,6 +138,7 @@ This is the MinGW build of Libsoup
     -Dtests=false \
     -Dtls_check=false \
     -Dvapi=disabled
+%mingw_ninja
 
 %install
 %mingw_ninja_install
@@ -154,6 +174,10 @@ rm -f %{buildroot}%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/libsoup-gnome-2.4.pc
 
 %changelog
+* Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 2.74.3-10
+- Backport fixes for CVE-2025-32050 CVE-2025-32052 CVE-2025-32053 CVE-2025-32906
+  CVE-2025-32907 CVE-2025-32909
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

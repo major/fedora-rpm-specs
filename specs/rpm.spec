@@ -24,9 +24,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.20.1
+%global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 3
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -64,7 +64,7 @@ Obsoletes: python2-rpm < %{version}-%{release}
 # is a bit special...
 BuildRequires: redhat-rpm-config >= 94
 BuildRequires: systemd-rpm-macros
-BuildRequires: gcc make
+BuildRequires: gcc gcc-c++ make
 BuildRequires: cmake >= 3.18
 BuildRequires: gawk
 BuildRequires: elfutils-devel >= 0.112
@@ -90,14 +90,7 @@ BuildRequires: libzstd-devel
 BuildRequires: sqlite-devel
 %endif
 
-# Needed for re-building the documentation and man pages
-# normally those are shipped in the tarball pre-build
-# but need re-building if sources are patched
-%if 0
-BuildRequires: pandoc
-BuildRequires: doxygen
-%endif
-
+BuildRequires: doxygen scdoc
 BuildRequires: rpm-sequoia-devel >= 1.4.0
 
 # Couple of patches change makefiles so, require for now...
@@ -358,6 +351,9 @@ change.
 %prep
 %autosetup -n rpm-%{srcver} -p1
 
+# back out of enforcing signature checking until the build tooling works with it
+sed -i -e "s:%%_pkgverify_level all:%%_pkgverify_level digest:g" macros.in
+
 %build
 %set_build_flags
 
@@ -373,6 +369,7 @@ cmake \
       %{?with_fsverity:-DWITH_FSVERITY=ON} \
       %{?with_libimaevm:-DWITH_IMAEVM=ON} \
       %{!?with_check:-DENABLE_TESTSUITE=OFF} \
+      -DWITH_DOXYGEN=ON \
       -DRPM_VENDOR=redhat \
   ..
 
@@ -391,11 +388,6 @@ cd ..
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT/%{_unitdir}
 
-mkdir -p $RPM_BUILD_ROOT%{rpmhome}
-
-# Built-in replacement for systemd-sysusers(8)
-install -m 755 scripts/sysusers.sh $RPM_BUILD_ROOT/%{rpmhome}
-
 # Save list of packages through cron
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.daily
 install -m 755 scripts/rpm.daily ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.daily/rpm
@@ -403,8 +395,6 @@ install -m 755 scripts/rpm.daily ${RPM_BUILD_ROOT}%{_sysconfdir}/cron.daily/rpm
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d
 install -m 644 scripts/rpm.log ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/rpm
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rpm
-mkdir -p $RPM_BUILD_ROOT%{rpmhome}/macros.d
 mkdir -p $RPM_BUILD_ROOT/usr/lib/sysimage/rpm
 cd _build
 
@@ -419,8 +409,6 @@ done
 ln -s ../../bin/find-debuginfo $RPM_BUILD_ROOT/usr/lib/rpm/find-debuginfo.sh
 
 %find_lang rpm
-
-find $RPM_BUILD_ROOT -name "*.la"|xargs rm -f
 
 # These live in perl-generators and python-rpm-generators now
 rm -f $RPM_BUILD_ROOT/%{rpmhome}/{perldeps.pl,perl.*,pythond*}
@@ -471,13 +459,16 @@ fi
 %{_bindir}/rpmverify
 %{_bindir}/rpmsort
 
+%{_mandir}/man1/rpm2archive.1*
+%{_mandir}/man1/rpm2cpio.1*
+%{_mandir}/man1/rpmsort.1*
+%{_mandir}/man5/rpm-config.5*
+%{_mandir}/man5/rpm-macrofile.5*
+%{_mandir}/man5/rpm-rpmrc.5*
 %{_mandir}/man8/rpm.8*
 %{_mandir}/man8/rpmdb.8*
 %{_mandir}/man8/rpmkeys.8*
-%{_mandir}/man8/rpm2archive.8*
-%{_mandir}/man8/rpm2cpio.8*
-%{_mandir}/man8/rpm-misc.8*
-%{_mandir}/man8/rpmsort.8*
+%{_mandir}/man8/rpm-common.8*
 %{_mandir}/man8/rpm-plugins.8*
 
 %attr(0755, root, root) %dir %{rpmhome}
@@ -579,10 +570,11 @@ fi
 %{_bindir}/rpmlua
 
 %{_mandir}/man1/gendiff.1*
-%{_mandir}/man8/rpmbuild.8*
-%{_mandir}/man8/rpmdeps.8*
-%{_mandir}/man8/rpmspec.8*
-%{_mandir}/man8/rpmlua.8*
+%{_mandir}/man1/rpmbuild.1*
+%{_mandir}/man1/rpmdeps.1*
+%{_mandir}/man1/rpmspec.1*
+%{_mandir}/man1/rpmlua.1*
+%{_mandir}/man1/rpm-setup-autosign.1*
 
 %{rpmhome}/brp-*
 %{rpmhome}/check-*
@@ -596,10 +588,11 @@ fi
 %{rpmhome}/find-debuginfo.sh
 %{rpmhome}/rpmuncompress
 %{rpmhome}/rpmdump
+%{rpmhome}/rpm-setup-autosign
 
 %files sign
 %{_bindir}/rpmsign
-%{_mandir}/man8/rpmsign.8*
+%{_mandir}/man1/rpmsign.1*
 
 %files -n python3-%{name}
 %dir %{python3_sitearch}/rpm
@@ -613,7 +606,7 @@ fi
 %{_defaultdocdir}/rpm/examples/
 
 %files devel
-%{_mandir}/man8/rpmgraph.8*
+%{_mandir}/man1/rpmgraph.1*
 %{_bindir}/rpmgraph
 %{_libdir}/librp*[a-z].so
 %{_libdir}/pkgconfig/rpm.pc
@@ -629,6 +622,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Apr 14 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-1
+- Rebase to 6.0 alpha (https://fedoraproject.org/wiki/Changes/RPM-6.0)
+- Disable enforcing signature checking initially (ie back to rpm 4.x level)
+
 * Mon Mar 31 2025 Panu Matilainen <pmatilai@redhat.com> - 4.20.1-3
 - Disable LTO on x86 as a workaround for #2356219
 

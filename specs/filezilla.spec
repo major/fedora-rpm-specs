@@ -5,8 +5,8 @@
 %bcond_with storj
 
 Name: filezilla
-Version: 3.68.1
-Release: 2%{?dist}
+Version: 3.69.0
+Release: 1%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
@@ -149,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Tue Apr 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.69.0-1
+- 3.69.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

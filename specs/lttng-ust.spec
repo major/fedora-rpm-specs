@@ -13,8 +13,8 @@
 
 
 Name:           lttng-ust
-Version:        2.13.8
-Release:        4%{?dist}
+Version:        2.13.9
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
 Summary:        LTTng Userspace Tracer library
@@ -136,6 +136,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Tue Apr 15 2025 Michael Jeanson <mjeanson@efficios.com> - 2.13.9-1
+- New upstream release
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
-%global upstream_version     1.2.0
+%global upstream_version     1.3.0
 
 Name:            supernovas
-Version:         1.2.0
-Release:         10%{?dist}
+Version:         1.3.0
+Release:         %autorelease
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
 URL:             https://smithsonian.github.io/SuperNOVAS
@@ -11,7 +11,7 @@ Source0:         https://github.com/Smithsonian/SuperNOVAS/archive/refs/tags/v%{
 # No i686 calceph package to build against
 ExcludeArch:     %{ix86}
 
-BuildRequires:   calceph-devel%{_isa}
+BuildRequires:   calceph-devel%{_isa} >= 4.0.0
 BuildRequires:   gcc
 BuildRequires:   sed
 BuildRequires:   doxygen >= 1.9.0
@@ -59,7 +59,7 @@ that particular interfacing.
 %package solsys-calceph
 Summary: Solar-system plugin based on the CALCEPH C library
 Requires:        %{name}%{?_isa} = %{version}-%{release}
-Requires:        calceph-libs%{?_isa}
+Requires:        calceph-libs%{?_isa} >= 4.0.0
 
 %description solsys-calceph
 Optional SuperNOVAS plugin library that provides Solar-system support via the 
@@ -97,11 +97,10 @@ needed, for the the JPL PLEPH module.
 %package doc
 Summary:         Documentation for the SuperNOVAS C/C++ astronomy library
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
 
 %description doc
-This package provides man pages and HTML documentation for the SuperNOVAS 
-C/C++ astronomy library.
+This package provides HTML documentation, examples, and legacy adapter 
+templates for the SuperNOVAS C/C++ astronomy library.
 
 %prep
 %setup -q -n SuperNOVAS-%{upstream_version}
@@ -140,62 +139,17 @@ make DESTDIR=%{buildroot} libdir=%{_libdir} install
 %{_datadir}/%{name}/CIO_RA.TXT
 
 %files devel
-%doc CONTRIBUTING.md
-%dir %{_docdir}/%{name}
-%doc %{_docdir}/%{name}/*.c
-%doc %{_docdir}/%{name}/*.f
-%{_prefix}/include/*
+%{_includedir}/*
 %{_libdir}/*.so
+%doc examples
+%doc legacy
+%doc CONTRIBUTING.md
 
 %files doc
-%doc %{_docdir}/%{name}/%{name}.tag
+%license LICENSE
+%dir %{_docdir}/%{name}
+%doc %{_docdir}/%{name}/supernovas.tag
 %doc %{_docdir}/%{name}/html
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-
-* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-9
-- Bad dates in changelog
-
-* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-8
-- Fix solsys-calceph subpackage dependence
-
-* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-7
-- Switch to manual changelog
-- Remove unwanted files committed earlier
-
-* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-6
-- Upstream rerelease v1.2.0 (fixes .so links)
-
-* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-5
-- Various small fixes to spec file
-
-* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-4
-- Exclude only solsys-calceph subpackage from i686 build
-
-* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-3
-- Exclude i686 from build
-
-* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-2
-- BuildRequires w/o {_isa}
-
-* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-1
-- Upstream v1.2.0
-
-* Wed Nov 06 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.1-1
-- Upstream v1.1.1-2
-
-* Sat Aug 03 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.0-2
-- v1.1.0-2: re-release with fixes to regression testing
-
-* Sat Aug 03 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.0-1
-- Update to upstream SuperNOVAS v1.1.0
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 19 2024 Attila Kovacs <attipaci@gmail.com> - 1.0.1-1
-- Initial import (fedora#2283055)
-
+%autochangelog

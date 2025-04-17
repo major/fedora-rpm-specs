@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cover
 Version:        1.44
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
@@ -129,6 +129,9 @@ make test
 %{_mandir}/man3/Devel::Cover*.3*
 
 %changelog
+* Tue Apr 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44-5
+- Rebuild for Perl 5.40.2 (rhbz#2359722)
+
 * Tue Jan 21 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44-4
 - Rebuild for Perl 5.40.1
 

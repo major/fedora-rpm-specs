@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -13,7 +13,9 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # needed to generate manpages
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-standard-mailcap
 BuildRequires:  make
+Requires:       python3-standard-mailcap
 
 %description
 alot makes use of existing solutions where possible: It does not fetch, send or
@@ -49,6 +51,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Tue Apr 15 2025 Tomas Tomecek <ttomecek@redhat.com> - 0.11-5
+- Depend on python-standard-mailcap
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

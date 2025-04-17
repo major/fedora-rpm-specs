@@ -8,7 +8,7 @@
 
 Name:           python-%{package_name}
 Version:        0.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Use requests to talk HTTP via a UNIX domain socket
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -22,9 +22,6 @@ BuildArch:      noarch
 
 %package -n     python3-%{package_name}
 Summary:        Use requests to talk HTTP via a UNIX domain socket
-%{?python_provide:%python_provide python3-%{package_name}}
-
-Requires:       python3dist(requests)
 
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(waitress)
@@ -38,7 +35,7 @@ BuildRequires:  python3dist(waitress)
 sed -i '1d' requests_unixsocket/tests/test_requests_unixsocket.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -58,6 +55,10 @@ sed -i 's/unixsocket2/unixsocket/g' %{buildroot}%{python3_sitelib}/requests_unix
 %{python3_sitelib}/requests_unixsocket-%{version}.dist-info
 
 %changelog
+* Fri Apr 04 2025 Miro Hrončok <mhroncok@redhat.com> - 0.4.0-9
+- Don't try to generate build dependencies by tox, there is no tox configuration
+- Fixes: rhbz#2354121
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

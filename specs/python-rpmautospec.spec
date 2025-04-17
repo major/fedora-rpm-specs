@@ -27,20 +27,11 @@
 %bcond rpmmacropkg 0
 %endif
 
-%if %{with bootstrap}
-%bcond pyproject_macros 0
-%else
-%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} || 0%{?epel} >= 9
-%bcond pyproject_macros 1
 # Appease old versions of hatchling
 %if ! 0%{?fedora}%{?rhel} || 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 %bcond old_hatchling 0
 %else
 %bcond old_hatchling 1
-%endif
-%else
-%bcond pyproject_macros 0
-%endif
 %endif
 
 # Although this supports a range of libgit2 and librpm versions upstream,
@@ -99,12 +90,6 @@ BuildRequires: python3dist(pyyaml)
 BuildRequires: python3dist(rpm)
 BuildRequires: sed
 
-%if %{without pyproject_macros}
-BuildRequires: python3dist(rpmautospec-core)
-BuildRequires: python3dist(setuptools)
-%{?python_provide:%python_provide python3-%{srcname}}
-%endif
-
 BuildRequires: (libgit2 >= %libgit2_lower_bound and libgit2 < %libgit2_upper_bound)
 BuildRequires: rpm-libs
 BuildRequires: rpm-build-libs
@@ -140,17 +125,10 @@ Recommends: python3-%{srcname}+rpm = %{version}-%{release}
 %description -n %{srcname}
 CLI tool for generating RPM releases and changelogs
 
-%if %{with pyproject_macros}
 %pyproject_extras_subpkg -n python3-%{srcname} click
 %pyproject_extras_subpkg -n python3-%{srcname} pygit2
 %pyproject_extras_subpkg -n python3-%{srcname} rpm
 %pyproject_extras_subpkg -n python3-%{srcname} all
-%else
-%python_extras_subpkg -n python3-%{srcname} -i %{python3_sitelib}/*.dist-info click
-%python_extras_subpkg -n python3-%{srcname} -i %{python3_sitelib}/*.dist-info pygit2
-%python_extras_subpkg -n python3-%{srcname} -i %{python3_sitelib}/*.dist-info rpm
-%python_extras_subpkg -n python3-%{srcname} -i %{python3_sitelib}/*.dist-info all
-%endif
 
 %if %{with rpmmacropkg}
 %package -n rpmautospec-rpm-macros
@@ -163,41 +141,23 @@ enabled packages locally.
 %endif
 
 %generate_buildrequires
-%if %{with pyproject_macros}
 %pyproject_buildrequires
-%endif
 
 %prep
 %autosetup -n %{srcname}-%{version}
-%if %{without pyproject_macros}
-sed -i -e 's/\[project\]/#\&/g' pyproject.toml
-%else
 %if %{with old_hatchling}
 sed -i -e 's/license-files = \(\[.*\]\)/license-files = {globs = \1}/' pyproject.toml
-%endif
 %endif
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -i -e '/pytest-cov/d; /addopts.*--cov/d' pyproject.toml
 
 %build
-%if %{with pyproject_macros}
 %pyproject_wheel
-%else
-%py3_build
-%endif
 
 %install
-%if %{with pyproject_macros}
 %pyproject_install
 %pyproject_save_files %{srcname}
-%else
-%py3_install
-cat << EOF > %{pyproject_files}
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/*.egg-info/
-EOF
-%endif
 
 %if %{with manpages}
 # Man pages
@@ -251,11 +211,7 @@ touch -r %{S:1} %{buildroot}%{_bindir}/rpmautospec
 
 %check
 # Always run the import checks, even when other tests are disabled
-%if %{with pyproject_macros}
 %pyproject_check_import
-%else
-%py3_check_import rpmautospec rpmautospec.cli
-%endif
 
 %if %{with tests}
 %pytest \

@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	6.13.0
-Release:	2%{?dist}
+Version:	6.14.0
+Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -30,9 +30,6 @@ Requires:       filesystem(unmerged-sbin-symlinks)
 Provides:       /usr/sbin/fsck.xfs
 Provides:       /usr/sbin/mkfs.xfs
 %endif
-
-# Not merged upstream yet
-Patch0:   xfsprogs-6.13.1-Fix-mismatched-return-type-of-filesize.patch
 
 %description
 A set of commands to use the XFS filesystem, including mkfs.xfs.
@@ -162,6 +159,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Tue Apr 15 2025 Pavel Reichl <preichl@redhat.com> - 6.14.0-1
+- Update to the latest upstream version v6.14
+- Related: rhbz#2359550
+
 * Tue Feb 18 2025 Timothée Ravier <tim@siosm.fr> - 6.13.0-2
 - Split xfs_protofile into its own sub package (fedora#2346282)
 - Move xfs_scrub.slice to xfs_scrub sub package (fedora#2312868)

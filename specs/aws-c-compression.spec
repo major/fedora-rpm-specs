@@ -1,12 +1,11 @@
 Name:           aws-c-compression
-Version:        0.3.0
+Version:        0.3.1
 Release:        2%{?dist}
 Summary:        C99 implementation of huffman encoding/decoding
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          aws-c-compression-cmake.patch
 
 BuildRequires:  aws-c-common-devel
 BuildRequires:  cmake
@@ -15,7 +14,7 @@ BuildRequires:  gcc
 Requires:       aws-c-common-libs
 
 # Dependency aws-c-common doesn't build on s390x
-# To-do: Create related Bug
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359733
 ExcludeArch: s390x
 
 %description
@@ -83,6 +82,13 @@ Currently only huffman is implemented.
 
 
 %changelog
+* Tue Apr 15 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.3.1-2
+- Patch 'aws-c-compression-cmake.patch' removed, not needed anymore, included upstream
+
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 0.3.1-1
+- Update to version 0.3.1
+- Resolves: rhbz#2342715
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

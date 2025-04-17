@@ -1,5 +1,5 @@
 Name:		perl-Module-Extract-VERSION
-Version:	1.118
+Version:	1.119
 Release:	1%{?dist}
 Summary:	Extract a module version without running code
 License:	Artistic-2.0
@@ -8,19 +8,18 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Extract-VERSI
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.10.0
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Spec::Functions)
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Safe)
 BuildRequires:	perl(strict)
-BuildRequires:	perl(version)
+BuildRequires:	perl(version) >= 0.86
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More) >= 1
@@ -30,7 +29,7 @@ BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 # Dependencies
 Requires:	perl(Safe)
-Requires:	perl(version)
+Requires:	perl(version) >= 0.86
 
 %description
 This module lets you pull out of module source code the version number for the
@@ -40,12 +39,11 @@ module. It assumes that there is only one $VERSION in the file.
 %setup -q -n Module-Extract-VERSION-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -58,6 +56,11 @@ make test
 %{_mandir}/man3/Module::Extract::VERSION.3*
 
 %changelog
+* Tue Apr 15 2025 Paul Howarth <paul@city-fan.org> - 1.119-1
+- Update to 1.119
+  - Require a newer version.pm for v5.10.1 tests
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jan 22 2025 Paul Howarth <paul@city-fan.org> - 1.118-1
 - Update to 1.118
   - Refresh dist

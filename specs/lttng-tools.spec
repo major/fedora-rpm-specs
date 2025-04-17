@@ -8,8 +8,8 @@
 
 
 Name:           lttng-tools
-Version:        2.13.14
-Release:        3%{?dist}
+Version:        2.13.15
+Release:        1%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -189,6 +189,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Tue Apr 15 2025 Michael Jeanson <mjeanson@efficios.com> - 2.13.15-1
+- New upstream release
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.13.14-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

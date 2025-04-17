@@ -1,5 +1,5 @@
 Name:           bids-schema
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        BIDS schema description
 

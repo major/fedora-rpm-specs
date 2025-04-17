@@ -10,13 +10,13 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 48%{?dist}
+Release: 49%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
-Requires: tcl{?_isa} < 1:9.0
-Requires: tk{?_isa} < 1:9.0
+Requires: tcl%{?_isa} < 1:9.0
+Requires: tk%{?_isa} < 1:9.0
 BuildRequires: make
 BuildRequires: gcc
 # Tcl 9.0 isn't supported: https://sourceforge.net/p/tclx/bugs/85/
@@ -93,6 +93,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Tue Apr 15 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-49
+- Fixed requirements
+
 * Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.4.0-48
 - Fixed FTBFS
   Resolves: rhbz#2341422

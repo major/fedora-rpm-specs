@@ -1,11 +1,11 @@
 %global image_version 42
-%global image_release 20250214.n.0
+%global image_release 1.1
 # These are published to the mirror network as well, but we use koji as that
 # makes it easier to fetch the corresponding metadata files
 %global baseurl https://kojipkgs.fedoraproject.org/packages/Fedora-FEX-RootFS/%{image_version}/%{image_release}/images
 
 Name:           fex-emu-rootfs-fedora
-Version:        %{image_version}^0~%{image_release}
+Version:        %{image_version}^%{image_release}
 Release:        %autorelease
 Summary:        Fedora-based RootFS for the FEX emulator
 

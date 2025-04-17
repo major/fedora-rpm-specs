@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.11
+Version:       2.7.12
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -310,6 +310,9 @@ done
 
 
 %changelog
+* Tue Apr 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.12-1
+- New upstream development version 2.7.12
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.11-1
 - New upstream development version 2.7.11
 - Enable ocaml-gettext again

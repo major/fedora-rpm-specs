@@ -1,5 +1,5 @@
 Name:           rocm-rpm-macros
-Version:        6.3.2
+Version:        6.4.0
 Release:        2%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
@@ -108,6 +108,15 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Tue Apr 15 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-2
+- renamed rocm_gpu_test_list to rocm_gpu_list_test to better match existing macro names
+
+* Tue Apr 15 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-1
+- bumped version for 6.4.0 release, corrected one test ISA
+
+* Tue Apr 15 2025 Tim Flink <tflink@fedoraproject.org> - 6.3.2-3
+- added rocm_gpu_test_list to specify ISAs that tests are built for
+
 * Sun Feb 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Add ROCM_ALT* env for default module
 

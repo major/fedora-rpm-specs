@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	33
+%global	baserelease	34
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -156,6 +156,10 @@ Gnome Photo Frame is a photo frame gadget for the GNOME Desktop.
 %patch -P4 -p1 -b .pixbuf_23102 -Z
 %patch -P5 -p1 -b .libproxy_disable -Z
 %patch -P6 -p1 -b .wk2 -Z
+
+# https://github.com/pypa/setuptools/pull/4870/
+# setuptools 78 no longer allows dash-separated and uppercase options in setup.cfg
+sed -i setup.cfg -e 's|icon-dir=|icon_dir=|'
 
 # Remove unneeded shebangs
 grep -rl '^#![ \t]*%{_bindir}' lib/ | \
@@ -309,6 +313,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 2.0.2-34.hg2084299dffb6
+- Fix build with newer setuptools
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-33.hg2084299dffb6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 Summary: ACPI Event Daemon
 Name: acpid
 Version: 2.0.34
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-2.0-or-later
 Source: http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source3: acpid.power.conf
@@ -18,6 +18,9 @@ Source6: acpid.sysconfig
 Source7: acpid.socket
 # https://sourceforge.net/p/acpid2/tickets/14/
 Patch0: acpid-2.0.32-kacpimon-dynamic-connections.patch
+%if 0%{?rhel}
+ExclusiveArch: x86_64 aarch64 riscv64
+%endif
 URL: http://sourceforge.net/projects/acpid2/
 BuildRequires: systemd, gcc
 BuildRequires: make
@@ -96,6 +99,9 @@ fi
 	/bin/systemctl try-restart acpid.service >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 15 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.34-13
+- Used exclusiverch on RHEL
+
 * Thu Apr  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.34-12
 - Dropped exclusivearch, the package is still useless on POWER (no firmware support
   yet), but it is required by some dependency

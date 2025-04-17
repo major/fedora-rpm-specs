@@ -299,14 +299,6 @@ test_multiple
 test_multiple_difference
 %endif
 
-%if 0%{?fedora} > 42
-# A few regressions with Pillow 11.2.0
-# https://github.com/mikedh/trimesh/issues/2386
-ExportTest::test_export
-OBJTest::test_compound_scene_export
-OBJTest::test_scene_export_material_name
-%endif
-
 # This test fails if it doesn’t finish within 30 seconds, and executing it in
 # parallel with other tests tends to slow it down too much. We exclude it here,
 # then run it serially on its own.

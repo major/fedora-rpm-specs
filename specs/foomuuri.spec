@@ -1,5 +1,5 @@
 Name:           foomuuri
-Version:        0.27
+Version:        0.28
 Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
@@ -21,9 +21,11 @@ BuildRequires:  python3-systemd
 Requires:       nftables
 Requires:       python3-dbus
 Requires:       python3-gobject
-Requires:       python3-requests
 Requires:       python3-systemd
 Recommends:     fping
+Recommends:     jq
+Recommends:     python3-lxml
+Recommends:     python3-requests
 Recommends:     (foomuuri-firewalld if NetworkManager)
 %{?systemd_requires}
 
@@ -71,20 +73,24 @@ make test
 
 
 %post
-%systemd_post foomuuri.service foomuuri-boot.service foomuuri-dbus.service foomuuri-iplist.timer foomuuri-iplist.service foomuuri-monitor.service foomuuri-resolve.timer foomuuri-resolve.service
+%systemd_post foomuuri.service foomuuri-boot.service foomuuri-dbus.service foomuuri-iplist.timer foomuuri-iplist.service foomuuri-monitor.service
 %tmpfiles_create foomuuri.conf
 
 
 %preun
-%systemd_preun foomuuri.service foomuuri-boot.service foomuuri-dbus.service foomuuri-iplist.timer foomuuri-iplist.service foomuuri-monitor.service foomuuri-resolve.timer foomuuri-resolve.service
+%systemd_preun foomuuri.service foomuuri-boot.service foomuuri-dbus.service foomuuri-iplist.timer foomuuri-iplist.service foomuuri-monitor.service
 
 
 %postun
-%systemd_postun foomuuri.service foomuuri-boot.service foomuuri-iplist.service foomuuri-resolve.service
+%systemd_postun foomuuri.service foomuuri-boot.service foomuuri-iplist.service
 if [ $1 -ge 1 ]; then
     systemctl try-reload-or-restart foomuuri.service > /dev/null 2>&1 || :
 fi
-%systemd_postun_with_restart foomuuri-dbus.service foomuuri-monitor.service foomuuri-iplist.timer foomuuri-resolve.timer
+%systemd_postun_with_restart foomuuri-dbus.service foomuuri-monitor.service foomuuri-iplist.timer
+
+
+%triggerun -- foomuuri < 0.27-3
+systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 || :
 
 
 %files
@@ -104,8 +110,6 @@ fi
 %{_unitdir}/foomuuri-iplist.service
 %{_unitdir}/foomuuri-iplist.timer
 %{_unitdir}/foomuuri-monitor.service
-%{_unitdir}/foomuuri-resolve.service
-%{_unitdir}/foomuuri-resolve.timer
 %{_tmpfilesdir}/foomuuri.conf
 %ghost %dir %{_rundir}/foomuuri
 %attr(0700, root, root) %dir %{_sharedstatedir}/foomuuri
@@ -118,6 +122,9 @@ fi
 
 
 %changelog
+* Tue Apr 15 2025 Kim B. Heino <b@bbbs.net> - 0.28-1
+- Upgrade to 0.28
+
 * Tue Jan 28 2025 Kim B. Heino <b@bbbs.net> - 0.27-1
 - Upgrade to 0.27
 - Resolves: rhbz#2340166

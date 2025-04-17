@@ -10,7 +10,7 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        14.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -292,6 +292,9 @@ popd
 %endif
 
 %changelog
+* Tue Apr 15 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:14.1.0-4
+- rebuild for new arm-none-eabi-newlib
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:14.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

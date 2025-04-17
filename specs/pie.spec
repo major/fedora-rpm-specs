@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        108707df748ad2bbc96db8a1edd625b4332c364e
+%global gh_commit        2c73701769a0edffd1f5f051b658f1ac31c78c64
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.8.0
+%global upstream_version 0.9.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -24,7 +24,7 @@
 
 Name:           pie
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP Installer for Extensions
 
 # SPDX: pie is BSD-3-Clause, all dependencies are MIT
@@ -37,6 +37,7 @@ Source1:        %{name}-bash-completion
 Source9:        makesrc.sh
 
 # Fix autoloader path
+# add message about dnf in self-update command
 Patch0:         %{name}-rpm.patch
 # Don't use XDG directories
 Patch1:         %{name}-noxdg.patch
@@ -135,6 +136,11 @@ done
 
 
 %changelog
+* Tue Apr 15 2025 Remi Collet <remi@remirepo.net> - 0.9.0-2
+- update to 0.9.0
+- add notice about dnf in self-update output
+- open https://github.com/php/pie/issues/217 broken bash completion
+
 * Thu Mar 13 2025 Remi Collet <remi@remirepo.net> - 0.8.0-1
 - update to 0.8.0
 

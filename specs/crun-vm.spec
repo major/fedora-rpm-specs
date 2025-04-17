@@ -10,6 +10,7 @@ Name:           crun-vm
 Version:        0.3.0
 Release:        %autorelease
 Summary:        An OCI Runtime that runs VM images
+ExcludeArch:    %{ix86}
 
 SourceLicense:  GPL-2.0-or-later
 

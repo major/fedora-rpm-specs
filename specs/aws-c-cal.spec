@@ -3,15 +3,13 @@ AWS Crypto Abstraction Layer: Cross-Platform, C99 wrapper for
 cryptography primitives}
 
 Name:           aws-c-cal
-Version:        0.8.1
-Release:        3%{?dist}
+Version:        0.9.0
+Release:        2%{?dist}
 Summary:        AWS Crypto Abstraction Layer
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Install cmake files in 'libdir/cmake/<pkgname>' rather than 'libdir/<pkgname>/cmake'
-Patch0:         aws-c-cal-cmake.patch
 # Upstream introduced SHA1 related code and tests in v0.8.1
 # Fedora 41 and RHEL 9 distrust SHA1 signatures
 # Disabling tests of additional functionality to unblock package build
@@ -85,6 +83,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Apr 15 2025 Dominik Wombacher <dominik@wombacher.cc> 0.9.0-2
+- Remove patch 'aws-c-cal-cmake.patch', not required anymore
+- Update patch '0001-patch-Disable-SHA1-related-tests.patch' to work with current release
+
+* Sat Apr 12 2025 Packit <hello@packit.dev> - 0.9.0-1
+- Update to version 0.9.0
+- Resolves: rhbz#2342718
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

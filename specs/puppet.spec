@@ -3,8 +3,8 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        8.6.0
-Release:        4%{?dist}
+Version:        8.10.0
+Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -13,19 +13,21 @@ Source1:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.g
 Source2:        RPM-GPG-KEY-puppet-20250406
 # Get these by checking out the right tag from https://github.com/puppetlabs/puppet-agent and:
 # sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/v\?\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
-Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.4.0.tar.gz
-Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.2.1.tar.gz
-Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.2.0.tar.gz
-Source6:        https://forge.puppet.com/v3/files/puppetlabs-mount_core-1.2.0.tar.gz
+Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.5.0.tar.gz
+Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.3.0.tar.gz
+Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.3.0.tar.gz
+Source6:        https://forge.puppet.com/v3/files/puppetlabs-mount_core-1.3.0.tar.gz
 Source7:        https://forge.puppet.com/v3/files/puppetlabs-scheduled_task-3.2.0.tar.gz
-Source8:        https://forge.puppet.com/v3/files/puppetlabs-selinux_core-1.3.0.tar.gz
-Source9:        https://forge.puppet.com/v3/files/puppetlabs-sshkeys_core-2.4.0.tar.gz
-Source10:       https://forge.puppet.com/v3/files/puppetlabs-yumrepo_core-2.0.0.tar.gz
-Source11:       https://forge.puppet.com/v3/files/puppetlabs-zfs_core-1.4.0.tar.gz
-Source12:       https://forge.puppet.com/v3/files/puppetlabs-zone_core-1.1.0.tar.gz
+Source8:        https://forge.puppet.com/v3/files/puppetlabs-selinux_core-1.4.0.tar.gz
+Source9:        https://forge.puppet.com/v3/files/puppetlabs-sshkeys_core-2.5.0.tar.gz
+Source10:       https://forge.puppet.com/v3/files/puppetlabs-yumrepo_core-2.1.0.tar.gz
+Source11:       https://forge.puppet.com/v3/files/puppetlabs-zfs_core-1.6.1.tar.gz
+Source12:       https://forge.puppet.com/v3/files/puppetlabs-zone_core-1.2.0.tar.gz
 Source13:       puppet-nm-dispatcher.systemd
 Source14:       start-puppet-wrapper
 Source15:       logrotate
+
+Patch:          0001-Avoid-closing-directory-we-re-iterating.patch
 
 BuildArch: noarch
 
@@ -64,7 +66,7 @@ along with obviously discrete elements like packages, services, and files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 cp -a %{sources} .
 for f in puppetlabs-*.tar*; do
   tar xvf $f
@@ -212,6 +214,11 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Apr 15 2025 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 8.10.0-1
+- Update to 8.10.0 (fixes rhbz#2291351)
+- Ruby 3.3 regexp incompability bugfix (fixes rhbz#2280109)
+- Ruby 3.4 closedir bugfix (fixes rhbz#2349352)
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.6.0-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

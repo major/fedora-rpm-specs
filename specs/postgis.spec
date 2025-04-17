@@ -34,9 +34,11 @@ Patch2:	       postgis-c99.patch
 Patch3:	       postgis-c99-2.patch
 %endif
 
-%ifnarch armv7hl
+%if 0%{?fedora}
 BuildRequires: SFCGAL-devel
+BuildRequires: gtk2-devel
 %endif
+
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: automake
@@ -48,7 +50,6 @@ BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: gdal-devel >= 1.10.0
 BuildRequires: geos-devel >= 3.7.1
-BuildRequires: gtk2-devel
 BuildRequires: json-c-devel
 BuildRequires: libtool
 BuildRequires: libxml2-devel
@@ -59,12 +60,15 @@ BuildRequires: perl-generators
 BuildRequires: postgresql-server-devel
 BuildRequires: proj-devel >= 5.2.0
 BuildRequires: protobuf-c-devel
+
 %if %upgrade
 BuildRequires: postgresql-upgrade-devel
 %endif
+
 %if %runselftest
 BuildRequires: postgresql-test-rpm-macros
 %endif
+
 %if %llvmjit
 Requires: clang-devel llvm-devel
 %endif
@@ -148,12 +152,14 @@ version of PostgreSQL.
 %endif
 %endif
 
+%if 0%{?fedora}
 %package gui
 Summary:       The shp2pgsql-gui utility for PostGIS
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description gui
 The gui package provides shp2pgsql-gui for PostGIS.
+%endif
 
 %package client
 Summary:       The CLI clients for PostGIS
@@ -187,13 +193,13 @@ cp -p %{SOURCE2} .
 
 %build
 %configure %configure_opts --with-pgconfig=%{_bindir}/pg_server_config \
-%ifnarch armv7hl
-	--with-sfcgal \
-%endif
 %if %llvmjit
 	--with-llvm \
 %endif
+%if 0%{?fedora}
+	--with-sfcgal \
 	--with-gui
+%endif
 
 sed -i 's| -fstack-clash-protection | |' postgis/Makefile
 sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
@@ -318,7 +324,9 @@ find %buildroot \( -name '*.la' -or -name '*.a' \) -delete
 
 
 %check
+%if 0%{?fedora}
 desktop-file-validate %{buildroot}/%{_datadir}/applications/shp2pgsql-gui.desktop
+%endif
 %if %runselftest
 %postgresql_tests_run
 export PGIS_REG_TMPDIR=`mktemp -d`
@@ -349,13 +357,13 @@ fi
 %{_datadir}/pgsql/extension/address_standardizer*.control
 %{_datadir}/pgsql/extension/postgis-*.sql
 %{_datadir}/pgsql/extension/postgis_raster*.sql
-%ifnarch armv7hl
+%if 0%{?fedora}
 %{_datadir}/pgsql/extension/postgis_sfcgal*.sql
 %endif
 %{_datadir}/pgsql/extension/postgis_topology*.sql
 %{_datadir}/pgsql/extension/postgis.control
 %{_datadir}/pgsql/extension/postgis_raster.control
-%ifnarch armv7hl
+%if 0%{?fedora}
 %{_datadir}/pgsql/extension/postgis_sfcgal.control
 %endif
 %{_datadir}/pgsql/extension/postgis_topology.control
@@ -368,7 +376,7 @@ fi
 %{_datadir}/postgis/repo_revision.pl
 %{_libdir}/pgsql/address_standardizer-%{soversion}.so
 %{_libdir}/pgsql/postgis_raster-%{soversion}.so
-%ifnarch armv7hl
+%if 0%{?fedora}
 %{_libdir}/pgsql/postgis_sfcgal-%{soversion}.so
 %endif
 %{_libdir}/pgsql/postgis_topology-%{soversion}.so
@@ -388,10 +396,12 @@ fi
 %{_mandir}/man1/postgis_restore.1*
 %{_mandir}/man1/shp2pgsql.1*
 
+%if 0%{?fedora}
 %files gui
 %{_bindir}/shp2pgsql-gui
 %{_datadir}/applications/shp2pgsql-gui.desktop
 %{_datadir}/icons/hicolor/*/apps/shp2pgsql-gui.png
+%endif
 
 
 %if %llvmjit
@@ -399,7 +409,7 @@ fi
 %{_libdir}/pgsql/bitcode/address_standardizer-*
 %{_libdir}/pgsql/bitcode/postgis-*
 %{_libdir}/pgsql/bitcode/postgis_raster-*
-%ifnarch armv7hl
+%if 0%{?fedora}
 %{_libdir}/pgsql/bitcode/postgis_sfcgal-*
 %endif
 %{_libdir}/pgsql/bitcode/postgis_topology-*

@@ -1,6 +1,5 @@
 # Required for the plugin directory name, see https://github.com/OpenImageIO/oiio/issues/2583
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
-#%%global prerelease -RC1
 %bcond  qt5     1
 %bcond  qt6     1
 %bcond  ninja   1
@@ -9,9 +8,16 @@
 %global llvm_compat 19
 %endif
 
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate YYYYMMDD
+
 Name:           openshadinglanguage
-Version:        1.13.12.0
-Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
+Version:        1.14.5.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+# This is based on the first two components of the version, so we could produce
+# it automatically, but we rewrite it manually here as a reminder, to reduce
+# the likelihood of undetected SONAME version bumps.
+%global so_version 1.14
+Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 
 # The primary overall license is BSD-3-Clause, but from THIRD-PARTY.md
@@ -23,8 +29,10 @@ Summary:        Advanced shading language for production GI renderers
 # The entire source is therefore BSD-3-Clause AND Apache-2.0, except:
 #
 # BSD-3-Clause (only):
-#   - Some files surely lack Apache-2.0 content, but it is not possible to
-#     ascertain which they are.
+#   - Some files surely lack Apache-2.0 content, but it is not possible to make
+#     a complete list of such files. A few files have headers with
+#     “SPDX-License-Identifier: BSD-3-Clause” and are therefore definitively
+#     BSD-3-Clause (only); we don’t attempt to find and list all such files.
 # BSD-3-Clause AND LicenseRef-Fedora-Public-Domain (see THIRD-PARTY.md):
 #   - src/include/OSL/oslnoise.h
 # CC-BY-4.0 (in general, all documentation; only some are installed):
@@ -46,6 +54,19 @@ Summary:        Advanced shading language for production GI renderers
 #       * src/doc/intro.md
 #       * src/doc/languagespec.tex
 #
+# Additionally, the following dependency is a header-only library, so we must
+# treat it as a static library, and its license contributes to the licenses of
+# the binary RPMs.
+#
+# MIT:
+#   - robin-map
+License:        %{shrink:
+                BSD-3-Clause AND
+                Apache-2.0 AND
+                LicenseRef-Fedora-Public-Domain AND
+                CC-BY-4.0 AND
+                MIT
+                }
 # Additionally, the following are under other acceptable licenses but are
 # removed in %%prep and not packaged in any binary RPM:
 #
@@ -55,20 +76,23 @@ Summary:        Advanced shading language for production GI renderers
 #  - src/doc/markdeep.min.js
 # BSD-2-Clause OR LicenseRef-Fedora-Public-Domain:
 #   - src/doc/docs.css
-License:        BSD-3-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain AND CC-BY-4.0
+SourceLicense:  %{shrink:
+                %{license} AND
+                BSD-2-Clause AND
+                (BSD-2-Clause OR LicenseRef-Fedora-Public-Domain)
+                }
 URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
-Source:         %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
+%if %{undefined commit}
+Source:         %{url}/archive/v%{version}/OpenShadingLanguage-%{version}.tar.gz
+%else
+Source:         %{url}/archive/%{commit}/OpenShadingLanguage-%{commit}.tar.gz
+%endif
 
-# Add <cstdint> for fixed-size integers; fixes build on GCC 15
-#
-# Downstream-only since the patch would no longer apply to the development
-# version, in which the patched file has been significantly modified.
-Patch:          0001-Add-cstdint-for-fixed-size-integers-fixes-build-on-G.patch
+Patch:          0001-Add-missing-include-cstdint-for-fixed-width-integers.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires:  bison >= 2.7
-BuildRequires:  boost-devel >= 1.55
 BuildRequires:  clang%{?llvm_compat}-devel
 BuildRequires:  cmake >= 3.12
 BuildRequires:  flex >= 2.5.35
@@ -79,9 +103,11 @@ BuildRequires:  ninja-build
 %endif
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
-BuildRequires:  cmake(Imath) >= 2.3
-BuildRequires:  cmake(OpenImageIO) >= 2.3
+BuildRequires:  cmake(Imath) >= 3.1
+BuildRequires:  cmake(OpenImageIO) >= 2.5
 BuildRequires:  pkgconfig(pugixml)
+# -static required by policy for a header-only library
+BuildRequires:  robin-map-static
 
 # For osltoy
 %if %{with qt5}
@@ -191,7 +217,11 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description    -n python3-%{name} %{common_description}
 
 %prep
-%autosetup -p1 -n OpenShadingLanguage-%{version}%{?prerelease}
+%if %{undefined commit}
+%autosetup -p1 -n OpenShadingLanguage-%{version}
+%else
+%autosetup -p1 -n OpenShadingLanguage-%{commit}
+%endif
 
 # Use python3 binary instead of unversioned python
 sed -i -e "s|COMMAND python|COMMAND python3|" $(find . -iname CMakeLists.txt)
@@ -303,8 +333,8 @@ rm -fr %{buildroot}%{_prefix}/cmake/llvm_macros.cmake
 %files libs
 %license LICENSE.md THIRD-PARTY.md
 %doc CHANGES.md README.md
-%{_libdir}/libosl*.so.1*
-%{_libdir}/libtestshade.so.1*
+%{_libdir}/libosl*.so.%{so_version}{,.*}
+%{_libdir}/libtestshade.so.%{so_version}{,.*}
 
 %files devel
 %{_includedir}/OSL/
@@ -315,7 +345,7 @@ rm -fr %{buildroot}%{_prefix}/cmake/llvm_macros.cmake
 
 
 %files -n python3-%{name}
-%{python3_sitearch}/oslquery.so
+%{python3_sitearch}/oslquery/
 
 %changelog
 %autochangelog

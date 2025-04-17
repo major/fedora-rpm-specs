@@ -1,6 +1,6 @@
 Name: libfilezilla
-Version: 0.49.0
-Release: 3%{?dist}
+Version: 0.50.0
+Release: 1%{?dist}
 URL: https://lib.filezilla-project.org/
 Summary: C++ Library for FileZilla
 License: GPL-2.0-or-later
@@ -51,7 +51,7 @@ This package contains files needed to compile code using libfilezilla.
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
-%{_libdir}/libfilezilla.so.46*
+%{_libdir}/libfilezilla.so.47*
 
 %files devel
 %doc doc/*
@@ -60,6 +60,9 @@ This package contains files needed to compile code using libfilezilla.
 %{_libdir}/pkgconfig/libfilezilla.pc
 
 %changelog
+* Wed Mar 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.50.0-1
+- 0.50.0
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.49.0-3
 - Add explicit BR: libxcrypt-devel
 

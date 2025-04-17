@@ -1,7 +1,7 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
 Version:       5.2.2
-Release:       3%{?dist}
+Release:       6%{?dist}
 
 License:       MIT
 URL:           http://www.sourceforge.net/projects/%{name}/
@@ -14,16 +14,20 @@ Patch0:        giflib_quantize.patch
 Patch1:        giflib_coverity.patch
 # Generate HTML docs with consistent section IDs to avoid multilib difference
 Patch2:        giflib_html-docs-consistent-ids.patch
-
+# Rename getarg.h to gif_getarg.h
+# https://sourceforge.net/p/giflib/code/merge-requests/18/
+Patch3:        getarg.patch
+# Proposed patch for CVE-2025-31344
+Patch4:        https://raw.githubusercontent.com/OpenMandrivaAssociation/giflib/refs/heads/master/giflib-5.2.2-cve-2025-31344.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: xmlto
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 
 
@@ -91,7 +95,6 @@ BuildArch:     noarch
 %autosetup -p1
 cp -a %{SOURCE1} .
 
-
 %build
 # Native build
 %cmake
@@ -121,6 +124,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %doc doc/*
 %{_libdir}/libgif.so
 %{_includedir}/gif_lib.h
+%{_includedir}/gif_getarg.h
 
 %files utils
 %{_bindir}/gif*
@@ -130,6 +134,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %license COPYING
 %{mingw32_bindir}/libgif-7.dll
 %{mingw32_includedir}/gif_lib.h
+%{mingw32_includedir}/gif_getarg.h
 %{mingw32_libdir}/libgif.dll.a
 
 %files -n mingw32-%{name}-tools
@@ -139,6 +144,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %license COPYING
 %{mingw64_bindir}/libgif-7.dll
 %{mingw64_includedir}/gif_lib.h
+%{mingw64_includedir}/gif_getarg.h
 %{mingw64_libdir}/libgif.dll.a
 
 %files -n mingw64-%{name}-tools
@@ -146,6 +152,15 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 5.2.2-6
+- Add proposed patch for CVE-2025-31334
+
+* Wed Apr 02 2025 Benson Muite <fed500@fedoraproject.org> - 5.2.2-5
+- Rename getarg.h to gif_getarg.h
+
+* Wed Apr 02 2025 Benson Muite <fed500@fedoraproject.org> - 5.2.2-4
+- Install getarg.h header file
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

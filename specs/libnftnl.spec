@@ -1,13 +1,13 @@
 Name:           libnftnl
-Version:        1.2.8
-Release:        4%{?dist}
+Version:        1.2.9
+Release:        1%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
 License:        GPL-2.0-or-later
 URL:            https://netfilter.org/projects/libnftnl/
 Source0:        %{url}/files/%{name}-%{version}.tar.xz
 Source1:        %{url}/files/%{name}-%{version}.tar.xz.sig
-Source2:        coreteam-gpg-key-0xD55D978A8A1420E4.txt
+Source2:        coreteam-gpg-key-0xD70D1A666ACF2B21.txt
 
 BuildRequires:  libmnl-devel
 BuildRequires:  gcc
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Tue Apr 15 2025 Phil Sutter <psutter@redhat.com> - 1.2.9-1
+- New version 1.2.9
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

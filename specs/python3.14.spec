@@ -209,6 +209,10 @@ Provides: bundled(python3dist(packaging)) = 24
 # Remove the default -O2 flag, our flags are applied in %%build/%%install
 %global __global_compiler_flags %(echo '%{__global_compiler_flags}' | sed 's/-O[[:digit:]]//')
 
+# Changing the shebangs of the test files confuses the tests which count with a specific data offset
+# We can't remove the executable bit, the files are run directly in other tests
+%global __brp_mangle_shebangs_exclude_from ^%{pylibdir}/test/archivetestdata/exe_with_.*$
+
 # Disable automatic bytecompilation. The python3 binary is not yet be
 # available in /usr/bin when Python is built. Also, the bytecompilation fails
 # on files that test invalid syntax.

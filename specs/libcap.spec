@@ -1,6 +1,6 @@
 Name: libcap
-Version: 2.73
-Release: 2%{?dist}
+Version: 2.76
+Release: 1%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD-3-Clause OR GPL-2.0-only
@@ -92,6 +92,7 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %{_sbindir}/{capsh,getcap,getpcaps,setcap}
 %{_mandir}/man1/capsh.1*
 %{_mandir}/man5/capability.conf.5*
+%{_mandir}/man7/cap_text_formats.7*
 %{_mandir}/man8/{getcap,getpcaps,setcap,pam_cap}.8*
 %{_libdir}/security/pam_cap.so
 %exclude %{_mandir}/man8/captree.8*
@@ -120,6 +121,10 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %endif
 
 %changelog
+
+* Mon Apr 14 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.76-1
+- Update to version 2.76 (rhbz#2349318, rhbz#2352529)
+
 * Fri Jan 24 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.73-2
 - Update internal CI tests
 

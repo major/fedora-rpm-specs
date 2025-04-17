@@ -1,5 +1,5 @@
 Name:           cdbs
-Version:        0.4.171
+Version:        0.4.172
 Release:        1%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
@@ -44,6 +44,9 @@ can build; any or all rules may be overridden as needed.
 %{_datadir}/%{name}
 
 %changelog
+* Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 0.4.172-1
+- Update to 0.4.172
+
 * Thu Apr 10 2025 Sandro Mani <manisandro@gmail.com> - 0.4.171-1
 - Update to 0.4.171
 

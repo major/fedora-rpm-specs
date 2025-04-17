@@ -10,8 +10,8 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.6.0
-Release:        2%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -158,6 +158,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Fri Apr 11 2025 Marie Loise Nolden <loise@kde.org> - 1:2.6.1-1
+- Update to 2.6.1
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1:2.6.0-2
 - Rebuild (qt6)
 

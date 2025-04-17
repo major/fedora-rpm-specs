@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -119,13 +119,13 @@ cp %{SOURCE1} .
         LINK="-pie -lssl $RPM_LD_FLAGS" %{?_smp_mflags}
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{5,8}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_generatorsdir}
-install -m 755 vsftpd  $RPM_BUILD_ROOT%{_sbindir}/vsftpd
+install -m 755 vsftpd  $RPM_BUILD_ROOT%{_bindir}/vsftpd
 install -m 600 vsftpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
@@ -154,7 +154,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %files
 %{_unitdir}/*
 %{_generatorsdir}/*
-%{_sbindir}/vsftpd
+%{_bindir}/vsftpd
 %dir %{_sysconfdir}/vsftpd
 %{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
 %config(noreplace) %{_sysconfdir}/vsftpd/ftpusers
@@ -169,6 +169,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Apr 15 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-11
+- Move executable to bindir
+
 * Fri Jan 24 2025 Stepan Broz <sbroz@redhat.com> - 3.0.5-10
 - Correct the definition of setup_bio_callbacks() in ssl.c
 

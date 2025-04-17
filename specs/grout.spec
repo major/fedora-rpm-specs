@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.9.0
+Version: 0.9.1
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -18,6 +18,7 @@ Source: %{forgesource}
 BuildRequires: dpdk-devel >= 24.11.1-2
 BuildRequires: gcc
 BuildRequires: libcmocka-devel
+BuildRequires: libcap-devel
 BuildRequires: libecoli-devel >= 0.5.0-1
 BuildRequires: libevent-devel
 BuildRequires: libsmartcols-devel
