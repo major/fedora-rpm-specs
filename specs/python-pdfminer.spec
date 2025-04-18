@@ -1,5 +1,5 @@
 Name:           python-pdfminer
-Version:        20250327
+Version:        20250416
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 

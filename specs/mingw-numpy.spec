@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.2.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -17,6 +17,8 @@ Source0:       %{pypi_source}
 
 # Make longdouble_format settable as option, as it cannot be determined when crosscompiling
 Patch0:        mingw-numpy-longdoubleformat.patch
+# Mingw does not have endian.h
+Patch1:        mingw-numpy-endian.patch
 
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
@@ -147,6 +149,17 @@ cd build_win64_host
 %mingw64_python3_host ../vendored-meson/meson/meson.py compile
 )
 
+# Manually generate dist-info as invoking the the venored meson directly does not do this
+cat > setup.cfg <<EOF
+[metadata]
+name = %{pypi_name}
+version = %{version}
+
+[options]
+py_modules = %{pypi_name}
+EOF
+%{mingw32_python3} -c "import setuptools.build_meta; print(setuptools.build_meta.prepare_metadata_for_build_wheel('.'))"
+
 
 %install
 (
@@ -166,6 +179,12 @@ cd build_win64_host
 %mingw64_python3_host ../vendored-meson/meson/meson.py install --destdir=%{buildroot}
 )
 
+# Install dist-info
+cp -a %{pypi_name}-%{version}.dist-info %{buildroot}%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info
+cp -a %{pypi_name}-%{version}.dist-info %{buildroot}%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info
+cp -a %{pypi_name}-%{version}.dist-info %{buildroot}%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info
+cp -a %{pypi_name}-%{version}.dist-info %{buildroot}%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info
+
 # Symlink includedir
 mkdir -p %{buildroot}%{_prefix}/%{mingw32_target}/include
 mkdir -p %{buildroot}%{_prefix}/%{mingw64_target}/include
@@ -182,22 +201,29 @@ ln -s %{mingw64_python3_sitearch}/numpy/_core/include/numpy/ %{buildroot}%{mingw
 %license LICENSE.txt
 %{mingw32_includedir}/%{pypi_name}
 %{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info
 
 %dir %{_prefix}/%{mingw32_target}/include/
 %{_prefix}/%{mingw32_target}/include/%{pypi_name}
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
+%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw64_includedir}/%{pypi_name}
 %{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info
 
 %dir %{_prefix}/%{mingw64_target}/include/
 %{_prefix}/%{mingw64_target}/include/%{pypi_name}
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
+%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info
 
 
 %changelog
+* Wed Apr 16 2025 Sandro Mani <manisandro@gmail.com> - 2.2.4-2
+- Add dist-info
+
 * Sat Apr 05 2025 Sandro Mani <manisandro@gmail.com> - 2.2.4-1
 - Update to 2.2.4
 

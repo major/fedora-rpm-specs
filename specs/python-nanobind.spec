@@ -43,18 +43,10 @@ produce smaller binaries, and have better runtime performance.}
 %package -n     python%{python3_pkgversion}-nanobind
 Summary:        %{summary}
 BuildArch:      noarch
-%description -n python%{python3_pkgversion}-nanobind %_description
-
-
-%package -n     python%{python3_pkgversion}-nanobind-devel
-Summary:        Development files for nanobind
-BuildArch:      noarch
-Requires:       python%{python3_pkgversion}-nanobind = %{version}-%{release}
-# Anyone who uses the devel package will need robin-map-devel package,
-# which is why this is a runtime dependency here.
 Requires:       robin-map-devel >= 1.3.0
-%description -n python%{python3_pkgversion}-nanobind-devel
-Development files for nanobind.
+%py_provides    python%{python3_pkgversion}-nanobind-devel
+Obsoletes:      python%{python3_pkgversion}-nanobind-devel < 2.6.1-4
+%description -n python%{python3_pkgversion}-nanobind %_description
 
 
 %prep
@@ -93,20 +85,9 @@ popd
 
 %files -n python%{python3_pkgversion}-nanobind -f %{pyproject_files}
 %license %{python3_sitelib}/nanobind-%{version}.dist-info/licenses/LICENSE
-%exclude %{python3_sitelib}/nanobind/include
-%exclude %{python3_sitelib}/nanobind/src
-%exclude %{python3_sitelib}/nanobind/cmake
-%pycached %exclude %{python3_sitelib}/nanobind/stubgen.py
 # Exclude not needed files
 %exclude %{python3_sitelib}/nanobind/cmake/darwin-ld-cpython.sym
 %exclude %{python3_sitelib}/nanobind/cmake/darwin-ld-pypy.sym
-
-
-%files -n python%{python3_pkgversion}-nanobind-devel
-%{python3_sitelib}/nanobind/include/
-%{python3_sitelib}/nanobind/src/
-%{python3_sitelib}/nanobind/cmake/
-%pycached %{python3_sitelib}/nanobind/stubgen.py
 
 
 %changelog

@@ -206,7 +206,6 @@ BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
 %if ! (0%{?rhel} >= 10)
 BuildRequires: pkgconfig(libgdata) >= %{libgdata_version}
 Requires: libgdata%{?_isa} >= %{libgdata_version}
-BuildRequires: pkgconfig(msgraph-0.1)
 %endif
 
 %description goa

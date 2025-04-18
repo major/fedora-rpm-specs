@@ -11,8 +11,8 @@
 %global crate coreos-installer
 
 Name:           rust-coreos-installer
-Version:        0.23.0
-Release:        6%{?dist}
+Version:        0.24.0
+Release:        1%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -22,8 +22,6 @@ Source0:        %{crates_source}
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{dracutcommit}/coreos-installer-dracut-%{dracutshortcommit}.tar.gz
 ExcludeArch:    %{ix86}
-Patch0: 0001-signing-keys-add-Fedora-43-key.patch
-Patch1: 0002-signing-keys-drop-Fedora-40-key.patch
 
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
@@ -182,7 +180,10 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
-* Thu Feb 10 2024 Sebastian Mayr <fedora@smayr.name> - 0.23.0-6
+* Wed Apr 16 2025 Packit <hello@packit.dev> - 0.24.0-1
+- New upstream release
+
+* Thu Feb 06 2025 Sebastian Mayr <fedora@smayr.name> - 0.23.0-6
 - Bump dracut version to 09e3518 to fix mmcblk/nvme device installs
 
 * Thu Feb 06 2025 Aashish Radhakrishnan<aaradhak@redhat.com> - 0.23.0-5

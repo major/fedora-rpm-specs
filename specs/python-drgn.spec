@@ -14,7 +14,7 @@ drgn exposes the types and variables in a program for easy, expressive
 scripting in Python.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.30
+Version:        0.0.31
 Release:        %autorelease
 Summary:        Programmable debugger
 
@@ -28,6 +28,7 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  sed
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-docs
+BuildRequires:  graphviz
 %endif
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -36,6 +37,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  bzip2-devel
 BuildRequires:  elfutils-devel
+BuildRequires:  elfutils-debuginfod-client-devel
 BuildRequires:  libkdumpfile-devel
 BuildRequires:  zlib-devel
 BuildRequires:  xz-devel
@@ -48,6 +50,7 @@ BuildRequires:  libtool
 
 %package -n     %{pypi_name}
 Summary:        %{summary}
+Recommends:     elfutils-debuginfod-client
 
 %description -n %{pypi_name} %{_description}
 

@@ -1,9 +1,9 @@
 %global mfx_ver_major 2
-%global mfx_ver_minor 13
+%global mfx_ver_minor 14
 
 Name:           intel-vpl-gpu-rt
-Version:        24.4.4
-Release:        2%{?dist}
+Version:        25.1.3
+Release:        1%{?dist}
 Summary:        Intel Video Processing Library (Intel VPL) GPU Runtime
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 25.1.3-1
+- Update to 25.1.3.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

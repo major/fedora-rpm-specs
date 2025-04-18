@@ -2,7 +2,7 @@
 %global uuid        %{extension}@G-dH.github.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        48.5
+Version:        48.6
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only

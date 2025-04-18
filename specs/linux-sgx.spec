@@ -4,6 +4,15 @@
 # native code. Thus we cannot globally set the CFLAGS etc
 %undefine _auto_set_build_flags
 
+# When -flto is set, something (possibly cmake related)
+# causes the build of psw/ae/aesm_service to add -fpie
+# to the build flags. This conflicts with the need to
+# build everything with -fPIC, and causes linker failures
+#
+# /usr/bin/ld: /tmp/ccWKJhwL.ltrans0.ltrans.o: warning: relocation against `stdout@@GLIBC_2.2.5' in read-only section `.text.sgx_proc_log_report'
+# /usr/bin/ld: /tmp/ccWKJhwL.ltrans0.ltrans.o: relocation R_X86_64_PC32 against symbol `_Z16aesm_thread_procPv' can not be used when making a shared object; recompile with -fPIC
+%global _lto_cflags %nil
+
 ############################################################
 #
 # Note about the approach to bundling...
@@ -303,7 +312,12 @@ Patch0009: 0009-Remove-all-references-to-pccs-service.patch
 Patch0010: 0010-psw-prefer-dev-sgx_provision-dev-sgx_enclave.patch
 Patch0011: 0011-psw-fix-soname-for-libuae_service.so-library.patch
 Patch0012: 0012-pcl-remove-redundant-use-of-bool-type.patch
-Patch0013: 0013-Disable-inclusion-of-AESM-in-installer.patch
+Patch0013: 0013-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
+Patch0014: 0014-psw-make-aesm_service-build-verbose.patch
+Patch0015: 0015-Fix-modern-C-function-prototype-compliance.patch
+Patch0016: 0016-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
+# Optional patches
+Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 
 # 0100-0199 -> against SGXDataCenterAttestationPrimitives.git
 Patch0100: 0100-Drop-use-of-bundled-pre-built-openssl.patch
@@ -315,8 +329,7 @@ Patch0103: 0103-Look-for-versioned-sgx_urts-library-in-PCKRetrievalT.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/429
 Patch0104: 0104-Don-t-import-pypac-in-pccsadmin.patch
 Patch0105: 0105-Look-for-PCKRetrievalTool-config-file-in-etc.patch
-# XXX enclaves must use bundled
-#Patch0106: 0106-Use-distro-provided-rapidjson-package.patch
+Patch0106: 0106-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/428
 Patch0107: 0107-qgs-add-space-between-program-name-first-arg-in-usag.patch
 Patch0108: 0108-qgs-protect-against-format-strings-in-QL-log-message.patch
@@ -324,6 +337,10 @@ Patch0109: 0109-qgs-add-debug-parameter-to-control-logging.patch
 Patch0110: 0110-pccsadmin-remove-leftover-debugging-print-args-state.patch
 Patch0111: 0111-Fix-soname-version-for-libsgx_qe3_logic.so-library.patch
 Patch0112: 0112-Workaround-broken-GCC-15.patch
+Patch0113: 0113-Don-t-disable-cf-protection-for-qgs.patch
+Patch0114: 0114-Delete-broken-checks-for-GCC-version-that-break-fsta.patch
+#Patch0115: 0115-Use-distro-provided-rapidjson-package.patch
+Patch0116: 0116-Don-t-stomp-on-VERBOSE-variable.patch
 
 # 0200-0299 -> against intel-sgx-ssl.git
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
@@ -528,9 +545,9 @@ in applications
 %prep
 %setup -q -n linux-sgx-sgx_%{linux_sgx_version}_reproducible
 
-%autopatch -m 0 -M 12 -p1
+%autopatch -m 0 -M 49 -p1
 %if !%{with_aesm}
-%autopatch -m 13 -M 13 -p1
+%autopatch -m 50 -M 99 -p1
 %endif
 
 ############################################################
@@ -750,6 +767,30 @@ do
     MITIGATION-CVE-2020-0551=$mitigation
 done
 
+NATIVE="sign_tool/SignTool"
+NATIVE="$NATIVE encrypt_enclave"
+NATIVE="$NATIVE libcapable/linux"
+NATIVE="$NATIVE debugger_interface/linux"
+NATIVE="$NATIVE simulation"
+
+# Most of 'sdk/' is enclave code, but there's some
+# important native code we must now re-build with
+# proper flags enabled to get distro hardening.
+for dir in $NATIVE
+do
+  %__make %{?_smp_mflags} \
+    -C sdk/$dir clean
+
+  # XXX temp override -j1 due to race conditions that have not yet been diagnosed
+  CFLAGS="%{build_cflags}" \
+  CXXFLAGS="%{build_cxxflags}" \
+  LDFLAGS="%{build_ldflags}" \
+  %__make %{?_smp_mflags} -j1 \
+    -C sdk/$dir V=1 \
+    MITIGATION-CVE-2020-0551= \
+    USE_HOST_OPENSSL_CRYPTO=1 \
+    USE_HOST_TINYXML2=%{with_host_tinyxml2}
+done
 
 ############################################################
 # Second, install the SDK into a temporary tree, since this
@@ -788,16 +829,22 @@ done
 ############################################################
 # Fourth, build the Platform Software
 
+CFLAGS="%{build_cflags}" \
+CXXFLAGS="%{build_cxxflags}" \
+LDFLAGS="%{build_ldflags}" \
 %__make %{?_smp_mflags} \
-  -C psw/ V=1 \
+  -C psw/ V=1 VERBOSE=1 \
   SGX_SDK=$(pwd)/%{vroot}/sgxsdk \
   SGX_ENCLAVE_PATH=%{sgx_libdir} \
   USE_HOST_OPENSSL_CRYPTO=1 \
   USE_HOST_CPPMICROSERVICES=1
 
 # XXX temp override -j1 due to race conditions that have not yet been diagnosed
+CFLAGS="%{build_cflags}" \
+CXXFLAGS="%{build_cxxflags}" \
+LDFLAGS="%{build_ldflags}" \
 %__make %{?_smp_mflags} -j1 \
-  -C external/dcap_source/ V=1 \
+  -C external/dcap_source/ V=1 VERBOSE=1 \
   SGX_SDK=$(pwd)/%{vroot}/sgxsdk \
   SGX_ENCLAVE_PATH=%{sgx_libdir}
 

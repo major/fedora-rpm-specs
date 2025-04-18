@@ -39,11 +39,8 @@ BuildRequires:	pkgconfig(rest-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 %endif
 
-Requires:	glib2%{?_isa} >= %{glib2_version}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 %if !0%{?flatpak}
-Requires:	gtk4%{?_isa} >= %{gtk4_version}
-Requires:	libadwaita%{?_isa} >= %{libadwaita_version}
-Requires:	libsoup3%{?_isa} >= %{libsoup_version}
 Requires:	gvfs-goa
 %endif
 
@@ -53,9 +50,23 @@ in GNOME can access the user's online accounts. It has providers for Google,
 Nextcloud, Flickr, Foursquare, Microsoft Account, Microsoft Exchange, Fedora,
 IMAP/SMTP and Kerberos.
 
+%package libs
+Summary:	Libraries for %{name}
+
+Requires:	glib2%{?_isa} >= %{glib2_version}
+%if !0%{?flatpak}
+Requires:	gtk4%{?_isa} >= %{gtk4_version}
+Requires:	libadwaita%{?_isa} >= %{libadwaita_version}
+Requires:	libsoup3%{?_isa} >= %{libsoup_version}
+%endif
+
+%description libs
+This package contains the libraries for GNOME Online Accounts. It is separated
+from the main package to avoid build-time dependency loops.
+
 %package devel
 Summary:	Development files for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -88,14 +99,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAcco
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS README.md
-%dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/Goa-1.0.typelib
-%{_libdir}/libgoa-1.0.so.0
-%{_libdir}/libgoa-1.0.so.0.0.0
 %if !0%{?flatpak}
-%{_libdir}/libgoa-backend-1.0.so.2
-%{_libdir}/libgoa-backend-1.0.so.2.0.0
-%dir %{_libdir}/goa-1.0
 %{_mandir}/man8/goa-daemon.8*
 %{_prefix}/libexec/goa-daemon
 %{_prefix}/libexec/goa-identity-service
@@ -106,6 +110,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAcco
 %{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
 %endif
 %{_datadir}/icons/hicolor/*/apps/goa-*.svg
+
+%files libs
+%dir %{_libdir}/girepository-1.0
+%{_libdir}/girepository-1.0/Goa-1.0.typelib
+%{_libdir}/libgoa-1.0.so.0
+%{_libdir}/libgoa-1.0.so.0.0.0
+%if !0%{?flatpak}
+%{_libdir}/libgoa-backend-1.0.so.2
+%{_libdir}/libgoa-backend-1.0.so.2.0.0
+%dir %{_libdir}/goa-1.0
+%endif
 
 %files devel
 %{_includedir}/goa-1.0/

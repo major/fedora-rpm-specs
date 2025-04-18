@@ -2,14 +2,13 @@
 C99 implementation of the vnd.amazon.eventstream content-type.}
 
 Name:           aws-c-event-stream
-Version:        0.5.0
+Version:        0.5.4
 Release:        2%{?dist}
 Summary:        C99 implementation of the vnd.amazon.eventstream content-type
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         aws-c-event-stream-cmake.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -21,8 +20,7 @@ BuildRequires:  aws-c-io-devel
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 # Dependencies like aws-c-common don't support and build on s390x
-# Upstream issue: https://github.com/awslabs/aws-c-common/issues/1111
-# Fedora bugzilla ticket to be created after package review
+# https://bugzilla.redhat.com/show_bug.cgi?id=2360301
 ExcludeArch: s390x
 
 %description %{_description}
@@ -74,6 +72,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 16 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.5.4-2
+- Patch 'aws-c-event-stream-cmake.patch' removed, not needed anymore, included upstream
+
+* Thu Mar 06 2025 Packit <hello@packit.dev> - 0.5.4-1
+- Update to version 0.5.4
+- Resolves: rhbz#2342717
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

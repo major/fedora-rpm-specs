@@ -2,15 +2,14 @@
 C99 library implementation of AWS client-side authentication}
 
 Name:           aws-c-auth
-Version:        0.8.0
+Version:        0.9.0
 Release:        2%{?dist}
 Summary:        C99 library implementation of AWS client-side authentication
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         aws-c-auth-cmake.patch
-Patch1:         0001-disable-tests-that-require-internet-connectivity.patch
+Patch:          0001-disable-tests-that-require-internet-connectivity.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -24,8 +23,7 @@ BuildRequires:  aws-c-compression-devel
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 # Dependencies like aws-c-common don't support and build on s390x
-# Upstream issue: https://github.com/awslabs/aws-c-common/issues/1111
-# Fedora bugzilla ticket to be created after package review
+# https://bugzilla.redhat.com/show_bug.cgi?id=2360310
 ExcludeArch: s390x
 
 %description %{_description}
@@ -79,6 +77,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 16 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.9.0-2
+- Remove Patch 'aws-c-auth-cmake.patch', not needed anymore, included upstream
+- Patch '0001-disable-tests-that-require-internet-connectivity.patch' updated to work with new release
+
+* Tue Mar 25 2025 Packit <hello@packit.dev> - 0.9.0-1
+- Update to version 0.9.0
+- Resolves: rhbz#2339390
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

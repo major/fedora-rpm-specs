@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        33
+Version:        34
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -20,11 +20,12 @@ BuildRequires: systemd-rpm-macros
 %endif
 
 %global cockpitver 275
-%global cockpitstorver 311
+%global cockpitstorver 336.2
 
 %define _unitdir /usr/lib/systemd/system
 
-Requires: cockpit-storaged >= %{cockpitstorver}
+# Unpin cockpit-storaged when anaconda-webui get's migrated to Patternfly 6
+Requires: cockpit-storaged <= %{cockpitstorver}
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
@@ -121,6 +122,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Apr 15 2025 Packit <hello@packit.dev> - 34-1
+- Migrate isFinal to new ProductData API
+- storage: reclaim dialog: rely on official property for sticky header
+- build: pin down cockpit-storaged version because of Patternfly 6 changes
+
 * Tue Apr 08 2025 Packit <hello@packit.dev> - 33-1
 - storage: mount point mapping: fix wrapping of the custom mount points rows
 - cockpit-storage-integration: remove unused property from preparePartitioning method call

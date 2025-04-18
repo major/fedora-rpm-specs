@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -197,6 +197,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 4.0.6-7
+- Rebuild for updated miniupnpc.
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.6-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

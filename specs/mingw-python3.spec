@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.11
-Release:       5%{?dist}
+Version:       3.11.12
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -501,6 +501,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Wed Apr 16 2025 Sandro Mani <manisandro@gmail.com> - 3.11.12-1
+- Update to 3.11.12
+
 * Fri Apr 04 2025 Sandro Mani <manisandro@gmail.com> - 3.11.11-5
 - Add host bindir to PATH when invoking mingwXX_python3_host
 

@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.8
+Version:       1.55.9
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -107,8 +107,6 @@ BuildRequires: pcre2-devel
 BuildRequires: file-devel
 BuildRequires: libvirt-devel
 BuildRequires: gperf
-BuildRequires: flex
-BuildRequires: bison
 BuildRequires: rpm-devel
 BuildRequires: cpio
 BuildRequires: libconfig-devel
@@ -1106,6 +1104,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Apr 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.9-1
+- New upstream development version 1.55.9
+- Remove flex and bison
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.8-1
 - New upstream development version 1.55.8
 - Remove oUnit

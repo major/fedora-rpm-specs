@@ -4,7 +4,11 @@
 
 %global with_s3 1
 
+%if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 10
+%global with_gfal 0
+%else
 %global with_gfal 1
+%endif
 
 %global with_xmlsec1 %{!?_without_xmlsec1:1}%{?_without_xmlsec1:0}
 
@@ -19,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -31,11 +35,6 @@ Patch0:		0001-The-VOMSUtilTest-fails-with-OpenSSL-3.5.patch
 Patch1:		0001-Fix-shell-syntax-errors-reported-by-lintian.patch
 
 #		Packages dropped without replacements
-Obsoletes:	%{name}-chelonia < 2.0.0
-Obsoletes:	%{name}-hopi < 2.0.0
-Obsoletes:	%{name}-isis < 2.0.0
-Obsoletes:	%{name}-janitor < 2.0.0
-Obsoletes:	%{name}-doxygen < 4.0.0
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
 Obsoletes:	%{name}-java < 6.0.0
 Obsoletes:	%{name}-egiis < 6.0.0
@@ -46,7 +45,6 @@ Obsoletes:	%{name}-acix-index < 7.0.0
 Obsoletes:	%{name}-arex-python-lrms < 7.0.0
 Obsoletes:	%{name}-gridftpd < 7.0.0
 Obsoletes:	python2-%{name} < 7.0.0
-Obsoletes:	%{name}-python < 5.3.3
 Obsoletes:	%{name}-nordugridmap < 7.0.0
 Obsoletes:	%{name}-gridmap-utils < 6.0.0
 Obsoletes:	%{name}-plugins-gridftpjob < 7.0.0
@@ -55,6 +53,9 @@ Obsoletes:	%{name}-plugins-ldap < 7.0.0
 Obsoletes:	%{name}-infosys-ldap < %{version}-%{release}
 Obsoletes:	%{name}-ldap-infosys < 6.0.0
 Obsoletes:	%{name}-aris < 6.0.0
+%endif
+%if ! %{with_gfal}
+Obsoletes:	%{name}-plugins-gfal < %{version}-%{release}
 %endif
 
 BuildRequires:	autoconf
@@ -471,8 +472,6 @@ Header files and libraries needed to develop applications using ARC.
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	ARC Python 3 wrapper
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
-Provides:	%{name}-python%{python3_pkgversion} = %{version}-%{release}
-Obsoletes:	%{name}-python%{python3_pkgversion} < 5.3.3
 Requires:	%{name} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
@@ -1131,7 +1130,11 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
-* Tue Apr  1 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-1
+* Wed Apr 16 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-2
+- Drop the GFAL plugin for Fedora 43+ and EPEL 10+
+- Drop old obsoletes
+
+* Tue Apr 01 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-1
 - Update to version 7.0.0
 - Disable the VOMSUtilTest on Fedora 43 (OpenSSL 3.5)
 

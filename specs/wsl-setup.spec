@@ -1,16 +1,3 @@
-%if %{defined eln}
-  %global default_name ELN
-%elif %{defined epel} && %{defined centos}
-  %global default_name CentosStream-EPEL-%{?centos}
-%elif %{defined centos}
-  %global default_name CentosStream-%{?centos}
-%elif %{defined fedora}
-  %global default_name Fedora-%{?fedora}
-%else
-  %global default_name Fedora
-%endif
-
-
 Name:           wsl-setup
 Version:        1.0.0
 Release:        %autorelease
@@ -38,7 +25,6 @@ Provides WSL specific configuration files and first-time setup script.
 
 
 %prep
-sed -i 's,$NAME,%{default_name},' %{SOURCE3}
 
 
 %build
@@ -67,8 +53,12 @@ install -Dpm0644 %{SOURCE7} %{buildroot}%{_user_tmpfilesdir}/%{name}.conf
 # until we can see about adjusting either WSL or systemd to make it behave.
 install -Dpm0644 %{SOURCE5} %{buildroot}%{_unitdir}/systemd-firstboot.service.d/override.conf
 
-%check
-grep "defaultName = %{default_name}" %{buildroot}%{_sysconfdir}/wsl-distribution.conf
+
+%post
+# generate the "auto" naming
+. %{_sysconfdir}/os-release
+DYNAMIC_NAME="${NAME// /}-${VERSION_ID%.*}"
+sed -i "s,DEFAULT_NAME,${DYNAMIC_NAME}," %{_sysconfdir}/wsl-distribution.conf
 
 
 %files

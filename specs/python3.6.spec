@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 44%{?dist}
+Release: 45%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -815,6 +815,15 @@ Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-p
 # allows us to properly apply CFLAGS exported by the build system
 # even when cross-compiling.
 Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
+
+# 00457 # da99203f07d380d50ec780323bbebda00f227797
+# ssl: Raise OSError for ERR_LIB_SYS
+#
+# The patch resolves the flakiness of test_ftplib
+#
+# Backported from upstream 3.10+:
+# https://github.com/python/cpython/pull/127361
+Patch457: 00457-ssl-raise-oserror-for-err_lib_sys.patch
 
 # (New patches go here ^^^)
 #
@@ -2085,6 +2094,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-45
+- Fix the flakiness of test_ftplib
+
 * Tue Apr 01 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-44
 - Properly apply exported CFLAGS for dtrace/systemtap builds
 - Fixes: rhbz#2356306

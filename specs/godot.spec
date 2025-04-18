@@ -16,7 +16,7 @@
 
 Name:           godot
 Version:        4.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -272,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 4.4.1-2
+- Rebuild for updated miniupnpc.
+
 * Fri Mar 28 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.4.1-1
 - Version 4.4.1-stable
 - Update license to correct SPDX identifiers, sync with COPYRIGHT.txt

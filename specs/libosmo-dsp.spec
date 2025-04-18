@@ -1,13 +1,20 @@
 Name:             libosmo-dsp
 URL:              http://osmocom.org/projects/libosmo-dsp
-Version:          0.3
-Release:          26%{?dist}
+Version:          0.4.0
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
-BuildRequires:    autoconf, automake, libtool, fftw-devel, doxygen, graphviz
-BuildRequires: make
+BuildRequires:    autoconf
+BuildRequires:    automake
+BuildRequires:    libtool
+BuildRequires:    fftw-devel
+BuildRequires:    doxygen
+BuildRequires:    graphviz
+BuildRequires:    make
 Summary:          A library with SDR DSP primitives
-Source0:          http://cgit.osmocom.org/libosmo-dsp/snapshot/%{name}-%{version}.tar.bz2
+# workaround for https://osmocom.org/issues/6765
+Source0:          https://gitea.osmocom.org/sdr/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+#Source0:          http://cgit.osmocom.org/libosmo-dsp/snapshot/%{name}-%{version}.tar.bz2
 
 %description
 A library with SDR DSP primitives.
@@ -28,7 +35,7 @@ BuildArch:        noarch
 Documentation files for libosmo-dsp.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 # Fix pkg-config version, related to rhbz#1692517, it could be dropped
@@ -37,7 +44,8 @@ test -x ./git-version-gen && echo %{version}-%{release} > .tarball-version 2>/de
 
 autoreconf -fi
 %configure --disable-static
-make CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_smp_mflags}
+# -lm is due to https://osmocom.org/issues/6764
+make CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags} -lm" %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
@@ -65,6 +73,9 @@ mv %{buildroot}%{_datadir}/doc/libosmodsp %{buildroot}%{_docdir}/%{name}/html
 %{_docdir}/%{name}/html
 
 %changelog
+* Wed Apr 16 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0-1
+- New version
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

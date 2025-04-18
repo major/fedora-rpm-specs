@@ -606,16 +606,7 @@ Requires: openssl
 # This is for /usr/bin/c_rehash tool, only needed for openssl < 1.1.0
 Requires: openssl-perl
 Requires: iproute
-Requires: python%{python3_pkgversion}
-Requires: python%{python3_pkgversion}-distro
-Requires: python%{python3_pkgversion}-ldap
-Requires: python%{python3_pkgversion}-pyasn1
-Requires: python%{python3_pkgversion}-pyasn1-modules
-Requires: python%{python3_pkgversion}-dateutil
-Requires: python%{python3_pkgversion}-argcomplete
 Requires: python%{python3_pkgversion}-libselinux
-Requires: python%{python3_pkgversion}-setuptools
-Requires: python%{python3_pkgversion}-cryptography
 Recommends: bash-completion
 %{?python_provide:%python_provide python%{python3_pkgversion}-lib389}
 

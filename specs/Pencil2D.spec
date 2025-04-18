@@ -116,6 +116,10 @@ SourceLicense:  %{shrink:
 URL:            https://github.com/pencil2d/pencil
 Source:         %{url}/archive/v%{srcversion}/pencil-%{srcversion}.tar.gz
 
+# Ensure QDebug is included for all qDebug uses
+# https://github.com/pencil2d/pencil/pull/1912
+Patch:          0001-Ensure-QDebug-is-included-for-all-qDebug-uses.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

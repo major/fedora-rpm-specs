@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.8.0
+Version:	5.8.1
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
@@ -571,6 +571,7 @@ fi
 %{_libdir}/libXrdOssSIgpfsT-5.so
 %{_libdir}/libXrdOssStats-5.so
 %{_libdir}/libXrdPfc-5.so
+%{_libdir}/libXrdPfcPurgeQuota-5.so
 %{_libdir}/libXrdPss-5.so
 %{_libdir}/libXrdSsi-5.so
 %{_libdir}/libXrdSsiLog-5.so
@@ -653,6 +654,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Apr 16 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.1-1
+- Update to version 5.8.1
+
 * Sat Mar 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.0-1
 - Update to version 5.8.0
 

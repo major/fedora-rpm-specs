@@ -3,8 +3,8 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.21.3
-Release:       2%{?dist}
+Version:       0.21.4
+Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
@@ -148,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Wed Apr 16 2025 Sandro Mani <manisandro@gmail.com> - 0.21.4-1
+- Update to 0.21.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

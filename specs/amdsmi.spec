@@ -1,5 +1,5 @@
-%global rocm_release 6.3
-%global rocm_patch 3
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -29,9 +29,8 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 # https://github.com/amd/esmi_ib_library/issues/13
 # This tag was choosen by the amdsmi project because 4.0+ introduced variables not
 # found in the upstream kernel.
-%global esmi_ver 3.0.3
+%global esmi_ver 4.1.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
-Patch1:     0001-Fix-empty-return.patch
 Patch2:     0001-Include-cstdint-for-gcc-15.patch
 
 ExclusiveArch: x86_64
@@ -74,6 +73,9 @@ tar xf %{SOURCE1}
 mv esmi_ib_library-* esmi_ib_library
 # So we can pick up this license
 mv esmi_ib_library/License.txt esmi_ib_library_License.txt 
+# The esmi version check uses git tags, but we use tar's without git files.
+# Just inject in the tag that we've pulled into the version check:
+sed -i 's/NOT latest_esmi_tag/NOT "esmi_pkg_ver-%{esmi_ver}"/' CMakeLists.txt
 
 # W: spurious-executable-perm /usr/share/doc/amdsmi/README.md
 chmod a-x README.md
@@ -174,6 +176,9 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %endif
 
 %changelog
+* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+
 * Tue Mar 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-3
 - Adjust install of python for fedora
 

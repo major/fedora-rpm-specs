@@ -59,11 +59,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libXmu-devel
 BuildRequires:	libzstd-devel
 BuildRequires:	make
-%if (0%{?rhel} > 7 || 0%{?fedora})
 BuildRequires:	mariadb-connector-c-devel openssl-devel
-%else
-BuildRequires:	mysql-devel
-%endif
 BuildRequires:	mesa-libGL-devel
 BuildRequires:	mesa-libGLU-devel
 BuildRequires:	netcdf-devel

@@ -52,7 +52,7 @@ touch -r README.md.orig README.md
 rm README.md.orig
 
 %build
-%cmake
+%cmake -DLIB_SUFFIX=64
 %cmake_build
 
 %install

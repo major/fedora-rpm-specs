@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.2.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,11 +17,11 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
+Patch0001:      0001-schema-Allow-C-as-a-valid-locale.patch
+Patch0002:      0002-Fix-bundle-extension-for-container-types.patch
+Patch0003:      0003-Add-support-for-filtering-out-files-from-the-ESP-ima.patch
 
 # Proposed upstream
-## Allow the C locale
-## From: https://github.com/OSInside/kiwi/pull/2759
-Patch0101:      0101-schema-Allow-C-as-a-valid-locale.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -118,6 +118,7 @@ manager for image builds in KIWI.
 %package systemdeps-containers
 Summary:        KIWI - host requirements for container images
 Provides:       kiwi-image:docker
+Provides:       kiwi-image:oci
 Provides:       kiwi-image:appx
 Provides:       kiwi-image-docker-requires = %{version}-%{release}
 Obsoletes:      kiwi-image-docker-requires < %{version}-%{release}
@@ -618,6 +619,12 @@ fi
 
 
 %changelog
+* Wed Apr 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-4
+- Add kiwi-image:oci provides for OBS compatibility
+- Backport fix for filename extension for container images
+- Refresh patch with upstreamed version for allowing C locale in images
+- Backport support for filtering files from embedded ESP images
+
 * Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-3
 - Add patch to allow the C locale in images
 

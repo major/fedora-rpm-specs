@@ -29,70 +29,65 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
-Source: openssl-%{version}-beta1.tar.gz
-Source2: Makefile.certificate
+Source0: openssl-%{version}.tar.gz
+Source1: fips-hmacify.sh
 Source3: genpatches
 Source4: openssl.rpmlintrc
-Source6: make-dummy-cert
-Source7: renew-dummy-cert
 Source9: configuration-switch.h
 Source10: configuration-prefix.h
 
 Patch0001: 0001-RH-Aarch64-and-ppc64le-use-lib64.patch
 Patch0002: 0002-Add-a-separate-config-file-to-use-for-rpm-installs.patch
 Patch0003: 0003-RH-Do-not-install-html-docs.patch
-Patch0004: 0004-RH-Override-default-paths-for-the-CA-directory-tree.patch
-Patch0005: 0005-RH-Instructions-to-load-legacy-provider.patch
-Patch0006: 0006-RH-apps-ca-fix-md-option-help-text.patch-DROP.patch
-Patch0007: 0007-RH-Disable-signature-verification-with-bad-digests-R.patch
-Patch0008: 0008-RH-Add-support-for-PROFILE-SYSTEM-system-default-cip.patch
-Patch0009: 0009-RH-Add-FIPS_mode-compatibility-macro.patch
-Patch0010: 0010-RH-Add-Kernel-FIPS-mode-flag-support-FIXSTYLE.patch
-Patch0011: 0011-RH-Drop-weak-curve-definitions-RENAMED-SQUASHED.patch
-Patch0012: 0012-RH-Disable-explicit-ec-curves.patch
-Patch0013: 0013-RH-skipped-tests-EC-curves.patch
-Patch0014: 0014-RH-skip-quic-pairwise.patch
-Patch0015: 0015-RH-version-aliasing.patch
-Patch0016: 0016-RH-Export-two-symbols-for-OPENSSL_str-n-casecmp.patch
-Patch0017: 0017-RH-TMP-KTLS-test-skip.patch
-Patch0018: 0018-RH-Allow-disabling-of-SHA1-signatures.patch
-Patch0019: 0019-RH-Set-default-certificate-digest-to-sha256.patch
-Patch0020: 0020-FIPS-Red-Hat-s-FIPS-module-name-and-version.patch
-Patch0021: 0021-FIPS-disable-fipsinstall.patch
-Patch0022: 0022-FIPS-Force-fips-provider-on.patch
-Patch0023: 0023-FIPS-INTEG-CHECK-Embed-hmac-in-fips.so-NOTE.patch
-Patch0024: 0024-FIPS-INTEG-CHECK-Add-script-to-hmac-ify-fips.so.patch
-Patch0025: 0025-FIPS-INTEG-CHECK-Execute-KATS-before-HMAC-REVIEW.patch
-Patch0026: 0026-FIPS-RSA-encrypt-limits-REVIEW.patch
-Patch0027: 0027-FIPS-RSA-PCTs.patch
-Patch0028: 0028-FIPS-RSA-encapsulate-limits.patch
-Patch0029: 0029-FIPS-RSA-Disallow-SHAKE-in-OAEP-and-PSS.patch
-Patch0030: 0030-FIPS-RSA-size-mode-restrictions.patch
-Patch0031: 0031-FIPS-RSA-Mark-x931-as-not-approved-by-default.patch
-Patch0032: 0032-FIPS-RSA-Remove-X9.31-padding-signatures-tests.patch
-Patch0033: 0033-FIPS-RSA-NEEDS-REWORK-FIPS-Use-OAEP-in-KATs-support-.patch
-Patch0034: 0034-FIPS-Deny-SHA-1-signature-verification.patch
-Patch0035: 0035-FIPS-RAND-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
-Patch0036: 0036-FIPS-RAND-Forbid-truncated-hashes-SHA-3.patch
-Patch0037: 0037-FIPS-PBKDF2-Set-minimum-password-length.patch
-Patch0038: 0038-FIPS-DH-PCT.patch
-Patch0039: 0039-FIPS-DH-Disable-FIPS-186-4-type-parameters.patch
-Patch0040: 0040-FIPS-TLS-Enforce-EMS-in-TLS-1.2-NOTE.patch
-Patch0041: 0041-FIPS-CMS-Set-default-padding-to-OAEP.patch
-Patch0042: 0042-FIPS-PKCS12-PBMAC1-defaults.patch
-Patch0043: 0043-FIPS-Fix-encoder-decoder-negative-test.patch
-Patch0044: 0044-FIPS-EC-DH-DSA-PCTs.patch
-Patch0045: 0045-FIPS-EC-disable-weak-curves.patch
-Patch0046: 0046-FIPS-NO-DSA-Support.patch
-Patch0047: 0047-FIPS-NO-DES-support.patch
-Patch0048: 0048-FIPS-NO-Kmac.patch
-Patch0049: 0049-FIPS-NO-ECX-Ed-X-25519-448.patch
-Patch0050: 0050-FIPS-NO-PQ-ML-SLH-DSA.patch
-Patch0051: 0051-Revert-FIPS-NO-ECX-Ed-X-25519-448.patch
-Patch0052: 0052-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
-Patch0053: 0053-Current-Rebase-status.patch
+Patch0004: 0004-RH-apps-ca-fix-md-option-help-text.patch-DROP.patch
+Patch0005: 0005-RH-Disable-signature-verification-with-bad-digests-R.patch
+Patch0006: 0006-RH-Add-support-for-PROFILE-SYSTEM-system-default-cip.patch
+Patch0007: 0007-RH-Add-FIPS_mode-compatibility-macro.patch
+Patch0008: 0008-RH-Add-Kernel-FIPS-mode-flag-support-FIXSTYLE.patch
+Patch0009: 0009-RH-Drop-weak-curve-definitions-RENAMED-SQUASHED.patch
+Patch0010: 0010-RH-Disable-explicit-ec-curves.patch
+Patch0011: 0011-RH-skipped-tests-EC-curves.patch
+Patch0012: 0012-RH-skip-quic-pairwise.patch
+Patch0013: 0013-RH-version-aliasing.patch
+Patch0014: 0014-RH-Export-two-symbols-for-OPENSSL_str-n-casecmp.patch
+Patch0015: 0015-RH-TMP-KTLS-test-skip.patch
+Patch0016: 0016-RH-Allow-disabling-of-SHA1-signatures.patch
+Patch0017: 0017-FIPS-Red-Hat-s-FIPS-module-name-and-version.patch
+Patch0018: 0018-FIPS-disable-fipsinstall.patch
+Patch0019: 0019-FIPS-Force-fips-provider-on.patch
+Patch0020: 0020-FIPS-INTEG-CHECK-Embed-hmac-in-fips.so-NOTE.patch
+Patch0021: 0021-FIPS-INTEG-CHECK-Add-script-to-hmac-ify-fips.so.patch
+Patch0022: 0022-FIPS-INTEG-CHECK-Execute-KATS-before-HMAC-REVIEW.patch
+Patch0023: 0023-FIPS-RSA-encrypt-limits-REVIEW.patch
+Patch0024: 0024-FIPS-RSA-PCTs.patch
+Patch0025: 0025-FIPS-RSA-encapsulate-limits.patch
+Patch0026: 0026-FIPS-RSA-Disallow-SHAKE-in-OAEP-and-PSS.patch
+Patch0027: 0027-FIPS-RSA-size-mode-restrictions.patch
+Patch0028: 0028-FIPS-RSA-Mark-x931-as-not-approved-by-default.patch
+Patch0029: 0029-FIPS-RSA-Remove-X9.31-padding-signatures-tests.patch
+Patch0030: 0030-FIPS-RSA-NEEDS-REWORK-FIPS-Use-OAEP-in-KATs-support-.patch
+Patch0031: 0031-FIPS-Deny-SHA-1-signature-verification.patch
+Patch0032: 0032-FIPS-RAND-FIPS-140-3-DRBG-NEEDS-REVIEW.patch
+Patch0033: 0033-FIPS-RAND-Forbid-truncated-hashes-SHA-3.patch
+Patch0034: 0034-FIPS-PBKDF2-Set-minimum-password-length.patch
+Patch0035: 0035-FIPS-DH-PCT.patch
+Patch0036: 0036-FIPS-DH-Disable-FIPS-186-4-type-parameters.patch
+Patch0037: 0037-FIPS-TLS-Enforce-EMS-in-TLS-1.2-NOTE.patch
+Patch0038: 0038-FIPS-CMS-Set-default-padding-to-OAEP.patch
+Patch0039: 0039-FIPS-PKCS12-PBMAC1-defaults.patch
+Patch0040: 0040-FIPS-Fix-encoder-decoder-negative-test.patch
+Patch0041: 0041-FIPS-EC-DH-DSA-PCTs.patch
+Patch0042: 0042-FIPS-EC-disable-weak-curves.patch
+Patch0043: 0043-FIPS-NO-DSA-Support.patch
+Patch0044: 0044-FIPS-NO-DES-support.patch
+Patch0045: 0045-FIPS-NO-Kmac.patch
+Patch0046: 0046-FIPS-NO-PQ-ML-SLH-DSA.patch
+Patch0047: 0047-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
+Patch0048: 0048-Current-Rebase-status.patch
+Patch0049: 0049-FIPS-KDF-key-lenght-errors.patch
+Patch0050: 0050-FIPS-fix-disallowed-digests-tests.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -110,6 +105,7 @@ BuildRequires: git-core
 BuildRequires: systemtap-sdt-devel
 Requires: coreutils
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes: oqsprovider < 0.9.0
 
 %description
 The OpenSSL toolkit provides support for secure communications between
@@ -121,11 +117,7 @@ protocols.
 Summary: A general purpose cryptography library with TLS implementation
 Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20180730
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 Recommends: pkcs11-provider%{?_isa}
-%else
-Recommends: openssl-pkcs11%{?_isa}
-%endif
 %if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 Requires: openssl-fips-provider
 %endif
@@ -168,7 +160,7 @@ package provides Perl scripts for converting certificates and keys
 from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
-%autosetup -S git -n %{name}-%{version}-beta1
+%autosetup -S git -n %{name}-%{version}
 
 %build
 # Figure out which flags we want to use.
@@ -215,7 +207,8 @@ sslarch=linux-ppc64
 %endif
 %ifarch ppc64le
 sslarch="linux-ppc64le"
-sslflags=enable-ec_nistp_64_gcc_128
+#POWER8 support
+#sslflags=enable-ec_nistp_64_gcc_128
 %endif
 %ifarch mips mipsel
 sslarch="linux-mips32 -mips32r2"
@@ -257,7 +250,7 @@ export HASHBANGPERL=/usr/bin/perl
 	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips -D_GNU_SOURCE\
 	no-mdc2 no-ec2m no-sm2 no-sm4 no-atexit enable-buildtest-c++\
 	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\""' -DOPENSSL_PEDANTIC_ZEROIZATION\
-	-DREDHAT_FIPS_VENDOR='"\"Red Hat Enterprise Linux OpenSSL FIPS Provider\""' -DREDHAT_FIPS_VERSION='"\"Rebase Testing\""'\
+	-DREDHAT_FIPS_VENDOR='"\"Red Hat Enterprise Linux OpenSSL FIPS Provider\""' -DREDHAT_FIPS_VERSION='"\"%{fips}\""'\
 	-Wl,--allow-multiple-definition
 
 # Do not run this in a production package the FIPS symbols must be patched-in
@@ -280,10 +273,6 @@ done
  touch -r configdata.pm configdata.pm.new && \
  mv -f configdata.pm.new configdata.pm)
 
-# We must revert patch4 before tests otherwise they will fail
-#patch -p1 -R < %{PATCH4}
-#We must disable default provider before tests otherwise they will fail
-#patch -p1 < %{SOURCE14}
 
 OPENSSL_ENABLE_MD5_VERIFY=
 export OPENSSL_ENABLE_MD5_VERIFY
@@ -292,16 +281,16 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES
 OPENSSL_SYSTEM_CIPHERS_OVERRIDE=xyz_nonexistent_file
 export OPENSSL_SYSTEM_CIPHERS_OVERRIDE
 #embed HMAC into fips provider for test run
-dd if=/dev/zero bs=1 count=32 of=tmp.mac
-objcopy --update-section .rodata1=tmp.mac providers/fips.so providers/fips.so.zeromac
-mv providers/fips.so.zeromac providers/fips.so
-rm tmp.mac
-LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < providers/fips.so > providers/fips.so.hmac
-objcopy --update-section .rodata1=providers/fips.so.hmac providers/fips.so providers/fips.so.mac
-mv providers/fips.so.mac providers/fips.so
+#dd if=/dev/zero bs=1 count=32 of=tmp.mac
+#objcopy --update-section .rodata1=tmp.mac providers/fips.so providers/fips.so.zeromac
+#mv providers/fips.so.zeromac providers/fips.so
+#rm tmp.mac
+#LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < providers/fips.so > providers/fips.so.hmac
+#objcopy --update-section .rodata1=providers/fips.so.hmac providers/fips.so providers/fips.so.mac
+#mv providers/fips.so.mac providers/fips.so
+%{SOURCE1} providers/fips.so
 #run tests itself
 make test HARNESS_JOBS=8
-#make test
 
 # Add generation of HMAC checksum of the final stripped library
 # We manually copy standard definition of __spec_install_post
@@ -318,14 +307,7 @@ make test HARNESS_JOBS=8
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
-    dd if=/dev/zero bs=1 count=32 of=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac \
-    objcopy --update-section .rodata1=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.zeromac \
-    mv $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.zeromac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so \
-    rm $RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac \
-    OPENSSL_CONF=/dev/null LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so > $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.hmac \
-    objcopy --update-section .rodata1=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.hmac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.mac \
-    mv $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.mac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so \
-    rm $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.hmac \
+    %{SOURCE1} $RPM_BUILD_ROOT/%{_libdir}/ossl-modules/fips.so \
 %{nil}
 %endif
 
@@ -349,13 +331,8 @@ for lib in $RPM_BUILD_ROOT%{_libdir}/*.a ; do
 	rm -f ${lib}
 done
 
-# Install a makefile for generating keys and self-signed certs, and a script
-# for generating them on the fly.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.d
-install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}/Makefile.certificate
-install -m755 %{SOURCE6} $RPM_BUILD_ROOT%{_bindir}/make-dummy-cert
-install -m755 %{SOURCE7} $RPM_BUILD_ROOT%{_bindir}/renew-dummy-cert
 
 # Move runable perl scripts to bindir
 mv $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/misc/*.pl $RPM_BUILD_ROOT%{_bindir}
@@ -374,8 +351,8 @@ mkdir -m755 $RPM_BUILD_ROOT%{_sysconfdir}/pki/CA/newcerts
 
 # Ensure the config file timestamps are identical across builds to avoid
 # mulitlib conflicts and unnecessary renames on upgrade
-touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.cnf
-touch -r %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/ct_log_list.cnf
+touch -r %{SOURCE0} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.cnf
+touch -r %{SOURCE0} $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/ct_log_list.cnf
 
 rm -f $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.cnf.dist
 rm -f $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/ct_log_list.cnf.dist
@@ -417,13 +394,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc NEWS.md README.md
-%{_bindir}/make-dummy-cert
-%{_bindir}/renew-dummy-cert
 %{_bindir}/openssl
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %{_mandir}/man7/*
-%{_pkgdocdir}/Makefile.certificate
 %exclude %{_mandir}/man1/*.pl*
 %exclude %{_mandir}/man1/tsget*
 
@@ -476,6 +450,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Apr 15 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-3
+- Rebase to OpenSSL 3.5 final release, sync patches with RHEL. Restoring POWER8 support
+  Resolves: rhbz#2359082
+
 * Wed Mar 26 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-2
 - Early rebasing to OpenSSL 3.5-beta
 

@@ -5,7 +5,7 @@
 
 Name:           sympol
 Version:        0.1.9
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Symmetric polyhedra tool
 
 # GPL-2.0-or-later: the code
@@ -80,7 +80,11 @@ sed -i 's/{Boost_LIBRARIES}/& pthread/' sympol/CMakeLists.txt
 sed -i 's/{GMP_LIBRARIES}/& pthread/' test/CMakeLists.txt
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+  -DLIB_INSTALL_DIR:PATH=%{_libdir}
 %cmake_build
 
 %install
@@ -109,6 +113,9 @@ done
 %{_includedir}/%{name}/
 
 %changelog
+* Wed Apr 16 2025 Jerry James <loganjerry@gmail.com> - 0.1.9-40
+- Specify more cmake variables
+
 * Sat Mar  1 2025 Jerry James <loganjerry@gmail.com> - 0.1.9-39
 - Adapt to cmake 4
 

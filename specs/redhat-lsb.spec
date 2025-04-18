@@ -15,10 +15,10 @@ removed from the repositories and possibly replaced with new ones. \
 This package tries its best to comply with the LSB. Hoping to be helpful and \
 continue to support the LSB project and software that uses it
 
-Summary: Implementation of Linux Standard Base specification
+Summary: Partial implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.15%{gver}%{?dist}
+Release: 0.16%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -26,6 +26,7 @@ Source0: redhat-lsb-%{snapshot}.tar.gz
 License: GPL-2.0-only
 BuildRequires: make
 BuildRequires: help2man
+Requires: util-linux
 
 Provides: lsb = %{version}-%{release}
 Provides: lsb-noarch = %{version}-%{release}
@@ -50,9 +51,9 @@ independent software vendors.
 
 %{disclaimer}
 
-The lsb package provides utilities, libraries etc. needed for LSB Compliant 
-Applications. It also contains requirements that will ensure that all 
-components required by the LSB are installed on the system.
+The lsb package provides utilities, libraries etc. needed for LSB Compliant
+Applications.
+
 
 %prep
 %setup -q -n redhat-lsb-%{snapshot}
@@ -84,6 +85,10 @@ cp -p lsb_release/src/README README.lsb_release
 
 
 %changelog
+* Wed Apr 16 2025 Sérgio Basto <sergio@serjux.com> - 5.0-0.16.20231006git8d00acdc
+- Require util-linux
+- Modification of sumamry and description to express that is not compliant with LSB
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.15.20231006git8d00acdc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

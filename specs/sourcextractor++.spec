@@ -1,6 +1,6 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
-Version:        0.22
+Version:        1.0.1
 Release:        %autorelease
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
@@ -10,15 +10,14 @@ Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{ve
 # It is downloaded from:
 # https://upload.cppreference.com/w/File:cppreference-doxygen-web.tag.xml
 Source1:        cppreference-doxygen-web.tag.xml
-Patch0:         0000-Use-Alexandria-2.31.2.patch
-Patch1:         0001-Use-Fedora-compilation-flags.patch
-Patch2:         0002-Remove-benchmarks.patch
-Patch3:         0003-Remove-TestImage.patch
-Patch4:         0004-Reduce-precision-requirement-for-test.patch
-Patch5:         0005-Use-boost-filesystem-stem-instead-of-basename.patch
+Patch1:         0000-Use-Fedora-compilation-flags.patch
+Patch2:         0001-Remove-benchmarks.patch
+Patch3:         0002-Remove-TestImage.patch
+Patch4:         0003-Reduce-precision-requirement-for-test.patch
+Patch5:         0004-Sync-version-with-tag.patch
 
-%global elements_version 6.3.2
-%global alexandria_version 2.31.2
+%global elements_version 6.3.3
+%global alexandria_version 2.31.4
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval 
 ExcludeArch:    %{ix86}

@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/osbuild/koji-image-builder
 
-Version:        4
+Version:        5
 
 %forgemeta
 
@@ -86,6 +86,21 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Apr 16 2025 Packit <hello@packit.dev> - 5-1
+Changes with 5
+----------------
+  * Fixed cli pkg name in README.md (#8)
+    * Author: Fabian Arrotin, Reviewers: Simon de Vlieger
+  * ci: enable epel8 in packit (#6)
+    * Author: Simon de Vlieger, Reviewers: Ondřej Budai
+  * many: replace `$arch` and `$buildarch` variable manually (COMPOSER-2507) (#10)
+    * Author: Simon de Vlieger, Reviewers: Ondřej Budai
+  * readme updates (#7)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane
+
+— Somewhere on the Internet, 2025-04-16
+
 
 * Wed Apr 9 2025 Packit <hello@packit.dev> - 4-1
 Changes with 4

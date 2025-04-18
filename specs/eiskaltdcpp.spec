@@ -1,6 +1,6 @@
 Name:           eiskaltdcpp
 Version:        2.4.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Direct Connect client
 
 # The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
@@ -142,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 2.4.2-17
+- Rebuild for updated miniupnpc.
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 2.4.2-16
 - Rebuild for updated dependencies.
 

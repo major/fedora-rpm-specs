@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.7.2
+%global upstream_version 6.8
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -32,7 +32,7 @@ Source5:    wordpress-minify.php
 
 # Patch out copyrighted text of Hello, Dolly
 # (and replace it with Free Software Song)
-Patch0: wordpress-5.2-hello.patch
+Patch0: wordpress-6.8-hello.patch
 # Drop swfupload: not built from source, not reasonably possible to do
 Patch2: wordpress-6.4-no_swfupload.patch
 # Adjust tinymce's media plugin not to use its SWF plugin. This changes
@@ -102,7 +102,7 @@ Provides: bundled(php-simplepie) = 1.8.0
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
 Provides: bundled(php-getid3) = 1.9.23
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.9.2
+Provides: bundled(php-phpmailer)  = 6.9.3
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -252,6 +252,9 @@ end
 
 
 %changelog
+* Wed Apr 16 2025 Remi Collet <remi@remirepo.net> - 6.8-1
+- WordPress 6.8 “Cecil”
+
 * Wed Feb 12 2025 Remi Collet <remi@remirepo.net> - 6.7.2-1
 - WordPress 6.7.2 Maintenance Release
 

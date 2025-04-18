@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        146
+Version:        147
 
 %forgemeta
 
@@ -325,6 +325,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Apr 16 2025 Packit <hello@packit.dev> - 147-1
+Changes with 147
+----------------
+  * Stages/rhsm: add unit test for the stage schema (#2072)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Michael Vogt
+  * Stages/rhsm: support setting 'auto_enable_yum_plugins' option (#2070)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Florian Schüller, Michael Vogt
+  * Stages/waagent.conf: support additional options (#2071)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update images dependency ref to latest (#2073)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou
+  * stages/chrony: support specifying refclocks (RHEL-79065) (#2068)
+    * Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Michael Vogt, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-04-16
+
+
 * Wed Apr 09 2025 Packit <hello@packit.dev> - 146-1
 Changes with 146
 ----------------

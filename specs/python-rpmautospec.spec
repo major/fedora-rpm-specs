@@ -14,11 +14,17 @@
 %global wrapped_pkgs pygit2 rpm
 %global wrappers_relevant_tests tests/rpmautospec/test_pkg_history.py tests/rpmautospec/subcommands/
 
-# While bootstrapping, ignore manpages
-%bcond manpages %{without bootstrap}
-
 # The pytest-xdist package is not available when bootstrapping or on RHEL
 %bcond xdist %[%{without bootstrap} && %{undefined rhel}]
+
+# Whether to build only the minimal package for RHEL buildroot
+%bcond minimal %[%{defined rhel} && %{undefined epel}]
+
+# While bootstrapping or building the minimal package, ignore manpages
+%bcond manpages %[%{without bootstrap} && %{without minimal}]
+
+# While building the minimal package, ignore shell completions
+%bcond completions %{without minimal}
 
 # Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
@@ -78,19 +84,15 @@ BuildRequires: python3dist(click-man)
 %if %{with tests}
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(pyyaml)
 %if %{with xdist}
 BuildRequires: python3dist(pytest-xdist)
 %endif
 %endif
 
-BuildRequires: python3dist(click)
-BuildRequires: python3dist(click-plugins)
-BuildRequires: python3dist(pygit2)
-BuildRequires: python3dist(pyyaml)
-BuildRequires: python3dist(rpm)
 BuildRequires: sed
 
-BuildRequires: (libgit2 >= %libgit2_lower_bound and libgit2 < %libgit2_upper_bound)
+BuildRequires: (libgit2 >= %libgit2_lower_bound with libgit2 < %libgit2_upper_bound)
 BuildRequires: rpm-libs
 BuildRequires: rpm-build-libs
 
@@ -99,14 +101,24 @@ A package and CLI tool to generate RPM release fields and changelogs.}
 
 %description %_description
 
+%if %{without minimal}
 %package -n python3-%{srcname}
 Summary: %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname} %_description
 
+%pyproject_extras_subpkg -n python3-%{srcname} click
+%pyproject_extras_subpkg -n python3-%{srcname} pygit2
+%pyproject_extras_subpkg -n python3-%{srcname} rpm
+%pyproject_extras_subpkg -n python3-%{srcname} all
+%endif
+
 %package -n %{srcname}
 Summary: CLI tool for generating RPM releases and changelogs
+
+Provides: bundled(python3dist(rpmautospec)) = %{version}
+Provides: bundled(python3dist(rpmautospec-core)) = %((rpm -q python3-rpmautospec-core --qf '%%{version}\n' || echo 0) | tail -n1)
 
 %if "%libgit2_requires" != ""
 Requires: (%{libgit2_requires}()(64bit) or %{libgit2_requires})
@@ -117,18 +129,15 @@ Requires: this-is-broken-libgit2-missing-during-build
 Requires: rpm-libs
 Requires: rpm-build-libs
 
+%if %{without minimal}
 Recommends: python3-%{srcname} = %{version}-%{release}
 Recommends: python3-%{srcname}+click = %{version}-%{release}
 Recommends: python3-%{srcname}+pygit2 = %{version}-%{release}
 Recommends: python3-%{srcname}+rpm = %{version}-%{release}
+%endif
 
 %description -n %{srcname}
 CLI tool for generating RPM releases and changelogs
-
-%pyproject_extras_subpkg -n python3-%{srcname} click
-%pyproject_extras_subpkg -n python3-%{srcname} pygit2
-%pyproject_extras_subpkg -n python3-%{srcname} rpm
-%pyproject_extras_subpkg -n python3-%{srcname} all
 
 %if %{with rpmmacropkg}
 %package -n rpmautospec-rpm-macros
@@ -141,7 +150,7 @@ enabled packages locally.
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{!?with_minimal:-x all}
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -172,6 +181,7 @@ mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644 rpm_macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 %endif
 
+%if %{with completions}
 # Shell completion
 for shell_path in \
         bash:%{bash_completions_dir}/rpmautospec \
@@ -189,6 +199,7 @@ for shell_path in \
     "import sys; sys.argv[0] = 'rpmautospec'; from rpmautospec.cli import cli; sys.exit(cli())" \
     > "%{buildroot}${path}"
 done
+%endif
 
 # Fill in the real version for the fallback method
 touch -r %{buildroot}%{python3_sitelib}/rpmautospec/version.py timestamp
@@ -196,7 +207,7 @@ sed -i -e 's|0\.0\.0|%{version}|g' %{buildroot}%{python3_sitelib}/rpmautospec/ve
 touch -r timestamp %{buildroot}%{python3_sitelib}/rpmautospec/version.py
 
 # Install bootstrapping copies of rpmautospec, rpmautospec_core packages
-mkdir %{buildroot}%{_datadir}/rpmautospec-fallback
+mkdir -p %{buildroot}%{_datadir}/rpmautospec-fallback
 cp -r %{python3_sitelib}/rpmautospec_core %{buildroot}%{_datadir}/rpmautospec-fallback/
 cp -r %{buildroot}%{python3_sitelib}/rpmautospec %{buildroot}%{_datadir}/rpmautospec-fallback/
 find %{buildroot}%{_datadir}/rpmautospec-fallback \
@@ -211,12 +222,14 @@ touch -r %{S:1} %{buildroot}%{_bindir}/rpmautospec
 
 %check
 # Always run the import checks, even when other tests are disabled
-%pyproject_check_import
+%pyproject_check_import %{?with_minimal:-e '*click*'}
 
 %if %{with tests}
+%if %{without minimal}
 %pytest \
 %if %{with xdist}
 --numprocesses=auto
+%endif
 %endif
 
 # And redo tests that are relevant for native bindings, but with the direct native wrappers.
@@ -240,8 +253,10 @@ for mod in %wrapped_pkgs; do
 done
 %endif
 
+%if %{without minimal}
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
+%endif
 
 %files -n %{srcname}
 %{_bindir}/rpmautospec
@@ -250,12 +265,18 @@ done
 %if %{with manpages}
 %{_mandir}/man1/rpmautospec*.1*
 %endif
+%if %{with completions}
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/rpmautospec
 %dir %{fish_completions_dir}
 %{fish_completions_dir}/rpmautospec.fish
 %dir %{zsh_completions_dir}
 %{zsh_completions_dir}/_rpmautospec
+%endif
+%if %{with minimal}
+%license licenses/*
+%exclude %{python3_sitelib}
+%endif
 
 %if %{with rpmmacropkg}
 %files -n rpmautospec-rpm-macros

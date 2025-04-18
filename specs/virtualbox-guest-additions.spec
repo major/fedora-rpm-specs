@@ -1,11 +1,11 @@
 Name:       virtualbox-guest-additions
-Version:    7.1.6
+Version:    7.1.8
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
 
-Source0:    https://download.virtualbox.org/virtualbox/%{version}/VirtualBox-%{version}a.tar.bz2
+Source0:    https://download.virtualbox.org/virtualbox/%{version}/VirtualBox-%{version}.tar.bz2
 Source1:    vboxservice.service
 Source3:    VirtualBox-60-vboxguest.rules
 Source4:    vboxclient.service
@@ -18,21 +18,22 @@ Patch80:    029_virtualbox-7.1.4_C23.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  kBuild >= 0.1.9998.r3093
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  desktop-file-utils
+BuildRequires:  openssl-devel
+BuildRequires:  yasm
 BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
 # for xsltproc
 BuildRequires:  libxslt
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  pam-devel
+BuildRequires:  xz-devel
+BuildRequires:  zlib-devel
 BuildRequires:  makeself
-BuildRequires:  yasm
 BuildRequires:  libXmu-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXt-devel
-BuildRequires:  openssl-devel
-BuildRequires:  pam-devel
-BuildRequires:  zlib-devel
 # For the OpenGL passthru libs, these are statically linked against libstdc++
 # like mesa itself is to avoid trouble with game-runtimes providing their
 # own older libstdc++ (e.g. steam does this)
@@ -82,10 +83,11 @@ rm -r src/libs/liblzf-3.*/
 rm -r src/libs/libpng-1.6.*/
 rm -r src/libs/libxml2-2.*/
 rm -r src/libs/openssl-3.*/
-rm -r src/libs/zlib-1.2.*/
+rm -r src/libs/zlib-1.3.*/
 rm -r src/libs/curl-8.*/
 rm -r src/libs/libvorbis-1.3.*/
 rm -r src/libs/libogg-1.3.*/
+rm -r src/libs/liblzma-5.*/
 rm -r src/libs/libtpms-0.9.*/
 
 # Create a sysusers.d config file
@@ -106,12 +108,10 @@ umask 0022
 # VirtualBox build system installs and builds in the same step,
 # not always looking for the installed files in places they have
 # really been installed to. Therefore we do not override any of
-# the installation paths, but install the tree with the default
-# layout under 'obj' and shuffle files around in %%install.
+# the installation paths
 kmk %{_smp_mflags}                                             \
     VBOX_ONLY_ADDITIONS=1                                      \
     KBUILD_VERBOSE=2                                           \
-    PATH_OUT="$PWD/obj"                                        \
     TOOL_YASM_AS=yasm                                          \
     VBOX_USE_SYSTEM_XORG_HEADERS=1                             \
     VBOX_USE_SYSTEM_GL_HEADERS=1                               \
@@ -122,6 +122,7 @@ kmk %{_smp_mflags}                                             \
     SDK_VBoxLzf_INCS="/usr/include/liblzf"                    \
     SDK_VBoxOpenSslStatic_INCS="/usr/include/openssl"                                   \
     SDK_VBoxOpenSslStatic_LIBS="ssl crypto"                         \
+    SDK_VBoxLibLzma_INCS=""                                 \
     SDK_VBoxZlib_INCS=""                                      \
     VBOX_BUILD_PUBLISHER=_Fedora
 
@@ -135,18 +136,18 @@ mkdir -p %{buildroot}%{_libdir}/security
 
 # Guest-additions tools
 install -m 0755 -t %{buildroot}%{_sbindir}   \
-    obj/bin/additions/VBoxService            \
+    out/linux.*/release/bin/additions/VBoxService            \
     %{SOURCE5}
 
 install -m 0755 -t %{buildroot}%{_bindir}    \
-    obj/bin/additions/VBoxDRMClient          \
-    obj/bin/additions/VBoxClient             \
-    obj/bin/additions/VBoxControl            \
-    obj/bin/additions/vboxwl
+    out/linux.*/release/bin/additions/VBoxDRMClient          \
+    out/linux.*/release/bin/additions/VBoxClient             \
+    out/linux.*/release/bin/additions/VBoxControl            \
+    out/linux.*/release/bin/additions/vboxwl
 
 # Guest libraries
 install -m 0755 -t %{buildroot}%{_libdir}/security \
-    obj/bin/additions/pam_vbox.so
+    out/linux.*/release/bin/additions/pam_vbox.so
 
 install -p -m 0755 -D src/VBox/Additions/x11/Installer/98vboxadd-xclient \
     %{buildroot}%{_sysconfdir}/X11/xinit/xinitrc.d/98vboxadd-xclient.sh
@@ -197,6 +198,9 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Wed Apr 16 2025 Sérgio Basto <sergio@serjux.com> - 7.1.8-1
+- Update virtualbox-guest-additions to 7.1.8 (rhbz#2359780)
+
 * Wed Feb 12 2025 Sérgio Basto <sergio@serjux.com> - 7.1.6-1
 - Update virtualbox-guest-additions to 7.1.6 (#2339180)
 - Add 029_virtualbox-7.1.4_C23.patch

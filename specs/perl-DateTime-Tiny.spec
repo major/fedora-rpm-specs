@@ -1,11 +1,10 @@
 Name:           perl-DateTime-Tiny
-Version:        1.07
-Release:        22%{?dist}
+Version:        1.08
+Release:        1%{?dist}
 Summary:        Date object, with as little code as possible
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/DateTime-Tiny-%{version}.tar.gz
-Patch0:         DateTime-Tiny-1.07-Fixed-test-for-DateTime-Locale-1.33.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -31,8 +30,7 @@ DateTime::Tiny implements an extremely lightweight object that represents a
 datetime.
 
 %prep
-%setup -q -n DateTime-Tiny-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n DateTime-Tiny-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -48,10 +46,13 @@ make test
 %files
 %doc Changes README CONTRIBUTING.mkdn
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime*
+%{_mandir}/man3/DateTime::Tiny*
 
 %changelog
+* Wed Apr 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-1
+- 1.08 bump (rhbz#2359731)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

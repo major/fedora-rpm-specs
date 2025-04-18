@@ -18,7 +18,7 @@
 
 Name:           godot3
 Version:        3.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -286,6 +286,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 3.6-4
+- Rebuild for updated miniupnpc.
+
 * Mon Mar 31 2025 Bill Roberts <bill.roberts@arm.com> - 3.6-3
 - Update to support mbedtls 3
 

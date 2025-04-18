@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-xnat
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
 
@@ -18,9 +18,6 @@ Source0:        %forgesource
 # package it either, since it's licensed under CC0-1.0
 # https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
 Patch:          no_xnat4tests.patch
-# Exclude tests from wheel.
-# https://gitlab.com/radiology/infrastructure/xnatpy/-/merge_requests/51
-Patch:          %{url}/-/merge_requests/51.patch
 
 BuildArch:      noarch
 

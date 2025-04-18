@@ -54,6 +54,11 @@ Source:         %{url}/archive/%{version}/aws-xray-sdk-python-%{version}.tar.gz
 # https://github.com/aws/aws-xray-sdk-python/pull/449
 Patch:          %{url}/pull/449.patch
 
+# Modernize event loop handling in aiohttp tests
+# https://github.com/aws/aws-xray-sdk-python/pull/455
+# Fixes compatibility with python-pytest-aiohttp-1.1.0
+Patch:          %{url}/pull/455.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

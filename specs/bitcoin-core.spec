@@ -5,8 +5,8 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    28.1
-Release:    6%{?dist}
+Version:    29.0
+Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -39,6 +39,9 @@ Source12:   README.gui.redhat
 Source13:   README.utils.redhat
 Source14:   README.server.redhat
 
+# Berkeley DB will be dropped in Bitcoin 30.0!
+# https://github.com/bitcoin/bitcoin/issues/20160
+
 # Berkeley DB non-strong cryptography variant (NC)
 Source15:   https://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
 Source16:   db-4.8.30.NC-format-security.patch
@@ -50,15 +53,13 @@ Source18:   %{project_name}-qt.metainfo.xml
 # Patch verify script to use local keyring
 Patch0:     %{project_name}-verify-offline.patch
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  boost-devel >= 1.64.0
 BuildRequires:  checkpolicy
 BuildRequires:  desktop-file-utils
 BuildRequires:  gnupg2
 BuildRequires:  libappstream-glib
 BuildRequires:  libnatpmp-devel
-BuildRequires:  libtool
+BuildRequires:  cmake > 3.22
 BuildRequires:  miniupnpc-devel
 BuildRequires:  procps-ng
 BuildRequires:  python3
@@ -71,6 +72,11 @@ BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  systemd
 BuildRequires:  systemtap-sdt-devel
+
+# For Berkeley BDB
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 %description
 Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
@@ -180,34 +186,40 @@ pushd db4/build_unix
     --disable-replication
 %undefine _configure
 
-%make_build
-make install DESTDIR=%{_builddir}/%{buildsubdir}/db4
+%make_build libdb_cxx.a libdb.a
+make install_lib install_include DESTDIR=%{_builddir}/%{buildsubdir}/db4
 popd
 
-export BDB_CFLAGS="-I%{_builddir}/%{buildsubdir}/db4%{_includedir}/"
-export BDB_LIBS="-L%{_builddir}/%{buildsubdir}/db4%{_libdir}/ -ldb_cxx-4.8"
-autoreconf -vif
-%configure \
-    --disable-bench \
-    --disable-silent-rules \
-    --disable-static \
-    --enable-reduce-exports \
-    --enable-threadlocal \
-    --enable-usdt \
-    --with-daemon \
-    --with-gui=qt5 \
-    --with-libs \
-    --with-miniupnpc \
-    --with-qrencode \
-    --with-qtdbus \
-    --with-utils
+# Bitcoin kernel library used only as part of the testing for now:
+%cmake \
+    -DBerkeleyDB_INCLUDE_DIR=%{_builddir}/%{buildsubdir}/db4%{_includedir}/ \
+    -DBerkeleyDB_LIBRARY_RELEASE=%{_builddir}/%{buildsubdir}/db4%{_libdir}/libdb_cxx.a \
+    -DBUILD_CLI=ON \
+    -DBUILD_DAEMON=ON \
+    -DBUILD_GUI=ON \
+    -DBUILD_KERNEL_LIB=ON \
+    -DBUILD_TESTS=ON \
+    -DBUILD_TX=ON \
+    -DBUILD_UTIL=ON \
+    -DBUILD_UTIL_CHAINSTATE=ON \
+    -DENABLE_WALLET=ON \
+    -DINSTALL_MAN=ON \
+    -DWITH_BDB=ON \
+    -DWITH_DBUS=ON \
+    -DWITH_QRENCODE=ON \
+    -DWITH_SQLITE=ON \
+    -DWITH_USDT=ON \
+    -DWITH_ZMQ=ON
 
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 find %{buildroot} -name "*.la" -delete
+
+# Remove Bitcoin Kernel Library for now (https://github.com/bitcoin/bitcoin/issues/27587)
+rm -frv %{buildroot}%{_libdir}
 
 # Temporary files
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -250,11 +262,10 @@ install -m0644 -D bitcoin-core.sysusers.conf %{buildroot}%{_sysusersdir}/bitcoin
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{project_name}-qt.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name}-qt.metainfo.xml
-make check
+%ctest
 %if %{with extended_tests}
 test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %endif
-
 
 %post server
 %systemd_post %{project_name}.service
@@ -314,6 +325,9 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %{_sysusersdir}/bitcoin-core.conf
 
 %changelog
+* Sun Apr 13 2025 Simone Caronni <negativo17@gmail.com> - 29.0-1
+- Update to 29.0.
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 28.1-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

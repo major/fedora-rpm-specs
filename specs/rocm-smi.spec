@@ -1,5 +1,5 @@
-%global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -14,7 +14,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -38,6 +38,7 @@ BuildRequires:  doxygen-latex >= 1.9.7
 %endif
 %endif
 BuildRequires:  gcc-c++
+BuildRequires:  libdrm-devel
 
 %description
 The ROCm System Management Interface Library, or ROCm SMI library, is part of
@@ -115,6 +116,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+
 * Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - Cleanup for suse
 

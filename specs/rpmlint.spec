@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -99,6 +99,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Wed Apr 16 2025 Miro Hrončok <mhroncok@redhat.com> - 2.7.0-2
+- Allow unversioned-explicit-provides bundled(...) and deprecated()
+
 * Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 2.7.0-1
 - update to 2.7.0
 

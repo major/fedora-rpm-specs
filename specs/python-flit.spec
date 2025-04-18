@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           python-flit
-Version:        3.11.0
+Version:        3.12.0
 Release:        %autorelease
 Summary:        Simplified packaging of Python modules
 

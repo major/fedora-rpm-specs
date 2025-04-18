@@ -1,6 +1,6 @@
 Name:           mmapper
 Version:        24.03.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Graphical MUME mapper
 
 License:        GPL-2.0-or-later
@@ -69,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 24.03.1-7
+- Rebuild for updated miniupnpc.
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 24.03.1-6
 - Rebuild for updated dependencies.
 

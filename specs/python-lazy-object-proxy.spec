@@ -2,8 +2,8 @@
 %global sum A fast and thorough lazy object proxy
 
 Name:           python-%{srcname}
-Version:        1.10.0
-Release:        6%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ sed -Ei '/\b(objproxies|hunter)\b/d' tox.ini
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Wed Apr 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.11.0-1
+- 1.11.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

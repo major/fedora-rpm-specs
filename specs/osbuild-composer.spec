@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        137
+Version:        138
 
 %gometa
 
@@ -696,6 +696,17 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Apr 16 2025 Packit <hello@packit.dev> - 138-1
+Changes with 138
+----------------
+  * GH Action: check the SPEC osbuild/images deps minimum version (#4669)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * client/blueprints_test.go: delete condition for composer version < 83 (#4673)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-04-16
+
+
 * Wed Apr 02 2025 Packit <hello@packit.dev> - 137-1
 Changes with 137
 ----------------

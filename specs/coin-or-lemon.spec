@@ -1,6 +1,6 @@
 Name:           coin-or-lemon
 Version:        1.3.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        A C++ template library providing many common graph algorithms
 
 License:        BSL-1.0 AND BSD-3-Clause
@@ -167,6 +167,9 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Wed Apr 16 2025 Jerry James <loganjerry@gmail.com> - 1.3.1-37
+- Compatibility with cmake 4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
-Version:    2.3.0
-Release:    1%{?dist}
+Version:    2.3.2
+Release:    %autorelease
 License:    LicenseRef-Callaway-BSD
 URL:        http://miniupnp.free.fr/
 
@@ -84,7 +84,7 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %doc Changelog.txt README
 %{_bindir}/upnpc
 %{_bindir}/upnp-listdevices
-%{_libdir}/libminiupnpc.so.19
+%{_libdir}/libminiupnpc.so.20
 %{_libdir}/libminiupnpc.so.%{version}
 
 %files devel
@@ -99,69 +99,4 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
-* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 2.3.0-1
-- Update to 2.3.0.
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Oct 08 2024 Simone Caronni <negativo17@gmail.com> - 2.2.8-1
-- Update to 2.2.8.
-- Trim changelog.
-- Update python packaging as per packaging guidelines.
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.5-8
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.2.5-6
-- Rebuilt for Python 3.13
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.2.5-2
-- Rebuilt for Python 3.12
-
-* Wed Jun 14 2023 Simone Caronni <negativo17@gmail.com> - 2.2.5-1
-- Update to 2.2.5.
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.4-4
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Oct 28 2022 Simone Caronni <negativo17@gmail.com> - 2.2.4-2
-- Restore test client binary.
-
-* Tue Oct 25 2022 Simone Caronni <negativo17@gmail.com> - 2.2.4-1
-- Update to 2.2.4.
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.2.3-3
-- Rebuilt for Python 3.11
-
-* Sat Jan 29 2022 Simone Caronni <negativo17@gmail.com> - 2.2.3-2
-- Build fixes.
-
-* Fri Jan 28 2022 Simone Caronni <negativo17@gmail.com> - 2.2.3-1
-- Update to 2.2.3.
-- Update SPEC file (license, tabs/spaces, trim changelog, etc.)
-- Switch to CMake build.
-- Drop static libraries.
-- Drop test client and obsolete documentation.
-- Do not use static library when building Python module.
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+%autochangelog

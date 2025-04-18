@@ -5,7 +5,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-urllib3
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
@@ -20,9 +20,10 @@ Source0:        %{url}/archive/%{version}/urllib3-%{version}.tar.gz
 # Upstream would like to get the necessary changes merged into Hypercorn, but
 # explained clearly why the forked copy is needed for now.
 #
-# Note that dev-requirements.txt references the urllib3-changes branch of
-# https://github.com/urllib3/hypercorn/, and we should use the latest commit
-# from that branch, but we package using a commit hash for reproducibility.
+# Note that tool.uv.sources.hypercorn in pyproject.toml references the
+# urllib3-changes branch of https://github.com/urllib3/hypercorn/, and we
+# should use the latest commit from that branch, but we package using a commit
+# hash for reproducibility.
 #
 # We do not need to treat this as a bundled dependency because it is not
 # installed in the buildroot or otherwise included in any of the binary RPMs.
@@ -33,46 +34,10 @@ Source1:        %{hypercorn_url}/archive/%{hypercorn_commit}/hypercorn-%{hyperco
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
+# The conditional is important: we benefit from tomcli for editing dependency
+# groups, but we do not want it when bootstrapping or in RHEL.
 %if %{with tests}
-# Test dependencies are listed only in dev-requirements.txt. Because there are
-# linters and coverage tools mixed in, and exact versions are pinned, we resort
-# to manual listing.
-# h2==4.1.0: also in the h2 extra
-BuildRequires:  %{py3_dist h2}
-# coverage==7.6.4: omitted linter/coverage tool
-# PySocks==1.7.1
-BuildRequires:  %{py3_dist PySocks}
-# pytest==8.0.2
-BuildRequires:  %{py3_dist pytest}
-# pytest-timeout==2.1.0
-BuildRequires:  %{py3_dist pytest-timeout}
-# pyOpenSSL==24.2.1
-BuildRequires:  %{py3_dist pyOpenSSL}
-# idna==3.7
-BuildRequires:  %{py3_dist idna}
-# trustme==1.2.0
-BuildRequires:  %{py3_dist trustme}
-# cryptography==43.0.1
-BuildRequires:  %{py3_dist cryptography}
-# towncrier==23.6.0: used for generating a changelog
-# pytest-memray==1.5.0;python_version<"3.14" and sys_platform!="win32" and
-#     implementation_name=="cpython": not packaged, unwanted profiler
-# trio==0.26.2
-BuildRequires:  %{py3_dist trio}
-# # https://github.com/pallets/quart/pull/369
-# Quart @ git+https://github.com/pallets/quart@67110bf383d8973bce1619e957b4b6ea088ad9f2
-BuildRequires:  %{py3_dist Quart}
-# quart-trio==0.11.1
-BuildRequires:  %{py3_dist quart-trio}
-# # https://github.com/pgjones/hypercorn/issues/62
-# # https://github.com/pgjones/hypercorn/issues/168
-# # https://github.com/pgjones/hypercorn/issues/169
-# hypercorn @ git+https://github.com/urllib3/hypercorn@urllib3-changes
-# hypercorn is packaged, but we need the forked/bundled version
-# httpx==0.25.2
-BuildRequires:  %{py3_dist httpx}
-# pytest-socket==0.7.0: not packaged, not strictly required
+BuildRequires:  tomcli
 %endif
 
 %global _description %{expand:
@@ -138,12 +103,40 @@ Recommends:     python3-urllib3+socks
 recent_date=$(date --date "7 month ago" +"%Y, %_m, %_d")
 sed -i "s/^RECENT_DATE = datetime.date(.*)/RECENT_DATE = datetime.date($recent_date)/" src/urllib3/connection.py
 
+%if %{with tests}
+# Possible improvements to dependency groups
+# https://github.com/urllib3/urllib3/issues/3594
+# Adjust the contents of the "dev" dependency group by removing:
+remove_from_dev() {
+  tomcli set pyproject.toml lists delitem 'dependency-groups.dev' "($1)\b.*"
+}
+#   - Linters, coverage tools, profilers, etc.:
+#     https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+remove_from_dev 'coverage|pytest-memray'
+#   - Dependencies for maintainer tasks
+remove_from_dev 'build|towncrier'
+#   - Dependencies that are not packaged and not strictly required
+remove_from_dev 'pytest-socket'
+#   - Hypercorn, because we have a special forked version we must use for
+#     testing instead, so we do not want to generate a dependency on the system
+#     copy. Note that the system copy is still an indirect dependency via quart
+#     and quart-trio.
+remove_from_dev 'hypercorn'
+
+# Remove all version bounds for test dependencies. We must attempt to make do
+# with what we have. (This also removes any python version or platform
+# constraints, which is currently fine, but could theoretically cause trouble
+# in the future. We’ll cross that bridge if we ever arrive at it.)
+tomcli set pyproject.toml lists replace --type regex_search \
+    'dependency-groups.dev' '[>=]=.*' ''
+%endif
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 # Generate BR’s from packaged extras even when tests are disabled, to ensure
 # the extras metapackages are installable if the build succeeds.
-%pyproject_buildrequires %{?with_extradeps:-x brotli,zstd,socks,h2}
+%pyproject_buildrequires %{?with_extradeps:-x brotli,zstd,socks,h2} %{?with_tests:-g dev}
 
 
 %build

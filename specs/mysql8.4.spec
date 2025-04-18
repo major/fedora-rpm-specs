@@ -759,8 +759,8 @@ cp ../../mysql-test/%{skiplist} .
 
   export common_testsuite_arguments=" %{?with_debug:--debug-server} \
                                      --force --skip-combinations --report-unstable-tests --clean-vardir --nocheck-testcases \
-                                     --suite-timeout=900 --testcase-timeout=30 --port-base=$(( $(date +%s) % 20000 + 10000 )) \
-                                     --parallel=auto --retry=3 --max-test-fail=30 \
+                                     --suite-timeout=900 --testcase-timeout=5 --port-base=$(( $(date +%s) % 20000 + 10000 )) \
+                                     --max-save-core=1 --parallel=auto --retry=3 --max-test-fail=30 \
                                      --mysqld=--skip-innodb-use-native-aio "
 
   # If full testsuite has already been run on this version and we don't explicitly want the full testsuite to be run

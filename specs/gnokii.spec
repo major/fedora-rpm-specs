@@ -32,11 +32,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  ImageMagick
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 7)
 BuildRequires:  libpq-devel
-BuildRequires:  mariadb-connector-c-devel
 %else
 BuildRequires:  postgresql-devel
-BuildRequires:  mariadb-devel >= 5.5
 %endif
+BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  zlib-devel
 BuildRequires:  bluez-libs-devel

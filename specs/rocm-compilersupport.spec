@@ -5,11 +5,11 @@
 # mock, suse
 %global comgr_full_api_ver %{comgr_maj_api_ver}.8.0
 # Upstream tags are based on rocm releases:
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 18
+%global llvm_maj_ver 19
 %global upstreamname llvm-project
 
 %bcond_without bundled_llvm
@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        44.rocm%{rocm_version}%{?dist}
+Release:        1.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -75,12 +75,7 @@ Source1:        rocm-compilersupport.prep.in
 
 Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
 Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
-# https://github.com/llvm/llvm-project/issues/106521
-Patch5:         0001-Fix-build-with-GCC-14-on-ARM-78704.patch
-# Link comgr with static versions of llvm's libraries
-Patch6:         0001-comgr-link-with-static-llvm.patch
-# For gcc-15
-Patch7:         0001-gcc-15-cstdint-needs-to-include.patch
+Patch5:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
 Patch8:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 
 BuildRequires:  cmake
@@ -406,6 +401,7 @@ sed -i -e 's@sys::path::append(LLVMPath, "llvm");@//sys::path::append(LLVMPath, 
 # Fixup finding /opt/rocm/hip
 sed -i -e 's@sys::path::append(HIPPath, "hip");@//sys::path::append(HIPPath, "hip");@' amd/comgr/src/comgr-env.cpp
 
+%if %{without bundled_llvm}
 # Tests known to fail with upstream LLVM (as opposed to the bundled llvm):
 sed -i  -e "/add_isa_test(fract/d" \
         -e "/add_isa_test(frexp/d" \
@@ -414,6 +410,7 @@ sed -i -e "/add_comgr_test(compile_source_with_device_libs_to_bc_test/d" \
         -e "/add_comgr_test(name_expression_map_test/d" \
         -e "/add_comgr_test(nested_kernel_test/d" \
         amd/comgr/test/CMakeLists.txt
+%endif
 
 # Fix script shebang (Fedora doesn't allow using "env"):
 sed -i -e 's@env perl@perl@' amd/hipcc/bin/hipcc
@@ -447,6 +444,9 @@ sed -i -f h.sed amd/hipcc/src/hipBin_amd.h
 sed -i 's|@AMD_DEVICE_LIBS_PREFIX_CODE@|set(AMD_DEVICE_LIBS_PREFIX "%{_prefix}/%{amd_device_libs_prefix}")|' amd/device-libs/AMDDeviceLibsConfig.cmake.in
 
 %else
+
+#Force static linking of libclang in comgr
+sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
 
 install -pm 755 %{SOURCE1} prep.sh
 sed -i -e 's@%%{_prefix}@%{_prefix}@' prep.sh
@@ -523,7 +523,7 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
     JOBS=$LINK_JOBS
 fi
 
-%global llvm_projects "llvm;clang;clang-tools-extra;lld"
+%global llvm_projects "clang;clang-tools-extra;lld"
 %global llvm_runtimes "compiler-rt;libcxx;libcxxabi"
 
 p=$PWD
@@ -540,7 +540,7 @@ p=$PWD
  -DCMAKE_BUILD_TYPE=%{build_type} \\\
  -DCMAKE_INSTALL_DO_STRIP=ON \\\
  -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \\\
- -DCOMPILER_RT_BUILD_BUILTINS=ON \\\
+-DCOMPILER_RT_BUILD_CTX_PROFILE=OFF \\\
  -DCOMPILER_RT_BUILD_GWP_ASAN=OFF \\\
  -DCOMPILER_RT_BUILD_LIBFUZZER=OFF \\\
  -DCOMPILER_RT_BUILD_MEMPROF=OFF \\\
@@ -772,8 +772,8 @@ popd
 
 %endif
 
-%if %{without bundled_llvm}
 %check
+%if %{without bundled_llvm}
 pushd amd/device-libs
 # Workaround for bug in cmake tests not finding amdgcn:
 ln -s %{amd_device_libs_prefix}/amdgcn %__cmake_builddir/amdgcn
@@ -794,7 +794,20 @@ ln -s %{_bindir}/clang++-%{llvm_maj_ver} $ROCM_PATH/bin
 touch $ROCM_PATH/bin/rocm_agent_enumerator
 chmod a+x $ROCM_PATH/bin/rocm_agent_enumerator
 amd/hipcc/%__cmake_builddir/hipcc -c t.hip
+%else
 
+%if 0%{?suse_version}
+%define __sourcedir amd/device-libs
+%define __builddir build-devicelibs
+%else
+%define _vpath_srcdir amd/device-libs
+%define _vpath_builddir build-devicelibs
+%endif
+pushd .
+# Workaround for bug in cmake tests not finding amdgcn:
+ln -s %{amd_device_libs_prefix}/amdgcn build-devicelibs/amdgcn
+%ctest
+popd
 %endif
 
 %install
@@ -1109,12 +1122,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/llc
 %{bundle_prefix}/bin/lli
 %{bundle_prefix}/bin/amdgpu-arch
-%{bundle_prefix}/bin/amdgpu-offload-arch
 %{bundle_prefix}/bin/dsymutil
 %{bundle_prefix}/bin/llvm*
-%{bundle_prefix}/bin/nvidia-arch
 %{bundle_prefix}/bin/opt
-%{bundle_prefix}/bin/offload-arch
+%{bundle_prefix}/bin/reduce-chunk-list
 %{bundle_prefix}/bin/sancov
 %{bundle_prefix}/bin/sanstats
 %{bundle_prefix}/bin/verify-uselistorder
@@ -1125,7 +1136,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/include/llvm/*
 %{bundle_prefix}/include/llvm-c/*
 %{bundle_prefix}/lib/cmake/llvm/*
-%{bundle_prefix}/lib/libLLVM.so
+%{bundle_prefix}/lib/libLLVM.so*
 %{bundle_prefix}/lib/libLTO.so
 %{bundle_prefix}/lib/libRemarks.so
 %{bundle_prefix}/lib/LLVMgold.so
@@ -1156,6 +1167,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/nvptx-arch
 %{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
+%{bundle_prefix}/share/clang-doc
 
 %files -n rocm-clang-devel
 %license clang/LICENSE.TXT
@@ -1187,6 +1199,8 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %license libcxx/LICENSE.TXT
 %{bundle_prefix}/lib/libc++.so.*
 %{bundle_prefix}/lib/libc++abi.so.*
+%{bundle_prefix}/lib/libc++.modules.json
+%{bundle_prefix}/share/libc++
 
 %if 0%{?suse_version}
 %post -n rocm-libc++ -p /sbin/ldconfig
@@ -1206,6 +1220,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 19-1.rocm6.4.0
+- Update to 6.4.0
+
 * Tue Apr 08 2025 Dennis Gilmore <dennis@ausil.us> - 18-44.rocm6.3.2
 - enable alt_arch in rawhide same as Fedora 42
 

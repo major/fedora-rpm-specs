@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.14
+Version: 43.15
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -80,9 +80,6 @@ Requires: anaconda-tui = %{version}-%{release}
 The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
-# Since the binaries in anaconda-core are shell or Python scripts,
-# there's no need to generate a debuginfo package
-%define debug_package %{nil}
 Summary: Core of the Anaconda installer
 # core/signal.py is under MIT
 License: GPL-2.0-or-later AND MIT
@@ -176,7 +173,7 @@ system.
 
 %package live
 Summary: Live installation specific files and dependencies
-BuildArchitectures: noarch
+BuildArch: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
@@ -505,6 +502,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 15 2025 Packit <hello@packit.dev> - 43.15-1
+- edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
+- edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)
+- spec: Properly strip objects and fix generation of debuginfo packages
+  (decathorpe)
+- Change localed layouts_variants to method (jkonecny)
+- Remove temporary isFinal getter and DBUS API (adamkankovsky)
+- Add test for product DBUS API (adamkankovsky)
+- New getter for product in Runtime module (adamkankovsky)
+- security: transfer certificates from intiramfs to root in dracut (rvykydal)
+- security: handle exception on early anaconda certificate import (rvykydal)
+- Fix race condition when reading localed layouts (jkonecny)
+- storage: Fix EFI partition detection for other OSes (Windows, MacOS)
+  (rvykydal)
+
 * Tue Apr 08 2025 Packit <hello@packit.dev> - 43.14-1
 - Update to version 43.14
 

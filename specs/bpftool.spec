@@ -1,6 +1,6 @@
 Name:           bpftool
 Version:        7.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -37,16 +37,18 @@ manipulation of eBPF programs and maps.
 %install
 %make_install -C src/ prefix=%{_prefix} bash_compdir=%{bash_completions_dir} mandir=%{_mandir} doc-install
 
+# bpftool Makefile hardcodes installation to %%{_prefix}/sbin
+mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
+
 %files
-# bpftool Makefile hard-codes installation to {_prefix}/sbin but {_sbindir} now
-# resolves to /usr/bin so we need to explicitly use {_prefix}/sbin here.
-# In the end, /usr/sbin is a symlink to /usr/bin.
-# Details: https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
-%{_prefix}/sbin/bpftool
+%{_bindir}/bpftool
 %{bash_completions_dir}/bpftool
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Wed Apr 16 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 7.5.0-3
+- Move the binary to /usr/bin/
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        62
+Version:        65
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,55 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Apr 16 2025 Packit <hello@packit.dev> - 65-1
+Changes with 65
+----------------
+  * .github: new stage user on each playwright run (HMS-5956) (#3098)
+    * Author: Sanne Raymaekers, Reviewers: Tomáš Koscielniak
+  * Fedora-services: add support for fedora env (#2984)
+    * Author: Amir Fefer, Reviewers: Klara Simickova
+  * ImagesTable: Fix AWS regions indicator (off by one) (#3094)
+    * Author: Simon Steinbeiß, Reviewers: Klara Simickova
+  * Playwright: Add customizations test template and refactor (HMS-5942) (#3050)
+    * Author: Tomáš Koscielniak, Reviewers: Nobody
+  * Promote WSL to production stable (HMS-5950) (#3092)
+    * Author: Simon Steinbeiß, Reviewers: Klara Simickova
+  * Satellite registration followup (#3072)
+    * Author: Anna Vítová, Reviewers: Klara Simickova
+  * Update Konflux references (#3100)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * Wizard: Replace deprecated select in OpenSCAP step (HMS-5671) (#3059)
+    * Author: Klara Simickova, Reviewers: Katarína Sieklová
+  * Wizard: Switch from deprecated select in `ActivationKeys` (HMS-5620) (#2970)
+    * Author: Klara Simickova, Reviewers: Katarína Sieklová
+  * Wizard: Update microcopy on Locale step (HMS-5656) (#3064)
+    * Author: Klara Simickova, Reviewers: Katarína Sieklová
+  * Wizard: add segment tracking to buttons in wizard footer (HMS-5977) (#3104)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * Wizard: make optional steps clickable on prem (HMS-5852) (#3066)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova, Tomáš Koscielniak
+  * build(deps): bump @babel/runtime from 7.26.0 to 7.27.0 (#3102)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 3.2.2 to 3.3.1 (#3113)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @unleash/proxy-client-react from 4.5.2 to 5.0.0 (#3070)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @currents/playwright from 1.11.4 to 1.12.0 (#3077)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.29.0 to 8.29.1 (#3091)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.29.1 to 8.30.1 (#3105)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump jsdom from 26.0.0 to 26.1.0 (#3101)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump typescript from 5.8.2 to 5.8.3 (#3085)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * devDeps: Bump vitest deps (HMS-5928) (#3074)
+    * Author: Klara Simickova, Reviewers: Lucas Garfield
+
+— Somewhere on the Internet, 2025-04-16
+
 
 * Wed Mar 5 2025 Packit <hello@packit.dev> - 62-1
 Changes with 62

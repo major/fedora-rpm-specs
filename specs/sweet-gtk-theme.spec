@@ -3,23 +3,23 @@ Summary: Light and dark, colorful GTK+ theme
 License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20241125
-%global git_commit_master cbd177b0a5adcbfb0d1b5eb9f1975e36e6180f45
+%global git_date_master 20250410
+%global git_commit_master 7d80a1646e93ede3752fc53138909204cb98b882
 
-%global git_date_ambar 20241125
-%global git_commit_ambar fdb6236d65964201efc3dec4596bb0e3925182ba
+%global git_date_ambar 20250410
+%global git_commit_ambar 4a58228599fe308b04917f23acb1b64988c66147
 
-%global git_date_ambar_blue 20241125
-%global git_commit_ambar_blue c835714f7e76030b6b65e48427f5b0d3bb01fba8
+%global git_date_ambar_blue 20250410
+%global git_commit_ambar_blue 47b3a449ac3391331d6ac388fb5189cdcb5db6e7
 
-%global git_date_ambar_blue_dark 20241125
-%global git_commit_ambar_blue_dark 3a04dd8777f5effc2fc19c46aa989a41ad929830
+%global git_date_ambar_blue_dark 20250410
+%global git_commit_ambar_blue_dark 53925c7a93f87ce5109b97b38ccdb8fd747884cc
 
-%global git_date_mars 20241125
-%global git_commit_mars 80c543abdd25bc56b67a0ec66bae8534140bb3be
+%global git_date_mars 20250410
+%global git_commit_mars 5a07711edb2e3ed1a7e69531dfdb03593fbfc842
 
-%global git_date_nova 20241125
-%global git_commit_nova 68c589c69cfc3a465a67b6cf28aa9b29f7dab826
+%global git_date_nova 20250410
+%global git_commit_nova b5472df36006f47ec6f20c92705e01155a777fa7
 
 %global git_date %( \
 	( \
@@ -31,8 +31,8 @@ URL: https://www.gnome-look.org/p/1253385/
 		echo '%{git_date_nova}'; \
 	) | sort -rn | head -n1)
 
-Version: 5.0^%{git_date}
-Release: 2%{?dist}
+Version: 6.0^%{git_date}
+Release: 1%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -141,6 +141,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Wed Apr 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20250410-1
+- Update to v6.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0^20241125-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

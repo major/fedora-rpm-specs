@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -297,7 +297,6 @@ BuildRequires: sane-backends-devel
 BuildRequires: systemd
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
-Recommends: (%{name}-gui%{?_isa} = %{version}-%{release} if qt5-qtbase-gui%{?_isa})
 Suggests: hplip-gui
 %endif
 # uses avahi-browse for discovering IPP-over-USB printers
@@ -976,6 +975,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Wed Apr 16 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-2
+- remove Recommends on hplip-gui due complaint at (fedora#2360020)
+
 * Fri Apr 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-1
 - hplip-3.25.2 is available (fedora#2353147)
 

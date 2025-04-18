@@ -15,7 +15,7 @@
 The fastest markdown parser in pure Python, inspired by marked.}
 
 Name:           python-mistune
-Version:        3.0.2
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Markdown parser for Python
 
@@ -56,15 +56,12 @@ This is the documentation package for %{name}.
 %autosetup -p1 -n %{srcname}-%{version}
 
 # replace shibuya theme which is not available in Fedora with sphinx read the docs theme
-sed -i "s/html_theme = 'shibuya'/html_theme = 'sphinx_rtd_theme'/" docs/conf.py
-sed -i "s/shibuya/sphinx-rtd-theme/" docs/requirements.txt
-# unpin versions to allow newer versions available in Fedora
-sed -i "s/sphinx==6.2.1/sphinx>=6.2.1/" docs/requirements.txt
-sed -i "s/sphinx-design==0.4.1/sphinx-design<0.7.0/" docs/requirements.txt
+sed -i 's/html_theme = "shibuya"/html_theme = "sphinx_rtd_theme"/' docs/conf.py
+sed -i "s/shibuya/sphinx-rtd-theme/" pyproject.toml
 
 %generate_buildrequires
 %if %{with doc}
-%pyproject_buildrequires docs/requirements.txt
+%pyproject_buildrequires -g docs
 %else
 %pyproject_buildrequires
 %endif

@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.14.1
+Version:          1.15.2
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -10,7 +10,7 @@ Source0:          %{pypi_source alembic}
 
 # Specific to Fedora: The tzdata Python package is essentially just a copy of
 # the main tzdata package, we don’t need to have it.
-Patch:            python-alembic-1.14.1-no-tzdata-pkg.patch
+Patch:            python-alembic-1.15.2-no-tzdata-pkg.patch
 
 BuildArch:        noarch
 

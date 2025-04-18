@@ -33,7 +33,6 @@ License:        MIT
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 %if %{with qt5}
-BuildRequires:  kf5-rpm-macros
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt5Widgets)
@@ -42,7 +41,6 @@ BuildRequires:  cmake(Qt5DocTools)
 %endif
 %endif
 %if %{with qt6}
-BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Widgets)
@@ -67,14 +65,16 @@ written by KDAB.}
 %if %{with qt5}
 %global _vpath_builddir build-qt5
 # qhelpgenerator needs to be in $PATH to be detected
-PATH=%{_qt5_libexecdir}":$PATH" %cmake_kf5 %cmake_args
+PATH=%{_qt5_libexecdir}":$PATH" %cmake %cmake_args \
+    -DECM_MKSPECS_INSTALL_DIR:PATH=%{_qt5_archdatadir}/mkspecs/modules
 %cmake_build
 %endif
 
 %if %{with qt6}
 %global _vpath_builddir build-qt6
 # qhelpgenerator needs to be in $PATH to be detected
-PATH=%{_qt6_libexecdir}":$PATH" %cmake_kf6 %cmake_args -DKDSingleApplication_QT6=true
+PATH=%{_qt6_libexecdir}":$PATH" %cmake %cmake_args -DKDSingleApplication_QT6=true \
+    -DECM_MKSPECS_INSTALL_DIR:PATH=%{_qt6_archdatadir}/mkspecs/modules
 %cmake_build
 %endif
 

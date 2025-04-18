@@ -5,7 +5,7 @@
 
 Name:		mingw-libsoup
 Version:	2.74.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -38,6 +38,12 @@ Patch7:         CVE-2025-32907.patch
 # Backport fix for CVE-2025-32909
 # https://gitlab.gnome.org/GNOME/libsoup/-/commit/ba4c3a6f988beff59e45801ab36067293d24ce92
 Patch8:         CVE-2025-32909.patch
+# Backport fix for CVE-2025-32910
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/ea16eeacb052e423eb5c3b0b705e5eab34b13832
+Patch9:         CVE-2025-32910.patch
+# Backport fix for CVE-2025-32911 + CVE-2025-32913
+# https://gitlab.gnome.org/GNOME/libsoup/-/commit/f4a761fb66512fff59798765e8ac5b9e57dceef0
+Patch10:         CVE-2025-32911.patch
 
 
 BuildArch:      noarch
@@ -174,6 +180,9 @@ rm -f %{buildroot}%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/libsoup-gnome-2.4.pc
 
 %changelog
+* Wed Apr 16 2025 Sandro Mani <manisandro@gmail.com> - 2.74.3-11
+- Backport fixes for CVE-2025-32910, CVE-2025-32911, CVE-2025-32913
+
 * Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 2.74.3-10
 - Backport fixes for CVE-2025-32050 CVE-2025-32052 CVE-2025-32053 CVE-2025-32906
   CVE-2025-32907 CVE-2025-32909

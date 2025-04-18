@@ -193,11 +193,6 @@ cd -
 chrpath -d %{buildroot}%{python3_sitearch}/cvc5/*.so
 
 %check
-# Build the tests
-cd %{_vpath_builddir}/test/api
-make
-cd -
-
 # Increase the test timeout for slow builders
 export TEST_TIMEOUT=2000
 
@@ -205,6 +200,7 @@ export TEST_TIMEOUT=2000
 cp -p %{_vpath_builddir}/src/api/python/build/lib.*/cvc5/cvc5_python_base.*.so \
       %{_vpath_builddir}/src/api/python/cvc5
 
+%cmake_build -t build-tests
 %ctest
 
 %files

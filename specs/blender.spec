@@ -1,44 +1,45 @@
 %global blender_api 4.4
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
+%global _without_bundled_deps 1
 
-%bcond clang	0
-%bcond draco	1
-# Needed to enable osl support for cycles rendering
-%bcond llvm	1
-%bcond manpage  1
-%bcond materialx 0
-%bcond ninja	1
-%bcond openshading	1
-%bcond openvdb  1
-%bcond sdl	0
-%bcond system_eigen3	1
-%bcond vulkan 1
+# Build conditionals
+%bcond clang      0   # Use Clang compiler
+%bcond draco      1   # Draco mesh compression support
+%bcond llvm       1   # Required for OSL support
+%bcond manpage    1   # Generate manpage
+%bcond materialx  0   # MaterialX support
+%bcond nanovdb    1   # NanoVDB support
+%bcond ninja      1   # Use Ninja build system
+%bcond openshading 1  # OpenShadingLanguage support
+%bcond openvdb    1   # OpenVDB support
+%bcond sdl        0   # SDL backend
+%bcond system_eigen3 1 # Use system Eigen3
+%bcond vulkan     1   # Vulkan rendering support
 
+# Architecture-specific features
 %ifarch x86_64 aarch64 ppc64le
 %global cyclesflag ON
-# Only available on x86_64 and aarch64
-%ifarch x86_64 aarch64
-%bcond embree	1
-%bcond hidapi	1
-%ifarch x86_64
-%bcond hip	1
-# Ray tracing acceleration for AMD hardware
-# hiprt-devel for Fedora 42 is missing some headers
-%if 0%{?fedora} >= 43
-%bcond hiprt	1
-%endif
-%bcond oidn	1
-%bcond oneapi   0
-%bcond opgl	1
-%global llvm_compat 18
-%endif
-%bcond usd	1
+    # x86_64/aarch64 specific features
+    %ifarch x86_64 aarch64
+    %bcond embree 1   # Intel Embree ray tracing
+    %bcond hidapi 1   # HIDAPI support
+    
+    # x86_64 exclusive features
+    %ifarch x86_64
+    %bcond hip   1    # AMD HIP support
+    %bcond hiprt 1    # HIP ray tracing (requires Fedora 43+)
+    %bcond oidn  1    # OpenImageDenoise
+    %bcond oneapi 0   # Intel OneAPI support
+    %bcond opgl  1    # OpenPGL
+    %global llvm_compat 18
+    %endif
+    %bcond usd   1    # Universal Scene Description
 %else
-%bcond embree	0
-%bcond hidapi	0
-%bcond oidn	0
-%bcond opgl	0
-%bcond usd	0
+    %bcond embree 0
+    %bcond hidapi 0
+    %bcond oidn  0
+    %bcond opgl  0
+    %bcond usd   0
 %endif
 %else
 %global cyclesflag OFF
@@ -46,7 +47,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.4.0
+Version:        4.4.1
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -66,22 +67,12 @@ License:	%{shrink:
 URL:            https://www.blender.org
 
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
-
-# Rename macros extension to avoid clashing with upstream version
+# Custom RPM macros
 Source1:        %{name}-macros-source
-#  Fix #136860: Build failure on big endian platforms
-#  https://projects.blender.org/blender/blender/pulls/136864
-Patch:		%{name}-Fix-Build-failure-on-big-endian-platforms.patch
 
-# Development stuff
+# Build requirements
 BuildRequires:  boost-devel
 BuildRequires:  ccache
-%if %{with clang}
-BuildRequires:  clang%{?llvm_compat}-devel
-%endif
-%if %{with llvm}
-BuildRequires:  llvm%{?llvm_compat}-devel
-%endif
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -89,9 +80,20 @@ BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  libharu-devel
 BuildRequires:  libtool
+BuildRequires:  subversion-devel
+
+# Conditional build deps
+%if %{with clang}
+BuildRequires:  clang%{?llvm_compat}-devel
+%endif
+%if %{with llvm}
+BuildRequires:  llvm%{?llvm_compat}-devel
+%endif
 %if %{with ninja}
 BuildRequires:  ninja-build
 %endif
+
+# System libraries
 BuildRequires:  pkgconfig(blosc)
 %if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
@@ -256,11 +258,14 @@ BuildRequires:  cmake(Alembic)
 BuildRequires:  ffmpeg-free-devel >= 5.1.2
 BuildRequires:  lame-devel
 BuildRequires:  libspnav-devel
+%if %{with nanovdb}
+BuildRequires:  openvdb-nanovdb-devel
+%endif
 %if %{with openvdb}
 BuildRequires:  openvdb-devel
 %endif
 BuildRequires:  pkgconfig(libavdevice)
-BuildRequires:	pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
@@ -328,31 +333,24 @@ ExcludeArch:	%{ix86} %{arm}
 Blender is the essential software solution you need for 3D, from modeling,
 animation, rendering and post-production to interactive creation and playback.
 
-Professionals and novices can easily and inexpensively publish stand-alone,
-secure, multi-platform content to the web, CD-ROMs, and other media.
-
 %package rpm-macros
-Summary:        RPM macros to build third-party blender addons packages
+Summary:        RPM macros for third-party blender addons
 BuildArch:      noarch
 
 %description rpm-macros
-This package provides rpm macros to support the creation of third-party addon
-packages to extend Blender.
+Provides RPM macros for creating third-party addon packages for Blender.
 
 %prep
 %autosetup -p1
 
-# Delete the bundled FindOpenJPEG to make find_package use the system version
-# instead (the local version hardcodes the openjpeg version so it is not update
-# proof)
+# System integration fixes
 rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
-
-# Fix all Python shebangs recursively in .
 %py3_shebang_fix .
-
-# Work around CMake boost module needing the python version to find the library
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     build_files/cmake/platform/platform_unix.cmake
+# Fix proper detection of numpy path
+# https://projects.blender.org/blender/blender/issues/137635    
+sed -i "s|core/include|_core/include|" CMakeLists.txt
 
 %build
 %if %{with hip}
@@ -368,55 +366,32 @@ export PATH=${PATH}:${HIP_CLANG_PATH}
 %if %{with ninja}
     -G Ninja \
 %endif
-    -D_ffmpeg_INCLUDE_DIR=$(pkg-config --variable=includedir libavformat) \
-%if %{with materialx}
-    -DMATERIALX_STDLIB_DIR=%{_datadir}/materialx \
-%endif
-%if %{with openshading}
-    -D_osl_LIBRARIES=%{_libdir} \
-    -DOSL_INCLUDE_DIR=%{_includedir} \
-    -DOSL_COMPILER=%{_bindir}/oslc \
-%endif
-    -DBOOST_ROOT=%{_prefix} \
     -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS="%{optflags} -Wl,--as-needed" \
-    -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_SKIP_RPATH=ON \
-    -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
 %ifnarch x86_64
     -DWITH_CYCLES_EMBREE=OFF \
 %endif
-%if %{with manpage} 
-    -DWITH_DOC_MANPAGE=ON \
-%endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
-%if %{with sdl}
-    -DWITH_GHOST_SDL=ON \
-%endif
-%if %{with system_eigen3}
-    -DWITH_SYSTEM_EIGEN3=ON \
-%endif
-%if %{with usd}
-    -DUSD_LIBRARY=%{_libdir}/libusd_ms.so \
-%else
-    -DWITH_USD=OFF \
-%endif
+    %{?with_manpage:-DWITH_DOC_MANPAGE=ON } \
+    %{?with_materialx:-DMATERIALX_STDLIB_DIR=%{_datadir}/materialx} \
+    %{!?with_materialx:-DWITH_MATERIALX=OFF} \
+    %{?with_openshading:-DOSL_COMPILER=%{_bindir}/oslc} \
+    %{?with_usd:-DUSD_LIBRARY=%{_libdir}/libusd_ms.so} \
+    %{!?with_usd:-DWITH_USD=OFF} \
+    -D_ffmpeg_INCLUDE_DIR=$(pkg-config --variable=includedir libavformat) \
+    -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
 %if %{with hip}
     -DHIP_HIPCC_EXECUTABLE=%{_bindir}/hipcc \
-%if %{with hiprt}
-    -DWITH_CYCLES_DEVICE_HIPRT=ON \
-%endif
     -DWITH_CYCLES_HIP_BINARIES=ON \
+    %{?with_hiprt:-DWITH_CYCLES_DEVICE_HIPRT=ON} \
 %endif
-%if %{with oneapi}
-    -DWITH_CYCLES_DEVICE_ONEAPI=ON \
-%endif
+    %{?with_oneapi:-DWITH_CYCLES_DEVICE_ONEAPI=ON} \
     -DWITH_OPENCOLLADA=OFF \
     -DWITH_LIBS_PRECOMPILED=OFF \
     -W no-dev
@@ -437,10 +412,8 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %{python3} doc/manpage/blender.1.py \
     --output '%{buildroot}%{_mandir}/man1/blender.1'
 %endif
 
-# Install fallback binary
+# Additional installs
 install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-softwaregl
-
-# rpm macros
 mkdir -p %{buildroot}%{macrosdir}
 install -pm 644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
 sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
@@ -449,13 +422,9 @@ sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
           %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
-# Localization
+# Localization and cleanup
 %find_lang %{name}
-
-# rpmlint fixes
 find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec chmod 755 {} \;
-
-# Deal with docs in the files section
 rm -rf %{buildroot}%{_docdir}/%{name}/*
 
 %check
@@ -463,18 +432,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
 %files -f %{name}.lang
-%license COPYING
-%license doc/license/*-license.txt
-%license release/text/copyright.txt
+%license COPYING doc/license/*-license.txt release/text/copyright.txt
 %doc release/text/readme.html
 %{_bindir}/%{name}{,-softwaregl,-thumbnailer}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/%{blender_api}/
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
-%if %{with manpage}
-%{_mandir}/man1/%{name}.*
-%endif
 %{_metainfodir}/org.%{name}.Blender.metainfo.xml
+%{?with_manpage:%{_mandir}/man1/%{name}.*}
 
 %files rpm-macros
 %{macrosdir}/macros.%{name}

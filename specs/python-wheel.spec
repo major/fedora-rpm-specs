@@ -26,6 +26,13 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 # This is used in bootstrap mode where we manually install the wheel and
 # entrypoints
 Source1:        wheel-entrypoint
+# Compatibility with the setuptools 75+
+# https://github.com/pypa/wheel/issues/650
+Patch:          https://github.com/pypa/wheel/commit/3028d3.patch
+# Compatibility with the setuptools 78+ (PEP 639)
+# Upstream has removed this code entirely instead
+# https://github.com/pypa/wheel/pull/655
+Patch:          adjusts-tests-for-setuptools-78.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

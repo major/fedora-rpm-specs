@@ -1,7 +1,7 @@
-%global commit  9128d259c68a7bd3ac450b277f5d5907859229ab
+%global commit  727368976518ce70d941d535ef334245ecbe1c9d
 
 Name:           g4music
-Version:        4.3.1
+Version:        4.4
 Release:        %autorelease
 Summary:        Fast fluent lightweight music player written in GTK4
 
@@ -29,6 +29,10 @@ BuildRequires:  vala
 
 Requires:       dbus-common
 Requires:       hicolor-icon-theme
+
+# Provide the new name
+Provides:       gapless = %{version}-%{release}
+Provides:       gapless%{?_isa} = %{version}-%{release}
 
 %description
 G4Music is a fast fluent lightweight music player written in GTK4, with

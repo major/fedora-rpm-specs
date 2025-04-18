@@ -1,8 +1,8 @@
-%global cpan_version 0.997021
+%global cpan_version 0.997023
 
 Name:           perl-App-cpm
-Version:        0.997.021
-Release:        2%{?dist}
+Version:        0.997.023
+Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
@@ -33,6 +33,7 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(CPAN::Meta::Requirements)
 # BuildRequires:  perl(CPAN::Meta::YAML)
 # BuildRequires:  perl(Cwd)
+# BuildRequires:  perl(Darwin::InitObjC)
 # BuildRequires:  perl(Digest::MD5)
 # BuildRequires:  perl(Exporter)
 # BuildRequires:  perl(ExtUtils::Install) >= 2.20
@@ -78,7 +79,6 @@ Requires:       perl(ExtUtils::InstallPaths) >= 0.002
 Requires:       perl(File::HomeDir)
 Requires:       perl(HTTP::Tinyish) >= 0.12
 Requires:       perl(JSON::PP) >= 2.27300
-Requires:       perl(local::lib)
 Requires:       perl(Menlo::CLI::Compat) >= 1.9021
 Requires:       perl(Module::CoreList)
 Requires:       perl(Module::cpmfile) >= 0.001
@@ -156,6 +156,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.997.023-1
+- 0.997023 bump (rhbz#2357610)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.997.021-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

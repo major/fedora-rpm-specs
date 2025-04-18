@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.03.01
+%global srcver	2025.04.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -1204,6 +1204,9 @@ done
 
 
 %changelog
+* Wed Apr 16 2025 Akira TAGOH <tagoh@redhat.com> - 20250401-1
+- Updates to monthly release of 2025.04.01.
+
 * Tue Mar  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250301-1
 - Updates to monthly release of 2025.03.01.
 - Add back google-noto-sans-thai-looped-vf-fonts.

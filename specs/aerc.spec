@@ -9,7 +9,7 @@
 %global goipath         git.sr.ht/~rjarry/aerc
 %global version0        0.20.1
 
-%gometa -L
+%gometa -L -f
 
 %global common_description %{expand:
 Aerc is an email client that runs in your terminal. It is highly

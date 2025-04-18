@@ -1,10 +1,12 @@
 Name:    libcamera-apps
 Version: 1.5.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/libcamera-apps
 Source0: https://github.com/raspberrypi/libcamera-apps/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Patch1: 0001-remove-aelocked.patch
 
 ExcludeArch:   %{power64} s390x
 BuildRequires: meson
@@ -52,7 +54,8 @@ sed -i 's/qt5/qt6/' preview/meson.build
     -Denable_egl=enabled \
     -Denable_qt=enabled \
     -Denable_libav=enabled \
-    -Denable_hailo=disabled
+    -Denable_hailo=disabled \
+    -Dwerror=false
 
 %meson_build
 
@@ -76,6 +79,12 @@ sed -i 's/qt5/qt6/' preview/meson.build
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Thu Apr 10 2025 Milan Zamazal <mzamazal@redhat.com> - 1.5.0-7
+- Rebuilt for libcamera 0.5.0
+- -Werror disabled to prevent build failure
+  (see https://github.com/raspberrypi/rpicam-apps/issues/797)
+- aelock reporting removed as the control is no longer present in libcamera 0.5.0.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

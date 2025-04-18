@@ -16,8 +16,6 @@
 %bcond_without ndb
 # build with sqlite support?
 %bcond_without sqlite
-# build with bdb_ro support?
-%bcond_without bdb_ro
 
 # https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 %bcond merged_sbin 1
@@ -26,7 +24,7 @@
 
 %global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -362,7 +360,7 @@ cd _build
 cmake \
       -DCMAKE_INSTALL_PREFIX=%{_usr} \
       -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=%{_var}/lib \
-      %{?with_bdb_ro:-DENABLE_BDB_RO=ON} \
+      -DENABLE_BDB_RO=ON \
       %{!?with_ndb:-DENABLE_NDB=OFF} \
       %{!?with_sqlite:-DENABLE_SQLITE=OFF} \
       %{!?with_plugins:-DENABLE_PLUGINS=OFF} \
@@ -622,6 +620,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Apr 16 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-2
+- Drop pointless build conditional on bdb_ro, it doesn't have external deps
+
 * Mon Apr 14 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-1
 - Rebase to 6.0 alpha (https://fedoraproject.org/wiki/Changes/RPM-6.0)
 - Disable enforcing signature checking initially (ie back to rpm 4.x level)

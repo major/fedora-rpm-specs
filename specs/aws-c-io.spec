@@ -3,17 +3,15 @@ IO package for AWS SDK for C. It handles all IO and TLS work
 for application protocols.}
 
 Name:           aws-c-io
-Version:        0.15.3
-Release:        3%{?dist}
+Version:        0.18.1
+Release:        1%{?dist}
 Summary:        IO package for AWS SDK for C
 
 License:        Apache-2.0
 URL:            https://github.com/awslabs/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Install cmake files in 'libdir/cmake/aws-c-io' rather than 'libdir/aws-c-io/cmake'
-Patch0:         aws-c-io-cmake.patch
 # All tests disabled that require internet connectivity
-Patch1:         0001-disable-tests-that-require-internet-connectivity.patch
+Patch:          0001-disable-tests-that-require-internet-connectivity.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -25,8 +23,7 @@ BuildRequires:  s2n-tls-devel
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 # Dependencies like aws-c-common don't support and build on s390x
-# Upstream issue: https://github.com/awslabs/aws-c-common/issues/1111
-# Fedora bugzilla ticket to be created after package review
+# https://bugzilla.redhat.com/show_bug.cgi?id=2360175
 ExcludeArch: s390x
 
 %description %{_description}
@@ -74,6 +71,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 16 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.18.1-2
+- Remove Patch 'aws-c-io-cmake.patch', not needed anymore, included upstream
+- Patch '0001-disable-tests-that-require-internet-connectivity.patch' updated to work with new release
+
+* Wed Apr 09 2025 Packit <hello@packit.dev> - 0.18.1-1
+- Update to version 0.18.1
+- Resolves: rhbz#2342720
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

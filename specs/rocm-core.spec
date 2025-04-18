@@ -8,8 +8,8 @@
 %endif
 
 %global upstreamname rocm-core
-%global rocm_release 6.3
-%global rocm_patch 3
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           %{core_name}
@@ -76,6 +76,9 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{_libdir}/cmake/rocm-core/*.cmake
 
 %changelog
+* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+
 * Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
 - Update to 6.3.3
 
