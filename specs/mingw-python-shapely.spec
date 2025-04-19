@@ -6,7 +6,7 @@
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.0.7
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -94,6 +94,9 @@ export NO_GEOS_CONFIG=1
 
 
 %changelog
+* Thu Apr 17 2025 Sandro Mani <manisandro@gmail.com> - 2.0.7-2
+- Rebuild (numpy)
+
 * Sun Feb 02 2025 Sandro Mani <manisandro@gmail.com> - 2.0.7-1
 - Update to 2.0.7
 

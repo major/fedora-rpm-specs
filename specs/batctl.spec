@@ -1,11 +1,14 @@
 Name:           batctl
-Version:        2024.4
+Version:        2025.1
 Release:        1%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPL-2.0-only AND MIT AND ISC
 URL:            http://www.open-mesh.org/
 Source0:        http://downloads.open-mesh.org/batman/stable/sources/batctl/%{name}-%{version}.tar.gz
+Source1:        http://downloads.open-mesh.org/batman/stable/sources/batctl/%{name}-%{version}.tar.gz.asc
+# Signing key of Simon Wunderlich <sw@simonwunderlich.de>
+Source100:      https://keys.openpgp.org/pks/lookup?op=get&options=mr&search=0x2DE9541A85CC87D5D9836D5E0C8A47A2ABD72DF9#/sw.asc
 
 # Require the batman-adv kernel module for convenience here
 # It's not available on EL so make this conditional
@@ -14,6 +17,7 @@ Source0:        http://downloads.open-mesh.org/batman/stable/sources/batctl/%{na
 Requires:       kmod(batman-adv.ko)
 %endif
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  libnl3-devel
 
@@ -33,6 +37,8 @@ to layer 2 behavior or using the B.A.T.M.A.N. advanced protocol.
 
 
 %prep
+cat %{S:100} > %{_builddir}/%{name}.gpg
+%{gpgverify} --keyring="%{_builddir}/%{name}.gpg" --signature="%{SOURCE1}" --data="%{SOURCE0}"
 %setup -q
 
 
@@ -51,6 +57,10 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Thu Apr 17 2025 Felix Kaechele <felix@kaechele.ca> - 2025.1-1
+- update to 2025.1
+- use gpgverify to verify sources against maintainer's key
+
 * Thu Jan 23 2025 Felix Kaechele <felix@kaechele.ca> - 2024.4-1
 - update to 2024.4
 - explicitly set SBINDIR during install for bin/sbin merge build error

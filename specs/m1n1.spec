@@ -156,12 +156,14 @@ install -Dpm0644 -t %{buildroot}%{_libdir}/%{name}-stage1 \
 install -Ddpm0755 %{buildroot}%{_libexecdir}/%{name}
 cp -pr proxyclient tools %{buildroot}%{_libexecdir}/%{name}/
 install -Dpm0644 -t %{buildroot}%{_udevrulesdir} udev/80-m1n1.rules
+install -Dpm0644 m1n1.conf.example %{buildroot}%{_sysconfdir}/m1n1.conf
 
 %files
 %license LICENSE 3rdparty_licenses/LICENSE.*
 %doc README.md
 %doc m1n1.conf.example
 %{_libdir}/%{name}
+%config(noreplace) %{_sysconfdir}/m1n1.conf
 
 %if %{with chainloading}
 %files stage1

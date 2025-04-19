@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 14%{?dist}
+Release: 15%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -208,6 +208,7 @@ Patch1022: openssh-9.9p1-openssl-mlkem.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
+Requires: openssl-libs >= 3.5.0
 
 %if ! %{no_gnome_askpass}
 BuildRequires: libX11-devel
@@ -222,7 +223,7 @@ BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
 BuildRequires: audit-libs-devel >= 2.0.5
 BuildRequires: util-linux, groff
 BuildRequires: pam-devel
-BuildRequires: openssl-devel >= 0.9.8j
+BuildRequires: openssl-devel >= 3.5.0
 BuildRequires: perl-podlators
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
@@ -230,7 +231,6 @@ BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
-BuildRequires: oqsprovider
 Recommends: p11-kit
 Obsoletes: openssh-ldap < 8.3p1-4
 Obsoletes: openssh-cavs < 8.4p1-5
@@ -489,7 +489,7 @@ popd
 %endif
 
 %check
-%{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
+OPENSSL_CONF=/dev/null %{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
 #make tests
 
 %install
@@ -671,6 +671,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Apr 17 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-15
+- Require OpenSSL 3.5 to support PQ crypto
+- Suppress systemd warning on restart sshd
+
 * Tue Mar 18 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 9.9p1-14
 - Remove /usr/local/sbin from the default path too
 

@@ -26,11 +26,13 @@ BuildRequires: ninja-build
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-python3
+BuildRequires: mingw32-python3-setuptools
 BuildRequires: mingw32-python3-Cython
 
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-python3
+BuildRequires: mingw64-python3-setuptools
 BuildRequires: mingw64-python3-Cython
 
 

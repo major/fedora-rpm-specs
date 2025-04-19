@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc2.20250416git1a1d569a75f3.24
+%define pkgrelease 0.rc2.20250417gitcfb2e2c57aef.25
 %define kversion 6
-%define tarfile_release 6.15-rc2-42-g1a1d569a75f3
+%define tarfile_release 6.15-rc2-87-gcfb2e2c57aef
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.20250416git1a1d569a75f3.24%{?buildid}%{?dist}
+%define specrelease 0.rc2.20250417gitcfb2e2c57aef.25%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -694,9 +694,7 @@ BuildRequires: bzip2, xz, findutils, m4, perl-interpreter, perl-Carp, perl-devel
 BuildRequires: zstd
 %endif
 BuildRequires: gcc, binutils, redhat-rpm-config, hmaccalc, bison, flex, gcc-c++
-%if 0%{?fedora}
-BuildRequires: rust, rust-src, bindgen, rustfmt
-%endif
+BuildRequires: rust, rust-src, bindgen, rustfmt, clippy
 BuildRequires: net-tools, hostname, bc, elfutils-devel
 BuildRequires: dwarves
 BuildRequires: python3
@@ -4186,8 +4184,14 @@ fi\
 #
 #
 %changelog
-* Wed Apr 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.1a1d569a75f3.24]
+* Thu Apr 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.cfb2e2c57aef.25]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+
+* Thu Apr 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.cfb2e2c57aef.24]
+- redhat: enable drm panic screen with a QR code (Scott Weaver)
+- redhat: enable Rust code in ELN (Scott Weaver)
+- redhat: strip leading '(' in dist-get-buildreqs (Jan Stancek)
+- Linux v6.15.0-0.rc2.cfb2e2c57aef
 
 * Wed Apr 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.1a1d569a75f3.23]
 - Linux v6.15.0-0.rc2.1a1d569a75f3

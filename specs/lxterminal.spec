@@ -14,12 +14,12 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250403
-%global		gittartime		1629
-%define		use_gitcommit_as_rel		0
+%global		gittardate		20250417
+%global		gittartime		1433
+%define		use_gitcommit_as_rel		1
 
-%global		gitbaredate	20250331
-%global		git_rev		1c9d25ccab7d90f372af028f1e5ed0a040edd86e
+%global		gitbaredate	20250415
+%global		git_rev		ac5e36f496b2bf95eae790181e65c9eb54bb9c13
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -55,8 +55,6 @@ Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_versi
 %endif
 # Shell script to create tarball from git scm
 Source100:		create-lxterminal-git-bare-tarball.sh
-# Fix segfault when closing window (bug 2207699)
-Patch0:		lxterminal-0.4.0-avoid-segv-on-window-close.patch
 
 BuildRequires:	git
 
@@ -130,9 +128,6 @@ git add .
 git commit -m "base" -q
 %endif
 
-%patch -P0 -p1 -b .closewin
-git commit -m "Avoid segfault" -a
-
 sh autogen.sh
 
 %build
@@ -190,6 +185,9 @@ cd ..
 
 
 %changelog
+* Thu Apr 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.1^20250415gitac5e36f4-1
+- Update to the latest git
+
 * Thu Apr 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.1-1
 - 0.4.1
 

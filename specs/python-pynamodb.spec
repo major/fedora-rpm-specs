@@ -89,7 +89,14 @@ Summary:        Documentation and examples for PynamoDB
 # “Run dynamodb_local” step in .github/workflows.test.yaml. We can’t use a
 # pre-compiled Java application for testing, and only a negligible number of
 # integration tests can work without it, so we skip the integration tests.
-%pytest --ignore-glob='tests/integration/*' -v
+ignore="${ignore-} --ignore-glob=tests/integration/*"
+
+# Regression in test_connection_make_api_call__binary_attributes due to
+# JMESPathTypeError since botocore 1.37.12
+# https://github.com/pynamodb/PynamoDB/issues/1265
+k="${k-}${k+ and }not test_connection_make_api_call__binary_attributes"
+
+%pytest ${ignore-} -k "${k-}" -v
 
 
 %files -n python3-pynamodb -f %{pyproject_files}

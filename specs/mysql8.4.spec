@@ -759,7 +759,7 @@ cp ../../mysql-test/%{skiplist} .
 
   export common_testsuite_arguments=" %{?with_debug:--debug-server} \
                                      --force --skip-combinations --report-unstable-tests --clean-vardir --nocheck-testcases \
-                                     --suite-timeout=900 --testcase-timeout=5 --port-base=$(( $(date +%s) % 20000 + 10000 )) \
+                                     --suite-timeout=900 --testcase-timeout=10 --port-base=$(( $(date +%s) % 20000 + 10000 )) \
                                      --max-save-core=1 --parallel=auto --retry=3 --max-test-fail=30 \
                                      --mysqld=--skip-innodb-use-native-aio "
 

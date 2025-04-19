@@ -97,7 +97,7 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 
 # We can't use _libdir here because it gets incorrectly expanded to /usr/lib
-%transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /boot/dtb-
+%transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /boot/dtb- /etc/m1n1.conf
 %{_sbindir}/update-m1n1 || :
 
 %files

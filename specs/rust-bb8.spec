@@ -2,24 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate jiter
+%global crate bb8
 
-Name:           rust-jiter
-Version:        0.9.0
+Name:           rust-bb8
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Fast Iterable JSON parser
+Summary:        Full-featured async (tokio-based) connection pool (like r2d2)
 
 License:        MIT
-URL:            https://crates.io/crates/jiter
+URL:            https://crates.io/crates/bb8
 Source:         %{crates_source}
+# * See https://github.com/djc/bb8/blob/main/LICENSE
+# * Bug report: https://github.com/djc/bb8/issues/247
+# * Will be fixed in 0.9+
+Source2:        LICENSE
+# * See https://github.com/djc/bb8/blob/main/README.md
+# * Will be fixed in 0.9.0
+Source3:        README.md
 # Manually created patch for downstream crate metadata changes
-# * Omit benchmark-only dependencies bencher and codpseed-bencher-compat
-Patch:          jiter-fix-metadata.diff
+# * Fix README.md
+Patch:          bb8-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Fast Iterable JSON parser.}
+Full-featured async (tokio-based) connection pool (like r2d2).}
 
 %description %{_description}
 
@@ -49,32 +56,10 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+num-bigint-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+num-bigint-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "num-bigint" feature of the "%{crate}" crate.
-
-%files       -n %{name}+num-bigint-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+python-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+python-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "python" feature of the "%{crate}" crate.
-
-%files       -n %{name}+python-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp %{SOURCE2} .
+cp %{SOURCE3} .
 %cargo_prep
 
 %generate_buildrequires
@@ -85,6 +70,7 @@ use the "python" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+install -m 0644 LICENSE %{buildroot}%{crate_instdir}/LICENSE
 
 %if %{with check}
 %check

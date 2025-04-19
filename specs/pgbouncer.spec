@@ -1,9 +1,15 @@
+# Tests fail on i686:
+%ifarch %{ix86}
+%bcond tests 0
+%else
+%bcond tests 1
+%endif
+
 Name:		pgbouncer
-Version:	1.24.0
+Version:	1.24.1
 Release:	%autorelease
 Summary:	Lightweight connection pooler for PostgreSQL
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:	LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+License:	ISC and BSD-2-Clause
 URL:		https://www.pgbouncer.org
 
 Source0:	%{url}/downloads/files/%{version}/%{name}-%{version}.tar.gz
@@ -22,11 +28,24 @@ BuildRequires:	pkgconfig(libevent)
 # For Fedora and EL9+ systemd-rpm-macros would be enough:
 BuildRequires:	systemd-devel
 
+
+%if %{with tests}
+# Test dependencies:
+BuildRequires:  openssl
+BuildRequires:  postgresql-contrib
+BuildRequires:  postgresql-server
+BuildRequires:  python3dist(filelock)
+BuildRequires:  python3dist(psycopg)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-xdist)
+%endif
+
 Requires:	systemd
 Requires:	logrotate
 Requires:	python3-psycopg2
 Requires:	c-ares >= 1.11
-
 
 %description
 pgbouncer is a lightweight connection pooler for PostgreSQL and uses libevent
@@ -90,6 +109,11 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 
 install -m0644 -D pgbouncer.sysusers.conf %{buildroot}%{_sysusersdir}/pgbouncer.conf
 
+%if %{with tests}
+%check
+# Parallel tests fail (make check), run them sequentially:
+pytest
+%endif
 
 %post
 %systemd_post %{name}.service

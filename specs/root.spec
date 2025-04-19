@@ -37,7 +37,7 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.34.06
+Version:	6.34.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
 Release:	1%{?dist}
 Summary:	Numerical data analysis framework
@@ -3626,6 +3626,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.08-1
+- Update to 6.34.08
+
 * Fri Mar 28 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.06-1
 - Update to 6.34.06
 - Drop patches accepted upstream or previously backported

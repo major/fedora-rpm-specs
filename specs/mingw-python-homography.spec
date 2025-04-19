@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.1.7
-Release:       14%{?dist}
+Release:       15%{?dist}
 BuildArch:     noarch
 
 License:       GPL-3.0-only
@@ -54,19 +54,20 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %files -n mingw32-python3-%{pypi_name}
-%license LICENSE
 %{mingw32_python3_sitearch}/%{pypi_name}.py
 %{mingw32_python3_sitearch}/__pycache__/%{pypi_name}.*
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
-%license LICENSE
 %{mingw64_python3_sitearch}/%{pypi_name}.py
 %{mingw64_python3_sitearch}/__pycache__/%{pypi_name}.*
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Thu Apr 17 2025 Sandro Mani <manisandro@gmail.com> - 0.1.7-15
+- Rebuild (numpy)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

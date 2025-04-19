@@ -700,8 +700,8 @@ Source19: BuildShaSumFile.java
 # OpenJDK patches in need of upstreaming
 #
 #############################################
-
-# Currently empty
+# Fix rawhide build failure with GCC 15
+Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
 
 #############################################
 #
@@ -1017,6 +1017,7 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # Skipping fips patch whil eit is not ready for jdk22 %%patch -P1001 -p1
 # Patches in need of upstreaming
+%patch -P1100 -p1
 # Patches which missed the 24+36 GA release
 %patch -P2000 -p1
 %patch -P2001 -p1

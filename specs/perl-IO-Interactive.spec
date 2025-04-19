@@ -2,7 +2,7 @@
 %bcond_without perl_IO_Interactive_enables_optional_test
 
 Name:           perl-IO-Interactive
-Version:        1.026
+Version:        1.027
 Release:        1%{?dist}
 Summary:        Utilities for interactive I/O
 # lib/IO/Interactive.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 17 2025 Petr Pisar <ppisar@redhat.com> - 1.027-1
+- 1.027 bump
+
 * Mon Jan 27 2025 Petr Pisar <ppisar@redhat.com> - 1.026-1
 - 1.026 bump
 

@@ -205,10 +205,12 @@ install -Dpm 0755 lib/*.{a,so*} %{buildroot}%{_libdir}/
 # Remove rpaths
 chrpath --delete %{buildroot}%{_bindir}/*
 chrpath --delete %{buildroot}%{_libdir}/*.so*
-popd
         
 # Install include files
+cp -pr generated/include/{luxcore,luxrays} %{buildroot}%{_includedir} #cfg.h
+popd
 cp -pr include/{luxcore,luxrays} %{buildroot}%{_includedir}/
+rm %{buildroot}%{_includedir}/{luxcore,luxrays}/cfg.h.in
         
 # Relocate pyluxcore
 mkdir -p %{buildroot}%{python3_sitearch}

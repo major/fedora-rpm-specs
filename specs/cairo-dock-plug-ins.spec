@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	3
 %global	alphatag		.rc2
 
 
@@ -269,7 +269,7 @@ export LDFLAGS="${LDFLAGS} -pthread"
 %endif
 
 rm -f CMakeCache.txt
-%cmake -B. \
+%cmake \
 %if 0%{?build_unstable} >= 1
 	-Denable-disks=TRUE \
 	-Denable-doncky=TRUE \
@@ -279,13 +279,11 @@ rm -f CMakeCache.txt
 	-Denable-scooby-do=TRUE \
 %endif
 %endif
-	.
 
-%make_build
+%cmake_build
 
 %install
-%make_install \
-	INSTALL="install -p"
+%cmake_install
 
 # Collect documents
 rm -rf documents licenses documents-dbus
@@ -423,6 +421,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Thu Apr 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-3.rc2
+- Update %%cmake macro usage (to prepare for cmake 4 and related changes)
+
 * Fri Mar 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-2.rc2
 - Use recent compiler standard
 

@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 2
+%global patch_ver 3
 #global rc_ver 3
 
 %bcond_with snapshot_build
@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -3038,6 +3038,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Apr 17 2025 Nikita Popov <npopov@redhat.com> - 20.1.3-1
+- Update to LLVM 20.1.3
+
 * Fri Apr 04 2025 Tom Stellard <tstellar@redhat.com> - 20.1.2-5
 - Drop ARM and Mips targets on RHEL
 

@@ -7,45 +7,20 @@
 # Optional integration tests (no effect if tests are disabled)
 %bcond numpy_tests 1
 %bcond pandas_tests 1
-# - No python-inline-snapshot on Fedora 40 (dependencies are too old)
-# - No python-inline-snapshot in EPEL10 (blocked by python-black)
-%bcond inline_snapshot_tests %{expr:%{undefined fc40} && %{undefined el10}}
+%bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.27.2
-Release:        5%{?dist}
+Version:        2.33.1
+Release:        1%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
 URL:            https://github.com/pydantic/pydantic-core
 Source:         %{url}/archive/v%{version}/pydantic-core-%{version}.tar.gz
 
-# Bump url from 2.5.2 to 2.5.4 (#1585)
-# https://github.com/pydantic/pydantic-core/pull/1585
-# Backported to 2.27.2, without changes to Cargo.lock.
-Patch:          0001-Bump-url-from-2.5.2-to-2.5.4-1585.patch
-
 BuildRequires:  python3-devel
-BuildRequires:  rust-packaging
-BuildRequires:  tomcli >= 0.3.0
-%if %{with tests}
-BuildRequires:  %{py3_dist dirty-equals}
-%if %{with inline_snapshot_tests}
-BuildRequires:  %{py3_dist inline-snapshot}
-%endif
-%if %{with numpy_tests}
-BuildRequires:  %{py3_dist numpy}
-%endif
-BuildRequires:  %{py3_dist hypothesis}
-%if %{with pandas_tests}
-%ifnarch %{ix86}
-BuildRequires:  %{py3_dist pandas}
-%endif
-%endif
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-mock}
-%endif
-
+BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
 
 %global _description %{expand:
 The pydantic-core project provides the core validation logic for pydantic
@@ -83,22 +58,61 @@ License:        %{shrink:
 # Remove unused Cargo config that contains buildflags for Darwin
 rm -v .cargo/config.toml
 
-# Delete pytest adopts. We don't care about benchmarking or coverage.
+# Upstream tests with certain dependencies on x86_64 only (and only on certain
+# Python interpreter versions) due to the limited availability of precompiled
+# wheels on PyPI. We have no such limitations, except that python-pandas is not
+# available on i686.
+tomcli-set pyproject.toml lists replace 'dependency-groups.testing' \
+    'pandas; *' 'pandas; platform_machine != "i686"'
+tomcli-set pyproject.toml lists replace 'dependency-groups.testing' \
+    'pytest-examples; *' 'pytest-examples'
+tomcli-set pyproject.toml lists replace 'dependency-groups.testing' \
+    'numpy; *' 'numpy'
+
+# Use a regex to remove entries from the testing dependency group.
+remove_from_testing() {
+  tomcli-set pyproject.toml lists delitem --type regex \
+      'dependency-groups.testing' "${1}"
+}
+# Remove coverage analysis, etc. from testing dependency group.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+remove_from_testing 'coverage\b.*'
+# The pytest-examples plugin is possibly useful, but not packaged.
+# The pytest-pretty plugin is purely cosmetic.
+# The pytest-run-parallel plugin is possibly useful, but not packaged.
+# The pytest-speed plugin is for benchmarking, which we do not need.
+# The pytest-timeout plugin is not needed for downstream tests.
+remove_from_testing 'pytest-(examples|pretty|run-parallel|speed|timeout)\b.*'
+# We rely on the system timezone database, not on PyPI tzdata.
+remove_from_testing 'tzdata\b.*'
+# Handle conditional test dependencies.
+%if %{without numpy_tests}
+remove_from_testing 'numpy\b.*'
+%endif
+%if %{without pandas_tests}
+remove_from_testing 'pandas\b.*'
+%endif
+%if %{without inline_snapshot_tests}
+remove_from_testing 'inline-snapshot\b.*'
+%endif
+
+# Delete pytest addopts. We don't care about benchmarking.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 # Remove pytest timeout config. pytest-timeout is not needed for downstream tests.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.timeout'
+# Work around patched-out pytest-run-parallel plugin dependency (avoid
+# "pytest.PytestUnknownMarkWarning: Unknown pytest.mark.thread_unsafe" error)
+tomcli-set pyproject.toml list 'tool.pytest.ini_options.markers' \
+    'thread_unsafe: mark as incompatible with patched-out pytest-run-parallel'
 
 %cargo_prep
 
 # Remove Windows-only dependencies
-tomcli-set Cargo.toml del 'dependencies.python3-dll-a'
 tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-import-lib'
-# Do not strip binaries. We want useful debuginfo.
-tomcli-set Cargo.toml del 'profile.release.strip'
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_tests:-g testing}
 %cargo_generate_buildrequires
 
 
@@ -106,7 +120,6 @@ tomcli-set Cargo.toml del 'profile.release.strip'
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
 
-export RUSTFLAGS="%{build_rustflags}"
 %pyproject_wheel
 
 
@@ -122,7 +135,8 @@ ignore="${ignore-} --ignore=tests/benchmarks"
 %if %{without inline_snapshot_tests}
 ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 %endif
-%pytest ${ignore-} -rs
+
+%pytest ${ignore-} -k "${k-}" -rs
 %endif
 
 
@@ -131,6 +145,10 @@ ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 
 
 %changelog
+* Sat Apr 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.33.1-1
+- Update to 2.33.1
+- Remove conditionals, workarounds, etc. for Fedora 42 and older
+
 * Fri Apr 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-5
 - Rebuilt with idna 1.x; no longer allow older idna versions
 

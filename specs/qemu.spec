@@ -418,13 +418,6 @@ Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz
 Source1: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz.sig
 Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
 
-# qemu 9.0.0 errors with:
-# RPM build errors:
-#     Missing build-id in /tmp/rpmbuild/BUILDROOT/qemu-9.0.0-1.rc2.fc41.x86_64/usr/share/qemu/hppa-firmware.img
-#     Missing build-id in /tmp/rpmbuild/BUILDROOT/qemu-9.0.0-1.rc2.fc41.x86_64/usr/share/qemu/hppa-firmware64.img
-#     Generating build-id links failed
-%global  _missing_build_ids_terminate_build    0
-
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
 Source12: bridge.conf
@@ -717,6 +710,7 @@ This package does not need to be installed on the host OS.
 %package tools
 Summary: %{name} support tools
 Recommends: systemtap-client
+Recommends: systemtap-devel
 %description tools
 %{name}-tools provides various tools related to %{name} usage.
 

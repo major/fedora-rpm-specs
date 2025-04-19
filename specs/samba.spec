@@ -113,7 +113,7 @@
 %bcond lmdb 0
 %endif
 
-%global samba_version 4.22.0
+%global samba_version 4.22.1
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]

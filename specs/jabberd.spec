@@ -62,11 +62,7 @@ BuildRequires:  db4-devel
 BuildRequires:  openldap-devel
 %endif
 %if %{with mysql}
-%if 0%{?fedora} > 27
 BuildRequires:  mariadb-connector-c-devel
-%else
-BuildRequires:  mysql-devel
-%endif
 %endif
 %if %{with postgresql}
 BuildRequires:  libpq-devel

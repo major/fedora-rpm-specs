@@ -84,9 +84,7 @@ Requires: logrotate
 # for pidof
 Requires: procps-ng
 
-
-Requires(post): bash
-Requires(post): coreutils
+Requires: %{name}-minimal%{?_isa} = %{version}-%{release}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -113,6 +111,23 @@ Libreswan.
 Libreswan also supports IKEv2 (RFC7296) and Secure Labeling
 
 Libreswan is based on Openswan-2.6.38 which in turn is based on FreeS/WAN-2.04
+
+%package minimal
+Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec (minimal version)
+Requires(post): bash
+Requires(post): coreutils
+
+%description minimal
+Libreswan is a free implementation of IPsec & IKE for Linux.  IPsec is
+the Internet Protocol Security and uses strong cryptography to provide
+both authentication and encryption services.  These services allow you
+to build secure tunnels through untrusted networks.  Everything passing
+through the untrusted net is encrypted by the ipsec gateway machine and
+decrypted by the gateway at the other end of the tunnel.  The resulting
+tunnel is a virtual private network or VPN.
+
+This package contains the minimal set of daemons and userland tools
+for setting up Libreswan.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -196,6 +211,8 @@ certutil -N -d sql:$tmpdir --empty-password
 
 %post
 %systemd_post ipsec.service
+
+%post minimal
 %sysctl_apply 50-libreswan.conf
 
 %preun
@@ -207,6 +224,10 @@ certutil -N -d sql:$tmpdir --empty-password
 %files
 %doc CHANGES COPYING CREDITS README* LICENSE
 %doc docs/*.* docs/examples
+%attr(0644,root,root) %{_unitdir}/ipsec.service
+%doc %{_mandir}/*/*
+
+%files minimal
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/ipsec.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/ipsec.secrets
 %attr(0700,root,root) %dir %{_sysconfdir}/ipsec.d
@@ -217,12 +238,10 @@ certutil -N -d sql:$tmpdir --empty-password
 %attr(0700,root,root) %dir %{_sharedstatedir}/ipsec
 %attr(0700,root,root) %dir %{_sharedstatedir}/ipsec/nss
 %attr(0644,root,root) %{_tmpfilesdir}/libreswan.conf
-%attr(0644,root,root) %{_unitdir}/ipsec.service
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/pam.d/pluto
 %config(noreplace) %{_sysconfdir}/logrotate.d/libreswan
 %{_sbindir}/ipsec
 %{_libexecdir}/ipsec
-%doc %{_mandir}/*/*
 
 %changelog
 %autochangelog

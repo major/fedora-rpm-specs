@@ -3,7 +3,7 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        5.4.3
+Version:        5.6.0
 Release:        %autorelease
 Summary:        A language server for Bash
 License:        MIT

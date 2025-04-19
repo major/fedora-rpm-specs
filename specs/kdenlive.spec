@@ -3,18 +3,12 @@
 Name:    kdenlive
 Summary: Non-linear video editor
 Version: 25.04.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# The kdenlive maintainer requested a respin of the 25.04.0 tarball
-# with some important fixes. Because that hasn't happened yet, let's
-# patch the source ourselves.
-# https://invent.kde.org/multimedia/kdenlive/-/compare/dc5bf8cf560ac34b26ebfc38b921f0b19fa4b3ff...2028695fc5849082e8a36d1bdd87c7a934086cbc
-Patch0:  25.04.0.1.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -139,6 +133,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Apr 17 2025 Alessandro Astone <ales.astone@gmail.com> - 25.04.0-3
+- Respin 25.04.0 tarball
+
 * Wed Apr 16 2025 Alessandro Astone <ales.astone@gmail.com> - 25.04.0-2
 - Backport some fixes from upstream following the 25.04.0 tarball date
 

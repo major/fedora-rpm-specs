@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/osbuild/koji-image-builder
 
-Version:        5
+Version:        6
 
 %forgemeta
 
@@ -86,6 +86,15 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Thu Apr 17 2025 Packit <hello@packit.dev> - 6-1
+Changes with 6
+----------------
+  * build: include `arch` in artifact names (#12)
+    * Author: Simon de Vlieger, Reviewers: Nobody
+
+— Somewhere on the Internet, 2025-04-17
+
 
 * Wed Apr 16 2025 Packit <hello@packit.dev> - 5-1
 Changes with 5

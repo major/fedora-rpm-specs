@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        1.0.4
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the
@@ -16,9 +16,9 @@ Source:         %{pypi_source watchfiles}
 # Cargo.lock and the CI configuration.)
 #
 # Update notify to version 8.0.0
-Patch:          %{url}/pull/327/commits/a3f7c8d61615d5831b60056aa8e0001a29989416.patch
+Patch:          %{url}/pull/327/commits/3a011974826b5997eb394755259995110cd46f88.patch
 # Bump MSRV to 1.77 for notify 8.0.0
-Patch:          %{url}/pull/327/commits/d05eadcd47447f5abefbf5e158586aa820ecd13b.patch
+Patch:          %{url}/pull/327/commits/9f7e00f866a31a35bce68d70e7bfccc7467366c5.patch
 
 # Downstream-only: allow a slightly older pytest to support EPEL10
 Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
@@ -99,7 +99,7 @@ export RUSTFLAGS='%{build_rustflags}'
 
 %install
 %pyproject_install
-%pyproject_save_files watchfiles
+%pyproject_save_files -l watchfiles
 
 # The maturin build backend includes the license files, but currently the
 # pyproject macros don't mark these files as licenses.

@@ -2,7 +2,7 @@
 %global _description %{summary}.
 
 Name:           python-%{srcname}
-Version:        0.7.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 
@@ -47,8 +47,10 @@ Summary:        %{summary}
 # is the correct license.
 mv crates/jiter/LICENSE ./
 
-# However, we want to use the system copy of the jiter crate.
-rm -r crates/jiter
+# We want to use the system copy of the jiter crate, but we need the JSON data
+# files from its benchmarks for testing the Python extension.
+find crates/jiter -mindepth 1 -maxdepth 1 ! -name benches -exec rm -rv '{}' '+'
+find crates/jiter/benches -type f ! -name '*.json' -print -delete
 
 # E.g., for 0.5.0, this would allow 0.5.x.
 tomcli set crates/jiter-python/Cargo.toml str dependencies.jiter.version "%{version}"

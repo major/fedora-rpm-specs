@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -123,6 +123,8 @@ rpm-4.20-sysusers.patch
 # %%clamp_mtime_to_source_date_epoch, details here:
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/298
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
+
+0001-Revert-Replace-dbiset-internals-with-STL-vector-algo.patch
 
 # Patches already upstream:
 
@@ -620,6 +622,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Apr 17 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-3
+- Temporary fix for #2360342
+
 * Wed Apr 16 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-2
 - Drop pointless build conditional on bdb_ro, it doesn't have external deps
 

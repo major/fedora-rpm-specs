@@ -13,7 +13,6 @@
 # no_dramatiq: dramatiq is not packaged.
 # no_fakeredis: fakeredis is not packaged.
 # no_gql: gql is not packaged.
-# no_httpcore_http2: httpcore[http2] is not packaged.
 # no_huey: huey is not packaged.
 # no_huggingface_hub: huggingface_hub is not packaged.
 # no_langchain: langchain is not packaged.
@@ -31,6 +30,7 @@
 # no_ray: ray is not packaged.
 # no_sanic: sanic is not packaged.
 # no_starlite: starlite is not packaged.
+# no_statsig: statsig is not packaged.
 # no_strawberry: strawberry is not packaged.
 # no_trytond: trytond is not packaged.
 # no_unleash: UnleashClient is not packaged.
@@ -43,7 +43,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.21.0
+Version:        2.26.1
 %global tag %{version}
 %forgemeta
 
@@ -74,11 +74,14 @@ Patch0:         0001-Downstream-only-unpin-virtualenv.patch
 # The easiest option is to add it there.
 Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
 
-# Downstream-only: remove `propagate_traces` deprecation warning from celery
-# integration, as it causes many tests to fail (celery is pre-installed 
-# because of presence in tox env, while testing in upstream for all tox envs,
-# except one, is celery-free).
-Patch2:         0003-Remove-propagate_traces-deprecation-warning.patch
+# Upstream PR: https://github.com/getsentry/sentry-python/pull/4316
+#
+# When (at least) one of integrations is enabled (because some
+# dependencies are installed in the environment), `sentry.sdk.name` is
+# changed from `sentry.python` to
+# `sentry.python.[FIRST_ENABLED_INTEGRATION]` which makes
+# `test_logs_attributes` fail. Prevent failure by relaxing the check.
+Patch2:         0003-test-logs-avoid-failure-when-running-with-integratio.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -162,6 +165,7 @@ Summary:        %{summary}
 # quart: no_quart
 # sanic: no_sanic
 # starlite: no_starlite
+# statsig: no_statsig
 # unleash: no_unleash
 %global components_excluded %{shrink:
   anthropic
@@ -180,6 +184,7 @@ Summary:        %{summary}
   quart
   sanic
   starlite
+  statsig
   unleash
   %{nil}}
 
@@ -189,6 +194,7 @@ Summary:        %{summary}
   bottle
   flask
   grpcio
+  http2
   httpx
   pymongo
   rq
@@ -197,14 +203,12 @@ Summary:        %{summary}
 # List of names of extras excluded (if not present in components_excluded)
 # celery-redbeat: no_celery_redbeat
 # clickhouse-driver: no_clickhouse_driver
-# http2: no_httpcore_http2
 # pyspark: no_pyspark
 # opentelemetry-experimental: no_opentelemetry
 %global extras_excluded %{shrink:
   %{components_excluded}
   celery-redbeat
   clickhouse-driver
-  http2
   pyspark
   opentelemetry-experimental
   %{nil}}
@@ -309,9 +313,6 @@ sed -r -i '/(newrelic)/d' tox.ini
 sed -r -i '/(mypy-protobuf)/d' tox.ini
 sed -r -i '/(types-protobuf)/d' tox.ini
 
-# no_httpcore_http2
-sed -r -i '/(httpcore\[http2\])/d' requirements-testing.txt
-
 %generate_buildrequires
 %pyproject_buildrequires -x %{extras_csv} -e %{toxenvs_csv}
 
@@ -355,6 +356,7 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.quart"  # no
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.ray"  # no_ray
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.sanic"  # no_sanic
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.starlite"  # no_starlite
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.statsig"  # no_statsig
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.strawberry"  # no_strawberry
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.trytond"  # no_trytond
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.unleash"  # no_unleash
@@ -423,8 +425,9 @@ ignore="${ignore-} --ignore=tests/integrations/aws_lambda/"
 # The testing suite relies on executing the test in a clean environment.
 deselect="${deselect-} --deselect=tests/test_basics.py::test_auto_enabling_integrations_catches_import_error"
 
-# Currently, this test will always fail: there is no env vars or git repository.
-deselect="${deselect-} --deselect=tests/test_utils.py::test_default_release"
+# This test will always fail, since environmental variable is defined and
+# default release is not an empty string anymore.
+deselect="${deselect-} --deselect=tests/test_utils.py::test_default_release_empty_string"
 
 # These tests cannot be run during the Fedora build due to the version of pytest being used.
 #   https://github.com/pytest-dev/pytest/issues/9621
@@ -455,18 +458,17 @@ ignore="${ignore-} --ignore=tests/integrations/pyramid"
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2265822
 #   https://github.com/getsentry/sentry-python/issues/3335
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop_sampled"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop_unsampled"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_stop"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_manual_stop_sampled"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_manual_stop_unsampled"
 deselect="${deselect-} --deselect=tests/profiler/test_transaction_profiler.py::test_profile_captured"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing_decorator"
 
-# These tests depends on http2 extra for httpcore Python package.
-# https://src.fedoraproject.org/rpms/python-httpcore/pull-request/7
-# has been merged, but update is still not published.
-deselect="${deselect-} --deselect=tests/test_client.py::test_proxy"
-deselect="${deselect-} --deselect=tests/test_transport.py::test_two_way_ssl_authentication"
-deselect="${deselect-} --deselect=tests/test_transport.py::test_http2_with_https_dsn"
-deselect="${deselect-} --deselect=tests/test_transport.py::test_no_http2_with_http_dsn"
+# TODO: investigate, why extra information is added to `event["_meta"]`.
+deselect="${deselect-} --deselect=tests/test_basics.py::test_stacktrace_big_recursion"
 
 defined_toxenvs=$(echo "%toxenvs_excluded" "%toxenvs" | xargs -n1 | sort -u)
 tox_ini_toxenvs=$(cat tox.ini | sed -r -n 's/[[:blank:]]*(.*):[[:blank:]]*TESTPATH=.*/%{default_toxenv}-\1/p' | xargs -n1 | sort -u)
@@ -485,7 +487,12 @@ export SENTRY_PYTHON_TEST_POSTGRES_PORT=$PGTESTS_PORT
 psql -c "CREATE ROLE $SENTRY_PYTHON_TEST_POSTGRES_USER WITH LOGIN SUPERUSER PASSWORD '$SENTRY_PYTHON_TEST_POSTGRES_PASSWORD';"
 createdb $SENTRY_PYTHON_TEST_POSTGRES_NAME --owner $SENTRY_PYTHON_TEST_POSTGRES_USER
 
-DJANGO_SETTINGS_MODULE=tests.integrations.django.myapp.settings %tox -e %{toxenvs_csv} -- -- ${deselect-} ${ignore-}
+# Run tests
+# Set `SENTRY_RELEASE` environmental variable, so that tests could set
+# `sentry.release` to log attributes, as otherwise it is not set
+# (it is not a git repository, so `sentry_sdk.utils.get_git_revision`
+# does not return a git revision used as release).
+DJANGO_SETTINGS_MODULE=tests.integrations.django.myapp.settings SENTRY_RELEASE=%{version} %tox -e %{toxenvs_csv} -- -- ${deselect-} ${ignore-}
 
 # Terminate redis-server.
 %{_bindir}/redis-cli shutdown nosave force now

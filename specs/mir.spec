@@ -11,7 +11,7 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.20.0
+Version:        2.20.2
 Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
@@ -257,13 +257,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %license COPYING.GPL*
 %{_bindir}/mir-*test*
 %{_bindir}/mir_*test*
-%dir %{_libdir}/mir/tools
-%{_libdir}/mir/tools/libmirserverlttng.so
-%dir %{_libdir}/mir
-%{_libdir}/mir/miral_wlcs_integration.so
-%dir %{_libdir}/mir/server-platform
-%{_libdir}/mir/server-platform/graphics-dummy.so
-%{_libdir}/mir/server-platform/input-stub.so
+%dir %{_libdir}/%{name}/tools
+%{_libdir}/%{name}/tools/libmirserverlttng.so
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/miral_wlcs_integration.so
+%dir %{_libdir}/%{name}/server-platform
+%{_libdir}/%{name}/server-platform/graphics-dummy.so
+%{_libdir}/%{name}/server-platform/input-stub.so
+%{_datadir}/%{name}/expected_wlcs_failures.list
 
 %files test-libs-static
 %license COPYING.GPL*
@@ -281,6 +282,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Wed Apr 16 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.20.2-1
+- Update to 2.20.2
+
+* Thu Mar 20 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.20.1-1
+- Update to 2.20.1
+
 * Wed Mar 12 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.20.0-1
 - Update to 2.20.0
 

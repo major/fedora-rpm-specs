@@ -1,18 +1,19 @@
 Name:           dvtm
 Version:        0.15
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Tiling window management for the console
 License:        MIT and ISC
 URL:            http://www.brain-dump.org/projects/%{name}/
 Source0:        http://www.brain-dump.org/projects/%{name}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-0.14-build.patch
+Patch1:         %{name}-0.15-terminfo-provided-by-ncurses.patch
 BuildRequires:  binutils
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  ncurses
 BuildRequires:  ncurses-devel
 BuildRequires:  sed
+Requires:       ncurses-term
 
 %description
 dvtm brings the concept of tiling window management, popularized by
@@ -23,6 +24,7 @@ programs like vim, mutt, cmus or irssi.
 %prep
 %setup -q
 %patch -P0 -p1 -b .build
+%patch -P1 -p1 -b .terminfo
 
 %build
 make %{?_smp_mflags}
@@ -36,9 +38,11 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/%{name}
 %{_bindir}/%{name}-status
 %{_mandir}/man1/%{name}.1*
-%{_datadir}/terminfo/d
 
 %changelog
+* Thu Apr 17 2025 Petr Šabata <contyk@redhat.com> - 0.15-22
+- Terminfo is now provided by ncurses-term (#2342748)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

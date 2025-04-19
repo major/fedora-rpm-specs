@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -33,7 +33,6 @@ BuildRequires: python3-pytest
 BuildRequires: make
 BuildRequires: sequoia-policy-config
 BuildRequires: systemd-rpm-macros
-BuildRequires: oqsprovider
 
 Conflicts: openssl-libs < 1:3.5.0-1
 Conflicts: nss < 3.105
@@ -284,6 +283,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Thu Apr 17 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250402-2.git86c0178
+- Remove a build dependency on oqsprovider now when we require openssl 3.5
+
 * Wed Apr 02 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250402-1.git86c0178
 - policies, alg_lists, openssl: remove KYBER from allowed values
 - sequoia, rpm-sequoia: use ignore_invalid with sha3, x25519, ...

@@ -10,7 +10,7 @@
 
 Name:           rust-zincati
 Version:        0.0.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -71,6 +71,7 @@ Requires:       polkit
 %endif
 %doc README.md
 %{_libexecdir}/zincati
+%{_bindir}/zincati-update-now
 %dir %{_prefix}/lib/%{crate}
 %dir %{_prefix}/lib/%{crate}/config.d
 %{_prefix}/lib/%{crate}/config.d/*.toml
@@ -127,6 +128,7 @@ Requires:       polkit
 # out of `/usr/bin`. See: https://github.com/coreos/fedora-coreos-tracker/issues/244
 mkdir -p %{buildroot}%{_libexecdir}
 mv %{buildroot}%{_bindir}/zincati %{buildroot}%{_libexecdir}/zincati
+install -Dpm0755 -t %{buildroot}%{_bindir} dist/bin/zincati-update-now
 install -Dpm0644 -t %{buildroot}%{_prefix}/lib/%{crate}/config.d \
   dist/config.d/*.toml
 mkdir -p %{buildroot}%{_sysconfdir}/%{crate}/config.d
@@ -149,6 +151,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Wed Apr 16 2025 Tiago Bueno <49003339+tlbueno@users.noreply.github.com> - 0.0.30-2
+- Add install zincati-update-now file into spec
+
 * Mon Mar 17 2025 Steven Presti <spresti@redhat.com> - 0.0.30-1
 - update to 0.0.30
 

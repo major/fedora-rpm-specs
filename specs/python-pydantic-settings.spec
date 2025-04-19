@@ -9,16 +9,30 @@
 Name:           python-pydantic-settings
 Version:        2.8.1
 %forgemeta
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Settings management using pydantic
 
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+# Update pydantic (#593)
+# https://github.com/pydantic/pydantic-settings/commit/f3e5ac382c9318e465012f60adda22919c01d1c7
+#
+# Fixes:
+#
+# Regression with typing-extensions 4.13: test_cli_metavar_format_type_alias_312
+# https://github.com/pydantic/pydantic-settings/issues/591
+# Some test regressions with Pydantic 2.11
+# https://github.com/pydantic/pydantic-settings/issues/592
+#
+# Cherry-picked to v2.8.1
+Patch:          0001-Update-pydantic-593.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-mock}
@@ -38,6 +52,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 %{forgesetupargs}
+
+# Erroring on warnings is too strict for downstream packaging
+tomcli set pyproject.toml lists delitem \
+    'tool.pytest.ini_options.filterwarnings' 'error'
 
 
 %generate_buildrequires
@@ -63,6 +81,10 @@ ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
 # Regression with typing-extensions 4.13:
 # test_cli_metavar_format_type_alias_312
 # https://github.com/pydantic/pydantic-settings/issues/591
+# Fixed in
+# https://github.com/pydantic/pydantic-settings/commit/e5fb741ecb0ccb57e390218b4fbb19a34cebdc29;
+# we choose not to attempt a backport, but to wait for the next release
+# (https://github.com/pydantic/pydantic-settings/issues/591#issuecomment-2812686144).
 k="${k-}${k+ and }not test_cli_metavar_format_type_alias_312"
 
 %pytest ${ignore-} -k "${k-}" -rs -v
@@ -77,6 +99,10 @@ k="${k-}${k+ and }not test_cli_metavar_format_type_alias_312"
 
 
 %changelog
+* Thu Apr 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-3
+- While testing, do not error on warnings
+- Backport fixes for deprecation warnings, etc. with Pydantic 2.11
+
 * Tue Apr 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-2
 - Report and skip a test regression with typing-extensions 4.13
 

@@ -28,22 +28,18 @@
 %global spatialite "--with-spatialite"
 %endif
 
+%if 0%{?fedora}
+%bcond_without mingw
 %bcond_without python3
-# No complete java yet in EL8
-%if 0%{?rhel} == 8
-%bcond_with java
-%else
 %ifarch %{java_arches}
 %bcond_without java
 %else
 %bcond_with java
 %endif
-%endif
-
-%if 0%{?fedora}
-%bcond_without mingw
 %else
 %bcond_with mingw
+%bcond_with python3
+%bcond_with java
 %endif
 
 #global pre rc1
@@ -100,6 +96,7 @@ BuildRequires: xz-devel
 BuildRequires: zlib-devel
 
 %if 0%{?fedora}
+# Fedora dependencies
 BuildRequires: armadillo-devel
 BuildRequires: blosc-devel
 BuildRequires: cfitsio-devel
@@ -140,6 +137,11 @@ BuildRequires: poppler-devel
 %endif
 BuildRequires: qhull-devel
 BuildRequires: xerces-c-devel
+%else
+# RHEL dependencies
+BuildRequires: libjpeg-turbo-devel
+BuildRequires: openssl-devel
+%endif
 
 # Python
 %if %{with python3}
@@ -149,16 +151,6 @@ BuildRequires: python3-numpy
 BuildRequires: python3-setuptools
 BuildRequires: python3dist(pytest) >= 3.6
 BuildRequires: python3dist(lxml) >= 4.5.1
-
-%if %{with mingw}
-BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-numpy
-BuildRequires: mingw32-python3-setuptools
-
-BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-numpy
-BuildRequires: mingw64-python3-setuptools
-%endif
 %endif
 
 # Java
@@ -169,15 +161,10 @@ BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: javapackages-local
 BuildRequires: jpackage-utils
 %endif
-Requires:      gpsbabel
-Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
-%else
-BuildRequires: libjpeg-turbo-devel
-BuildRequires: openssl-devel
-%endif
 
+# MinGW
 %if %{with mingw}
-BuildRequires: mingw32-filesystem >= 102
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-cfitsio
 BuildRequires: mingw32-curl
@@ -207,8 +194,13 @@ BuildRequires: mingw32-xerces-c
 BuildRequires: mingw32-xz-libs
 BuildRequires: mingw32-zlib
 BuildRequires: mingw32-zstd
+%if %{with python3}
+BuildRequires: mingw32-python3
+BuildRequires: mingw32-python3-numpy
+BuildRequires: mingw32-python3-setuptools
+%endif
 
-BuildRequires: mingw64-filesystem >= 102
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-cfitsio
 BuildRequires: mingw64-curl
@@ -238,7 +230,17 @@ BuildRequires: mingw64-xerces-c
 BuildRequires: mingw64-xz-libs
 BuildRequires: mingw64-zlib
 BuildRequires: mingw64-zstd
+%if %{with python3}
+BuildRequires: mingw64-python3
+BuildRequires: mingw64-python3-numpy
+BuildRequires: mingw64-python3-setuptools
 %endif
+%endif
+
+%if 0%{?fedora}
+Requires:      gpsbabel
+%endif
+Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %description
@@ -269,8 +271,7 @@ Provides:      bundled(degrib) = 2.14
 %description libs
 This package contains the GDAL file format library.
 
-%if 0%{?fedora}
-# No complete java yet in EL8
+
 %if %{with java}
 %package java
 Summary:        Java modules for the GDAL file format library
@@ -310,7 +311,10 @@ Requires:       python3-gdal
 The GDAL Python package provides number of tools for programming and
 manipulating GDAL file format library
 
+# We don't want to provide private Python extension libs
+%global __provides_exclude_from ^%{python3_sitearch}/.*\.so$
 %endif
+
 
 %if %{with mingw}
 %package -n mingw32-%{name}
@@ -333,6 +337,15 @@ BuildArch:     noarch
 MinGW Windows GDAL library tools.
 
 
+%if %{with python3}
+%package -n mingw32-python3-%{name}
+Summary:       MinGW Windows Python3 GDAL bindings
+
+%description -n mingw32-python3-%{name}
+MinGW Windows Python3 GDAL bindings.
+%endif
+
+
 %package -n mingw64-%{name}
 Summary:       MinGW Windows GDAL library
 # GDAL bundles a modified copy of g2clib and degrib
@@ -351,16 +364,9 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 MinGW Windows GDAL library tools.
-%endif
-
-%if %{with mingw}
-%package -n mingw32-python3-%{name}
-Summary:       MinGW Windows Python3 GDAL bindings
-
-%description -n mingw32-python3-%{name}
-MinGW Windows Python3 GDAL bindings.
 
 
+%if %{with python3}
 %package -n mingw64-python3-%{name}
 Summary:       MinGW Windows Python3 GDAL bindings
 
@@ -368,12 +374,6 @@ Summary:       MinGW Windows Python3 GDAL bindings
 MinGW Windows Python3 GDAL bindings.
 %endif
 
-# We don't want to provide private Python extension libs
-%global __provides_exclude_from ^%{python3_sitearch}/.*\.so$
-%endif
-
-
-%if %{with mingw}
 %{?mingw_debug_package}
 %endif
 
@@ -405,7 +405,7 @@ cp -a %{SOURCE4} .
 %build
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
-%if 0%{?fedora}
+%if %{with java}
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_JAVA_JNI_INSTALL_DIR=%{_jnidir}/%{name} \
 %endif
@@ -438,21 +438,22 @@ cp -a %{SOURCE4} .
 
 %install
 %cmake_install
+# FIXME These should not be installed, the counterparts without the *.py suffix are the wanted ones
+rm -f %{buildroot}%{_bindir}/*.py
+# FIXME Fix bash-completion filenames
+for file in %{buildroot}%{_datadir}/bash-completion/completions/*.py; do
+  mv $file ${file/.py/}
+done
 
 %if %{with mingw}
 %mingw_make_install
+# FIXME These should not be installed, the counterparts without the *.py suffix are the wanted ones
+rm -f %{buildroot}%{mingw32_bindir}/*.py
+rm -f %{buildroot}%{mingw64_bindir}/*.py
 # Delete data from cross packages
 rm -r %{buildroot}%{mingw32_datadir}
 rm -r %{buildroot}%{mingw64_datadir}
 %endif
-
-# List of manpages for python scripts
-for file in %{buildroot}%{_bindir}/*.py; do
-  if [ -f %{buildroot}%{_mandir}/man1/`basename ${file/.py/.1*}` ]; then
-    echo "%{_mandir}/man1/`basename ${file/.py/.1*}`" >> gdal_python_manpages.txt
-    echo "%exclude %{_mandir}/man1/`basename ${file/.py/.1*}`" >> gdal_python_manpages_excludes.txt
-  fi
-done
 
 # Multilib
 # - cpl_config.h is arch-dependent (contains various SIZEOF defines)
@@ -474,12 +475,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %endif
 
 
-%if 0%{?fedora}
-%files -f gdal_python_manpages_excludes.txt
-%else
 %files
-%endif
-
 %{_bindir}/gdaladdo
 %{_bindir}/gdalbuildvrt
 %{_bindir}/gdal_contour
@@ -510,31 +506,59 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/sozip
 %if 0%{?fedora}
 %{_bindir}/8211*
-%{_bindir}/gdal2tiles
-%{_bindir}/gdal2xyz
-%{_bindir}/gdalattachpct
-%{_bindir}/gdal_calc
-%{_bindir}/gdalcompare
-%{_bindir}/gdal_edit
-%{_bindir}/gdal_fillnodata
-%{_bindir}/gdal_merge
-%{_bindir}/gdalmove
-%{_bindir}/gdal_pansharpen
-%{_bindir}/gdal_polygonize
-%{_bindir}/gdal_proximity
-%{_bindir}/gdal_retile
-%{_bindir}/gdal_sieve
-%{_bindir}/ogr_layer_algebra
-%{_bindir}/ogrmerge
-%{_bindir}/pct2rgb
-%{_bindir}/rgb2pct
 %{_bindir}/s57dump
 %endif
-%{_datadir}/bash-completion/completions/*
-%exclude %{_datadir}/bash-completion/completions/*.py
-%{_mandir}/man1/*
-%exclude %{_mandir}/man1/gdal-config.1*
-# Python manpages excluded in -f gdal_python_manpages_excludes.txt
+%{_datadir}/bash-completion/completions/gdaladdo
+%{_datadir}/bash-completion/completions/gdalbuildvrt
+%{_datadir}/bash-completion/completions/gdal-config
+%{_datadir}/bash-completion/completions/gdal_contour
+%{_datadir}/bash-completion/completions/gdal_create
+%{_datadir}/bash-completion/completions/gdaldem
+%{_datadir}/bash-completion/completions/gdalenhance
+%{_datadir}/bash-completion/completions/gdal_grid
+%{_datadir}/bash-completion/completions/gdalinfo
+%{_datadir}/bash-completion/completions/gdallocationinfo
+%{_datadir}/bash-completion/completions/gdalmanage
+%{_datadir}/bash-completion/completions/gdal_rasterize
+%{_datadir}/bash-completion/completions/gdalsrsinfo
+%{_datadir}/bash-completion/completions/gdaltindex
+%{_datadir}/bash-completion/completions/gdaltransform
+%{_datadir}/bash-completion/completions/gdal_translate
+%{_datadir}/bash-completion/completions/gdal_viewshed
+%{_datadir}/bash-completion/completions/gdalwarp
+%{_datadir}/bash-completion/completions/ogr2ogr
+%{_datadir}/bash-completion/completions/ogrinfo
+%{_datadir}/bash-completion/completions/ogrlineref
+%{_datadir}/bash-completion/completions/ogrtindex
+%{_mandir}/man1/gdaladdo.1.*
+%{_mandir}/man1/gdalbuildvrt.1.*
+%{_mandir}/man1/gdal-config.1.*
+%{_mandir}/man1/gdal_contour.1.*
+%{_mandir}/man1/gdal_create.1.*
+%{_mandir}/man1/gdaldem.1.*
+%{_mandir}/man1/gdal_footprint.1.*
+%{_mandir}/man1/gdal_grid.1.*
+%{_mandir}/man1/gdalinfo.1.*
+%{_mandir}/man1/gdallocationinfo.1.*
+%{_mandir}/man1/gdalmanage.1.*
+%{_mandir}/man1/gdalmdiminfo.1.*
+%{_mandir}/man1/gdalmdimtranslate.1.*
+%{_mandir}/man1/gdal_rasterize.1.*
+%{_mandir}/man1/gdalsrsinfo.1.*
+%{_mandir}/man1/gdaltindex.1.*
+%{_mandir}/man1/gdaltransform.1.*
+%{_mandir}/man1/gdal_translate.1.*
+%{_mandir}/man1/gdal_viewshed.1.*
+%{_mandir}/man1/gdalwarp.1.*
+%{_mandir}/man1/gnmanalyse.1.*
+%{_mandir}/man1/gnmmanage.1.*
+%{_mandir}/man1/nearblack.1.*
+%{_mandir}/man1/ogr2ogr.1.*
+%{_mandir}/man1/ogrinfo.1.*
+%{_mandir}/man1/ogrlineref.1.*
+%{_mandir}/man1/ogrmerge.1.*
+%{_mandir}/man1/ogrtindex.1.*
+%{_mandir}/man1/sozip.1.*
 
 %files libs
 %license LICENSE.TXT
@@ -553,6 +577,77 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_libdir}/pkgconfig/%{name}.pc
 %{_mandir}/man1/gdal-config.1*
 
+%if %{with java}
+%files java
+%{_jnidir}/%{name}/gdal-%{version}-sources.jar
+%{_jnidir}/%{name}/gdal-%{version}.jar
+%{_jnidir}/%{name}/gdal-%{version}.pom
+%{_jnidir}/%{name}/libgdalalljni.so
+
+%files javadoc
+%{_jnidir}/%{name}/gdal-%{version}-javadoc.jar
+%endif
+
+%if %{with python3}
+%files -n python3-gdal
+%doc swig/python/README.rst
+%{python3_sitearch}/GDAL-%{version}-py*.egg-info/
+%{python3_sitearch}/osgeo/
+%{python3_sitearch}/osgeo_utils/
+
+%files python-tools
+%{_bindir}/gdal2tiles
+%{_bindir}/gdal2xyz
+%{_bindir}/gdalattachpct
+%{_bindir}/gdal_calc
+%{_bindir}/gdalcompare
+%{_bindir}/gdal_edit
+%{_bindir}/gdal_fillnodata
+%{_bindir}/gdal_merge
+%{_bindir}/gdalmove
+%{_bindir}/gdal_pansharpen
+%{_bindir}/gdal_polygonize
+%{_bindir}/gdal_proximity
+%{_bindir}/gdal_retile
+%{_bindir}/gdal_sieve
+%{_bindir}/ogr_layer_algebra
+%{_bindir}/ogrmerge
+%{_bindir}/pct2rgb
+%{_bindir}/rgb2pct
+%{_datadir}/bash-completion/completions/gdal2tiles
+%{_datadir}/bash-completion/completions/gdal2xyz
+%{_datadir}/bash-completion/completions/gdal_calc
+%{_datadir}/bash-completion/completions/gdalchksum
+%{_datadir}/bash-completion/completions/gdalcompare
+%{_datadir}/bash-completion/completions/gdal_edit
+%{_datadir}/bash-completion/completions/gdal_fillnodata
+%{_datadir}/bash-completion/completions/gdalident
+%{_datadir}/bash-completion/completions/gdalimport
+%{_datadir}/bash-completion/completions/gdal_merge
+%{_datadir}/bash-completion/completions/gdalmove
+%{_datadir}/bash-completion/completions/gdal_polygonize
+%{_datadir}/bash-completion/completions/gdal_proximity
+%{_datadir}/bash-completion/completions/gdal_retile
+%{_datadir}/bash-completion/completions/gdal_sieve
+%{_datadir}/bash-completion/completions/ogrmerge
+%{_mandir}/man1/gdal2tiles.1*
+%{_mandir}/man1/gdal_calc.1*
+%{_mandir}/man1/gdalcompare.1*
+%{_mandir}/man1/gdal_edit.1*
+%{_mandir}/man1/gdal_fillnodata.1*
+%{_mandir}/man1/gdal_merge.1*
+%{_mandir}/man1/gdalmove.1*
+%{_mandir}/man1/gdal_pansharpen.1*
+%{_mandir}/man1/gdal_polygonize.1*
+%{_mandir}/man1/gdal_proximity.1*
+%{_mandir}/man1/gdal_retile.1*
+%{_mandir}/man1/gdal_sieve.1*
+%{_mandir}/man1/ogr_layer_algebra.1*
+%{_mandir}/man1/ogrmerge.1*
+%{_mandir}/man1/pct2rgb.1*
+%{_mandir}/man1/rgb2pct.1*
+%endif
+
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
@@ -566,6 +661,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files -n mingw32-%{name}-tools
 %{mingw32_bindir}/*.exe
+
+%if %{with python3}
+%files -n mingw32-python3-%{name}
 %{mingw32_bindir}/gdal2tiles
 %{mingw32_bindir}/gdal2xyz
 %{mingw32_bindir}/gdal_calc
@@ -584,6 +682,10 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{mingw32_bindir}/ogrmerge
 %{mingw32_bindir}/pct2rgb
 %{mingw32_bindir}/rgb2pct
+%{mingw32_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/osgeo/
+%{mingw32_python3_sitearch}/osgeo_utils/
+%endif
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
@@ -597,6 +699,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+
+%if %{with python3}
+%files -n mingw64-python3-%{name}
 %{mingw64_bindir}/gdal2tiles
 %{mingw64_bindir}/gdal2xyz
 %{mingw64_bindir}/gdal_calc
@@ -615,61 +720,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{mingw64_bindir}/ogrmerge
 %{mingw64_bindir}/pct2rgb
 %{mingw64_bindir}/rgb2pct
-%endif
-
-%if 0%{?fedora}
-%if %{with python3}
-%files -n python3-gdal
-%doc swig/python/README.rst
-%{python3_sitearch}/GDAL-%{version}-py*.egg-info/
-%{python3_sitearch}/osgeo/
-%{python3_sitearch}/osgeo_utils/
-
-%files python-tools -f gdal_python_manpages.txt
-%{_bindir}/gdal_calc.py
-%{_bindir}/gdal_edit.py
-%{_bindir}/gdal_fillnodata.py
-%{_bindir}/gdal_merge.py
-%{_bindir}/gdal_pansharpen.py
-%{_bindir}/gdal_polygonize.py
-%{_bindir}/gdal_proximity.py
-%{_bindir}/gdal_retile.py
-%{_bindir}/gdal_sieve.py
-%{_bindir}/gdal2tiles.py
-%{_bindir}/gdal2xyz.py
-%{_bindir}/gdalattachpct.py
-%{_bindir}/gdalcompare.py
-%{_bindir}/gdalmove.py
-%{_bindir}/ogr_layer_algebra.py
-%{_bindir}/ogrmerge.py
-%{_bindir}/pct2rgb.py
-%{_bindir}/rgb2pct.py
-%{_datadir}/bash-completion/completions/*.py
-
-%if %{with mingw}
-%files -n mingw32-python3-%{name}
-%{mingw32_bindir}/*.py
-%{mingw32_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
-%{mingw32_python3_sitearch}/osgeo/
-%{mingw32_python3_sitearch}/osgeo_utils/
-
-%files -n mingw64-python3-%{name}
-%{mingw64_bindir}/*.py
 %{mingw64_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw64_python3_sitearch}/osgeo/
 %{mingw64_python3_sitearch}/osgeo_utils/
-%endif
-%endif
-
-%if %{with java}
-%files java
-%{_jnidir}/%{name}/gdal-%{version}-sources.jar
-%{_jnidir}/%{name}/gdal-%{version}.jar
-%{_jnidir}/%{name}/gdal-%{version}.pom
-%{_jnidir}/%{name}/libgdalalljni.so
-
-%files javadoc
-%{_jnidir}/%{name}/gdal-%{version}-javadoc.jar
 %endif
 %endif
 

@@ -1,5 +1,5 @@
-%global DATE 20250410
-%global gitrev 5f1acb12c814822a776336abcae1988c1e42858e
+%global DATE 20250417
+%global gitrev dd2ccfe5989486cafb7f6108ff0c4e9f5a93f5a1
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.12%{?dist}
+Release: %{gcc_release}.13%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -1415,10 +1415,9 @@ done)
 done)
 %endif
 %if %{build_cobol}
-(cd gcc/cobol; for i in ChangeLog* LICENSE; do
+(cd gcc/cobol; for i in ChangeLog*; do
 	cp -p $i ../../rpm.doc/gcobol/$i.gcobol
-done
-cp -p LICENSE ../../rpm.doc/libgcobol/$i.libgcobol)
+done)
 (cd libgcobol; for i in ChangeLog*; do
 	cp -p $i ../rpm.doc/libgcobol/$i.libgcobol
 done)
@@ -3279,7 +3278,7 @@ end
 %{_prefix}/bin/gcobol
 %{_prefix}/bin/gcobc
 %{_mandir}/man1/gcobol.1*
-%{_mandir}/man3/gcobol.3*
+%{_mandir}/man3/gcobol-io.3*
 %dir %{_prefix}/libexec/gcc
 %dir %{_prefix}/libexec/gcc/%{gcc_target_platform}
 %dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
@@ -3767,6 +3766,33 @@ end
 %endif
 
 %changelog
+* Thu Apr 17 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.13
+- update from trunk and releases/gcc-14 branch
+  - PRs ada/119643, c/88382, c/119717, c++/99214, c++/101180, c++/106618,
+	c++/111075, c++/112288, c++/113360, c++/113835, c++/114772,
+	c++/114970, c++/115639, c++/116416, c++/116954, c++/119175,
+	c++/119345, c++/119687, c++/119692, c++/119755, c++/119807,
+	cobol/119217, cobol/119302, cobol/119694, cobol/119759, cobol/119776,
+	cobol/119777, d/109023, d/119758, d/119761, d/119799, d/119817,
+	d/119826, driver/90465, driver/119727, fortran/106948, fortran/119669,
+	ipa/113203, ipa/119318, ipa/119803, libfortran/119502, libgcc/101075,
+	libgcc/119796, libgomp/119849, libstdc++/21334, libstdc++/119725,
+	libstdc++/119748, libstdc++/119840, lto/119792, middle-end/14708,
+	middle-end/105548, middle-end/119706, middle-end/119808,
+	modula2/119735, modula2/119779, rtl-optimization/118502,
+	rtl-optimization/119785, rust/119341, rust/119342, sanitizer/119801,
+	target/42683, target/97106, target/97585, target/106445,
+	target/108134, target/113633, target/116827, target/118794,
+	target/119298, target/119386, target/119533, target/119547,
+	target/119673, target/119784, target/119834, testsuite/117706,
+	translation/119684, tree-optimization/71094, tree-optimization/87909,
+	tree-optimization/112822, tree-optimization/116093,
+	tree-optimization/118476, tree-optimization/119351,
+	tree-optimization/119399, tree-optimization/119706,
+	tree-optimization/119707, tree-optimization/119718,
+	tree-optimization/119722, tree-optimization/119757,
+	tree-optimization/119778
+
 * Thu Apr 10 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.12
 - update from trunk
   - PRs ada/119571, analyzer/113253, bootstrap/119680, c/78008, c/81831,

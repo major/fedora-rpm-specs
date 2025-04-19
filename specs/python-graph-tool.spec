@@ -14,7 +14,7 @@ Please refer to https://graph-tool.skewed.de/static/doc/index.html for
 documentation.}
 
 Name:           python-graph-tool
-Version:        2.96
+Version:        2.97
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 
@@ -158,8 +158,6 @@ Provides:       graph-tool-devel%{?_isa} = %{version}-%{release}
 find 'src' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs -r sed -r -i '1{/^#!/d}'
-# Fix shebang(s) in sample script(s)
-%py3_shebang_fix doc
 
 # Unbundle pcg-cpp. To avoid having to patch the Makefiles, we use symbolic
 # links from the original locations. Note that these are followed when the
@@ -171,10 +169,11 @@ ln -sv \
     '%{_includedir}/pcg_uint128.hpp' \
     'src/pcg-cpp/include/'
 
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> doc/conf.py
+# Remove assets for HTML documentation to prove that they are not installed. We
+# are most particularly concerned with fonts (in WOFF2 format). To avoid having
+# to patch build-system files that explicitly list these assets and expect them
+# to exist, we truncate the files to zero length rather than deleting them.
+find doc/_static -type f -print -execdir truncate --size=0 '{}' '+'
 
 
 %build
@@ -208,7 +207,7 @@ echo rpm > %{graph_tool_distinfo}/INSTALLER
 %make_install
 
 # Remove installed doc sources
-rm -rf %{buildroot}/%{_datadir}/doc/graph-tool
+rm -r %{buildroot}/%{_datadir}/doc/graph-tool
 
 # Remove static objects
 find %{buildroot} -name '*.la' -print -delete

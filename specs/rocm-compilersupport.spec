@@ -1,9 +1,9 @@
 # The package follows LLVM's major version, but API version is still important:
-%global comgr_maj_api_ver 2
+%global comgr_maj_api_ver 3
 # local, fedora
-%global _comgr_full_api_ver %{comgr_maj_api_ver}.8
+%global _comgr_full_api_ver %{comgr_maj_api_ver}.0
 # mock, suse
-%global comgr_full_api_ver %{comgr_maj_api_ver}.8.0
+%global comgr_full_api_ver %{comgr_maj_api_ver}.0.0
 # Upstream tags are based on rocm releases:
 %global rocm_release 6.4
 %global rocm_patch 0
@@ -37,8 +37,8 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 %else
 # Used to tell cmake where to install device libs (must be relative to prefix)
@@ -56,12 +56,12 @@
 # Older hipcc was perl, it has been deprecated
 %bcond_with perl
 # Enable ppc and aarch64 builds
-%bcond_without alt_arch
+%bcond_with alt_arch
 
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        1.rocm%{rocm_version}%{?dist}
+Release:        2.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -75,7 +75,11 @@ Source1:        rocm-compilersupport.prep.in
 
 Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
 Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
+# Subject: [PATCH] [gold] Fix compilation (#130334)
 Patch5:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
+# Link comgr with static versions of llvm's libraries
+Patch6:         0001-comgr-link-with-static-llvm.patch
+
 Patch8:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 
 BuildRequires:  cmake
@@ -157,7 +161,7 @@ libraries in the form of bit code. Specifically:
 # 15.6
 # rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
 # Your package contains a single shared library but is not named after its SONAME.
-%global comgr_name libamd_comgr2
+%global comgr_name libamd_comgr3
 %else
 %global comgr_name rocm-comgr
 %endif
@@ -540,7 +544,8 @@ p=$PWD
  -DCMAKE_BUILD_TYPE=%{build_type} \\\
  -DCMAKE_INSTALL_DO_STRIP=ON \\\
  -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \\\
--DCOMPILER_RT_BUILD_CTX_PROFILE=OFF \\\
+ -DCOMPILER_RT_BUILD_BUILTINS=ON \\\
+ -DCOMPILER_RT_BUILD_CTX_PROFILE=OFF \\\
  -DCOMPILER_RT_BUILD_GWP_ASAN=OFF \\\
  -DCOMPILER_RT_BUILD_LIBFUZZER=OFF \\\
  -DCOMPILER_RT_BUILD_MEMPROF=OFF \\\
@@ -565,6 +570,7 @@ p=$PWD
  -DLLVM_INCLUDE_EXAMPLES=OFF \\\
  -DLLVM_INCLUDE_TESTS=OFF \\\
  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
+ -DLLVM_TOOL_GOLD_BUILD=ON \\\
  -DLLVM_TOOL_LLVM_AS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DIS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DLANG_DEMANGLE_FUZZER_BUILD=OFF \\\
@@ -754,13 +760,13 @@ pushd .
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}
-sed -i -e 's@libLLVM-%{llvm_maj_ver}git.so@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.19.0git@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
-sed -i -e 's@-lm -lrt@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lm -lrt@' CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' CMakeFiles/amd_comgr.dir/link.txt
 %else
-sed -i -e 's@libLLVM-%{llvm_maj_ver}git.so@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.19.0git@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
-sed -i -e 's@-lm -lrt@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lm -lrt@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
 
 %cmake_build -j ${JOBS}
@@ -1108,6 +1114,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 
 %files -n rocm-llvm-libs
 %{bundle_prefix}/lib/libLLVM-*.so
+%{bundle_prefix}/lib/libLLVM.so.*
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
@@ -1159,13 +1166,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/c-index-test
 %{bundle_prefix}/bin/clang*
 %{bundle_prefix}/bin/diagtool
-%{bundle_prefix}/bin/find-all-symbols
 %{bundle_prefix}/bin/flang
 %{bundle_prefix}/bin/git-clang-format
 %{bundle_prefix}/bin/hmaptool
-%{bundle_prefix}/bin/modularize
 %{bundle_prefix}/bin/nvptx-arch
-%{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
 %{bundle_prefix}/share/clang-doc
 
@@ -1179,11 +1183,14 @@ rm %{buildroot}%{_bindir}/hip*.pl
 # ROCM CLANG TOOLS EXTRA
 %files -n rocm-clang-tools-extra
 %license clang-tools-extra/LICENSE.TXT
+%{bundle_prefix}/bin/find-all-symbols
+%{bundle_prefix}/bin/modularize
+%{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/bin/run-clang-tidy
 
 %files -n rocm-clang-tools-extra-devel
 %license clang-tools-extra/LICENSE.TXT
-%{bundle_prefix}/include/clang-tidy/
+%{bundle_prefix}/include/clang-tidy/*
 
 # ROCM LLD
 %files -n rocm-lld
@@ -1209,6 +1216,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 
 %files -n rocm-libc++-devel
 %{bundle_prefix}/include/c++/
+%{bundle_prefix}/share/libc++/
 %{bundle_prefix}/lib/libc++.so
 %{bundle_prefix}/lib/libc++abi.so
 
@@ -1220,6 +1228,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Thu Apr 17 2025 Tom Rix <Tom.Rix@amd.com> - 19-2.rocm6.4.0
+- static link comgr
+- fix tools extra
+
 * Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 19-1.rocm6.4.0
 - Update to 6.4.0
 

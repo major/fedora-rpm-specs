@@ -1,6 +1,6 @@
 Name:           harfbuzz
-Version:        11.0.1
-Release:        2%{?dist}
+Version:        11.1.0
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -110,6 +110,9 @@ This package contains Harfbuzz Cairo support library.
 %{_libdir}/libharfbuzz-cairo.so.*
 
 %changelog
+* Thu Apr 17 2025 Parag Nemade <pnemade AT redhat DOT com> - 11.1.0-1
+- Update to 11.1.0 version (#2360473)
+
 * Sat Apr 05 2025 Parag Nemade <pnemade AT redhat DOT com> - 11.0.1-2
 - Upstream removed hb-ot-shape-closure binary
 

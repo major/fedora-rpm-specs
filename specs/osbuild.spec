@@ -9,7 +9,7 @@ Version:        147
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -127,7 +127,11 @@ Requires:       python3-dnf
 %if 0%{?fedora}
 Requires:       python3-rich
 Requires:       python3-attrs
+%if 0%{?fedora} > 40
+Requires:       python3dist(typer-slim[standard])
+%else
 Requires:       python3-typer
+%endif
 %endif
 
 %description    tools
@@ -325,6 +329,10 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Thu Apr 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 146-2
+- In Fedora 41+, depend on python3-typer-slim rather than python3-typer, working
+  around a file conflict
+
 * Wed Apr 16 2025 Packit <hello@packit.dev> - 147-1
 Changes with 147
 ----------------
@@ -340,7 +348,6 @@ Changes with 147
     * Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Michael Vogt, Tomáš Hozza
 
 — Somewhere on the Internet, 2025-04-16
-
 
 * Wed Apr 09 2025 Packit <hello@packit.dev> - 146-1
 Changes with 146
