@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          7%{?dist}
 Summary:          Tools for Managing SSH and Git Credentials
 
 License:          MIT
@@ -75,6 +75,15 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.1-7
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.1-6
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.1-5
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          13%{?dist}
 Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{packver}.tar.gz
 License:          Artistic-2.0
 BuildArch:        noarch
@@ -54,6 +54,15 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/R
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.0-13
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.0-12
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.0-11
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

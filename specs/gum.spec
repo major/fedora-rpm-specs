@@ -1,88 +1,98 @@
-%global goipath github.com/charmbracelet/gum
+%define goipath github.com/charmbracelet/gum
 
 Name:           gum
-Version:        0.15.2
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Tool for glamorous shell scripts
+URL:            https://github.com/charmbracelet/gum
+
 # main source code is MIT
 # BSD-3-Clause:
-#   - golang(github.com/atotto/clipboard)
-#   - golang(github.com/gorilla/css)
-#   - golang(github.com/microcosm-cc/bluemonday)
-#   - golang(golang.org/x/exp)
-#   - golang(golang.org/x/net)
-#   - golang(golang.org/x/sync)
-#   - golang(golang.org/x/sys)
-#   - golang(golang.org/x/term)
-#   - golang(golang.org/x/text)
+#   github.com/atotto/clipboard
+#   github.com/gorilla/css
+#   github.com/microcosm-cc/bluemonday
+#   golang.org/x/exp
+#   golang.org/x/net
+#   golang.org/x/sync
+#   golang.org/x/sys
+#   golang.org/x/term
+#   golang.org/x/text
 # MIT:
-#   - golang(github.com/alecthomas/kong)
-#   - golang(github.com/alecthomas/mango-kong)
-#   - golang(github.com/aymanbagabas/go-osc52/v2)
-#   - golang(github.com/aymerick/douceur)
-#   - golang(github.com/charmbracelet/bubbles)
-#   - golang(github.com/charmbracelet/bubbletea)
-#   - golang(github.com/charmbracelet/glamour)
-#   - golang(github.com/charmbracelet/lipgloss)
-#   - golang(github.com/charmbracelet/log)
-#   - golang(github.com/charmbracelet/x/ansi)
-#   - golang(github.com/charmbracelet/x/editor)
-#   - golang(github.com/charmbracelet/x/term)
-#   - golang(github.com/dlclark/regexp2)
-#   - golang(github.com/dustin/go-humanize)
-#   - golang(github.com/erikgeiser/coninput)
-#   - golang(github.com/go-logfmt/logfmt)
-#   - golang(github.com/lucasb-eyer/go-colorful)
-#   - golang(github.com/Masterminds/semver/v3)
-#   - golang(github.com/mattn/go-isatty)
-#   - golang(github.com/mattn/go-localereader)
-#   - golang(github.com/mattn/go-runewidth)
-#   - golang(github.com/muesli/ansi)
-#   - golang(github.com/muesli/cancelreader)
-#   - golang(github.com/muesli/mango)
-#   - golang(github.com/muesli/reflow)
-#   - golang(github.com/muesli/roff)
-#   - golang(github.com/muesli/termenv)
-#   - golang(github.com/rivo/uniseg)
-#   - golang(github.com/sahilm/fuzzy)
-#   - golang(github.com/yuin/goldmark)
-#   - golang(github.com/yuin/goldmark-emoji)
+#   github.com/Masterminds/semver/v3
+#   github.com/alecthomas/kong
+#   github.com/alecthomas/mango-kong
+#   github.com/aymanbagabas/go-osc52/v2
+#   github.com/aymerick/douceur
+#   github.com/charmbracelet/bubbles
+#   github.com/charmbracelet/bubbletea
+#   github.com/charmbracelet/glamour
+#   github.com/charmbracelet/lipgloss
+#   github.com/charmbracelet/log
+#   github.com/charmbracelet/x/ansi
+#   github.com/charmbracelet/x/conpty
+#   github.com/charmbracelet/x/editor
+#   github.com/charmbracelet/x/errors
+#   github.com/charmbracelet/x/term
+#   github.com/charmbracelet/x/termios
+#   github.com/charmbracelet/x/xpty
+#   github.com/creack/pty
+#   github.com/dlclark/regexp2
+#   github.com/dustin/go-humanize
+#   github.com/erikgeiser/coninput
+#   github.com/go-logfmt/logfmt
+#   github.com/lucasb-eyer/go-colorful
+#   github.com/mattn/go-isatty
+#   github.com/mattn/go-localereader
+#   github.com/mattn/go-runewidth
+#   github.com/muesli/ansi
+#   github.com/muesli/cancelreader
+#   github.com/muesli/mango
+#   github.com/muesli/reflow
+#   github.com/muesli/roff
+#   github.com/muesli/termenv
+#   github.com/rivo/uniseg
+#   github.com/sahilm/fuzzy
+#   github.com/yuin/goldmark
+#   github.com/yuin/goldmark-emoji
 # MIT AND OFL-1.1:
-#   - golang(github.com/alecthomas/chroma/v2)
+#   github.com/alecthomas/chroma/v2
 License:        BSD-3-Clause AND MIT AND OFL-1.1
-URL:            https://github.com/charmbracelet/gum
+
 Source0:        %{url}/archive/v%{version}/gum-%{version}.tar.gz
-
-# see create-vendor-tarball.sh for how to create this
 Source1:        gum-%{version}-vendor.tar.gz
-
-# script that creates vendor tarball
-Source100:      create-vendor-tarball.sh
+Source2:        create-vendor-tarball.sh
 
 BuildRequires:  go-rpm-macros
 ExclusiveArch:  %{golang_arches_future}
+# https://github.com/charmbracelet/gum/commit/2e321f57e245147fe55ee58ef9c046db91b76e17
+BuildRequires:  golang >= 1.23
 
+Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = 3.3.1
 Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.14.0
-Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.6.1
+Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.8.1
 Provides:       bundled(golang(github.com/alecthomas/mango-kong)) = 0.1.0
 Provides:       bundled(golang(github.com/atotto/clipboard)) = 0.1.4
 Provides:       bundled(golang(github.com/aymanbagabas/go-osc52/v2)) = 2.0.1
 Provides:       bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides:       bundled(golang(github.com/charmbracelet/bubbles)) = 0.20.0
-Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = e0515bc
+Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.3.4
 Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.8.0
 Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = ecc1bd0
 Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.0
 Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.8.0
+Provides:       bundled(golang(github.com/charmbracelet/x/conpty)) = 0.1.0
 Provides:       bundled(golang(github.com/charmbracelet/x/editor)) = 0.1.0
+Provides:       bundled(golang(github.com/charmbracelet/x/errors)) = e8d8b6e
 Provides:       bundled(golang(github.com/charmbracelet/x/term)) = 0.2.1
+Provides:       bundled(golang(github.com/charmbracelet/x/termios)) = 0.1.1
+Provides:       bundled(golang(github.com/charmbracelet/x/xpty)) = 0.1.2
+Provides:       bundled(golang(github.com/creack/pty)) = 1.1.24
 Provides:       bundled(golang(github.com/dlclark/regexp2)) = 1.11.0
 Provides:       bundled(golang(github.com/dustin/go-humanize)) = 1.0.1
 Provides:       bundled(golang(github.com/erikgeiser/coninput)) = 1c3628e
 Provides:       bundled(golang(github.com/go-logfmt/logfmt)) = 0.6.0
 Provides:       bundled(golang(github.com/gorilla/css)) = 1.0.1
 Provides:       bundled(golang(github.com/lucasb-eyer/go-colorful)) = 1.2.0
-Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = 3.3.1
 Provides:       bundled(golang(github.com/mattn/go-isatty)) = 0.0.20
 Provides:       bundled(golang(github.com/mattn/go-localereader)) = 0.0.1
 Provides:       bundled(golang(github.com/mattn/go-runewidth)) = 0.0.16
@@ -92,17 +102,17 @@ Provides:       bundled(golang(github.com/muesli/cancelreader)) = 0.2.2
 Provides:       bundled(golang(github.com/muesli/mango)) = 0.2.0
 Provides:       bundled(golang(github.com/muesli/reflow)) = 0.3.0
 Provides:       bundled(golang(github.com/muesli/roff)) = 0.1.0
-Provides:       bundled(golang(github.com/muesli/termenv)) = 0d230cb
+Provides:       bundled(golang(github.com/muesli/termenv)) = 0.16.0
 Provides:       bundled(golang(github.com/rivo/uniseg)) = 0.4.7
 Provides:       bundled(golang(github.com/sahilm/fuzzy)) = 0.1.1
 Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.4
 Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.4
 Provides:       bundled(golang(golang.org/x/exp)) = 7f521ea
 Provides:       bundled(golang(golang.org/x/net)) = 0.33.0
-Provides:       bundled(golang(golang.org/x/sync)) = 0.10.0
-Provides:       bundled(golang(golang.org/x/sys)) = 0.28.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.12.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.30.0
 Provides:       bundled(golang(golang.org/x/term)) = 0.27.0
-Provides:       bundled(golang(golang.org/x/text)) = 0.21.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.23.0
 
 
 %description
@@ -116,7 +126,7 @@ mkdir -p src/$(dirname %{goipath})
 ln -s $PWD src/%{goipath}
 
 # set the program version
-sed -e '/Version = / s/""/"%{version}"/' -i main.go
+sed -e '/Version = / s/""/"v%{version}"/' -i main.go
 
 
 %build
@@ -143,7 +153,7 @@ install -d -m 0755 %{buildroot}%{fish_completions_dir}
 
 %check
 # ensure that the version was embedded correctly
-[[ "$(./bin/gum --version)" == "gum version %{version}" ]] || exit 1
+[[ "$(./bin/gum --version)" == "gum version v%{version}" ]] || exit 1
 
 # run the upstream tests
 export GOPATH=$PWD

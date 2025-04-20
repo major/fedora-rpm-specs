@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          7%{?dist}
 Summary:          Character String Processing Facilities
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -89,6 +89,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.3-7
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.3-6
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

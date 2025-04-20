@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          8%{?dist}
+Release:          10%{?dist}
 Summary:          Helper Functions to Install and Maintain TeX Live, and Compile LaTeX Documents
 
 License:          MIT
@@ -66,6 +66,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.45-10
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.45-9
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

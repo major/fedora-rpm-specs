@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -9,7 +9,6 @@ Source1: FedoraServer.xml
 Source2: FedoraWorkstation.xml
 Source3: org.fedoraproject.FirewallD1.desktop.rules.choice
 Patch0: fedora-only-MDNS-default.patch
-Patch1: 0001-FEDORA-ONLY-default-to-IPv6_rpfilter-loose-for-works.patch
 Patch2: 0002-v2.3.1-fix-config-correctly-set-IPv6_rpfilter-via-db.patch
 Patch3: 0003-v2.3.1-test-rpfilter-improve-config-value-checks.patch
 BuildArch: noarch
@@ -363,6 +362,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Fri Apr 18 2025 Eric Garver <eric@garver.life> - 2.3.0-5
+- remove patch specific to workstation variant (RHBZ#2359679)
+
 * Sat Jan 25 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.3.0-4
 - Adjust paths for iptables (rhbz#2338712)
 

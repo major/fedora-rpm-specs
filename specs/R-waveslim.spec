@@ -5,7 +5,7 @@
 Summary: R module, Basic wavelet routines for 1,2 and 3-dimensional signal processing
 Name: R-%{packname}
 Version: 1.8.4
-Release: 10%{?dist}
+Release: 12%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Source0: ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
@@ -41,6 +41,12 @@ cd ..; R CMD INSTALL %{packname} -l %{buildroot}%{_libdir}/R/library
 %{_libdir}/R/library/%{packname}
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-12
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-11
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

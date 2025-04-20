@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.4.1
-Release:          16%{?dist}
+Release:          18%{?dist}
 Summary:          Creating Pretty Documents from R Markdown
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -85,6 +85,12 @@ popd
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.1-18
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.1-17
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

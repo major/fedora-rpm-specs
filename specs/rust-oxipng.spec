@@ -35,15 +35,13 @@ Summary:        %{summary}
 # Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSL-1.0
 # MIT
-# MIT OR Apache-2.0 (duplicate)
+# MIT OR Apache-2.0
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 Apache-2.0 AND
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-                BSL-1.0 AND
                 MIT AND
                 (Zlib OR Apache-2.0 OR MIT)
                 }

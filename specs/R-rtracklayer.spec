@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.66.0
-Release:          1%{dist}
+Release:          3%{dist}
 Summary:          R interface to genome browsers and their annotation tracks
 # Automatically converted from old format: Artistic 2.0 and BSD - review is highly recommended.
 License:          Artistic-2.0 AND LicenseRef-Callaway-BSD
@@ -84,6 +84,12 @@ rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/tests/quickload/T_species_Oc
 %{_libdir}/R/library/%{packname}/unitTests/
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.66.0-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.66.0-2
+- R-maint-sig mass rebuild
+
 * Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 1.66.0-1
 - update to 1.66.0
 

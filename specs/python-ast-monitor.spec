@@ -1,7 +1,7 @@
 %global pypi_name ast-monitor
 
 Name:           python-%{pypi_name}
-Version:        0.5.3
+Version:        0.5.5
 Release:        %autorelease
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
@@ -12,9 +12,6 @@ Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
-# Patch for compatability with sport-activities-features 0.5.0
-# https://github.com/firefly-cpp/AST-Monitor/issues/107 (rebased)
-Patch:          0001-Update-for-sport-activities-features-0.5.0.patch
 
 BuildArch:      noarch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies

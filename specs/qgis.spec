@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.42.1
-Release:        2%{?dist}
+Version:        3.42.2
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -303,6 +303,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Apr 18 2025 Sandro Mani <manisandro@gmail.com> - 3.42.2-1
+- Update to 3.42.2
+
 * Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 3.42.1-2
 - Fix CVE-2024-55565
 

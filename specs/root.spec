@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3626,6 +3626,15 @@ fi
 %endif
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 6.34.08-4
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 6.34.08-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 6.34.08-2
+- R-maint-sig mass rebuild
+
 * Thu Apr 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.08-1
 - Update to 6.34.08
 

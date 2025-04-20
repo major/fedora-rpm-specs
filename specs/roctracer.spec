@@ -1,5 +1,5 @@
 %global upstreamname roctracer
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -25,7 +25,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -50,6 +50,7 @@ BuildRequires:  python313-cppheaderparser
 %endif
 %else
 BuildRequires:  libatomic
+# https://github.com/ROCm/roctracer/issues/113
 BuildRequires:  python3-cppheaderparser
 %endif
 
@@ -185,6 +186,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Mon Feb 24 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
 - Specialize python-cppheaderparser for tw
 

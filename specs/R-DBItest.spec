@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0
-Release:          18%{?dist}
+Release:          21%{?dist}
 Summary:          Testing DBI Backends
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -76,6 +76,15 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-21
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-20
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-19
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

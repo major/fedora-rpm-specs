@@ -1,5 +1,5 @@
 Name:           python-frozenlist
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        List-like structure which can be made immutable
 
@@ -18,7 +18,7 @@ Patch:          0001-Downstream-only-Build-normal-wheels-in-place.patch
 BuildSystem:            pyproject
 BuildOption(install):   -l frozenlist
 
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 
 BuildRequires:  %{py3_dist pytest}
 

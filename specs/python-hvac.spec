@@ -2,25 +2,24 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        HashiCorp Vault API client for Python
 
 License:        Apache-2.0
 URL:            https://github.com/hvac/hvac
-Source0:        %{pypi_source}
+Source:         %{pypi_source %{pypi_name}}
 BuildArch:      noarch
 
-%description
-This package provides a Python API client for HashiCorp Vault.
+%global _description %{expand:
+This package provides a Python API client for HashiCorp Vault.}
+
+%description %{_description}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
-%description -n python3-%{pypi_name}
-This package provides a Python API client for HashiCorp Vault.
-
-This is for Python 3.
+%description -n python3-%{pypi_name} %{_description}
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
@@ -28,20 +27,32 @@ This is for Python 3.
 find hvac -type f ! -executable -name '*.py' -print -exec sed -r -i -e '1{\@^#!/usr/bin/(env )?python@d}' '{}' +
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files -L hvac
 
-%pyproject_save_files hvac
+%check
+# All test require the "vault" executable, so this is all that we can do:
+%pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
+%license LICENSE.txt
 %doc README.md
 
 %changelog
+* Fri Apr 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-7
+- Do not spuriously attempt to generate BuildRequires from tox
+  (fix RHBZ#2354110)
+- Add an import-only smoke test, and document why we cannot run tests
+- Fix missing license file
+- Remove language about Python 3 in the description, left over from when we
+  also had Python 2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

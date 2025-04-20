@@ -1,6 +1,6 @@
 Name:           rkward
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -91,6 +91,15 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-4
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-2
+- R-maint-sig mass rebuild
+
 * Wed Jan 22 2025 Pavel Solovev <daron439@gmail.com> - 0.8.0-1
 - Update to 0.8.0
 

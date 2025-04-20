@@ -4,7 +4,7 @@
 Name:           python-pydantic-extra-types
 Version:        2.10.3
 %forgemeta
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Extra types for Pydantic
 
 License:        MIT
@@ -25,12 +25,6 @@ Source:         %{forgesource}
 #
 # All of this works because python3-libs depends on the system tzdata package.
 Patch0:         0001-Assume-zoneinfo-has-system-tzdata.patch
-
-# For Fedora 40 only: Revert ":sparkles: Adjust `test_json_schema()` for
-# Pydantic 2.9 (#215)" (except changes to pyproject.txt, to reduce future
-# conflicts). Fedora 40 will remain at Pydantic 2.8 since 2.9 contained a
-# breaking change.
-Patch140:       0001-Revert-sparkles-Adjust-test_json_schema-for-Pydantic.patch
 
 BuildArch:      noarch
 
@@ -58,11 +52,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup %{forgesetupargs} -N
-%autopatch -p1 -M99
-%if 0%{?fc40}
-%patch -P140 -p1
-%endif
+%autosetup %{forgesetupargs} -p1
 # See notes above 0001-Assume-zoneinfo-has-system-tzdata.patch.
 tomcli set pyproject.toml lists delitem --type regex --no-first \
     project.optional-dependencies.all '(tzdata|pytz)\b.*'
@@ -95,69 +85,4 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
-* Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.3-1
-- Update to 2.10.3. Fixes rhbz#2350978.
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.2-1
-- Update to 2.10.2. Fixes rhbz#2338374.
-
-* Thu Dec 19 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.1-1
-- Update to 2.10.1. Fixes rhbz#2330807.
-
-* Mon Oct 21 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.0-2
-- Another patch for python-ulid 3.0.0 (fix RHBZ#2320153)
-
-* Wed Oct 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.0-1
-- Update to 2.10.0 (close RHBZ#2319061)
-
-* Sun Oct 13 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.9.0-5
-- Allow python-ulid 3.0
-
-* Wed Sep 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.9.0-4
-- Adjust test_json_schema() for Pydantic 2.9
-
-* Fri Aug 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.9.0-3
-- Add a direct BuildRequires on pytz for the tests
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jul 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.9.0-1
-- Update to 2.9.0. Fixes rhbz#2295691.
-- Add missing extras metapackages
-
-* Sat Jun 29 2024 Python Maint <python-maint@redhat.com> - 2.8.2-2
-- Rebuilt for Python 3.13
-
-* Sun Jun 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.2-1
-- Update to 2.8.2. Fixes rhbz#2292564.
-
-* Fri Jun 14 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-1
-- Update to 2.8.1. Fixes rhbz#2292384.
-
-* Tue Jun 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
-- Update to 2.8.0. Fixes rhbz#2290380.
-
-* Tue Apr 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
-- Update to 2.7.0. Fixes rhbz#2276774.
-
-* Sat Mar 2 2024 Maxwell G <maxwell@gtmx.me> - 2.6.0-1
-- Update to 2.6.0. Fixes rhbz#2267402.
-
-* Tue Feb 13 2024 Maxwell G <maxwell@gtmx.me> - 2.5.0-1
-- Update to 2.5.0. Fixes rhbz#2261943.
-
-* Wed Jan 31 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.1-1
-- Update to 2.4.1
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 2.1.0-1
-- Initial package. Closes rhbz#2249133.
+%autochangelog

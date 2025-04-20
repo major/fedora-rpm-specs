@@ -1,10 +1,10 @@
 %global         usegit      1
-%global         baserelease     26
+%global         baserelease     27
 
-%global         githash     6edec704a3c6242801ce8e8be9095e9cf0753493
+%global         githash     ff9cd266b9700b19c15a4b3cb7104134b5398133
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
-%global         gitdate     Tue Jul 2 18:05:51 2024 +0200
-%global         gitdate_num 20240702
+%global         gitdate     Mon 14 Apr 2025 08:18:48 +0100
+%global         gitdate_num 20250404
 
 %if 0%{?usegit} >= 1
 %global         fedorarel   0.%{baserelease}.D%{gitdate_num}git%{shorthash}
@@ -70,6 +70,9 @@ python3 ./tests/test.py
 %{_bindir}/gprof2dot
 
 %changelog
+* Fri Apr 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.27.D20250404gitff9cd266b9
+- Update to 2025.04.04
+
 * Fri Mar 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.26.D20240702git6edec704a3
 - Fix EVR for upgrade path
 

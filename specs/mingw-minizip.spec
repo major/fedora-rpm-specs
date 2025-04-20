@@ -3,8 +3,8 @@
 %global pkgname minizip
 
 Name:          mingw-%{pkgname}
-Version:       3.0.7
-Release:       7%{?dist}
+Version:       4.0.9
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -18,7 +18,7 @@ BuildRequires: make
 BuildRequires: cmake
 
 BuildRequires: mingw32-bzip2
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-openssl
 BuildRequires: mingw32-xz
@@ -26,7 +26,7 @@ BuildRequires: mingw32-zlib
 BuildRequires: mingw32-zstd
 
 BuildRequires: mingw64-bzip2
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-openssl
 BuildRequires: mingw64-xz
@@ -72,7 +72,7 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
-%{mingw32_bindir}/lib%{pkgname}-3.dll
+%{mingw32_bindir}/lib%{pkgname}-1.dll
 %{mingw32_libdir}/lib%{pkgname}.dll.a
 %{mingw32_libdir}/cmake/%{pkgname}/
 %{mingw32_libdir}/pkgconfig/%{pkgname}.pc
@@ -80,7 +80,7 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
-%{mingw64_bindir}/lib%{pkgname}-3.dll
+%{mingw64_bindir}/lib%{pkgname}-1.dll
 %{mingw64_libdir}/lib%{pkgname}.dll.a
 %{mingw64_libdir}/cmake/%{pkgname}/
 %{mingw64_libdir}/pkgconfig/%{pkgname}.pc
@@ -88,6 +88,9 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 
 %changelog
+* Fri Apr 18 2025 Sandro Mani <manisandro@gmail.com> - 4.0.9-1
+- Update to 4.0.9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

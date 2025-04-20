@@ -1,10 +1,10 @@
 %global srcname rpy
 %global sum Python interface to the R language
 %global rmaj   4
-%if (0%{?fedora} && 0%{?fedora} >= 40)
-%global rmin   4
+%if (0%{?fedora} && 0%{?fedora} >= 42)
+%global rmin   5
 %else
-%global rmin   3
+%global rmin   4
 %endif
 
 %define add_rver() %{lua:
@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       2%{?dist}
+Release:       5%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -31,6 +31,7 @@ BuildRequires: %add_rver R-devel
 BuildRequires: python3-devel
 BuildRequires: readline-devel
 BuildRequires: python3dist(pytest)
+BuildRequires: libzstd-devel
 
 Requires:      python3-%{srcname} = %{version}-%{release}
 
@@ -82,6 +83,16 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-5
+- R-maint-sig mass rebuild
+- BR libzstd-devel
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-4
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-3
+- R-maint-sig mass rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

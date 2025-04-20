@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.1.7.1
-Release:          14%{?dist}
+Release:          16%{?dist}
 Summary:          Wrapper for the Gnu Scientific Library
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -62,6 +62,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.1.7.1-16
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.1.7.1-15
+- R-maint-sig mass rebuild
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 2.1.7.1-14
 - Rebuild with gsl 2.8
 

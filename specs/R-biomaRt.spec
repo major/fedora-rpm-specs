@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.52.0
-Release:          10%{?dist}
+Release:          13%{?dist}
 Summary:          R Interface to BioMart databases
 License:          Artistic-2.0
 URL:              http://www.bioconductor.org/packages/release/bioc/html/biomaRt.html
@@ -57,6 +57,15 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/scripts/
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.52.0-13
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.52.0-12
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.52.0-11
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.52.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

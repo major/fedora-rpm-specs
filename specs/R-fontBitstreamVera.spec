@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.1
-Release:          24%{?dist}
+Release:          27%{?dist}
 Summary:          Fonts with 'Bitstream Vera Fonts' License
 
 License:          Bitstream-Vera
@@ -86,6 +86,15 @@ done
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.1-27
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.1-26
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.1-25
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.9.5
-Release:          1%{?dist}
+Release:          4%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
 License:          BSD-2-Clause
@@ -79,6 +79,15 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.5-4
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.5-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.5-2
+- R-maint-sig mass rebuild
+
 * Mon Mar  17 2025 Packit <hello@packit.dev> - 1.9.5-1
 - Update to version 1.9.5
 - Resolves: rhbz#2352933

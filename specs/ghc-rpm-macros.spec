@@ -3,8 +3,8 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.8.1
-Release:        2%{?dist}
+Version:        2.9.0
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -218,6 +218,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Fri Apr 18 2025 Jens Petersen <petersen@redhat.com> - 2.9.0-1
+- when subpackaging don't use -no-user-package-db for compiling Setup
+
 * Sun Apr 13 2025 Jens Petersen <petersen@redhat.com> - 2.8.1-2
 - F43 obsoletes: aeson-compat, fclabels, libiserv, system-fileio
 

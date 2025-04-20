@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.0.1
-Release:          13%{?dist}
+Release:          15%{?dist}
 Summary:          Abstractions for Promise-Based Asynchronous Programming
 
 License:          MIT
@@ -84,6 +84,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0.1-15
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0.1-14
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.2
-Release:          19%{?dist}
+Release:          21%{?dist}
 Summary:          Lazy (Non-Standard) Evaluation
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -75,6 +75,12 @@ export NOT_CRAN=true
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.2-21
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.2-20
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

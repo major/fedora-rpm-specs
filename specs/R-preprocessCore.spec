@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.58.0
-Release:          10%{dist}
+Release:          12%{dist}
 Summary:          A collection of pre-processing functions
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -71,6 +71,12 @@ install -m 664 -p %{SOURCE1}  %{buildroot}%{_libdir}/R/library/%{packname}
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.58.0-12
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.58.0-11
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.58.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

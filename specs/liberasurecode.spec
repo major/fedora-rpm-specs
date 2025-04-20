@@ -3,9 +3,9 @@ Version:        1.6.2
 Release:        11%{?dist}
 Summary:        Erasure Code API library written in C with pluggable backends
 
-# Main license is a 2-clause BSD with clause numbers removed for some reason.
-# Automatically converted from old format: BSD and CRC32 - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-CRC32
+# Main license is a BSD-2-clause with clause numbers removed for some reason.
+# CRC32 is LicenseRef-Fedora-UltraPermissive
+License:        BSD-2-Clause AND LicenseRef-Fedora-UltraPermissive
 URL:            https://bitbucket.org/tsg-/liberasurecode/
 # We pull the tag using git CLI. Save the current command for Source0 below.
 #  tag=1.6.2 eval 'git archive -o ../liberasurecode-$tag.tar.gz --prefix=liberasurecode-$tag/ $tag'

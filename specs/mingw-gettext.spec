@@ -130,9 +130,9 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-23-1.dll
+%{mingw32_bindir}/libgettextlib-0-24.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-23-1.dll
+%{mingw32_bindir}/libgettextsrc-0-24.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
@@ -177,9 +177,9 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-23-1.dll
+%{mingw64_bindir}/libgettextlib-0-24.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-23-1.dll
+%{mingw64_bindir}/libgettextsrc-0-24.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe

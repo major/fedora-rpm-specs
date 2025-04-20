@@ -10,7 +10,7 @@
 
 Name:             R-%{packname}
 Version:          3.4.1.1
-Release:          6%{?dist}
+Release:          8%{?dist}
 Summary:          Draw Geographical Maps
 
 License:          GPL-2.0-only
@@ -80,6 +80,12 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.1.1-8
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.1.1-7
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

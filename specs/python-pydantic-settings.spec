@@ -3,37 +3,37 @@
 # azure-cli is not ready:
 # https://src.fedoraproject.org/rpms/python-azure-keyvault-secrets/pull-request/1
 %bcond azure_key_vault 0
+# The aws-secrets-manager extra needs boto3-stubs[secretsmanager], but
+# python-boto3-stubs is not packaged.
+%bcond aws_secrets_manager 0
+# The gcp-secret-manager extra needs google-cloud-secret-manager>=2.23.1, but
+# python-google-cloud-secret-manager is not packaged.
+%bcond gcp_secret_manager 0
 
 %global forgeurl https://github.com/pydantic/pydantic-settings
 
 Name:           python-pydantic-settings
-Version:        2.8.1
+Version:        2.9.1
 %forgemeta
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Settings management using pydantic
 
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
-# Update pydantic (#593)
-# https://github.com/pydantic/pydantic-settings/commit/f3e5ac382c9318e465012f60adda22919c01d1c7
-#
-# Fixes:
-#
-# Regression with typing-extensions 4.13: test_cli_metavar_format_type_alias_312
-# https://github.com/pydantic/pydantic-settings/issues/591
-# Some test regressions with Pydantic 2.11
-# https://github.com/pydantic/pydantic-settings/issues/592
-#
-# Cherry-picked to v2.8.1
-Patch:          0001-Update-pydantic-593.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
 %if %{with tests}
+# See dependency-groups.testing in pyproject.toml.
+# We list test dependencies manually to avoid having to patch out verious
+# unwanted and unnecessary dependencies:
+#
+# - coverage (coverage analysis)
+# - pytest-examples, moto: not packaged, not mandatory
+# - pytest-pretty: purely cosmetic
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-mock}
 %endif
@@ -59,7 +59,12 @@ tomcli set pyproject.toml lists delitem \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x yaml,toml%{?with_azure_key_vault:,azure-key-vault}
+%{pyproject_buildrequires \
+    -x yaml \
+    -x toml \
+    %{?with_azure_key_vault:-x azure-key-vault} \
+    %{?with_aws_secrets_manager:-x aws-secrets-manager} \
+    %{?with_gcp_secret_manager:-x gcp-secret-manager}}
 
 
 %build
@@ -77,15 +82,12 @@ ignore="${ignore-} --ignore=tests/test_docs.py"
 %if %{without azure_key_vault}
 ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
 %endif
-
-# Regression with typing-extensions 4.13:
-# test_cli_metavar_format_type_alias_312
-# https://github.com/pydantic/pydantic-settings/issues/591
-# Fixed in
-# https://github.com/pydantic/pydantic-settings/commit/e5fb741ecb0ccb57e390218b4fbb19a34cebdc29;
-# we choose not to attempt a backport, but to wait for the next release
-# (https://github.com/pydantic/pydantic-settings/issues/591#issuecomment-2812686144).
-k="${k-}${k+ and }not test_cli_metavar_format_type_alias_312"
+%if %{without aws_secrets_manager}
+ignore="${ignore-} --ignore tests/test_source_aws_secrets_manager.py"
+%endif
+%if %{without gcp_secret_manager}
+ignore="${ignore-} --ignore tests/test_source_gcp_secret_manager.py"
+%endif
 
 %pytest ${ignore-} -k "${k-}" -rs -v
 %endif
@@ -95,78 +97,17 @@ k="${k-}${k+ and }not test_cli_metavar_format_type_alias_312"
 %doc README.md
 
 
-%pyproject_extras_subpkg -n python3-pydantic-settings yaml toml %{?with_azure_key_vault:azure-key-vault}
+%pyproject_extras_subpkg -n python3-pydantic-settings yaml toml
+%if %{with azure_key_vault}
+%pyproject_extras_subpkg -n python3-pydantic-settings azure-key-vault
+%endif
+%if %{with aws_secrets_manager}
+%pyproject_extras_subpkg -n python3-pydantic-settings aws-secrets-manager
+%endif
+%if %{with gcp_secret_manager}
+%pyproject_extras_subpkg -n python3-pydantic-settings gcp-secret-manager
+%endif
 
 
 %changelog
-* Thu Apr 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-3
-- While testing, do not error on warnings
-- Backport fixes for deprecation warnings, etc. with Pydantic 2.11
-
-* Tue Apr 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-2
-- Report and skip a test regression with typing-extensions 4.13
-
-* Thu Feb 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-1
-- Update to 2.8.1 (close RHBZ#2348704)
-
-* Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
-- Update to 2.8.0 (close RHBZ#2346958)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Dec 31 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.1-1
-- Update to 2.7.1 (close RHBZ#2335052)
-
-* Fri Dec 13 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
-- Update to 2.7.0 (close RHBZ#2332265)
-
-* Mon Nov 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.6.1-1
-- Update to 2.6.1 (close RHBZ#2319359)
-
-* Wed Sep 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.5.2-1
-- Update to 2.5.2 (close RHBZ#2311161)
-
-* Tue Jul 30 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.0-1
-- Update to 2.4.0 (close RHBZ#2301611)
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 30 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.4-3
-- Fix regex flags accidentally passed as count in test code (fix RHBZ#2291856)
-
-* Sat Jun 29 2024 Python Maint <python-maint@redhat.com> - 2.3.4-2
-- Rebuilt for Python 3.13
-
-* Mon Jun 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.4-1
-- Update to 2.3.4 (close RHBZ#2293966)
-
-* Sat Jun 15 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.3-1
-- Update to 2.3.3 (close RHBZ#2292137)
-
-* Wed Jun 12 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.2-1
-- Update to 2.3.2 (close RHBZ#2291331)
-
-* Wed Jun 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.1-1
-- Update to 2.3.1 (close RHBZ#2290582)
-
-* Tue Jun 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.0-1
-- Update to 2.3.0 (close RHBZ#2284609)
-
-* Thu Feb 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.1-1
-- Update to 2.2.1
-
-* Mon Feb 19 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.0-1
-- Update to 2.2.0 (close RHBZ#2264579)
-- Add metapackages for new yaml and toml extras
-- Do not package a duplicate LICENSE file
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 2.0.3-1
-- Initial package. Closes rhbz#2249134.
+%autochangelog

@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        2.rocm%{rocm_version}%{?dist}
+Release:        3.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1166,10 +1166,13 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/c-index-test
 %{bundle_prefix}/bin/clang*
 %{bundle_prefix}/bin/diagtool
+%{bundle_prefix}/bin/find-all-symbols
 %{bundle_prefix}/bin/flang
 %{bundle_prefix}/bin/git-clang-format
 %{bundle_prefix}/bin/hmaptool
+%{bundle_prefix}/bin/modularize
 %{bundle_prefix}/bin/nvptx-arch
+%{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
 %{bundle_prefix}/share/clang-doc
 
@@ -1183,9 +1186,6 @@ rm %{buildroot}%{_bindir}/hip*.pl
 # ROCM CLANG TOOLS EXTRA
 %files -n rocm-clang-tools-extra
 %license clang-tools-extra/LICENSE.TXT
-%{bundle_prefix}/bin/find-all-symbols
-%{bundle_prefix}/bin/modularize
-%{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/bin/run-clang-tidy
 
 %files -n rocm-clang-tools-extra-devel
@@ -1228,6 +1228,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Thu Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 19-3.rocm6.4.0
+- Fix location of extras
+
 * Thu Apr 17 2025 Tom Rix <Tom.Rix@amd.com> - 19-2.rocm6.4.0
 - static link comgr
 - fix tools extra

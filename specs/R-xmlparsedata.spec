@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.5
-Release:          13%{?dist}
+Release:          15%{?dist}
 Summary:          Parse Data of 'R' Code as an 'XML' Tree
 
 License:          MIT
@@ -63,6 +63,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.5-15
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.5-14
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

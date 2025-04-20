@@ -36,7 +36,7 @@ according to hard drive temperature on Linux.
 rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -58,7 +58,7 @@ cp -a systemd/hddfancontrol.service %{buildroot}%{_unitdir}/
 cp -a systemd/hddfancontrol.conf %{buildroot}%{_sysconfdir}/
 
 %check
-%tox
+%py3_test_envvars %{python3} -m unittest -v
 
 %files -n hddfancontrol -f %{pyproject_files}
 %license LICENSE

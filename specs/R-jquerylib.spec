@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.4
-Release:          14%{?dist}
+Release:          16%{?dist}
 Summary:          Obtain jQuery as an HTML Dependency Object
 
 License:          MIT
@@ -77,6 +77,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-16
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-15
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-glibmm24
-Version:        2.66.7
-Release:        3%{?dist}
+Version:        2.66.8
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for GTK2 (a GUI library for X)
 
 License:        LGPL-2.0-or-later
@@ -135,6 +135,9 @@ Static cross compiled version of the glibmm library.
 
 
 %changelog
+* Fri Apr 18 2025 Sandro Mani <manisandro@gmail.com> - 2.66.8-1
+- Update to 2.66.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

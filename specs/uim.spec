@@ -1,12 +1,12 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.9.0
+%global srcver	1.9.1
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.9.0
-Release:	2%{?dist}
+Version:	1.9.1
+Release:	1%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -35,8 +35,6 @@ Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
 Patch4:		uim-ftbfs.patch
-# https://github.com/uim/uim/pull/189
-Patch5:		uim-anthy-unicode.patch
 
 
 Summary:	A multilingual input method library
@@ -200,6 +198,7 @@ autoconf
 %if %{with canna}
 	--with-canna \
 %endif
+	--without-anthy \
 	--with-anthy-utf8 \
 	--with-m17nlib \
 	--with-eb --with-eb-conf=%{_libdir}/eb.conf \
@@ -496,6 +495,10 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Fri Apr 18 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.1-1
+- New upstream release.
+  Resolves: rhbz#2359276
+
 * Sat Mar 22 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.9.0-2
 - Replace anthy with anthy-unicode
 

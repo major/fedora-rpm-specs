@@ -1,7 +1,7 @@
 Name:           jsonnet
 Version:        0.21.0~rc2
 %global so_version 0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -187,6 +187,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Fri Apr 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.21.0~rc2-2
+- Rebuilt for rapidyaml 0.9.0
+
 * Fri Mar 14 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0~rc2-1
 - Build 0.21.0~rc2
 

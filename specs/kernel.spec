@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc2.20250417gitcfb2e2c57aef.25
+%define pkgrelease 0.rc2.20250418gitfc96b232f8e7.25
 %define kversion 6
-%define tarfile_release 6.15-rc2-87-gcfb2e2c57aef
+%define tarfile_release 6.15-rc2-278-gfc96b232f8e7
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.20250417gitcfb2e2c57aef.25%{?buildid}%{?dist}
+%define specrelease 0.rc2.20250418gitfc96b232f8e7.25%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4184,8 +4184,12 @@ fi\
 #
 #
 %changelog
-* Thu Apr 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.cfb2e2c57aef.25]
-- apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+* Fri Apr 18 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc2.20250418gitfc96b232f8e7.25]
+- Enable FunctionFS on aarch64 + x86 (Sam Day)
+
+* Fri Apr 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.fc96b232f8e7.25]
+- Turn on USB Gadget for Fedora x86 (Justin M. Forbes)
+- Linux v6.15.0-0.rc2.fc96b232f8e7
 
 * Thu Apr 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.cfb2e2c57aef.24]
 - redhat: enable drm panic screen with a QR code (Scott Weaver)

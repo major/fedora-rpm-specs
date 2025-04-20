@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.8.0
-Release:          10%{?dist}
+Release:          13%{?dist}
 Summary:          Read and Write from the System Clipboard
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -80,6 +80,15 @@ TRAVIS=true TRAVIS_CLIP=xsel CLIPR_ALLOW=TRUE \
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-13
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-12
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-11
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

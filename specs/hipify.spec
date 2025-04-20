@@ -1,6 +1,6 @@
 %global upstreamname HIPIFY
 
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -76,6 +76,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Fri Apr 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - Use rocm clang
 

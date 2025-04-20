@@ -26,16 +26,16 @@
 %endif
 
 # Should be the previous version, to make mass-rebuilds easier
-%bcond_with bootstrap
-%global bootstrap_abi 4.3
+%bcond_without bootstrap
+%global bootstrap_abi 4.4
 
 %global major_version 4
-%global minor_version 4
-%global patch_version 3
+%global minor_version 5
+%global patch_version 0
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -62,6 +62,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libdeflate-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  tre-devel
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  libSM-devel
@@ -112,6 +113,7 @@ and called at run time.
 %package core
 Summary:        The minimal R components necessary for a functional runtime
 Requires:       libRmath%{?_isa} = %{version}-%{release}
+Requires:       tzdata
 Requires:       less
 Requires:       xdg-utils
 Requires:       zip, unzip
@@ -141,22 +143,22 @@ Provides:       R(ABI) = %{bootstrap_abi}
 %add_submodule  base %{version}
 %add_submodule  boot 1.3-31
 %add_submodule  class 7.3-23
-%add_submodule  cluster 2.1.8
+%add_submodule  cluster 2.1.8.1
 %add_submodule  codetools 0.2-20
 %add_submodule  compiler %{version}
 %add_submodule  datasets %{version}
-%add_submodule  foreign 0.8-88
+%add_submodule  foreign 0.8-90
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
 %add_submodule  KernSmooth 2.23-26
 %add_submodule  lattice 0.22-6
-%add_submodule  MASS 7.3-64
-%add_submodule  Matrix 1.7-2
+%add_submodule  MASS 7.3-65
+%add_submodule  Matrix 1.7-3
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.9-1
-%add_submodule  nlme 3.1-167
+%add_submodule  nlme 3.1-168
 %add_submodule  nnet 7.3-20
 %add_submodule  parallel %{version}
 %add_submodule  rpart 4.1.24
@@ -200,6 +202,7 @@ Requires:       bzip2-devel
 Requires:       xz-devel
 Requires:       zlib-devel
 Requires:       libdeflate-devel
+Requires:       libzstd-devel
 Requires:       tre-devel
 Requires:       %{blaslib}-devel
 Requires:       libX11-devel
@@ -217,7 +220,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.7.2
+Provides:       R-Matrix-devel = 1.7.3
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -892,6 +895,7 @@ TZ="Europe/Paris" make check
 %{_libdir}/R/library/tools/Meta/
 %{_libdir}/R/library/tools/NAMESPACE
 %{_libdir}/R/library/tools/R/
+%{_libdir}/R/library/tools/wre.txt
 # utils
 %dir %{_libdir}/R/library/utils/
 %{_libdir}/R/library/utils/DESCRIPTION
@@ -946,6 +950,15 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.0-3
+- Add libzstd-devel to Requires
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.0-2
+- Add tzdata to Requires
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.0-1
+- Update to 4.5.0
+
 * Fri Feb 28 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.3-1
 - Update to 4.4.3
 

@@ -2,7 +2,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0.1
-Release:          38%{?dist}
+Release:          40%{?dist}
 Summary:          R functions for NetWorkSpaces and Sleigh
 Epoch:            1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,12 @@ chmod -x %{buildroot}%{_datadir}/R/library/nws/bin/nwsutil.py
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1:1.7.0.1-40
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1:1.7.0.1-39
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.0.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,19 +3,18 @@
 
 Name:		perl-CPAN-Changes
 Summary:	Read and write Changes files
-Version:	0.500004
-Release:	3%{?dist}
+Version:	0.500005
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Changes
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Changes-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Encode)
@@ -41,6 +40,7 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Differences)
 # Extra Tests
 %if %{with perl_CPAN_Changes_enables_extra_test}
+BuildRequires:	findutils
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage::TrustMe) => 0.002000
 %endif
@@ -63,12 +63,11 @@ that conform to the specification.
 %setup -q -n CPAN-Changes-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -93,6 +92,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::CPAN::Changes.3*
 
 %changelog
+* Fri Apr 18 2025 Paul Howarth <paul@city-fan.org> - 0.500005-1
+- Update to 0.500005
+  - Fix Test::CPAN::Changes on perl 5.10 without upgrading version.pm
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.500004-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

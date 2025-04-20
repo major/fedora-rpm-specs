@@ -1,5 +1,5 @@
-# This needs about 15 gigs per thread, otherwise OOMs.
-%constrain_build -m 15360
+# Limit the number of parallel compiler jobs to avoid memory exhaustion.
+%constrain_build -m 24576
 
 %global _description %{expand:
 Graph-tool is an efficient Python module for manipulation and statistical

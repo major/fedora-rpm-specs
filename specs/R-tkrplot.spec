@@ -1,9 +1,9 @@
 %global packname tkrplot
-%global packver  0.0-27
+%global packver  0.0-29
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          0.0.27
+Version:          0.0.29
 Release:          %autorelease
 Summary:          TK Rplot
 
@@ -22,6 +22,8 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-grDevices
 BuildRequires:    R-tcltk
+BuildRequires:    tcl-devel < 1:9
+BuildRequires:    tk-devel < 1:9
 
 %description
 Simple mechanism for placing R graphics in a Tk widget.

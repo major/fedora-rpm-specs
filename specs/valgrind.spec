@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.24.0
-Release: 8%{?dist}
+Version: 3.25.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -71,7 +71,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -84,30 +84,6 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-# VALGRIND_3_24_BRANCH patches
-Patch5: 0001-Prepare-NEWS-for-branch-3.24-fixes.patch
-Patch6: 0002-vgdb.c-fork_and_exec_valgrind-Fix-off-by-one-error-w.patch
-Patch7: 0003-vgdb.c-fork_and_exec_valgrind-Fix-another-off-by-one.patch
-Patch8: 0004-regtest-add-a-fdleak-filter-for-write-on-write-on-li.patch
-Patch9: 0005-Add-exp-and-supp-patterns-for-missing-main-frame-for.patch
-Patch10: 0006-Add-additional-exp-ppc64le-files-to-EXTRA_DIST.patch
-Patch11: 0007-Add-support-for-landlock_create_ruleset-444-landlock.patch
-Patch12: 0008-helgrind-tests-tc17_sembar.c-Remove-bool-typedef.patch
-Patch13: 0009-drd-tests-swapcontext.c-Rename-typedef-struct-thread.patch
-Patch14: 0010-none-tests-bug234814.c-sa_handler-take-an-int-as-arg.patch
-Patch15: 0011-Add-open_tree-move_mount-fsopen-fsconfig-fsmount-fsp.patch
-Patch16: 0012-Recognize-new-DWARF5-DW_LANG-constants.patch
-Patch17: 0013-Bug-498317-FdBadUse-is-not-a-valid-CoreError-type-in.patch
-Patch18: 0014-linux-support-EVIOCGRAB-ioctl.patch
-Patch19: 0015-ppc-test_dfp2-build-fix-for-GCC-15.patch
-Patch20: 0016-syswrap-generic-Emit-pp_ExeContext-after-the-file-de.patch
-Patch21: 0017-add_hardwired_spec-for-ld-linux-x86-64.so.2-memcmp.patch
-Patch22: 0018-gdbserver_tests-filter-out-new-Missing-rpms-message.patch
-Patch23: 0019-filter_gdb.in-__syscall_cancel_arch-is-just-in-a-sys.patch
-Patch24: 0020-Bug-501893-Missing-suppression-for-__wcscat_avx2-str.patch
-Patch25: 0021-filter_gdb.in-filter-out-__libc_do_syscall.patch
-Patch26: 0022-Handle-top-__syscall_cancel-frames-when-getting-stac.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -161,7 +137,7 @@ BuildRequires: python3-devel
 # We could use %%valgrind_arches as defined in redhat-rpm-config
 # But that is really for programs using valgrind, it defines the
 # set of architectures that valgrind works correctly on.
-ExclusiveArch: %{ix86} x86_64 ppc ppc64 ppc64le s390x armv7hl aarch64
+ExclusiveArch: %{ix86} x86_64 ppc ppc64 ppc64le s390x armv7hl aarch64 riscv64
 
 # Define valarch, the architecture name that valgrind uses
 # And only_arch, the configure option to only build for that arch.
@@ -195,6 +171,10 @@ ExclusiveArch: %{ix86} x86_64 ppc ppc64 ppc64le s390x armv7hl aarch64
 %endif
 %ifarch aarch64
 %define valarch arm64
+%define only_arch --enable-only64bit
+%endif
+%ifarch riscv64
+%define valarch riscv64
 %define only_arch --enable-only64bit
 %endif
 
@@ -277,35 +257,12 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
-%patch -P14 -p1
-%patch -P15 -p1
-%patch -P16 -p1
-%patch -P17 -p1
-%patch -P18 -p1
-%patch -P19 -p1
-%patch -P20 -p1
-%patch -P21 -p1
-%patch -P22 -p1
-%patch -P23 -p1
-%patch -P24 -p1
-%patch -P25 -p1
-%patch -P26 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -545,6 +502,11 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Fri Apr 18 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.0-0.1.RC1
+- Upstream 3.25.0-RC1
+- Remove all VALGRIND_3_24_BRANCH patches
+- Enable riscv64 arch support
+
 * Sun Mar 30 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-8
 - Add new VALGRIND_3_24_BRANCH patches
   - 0019-filter_gdb.in-__syscall_cancel_arch-is-just-in-a-sys.patch

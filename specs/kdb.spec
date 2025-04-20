@@ -59,11 +59,7 @@ BuildRequires: libicu-devel
 BuildRequires: python3
 
 # drivers
-%if (0%{?rhel} && 0%{?rhel} < 8 )
-BuildRequires: mariadb-devel
-%else
 BuildRequires: mariadb-connector-c-devel
-%endif
 # postgresql-private-devel introduced in f35+ with pgsql-13.4 and Conflicts: libpq-devel
 %if 0%{?fedora} > 34 || 0%{?rhel} > 8
 BuildRequires: postgresql-private-devel >= 13.4

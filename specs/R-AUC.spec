@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.2
-Release:          11%{?dist}
+Release:          14%{?dist}
 Summary:          Threshold independent performance measures for probabilistic classifiers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -63,6 +63,15 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.2-14
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.2-13
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.2-12
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

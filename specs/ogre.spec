@@ -23,10 +23,9 @@ Summary:        Object-Oriented Graphics Rendering Engine
 # LGPL-2.1-only - Tools/Common/setup/License.rtf
 # LGPL-2.1-or-later - files in Tools/BlenderExport/
 # GPLv2-or-later - Tools/LightwaveConverter
-# LicenseRef-Callaway-scintilla - Tools/MaterialEditor/wxscintilla_1.69.2/src/scintilla/License.txt
-#             temporary id, see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/597
+# HPND - Tools/MaterialEditor/wxscintilla_1.69.2/src/scintilla/License.txt
 # LGPL-2.0-or-later WITH WxWindows-exception-3.1 - Tools/MaterialEditor/wxscintilla_1.69.2/src/ScintillaWX.h
-License:        MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0 AND Zlib AND BSL-1.0 AND LicenseRef-Callaway-dante-treglia AND NCSA AND BSD-3-Clause AND MIT-Khronos-old AND GPL-2.0-or-later WITH Bison-exception-1.24 AND SGI-B-2.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND GPLv2-or-later AND LicenseRef-Callaway-scintilla AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
+License:        MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0 AND Zlib AND BSL-1.0 AND LicenseRef-Callaway-dante-treglia AND NCSA AND BSD-3-Clause AND MIT-Khronos-old AND GPL-2.0-or-later WITH Bison-exception-1.24 AND SGI-B-2.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND GPLv2-or-later AND HPND AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            http://www.ogre3d.org/
 # This is modified http://downloads.sourceforge.net/ogre/ogre-v%%(echo %%{version} | tr . -).tar.bz2
 # with non-free files striped (see ogre-make-clean.sh):

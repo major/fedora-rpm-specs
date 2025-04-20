@@ -4,7 +4,7 @@
 Summary: R module, Software to perform wavelet statistics and transforms
 Name: R-%{packname}
 Version: %{packver}
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 Source0: ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 URL: http://cran.r-project.org/web/packages/wavethresh/
@@ -31,6 +31,12 @@ cd ..;%{_bindir}/R CMD check %{packname}
 %doc DESCRIPTION
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.7.3-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.7.3-2
+- R-maint-sig mass rebuild
+
 * Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 4.7.3-1
 - update to 4.7.3
 

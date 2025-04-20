@@ -2,7 +2,9 @@ Summary:	Firmware for Epson flatbed scanners
 Name:		iscan-firmware
 Version:	20241112
 Release:	15%{?dist}
-License:	Redistributable, no modification permitted
+# AVASYSPL.en.txt and LICENSE.EPSON.en.txt are LicenseRef-Fedora-Firmware
+# COPYING.EPSON.en.txt and COPYING.EPSON are not-allowed license
+License:	LicenseRef-Fedora-Firmware
 URL:		http://download.ebz.epson.net/dsc/search/01/search/
 BuildArch:	noarch
 

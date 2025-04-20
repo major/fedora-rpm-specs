@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.2.5
+Version:        0.2.6
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.5
+%global so_version 0.2.6
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -34,9 +34,7 @@ License:        %{shrink:
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
 ExcludeArch:    %{ix86}
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

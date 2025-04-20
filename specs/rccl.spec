@@ -5,8 +5,8 @@
 %endif
 
 %global upstreamname RCCL
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -139,23 +139,24 @@ sed -i -e '/AMD GPU targets to compile for/d' CMakeLists.txt
 sed -i -e 's@cat ${ROCM_PATH}/.info/version@echo %{rocm_version}@' CMakeLists.txt
 
 # wrong path
+# https://github.com/ROCm/rccl/issues/1649
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_version_info.h
 
 %build
 %cmake \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DBUILD_TESTS=%{build_test} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_CXX_COMPILER=/usr/bin/hipcc \
     -DCMAKE_C_COMPILER=/usr/bin/hipcc \
+    -DCMAKE_CXX_COMPILER=/usr/bin/hipcc \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-    -DROCM_SYMLINK_LIBS=OFF \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+    -DCMAKE_SKIP_RPATH=ON \
     -DHIP_PLATFORM=amd \
-    -DRCCL_ROCPROFILER_REGISTER=OFF
-
+    -DRCCL_ROCPROFILER_REGISTER=OFF \
+    -DROCM_PATH=%{_prefix} \
+    -DROCM_SYMLINK_LIBS=OFF
 
 %cmake_build
 
@@ -196,6 +197,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> 6.3.2-3
 - Use rpm macros gpu list
 - Fix SLE 15.6

@@ -1,5 +1,5 @@
-%global DATE 20250417
-%global gitrev dd2ccfe5989486cafb7f6108ff0c4e9f5a93f5a1
+%global DATE 20250418
+%global gitrev 8f87d3d9a9a578fdc32786927721e4598ca115a3
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.13%{?dist}
+Release: %{gcc_release}.14%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3766,6 +3766,11 @@ end
 %endif
 
 %changelog
+* Fri Apr 18 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.14
+- update from releases/gcc-14 branch
+  - GCC 15.1.0-rc1
+  - PRs tree-optimization/119858
+
 * Thu Apr 17 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.13
 - update from trunk and releases/gcc-14 branch
   - PRs ada/119643, c/88382, c/119717, c++/99214, c++/101180, c++/106618,

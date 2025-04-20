@@ -5,7 +5,7 @@
 %endif
 
 %global upstreamname rocSOLVER
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -64,7 +64,7 @@
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -241,6 +241,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
 - Reenable ninja
 

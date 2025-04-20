@@ -97,7 +97,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		12.2.1
-Release:		5%{?dist}
+Release:		8%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -711,6 +711,15 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 12.2.1-8
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 12.2.1-7
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 12.2.1-6
+- R-maint-sig mass rebuild
+
 * Mon Mar 31 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 12.2.1-5
 - Built with Tcl/Tk 8.6
 

@@ -12,8 +12,8 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
@@ -29,7 +29,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -64,6 +64,7 @@ BuildRequires:  vim-common
 
 Provides:   rocm-runtime = %{version}-%{release}
 Obsoletes:  hsakmt < 6.3
+Provides:   hsakmt = %{version}-%{release}
 
 %description
 The ROCm Runtime Library is a thin, user-mode API that exposes the necessary
@@ -182,6 +183,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Mar 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-5
 - Build kfdtest for SUSE
 

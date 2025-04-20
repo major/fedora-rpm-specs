@@ -5,7 +5,7 @@
 %endif
 
 %global upstreamname rocBLAS
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -61,7 +61,8 @@
 %global __strip %rocmllvm_bindir/llvm-strip
 
 # Use ninja if it is available
-%if 0%{?fedora} || 0%{?suse_version}
+# Ninja is available on suse but obs times out with ninja build, make doesn't
+%if 0%{?fedora}
 %bcond_without ninja
 %else
 %bcond_with ninja
@@ -75,7 +76,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        12%{?dist}
+Release:        1%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -92,6 +93,7 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+BuildRequires:  roctracer-devel
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -272,6 +274,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-12
 - Reenable ninja
 

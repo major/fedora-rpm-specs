@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname withr
-%global packver  2.5.2
+%global packver  3.0.2
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -23,6 +23,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    tzdata
 BuildRequires:    R-graphics
 BuildRequires:    R-grDevices
 BuildRequires:    R-stats
@@ -30,7 +31,6 @@ BuildRequires:    R-stats
 BuildRequires:    R-callr
 BuildRequires:    R-DBI
 BuildRequires:    R-knitr
-BuildRequires:    R-lattice
 BuildRequires:    R-methods
 BuildRequires:    R-rlang
 BuildRequires:    R-rmarkdown >= 2.12

@@ -7,10 +7,10 @@
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.8.0
+Version:        0.9.0
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.8.0
+%global so_version 0.9.0
 Release:        %autorelease
 
 # SPDX
@@ -43,7 +43,7 @@ BuildRequires:  c4project
 # the Python extension build unconditionally uses ninja.
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(c4core) >= 0.2.5
+BuildRequires:  cmake(c4core) >= 0.2.6
 
 %if %{with tests}
 BuildRequires:  cmake(c4fs)

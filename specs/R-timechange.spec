@@ -1,5 +1,5 @@
 %global packname timechange
-%global packver	0.2.0
+%global packver	0.3.0
 %global rlibdir %{_libdir}/R/library
 
 Name:				R-%{packname}
@@ -15,6 +15,7 @@ Source0:			%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:		R-devel
 BuildRequires:		tex(latex)
+BuildRequires:      tzdata
 BuildRequires:		R-cpp11-devel
 BuildRequires:		R-knitr
 BuildRequires:		R-testthat

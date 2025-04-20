@@ -3,7 +3,7 @@
 
 Name:		R-%{packname}
 Version:	2.4.1
-Release:	4%{dist}
+Release:	6%{dist}
 Summary:	HTSlib high-throughput sequencing library as an R package
 License:	LGPL-2.0-or-later
 URL:		http://www.bioconductor.org/packages/release/bioc/html/Rhtslib.html
@@ -70,6 +70,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/usrlib/*.a
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.1-6
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.1-5
+- R-maint-sig mass rebuild
+
 * Wed Feb 26 2025 John Marshall <jmarshall@hey.com> - 2.4.1-4
 - Avoid incorrect "Provides: libhts.so.3" from internal shared library
 - Update description to reflect that 2.4.1 contains HTSlib 1.15.1

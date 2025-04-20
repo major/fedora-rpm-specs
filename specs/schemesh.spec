@@ -2,13 +2,15 @@
 
 Name:    schemesh
 Version: 0.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
 %forgemeta
 License: GPL-2.0-or-later
 URL:     %{forgeurl}
 Source0: %{forgesource}
+
+Requires: chez-scheme
 
 BuildRequires: gcc
 BuildRequires: make
@@ -39,7 +41,7 @@ replacing bash, zsh, pdksh etc.
 %make_install prefix=%{_prefix} libdir=%{_libdir} bindir=%{_bindir}
 
 %check
-./schemesh_test
+time ./schemesh_test
 
 %files
 %license COPYING
@@ -50,6 +52,9 @@ replacing bash, zsh, pdksh etc.
 %{_libdir}/schemesh/
 
 %changelog
+* Fri Apr 18 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.3-2
+- Added missing runtime requires on chez-scheme
+
 * Mon Apr 07 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.3-1
 - Updated to version 0.8.3
 

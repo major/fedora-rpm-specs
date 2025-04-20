@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          1.8.4
-Release:          22%{?dist}
+Release:          24%{?dist}
 Summary:          Export Tables to LaTeX or HTML
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,6 +83,12 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %changelog
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-24
+- R-maint-sig mass rebuild
+
+* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-23
+- R-maint-sig mass rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

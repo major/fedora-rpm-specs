@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global miopen_name libMIOpen1
+%else
+%global miopen_name miopen
+%endif
+
 %global upstreamname MIOpen
 %global rocm_release 6.3
 %global rocm_patch 2
@@ -57,9 +63,9 @@
 %global cmake_generator %{nil}
 %endif
 
-Name:           miopen
+Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        6%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -78,7 +84,8 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 # So we do not thrash memory
 Patch2:         0001-add-link-and-compile-pools-for-miopen.patch
 
-BuildRequires:  boost-devel
+%if ! 0%{?sle_version} == 150600 
+%endif
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  gcc-c++
@@ -101,9 +108,16 @@ BuildRequires:  zlib-devel
 
 %if 0%{?suse_version}
 BuildRequires:  libbz2-devel
-BuildRequires:  libboost_filesystem-devel
 BuildRequires:  libzstd-devel-static
+%if 0%{?sle_version} == 150600 
+BuildRequires:  libboost_filesystem1_75_0-devel
+BuildRequires:  libboost_system1_75_0-devel
 %else
+BuildRequires:  libboost_filesystem-devel
+BuildRequires:  libboost_system-devel
+%endif
+%else
+BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(bzip2)
 %endif
 
@@ -122,6 +136,8 @@ BuildRequires:  ninja
 %endif
 %endif
 
+Provides:       miopen = %{version}-%{release}
+
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
@@ -131,6 +147,7 @@ AMD's library for high performance machine learning primitives.
 %package devel
 Summary: Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       miopen-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -262,19 +279,28 @@ fi
 %license LICENSE.txt
 
 %files devel -f %{name}.devel
-%dir %_datadir/%{name}
-%dir %_datadir/%{name}/db
-%dir %_includedir/%{name}
-%dir %_libdir/cmake/%{name}
+%dir %_datadir/miopen
+%dir %_datadir/miopen/db
+%dir %_includedir/miopen
+%dir %_libdir/cmake/miopen
 %doc README.md
-%_datadir/%{name}/*
-%_includedir/%{name}/*
+%_datadir/miopen/*
+%_includedir/miopen/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Thu Apr 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-6
+- Merge suse/fedora changes
+
+* Tue Apr 15 2025 Christian Goll <cgoll@suse.com> - 6.3.2-5
+- Explicit boost dependency and shared lib for 15.6
+
+* Tue Apr 15 2025 Christian Goll <cgoll@suse.com> - 6.3.2-4
+- Fix 15.6 build
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
 - Reenable ninja
 

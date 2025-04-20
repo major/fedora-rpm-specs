@@ -2,7 +2,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.9.3
+Version:          1.9.4
 Release:          %autorelease
 Summary:          Make dealing with dates a little easier
 License:          GPL-2.0-or-later
@@ -20,11 +20,11 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 BuildRequires:    R-generics
-BuildRequires:    R-timechange >= 0.1.1
+BuildRequires:    R-timechange >= 0.3.0
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 2.1.0
-BuildRequires:    R-vctrs >= 0.5.0
+BuildRequires:    R-vctrs >= 0.6.5
 
 %description
 Functions to work with date-times and time-spans: fast and user friendly

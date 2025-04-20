@@ -1,8 +1,8 @@
-%global snapshot 1
+%global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.16.1
-Release:    2%{?dist}
+Version:    1.16.2
+Release:    1%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
@@ -83,6 +83,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus-libpinyin/default.xml
 
 %changelog
+* Fri Apr 18 2025 Peng Wu <pwu@redhat.com> - 1.16.2-1
+- Update to 1.16.2
+- fix some random file creation issue
+
 * Mon Apr 14 2025 Peng Wu <pwu@redhat.com> - 1.16.1-2
 - Fix some bugs
 
