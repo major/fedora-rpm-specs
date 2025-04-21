@@ -12,7 +12,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.20.0
+Version:        1.25.2
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -36,8 +36,6 @@ Source1:        https://evilpiepirate.org/%{name}/%{name}-vendored-%{version}.ta
 Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13AB336D8DCA6E76.asc
 
 # Upstream patches
-## From: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=3e15e96cb9c90cca6f7fa3465697933c53f51228
-Patch0001:      0001-Switch-to-c11-atomics.patch
 
 # Upstreamable patches
 
@@ -165,6 +163,9 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Sat Apr 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.25.2-1
+- Update to 1.25.2
+
 * Thu Feb 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.20.0-1
 - Update to 1.20.0
 - Backport fix to build with GCC 15

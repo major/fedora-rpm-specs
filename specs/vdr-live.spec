@@ -10,7 +10,7 @@
 %endif
 
 Name:           vdr-live
-Version:        3.4.2
+Version:        3.5.0
 # Release:        0.2.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
@@ -85,6 +85,42 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Sat Apr 19 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+
+* Sun Mar 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.2-1
+- Update to 3.4.2
+
+* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-3
+- Rebuilt for new VDR API version 2.7.4
+
+* Thu Feb 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-2
+- Rebuild
+
+* Tue Feb 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-1
+- Update to 3.4.1
+
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Thu Jan 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.0-1
+- Update to 3.4.0
+
+* Sun Dec 22 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.12-1
+- Update to 3.3.12
+
+* Wed Dec 11 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.11-1
+- Update to 3.3.11
+
+* Tue Nov 19 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.10-1
+- Update to 3.3.10
+
+* Tue Nov 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.9-1
+- Update to 3.3.9
+
+* Sun Nov 03 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.9-0.2.20241103git9967f1d
+- Update to 3.3.9-0.2.20241103git9967f1d
+
 * Sun Mar 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.2-1
 - Update to 3.4.2
 

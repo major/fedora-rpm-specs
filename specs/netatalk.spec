@@ -8,8 +8,8 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           4.1.2
-Release:           2%{?dist}
+Version:           4.2.1
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -18,24 +18,22 @@ URL:               http://netatalk.sourceforge.net
 Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
 
-# Make macipgw man page conditional on with-appletalk flag
-Patch0:            netatalk-macipgw-man.patch
-
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 BuildRequires:     avahi-devel
 BuildRequires:     bison
+BuildRequires:     cmark
 BuildRequires:     coreutils
 BuildRequires:     cracklib-devel
 BuildRequires:     dbus-devel
 BuildRequires:     dbus-glib-devel
-BuildRequires:     docbook-style-xsl
 BuildRequires:     findutils
 BuildRequires:     flex
 BuildRequires:     gcc
 BuildRequires:     grep
+BuildRequires:     iniparser-devel
 BuildRequires:     krb5-devel
 BuildRequires:     libacl-devel
 BuildRequires:     libattr-devel
@@ -46,7 +44,6 @@ BuildRequires:     libretls-devel
 BuildRequires:     libtalloc-devel
 BuildRequires:     libtdb-devel
 BuildRequires:     libxcrypt-devel
-BuildRequires:     libxslt
 BuildRequires:     mariadb-connector-c-devel
 BuildRequires:     meson
 BuildRequires:     openldap-devel
@@ -109,6 +106,7 @@ benchmarks, and supporting tools:
  * afp_spectest  - AFP specification functional test suite
  * afp_speedtest - AFP read/write/copy benchmark
  * afparg        - AFP CLI client
+ * fce_listen    - listener for Netatalk's Filesystem Change Event protocol
 
 %if 0%{?fedora}
 # The following subpackage needs the appletalk module, which is part of kernel-modules-extra
@@ -144,6 +142,7 @@ the following utility programs are installed:
  * timelord   - time server for Mac OS and Apple II
 %endif
 
+%if 0%{?htmldocs}
 %package doc
 Summary:        HTML Documentation for %{name}
 BuildArch:      noarch
@@ -154,13 +153,13 @@ system running Netatalk is capable of serving many Macintosh clients
 simultaneously as an AppleShare file server (AFP).
 
 This package contains the HTML documentation for %{name}.
+%endif
 
 %prep
 %autosetup -p 1
 
-# Don't build the japanese docs and put the english docs into a subfolder
-sed -i 's\install: true\install: false\' doc/ja/manual/meson.build
-sed -i 's\doc/netatalk\doc/netatalk/htmldoc\' doc/manual/meson.build
+# Don't build the japanese docs
+sed -i 's\install: true\install: false\' doc/translated/ja/meson.build
 
 # Set RuntimeDirectory in the service file rather than use a tmpfiles.d config
 sed -E -i 's|^(ExecStart=.*)|\1\nRuntimeDirectory=lock/netatalk|' distrib/initscripts/systemd.netatalk.service.in
@@ -169,10 +168,9 @@ sed -E -i 's|^(ExecStart=.*)|\1\nRuntimeDirectory=lock/netatalk|' distrib/initsc
 %meson \
         --localstatedir=%{_localstatedir}/lib                                  \
         -Ddefault_library=shared                                               \
-        -Dwith-manual=local                                                    \
         -Dwith-rpath=false                                                     \
         -Dwith-overwrite=true                                                  \
-        -Dwith-lockfile-path=%{_rundir}/lock/netatalk/netatalk                 \
+        -Dwith-lockfile-path=%{_rundir}/lock/netatalk                          \
         -Dwith-tcp-wrappers=false                                              \
         -Dwith-dbus-sysconf-path=%{_sysconfdir}/dbus-1/system.d                \
         -Dwith-pkgconfdir-path=%{_sysconfdir}/netatalk                         \
@@ -224,7 +222,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 %files
 %license COPYING COPYRIGHT
-%doc CONTRIBUTORS NEWS INSTALL.md README.md SECURITY.md
+%doc CONTRIBUTORS.md NEWS.md INSTALL.md README.md SECURITY.md
 
 %dir %{_sysconfdir}/netatalk
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/netatalk-dbus.conf
@@ -275,7 +273,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_localstatedir}/lib/netatalk
 
 %files devel
-%doc %{_pkgdocdir}/DEVELOPER
+%doc DEVELOPER.md
 %dir %{_includedir}/atalk
 %{_includedir}/atalk/*.h
 %{_libdir}/libatalk.so
@@ -292,12 +290,12 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 %files afptest
 %license test/testsuite/COPYING
-%doc test/testsuite/README
 %{_bindir}/afp_lantest
 %{_bindir}/afp_logintest
 %{_bindir}/afp_spectest
 %{_bindir}/afp_speedtest
 %{_bindir}/afparg
+%{_bindir}/fce_listen
 
 %dir %{_datarootdir}/netatalk
 %{_datarootdir}/netatalk/test-data/test431_data
@@ -308,10 +306,11 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_mandir}/man1/afp_speedtest.1*
 %{_mandir}/man1/afptest.1*
 %{_mandir}/man1/afparg.1*
+%{_mandir}/man1/fce_listen.1*
 
 %if 0%{?fedora}
 %files appletalk
-%doc %{_pkgdocdir}/README.AppleTalk
+%doc APPLETALK.md
 %config(noreplace) %{_sysconfdir}/netatalk/atalkd.conf
 %config(noreplace) %{_sysconfdir}/netatalk/macipgw.conf
 %config(noreplace) %{_sysconfdir}/netatalk/papd.conf
@@ -356,11 +355,18 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_unitdir}/timelord.service
 %endif
 
+%if 0%{?htmldocs}
 %files doc
 %license COPYING COPYRIGHT
 %doc %{_pkgdocdir}/htmldocs
+%endif
 
 %changelog
+* Sat Apr 19 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.1-1
+- 4.2.1 release
+- disable doc subpackage due to missing cmark-gfm dependency for htmldocs
+- update with-lockfile-path fixes RHBZ#2360947
+
 * Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.1.2-2
 - Make macipgw.conf manpage conditional on have-appletalk flag
 
@@ -624,7 +630,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 * Thu Jul 23 2015 Ralf Corsï¾ƒï½©pius <corsepiu@fedoraproject.org> - 4:3.1.7-7
 - Upstream update to 3.1.7 (RHBZ#1134783).
 - Remove doc from *-devel.
-- Add %%license.
+- Add %%licese.
 - Update %%description from
   http://www003.upp.so-net.ne.jp/hat/files/netatalk-3.1.7-0.1.fc22.src.rpm.
 

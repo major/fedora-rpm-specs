@@ -1,5 +1,5 @@
 %global packname reprex
-%global packver  2.0.2
+%global packver  2.1.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -13,7 +13,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Fix test with lifecycle 1.0.3+
 # https://github.com/tidyverse/reprex/pull/434
-Patch0:           R-reprex-fix-test-lifecycle-1.0.3.patch
+#Patch0:           R-reprex-fix-test-lifecycle-1.0.3.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -34,7 +34,7 @@ BuildRequires:    R-fs
 BuildRequires:    R-glue
 BuildRequires:    R-knitr >= 1.23
 BuildRequires:    R-lifecycle >= 1.0.3
-BuildRequires:    R-rlang >= 1.0.0
+BuildRequires:    R-rlang >= 1.0.3
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rstudioapi
 BuildRequires:    R-utils
@@ -47,7 +47,7 @@ BuildRequires:    R-sessioninfo
 BuildRequires:    R-shiny
 BuildRequires:    R-spelling
 BuildRequires:    R-styler >= 1.2.0
-BuildRequires:    R-testthat >= 3.0.2
+BuildRequires:    R-testthat >= 3.2.1
 
 %description
 Convenience wrapper that uses the 'rmarkdown' package to render small snippets
@@ -62,7 +62,7 @@ from an R session.
 
 %prep
 %setup -q -c -n %{packname}
-%patch -P0 -p1 -b .fixme
+#%%patch -P0 -p1 -b .fixme
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION

@@ -1,6 +1,6 @@
 %global upstreamname hipCUB
 
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -21,12 +21,12 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCm
@@ -110,6 +110,9 @@ rm %{buildroot}%{_bindir}/*
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread compress
 

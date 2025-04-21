@@ -21,7 +21,6 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 BuildArch:        noarch
 BuildRequires:    R-devel >= 3.0.0
 BuildRequires:    tex(latex)
-BuildRequires:    tzdata
 BuildRequires:    R-graphics
 BuildRequires:    R-utils
 BuildRequires:    R-stats

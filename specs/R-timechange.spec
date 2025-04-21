@@ -15,7 +15,6 @@ Source0:			%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:		R-devel
 BuildRequires:		tex(latex)
-BuildRequires:      tzdata
 BuildRequires:		R-cpp11-devel
 BuildRequires:		R-knitr
 BuildRequires:		R-testthat

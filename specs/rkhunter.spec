@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -19,6 +19,8 @@ Patch1:         rkhunter-1.4.6-drop-libkeyutils-check.patch
 Patch2:         rkhunter-1.4.6-ssh.d.patch
 # Fix grep/egrep changes in f38+
 Patch3:         rkhunter-1.4.6-grep.patch
+# Fix grep warning about escaping / in f42+
+Patch4:         rkhunter-1.4.6-grep-fix.patch
 BuildArch:      noarch
 BuildRequires:      perl-generators
 
@@ -101,6 +103,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Sat Apr 19 2025 Kevin Fenzi <kevin@scrye.com> - 1.4.6-28
+- Add a fix to grep warning about escaping /s. Fixes rhbz#2360502
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

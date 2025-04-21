@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -31,7 +31,6 @@ BuildRequires: %add_rver R-devel
 BuildRequires: python3-devel
 BuildRequires: readline-devel
 BuildRequires: python3dist(pytest)
-BuildRequires: libzstd-devel
 
 Requires:      python3-%{srcname} = %{version}-%{release}
 
@@ -83,6 +82,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Sat Apr 19 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-6
+- Remove BR libzstd-devel, provided by R-core-devel now
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-5
 - R-maint-sig mass rebuild
 - BR libzstd-devel

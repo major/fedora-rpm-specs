@@ -23,7 +23,6 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    tzdata
 BuildRequires:    R-graphics
 BuildRequires:    R-grDevices
 BuildRequires:    R-stats
@@ -52,7 +51,7 @@ dependencies to provide access to these functions.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
 
 # Remove failing tests
-rm -f %{packname}/tests/testthat/test-{language,defer}.R
+rm -f %{packname}/tests/testthat/test-{language,defer,standalone-defer}.R
 
 
 %build

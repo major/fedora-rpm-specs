@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 9bca3a399289b0c49d99b773a6509abb367d5158
+%global commit 5599020c7819cff3e6181a60bb17cba07ef012ee
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -17,7 +17,7 @@
 %define CHECKPOLICYVER 3.8
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 41.37
+Version: 41.38
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -94,17 +94,17 @@ SELinux sandbox policy for use with the sandbox utility.
 %post sandbox
 rm -f %{_sysconfdir}/selinux/*/modules/active/modules/sandbox.pp.disabled 2>/dev/null
 rm -f %{_sharedstatedir}/selinux/*/active/modules/disabled/sandbox 2>/dev/null
-%{_sbindir}/semodule -n -X 100 -i %{_datadir}/selinux/packages/sandbox.pp 2> /dev/null
-if %{_sbindir}/selinuxenabled ; then
-    %{_sbindir}/load_policy
+semodule -n -X 100 -i %{_datadir}/selinux/packages/sandbox.pp 2> /dev/null
+if selinuxenabled ; then
+    load_policy
 fi;
 exit 0
 
 %preun sandbox
 if [ $1 -eq 0 ] ; then
-    %{_sbindir}/semodule -n -d sandbox 2>/dev/null
-    if %{_sbindir}/selinuxenabled ; then
-        %{_sbindir}/load_policy
+    semodule -n -d sandbox 2>/dev/null
+    if selinuxenabled ; then
+        load_policy
     fi;
 fi;
 exit 0
@@ -140,7 +140,7 @@ and some additional files.
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/sepolgen/interface_info
 
 %post devel
-%{_sbindir}/selinuxenabled && %{_bindir}/sepolgen-ifgen 2>/dev/null
+selinuxenabled && sepolgen-ifgen 2>/dev/null
 exit 0
 
 %package doc
@@ -173,7 +173,7 @@ install -p -m0644 ./dist/%1/modules.conf ./policy/modules.conf \
 %make_build %common_params UNK_PERMS=%3 NAME=%1 TYPE=%2 validate modules \
 make %common_params UNK_PERMS=%3 NAME=%1 TYPE=%2 DESTDIR=%{buildroot} install \
 make %common_params UNK_PERMS=%3 NAME=%1 TYPE=%2 DESTDIR=%{buildroot} install-appconfig \
-make %common_params UNK_PERMS=%3 NAME=%1 TYPE=%2 DESTDIR=%{buildroot} SEMODULE="%{_sbindir}/semodule -p %{buildroot} -X 100 " load \
+make %common_params UNK_PERMS=%3 NAME=%1 TYPE=%2 DESTDIR=%{buildroot} SEMODULE="semodule -p %{buildroot} -X 100 " load \
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/selinux/%1/logins \
 touch %{buildroot}%{_sysconfdir}/selinux/%1/contexts/files/file_contexts.subs \
 install -p -m0644 ./config/file_contexts.subs_dist %{buildroot}%{_sysconfdir}/selinux/%1/contexts/files \
@@ -184,7 +184,7 @@ touch %{buildroot}%{_sysconfdir}/selinux/%1/contexts/files/file_contexts.local \
 touch %{buildroot}%{_sysconfdir}/selinux/%1/contexts/files/file_contexts.local.bin \
 install -p -m0644 ./dist/booleans.subs_dist %{buildroot}%{_sysconfdir}/selinux/%1 \
 rm -f %{buildroot}%{_datadir}/selinux/%1/*pp*  \
-%{_bindir}/sha512sum %{buildroot}%{_sysconfdir}/selinux/%1/policy/policy.%{POLICYVER} | cut -d' ' -f 1 > %{buildroot}%{_sysconfdir}/selinux/%1/.policy.sha512; \
+sha512sum %{buildroot}%{_sysconfdir}/selinux/%1/policy/policy.%{POLICYVER} | cut -d' ' -f 1 > %{buildroot}%{_sysconfdir}/selinux/%1/.policy.sha512; \
 rm -rf %{buildroot}%{_sysconfdir}/selinux/%1/contexts/netfilter_contexts  \
 rm -rf %{buildroot}%{_sysconfdir}/selinux/%1/modules/active/policy.kern \
 rm -f %{buildroot}%{_sharedstatedir}/selinux/%1/active/*.linked \
@@ -268,17 +268,17 @@ if [ -s %{_sysconfdir}/selinux/config ]; then \
     . %{_sysconfdir}/selinux/config &> /dev/null || true; \
 fi; \
 FILE_CONTEXT=%{_sysconfdir}/selinux/%1/contexts/files/file_contexts; \
-if %{_sbindir}/selinuxenabled && [ "${SELINUXTYPE}" = %1 -a -f ${FILE_CONTEXT}.pre ]; then \
-     %{_sbindir}/fixfiles -C ${FILE_CONTEXT}.pre restore &> /dev/null > /dev/null; \
+if selinuxenabled && [ "${SELINUXTYPE}" = %1 -a -f ${FILE_CONTEXT}.pre ]; then \
+     fixfiles -C ${FILE_CONTEXT}.pre restore &> /dev/null > /dev/null; \
      rm -f ${FILE_CONTEXT}.pre; \
 fi; \
 # rebuilding the rpm database still can sometimes result in an incorrect context \
-%{_sbindir}/restorecon -R /usr/lib/sysimage/rpm \
+restorecon -R /usr/lib/sysimage/rpm \
 # In some scenarios, /usr/bin/httpd is labelled incorrectly after sbin merge. \
 # Relabel all files under /usr/bin, in case they got installed before policy \
 # was updated and the labels were incorrect. \
-%{_sbindir}/restorecon -R /usr/bin /usr/sbin \
-if %{_sbindir}/restorecon -e /run/media -R /root /var/log /var/run /etc/passwd* /etc/group* /etc/*shadow* 2> /dev/null;then \
+restorecon -R /usr/bin /usr/sbin \
+if restorecon -e /run/media -R /root /var/log /var/run /etc/passwd* /etc/group* /etc/*shadow* 2> /dev/null;then \
     continue; \
 fi;
 
@@ -286,7 +286,7 @@ fi;
 if [ $1 -ne 1 ] && [ -s %{_sysconfdir}/selinux/config ]; then \
      for MOD_NAME in ganesha ipa_custodia kdbus; do \
         if [ -d %{_sharedstatedir}/selinux/%1/active/modules/100/$MOD_NAME ]; then \
-           %{_sbindir}/semodule -n -d $MOD_NAME 2> /dev/null; \
+           semodule -n -d $MOD_NAME 2> /dev/null; \
         fi; \
      done; \
      . %{_sysconfdir}/selinux/config; \
@@ -312,10 +312,10 @@ fi; \
 if [ -e %{_sysconfdir}/selinux/%2/.rebuild ]; then \
    rm %{_sysconfdir}/selinux/%2/.rebuild; \
 fi; \
-%{_sbindir}/semodule -B -n -s %2 2> /dev/null; \
-[ "${SELINUXTYPE}" == "%2" ] && %{_sbindir}/selinuxenabled && load_policy; \
+semodule -B -n -s %2 2> /dev/null; \
+[ "${SELINUXTYPE}" == "%2" ] && selinuxenabled && load_policy; \
 if [ %1 -eq 1 ]; then \
-   %{_sbindir}/restorecon -R /root /var/log /run /etc/passwd* /etc/group* /etc/*shadow* 2> /dev/null; \
+   restorecon -R /root /var/log /run /etc/passwd* /etc/group* /etc/*shadow* 2> /dev/null; \
 else \
 %relabel %2 \
 fi;
@@ -389,13 +389,13 @@ end
 # Remove the local_varrun SELinux module
 %define removeVarrunModuleLua() \
 if posix.access ("%{_sharedstatedir}/selinux/%1/active/modules/400/extra_varrun/cil", "r") then \
-  os.execute ("%{_bindir}/rm -rf %{_sharedstatedir}/selinux/%1/active/modules/400/extra_varrun") \
+  os.execute ("rm -rf %{_sharedstatedir}/selinux/%1/active/modules/400/extra_varrun") \
 end
 
 # Remove the local_binsbin SELinux module
 %define removeBinsbinModuleLua() \
 if posix.access ("%{_sharedstatedir}/selinux/%1/active/modules/400/extra_binsbin/cil", "r") then \
-  os.execute ("%{_bindir}/rm -rf %{_sharedstatedir}/selinux/%1/active/modules/400/extra_binsbin") \
+  os.execute ("rm -rf %{_sharedstatedir}/selinux/%1/active/modules/400/extra_binsbin") \
 end
 
 %build
@@ -435,7 +435,7 @@ make clean
 %makeModulesConf targeted
 %installCmds targeted mcs allow
 # install permissivedomains.cil
-%{_sbindir}/semodule -p %{buildroot} -X 100 -s targeted -i \
+semodule -p %{buildroot} -X 100 -s targeted -i \
     ./dist/permissivedomains.cil
 # recreate sandbox.pp
 rm -rf %{buildroot}%{_sharedstatedir}/selinux/targeted/active/modules/100/sandbox
@@ -477,7 +477,7 @@ mv %{buildroot}%{_datadir}/selinux/targeted/include %{buildroot}%{_datadir}/seli
 install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/selinux/devel/Makefile
 install -p -m 644 doc/example.* %{buildroot}%{_datadir}/selinux/devel/
 install -p -m 644 doc/policy.* %{buildroot}%{_datadir}/selinux/devel/
-%{_bindir}/sepolicy manpage -a -p %{buildroot}%{_mandir}/man8/ -w -r %{buildroot}
+sepolicy manpage -a -p %{buildroot}%{_mandir}/man8/ -w -r %{buildroot}
 mkdir %{buildroot}%{_datadir}/selinux/devel/html
 mv %{buildroot}%{_datadir}/man/man8/*.html %{buildroot}%{_datadir}/selinux/devel/html
 mv %{buildroot}%{_datadir}/man/man8/style.css %{buildroot}%{_datadir}/selinux/devel/html
@@ -527,7 +527,7 @@ SELINUXTYPE=targeted
 " > %{_sysconfdir}/selinux/config
 
      ln -sf ../selinux/config %{_sysconfdir}/sysconfig/selinux
-     %{_sbindir}/restorecon %{_sysconfdir}/selinux/config 2> /dev/null || :
+     restorecon %{_sysconfdir}/selinux/config 2> /dev/null || :
 else
      . %{_sysconfdir}/selinux/config
 fi
@@ -539,7 +539,7 @@ exit 0
 %postun
 %systemd_postun selinux-check-proper-disable.service
 if [ $1 = 0 ]; then
-     %{_sbindir}/setenforce 0 2> /dev/null
+     setenforce 0 2> /dev/null
      if [ ! -s %{_sysconfdir}/selinux/config ]; then
           echo "SELINUX=disabled" > %{_sysconfdir}/selinux/config
      else
@@ -584,8 +584,8 @@ exit 0
 %{_libexecdir}/selinux/varrun-convert.sh targeted
 %{_libexecdir}/selinux/binsbin-convert.sh targeted
 %postInstall $1 targeted
-%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm /etc/mdevctl.d
-%{_sbindir}/restorecon -i /usr/sbin/fapolicyd* /usr/sbin/usbguard*
+restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm /etc/mdevctl.d
+restorecon -i /usr/sbin/fapolicyd* /usr/sbin/usbguard*
 
 %postun targeted
 if [ $1 = 0 ]; then
@@ -593,7 +593,7 @@ if [ $1 = 0 ]; then
         source %{_sysconfdir}/selinux/config &> /dev/null || true
     fi
     if [ "$SELINUXTYPE" = "targeted" ]; then
-        %{_sbindir}/setenforce 0 2> /dev/null
+        setenforce 0 2> /dev/null
         if [ ! -s %{_sysconfdir}/selinux/config ]; then
             echo "SELINUX=disabled" > %{_sysconfdir}/selinux/config
         else
@@ -605,16 +605,16 @@ exit 0
 
 
 %triggerin -- pcre2
-%{_sbindir}/selinuxenabled && %{_sbindir}/semodule -nB 2> /dev/null
+selinuxenabled && semodule -nB 2> /dev/null
 exit 0
 
 %triggerin -- fapolicyd-selinux
 %{_libexecdir}/selinux/binsbin-convert.sh targeted
-%{_sbindir}/restorecon /usr/sbin/fapolicyd*
+restorecon /usr/sbin/fapolicyd*
 
 %triggerin -- usbguard-selinux
 %{_libexecdir}/selinux/binsbin-convert.sh targeted
-%{_sbindir}/restorecon /usr/sbin/usbguard*
+restorecon /usr/sbin/usbguard*
 
 %triggerprein -p <lua> -- container-selinux
 %removeVarrunModuleLua targeted
@@ -672,7 +672,7 @@ SELinux minimum policy package.
 %pre minimum
 %preInstall minimum
 if [ $1 -ne 1 ]; then
-    %{_sbindir}/semodule -s minimum --list-modules=full | awk '{ if ($4 != "disabled") print $2; }' > %{_datadir}/selinux/minimum/instmodules.lst
+    semodule -s minimum --list-modules=full | awk '{ if ($4 != "disabled") print $2; }' > %{_datadir}/selinux/minimum/instmodules.lst
 fi
 
 %post minimum
@@ -690,12 +690,12 @@ done
 for p in $basemodules $enabledmodules; do
     rm -f %{_sharedstatedir}/selinux/minimum/active/modules/disabled/$p
 done
-%{_sbindir}/semanage import -S minimum -f - << __eof
+semanage import -S minimum -f - << __eof
 login -m  -s unconfined_u -r s0-s0:c0.c1023 __default__
 login -m  -s unconfined_u -r s0-s0:c0.c1023 root
 __eof
-%{_sbindir}/restorecon -R /root /var/log /var/run 2> /dev/null
-%{_sbindir}/semodule -B -s minimum 2> /dev/null
+restorecon -R /root /var/log /var/run 2> /dev/null
+semodule -B -s minimum 2> /dev/null
 else
 instpackages=`cat %{_datadir}/selinux/minimum/instmodules.lst`
 for p in $packages; do
@@ -704,7 +704,7 @@ done
 for p in $instpackages apache dbus inetd kerberos mta nis; do
     rm -f %{_sharedstatedir}/selinux/minimum/active/modules/disabled/$p
 done
-%{_sbindir}/semodule -B -s minimum 2> /dev/null
+semodule -B -s minimum 2> /dev/null
 %relabel minimum
 fi
 exit 0
@@ -713,7 +713,7 @@ exit 0
 %checkConfigConsistency minimum
 %{_libexecdir}/selinux/varrun-convert.sh minimum
 %{_libexecdir}/selinux/binsbin-convert.sh minimum
-%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
+restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun minimum
 if [ $1 = 0 ]; then
@@ -721,7 +721,7 @@ if [ $1 = 0 ]; then
         source %{_sysconfdir}/selinux/config &> /dev/null || true
     fi
     if [ "$SELINUXTYPE" = "minimum" ]; then
-        %{_sbindir}/setenforce 0 2> /dev/null
+        setenforce 0 2> /dev/null
         if [ ! -s %{_sysconfdir}/selinux/config ]; then
             echo "SELINUX=disabled" > %{_sysconfdir}/selinux/config
         else
@@ -769,7 +769,7 @@ exit 0
 %{_libexecdir}/selinux/varrun-convert.sh mls
 %{_libexecdir}/selinux/binsbin-convert.sh mls
 %postInstall $1 mls
-%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
+restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun mls
 if [ $1 = 0 ]; then
@@ -777,7 +777,7 @@ if [ $1 = 0 ]; then
         source %{_sysconfdir}/selinux/config &> /dev/null || true
     fi
     if [ "$SELINUXTYPE" = "mls" ]; then
-        %{_sbindir}/setenforce 0 2> /dev/null
+        setenforce 0 2> /dev/null
         if [ ! -s %{_sysconfdir}/selinux/config ]; then
             echo "SELINUX=disabled" > %{_sysconfdir}/selinux/config
         else

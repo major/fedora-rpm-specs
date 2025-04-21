@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname testthat
-%global packver 3.2.0
+%global packver 3.2.3
 
 Name:             R-%{packname}
 Version:          %{packver}
@@ -19,7 +19,7 @@ BuildRequires:    R-cli >= 3.6.1
 BuildRequires:    R-desc >= 1.4.2
 BuildRequires:    R-digest >= 0.6.33
 BuildRequires:    R-ellipsis >= 0.3.2
-BuildRequires:    R-evaluate >= 0.21
+BuildRequires:    R-evaluate >= 1.0.1
 BuildRequires:    R-jsonlite >= 1.8.7
 BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr >= 2.0.3
@@ -31,8 +31,8 @@ BuildRequires:    R-ps >= 1.7.5
 BuildRequires:    R-R6 >= 2.5.1
 BuildRequires:    R-rlang >= 1.1.1
 BuildRequires:    R-utils
-BuildRequires:    R-waldo >= 0.5.1
-BuildRequires:    R-withr >= 2.5.0
+BuildRequires:    R-waldo >= 0.6.0
+BuildRequires:    R-withr >= 3.0.2
 
 BuildRequires:    R-curl >= 0.9.5
 # for skip_if_offline()
@@ -40,12 +40,14 @@ Requires:         R-curl
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rstudioapi
+
 BuildRequires:    R-shiny
 BuildRequires:    R-usethis
 BuildRequires:    R-vctrs >= 0.1.0
 BuildRequires:    R-xml2
-# Not in Fedora as of 2023-11-01
+# Not in Fedora as of 2025-04-20
 # BuildRequires:    R-diffviewer >= 0.1.0
+# BuildRequires:    R-S7
 
 %description
 A unit testing system designed to be fun, flexible, and easy to set up.
@@ -55,6 +57,9 @@ A unit testing system designed to be fun, flexible, and easy to set up.
 
 # Don't need coverage
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
+
+# Remove S7 tests
+rm -f %{packname}/tests/testthat/test-expect-inheritance.R
 
 %build
 

@@ -1,8 +1,8 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -18,7 +18,7 @@ Source1:        https://github.com/borgbackup/borg/releases/download/%{version}/
 Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 
 # we don't need the guzzley_sphinx theme for only man page generation
-Patch1:         0002-disable-sphinx-man-page-build.patch
+Patch1:         borgbackup-disable-guzzle-theme.patch
 
 BuildRequires:  gnupg2
 # build
@@ -33,6 +33,7 @@ BuildRequires:  python3dist(pytest-xdist)
 
 # doc
 BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(sphinxcontrib-jquery)
 
 # no python deps
 BuildRequires:  gcc
@@ -136,6 +137,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Sat Apr 19 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.1-1
+- update to 1.4.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

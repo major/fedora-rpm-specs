@@ -1,12 +1,13 @@
+
 # ROCclr loads comgr at run time by soversion, so this needs to be checked when
 # updating this package as it's used for the comgr requires for opencl and hip:
-%global comgr_maj_api_ver 2
+%global comgr_maj_api_ver 3
 # See the file "rocclr/device/comgrctx.cpp" for reference:
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global rocm_major 6
-%global rocm_minor 3
-%global rocm_patch 2
+%global rocm_minor 4
+%global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -59,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -67,21 +68,11 @@ Source0:        https://github.com/ROCm-Developer-Tools/clr/archive/refs/tags/ro
 # TODO: it would be nice to separate this into its own package:
 Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
 
-# Revert patch: this causes some issues with upstream LLVM 16 (RHBZ#2207599)
-#https://github.com/ROCm-Developer-Tools/ROCclr/commit/041c00465b7adcee78085dc42253d42d1bb1f250
-# Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
-
 # a fix for building blender
 Patch8:         0001-add-long-variants-for-__ffsll.patch
 
-# https://github.com/ROCm/clr/pull/69
-Patch9:         0001-Check-p2p_agents_list_-before-deleting.patch
-
 #https://github.com/ROCm/clr/pull/97
 patch10:        https://github.com/ROCm/clr/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
-
-# https://github.com/ROCm/clr/issues/99
-# patch11:        0001-handle-v1-of-compressed-fatbins.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -94,9 +85,7 @@ BuildRequires:  perl-generators
 BuildRequires:  gcc-c++
 BuildRequires:  hipcc
 BuildRequires:  libffi-devel
-%if 0%{?suse_version}
 BuildRequires:  libzstd-devel
-%endif
 BuildRequires:  perl
 
 %if 0%{?rhel}
@@ -240,9 +229,11 @@ sed -i '/CMAKE_C.*_FLAGS/d' hipamd/src/CMakeLists.txt
 # Stop cmake from trying to install HIPCC again:
 sed -i "/install(PROGRAMS.*{[Hh][Ii][Pp][Cc]/d" hipamd/CMakeLists.txt
 
+%if %{with docs}
 # Disable doxygen timestamps:
 sed -i 's/^\(HTML_TIMESTAMP.*\)YES/\1NO/' \
     HIP-rocm-%{version}/docs/doxygen-input/doxy.cfg
+%endif
 
 # Use cpack is not needed when we are doing the packaging here
 # Gets confused on TW
@@ -254,17 +245,22 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.3)@cmake_minimum_required(VERSION 
 
 %build
 
+# So we can set HIP_COMMON_DIR
 p=$PWD
+
+# Something searches for clang in its path
+export PATH=%{rocmllvm_bindir}:$PATH
 
 %cmake \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
-    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DHIP_COMMON_DIR=$p/HIP-rocm-%{version} \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DHIP_COMMON_DIR=$p/hip-rocm-%{version} \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DHIPCC_BIN_DIR=%{_bindir} \
+    -DHIP_COMPILER=%rocmllvm_bindir/clang++ \
     -DHIP_PLATFORM=amd \
     -DROCM_PATH=%{_prefix} \
     -DBUILD_ICD=OFF \
@@ -275,6 +271,7 @@ p=$PWD
     -DUSE_PROF_API=%{build_prof_api} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_BUILD_TYPE=%{build_type}
+
 %cmake_build
 
 %install
@@ -369,6 +366,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Sun Mar 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-4
 - no ocl-icd-devel in cs10
 

@@ -5,7 +5,7 @@
 %endif
 
 %global upstreamname hipSPARSE
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -37,12 +37,12 @@
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           %{hipsparse_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -174,6 +174,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Remove multi build
 - Fix SLE 15.6

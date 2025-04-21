@@ -73,6 +73,7 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 %dir %{rlibdir}/%{packname}/libs
 %{rlibdir}/%{packname}/libs/%{packname}.so
 %{rlibdir}/%{packname}/pkgdown
+%{rlibdir}/%{packname}/WORDLIST
 
 
 %changelog

@@ -1,15 +1,16 @@
-%global rocm_release 6.3
+%global upstreamname rocminfo
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocminfo
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
 URL:        https://github.com/ROCm/rocminfo
-Source0:    %{url}/archive/rocm-%{version}.tar.gz
+Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
 Patch1:     0002-fix-buildtype-detection.patch
 
@@ -53,6 +54,9 @@ chmod 755 %{buildroot}%{_bindir}/*
 %exclude %{_docdir}/*/License.txt
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

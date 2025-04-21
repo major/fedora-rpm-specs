@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	19.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -825,6 +825,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Sat Apr 19 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.1-3
+- Arrow 19.0.1, w/ liborc-2.1.1-2 (orc-format-1.1.0) again
+
 * Fri Apr 18 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.1-2
 - Arrow 19.0.1, w/ liborc-2.1.1-2 (orc-format-1.1.0)
 

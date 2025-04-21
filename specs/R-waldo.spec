@@ -1,5 +1,5 @@
 %global packname waldo
-%global packver  0.5.2
+%global packver  0.6.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -22,14 +22,13 @@ BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    R-cli
 BuildRequires:    R-diffobj >= 0.3.4
-BuildRequires:    R-fansi
 BuildRequires:    R-glue
 BuildRequires:    R-methods
-BuildRequires:    R-rematch2
-BuildRequires:    R-rlang >= 1.0.0
-BuildRequires:    R-tibble
-BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-rlang >= 1.1.0
+BuildRequires:    R-bit64
 BuildRequires:    R-R6
+#BuildRequires:    R-S7 # not in Fedora
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
 BuildRequires:    R-xml2
 
@@ -45,6 +44,8 @@ isolate key differences makes understanding test failures much easier.
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
 
+# Remove S7 test
+rm -f %{packname}/tests/testthat/test-compare.R
 
 %build
 

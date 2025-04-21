@@ -5,7 +5,7 @@
 %global with_suggests 0
 
 Name:             R-%{packname}
-Version:          0.23
+Version:          1.0.3
 Release:          %autorelease
 Summary:          Parsing and Evaluation Tools that Provide More Details than the Default
 
@@ -25,8 +25,10 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 %if %{with_suggests}
-BuildRequires:    R-ggplot2
+BuildRequires:    R-callr
+BuildRequires:    R-ggplot2 >= 3.3.6
 BuildRequires:    R-lattice
+BuildRequires:    R-pkgload
 BuildRequires:    R-rlang
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr

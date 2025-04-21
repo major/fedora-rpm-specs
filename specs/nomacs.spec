@@ -3,11 +3,12 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.21.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
+Source1:  https://github.com/novomesk/%{name}-plugins/archive/refs/tags/%{name}-plugins-3.21.0.tar.gz
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -40,9 +41,26 @@ running on the same computer or via LAN is possible.
 It allows to compare images and spot the differences
 e.g. schemes of architects to show the progress).
 
+%package  plugins
+Summary:  Plugins for nomacs image viewer.
+# qt6-qt5compat-devel
+BuildRequires:  cmake(Qt6Core5Compat)
+Requires: %{name} = %{version}-%{release}
+
+%description  plugins
+Some usefull plugins for nomacs:
+- Affine transformations
+- RGB image from greyscales
+- Fake miniature filter
+- Page extractions
+- Painting
+
 %prep
 %setup
 %setup -T -D -a 1 -n %{name}-%{version}
+%setup -T -D -a 1 -n %{name}-%{version}
+# plug them in
+mv nomacs-plugins-3.21.0/* ImageLounge/plugins/
 # Be sure
 rmdir {3rd-party/*,3rd-party}
 
@@ -77,8 +95,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_mandir}/man1/%{name}.*
 
+%files  plugins
+%license ImageLounge/license/*
+%{_libdir}/nomacs-plugins/
+
 
 %changelog
+* Sat Apr 19 2025 TI_Eugene <ti.eugene@gmail.com> 3.21.0-2
+- Plugins
+
 * Thu Apr 10 2025 TI_Eugene <ti.eugene@gmail.com> 3.21.0-1
 - Version bump
 - Plugins removed (Qt6 incompatible)

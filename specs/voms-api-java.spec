@@ -1,41 +1,18 @@
 Name:		voms-api-java
-Version:	3.3.3
-Release:	3%{?dist}
+Version:	3.3.5
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
 URL:		https://wiki.italiangrid.it/VOMS
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-#		Disable failing tests
-#		IllegalState object explicit - implicit expected.
-#		https://github.com/italiangrid/voms-api-java/issues/29
-Patch0:		%{name}-disable-some-tests.patch
-#		Disable tests that fail due to expired certificates
-#		https://github.com/italiangrid/voms-api-java/issues/30
-#		2022-09-24 (test0.cert.pem, wilco_cnaf_infn_it.cert.pem)
-Patch1:		%{name}-expired-2022-09-24.patch
-#		2022-10-08 (test_host_cnaf_infn_it.cert.pem)
-Patch2:		%{name}-expired-2022-10-08.patch
-#		2022-12-12 (test_host_2_cnaf_infn_it.cert.pem)
-Patch3:		%{name}-expired-2022-12-12.patch
-#		Adjust to removed deprecaded API in Mockito
-Patch4:		%{name}-mockito4.patch
-
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
 BuildRequires:	maven-local
-%if %{?rhel}%{!?rhel:0} == 8
-BuildRequires:	mvn(com.google.guava:guava:20.0)
-%else
-BuildRequires:	mvn(com.google.guava:guava)
-%endif
-BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.6
-BuildRequires:	mvn(junit:junit)
-BuildRequires:	mvn(org.hamcrest:hamcrest-library)
-BuildRequires:	mvn(org.mockito:mockito-core)
-Requires:	mvn(eu.eu-emi.security:canl) >= 2.6
+BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
+Requires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
 
 %description
 The Virtual Organization Membership Service (VOMS) is an attribute authority
@@ -55,20 +32,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-%patch -P 4 -p1
-%endif
 
 # Remove unused dependency
 %pom_remove_dep net.jcip:jcip-annotations
-
-# Use default location for javadoc output
-%pom_xpath_remove "//pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration/pom:outputDirectory"
-%pom_xpath_remove "//pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration/pom:reportOutputDirectory"
 
 # F33+ and EPEL8+ doesn't use the maven-javadoc-plugin to generate javadoc
 # Remove maven-javadoc-plugin configuration to avoid build failure
@@ -77,25 +43,21 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 # Do not create source jars
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
 
-# Cobertura no longer in Fedora due to licensing issues
-%pom_remove_plugin org.codehaus.mojo:cobertura-maven-plugin
+# Do not enforce requirements
+%pom_remove_plugin org.apache.maven.plugins:maven-enforcer-plugin
 
-# Remove license plugin
-%pom_remove_plugin com.mycila.maven-license-plugin:maven-license-plugin
+%if %{?rhel}%{!?rhel:0} == 9
+# Default openjdk in RHEL 9 is 11
+%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:release/text()" 11
+%pom_xpath_replace "//pom:properties/pom:maven.compiler.release/text()" 11
 
-%if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
-# Update bouncycastle dependencies
-%pom_change_dep org.bouncycastle:bcprov-jdk15on org.bouncycastle:bcprov-jdk18on
-%pom_change_dep org.bouncycastle:bcpkix-jdk15on org.bouncycastle:bcpkix-jdk18on
-%endif
-
-%if %{?rhel}%{!?rhel:0} == 8
-# Adapt guava dependency for EPEL 8
-%pom_change_dep com.google.guava:guava:* com.google.guava:guava:20.0
+# Modify bouncycastle dependencies for RHEL 9
+%pom_change_dep org.bouncycastle:bcprov-jdk18on org.bouncycastle:bcprov-jdk15on
+%pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
 %endif
 
 %build
-%mvn_build
+%mvn_build -f
 
 %install
 %mvn_install
@@ -108,6 +70,11 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Thu Apr 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-1
+- Update to version 3.3.5
+- Do not run tests
+  - some scripts needed for generating the test certificates are missing
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

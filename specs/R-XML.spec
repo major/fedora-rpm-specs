@@ -1,9 +1,9 @@
 %global packname XML
-%global packver  3.99-0.16.1
+%global packver  3.99-0.18
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          3.99.0.16.1
+Version:          3.99.0.18
 Release:          %autorelease
 Summary:          Tools for Parsing and Generating XML Within R and S-Plus
 

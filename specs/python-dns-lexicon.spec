@@ -1,7 +1,7 @@
 
 %global forgeurl    https://github.com/dns-lexicon/dns-lexicon
-%global forgeversion 3.20.1
-Version:            3.20.1
+%global forgeversion 3.21.0
+Version:            %{forgeversion}
 %forgemeta
 
 %global pypi_name dns-lexicon
@@ -20,7 +20,7 @@ Version:            3.20.1
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -29,6 +29,8 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        create-local-tld-cache.py
 Patch:          python-dns-lexicon-tox-config.patch
+# submitted upstream as https://github.com/dns-lexicon/dns-lexicon/pull/29
+Patch2:         python-dns-lexicon-findall.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -227,6 +229,9 @@ ln -s lexicon-%{python3_version} lexicon-3
 # }}}
 
 %changelog
+* Sat Apr 19 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.21.0-1
+- update to 3.21.0
+
 * Thu Jan 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.20.1-1
 - update to 3.20.1
 

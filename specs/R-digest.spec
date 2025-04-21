@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname digest
-%global packver 0.6.33
+%global packver 0.6.37
 
 Name:             R-%{packname}
 Version:          %{packver}

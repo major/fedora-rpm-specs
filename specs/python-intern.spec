@@ -1,11 +1,13 @@
 Name:           python-intern
-Version:        1.4.0
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Python SDK for interacting with neuroscience data via the Boss API
 
 License:        Apache-2.0
 URL:            https://github.com/jhuapl-boss/intern
-Source:         %{pypi_source intern}
+# The GitHub source archive contains docs and examples; the PyPI sdist no
+# longer does.
+Source:         %{url}/archive/v%{version}/intern-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   intern
@@ -14,10 +16,6 @@ BuildOption(install):   intern
 # BuildOption(generate_buildrequires): -x cloudmesh,meshing
 # Skip import-checking modules that require cloudmesh or meshing extras.
 BuildOption(check):     -e 'intern.*.cv' -e 'intern.*.cv.*'
-
-# Drop dependency on PyPI mock package
-# https://github.com/jhuapl-boss/intern/pull/106
-Patch:          %{url}/pull/106.patch
 
 BuildArch:      noarch
 
@@ -58,10 +56,6 @@ Summary:        Documentation and examples for python-intern
 This package contains assorted documentation and examples for python-intern.
 For the HTML API documentation, please see
 https://jhuapl-boss.github.io/intern/.
-
-
-%prep
-%autosetup -n intern-%{version} -p1
 
 
 %check -a

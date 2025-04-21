@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.27.34
+Version:    2.27.36
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -14,6 +14,8 @@ Requires:   python3-distro
 Requires:   python3-packaging
 Requires:   python3-enchant
 Requires:   python3-pyxdg
+# To make emoji and Unicode symbol matching faster:
+Requires:     python3-rapidfuzz
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 # Recommend reasonably good fonts which have most of the emoji:
 Recommends: google-noto-emoji-color-fonts
@@ -50,6 +52,7 @@ BuildRequires:  m17n-db-devel
 BuildRequires:  python3-enchant
 BuildRequires:  enchant2
 BuildRequires:  hunspell-en
+BuildRequires:  python3-rapidfuzz
 # because of “from packing import version”:
 BuildRequires:   python3-packaging
 %if 0%{?fedora} >= 35

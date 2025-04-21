@@ -1,7 +1,5 @@
-# No Mojolicious prior to Fedora 14
-# Mojolicious in Fedora 14 is too old
 # No Mojolicious in EPEL
-%if 0%{?fedora} > 14
+%if 0%{?fedora}
 %global have_mojo 1
 %else
 %global have_mojo 0
@@ -15,7 +13,7 @@
 %endif
 
 Name:           perl-MIME-Types
-Version:        2.27
+Version:        2.28
 Release:        1%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,11 +22,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/MIME/MIME-Types-%{ve
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -82,12 +79,11 @@ contain useful information.
 %setup -q -n MIME-Types-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -112,6 +108,17 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Sat Apr 19 2025 Paul Howarth <paul@city-fan.org> - 2.28-1
+- Update to 2.28
+  Fixes:
+  - Some 'deprecated' texts made it to types.db
+  Improvements:
+  - text/ecmascript RFC9239
+  - Default charsets according to RFC6657
+  - Update reference to specs RFC6838 and RFC9694
+  - IANA updates
+- Use %%{make_build} and %%{make_install}
+
 * Fri Feb  7 2025 Paul Howarth <paul@city-fan.org> - 2.27-1
 - Update to 2.27
   - IANA updates

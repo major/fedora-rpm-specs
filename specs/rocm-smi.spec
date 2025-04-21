@@ -14,13 +14,13 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-Patch0:     0001-Fix-empty-return.patch
+Patch0:     0001-rocm-smi-fix-empty-return.patch
 
 %if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
@@ -49,6 +49,8 @@ applications.
 %package devel
 Summary: ROCm SMI Library development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
+# /usr/include/rocm_smi/kfd_ioctl.h:26:10: fatal error: 'libdrm/drm.h' file not found
+Requires: libdrm-devel
 
 %description devel
 ROCm System Management Interface Library development files
@@ -116,6 +118,10 @@ fi
 %endif
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- devel requires libdrm-devel
+- refactor empty return patch
+
 * Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
 - Update to 6.4.0
 

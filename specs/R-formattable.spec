@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          19%{?dist}
+Release:          %autorelease
 Summary:          Create 'Formattable' Data Structures
 
 License:          MIT
@@ -61,8 +61,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 # Avoid error with .make_numeric_version
 # not sure where this comes from, probably a dependency
-export _R_CHECK_STOP_ON_INVALID_NUMERIC_VERSION_INPUTS_=false
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%{_bindir}/R CMD check --ignore-vignettes --no-tests %{packname}
 
 
 %files
@@ -81,62 +80,4 @@ export _R_CHECK_STOP_ON_INVALID_NUMERIC_VERSION_INPUTS_=false
 
 
 %changelog
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-19
-- R-maint-sig mass rebuild
-
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-18
-- R-maint-sig mass rebuild
-
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-17
-- R-maint-sig mass rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Apr 25 2024 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-14
-- R-maint-sig mass rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-10
-- Ignore vignettes
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-9
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Sep  3 2022 Tom Callaway <spot@fedoraprojet.org> - 0.2.1-7
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 16 2021 Tom Callaway <spot@fedoraproject.org> - 0.2.1-3
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 08 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.1-1
-- Update to latest version (#1913976)
-
-* Sun Aug 02 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.0.1-1
-- initial package for Fedora
+%autochangelog

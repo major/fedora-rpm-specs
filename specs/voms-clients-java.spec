@@ -1,21 +1,22 @@
 Name:		voms-clients-java
-Version:	3.3.3
-Release:	2%{?dist}
+Version:	3.3.5
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
 URL:		https://wiki.italiangrid.it/VOMS
 Source0:	https://github.com/italiangrid/voms-clients/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
 BuildRequires:	maven-local
+BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
 BuildRequires:	mvn(commons-cli:commons-cli)
 BuildRequires:	mvn(commons-io:commons-io)
 BuildRequires:	mvn(junit:junit)
-BuildRequires:	mvn(org.italiangrid:voms-api-java)
-BuildRequires:	voms-api-java >= 3.3.3
-Requires:	voms-api-java >= 3.3.3
+BuildRequires:	asciidoctor
+Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
 Requires:	java-headless
 
 Requires(post):		%{_sbindir}/update-alternatives
@@ -51,43 +52,46 @@ voms-proxy-init, voms-proxy-destroy and voms-proxy-info.
 # Don't do assembly
 %pom_remove_plugin :maven-assembly-plugin
 
-# Remove license plugin
-%pom_remove_plugin com.mycila.maven-license-plugin:maven-license-plugin
+# The asciidoctor plugin is not available in Fedora
+# Run asciidoctor explicitly in the build section instead
+%pom_remove_plugin org.asciidoctor:asciidoctor-maven-plugin
+
+%if %{?rhel}%{!?rhel:0} == 9
+# Default openjdk in RHEL 9 is 11
+%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source/text()" 11
+%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target/text()" 11
+%endif
 
 %build
 %mvn_build -j
+
+pushd man
+for x in *.adoc ; do asciidoctor -b manpage $x ; done
+popd
 
 %install
 %mvn_install
 
 mkdir -p %{buildroot}%{_bindir}
 
-%if %{?rhel}%{!?rhel:0} == 8
-guava_cp="guava20"
-bc_cp="bcpkix bcprov"
-%else
-guava_cp="guava/guava"
-bc_cp="bcpkix bcutil bcprov"
-%endif
-
 cat > %{buildroot}%{_bindir}/voms-proxy-init3 << EOF
 #!/bin/sh
 VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
-java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java ${guava_cp} ${bc_cp} commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInit "\$@"
+java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInit "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-init3
 
 cat > %{buildroot}%{_bindir}/voms-proxy-info3 << EOF
 #!/bin/sh
 VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
-java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java ${guava_cp} ${bc_cp} commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInfo "\$@"
+java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInfo "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-info3
 
 cat > %{buildroot}%{_bindir}/voms-proxy-destroy3 << EOF
 #!/bin/sh
 VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
-java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java ${guava_cp} ${bc_cp} commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyDestroy "\$@"
+java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyDestroy "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-destroy3
 
@@ -156,10 +160,13 @@ fi
 %ghost %{_sysconfdir}/alternatives/voms-proxy-init.1*
 %{_mandir}/man5/vomsdir.5*
 %{_mandir}/man5/vomses.5*
-%doc AUTHORS README.md
+%doc README.md
 %license LICENSE
 
 %changelog
+* Sat Apr 19 2025 Mattias Ellert  <mattias.ellert@physics.uu.se> - 3.3.5-1
+- Update to version 3.3.5
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

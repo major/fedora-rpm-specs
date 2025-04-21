@@ -20,7 +20,6 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    tzdata
 BuildRequires:    pkgconfig(libgit2) >= 0.26.0
 BuildRequires:    R-graphics
 BuildRequires:    R-utils

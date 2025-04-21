@@ -1,7 +1,7 @@
 %bcond_with network
 
 %global packname unitizer
-%global packver  1.4.19
+%global packver  1.4.22
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
