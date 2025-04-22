@@ -2,7 +2,7 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.20.1
+Version:	1.21.2
 Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Sun Apr 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.21.2-1
+- Update to 1.21.2
+
 * Sat Mar 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.20.1-1
 - Update to 1.20.1
 

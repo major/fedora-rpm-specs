@@ -6,8 +6,8 @@
 
 %global upstreamname rocJPEG
 
-%global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -47,6 +47,7 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -171,6 +172,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-6
 - Reenable ninja
 

@@ -3,7 +3,7 @@
 
 Name:           falkon
 Version:        25.04.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -17,6 +17,9 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 Patch0:         falkon-3.1.0-native-scrollbars.patch
 
 ## upstream patches
+# upstream fix for crash when creating bookmarks toolbar on startup (#2361191)
+# will be in 25.04.1
+Patch100:       falkon-25.04.0-fix-crash-rh2361191.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -179,6 +182,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Mon Apr 21 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 25.04.0-3
+- Upstream fix for crash when creating bookmarks toolbar on startup (#2361191)
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
 - Rebuild (qt6)
 

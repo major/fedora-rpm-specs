@@ -1,10 +1,9 @@
 Name:           libnice
 Version:        0.1.22
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GLib ICE implementation
 
-# Automatically converted from old format: LGPLv2 and MPLv1.1 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-MPLv1.1
+License:        LGPL-2.1-or-later OR MPL-1.1
 URL:            https://nice.freedesktop.org/
 Source0:        https://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz
 Source1:        https://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz.asc
@@ -109,6 +108,9 @@ sed \
 
 
 %changelog
+* Wed Apr 09 2025 Matej Focko <mfocko@redhat.com> - 0.1.22-6
+- Correct the SPDX license
+
 * Wed Jan 22 2025 Stefan Becker <chemobejk@gmail.com> - 0.1.22-5
 - add upstream patch to fix test-new-trickle for Glib 2.83
 

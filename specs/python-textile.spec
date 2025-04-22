@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Humane Web Text Generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -33,7 +33,7 @@ Summary:        A Humane Web Text Generator
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x imagesize
+%pyproject_buildrequires -x imagesize
 
 
 %build
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Sun Apr 20 2025 Thomas Moschny  <thomas.moschny@gmx.de> - 4.0.3-3
+- Remove erroneous tox option (rhbz#2354127).
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

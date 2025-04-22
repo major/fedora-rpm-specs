@@ -1,6 +1,6 @@
 %global upstreamname rocm-examples
-%global rocm_release 6.3
-%global rocm_patch 3
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -20,8 +20,8 @@
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"         xz level 7 using %%{getncpus} threads
 # Multithreading the compress reduces the build time.
-%global _source_payload         w7T0.xzdio
-%global _binary_payload         w7T0.xzdio
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
 
 Name:           rocm-examples
 Version:        %{rocm_version}
@@ -118,5 +118,8 @@ done
 %{_bindir}/*
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Fri Mar 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
 - Initial package

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
-%global use_bundled_cbindgen  0
+%global use_bundled_cbindgen  1
 
 ####################
 

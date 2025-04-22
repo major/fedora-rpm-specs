@@ -1,21 +1,18 @@
 # some tests are failing and there isn't a straightforward way to disable them
-%bcond_with check
-%global salsa_commit 4855a775cf29a175afe605ee7ea43134e29a4b40
-
+%bcond check 1
 %global debug_package %{nil}
 
 Name:           ruby-build
-Version:        20221004
+Version:        20250418
 Release:        %autorelease
 Summary:        Compile and install Ruby
 
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        https://salsa.debian.org/ruby-team/ruby-build/-/raw/%{salsa_commit}/debian/ruby-build.1.adoc
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  rubygem-asciidoctor
-
+BuildRequires:  gawk
+BuildRequires:  grep
 %if %{with check}
 BuildRequires:  bats
 %endif
@@ -56,20 +53,20 @@ command.
 
 %prep
 %autosetup
-cp -p %SOURCE1 .
-
-%build
-asciidoctor --backend manpage ruby-build.1.adoc
 
 %install
 PREFIX=%{buildroot}%{_prefix} ./install.sh
-install -Dpm0644 -t %{buildroot}%{_mandir}/man1 ruby-build.1
+install -Dpm0644 -t %{buildroot}%{_mandir}/man1 share/man/man1/ruby-build.1
 
 install -Ddpm0755 %{buildroot}%{_libdir}/rbenv/libexec
 mv %{buildroot}%{_bindir}/rbenv-* %{buildroot}%{_libdir}/rbenv/libexec
 
 %if %{with check}
 %check
+# Skip failing tests
+for test in "install bundled OpenSSL on macOS"; do
+  awk -i inplace '/^@test\s+"'"$test"'"\s*\{/{ print; print "  skip \"disabled failing test\""; next }1' $(grep -rl "@test \"$test\"")
+done
 bats test
 %endif
 

@@ -1,9 +1,9 @@
 Name:           perl-Data-ObjectDriver
-Version:        0.23
-Release:        2%{?dist}
+Version:        0.25
+Release:        1%{?dist}
 Summary:        Simple, transparent data interface, with caching
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Data-ObjectDriver
+URL:            https://metacpan.org/dist/Data-ObjectDriver
 Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIXAPART/Data-ObjectDriver-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -50,6 +50,9 @@ oriented design concepts onto a relational database.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Apr 20 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.25-1
+- Update to 0.25
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

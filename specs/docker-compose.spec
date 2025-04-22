@@ -3,7 +3,7 @@
 
 # https://github.com/docker/compose/v2
 %global goipath         github.com/docker/compose/v2
-Version:                2.35.0
+Version:                2.35.1
 
 %gometa -L -f
 

@@ -1,6 +1,6 @@
 %global upstreamname rpp
-%global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -21,7 +21,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -74,7 +74,7 @@ sed -i -e 's@set(COMPILER_FOR_HIP ${ROCM_PATH}/llvm/bin/clang++)@set(COMPILER_FO
 sed -i -e '/set(CMAKE_CXX_COMPILER clang++)/d' CMakeLists.txt
 
 # #include <half/half.hpp> -> <half.hpp>
-for f in `find . -type f -name '*.hpp' -o -name '*.cpp' `; do
+for f in `find . -type f -name '*.hpp' -o -name '*.cpp' -o -name '*.h' `; do
     sed -i -e 's@#include <half/half.hpp>@#include <half.hpp>@' $f
 done
 
@@ -117,6 +117,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Tue Feb 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - Remove opencv for RHEL
 

@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Types-Common 
 Summary:        A library of commonly used type constraints 
-Version:        0.001014
-Release:        28%{?dist}
+Version:        0.001015
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-Common-%{version}.tar.gz
 URL:            https://metacpan.org/release/MooseX-Types-Common
@@ -12,7 +12,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Module::Build::Tiny)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -58,13 +58,13 @@ for F in t/*.t; do
 done
 
 %build
-PERL_MM_FALLBACK_SILENCE_WARNING=1 perl Makefile.PL INSTALLDIRS=vendor \
-    NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+PERL_MM_FALLBACK_SILENCE_WARNING=1 perl Build.PL --installdirs=vendor
+./Build
 
 %install
-%{make_install}
+./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
 %{_fixperms} %{buildroot}/*
+
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -78,7 +78,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %check
 unset AUTHOR_TESTING
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
-make test
+./Build test
 
 %files
 %doc README Changes
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Apr 20 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.001015-1
+- Update to 0.001015
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.001014-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

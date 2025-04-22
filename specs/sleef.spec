@@ -6,9 +6,12 @@
 # this feature disabled until someone asks for it.
 %bcond static 0
 
+# Adds a BuildRequires on tlfloat and enables more tests
+%bcond tlfloat 1
+
 Name:           sleef
-Version:        3.8.0
-%global tag 3.8
+Version:        3.9.0
+%global tag %{version}
 %global so_version 3
 Release:        %autorelease
 Summary:        Vectorized math library
@@ -36,8 +39,38 @@ Source1:        get_source.sh
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+# On aarch64, since 3.9.0, we cannot link at least bin/tester3svenofma when LTO
+# is enabled, due to confusion about SVE.
+#
+#   /builddir/build/BUILD/sleef-3.9.0-build/sleef-3.9.0/src/common/testerutil.c:
+#   In function ‘memrand.constprop’:
+#   /builddir/build/BUILD/sleef-3.9.0-build/sleef-3.9.0/src/common/testerutil.c:101:6:
+#   error: this operation requires the SVE ISA extension
+#     101 | void memrand(void *p, int size) {
+#         |      ^
+#   /builddir/build/BUILD/sleef-3.9.0-build/sleef-3.9.0/src/common/testerutil.c:101:6:
+#   note: you can enable SVE using the command-line option ‘-march’, or by
+#   using the ‘target’ attribute or pragma
+#   /builddir/build/BUILD/sleef-3.9.0-build/sleef-3.9.0/src/common/testerutil.c:101:
+#   confused by earlier errors, bailing out
+#
+# This might be an upstream bug, but it is hard to understand. Upstream
+# provides their own LTO option, SLEEF_ENABLE_LTO, but for does not support it
+# in combination with shared libraries.
+#
+# - We could still build the library with LTO and not test it
+#   (-DSLEEF_BUILD_TESTS:BOOL=FALSE) on aarch64.
+# - It’s not clear how we could disable LTO *only for the tests*.
+# - We choose to disable LTO entirely on aarch64, because we really want to run
+#   the tests. We hope that the performance impact is not significant. It
+#   currently does not seem necessary to disable LTO on other architectures.
+%ifarch %{arm64}
+%global _lto_cflags %{nil}
+%endif
+
 BuildRequires:  cmake >= 3.4.3
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 # For tests only:
 BuildRequires:  pkgconfig(mpfr)
@@ -46,6 +79,9 @@ BuildRequires:  pkgconfig(libssl)
 BuildRequires:  pkgconfig(libcrypto)
 %if %{with dft}
 BuildRequires:  pkgconfig(fftw3)
+%endif
+%if %{with tlfloat}
+BuildRequires:  pkgconfig(tlfloat)
 %endif
 
 # See https://sleef.org/additional.xhtml#gnuabi. The gnuabi version of the
@@ -173,6 +209,7 @@ developing applications that use sleef-quad.
 # -GNinja: This used to be required for parallel builds; it is still faster.
 #
 # -DENFORCE_TESTER3: The build should fail if we cannot build all tests.
+# -DENFORCE_TESTER4: Likewise, except that tester4 requires tlfloat.
 #
 # -DBUILD_INLINE_HEADERS: Do not build the “inline” headers. This would provide
 #   an arch-specific collection of sleefinline_*.h headers in _includedir, as
@@ -181,14 +218,27 @@ developing applications that use sleef-quad.
 #   and would thus also be treated as a static library in the Fedora
 #   guidelines) should be omitted unless something in Fedora absolutely
 #   requires them.
+#
+# -DSLEEFDFT_ENABLE_STREAM: The author writes, “The recommended value for
+#   SLEEFDFT_ENABLE_STREAM depends on the architecture, and it is only
+#   recommended to be turned on on x86_64.”
+#   https://github.com/shibatch/sleef/discussions/654#discussioncomment-12860550
 %cmake \
     -GNinja \
     -DSLEEF_BUILD_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
+    -DSLEEF_ENFORCE_DFT:BOOL=%{?with_dft:TRUE}%{?!with_dft:FALSE} \
+%ifarch %{x86_64}
+    -DSLEEFDFT_ENABLE_STREAM:BOOL=TRUE \
+%else
+    -DSLEEFDFT_ENABLE_STREAM:BOOL=FALSE \
+%endif
     -DSLEEF_BUILD_GNUABI_LIBS:BOOL=%{?gnuabi_enabled:TRUE}%{?!gnuabi_enabled:FALSE} \
     -DSLEEF_BUILD_INLINE_HEADERS:BOOL=%{?inline_enabled:TRUE}%{?!inline_enabled:FALSE} \
     -DSLEEF_BUILD_QUAD:BOOL=%{?with_quad:TRUE}%{?!with_quad:FALSE} \
-    -DSLEEF_BUILD_SHARED_LIBS:BOOL=ON \
-    -DSLEEF_ENFORCE_TESTER3:BOOL=TRUE
+    -DSLEEF_BUILD_SHARED_LIBS:BOOL=TRUE \
+    -DSLEEF_ENFORCE_TESTER3:BOOL=TRUE \
+    -DSLEEF_ENFORCE_TESTER4:BOOL=%{?with_tlfloat:TRUE}%{?!with_tlfloat:FALSE} \
+    -DSLEEF_ENABLE_TLFLOAT:BOOL=%{?with_tlfloat:TRUE}%{?!with_tlfloat:FALSE}
 
 
 %build
@@ -200,15 +250,29 @@ developing applications that use sleef-quad.
 
 
 %check
+# Logging CPU features is helpful for debugging, especially in COPR builds
+# where the builder hardware information is not necessarily logged separately.
+echo '==== Build host CPU features ===='
+cat /proc/cpuinfo
+
 skips='^($.'
 
 %ifarch %{arm64}
 # Some tests are specifically for SVE code. We can only run these tests on
 # builder hardware that has the SVE extensions, which are not part of the
 # aarch64 baseline.
-if ! grep -E '[Ff]lags.*\bsve\b' /proc/cpuinfo >/dev/null
+if ! grep -E '[Ff](lags|eatures).*\bsve\b' /proc/cpuinfo >/dev/null
 then
   skips="${skips}|gnuabi_compatibility_SVE(_masked)?|qiutsve"
+fi
+%endif
+%ifarch %{power64}
+# Some tests are specifically for VSX3 code. We can only run these tests on
+# builder hardware that has the VSX3 extensions (POWER 9 or later), which are
+# not part of the ppc64le baseline (POWER 8).
+if grep -E -i '\bPOWER8\b' /proc/cpuinfo >/dev/null
+then
+  skips="${skips}|.*vsx3(nofma)?"
 fi
 %endif
 
@@ -239,7 +303,7 @@ skips="${skips})$"
 %files doc
 %license LICENSE.txt
 %doc CHANGELOG.md
-%doc README.md
+%doc README.adoc
 %doc docs/
 
 

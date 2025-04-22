@@ -1,17 +1,16 @@
 Name:           perl-MooseX-Types
-Version:        0.50
-Release:        24%{?dist}
+Version:        0.51
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Organize your Moose types in libraries
-URL:            https://metacpan.org/release/MooseX-Types
-Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-%{version}.tar.gz
+URL:            https://metacpan.org/dist/MooseX-Types
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
-BuildRequires:  sed
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -29,7 +28,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Sub::Exporter::ForMethods) >= 0.100052
 BuildRequires:  perl(Sub::Install)
-BuildRequires:  perl(Sub::Name)
+BuildRequires:  perl(Sub::Util)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
@@ -40,6 +39,7 @@ BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Moose)
 # Dependencies
@@ -61,11 +61,11 @@ easier to use Moose types in your code.
 %prep
 %setup -q -n MooseX-Types-%{version}
 
-# silence rpmlint
-sed -i '1s,^#!.*perl,#!%{__perl},' t/*.t
+# fix shebang
+/usr/bin/perl -pi -e 's|^#!perl|#!/usr/bin/perl|' t/00-report-prereqs.t
 
 %build
-perl Build.PL --installdirs=vendor
+/usr/bin/perl Build.PL --installdirs=vendor
 ./Build
 
 %install
@@ -90,6 +90,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX::Types::Wrapper.3*
 
 %changelog
+* Sun Apr 20 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.51-1
+- Update to 0.51
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

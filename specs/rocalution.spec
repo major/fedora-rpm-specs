@@ -5,7 +5,7 @@
 %endif
 
 %global upstreamname rocALUTION
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -49,7 +49,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -182,6 +182,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
 - Reenable ninja
 

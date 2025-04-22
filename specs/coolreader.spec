@@ -1,15 +1,18 @@
-%global forgeurl https://github.com/buggins/coolreader
-
 Name:           coolreader
 Version:        3.2.59
 Release:        %autorelease
 Summary:        Cross platform open source e-book reader
+
+%global forgeurl https://github.com/buggins/coolreader
 %global tag cr%{version}
 %forgemeta
+
 License:        GPL-2.0-or-later
 URL:            %forgeurl
 Source0:        %forgesource
 Source1:        cr3.appdata.xml
+# https://github.com/buggins/coolreader/pull/365
+Patch:          0001-Set-CMake-policy-version-lower-bound-to-3.5.patch
 
 # libunibreak dropped i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -17,21 +20,26 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(zlib)
-BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(fontconfig)
-BuildRequires:  pkgconfig(fribidi)
-BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(harfbuzz)
-BuildRequires:  pkgconfig(libunibreak)
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  utf8proc-devel
-BuildRequires:  libzstd-devel
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(fribidi)
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libunibreak)
+BuildRequires:  pkgconfig(libutf8proc)
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+
+# Bundled software has been modified for use by coolreader
+Provides:       bundled(antiword) = 0.37
+Provides:       bundled(chmlib) = 0.38
+Provides:       bundled(qt5-qtbase-private)
 
 %description
 CoolReader is fast and small cross-platform XML/CSS based eBook reader for

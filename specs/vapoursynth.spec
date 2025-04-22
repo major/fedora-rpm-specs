@@ -1,6 +1,6 @@
 Name:       vapoursynth
-Version:    70
-Release:    1%{?dist}
+Version:    71
+Release:    %autorelease
 Summary:    Video processing framework with simplicity in mind
 License:    LGPL-2.1-only
 URL:        http://www.vapoursynth.com
@@ -17,6 +17,7 @@ BuildRequires:  nasm
 BuildRequires:  pkgconfig(tesseract)
 BuildRequires:  pkgconfig(zimg)
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %description
 VapourSynth is an application for video manipulation. Or a plugin. Or a library.
@@ -56,7 +57,7 @@ This package contains the vspipe tool for interfacing with VapourSynth.
 %autosetup -p1 -n %{name}-R%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 autoreconf -vif
@@ -88,8 +89,8 @@ mkdir -p %{buildroot}%{_libdir}/%{name}
 rm -fr %{buildroot}%{_docdir}/%{name}
 
 %check
-#{python3} -m pytest -v
-%tox
+export LD_LIBRARY_PATH=build
+%pytest
 
 %files libs
 %doc ChangeLog
@@ -112,45 +113,4 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{python3_sitearch}/%{name}.so
 
 %changelog
-* Wed Jan 29 2025 Simone Caronni <negativo17@gmail.com> - 70-1
-- Update to version 70.
-- Trim changelog.
-- Clean up SPEC file, switch to Python packaging guidelines for Python module.
-- Fix License tag.
-- Enable tests.
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 68-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 68-4
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 68-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 68-2
-- Rebuilt for Python 3.13
-
-* Wed May 22 2024 Simone Caronni <negativo17@gmail.com> - 68-1
-- Update to R68.
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 65-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Nov 02 2023 Simone Caronni <negativo17@gmail.com> - 65-1
-- Update to version R65.
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 63-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 63-2
-- Rebuilt for Python 3.12
-
-* Fri Jun 30 2023 Simone Caronni <negativo17@gmail.com> - 63-1
-- Update to R63.
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 58-5
-- Rebuilt for Python 3.12
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 58-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+%autochangelog

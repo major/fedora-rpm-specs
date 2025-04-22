@@ -1,14 +1,19 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
+%global commit db076d91398d2a65c4d75ff5d47ccf612c951d00
+%global commitdate 20250419
+%global shortcommit %{sub %{commit} 1 7}
+
 Name:		dnfdragora
-Version:	2.99.0
-Release:	2%{?dist}
+Version:	2.99.0^git%{commitdate}.1.%{shortcommit}
+Release:	1%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPL-3.0-or-later
 URL:		https://github.com/manatools/%{name}
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%dnl Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildArch:	noarch
 
@@ -76,7 +81,7 @@ This package provides the update notifier applet for %{name}.
 
 
 %prep
-%autosetup -p 1
+%autosetup -p 1 %{?commit:-n %{name}-%{commit}}
 
 
 %build
@@ -124,12 +129,14 @@ appstream-util validate-relax --nonet		\
 %{_bindir}/%{name}-updater
 %{_datadir}/applications/*%{name}-updater.desktop
 %{_sysconfdir}/xdg/autostart/*%{name}*.desktop
-%{python3_sitelib}/%{name}/updater.py
-%{python3_sitelib}/%{name}/__pycache__/updater.cpython*.py?
+%pycached %{python3_sitelib}/%{name}/updater.py
 
 
 
 %changelog
+* Sun Apr 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.99.0^git20250419.1.db076d9-1
+- Bump to git snapshot to fix updater (rhbz#2360093)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

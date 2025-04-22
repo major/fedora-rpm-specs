@@ -1,6 +1,6 @@
 %global upstreamname hipfort
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with debug
@@ -15,7 +15,7 @@
 
 Name:           hipfort
 Version:        %{rocm_version}
-Release:        %autorelease
+Release:        1%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -114,5 +114,6 @@ rm %{buildroot}%{_libdir}/cmake/%{name}/%{name}-config.cmake
 %{_libdir}/cmake/%{name}
 
 %changelog
-%autochangelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
 

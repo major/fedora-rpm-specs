@@ -17,7 +17,9 @@ BuildRequires:  hunspell-en-GB
 BuildRequires:  hunspell-en-US
 BuildRequires:  enchant2-devel
 BuildRequires:  hunspell-devel
+BuildRequires:  libreoffice
 BuildRequires:  python3-enchant
+BuildRequires:  python3-zlib-ng
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  python3-devel
@@ -43,11 +45,11 @@ novelWriter is a plain text editor designed for writing novels assembled from
 many smaller text documents. It uses a minimal formatting syntax inspired by
 Markdown, and adds a meta data syntax for comments, synopsis, and
 cross-referencing. It's designed to be a simple text editor that allows for
-easy organisation of text and notes, using human readable text files as
+easy organization of text and notes, using human readable text files as
 storage for robustness.
 
 The project storage is suitable for version control software, and also well
-suited for file synchronisation tools. All text is saved as plain text files
+suited for file synchronization tools. All text is saved as plain text files
 with a meta data header. The core project structure is stored in a single
 project XML file. Other meta data is primarily saved as JSON files.
 
@@ -58,7 +60,7 @@ BuildArch:  noarch
 
 %description doc
 Documentation for novelWriter in HTML format.  The sphinx-_lv2_theme is used
-because t does not contain javascript.  The original theme used is
+because it does not contain javascript.  The original theme used is
 sphinx-book-theme.
 
 %prep
@@ -66,37 +68,79 @@ sphinx-book-theme.
 # https://github.com/vkbo/novelWriter/issues/2276
 sed -i 's/self.spellLanguage = "en"/self.spellLanguage = "en_US"/g' novelwriter/config.py
 sed -i 's/spellcheck = en/spellcheck = en_US/g' tests/reference/baseConfig_novelwriter.conf
+# Use Fedora specific variant for qt5
+sed -i 's/"lrelease"/"lrelease-qt5"/g' pkgutils.py
+# Remove pregenerated pdf files
+rm docs/source/fileformatspec15.pdf
+rm novelwriter/assets/manual_fr_FR.pdf
+# Ensure zip files are compressed
+sed -i 's/dstSample, "w"/dstSample, mode="w", compression=zipfile.ZIP_DEFLATED, compresslevel=9/g' pkgutils.py
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
-%pyproject_wheel
+# Build translations
+%python3 pkgutils.py qtlrelease
+# Build sample
+%python3 pkgutils.py sample
 # Build documentation
 pushd docs
 sphinx-build source html -b html
+# Convert file format specification to html
+soffice --convert-to odt --outdir . FileFormatSpec-1.5.fodt
+soffice --convert-to html --outdir html FileFormatSpec-1.5.odt
+
 # remove build uneeded artifacts
 rm -rf html/.buildinfo
 rm -rf html/.doctrees
 popd
+# Build package
+%pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files novelwriter
+# Do not include this for now as .qm language files are not automatically marked
+#pyproject_save_files novelwriter
+
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications setup/data/novelwriter.desktop
 mkdir -p %{buildroot}%{_metainfodir}/
 install -m644 setup/novelwriter.appdata.xml %{buildroot}%{_metainfodir}/
 mkdir -p %{buildroot}%{_datadir}/icons
 cp -r -p setup/data/hicolor %{buildroot}%{_datadir}/icons/
 
+%find_lang nw --with-qt
+
 %check
 QT_QPA_PLATFORM=offscreen %pytest
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/novelwriter.appdata.xml
 
-%files -n novelwriter -f %{pyproject_files}
+# Include once qm files get marked as language files
+#files -n novelwriter -f %%{pyproject_files} -f nw.lang
+%files -n novelwriter -f nw.lang
 %license LICENSE.md
 %doc README.md
 %{_bindir}/novelwriter
+%{python3_sitelib}/novelwriter-%{version}.dist-info/
+%dir %{python3_sitelib}/novelwriter
+%dir %{python3_sitelib}/novelwriter/assets
+%dir %{python3_sitelib}/novelwriter/assets/i18n
+%{python3_sitelib}/novelwriter/assets/i18n/*.json
+%{python3_sitelib}/novelwriter/assets/icons/
+%{python3_sitelib}/novelwriter/assets/images/
+%{python3_sitelib}/novelwriter/assets/sample.zip
+%{python3_sitelib}/novelwriter/assets/syntax/
+%{python3_sitelib}/novelwriter/assets/text/
+%{python3_sitelib}/novelwriter/assets/themes/
+%pycached %{python3_sitelib}/novelwriter/*.py
+%dir  %{python3_sitelib}/novelwriter/__pycache__
+%{python3_sitelib}/novelwriter/core/
+%{python3_sitelib}/novelwriter/dialogs/
+%{python3_sitelib}/novelwriter/extensions/
+%{python3_sitelib}/novelwriter/formats/
+%{python3_sitelib}/novelwriter/gui/
+%{python3_sitelib}/novelwriter/text/
+%{python3_sitelib}/novelwriter/tools/
 %{_datadir}/applications/novelwriter.desktop
 %{_metainfodir}/novelwriter.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*.png

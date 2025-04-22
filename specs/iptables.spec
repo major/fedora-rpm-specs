@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -25,6 +25,9 @@ Source9: arptables.service
 Source10: ebtables.service
 Source11: ebtables-helper
 Source12: ebtables-config
+# Patch to fix -C handling, already upstream
+# https://git.netfilter.org/iptables/patch/?id=40406dbfaefbc204134452b2747bae4f6a122848
+Patch: iptables-1.8.11-fix-interface-comparisons.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -441,6 +444,9 @@ fi
 
 
 %changelog
+* Sun Apr 20 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.11-6
+- Add patch to fix -C handling ( fixes rhbz#2360423 )
+
 * Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 1.8.11-5
 - iptables-services to assimilate arptables- and ebtables-services
 

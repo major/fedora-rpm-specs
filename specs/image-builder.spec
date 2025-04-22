@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 138
+%global min_osbuild_version 147
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        15
+Version:        17
 
 %gometa
 
@@ -43,7 +43,7 @@ BuildRequires:  btrfs-progs-devel
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.1
-Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.5.0
+Provides: bundled(golang(github.com/BurntSushi/toml)) = 3d3abc2
 Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.12.9
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
@@ -123,9 +123,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.1.0
-Provides: bundled(golang(github.com/osbuild/bootc-image-builder/bib)) = a00d61b
-Provides: bundled(golang(github.com/osbuild/images)) = 0.127.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.5.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.135.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -234,6 +233,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Thu Apr 17 2025 Packit <hello@packit.dev> - 17-1
+Changes with 17
+----------------
+  * deps: bump images (#207)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2025-04-17
+
+
 * Wed Apr 02 2025 Packit <hello@packit.dev> - 15-1
 Changes with 15
 ----------------

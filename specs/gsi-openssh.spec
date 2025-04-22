@@ -28,7 +28,7 @@
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -196,19 +196,19 @@ Patch99: openssh-9.9p1-hpn-18.6.0.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
+Requires: openssl-libs >= 3.5.0
 
 BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
 BuildRequires: audit-libs-devel >= 2.0.5
 BuildRequires: util-linux, groff
 BuildRequires: pam-devel
-BuildRequires: openssl-devel >= 0.9.8j
+BuildRequires: openssl-devel >= 3.5.0
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
-BuildRequires: oqsprovider
 Recommends: p11-kit
 
 %if %{kerberos5}
@@ -406,8 +406,8 @@ fi
 	--sysconfdir=%{_sysconfdir}/gsissh \
 	--libexecdir=%{_libexecdir}/gsissh \
 	--datadir=%{_datadir}/gsissh \
-	--with-default-path=%{_libexecdir}/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin \
-	--with-superuser-path=%{_libexecdir}/gsissh/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin \
+	--with-default-path=%{_libexecdir}/gsissh/bin:/usr/local/bin:/usr/bin \
+	--with-superuser-path=%{_libexecdir}/gsissh/bin:/usr/local/bin:/usr/bin \
 	--with-privsep-path=%{_datadir}/empty.sshd \
 	--disable-strip \
 	--without-zlib-version-check \
@@ -583,6 +583,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Sun Apr 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-6
+- Based on openssh-9.9p1-15.fc43
+
 * Wed Mar 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-5
 - Based on openssh-9.9p1-11.fc43
 

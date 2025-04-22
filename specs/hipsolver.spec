@@ -5,7 +5,7 @@
 %endif
 
 %global upstreamname hipSOLVER
-%global rocm_release 6.3
+%global rocm_release 6.4
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -40,7 +40,7 @@
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -169,6 +169,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Sat Apr 5 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
 - suitesparse-devel is optional
 

@@ -1,6 +1,6 @@
 Name:           calamares
-Version:        3.3.12
-Release:        4%{?dist}
+Version:        3.3.14
+Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -24,7 +24,7 @@ Source5:        calamares-auto_it.ts
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
-Patch1001:       calamares-3.3.12-default-settings.patch
+Patch1001:       calamares-3.3.14-default-settings.patch
 ## use kdesu instead of pkexec (works around #1171779)
 Patch1002:       calamares-3.3.3-kdesu.patch
 
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Sun Apr 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.3.14-1
+- Update to 3.3.14
+
 * Fri Mar 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.3.12-4
 - Rebuild for kpmcore 25.03.80
 

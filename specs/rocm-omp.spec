@@ -1,10 +1,10 @@
 # Upstream tags are based on rocm releases:
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 18
+%global llvm_maj_ver 19
 %global upstreamname llvm-project
 
 %global toolchain clang
@@ -21,7 +21,7 @@
 
 Name:           rocm-omp
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -70,7 +70,7 @@ Requires:       rocm-omp-devel%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
 
 # no nvidia
-sed -i -e 's@LIBOMPTARGET_DEVICE_ARCHITECTURES "all"@LIBOMPTARGET_DEVICE_ARCHITECTURES "${all_amdgpu_architectures}"@' openmp/libomptarget/DeviceRTL/CMakeLists.txt
+# sed -i -e 's@LIBOMPTARGET_DEVICE_ARCHITECTURES "all"@LIBOMPTARGET_DEVICE_ARCHITECTURES "${all_amdgpu_architectures}"@' openmp/libomptarget/DeviceRTL/CMakeLists.txt
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
@@ -186,25 +186,31 @@ fi
 if [ -d %{buildroot}%{bundle_prefix}/lib/cmake/omptest ]; then
     rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 fi
-    
-%files
-%{bundle_prefix}/bin/llvm-omp*
-%{bundle_prefix}/bin/prep-libomptarget-bc
-%{bundle_prefix}/lib/libomp*.so.*
 
+# 6.4 remove everything, may not need the main package
+#  bin/llvm-omp*
+#  bin/prep-libomptarget-bc
+#  lib/libomp*.so.*
+%files
+
+# 6.4 removed :
+#  lib/clang/%{llvm_maj_ver}/include/hostexec.h
+#  lib/disable_dynamic_devmem.ll
+#  lib/libdevice/
+#  lib/*.bc
 %files devel
 %{bundle_prefix}/include/omp*.h
-%{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/hostexec.h
 %{bundle_prefix}/lib/cmake/openmp/
-%{bundle_prefix}/lib/disable_dynamic_devmem.ll
-%{bundle_prefix}/lib/libdevice/
-%{bundle_prefix}/lib/*.bc
 %{bundle_prefix}/lib/libomp*.so
 
+# 6.4 removed everything, , may not need this subpackage
+#  lib/libomptarget.devicertl.a
 %files static
-%{bundle_prefix}/lib/libomptarget.devicertl.a
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
 - cmake changed
 

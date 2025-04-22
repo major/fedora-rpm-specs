@@ -1,6 +1,6 @@
 %global upstreamname rocWMMA
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -14,7 +14,7 @@
 
 Name:           rocwmma
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -74,6 +74,9 @@ Provides:       %{name}-static = %{version}-%{release}
 %{_includedir}/%{name}/*
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Mon Feb 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Remove ninja-build dependency
 

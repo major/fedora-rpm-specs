@@ -1,5 +1,3 @@
-%global pretty_name HighFive
-
 %global _description %{expand:
 HighFive is a modern header-only C++11 friendly interface for libhdf5.
 
@@ -38,31 +36,26 @@ Known flaws:
 - The support of fixed length strings isn’t ideal.}
 
 %bcond tests 1
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We could enable the Doxygen PDF documentation as a substitute, but beginning
-# with 2.8.0 we encounter:
-#
-#   ! LaTeX Error: File `topics.tex' not found.
-#
-# This seems like a Doxygen bug, but it’s not clear exactly what kind of bug,
-# or what can be done about it.
-%bcond docs 0
 
 # Header only, so no debuginfo is generated
 %global debug_package %{nil}
 
 Name:           highfive
-Version:        2.10.0
+Version:        2.10.1
 Release:        %autorelease
 Summary:        Header-only C++ HDF5 interface
 
 # SPDX
 License:        BSL-1.0
-URL:            https://bluebrain.github.io/HighFive/
-Source:         https://github.com/BlueBrain/HighFive/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://highfive-devs.github.io/highfive/
+Source:         https://github.com/highfive-devs/highfive/archive/v%{version}/highfive-%{version}.tar.gz
+
+# Downstream-only: Patch all cmake_minimum_required from 3.1 to 3.5
+#
+# This fixes compatibility with CMake 4. It does not make sense to offer
+# this upstream because a larger CMake modernization effort was already
+# implemented for the upcoming 3.0.0 release.
+Patch:          0001-Downstream-only-Patch-all-cmake_minimum_required-fro.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -82,21 +75,15 @@ BuildRequires:  (cmake(eigen3) with eigen3-static)
 BuildRequires:  (cmake(xtensor) with xtensor-static)
 BuildRequires:  cmake(opencv)
 
-%if %{with docs}
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-BuildRequires:  make
-%endif
-
 %description %_description
 
 
 %package        devel
-Summary:        Development files for %{name}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{name}-static%{?_isa} = %{version}-%{release}
+Summary:        Development files for HighFive
+Provides:       highfive%{?_isa} = %{version}-%{release}
+Provides:       highfive-static%{?_isa} = %{version}-%{release}
 # Unarched version is needed since arched BuildRequires must not be used
-Provides:       %{name}-static = %{version}-%{release}
+Provides:       highfive-static = %{version}-%{release}
 
 Requires:       hdf5-devel
 # Optional, but we want -devel package users to have all features available.
@@ -106,39 +93,16 @@ Requires:       (cmake(xtensor) with xtensor-static)
 Requires:       cmake(opencv)
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
-%if %{with docs}
-%package        doc
-Summary:        Documentation for %{name}
-BuildArch:      noarch
-
-%description    doc
-Documentation for %{name}
-%endif
+The highfive-devel package contains libraries and header files for
+developing applications that use HighFive.
 
 
 %prep
-%autosetup -n %{pretty_name}-%{version}
-
-%if %{with docs}
-# We enable the Doxygen PDF documentation as a substitute. We must enable
-# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
-# already be set as we like them. We also disable GENERATE_HTML, since we will
-# not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    doc/Doxyfile
-%endif
+%autosetup -p1
 
 
 %build
 %if %{with tests}
-%set_build_flags
 # The unit tests intentionally test deprecated APIs; silence these warnings so
 # we are more likely to notice any real problems.
 CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
@@ -150,45 +114,31 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
     -DHIGHFIVE_USE_OPENCV:BOOL=TRUE \
     -DHIGHFIVE_EXAMPLES:BOOL=TRUE \
     -DHIGHFIVE_UNIT_TESTS:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
-    -DHIGHFIVE_BUILD_DOCS:BOOL=%{?with_docs:TRUE}%{?!with_docs:FALSE} \
+    -DHIGHFIVE_BUILD_DOCS:BOOL=FALSE \
     -GNinja
 %cmake_build
-%if %{with docs}
-%cmake_build --target doc
-%make_build -C %{_vpath_builddir}/doc/latex
-mv %{_vpath_builddir}/doc/latex/refman.pdf \
-    %{_vpath_builddir}/doc/latex/%{pretty_name}.pdf
-%endif
 
 
 %install
 %cmake_install
 # Move the CMake configurations to the correct location
-[ ! -d '%{buildroot}/%{_libdir}/cmake/%{pretty_name}' ]
+[ ! -d '%{buildroot}/%{_libdir}/cmake/HighFive' ]
 install -d '%{buildroot}/%{_libdir}/cmake'
-mv -v '%{buildroot}/%{_datadir}/%{pretty_name}/CMake' \
-    '%{buildroot}/%{_libdir}/cmake/%{pretty_name}'
+mv -v '%{buildroot}/%{_datadir}/HighFive/CMake' \
+    '%{buildroot}/%{_libdir}/cmake/HighFive'
 
 
 %check
 %if %{with tests}
-# Run tests sequentially: https://github.com/BlueBrain/HighFive/issues/825
-%ctest -VV -j 1
+%ctest -VV
 %endif
 
 
 %files devel
 %license LICENSE
 %doc README.md AUTHORS.txt CHANGELOG.md
-%{_includedir}/%{name}
-%{_libdir}/cmake/%{pretty_name}
-
-
-%if %{with docs}
-%files doc
-%license LICENSE
-%doc %{_vpath_builddir}/doc/latex/%{pretty_name}.pdf
-%endif
+%{_includedir}/highfive/
+%{_libdir}/cmake/HighFive/
 
 
 %changelog
