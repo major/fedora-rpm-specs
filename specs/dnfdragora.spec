@@ -1,8 +1,8 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global commit db076d91398d2a65c4d75ff5d47ccf612c951d00
-%global commitdate 20250419
+%global commit 2f707ee21aae9fa512a1fe261959fbaa17291d63
+%global commitdate 20250421
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:		dnfdragora
@@ -134,6 +134,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Mon Apr 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.99.0^git20250421.1.2f707ee-1
+- Bump to git snapshot again to fix updater (rhbz#2360093)
+
 * Sun Apr 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.99.0^git20250419.1.db076d9-1
 - Bump to git snapshot to fix updater (rhbz#2360093)
 

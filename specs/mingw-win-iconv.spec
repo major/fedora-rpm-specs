@@ -3,28 +3,25 @@
 %global pkgname win-iconv
 
 Name:          mingw-%{pkgname}
-Version:       0.0.8
-Release:       14%{?dist}
+Version:       0.0.9
+Release:       1%{?dist}
 Summary:       Iconv implementation using Win32 API
 
+BuildArch:     noarch
 License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/win-iconv/win-iconv
 Source0:       https://github.com/win-iconv/win-iconv/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:     noarch
+# Fix static library name
+Patch0:        win-iconv-static-libname.patch
 
 BuildRequires: make
-BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: cmake
+
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-binutils
 
-BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-binutils
-
-BuildRequires: cmake >= 2.8.0
-BuildRequires: dos2unix
 
 
 %description
@@ -37,8 +34,6 @@ MinGW Windows Iconv library
 # Win32
 %package -n mingw32-win-iconv
 Summary:       MinGW Windows Iconv library
-Obsoletes:     mingw32-iconv < 1.12-14
-Provides:      mingw32-iconv = 1.12-14
 
 %description -n mingw32-win-iconv
 MinGW Windows cross compiled Iconv library.
@@ -46,8 +41,6 @@ MinGW Windows cross compiled Iconv library.
 %package -n mingw32-win-iconv-static
 Summary:       Static version of the MinGW Windows Iconv library
 Requires:      mingw32-win-iconv = %{version}-%{release}
-Obsoletes:     mingw32-iconv-static < 1.12-14
-Provides:      mingw32-iconv-static = 1.12-14
 
 %description -n mingw32-win-iconv-static
 Static version of the MinGW Windows Iconv library.
@@ -55,8 +48,6 @@ Static version of the MinGW Windows Iconv library.
 # Win64
 %package -n mingw64-win-iconv
 Summary:       MinGW Windows Iconv library
-Obsoletes:     mingw64-iconv < 1.13.1-2%{?dist}
-Provides:      mingw64-iconv = 1.13.1-2%{?dist}
 
 %description -n mingw64-win-iconv
 MinGW Windows Iconv library
@@ -64,38 +55,33 @@ MinGW Windows Iconv library
 %package -n mingw64-win-iconv-static
 Summary:       Static version of the MinGW Windows Iconv library
 Requires:      mingw64-win-iconv = %{version}-%{release}
-Obsoletes:     mingw64-iconv-static < 1.13.1-2%{?dist}
-Provides:      mingw64-iconv-static = 1.13.1-2%{?dist}
 
 %description -n mingw64-win-iconv-static
 Static version of the MinGW Windows Iconv library.
 
 
 %prep
-%autosetup -n %{pkgname}-%{version}
-
-dos2unix readme.txt
-dos2unix ChangeLog
-chmod -x readme.txt
-chmod -x ChangeLog
+%autosetup -p1 -n %{pkgname}-%{version}
+sed -i 's|\r||' readme.txt ChangeLog
 
 
 %build
-%mingw_cmake -DBUILD_STATIC=1
+%mingw_cmake
+%mingw_make_build
 
 
 %install
-%mingw_make_install DESTDIR=%{buildroot}
+%mingw_make_install
 
-rm -rf %{buildroot}%{mingw32_bindir}/*.exe
-rm -rf %{buildroot}%{mingw64_bindir}/*.exe
-
+rm %{buildroot}/%{mingw32_bindir}/win_iconv.exe
+rm %{buildroot}/%{mingw64_bindir}/win_iconv.exe
 
 
 %files -n mingw32-win-iconv
 %doc ChangeLog readme.txt
 %{mingw32_bindir}/iconv.dll
 %{mingw32_includedir}/iconv.h
+%{mingw32_includedir}/localcharset.h
 %{mingw32_libdir}/libiconv.dll.a
 
 %files -n mingw32-win-iconv-static
@@ -105,6 +91,7 @@ rm -rf %{buildroot}%{mingw64_bindir}/*.exe
 %doc ChangeLog readme.txt
 %{mingw64_bindir}/iconv.dll
 %{mingw64_includedir}/iconv.h
+%{mingw64_includedir}/localcharset.h
 %{mingw64_libdir}/libiconv.dll.a
 
 %files -n mingw64-win-iconv-static
@@ -112,6 +99,9 @@ rm -rf %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Mon Apr 21 2025 Sandro Mani <manisandro@gmail.com> - 0.0.9-1
+- Update to 0.0.9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

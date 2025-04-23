@@ -1,6 +1,6 @@
 %global upstreamname MIVisionX
-%global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -156,6 +156,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libvxu.so
 
 %changelog
+* Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Sat Feb 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Initial package
 

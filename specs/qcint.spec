@@ -2,7 +2,7 @@
 
 Name:           qcint
 Version:        6.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An optimized libcint branch for X86 platform with SSE3 intrinsics
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -40,6 +40,8 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+# Fix to https://github.com/sunqm/qcint/issues/22
+find . -name *.c -exec sed -i 's|//ALL_CINT_FORTRAN_(cint|ALL_CINT_FORTRAN_(int|g' {} \;
 
 %build
 export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
@@ -62,6 +64,9 @@ export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
 %{_libdir}/libcint.so
 
 %changelog
+* Mon Apr 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.1.2-5
+- Fix to upstream issue \#22: some integrals are missing wrt libcint in Fortran.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

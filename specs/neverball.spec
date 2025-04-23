@@ -1,6 +1,6 @@
 Name:           neverball
 Version:        1.6.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 
 Summary:        Common files for neverball and neverputt
 
@@ -49,7 +49,7 @@ coins are worth 5.  Blue coins are worth 10.
 #%patch1 -p0
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl2-config --cflags` -fcommon" DATADIR=%{_datadir}/%{name} %{?_smp_mflags}
+make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl2-config --cflags` -fcommon" DATADIR=%{_datadir}/%{name} LOCALEDIR=%{_datadir}/locale ENABLE_NLS=1 %{?_smp_mflags}
 
 %install
 install -p -D -m0755 neverball $RPM_BUILD_ROOT/%{_bindir}/neverball
@@ -155,7 +155,12 @@ SentUpstream: 2014-09-24
 </application>
 EOF
 
-%files
+mkdir -p %{buildroot}%{_datadir}/locale
+cp -pr locale/* %{buildroot}%{_datadir}/locale/
+
+%find_lang %{name}
+
+%files -f %{name}.lang
 %defattr(0644,root,root,0755)
 %doc README.md LICENSE.md doc/
 %{_datadir}/%{name}/
@@ -163,7 +168,7 @@ EOF
 %files neverputt
 %doc LICENSE.md
 %attr(0755,root,root) %{_bindir}/neverputt
-%attr(0755,root,root) %{_bindir}/neverputt-wrapper
+%{_bindir}/neverputt-wrapper
 %{_datadir}/appdata/neverputt.appdata.xml
 %{_datadir}/applications/neverputt.desktop
 %{_datadir}/icons/hicolor/*/apps/neverputt.png
@@ -171,12 +176,15 @@ EOF
 %files neverball
 %doc LICENSE.md
 %attr(0755,root,root) %{_bindir}/neverball
-%attr(0755,root,root) %{_bindir}/neverball-wrapper
+%{_bindir}/neverball-wrapper
 %{_datadir}/appdata/neverball.appdata.xml
 %{_datadir}/applications/neverball.desktop
 %{_datadir}/icons/hicolor/*/apps/neverball.png
 
 %changelog
+* Mon Apr 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-34
+- Include translations
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

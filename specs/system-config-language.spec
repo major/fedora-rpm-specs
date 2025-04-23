@@ -1,10 +1,11 @@
 Summary:       A graphical interface for modifying the system language
 Name:          system-config-language
 Version:       3.5.0
-Release:       15%{?dist}
+Release:       16%{?dist}
 URL:           https://pagure.io/system-config-language
 Source0:       https://pagure.io/releases/%{name}/%{name}-%{version}.tar.xz
 License:       GPL-2.0-or-later
+Patch0:        %{name}-%{version}-fallback-to-old-dnf-version.patch
 
 BuildArch:     noarch
 BuildRequires: make
@@ -13,7 +14,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: gettext
 
 # Requires both python lib and 'dnf' command directly, so express both
-Requires:      dnf
 Requires:      python3-dnf
 Requires:      polkit
 Requires:      hicolor-icon-theme
@@ -27,7 +27,7 @@ system-config-language is a graphical user interface that
 allows the user to change the default language of the system.
 
 %prep
-%autosetup
+%autosetup -p1
 sed -i '83ikk_KZ.UTF-8 utf8 latarcyrheb-sun16 Kazakh' src/locale-list
 
 %build
@@ -58,6 +58,10 @@ desktop-file-install --vendor system --delete-original       \
 %{_datadir}/polkit-1/actions/org.fedoraproject.config.language.policy
 
 %changelog
+* Mon Apr 21 2025 Parag Nemade <pnemade AT redhat DOT com> - 3.5.0-16
+- Use dnf-3 command to do package transactions
+- Resolves: rhbz#2322944, rhbz#2209413
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

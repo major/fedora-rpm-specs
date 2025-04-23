@@ -2,8 +2,8 @@
 %global src_name XlsxWriter
 
 Name:		python-%{pypi_name}
-Version:	3.2.2
-Release:	2%{?dist}
+Version:	3.2.3
+Release:	1%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
 License:	BSD-2-Clause
 URL:		https://pypi.python.org/pypi/XlsxWriter
@@ -67,6 +67,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Mon Apr 21 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 3.2.3-1
+- Update to 3.2.3
+
 * Sun Mar 16 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 3.2.2-2
 - Update to 3.2.2, source archive and dir name changed to `xlsxwriter` (all lowercase)
 

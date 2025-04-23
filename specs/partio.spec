@@ -3,7 +3,7 @@
 %global         soversion 1.13.0
 
 Name:           partio
-Version:        1.17.3
+Version:        1.19.0
 Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 
@@ -75,7 +75,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 #Remove files from unversioned python directory
 rm -f %{buildroot}%{_libdir}/python/site-packages/*.py
 
-#Remove all tests containing arch-depedents binaries
+#Remove all tests containing arch-dependant binaries
 rm -rf %{buildroot}%{_datadir}/%{name}/test
 
 %files

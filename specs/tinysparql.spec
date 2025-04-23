@@ -5,8 +5,8 @@
 %global tracker_obsoletes_version 3.8
 
 Name:           tinysparql
-Version:        3.9.1
-Release:        2%{?dist}
+Version:        3.9.2
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Mon Apr 21 2025 nmontero <nmontero@redhat.com> - 3.9.2-1
+- Update to 3.9.2
+
 * Fri Mar 21 2025 nmontero <nmontero@redhat.com> - 3.9.1-2
 - Add Obsoletes line to devel package
 

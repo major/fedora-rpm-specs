@@ -13,8 +13,8 @@
 %endif
 
 %global upstreamname hipBLASLt
-%global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -41,8 +41,8 @@
 # https://github.com/ROCm/hipBLASLt/issues/908
 
 # hipblaslt does not support our default set
-# These are the ones it does, gfx942 building still has problems
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
+# gfx1200,gfx1201 have building has problems on 6.4.0
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1100;gfx1101;gfx1102"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -64,13 +64,16 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        12%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-Patch0:         0001-Handle-a-missing-joblib.patch
+# https://github.com/ROCm/hipBLASLt/issues/1959
+Patch0:         0001-hipblaslt-find-toolchain.patch
+# https://github.com/ROCm/hipBLASLt/issues/1960
+Patch1:         0001-hipblaslt-handle-missing-joblib.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -88,6 +91,7 @@ BuildRequires:  rocm-llvm-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi
+BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -165,12 +169,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
-# rocm path
-sed -i -e 's@rocm_path=/opt/rocm@rocm_path=/usr@'                              tensilelite/Tensile/Ops/gen_assembly.sh
-# No llvm/bin/clang, use clang++-17 or similar
-sed -i -e 's@toolchain=${rocm_path}/llvm/bin/clang++@toolchain=%{rocmllvm_bindir}/clang++@'    tensilelite/Tensile/Ops/gen_assembly.sh
-sed -i -e 's@clang_path="${rocm_path}/bin/amdclang++"@clang_path="%{rocmllvm_bindir}/clang++"@' library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
-
 # Remove venv
 sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
 sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
@@ -178,9 +176,6 @@ sed -i -e 's@deactivate@@'                                                     t
 # change rocm path from /opt/rocm to /usr
 # need to be able to find hipcc, rocm-smi, extractkernel, rocm_agent_enumerator
 sed -i -e 's@opt/rocm@usr@'                                                    tensilelite/Tensile/Common.py
-# look for clang things in 'usr' + '/lib64/llv17/bin'  or similar
-# need to be able to find clang++, ld.lld, clang-offload-bundler
-sed -i -e 's@llvm/bin@%{rocmllvm_bindir}@'                      tensilelite/Tensile/Common.py
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
 
@@ -247,8 +242,6 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Uncomment and see if the path is sane
 # TensileGetPath
 
-# Only gfx90a seems to be useful and works
-# gfx942 has some unknown to llvm17 asm directives
 # Use ld.lld to work around a problem with ld
 %cmake %{cmake_generator} \
        -DAMDGPU_TARGETS=%{amdgpu_targets} \
@@ -257,13 +250,13 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DBUILD_VERBOSE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DCMAKE_C_COMPILER=hipcc \
-       -DCMAKE_CXX_COMPILER=hipcc \
+       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
+       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
        -DCMAKE_CXX_FLAGS="-fuse-ld=%{rocmllvm_bindir}/ld.lld" \
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
        -DBUILD_WITH_TENSILE=ON \
-       -DTensile_COMPILER=hipcc \
+       -DTensile_COMPILER=%{rocmllvm_bindir}/clang++ \
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
@@ -306,6 +299,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Apr 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-12
 - Reenable ninja
 

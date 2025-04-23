@@ -2,9 +2,6 @@
 # on build sandboxes.
 %bcond_with check
 
-# Temporarily disable debuginfo generation until RHBZ#2354052 is fixed.
-%global debug_package %{nil}
-
 %if 0%{?rhel}
 %global bundled_rust_deps 1
 %else
@@ -12,8 +9,8 @@
 %endif
 
 Name:           libkrun
-Version:        1.10.1
-Release:        3%{?dist}
+Version:        1.11.2
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -34,6 +31,9 @@ Patch1:         libkrun-remove-sev-deps.diff
 # libkrun only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
 
+# Starting 1.11.0, libkrunfw is no longer build-time linked.
+Requires:  libkrunfw >= 4.0.0
+
 # While this project is composed mostly of Rust code, this is not a
 # conventional Rust crate. The root of the project is a workspace, there's a C
 # file that also needs to be compiled, and the resulting binary a dynamic
@@ -46,7 +46,6 @@ ExclusiveArch:  x86_64 aarch64
 # them dynamically.
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  glibc-static
-BuildRequires:  patchelf
 BuildRequires:  binutils
 BuildRequires:  libepoxy-devel
 BuildRequires:  libdrm-devel
@@ -55,10 +54,6 @@ BuildRequires:  pipewire-devel
 BuildRequires:  clang-devel
 BuildRequires:  openssl-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  libkrunfw-devel >= 4.0.0
-%ifarch x86_64
-BuildRequires:  libkrunfw-sev-devel >= 4.0.0
-%endif
 %ifarch aarch64
 BuildRequires:  libfdt-devel
 %endif
@@ -86,17 +81,12 @@ BuildRequires:  (crate(pipewire/default) >= 0.8.0 with crate(pipewire/default) <
 BuildRequires:  (crate(zerocopy/default) >= 0.6.0 with crate(zerocopy/default) < 0.7.0~)
 BuildRequires:  (crate(zerocopy/default) >= 0.7.0 with crate(zerocopy/default) < 0.8.0~)
 BuildRequires:  (crate(remain/default) >= 0.2.0 with crate(remain/default) < 0.3.0~)
-
-# imago dependencies to be removed once it has its own package
 BuildRequires:  (crate(caps/default) >= 0.5.0 with crate(caps/default) < 0.6.0~)
-BuildRequires:  (crate(async-trait/default) >= 0.1.0 with crate(async-trait/default) < 0.2.0~)
-BuildRequires:  (crate(bincode/default) >= 1.3.0 with crate(bincode/default) < 2.0.0~)
-BuildRequires:  (crate(miniz_oxide/default) >= 0.8.0 with crate(miniz_oxide/default) < 0.9.0~)
-BuildRequires:  (crate(page_size/default) >= 0.6.0 with crate(page_size/default) < 0.7.0~)
-BuildRequires:  (crate(tracing/default) >= 0.1.0 with crate(tracing/default) < 0.2.0~)
-BuildRequires:  (crate(tracing-attributes/default) >= 0.1.0 with crate(tracing-attributes/default) < 0.2.0~)
-BuildRequires:  (crate(rustc_version/default) >= 0.4.0 with crate(rustc_version/default) < 0.5.0~)
-BuildRequires:  (crate(tokio/default) >= 1.42.0 with crate(tokio/default) < 2.0.0~)
+BuildRequires:  (crate(imago/default) >= 0.1.0 with crate(imago/default) < 0.2.0~)
+BuildRequires:  (crate(linux-loader/default) >= 0.13.0 with crate(linux-loader/default) < 0.14.0~)
+BuildRequires:  (crate(bzip2/default) >= 0.5.0 with crate(bzip2/default) < 0.6.0~)
+BuildRequires:  (crate(zstd/default) >= 0.13.0 with crate(zstd/default) < 0.14.0~)
+BuildRequires:  (crate(flate2/default) >= 1.0.0 with crate(flate2/default) < 2.0.0~)
 
 %ifarch x86_64
 # SEV variant dependencies
@@ -131,7 +121,7 @@ capabilities.
 %ifarch x86_64
 %package sev
 Summary: Dynamic library providing Virtualization-based process isolation capabilities (SEV variant)
-BuildRequires:  libkrunfw-sev-devel >= 3.6.0
+Requires:  libkrunfw-sev >= 4.0.0
 
 %description sev
 Dynamic library providing Virtualization-based process isolation
@@ -166,13 +156,11 @@ capabilities.
 %make_build init/init
 %make_build libkrun.pc
 %make_build GPU=1 BLK=1 NET=1 SND=1
-patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version} target/release/libkrun.so
 %ifarch x86_64
     rm init/init
     %make_build SEV=1 init/init
     %cargo_build -f amd-sev
-    mv target/release/libkrun.so target/release/libkrun-sev.so
-    patchelf --set-soname libkrun-sev.so.1 --output target/release/libkrun-sev.so.%{version} target/release/libkrun-sev.so
+    mv target/release/libkrun.so target/release/libkrun-sev.so.%{version}
 %endif
 %if 0%{?bundled_rust_deps}
 %cargo_license_summary
@@ -222,6 +210,10 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Mon Apr 21 2025 Sergio Lopez <slp@redhat.com> - 1.11.2-1
+- Update to version 1.11.2
+- Re-enable debuginfo, fixed by dropping the use of patchelf.
+
 * Fri Mar 21 2025 Sergio Lopez <slp@redhat.com> - 1.10.1-3
 - Temporarily disable debuginfo generation until RHBZ#2354052 is fixed.
 

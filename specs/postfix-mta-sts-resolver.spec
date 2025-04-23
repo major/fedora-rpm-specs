@@ -1,7 +1,7 @@
 %global pypi_name postfix_mta_sts_resolver
 
 Name:           postfix-mta-sts-resolver
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Daemon providing MTA-STS map to Postfix
 
@@ -9,7 +9,7 @@ License:        MIT
 URL:            https://github.com/Snawoot/%{name}
 
 # pypi version is stripped down without manpages, doc and examples
-Source0:        https://github.com/Snawoot/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Snawoot/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        mta-sts-daemon.yml
 Source2:        postfix-mta-sts-resolver.service
 Source3:        https://github.com/Snawoot/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc

@@ -1,9 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
-
 Name:           python-nose2
 Version:        0.15.1
 Release:        %autorelease
@@ -18,16 +12,15 @@ Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        nose2.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l nose2
+BuildOption(generate_buildrequires): -e %{toxenv}-nocov
+# We remove nose2.tests from the buildroot in %%install.
+BuildOption(check):     -e nose2.tests*
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
-
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
 
 %global common_description %{expand:
 nose2 is the successor to nose.
@@ -41,41 +34,21 @@ understand.}
 
 
 %package -n python3-nose2
-Summary:        Next generation of nicer testing for Python
+Summary:        %{summary}
+
+# Removed for Fedora 43; we can remove the Obsoletes after Fedora 46.
+Obsoletes:      python-nose2-doc < 0.15.1-9
 
 %description -n python3-nose2 %{common_description}
-
-
-%if %{with doc}
-%package        doc
-Summary:        Documentation for %{name}
-
-%description    doc %{common_description}
-%endif
 
 
 %pyproject_extras_subpkg -n python3-nose2 coverage_plugin
 
 
-%prep
-%autosetup -n nose2-%{version} -p1
-
-# Patch out unnecessary documentation dependency on sphinx-issues, used
-# upstream for changelog generation.
-sed -r -i '/"sphinx_issues",/d' docs/conf.py
-tomcli set pyproject.toml lists delitem project.optional-dependencies.dev \
-    'sphinx-issues*'
-# Since we are not building HTML documentation, we do not need the HTML theme
-# either.
-tomcli set pyproject.toml lists delitem project.optional-dependencies.dev \
-    'sphinx-rtd-theme*'
-%if %{without doc}
+%prep -a
+# We are not building documentation.
 tomcli set pyproject.toml lists delitem project.optional-dependencies.dev \
     'sphinx*'
-%endif
-
-# Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
-rm -rf SPECPARTS
 
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.
@@ -84,23 +57,7 @@ find nose2/ -type f -name '*.py' \
   xargs -r -t sed -r -i '1{/^#!/d}'
 
 
-%generate_buildrequires
-%pyproject_buildrequires -e %{toxenv}-nocov
-
-
-%build
-%pyproject_wheel
-%if %{with doc}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l nose2
-
+%install -a
 # Don’t install the tests; we are not sure how to fix this *successfully* in
 # pyproject.toml, even after reading
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html#setuptools-specific-configuration,
@@ -112,27 +69,17 @@ sed -r -i '/\/nose2\/tests(\/|$)/d' %{pyproject_files}
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
-%check
+%check -a
 %tox -e %{default_toxenv}-nocov
 
 
 %files -n python3-nose2 -f %{pyproject_files}
 %doc AUTHORS
-%if %{without doc}
-%doc README.rst docs/changelog.rst
-%endif
+%doc README.rst
+%doc docs/changelog.rst
 
 %{_bindir}/nose2
 %{_mandir}/man1/nose2.1*
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc AUTHORS README.rst docs/changelog.rst
-
-%doc docs/_build/latex/nose2.pdf
-%endif
 
 
 %changelog

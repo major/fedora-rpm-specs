@@ -3,7 +3,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -11,26 +11,35 @@ URL:            https://invent.kde.org/frameworks/%{framework}
 
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
+# upstream patches
+#https://invent.kde.org/frameworks/kimageformats/-/merge_requests/361
+Patch0:         kf6-kimageformats-361.patch
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  jasper-devel
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  pkgconfig(libavif)
-BuildRequires:  cmake(OpenEXR)
-BuildRequires:  cmake(Imath)
+BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(KF6Archive)
-BuildRequires:  pkgconfig(zlib)
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:	pkgconfig(libjxl) >= 0.7.0
-BuildRequires:	pkgconfig(libjxl_threads) >= 0.7.0
-BuildRequires:	pkgconfig(libraw)
-BuildRequires:	pkgconfig(libraw_r)
-BuildRequires:	pkgconfig(libheif)
-BuildRequires:	libxkbcommon-devel
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  pkgconfig(cups)
+BuildRequires:  cmake(OpenEXR)
+BuildRequires:  cmake(libavif)
+BuildRequires:  pkgconfig(libheif) >= 1.10.0
+%if !((0%{?fedora} && 0%{?fedora} < 41) || (0%{?rhel} && 0%{?rhel} < 10))
+BuildRequires:  pkgconfig(libjxl) >= 0.9.4
+BuildRequires:  pkgconfig(libjxl_threads) >= 0.9.4
+BuildRequires:  pkgconfig(libjxl_cms) >= 0.9.4
+%endif
+BuildRequires:  cmake(OpenJPEG)
+BuildRequires:  pkgconfig(libraw) >= 0.20.2
+BuildRequires:  pkgconfig(libraw_r) >= 0.20.2
+BuildRequires:  jxrlib-devel
 
 Requires:       kf6-filesystem
+# for eps plugin read/write support
+Requires:       poppler-utils
+Requires:       ghostscript
 
 %description
 This framework provides additional image format plugins for QtGui.  As
@@ -43,7 +52,8 @@ image formats.
 
 %build
 %cmake_kf6 \
-  -DKIMAGEFORMATS_HEIF:BOOL=ON
+  -DKIMAGEFORMATS_HEIF:BOOL=ON \
+  -DKIMAGEFORMATS_JXR:BOOL=ON
 %cmake_build
 
 %install
@@ -55,6 +65,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Sat Apr 19 2025 Marie Loise Nolden <loise@kde.org> - 6.13.0-2
+- cleanup BR, build openjpeg2 and libjxr plugins
+
 * Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
 - 6.13.0
 

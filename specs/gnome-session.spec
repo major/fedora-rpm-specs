@@ -1,4 +1,4 @@
-%define po_package gnome-session-47
+%define po_package gnome-session-48
 
 %if 0%{?fedora}
 %else
@@ -8,13 +8,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-session
-Version:        47.0.1
+Version:        48.0
 Release:        %autorelease
 Summary:        GNOME session manager
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-session
-Source:         https://download.gnome.org/sources/gnome-session/47/%{name}-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-session/48/%{name}-%{tarball_version}.tar.xz
 
 # Blacklist NV30: https://bugzilla.redhat.com/show_bug.cgi?id=745202
 Patch:          gnome-session-3.3.92-nv30.patch
@@ -118,7 +118,7 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %{_datadir}/wayland-sessions/*
 
 %files -f %{po_package}.lang
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS
 %license COPYING
 %{_bindir}/gnome-session*
 %{_libexecdir}/gnome-session-binary

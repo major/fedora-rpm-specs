@@ -4,11 +4,11 @@
 %global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
 
 # note here at which Fedora or EL release we need to use compat LLVM packages
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 9
-%define         llvm_compat 18
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 9
+%define         llvm_compat 19
 %endif
 
-%global         llvm_version 18.0.0
+%global         llvm_version 19.0.0
 
 %bcond bootstrap 0
 %bcond docs      %{without bootstrap}
@@ -25,6 +25,7 @@
     -Dtarget=native \
     -Dcpu=baseline \
     --zig-lib-dir lib \
+    --build-id=sha1 \
     \
     --cache-dir "%{zig_cache_dir}" \
     --global-cache-dir "%{zig_cache_dir}" \
@@ -36,15 +37,14 @@
     -Dstd-docs=false \
     -Dpie \
     -Dconfig_h="%{__cmake_builddir}/config.h" \
-    -Dbuild-id="sha1" \
 }
 %global zig_install_options %zig_build_options %{shrink: \
     --prefix "%{_prefix}" \
 }
 
 Name:           zig
-Version:        0.13.0
-Release:        8%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -52,16 +52,22 @@ URL:            https://ziglang.org
 Source0:        %{url}/download/%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/download/%{version}/%{name}-%{version}.tar.xz.minisig
 Source2:        macros.%{name}
-# Support clean build of stage3 with temporary bootstrapped package
-Patch:          0001-Fedora-bootstrap-and-extra-build-flags-support.patch
-# There's no global option for build-id so enable it by default
-# instead of patching every project's build.zig
-Patch:          0002-Enable-build-id-by-default.patch
-# Fix broken PIE capability detection
-# https://github.com/ziglang/zig/pull/20072
-Patch:          0004-cmake-correct-PIE-support-detection-add-error-output.patch
-# Remove native libr directories from rpath
-Patch:          0005-remove-native-lib-directories-from-rpath.patch
+# Remove native lib directories from rpath
+# this is unlikely to be upstreamed in its current state because upstream
+# wants to work around the shortcomings of NixOS
+Patch:          0001-remove-native-lib-directories-from-rpath.patch
+# Adds a build option for setting the build-id
+# some projects are not programmed to handle a build-id's
+# by having it as a flag we can make sure no developer runs into
+# any trouble because of packaging demands
+# https://github.com/ziglang/zig/pull/22516
+Patch:          0002-std.Build-add-build-id-option.patch
+# Zig has a feature that allows the developer to specify max memory usage
+# during compilation, this allows the compiler to split up tasks efficiently-
+# Annoyingly if any singular step goes above this it will fail after completion
+# Upstream suggested simply bumping this limit to 9GB
+# https://github.com/ziglang/zig/pull/23638
+Patch:          0003-increase-upper-bounds-of-main-zig-executable-to-9G.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -70,6 +76,7 @@ BuildRequires:  llvm%{?llvm_compat}-devel
 BuildRequires:  clang%{?llvm_compat}-devel
 BuildRequires:  lld%{?llvm_compat}-devel
 BuildRequires:  zlib-devel
+BuildRequires:  libxml2-devel
 # for man page generation
 BuildRequires:  help2man
 # for signature verification
@@ -92,7 +99,7 @@ Requires:       %{name}-libs = %{version}
 # Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 Provides: bundled(compiler-rt) = %{llvm_version}
 # LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only
-Provides: bundled(glibc) = 2.38
+Provides: bundled(glibc) = 2.41
 # Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 Provides: bundled(libcxx) = %{llvm_version}
 # Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
@@ -100,11 +107,11 @@ Provides: bundled(libcxxabi) = %{llvm_version}
 # NCSA
 Provides: bundled(libunwind) = %{llvm_version}
 # BSD, LGPG, ZPL
-Provides: bundled(mingw) = 0bac2d3cdb122dadcdee90009f7e24a69d56939f
+Provides: bundled(mingw) = 3839e21b08807479a31d5a9764666f82ae2f0356
 # MIT
-Provides: bundled(musl) = 1.2.4
+Provides: bundled(musl) = 1.2.5
 # Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
-Provides: bundled(wasi-libc) = 3189cd1ceec8771e8f27faab58ad05d4d6c369ef
+Provides: bundled(wasi-libc) = d03829489904d38c624f6de9983190f1e5e7c9c5
 
 ExclusiveArch: %{zig_arches}
 
@@ -152,16 +159,16 @@ rm -f stage1/zig1.wasm
 %build
 
 # zig doesn't know how to dynamically link llvm on its own so we need cmake to generate a header ahead of time
-# if we provice the header we need to also build zigcpp
+# if we provide the header we need to also build zigcpp
 
 # C_FLAGS: wasm2c output generates a lot of noise with -Wunused.
-# EXTRA_BUILD_ARGS: apply --build-id=sha1 even if running unpatched stage2 compiler.
+# EXTRA_BUILD_ARGS: explicitly specify a build-id
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-DNDEBUG -Wno-unused" \
     -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-DNDEBUG -Wno-unused" \
     \
-    -DZIG_EXTRA_BUILD_ARGS:STRING="--verbose;-Dbuild-id=sha1" \
+    -DZIG_EXTRA_BUILD_ARGS:STRING="--verbose;--build-id=sha1" \
     -DZIG_SHARED_LLVM:BOOL=true \
     -DZIG_PIE:BOOL=true \
     \
@@ -178,7 +185,7 @@ zig build %{zig_build_options}
 
 # Zig has no official manpage
 # https://github.com/ziglang/zig/issues/715
-help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=version --output=%{name}.1
+help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=version --output=zig.1
 %endif
 
 
@@ -195,9 +202,10 @@ help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=vers
 %cmake_install
 %else
 DESTDIR="%{buildroot}" zig build install %{zig_install_options}
+
+install -D -pv -m 0644 -t %{buildroot}%{_mandir}/man1/ zig.1
 %endif
 
-install -D -pv -m 0644 -t %{buildroot}%{_mandir}/man1/ %{name}.1
 
 %if %{with macro}
 install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
@@ -232,6 +240,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Thu Mar 06 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-1
+- Update to 0.14.0
+
 * Mon Jan 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-8
 - specify to build against local zig stdlib directory to ensure we are building against the newest stdlib
 - use release fast instead of release safe to fix aarch64 builds from running out of memory

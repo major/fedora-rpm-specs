@@ -19,6 +19,7 @@ Source13:       fedoraproject_org
 Source14:       stg_fedoraproject_org
 Source15:       fedoraproject_ipa_ca.crt
 Source16:       stg_fedoraproject_ipa_ca.crt
+Source17:       riscv.conf
 
 BuildRequires:  python3-devel
 
@@ -89,6 +90,7 @@ install -D %{SOURCE3} %{buildroot}%{_bindir}/rpmbuild-md5
 install -D %{SOURCE4} %{buildroot}%{_bindir}/s390-koji
 install -D %{SOURCE4} %{buildroot}%{_bindir}/stg-koji
 install -D %{SOURCE5} %{buildroot}%{_bindir}/fkinit
+install -D %{SOURCE17} %{buildroot}%{_bindir}/riscv-koji
 
 install -m0644 -Dt %{buildroot}%{_sysconfdir}/koji.conf.d/ \
   %{SOURCE10} %{SOURCE11} %{SOURCE12}
@@ -102,6 +104,7 @@ install -m0644 -Dt %{buildroot}%{_sysconfdir}/pki/ipa/ \
 %{_bindir}/pkgname
 %{_bindir}/rpmbuild-md5
 %{_bindir}/s390-koji
+%{_bindir}/riscv-koji
 %{_bindir}/stg-koji
 %config(noreplace) %{_sysconfdir}/koji.conf.d/*
 

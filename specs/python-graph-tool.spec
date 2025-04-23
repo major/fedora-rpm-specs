@@ -1,17 +1,5 @@
-# Limit the number of parallel compiler jobs to avoid memory exhaustion.
-%constrain_build -m 24576
-
-%global _description %{expand:
-Graph-tool is an efficient Python module for manipulation and statistical
-analysis of graphs (a.k.a. networks). Contrary to most other python modules
-with similar functionality, the core data structures and algorithms are
-implemented in C++, making extensive use of template metaprogramming, based
-heavily on the Boost Graph Library. This confers it a level of performance that
-is comparable (both in memory usage and computation time) to that of a pure
-C/C++ library.
-
-Please refer to https://graph-tool.skewed.de/static/doc/index.html for
-documentation.}
+# This needs about 15 gigs per thread, otherwise OOMs.
+%constrain_build -m 15360
 
 Name:           python-graph-tool
 Version:        2.97
@@ -90,6 +78,18 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  gawk
+
+%global _description %{expand:
+Graph-tool is an efficient Python module for manipulation and statistical
+analysis of graphs (a.k.a. networks). Contrary to most other python modules
+with similar functionality, the core data structures and algorithms are
+implemented in C++, making extensive use of template metaprogramming, based
+heavily on the Boost Graph Library. This confers it a level of performance that
+is comparable (both in memory usage and computation time) to that of a pure
+C/C++ library.
+
+Please refer to https://graph-tool.skewed.de/static/doc/index.html for
+documentation.}
 
 %description %_description
 
@@ -176,18 +176,27 @@ ln -sv \
 find doc/_static -type f -print -execdir truncate --size=0 '{}' '+'
 
 
-%build
+%conf
 ./autogen.sh
+
 # We get a few thousand warnings like:
 #   warning: 'always_inline' attribute does not apply to types [-Wattributes]
 # and since each is very verbose, with a lot of context, the build log explodes
 # to many gigabytes, which ends up failing the build. Disable this class of
 # warnings as a pragmatic matter.
 export CXXFLAGS="${CXXFLAGS-} -Wno-attributes"
+
+# Keeping track of full debugging symbols causes us to run out of *disk space*
+# (not memory!) on some koji builders. Reduce the debuginfo level to -g1.
+export CXXFLAGS="$(echo "${CXXFLAGS-}" | sed -r 's/(^| )-g($| )/\1-g1\2/')"
+
 %configure \
     --with-python-module-path=%{python3_sitearch} \
     --with-boost-libdir=%{_libdir} \
     --enable-debug
+
+
+%build
 %make_build
 
 # Provide Python metadata

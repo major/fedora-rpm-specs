@@ -1,6 +1,6 @@
-%global commit 3169e26daf7fb12cb4ec79780231efda1b8a7ed6
+%global commit f790e134bd71bf45a9fbfc23ef36b7ca30b55ec0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20241017
+%global gitdate 20250313
 
 %global app_id  org.kde.atlantik
 
@@ -46,9 +46,6 @@ BuildRequires:  cmake(KDEGames6)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       hicolor-icon-theme
-
-# no KDE4 port, was last built for KDE3
-Conflicts:      kdegames3 < 3.5.10-47
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

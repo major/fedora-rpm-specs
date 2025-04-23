@@ -1,6 +1,6 @@
 # Override versioning to sync with upstream
 Epoch:    1
-Version:  7.222
+Version:  9.000
 Release:  %autorelease
 URL:      https://github.com/JulietaUla/Montserrat
 
@@ -24,21 +24,30 @@ Obsoletes: julietaula-montserrat-fonts-common < %{version}-%{release}
 %global fontdescription  %{expand:
 %{common_description}
 
-This package provide the base fonts.}
-
+This package provides the base fonts.}
 
 %global fontfamily1       Montserrat Alternates
 %global fontsummary1      A Montserrat area inspired typeface family alternate version
-%global fonts1            fonts/otf/MontserratAlternates-*.otf
+%global fonts1            fonts-alternates/otf/MontserratAlternates-*.otf
 %global fontconfs1        %{SOURCE11}
 %global fontdescription1  %{expand:
 %{common_description}
 
-This package provide an alternate version of the fonts.}
+This package provides an alternate version of the fonts.}
+
+%global fontfamily2       Montserrat Underline
+%global fontsummary2      A Montserrat area inspired typeface family underline version
+%global fonts2            fonts-underline/otf/MontserratUnderline-*.otf
+%global fontconfs2        %{SOURCE12}
+%global fontdescription2  %{expand:
+%{common_description}
+
+This package provides an underline version of the fonts.}
 
 Source0:  %{url}/archive/v%{version}.tar.gz#/Montserrat-%{version}.tar.gz
 Source10: 61-%{fontpkgname0}.conf
 Source11: 61-%{fontpkgname1}.conf
+Source12: 61-%{fontpkgname2}.conf
 
 %fontpkg -a
 

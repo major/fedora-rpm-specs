@@ -1,15 +1,17 @@
+%global commit 5226b33a7ef274f31765b602c4af45e368ea42d4
+%global commit_short 5226b33a
+
 Name:           rkward
-Version:        0.8.0
-Release:        4%{?dist}
+Version:        0.8.1~pre^1.git%{commit_short}
+Release:        1%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://%{name}.kde.org/
-Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz
-Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz.sig
-Source:         https://invent.kde.org/sysadmin/release-keyring/-/raw/master/keys/tfry@key1.asc?ref_type=heads#/signing-key.pgp
-
-Patch:          https://invent.kde.org/education/rkward/-/commit/997c8a7280fe0f99a29465f67b56fd001cdac4e1.patch
+Source:         https://invent.kde.org/education/%{name}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+#Source:         https://download.kde.org/stable/%%{name}/%%{version}/%%{name}-%%{version}.tar.gz
+#Source:         https://download.kde.org/stable/%%{name}/%%{version}/%%{name}-%%{version}.tar.gz.sig
+#Source:         https://invent.kde.org/sysadmin/release-keyring/-/raw/master/keys/tfry@key1.asc?ref_type=heads#/signing-key.pgp
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -58,8 +60,8 @@ R-project. RKWard tries to combine the power of the R-language with the
 include integration with office suites
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+#%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
+%autosetup -p1 -n %{name}-%{commit}
 rm -rf 3rdparty
 
 %build
@@ -91,6 +93,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Mon Apr 21 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.1~pre^1.git5226b33a-1
+- Update to prerelease version (rhbz#2361422)
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.0-4
 - R-maint-sig mass rebuild
 

@@ -11,7 +11,7 @@
 %endif
 
 Name:           blake3
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
@@ -62,6 +62,9 @@ Development files for the %{name} library.
 
 
 %build
+# Copy `CFLAGS` into `ASMFLAGS` so `-fcf-protection` is used for assembly files
+export ASMFLAGS="%{build_cflags}"
+
 %if %{needs_gcc_toolset}
 . /opt/rh/gcc-toolset-13/enable
 %endif

@@ -1,7 +1,7 @@
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
-Version: 24.12.0
-Release: 2%{?dist}
+Version: 25.04.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -33,6 +33,7 @@ BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6ConfigWidgets)
 BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(KF6DocTools)
 
 BuildRequires: cmake(KDEGames6)
@@ -74,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.k
 
 
 %changelog
+* Mon Apr 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.04.0-1
+- 25.04.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

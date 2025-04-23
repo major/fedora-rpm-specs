@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc2.20250418gitfc96b232f8e7.25
+%define pkgrelease 0.rc3.20250421git9d7a0577c9db.28
 %define kversion 6
-%define tarfile_release 6.15-rc2-278-gfc96b232f8e7
+%define tarfile_release 6.15-rc3-1-g9d7a0577c9db
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.20250418gitfc96b232f8e7.25%{?buildid}%{?dist}
+%define specrelease 0.rc3.20250421git9d7a0577c9db.28%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -1595,6 +1595,7 @@ Provides: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): systemd >= 254-1\
+Recommends: uki-direct\
 %package %{?1:%{1}-}uki-virt-addons\
 Summary: %{variant_summary} unified kernel image addons for virtual machines\
 Provides: installonlypkg(kernel)\
@@ -3834,6 +3835,7 @@ fi\
 %files headers
 /usr/include/*
 %exclude %{_includedir}/cpufreq.h
+%exclude %{_includedir}/ynl
 %endif
 
 %if %{with_cross_headers}
@@ -4184,8 +4186,17 @@ fi\
 #
 #
 %changelog
-* Fri Apr 18 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc2.20250418gitfc96b232f8e7.25]
+* Mon Apr 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.9d7a0577c9db.28]
+- Linux v6.15.0-0.rc3.9d7a0577c9db
+
+* Sun Apr 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.6fea5fabd332.27]
+- Linux v6.15.0-0.rc2.6fea5fabd332
+
+* Sat Apr 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.8560697b23dc.26]
+- uki: Add weak dependency on 'uki-direct' (Vitaly Kuznetsov)
+- redhat/kernel.spec: fix duplicate packaging of ynl headers (Jan Stancek)
 - Enable FunctionFS on aarch64 + x86 (Sam Day)
+- Linux v6.15.0-0.rc2.8560697b23dc
 
 * Fri Apr 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc2.fc96b232f8e7.25]
 - Turn on USB Gadget for Fedora x86 (Justin M. Forbes)

@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -244,8 +244,10 @@ Requires:	ceph-mds = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mgr = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mon = %{_epoch_prefix}%{version}-%{release}
 Requires(post):	binutils
-Requires(pre):	/usr/sbin/useradd 
+%if 0%{?suse_version}
+Requires(pre):	/usr/sbin/useradd
 Requires(pre):	/usr/sbin/groupadd
+%endif
 
 %if 0%{with cephfs_java}
 BuildRequires:	java-devel
@@ -306,7 +308,7 @@ BuildRequires:	libcurl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libcap-ng-devel
 #BuildRequires:	fmt-devel >= 6.2.1
-#%if ( 0%{?fedora} || 0%{?rhel} >= 10 )
+#%if ( 0%%{?fedora} || 0%%{?rhel} >= 10 )
 #BuildRequires:	rocksdb-devel
 #Requires:	rocksdb
 #%endif
@@ -1397,8 +1399,12 @@ This package provides a Ceph hardware monitoring agent.
 %prep
 %autosetup -p1
 
-# Create a sysusers.d config file
+# Create two sysusers.d config files
 cat >ceph.sysusers.conf <<EOF
+g ceph 167
+u ceph 167 'Ceph storage service' %{_localstatedir}/lib/ceph -
+EOF
+cat >cephadm.sysusers.conf <<EOF
 u cephadm - 'cephadm user for mgr/cephadm' %{_sharedstatedir}/cephadm /bin/bash
 EOF
 
@@ -1600,6 +1606,7 @@ install -m 0644 -D etc/sysctl/90-ceph-osd.conf %{buildroot}%{_sysctldir}/90-ceph
 install -m 0755 -D src/tools/rbd_nbd/rbd-nbd_quiesce %{buildroot}%{_libexecdir}/rbd-nbd/rbd-nbd_quiesce
 
 install -m 0644 -D ceph.sysusers.conf %{buildroot}%{_sysusersdir}/ceph.conf
+install -m 0644 -D cephadm.sysusers.conf %{buildroot}%{_sysusersdir}/cephadm.conf
 
 mkdir -p %{buildroot}%{_sharedstatedir}/cephadm
 chmod 0700 %{buildroot}%{_sharedstatedir}/cephadm
@@ -1652,6 +1659,10 @@ install -m 644 -D monitoring/ceph-mixin/dashboards_out/* %{buildroot}/etc/grafan
 # SNMP MIB
 install -m 644 -D -t %{buildroot}%{_datadir}/snmp/mibs monitoring/snmp/CEPH-MIB.txt
 
+%if "%{_sbindir}" == "%{_bindir}"
+mv %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys %{buildroot}%{_bindir}/
+%endif
+
 %if 0%{?suse_version}
 # create __pycache__ directories and their contents
 %py3_compile %{buildroot}%{python3_sitelib}
@@ -1676,7 +1687,7 @@ install -m 644 -D -t %{buildroot}%{_datadir}/snmp/mibs monitoring/snmp/CEPH-MIB.
 %{_bindir}/ceph-kvstore-tool
 %{_bindir}/ceph-run
 %{_presetdir}/50-ceph.preset
-%{_exec_prefix}/sbin/ceph-create-keys
+%{_bindir}/ceph-create-keys
 %dir %{_libexecdir}/ceph
 %{_libexecdir}/ceph/ceph_common.sh
 %dir %{_libdir}/rados-classes
@@ -1826,14 +1837,11 @@ fi
 %{_udevrulesdir}/50-rbd.rules
 %attr(3770,ceph,ceph) %dir %{_localstatedir}/log/ceph/
 %attr(750,ceph,ceph) %dir %{_localstatedir}/lib/ceph/
+%{_sysusersdir}/cephadm.conf
 
 %pre common
 CEPH_GROUP_ID=167
 CEPH_USER_ID=167
-%if 0%{?rhel} || 0%{?fedora}
-/usr/sbin/groupadd ceph -g $CEPH_GROUP_ID -o -r 2>/dev/null || :
-/usr/sbin/useradd ceph -u $CEPH_USER_ID -o -r -g ceph -s /sbin/nologin -c "Ceph daemons" -d %{_localstatedir}/lib/ceph 2>/dev/null || :
-%endif
 %if 0%{?suse_version}
 if ! getent group ceph >/dev/null ; then
     CEPH_GROUP_ID_OPTION=""
@@ -2725,6 +2733,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Apr 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.2-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Apr 14 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-3
 - ceph-19.2.2, rhbz#2359214 again
 

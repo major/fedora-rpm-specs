@@ -1,21 +1,17 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 12
+%global project_version_minor 13
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-spec-Set-mode-to-ghost-files.patch
-Patch2:         0002-expired-pgp-keys-Respect-install-root.patch
-Patch3:         0003-Add-i-and-f-shoft-options-for-repoquery.patch
-Patch4:         0004-doc-Environment-variables-for-a-terminal-and-tempora.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -324,6 +320,8 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_datadir}/bash-completion/completions/dnf*
 %license COPYING.md
 %license gpl-2.0.txt
+%doc AUTHORS.md CHANGELOG.md CONTRIBUTING.md README.md
+%if %{with man}
 %{_mandir}/man8/dnf5.8.*
 %if %{with dnf5_obsoletes_dnf}
 %{_mandir}/man8/dnf.8.*
@@ -371,11 +369,17 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man5/dnf*.conf.5.*
 %{_mandir}/man5/dnf*.conf-todo.5.*
 %{_mandir}/man5/dnf*.conf-deprecated.5.*
+%endif
 
 %if %{with systemd}
 %{_unitdir}/dnf5-offline-transaction.service
 %{_unitdir}/dnf5-offline-transaction-cleanup.service
 %{_unitdir}/system-update.target.wants/dnf5-offline-transaction.service
+%endif
+
+%if %{without dnf5_plugins}
+%exclude %{_datadir}/dnf5/aliases.d/compatibility-plugins.conf
+%exclude %{_datadir}/dnf5/aliases.d/compatibility-reposync.conf
 %endif
 
 # ========== libdnf5 ==========
@@ -411,7 +415,6 @@ Package management library.
 %dir %{_datadir}/dnf5/vars.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
-%dir %{_prefix}/lib/sysimage/libdnf5
 %dir %{_prefix}/lib/sysimage/libdnf5
 %attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/comps_groups
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/environments.toml
@@ -635,7 +638,9 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 %{_libdir}/libdnf5/plugins/actions.*
 %config %{_sysconfdir}/dnf/libdnf5-plugins/actions.conf
 %dir %{_sysconfdir}/dnf/libdnf5-plugins/actions.d
+%if %{with man}
 %{_mandir}/man8/libdnf5-actions.8.*
+%endif
 %endif
 
 # ========== libdnf5-plugin-appstream ==========
@@ -643,13 +648,13 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 %if %{with plugin_appstream}
 
 %package -n libdnf5-plugin-appstream
-Summary:        Libdnf5 plugin to install repo Appstream data
+Summary:        Libdnf5 plugin to install repository AppStream data
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 BuildRequires:  pkgconfig(appstream) >= 0.16
 
 %description -n libdnf5-plugin-appstream
-Libdnf5 plugin that installs repository's Appstream data, for repositories which provide them.
+Libdnf5 plugin that installs repository's AppStream data, for repositories which provide them.
 
 %files -n libdnf5-plugin-appstream
 %{_libdir}/libdnf5/plugins/appstream.so
@@ -672,7 +677,9 @@ Libdnf5 plugin for detecting and removing expired PGP keys.
 %files -n libdnf5-plugin-expired-pgp-keys -f libdnf5-plugin-expired-pgp-keys.lang
 %{_libdir}/libdnf5/plugins/expired-pgp-keys.*
 %config %{_sysconfdir}/dnf/libdnf5-plugins/expired-pgp-keys.conf
+%if %{with man}
 %{_mandir}/man8/libdnf5-expired-pgp-keys.8.*
+%endif
 %endif
 
 # ========== libdnf5-plugin-plugin_rhsm ==========
@@ -731,7 +738,9 @@ Command-line interface for dnf5daemon-server.
 %{_bindir}/dnf5daemon-client
 %license COPYING.md
 %license gpl-2.0.txt
+%if %{with man}
 %{_mandir}/man8/dnf5daemon-client.8.*
+%endif
 %endif
 
 
@@ -762,6 +771,7 @@ Package management service with a DBus interface.
 %systemd_postun_with_restart dnf5daemon-server.service
 
 %files -n dnf5daemon-server -f dnf5daemon-server.lang
+%config(noreplace) %{_sysconfdir}/dnf/dnf5daemon-server.conf
 %{_sbindir}/dnf5daemon-server
 %{_unitdir}/dnf5daemon-server.service
 %{_datadir}/dbus-1/system.d/org.rpm.dnf.v0.conf
@@ -770,8 +780,10 @@ Package management service with a DBus interface.
 %{_datadir}/polkit-1/actions/org.rpm.dnf.v0.policy
 %license COPYING.md
 %license gpl-2.0.txt
+%if %{with man}
 %{_mandir}/man8/dnf5daemon-server.8.*
 %{_mandir}/man8/dnf5daemon-dbus-api.8.*
+%endif
 %endif
 
 
@@ -805,6 +817,7 @@ config-manager, copr, repoclosure, and reposync commands.
 %{_libdir}/dnf5/plugins/needs_restarting_cmd_plugin.so
 %{_libdir}/dnf5/plugins/repoclosure_cmd_plugin.so
 %{_libdir}/dnf5/plugins/reposync_cmd_plugin.so
+%if %{with man}
 %{_mandir}/man8/dnf*-builddep.8.*
 %{_mandir}/man8/dnf*-changelog.8.*
 %{_mandir}/man8/dnf*-config-manager.8.*
@@ -812,6 +825,7 @@ config-manager, copr, repoclosure, and reposync commands.
 %{_mandir}/man8/dnf*-needs-restarting.8.*
 %{_mandir}/man8/dnf*-repoclosure.8.*
 %{_mandir}/man8/dnf*-reposync.8.*
+%endif
 %{_datadir}/dnf5/aliases.d/compatibility-plugins.conf
 %{_datadir}/dnf5/aliases.d/compatibility-reposync.conf
 
@@ -843,7 +857,9 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %{_datadir}/dnf5/dnf5-plugins/automatic.conf
 %ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/automatic.conf
 %ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/dnf5-plugins/automatic.conf
+%if %{with man}
 %{_mandir}/man8/dnf*-automatic.8.*
+%endif
 %{_unitdir}/dnf5-automatic.service
 %{_unitdir}/dnf5-automatic.timer
 %{_unitdir}/dnf-automatic.service
@@ -875,6 +891,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
     -DWITH_LIBDNF5_CLI=%{?with_libdnf_cli:ON}%{!?with_libdnf_cli:OFF} \
     -DWITH_DNF5=%{?with_dnf5:ON}%{!?with_dnf5:OFF} \
     -DWITH_DNF5_OBSOLETES_DNF=%{?with_dnf5_obsoletes_dnf:ON}%{!?with_dnf5_obsoletes_dnf:OFF} \
+    -DWITH_DNF5_PLUGINS=%{?with_dnf5_plugins:ON}%{!?with_dnf5_plugins:OFF} \
     -DWITH_PLUGIN_ACTIONS=%{?with_plugin_actions:ON}%{!?with_plugin_actions:OFF} \
     -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
     -DWITH_PLUGIN_EXPIRED_PGP_KEYS=%{?with_plugin_expired_pgp_keys:ON}%{!?with_plugin_expired_pgp_keys:OFF} \
@@ -922,11 +939,13 @@ automatically and regularly from systemd timers, cron jobs or similar.
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/dnf
 ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/yum
 ln -sr %{buildroot}%{_datadir}/bash-completion/completions/dnf5 %{buildroot}%{_datadir}/bash-completion/completions/dnf
-for file in %{buildroot}%{_mandir}/man[578]/dnf5[-.]*; do
-    dir=$(dirname $file)
-    filename=$(basename $file)
-    ln -sr $file $dir/${filename/dnf5/dnf}
-done
+%if %{with man}
+    for file in %{buildroot}%{_mandir}/man[578]/dnf5[-.]*; do
+        dir=$(dirname $file)
+        filename=$(basename $file)
+        ln -sr $file $dir/${filename/dnf5/dnf}
+    done
+%endif
 # Make "dnf-makecache" the "real" unit name, but keep compatibility for playbooks that refer to dnf5-makecache
 mv %{buildroot}%{_unitdir}/dnf5-makecache.service %{buildroot}%{_unitdir}/dnf-makecache.service
 mv %{buildroot}%{_unitdir}/dnf5-makecache.timer %{buildroot}%{_unitdir}/dnf-makecache.timer
@@ -959,7 +978,10 @@ pushd %{buildroot}%{_unitdir}/system-update.target.wants/
 popd
 %endif
 
+mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
+
 %find_lang dnf5
+%if %{with dnf5_plugins}
 %find_lang dnf5-plugin-automatic
 %find_lang dnf5-plugin-builddep
 %find_lang dnf5-plugin-changelog
@@ -968,17 +990,33 @@ popd
 %find_lang dnf5-plugin-needs-restarting
 %find_lang dnf5-plugin-repoclosure
 %find_lang dnf5-plugin-reposync
+%endif
+%if %{with dnf5daemon_client}
 %find_lang dnf5daemon-client
+%endif
+%if %{with dnf5daemon_server}
 %find_lang dnf5daemon-server
+%endif
 %find_lang libdnf5
+%if %{with libdnf_cli}
 %find_lang libdnf5-cli
+%endif
+%if %{with plugin_actions}
 %find_lang libdnf5-plugin-actions
+%endif
+%if %{with plugin_expired_pgp_keys}
 %find_lang libdnf5-plugin-expired-pgp-keys
+%endif
+%if %{with plugin_rhsm}
 %find_lang libdnf5-plugin-rhsm
+%endif
 
 %ldconfig_scriptlets
 
 %changelog
+* Mon Apr 21 2025 Packit <hello@packit.dev> - 5.2.13.0-1
+- Update to version 5.2.13.0
+
 * Fri Apr 11 2025 Jonathan Wright <jonathan@almalinux.org> - 5.2.12.0-4
 - Fix conditional controlling SOLVER_FLAG_FOCUS_NEW support on RHEL
 
