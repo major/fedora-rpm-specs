@@ -5,7 +5,7 @@
 %global crate glycin-utils
 
 Name:           rust-glycin-utils
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

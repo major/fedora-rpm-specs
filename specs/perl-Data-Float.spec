@@ -10,6 +10,7 @@ Summary:        Details of the floating point data type
 #               GPL-1.0-or-later OR Artistic-1.0-Perl
 #               <https://github.com/robrwo/Data-Float/issues/3>
 #               Later, CC-BY-SA-4.0 changed to CC0-1.0.
+#               Later, CC0-1.0 changed to 0BSD which isn't virulent.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Float
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Float-%{version}.tar.gz

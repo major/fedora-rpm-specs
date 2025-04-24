@@ -1,11 +1,9 @@
 # Build and run exhaustive tests for 16-bit and 32-bit arguments? This is far
-# too slow to do on every build, and perhaps too slow to ever do in koji, but
-# it is still useful to be able to do it on demand.
+# too slow to do on every build, but it is still useful for it to be possible.
 #
-# On relatively fast x86_64 hardware with 16 cores, we find that
-# test_exhaustive_bf16 takes less than two minutes, test_exhaustive_bf16_mpfr
-# takes about two and a quarter hours, and test_exhaustive32 takes about five
-# hours. We have not checked other architectures.
+# On typical koji builders, this takes about five hours on x86_64 (64 cores),
+# an hour and twenty minutes on aarch64 (80 cores), over a day and a half on
+# ppc64le (8 cores), and almost a day and a half on s390x (3 cores).
 %bcond exhaustive 0
 
 Name:           tlfloat
@@ -88,8 +86,9 @@ developing applications that use TLFloat.
 
 
 %check
-# Do not set a timeout at all for exhaustive tests.
-%ctest %{?with_exhaustive:--timeout 0}
+# Set a one-week timeout if we are doing exhaustive tests. See notes above the
+# conditional; these may take over a day on some server-class hardware.
+%ctest %{?with_exhaustive:--timeout 604800}
 
 
 %files

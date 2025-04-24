@@ -193,14 +193,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        137.0.2
-Release:        2%{?pre_tag}%{?dist}
+Version:        138.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20250416.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20250422.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -255,6 +255,7 @@ Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
+Patch81:        firefox-gcc-15.0-s390.patch
 
 # Test patches
 # Generate without context by
@@ -278,7 +279,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-Patch408:        D244990.1744916693.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -567,6 +567,7 @@ This package contains results of tests executed during build.
 %patch -P71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
+%patch -P81 -p1 -b .firefox-gcc-15.0-s390
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
@@ -587,7 +588,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P402 -p1 -b .1196777
 %patch -P407 -p1 -b .1667096
-%patch -P408 -p1 -b .D244990
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1245,6 +1245,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Apr 22 2025 Martin Stransky <stransky@redhat.com> - 138.0-1
+- Updated to 138.0
+
+* Tue Apr 22 2025 Martin Stransky <stransky@redhat.com> - 137.0.2-3
+- Added fix for rhbz#2358565
+
 * Wed Apr 16 2025 Martin Stransky <stransky@redhat.com> - 137.0.2-2
 - Added fix for mzbz#1951249
 

@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -68,8 +68,8 @@ This package contains only rtas_errd daemon.
 
 %build
 ./autogen.sh
-CXXFLAGS="-std=gnu++14 %{build_cflags}" %configure
-LDFLAGS="%{build_ldflags}" CFLAGS="%{build_cflags}" CXXFLAGS="-std=gnu++14 %{build_cflags}" make %{?_smp_mflags} V=1
+CXXFLAGS="%{build_cflags}" %configure
+LDFLAGS="%{build_ldflags}" CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cflags}" make %{?_smp_mflags} V=1
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -180,6 +180,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Tue Apr 22 2025 Than Ngo <than@redhat.com> - 2.7.10-5
+- Drop build flag
+
 * Tue Mar 18 2025 Than Ngo <than@redhat.com> - 2.7.10-4
 - Fix rhbz#2341095 - ppc64-diag: FTBFS in Fedora rawhide/f42
 - Fixed typo

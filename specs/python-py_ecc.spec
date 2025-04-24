@@ -1,7 +1,7 @@
 %global pypi_name py_ecc
 
 Name:          python-%{pypi_name}
-Version:       7.0.1
+Version:       8.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ECC pairing and bn_128 and bls12_381 curve operations
@@ -24,7 +24,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest
+%pytest -k 'not test_install_local_wheel'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

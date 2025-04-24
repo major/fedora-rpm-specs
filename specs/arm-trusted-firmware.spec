@@ -14,15 +14,13 @@
 
 Name:    arm-trusted-firmware
 Version: 2.12.1
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
 Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-v%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
-# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34306
-Patch2:  0001-Fix-specifying-the-number-of-octects-in-a-character.patch
 # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34940
 Patch3:  0001-fix-imx_trdc.h-header-guard.patch
 # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34953
@@ -138,6 +136,9 @@ done
 %endif
 
 %changelog
+* Tue Apr 22 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.1-2
+- Drop binutils build fix workaround
+
 * Mon Feb 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.1-1
 - Update to 2.12.1
 

@@ -7,7 +7,7 @@
 %global reshade_shortcommit %(c=%{reshade_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.16.2
+Version:        3.16.4
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -30,46 +30,47 @@ Patch:          0001-cstdint.patch
 Patch:          Allow-to-use-system-wlroots.patch
 Patch:          Switch-wlroots-to-the-new-pc-filename.patch
 Patch:          Add-pixman-dependency.patch
-# https://github.com/ValveSoftware/gamescope/pull/1548:
-Patch:          https://github.com/ValveSoftware/gamescope/commit/fa0832f616a1060a3311f9b41368590169ba4872.patch
+# https://github.com/ValveSoftware/gamescope/pull/1812:
+Patch:          Add-libudev-dependency.patch
 
-BuildRequires:  meson >= 0.54.0
-BuildRequires:  ninja-build
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  glm-devel
 BuildRequires:  google-benchmark-devel
-BuildRequires:  libXmu-devel
 BuildRequires:  libXcursor-devel
-BuildRequires:  pkgconfig(libdisplay-info)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xdamage)
-BuildRequires:  pkgconfig(xcomposite)
-BuildRequires:  pkgconfig(xrender)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xfixes)
-BuildRequires:  pkgconfig(xxf86vm)
-BuildRequires:  pkgconfig(xtst)
-BuildRequires:  pkgconfig(xres)
-BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(vulkan)
-BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
-BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(libpipewire-0.3)
-BuildRequires:  pkgconfig(libavif)
-BuildRequires:  pkgconfig(wlroots-0.18)
-BuildRequires:  (pkgconfig(libliftoff) >= %{libliftoff_minver} with pkgconfig(libliftoff) < 0.6)
-BuildRequires:  pkgconfig(libcap)
-BuildRequires:  pkgconfig(libeis-1.0)
-BuildRequires:  pkgconfig(libdecor-0)
+BuildRequires:  libXmu-devel
+BuildRequires:  meson >= 0.54.0
+BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  pkgconfig(libavif)
+BuildRequires:  pkgconfig(libcap)
+BuildRequires:  pkgconfig(libdecor-0)
+BuildRequires:  pkgconfig(libdisplay-info)
+BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libeis-1.0)
+BuildRequires:  (pkgconfig(libliftoff) >= %{libliftoff_minver} with pkgconfig(libliftoff) < 0.6)
+BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(luajit)
 BuildRequires:  pkgconfig(openvr) >= 2.7
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
+BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(wayland-server)
+BuildRequires:  pkgconfig(wlroots-0.18)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xrender)
+BuildRequires:  pkgconfig(xres)
+BuildRequires:  pkgconfig(xtst)
+BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  spirv-headers-devel
 # Enforce the the minimum EVR to contain fixes for all of:
 # CVE-2021-28021 CVE-2021-42715 CVE-2021-42716 CVE-2022-28041 CVE-2023-43898
@@ -95,7 +96,7 @@ Recommends:     mesa-vulkan-drivers
 %{name} is the micro-compositor optimized for running video games on Wayland.
 
 %prep
-%autosetup -p1 -a2 -N
+%autosetup -p1 -N
 # Install stub pkgconfig file
 mkdir -p pkgconfig
 cp %{SOURCE1} pkgconfig/stb.pc
@@ -104,13 +105,24 @@ cp %{SOURCE1} pkgconfig/stb.pc
 sed -i 's^../thirdparty/SPIRV-Headers/include/spirv/^/usr/include/spirv/^' src/meson.build
 
 # Push in reshade from sources instead of submodule
-rm -rf src/reshade && mv reshade-%{reshade_commit} src/reshade
+tar -xzf %{SOURCE2} --strip-components=1 -C src/reshade
 
 %autopatch -p1
 
 %build
 export PKG_CONFIG_PATH=pkgconfig
-%meson -Dpipewire=enabled -Denable_openvr_support=true -Dforce_fallback_for=[]
+%meson \
+    -Davif_screenshots=enabled \
+    -Dbenchmark=enabled \
+    -Ddrm_backend=enabled \
+    -Denable_gamescope=true \
+    -Denable_gamescope_wsi_layer=true \
+    -Denable_openvr_support=true \
+    -Dforce_fallback_for=[] \
+    -Dinput_emulation=enabled \
+    -Dpipewire=enabled \
+    -Drt_cap=enabled \
+    -Dsdl2_backend=enabled
 %meson_build
 
 %install
@@ -126,7 +138,6 @@ export PKG_CONFIG_PATH=pkgconfig
 %{_datadir}/gamescope
 %{_libdir}/libVkLayer_FROG_gamescope_wsi_*.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_FROG_gamescope_wsi.*.json
-
 
 %changelog
 %autochangelog

@@ -11,7 +11,7 @@
 %global         llvm_version 19.0.0
 
 %bcond bootstrap 0
-%bcond docs      %{without bootstrap}
+%bcond docs      0
 %bcond macro     %{without bootstrap}
 %bcond test      1
 
@@ -191,10 +191,7 @@ help2man --no-discard-stderr --no-info "./zig-out/bin/zig" --version-option=vers
 
 %if %{with docs}
 # Use the newly made stage 3 compiler to generate docs 
-./zig-out/bin/zig build docs \
-    --verbose \
-    --global-cache-dir "%{zig_cache_dir}" \
-    -Dversion-string="%{version}"
+./zig-out/bin/zig build docs %{zig_build_options}
 %endif
 
 %install

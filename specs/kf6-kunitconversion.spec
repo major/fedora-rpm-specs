@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for unit conversions
 
 License: CC0-1.0 AND LGPL-2.0-or-later
@@ -80,6 +80,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Apr 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-2
+- Rebuild (python-pyside6)
+
 * Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
 - 6.13.0
 

@@ -27,9 +27,6 @@ URL:            https://github.com/pop-os/cosmic-wallpapers
 # tar -pczf cosmic-wallpapers-archive-%%{version_no_tilde}.tar.gz cosmic-wallpapers
 Source0:        cosmic-wallpapers-archive-%{version_no_tilde}.tar.gz
 
-# https://github.com/pop-os/cosmic-wallpapers/pull/7
-Source1:        LICENSE_CCBYSA4.0.txt
-
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -41,7 +38,6 @@ BuildRequires:  make
 
 %prep
 tar -xf %{SOURCE0} -C .
-cp %{SOURCE1} ./LICENSE
 
 %build
 

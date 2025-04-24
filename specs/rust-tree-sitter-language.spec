@@ -5,7 +5,7 @@
 %global crate tree-sitter-language
 
 Name:           rust-tree-sitter-language
-Version:        0.1.3
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Tree-sitter Language type, used by the library and by language implementations
 

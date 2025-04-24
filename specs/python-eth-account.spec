@@ -1,7 +1,7 @@
 %global pypi_name eth_account
 
 Name:          python-eth-account
-Version:       0.13.6
+Version:       0.13.7
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Ethereum account abstraction library

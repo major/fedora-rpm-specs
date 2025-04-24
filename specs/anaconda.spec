@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.15
+Version: 43.16
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -40,7 +40,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.63-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.12.0-1
+%define pythonblivetver 1:3.12.1-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
@@ -502,6 +502,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 22 2025 Packit <hello@packit.dev> - 43.16-1
+- Bump required version of blivet to 3.12.1 (vtrefny)
+- Fstab handling moves to blivet (japokorn)
+- s390x - enable raid1 as a stage2 device (dan)
+
 * Tue Apr 15 2025 Packit <hello@packit.dev> - 43.15-1
 - edns: restart dnsconfd only after the first kickstart parsing (rvykydal)
 - edns: allow dnsconfd name resolution for kickstart fetching (rvykydal)

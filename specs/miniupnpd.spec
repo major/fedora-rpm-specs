@@ -1,5 +1,5 @@
 Name:       miniupnpd
-Version:    2.3.7
+Version:    2.3.9
 Release:    1%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
@@ -41,11 +41,14 @@ benefit from a NAT router supporting UPnP IGD & PCP/NAT-PMP.
 
 
 %build
+# Disable WANPPPConnection based on recommendation from Fresh Tomato and OpenWRT
+# Other distros like Arch and Ubuntu do not have this change
 export CFLAGS="%{optflags}"
 export LDFLAGS="%{__global_ldflags}"
 ./configure \
  --ipv6 \
  --igd2 \
+ --disable-pppconn \
 %if 0%{?with_iptables}
  --firewall=iptables
 %else
@@ -100,6 +103,10 @@ mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Tue Apr 22 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.9-1
+- Version update
+- Disable WANPPPConnection
+
 * Thu Jan 23 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.7-1
 - Version update
 

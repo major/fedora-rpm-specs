@@ -1,5 +1,5 @@
 Name:		erlang-rpm-macros
-Version:	0.3.8
+Version:	0.3.9
 Release:	%autorelease
 Summary:	Macros for simplifying building of Erlang packages
 License:	MIT
@@ -15,6 +15,7 @@ BuildRequires:	make
 BuildRequires:	python3-pybeam
 BuildRequires:	python3-pyelftools
 BuildRequires:	python3-rpm
+Requires:	erlang-rebar3
 Requires:	rpm-build >= 4.11
 # Requires for BEAM parsing
 Requires:	python3-pybeam

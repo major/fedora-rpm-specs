@@ -5,7 +5,7 @@
 %global crate tree-sitter-config
 
 Name:           rust-tree-sitter-config
-Version:        0.24.7
+Version:        0.25.3
 Release:        %autorelease
 Summary:        User configuration of tree-sitter's command line programs
 

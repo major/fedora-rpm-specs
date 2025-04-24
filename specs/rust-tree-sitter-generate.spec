@@ -5,7 +5,7 @@
 %global crate tree-sitter-generate
 
 Name:           rust-tree-sitter-generate
-Version:        0.24.7
+Version:        0.25.3
 Release:        %autorelease
 Summary:        Library for generating C source code from a tree-sitter grammar
 
@@ -64,7 +64,8 @@ cp -pav %{SOURCE2} LICENSE
 
 %if %{with check}
 %check
-%cargo_test
+# * There's a typo in the test assertion...
+%cargo_test -- -- --skip prepare_grammar::flatten_grammar::tests::test_flatten_grammar_with_recursive_inline_variable
 %endif
 
 %changelog

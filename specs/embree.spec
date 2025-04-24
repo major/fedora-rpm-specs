@@ -1,19 +1,20 @@
-%global         __cmake_in_source_build 1
-
-%global         with_snapshot   0
-#%%global       prerelease      beta
-#%%global       commit          40b9aca2668f443cae6bfbfa7cc5a354f1087011
-#%%global       shortcommit     %%(c=%%{commit}; echo ${c:0:7})
+# Build conditionals
 %bcond          ispc    1
 
 Name:           embree
-Version:        4.3.3
+Version:        4.4.0
 Release:        %autorelease
-Summary:        Collection of high-performance ray tracing kernels
+Summary:        High-performance ray tracing kernels
 
 License:        Apache-2.0
 URL:            https://embree.github.io
+# Snapshot build configuration (disabled by default)
+%global         with_snapshot   0
 %if %{with_snapshot}
+# Example snapshot variables (uncomment and modify as needed)
+#%%global       prerelease      beta
+#%%global       commit          40b9aca2668f443cae6bfbfa7cc5a354f1087011
+#%%global       shortcommit     %%(c=%%{commit}; echo ${c:0:7})
 Source:         https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
 %else
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -33,12 +34,13 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(OpenImageIO)
 BuildRequires:  pkgconfig(tbb)
 
-# Embree only supports these architectures with SSE2 and up enabled
+# Supported architectures with SIMD optimizations
 ExclusiveArch:  aarch64 x86_64
 
 %description
-A collection of high-performance ray tracing kernels intended to graphics 
-application engineers that want to improve the performance of their application.
+Embree provides high-performance ray tracing kernels optimized for modern CPUs,
+targeting graphics application engineers seeking to accelerate their rendering
+workloads.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -61,6 +63,7 @@ applications that use %{name}.
         -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
         -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+        -DCMAKE_SKIP_RPATH=ON \
         -DEMBREE_COMPACT_POLYS=ON \
         -DEMBREE_IGNORE_CMAKE_CXX_FLAGS=OFF \
 %if %{with ispc}
@@ -82,26 +85,25 @@ applications that use %{name}.
 %cmake_build
 
 %check
-%ctest
+%ctest --output-on-failure
 
 %install
 %cmake_install
 
-# Remove installers
-rm %{buildroot}%{_prefix}/%{name}-vars.{csh,sh}
+# Clean up installation
+rm -fv %{buildroot}%{_prefix}/%{name}-vars.{csh,sh}
+rm -frv %{buildroot}%{_prefix}/src \
+        %{buildroot}%{_bindir}/models \
+        %{buildroot}%{_bindir}/embree_*_tests
 
-# Relocate doc files
+# Organize documentation
 mv %{buildroot}%{_docdir}/%{name}4 %{buildroot}%{_docdir}/%{name}
 rm %{buildroot}%{_docdir}/%{name}/LICENSE.txt
-
-# Remove the testing products
-rm -r %{buildroot}%{_prefix}/src
-rm -r %{buildroot}%{_bindir}/models
-rm %{buildroot}%{_bindir}/embree_*
 
 %files
 %license LICENSE.txt
 %doc README.md CHANGELOG.md readme.pdf third-party-programs{,-TBB,-DPCPP,-OIDN,-oneAPI-DPCPP}.txt
+%{_bindir}/%{name}*
 %{_libdir}/lib%{name}4.so.4
 %{_mandir}/man3/*
 

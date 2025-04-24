@@ -232,25 +232,29 @@ touch -r %{S:1} %{buildroot}%{_bindir}/rpmautospec
 %endif
 %endif
 
-# And redo tests that are relevant for native bindings, but with the direct native wrappers.
+%if ! 0%{?rhel} || 0%{?rhel} >= 10
+# And redo tests that are relevant for native bindings, but with the direct native wrappers, but not
+# on EL <= 9 because the tests somehow run out of file descriptors.
 
 # Poison the official package names…
+mkdir -p poison-pill
 for mod in %wrapped_pkgs; do
-    echo "raise ImportError" > "${mod}.py"
+    echo "raise ImportError" > "poison-pill/${mod}.py"
+    if PYTHONPATH="$PWD/poison-pill:$PYTHONPATH" %__python3 -c "import ${mod}" 2>/dev/null; then
+        echo "Failed to poison-pill ${mod}!" >&2
+        exit 1
+    fi
 done
 
 %py3_test_envvars \
-PYTHONPATH="$PWD:$PYTHONPATH" \
+PYTHONPATH="$PWD/poison-pill:$PYTHONPATH" \
 %__pytest \
 %if %{with xdist}
 --numprocesses=auto \
 %endif
 %wrappers_relevant_tests
 
-# … and unpoison them again, just in case.
-for mod in %wrapped_pkgs; do
-    rm -f "${mod}.py"
-done
+%endif
 %endif
 
 %if %{without minimal}

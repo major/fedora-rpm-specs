@@ -6,6 +6,8 @@ Summary:        A static web gallery generator
 License:        GPL-2.0-or-later AND MIT
 URL:            https://sml.zincube.net/~niol/repositories.git/lazygal/about/
 Source0:        https://sml.zincube.net/~niol/repositories.git/lazygal/snapshot/lazygal-%{version}.tar.bz2
+# https://github.com/niol/lazygal/issues/20
+Patch0:         https://github.com/niol/lazygal/commit/2bf359fd534c0441074b7a90c78b214666517a95.patch#/lazygal-ffmpeg71.patch
 
 BuildArch:      noarch
 

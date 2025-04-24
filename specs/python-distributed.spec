@@ -8,8 +8,8 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2024.12.1
-%global tag     2024.12.1
+Version:        2025.3.0
+%global tag     2025.3.0
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
 %forgemeta
@@ -42,10 +42,11 @@ Patch:          0005-Skip-doc-test-when-not-running-from-a-git-checkout.patch
 # https://github.com/dask/distributed/issues/8701
 # https://github.com/dask/distributed/pull/8707
 Patch:          0006-Update-make_tls_certs.py-work-with-openssl-3-8701.patch
-# Drop this patch when we get pytest 8.
-Patch:          0007-Revert-test-changes-for-pytest-8.patch
 # Point the test at the uninstalled version.
-Patch:          0008-Avoid-using-sys.prefix-in-CLI-test.patch
+Patch:          0007-Avoid-using-sys.prefix-in-CLI-test.patch
+# Make sure scheduler knows what address to bind to
+# https://github.com/dask/distributed/pull/9051
+Patch:          0008-Return-a-default-value-if-address-resolution-fails.patch
 
 BuildArch:      noarch
 
@@ -104,11 +105,6 @@ clusters.
 
 %prep
 %forgeautosetup -p1
-
-%if %{with bootstrap}
-# patch out the dask dependency so we can bootstrap it
-sed -r -i '/(dask)[<=> ]+[0-9]+/d' pyproject.toml
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires

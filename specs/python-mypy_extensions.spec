@@ -1,8 +1,8 @@
 %global srcname mypy_extensions
 
 Name:           python-%{srcname}
-Version:        1.0.0
-Release:        9%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Extensions for mypy (separated out from mypy/extensions)
 
 License:        MIT
@@ -19,9 +19,7 @@ The "mypy_extensions" module defines experimental extensions to the standard\
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-%{srcname} %{_description}
 
@@ -31,20 +29,26 @@ Python 3 version.
 %autosetup -n %{srcname}-%{version}
 rm -vrf *.egg-info/
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
-%files -n python3-%{srcname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}.py
-%{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Tue Apr 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-1
+- 1.1.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

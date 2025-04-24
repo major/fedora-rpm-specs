@@ -1,11 +1,6 @@
-# Currently unavailable in EPEL
-%bcond plotly %{expr:!0%{?rhel}}
-
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
+# Add a BuildRequires on vtk merely for smoke-testing imports of VTK
+# integration modules? This does not enable additional tests.
+%bcond vtk_dep 0
 
 Name:           python-geomdl
 Version:        5.3.1
@@ -20,14 +15,10 @@ Summary:        Object-oriented pure Python B-Spline and NURBS library
 # The examples are maintained in a separate repository,
 # https://github.com/orbingol/geomdl-examples, which is not packaged here.
 #
-# Documentation is confined to the -doc subpackage.
-#
-# SPDX
-License:        MIT
-%global doc_license CC-BY-4.0
-SourceLicense:  %{license} AND %{doc_license}
+# While we no longer package a full Sphinx-generated manual, we consider the
+# documentation license to apply to files packaged as %%doc, *.md/*.rst.
+License:        MIT AND CC-BY-4.0
 URL:            https://onurraufbingol.com/NURBS-Python/
-# The GitHub tarball has documentation; the PyPI one does not.
 %global forgeurl https://github.com/orbingol/NURBS-Python
 Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
 
@@ -40,7 +31,18 @@ Patch:          geomdl-5.3.1-unconditional-Cython.patch
 # https://github.com/orbingol/NURBS-Python/pull/163
 Patch:          %{forgeurl}/pull/163.patch
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l geomdl
+BuildOption(generate_buildrequires): requirements.txt
+%if %{without vtk_dep}
+# Need python3dist(vtk) for geomdl.visualization.vtk_helpers, but it is not
+# worth adding the BuildRequires just for an import check.
+BuildOption(check):     %{shrink:
+                        -e geomdl.visualization.vtk_helpers
+                        -e geomdl.visualization.VisVTK
+                        }
+%endif
+
 BuildRequires:  gcc
 
 # Upstream uses weird tox environments for testing:
@@ -50,19 +52,10 @@ BuildRequires:  gcc
 # And even when everything works, the tox environment builds the extension again.
 # It also measures coverage.
 # Instead, we BuildRequire the only remaining tests dependency manually:
-BuildRequires:  python3dist(pytest)
-
-
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-# We don’t need python3dist(sphinx-rtd-theme) since we aren’t building HTML.
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-# For sphinx.ext.inheritance_diagram:
-BuildRequires:  graphviz
-# For index
-# BuildRequires:  /usr/bin/xindy
+BuildRequires:  %{py3_dist pytest}
+%if %{with vtk_dep}
+# Allow smoke-testing importability of VTK integration modules.
+BuildRequires:  %{py3_dist vtk}
 %endif
 
 %global common_description %{expand:
@@ -92,73 +85,29 @@ documentation (http://nurbs-python.readthedocs.io/) for more details.}
 %package -n     python3-geomdl
 Summary:        %{summary}
 
-Suggests:       python3-geomdl-doc = %{version}-%{release}
+# Removed for Fedora 43; we can drop the Obsoletes after Fedora 46
+Obsoletes:      python-geomdl-doc < 5.3.1-34
 
 %description -n python3-geomdl %{common_description}
 
 
-%if %{with doc}
-%package        doc
-Summary:        Documentation for geomdl
-# See the comment above the base package License field.
-License:        %{doc_license}
-
-BuildArch:      noarch
-
-%description    doc %{common_description}
-%endif
-
-
-%prep
-%autosetup -n NURBS-Python-%{version} -p1
+%prep -a
 # Allow newer versions in cases where exact versions are pinned.
 sed -r -i 's/==/>=/' requirements.txt
-%if %{without plotly}
-# Omit plotly; functionality in geomdl.visualization.VisPlotly will be
-# unavailable.
-sed -r -i 's/^(plotly)\b/# &/' requirements.txt
-%endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires requirements.txt
-
-
-%build
-%pyproject_wheel
-
-%if %{with doc}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l geomdl
-
-
-%check
+%check -a
 %pytest ${ignore-}
 
 
 %files -n python3-geomdl -f %{pyproject_files}
-# pyproject-rpm-macros handles the LICENSE file—verify with “rpm -qL -p …”—but
-# we also use an explicit “%%license LICENSE” because we want it in
-# %%{_licensedir} alongside citing.rst
-%license LICENSE docs/citing.rst
-%if %{without doc}
-%doc CHANGELOG.md CONTRIBUTORS.rst DESCRIPTION.rst README.rst
-%endif
-
-
-%if %{with doc}
-%files doc
-%license LICENSE docs/citing.rst
-%doc CHANGELOG.md CONTRIBUTORS.rst DESCRIPTION.rst README.rst
-%doc docs/_build/latex/NURBS-Python.pdf
-%endif
+# The LICENSE file is already handled in .dist-info, but citing.rst contains
+# important license information, too.
+%license docs/citing.rst
+%doc CHANGELOG.md
+%doc CONTRIBUTORS.rst
+%doc DESCRIPTION.rst
+%doc README.rst
 
 
 %changelog

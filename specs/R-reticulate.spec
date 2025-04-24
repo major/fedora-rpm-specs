@@ -1,5 +1,5 @@
 %global packname reticulate
-%global packver  1.20
+%global packver  1.42.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -11,14 +11,12 @@ Summary:          R Interface to 'Python'
 License:          Apache-2.0
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          %{url}&version=%{packver}#/%{packname}_%{packver}.tar.gz
-Patch0001:        0001-Skip-network-tests.patch
-Patch0002:        0002-rf-error.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-Matrix, R-Rcpp >= 0.12.7, R-graphics, R-jsonlite, R-methods, R-png, R-rappdirs, R-utils, R-withr
-# Suggests:  R-callr, R-knitr, R-rmarkdown, R-testthat
-# LinkingTo:
+# Imports:   R-Matrix, R-Rcpp >= 1.0.7, R-RcppTOML, R-graphics, R-here, R-jsonlite, R-methods, R-png, R-rappdirs, R-utils, R-rlang, R-withr
+# Suggests:  R-callr, R-knitr, R-glue, R-cli, R-rmarkdown, R-pillar, R-testthat
+# LinkingTo: R-Rcpp
 # Enhances:
 
 Requires:         python3
@@ -30,10 +28,11 @@ BuildRequires:    python3-numpy
 BuildRequires:    python3-pandas
 %endif
 BuildRequires:    R-devel
-BuildRequires:    tex(latex)
 BuildRequires:    R-Matrix
 BuildRequires:    R-Rcpp-devel >= 0.12.7
+BuildRequires:    R-RcppTOML
 BuildRequires:    R-graphics
+BuildRequires:    R-here
 BuildRequires:    R-jsonlite
 BuildRequires:    R-methods
 BuildRequires:    R-png
@@ -42,7 +41,10 @@ BuildRequires:    R-utils
 BuildRequires:    R-withr
 BuildRequires:    R-callr
 BuildRequires:    R-knitr
+BuildRequires:    R-glue
+BuildRequires:    R-cli
 BuildRequires:    R-rmarkdown
+BuildRequires:    R-pillar
 BuildRequires:    R-testthat
 # Test modules:
 BuildRequires:   python3dist(docutils)
@@ -62,10 +64,8 @@ values are returned from Python to R they are converted back to R types.
 %prep
 %setup -q -c -n %{packname}
 
-pushd %{packname}
-%patch -P0001 -p1
-%patch -P0002 -p1
-popd
+sed -i 's/# skip_if_offline/skip/' \
+    %{packname}/tests/testthat/test-python-source.R
 
 
 %build
@@ -81,7 +81,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%{_bindir}/R CMD check --ignore-vignettes --no-manual %{packname}
 
 
 %files

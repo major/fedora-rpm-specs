@@ -7,8 +7,8 @@
 %global srcname fedora_messaging
 
 Name:           %{pkgname}
-Version:        3.7.0
-Release:        2%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -97,7 +97,7 @@ install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir
 
 
 %files
-%license LICENSE
+%license LICENSES/GPL-2.0-or-later.txt
 %doc README.rst
 %dir %{_sysconfdir}/fedora-messaging/
 %config(noreplace) %{_sysconfdir}/fedora-messaging/config.toml
@@ -116,16 +116,19 @@ install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir
 %endif
 
 %files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
-%license LICENSE
+%license LICENSES/GPL-2.0-or-later.txt
 
 %if ! 0%{?rhel}
 %files doc
-%license LICENSE
+%license LICENSES/GPL-2.0-or-later.txt
 %doc README.rst docs/*.rst docs/_build/html docs/sample_schema_package
 %endif
 
 
 %changelog
+* Tue Apr 22 2025 Packit <hello@packit.dev> - 3.7.1-1
+- Update to version 3.7.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # This file is licensed under the terms of GNU GPLv2+.
 Name:           perl-Module-Runtime
-Version:        0.017
+Version:        0.018
 Release:        1%{?dist}
 Summary:        Runtime module handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 22 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.018-1
+- 0.018 bump
+
 * Mon Apr 07 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.017-1
 - 0.017 bump
 

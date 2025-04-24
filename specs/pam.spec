@@ -14,7 +14,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.7.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -145,7 +145,6 @@ cp %{SOURCE18} .
 %endif
   -Dlogind=disabled \
   -Dopenssl=enabled \
-  -Dpam_lastlog=enabled \
   -Dpam_userdb=enabled \
   -Ddb=gdbm \
   -Dselinux=enabled
@@ -232,6 +231,7 @@ find %{buildroot}%{_pkgdocdir} -type f | xargs chmod 644
 # Make sure every module subdirectory gave us a module.  Yes, this is hackish.
 for dir in modules/pam_* ; do
 if [ -d ${dir} ] ; then
+  [ ${dir} = "modules/pam_lastlog" ] && continue
   [ ${dir} = "modules/pam_selinux" ] && continue
   [ ${dir} = "modules/pam_sepermit" ] && continue
   [ ${dir} = "modules/pam_tty_audit" ] && continue
@@ -284,7 +284,6 @@ done
 %{_pam_moduledir}/pam_group.so
 %{_pam_moduledir}/pam_issue.so
 %{_pam_moduledir}/pam_keyinit.so
-%{_pam_moduledir}/pam_lastlog.so
 %{_pam_moduledir}/pam_limits.so
 %{_pam_moduledir}/pam_listfile.so
 %{_pam_moduledir}/pam_localuser.so
@@ -367,6 +366,11 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Tue Apr 22 2025 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.0-5
+* FSWC: Migrate to lastlog2
+  Link: <https://fedoraproject.org/wiki/Changes/Migrate_to_lastlog2>
+  Resolves: #2361594
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

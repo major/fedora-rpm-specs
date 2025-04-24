@@ -25,10 +25,11 @@ Release:        %autorelease
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # MPL-2.0+
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        (Apache-2.0 OR MIT) AND BSD-3-Clause AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain) AND (MIT OR Apache-2.0 OR Zlib) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND MPL-2.0 AND MPL-2.0+ AND (Unlicense OR MIT) AND Zlib AND Unlicense
+License:        (Apache-2.0 OR MIT) AND BSD-3-Clause AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain) AND (MIT OR Apache-2.0 OR Zlib) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND MPL-2.0 AND MPL-2.0+ AND Unicode-3.0 AND (Unlicense OR MIT) AND Zlib AND Unlicense
 Summary:        A post-modern modal text editor written in Rust
 URL:            https://helix-editor.com/
 # This tarball includes grammars because we can't download them at build time
@@ -294,13 +295,11 @@ A Kakoune / Neovim inspired editor, written in Rust.
 tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.70
 # Bump tree-sitter to version 0.23
 tomcli set Cargo.toml str workspace.dependencies.tree-sitter.version 0.23
-# Relax url lower bound
-tomcli set helix-core/Cargo.toml str dependencies.url 2.5.2
-tomcli set helix-lsp-types/Cargo.toml str dependencies.url.version 2.5.2
-tomcli set helix-term/Cargo.toml str dependencies.url 2.5.2
-tomcli set helix-view/Cargo.toml str dependencies.url 2.5.2
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
+# Bump pulldown-cmark to 0.13:
+# https://github.com/helix-editor/helix/commit/7275b7f85014aad7e15d4987ec4f2249572eecfb
+tomcli set helix-term/Cargo.toml str dependencies.pulldown-cmark.version 0.13
 
 # Rename license files for themes so they can be installed
 find runtime/themes/licenses -type f -exec /bin/sh -c 'cp -pav {} LICENSE-themes-$(basename {} .LICENSE)' \;

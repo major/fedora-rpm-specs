@@ -1,11 +1,10 @@
 Name:           perl-Mail-Box-POP3
-Version:        3.006
-Release:        5%{?dist}
+Version:        3.007
+Release:        1%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-POP3-%{version}.tar.gz
-Patch0:         Mail-Box-POP3-3.006-Use-IO-Socket-IP-to-support-IPv6.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -71,11 +70,16 @@ MARKOV_DEVEL=1 make test
 
 %files
 %doc ChangeLog README
-%{perl_vendorlib}/Mail
+%dir %{perl_vendorlib}/Mail
+%{perl_vendorlib}/Mail/Box
+%{perl_vendorlib}/Mail/Transport
 %{_mandir}/man3/Mail::Box*
 %{_mandir}/man3/Mail::Transport*
 
 %changelog
+* Tue Apr 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.007-1
+- 3.007 bump (rhbz#2361102)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.006-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

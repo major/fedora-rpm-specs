@@ -1,5 +1,5 @@
 Name:           persepolis
-Version:        5.0.2
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        A powerful download manager powered by aria2
 
@@ -13,8 +13,7 @@ BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  meson ninja-build
 BuildRequires:  libappstream-glib
-# libnotify is required for notify-send
-Requires:       libnotify pulseaudio-utils sound-theme-freedesktop
+Requires:       sound-theme-freedesktop
 Requires:       python3-pysocks python3-urllib3 python3-requests
 Requires:       python3-setproctitle python3-psutil
 %if 0%{?fedora} >= 41
@@ -22,7 +21,7 @@ Requires:       python3-pyside6 qt6-qtsvg
 %else
 Requires:       python3-qt5 qt5-qtsvg
 %endif
-Recommends:     yt-dlp ffmpeg-free
+Recommends:     yt-dlp ffmpeg-free python3-dasbus
 
 %description
 Persepolis is a download manager and a GUI for aria2 powered by Python.
@@ -68,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Tue Apr 22 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.1.0-1
+- New minor upstream release: 5.1.0
+
 * Mon Mar 31 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.0.2-1
 - New upstream release: 5.0.2
 

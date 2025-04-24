@@ -1,8 +1,8 @@
 %global         _firmwarepath    /usr/lib/firmware
 
 Name:           wireless-regdb
-Version:        2024.01.23
-Release:        3%{?dist}
+Version:        2025.02.20
+Release:        1%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
 License:        ISC
@@ -12,7 +12,7 @@ BuildArch:      noarch
 Requires:       udev, iw
 Requires:       systemd >= 190
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  systemd-devel
 
 Provides:       crda = 3.18_2019.03.01-3
@@ -31,7 +31,7 @@ with radio frequency regulatory rules around the world.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Tue Apr 22 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.02.20-1
+- Update to 2025.02.20
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.01.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

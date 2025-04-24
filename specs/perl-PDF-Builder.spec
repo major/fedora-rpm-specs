@@ -6,12 +6,14 @@
 %bcond_without perl_PDF_Builder_enables_optional_test
 # Fully support PNG images with a libpng library
 %bcond_without perl_PDF_Builder_enables_png
+# Fully support SVG images with SVGPDF library
+%bcond_without perl_PDF_Builder_enables_svg
 # Fully support TIFF images with libtiff library
 %bcond_without perl_PDF_Builder_enables_tiff
 
 Name:           perl-PDF-Builder
-Version:        3.026
-Release:        5%{?dist}
+Version:        3.027
+Release:        1%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -32,7 +34,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.26
+BuildRequires:  perl(:VERSION) >= 5.28
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -64,11 +66,15 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Math::Trig)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
+%if %{with perl_PDF_Builder_enables_svg}
+BuildRequires:  perl(SVGPDF) >= 0.087
+%endif
 %if %{with perl_PDF_Builder_enables_markdown}
 # Text::Markdown >= 1.000031 not used at tests
 %endif
 BuildRequires:  perl(Unicode::UCD)
 BuildRequires:  perl(vars)
+BuildRequires:  perl(version)
 # Tests:
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
@@ -77,7 +83,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Memory::Cycle) >= 1
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(version)
 %if %{with perl_PDF_Builder_enables_optional_test}
 # Optional tests:
 # For "gs" program
@@ -97,11 +102,14 @@ Requires:       perl(Compress::Zlib) >= 1
 Recommends:     perl(Graphics::TIFF) >= 19
 %endif
 %if %{with perl_PDF_Builder_enables_html}
-Recommends:  perl(HTML::TreeBuilder) >= 5.07
+Recommends:     perl(HTML::TreeBuilder) >= 5.07
 %endif
 %if %{with perl_PDF_Builder_enables_png}
 Recommends:     perl(Image::PNG::Const)
 Recommends:     perl(Image::PNG::Libpng) >= 0.57
+%endif
+%if %{with perl_PDF_Builder_enables_svg}
+Recommends:     perl(SVGPDF) >= 0.087
 %endif
 %if %{with perl_PDF_Builder_enables_markdown}
 Recommends:     perl(Text::Markdown) >= 1.000031
@@ -159,7 +167,8 @@ for F in \
 done
 # Correct EOLs
 perl -i -pe 's/\r$//' Changes CONTRIBUTING.md INFO/ACKNOWLEDGE.md \
-    INFO/Changes_2021 INFO/SPONSORS README.md
+    INFO/Changes_2021 INFO/Changes_2023 INFO/Prereq_fixes.md INFO/SPONSORS \
+    README.md
 # Help generators to recognize Perl scripts
 chmod +x t/*.t
 
@@ -188,7 +197,8 @@ make test
 %license LICENSE
 %doc Changes contrib CONTRIBUTING.md examples README.md tools
 %doc INFO/ACKNOWLEDGE.md INFO/CONVERSION INFO/DEPRECATED INFO/Changes*
-%doc INFO/KNOWN_INCOMP INFO/PATENTS INFO/RoadMap INFO/SPONSORS INFO/SUPPORT
+%doc INFO/KNOWN_INCOMP INFO/PATENTS INFO/Prereq_fixes.md INFO/RoadMap
+%doc INFO/SPONSORS INFO/SUPPORT
 %dir %{perl_vendorlib}/PDF
 %{perl_vendorlib}/PDF/Builder*
 %{_mandir}/man3/PDF::Builder*
@@ -197,6 +207,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 22 2025 Petr Pisar <ppisar@redhat.com> - 3.027-1
+- 3.027 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.026-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

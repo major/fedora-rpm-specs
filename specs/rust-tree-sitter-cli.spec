@@ -5,7 +5,7 @@
 %global crate tree-sitter-cli
 
 Name:           rust-tree-sitter-cli
-Version:        0.24.7
+Version:        0.25.3
 Release:        %autorelease
 Summary:        CLI tool for developing, testing, and using Tree-sitter parsers
 
@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
 # Manually created patch for downstream crate metadata changes
 # * Disable feature 'wasm'
+# * Downgrade 'similar' to the version available in Fedora
 Patch:          tree-sitter-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -34,17 +35,17 @@ Summary:        %{summary}
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # ISC
+# LGPL-3.0-or-later
 # MIT
 # MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
-# MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 MIT
                 AND (MIT OR Apache-2.0)
-                AND Unicode-DFS-2016
                 AND Apache-2.0
                 AND (Apache-2.0 OR BSL-1.0)
                 AND (Apache-2.0 OR MIT)
@@ -53,10 +54,13 @@ License:        %{shrink:
                 AND ISC
                 AND BSD-2-Clause
                 AND BSD-3-Clause
+                AND LGPL-3.0-or-later
                 AND LicenseRef-Fedora-Public-Domain
-                AND (MIT OR Apache-2.0 OR Zlib)
-                AND MPL-2.0
+                AND Unicode-3.0
+                AND Unicode-DFS-2016
                 AND (Unlicense OR MIT)
+                AND Zlib
+                AND (Zlib OR Apache-2.0 OR MIT)
                 }
 # LICENSE.dependencies contains a full license breakdown
 

@@ -5,7 +5,7 @@
 %global crate tree-sitter-loader
 
 Name:           rust-tree-sitter-loader
-Version:        0.24.7
+Version:        0.25.3
 Release:        %autorelease
 Summary:        Locates, builds, and loads tree-sitter grammars at runtime
 

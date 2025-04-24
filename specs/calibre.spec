@@ -96,6 +96,7 @@ BuildRequires:  python3-fonttools
 BuildRequires:  python3-zstd
 BuildRequires:  python3dist(xxhash)
 BuildRequires:  pykakasi
+BuildRequires:  mesa-libEGL
 
 %{?pyqt6_requires}
 # once ^^ %%pyqt5_requires is everywhere, can drop python-qt5 dep below -- rex

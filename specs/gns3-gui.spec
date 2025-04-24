@@ -4,7 +4,7 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.53
+Version:        2.2.54
 Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
@@ -42,7 +42,7 @@ sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 # Lower psutil>=5.8.0
-sed -i -r 's/psutil>=6.1.1/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=7.0.0/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
 sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
 
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Tue Apr 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-1
+- Update to 2.2.54
+
 * Wed Jan 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-1
 - Update to 2.2.53
 

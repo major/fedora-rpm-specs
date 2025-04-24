@@ -44,6 +44,8 @@ The %{name}-tools package contains tools about %{name}.
 
 %build
 ./autogen.sh
+# workaround for GCC 15
+CFLAGS="$CFLAGS -Wno-error=stringop-truncation"
 %configure
 %make_build
 

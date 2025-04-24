@@ -1,7 +1,7 @@
 %global upstreamname rocAL
 
-%global rocm_release 6.3
-%global rocm_patch 3
+%global rocm_release 6.4
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # mixing gcc and clang, some flags need to be removed
@@ -63,19 +63,19 @@ BuildRequires:  half-devel
 BuildRequires:  lmdb-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libsndfile-devel
-BuildRequires:  mivisionx-devel
+BuildRequires:  mivisionx-devel >= %{rocm_release}
 BuildRequires:  protobuf-devel
 BuildRequires:  pybind11-devel
-BuildRequires:  rocdecode-devel
-BuildRequires:  rocjpeg-devel
-BuildRequires:  rocm-cmake
+BuildRequires:  rocdecode-devel >= %{rocm_release}
+BuildRequires:  rocjpeg-devel >= %{rocm_release}
+BuildRequires:  rocm-cmake >= %{rocm_release}
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-omp-devel
-BuildRequires:  rocm-rpp-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-hip-devel >= %{rocm_release}
+BuildRequires:  rocm-omp-devel >= %{rocm_release}
+BuildRequires:  rocm-rpp-devel >= %{rocm_release}
+BuildRequires:  rocm-runtime-devel >= %{rocm_release}
+BuildRequires:  rocm-rpm-macros >= %{rocm_release}
 BuildRequires:  turbojpeg-devel
 
 # License info copied from the rapidjson spec
@@ -213,5 +213,8 @@ rm -rf %{buildroot}%{_datadir}/rocal/test
 %endif
 
 %changelog
+* Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Feb 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
 - Initial package

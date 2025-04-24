@@ -155,7 +155,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          5%{?with_debug:.debug}%{?dist}
+Release:          6%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -378,11 +378,14 @@ utilities.
 
 
 %package          -n %{pkgname}-client-utils
+BuildArch:        noarch
 Summary:          Non-essential client utilities for MariaDB/MySQL applications
-Requires:         %{pkgname}%{?_isa} = %{sameevr}
+Requires:         %{pkgname} = %{sameevr}
 Requires:         perl(DBI)
 
-%virtual_conflicts_and_provides client-utils
+# Only conflicts, provides would add %%{_isa} provides for noarch,
+# which is not wanted
+%conflict_with_other_streams client-utils
 
 %description      -n %{pkgname}-client-utils
 This package contains all non-essential client utilities and scripts for
@@ -475,9 +478,10 @@ MariaDB packages.
 
 %if %{with galera}
 %package          -n %{pkgname}-server-galera
+BuildArch:        noarch
 Summary:          The configuration files and scripts for galera replication
 Requires:         %{pkgname}-common = %{sameevr}
-Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-server = %{sameevr}
 Requires:         galera >= 26.4.3
 BuildRequires:    selinux-policy-devel
 Requires(post):   (libselinux-utils if selinux-policy-targeted)
@@ -488,7 +492,9 @@ Requires:         lsof
 # Default wsrep_sst_method
 Requires:         rsync
 
-%virtual_conflicts_and_provides server-galera
+# Only conflicts, provides would add %%{_isa} provides for noarch,
+# which is not wanted
+%conflict_with_other_streams galera
 
 %description      -n %{pkgname}-server-galera
 MariaDB is a multi-user, multi-threaded SQL database server. It is a
@@ -505,7 +511,7 @@ Summary:          The MariaDB server and related files
 Requires:         %{pkgname}%{?_isa} = %{sameevr}
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-errmsg = %{sameevr}
-Recommends:       %{pkgname}-server-utils%{?_isa} = %{sameevr}
+Recommends:       %{pkgname}-server-utils = %{sameevr}
 Recommends:       %{pkgname}-backup%{?_isa} = %{sameevr}
 %{?with_cracklib:Recommends:   %{pkgname}-cracklib-password-check%{?_isa} = %{sameevr}}
 %{?with_gssapi:Recommends:     %{pkgname}-gssapi-server%{?_isa} = %{sameevr}}
@@ -711,12 +717,15 @@ but still have them accessible for reading in MariaDB.
 
 
 %package          -n %{pkgname}-server-utils
+BuildArch:        noarch
 Summary:          Non-essential server utilities for MariaDB/MySQL applications
-Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-server = %{sameevr}
 # mysqlhotcopy needs DBI/DBD support
 Requires:         perl(DBI) perl(DBD::MariaDB)
 
-%virtual_conflicts_and_provides server-utils
+# Only conflicts, provides would add %%{_isa} provides for noarch,
+# which is not wanted
+%conflict_with_other_streams server-utils
 
 %{?with_conflicts_mysql:Conflicts: mysql-server}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
@@ -1543,24 +1552,30 @@ fi
 %files -n %{pkgname}-server
 
 %{_bindir}/aria_{chk,dump_log,ftdump,pack,read_log}
+%{_mandir}/man1/aria_{chk,dump_log,ftdump,pack,read_log}.1*
+
+%{_bindir}/myisam{chk,_ftdump,log,pack}
+%{_mandir}/man1/myisam{chk,_ftdump,log,pack}.1*
+
 %{_bindir}/mariadb-service-convert
-%{_bindir}/myisamchk
-%{_bindir}/myisam_ftdump
-%{_bindir}/myisamlog
-%{_bindir}/myisampack
-%{_bindir}/my_print_defaults
-
+%{_mandir}/man1/mariadb-service-convert.1*
 %{_bindir}/mariadb-conv
+%{_mandir}/man1/mariadb-conv.1*
+%{_bindir}/my_print_defaults
+%{_mandir}/man1/my_print_defaults.1*
 
-%{_bindir}/mysql_{install_db,secure_installation,tzinfo_to_sql}
-%{_bindir}/mariadb-{install-db,secure-installation,tzinfo-to-sql}
+%{_bindir}/mysql_{install_db,secure_installation,tzinfo_to_sql,upgrade}
+%{_mandir}/man1/mysql_{install_db,secure_installation,tzinfo_to_sql,upgrade}.1*
+%{_bindir}/mariadb-{install-db,secure-installation,tzinfo-to-sql,upgrade}
+%{_mandir}/man1/mariadb-{install-db,secure-installation,tzinfo-to-sql,upgrade}.1*
 %{_bindir}/{mysqld_,mariadbd-}safe
+%{_mandir}/man1/{mysqld_,mariadbd-}safe.1*
 %{_bindir}/{mysqld_safe_helper,mariadbd-safe-helper}
+%{_mandir}/man1/{mysqld_safe_helper,mariadbd-safe-helper}.1*
 
-%{_bindir}/innochecksum
-%{_bindir}/replace
-%{_bindir}/resolve_stack_dump
-%{_bindir}/resolveip
+%{_bindir}/{innochecksum,perror,replace,resolve_stack_dump,resolveip}
+%{_mandir}/man1/{innochecksum,perror,replace,resolve_stack_dump,resolveip}.1*
+
 %if %{with galera}
 # wsrep_sst_common should be moved to /usr/share/mariadb: https://jira.mariadb.org/browse/MDEV-14296
 %{_bindir}/wsrep_*
@@ -1584,8 +1599,10 @@ fi
 %{_sbindir}/mariadbd
 %{_libexecdir}/{mysqld,mariadbd}
 
-%{_libdir}/%{majorname}/INFO_SRC
-%{_libdir}/%{majorname}/INFO_BIN
+%{_mandir}/man1/mysql.server.1*
+%{_mandir}/man8/{mysqld,mariadbd}.8*
+
+%{_libdir}/%{majorname}/INFO_{SRC,BIN}
 %if %{without common}
 %dir %{_datadir}/%{majorname}
 %endif
@@ -1610,29 +1627,6 @@ fi
 %exclude %{_libdir}/%{majorname}/plugin/{auth_pam_v1.so,auth_pam.so}
 %exclude %dir %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir
 %exclude %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir/auth_pam_tool
-
-%{_mandir}/man1/aria_{chk,dump_log,ftdump,pack,read_log}.1*
-%{_mandir}/man1/mariadb-service-convert.1*
-%{_mandir}/man1/myisamchk.1*
-%{_mandir}/man1/myisamlog.1*
-%{_mandir}/man1/myisampack.1*
-%{_mandir}/man1/myisam_ftdump.1*
-%{_mandir}/man1/my_print_defaults.1*
-
-%{_mandir}/man1/mariadb-conv.1*
-
-%{_mandir}/man1/mysql_{install_db,secure_installation,tzinfo_to_sql}.1*
-%{_mandir}/man1/mariadb-{install-db,secure-installation,tzinfo-to-sql}.1*
-%{_mandir}/man1/{mysqld_,mariadbd-}safe.1*
-%{_mandir}/man1/{mysqld_safe_helper,mariadbd-safe-helper}.1*
-
-%{_mandir}/man1/innochecksum.1*
-%{_mandir}/man1/replace.1*
-%{_mandir}/man1/resolveip.1*
-%{_mandir}/man1/resolve_stack_dump.1*
-%{_mandir}/man8/{mysqld,mariadbd}.8*
-
-%{_mandir}/man1/mysql.server.1*
 
 %{_datadir}/%{majorname}/mini-benchmark
 %{_datadir}/%{majorname}/fill_help_tables.sql
@@ -1770,11 +1764,6 @@ fi
 %{_mandir}/man1/mysql{_convert_table_format,dumpslow,_fix_extensions,hotcopy,_setpermission}.1*
 %{_mandir}/man1/mariadb-{convert-table-format,dumpslow,fix-extensions,hotcopy,setpermission}.1*
 %{_mandir}/man1/{mysqld_,mariadbd-}multi.1*
-# Utilities that can be used remotely
-%{_bindir}/{mysql_,mariadb-}upgrade
-%{_bindir}/perror
-%{_mandir}/man1/{mysql_,mariadb-}upgrade.1*
-%{_mandir}/man1/perror.1*
 
 %if %{with devel}
 %files -n %{pkgname}-devel
@@ -1822,6 +1811,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 22 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-6
+- Bump release for package rebuild
+
 * Mon Apr 07 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-5
 - Bump release for package rebuild
 

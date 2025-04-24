@@ -12,16 +12,18 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2024.12.1
-%global tag     2024.12.1
+Version:        2025.3.0
+%global tag     2025.3.0
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
 License:        BSD-3-Clause
 URL:            https://github.com/dask/dask
 Source0:        %{pypi_source %{srcname}}
-# Fedora-specific patch.
+# Fedora-specific patches.
 Patch:          0001-Remove-extra-test-dependencies.patch
+# https://github.com/dask/dask/pull/11892
+Patch:          0002-XFAIL-test-if-NotImplementedError-is-raised.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -65,6 +67,9 @@ Recommends:     python3-%{srcname}+distributed = %{version}-%{release}
 %endif
 # No recent enough Bokeh is packaged
 Obsoletes:      python3-%{srcname}+diagnostics < 2022.5.0-1
+# dask-expr is part of dask since version 2025.1.0
+Obsoletes:      python3-dask-expr < 2025.1.0
+Obsoletes:      python3-dask-expr+analyze < 2025.1.0
 
 # There is nothing that can be unbundled; there are some some snippets forked
 # or copied from unspecified versions of numpy, under a BSD-3-Clause license
@@ -163,10 +168,9 @@ pytest_args=(
   # we'd like to see exactly which tests fail.
   --timeout_method=signal
 
-  --pyargs dask
+  --import-mode=importlib
 )
 
-cd docs
 %{pytest} "${pytest_args[@]}"
 
 %files -n python3-%{srcname} -f %{pyproject_files}

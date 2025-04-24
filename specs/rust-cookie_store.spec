@@ -109,18 +109,6 @@ use the "serde_json" feature of the "%{crate}" crate.
 %files       -n %{name}+serde_json-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde_ron-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde_ron-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde_ron" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde_ron-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

@@ -1,6 +1,6 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 20.1.2
+%global llvm_test_suite_version 20.1.3
 #global rc_ver 3
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:-rc%{rc_ver}}.src.fedora
 
@@ -9,7 +9,7 @@ Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
 Release:	1%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
-License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-CRC32 AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
+License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
 URL:		http://llvm.org
 # The LLVM Test Suite contains programs with "BAD" or unknown licenses which should
 # be removed.  Some of the unknown licenses may be OK, but until they are reviewed,
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Tue Apr 22 2025 Nikita Popov <npopov@redhat.com> - 20.1.3-1
+- Update to LLVM 20.1.3
+
 * Thu Apr 03 2025 Nikita Popov <npopov@redhat.com> - 20.1.2-1
 - Update to LLVM 20.1.2
 

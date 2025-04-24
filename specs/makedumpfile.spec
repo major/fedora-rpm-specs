@@ -1,15 +1,14 @@
 %global eppic_ver 63c2a2072464d774097a1a6cc1d2e98290f89c49
 %global eppic_shortver %(c=%{eppic_ver}; echo ${c:0:7})
 Name: makedumpfile
-Version: 1.7.6
+Version: 1.7.7
 Summary: make a small dumpfile of kdump
-Release: 4%{?dist}
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
 Source0: https://github.com/makedumpfile/makedumpfile/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/lucchouina/eppic/archive/%{eppic_ver}/eppic-%{eppic_shortver}.tar.gz
-Patch1: 0001-PATCH-fix-gcc-15-compiling-error-too-many-arguments-.patch
 
 Conflicts: kexec-tools < 2.0.28-5
 BuildRequires: make
@@ -58,6 +57,10 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Tue Apr 22 2025 Packit <hello@packit.dev> - 1.7.7-1
+- Update to version 1.7.7
+- Resolves: rhbz#2361565
+
 * Thu Feb 20 2025 Coiby Xu <coxu@redhat.com> - 1.7.6-4
 - update to upstream eppic
 

@@ -6,7 +6,7 @@
 %global crate gufo-png
 
 Name:           rust-gufo-png
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Data structure for PNG images
 

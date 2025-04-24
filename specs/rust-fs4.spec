@@ -5,7 +5,7 @@
 %global crate fs4
 
 Name:           rust-fs4
-Version:        0.9.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        No libc, pure Rust cross-platform file locks
 
@@ -68,28 +68,52 @@ use the "async-std" feature of the "%{crate}" crate.
 %files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fs-err-devel
+%package     -n %{name}+fs-err2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fs-err-devel %{_description}
+%description -n %{name}+fs-err2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fs-err" feature of the "%{crate}" crate.
+use the "fs-err2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fs-err-devel
+%files       -n %{name}+fs-err2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fs-err-tokio-devel
+%package     -n %{name}+fs-err2-tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fs-err-tokio-devel %{_description}
+%description -n %{name}+fs-err2-tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fs-err-tokio" feature of the "%{crate}" crate.
+use the "fs-err2-tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fs-err-tokio-devel
+%files       -n %{name}+fs-err2-tokio-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err3-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err3-tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err3-tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err3-tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err3-tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sync-devel

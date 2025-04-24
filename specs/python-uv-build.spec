@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.6.14
+Version:        0.6.16
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -18,6 +18,7 @@ Summary:        The uv build backend
 #   - pubgrub/version-ranges, Source200, is MPL-2.0.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
 # 0BSD OR MIT OR Apache-2.0
@@ -27,16 +28,14 @@ Summary:        The uv build backend
 # Apache-2.0 OR MIT
 # Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSL-1.0
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 OR BSD-2-Clause) AND
@@ -51,9 +50,9 @@ License:        %{shrink:
                 (Apache-2.0 OR MIT-0)
                 (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
                 BSD-3-Clause AND
-                BSL-1.0 AND
                 MIT AND
                 (MIT OR Unlicense) AND
+                Unicode-3.0 AND
                 Unicode-DFS-2016 AND
                 Zlib
                 }

@@ -20,6 +20,7 @@ BuildRequires:	qt6-qtdeclarative-devel
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	pkgconfig(iso-codes)
 
+Requires:	iso-codes
 Requires:	kf6-filesystem
 
 %description

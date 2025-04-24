@@ -1,13 +1,10 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.121
-Release:	6%{?dist}
+Version:	3.3.122
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
-Patch0:		gtkwave-3.3.121-appdata.patch
-Patch1:		gtkwave-3.3.121-gcc15.patch
-Patch2:		gtkwave-gtk3-3.3.121-tcl9.patch
 BuildRequires:	bzip2-devel
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
@@ -55,18 +52,6 @@ tools.
 %prep
 %setup -q -n gtkwave-gtk3-%{version}
 
-# Fix broken appdata file
-# https://github.com/gtkwave/gtkwave/pull/387
-%patch -P 0
-
-# Port to gcc 15
-# https://github.com/gtkwave/gtkwave/pull/406
-%patch -P 1
-
-# Port to tcl9
-# https://github.com/gtkwave/gtkwave/pull/407
-%patch -P 2
-
 %build
 %configure \
 	--disable-dependency-tracking \
@@ -75,13 +60,10 @@ tools.
 	--enable-judy \
 	--with-gsettings \
 	--with-tirpc
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install \
-	DESTDIR=%{buildroot} \
-	pkgdatadir=%{_pkgdocdir} \
-	INSTALL="install -p"
+%{make_install} pkgdatadir=%{_pkgdocdir}
 
 # Icons and desktop entry
 desktop-file-install --vendor "" --dir %{buildroot}%{_datadir}/applications \
@@ -212,6 +194,32 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Tue Apr 22 2025 Paul Howarth <paul@city-fan.org> - 3.3.122-1
+- Update to 3.3.122
+  - Buffer warning fix in fstVcdIDForFwrite
+  - Warning fixes in vzt_read.c and fstapi.c.
+  - Prototype fixes for port to gcc15
+  - Fixes for tcl9 compatibility
+  - Added fixes for --saveonexit command line option
+  - Fix for convert_real for TR_REAL traces
+  - Fix for popen_san() in vcd2fst using fsdb binaries
+  - Added fstWriterGetFlushContextPending() to fstapi.c/.h
+  - Reenable wayland code for primary and baseline markers in wavewindow.c
+  - Unnamed scope fix for fstReader
+  - Opaque pointer warning fix for fstapi.c
+  - Remove broken pseudo-2D array support in fst.c
+  - Fix in fst.c for signals whose MSB/LSB/len mismatch
+  - libfst #15: fstReaderOpen should not fail on empty FST file
+  - Fix crash introduced in 3.3.120 with legacy VCD loader caused by
+    "Fix case of missing newline at EOF for VCD loaders"
+  - Fix fstminer not handling string transitions correctly (GH#423)
+  - Fix in fst.c for duplicate string values
+  - Remove duplicate string values from adjacent value changes
+  - libghw: Add from upstream for ghdl_rtik_type_i64
+  - Fix inconsistent handling of invalid vector bounds in VCD and FST loaders
+    (GH#428)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Mar  1 2025 Paul Howarth <paul@city-fan.org> - 3.3.121-6
 - Add dependency on gdk-pixbuf2-modules-extra, needed for XPM support on
   F-41, EL-10 onwards

@@ -1,10 +1,16 @@
 Name:           perl-RPM2
 Version:        1.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Perl bindings for the RPM Package Manager API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/RPM2
 Source0:        https://cpan.metacpan.org/authors/id/L/LK/LKUNDRAK/RPM2-%{version}.tar.gz
+# Adapt to RPM 6, bug #2361571, proposed to upstream,
+# <https://github.com/lkundrak/perl-RPM2/pull/2>
+Patch0:         RPM2-1.4-Adapt-tests-to-RPM-6.patch
+# Fix a crash in RPM plugins, proposed to upstream,
+# <https://github.com/lkundrak/perl-RPM2/pull/3>
+Patch1:         RPM2-1.4-Fix-a-crash-in-RPM-plugins-on-add_package.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -51,11 +57,15 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/RPM2*
-%{_mandir}/man3/*
+%{perl_vendorarch}/auto/RPM2
+%{perl_vendorarch}/RPM2.pm
+%{_mandir}/man3/RPM2.*
 
 %changelog
+* Tue Apr 22 2025 Petr Pisar <ppisar@redhat.com> - 1.4-31
+- Adapt to RPM 6 (bug #2361571)
+- Fix a crash in RPM plugins (upstream PR #3)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.53
-Release:        4%{?dist}
+Version:        2.2.54
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -28,7 +28,7 @@ BuildRequires: make
 
 Requires(post): edk2-ovmf
 Recommends: docker busybox util-linux-script
-Recommends: qemu-kvm
+Recommends: qemu-kvm swtpm
 Requires: ubridge >= 0.9.14
 Requires: cpulimit
 
@@ -54,10 +54,10 @@ Requires: %{name} = %{version}-%{release}
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=6.1.1/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=7.0.0/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=24.1.0,<25.0/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/aiohttp>=3.10.10,<3.11/aiohttp>=3.9.3/' requirements.txt
-sed -i -r 's/Jinja2>=3.1.5,<3.2/jinja2>=2.11.3/' requirements.txt
+sed -i -r 's/aiohttp>=3.10.11,<3.11/aiohttp>=3.9.3/' requirements.txt
+sed -i -r 's/Jinja2>=3.1.6,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/platformdirs>=2.4.0,<3/platformdirs>=2.4.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
@@ -146,6 +146,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Apr 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-1
+- Update to 2.2.54
+
 * Thu Mar 20 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-4
 - depend on async-timeout only for Python releases older than 3.11
 - https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout

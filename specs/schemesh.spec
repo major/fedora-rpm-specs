@@ -1,8 +1,9 @@
+%global chezschemeversion %(%{_bindir}/scheme --version 2>&1)
 %global forgeurl https://github.com/cosmos72/schemesh
 
 Name:    schemesh
 Version: 0.8.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
 %forgemeta
@@ -10,15 +11,16 @@ License: GPL-2.0-or-later
 URL:     %{forgeurl}
 Source0: %{forgesource}
 
-Requires: chez-scheme
-
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: chez-scheme
 BuildRequires: chez-scheme-devel
 BuildRequires: lz4-devel
 BuildRequires: ncurses-devel
 BuildRequires: libuuid-devel
 BuildRequires: zlib-devel
+
+Requires: chez-scheme%{?_isa} = %{chezschemeversion}
 
 %description
 Schemesh is an interactive shell scriptable in Lisp.
@@ -52,6 +54,9 @@ time ./schemesh_test
 %{_libdir}/schemesh/
 
 %changelog
+* Tue Apr 22 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.3-3
+- Require the version of chez-scheme that it is built against
+
 * Fri Apr 18 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.3-2
 - Added missing runtime requires on chez-scheme
 

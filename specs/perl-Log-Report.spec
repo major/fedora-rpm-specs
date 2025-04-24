@@ -2,8 +2,8 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.39
-Release:        2%{?dist}
+Version:        1.40
+Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -48,7 +48,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Sys::Syslog) >= 0.27
 # Time::HiRes not used at tests
-BuildRequires:  perl(vars)
 BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 # Tests:
@@ -225,22 +224,20 @@ make test
 %files
 # README is a subset of README.md
 %doc ChangeLog README.md
-%{perl_vendorlib}/*
-%exclude %{perl_vendorlib}/Dancer
-%exclude %{perl_vendorlib}/Dancer2
+%dir %{perl_vendorlib}/Log
+%{perl_vendorlib}/Log/Report
+%{perl_vendorlib}/Log/Report.pod
+%{perl_vendorlib}/Log/Report.pm
 %exclude %{perl_vendorlib}/Log/Report/DBIC
 %exclude %{perl_vendorlib}/Log/Report/Dispatcher/Log4perl.*
 %exclude %{perl_vendorlib}/Log/Report/Dispatcher/LogDispatch.*
 %exclude %{perl_vendorlib}/Log/Report/Dispatcher/Syslog.*
-%exclude %{perl_vendorlib}/MojoX
-%{_mandir}/man3/*
-%exclude %{_mandir}/man3/Dancer::*
-%exclude %{_mandir}/man3/Dancer2::*
+%{_mandir}/man3/Log::Report.*
+%{_mandir}/man3/Log::Report::*
 %exclude %{_mandir}/man3/Log::Report::DBIC::Profiler.*
 %exclude %{_mandir}/man3/Log::Report::Dispatcher::Log4perl.*
 %exclude %{_mandir}/man3/Log::Report::Dispatcher::LogDispatch.*
 %exclude %{_mandir}/man3/Log::Report::Dispatcher::Syslog.*
-%exclude %{_mandir}/man3/MojoX::Log::Report.*
 
 %files Dancer
 %{perl_vendorlib}/Dancer
@@ -274,6 +271,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 22 2025 Petr Pisar <ppisar@redhat.com> - 1.40-1
+- 1.40 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

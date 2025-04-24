@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass
 %global goipath         github.com/gopasspw/gopass
-Version:                1.15.15
+Version:                1.15.16
 
 %gometa -L -f
 
@@ -33,7 +33,6 @@ Requires:       gnupg2
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

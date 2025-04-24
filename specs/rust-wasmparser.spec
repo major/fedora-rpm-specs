@@ -7,7 +7,7 @@
 %global crate wasmparser
 
 Name:           rust-wasmparser
-Version:        0.217.0
+Version:        0.224.0
 Release:        %autorelease
 Summary:        Simple event-driven library for parsing WebAssembly binary files
 
@@ -57,6 +57,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+component-model-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+component-model-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "component-model" feature of the "%{crate}" crate.
+
+%files       -n %{name}+component-model-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+features-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -69,16 +81,28 @@ use the "features" feature of the "%{crate}" crate.
 %files       -n %{name}+features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+no-hash-maps-devel
+%package     -n %{name}+hash-collections-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+no-hash-maps-devel %{_description}
+%description -n %{name}+hash-collections-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "no-hash-maps" feature of the "%{crate}" crate.
+use the "hash-collections" feature of the "%{crate}" crate.
 
-%files       -n %{name}+no-hash-maps-devel
+%files       -n %{name}+hash-collections-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+prefer-btree-collections-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+prefer-btree-collections-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "prefer-btree-collections" feature of the "%{crate}" crate.
+
+%files       -n %{name}+prefer-btree-collections-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -91,6 +115,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+simd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+simd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "simd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+simd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

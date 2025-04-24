@@ -1,9 +1,9 @@
 %bcond_without check
 %global cargo_install_lib  0
-%global envision_version   3.1.0
+%global envision_version   3.1.1
 %global forgeurl           https://gitlab.com/gabmus/envision
 %global tag                %{envision_version}
-%global date               20250408
+%global date               20250422
 %forgemeta
 
 # prevent library files from being installed

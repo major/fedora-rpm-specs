@@ -1,18 +1,16 @@
 # remirepo/fedora spec file for php-sabre-vobject4
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without       tests
 
-# For compatibility with SCL
-%undefine __brp_mangle_shebangs
 
-%global gh_commit    900266bb3bd448a9f7f41f82344ad0aba237cb27
+%global gh_commit    ff22611a53782e90c97be0d0bc4a5f98a5c0a12c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   vobject
@@ -20,8 +18,8 @@
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.5.6
-Release:        2%{?dist}
+Version:        4.5.7
+Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
 License:        BSD-3-Clause
@@ -45,7 +43,7 @@ BuildRequires:  php-xml
 #        "friendsofphp/php-cs-fixer": "^2.17.1",
 #        "phpunit/phpunit" : "^7.5 || ^8.5 || ^9.6",
 #        "phpunit/php-invoker" : "^2.0 || ^3.1",
-#        "phpstan/phpstan": "^0.12 || ^1.11"
+#        "phpstan/phpstan": "^0.12 || ^1.12 || ^2.0"
 BuildRequires:  phpunit9 >= 9.6
 %global phpunit %{_bindir}/phpunit9
 %endif
@@ -168,6 +166,10 @@ exit $ret
 %endif
 
 %changelog
+* Fri Apr 18 2025 Remi Collet <remi@remirepo.net> - 4.5.7-1
+- update to 4.5.7
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

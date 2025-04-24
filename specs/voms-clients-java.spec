@@ -1,11 +1,11 @@
 Name:		voms-clients-java
 Version:	3.3.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
-URL:		https://wiki.italiangrid.it/VOMS
-Source0:	https://github.com/italiangrid/voms-clients/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:		https://github.com/italiangrid/voms-clients
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -43,7 +43,6 @@ voms-proxy-init, voms-proxy-destroy and voms-proxy-info.
 
 # Remove maven-javadoc-plugin configuration
 # We are not building the javadoc for this package
-# And its presence causes the EPEL 8 build to fail
 %pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin
 
 # Do not create source jars
@@ -164,6 +163,9 @@ fi
 %license LICENSE
 
 %changelog
+* Tue Apr 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-2
+- Update URL tag
+
 * Sat Apr 19 2025 Mattias Ellert  <mattias.ellert@physics.uu.se> - 3.3.5-1
 - Update to version 3.3.5
 

@@ -1,11 +1,11 @@
 Name:		voms-api-java
 Version:	3.3.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
-URL:		https://wiki.italiangrid.it/VOMS
-Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:		https://github.com/italiangrid/%{name}
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -70,6 +70,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Tue Apr 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-2
+- Update URL tag
+
 * Thu Apr 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-1
 - Update to version 3.3.5
 - Do not run tests

@@ -8,8 +8,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.2.16
-Release:        4%{?dist}
+Version:        10.2.17
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,9 +17,6 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-Patch0001:      0001-schema-Allow-C-as-a-valid-locale.patch
-Patch0002:      0002-Fix-bundle-extension-for-container-types.patch
-Patch0003:      0003-Add-support-for-filtering-out-files-from-the-ESP-ima.patch
 
 # Proposed upstream
 
@@ -619,6 +616,10 @@ fi
 
 
 %changelog
+* Tue Apr 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.17-1
+- Update to 10.2.17
+- Drop all upstream patches
+
 * Wed Apr 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.16-4
 - Add kiwi-image:oci provides for OBS compatibility
 - Backport fix for filename extension for container images

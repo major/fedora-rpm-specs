@@ -1,25 +1,26 @@
 %global gitexecdir %{_libexecdir}/git-core
 
 Name:           git-filter-repo
-Version:        2.38.0
-Release:        9%{?dist}
+Version:        2.47.0
+Release:        %autorelease
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
 License:        GPL-2.0-only OR MIT
 Group:          Development/Tools/Version Control
 Url:            https://github.com/newren/git-filter-repo
 #
 Source0:        https://github.com/newren/git-filter-repo/releases/download/v%{version}/%{name}-%{version}.tar.xz
-Patch0:         https://github.com/newren/git-filter-repo/pull/526.patch#/%{name}-support-git-2_43.diff
-# Some expected packed sizes in this test are off by two
-Patch1:         %{name}-fix-t9390-t41.diff
+#
+Patch0:         git-filter-repo-metadata.patch
 #
 BuildArch:      noarch
 #
 BuildRequires:  git-core >= 2.26.0
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 # test deps
+BuildRequires:  python3-tox
 BuildRequires:  perl-interpreter
 BuildRequires:  rsync
 #
@@ -45,24 +46,19 @@ find -type f -exec sed -i '1s=^#!%{_bindir}/\(python\|env python\)[23]\?=#!%{_bi
 # Fix shebang print_my_version(); it affects the --version output
 sed -Ei "s=#!/usr/bin/env python3=#!%{_bindir}/python3=" %{name} git_filter_repo.py
 
-# Create setup.{cfg,py} to ensure we have egg-info for generating dependencies
-sed -e '/^setup_requires = setuptools_scm$/d' release/setup.cfg >setup.cfg
-
-cat <<'EOF' >setup.py
-from setuptools import setup
-setup(name="%{name}", version="%{version}",
-      entry_points={'console_scripts': ['%{name} = git_filter_repo:main']})
-EOF
-
 # Fix links to git docs since we don't install git-filter-repo.html into the
 # git htmldir
 sed -Ei 's,(a href=")(git),\1%{_docdir}/git/\2,g' Documentation/html/git-filter-repo.html
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install -- --install-scripts %{gitexecdir}
+%pyproject_install
+
+# Move to right directory, looks like you can't specify the bindir
+install -d -m 0755 %{buildroot}%{gitexecdir}
+mv %{buildroot}%{_bindir}/git-filter-repo %{buildroot}%{gitexecdir}
 
 install -d -m 0755 %{buildroot}%{_mandir}/man1
 install -m 0644 Documentation/man1/git-filter-repo.1 %{buildroot}%{_mandir}/man1/git-filter-repo.1
@@ -75,97 +71,8 @@ t/run_tests
 %doc README.md Documentation/*.md Documentation/html/*.html contrib/filter-repo-demos
 %{gitexecdir}/git-filter-repo
 %pycached %{python3_sitelib}/git_filter_repo.py
-%{python3_sitelib}/git_filter_repo-%{version}-*.egg-info/
+%{python3_sitelib}/git_filter_repo-%{version}.dist-info/
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.38.0-7
-- Rebuilt for Python 3.13
-
-* Wed Mar 13 2024 Michel Lind <salimma@fedoraproject.org> - 2.38.0-6
-- Apply PR#526 to support Git 2.43.0
-- Fix one test where some expected packed sizes are off by two bytes
-- Resolves: rhbz#2261155
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.38.0-2
-- Rebuilt for Python 3.12
-
-* Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 2.38.0-1
-- Update to version 2.38.0
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Sep 23 2022 Todd Zullinger <tmz@pobox.com> - 2.34.0-5
-- improve python provides
-- require git-core rather than git
-- include additional documentation
-- run the test suite
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.34.0-3
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Dec 23 2021 Andreas Schneider <asn@redhat.com> - 2.34.0-1
-- Update to version 2.34.0
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.29.0-3
-- Rebuilt for Python 3.10
-
-* Mon Mar 15 2021 Andreas Schneider <asn@redhat.com> - 0.29.0-1
-- Update to version 2.29.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Aug 06 2020 Andreas Schneider <asn@redhat.com> - 2.28.0-1
-- Update to version 2.28.0
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.27.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 02 2020 Andreas Schneider <asn@redhat.com> - 2.27.0-1
-- Update to version 2.27.0
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.25.0-5
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Andreas Schneider <asn@redhat.com> - 2.25.0-4
-- Add missing BR for python3-rpm-macros
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 21 2020 Andreas Schneider <asn@redhat.com> - 2.25.0-1
-- Update to version 2.25.0
-- Fix installation to python3 sitelib
-
-* Fri Dec 20 2019 Andreas Schneider <asn@redhat.com> - 2.24.0-2
-- Fixed source tarball permissions
-- Fixed souperfluous space in Summary
-
-* Thu Dec 19 2019 Andreas Schneider <asn@redhat.com> - 2.24.0-1
-- Initial version 2.24.0
+%autochangelog

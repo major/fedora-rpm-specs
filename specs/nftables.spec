@@ -1,15 +1,15 @@
 Name:           nftables
-Version:        1.1.1
-Release:        4%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
-Summary:        Netfilter Tables userspace utilites
+Summary:        Netfilter Tables userspace utilities
 
 License:        GPL-2.0-only
 URL:            https://netfilter.org/projects/nftables/
 Source0:        %{url}/files/%{name}-%{version}.tar.xz
 Source1:        %{url}/files/%{name}-%{version}.tar.xz.sig
-SOURCE2:        coreteam-gpg-key-0xD55D978A8A1420E4.txt
+SOURCE2:        coreteam-gpg-key-0xD70D1A666ACF2B21.txt
 Source3:        nftables.service
 Source4:        nftables.conf
 Source5:        main.nft
@@ -26,7 +26,7 @@ BuildRequires: flex
 BuildRequires: bison
 BuildRequires: pkgconfig(libmnl) >= 1.0.4
 BuildRequires: gmp-devel
-BuildRequires: pkgconfig(libnftnl) >= 1.2.8
+BuildRequires: pkgconfig(libnftnl) >= 1.2.9
 BuildRequires: systemd
 BuildRequires: asciidoc
 BuildRequires: pkgconfig(xtables) >= 1.6.1
@@ -144,6 +144,11 @@ cd py/
 %{_unitdir}/nftables.service
 
 %changelog
+* Tue Apr 22 2025 Phil Sutter <psutter@redhat.com> - 1:1.1.3-1
+- New version 1.1.3
+- Upstream changed GPG key, cache new pubkey
+- Fix typo in package summary line
+
 * Fri Apr 04 2025 Phil Sutter <psutter@redhat.com> - 1:1.1.1-4
 - nftables-services split-off
 - Build python3-nftables as noarch, it does not contain binaries

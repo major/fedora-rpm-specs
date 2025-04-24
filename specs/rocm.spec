@@ -1,99 +1,104 @@
+%global rocm_release 6.4
+%global rocm_patch 0
+%global rocm_version %{rocm_release}.%{rocm_patch}
+
 Name:           rocm
-Version:        6.3.3
-Release:        3%{?dist}
+Version:        %{rocm_version}
+Release:        1%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
 Source0:        License.txt
 
+BuildArch: noarch
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
 
-Requires: amdsmi
-Requires: hipblas
-Requires: hipblaslt
+Requires: amdsmi >= %{rocm_release}
+Requires: hipblas >= %{rocm_release}
+Requires: hipblaslt >= %{rocm_release}
 Requires: hipcc
-Requires: hipfft
-Requires: hiprand
-Requires: hipsolver
-Requires: hipsparse
-Requires: miopen
-Requires: mivisionx
-Requires: rccl
-Requires: rocal
-Requires: rocalution
-Requires: rocblas
-Requires: rocdecode
-Requires: rocfft
-Requires: rocjpeg
+Requires: hipfft >= %{rocm_release}
+Requires: hiprand >= %{rocm_release}
+Requires: hipsolver >= %{rocm_release}
+Requires: hipsparse >= %{rocm_release}
+Requires: miopen >= %{rocm_release}
+Requires: mivisionx >= %{rocm_release}
+Requires: rccl >= %{rocm_release}
+Requires: rocal >= %{rocm_release}
+Requires: rocalution >= %{rocm_release}
+Requires: rocblas >= %{rocm_release}
+Requires: rocdecode >= %{rocm_release}
+Requires: rocfft >= %{rocm_release}
+Requires: rocjpeg >= %{rocm_release}
 Requires: rocm-clang
-Requires: rocm-clinfo
-Requires: rocm-core
-Requires: rocm-hip
-Requires: rocminfo
-Requires: rocm-omp
-Requires: rocm-opencl
-Requires: rocm-rpp
-Requires: rocm-runtime
-Requires: rocm-smi
-Requires: rocrand
-Requires: rocsolver
-Requires: rocsparse
-Requires: roctracer
+Requires: rocm-clinfo >= %{rocm_release}
+Requires: rocm-core >= %{rocm_release}
+Requires: rocm-hip >= %{rocm_release}
+Requires: rocminfo >= %{rocm_release}
+Requires: rocm-omp >= %{rocm_release}
+Requires: rocm-opencl >= %{rocm_release}
+Requires: rocm-rpp >= %{rocm_release}
+Requires: rocm-runtime >= %{rocm_release}
+Requires: rocm-smi >= %{rocm_release}
+Requires: rocrand >= %{rocm_release}
+Requires: rocsolver >= %{rocm_release}
+Requires: rocsparse >= %{rocm_release}
+Requires: roctracer >= %{rocm_release}
 
 %description
 This is a meta package for all of the ROCm packages.
 
 %package devel
 Summary:        Development environment for ROCm
-Requires: amdsmi-devel
+Requires: amdsmi-devel >= %{rocm_release}
 Requires: half-devel
-Requires: hipblas-common-devel
-Requires: hipblas-devel
-Requires: hipblaslt-devel
-Requires: hipify
-Requires: hipcub-devel
-Requires: hipfft-devel
-Requires: hiprand-devel
-Requires: hipsolver-devel
-Requires: hipsparse-devel
-Requires: miopen-devel
-Requires: mivisionx-devel
-Requires: python3-tensile-devel
-Requires: rccl-devel
-Requires: rocal-devel
-Requires: rocalution-devel
-Requires: rocblas-devel
-Requires: rocdecode-devel
-Requires: rocfft-devel
-Requires: rocjpeg-devel
+Requires: hipblas-common-devel >= %{rocm_release}
+Requires: hipblas-devel >= %{rocm_release}
+Requires: hipblaslt-devel >= %{rocm_release}
+Requires: hipify >= %{rocm_release}
+Requires: hipcub-devel >= %{rocm_release}
+Requires: hipfft-devel >= %{rocm_release}
+Requires: hiprand-devel >= %{rocm_release}
+Requires: hipsolver-devel >= %{rocm_release}
+Requires: hipsparse-devel >= %{rocm_release}
+Requires: miopen-devel >= %{rocm_release}
+Requires: mivisionx-devel >= %{rocm_release}
+Requires: python3-tensile-devel >= %{rocm_release}
+Requires: rccl-devel >= %{rocm_release}
+Requires: rocal-devel >= %{rocm_release}
+Requires: rocalution-devel >= %{rocm_release}
+Requires: rocblas-devel >= %{rocm_release}
+Requires: rocdecode-devel >= %{rocm_release}
+Requires: rocfft-devel >= %{rocm_release}
+Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-clang-devel
-Requires: rocm-cmake
+Requires: rocm-cmake >= %{rocm_release}
 Requires: rocm-compilersupport-macros
-Requires: rocm-core-devel
-Requires: rocm-examples
-Requires: rocm-hip-devel
-Requires: rocm-omp-static
-Requires: rocm-opencl-devel
-Requires: rocm-rpm-macros
-Requires: rocm-rpm-macros-modules
-Requires: rocm-rpp-devel
-Requires: rocm-runtime-devel
-Requires: rocm-smi-devel
-Requires: rocprim-devel
-Requires: rocrand-devel
-Requires: rocsolver-devel
-Requires: rocsparse-devel
-Requires: rocthrust-devel
-Requires: roctracer-devel
-Requires: rocwmma-devel
+Requires: rocm-core-devel >= %{rocm_release}
+Requires: rocm-examples >= %{rocm_release}
+Requires: rocm-hip-devel >= %{rocm_release}
+Requires: rocm-omp-static >= %{rocm_release}
+Requires: rocm-opencl-devel >= %{rocm_release}
+Requires: rocm-rpm-macros >= %{rocm_release}
+Requires: rocm-rpm-macros-modules >= %{rocm_release}
+Requires: rocm-rpp-devel >= %{rocm_release}
+Requires: rocm-runtime-devel >= %{rocm_release}
+Requires: rocm-smi-devel >= %{rocm_release}
+Requires: rocprim-devel >= %{rocm_release}
+Requires: rocrand-devel >= %{rocm_release}
+Requires: rocsolver-devel >= %{rocm_release}
+Requires: rocsparse-devel >= %{rocm_release}
+Requires: rocthrust-devel >= %{rocm_release}
+Requires: roctracer-devel >= %{rocm_release}
+Requires: rocwmma-devel >= %{rocm_release}
 
 %description devel
 This is a meta package for all of the ROCm devel packages.
 
 %package test
 Summary:        Tests for ROCm
-Requires: kfdtest
+Requires: kfdtest >= %{rocm_release}
 
 %description test
 This is a meta package for all of the ROCm test packages.
@@ -101,6 +106,10 @@ This is a meta package for all of the ROCm test packages.
 %prep
 %setup -cT
 install -pm 644 %{SOURCE0} .
+
+%build
+
+%install
 
 %files
 %license License.txt
@@ -112,6 +121,12 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
+- Update to 6.4.0
+- Use version requires to pull in newer packages
+- Fix rpmlint warnings
+- Package is now noarch
+
 * Sat Mar 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-3
 - Add rocm-examples
 

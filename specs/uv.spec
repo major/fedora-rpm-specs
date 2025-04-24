@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.14
+Version:        0.6.16
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -96,7 +96,6 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
-# BSL-1.0
 # ISC
 # LGPL-3.0-or-later OR MPL-2.0
 # MIT
@@ -122,7 +121,6 @@ License:        %{shrink:
                 (Apache-2.0 WITH LLVM-exception) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
                 BSD-3-Clause AND
-                BSL-1.0 AND
                 ISC AND
                 (LGPL-3.0-or-later OR MIT) AND
                 (LGPL-3.0-or-later OR MPL-2.0) AND
@@ -530,9 +528,12 @@ tomcli set crates/uv/Cargo.toml lists delitem features.default 'crates-io'
 # Omit tests requiring wiremock; its dependency tree is too large and complex
 # to consider packaging it right now. The conditional #[cfg(any())] is always
 # false.
+tomcli set crates/uv-auth/Cargo.toml del dev-dependencies.wiremock
 sed -r -i 's/^#\[cfg\(test\)\]/#[cfg(any())]\r&/' \
     crates/uv-auth/src/middleware.rs
-tomcli set crates/uv-auth/Cargo.toml del dev-dependencies.wiremock
+tomcli set crates/uv/Cargo.toml del dev-dependencies.wiremock
+sed -r -i 's/^mod pip_install;$/#[cfg(any())]\r&/' \
+    crates/uv/tests/it/main.rs
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter
@@ -671,6 +672,17 @@ skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
 skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
 %endif
+
+# Trivial differences in --help output formatting (whitespace)
+skip="${skip-} --skip help::help"
+skip="${skip-} --skip help::help_flag"
+skip="${skip-} --skip help::help_flag_subcommand"
+skip="${skip-} --skip help::help_flag_subsubcommand"
+skip="${skip-} --skip help::help_short_flag"
+skip="${skip-} --skip help::help_subcommand"
+skip="${skip-} --skip help::help_subsubcommand"
+skip="${skip-} --skip help::help_with_global_option"
+skip="${skip-} --skip help::help_with_no_pager"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

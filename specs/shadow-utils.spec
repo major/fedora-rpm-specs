@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -80,10 +80,9 @@ programs for managing user and group accounts. The pwconv command
 converts passwords to the shadow password format. The pwunconv command
 unconverts shadow passwords and generates a passwd file (a standard
 UNIX password file). The pwck command checks the integrity of password
-and shadow files. The lastlog command prints out the last login times
-for all users. The useradd, userdel, and usermod commands are used for
-managing user accounts. The groupadd, groupdel, and groupmod commands
-are used for managing group accounts.
+and shadow files. The useradd, userdel, and usermod commands are used
+for managing user accounts. The groupadd, groupdel, and groupmod
+commands are used for managing group accounts.
 
 
 ### Subpackages ###
@@ -117,7 +116,6 @@ rm lib/getdate.c
 autoreconf
 %configure \
 	--disable-account-tools-setuid \
-	--enable-lastlog \
 	--enable-logind=no \
 	--enable-man \
         --enable-shadowgrp \
@@ -224,7 +222,6 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_bindir}/sg
 %attr(4755,root,root) %{_bindir}/chage
 %attr(4755,root,root) %{_bindir}/gpasswd
-%{_bindir}/lastlog
 %attr(4755,root,root) %{_bindir}/newgrp
 %attr(0755,root,root) %caps(cap_setgid=ep) %{_bindir}/newgidmap
 %attr(0755,root,root) %caps(cap_setuid=ep) %{_bindir}/newuidmap
@@ -262,7 +259,6 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_mandir}/man8/chgpasswd.8*
 %{_mandir}/man8/newusers.8*
 %{_mandir}/man8/*conv.8*
-%{_mandir}/man8/lastlog.8*
 %{_mandir}/man8/vipw.8*
 %{_mandir}/man8/vigr.8*
 
@@ -276,6 +272,11 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Apr 22 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-3
+* FSWC: Migrate to lastlog2
+  Link: <https://fedoraproject.org/wiki/Changes/Migrate_to_lastlog2>
+  Resolves: #2361588
+
 * Tue Mar 25 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-2
 - Add pam dependency for _pam_confdir missing macro. Resolves: #2354806
 

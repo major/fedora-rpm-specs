@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -8,6 +8,7 @@ URL:     https://pcp.io
 Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
 
 Patch0: selinux-proc_psi_t.patch
+Patch1: pcp-filter-exact.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -3612,6 +3613,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Tue Apr 22 2025 William Cohen <wcohen@redhat.com> - 6.3.7-3
+- Backport the webapi filtering fix to allow the use of exact matching.
+
 * Tue Apr 15 2025 Nathan Scott <nathans@redhat.com> - 6.3.7-2
 - Add selinux policy for new proc_psi_t-induced failure (BZ 2358326)
 

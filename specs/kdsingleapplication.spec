@@ -1,7 +1,7 @@
 %if %{defined rhel}
 # EPEL
 %bcond qt5 %[%{rhel} <  10]
-%bcond qt6 %[%{rhel} >= 10]
+%bcond qt6 %[%{rhel} >=  9]
 %else
 # Fedora
 %bcond qt5 1

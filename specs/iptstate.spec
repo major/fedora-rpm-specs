@@ -1,11 +1,12 @@
 Name: iptstate
 Summary: A top-like display of IP Tables state table entries
 Version: 2.2.7
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source: https://github.com/jaymzh/iptstate/releases/download/v%{version}/iptstate-%{version}.tar.bz2
 Patch01: 0001-Makefile-respect-LDFLAGS.patch
 Patch02: 0002-Makefile-Use-pkg-config.patch
 Patch03: 0003-Makefile-don-t-override-CPPFLAGS.patch
+Patch04: 0004-Cleanup-table-entry-17-18.patch
 URL: http://www.phildev.net/iptstate/
 License: zlib
 Requires: iptables
@@ -50,6 +51,9 @@ display the state table once.
 %{_mandir}/man8/iptstate.*
 
 %changelog
+* Tue Apr 22 2025 Phil Sutter <psutter@redhat.com> - 2.2.7-9
+- Backport "Cleanup table entry" patch
+
 * Tue Mar 18 2025 Phil Sutter <psutter@redhat.com> - 2.2.7-8
 - Fix for changed _sbindir macro
 

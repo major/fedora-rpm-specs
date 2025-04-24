@@ -9,7 +9,7 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        3.0.6
+Version:        3.0.7
 Release:        %autorelease
 Summary:        Simple SSL certificate generator
 

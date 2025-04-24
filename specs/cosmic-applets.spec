@@ -31,8 +31,8 @@ Source2:        vendor-config-%{version_no_tilde}.toml
 
 # required to compile applets in a reasonable amount of time
 # necessary even with the multi-binary feature + 8h timeout
-Patch: better_compile.patch
-Patch: symlink.patch
+Patch: 0001-Set-LTO-thin.patch
+Patch: 0001-Symlink-relative-in-justfile.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

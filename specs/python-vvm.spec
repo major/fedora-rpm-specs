@@ -12,6 +12,7 @@ URL:           https://github.com/vyperlang/vvm
 VCS:           git:%{url}.git
 # FIXME PyPi package missing ./tests/conftest.py
 Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Patch:         python-vvm-0001-chore-remove-upper-version-limit-from-packaging-40.patch
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cov
 BuildSystem:   pyproject

@@ -43,6 +43,7 @@ BuildRequires:  wayland-devel
 BuildRequires:  clang-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  pam-devel
+BuildRequires:  pulseaudio-utils
 BuildRequires:  just
 
 Requires:       acpid

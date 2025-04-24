@@ -4,7 +4,7 @@
 %global crate b3sum
 
 Name:           rust-b3sum
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Command line implementation of the BLAKE3 hash function
 
