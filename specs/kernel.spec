@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc3.20250422gita33b5a08cbbd.29
+%define pkgrelease 0.rc3.20250423gitbc3372351d0c.30
 %define kversion 6
-%define tarfile_release 6.15-rc3-8-ga33b5a08cbbd
+%define tarfile_release 6.15-rc3-19-gbc3372351d0c
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.20250422gita33b5a08cbbd.29%{?buildid}%{?dist}
+%define specrelease 0.rc3.20250423gitbc3372351d0c.30%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4186,6 +4186,9 @@ fi\
 #
 #
 %changelog
+* Wed Apr 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.bc3372351d0c.30]
+- Linux v6.15.0-0.rc3.bc3372351d0c
+
 * Tue Apr 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.a33b5a08cbbd.29]
 - fedora: updates for 6.15 (Peter Robinson)
 - redhat/configs: Disable CONFIG_COMPAT option on s390 (Mete Durlu) [RHEL-24047]

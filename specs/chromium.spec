@@ -261,7 +261,7 @@
 %endif
 
 Name:	chromium
-Version: 135.0.7049.95
+Version: 135.0.7049.114
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1787,6 +1787,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 23 2025 Than Ngo <than@redhat.com> - 135.0.7049.114-1
+- Update to 135.0.7049.114
+
 * Wed Apr 16 2025 Than Ngo <than@redhat.com> - 135.0.7049.95-1
 - Update to 135.0.7049.95
   * CVE-2025-3619: Heap buffer overflow in Codecs

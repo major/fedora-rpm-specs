@@ -40,7 +40,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -172,6 +172,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-2
+- Rebuild against newer hipblas-common
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

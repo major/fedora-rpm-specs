@@ -1,7 +1,7 @@
 Summary:	Daemon for exposing ALSA sequencer applications in JACK MIDI system
 Name:		a2jmidid
 Version:	9
-Release:	16%{?dist}
+Release:	17%{?dist}
 URL:		https://github.com/linuxaudio/a2jmidid
 Source0:	https://github.com/linuxaudio/a2jmidid/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Backported from upstream
@@ -17,7 +17,11 @@ License:	GPL-2.0-only AND GPL-2.0-or-later
 BuildRequires:	alsa-lib-devel
 BuildRequires:	dbus-devel
 BuildRequires:	gcc
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:	pipewire-jack-audio-connection-kit-devel
+%else
 BuildRequires:	jack-audio-connection-kit-devel
+%endif
 BuildRequires:	meson
 Requires:	dbus
 Requires:	python3
@@ -60,6 +64,9 @@ sed -i 's|^#!/usr/bin/env python3|#!/usr/bin/python3|' a2j_control
 %{_mandir}/man1/j2a*
 
 %changelog
+* Thu Mar 27 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 9-17
+- Switch to pipewire-jack-audio-connection-kit-devel where available
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

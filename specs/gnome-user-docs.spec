@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        47.5
+Version:        48.1
 Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
 URL:            https://help.gnome.org/
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Wed Apr 23 2025 Nieves Montero <nmontero@redhat.com> - 48.1-1
+- Update to 48.1
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 47.5-1
 - Update to 47.5
 

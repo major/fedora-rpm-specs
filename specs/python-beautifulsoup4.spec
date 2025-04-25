@@ -8,8 +8,8 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.13.3
-Release:        3%{?dist}
+Version:        4.13.4
+Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -64,7 +64,6 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 
 %prep
 %autosetup -p1 -N -n beautifulsoup4-%{version}
-%autopatch -p1 -M 10
 %if %{without soupsieve}
 %autopatch -p1 -m 10
 %endif
@@ -94,6 +93,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Wed Apr 23 2025 Terje Rosten <terjeros@gmail.com> - 4.13.4-1
+- 4.13.4
+
 * Sat Apr 05 2025 Romain Geissler <romain.geissler@amadeus.com> - 4.13.3-3
 - Enable soupsieve dependency on EPEL 10.
 

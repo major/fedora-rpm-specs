@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.95.7
+Version: 1.96.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -98,16 +98,16 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 2 1.8.2
 
 %global rolename3 timesync
-%deftag 3 1.9.2
+%deftag 3 1.10.0
 
 %global rolename4 kdump
 %deftag 4 1.4.10
 
 %global rolename5 network
-%deftag 5 1.17.1
+%deftag 5 1.17.2
 
 %global rolename6 storage
-%deftag 6 1.18.13
+%deftag 6 1.18.14
 
 %global rolename7 metrics
 %deftag 7 1.10.9
@@ -119,7 +119,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 9 1.3.3
 
 %global rolename10 logging
-%deftag 10 1.14.1
+%deftag 10 1.14.2
 
 %global rolename11 nbde_server
 %deftag 11 1.4.9
@@ -139,22 +139,22 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.26.0
 
 %global rolename16 ssh
-%deftag 16 1.5.2
+%deftag 16 1.5.3
 
 %global rolename17 ha_cluster
-%deftag 17 1.22.2
+%deftag 17 1.23.0
 
 %global rolename18 vpn
-%deftag 18 1.6.9
+%deftag 18 1.6.10
 
 %global rolename19 firewall
-%deftag 19 1.8.2
+%deftag 19 1.9.0
 
 %global rolename20 cockpit
-%deftag 20 1.5.15
+%deftag 20 1.5.16
 
 %global rolename21 podman
-%deftag 21 1.7.2
+%deftag 21 1.8.0
 
 %global rolename22 ad_integration
 %deftag 22 1.4.8
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed Apr  23 2025 Packit <hello@packit.dev> - 1.96.0-1
+- Update to upstream version 1.96.0
+
 * Thu Mar  6 2025 Packit <hello@packit.dev> - 1.95.7-1
 - Update to upstream version 1.95.7
 

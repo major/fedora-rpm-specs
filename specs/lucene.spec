@@ -1,5 +1,5 @@
 Name:           lucene
-Version:        10.1.0
+Version:        10.2.0
 Release:        %autorelease
 Epoch:          0
 Summary:        High-performance, full-featured text search engine
@@ -58,20 +58,17 @@ BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 10.1.0-4
 Obsoletes:      %{name}-parent < 9
 Obsoletes:      %{name}-solr-grandparent < 9
+
 
 %description
 Apache Lucene is a high-performance, full-featured text search
 engine library written entirely in Java. It is a technology suitable
 for nearly any application that requires full-text search, especially
 cross-platform.
-
-%package javadoc
-Summary:        Javadoc for Lucene
-
-%description javadoc
-%{summary}.
 
 %package analysis-common
 Summary:        Lucene module: analysis-common
@@ -273,13 +270,10 @@ popd
 
 %build
 # Tests have unpackaged dependencies
-%mvn_build -s -f
+%mvn_build -s -f -j
 
 %install
 %mvn_install
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt NOTICE.txt
 
 %files analysis-common -f .mfiles-lucene-analysis-common
 %files analysis-icu -f .mfiles-lucene-analysis-icu

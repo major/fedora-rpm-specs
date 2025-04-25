@@ -8,7 +8,7 @@
 
 Name:          tesseract
 Version:       5.5.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -65,7 +65,6 @@ BuildRequires: mingw64-pango
 %endif
 
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:      tesseract-langpack-eng
 
 
 %global _description %{expand:
@@ -89,11 +88,23 @@ developing applications that use %{name}.
 %package libs
 Summary:       Shared libraries for %{name}
 Conflicts:     %{name} < 5.4.1-4
+Requires:      %{name}-common = %{version}-%{release}
 
 %description libs %_description
 
 The %{name}-libs package contains shared libraries
 for %{name}.
+
+
+%package common
+Summary:       Configuration files for ${name}
+Conflicts:     %{name} < 5.5.0-5
+Requires:      tesseract-langpack-eng
+BuildArch:     noarch
+
+%description common %_description
+
+The %{name}-common package contains configuration files for %{name}.
 
 
 %package tools
@@ -182,7 +193,6 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
-%{_datadir}/%{name}/
 %{_mandir}/man1/tesseract.1*
 
 %files devel
@@ -196,6 +206,10 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %files libs
 %{_libdir}/lib%{name}.so.5.5
 %{_libdir}/lib%{name}.so.%{version}
+
+%files common
+%license LICENSE
+%{_datadir}/%{name}/
 
 %files tools
 %{_bindir}/ambiguous_words
@@ -263,6 +277,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Mon Apr 21 2025 Alessandro Astone <ales.astone@gmail.com>
+- Split config files into common subpackage (rhbz#2350549).
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

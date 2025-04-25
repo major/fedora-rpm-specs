@@ -1,6 +1,6 @@
 Name:       miniupnpd
 Version:    2.3.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -69,6 +69,9 @@ export STRIP="/bin/true"
 
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
+#Install new script not caught in upstream Makefile
+install -Dpm 644 netfilter_nft/scripts/miniupnpd_functions.sh %{buildroot}%{_sysconfdir}/%{name}/miniupnpd_functions.sh
+
 #Do not ship SysVinit script
 rm -f %{buildroot}/etc/init.d/%{name}
 
@@ -103,6 +106,9 @@ mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Wed Apr 23 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.9-2
+- Install miniupnpd_functions.sh
+
 * Tue Apr 22 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.9-1
 - Version update
 - Disable WANPPPConnection

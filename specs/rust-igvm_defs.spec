@@ -2,22 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate munge_macro
+%global crate igvm_defs
 
-Name:           rust-munge_macro
-Version:        0.4.4
+Name:           rust-igvm_defs
+Version:        0.3.4
 Release:        %autorelease
-Summary:        Macro for custom destructuring
+Summary:        Igvm_defs crate is the specification for the Independent Guest Virtual Machine
 
 License:        MIT
-URL:            https://crates.io/crates/munge_macro
+URL:            https://crates.io/crates/igvm_defs
 Source:         %{crates_source}
 
+# Bump bitfield-struct to version 0.10.0. Can be dropped *after* v0.3.4
+Patch:          igvm_defs-fix-metadata.diff
+
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Macro for custom destructuring.}
+The igvm_defs crate is the specification for the Independent Guest
+Virtual Machine (IGVM) file format.}
 
 %description %{_description}
 
@@ -47,11 +50,20 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Despite https://github.com/djkoloski/munge/pull/5, we still see some
-# CRLF-terminated files in the releases crates.
-find . -type f | xargs -r -t dos2unix --keepdate
 %cargo_prep
 
 %generate_buildrequires

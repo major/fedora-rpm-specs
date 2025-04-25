@@ -3,7 +3,7 @@
 Summary: High-performance algorithms for vectors, matrices, and polynomials 
 Name:    ntl 
 Version: 11.5.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 # LGPL-2.1-or-later: the project as a whole
 # BSD-2-Clause: src/FFT.cpp
@@ -52,6 +52,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p0
+
+# Fix old config scripts (needed for riscv64)
+find . -name 'config.sub' -exec cp -vf /usr/lib/rpm/%{?_vendor}/config.sub {} \;
+find . -name 'config.guess' -exec cp -vf /usr/lib/rpm/%{?_vendor}/config.guess {} \;
 
 # Remove an unused file with an unacceptable license (CC-BY-3.0)
 rm src/GetTime0.cpp
@@ -129,6 +133,9 @@ done
 
 
 %changelog
+* Wed Apr 23 2025 David Abdurachmanov <davidlt@rivosinc.com> - 11.5.1-12
+- Update old config.{guess,sub} scripts
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

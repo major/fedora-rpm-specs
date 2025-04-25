@@ -12,7 +12,7 @@
 
 Name: criu
 Version: 4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -52,7 +52,7 @@ BuildRequires: make
 # user-space and kernel changes are only available for x86_64, arm,
 # ppc64le, aarch64 and s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=902875
-ExclusiveArch: x86_64 %{arm} ppc64le aarch64 s390x
+ExclusiveArch: x86_64 %{arm} ppc64le aarch64 s390x riscv64
 
 %description
 criu is the user-space part of Checkpoint/Restore in User-space
@@ -188,6 +188,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Apr 23 2025 David Abdurachmanov <davidlt@rivosinc.com> - 4.1-3
+- Enable for riscv64
+
 * Mon Apr 21 2025 Adrian Reber <adrian@lisas.de> - 4.1-2
 - Apply upstream patch to fix a runc regression
 

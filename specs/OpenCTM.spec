@@ -66,6 +66,16 @@ Patch:          0001-Fix-out-of-bounds-access-when-exporting-an-empty-mes.patch
 # https://github.com/Danny02/OpenCTM/issues/23
 Patch:          %{url}/pull/24.patch
 
+# Adapt viewer to libepoxy instead of GLEW
+#
+# Actually upstreaming this would require some additional build-system work
+# (and upstream is inactive anyway), but the source patch was offered upstream
+# as part of:
+#
+# Please consider migrating away from GLEW
+# https://github.com/Danny02/OpenCTM/issues/26
+Patch:          0001-Adapt-viewer-to-libepoxy-instead-of-GLEW.patch
+
 BuildRequires:  dos2unix
 
 BuildRequires:  make
@@ -87,9 +97,9 @@ BuildRequires:  pkgconfig(gtk+-2.0)
 # https://github.com/Danny02/OpenCTM/commit/83ac60ebeaeb9b9ee86b7646a9ad5d4034898465
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
-# Unbundled:
+# Unbundled (epoxy replaces bundled glew):
 BuildRequires:  pnglite-devel
-BuildRequires:  pkgconfig(glew)
+BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(zlib)
 %endif
@@ -255,7 +265,7 @@ CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} -I%{_includedir}/rply"
 %if %{with gui}
 CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags 'gtk+-2.0')"
 CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags zlib)"
-CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags glew)"
+CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags epoxy)"
 # CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} -Ipnglite"
 CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags libjpeg)"
 CXXFLAGS_INCLUDE="${CXXFLAGS_INCLUDE} $(pkgconf --cflags tinyxml)"
@@ -278,7 +288,7 @@ CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs gl)"
 CTMVIEWERLIBS="${CTMVIEWERLIBS} -lrply"
 CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs zlib)"
 CTMVIEWERLIBS="${CTMVIEWERLIBS} -lpnglite"
-CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs glew)"
+CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs epoxy)"
 CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs libjpeg)"
 CTMVIEWERLIBS="${CTMVIEWERLIBS} $(pkgconf --libs tinyxml)"
 %endif

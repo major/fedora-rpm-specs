@@ -3,8 +3,8 @@
 #%%global gitrev .%%{gitdate}git%%(c=%%{gitcommit}; echo ${c:0:7})
 
 Name:           igt-gpu-tools
-Version:        1.30
-Release:        0.1%{?gitrev}%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -15,7 +15,6 @@ Source0:        igt-gpu-tools-%{gitdate}.tar.bz2
 %else
 Source0:        https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/archive/v%{version}/igt-gpu-tools-v%{version}.tar.bz2
 %endif
-Source1:        make-git-snapshot.sh
 
 %global provobs_version 2.99.917-42.20180618
 Provides:       xorg-x11-drv-intel-devel = %{provobs_version}
@@ -119,9 +118,6 @@ ninja -C %{_vpath_builddir} igt-gpu-tools-doc
 
 %install
 %meson_install
-# Backport of power to igt_power rename from a igt-gpu-tools > 1.30 to avoid too generic power binary shipping
-mv %{buildroot}/%{_bindir}/power %{buildroot}/%{_bindir}/igt_power
-
 rm %{buildroot}/%{_libdir}/pkgconfig/intel-gen4asm.pc
 
 # Remove the unversioned libigt symlinks
@@ -155,6 +151,7 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/intel_audio_dump
 %{_bindir}/intel_backlight
 %{_bindir}/intel_bios_dumper
+%{_bindir}/intel_display_bandwidth
 %{_bindir}/intel_display_crc
 %{_bindir}/intel_display_poller
 %{_bindir}/intel_dp_compliance
@@ -190,7 +187,6 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/gputop
 %{_bindir}/intel-gfx-fw-info
 %{_bindir}/intel_tiling_detect
-%{_bindir}/igt_power
 %{_bindir}/xe-perf-configs
 %{_bindir}/xe-perf-control
 %{_bindir}/xe-perf-reader
@@ -211,6 +207,9 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Thu Apr 17 2025 Jonathan Wright <jonathan@almalinux.org> - 2.0-1
+- update to 2.0 rhbz#2352408
+
 * Thu Feb 20 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.30
 - Release 1.30
 - Fixes RHBZ#2343504

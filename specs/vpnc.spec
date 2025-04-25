@@ -53,7 +53,7 @@ switching to the root account.
 CFLAGS="$RPM_OPT_FLAGS -fPIE" LDFLAGS="$RPM_OPT_FLAGS -pie" make PREFIX=/usr
 
 %install
-make install DESTDIR="$RPM_BUILD_ROOT" PREFIX=/usr
+make install DESTDIR="$RPM_BUILD_ROOT" PREFIX=/usr SBINDIR=%{_sbindir}
 rm -f $RPM_BUILD_ROOT%{_bindir}/pcf2vpnc
 chmod 0644 src/pcf2vpnc
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pcf2vpnc.1
@@ -105,7 +105,8 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %files consoleuser
 %config(noreplace) %{_sysconfdir}/security/console.apps/vpnc*
 %config(noreplace) %{_sysconfdir}/pam.d/vpnc*
-%{_bindir}/vpnc*
+%{_bindir}/vpnc
+%{_bindir}/vpnc-disconnect
 %{_sbindir}/vpnc-helper
 
 

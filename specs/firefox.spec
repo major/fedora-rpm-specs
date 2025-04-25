@@ -149,7 +149,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.106
+%global nss_version 3.110
 %global nss_build_version %{nss_version}
 %endif
 
@@ -279,6 +279,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
+Patch408:        D246394.1745494582.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -588,6 +589,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P402 -p1 -b .1196777
 %patch -P407 -p1 -b .1667096
+%patch -P408 -p1 -b .D246394.1745494582
 
 # PGO patches
 %if %{build_with_pgo}
@@ -711,7 +713,11 @@ echo "ac_add_options --with-google-safebrowsing-api-keyfile=`pwd`/google-api-key
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239046
 # with clang 17 upstream's detection fails, so let's just tell it
 # where to look
+%if 0%{?fedora} >= 42
+echo "ac_add_options --with-libclang-path=`llvm-config-20 --libdir`" >> .mozconfig
+%else
 echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
+%endif
 
 %if %{enable_replace_malloc}
 echo "ac_add_options --enable-replace-malloc" >> .mozconfig

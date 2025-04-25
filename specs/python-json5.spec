@@ -1,7 +1,7 @@
 %global pypi_name json5
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
+Version:        0.12.0
 Release:        2%{?dist}
 Summary:        Python implementation of the JSON5 data format
 
@@ -55,13 +55,12 @@ Command-line tool for working with the JSON5 data format.
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 %files -n pyjson5
@@ -70,6 +69,9 @@ Command-line tool for working with the JSON5 data format.
 %{_bindir}/pyjson5
 
 %changelog
+* Sat Apr 05 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.12.0-1
+- Update to upstream version 0.12.0 (closes rhbz#2329051)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

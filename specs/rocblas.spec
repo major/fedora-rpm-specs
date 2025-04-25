@@ -76,7 +76,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -99,6 +99,7 @@ BuildRequires:  roctracer-devel
 %if 0%{?suse_version}
 %if %{suse_version} < 1699
 BuildRequires:  python3-tensile-devel
+BuildRequires:  python3-joblib
 %else
 BuildRequires:  python311-tensile-devel
 %endif
@@ -274,6 +275,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Use joblib on sle 15.6 and 16.0
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

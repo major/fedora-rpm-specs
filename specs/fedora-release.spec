@@ -1549,14 +1549,13 @@ RELEASE_TYPE=%{release_type}
 ID=fedora
 VERSION_ID=%{dist_version}
 VERSION_CODENAME=""
-PLATFORM_ID="platform:f%{dist_version}"
 PRETTY_NAME="Fedora Linux %{dist_version} (%{release_name}%{?prerelease})"
 ANSI_COLOR="0;38;2;60;110;180"
 LOGO=fedora-logo-icon
 CPE_NAME="cpe:/o:fedoraproject:fedora:%{dist_version}"
 DEFAULT_HOSTNAME="fedora"
 HOME_URL="%{dist_home_url}"
-DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/%{doc_version}/system-administrators-guide/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/%{doc_version}/"
 SUPPORT_URL="https://ask.fedoraproject.org/"
 BUG_REPORT_URL="%{dist_bug_report_url}"
 REDHAT_BUGZILLA_PRODUCT="Fedora"
@@ -1671,7 +1670,6 @@ cp -p os-release \
       %{buildroot}%{_prefix}/lib/os-release.eln
 echo "VARIANT=\"ELN\"" >> %{buildroot}%{_prefix}/lib/os-release.eln
 echo "VARIANT_ID=eln" >> %{buildroot}%{_prefix}/lib/os-release.eln
-sed -i -e 's|PLATFORM_ID=.*|PLATFORM_ID="platform:eln"|' %{buildroot}/%{_prefix}/lib/os-release.eln
 sed -i -e 's|PRETTY_NAME=.*|PRETTY_NAME="Fedora ELN"|' %{buildroot}/%{_prefix}/lib/os-release.eln
 sed -i -e 's|DOCUMENTATION_URL=.*|DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/eln/"|' %{buildroot}%{_prefix}/lib/os-release.eln
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.eln

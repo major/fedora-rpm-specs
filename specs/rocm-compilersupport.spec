@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        3.rocm%{rocm_version}%{?dist}
+Release:        4.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1143,7 +1143,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/include/llvm/*
 %{bundle_prefix}/include/llvm-c/*
 %{bundle_prefix}/lib/cmake/llvm/*
-%{bundle_prefix}/lib/libLLVM.so*
+%{bundle_prefix}/lib/libLLVM.so
 %{bundle_prefix}/lib/libLTO.so
 %{bundle_prefix}/lib/libRemarks.so
 %{bundle_prefix}/lib/LLVMgold.so
@@ -1189,6 +1189,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/run-clang-tidy
 
 %files -n rocm-clang-tools-extra-devel
+%dir %{bundle_prefix}/include/clang-tidy
 %license clang-tools-extra/LICENSE.TXT
 %{bundle_prefix}/include/clang-tidy/*
 
@@ -1207,7 +1208,6 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/lib/libc++.so.*
 %{bundle_prefix}/lib/libc++abi.so.*
 %{bundle_prefix}/lib/libc++.modules.json
-%{bundle_prefix}/share/libc++
 
 %if 0%{?suse_version}
 %post -n rocm-libc++ -p /sbin/ldconfig
@@ -1215,6 +1215,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %files -n rocm-libc++-devel
+%dir %{bundle_prefix}/share/libc++
 %{bundle_prefix}/include/c++/
 %{bundle_prefix}/share/libc++/
 %{bundle_prefix}/lib/libc++.so
@@ -1228,7 +1229,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
-* Thu Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 19-3.rocm6.4.0
+* Mon Apr 21 2025 Tom Rix <Tom.Rix@amd.com> - 19-4.rocm6.4.0
+- Fix suse
+
+* Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 19-3.rocm6.4.0
 - Fix location of extras
 
 * Thu Apr 17 2025 Tom Rix <Tom.Rix@amd.com> - 19-2.rocm6.4.0

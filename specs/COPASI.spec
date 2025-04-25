@@ -1,4 +1,4 @@
-%global buildid    295
+%global buildid    298
 %global octpkg  COPASI
 
 %global with_python  1
@@ -29,7 +29,7 @@ ExcludeArch:   %{ix86}
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.44.%{buildid}
+Version: 4.45.%{buildid}
 Release: %autorelease
 
 ## Artistic 2.0 is main license
@@ -82,6 +82,7 @@ BuildRequires: bzip2-devel
 BuildRequires: ImageMagick
 BuildRequires: libappstream-glib
 BuildRequires: minizip-devel
+BuildRequires: raptor2-devel
 %ifarch x86_64
 BuildRequires: nativejit-devel
 %endif
@@ -107,9 +108,6 @@ Patch3: %{name}-find_QWT6-QTMML-SBW.patch
 
 # This patch sets paths to find QTPLOT3D-QT4 files on Fedora
 Patch2: %{name}-set_QWTPLOT3D_QT4.patch
-
-# This patch fixes executable permissions of CopasiSE and CopasiUI
-Patch4: %{name}-fix_exe_permissions.patch
 
 # This patch sets paths to find QTPLOT3D-QT5 files on Fedora
 Patch5: %{name}-set_QWTPLOT3D_QT5.patch
@@ -270,7 +268,6 @@ for file in `find copasi -type f \( -name "*.cpp" \)`; do
 done
 
 %patch -P 0 -p0 -b .fix_install_libpaths
-%patch -P 4 -p0 -b .fix_exe_permissions
 %patch -P 6 -p0 -b .libCombine_paths
 %patch -P 7 -p0 -b .find_crossguid2
 %patch -P 8 -p1 -b .use_c++17
@@ -353,7 +350,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %endif
  -DENABLE_JIT:BOOL=OFF \
  -DSELECT_QT=Qt5 \
- -DCOPASI_USE_RAPTOR:BOOL=OFF \
+ -DCOPASI_USE_RAPTOR:BOOL=ON -DRAPTOR_INCLUDE_DIR:PATH=%{_includedir}/raptor2 -DRAPTOR_LIBRARY:FILEPATH=%{_libdir}/libraptor2.so \
  -DSITE:STRING=fedora -DF2C_INTEGER=int -DF2C_LOGICAL=long \
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{build_cxxflags} -I$PWD/copasi/lapack -I$PWD/copasi/CopasiSBW -I%{_includedir}/%{blaslib} %{__global_ldflags} -DNDEBUG" \
  -DCOPASI_INSTALL_C_API=OFF -DCombine_DIR:PATH=%{_libdir}/cmake \

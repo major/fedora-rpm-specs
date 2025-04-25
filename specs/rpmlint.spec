@@ -3,11 +3,14 @@
 
 Name:           rpmlint
 Version:        2.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
 Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
+
+Patch:          https://github.com/rpm-software-management/rpmlint/pull/1337.patch
+
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
 Source1:        fedora.toml
 Source3:        scoring.toml
@@ -50,7 +53,7 @@ rpmlint is a tool for checking common errors in RPM packages. Binary
 and source packages as well as spec files can be checked.
 
 %prep
-%autosetup -p1 -Sgit
+%autosetup -p1 -Sgit_am
 
 # Replace python-magic dep with file-magic (rhbz#1899279)
 sed -i 's/python-magic/file-magic/g' pyproject.toml
@@ -99,6 +102,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Wed Apr 23 2025 Miro Hrončok <mhroncok@redhat.com> - 2.7.0-3
+- Fix build with RPM 6 alpha
+
 * Wed Apr 16 2025 Miro Hrončok <mhroncok@redhat.com> - 2.7.0-2
 - Allow unversioned-explicit-provides bundled(...) and deprecated()
 

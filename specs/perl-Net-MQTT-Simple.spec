@@ -1,5 +1,5 @@
 Name:           perl-Net-MQTT-Simple
-Version:        1.31
+Version:        1.32
 Release:        1%{?dist}
 Summary:        Minimal MQTT version 3 interface
 
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Net::MQTT::Simple*.3*
 
 %changelog
+* Wed Apr 23 2025 Xavier Bachelot <xavier@bachelot.org> - 1.32-1
+- Update to 1.32 (RHBZ#2361810)
+
 * Thu Feb 13 2025 Xavier Bachelot <xavier@bachelot.org> - 1.31-1
 - Update to 1.31 (RHBZ#2243849)
 - Clean up specfile

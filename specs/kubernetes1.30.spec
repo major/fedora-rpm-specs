@@ -15,11 +15,11 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.30
-%global k8s_ver                 1.30.11
+%global k8s_ver                 1.30.12
 # major:minor version substring
 %global k8s_minver              1.30
 %global k8s_nextver             1.31
-%global k8s_tag                 v1.30.11
+%global k8s_tag                 v1.30.12
 # golang 'built with' version
 %global golangver               1.23.6
 

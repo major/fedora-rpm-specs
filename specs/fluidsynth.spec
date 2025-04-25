@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.4.5
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -106,12 +106,15 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/
 install -m 644 fluidsynth.conf.in $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/fluidsynth
 mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/user/
 install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluidsynth.service
+mkdir -p $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/
+install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsynth.conf
 
 %files
 %{_bindir}/fluid*
 %{_mandir}/man1/fluidsynth*
 %config(noreplace) %{_sysconfdir}/sysconfig/fluidsynth
 %attr(0644,root,root) /usr/lib/systemd/user/fluidsynth.service
+%attr(0644,root,root) /usr/lib/tmpfiles.d/fluidsynth.conf
 
 %files libs
 %license LICENSE
@@ -130,6 +133,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Wed Apr 23 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.5-2
+- fix creation of tmp dir for service
+
 * Fri Apr 18 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.5-1
 - Update to 2.4.5
 

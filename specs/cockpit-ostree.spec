@@ -1,6 +1,6 @@
 Name: cockpit-ostree
 Epoch: 1
-Version: 207
+Version: 208
 Release: 1%{?dist}
 BuildArch: noarch
 Summary: Cockpit user interface for rpm-ostree
@@ -29,10 +29,13 @@ Cockpit component for managing software updates for ostree based systems.
 
 %files
 %doc README.md
-%license LICENSE dist/ostree.js.LEGAL.txt dist/ostree.css.LEGAL.txt
+%license LICENSE dist/ostree.js.LEGAL.txt
 %{_datadir}/cockpit/*
 
 %changelog
+* Wed Apr 23 2025 Packit <hello@packit.dev> - 1:208-1
+- Upgraded to Patternfly 6
+
 * Thu Jan 30 2025 Packit <hello@packit.dev> - 1:207-1
 - Bug fixes and translation updates
 

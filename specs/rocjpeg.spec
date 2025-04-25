@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -121,6 +121,10 @@ sed -i -e 's@string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@#string(R
 sed -i -e 's@string(REGEX MATCH "SLES" SLES_FOUND ${OS_RELEASE})@#string(REGEX MATCH "SLES" SLES_FOUND ${OS_RELEASE})@' CMakeLists.txt
 sed -i -e 's@string(REGEX MATCH "Mariner" MARINER_FOUND ${OS_RELEASE})@#string(REGEX MATCH "Mariner" MARINER_FOUND ${OS_RELEASE})@' CMakeLists.txt
 
+# Need to add libdrm_amdgpu to link
+# https://github.com/ROCm/rocJPEG/issues/146
+sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY} -ldrm_amdgpu@' CMakeLists.txt
+
 %build
 
 %cmake %{cmake_generator} \
@@ -172,6 +176,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+* Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Fix link on suse
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

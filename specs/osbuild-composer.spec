@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 142
+%global min_osbuild_version 147
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        138
+Version:        139
 
 %gometa
 
@@ -83,7 +83,7 @@ Provides: bundled(golang(github.com/Azure/go-autorest/autorest/validation)) = 0.
 Provides: bundled(golang(github.com/Azure/go-autorest/logger)) = 0.2.1
 Provides: bundled(golang(github.com/Azure/go-autorest/tracing)) = 0.6.0
 Provides: bundled(golang(github.com/AzureAD/microsoft-authentication-library-for-go)) = 1.3.2
-Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.4.0
+Provides: bundled(golang(github.com/BurntSushi/toml)) = 3d3abc2
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp)) = 1.25.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric)) = 0.49.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping)) = 0.49.0
@@ -163,8 +163,8 @@ Provides: bundled(golang(github.com/go-openapi/swag)) = 0.23.0
 Provides: bundled(golang(github.com/go-openapi/validate)) = 0.24.0
 Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
 Provides: bundled(golang(github.com/gogo/protobuf)) = 1.3.2
-Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.1
-Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.2.1
+Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.2
+Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.2.2
 Provides: bundled(golang(github.com/golang/glog)) = 1.2.3
 Provides: bundled(golang(github.com/golang/groupcache)) = 41bb18b
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.4
@@ -234,7 +234,8 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.128.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.6.0
+Provides: bundled(golang(github.com/osbuild/images)) = a1ca7f3
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -696,6 +697,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Tue Apr 22 2025 Packit <hello@packit.dev> - 139-1
+Changes with 139
+----------------
+  * Delete internal/blueprint/ and import from osbuild/blueprint (#4659)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger
+  * Disable vmware tests and verification step in vsphere builds (#4680)
+    * Author: Achilleas Koutsou, Reviewers: Ondřej Budai, Tomáš Hozza
+  * Update snapshots to 20250417 (#4683)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  * go.mod: update jwt-go to v4.5.2 and v5.2.2 to fix CVE-2025-30204 (HMS-5996) (#4684)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  * go.mod: update osbuild/images to v0.134.1-0.20250416092909-a1ca7f (#4686)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou
+  * test/data/repositories: fix snapshot dates (#4687)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou
+  * update packit validate-config command (#4685)
+    * Author: Irina Gulina, Reviewers: Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-04-22
+
+
 * Wed Apr 16 2025 Packit <hello@packit.dev> - 138-1
 Changes with 138
 ----------------

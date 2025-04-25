@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -364,6 +364,16 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00459 # 906f6692bd85034012c9554f2434627ccfc04c67
+# Apply Intel Control-flow Technology for x86-64
+#
+# Required for mitigation against return-oriented programming (ROP) and Call or Jump Oriented Programming (COP/JOP) attacks
+#
+# Proposed upstream: https://github.com/python/cpython/pull/128606
+#
+# See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
+Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
 
 # (New patches go here ^^^)
 #
@@ -1683,6 +1693,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Apr 22 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.10-2
+- Apply Intel's CET for mitigation against control-flow hijacking attacks
+
 * Wed Apr 09 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.10-1
 - Update to 3.12.10
 

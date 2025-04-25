@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        9.0.12
+Version:        9.0.13
 Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Apr 23 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.13-1
+- Update to 9.0.13
+
 * Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.12-1
 - Update to 9.0.12
 

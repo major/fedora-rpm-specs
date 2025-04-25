@@ -1,15 +1,11 @@
 Name:           jacktrip
-Version:        2.5.1
+Version:        2.6.0
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
 License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/jacktrip/jacktrip/pull/1375
-Patch:          jacktrip-2.5.1-libsamplerate.patch
-# https://github.com/jacktrip/jacktrip/issues/1402
-Patch:          jacktrip-2.5.1-qt6.9.patch
 
 BuildRequires:  meson, cmake, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
@@ -55,7 +51,7 @@ bidirectional, high quality, uncompressed audio signal steaming.
 %endif
     -Dnoupdater=true \
     -Drtaudio=enabled \
-    -Dlibsamplerate=enabled # https://github.com/jacktrip/jacktrip/issues/1380
+    -Dlibsamplerate=enabled
 %meson_build
 
 %install

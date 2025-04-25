@@ -7,6 +7,7 @@ Summary:        Tool for running cloud images locally
 License:        GPL-2.0-or-later
 URL:            https://pagure.io/testcloud
 Source0:        https://releases.pagure.org/testcloud/%{name}-%{version}.tar.gz
+Source1:        testcloud.sysusers
 
 ExclusiveArch: %{kernel_arches} noarch
 BuildArch:      noarch
@@ -81,6 +82,9 @@ install -d %{buildroot}/%{_sharedstatedir}/testcloud/instances
 mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/rules.d
 install conf/99-testcloud-nonroot-libvirt-access.rules %{buildroot}%{_sysconfdir}/polkit-1/rules.d/99-testcloud-nonroot-libvirt-access.rules
 
+# sysusers conf file for creation of testcloud group
+install -p -m644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
+
 %check
 %pytest
 # Remove compiled .py files from /etc after os_install_post
@@ -103,6 +107,8 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 %{_bindir}/testcloud
 %{_bindir}/t7d
 %{_datadir}/bash-completion/completions/testcloud
+
+%{_sysusersdir}/%{name}.conf
 
 %files -n python3-%{name}
 %{python3_sitelib}/testcloud

@@ -4,23 +4,22 @@
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.5.4
+Version:  3.5.5
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source3:  opensips.sysusers
 # Fedora-specific patches
-Patch001: opensips-0001-Consistently-use-rtpproxy-switches.patch
-Patch002: opensips-0002-Cleanup-Oracle-s-makefiles.patch
-Patch003: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
-Patch004: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
-Patch005: opensips-0005-Add-support-for-upcoming-json-c-0.14.0.patch
-Patch006: opensips-0006-libcouchbase-API-v3.patch
-Patch007: opensips-0007-Guard-VERSIONTYPE.patch
-Patch008: opensips-0008-A-new-string-transformation.patch
-Patch009: opensips-0009-Fix-pointer-type.patch
-Patch010: opensips-0010-Fix-FTBFS-with-recent-GCC.patch
-Patch011: opensips-0011-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
+Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
+Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
+Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
+Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
+Patch: opensips-0005-Add-support-for-upcoming-json-c-0.14.0.patch
+Patch: opensips-0006-libcouchbase-API-v3.patch
+Patch: opensips-0007-Guard-VERSIONTYPE.patch
+Patch: opensips-0008-A-new-string-transformation.patch
+Patch: opensips-0009-Fix-FTBFS-with-recent-GCC.patch
+Patch: opensips-0010-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
 
 URL:      https://opensips.org
 

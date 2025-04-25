@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a7
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -367,6 +367,16 @@ Patch454: 00454-invoke-regen-token-rst-with-rstfile-as-an-argument.patch
 # Reported: https://github.com/python/cpython/issues/132356
 # Fix proposed upstream: https://github.com/python/cpython/pull/132357
 Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.patch
+
+# 00459 # 9cf6fed17de184d2e17ace2b5063e782e7e186ba
+# Apply Intel Control-flow Technology for x86-64
+#
+# Required for mitigation against return-oriented programming (ROP) and Call or Jump Oriented Programming (COP/JOP) attacks
+#
+# Proposed upstream: https://github.com/python/cpython/pull/128606
+#
+# See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
+Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
 
 # (New patches go here ^^^)
 #
@@ -1716,6 +1726,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Apr 22 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.14.0~a7-2
+- Apply Intel's CET for mitigation against control-flow hijacking attacks
+
 * Tue Apr 08 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a7-1
 - Update to Python 3.14.0a7
 

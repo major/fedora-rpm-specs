@@ -2,11 +2,16 @@
 
 Name:           python-%{modname}
 Version:        3.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
 URL:            https://github.com/python-greenlet/greenlet
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
+
+# Python 3.14.0a7 fixes
+# https://github.com/python-greenlet/greenlet/commit/cf7f854d31
+# Removed .github/workflows/tests.yml changes (did not apply)
+Patch:          cf7f854d31.patch
 
 # Skip leak checking to avoid a missing dependency, `objgraph`
 Patch:          skip-leak-checks.patch
@@ -67,6 +72,10 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Tue Apr 15 2025 Miro Hrončok <mhroncok@redhat.com> - 3.1.1-3
+- Fix build with Python 3.14.0a7
+- Fixes: rhbz#2359499
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

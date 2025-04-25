@@ -18,7 +18,7 @@
 
 
 Name:           bcc
-Version:        0.33.0
+Version:        0.34.0
 Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
@@ -223,6 +223,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %{_sbindir}/bpf-*
 
 %changelog
+* Wed Apr 16 2025 Jerome Marchand <jmarchan@redhat.com> - 0.34.0-1
+- Rebase to the latest version (#2253688)
+
 * Wed Jan 29 2025 Jerome Marchand <jmarchan@redhat.com> - 0.33.0-1
 - Rebase to the latest version (#2253688)
 

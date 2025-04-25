@@ -5,22 +5,48 @@
 # package-notes causes FTBFS (#2043178)
 %undefine _package_note_file
 
-%global use_system_libxslt 1
-%global use_system_libxml 1
-%global use_system_libwebp 1
-%global use_system_jsoncpp 1
-%if 0%{?rhel} && 0%{?rhel} == 9
-%global use_system_libicu 0
-%else
+# defines for Optional system libraries:
+%global use_system_re2 1
 %global use_system_libicu 1
+%global use_system_libwebp 1
+%global use_system_opus 1
+%global use_system_ffmpeg 1
+# libvpx is exclusive with VA-API support (libva) which is enabled by default
+%global use_system_libvpx 0
+%global use_system_snappy 1
+%global use_system_glib 1
+%global use_system_zlib 1
+%global use_system_minizip 1
+%global use_system_libevent 1
+%global use_system_libxml 1
+%global use_system_lcms2 1
+%global use_system_libpng 1
+%global use_system_libtiff 1
+%global use_system_libjpeg 1
+%global use_system_libopenjpeg2 1
+%global use_system_harfbuzz 1
+%global use_system_freetype 1
+%global use_system_libpci 1
+%global use_system_libudev 1
+
+%if 0%{?rhel} && 0%{?rhel} == 9
+%global use_system_re2 0
+%global use_system_libicu 0
+%global use_system_minizip 0
+%global use_system_harfbuzz 0
+%endif
+
+# ppc64le builds currently fail with V8/XFA enabled (qt 6.9.0)
+%ifarch ppc64le
+%global enable_pdf_v8 0
+%else
+%global enable_pdf_v8 1
 %endif
 
 %if 0%{?fedora} && 0%{?fedora} >= 39
 # Bundled python-six is too old to work with Python 3.12+
 %global use_system_py_six 1
 %endif
-
-%global use_system_re2 0
 
 # NEON support on ARM (detected at runtime) - disable this if you are hitting
 # FTBFS due to e.g. GCC bug https://bugzilla.redhat.com/show_bug.cgi?id=1282495
@@ -56,7 +82,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -131,6 +157,7 @@ BuildRequires: qt6-qttools-static
 BuildRequires: qt6-qtquickcontrols2-devel
 BuildRequires: qt6-qtwebchannel-devel
 BuildRequires: qt6-qtwebsockets-devel
+BuildRequires: qt6-qthttpserver-devel
 # for examples?
 BuildRequires: ninja-build
 BuildRequires: cmake
@@ -146,49 +173,103 @@ BuildRequires: libstdc++-static
 BuildRequires: git-core
 BuildRequires: gperf
 BuildRequires: krb5-devel
-%if 0%{?use_system_libicu}
-BuildRequires: libicu-devel >= 68
-%endif
 BuildRequires: libatomic
-BuildRequires: libjpeg-devel
 BuildRequires: nodejs
+
+# optional system libraries in the order of the -- Configure summary: listing
 %if 0%{?use_system_re2}
-BuildRequires: re2-devel
+BuildRequires: pkgconfig(re2)
+%else
 Provides: bundled(re2)
 %endif
-BuildRequires: snappy-devel
-BuildConflicts: minizip-devel
+%if 0%{?use_system_libicu}
+BuildRequires: libicu-devel >= 70
+%endif
+%if 0%{?use_system_libwebp}
+BuildRequires: pkgconfig(libwebp) >= 0.6.0
+%endif
+%if 0%{?use_system_opus}
+BuildRequires: pkgconfig(opus)
+%endif
+%if %{?use_system_ffmpeg}
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libavutil)
+BuildRequires: pkgconfig(openh264)
+%endif
+%if %{?use_system_libvpx}
+BuildRequires: pkgconfig(vpx) >= 1.8.0
+%endif
+%if 0%{?use_system_snappy}
+BuildRequires: pkgconfig(snappy)
+%endif
+%if 0%{?use_system_glib}
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gobject-2.0)
+BuildRequires: pkgconfig(gio-2.0)
+%endif
+%if %{?use_system_zlib}
+BuildRequires: pkgconfig(zlib)
+%endif
+%if 0%{?use_system_minizip}
+BuildRequires: pkgconfig(minizip)
+%else
 Provides: bundled(minizip) = 2.8.1
+%endif
+%if 0%{?use_system_libevent}
+BuildRequires: pkgconfig(libevent)
+%endif
+%if %{?use_system_libxml}
+BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(libxslt)
+%else
+# bundled as "libxml"
+# see src/3rdparty/chromium/third_party/libxml/linux/include/libxml/xmlversion.h
+Provides: bundled(libxml2) = 2.9.13
+# see src/3rdparty/chromium/third_party/libxslt/linux/config.h for version
+Provides: bundled(libxslt) = 1.1.3
+%endif
+%if 0%{?use_system_lcms2}
+BuildRequires: pkgconfig(lcms2)
+%endif
+%if 0%{?use_system_libpng}
+BuildRequires: pkgconfig(libpng)
+%endif
+%if 0%{?use_system_libtiff}
+BuildRequires: pkgconfig(libtiff-4)
+%endif
+%if 0%{?use_system_libjpeg}
+BuildRequires: pkgconfig(libjpeg)
+%endif
+%if 0%{?use_system_libopenjpeg2}
+BuildRequires: pkgconfig(libopenjp2)
+%endif
+%if 0%{?use_system_harfbuzz}
+BuildRequires: pkgconfig(harfbuzz)
+%endif
+%if 0%{?use_system_freetype}
+BuildRequires: pkgconfig(fontconfig)
+BuildRequires: pkgconfig(freetype2)
+%endif
+%if 0%{?use_system_libpci}
+BuildRequires: pkgconfig(libpci)
+%endif
+%if 0%{?use_system_libudev}
+BuildRequires: pkgconfig(libudev)
+%endif
+
 BuildRequires: pkgconfig(alsa)
+BuildRequires: pkgconfig(libpulse)
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(epoxy)
 BuildRequires: pkgconfig(expat)
-BuildRequires: pkgconfig(fontconfig)
-BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(gbm)
-BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gl)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(gobject-2.0)
-BuildRequires: pkgconfig(harfbuzz)
-%if 0%{?use_system_jsoncpp}
-BuildRequires: pkgconfig(jsoncpp)
-%endif
-BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libcap)
 BuildRequires: pkgconfig(libdrm)
-BuildRequires: pkgconfig(libevent)
-BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(libpipewire-0.3)
-BuildRequires: pkgconfig(libpng)
-BuildRequires: pkgconfig(libpulse)
-BuildRequires: pkgconfig(libudev)
-%if 0%{?use_system_libwebp}
-BuildRequires: pkgconfig(libwebp) >= 0.6.0
-%endif
 BuildRequires: pkgconfig(nss)
-BuildRequires: pkgconfig(opus)
 BuildRequires: pkgconfig(poppler-cpp)
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xcomposite)
@@ -206,21 +287,9 @@ BuildRequires: pkgconfig(xscrnsaver)
 %endif
 BuildRequires: pkgconfig(xshmfence)
 BuildRequires: pkgconfig(xtst)
-BuildRequires: pkgconfig(zlib)
-%if %{?use_system_libxslt}
-BuildRequires: pkgconfig(libxslt)
-%endif
-%if %{?use_system_libxml}
-BuildRequires: pkgconfig(libxml-2.0)
-%endif
 BuildRequires: perl-interpreter
 BuildRequires: %{__python3}
 BuildRequires: python3-html5lib
-BuildRequires: pkgconfig(vpx) >= 1.8.0
-BuildRequires: pkgconfig(libavcodec)
-BuildRequires: pkgconfig(libavformat)
-BuildRequires: pkgconfig(libavutil)
-BuildRequires: pkgconfig(openh264)
 BuildRequires: pkgconfig(libva)
 
 %if 0%{?fedora} && 0%{?fedora} >= 39
@@ -285,19 +354,9 @@ Provides: bundled(leveldb) = 1.23
 Provides: bundled(libjingle)
 # see src/3rdparty/chromium/third_party/libsrtp/CHANGES for the version number
 Provides: bundled(libsrtp) = 2.4.0
-%if ! %{?use_system_libxml}
-# bundled as "libxml"
-# see src/3rdparty/chromium/third_party/libxml/linux/include/libxml/xmlversion.h
-Provides: bundled(libxml2) = 2.9.13
-%endif
-%if ! %{?use_system_libxslt}
-# see src/3rdparty/chromium/third_party/libxslt/linux/config.h for version
-Provides: bundled(libxslt) = 1.1.3
-%endif
 Provides: bundled(libyuv) = 1819
 Provides: bundled(modp_b64)
 Provides: bundled(ots)
-Provides: bundled(re2)
 # see src/3rdparty/chromium/third_party/protobuf/CHANGES.txt for the version
 Provides: bundled(protobuf) = 3.13.0.1
 Provides: bundled(qcms) = 4
@@ -439,27 +498,22 @@ ln -s /usr/lib/python%{python3_version}/site-packages/six.py src/3rdparty/chromi
 ln -s /usr/lib/python%{python3_version}/site-packages/six.py src/3rdparty/chromium/third_party/wpt_tools/wpt/tools/third_party/six/six.py
 %endif
 
-%if 0%{?use_system_re2}
+#%%if 0%{?use_system_re2}
 # http://bugzilla.redhat.com/1337585
 # can't just delete, but we'll overwrite with system headers to be on the safe side
-cp -bv /usr/include/re2/*.h src/3rdparty/chromium/third_party/re2/src/re2/
-%endif
+#cp -bv /usr/include/re2/*.h src/3rdparty/chromium/third_party/re2/src/re2/
+#%%endif
 
 # copy the Chromium license so it is installed with the appropriate name
 cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
 
 
-# use system libraries
+# use system libraries not handled by cmake options correctly
 system_libs=()
-%if %{?use_system_libxml}
-    system_libs+=(libxml)
-%endif
-%if %{?use_system_libxslt}
-    system_libs+=(libxslt)
-%endif
+%if %{?use_system_ffmpeg}
 system_libs+=(ffmpeg)
 system_libs+=(openh264)
-
+%endif
 # Use system libraries
 src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py --system-libraries ${system_libs[@]}
 
@@ -482,21 +536,61 @@ export STRIP=strip
 export NINJAFLAGS="%{__ninja_common_opts}"
 export NINJA_PATH=%{__ninja}
 
+# this follows the logic of the Configure summary to turn on and off
 %cmake_qt6 \
   -DCMAKE_TOOLCHAIN_FILE:STRING="%{_libdir}/cmake/Qt6/qt.toolchain.cmake" \
-  -DFEATURE_qtpdf_build:BOOL=ON \
+  -DFEATURE_webengine_build_gn:BOOL=ON \
+  -DFEATURE_webengine_jumbo_build:BOOL=ON \
   -DFEATURE_webengine_developer_build:BOOL=OFF \
+  -DFEATURE_qtwebengine_build:BOOL=ON \
+  -DFEATURE_qtwebengine_core_build:BOOL=ON \
+  -DFEATURE_qtwebengine_widgets_build:BOOL=ON \
+  -DFEATURE_qtwebengine_quick_build:BOOL=ON \
+  -DFEATURE_qtpdf_build:BOOL=ON \
+  -DFEATURE_qtpdf_widgets_build:BOOL=ON \
+  -DFEATURE_qtpdf_quick_build:BOOL=ON \
+  -DFEATURE_webengine_system_re2:BOOL=%{?use_system_re2} \
+  -DFEATURE_webengine_system_icu:BOOL=%{?use_system_libicu} \
+  -DFEATURE_webengine_system_libwebp:BOOL=%{?use_system_libwebp} \
+  -DFEATURE_webengine_system_opus:BOOL=%{?use_system_opus} \
+  -DFEATURE_webengine_system_ffmpeg:BOOL=%{?use_system_ffmpeg} \
+  -DFEATURE_webengine_system_libvpx:BOOL=%{?use_system_libvpx} \
+  -DFEATURE_webengine_system_snappy:BOOL=%{?use_system_snappy} \
+  -DFEATURE_webengine_system_glib:BOOL=%{?use_system_glib} \
+  -DFEATURE_webengine_system_zlib:BOOL=%{?use_system_zlib} \
+  -DFEATURE_webengine_system_minizip:BOOL=%{?use_system_minizip} \
+  -DFEATURE_webengine_system_libevent:BOOL=%{?use_system_libevent} \
+  -DFEATURE_webengine_system_libxml:BOOL=%{?use_system_libxml} \
+  -DFEATURE_webengine_system_lcms2:BOOL=%{?use_system_lcms2} \
+  -DFEATURE_webengine_system_libpng:BOOL=%{?use_system_libpng} \
+  -DFEATURE_webengine_system_libtiff:BOOL=%{?use_system_libtiff} \
+  -DFEATURE_webengine_system_libjpeg:BOOL=%{?use_system_libjpeg} \
+  -DFEATURE_webengine_system_libopenjpeg2:BOOL=%{?use_system_libopenjpeg2} \
+  -DFEATURE_webengine_system_harfbuzz:BOOL=%{?use_system_harfbuzz} \
+  -DFEATURE_webengine_system_freetype:BOOL=%{?use_system_freetype} \
+  -DFEATURE_webengine_system_libpci:BOOL=%{?use_system_libpci} \
+  -DFEATURE_webengine_system_libudev:BOOL=%{?use_system_libudev} \
   -DFEATURE_webengine_embedded_build:BOOL=OFF \
-  -DFEATURE_webengine_extensions:BOOL=ON \
-  -DFEATURE_webengine_kerberos:BOOL=ON \
-  -DFEATURE_webengine_native_spellchecker:BOOL=OFF \
+  -DFEATURE_webengine_pepper_plugins:BOOL=ON \
   -DFEATURE_webengine_printing_and_pdf:BOOL=ON \
   -DFEATURE_webengine_proprietary_codecs:BOOL=ON \
-  -DFEATURE_webengine_system_icu:BOOL=%{?use_system_libicu} \
-  -DFEATURE_webengine_system_libevent:BOOL=ON \
-  -DFEATURE_webengine_system_ffmpeg:BOOL=ON \
+  -DFEATURE_webengine_spellchecker:BOOL=ON \
+  -DFEATURE_webengine_native_spellchecker:BOOL=OFF \
   -DFEATURE_webengine_webrtc:BOOL=ON \
   -DFEATURE_webengine_webrtc_pipewire:BOOL=ON \
+  -DFEATURE_webengine_geolocation:BOOL=ON \
+  -DFEATURE_webengine_webchannel:BOOL=ON \
+  -DFEATURE_webengine_kerberos:BOOL=ON \
+  -DFEATURE_webengine_extensions:BOOL=ON \
+  -DFEATURE_webengine_ozone_x11:BOOL=ON \
+  -DFEATURE_webengine_vulkan:BOOL=ON \
+  -DFEATURE_webengine_vaapi:BOOL=ON \
+  -DFEATURE_webengine_system_alsa:BOOL=ON \
+  -DFEATURE_webengine_system_pulseaudio:BOOL=ON \
+  -DFEATURE_webengine_system_gbm:BOOL=ON \
+  -DFEATURE_webengine_v8_context_snapshot:BOOL=ON \
+  -DFEATURE_webenginedriver:BOOL=ON \
+  -DFEATURE_pdf_v8:BOOL=%{?enable_pdf_v8} \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
   -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
 
@@ -737,6 +831,10 @@ done
 %endif
 
 %changelog
+* Tue Apr 22 2025 Marie Loise Nolden <loise@kde.org> - 6.9.0-2
+- global define all optional system libs, enable XFA
+- cleanup spec
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

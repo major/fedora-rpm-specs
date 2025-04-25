@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        9.0.12
+Version:        9.0.13
 Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
@@ -18,6 +18,8 @@ Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{
 Source1:        seafile.appdata.xml
 # Disable unused feature that requires bundled QuaZip
 Patch:          https://github.com/haiwen/seafile-client/pull/1506.patch#/Add-ENABLE_LOG_UPLOADER-CMake-option.patch
+# Fix build with Qt 6.9
+Patch:          seafile-client-qt-6.9-missing-includes.patch
 
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
@@ -25,7 +27,6 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  make
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Core5Compat)
@@ -100,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Wed Apr 23 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.13-1
+- Update to 9.0.13
+
 * Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.12-1
 - Update to 9.0.12
 

@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          backon-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Downgrade required version of spin
+# * drop WASM-specific features
+# * relax spin dependency to allow building with both 0.9 and 0.10
 Patch:          backon-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -51,30 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+embassy-sleep-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+embassy-sleep-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "embassy-sleep" feature of the "%{crate}" crate.
-
-%files       -n %{name}+embassy-sleep-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+embassy-time-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+embassy-time-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "embassy-time" feature of the "%{crate}" crate.
-
-%files       -n %{name}+embassy-time-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+futures-timer-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -97,18 +74,6 @@ This package contains library source intended for building other packages which
 use the "futures-timer-sleep" feature of the "%{crate}" crate.
 
 %files       -n %{name}+futures-timer-sleep-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gloo-timers-sleep-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gloo-timers-sleep-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gloo-timers-sleep" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gloo-timers-sleep-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

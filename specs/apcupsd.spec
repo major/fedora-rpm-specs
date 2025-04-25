@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    35%{?dist}
+Release:    36%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPL-2.0-only
@@ -31,7 +31,7 @@ Patch4:       99-apcupsd-xfer-glitch.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glibc-devel, gd-devel
-%if %{defined fedora}
+%if %{defined fedora} || (%{defined rhel} && 0%{?rhel} > 9)
 BuildRequires: libusb-compat-0.1-devel
 %endif
 %if (%{defined rhel} && 0%{?rhel} <= 9)
@@ -177,6 +177,10 @@ rm examples/*.in
 
 
 %changelog
+* Wed Apr 23 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 3.14.14-36
+- Fix libusb conditional to make it build on EPEL 10
+  Fixes: RHBZ#2337139
+
 * Wed Apr 09 2025 Germano Massullo <germano.massullo@gmail.com> - 3.14.14-35
 - Adds 99-apcupsd-xfer-glitch.patch
 

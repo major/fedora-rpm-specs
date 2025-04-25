@@ -1,13 +1,13 @@
-%global snapshot 20230212
+%global snapshot 20250411
 
 Name:           megatools
-Version:        1.11.1
+Version:        1.11.4
 Release:        %autorelease
 Summary:        Command line client for MEGA
 License:        GPL-3.0-or-later
-URL:            http://megatools.megous.com/
-Source0:        http://megatools.megous.com/builds/builds/%{name}-%{version}.%{snapshot}.tar.gz
-Source1:        http://megatools.megous.com/builds/builds/%{name}-%{version}.%{snapshot}.tar.gz.asc
+URL:            http://xff.cz/
+Source0:        http://xff.cz/megatools/builds/%{name}-%{version}.%{snapshot}.tar.gz
+Source1:        http://xff.cz/megatools/builds/%{name}-%{version}.%{snapshot}.tar.gz.asc
 Source2:        %{name}.rpmlintrc
 
 BuildRequires:  asciidoc

@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 18
+Version: 19
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -20,19 +20,21 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
-Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.2
 Provides: bundled(npm(js-tokens)) = 4.0.0
+Provides: bundled(npm(language-map)) = 1.5.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
+Provides: bundled(npm(mime-db)) = 1.54.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -72,6 +74,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Apr 23 2025 Packit <hello@packit.dev> - 19-1
+- Upgraded to Patternfly 6
+- Symbolic links
+
 * Wed Mar 12 2025 Packit <hello@packit.dev> - 18-1
 - Translation updates
 - Bug fixes

@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        336.2
+Version:        337
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -311,12 +311,12 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
-Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(argparse)) = 1.0.10
@@ -597,6 +597,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 23 2025 Packit <hello@packit.dev> - 337-1
+- Upgraded to Patternfly 6
+- Support dnf needs-restarting
+
 * Fri Mar 28 2025 Packit <hello@packit.dev> - 336.2-1
 - storage: Revert "Use mdraid metadata version 1.0 when in Anaconda mode" (rhbz#2352953)
 - Translation updates (rhbz#2354986)

@@ -105,7 +105,7 @@ BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(hidapi-hidraw)
 %endif
 BuildRequires:  pkgconfig(jemalloc)
-BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libpcre2-32)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)

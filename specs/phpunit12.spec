@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    c433e7972440e1370a26879bb54c359f8898aa3a
-%global gh_date      2025-04-04
+%global gh_commit    72ca50e817dd7d65356c16772c30f06c01a6fae2
+%global gh_date      2025-04-22
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    1
 
-%global upstream_version 12.1.0
+%global upstream_version 12.1.3
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -283,6 +283,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 23 2025 Remi Collet <remi@remirepo.net> - 12.1.3-1
+- update to 12.1.3
+
 * Fri Apr  4 2025 Remi Collet <remi@remirepo.net> - 12.1.0-1
 - update to 12.1.0
 - raise dependency on phpunit/php-code-coverage 12.1.2

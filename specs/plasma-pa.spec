@@ -33,8 +33,12 @@ BuildRequires:  qt6-qtbase-devel
 
 BuildRequires:  perl-generators
 
-Requires: kf6-kirigami2
-Requires: kf6-kirigami2-addons
+# runtime
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6ItemModels)
+Requires: kf6-kirigami
+Requires: kf6-kirigami-addons
 Requires: kf6-kitemmodels
 
 Requires: pulseaudio-daemon

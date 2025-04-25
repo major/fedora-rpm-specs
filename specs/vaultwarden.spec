@@ -7,7 +7,7 @@
 
 Name:           vaultwarden
 Version:        1.33.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -47,7 +47,7 @@ ExcludeArch:    i686
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
-BuildRequires:  mariadb-devel
+BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  libpq-devel
 BuildRequires:  systemd-rpm-macros
 
@@ -164,6 +164,9 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed Apr 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.33.2-2
+- Build against mariadb-connector-c-devel instead of mariadb-devel
+
 * Mon Feb 10 2025 Jonathan Wright <jonathan@almalinux.org> - 1.33.2-1
 - update to 1.33.2 rhbz#2343535
   Fix CVE-2025-0977 ssl::select_next_proto use after free rhbz#2344558

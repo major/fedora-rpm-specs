@@ -20,8 +20,8 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.1
-%define radicale_release  3
+%define radicale_version  3.5.2
+%define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -54,6 +54,7 @@ Source4:          %{name}.te
 Source5:          %{name}.fc
 Source6:          %{name}.if
 Source7:          %{name}-tmpfiles.conf
+Source8:          %{name}.sysconfig
 
 Source50:         %{name}-test-example.ics
 Source51:         %{name}-test-example.vcf
@@ -284,6 +285,10 @@ install -p -m 640 rights %{buildroot}%{_sysconfdir}/%{name}/
 # Empty configuration file
 touch %{buildroot}%{_sysconfdir}/%{name}/users
 
+# Install sysconfig file
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/
+install -p -m 640 %{SOURCE8} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+
 # Install wsgi file
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -p -m 644 radicale.wsgi %{buildroot}%{_datadir}/%{name}/
@@ -472,6 +477,7 @@ fi
 %config(noreplace) %attr(0640, root, %{name}) %{_sysconfdir}/%{name}/config
 %config(noreplace) %attr(0640, root, %{name}) %{_sysconfdir}/%{name}/rights
 %config(noreplace) %attr(0640, root, %{name}) %{_sysconfdir}/%{name}/users
+%config(noreplace) %attr(0640, root, root) %{_sysconfdir}/sysconfig/%{name}
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
 %dir %attr(750, %{name}, %{name}) %{_sharedstatedir}/%{name}
@@ -521,6 +527,11 @@ fi
 
 
 %changelog
+* Wed Apr 23 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.2-1
+- Add support for optional environment file /etc/sysconfig/radicale
+- Package template for /etc/sysconfig/radicale
+- Update to 3.5.2
+
 * Sun Apr 13 2025 Peter Bieringer <pb@bieringer.de> - 3.5.1-3
 - Fix conditional dependency of shadow-utils introduced with 3.5.0-1
 

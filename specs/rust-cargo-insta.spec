@@ -4,13 +4,19 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.42.1
+Version:        1.42.2
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/cargo-insta
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Drop rust-strings dev-dependency, used only for a few tests
+Patch:          cargo-insta-fix-metadata.diff
+# * Downstream: Patch out tests that would require rust-strings. It is not worth
+#   packaging it solely for these.
+Patch10:        0001-Downstream-patch-out-tests-that-would-require-rust-s.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -71,7 +77,10 @@ License:        Apache-2.0 AND MIT AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apa
     --skip delete_pending::test_pending_snapshot_deletion
     --skip inline::test_hashtag_escape_in_inline_snapshot
     --skip inline::test_json_inline
+    --skip inline::test_multiple_assertions_within_allow_duplicates
     --skip inline::test_old_yaml_format
+    --skip inline::test_single_line_assertions
+    --skip inline::test_single_line_duplicates
     --skip inline::test_utf8_inline
     --skip inline::test_yaml_inline
     --skip test_force_update_inline_snapshot
@@ -100,6 +109,7 @@ License:        Apache-2.0 AND MIT AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apa
     --skip workspace::test_root_crate_no_all
     --skip workspace::test_root_crate_workspace
     --skip workspace::test_root_crate_workspace_accept
+    --skip workspace::test_root_test_duplicate_snapshots
     --skip workspace::test_virtual_manifest_all
     --skip workspace::test_virtual_manifest_default
     --skip workspace::test_virtual_manifest_single_crate

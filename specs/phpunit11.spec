@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c
-%global gh_date      2025-03-23
+%global gh_commit    fc3e887c7f3f9917e1bf61e523413d753db00a17
+%global gh_date      2025-04-22
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.15
+%global upstream_version 11.5.18
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -104,7 +104,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/type": "^5.1.2",
 #        "sebastian/version": "^5.0.2",
 #        "staabm/side-effects-detector": "^1.0.5"
-Requires:       php(language) >= 8.1
+Requires:       php(language) >= 8.2
 Requires:       php-cli
 Requires:       php-dom
 Requires:       php-json
@@ -291,6 +291,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 23 2025 Remi Collet <remi@remirepo.net> - 11.5.18-1
+- update to 11.5.18
+
 * Mon Mar 24 2025 Remi Collet <remi@remirepo.net> - 11.5.15-1
 - update to 11.5.15
 - raise dependency on sebastian/code-unit 3.0.2

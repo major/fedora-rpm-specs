@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -142,6 +142,10 @@ sed -i -e 's@cat ${ROCM_PATH}/.info/version@echo %{rocm_version}@' CMakeLists.tx
 # https://github.com/ROCm/rccl/issues/1649
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_version_info.h
 
+# Problems building on SUSE
+# ENABLE_MSCCLPP=OFF
+sed -i -e 's@if (ENABLE_MSCCLPP AND NOT(${HOST_OS_ID} STREQUAL "ubuntu" OR ${HOST_OS_ID} STREQUAL "centos"))@if (ENABLE_MSCCLPP)@' CMakeLists.txt
+
 %build
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
@@ -153,6 +157,7 @@ sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_vers
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
     -DCMAKE_SKIP_RPATH=ON \
+    -DENABLE_MSCCLPP=OFF \
     -DHIP_PLATFORM=amd \
     -DRCCL_ROCPROFILER_REGISTER=OFF \
     -DROCM_PATH=%{_prefix} \
@@ -197,6 +202,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Fix suse
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

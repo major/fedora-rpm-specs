@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        103
+Version:        104
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -45,12 +45,12 @@ Requires:       criu-libs
 Requires:       libcriu2
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
-Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
@@ -92,6 +92,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Apr 23 2025 Packit <hello@packit.dev> - 104-1
+- Upgraded to Patternfly 6
+- Link service containers to service pages
+- Connect to other accounts
+
 * Wed Mar 12 2025 Packit <hello@packit.dev> - 103-1
 - Translation updates
 - Bug fixes

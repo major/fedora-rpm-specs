@@ -60,7 +60,7 @@
 
 Name:             avahi
 Version:          0.9%{?rc:~%{rc}}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Local network service discovery
 License:          LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause-Views AND MIT
 URL:              http://avahi.org
@@ -442,9 +442,12 @@ Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 
 rm -fv docs/INSTALL
 
-# Create a sysusers.d config file
+# Create two sysusers.d config files
 cat >avahi.sysusers.conf <<EOF
 u avahi 70 'Avahi mDNS/DNS-SD Stack' %{_localstatedir}/run/avahi-daemon -
+EOF
+cat >avahi-autoipd.sysusers.conf <<EOF
+u avahi-autoipd 170 'Avahi IPv4LL Stack' %{_localstatedir}/lib/avahi-autoipd -
 EOF
 
 
@@ -559,6 +562,7 @@ rm -fv %{buildroot}%{_sysconfdir}/rc.d/init.d/avahi-dnsconfd
 %find_lang %{name}
 
 install -m0644 -D avahi.sysusers.conf %{buildroot}%{_sysusersdir}/avahi.conf
+install -m0644 -D avahi-autoipd.sysusers.conf %{buildroot}%{_sysusersdir}/avahi-autoipd.conf
 
 
 %check
@@ -589,17 +593,6 @@ fi
 %postun
 %{?ldconfig}
 %systemd_postun_with_restart avahi-daemon.socket avahi-daemon.service
-
-%pre autoipd
-getent group avahi-autoipd >/dev/null || groupadd -f -g 170 -r avahi-autoipd
-if ! getent passwd avahi-autoipd > /dev/null ; then
-  if ! getent passwd 170 > /dev/null; then
-    useradd -r -u 170 -l -g avahi-autoipd -d %{_localstatedir}/lib/avahi-autoipd -s /sbin/nologin -c "Avahi IPv4LL Stack" avahi-autoipd
-  else
-    useradd -r -l -g avahi-autoipd -d %{_localstatedir}/lib/avahi-autoipd -s /sbin/nologin -c "Avahi IPv4LL Stack" avahi-autoipd
-  fi
-fi
-exit 0
 
 %post dnsconfd
 %systemd_post avahi-dnsconfd.service
@@ -655,6 +648,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/avahi/avahi-autoipd.action
 %attr(1770,avahi-autoipd,avahi-autoipd) %dir %{_localstatedir}/lib/avahi-autoipd/
 %{_mandir}/man8/avahi-autoipd.*
+%{_sysusersdir}/avahi-autoipd.conf
 
 %files dnsconfd
 %config(noreplace) %{_sysconfdir}/avahi/avahi-dnsconfd.action
@@ -850,6 +844,9 @@ exit 0
 
 
 %changelog
+* Mon Apr 14 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9~rc2-4
+- Also create sysusers.d config file for the avahi-autoipd user
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9~rc2-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

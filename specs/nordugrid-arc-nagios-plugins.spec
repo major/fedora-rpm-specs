@@ -9,28 +9,34 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	2.0.1
-Release:	6%{?dist}
+Version:	3.0.0
+Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
 URL:		https://www.nordugrid.org
 Source0:	https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
 
-%if %{?fedora}%{!?fedora:0}
-#		Don't add dependency on EPEL since it can use either
-#		nordugrid-arc-client or nordugrid-arcN-client
-Requires:	nordugrid-arc-client >= 1.0.0
-%endif
-Requires:	python%{python3_pkgversion}-cryptography
-Requires:	python%{python3_pkgversion}-jinja2
-Requires:	python%{python3_pkgversion}-ldap3
+Requires:	nordugrid-arc-client
+Requires:	(nordugrid-arc-plugins-arcrest >= 6.5.0 or nordugrid-arc-plugins-needed >= 7.0.0)
 Requires:	nagios-common
-Requires:	glue-schema >= 2.0.8
-BuildRequires:	make
-BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-setuptools
+
+%if %{?rhel}%{!?rhel:0} == 8
+Requires:	python38-cryptography
+Requires:	python38-jinja2
+Requires:	python38-ldap
+BuildRequires:	python38-devel
+BuildRequires:	python38-setuptools
+%else
+Requires:	python3-cryptography
+Requires:	python3-jinja2
+Requires:	python3-ldap
+BuildRequires:	python3-devel
+BuildRequires:	python3-setuptools
+%endif
+
 %if %{enable_doc}
+BuildRequires:	make
 BuildRequires:	/usr/bin/sphinx-build
 %endif
 
@@ -77,8 +83,7 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %{nagios_bindir}/check_arcce_clean
 %{nagios_bindir}/check_arcce_monitor
 %{nagios_bindir}/check_arcce_submit
-%{nagios_bindir}/check_aris
-%{nagios_bindir}/check_egiis
+%{nagios_bindir}/check_arcrest_info
 %{nagios_bindir}/check_arcservice
 %{nagios_bindir}/check_gridstorage
 %{python3_sitelib}/arcnagios
@@ -99,9 +104,12 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %files egi
 %dir %{pkg_sysconfdir}/60-egi.d
 %config(noreplace) %{pkg_sysconfdir}/60-egi.ini
-%config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py*
+%config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Tue Apr 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.0.0-1
+- Version 3.0.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
