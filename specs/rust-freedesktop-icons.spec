@@ -5,7 +5,7 @@
 %global crate freedesktop-icons
 
 Name:           rust-freedesktop-icons
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Freedesktop Icons lookup crate
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop unneeded criterion dependency
 Patch:          freedesktop-icons-fix-metadata.diff
-# * Fix doc tests
-Patch2:         https://github.com/oknozor/freedesktop-icons/pull/25.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

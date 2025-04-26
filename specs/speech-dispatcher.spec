@@ -6,7 +6,7 @@
 
 Name:          speech-dispatcher
 Version:       0.12.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -187,6 +187,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/speech-dispatcher/conf/desktop/sp
 # enable pulseaudio as default with a fallback to alsa
 sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{buildroot}%{_sysconfdir}/speech-dispatcher/speechd.conf
 
+# explicitly enable espeak-ng module, othervise it falls back to espeak-ng-mbrola and it has bad pronunciation
+sed -i 's/#AddModule "espeak-ng"                "sd_espeak-ng" "espeak-ng.conf"/AddModule "espeak-ng"                "sd_espeak-ng" "espeak-ng.conf"/' %{buildroot}%{_sysconfdir}/speech-dispatcher/speechd.conf
+
+
+
 # Remove Festival related files if needed, we can't disable their generation by any other means (e. g. configure option).
 # And if not done, we're getting an error about installed but unpackaged files.
 %if %{festival_backend} == 0
@@ -275,6 +280,9 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{python3_sitearch}/speechd*
 
 %changelog
+* Thu Apr 24 2025 Vojtech Polasek <krecoun@gmail.com> - 0.12.0-2
+- enable espeak-ng module by default
+
 * Mon Feb 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.12.0-1
 - 0.12.0
 

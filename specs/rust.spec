@@ -879,6 +879,9 @@ test -r "%{profiler}"
 
 %global __x %{__python3} ./x.py
 
+# rustc is exibiting signs of miscompilation on pwr9+pgo (root cause TBD),
+# so we're skipping pgo on rhel ppc64le for now.
+%if !( 0%{?rhel} && "%{_target_cpu}" == "ppc64le" )
 %if %with rustc_pgo
 # Build the compiler with profile instrumentation
 %define profraw $PWD/build/profiles
@@ -893,6 +896,7 @@ llvm-profdata merge -o "%{profdata}" "%{profraw}"
 rm -r "%{profraw}" build/%{rust_triple}/stage2*/
 # Redefine the macro to use that profile data from now on
 %global __x %{__x} --rust-profile-use="%{profdata}"
+%endif
 %endif
 
 # Build the compiler normally (with or without PGO)

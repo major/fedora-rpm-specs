@@ -48,6 +48,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
+%pyproject_save_files -l zope
 
 
 %else
@@ -66,13 +67,11 @@ Summary:        %{summary}
 %pytest --pyargs %{pypi_name}
 
 
-%files -n python3-zope-hookable
-%license LICENSE.txt
+%files -n python3-zope-hookable -f %{pyproject_files}
 %doc README.rst CHANGES.rst
-%{python3_sitearch}/zope/hookable/
-%{python3_sitearch}/%{pypi_name}-%{version}*-info/
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}-nspkg.pth
 %exclude %{python3_sitearch}/zope/hookable/tests
+%exclude %dir %{python3_sitearch}/zope
 
 
 %changelog

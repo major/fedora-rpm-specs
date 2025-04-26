@@ -1,5 +1,5 @@
 Name:       ibus-table-others
-Version:    1.3.19
+Version:    1.3.20
 Release:    %autorelease
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
@@ -95,6 +95,9 @@ cd ${RPM_BUILD_ROOT}/%{_datadir}/ibus-table/tables/
 %{_bindir}/ibus-table-createdb -i -n viqr.db
 %{_bindir}/ibus-table-createdb -i -n yawerty.db
 %{_bindir}/ibus-table-createdb -i -n mathwriter-ibus.db
+%{_bindir}/ibus-table-createdb -i -n hu-old-hungarian-rovas.db
+%{_bindir}/ibus-table-createdb -i -n hu_Hung_HU_traditional.db
+%{_bindir}/ibus-table-createdb -i -n mongol_bichig.db
 
 # Register as AppStream components to be visible in the software center
 #
@@ -249,9 +252,11 @@ EOF
 %{_datadir}/ibus-table/tables/compose.db
 %{_datadir}/ibus-table/tables/ipa-x-sampa.db
 %{_datadir}/ibus-table/tables/hu-old-hungarian-rovas.db
+%{_datadir}/ibus-table/tables/hu_Hung_HU_traditional.db
 %{_datadir}/ibus-table/icons/compose.svg
 %{_datadir}/ibus-table/icons/ipa-x-sampa.svg
 %{_datadir}/ibus-table/icons/hu-old-hungarian-rovas.svg
+%{_datadir}/ibus-table/icons/hu_Hung_HU_traditional.png
 
 %files -n ibus-table-translit
 %{_datadir}/ibus-table/tables/translit.db

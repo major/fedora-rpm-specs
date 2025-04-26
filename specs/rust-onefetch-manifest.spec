@@ -5,17 +5,13 @@
 %global crate onefetch-manifest
 
 Name:           rust-onefetch-manifest
-Version:        2.23.1
+Version:        2.24.0
 Release:        %autorelease
 Summary:        Detect and parse manifest files
 
 License:        MIT
 URL:            https://crates.io/crates/onefetch-manifest
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update cargo_toml from 0.21.0 to 0.22.1:
-#   https://github.com/o2sh/onefetch/pull/1545
-Patch:          onefetch-manifest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -35,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.md
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

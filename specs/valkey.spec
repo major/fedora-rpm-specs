@@ -4,11 +4,12 @@
 %else
 %bcond_with docs
 %endif
+%global doc_version 8.1.0
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 Name:              valkey
-Version:           8.1.0
+Version:           8.1.1
 Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
@@ -26,9 +27,7 @@ Source4:           %{name}.sysusers
 Source5:           %{name}.tmpfiles
 Source8:           macros.%{name}
 Source9:           migrate_redis_to_valkey.sh
-Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{version}/%{name}-doc-%{version}.tar.gz
-
-Patch0:            used_memory_thread_type.patch
+Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_version}/%{name}-doc-%{doc_version}.tar.gz
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -158,7 +157,6 @@ Provides:          redis-doc = %{version}-%{release}
 %prep
 # no autosetup due to no support for multiple source extraction
 %setup -n %{name}-%{version} -a50
-%autopatch -p1
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -208,7 +206,7 @@ echo '# valkey-sentinel_rpm_conf' >> sentinel.conf
 
 %if %{with docs}
 # docs
-pushd %{name}-doc-%{version}
+pushd %{name}-doc-%{doc_version}
 # build man pages
 %make_build VALKEY_ROOT=../
 # build html docs
@@ -221,7 +219,7 @@ popd
 %make_install %{make_flags}
 %if %{with docs}
 # install docs
-pushd %{name}-doc-%{version}
+pushd %{name}-doc-%{doc_version}
 # man pages
 %make_install INSTALL_MAN_DIR=%{buildroot}%{_mandir} VALKEY_ROOT=../
 # install html docs
@@ -405,6 +403,10 @@ fi
 
 
 %changelog
+* Thu Apr 24 2025 Remi Collet <remi@fedoraproject.org> - 8.1.1-1
+- update to 8.1.1
+  fixes CVE-2025-21605
+
 * Fri Apr 04 2025 Nathan Scott <nathans@redhat.com> - 8.1.0-1
 - include tmpfiles.d configuration file
 - redis.log transition rhbz#2316030

@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.57.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
@@ -55,7 +55,6 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: docbook-style-xsl
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(libcap)
-BuildRequires: pkgconfig(msgraph-1)
 
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
@@ -206,6 +205,7 @@ BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
 %if ! (0%{?rhel} >= 10)
 BuildRequires: pkgconfig(libgdata) >= %{libgdata_version}
 Requires: libgdata%{?_isa} >= %{libgdata_version}
+BuildRequires: pkgconfig(msgraph-1)
 %endif
 
 %description goa
@@ -430,6 +430,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Tue Apr 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.57.2-2
+- Limit msgraph dependency to the goa subpackage
+
 * Wed Mar 05 2025 nmontero <nmontero@redhat.com> - 1.57.2-1
 - Update to 1.57.2
 

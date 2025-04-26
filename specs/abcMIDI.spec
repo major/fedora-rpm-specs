@@ -1,12 +1,12 @@
 Name:           abcMIDI
 Version:        2025.02.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
 License:        GPL-2.0-or-later
 URL:            https://ifdo.ca/~seymour/runabc/top.html
-Source0:        https://github.com/sshlien/abcmidi/archive/refs/tags/%{version}.tar.gz
+Source0:        https://github.com/sshlien/abcmidi/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:		abcMIDI-gnu23.patch
 
 BuildRequires:  gcc dos2unix
@@ -42,9 +42,11 @@ install -p -m 755 abc2midi %{buildroot}%{_bindir}
 install -p -m 755 abcmatch %{buildroot}%{_bindir}
 install -p -m 755 midi2abc %{buildroot}%{_bindir}
 install -p -m 755 midicopy %{buildroot}%{_bindir}
+install -p -m 755 midistats %{buildroot}%{_bindir}
 install -p -m 755 abc2abc %{buildroot}%{_bindir}
 install -p -m 755 mftext %{buildroot}%{_bindir}
 install -p -m 755 yaps %{buildroot}%{_bindir}
+
 
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -m 644 doc/abc2abc.1 %{buildroot}%{_mandir}/man1
@@ -52,6 +54,7 @@ install -p -m 644 doc/abc2midi.1 %{buildroot}%{_mandir}/man1
 install -p -m 644 doc/mftext.1 %{buildroot}%{_mandir}/man1
 install -p -m 644 doc/midi2abc.1 %{buildroot}%{_mandir}/man1
 install -p -m 644 doc/midicopy.1 %{buildroot}%{_mandir}/man1
+install -p -m 644 doc/midistats.1 %{buildroot}%{_mandir}/man1
 install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
@@ -63,6 +66,9 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Apr 24 2025 Stuart Gathman <stuart@gathman.org> - 2025.02.16-2
+- Include new midistats binary from upstream release
+
 * Wed Apr 23 2025 Stuart Gathman <stuart@gathman.org> - 2025.02.16-1
 - New upstream release
 - fix compile errors

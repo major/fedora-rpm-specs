@@ -1,10 +1,9 @@
 Name:           anagramarama
-Version:        0.7
-Release:        9%{?dist}
+Version:        0.8
+Release:        %autorelease
 Summary:        Anagram puzzle game
 # Almost all is GPLv2+ with some graphics being CC-BY-SA
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+License:        GPLv2+ and CC-BY-SA
 URL:            http://identicalsoftware.com/anagramarama/
 
 Source0:        %{url}/%{name}-%{version}.tgz
@@ -58,41 +57,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7-8
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Feb 05 2022 Dennis Payne <dulsi@identicalsoftware.com> - 0.7-1
-- Newest release
-
-* Thu Dec 16 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.6-1
-- Newest release
-
-* Mon Sep 13 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5-3
-- Use name macro everywhere and updated license
-
-* Fri Aug 06 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5-2
-- Changed man page to use asterisk and moved commands to check section
-
-* Fri Aug 06 2021 Dennis Payne <dulsi@identicalsoftware.com> - 0.5-1
-- Initial build
+%autochangelog

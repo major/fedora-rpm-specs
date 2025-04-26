@@ -1,5 +1,5 @@
 Name:          sailcut
-Version:       1.5.0
+Version:       1.5.1
 Release:       1%{?dist}
 Summary:       A sail design and plotting software
 
@@ -57,10 +57,15 @@ install -p -D -m 644 icons/%{name}-file.svg %{buildroot}%{_datadir}/icons/hicolo
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/icons/hicolor/scalable/%{name}.svg
 %{_datadir}/icons/hicolor/scalable/mimetypes/application-x-%{name}.svg
+%{_datadir}/metainfo/org.sailcut.cad.metainfo.xml
 
 
 %changelog
+* Thu Apr 24 2025 Sandro Mani <manisandro@gmail.com> - 1.5.1-1
+- Update to 1.5.1
+
 * Tue Mar 25 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-1
 - Update to 1.5.0
 

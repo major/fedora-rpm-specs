@@ -25,7 +25,7 @@
 
 Name:           rocm-examples
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -39,8 +39,6 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  google-benchmark-devel
-BuildRequires:  gtest-devel
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcub-devel
 BuildRequires:  hipfft-devel
@@ -56,6 +54,14 @@ BuildRequires:  rocfft-devel
 BuildRequires:  rocsolver-devel
 BuildRequires:  rocsparse-devel
 BuildRequires:  rocthrust-devel
+
+%if 0%{?suse_version}
+BuildRequires:  benchmark-devel
+BuildRequires:  gtest
+%else
+BuildRequires:  google-benchmark-devel
+BuildRequires:  gtest-devel
+%endif
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -118,6 +124,9 @@ done
 %{_bindir}/*
 
 %changelog
+* Thu Apr 24 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Build on suse
+
 * Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

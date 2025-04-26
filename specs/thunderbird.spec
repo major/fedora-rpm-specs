@@ -128,6 +128,8 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        build-swgl-gcc15-D221744.diff
 Patch81:        build-swgl-gcc15-D222067.diff
+# PROTOBUF_MUSTTAIL return ...  error: cannot tail-call: target is not able to optimize the call into a sibling call
+Patch82:        build-s390x-protobuf-musttail.patch
 
 # PPC fix
 
@@ -321,6 +323,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P80 -p1 -b .swgl-gcc15-1
 %patch -P81 -p1 -b .swgl-gcc15-2
+%patch -P82 -p1 -b .build-s390x-protobuf-musttail
 
 %patch -P 1200 -p1 -b .rustflags-commasplit
 

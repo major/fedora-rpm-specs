@@ -4,8 +4,8 @@
 %define utils_version 1.3
 
 Name:           cbmc
-Version:        6.4.1
-Release:        2%{?dist}
+Version:        6.5.0
+Release:        1%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -14,20 +14,24 @@ URL:            https://www.cprover.org/cbmc
 Source0:        https://github.com/diffblue/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/aufover/%{name}-utils/archive/v%{utils_version}/%{name}-utils-%{utils_version}.tar.gz
 
-# FIXME: Upstream these patches!
-# Adapt to recent versions of glpk
-Patch1:         %{name}-5.9-glpk.patch
 # Implements https://github.com/diffblue/cbmc/issues/5965
-Patch2:         %{name}-add-cmd-line-arg.patch
-# Fix compilation on F40
-Patch3:         %{name}-f41-fix-build.patch
+Patch:         %{name}-add-cmd-line-arg.patch
+# Fix compilation on F41+
+Patch:         %{name}-f41-fix-build.patch
+# Addx compatibility with GCC 15
+# * https://github.com/diffblue/cbmc/pull/8620
+# * https://github.com/diffblue/cbmc/pull/8621
+# * https://github.com/diffblue/cbmc/pull/8622
+# * https://github.com/diffblue/cbmc/pull/8625
+# * https://github.com/diffblue/cbmc/pull/8626
+Patch:         %{name}-gcc15.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  flex
 BuildRequires:  gcc-c++
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  glpk-devel
 BuildRequires:  minisat2-devel
 BuildRequires:  ninja-build
@@ -67,7 +71,7 @@ Output conversion utilities for CBMC (GCC like format).
 
 %prep
 %setup -T -q -b 1 -n %{name}-utils-%{utils_version}
-%autosetup -p1 -b 0 -S git -n %{name}-%{name}-%{version}
+%autosetup -p1 -b 0 -S git_am -n %{name}-%{name}-%{version}
 
 sed -i 's/-Werror//g' CMakeLists.txt src/ansi-c/library_check.sh src/config.inc
 
@@ -134,6 +138,9 @@ mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Wed Apr 23 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.5.0-1
+- rebase to the latest upstream release (rhbz#2352414)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

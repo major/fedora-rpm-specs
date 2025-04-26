@@ -1,4 +1,4 @@
-%ifarch %{power64} s390x
+%ifarch %{power64} s390x riscv64
 # LuaJIT is not available for POWER and IBM Z
 %bcond lua_scripting 0
 %else
@@ -34,7 +34,7 @@
 
 Name:           obs-studio
 Version:        31.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -365,6 +365,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Apr 23 2025 David Abdurachmanov <davidlt@rivosinc.com> - 31.0.3-2
+- Disable LuaJIT on riscv64 (not supported)
+
 * Wed Apr 09 2025 Sérgio M. Basto <sergio@serjux.com> - 31.0.3-1
 - Update obs-studio to 31.0.3
 - Resolves: rhbz#2309473

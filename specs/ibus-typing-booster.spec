@@ -14,8 +14,10 @@ Requires:   python3-distro
 Requires:   python3-packaging
 Requires:   python3-enchant
 Requires:   python3-pyxdg
+%if 0%{?fedora}
 # To make emoji and Unicode symbol matching faster:
 Requires:     python3-rapidfuzz
+%endif
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 # Recommend reasonably good fonts which have most of the emoji:
 Recommends: google-noto-emoji-color-fonts
@@ -52,7 +54,9 @@ BuildRequires:  m17n-db-devel
 BuildRequires:  python3-enchant
 BuildRequires:  enchant2
 BuildRequires:  hunspell-en
+%if 0%{?fedora}
 BuildRequires:  python3-rapidfuzz
+%endif
 # because of “from packing import version”:
 BuildRequires:   python3-packaging
 %if 0%{?fedora} >= 35

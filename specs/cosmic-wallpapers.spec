@@ -3,12 +3,12 @@
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit cb8e6d653b5062e046e83b4670c3d9944fa39c39
-%global commitdatestring 2024-10-31 12:00:42 -0600
-%global cosmic_minver 1.0.0~alpha.6
+%global commit 189c2c63d31da84ebb161acfd21a503f98a1b4c7
+%global commitdatestring 2025-04-08 08:53:17 -0600
+%global cosmic_minver 1.0.0~alpha.7
 
 Name:           cosmic-wallpapers
-Version:        1.0.0~alpha.6
+Version: 1.0.0~alpha.7
 Release:        %autorelease
 Summary:        Default wallpapers for the COSMIC Desktop Environment
 
@@ -24,8 +24,8 @@ URL:            https://github.com/pop-os/cosmic-wallpapers
 # dnf install git-lfs
 # git clone https://github.com/pop-os/cosmic-wallpapers
 # cd cosmic-wallpapers && git checkout %%{commit} && cd ..
-# tar -pczf cosmic-wallpapers-archive-%%{version_no_tilde}.tar.gz cosmic-wallpapers
-Source0:        cosmic-wallpapers-archive-%{version_no_tilde}.tar.gz
+# tar -pczf cosmic-wallpapers-%%{version_no_tilde}.tar.gz cosmic-wallpapers
+Source0:        cosmic-wallpapers-%{version_no_tilde}.tar.gz
 
 BuildArch:      noarch
 
@@ -37,7 +37,7 @@ BuildRequires:  make
 %description %{_description}
 
 %prep
-tar -xf %{SOURCE0} -C .
+tar -xzf %{SOURCE0} -C .
 
 %build
 
@@ -51,8 +51,8 @@ make install DESTDIR=%{buildroot} prefix=%{_prefix}
 %files
 %dir %{_datadir}/backgrounds/cosmic
 %{_datadir}/backgrounds/cosmic/*
-%license LICENSE
+%license cosmic-wallpapers/LICENSE
 
 %changelog
 %autochangelog
-    
+

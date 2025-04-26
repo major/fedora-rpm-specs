@@ -2,7 +2,7 @@
 %bcond_with    all_tests
 
 Name:           dnsviz
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Tools for analyzing and visualizing DNS and DNSSEC behavior
 

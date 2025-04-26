@@ -7,9 +7,10 @@ Summary:	Mellanox firmware burning tool
 # 4.31.0 has too many build bugs, so use a later snapshot.
 # top of master_devel branch as of 2025-03-21:
 %global commit bebc0dfd55ca38e20a10a27f84dc26d9665bfdd3
+%global date 20250321
 %forgemeta
 Version:	%forgeversion
-Release:	%autorelease
+Release:	%autorelease -b4
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
 # ext_libs/{iniParser,json,muparser}/ have MIT.

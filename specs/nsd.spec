@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.11.1
+Version: 4.12.0
 Release: %autorelease
 License: BSD-3-Clause
 Url: http://www.nlnetlabs.nl/nsd/
@@ -9,16 +9,14 @@ Source0: http://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?prever}.
 Source1: nsd.conf
 Source2: nsd.service
 Source3: tmpfiles-nsd.conf
+Source4: nsd.sysusers.conf
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: openssl-devel
 BuildRequires: libevent-devel
-BuildRequires: systemd-units
 BuildRequires: systemd-devel
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
+BuildRequires: systemd-rpm-macros
 
 %description
 NSD is a complete implementation of an authoritative DNS name server.
@@ -27,11 +25,6 @@ consult the REQUIREMENTS document which is a part of this distribution.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
-
-# Create a sysusers.d config file
-cat >nsd.sysusers.conf <<EOF
-u nsd - 'nsd daemon account' /etc/nsd -
-EOF
 
 %build
 CFLAGS="%{optflags} -fPIE -pie"
@@ -66,6 +59,7 @@ mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/nsd.conf
 mkdir -p %{buildroot}%{_rundir}/nsd
 mkdir -p %{buildroot}%{_sharedstatedir}/nsd
+install -m 0644 -D %{SOURCE4} %{buildroot}%{_sysusersdir}/nsd.conf
 
 # Install ghost files
 for name in control server; do
@@ -79,8 +73,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/nsd/conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/nsd/server.d
 install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/nsd/nsd.conf
 rm %{buildroot}%{_sysconfdir}/nsd/nsd.conf.sample
-
-install -m0644 -D nsd.sysusers.conf %{buildroot}%{_sysusersdir}/nsd.conf
 
 %files
 %license LICENSE

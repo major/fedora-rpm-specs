@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -32,7 +32,6 @@ BuildRequires: libgcrypt-devel
 BuildRequires: libstdc++-devel
 BuildRequires: protobuf-devel protobuf-compiler
 BuildRequires: PEGTL-static
-BuildRequires: catch1-devel
 BuildRequires: autoconf automake libtool
 BuildRequires: bash-completion
 BuildRequires: asciidoc
@@ -40,8 +39,14 @@ BuildRequires: audit-libs-devel
 # For `pkg-config systemd` only
 BuildRequires: systemd
 
-Patch1: usbguard-revert-catch.patch
-Patch2: tmpfiles.patch
+Patch0: tmpfiles-v1.patch
+Patch1: tmpfiles-v2.patch
+Patch2: uninstall-ignore-error.patch
+Patch3: ipc-privileges.patch
+Patch4: protobuf-3.0.patch
+Patch5: catch2-support.patch
+Patch6: disable-catch.patch
+Patch7: selinux-bin-sbin.patch
 
 %description
 The USBGuard software framework helps to protect your computer against rogue USB
@@ -103,8 +108,17 @@ daemon.
 # selinux
 %setup -q -D -T -a 1
 
-%patch -P 1 -p1 -b .catch
-%patch -P 2 -p1 -b .tmpfiles
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+
+pushd %{name}-selinux-%{semodule_version}
+%patch -P 7 -p1
+popd
 
 # Remove bundled library sources before build
 rm -rf src/ThirdParty/{Catch,PEGTL}
@@ -119,7 +133,8 @@ autoreconf -i -v --no-recursive ./
     --enable-systemd \
     --with-dbus \
     --with-polkit \
-    --with-crypto-library=gcrypt
+    --with-crypto-library=gcrypt \
+    --disable-catch
 
 make %{?_smp_mflags}
 
@@ -127,9 +142,6 @@ make %{?_smp_mflags}
 pushd %{name}-selinux-%{semodule_version}
 make
 popd
-
-%check
-make check
 
 # selinux
 %pre selinux
@@ -228,6 +240,14 @@ fi
 
 
 %changelog
+* Thu Apr 24 2025 Attila Lakatos <alakatos@redhat.com> - 1.1.3-5
+- Fix usbguard-tmpfiles.conf
+- Remove catch1 dependency
+- Adapt for protobuf api changes
+- Fix regression in specifying IPC privileges using UID
+- selinux subpackage update: unified bin and sbin
+Resolves: rhbz#2297169
+
 * Thu Feb 06 2025 Attila Lakatos <alakatos@redhat.com> - 1.1.3-4
 - Install usbguard-tmpfles.conf
 

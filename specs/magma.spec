@@ -4,10 +4,7 @@
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
 Name:           magma
-Version:        2.8.0
-# The commit that matches the release tag
-%global commit 06368d9b817710566f654b96114549216f8cee70
-%global shortcommit %(c=%{commit}; echo ${c:0:12})
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Matrix Algebra on GPU and Multi-core Architectures
 Url:            https://icl.utk.edu/magma/
@@ -23,11 +20,7 @@ License:        BSD-3-Clause AND MIT
 # Reported GPL but not used, other similar files for cuda
 #   results/v1.5.0/cuda7.0-k40c/setup.txt
 
-Source0:        https://bitbucket.org/icl/magma/get/%{commit}.tar.gz
-# The source in the download here
-# https://icl.utk.edu/projectsfiles/magma/downloads/magma-2.8.0.tar.gz
-# Is missing files needed to build
-# So fetch from git commit
+Source0:        https://github.com/icl-utk-edu/%{name}/archive/v%{version}.tar.gz
 
 # For versioning the *.so's
 # https://bitbucket.org/icl/magma/issues/77/versioning-so
@@ -85,7 +78,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -p1 -n icl-%{name}-%{shortcommit}
+%autosetup -p1
 
 # Add some more gfx's
 # https://bitbucket.org/icl/magma/issues/76/a-few-new-rocm-gpus
@@ -104,7 +97,6 @@ sed -i -e 's@magma_VERSION@"%{version}"@g' CMakeLists.txt
 # python to python3, need env to find local bits like magmasubs.py
 sed -i -e 's@env python@env python3@' tools/checklist_run_tests.py
 sed -i -e 's@env python@env python3@' tools/check-style.py
-sed -i -e 's@env python@env python3@' tools/codegen.py
 sed -i -e 's@env python@env python3@' tools/parse-magma.py
 
 # Remove some files we do not need to similify licenses

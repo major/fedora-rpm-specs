@@ -2,20 +2,32 @@
 %bcond_without check
 
 Name:           ntpd-rs
-Version:        1.3.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Full-featured implementation of NTP with NTS support
 
 SourceLicense:  Apache-2.0 OR MIT
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
-License:        BSD-3-Clause AND ISC AND MIT AND OpenSSL AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT)
+# Unlicense OR MIT
+License:        %{shrink:
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    ISC AND
+    MIT AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
+    (Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT)
+}
 
 URL:            https://github.com/pendulum-project/ntpd-rs
 Source0:        %{url}/archive/v%{version}/ntpd-rs-%{version}.tar.gz
@@ -30,6 +42,9 @@ Patch:          0001-Move-default-socket-path-from-var-run-to-run.patch
 
 # use correct names for conflicting with ntpd.service and chronyd.service
 Patch:          0002-Fix-names-of-conflicting-systemd-services.patch
+
+# temporarily disable the new PPS feature
+Patch:          0003-Temporarily-disable-PPS-feature.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros
@@ -87,7 +102,14 @@ mkdir -p %{buildroot}/%{_rundir}/ntpd-rs
 # * limit parallelism to avoid tests failing due to resource limits or timeouts
 # * skip tests that fails to panic in release mode
 # * skip tests that fails in containerized environments
-%cargo_test -- -- --test-threads 2 --skip algorithm::kalman::peer::tests::test_offset_steering_and_measurements --skip hwtimestamp::tests::get_hwtimestamp --skip socket::tests::test_send_timestamp --skip daemon::ntp_source::tests::test_deny_stops_poll --skip daemon::ntp_source::tests::test_timeroundtrip
+%{cargo_test -- -- --test-threads 2 %{shrink:
+    --skip algorithm::kalman::peer::tests::test_offset_steering_and_measurements
+    --skip hwtimestamp::tests::get_hwtimestamp
+    --skip socket::tests::test_send_timestamp
+    --skip daemon::ntp_source::tests::test_deny_stops_poll
+    --skip daemon::ntp_source::tests::test_timeroundtrip
+    --skip daemon::server::tests::test_server_serves
+}}
 %endif
 
 %pre

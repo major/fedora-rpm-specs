@@ -2,8 +2,8 @@
 %{!?tcl_sitelib: %global tcl_sitelib %{_datadir}/tcl%{tcl_version}}
 
 Name:           bwidget
-Version:        1.9.7
-Release:        24%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Extended widget set for Tk
 
 License:        TCL
@@ -11,7 +11,7 @@ URL:            http://tcllib.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/tcllib/bwidget-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:       tcl(abi) = 8.6 tk
+Requires:       tcl(abi) = 9.0 tk
 BuildRequires:  tcl
 
 %description
@@ -42,6 +42,9 @@ install -m 0644 -pD images/*.gif images/*.xbm %{buildroot}/%{tcl_sitelib}/%{name
 %doc BWman/*.html
 
 %changelog
+* Thu Apr 24 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 1.10.1-1
+- Update to 1.10.1.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

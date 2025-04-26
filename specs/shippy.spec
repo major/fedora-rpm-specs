@@ -1,11 +1,10 @@
 Name:           shippy
-Version:        1.5.4
+Version:        1.5.5
 Release:        %autorelease
 Summary:        Space invaders / Galaxians like game with powerups
-License:        GPL-1.0-or-later
+License:        GPL+
 URL:            http://www.identicalsoftware.com/shippy1984
 Source0:        http://www.identicalsoftware.com/shippy1984/%{name}-%{version}.tgz
-Patch0:         shippy-1.5.4-cmake.patch
 BuildRequires:  gcc
 BuildRequires:  cmake
 BuildRequires:  SDL2_mixer-devel SDL2_ttf-devel fontconfig-devel libgamerzilla-devel
@@ -22,7 +21,6 @@ No longer! Shippy1984 is the game you have been waiting for!
 
 %prep
 %setup -q
-%patch -p1 0
 mv docs html
 
 

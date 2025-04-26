@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 5dd5f23148af65b0ec5add6d88f38694ab34584c
-%global commitdatestring 2025-02-21 15:59:37 +0100
-%global cosmic_minver 1.0.0~alpha.6
+%global commit 54c9672fa28c083953b2eae33c38fa4c6ebf3881
+%global commitdatestring 2025-04-08 14:55:11 -0600
+%global cosmic_minver 1.0.0~alpha.7
 
 Name:           cosmic-osd
-Version:        1.0.0~alpha.6
+Version: 1.0.0~alpha.7
 Release:        %autorelease
 Summary:        OSDs for the COSMIC Desktop Environment
 

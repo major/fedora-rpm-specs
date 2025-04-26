@@ -4,14 +4,16 @@ ExcludeArch: %{ix86}
 %bcond_without check
 
 
-%global commit 0e01b09dddc3b6da13fa57970b6eebd10a187b1b
+# cosmic-packaging: Nightly build processed from tagged version at https://src.fedoraproject.org/rpms/pop-launcher
+%global commit 58a8f2db649098463b183c09cfa5897db217e2cf
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdatestring 2025-01-29 02:30:52 +0100
-%global commitdate 20250129
-%global cosmic_minver 1.2.3
+%global commitdatestring 2025-03-24 13:11:27 -0600
+%global commitdate 20250324
+%global builddate 202504242006
+%global cosmic_minver 1.0.0~alpha.7
 
 Name:           pop-launcher
-Version:        1.2.3^git%{commitdate}.%{shortcommit}
+Version: 1.0.0~alpha.7^git%{commitdate}.%{shortcommit}
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service
 

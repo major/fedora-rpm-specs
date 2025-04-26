@@ -46,6 +46,8 @@ This package contains the documentation.
 
 # don't ship internal test subpackage
 sed -i "s/, 'pkginfo.tests'//g" setup.py
+# work around the wheel metadata version (Fedora already produces 2.4 while upstream it's still 2.3)
+sed -i "s/assert(installed.metadata_version == '2.3')/assert(installed.metadata_version == '2.4')/" pkginfo/tests/test_installed.py
 
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info

@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           python-apkinspector
 # Get version from GitHub to build documentation

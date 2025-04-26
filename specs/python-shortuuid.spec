@@ -53,8 +53,8 @@ Summary:        %{summary}
 %pyproject_install
 %pyproject_save_files %{srcname}
 
-# this file is wrongly copied
-rm %{buildroot}%{python3_sitelib}/COPYING
+# this file is wrongly copied with poetry-core<2
+rm -f %{buildroot}%{python3_sitelib}/COPYING
 
 
 %check

@@ -1,13 +1,12 @@
 Name:           usbguard-notifier
-Version:        0.1.0
-Release:        6%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        A tool for detecting usbguard policy and device presence changes
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/Cropi/%{name}
 Source0:        https://github.com/Cropi/usbguard-notifier/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Cropi/usbguard-notifier/pull/74
-Patch0:         0001-gcc13.patch
+Patch0:         remove-catch.patch
 
 Requires: systemd
 
@@ -18,7 +17,6 @@ BuildRequires: usbguard-devel
 BuildRequires: librsvg2-devel
 BuildRequires: libnotify-devel
 BuildRequires: asciidoc
-BuildRequires: catch1-devel
 BuildRequires: systemd-rpm-macros
 
 %description
@@ -37,14 +35,11 @@ export CXXFLAGS="$RPM_OPT_FLAGS"
 
 %configure \
     --disable-silent-rules \
-    --without-bundled-catch \
     --enable-debug-build
 
 %set_build_flags
 make %{?_smp_mflags}
 
-%check
-make check
 
 %install
 make install INSTALL='install -p' DESTDIR=%{buildroot}
@@ -69,6 +64,11 @@ make install INSTALL='install -p' DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Apr 24 2025 Attila Lakatos <alakatos@redhat.com> - 0.1.1-1
+- Rebase to 0.1.1
+- Remove catch dependency
+  resolves: rhbz#2270438
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

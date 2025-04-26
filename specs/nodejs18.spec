@@ -795,38 +795,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_pkg_
 NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
 
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%pretrans %{pkgname}-npm -p <lua>
--- Remove all of the symlinks from the bundled npm node_modules directory
-base_path = "%{_prefix}/lib/node_modules/npm/node_modules/"
-d_st = posix.stat(base_path)
-if d_st then
-  for f in posix.files(base_path) do
-    path = base_path..f
-    st = posix.stat(path)
-    if st and st.type == "link" then
-      os.remove(path)
-    end
-  end
-end
-%endif
-
-# This can be removed once F37 is EOL
-%pretrans -n %{pkgname} -p <lua>
-path = "/usr/lib/node_modules"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
-
 
 %files -n %{pkgname}
 %doc CHANGELOG.md onboarding.md GOVERNANCE.md README.md

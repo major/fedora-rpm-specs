@@ -1,5 +1,5 @@
 Name: libgpg-error
-Version: 1.54
+Version: 1.55
 Release: 1%{?dist}
 Summary: Library for error values used by GnuPG components
 URL: https://www.gnupg.org/related_software/libgpg-error/
@@ -89,6 +89,9 @@ make check
 %{_mandir}/man1/gpgrt-config.*
 
 %changelog
+* Thu Apr 24 2025 Jakub Jelen <jjelen@redhat.com> - 1.55-1
+- New upstream release (#2362074)
+
 * Thu Apr 17 2025 Jakub Jelen <jjelen@redhat.com> - 1.54-1
 - New upstream release (#2360694)
 

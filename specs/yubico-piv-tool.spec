@@ -1,8 +1,6 @@
-%global __cmake_in_source_build 1
-
 Name:		yubico-piv-tool
 Version:	2.7.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
 License:	BSD-2-Clause
@@ -11,14 +9,13 @@ Source0:	https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-
 Source1:	https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-%{version}.tar.gz.sig
 Source2:	gpgkey-9588EA0F.gpg
 
-BuildRequires:  make
 BuildRequires:	pcsc-lite-devel
 BuildRequires:  openssl-devel
 BuildRequires:  chrpath
 BuildRequires:	gnupg2 gengetopt help2man
 BuildRequires:	check-devel
 BuildRequires:	gcc gcc-c++
-BuildRequires:	cmake3
+BuildRequires:	cmake
 BuildRequires:	zlib-devel
 Requires:		pcsc-lite-ccid
 
@@ -42,25 +39,18 @@ This package includes development files.
 
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-%setup -q
+%autosetup
 
 %build
-%cmake3 .
-%make_build VERBOSE=1
+%cmake \
+    -DBUILD_STATIC_LIB=OFF
+%cmake_build
 
 %check
 %ctest --output-on-failure
 
 %install
-%make_install
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/yubico-piv-tool
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libykcs11.so.*
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libykpiv.so.*
-rm -f $RPM_BUILD_ROOT%{_libdir}/libykpiv.{la,a}
-rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
-
-
-%ldconfig_scriptlets
+%cmake_install
 
 
 %files
@@ -68,9 +58,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 %{_bindir}/yubico-piv-tool
 %{_libdir}/libykpiv.so.2*
 %{_libdir}/libykcs11.so.2*
-
-
-%doc
 %{_mandir}/man1/yubico-piv-tool.1.gz
 
 %files devel
@@ -84,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Wed Apr 23 2025 Cristian Le <git@lecris.dev> - 2.7.1-3
+- Allow CMake build with ninja generator
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

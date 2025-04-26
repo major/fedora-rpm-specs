@@ -11,7 +11,7 @@
 %global         llvm_version 19.0.0
 
 %bcond bootstrap 0
-%bcond docs      0
+%bcond docs      %{without bootstrap}
 %bcond macro     %{without bootstrap}
 %bcond test      1
 
@@ -44,7 +44,7 @@
 
 Name:           zig
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -68,6 +68,11 @@ Patch:          0002-std.Build-add-build-id-option.patch
 # Upstream suggested simply bumping this limit to 9GB
 # https://github.com/ziglang/zig/pull/23638
 Patch:          0003-increase-upper-bounds-of-main-zig-executable-to-9G.patch
+# every snippet of code in the documentation is tested to see if it works
+# while doing this zig incorrectly passes a relative path to the doctest tool
+# which is ran in a temporary directory making that path invalid
+# https://github.com/ziglang/zig/pull/23644
+Patch:          0004-build-pass-zig-lib-dir-as-directory-instead-of-as-st.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -237,6 +242,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Thu Apr 24 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-2
+- fix and re-enable documentation
+
 * Thu Mar 06 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-1
 - Update to 0.14.0
 

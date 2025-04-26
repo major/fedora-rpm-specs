@@ -4,7 +4,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.23.1
+Version:        2.24.0
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -15,12 +15,15 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Patch out tests/repo.rs, which requires gix-testtools
-# * Bump tokei from 13.0.0-alpha.7 to 13.0.0-alpha.8:
-#   https://github.com/o2sh/onefetch/commit/55453c80177210c7a8c214b2dcfcaab10916e06c
-# * Allow gix 0.70, gix-features 0.40:
-#   https://github.com/o2sh/onefetch/commit/3ff3ec298ecde3303a575c3b67bdb235c0ed2489
-# * Loosen MSRV from 1.81.0 to 1.79.0
+# * Use gix 0.70, gix-features 0.40; see Patch10
+# * Allow (older) rstest 0.23-0.24
+# * Allow (older) insta 1.42.1
+# * Loosen MSRV from 1.82.0 to 1.79.0
 Patch:          onefetch-fix-metadata.diff
+# * Downstream-only: Revert the source change associated with gix 0.71.
+# * Work with gix 0.70 for now, RHBZ#2357370.
+# * Remove this patch, and stop patching Cargo.toml, when gix 0.71 is ready.
+Patch10:        0001-Revert-the-source-change-associated-with-gix-0.71.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  help2man
@@ -47,6 +50,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
@@ -62,6 +66,7 @@ License:        %{shrink:
                 MIT AND
                 (MIT OR Unlicense) AND
                 MPL-2.0 AND
+                Unicode-3.0 AND
                 Unicode-DFS-2016 AND
                 Zlib
                 }

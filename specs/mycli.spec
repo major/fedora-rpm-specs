@@ -1,17 +1,16 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.27.2
-Release:        6%{?dist}
+Version:        1.30.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
-Patch0:         mycli-1.27.1-reqs.patch
-Patch1:         mycli-1.26.1-paramiko.patch
-Patch2:         mycli-1.26.1-pycryptodomex.patch
-Patch3:         mycli-1.27.0-test_auto_escaped_col_names.patch
-Patch4:         mycli-1.27.2-py313.patch
+Patch:          0001-SQL-quote-test-fix.patch
+Patch:          0002-Switch-from-pyaes-to-pycryptodomex.patch
+Patch:          0003-Paramiko-fix.patch
+Patch:          0004-Python-3.13.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -57,6 +56,9 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Mon Apr 21 2025 Terje Rosten <terjeros@gmail.com> - 1.30.0-1
+- 1.30.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

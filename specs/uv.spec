@@ -201,7 +201,7 @@ Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
 
 # This patch is for the forked, bundled pubgrub crate.
 #
-# build(deps): bump ron from 0.9.0-alpha.1 to 0.9.0
+# build(deps): bump ron from 0.9.0-alpha.1 to 0.10.1
 # https://github.com/pubgrub-rs/pubgrub/pull/330
 Patch200:       https://github.com/pubgrub-rs/pubgrub/pull/330.patch
 

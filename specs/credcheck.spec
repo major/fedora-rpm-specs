@@ -28,6 +28,10 @@ Patch0: enable_cracklib.patch
 #patch containing the latest license change taken from commit:
 #https://github.com/HexaCluster/credcheck/commit/db7c811a02f286b9ba3e81a219826bf47eca6d4e
 Patch1: upstream_db7c811a02f286b9ba3e81a219826bf47eca6d4e.patch
+#patch conatining the extra flag for the make process to include link
+#time optimization to make sure the code is optimized during linking
+#https://en.wikipedia.org/wiki/Interprocedural_optimization#WPO_and_LTO
+Patch2: lto_optimization.patch
 
 BuildRequires: make postgresql-server-devel gcc
 %if %{with cracklib}

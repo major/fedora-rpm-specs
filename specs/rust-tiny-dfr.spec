@@ -4,16 +4,13 @@
 %global crate tiny-dfr
 
 Name:           rust-tiny-dfr
-Version:        0.3.4
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Most basic dynamic function row daemon possible
 
 License:        MIT AND Apache-2.0
 URL:            https://crates.io/crates/tiny-dfr
 Source:         %{crates_source}
-# * Fix backlight device selection in asahi-6.14.2-1 and later
-# * https://github.com/AsahiLinux/tiny-dfr/pull/61
-Patch2:         0001-Backlight-Support-upstreamed-mipi-panel-driver.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

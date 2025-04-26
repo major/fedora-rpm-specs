@@ -49,7 +49,7 @@ Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 # updated), we store the file directly in the repository with the spec file;
 # see the update-oui-csv script.
 #
-# File oui.csv last fetched 2025-03-03T16:25:54+00:00.
+# File oui.csv last fetched 2025-04-24T20:19:29+00:00.
 Source1:        oui.csv
 Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig

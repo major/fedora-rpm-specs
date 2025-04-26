@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -22,6 +22,7 @@ Patch0013: 0006-krb5-add-realm_krb5_get_error_message.patch
 Patch0014: 0001-Initial-implementation-of-a-renew-request.patch
 Patch0015: 0002-renew-implement-support-for-adcli.patch
 Patch0016: 0003-service-use-proper-macro-for-os-name-and-os-version.patch
+Patch0017: 0004-renew-fix-issues-found-by-Coverity.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -108,6 +109,10 @@ make check
 %doc ChangeLog
 
 %changelog
+* Thu Apr 24 2025 Sumit Bose <sbose@redhat.com> - 0.17.1-17
+- Fix issues found by Coverity in renew code
+  Resolves: jira#SSSD-8347
+
 * Wed Apr 23 2025 Sumit Bose <sbose@redhat.com> - 0.17.1-16
 - Add new renew option to renew the keytab
   Resolves: jira#SSSD-8347

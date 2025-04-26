@@ -2,8 +2,8 @@
 %bcond_without perl_meta_enables_optional_test
 
 Name:           perl-meta
-Version:        0.012
-Release:        2%{?dist}
+Version:        0.013
+Release:        1%{?dist}
 Summary:        Meta-programming API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/meta
@@ -25,6 +25,7 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(experimental)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(Sub::Util)
+BuildRequires:  perl(Test2::Require::Module)
 BuildRequires:  perl(Test2::V0)
 %if %{with perl_meta_enables_optional_test}
 # Optional tests:
@@ -91,6 +92,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 24 2025 Petr Pisar <ppisar@redhat.com> - 0.013-1
+- 0.013 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

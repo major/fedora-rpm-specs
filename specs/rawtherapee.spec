@@ -13,7 +13,7 @@ Name:           rawtherapee
 %if 0%{?development}
 Version:        5.9~20221002git%{shortcommit}
 %else
-Version:        5.11
+Version:        5.12~rc1
 %endif
 Release:        %autorelease
 Summary:        Raw image processing software
@@ -28,7 +28,7 @@ Source1:        create_ReleaseInfo.sh
 Source2:        ReleaseInfo.cmake
 %else
 #Source0:        https://rawtherapee.com/shared/source/%%{name}-%%{version}.tar.xz
-Source0:        https://github.com/Beep6581/RawTherapee/releases/download/5.11/rawtherapee-5.11.tar.xz
+Source0:        https://github.com/Beep6581/RawTherapee/releases/download/5.12-rc1/rawtherapee-5.12-rc1.tar.xz
 %endif
 
 BuildRequires:  cmake
@@ -38,15 +38,15 @@ BuildRequires:  klt-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libatomic
 
-BuildRequires:  pkgconfig(exiv2)
-BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(exiv2) >= 0.24
+BuildRequires:  pkgconfig(expat) >= 2.1
 BuildRequires:  pkgconfig(fftw3f)
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(glibmm-2.4)
+BuildRequires:  pkgconfig(glib-2.0) >= 2.48
+BuildRequires:  pkgconfig(glibmm-2.4) >= 2.48
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.3
 BuildRequires:  pkgconfig(gtkmm-3.0)
-BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(lensfun)
+BuildRequires:  pkgconfig(lcms2) >= 2.6
+BuildRequires:  pkgconfig(lensfun) >= 0.2
 BuildRequires:  pkgconfig(libcanberra)
 BuildRequires:  pkgconfig(libiptcdata)
 BuildRequires:  pkgconfig(libjpeg)
@@ -78,7 +78,7 @@ to some common image format.
 %autosetup -p1 -n RawTherapee-%{commit}
 cp -p %SOURCE2 .
 %else
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-5.12-rc1
 %endif
 
 # remove bundled KLT, so we're sure to use system provided KLT

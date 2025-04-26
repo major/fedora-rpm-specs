@@ -5,13 +5,21 @@
 %global crate onefetch-image
 
 Name:           rust-onefetch-image
-Version:        2.23.1
+Version:        2.24.0
 Release:        %autorelease
 Summary:        Display images in the terminal
 
 License:        MIT
 URL:            https://crates.io/crates/onefetch-image
 Source:         %{crates_source}
+# * EPEL9: Revert "cargo clippy"
+# * By not using std::iter::repeat_n in this test, we can build with an older
+#   MSRV.
+# * This reverts commit 3c9159e1ad47d46b73aa72493b15ef2073042011.
+# * Since this only affects test code, and the commit was only a style
+#   improvement, we can do the revert unconditionally; see rust-jiff for an
+#   example of conditional patching for EPEL9.
+Patch10:        0001-EPEL9-Revert-cargo-clippy.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -31,7 +39,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.md
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

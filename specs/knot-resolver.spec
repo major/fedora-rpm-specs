@@ -6,8 +6,8 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.7.4
-Release:        4%{?dist}
+Version:        5.7.5
+Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -317,7 +317,6 @@ fi
 %{_sbindir}/kresc
 %{_sbindir}/kres-cache-gc
 %{_libdir}/libkres.so.*
-%dir %{_libdir}/knot-resolver
 %{_libdir}/knot-resolver/*.so
 %{_libdir}/knot-resolver/*.lua
 %dir %{_libdir}/knot-resolver/kres_modules
@@ -381,6 +380,10 @@ fi
 %endif
 
 %changelog
+* Thu Apr 24 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.7.5-1
+- New upstream version 5.7.5
+- Remove duplicate file listing
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.7.4-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 
