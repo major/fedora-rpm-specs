@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -36,6 +36,7 @@ Source2:        gstreamer1.attr
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
+BuildRequires:  libatomic
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
 BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
@@ -208,6 +209,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Apr 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.1-1
+- 1.26.1
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
 - 1.26.0
 

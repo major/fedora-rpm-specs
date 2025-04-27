@@ -5,7 +5,7 @@
 %global crate bb8
 
 Name:           rust-bb8
-Version:        0.8.0
+Version:        0.8.6
 Release:        %autorelease
 Summary:        Full-featured async (tokio-based) connection pool (like r2d2)
 
@@ -19,9 +19,6 @@ Source2:        LICENSE
 # * See https://github.com/djc/bb8/blob/main/README.md
 # * Will be fixed in 0.9.0
 Source3:        README.md
-# Manually created patch for downstream crate metadata changes
-# * Fix README.md
-Patch:          bb8-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,6 +51,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parking_lot-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parking_lot-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parking_lot" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parking_lot-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

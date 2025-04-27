@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-248-g7b47b3dd21
+%global glibcsrcdir glibc-2.41.9000-275-ge04afb7177
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 11
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,30 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Apr 25 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-11
+- Auto-sync with upstream branch master,
+  commit e04afb71771710cdc6025fe95908f5f17de7b72d:
+- linux/termio: remove <termio.h> and struct termio
+- elf: tst-audit10: split AVX512F code into dedicated functions [BZ #32882]
+- Add NT_ARM_GCS and NT_RISCV_TAGGED_ADDR_CTRL from Linux 6.13 to elf.h
+- Add AT_* constants from Linux 6.12
+- malloc: move tcache_init out of hot tcache paths
+- aarch64: Add back non-temporal load/stores from oryon-1's memset
+- aarch64: Add back non-temporal load/stores from oryon-1's memcpy
+- malloc: Use tailcalls in __libc_free
+- malloc: Inline tcache_free
+- malloc: Improve free checks
+- malloc: Inline _int_free_check
+- malloc: Inline _int_free
+- malloc: Move mmap code out of __libc_free hotpath
+- manual/tunables: fix a trivial typo
+- Fix spelling mistake "trucate" -> "truncate"
+- Fix spelling mistake "suports" -> "supports"
+- Fix spelling mistake "succsefully" -> "successfully"
+- manual: Mention POSIX-1.2024 requires time_t to be 64 bit or wider.
+- manual: Update standardization of getline and getdelim [BZ #32830]
+- libio: Add test case for fflush
+
 * Mon Apr 14 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-10
 - Auto-sync with upstream branch master,
   commit 7b47b3dd214c8ff2c699f13efe5533941be53635:

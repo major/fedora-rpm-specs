@@ -200,7 +200,7 @@ Obsoletes:      mesa-omx-drivers < %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:        Mesa libGL runtime libraries
 Requires:       libglvnd-glx%{?_isa} >= 1:1.3.2
 Requires:       %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      mesa-libOSMesa < %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      %{name}-libOSMesa < 25.1.0~rc2-1
 
 %description libGL
 %{summary}.
@@ -212,7 +212,7 @@ Requires:       libglvnd-devel%{?_isa} >= 1:1.3.2
 Provides:       libGL-devel
 Provides:       libGL-devel%{?_isa}
 Recommends:     gl-manpages
-Obsoletes:      mesa-libOSMesa-devel < %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      %{name}-libOSMesa-devel < 25.1.0~rc2-1
 
 %description libGL-devel
 %{summary}.

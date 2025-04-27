@@ -87,6 +87,9 @@ install -t '%{buildroot}/%{_pkgdocdir}' -D -p -m 0644 \
     doc/*.pdf doc/*.html ANNOUNCE NEWS README
 
 
+# Upstream does not provide any tests.
+
+
 %files
 %license COPYING
 %{_datadir}/festival/*.scm

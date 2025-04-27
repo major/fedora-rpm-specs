@@ -10,7 +10,6 @@
 # - The dvbsddevice and rcu plugins are no longer part of the VDR source archive.
 #  You can get the latest versions of these plugins from ftp://ftp.tvdr.de/vdr/Plugins.
 
-%undefine _package_note_flags
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 %global _hardened_build 1
 %bcond_without    docs
@@ -29,7 +28,7 @@
 
 Name:           vdr
 Version:        2.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -98,8 +97,6 @@ Requires:       sudo >= 1.7.2p2-3
 # util-linux >= 2.15 for "rtcwake -m no" timer driven wakeups
 Requires:       util-linux >= 2.15
 Requires:       vdrsymbol-fonts
-# shadow-utils >= 4.1.1 for useradd -N
-Requires(pre):  shadow-utils >= 2:4.1.1
 # systemd >= 189 for RestartPreventExitStatus=
 Requires(post,preun,postun): systemd >= 189
 Provides:       vdr(abi)%{?_isa} = %{apiver}
@@ -232,6 +229,14 @@ EOF
 for g in COLLABORATION INCLUDE INCLUDED_BY ; do
     sed -i -e 's/^\(\s*'$g'_GRAPH\s*=\s*\).*/\1NO/' Doxyfile
 done
+
+# Create a sysusers.d config file
+cat >vdr.sysusers.conf <<EOF
+u vdr -:%{vdr_group} 'Video Disk Recorder' %{vardir} -
+m vdr audio
+m vdr cdrom
+m vdr dialout
+EOF
 
 %build
 cat << EOF > Make.config
@@ -431,6 +436,8 @@ install -pm 644 %{SOURCE11} \
     $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/skincurses.conf
 %find_lang %{name}-skincurses
 
+install -m0644 -D vdr.sysusers.conf %{buildroot}%{_sysusersdir}/vdr.conf
+
 
 %check
 export PKG_CONFIG_PATH=$RPM_BUILD_ROOT%{_libdir}/pkgconfig
@@ -439,11 +446,6 @@ if [ "$(pkg-config vdr --variable=apiversion)" != "%{apiver}" ] ; then
 fi
 
 
-%pre
-# dialout for serial port remote controllers
-getent passwd %{vdr_user} >/dev/null || \
-useradd -r -g %{vdr_group} -d %{vardir} -s /sbin/nologin -M -N \
-    -G audio,cdrom,dialout -c "Video Disk Recorder" %{vdr_user} || :
 
 %post
 %systemd_post %{name}.service
@@ -496,6 +498,7 @@ systemctl daemon-reload
 %dir %{vardir}/
 %dir %{vardir}/themes/
 %dir %{cachedir}/
+%{_sysusersdir}/vdr.conf
 
 %files devel -f %{name}-devel.files
 %{!?_with_docs:%dir %{_pkgdocdir}}
@@ -548,6 +551,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Thu Apr 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Feb 26 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.7.4-1
 - Update to 2.7.4
 - Add vdr-2.7.4-fedora-pkgconfig.patch

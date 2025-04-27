@@ -144,6 +144,9 @@ cp -p --no-dereference *.so *.so.* '%{buildroot}%{_libdir}'
 install -t '%{buildroot}%{_bindir}' -D -p e00conv
 
 
+# Upstream does not provide any tests.
+
+
 %files
 # Metapackage
 

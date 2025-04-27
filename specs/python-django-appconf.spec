@@ -1,7 +1,7 @@
 %global pypi_name django-appconf
 
 Name:           python-%{pypi_name}
-Version:        1.0.6
+Version:        1.1.0
 Release:        %autorelease
 Summary:        An app to handle configuration defaults of packaged Django apps gracefully
 
@@ -31,9 +31,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3dist(pytest)
 
-Obsoletes:  python2-%{pypi_name} < 1.0.2-6
-Obsoletes:  python-%{pypi_name} < 1.0.2-6
-
 %description -n python3-%{pypi_name} %_description
 
 
@@ -58,7 +55,7 @@ rm -rf html/.{doctrees,buildinfo}
 %install
 %pyproject_install
 
-%pyproject_save_files appconf
+%pyproject_save_files -l appconf
 
 
 %check
@@ -69,7 +66,6 @@ export DJANGO_SETTINGS_MODULE=tests.test_settings
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc html README.rst
-%license LICENSE
 
 
 %changelog

@@ -4,12 +4,11 @@
 %global realname dlfcn-win32
 
 Name:          mingw-dlfcn
-Version:       1.4.1
-Release:       7%{?dist}
+Version:       1.4.2
+Release:       1%{?dist}
 Summary:       Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       MIT
 URL:           https://github.com/%{realname}/%{realname}
 Source0:       https://github.com/%{realname}/%{realname}/archive/v%{version}/%{realname}-%{version}.tar.gz
 
@@ -18,15 +17,15 @@ BuildArch:     noarch
 BuildRequires: cmake
 BuildRequires: make
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-binutils
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-binutils
 
-BuildRequires: ucrt64-filesystem >= 95
+BuildRequires: ucrt64-filesystem
 BuildRequires: ucrt64-gcc
 BuildRequires: ucrt64-binutils
 
@@ -158,6 +157,9 @@ export MINGW_BUILDDIR_SUFFIX=-static
 
 
 %changelog
+* Fri Apr 25 2025 Sandro Mani <manisandro@gmail.com> - 1.4.2-1
+- Update to 1.4.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -61,6 +61,9 @@ autoreconf --force --install --verbose
 %make_install
 
 
+# Upstream does not provide any tests.
+
+
 %files
 %license COPYING
 %doc AUTHORS

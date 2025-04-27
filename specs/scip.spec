@@ -1,5 +1,5 @@
 Name:           scip
-Version:        9.2.1
+Version:        9.2.2
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 
@@ -22,8 +22,6 @@ Patch:          %{name}-unbundle.patch
 Patch:          %{name}-headers.patch
 # Silence valgrind complaints about use of uninitialized memory
 Patch:          %{name}-uninitialized-memory.patch
-# Patch from sassy upstream to avoid vector overruns
-Patch:          %{name}-sassy-overrun.patch
 # Use zlib-ng directly rather than via the compatibility interface
 Patch:          %{name}-zlib-ng.patch
 

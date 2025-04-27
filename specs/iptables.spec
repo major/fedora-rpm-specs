@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -64,6 +64,7 @@ Summary: Legacy tools for managing Linux kernel packet filtering capabilities
 Requires: %{name}-legacy-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Conflicts: setup < 2.10.4-1
+Conflicts: alternatives < 1.32-1
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
 %if 0%{?rhel} < 9
@@ -258,8 +259,8 @@ ln -sf --relative %{buildroot}%{_sbindir}/xtables-legacy-multi %{buildroot}%{_bi
 %ldconfig_scriptlets
 
 %post legacy
-pfx=%{_prefix}/sbin/iptables
-pfx6=%{_prefix}/sbin/ip6tables
+pfx=%{_sbindir}/iptables
+pfx6=%{_sbindir}/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
@@ -271,7 +272,7 @@ update-alternatives --install \
 %postun legacy
 if [ $1 -eq 0 ]; then
 	update-alternatives --remove \
-		iptables %{_prefix}/sbin/iptables-legacy
+		iptables %{_sbindir}/iptables-legacy
 fi
 
 # iptables-1.8.0-1 introduced the use of alternatives
@@ -284,8 +285,8 @@ alternatives --list | awk '/^iptables/{print $3; exit}' \
 cp /var/lib/alternatives/iptables /var/tmp/alternatives.iptables.setup
 
 %triggerpostun legacy -- iptables > 1.8.0
-pfx=%{_prefix}/sbin/iptables
-pfx6=%{_prefix}/sbin/ip6tables
+pfx=%{_sbindir}/iptables
+pfx6=%{_sbindir}/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
@@ -315,7 +316,7 @@ mv /var/tmp/alternatives.iptables.setup /var/lib/alternatives/iptables
 
 # remove non-symlinks in spots managed by alternatives
 # to cover for updates from not-yet-alternatived versions
-for pfx in %{_prefix}/sbin/{eb,arp}tables; do
+for pfx in %{_sbindir}/{eb,arp}tables; do
 	for sfx in "" "-restore" "-save"; do
 		if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
 			rm -f $pfx$sfx
@@ -330,8 +331,8 @@ for manpfx in %{_mandir}/man8/{eb,arp}tables; do
 	done
 done
 
-pfx=%{_prefix}/sbin/iptables
-pfx6=%{_prefix}/sbin/ip6tables
+pfx=%{_sbindir}/iptables
+pfx6=%{_sbindir}/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-nft 10 \
 	--slave $pfx6 ip6tables $pfx6-nft \
@@ -340,7 +341,7 @@ update-alternatives --install \
 	--slave $pfx6-restore ip6tables-restore $pfx6-nft-restore \
 	--slave $pfx6-save ip6tables-save $pfx6-nft-save
 
-pfx=%{_prefix}/sbin/ebtables
+pfx=%{_sbindir}/ebtables
 manpfx=%{_mandir}/man8/ebtables
 update-alternatives --install \
 	$pfx ebtables $pfx-nft 10 \
@@ -348,7 +349,7 @@ update-alternatives --install \
 	--slave $pfx-restore ebtables-restore $pfx-nft-restore \
 	${do_man:+--slave $manpfx.8.gz ebtables-man $manpfx-nft.8.gz}
 
-pfx=%{_prefix}/sbin/arptables
+pfx=%{_sbindir}/arptables
 manpfx=%{_mandir}/man8/arptables
 update-alternatives --install \
 	$pfx arptables $pfx-nft 10 \
@@ -361,7 +362,7 @@ update-alternatives --install \
 %postun nft
 if [ $1 -eq 0 ]; then
 	for cmd in iptables ebtables arptables; do
-		update-alternatives --remove $cmd %{_prefix}/sbin/$cmd-nft
+		update-alternatives --remove $cmd %{_sbindir}/$cmd-nft
 	done
 fi
 
@@ -373,7 +374,7 @@ fi
 %{_mandir}/man8/xtables-legacy*
 %dir %{_datadir}/xtables
 %{_datadir}/xtables/iptables.xslt
-%ghost %attr(0755,root,root) %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
+%ghost %attr(0755,root,root) %{_sbindir}/ip{,6}tables{,-save,-restore}
 
 %files libs
 %license COPYING
@@ -437,13 +438,16 @@ fi
 %{_mandir}/man8/ip{,6}tables{,-restore}-translate*
 %{_mandir}/man8/ebtables-translate*
 %{_mandir}/man8/arptables-translate*
-%ghost %attr(0755,root,root) %{_prefix}/sbin/ip{,6}tables{,-save,-restore}
-%ghost %attr(0755,root,root) %{_prefix}/sbin/{eb,arp}tables{,-save,-restore}
+%ghost %attr(0755,root,root) %{_sbindir}/ip{,6}tables{,-save,-restore}
+%ghost %attr(0755,root,root) %{_sbindir}/{eb,arp}tables{,-save,-restore}
 %ghost %{_mandir}/man8/arptables{,-save,-restore}.8.gz
 %ghost %{_mandir}/man8/ebtables.8.gz
 
 
 %changelog
+* Fri Apr 25 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.8.11-7
+- Keep symlinks managed by alternatives under /usr/bin
+
 * Sun Apr 20 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.11-6
 - Add patch to fix -C handling ( fixes rhbz#2360423 )
 

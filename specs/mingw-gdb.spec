@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        16.2
+Version:        16.3
 Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
@@ -112,6 +112,9 @@ rm %{buildroot}%{mingw32_bindir}/{gdb-add-index,gstack}
 
 
 %changelog
+* Fri Apr 25 2025 Sandro Mani <manisandro@gmail.com> - 16.3-1
+- Update to 16.3
+
 * Sun Feb 16 2025 Sandro Mani <manisandro@gmail.com> - 16.2-1
 - Update to 16.2
 

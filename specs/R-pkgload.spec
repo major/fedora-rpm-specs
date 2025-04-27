@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname pkgload
-%global packver  1.3.3
+%global packver  1.4.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -26,24 +26,27 @@ BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-cli >= 3.3.0
-BuildRequires:    R-crayon
 BuildRequires:    R-desc
 BuildRequires:    R-fs
 BuildRequires:    R-glue
+BuildRequires:    R-lifecycle
 BuildRequires:    R-methods
 BuildRequires:    R-pkgbuild
+BuildRequires:    R-processx
 BuildRequires:    R-rlang >= 1.1.1
 BuildRequires:    R-rprojroot
 BuildRequires:    R-utils
 BuildRequires:    R-withr >= 2.4.3
 %if %{with check}
 BuildRequires:    R-bitops
+BuildRequires:    R-jsonlite
 BuildRequires:    R-mathjaxr
 BuildRequires:    R-pak
 BuildRequires:    R-Rcpp-devel
 BuildRequires:    R-remotes
 BuildRequires:    R-rstudioapi
-BuildRequires:    R-testthat >= 3.1.0
+BuildRequires:    R-testthat >= 3.2.1.1
+BuildRequires:    R-usethis
 %endif
 
 %description
@@ -86,6 +89,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/WORDLIST
+%{rlibdir}/%{packname}/print-var.mk
 
 
 %changelog

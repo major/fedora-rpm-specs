@@ -112,6 +112,12 @@
 %global gts_version 14
 %endif
 
+%if %{defined rhel} && 0%{?rhel} <= 8
+%bcond_with libedit
+%else
+%bcond_without libedit
+%endif
+
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
@@ -381,8 +387,10 @@ BuildRequires:	binutils-gold
 # Enable extra functionality when run the LLVM JIT under valgrind.
 BuildRequires:	valgrind-devel
 %endif
+%if %{with libedit}
 # LLVM's LineEditor library will use libedit if it is available.
 BuildRequires:	libedit-devel
+%endif
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-setuptools
@@ -493,7 +501,9 @@ Requires:	%{pkg_name_llvm}-libs%{?_isa} = %{version}-%{release}
 # The installed LLVM cmake files will add -ledit to the linker flags for any
 # app that requires the libLLVMLineEditor, so we need to make sure
 # libedit-devel is available.
+%if %{with libedit}
 Requires:	libedit-devel
+%endif
 Requires:	libzstd-devel
 # The installed cmake files reference binaries from llvm-test, llvm-static, and
 # llvm-gtest.  We tried in the past to split the cmake exports for these binaries

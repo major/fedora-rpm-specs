@@ -53,9 +53,17 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%bcond_with generic
+%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
+%if %{with generic}
+%global gpu_list %{rocm_gpu_list_generic}
+%else
+%global gpu_list %{rocm_gpu_list_default}
+%endif
+
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -139,7 +147,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_TEST=%build_test
 
@@ -184,6 +192,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Add generic gpus
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

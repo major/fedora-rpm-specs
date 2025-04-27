@@ -1,7 +1,7 @@
 Summary: User space tool to set up tables of ARP rules in kernel
 Name:    arptables
 Version: 0.0.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
@@ -58,18 +58,8 @@ done
 rm -rf %{buildroot}%{_initrddir}
 
 %post legacy
-pfx=%{_prefix}/sbin/arptables
+pfx=%{_sbindir}/arptables
 manpfx=%{_mandir}/man8/arptables
-for sfx in "" "-restore" "-save"; do
-	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
-		rm -f $pfx$sfx
-	fi
-	if [ "$(readlink -e $manpfx${sfx}.8.gz)" == $manpfx${sfx}.8.gz ]; then
-		rm -f $manpfx${sfx}.8.gz
-	fi
-done
-# drop the extra entry linking to /usr/bin which previous version installed
-update-alternatives --remove arptables /usr/bin/arptables-legacy 2>/dev/null
 update-alternatives --install \
 	$pfx arptables $pfx-legacy 10 \
 	--slave $pfx-save arptables-save $pfx-legacy-save \
@@ -81,7 +71,7 @@ update-alternatives --install \
 %postun legacy
 if [ $1 -eq 0 ]; then
 	update-alternatives --remove \
-		arptables %{_prefix}/sbin/arptables-legacy
+		arptables %{_sbindir}/arptables-legacy
 fi
 
 %files legacy
@@ -89,14 +79,14 @@ fi
 %license COPYING
 %{_sbindir}/arptables-legacy*
 %{_mandir}/*/arptables-legacy*
-%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables
-%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables-save
-%ghost %attr(0755,root,root) %{_prefix}/sbin/arptables-restore
-%ghost %attr(0644,root,root) %{_mandir}/man8/arptables.8.gz
-%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-save.8.gz
-%ghost %attr(0644,root,root) %{_mandir}/man8/arptables-restore.8.gz
+%ghost %attr(0755,root,root) %{_sbindir}/arptables{,-save,-restore}
+%ghost %attr(0644,root,root) %{_mandir}/man8/arptables{,-save,-restore}.8.gz
 
 %changelog
+* Fri Apr 25 2025 Phil Sutter <psutter@redhat.com> - 0.0.5-17
+- Keep symlinks managed by alternatives under /usr/bin
+- Drop compat for updating from pre-alternatives version
+
 * Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 0.0.5-16
 - Drop arptables-services package
 - Add fixes/hooks for bin-sbin merge, analogous to iptables.spec

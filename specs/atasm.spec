@@ -1,5 +1,5 @@
 Name:           atasm
-Version:        1.27
+Version:        1.28
 Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
@@ -54,6 +54,9 @@ popd
 
 
 %changelog
+* Fri Apr 25 2025 Dan Horák <dan[at]danny.cz> - 1.28-1
+- update to 1.28 (rhbz#2362347)
+
 * Wed Apr 23 2025 Dan Horák <dan[at]danny.cz> - 1.27-1
 - update to 1.27 (rhbz#2361903)
 

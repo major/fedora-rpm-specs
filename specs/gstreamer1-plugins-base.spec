@@ -8,7 +8,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -26,6 +26,7 @@ Patch0:         0001-missing-plugins-Remove-the-mpegaudioversion-field.patch
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  libatomic
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gobject-introspection-devel >= 1.31.1
 BuildRequires:  iso-codes-devel
@@ -504,6 +505,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Fri Apr 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.1-1
+- 1.26.1
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
 - 1.26.0
 

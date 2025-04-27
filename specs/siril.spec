@@ -2,11 +2,11 @@
 ExcludeArch:    %{ix86}
 
 %global forgeurl https://gitlab.com/free-astro/siril
-%global commit 94c459464fcad5bdf773bf56ead9c9b62096ce11
+%global tag 1.4.0-beta1
 %forgemeta
 
 Name:           siril
-Version:        1.3.6
+Version:        1.4.0~beta1
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -76,6 +76,13 @@ SER files)
 %prep
 %forgeautosetup -p1
 
+# Remove bundled subprojects
+# just to be sure we're not accidentally use them
+rm -rf subprojects/healpix_cxx
+rm -rf subprojects/librtprocess
+rm -rf subprojects/wcslib
+rm -rf subprojects/yyjson
+
 
 %build
 %meson \
@@ -87,11 +94,6 @@ SER files)
 %install
 %meson_install
 
-rm -f %{buildroot}%{_pkgdocdir}/LICENSE.md
-rm -f %{buildroot}%{_pkgdocdir}/GPL-2.0-or-later.txt
-rm -f %{buildroot}%{_pkgdocdir}/LICENSE_sleef.txt
-rm -f %{buildroot}%{_pkgdocdir}/LICENSE_zlib.txt
-
 %find_lang %{name}
 
 
@@ -99,8 +101,9 @@ rm -f %{buildroot}%{_pkgdocdir}/LICENSE_zlib.txt
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.siril.Siril.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.siril.Siril.appdata.xml
 
+
 %files -f %{name}.lang
-%license LICENSE.md 3rdparty_licenses/GPL-2.0-or-later.txt 3rdparty_licenses/LICENSE_sleef.txt 3rdparty_licenses/LICENSE_zlib.txt
+%license %{_pkgdocdir}/{LICENSE.md,GPL-2.0-or-later.txt,LICENSE_sleef.txt,LICENSE_zlib.txt}
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}*
 %{_datadir}/applications/org.siril.Siril.desktop

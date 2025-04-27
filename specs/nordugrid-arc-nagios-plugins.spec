@@ -9,7 +9,7 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	3.0.0
+Version:	3.1.1
 Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
@@ -41,7 +41,7 @@ BuildRequires:	/usr/bin/sphinx-build
 %endif
 
 %description
-This package provides the Nagios plugins for testing ARC computing element.
+This package provides the Nagios plugins for testing ARC computing elements.
 
 %if %{enable_doc}
 %package doc
@@ -49,7 +49,7 @@ Summary:	HTML documentation for the ARC Nagios plugins
 BuildArch:	noarch
 
 %description doc
-HTML documentation for the ARC Nagios plugins.
+This package provides HTML documentation for the ARC Nagios plugins.
 %endif
 
 %package egi
@@ -58,7 +58,8 @@ BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
 
 %description egi
-EGI configuration and dependencies for the ARC Nagios plugins.
+This package provides EGI configuration and dependencies for the ARC Nagios
+plugins.
 
 %prep
 %setup -q
@@ -107,6 +108,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Thu Apr 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.1.1-1
+- Version 3.1.1
+
 * Tue Apr 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.0.0-1
 - Version 3.0.0
 

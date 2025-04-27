@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        4.rocm%{rocm_version}%{?dist}
+Release:        5.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -205,6 +205,10 @@ Requires:       rocm-device-libs = %{version}-%{release}
 Requires:       compiler-rt(major) = %{llvm_maj_ver}
 %endif
 Suggests:       rocminfo
+%if 0%{?suse_version}
+Provides:       hip = %{version}-%{release}
+Obsoletes:      hip <= %{version}-%{release}
+%endif
 
 %description -n hipcc
 hipcc is a compiler driver utility that will call clang or nvcc, depending on
@@ -1229,6 +1233,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Thu Apr 24 2025 Marcus Rueckert <mrueckert@suse.de> - 19-5.rocm6.4.0
+- earlier packaging approaches used the hip package name instead of
+  hipcc, provide/obsolete that package.
+
 * Mon Apr 21 2025 Tom Rix <Tom.Rix@amd.com> - 19-4.rocm6.4.0
 - Fix suse
 

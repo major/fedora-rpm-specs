@@ -7,6 +7,7 @@ Release: %autorelease
 License: zlib
 URL: https://github.com/dulsi/libgamerzilla
 Source0: http://www.identicalsoftware.com/gamerzilla/libgamerzilla-%{version}.tgz
+Patch0: libgamerzilla-win.patch
 BuildArch:      noarch
 BuildRequires: cmake
 BuildRequires: mingw32-filesystem >= 95
@@ -53,6 +54,7 @@ library.
 
 %prep
 %setup -q -n libgamerzilla-%{version}
+%patch -P0 -p1
 
 %build
 %mingw_cmake

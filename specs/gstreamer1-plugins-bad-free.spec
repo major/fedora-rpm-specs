@@ -14,8 +14,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.0
-Release:        2%{?dist}
+Version:        1.26.1
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -35,8 +35,6 @@ Source1:        gst-p-bad-cleanup.sh
 
 # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5622
 Patch0:          openh264-add-license-file.patch
-# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8637
-Patch1:          libatomic_fix.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -800,6 +798,9 @@ EOF
 
 
 %changelog
+* Fri Apr 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.1-1
+- 1.26.1
+
 * Fri Mar 14 2025 Fabio Valentini <decathorpe@gmail.com> - 1.26.0-2
 - Rebuild for noopenh264 2.6.0
 

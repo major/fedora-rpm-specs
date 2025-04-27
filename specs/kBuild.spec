@@ -1,9 +1,9 @@
-%global svn_revision 3605
-%global svn_date 20240424
+%global svn_revision 3674
+%global svn_date 20250422
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        4%{?svn_date:.%{svn_date}}%{?dist}
+Release:        1%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 # Automatically converted from old format: BSD and GPLv2+ - review is highly recommended.
@@ -19,11 +19,9 @@ Patch6:         kbuild-dummy_noreturn.diff
 Patch8:         kBuild-0.1.9998-portme.patch
 Patch10:        assert.patch
 Patch11:        relax_automake_version.patch
-Patch12:        kBuild-configure-c99.patch
-Patch13:        kBuild-c99.patch
 Patch14:        changeset_3572.diff
 Patch15:        changeset_trunk_3566.diff
-Patch16:        kBuild-c99-2.patch
+Patch16:        kBuild-c23.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -64,14 +62,12 @@ repository.
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %patch -P11 -p1
 %endif
-%patch -P12 -p1
-%patch -P13 -p1
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # we need revert this 2 commits to build VBox 6 on el7
 %patch -P14 -p1 -R -b .revert
 %patch -P15 -p1 -R -b .revert2
 %endif
-%patch -P16 -p0
+%patch -P16 -p1
 
 %build
 echo KBUILD_SVN_URL := http://svn.netlabs.org/repos/kbuild/trunk  >  SvnInfo.kmk
@@ -115,6 +111,10 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Fri Apr 25 2025 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3674-1.20250422
+- Update to Revision 3674
+- (rhbz#2340684) Fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3605-4.20240424
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

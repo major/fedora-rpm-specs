@@ -4,8 +4,8 @@
 %global libqatzip_soversion 3
 
 Name:           qatzip
-Version:        1.2.0
-Release:        3%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD-3-Clause
 URL:            https://github.com/intel/%{githubname}
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc >= 4.8.5
 BuildRequires:  zlib-devel >= 1.2.7
 BuildRequires:  qatlib-devel >= 23.08.0
-BuildRequires:  autoconf automake libtool make lz4-devel
+BuildRequires:  autoconf automake libtool make lz4-devel numactl-devel
 # The purpose of the package is to support hardware that only exists on x86_64 platforms
 # https://bugzilla.redhat.com/show_bug.cgi?id=1987280
 ExclusiveArch:  x86_64
@@ -87,6 +87,14 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Apr 25 2025 Vladis Dronov <vdronov@redhat.com> - 1.3.1-1
+- Update to qatzip 1.3.1 @ 10dbadba
+- Fix qatzip docker file build broken issue
+- Support Latency sensitive mode for qatzip
+- Add a suit of comp/decomp API to support Async offloading
+- Support zlib format and end of stream flag
+- Fix some bugs
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

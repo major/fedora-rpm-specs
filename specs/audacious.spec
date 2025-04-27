@@ -14,8 +14,9 @@ Release: 2%{?dist}
 
 # Audacious Generic Plugin API is defined in audacious-libs subpackage.
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+# approved SPDX id -- https://github.com/spdx/license-list-XML/issues/2651
+License: BSD-2-Clause-pkgconf-disclaimer
+
 Summary: Advanced audio player
 URL: https://audacious-media-player.org/
 Group: Applications/Multimedia
@@ -209,6 +210,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 
 
 %changelog
+* Fri Apr 25 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.4.2-2
+- use newly approved SPDX license identifier: BSD-2-Clause-pkgconf-disclaimer
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

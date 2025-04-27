@@ -11,6 +11,8 @@
 %global with_mono    0
 #
 
+%global with_raptor  0
+
 # Use QWT6? (Experimental)
 %global with_qwt6    0
 
@@ -82,7 +84,9 @@ BuildRequires: bzip2-devel
 BuildRequires: ImageMagick
 BuildRequires: libappstream-glib
 BuildRequires: minizip-devel
+%if 0%{?with_raptor}
 BuildRequires: raptor2-devel
+%endif
 %ifarch x86_64
 BuildRequires: nativejit-devel
 %endif
@@ -350,7 +354,11 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %endif
  -DENABLE_JIT:BOOL=OFF \
  -DSELECT_QT=Qt5 \
+%if 0%{?with_raptor}
  -DCOPASI_USE_RAPTOR:BOOL=ON -DRAPTOR_INCLUDE_DIR:PATH=%{_includedir}/raptor2 -DRAPTOR_LIBRARY:FILEPATH=%{_libdir}/libraptor2.so \
+%else
+ -DCOPASI_USE_RAPTOR:BOOL=OFF \
+%endif
  -DSITE:STRING=fedora -DF2C_INTEGER=int -DF2C_LOGICAL=long \
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{build_cxxflags} -I$PWD/copasi/lapack -I$PWD/copasi/CopasiSBW -I%{_includedir}/%{blaslib} %{__global_ldflags} -DNDEBUG" \
  -DCOPASI_INSTALL_C_API=OFF -DCombine_DIR:PATH=%{_libdir}/cmake \

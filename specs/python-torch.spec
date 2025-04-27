@@ -15,10 +15,10 @@
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
 %else
-%global pypi_version 2.5.1
+%global pypi_version 2.7.0
 %global flatbuffers_version 23.3.3
-%global miniz_version 2.1.0
-%global pybind11_version 2.11.1
+%global miniz_version 3.0.2
+%global pybind11_version 2.13.6
 %endif
 
 # For -test subpackage
@@ -98,19 +98,20 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 %endif
 
 %if %{without gitcommit}
-Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
+# Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
 
 # ROCm patches
 # Patches need to be refactored for ToT
 # These are ROCm packages
-Patch101:      0001-cuda-hip-signatures.patch
-%else
+# Patch101:      0001-cuda-hip-signatures.patch
+
 # https://github.com/pytorch/pytorch/issues/150187
 # The hack job
 # Patch11:       0001-python-torch-disable-ck.patch
 # Cleaned up hack job
 Patch11:       0001-Add-cmake-varaible-USE_ROCM_CK.patch
 
+%else
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -260,10 +261,6 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 # Overwrite with a git checkout of the pyproject.toml
 cp %{SOURCE1000} .
 
-# https://github.com/pytorch/pytorch/issues/149803
-# Tries to checkout nccl
-sed -i -e 's@    checkout_nccl()@#    checkout_nccl()@' tools/build_pytorch_libs.py
-
 %else
 %autosetup -p1 -n pytorch-v%{version}
 %endif
@@ -342,12 +339,10 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt
-%if %{with gitcommit}
 sed -i -e 's@fmt::fmt-header-only@fmt@' aten/src/ATen/CMakeLists.txt
 sed -i -e 's@list(APPEND ATen_HIP_INCLUDE $<TARGET_PROPERTY:fmt,INTERFACE_INCLUDE_DIRECTORIES>)@@' aten/src/ATen/CMakeLists.txt
 
 sed -i -e 's@fmt::fmt-header-only@fmt@' third_party/kineto/libkineto/CMakeLists.txt
-%endif
 sed -i -e 's@fmt::fmt-header-only@fmt@' c10/CMakeLists.txt
 sed -i -e 's@fmt::fmt-header-only@fmt@' torch/CMakeLists.txt
 sed -i -e 's@fmt::fmt-header-only@fmt@' cmake/Dependencies.cmake
@@ -360,6 +355,10 @@ sed -i -e 's@list(APPEND Caffe2_DEPENDENCY_LIBS fmt::fmt-header-only)@#list(APPE
 # No third_party FXdiv
 sed -i -e 's@if(NOT TARGET fxdiv)@if(MSVC AND USE_XNNPACK)@' caffe2/CMakeLists.txt
 sed -i -e 's@TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@#TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@' caffe2/CMakeLists.txt
+
+# https://github.com/pytorch/pytorch/issues/149803
+# Tries to checkout nccl
+sed -i -e 's@    checkout_nccl()@#    checkout_nccl()@' tools/build_pytorch_libs.py
 
 # Disable the use of check_submodule's in the setup.py, we are a tarball, not a git repo
 sed -i -e 's@check_submodules()$@#check_submodules()@' setup.py
@@ -453,13 +452,11 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 
 ./tools/amd_build/build_amd.py
 # Fedora installs to /usr/include, not /usr/include/rocm-core
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable/TunableGemm.h
-%if %{with gitcommit}
 # https://github.com/pytorch/pytorch/issues/149805
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' cmake/public/LoadHIP.cmake
 # Fedora installs to /usr/include, not /usr/include/rocm-core
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable/Tunable.cpp
 sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/cuda/tunable/Tunable.cpp
-%endif
 # use any hip, correct CMAKE_MODULE_PATH
 sed -i -e 's@lib/cmake/hip@lib64/cmake/hip@' cmake/public/LoadHIP.cmake
 sed -i -e 's@HIP 1.0@HIP MODULE@'            cmake/public/LoadHIP.cmake
@@ -538,22 +535,14 @@ export USE_SYSTEM_ONNX=ON
 export USE_SYSTEM_PYBIND11=OFF
 export USE_SYSTEM_LIBS=OFF
 export USE_TENSORPIPE=OFF
-%if %{with gitcommit}
 export USE_XNNPACK=OFF
-%else
-export USE_XNNPACK=ON
-%endif
 export USE_XPU=OFF
 export USE_SYSTEM_PTHREADPOOL=ON
 export USE_SYSTEM_CPUINFO=ON
 export USE_SYSTEM_FP16=ON
 export USE_SYSTEM_FXDIV=ON
 export USE_SYSTEM_PSIMD=ON
-%if %{with gitcommit}
 export USE_SYSTEM_XNNPACK=OFF
-%else
-export USE_SYSTEM_XNNPACK=ON
-%endif
 
 export USE_DISTRIBUTED=ON
 %if %{with tensorpipe}
@@ -634,10 +623,6 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.md 
-%if %{without gitcommit}
-%{_bindir}/convert-caffe2-to-onnx
-%{_bindir}/convert-onnx-to-caffe2
-%endif
 %{_bindir}/torchrun
 %{_bindir}/torchfrtrace
 %{python3_sitearch}/%{pypi_name}

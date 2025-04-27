@@ -60,6 +60,21 @@ Source0:        %{src_base}/cairomm-%{version}.tar.xz
 Source1:        %{src_base}/cairomm-%{version}.tar.xz.asc
 Source2:        https://gitlab.freedesktop.org/freedesktop/freedesktop/uploads/0ac64e9582659f70a719d59fb02cd037/gpg_key.pub
 
+# Fix outdated FSF mailing address in COPYING
+# https://gitlab.freedesktop.org/cairo/cairomm/-/merge_requests/29
+# (Merged upstream, so we are comfortable patching the license file.)
+Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/merge_requests/29.patch
+# Change license info to mention Lesser GPL 2.1 instead of Library GPL 2
+#
+# The GNU Library General Public License has been superseded by
+# the GNU Lesser General Public License.
+# https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+#
+# Remove obsolete FSF (Free Software Foundation) address.
+# Committed to master branch:
+# https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d
+Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d.patch
+
 BuildRequires:  gnupg2
 
 BuildRequires:  gcc-c++
@@ -131,7 +146,7 @@ The API/ABI version series is %{apiver}.
 %{gpgverify} \
     --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-%autosetup -n cairomm-%{version}
+%autosetup -n cairomm-%{version} -p1
 # We must remove the jQuery/jQueryUI bundle with precompiled/minified/bundled
 # JavaScript that is in untracked/docs/reference/html/jquery.js, since such
 # sources are banned in Fedora. (Note also that the bundled JavaScript had a

@@ -8,8 +8,8 @@
 
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
-Version:   7.0.10
-Release:   2%{?dist}
+Version:   7.0.11
+Release:   1%{?dist}
 # Automatically converted from old format: libtiff and BSD with advertising - review is highly recommended.
 License:   libtiff AND LicenseRef-Callaway-BSD-with-advertising
 URL:       http://hylafax.sourceforge.net
@@ -426,6 +426,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Fri Apr 25 2025 Lee Howard <faxguy@howardsilvan.com> - 7.0.11-1
+- update to 7.0.11
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7.0.10-2
 - Add explicit BR: libxcrypt-devel
 

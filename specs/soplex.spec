@@ -6,7 +6,7 @@
 %endif
 
 Name:           soplex
-Version:        7.1.3
+Version:        7.1.4
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 

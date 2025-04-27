@@ -1,22 +1,21 @@
 %undefine __cmake_in_source_build
 
 Name:           q4wine
-Version:        1.3.13
-Release:        10%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Qt GUI for wine
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://q4wine.brezblock.org.ua/
-Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-Source1:        %{name}.appdata.xml
+Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
-BuildRequires:  qt5-qtbase-devel qt5-linguist qt5-qtsvg-devel cmake
-BuildRequires:  qtsingleapplication-qt5-devel
+BuildRequires:  qt6-qtbase-devel qt6-linguist qt6-qttools-devel qt6-qtsvg-devel
+#BuildRequires:  qtsingleapplication-qt6-devel
+BuildRequires:  cmake >= 3.24
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  icoutils
 
-Requires:       wine-core icoutils
+Requires:       wine-core icoutils sqlite
 
 ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64
 
@@ -37,11 +36,16 @@ General features:
 
 %prep
 %setup -q
-# Make sure we do not use bundled qtsingleapplication
-rm -r src/qtsingleapplication
+# It's SingleAplication now, not QtSingleApplication, which is not in Fedora
+# SingleApplication licensed under BSD-like
+#rm -rf src/third-party/SingleApplication*
 
 %build
-%{cmake} -DWITH_SYSTEM_SINGLEAPP=ON -DQT5=ON -DUSE_GZIP=ON -DRELEASE=ON ..
+%{cmake} \
+    -DWITH_SYSTEM_SINGLEAPP=OFF \
+    -DWITH_ICOUTILS=ON \
+    -DUSE_GZIP=ON \
+    -DRELEASE=ON ..
 %cmake_build
 
 %install
@@ -49,7 +53,7 @@ rm -r src/qtsingleapplication
 
 # metadata magic
 mkdir -p %{buildroot}%{_metainfodir}
-install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
+install -pm 644 ua.org.brezblock.q4wine.appdata.xml %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 rm -f %{buildroot}%{_datadir}/icons/ubuntu-mono-dark/scalable/apps/q4wine.svg
@@ -62,16 +66,21 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 %files
 %license COPYING
-%doc AUTHORS README ChangeLog
+%doc AUTHORS.md README.md Changelog.md
 %{_bindir}/q4wine*
 %{_libdir}/q4wine
 %{_datadir}/applications/q4wine.desktop
 %{_mandir}/man1/q4wine*.gz
 %{_datadir}/icons/hicolor/scalable/apps/q4wine*.svg
-%{_datadir}/metainfo/%{name}.*.xml
+%{_datadir}/metainfo/*.xml
 %{_datadir}/q4wine
 
 %changelog
+* Thu Apr 24 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> 1.4.1-1
+- Update to new 1.4.1.
+- Update BR to qt6.
+- Drop appdata Source1 as upstream provides it now.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,29 +1,43 @@
-Summary: Remote control through Wi-Fi or bluetooth connection
 Name: anyremote
 Version: 6.7.3
 Release: 15%{?dist}
+Summary: Remote control through Wi-Fi or bluetooth connection
 License: GPL-3.0-or-later
-Source0: http://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
-URL: http://anyremote.sourceforge.net/
-Requires: bc,wmctrl,ImageMagick,anyremote-data >= 6.7.3
-BuildRequires: gcc, bluez-libs-devel >= 5.0, libX11-devel, libXi-devel, libXtst-devel, xorg-x11-proto-devel, glib2-devel >= 2.24.1, dbus-devel >= 1.2.24, dbus-glib-devel >= 0.86, avahi-devel >= 0.6.25
+URL: https://anyremote.sourceforge.net/
+Source0: https://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
+Patch0: fix_compile_error.patch
+
+BuildRequires: gcc
 BuildRequires: make
+BuildRequires: bluez-libs-devel >= 5.0
+BuildRequires: libX11-devel
+BuildRequires: libXi-devel
+BuildRequires: libXtst-devel
+BuildRequires: xorg-x11-proto-devel
+BuildRequires: glib2-devel >= 2.24.1
+BuildRequires: dbus-devel >= 1.2.24
+BuildRequires: dbus-glib-devel >= 0.86
+BuildRequires: avahi-devel >= 0.6.25
+
+Requires: bc
+Requires: wmctrl
+Requires: ImageMagick
+Requires: anyremote-data >= 6.7.3
 
 %description
 Remote control software for applications using Wi-Fi or Bluetooth.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 %files 
-%defattr(-,root,root,-)
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.gz
 
@@ -35,7 +49,6 @@ Group: Applications/System
 Configuration files for anyRemote
 
 %files data
-%defattr(-,root,root,-)
 %{_datadir}/%{name}
 
 %package doc
@@ -46,12 +59,14 @@ Group: Applications/System
 Documentation for anyRemote
 
 %files doc
-%defattr(-,root,root,-)
 %doc %{_defaultdocdir}/%{name}
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-15
+* Fri Apr 25 2025 Sérgio Basto <sergio@serjux.com> - 6.7.3-15
+- (rhgz#2339892) Fix FTBFS
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-14

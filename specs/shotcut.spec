@@ -3,8 +3,8 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        25.03.29
-Release:        3%{?dist}
+Version:        25.04.25
+Release:        1%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -162,6 +162,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 # Postmortem debugging tools for MinGW.
 rm -rf drmingw
+# remove due MLT 7
+sed -i 's/^\(\s*\)s\.set_consumer(\*saveConsumer);/\1\/\/ s.set_consumer(*saveConsumer); \/\/ remove due MLT 7/' src/mltcontroller.cpp
 
 %build
 %set_build_flags
@@ -235,6 +237,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Fri Apr 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.04.25-1
+- Update to version 25.04.25
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.03.29-3
 - Rebuild (qt6)
 

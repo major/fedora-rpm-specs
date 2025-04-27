@@ -15,9 +15,9 @@ License:        GPL-2.0-or-later
 #   - install-sh is X11
 SourceLicense:  %{shrink:
                 %{license} AND
-		FSFUL AND
-		GPL-2.0-or-later WITH Autoconf-exception-macro AND
-		X11}
+                FSFUL AND
+                GPL-2.0-or-later WITH Autoconf-exception-macro AND
+                X11}
 URL:            https://github.com/grondo/edac-utils
 Source0:        %{url}/archive/%{version}/edac-utils-%{version}.tar.gz
 Source1:        edac.service
@@ -140,6 +140,9 @@ install -D -p -m 0644 '%{SOURCE1}' '%{buildroot}%{_unitdir}/edac.service'
 rm -f '%{buildroot}%{_sysconfdir}/init.d/edac'
 install -d -m 0755 '%{buildroot}%{_sysconfdir}/edac/labels.d' \
     '%{buildroot}%{_sysconfdir}/edac/mainboard'
+
+
+# Upstream provides no tests (and they would require particular hardware)
 
 
 %post -n edac-ctl

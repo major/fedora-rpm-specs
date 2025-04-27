@@ -16,12 +16,11 @@ Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
 Release:        0.32.RC4%{?dist}
 %else
-Version:        3.6
-Release:        10%{?dist}
+Version:        3.7
+Release:        1%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://www.goldencheetah.org/
 %if 0%{?usesnapshot}
@@ -35,6 +34,7 @@ Source2:        %{name}.appdata.xml
 # Use Qwt Widget Library
 Patch0:         %{name}_20200614git5c84f7f.patch
 Patch1:         %{name}_bison-3.7.patch
+Patch2:         fix-leaf-none.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  flex
@@ -71,7 +71,7 @@ BuildRequires:  R-Rcpp-devel
 BuildRequires:  R-RInside-devel
 BuildRequires:  python3-devel
 BuildRequires:  gsl-devel
-BuildRequires: make
+BuildRequires:  make
 Requires:       hicolor-icon-theme
 
 # qt5-qtwebengine-devel is missing on ppc64, ppc64le, s390x CPU architectures.
@@ -159,6 +159,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Fri Apr 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7-1
+- Update to 1:3.7-1
+- Add fix-leaf-none.patch
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1:3.6-10
 - Rebuild with gsl 2.8
 

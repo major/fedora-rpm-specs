@@ -23,7 +23,7 @@ Summary: Plugins for the Audacious audio player
 URL: https://audacious-media-player.org/
 
 # list of license per plugin in README.licences
-License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND MIT AND LicenseRef-Callaway-BSD AND LicenseRef-Fedora-Public-Domain
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND MIT AND BSD-2-Clause-pkgconf-disclaimer AND LicenseRef-Fedora-Public-Domain
 
 Source0: https://distfiles.audacious-media-player.org/%{name}-%{tar_ver}.tar.bz2
 Source3: README.licenses
@@ -125,8 +125,7 @@ This package provides essential plugins for the Audacious audio player.
 
 %package jack
 Summary: Audacious output plugin for Jack Audio Connection Kit
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-2-Clause-pkgconf-disclaimer
 %{?aud_plugin_dep}
 Requires: audacious-plugins%{?_isa} >= %{aud_ver}
 
@@ -138,8 +137,7 @@ Jack Audio Connection Kit (JACK) sound service.
 %package exotic
 Summary: Optional niche market plugins for Audacious 
 # list of license per plugin in README.licences
-# Automatically converted from old format: GPLv2+ and LGPLv2+ and GPLv3 and MIT and BSD - review is highly recommended.
-License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-only AND MIT AND LicenseRef-Callaway-BSD
+License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-only AND MIT AND BSD-2-Clause-pkgconf-disclaimer
 %{?aud_plugin_dep}
 Requires: audacious-plugins%{?_isa} >= %{aud_ver}
 # src/console/ for console.so input plugin in -exotic subpackage
@@ -157,7 +155,6 @@ emulation, Nintendo DS Sound Format 2SF.
 
 %package amidi
 Summary: Audacious input plugin for MIDI
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
 %{?aud_plugin_dep}
@@ -171,8 +168,7 @@ input plugin for Audacious.
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %package ffaudio
 Summary: FFmpeg input plugin for Audacious
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-2-Clause-pkgconf-disclaimer
 
 %{?aud_plugin_dep}
 Requires: audacious-plugins%{?_isa} >= %{aud_ver}
@@ -392,6 +388,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Fri Apr 25 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.4.2-2
+- use newly approved SPDX license identifier: BSD-2-Clause-pkgconf-disclaimer
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           asm6809
-Version:        2.15
+Version:        2.16
 Release:        1%{?dist}
 Summary:        Multiple pass 6809 & 6309 cross assembler
 
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Apr 25 2025 John W. Linville <linville@tuxdriver.com> 2.16-1
+- Update for version 2.16 from upstream
+
 * Tue Feb 25 2025 John W. Linville <linville@tuxdriver.com> 2.15-1
 - Update for version 2.15 from upstream
 

@@ -1,10 +1,10 @@
-%global DATE 20250418
-%global gitrev 8f87d3d9a9a578fdc32786927721e4598ca115a3
-%global gcc_version 15.0.1
+%global DATE 20250425
+%global gitrev ac84ab7066626410dfe17804c7abd090e875ba3b
+%global gcc_version 15.1.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 0
+%global gcc_release 1
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.14%{?dist}
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -305,7 +305,6 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
-Patch13: gcc15-pr119327.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3766,6 +3765,11 @@ end
 %endif
 
 %changelog
+* Fri Apr 25 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-1
+- update from releases/gcc-15 branch
+  - GCC 15.1 release
+  - PRs fortran/119836, target/119327, target/119873, tree-optimization/118407
+
 * Fri Apr 18 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.14
 - update from releases/gcc-14 branch
   - GCC 15.1.0-rc1

@@ -2,13 +2,13 @@
 
 Summary: OpenSSL provider for IBMCA
 Name: openssl-ibmca
-Version: 2.4.1
-Release: 6%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # post GA fixes
-Patch0: %{name}-%{version}-fixes.patch
+#Patch0: %%{name}-%%{version}-fixes.patch
 Requires: libica >= 4.0.0
 BuildRequires: make
 BuildRequires: gcc
@@ -56,6 +56,9 @@ make check
 
 
 %changelog
+* Tue Apr 22 2025 Dan Horák <dan@danny.cz> - 2.5.0-1
+- updated to 2.5.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

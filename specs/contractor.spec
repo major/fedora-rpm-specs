@@ -54,6 +54,9 @@ coded into them.
 mkdir -p %{buildroot}/%{_datadir}/contractor
 
 
+# Upstream does not provide any tests.
+
+
 %files
 %doc README.md
 %license COPYING

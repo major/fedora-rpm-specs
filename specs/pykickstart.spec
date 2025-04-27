@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.63
+Version:   3.64
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -75,6 +75,14 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Fri Apr 25 2025 Brian C. Lane <bcl@redhat.com> - 3.64-1
+- workflow: Add python 3.13 testing (bcl)
+- tests: Remove unused import of constants (bcl)
+- realm: Clean up documentation (bcl)
+- Add support for new bootc kickstart command (ppolawsk)
+- Update documentation for clearpart --initlabel option. (rvykydal)
+- Update the %certificate section documentation (rvykydal)
+
 * Mon Feb 24 2025 Brian C. Lane <bcl@redhat.com> - 3.63-1
 - Do not remove "md" prefix from RAID names (vtrefny)
 - Add Fedora 43 support (bcl)

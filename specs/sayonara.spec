@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 %global prerel beta2
 %global stable 1
-%global stable_ver stable1
+%global stable_ver stable2
 
 Summary:        A lightweight Qt Audio player
 License:        GPL-3.0-or-later
@@ -56,6 +56,8 @@ that use %{name}.
 %autosetup -p1 -n %{name}-player-%{version}-%{prerel}
 %endif
 
+sed -i -e 's|1.11.0-stable1|1.11.0-stable2|' CMakeLists.txt
+
 rm -rf .gitignore .gitlab-ci.yml debian
 # use system taglib
 rm -rf src/3rdParty/Taglib
@@ -107,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Fri Apr 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-1.stable2
+- Update to 1.11.0 stable2
+
 * Wed Apr 23 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-1.stable1
 - Update to 1.11.0 stable1
 

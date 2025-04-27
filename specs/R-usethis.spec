@@ -1,10 +1,10 @@
 %global packname usethis
-%global packver  2.2.3
+%global packver  3.1.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          %autorelease
 Summary:          Automate Package and Project Setup
 
 License:          MIT
@@ -25,7 +25,7 @@ BuildRequires:    R-cli >= 3.0.1
 BuildRequires:    R-clipr >= 0.3.0
 BuildRequires:    R-crayon
 BuildRequires:    R-curl >= 2.7
-BuildRequires:    R-desc >= 1.4.0
+BuildRequires:    R-desc >= 1.4.2
 BuildRequires:    R-fs >= 1.3.0
 BuildRequires:    R-gert >= 1.4.1
 BuildRequires:    R-gh >= 1.2.1
@@ -34,23 +34,23 @@ BuildRequires:    R-jsonlite
 BuildRequires:    R-lifecycle >= 1.0.0
 BuildRequires:    R-purrr
 BuildRequires:    R-rappdirs
-BuildRequires:    R-rlang >= 1.0.0
+BuildRequires:    R-rlang >= 1.1.0
 BuildRequires:    R-rprojroot >= 1.2
 BuildRequires:    R-rstudioapi
 BuildRequires:    R-stats
+BuildRequires:    R-tools
 BuildRequires:    R-utils
 BuildRequires:    R-whisker
 BuildRequires:    R-withr >= 2.3.0
 BuildRequires:    R-yaml
 BuildRequires:    R-knitr
 BuildRequires:    R-magick
-BuildRequires:    R-mockr
-BuildRequires:    R-pkgload
+BuildRequires:    R-pkgload >= 1.3.2.1
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-roxygen2 >= 7.1.2
 BuildRequires:    R-spelling >= 1.2
 BuildRequires:    R-styler >= 1.2.0
-BuildRequires:    R-testthat >= 3.1.0
+BuildRequires:    R-testthat >= 3.1.8
 
 %description
 Automate package and project setup tasks that are otherwise performed manually.
@@ -77,7 +77,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
 
 
 %files
@@ -96,87 +96,4 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.2.3-5
-- R-maint-sig mass rebuild
-
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.2.3-4
-- R-maint-sig mass rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Apr 26 2024 Iñaki Úcar <iucar@fedoraproject.org> - 2.2.3-1
-- Update to latest version
-
-* Thu Apr 25 2024 Iñaki Úcar <iucar@fedoraproject.org> - 2.1.6-7
-- R-maint-sig mass rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.1.6-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 2.1.6-1
-- update to 2.1.6
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 16 2021 Tom Callaway <spot@fedoraproject.org> - 2.0.1-2
-- Rebuilt for R 4.1.0
-
-* Tue Feb 23 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.1-1
-- Update to latest version (#1927274)
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec 31 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.0-1
-- Update to latest version (#1906351)
-
-* Fri Sep 18 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.6.3-1
-- Update to latest version (#1880138)
-
-* Mon Aug 03 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.6.1-1
-- Update to latest version
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jun  7 2020 Tom Callaway <spot@fedoraproject.org> - 1.5.1-3
-- rebuild for R 4
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Aug 26 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.1-1
-- Update to latest version
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.0-3
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Jun 16 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.0-1
-- initial package for Fedora
+%autochangelog
