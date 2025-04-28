@@ -36,7 +36,7 @@
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
 
-%if %{?fedora} >= 38
+%if %{defined fedora} || 0%{?rhel} >= 10
 %global _ghcdynlibdir %{ghclibdir}
 %endif
 
@@ -398,7 +398,7 @@ rm -r libffi-tarballs
 %patch -P27 -p1 -b .orig
 
 #sphinx 7
-%if 0%{?fedora} >= 40
+%if %{defined fedora} || 0%{?rhel} >= 10
 %patch -P30 -p1 -b .orig
 %endif
 

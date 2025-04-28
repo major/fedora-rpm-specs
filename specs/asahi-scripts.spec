@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20250130
+Version:        20250426.1
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 
@@ -18,6 +18,7 @@ Requires:       bash
 Requires:       coreutils
 Requires:       grep
 Requires:       sed
+Requires:       systemd-udev
 Requires:       util-linux-core
 
 %description
@@ -104,6 +105,7 @@ grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 %license LICENSE
 %{_datadir}/%{name}/
 %{_sbindir}/asahi-diagnose
+%{_udevhwdbdir}/65-autosuspend-override-asahi-sdhci.hwdb
 
 %files -n asahi-fwupdate
 %license LICENSE

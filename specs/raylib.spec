@@ -1,6 +1,6 @@
 Name:           raylib
-Version:        5.0
-Release:        5%{?dist}
+Version:        5.5
+Release:        %autorelease
 Summary:        A simple and easy-to-use library to enjoy videogames programming
 
 License:        Zlib AND MIT
@@ -41,7 +41,7 @@ NOTE for ADVENTURERS: raylib is a programming library to enjoy videogames
 Ready to learn? Jump to https://www.raylib.com/examples.html
 
 
-# devel subapackage
+# Devel subapackage
 %package devel
 Summary: Devel files for %{name}
 Requires:  %{name}%{?_isa} = %{version}-%{release}
@@ -68,7 +68,9 @@ The %{name}-devel package contains header files for developing with %{name}.
     -DUSE_EXTERNAL_GLFW=OFF \
     -DOpenGL_GL_PREFERENCE=GLVND \
     -DUSE_WAYLAND=ON \
+    -DBUILD_EXAMPLES=ON \
     -DPLATFORM=Desktop
+
 %cmake_build
 
 %install
@@ -80,8 +82,8 @@ The %{name}-devel package contains header files for developing with %{name}.
 %doc CHANGELOG
 %doc FAQ.md
 %doc HISTORY.md
-%{_libdir}/libraylib.so.4.5.0
-%{_libdir}/libraylib.so.450
+%{_libdir}/libraylib.so.5.5.0
+%{_libdir}/libraylib.so.550
 
 %files devel
 %doc BINDINGS.md
@@ -97,17 +99,4 @@ The %{name}-devel package contains header files for developing with %{name}.
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Dec 29 2023 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 5.0-1
-- initial package
+%autochangelog

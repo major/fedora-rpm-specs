@@ -5,7 +5,7 @@
 %bcond tests 1
 
 Name:           python-fast-simplification
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Wrapper around the Fast-Quadric-Mesh-Simplification library
 
@@ -21,10 +21,13 @@ Source:         %{url}/archive/v%{version}/fast-simplification-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
 Patch:          0001-Downstream-only-do-not-override-system-compiler-flag.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -l fast_simplification
+BuildOption(generate_buildrequires): %{?with_tests:requirements_test.txt}
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
 %global common_description %{expand:
@@ -68,29 +71,13 @@ Provides:       bundled(Fast-Quadric-Mesh-Simplification) = 0^20201008git4aeffce
 %description -n python3-fast-simplification %{common_description}
 
 
-%prep
-%autosetup -n fast-simplification-%{version} -p1
-
+%prep -a
 %if %{without pyvista}
 sed -r -i 's/^pyvista\b/# &/' requirements_test.txt
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires %{?with_tests:requirements_test.txt}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l fast_simplification
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 %pytest -v -rs
 %endif

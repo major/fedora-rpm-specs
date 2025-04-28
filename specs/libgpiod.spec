@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.2.1
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Release:       3%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -24,7 +24,6 @@ BuildRequires: libstdc++-devel
 BuildRequires: make
 BuildRequires: pkgconf
 %if 0%{?with_python}
-BuildRequires: python3-build
 BuildRequires: python3-devel
 BuildRequires: python3-packaging
 BuildRequires: python3-pip
@@ -96,7 +95,10 @@ Files for development with %{name}.
 %autosetup -p1
 # python bindings build is set to use isolation. Remove this for distro build so it uses the
 # system installed dependencies instead of trying to use pip to install from the network
-sed -i 's/-m build/-m build --no-isolation/' bindings/python/Makefile*
+sed -i 's/-m build/-m pip wheel --wheel-dir dist --no-build-isolation ./' bindings/python/Makefile*
+# Once the following commit is merged, replace the above line with the command below:
+# https://lore.kernel.org/linux-gpio/20250407181116.1070816-1-yselkowi@redhat.com/T/#u
+#sed -i 's/-m pip wheel/& --no-build-isolation/' bindings/python/Makefile*
 
 %build
 %configure \
@@ -189,6 +191,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Apr 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.2.1-3
+- Build with pip, avoid python-build dependency
+
 * Wed Apr 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 2.2.1-2
 - Fix scriptlets for service enablement
 

@@ -4,14 +4,16 @@
 %if 0%{?rhel}
 %bcond_with trio
 %bcond_with doh
+%bcond_with doq
 %else
 %bcond_without trio
 %bcond_without doh
+%bcond_without doq
 %endif
 
 Name:           python-dns
-Version:        2.6.1
-Release:        5%{?dist}
+Version:        2.7.0
+Release:        2%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -44,10 +46,15 @@ Summary:        %{summary}
 Obsoletes:      python3-dns+curio < 2.3.0-6
 %endif
 
+# Duplicate package python3-dnspython
+# https://bugzilla.redhat.com/show_bug.cgi?id=2361734
+Provides:       python3-dnspython = %{version}-%{release}
+Obsoletes:      python3-dnspython < 2.7.0-3
+
 %description -n python3-dns %_description
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x dnssec -x idna %{?with_trio:-x trio} %{?with_doh:-x doh}
+%pyproject_buildrequires -r -x dnssec -x idna %{?with_trio:-x trio} %{?with_doh:-x doh} %{?with_doq:-x doq}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}%{rctag}
@@ -80,12 +87,23 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %pyproject_extras_subpkg -n python3-dns doh
 %endif
 
+%if %{with doq}
+%pyproject_extras_subpkg -n python3-dns doq
+%endif
+
 %if %{with trio}
 %pyproject_extras_subpkg -n python3-dns trio
 %pycached %{python3_sitelib}/dns/_trio_backend.py
 %endif
 
 %changelog
+* Wed Apr 23 2025 Lumír Balhar <lbalhar@redhat.com> - 2.7.0-2
+- Provide and Obsolete python3-dnspython from python3-dns
+- Package the [doq] extra
+
+* Tue Apr 22 2025 Lumír Balhar <lbalhar@redhat.com> - 2.7.0-1
+- Update to 2.7.0 (rhbz#2314020)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

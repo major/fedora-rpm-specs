@@ -2,7 +2,7 @@
 %global appname PE-bear
 
 # Git revision of bearparser...
-%global commit1 425087c8e87a9f130c5f39446f001079b12134ff
+%global commit1 e2bfabf5d8c4b9c47596853be50260f8841b21ed
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # Git revision of capstone...
@@ -10,11 +10,11 @@
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 # Git revision of sig_finder...
-%global commit3 8814bf5eaf4edc370450dd9a688fed8006241d4c
+%global commit3 1ac3b1a55c00a8f685d5bf2a722045e5bc49d1b6
 %global shortcommit3 %(c=%{commit3}; echo ${c:0:7})
 
 Name: pe-bear
-Version: 0.7.0.4
+Version: 0.7.1
 Release: %autorelease
 
 # main - GPL-2.0-or-later

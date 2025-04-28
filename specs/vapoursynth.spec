@@ -49,6 +49,7 @@ Development files for %{name}.
 
 %package        tools
 Summary:        Extra tools for VapourSynth
+Requires:       python3-vapoursynth%{?_isa} = %{version}-%{release}
 
 %description    tools
 This package contains the vspipe tool for interfacing with VapourSynth.

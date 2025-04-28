@@ -1,5 +1,5 @@
 Name:           texstudio
-Version:        4.8.6
+Version:        4.8.7
 Release:        %autorelease
 
 Summary:        A feature-rich editor for LaTeX documents
@@ -107,13 +107,14 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/texstudio/*.json
 %{_datadir}/texstudio/*.js
 %{_datadir}/texstudio/th_*.dat
-%{_datadir}/texstudio/*.html
-%{_datadir}/texstudio/latex2e.css
-%{_datadir}/texstudio/_sphinx_design_static/
-%{_datadir}/texstudio/_images/*.webp
-%{_datadir}/texstudio/_static/
+%{_docdir}/texstudio/*.html
+%{_docdir}/texstudio/latex2e.css
+%{_docdir}/texstudio/list.png
+%{_docdir}/texstudio/searchindex.js
+%{_docdir}/texstudio/_sphinx_design_static/
+%{_docdir}/texstudio/_images/*.webp
+%{_docdir}/texstudio/_static/
 %{_datadir}/texstudio/README_*
-%{_datadir}/texstudio/CHANGELOG.md
 %{_datadir}/applications/texstudio.desktop
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg

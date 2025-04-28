@@ -1,8 +1,8 @@
 Name:           corrosion
-Version:        0.5.0
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Easy Rust and C/C++ Integration
-#SourceLicense:  MIT
+SourceLicense:  MIT
 
 # Apache-2.0 OR BSL-1.0
 # MIT

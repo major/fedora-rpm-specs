@@ -5,7 +5,7 @@
 %global crate bytesize
 
 Name:           rust-bytesize
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Utility for human-readable bytes representations
 

@@ -119,6 +119,10 @@ Source:         %{url}/archive/v%{srcversion}/pencil-%{srcversion}.tar.gz
 # Ensure QDebug is included for all qDebug uses
 # https://github.com/pencil2d/pencil/pull/1912
 Patch:          0001-Ensure-QDebug-is-included-for-all-qDebug-uses.patch
+# Use the latest GPLv2 license text
+# https://github.com/pencil2d/pencil/pull/1914
+# OK to patch license text downstream since the PR was merged upstream.
+Patch:          %{url}/pull/1914.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

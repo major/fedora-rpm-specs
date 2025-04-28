@@ -54,14 +54,14 @@ License:        BSD-3-Clause
 #   - config/install-sh
 SourceLicense:  %{shrink:
                 %{license} AND
-		FSFUL AND
-		FSFULLR AND
-		GPL-2.0-or-later AND
-		GPL-2.0-or-later WITH Autoconf-exception-generic AND
-		GPL-2.0-or-later WITH Libtool-exception AND
-		GPL-3.0-or-later WITH Autoconf-exception-generic AND
-		X11
-		}
+                FSFUL AND
+                FSFULLR AND
+                GPL-2.0-or-later AND
+                GPL-2.0-or-later WITH Autoconf-exception-generic AND
+                GPL-2.0-or-later WITH Libtool-exception AND
+                GPL-3.0-or-later WITH Autoconf-exception-generic AND
+                X11
+                }
 URL:            https://cs.uwaterloo.ca/~astorjoh/iml.html
 Source0:        https://cs.uwaterloo.ca/~astorjoh/iml-%{version}.tar.bz2
 Source1:        iml-license-clarification.eml

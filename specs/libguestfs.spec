@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
 %if !0%{?rhel}
-#%%global test_arches aarch64 %{power64} s390x x86_64
+#%%global test_arches aarch64 %%{power64} s390x x86_64
 # aarch64 broken in Rawhide:
 # https://gitlab.com/libvirt/libvirt/-/issues/762
 %global test_arches %{power64} s390x x86_64
@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.9
+Version:       1.55.10
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -1104,6 +1104,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Sat Apr 26 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.10-1
+- New upstream development version 1.55.10
+- Fix macro in comment
+
 * Wed Apr 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.9-1
 - New upstream development version 1.55.9
 - Remove flex and bison

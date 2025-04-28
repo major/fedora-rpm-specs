@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 
 %global crate cosmic-files
-
+%global build_rustflags %{?build_rustflags} --cfg=io_uring_skip_arch_check
 
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
@@ -69,8 +69,8 @@ fi
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-%cargo_build --cfg=io_uring_skip_arch_check
-%cargo_build --cfg=io_uring_skip_arch_check -- --package cosmic-files-applet
+%cargo_build
+%cargo_build -- --package cosmic-files-applet
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}

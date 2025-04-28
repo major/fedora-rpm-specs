@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %bcond_without check
 
 %global crate cosmic-term
-
+%global build_rustflags %{?build_rustflags} --cfg=io_uring_skip_arch_check
 
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE

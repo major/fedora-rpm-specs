@@ -21,8 +21,8 @@
 %global ghcboot_major 8.10
 %global ghcboot ghc%{ghcboot_major}
 
-%if %{defined fedora}
-# should be disabled (bcond_with) for Fedora 38+
+%if %{defined fedora} || 0%{?rhel} >= 10
+# should be disabled (bcond_with) to use older bundled libffi
 %bcond_with systemlibffi
 %else
 %bcond_without systemlibffi
@@ -451,7 +451,7 @@ export LD=%{_bindir}/ld.gold
 
 # only needed for ghc < 8.8
 %ifarch %{ghc_unregisterized_arches}
-%if 0%{?fedora} < 33
+%if 0%{?fedora} < 33 && 0%{?rhel} < 9
 cat > ghc-unregisterised-wrapper << EOF
 #!/usr/bin/sh
 exec /usr/bin/ghc -optc-I%{_libdir}/ghc-$(ghc --numeric-version)/include \${1+"\$@"}

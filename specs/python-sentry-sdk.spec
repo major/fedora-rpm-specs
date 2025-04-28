@@ -43,7 +43,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.26.1
+Version:        2.27.0
 %global tag %{version}
 %forgemeta
 
@@ -73,15 +73,6 @@ Patch0:         0001-Downstream-only-unpin-virtualenv.patch
 # https://github.com/django/django/blob/2d4add11fd57b05f7ea48e8b3e89e743c9871aa3/django/contrib/admin/sites.py#L605
 # The easiest option is to add it there.
 Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
-
-# Upstream PR: https://github.com/getsentry/sentry-python/pull/4316
-#
-# When (at least) one of integrations is enabled (because some
-# dependencies are installed in the environment), `sentry.sdk.name` is
-# changed from `sentry.python` to
-# `sentry.python.[FIRST_ENABLED_INTEGRATION]` which makes
-# `test_logs_attributes` fail. Prevent failure by relaxing the check.
-Patch2:         0003-test-logs-avoid-failure-when-running-with-integratio.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -304,7 +295,7 @@ sed -r -i 's/psycopg2-binary/psycopg2/' tox.ini
 sed -r -i 's/(pytest)<7.*/\1/' tox.ini
 sed -r -i 's/(Werkzeug)<2\.1\.0/\1/' tox.ini
 sed -r -i 's/(gevent)>=22\.10\.0, <22\.11\.0/\1/' tox.ini
-sed -r -i 's/(anyio)<4\.0\.0/\1/' tox.ini
+sed -r -i 's/(anyio)<4.*/\1/' tox.ini
 
 # no_newrelic
 sed -r -i '/(newrelic)/d' tox.ini
