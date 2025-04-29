@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.39.1
+Version:        2.41.0
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -20,7 +20,11 @@ BuildRequires:  sqlite-devel
 BuildRequires:  ImageMagick-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libglvnd-devel
+%if 0%{?fedora} > 42
+BuildRequires:  mesa-libGL-devel
+%else
 BuildRequires:  mesa-libOSMesa-devel
+%endif
 # conditionalize xfconf until it is built for epel10
 %if 0%{?rhel} != 10
 BuildRequires:  xfconf-devel
@@ -111,6 +115,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Sun Apr 27 2025 Jonathan Wright <jonathan@almalinux.org> - 2.41.0-1
+- update to 2.41.0 rhbz#2357095
+
 * Wed Mar 26 2025 Jonathan Wright <jonathan@almalinux.org> - 2.39.1-1
 - update to 2.39.1 rhbz#2346605
 - improve recommends/suggests for lighter installs rhbz#2346954

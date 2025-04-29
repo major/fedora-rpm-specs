@@ -35,6 +35,8 @@
 %global build_test OFF
 %endif
 
+# Tensile in 6.4 does not support generics
+# https://github.com/ROCm/Tensile/issues/2124
 %bcond_without tensile
 %if %{with tensile}
 %global build_tensile ON
@@ -74,9 +76,17 @@
 %global cmake_generator %{nil}
 %endif
 
+%bcond_with generic
+%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
+%if %{with generic}
+%global gpu_list %{rocm_gpu_list_generic}
+%else
+%global gpu_list %{rocm_gpu_list_default}
+%endif
+
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -222,7 +232,7 @@ fi
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
@@ -275,6 +285,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Add generic gpus
+
 * Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Use joblib on sle 15.6 and 16.0
 

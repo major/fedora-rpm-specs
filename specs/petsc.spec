@@ -237,6 +237,8 @@
   --with-hdf5-lib="-L$MPI_LIB -lhdf5 -lhdf5_hl" \\\
  %endif \
  %if %{with ptscotch} \
+  --with-bison=1 \\\
+  --with-bison-exec=%{_bindir}/bison \\\
   --with-ptscotch=1 \\\
   %if 0%{?rhel} \
   --with-ptscotch-include=$MPI_INCLUDE \\\
@@ -280,11 +282,11 @@
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
 %global majorver 3
-%global releasever %{majorver}.22
+%global releasever %{majorver}.23
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.5
+Version: %{releasever}.0
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -324,6 +326,7 @@ BuildRequires: suitesparse-devel >= 5.6.0
 %if %{with blas}
 BuildRequires: %{blaslib}-devel
 %endif
+BuildRequires: bison-devel, bison
 BuildRequires: chrpath
 BuildRequires: gcc, gcc-c++, cmake
 BuildRequires: gcc-gfortran
@@ -594,7 +597,7 @@ popd
 %if %{with arch64}
 cp -a %{name}-%{version} build64
 pushd build64
-%patch -P 1 -p0
+%patch -P 1 -p0 -b .backup
 %if %{with metis64}
 %patch -P 4 -p1 -b .metis64
 %endif

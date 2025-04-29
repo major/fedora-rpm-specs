@@ -3,7 +3,7 @@
 
 # https://github.com/AD8IM/kappanhang
 %global goipath         github.com/AD8IM/kappanhang
-%global commit          9751b536b37ab6322e4edee5cbae97f4d1b818f4
+%global commit          dffb773f153a5d317a2818c7275766a0531f7f60
 
 %gometa -L -f
 
@@ -29,7 +29,6 @@ BuildRequires:  pulseaudio-libs-devel
 
 %prep
 %goprep -A
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

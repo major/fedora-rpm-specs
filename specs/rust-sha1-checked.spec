@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tempfile
+%global crate sha1-checked
 
-Name:           rust-tempfile
-Version:        3.19.1
+Name:           rust-sha1-checked
+Version:        0.10.0
 Release:        %autorelease
-Summary:        Library for managing temporary files and directories
+Summary:        SHA-1 hash function with collision detection
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/tempfile
+URL:            https://crates.io/crates/sha1-checked
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          tempfile-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A library for managing temporary files and directories.}
+SHA-1 hash function with collision detection.}
 
 %description %{_description}
 
@@ -37,6 +35,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/data/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -50,28 +49,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+oid-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+oid-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "oid" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
+%files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly-devel
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

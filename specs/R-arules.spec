@@ -2,7 +2,7 @@
 
 %global packname arules
 %global ver 1.7
-%global packrel 9
+%global packrel 10
 %global rlibdir %{_libdir}/R/library
 
 %global _description %{expand:
@@ -13,8 +13,8 @@ Apriori and Eclat. Hahsler, Gruen and Hornik (2005)
 <doi:10.18637/jss.v014.i15>.}
 
 Name:             R-%{packname}
-Version:          1.7.9
-Release:          5%{?dist}
+Version:          1.7.10
+Release:          1%{?dist}
 Summary:          Mining Association Rules and Frequent Itemsets
 
 License:          GPL-3.0-only
@@ -69,6 +69,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 %{rlibdir}/%{packname}/libs
 
 %changelog
+* Sun Apr 27 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.7.10-1
+- Update to 1.7.10
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.9-5
 - R-maint-sig mass rebuild
 

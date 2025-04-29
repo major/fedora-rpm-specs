@@ -1,10 +1,10 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.64
+%global cpan_version 1.65
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %{cpan_version})
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -17,12 +17,12 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.0
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(DateTime)
+BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(DateTime::Format::Strptime)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
@@ -66,10 +66,12 @@ BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(Date::Range)
 BuildRequires:  perl(Date::Simple)
+BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Duration)
 BuildRequires:  perl(DateTime::Format::ISO8601)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More)
 # Author Tests
 %if %{with author_tests}
@@ -95,12 +97,11 @@ find lib/ -type f -name '*.pm' -exec chmod -c -x {} \;
 cp -p README README.dist
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -137,7 +138,6 @@ make test
 %{_mandir}/man3/Finance::Quote::CurrencyRates::OpenExchange.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::Deka.3*
-%{_mandir}/man3/Finance::Quote::DWS.3*
 %{_mandir}/man3/Finance::Quote::FinanceAPI.3*
 %{_mandir}/man3/Finance::Quote::Finanzpartner.3*
 %{_mandir}/man3/Finance::Quote::Fondsweb.3*
@@ -148,7 +148,6 @@ make test
 %{_mandir}/man3/Finance::Quote::HU.3*
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
 %{_mandir}/man3/Finance::Quote::MarketWatch.3*
-%{_mandir}/man3/Finance::Quote::MorningstarAU.3*
 %{_mandir}/man3/Finance::Quote::MorningstarCH.3*
 %{_mandir}/man3/Finance::Quote::MorningstarJP.3*
 %{_mandir}/man3/Finance::Quote::MorningstarUK.3*
@@ -176,6 +175,36 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun Apr 27 2025 Paul Howarth <paul@city-fan.org> - 1.6500-1
+- Update to 1.65
+  - Added EXCHANGE feature to Sinvestor.pm and some fixes (GH#481)
+  - Added EXCHANGE feature to OnVista.pm (GH#480)
+  - Added EXCHANGE feature to Consorsbank.pm and some fixes (GH#479)
+  - Enabled usage count in Quote.pm
+  - Removed DWS.pm
+  - Improved check that dividend yield is a number in YahooJSON.pm by adding
+    regex anchors
+  - Added ssl_opts to user agent in Union.pm to account for bad certificate
+    chain (GH#482)
+  - Added ETFs search, more labels and EXCHANGE feature to Comdirect.pm (GH#478)
+  - GoogleWeb: Add support for Hong Kong Exchange (GH#476)
+  - YahooJSON: Adjust other currency fields when data is returned in GBp, ZAc,
+    or ILA
+  - Added labels wkn, ìsin, close, ask, bid, p_change, time to OnVista.pm
+  - Modified OnVista.pm to enable search by ISIN and WKN and search for ETFs
+  - Added methodinfo hash to Tradegate.pm (GH#465)
+  - Added labels isin, open, ask, bid, time to Tradegate.pm (GH#465)
+  - Fixed Tradegate.pm - Search for ETFs (GH#465)
+  - Removed MorningstarAU (GH#405)
+  - Fixed malformed character in YahooWeb.pm (GH#468)
+  - Changed useragent in YahooJSON.pm (GH#467)
+  - Added methodinfo hash to AEX.pm (GH#466)
+  - Added labels exchange, close, time to AEX.pm (GH#466)
+  - Fixed XETRA.pm (GH#460)
+  - Added methodinfo hash to Fool.pm
+  - Fixed MorningstarJP.pm (GH#443, GH#451)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6400-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

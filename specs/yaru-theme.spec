@@ -3,7 +3,7 @@
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme
-Version:    24.10.4
+Version:    25.04.2
 %forgemeta
 Release:    %autorelease
 Summary:    Ubuntu community theme "yaru"
@@ -151,24 +151,6 @@ touch %{buildroot}%{_datadir}/icons/Yaru/icon-theme.cache
 gtk-update-icon-cache --force %{_datadir}/icons/Yaru &>/dev/null || :
 
 
-# Workaround for replace directory with symlink which was added in Yaru
-# * https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
-%pretrans -p <lua> -n gnome-shell-theme-yaru
-path = "%{_datadir}/themes/Yaru-dark/gnome-shell"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
-
-
 %files
 %license %{_license}
 %doc AUTHORS CONTRIBUTING.md README.md
@@ -179,48 +161,8 @@ end
 %{_datadir}/gnome-shell/modes/yaru.json
 %{_datadir}/gnome-shell/theme/Yaru*/
 %{_datadir}/themes/Yaru-*/index.theme
-%{_datadir}/themes/Yaru-blue-dark/gnome-shell
-%{_datadir}/themes/Yaru-blue/gnome-shell
-%{_datadir}/themes/Yaru-dark/gnome-shell
-%{_datadir}/themes/Yaru-magenta-dark/gnome-shell
-%{_datadir}/themes/Yaru-magenta/gnome-shell
-%{_datadir}/themes/Yaru-olive-dark/gnome-shell
-%{_datadir}/themes/Yaru-olive/gnome-shell
-%{_datadir}/themes/Yaru-prussiangreen-dark/gnome-shell
-%{_datadir}/themes/Yaru-prussiangreen/gnome-shell
-%{_datadir}/themes/Yaru-purple-dark/gnome-shell
-%{_datadir}/themes/Yaru-purple/gnome-shell
-%{_datadir}/themes/Yaru-red-dark/gnome-shell
-%{_datadir}/themes/Yaru-red/gnome-shell
-%{_datadir}/themes/Yaru-sage-dark/gnome-shell
-%{_datadir}/themes/Yaru-sage/gnome-shell
-%{_datadir}/themes/Yaru-wartybrown-dark/gnome-shell
-%{_datadir}/themes/Yaru-wartybrown/gnome-shell
-%{_datadir}/themes/Yaru-yellow-dark/gnome-shell
-%{_datadir}/themes/Yaru-yellow/gnome-shell
-%{_datadir}/themes/Yaru/gnome-shell
+%{_datadir}/themes/Yaru*/gnome-shell
 %{_datadir}/themes/Yaru/index.theme
-%dir %{_datadir}/themes/Yaru
-%dir %{_datadir}/themes/Yaru-blue
-%dir %{_datadir}/themes/Yaru-blue-dark
-%dir %{_datadir}/themes/Yaru-dark
-%dir %{_datadir}/themes/Yaru-magenta
-%dir %{_datadir}/themes/Yaru-magenta-dark
-%dir %{_datadir}/themes/Yaru-olive
-%dir %{_datadir}/themes/Yaru-olive-dark
-%dir %{_datadir}/themes/Yaru-prussiangreen
-%dir %{_datadir}/themes/Yaru-prussiangreen-dark
-%dir %{_datadir}/themes/Yaru-purple
-%dir %{_datadir}/themes/Yaru-purple-dark
-%dir %{_datadir}/themes/Yaru-red
-%dir %{_datadir}/themes/Yaru-red-dark
-%dir %{_datadir}/themes/Yaru-sage
-%dir %{_datadir}/themes/Yaru-sage-dark
-%dir %{_datadir}/themes/Yaru-wartybrown
-%dir %{_datadir}/themes/Yaru-wartybrown-dark
-%dir %{_datadir}/themes/Yaru-yellow
-%dir %{_datadir}/themes/Yaru-yellow-dark
-%ghost %{_datadir}/themes/Yaru-dark/gnome-shell.rpmmoved/
 
 %files -n yaru-gtk2-theme
 %license %{_license}

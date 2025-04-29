@@ -1,5 +1,5 @@
 Name:    dosbox-staging
-Version: 0.82.1
+Version: 0.82.2
 Release: %autorelease
 Summary: Modern continuation of DOSBox with advanced features
 URL:     https://www.dosbox-staging.org/

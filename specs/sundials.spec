@@ -96,7 +96,7 @@
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    7.1.1
+Version:    7.3.0
 Release:    %autorelease
 License:    BSD-3-Clause
 URL:        https://computation.llnl.gov/projects/%{name}/
@@ -785,8 +785,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %endif
 %{_includedir}/nvector/
 %{_includedir}/sunmatrix/
-%{_includedir}/sunlinsol/
+%{_includedir}/sunadjointcheckpointscheme/
 %{_includedir}/sunnonlinsol/
+%{_includedir}/sunlinsol/
 %{_includedir}/sunadaptcontroller/
 %{_includedir}/sunmemory/
 %{_includedir}/arkode/
@@ -797,6 +798,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/kinsol/
 %dir %{_includedir}/sundials
 %{_includedir}/sundials/priv/
+%{_includedir}/sundials/sundials_adjointcheckpointscheme.h
+%{_includedir}/sundials/sundials_adjointstepper.h
+%{_includedir}/sundials/sundials_stepper.h
 %{_includedir}/sundials/sundials_export.h
 %{_includedir}/sundials/sundials_band.h
 %{_includedir}/sundials/sundials_dense.h
@@ -884,6 +888,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/openmpi-%{_arch}/ida/
 %{_includedir}/openmpi-%{_arch}/idas/
 %{_includedir}/openmpi-%{_arch}/kinsol/
+%{_includedir}/openmpi-%{_arch}/sunadjointcheckpointscheme/
 %{_includedir}/openmpi-%{_arch}/sunlinsol/
 %{_includedir}/openmpi-%{_arch}/sunmatrix/
 %{_includedir}/openmpi-%{_arch}/sunnonlinsol/
@@ -977,6 +982,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/mpich-%{_arch}/ida/
 %{_includedir}/mpich-%{_arch}/idas/
 %{_includedir}/mpich-%{_arch}/kinsol/
+%{_includedir}/mpich-%{_arch}/sunadjointcheckpointscheme/
 %{_includedir}/mpich-%{_arch}/sunlinsol/
 %{_includedir}/mpich-%{_arch}/sunmatrix/
 %{_includedir}/mpich-%{_arch}/sunnonlinsol/

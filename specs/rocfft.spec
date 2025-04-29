@@ -22,6 +22,8 @@
 %global build_type RelWithDebInfo
 %endif
 
+# kernel oops on gfx1201
+# https://github.com/ROCm/rocFFT/issues/560
 %bcond_with test
 %if %{with test}
 # Disable rpatch checks for a local build
@@ -31,6 +33,8 @@
 %global build_test OFF
 %endif
 
+# Option to test suite for testing on real HW:
+%bcond_with check
 # For docs
 %bcond_with doc
 
@@ -55,9 +59,17 @@
 %global cmake_generator %{nil}
 %endif
 
+%bcond_with generic
+%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
+%if %{with generic}
+%global gpu_list %{rocm_gpu_list_generic}
+%else
+%global gpu_list %{rocm_gpu_list_default}
+%endif
+
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -76,15 +88,21 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
 %if %{with test}
-BuildRequires:  gtest-devel
 BuildRequires:  rocrand-devel
 BuildRequires:  fftw-devel
 BuildRequires:  boost-devel
 BuildRequires:  hipcc-libomp-devel
 BuildRequires:  hiprand-devel
 
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
+BuildRequires:  gtest-devel
+%endif
+
 # rocfft-test compiles some things and requires rocm-hip-devel
 Requires:  rocm-hip-devel
+
 %endif
 
 %if %{with doc}
@@ -160,7 +178,7 @@ export LDFLAGS="${LDFLAGS} -pie"
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
@@ -196,6 +214,17 @@ if [ -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 fi
 
+%check
+%if %{with test}
+%if %{with check}
+%if 0%{?suse_version}
+%{__builddir}/clients/staging/rocfft-test
+%else
+%{_vpath_builddir}/clients/staging/rocfft-test
+%endif
+%endif
+%endif
+
 %files -f %{name}.files
 %doc README.md
 %license LICENSE.md
@@ -210,6 +239,12 @@ fi
 %endif
 
 %changelog
+* Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Improve testing on suse
+
+* Sat Apr 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Add generic gpus
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

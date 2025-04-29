@@ -29,6 +29,9 @@
 %global build_test OFF
 %endif
 
+# Option to test suite for testing on real HW:
+%bcond_with check
+# For docs
 %bcond_with doc
 
 # Compression type and level for source/binary package payloads.
@@ -38,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -56,7 +59,11 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocrand-devel
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
 %endif
 
 %if %{with doc}
@@ -104,6 +111,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 #Remove RPATH:
 sed -i '/INSTALL_RPATH/d' CMakeLists.txt
 
+# On Tumbleweed Q2,2025
+# /usr/include/gtest/internal/gtest-port.h:279:2: error: C++ versions less than C++14 are not supported.
+#   279 | #error C++ versions less than C++14 are not supported.
+# https://github.com/ROCm/hipRAND/issues/222
+# Convert the c++11's to c++14
+sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/package/}CMakeLists.txt
+
 %build
 
 %cmake \
@@ -142,6 +156,17 @@ if [ -f %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake ]; then
     rm %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake
 fi
 
+%check
+%if %{with test}
+%if %{with check}
+%if 0%{?suse_version}
+export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
+%endif
+
+%ctest
+%endif
+%endif
+
 %files -f %{name}.files
 %doc README.md
 %license LICENSE.txt
@@ -156,6 +181,9 @@ fi
 %endif
 
 %changelog
+* Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Improve testing on suse
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

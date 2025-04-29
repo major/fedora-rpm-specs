@@ -1,6 +1,6 @@
 Name:           perl-IO-Async
-Version:        0.803
-Release:        4%{?dist}
+Version:        0.804
+Release:        1%{?dist}
 Summary:        A collection of modules that implement asynchronous filehandle IO
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ A collection of modules that implement asynchronous filehandle IO
 
 
 %changelog
+* Sun Apr 27 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.804-1
+- Update to 0.804
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.803-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
