@@ -163,6 +163,9 @@ install -t '%{buildroot}%{_datadir}/aclocal/libIDL.m4' -D -p -m 0644 \
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
+# Upstream does not provide any tests.
+
+
 %files
 %license COPYING
 

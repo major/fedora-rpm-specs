@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-scooby
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        A Great Dane turned Python environment detective
 
@@ -12,9 +12,11 @@ Source0:        %{url}/archive/v%{version}/scooby-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        scooby.1
 
-# In tests, use sys.executable instead of assuming "python"
-# https://github.com/banesullivan/scooby/pull/120
-Patch:          %{url}/pull/120.patch
+BuildSystem:            pyproject
+BuildOption(install):   -l scooby
+# We cannot package (nor generate BR’s from) the “cpu” extra because it
+# requires python3dist(mkl), which is proprietary software.
+BuildOption(generate_buildrequires): %{?with_tests:requirements_test.txt}
 
 BuildArch:      noarch
 
@@ -57,26 +59,19 @@ Recommends:     %{py3_dist psutil}
 sed -r -i 's/^(mkl|pyvips|no_version|pytest-cov)\b/# &/' requirements_test.txt
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-# We cannot package (nor generate BR’s from) the “cpu” extra because it
-# requires python3dist(mkl), which is proprietary software.
-%pyproject_buildrequires %{?with_tests:requirements_test.txt}
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l scooby
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 # These require the no_version package; see notes in %%prep.
 k="${k-}${k+ and }not test_get_version"

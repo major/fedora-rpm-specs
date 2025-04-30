@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -13,6 +13,8 @@ Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/
 # https://github.com/transmission/transmission/pull/847
 Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 Patch1:         %{name}-miniupnp228.patch
+# Proposed upstream: https://github.com/transmission/transmission/issues/7567
+Patch2:         0002-Make-compatible-with-CMake-4.0.patch
 
 
 BuildRequires:  make
@@ -197,6 +199,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Apr 26 2025 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 4.0.6-8
+- Make compatible with CMake 4.0
+
 * Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 4.0.6-7
 - Rebuild for updated miniupnpc.
 

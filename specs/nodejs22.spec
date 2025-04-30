@@ -52,7 +52,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 14
+%global nodejs_minor 15
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
@@ -80,7 +80,7 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.34.4
+%global c_ares_version 1.34.5
 
 # llhttp - from deps/llhttp/include/llhttp.h
 %global llhttp_version 9.2.1
@@ -95,7 +95,7 @@
 %global nghttp3_version 1.6.0
 
 # ngtcp2 from deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
-%global ngtcp2_version 1.10.0
+%global ngtcp2_version 1.11.0
 
 # ICU - from tools/icu/current_ver.dep
 %global icu_major 76
@@ -137,7 +137,7 @@
 %global histogram_version 0.9.7
 
 # sqlite – from deps/sqlite/sqlite3.h
-%global sqlite_version 3.47.2
+%global sqlite_version 3.49.1
 
 
 Name: nodejs%{nodejs_pkg_major}
@@ -169,7 +169,6 @@ Source300: test-runner.sh
 Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
-Patch: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -346,14 +345,14 @@ Provides: bundled(ada) = 2.9.2
 
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
 %if %{with bundled_cjs_module_lexer}
-Provides: bundled(nodejs-cjs-module-lexer) = 1.4.1
+Provides: bundled(nodejs-cjs-module-lexer) = 2.1.0
 %else
 BuildRequires: nodejs-cjs-module-lexer
 Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.21.1
+Provides: bundled(nodejs-undici) = 6.21.2
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

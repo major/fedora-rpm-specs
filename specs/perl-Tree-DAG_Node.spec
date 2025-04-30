@@ -1,5 +1,5 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.33
+Version:        1.34
 Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,6 +61,28 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Mon Apr 28 2025 Paul Howarth <paul@city-fan.org> - 1.34-1
+- Update to 1.34
+  - Fix test failures due to line endings on Windows (GH#2)
+  - The 2 test files t/tree.with*.txt ship as ISO-8859-1, while
+    t/tree.utf8.attributes.txt ships as UTF-8; so...
+    - Don't explicitly use UTF-8 encoding in DAG_Node.pm's sub read_tree();
+      rather, use a regexp to standardize line endings after reading, and
+      likewise, in t/read.tree.t, do the same
+    - Un-comment the 2 extra tests at the end of t/read.tree.t; specifically,
+      line 50 was 'for (qw/utf8/)# with without/)' and now says
+      'for (qw/utf8 with without/)'
+    - Reformat test data files t/tree.*.attributes.txt; this was done with the
+      new files share/read.write.tree.(pl, sh), and it was done because some of
+      the test data files had been written by old code with slightly different
+      indenting
+  - Add a new test data file, t/metag.cooked.tree.txt; it's a copy of
+    MarpaX::Grammar::Parser's share/metag.cooked.tree, and the test program
+    t/read.tree.t was edited to include this new file
+  - Patch tree::DAG_Node.format_node() to output 'Attributes: {}' and not just
+    'Attributes:' when the user does not want attributes reported; this makes
+    the code match the sample trees shipped in t/
+
 * Sun Mar 30 2025 Paul Howarth <paul@city-fan.org> - 1.33-1
 - Update to 1.33
   - Replace the discouraged File::Slurp::Tiny with File::Slurper

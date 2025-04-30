@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc3.20250425git02ddfb981de8.32
+%define pkgrelease 0.rc4.35
 %define kversion 6
-%define tarfile_release 6.15-rc3-94-g02ddfb981de8
+%define tarfile_release 6.15-rc4
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.20250425git02ddfb981de8.32%{?buildid}%{?dist}
+%define specrelease 0.rc4.35%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,6 +4259,18 @@ fi\
 #
 #
 %changelog
+* Mon Apr 28 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc4.35]
+- Turn off CONFIG_PCI_REALLOC_ENABLE_AUTO for Fedora (Justin M. Forbes)
+
+* Mon Apr 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.35]
+- Linux v6.15.0-0.rc4
+
+* Sun Apr 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.5bc1018675ec.34]
+- Linux v6.15.0-0.rc3.5bc1018675ec
+
+* Sat Apr 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.f1a3944c860b.33]
+- Linux v6.15.0-0.rc3.f1a3944c860b
+
 * Fri Apr 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc3.02ddfb981de8.32]
 - gitlab-ci: enable pipelines for rt-64k (Clark Williams)
 - rt-64k:  Enable building 64k page-size RT kernel (Clark Williams)

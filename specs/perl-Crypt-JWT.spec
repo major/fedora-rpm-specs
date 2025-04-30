@@ -1,5 +1,5 @@
 Name:           perl-Crypt-JWT
-Version:        0.036
+Version:        0.037
 Release:        1%{?dist}
 Summary:        JSON Web Token (JWT, JWS, JWE) as defined by RFC7519, RFC7515, RFC7516
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,7 +28,7 @@ BuildRequires:  perl(Crypt::PK::X25519)
 BuildRequires:  perl(Crypt::PRNG)
 BuildRequires:  perl(CryptX) >= 0.067
 BuildRequires:  perl(Exporter) >= 5.57
-BuildRequires:  perl(ExtUtils::MakeMaker) %{!?el7:>= 6.76}
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
@@ -69,6 +69,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Mon Apr 28 2025 Xavier Bachelot <xavier@bachelot.org> 0.037-1
+- Update to 0.037 (RHBZ#2362555)
+
 * Tue Jan 28 2025 Xavier Bachelot <xavier@bachelot.org> 0.036-1
 - Update to 0.036 (RHBZ#2342507)
 

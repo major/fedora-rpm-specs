@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-kubernetes
-Version:        0.3.2
+Version:        0.4.0
 Release:        %autorelease
 Summary:        A snakemake executor plugin for submission of jobs to Kubernetes
 
@@ -12,10 +12,6 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-kubernete
 # We use the GitHub archive instead of the PyPI sdist to get CHANGELOG.md and
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-kubernetes-%{version}.tar.gz
-
-# Update kubernetes requirement from >=27.2.0,<31 to >=27.2.0,<32
-# https://github.com/snakemake/snakemake-executor-plugin-kubernetes/pull/26
-Patch:          %{url}/pull/26.patch
 
 BuildArch:      noarch
 
@@ -48,7 +44,7 @@ Summary:        %{summary}
 # but there have so far never been any real incompatibilities in practice.
 # Upstream will still (eventually) keep up with new versions without us filing
 # PR’s because they have configured dependabot, e.g.
-# https://github.com/snakemake/snakemake-executor-plugin-kubernetes/pull/26.
+# https://github.com/snakemake/snakemake-executor-plugin-kubernetes/pull/45.
 sed -r -i 's/(kubernetes = ".*),<[^"]+"/\1"/' pyproject.toml
 
 

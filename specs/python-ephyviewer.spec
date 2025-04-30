@@ -27,7 +27,7 @@ ExcludeArch:    s390x %{ix86}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:  xwayland-run
+BuildRequires:  %{py3_dist pytest-xvfb}
 %endif
 
 %global _description %{expand:
@@ -88,8 +88,7 @@ k="${k-}${k+ and }not test_videoviewer"
 # These require python3dist(spikeinterface), not packaged.
 k="${k-}${k+ and }not test_spikeinterface_sources"
 k="${k-}${k+ and }not test_spikeinterface_viewer"
-%global __pytest xwfb-run -- pytest
-%pytest -k "${k-}"
+%pytest -r fEs ${k+-k "${k-}"}
 %endif
 
 

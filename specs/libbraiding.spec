@@ -61,6 +61,9 @@ sed -i 's|CC=.g..|& -Wl,--as-needed|' libtool
 find '%{buildroot}' -type f -name '*.la' -print -delete
 
 
+# Upstream does not provide any tests.
+
+
 %files
 %license LICENSE
 %doc README.md

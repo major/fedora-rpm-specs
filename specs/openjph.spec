@@ -2,7 +2,7 @@
 
 Name:           openjph
 Version:        0.21.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
@@ -46,12 +46,12 @@ standard Part 15.
 %cmake_install
 
 %files
-%license LICENSE
 %doc README.md
 %{_bindir}/ojph_compress
 %{_bindir}/ojph_expand
 
 %files -n lib%{name}
+%license LICENSE
 %{_libdir}/lib%{name}.so.0.21
 %{_libdir}/lib%{name}.so.%{version}
 
@@ -62,6 +62,9 @@ standard Part 15.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Apr 28 2025 Simone Caronni <negativo17@gmail.com> - 0.21.2-2
+- Move LICENSE to main library package (#2362722).
+
 * Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 0.21.2-1
 - Update to 0.21.2.
 - Package now builds on i386.

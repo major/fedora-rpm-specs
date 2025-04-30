@@ -5,7 +5,7 @@
 %global crate foldhash
 
 Name:           rust-foldhash
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Fast, non-cryptographic, minimally DoS-resistant hashing algorithm
 

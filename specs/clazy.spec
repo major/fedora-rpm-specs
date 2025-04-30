@@ -1,7 +1,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
-Version:        1.13
-Release:        3%{?dist}
+Version:        1.14
+Release:        1%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
@@ -12,8 +12,6 @@ Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%
 %endif
 
 Patch0:         clazy-no-rpath.patch
-# https://invent.kde.org/sdk/clazy/-/merge_requests/176
-Patch1:         clazy-fix-build-with-clang20.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -54,6 +52,9 @@ refactoring.
 
 
 %changelog
+* Tue Apr 29 2025 Steve Cossette <farchord@gmail.com> - 1.14-1
+- 1.14
+
 * Wed Apr 09 2025 Jan Grulich <jgrulich@redhat.com> - 1.13-3
 - Fix build against Clang/LLVM 20
 

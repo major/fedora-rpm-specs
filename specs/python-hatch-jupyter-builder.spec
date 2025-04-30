@@ -1,13 +1,10 @@
 Name:           python-hatch-jupyter-builder
-Version:        0.9.0
-Release:        4%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        A hatch plugin to help build Jupyter packages
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/hatch-jupyter-builder/
 Source:         %{pypi_source hatch_jupyter_builder}
-
-# Use tomllib from the Python 3.11+ standard library
-Patch:          https://github.com/jupyterlab/hatch-jupyter-builder/pull/108.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -57,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Apr 25 2025 Lumír Balhar <lbalhar@redhat.com> - 0.9.1-1
+- Update to 0.9.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

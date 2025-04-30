@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.9.0
+Version:        2.9.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -58,7 +58,7 @@ locally.
 This should not be used in official Fedora builds.
 
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 %package -n ghc-filesystem
 Summary:        Shared directories for Haskell documentation
 
@@ -78,16 +78,6 @@ Obsoletes: ghc-%1 < %2, ghc-%1-devel < %2, ghc-%1-doc < %2, ghc-%1-prof < %2
 # this is a last resort when there is no such appropriate package
 %package -n ghc-obsoletes
 Summary:        Dummy package to obsolete deprecated Haskell packages
-%if 0%{?fedora} >= 35
-%ghc_obsoletes_binlib pandoc-citeproc 0.18
-%ghc_obsoletes_lib base-noprelude 4.13.0.1
-%ghc_obsoletes_lib HsYAML-aeson 0.2.0.1
-%ghc_obsoletes_lib chalmers-lava2000 1.6.2
-%ghc_obsoletes_lib codec-rpm 0.2.3
-%ghc_obsoletes_lib cpio-conduit 0.7.1
-%ghc_obsoletes_lib failure 0.2.0.4
-%ghc_obsoletes_lib attempt 0.4.0.2
-%endif
 %if 0%{?fedora} >= 36
 %ghc_obsoletes_lib regex-applicative-text 0.1.0.1-16
 %endif
@@ -156,7 +146,7 @@ install -p -D -m 0644 %{SOURCE6} %{buildroot}%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{macros_dir}/macros.ghc-os
 install -p -D -m 0644 %{SOURCE14} %{buildroot}%{macros_dir}/macros.ghc-srpm-quick
 
-%if 0%{?fedora} < 38
+%if %{defined el9} || %{defined el8}
 echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-os
 %endif
 
@@ -173,7 +163,7 @@ install -p -D -m 0755 %{SOURCE11} %{buildroot}%{_bindir}/cabal-tweak-drop-dep
 install -p -D -m 0755 %{SOURCE12} %{buildroot}%{_bindir}/cabal-tweak-remove-upperbound
 install -p -D -m 0755 %{SOURCE8} %{buildroot}%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %endif
 
@@ -202,7 +192,7 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{macros_dir}/macros.ghc-srpm-quick
 
 
-%if 0%{?fedora} < 37
+%if %{defined el9} || %{defined el8}
 %files -n ghc-filesystem
 %dir %{_docdir}/ghc
 # %%{ghc_html_dir}
@@ -212,12 +202,16 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %endif
 
 
-%if 0%{?fedora}
+%if %{defined fedora}
 %files -n ghc-obsoletes
 %endif
 
 
 %changelog
+* Mon Apr 28 2025 Jens Petersen <petersen@redhat.com> - 2.9.1-1
+- update spec conditionals for rhel10
+- drop f35 obsoletes
+
 * Fri Apr 18 2025 Jens Petersen <petersen@redhat.com> - 2.9.0-1
 - when subpackaging don't use -no-user-package-db for compiling Setup
 

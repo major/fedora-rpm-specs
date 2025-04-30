@@ -5,7 +5,7 @@
 %global crate derive_more
 
 Name:           rust-derive_more0.99
-Version:        0.99.19
+Version:        0.99.20
 Release:        %autorelease
 Summary:        Adds #[derive(x)] macros for more traits
 

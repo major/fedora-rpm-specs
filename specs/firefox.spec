@@ -256,6 +256,7 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
+Patch82:        firefox-mach-D1957628.diff
 
 # Test patches
 # Generate without context by
@@ -569,6 +570,7 @@ This package contains results of tests executed during build.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
+%patch -P82 -p1 -b .firefox-mach-D1957628
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
@@ -1202,7 +1204,6 @@ fi
 %license %{mozappdir}/LICENSE
 %{mozappdir}/browser/chrome
 %{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-%{mozappdir}/browser/features/*.xpi
 %{mozappdir}/distribution/distribution.ini
 # That's Windows only
 %ghost %{mozappdir}/browser/features/aushelper@mozilla.org.xpi
@@ -1251,6 +1252,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sat Apr 26 2025 Bojan Smojver <bojan@rexursive.com> - 138.0-1
+- Add fix for mzbz#1957628
+- Remove browser/features/*.xpi files, no longer shipped
+
 * Tue Apr 22 2025 Martin Stransky <stransky@redhat.com> - 138.0-1
 - Updated to 138.0
 

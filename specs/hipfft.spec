@@ -28,6 +28,11 @@
 %global build_test OFF
 %endif
 
+# Option to test suite for testing on real HW:
+# May have to set gpu under test with
+# export HIP_VISIBLE_DEVICES=<num> - 0, 1 etc.
+%bcond_with check
+
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
@@ -35,7 +40,7 @@
 
 Name:           %{hipfft_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm FFT marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -57,14 +62,19 @@ BuildRequires:  rocprim-devel
 BuildRequires:  rocfft-devel
 
 %if %{with test}
+
 BuildRequires:  boost-devel
 BuildRequires:  fftw-devel
-BuildRequires:  gtest-devel
 BuildRequires:  hiprand-devel
 BuildRequires:  rocrand-devel
+
 %if 0%{?suse_version}
+BuildRequires:  gtest
 BuildRequires:  libboost_program_options-devel
+%else
+BuildRequires:  gtest-devel
 %endif
+
 %endif
 
 Provides:       hipfft = %{version}-%{release}
@@ -103,6 +113,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
 
+# CMake Error at clients/tests/CMakeLists.txt:87 (find_package):
+#   No "FindHIP.cmake" found in CMAKE_MODULE_PATH.
+# Remove MODULE
+sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' clients/tests/CMakeLists.txt
+
 %build
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -132,14 +147,23 @@ find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.file
 find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
 find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
 find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name '%{name}-*'    | sed -f br.sed >  %{name}.test
-%endif
 
 if [ -f %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md
 fi
 
+%check
+%if %{with test}
+%if %{with check}
+%if 0%{?suse_version}
+export LD_LIBRARY_PATH=%{__builddir}/library:$LD_LIBRARY_PATH
+%{__builddir}/clients/staging/hipfft-test
+%else
+export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
+%{_vpath_builddir}/clients/staging/hipfft-test
+%endif
+%endif
+%endif
 
 %files -f %{name}.files
 %license LICENSE.md
@@ -151,10 +175,14 @@ fi
 %{_includedir}/hipfft/*
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/hipfft-test
 %endif
 
 %changelog
+* Mon Apr 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Improve testing for suse
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

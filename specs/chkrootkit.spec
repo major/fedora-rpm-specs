@@ -1,10 +1,10 @@
 Name:           chkrootkit
-Version:        0.57
-Release:        8%{?dist}
+Version:        0.58
+Release:        0b%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            http://www.chkrootkit.org
-Source0:        ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-%{version}.tar.gz
+Source0:        ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-%{version}b.tar.gz
 Source2:        chkrootkit.png
 Source3:        chkrootkit.desktop
 Source4:        chkrootkit.console
@@ -44,7 +44,7 @@ It contains:
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}b
 %patch -P 1 -p1 -b .getCMD
 %patch -P 2 -p1 -b .inetd
 %patch -P 3 -p1 -b .chklastlog
@@ -102,6 +102,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Mon Apr 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.58-0b
+- 0.58 beta
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           primecount
-Version:        7.16
+Version:        7.17
 Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
@@ -104,6 +104,13 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Apr 28 2025 Kim Walisch <walki@fedoraproject.org> - 7.17-1
+- Sieve_pre_sieve.hpp: Improved pre-sieving using primes ≤ 37
+- Pre-sieving speeds up S2_hard and D algorithms by up to 5%
+- README.md: Fix Markdown math formulas
+- Hard-Special-Leaves.md: Fix Markdown math formulas
+- Update to primesieve-12.8 library
+
 * Tue Apr 01 2025 Kim Walisch <walki@fedoraproject.org> - 7.16-1
 - fast_div.hpp: Fix "Warning: mnemonic suffix used with `div'"
 - libdivide.h: Fix "Warning: mnemonic suffix used with `div'"

@@ -68,6 +68,7 @@ Patch2:     typename.patch
 Patch3:     test-go-py-pipes.patch
 
 Patch101:	0001-Deactivate-markdown-doc.patch
+Patch102:	llvm12-ReleaseNotes-sphinx-7.2.6-wrap.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -78,7 +79,7 @@ BuildRequires:	libffi-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python3-psutil
 BuildRequires:	python3-sphinx
-%if %{defined fedora}
+%if %{defined fedora} || 0%{?rhel} >= 10
 BuildRequires:	python3-recommonmark
 %endif
 BuildRequires:	multilib-rpm-config
@@ -187,6 +188,7 @@ LLVM's modified googletest sources.
 %if %{defined el9}
 %patch -P101 -p2 -b .orig
 %endif
+%patch -P102 -p1 -b .orig
 
 %py3_shebang_fix \
 	test/BugPoint/compile-custom.ll.py \

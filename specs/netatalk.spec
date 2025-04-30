@@ -8,7 +8,7 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           4.2.1
+Version:           4.2.2
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
@@ -24,7 +24,6 @@ ExcludeArch: %{ix86}
 
 BuildRequires:     avahi-devel
 BuildRequires:     bison
-BuildRequires:     cmark
 BuildRequires:     coreutils
 BuildRequires:     cracklib-devel
 BuildRequires:     dbus-devel
@@ -49,6 +48,7 @@ BuildRequires:     meson
 BuildRequires:     openldap-devel
 BuildRequires:     openssl-devel
 BuildRequires:     pam-devel
+BuildRequires:     pandoc
 BuildRequires:     perl-generators
 BuildRequires:     perl-interpreter
 BuildRequires:     procps
@@ -142,7 +142,6 @@ the following utility programs are installed:
  * timelord   - time server for Mac OS and Apple II
 %endif
 
-%if 0%{?htmldocs}
 %package doc
 Summary:        HTML Documentation for %{name}
 BuildArch:      noarch
@@ -153,7 +152,6 @@ system running Netatalk is capable of serving many Macintosh clients
 simultaneously as an AppleShare file server (AFP).
 
 This package contains the HTML documentation for %{name}.
-%endif
 
 %prep
 %autosetup -p 1
@@ -197,6 +195,10 @@ rm -rf %{buildroot}%{_prefix}%{_sysconfdir}
 # make sure all static libraries are deleted
 find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
+# Remove documentation files not relevant to rpm packaging
+rm -rf %{buildroot}%{_pkgdocdir}/COMPILATION.txt
+rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
+
 %check
 %meson_test
 
@@ -222,7 +224,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 %files
 %license COPYING COPYRIGHT
-%doc CONTRIBUTORS.md NEWS.md INSTALL.md README.md SECURITY.md
+%doc CONTRIBUTORS.txt NEWS.txt INSTALL.txt README.txt SECURITY.txt
 
 %dir %{_sysconfdir}/netatalk
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/netatalk-dbus.conf
@@ -273,7 +275,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_localstatedir}/lib/netatalk
 
 %files devel
-%doc DEVELOPER.md
+%doc %{_pkgdocdir}/DEVELOPER.txt
 %dir %{_includedir}/atalk
 %{_includedir}/atalk/*.h
 %{_libdir}/libatalk.so
@@ -310,7 +312,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 %if 0%{?fedora}
 %files appletalk
-%doc APPLETALK.md
+%doc %{_pkgdocdir}/APPLETALK.txt
 %config(noreplace) %{_sysconfdir}/netatalk/atalkd.conf
 %config(noreplace) %{_sysconfdir}/netatalk/macipgw.conf
 %config(noreplace) %{_sysconfdir}/netatalk/papd.conf
@@ -355,13 +357,15 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_unitdir}/timelord.service
 %endif
 
-%if 0%{?htmldocs}
 %files doc
 %license COPYING COPYRIGHT
 %doc %{_pkgdocdir}/htmldocs
-%endif
 
 %changelog
+* Mon Apr 28 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.2-1
+- 4.2.2 release
+- replace cmark with pandoc. Alows building of htmldocs.
+
 * Sat Apr 19 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.1-1
 - 4.2.1 release
 - disable doc subpackage due to missing cmark-gfm dependency for htmldocs

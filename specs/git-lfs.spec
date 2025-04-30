@@ -25,6 +25,12 @@ Source1:        https://github.com/git-lfs/git-lfs/releases/download/v%{version}
 Source2:        https://api.github.com/repos/git-lfs/git-lfs/tarball/core-gpg-keys#/core-gpg-keys.tar.gz
 Source3:        README.Fedora
 
+# Go 1.24 fixes
+# https://github.com/git-lfs/git-lfs/pull/5989
+# https://github.com/git-lfs/git-lfs/pull/5998 (backported)
+Patch0:         5989.patch
+Patch1:         5998.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 

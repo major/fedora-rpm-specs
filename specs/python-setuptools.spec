@@ -18,7 +18,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        78.1.0
+Version:        78.1.1
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT

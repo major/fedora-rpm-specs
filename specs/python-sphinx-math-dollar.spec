@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-math-dollar
 Version:        1.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Sphinx extension to enable LaTeX math with $$
 
 # MIT: All files with the following exception.
@@ -12,6 +12,9 @@ License:        MIT AND CC0-1.0
 URL:            https://www.sympy.org/sphinx-math-dollar/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinx-math-dollar-%{version}.tar.gz
+# Declare the extension to be parallel-safe
+# https://github.com/sympy/sphinx-math-dollar/commit/c58c1457f494f77a1a84ecbd3187a735aec73b2b
+Patch:          %{name}-extension.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -83,6 +86,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Mon Apr 28 2025 Jerry James  <loganjerry@gmail.com> - 1.2.1-12
+- Declare the extension to be parallel-safe
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

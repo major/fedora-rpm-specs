@@ -3,8 +3,8 @@
 %bcond_with static
 
 Name: elfutils
-Version: 0.192
-%global baserelease 9
+Version: 0.193
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -96,30 +96,6 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-
-# Include libeu.a objects in libelf.a for static linking.
-Patch2: elfutils-0.192-libelf-static.patch
-
-# Fix eu-stacktrace build with lto enabled.
-Patch3: elfutils-0.192-stacktrace-lto.patch
-
-# Fix ENABLE_IMA_VERIFICATION always evaluating to false.
-Patch4: elfutils-0.192-fix-configure-conditional.patch
-
-# Fix empty glob error on zsh.
-Patch5: elfutils-0.192-fix-zsh-profile.patch
-
-# Fix testsuite failure caused by ld changes.
-Patch6: elfutils-0.192-strip-ignore-non-ET_REL.patch
-
-# In c23 ATOMIC_VAR_INIT has been removed
-Patch7: elfutils-0.192-ATOMIC_VAR_INIT.patch
-
-# New DWARF5 language constants
-Patch8: elfutils-0.192-more-dwarf5-lang.patch
-
-# debuginfod-client.c: Avoid freeing uninitialized value
-patch9: elfutils-0.192-imasig-fail-free.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -541,6 +517,18 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Mon Apr 28 2025 Aaron Merey <amerey@redhat.com> - 0.193-1
+- Upgrade to upstream elfutils 0.193
+- Drop upstreamed patches
+  elfutils-0.192-ATOMIC_VAR_INIT.patch
+  elfutils-0.192-libelf-static.patch
+  elfutils-0.192-fix-configure-conditional.patch
+  elfutils-0.192-more-dwarf5-lang.patch
+  elfutils-0.192-fix-zsh-profile.patch
+  elfutils-0.192-stacktrace-lto.patch
+  elfutils-0.192-imasig-fail-free.patch
+  elfutils-0.192-strip-ignore-non-ET_REL.patch
+
 * Sun Feb 23 2025 Mark Wielaard <mjw@fedoraproject.org> - 0.192-9
 - Add elfutils-0.192-imasig-fail-free.patch
 

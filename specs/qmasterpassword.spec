@@ -1,6 +1,6 @@
 Name:           qmasterpassword
-Version:        2.0
-Release:        5%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Stateless graphical Master Password Manager
 
 %global project_name qMasterPassword
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name
 
 
 %changelog
+* Mon Apr 28 2025 Stefan Becker <chemobejk@gmail.com> 2.0.3-1
+- update to version 2.0.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

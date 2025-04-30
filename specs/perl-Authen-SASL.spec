@@ -1,6 +1,6 @@
 Name:           perl-Authen-SASL
-Version:        2.1700
-Release:        5%{?dist}
+Version:        2.1800
+Release:        2%{?dist}
 Summary:        SASL Authentication framework for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-SASL
@@ -11,7 +11,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
@@ -50,7 +50,7 @@ with "%{_libexecdir}/%{name}/test".
 %autosetup -p1 -n Authen-SASL-%{version}
 
 # Fix permissions
-chmod -c a-x example_pl
+chmod -c a-x eg/*
 
 # Help generators to recognize Perl scripts
 for F in `find t -name *.t -o -name *.pl`; do
@@ -83,14 +83,20 @@ make test
 
 %files
 %license LICENSE
-%doc api.txt Changes example_pl README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc api.txt Changes eg README
+%{perl_vendorlib}/Authen
+%{_mandir}/man3/Authen::SASL*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.1800-2
+- Fix permission of examples
+
+* Mon Apr 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.1800-1
+- 2.1800 bump (rhbz#2362350)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1700-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

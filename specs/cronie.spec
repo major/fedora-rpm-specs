@@ -119,8 +119,7 @@ touch $RPM_BUILD_ROOT/var/spool/anacron/cron.monthly
 install -m 644 contrib/dailyjobs $RPM_BUILD_ROOT/%{_sysconfdir}/cron.d/dailyjobs
 
 # install systemd initscript
-mkdir -p $RPM_BUILD_ROOT/lib/systemd/system/
-install -m 644 contrib/cronie.systemd $RPM_BUILD_ROOT/lib/systemd/system/crond.service
+install -m 644 -D contrib/cronie.systemd $RPM_BUILD_ROOT/usr/lib/systemd/system/crond.service
 
 %post
 # run after an installation
@@ -186,7 +185,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/sysconfig/crond
 %config(noreplace,missingok) %{_sysconfdir}/cron.deny
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/cron.d/0hourly
-%attr(0644,root,root) /lib/systemd/system/crond.service
+%attr(0644,root,root) /usr/lib/systemd/system/crond.service
 
 %files anacron
 %{_bindir}/anacron

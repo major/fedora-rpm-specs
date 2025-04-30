@@ -1,6 +1,6 @@
 Name:           quearcode
-Version:        0.4
-Release:        2%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        A tool for creating QR Codes
 
 License:        GPL-3.0-or-later
@@ -56,6 +56,9 @@ desktop-file-install \
 %{python3_sitelib}/quearcode-%{version}.dist-info/
 
 %changelog
+* Mon Apr 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4.1-1
+- 0.4.1
+
 * Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4-2
 - Drop BR -t
 

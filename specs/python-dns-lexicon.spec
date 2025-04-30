@@ -1,6 +1,6 @@
 
 %global forgeurl    https://github.com/dns-lexicon/dns-lexicon
-%global forgeversion 3.21.0
+%global forgeversion 3.21.1
 Version:            %{forgeversion}
 %forgemeta
 
@@ -29,8 +29,6 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        create-local-tld-cache.py
 Patch:          python-dns-lexicon-tox-config.patch
-# submitted upstream as https://github.com/dns-lexicon/dns-lexicon/pull/29
-Patch2:         python-dns-lexicon-findall.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -229,6 +227,9 @@ ln -s lexicon-%{python3_version} lexicon-3
 # }}}
 
 %changelog
+* Mon Apr 28 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.21.1-1
+- update to 3.21.1
+
 * Sat Apr 19 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.21.0-1
 - update to 3.21.0
 

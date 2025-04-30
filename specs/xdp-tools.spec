@@ -1,5 +1,5 @@
 Name:             xdp-tools
-Version:          1.5.3
+Version:          1.5.4
 Release:          1%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.5.0
@@ -72,8 +72,7 @@ export CFLAGS='%{build_cflags}'
 export LDFLAGS='%{build_ldflags}'
 export LIBDIR='%{_libdir}'
 export RUNDIR='%{_rundir}'
-export CLANG=%{_bindir}/clang
-export LLC=%{_bindir}/llc
+export CLANG=$(which clang)
 export PRODUCTION=1
 export DYNAMIC_LIBXDP=1
 export FORCE_SYSTEM_LIBBPF=1
@@ -124,6 +123,10 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Mon Apr 28 2025 Toke Høiland-Jørgensen <toke@redhat.com> 1.5.4-1
+- Upstream version bump
+- Fix build with Clang 20
+
 * Fri Mar 7 2025 Toke Høiland-Jørgensen <toke@redhat.com> 1.5.3-1
 - Upstream version bump
 

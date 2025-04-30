@@ -3,53 +3,64 @@
 ## build/include liblastfm_fingerprint
 %define fingerprint 1
 
-## enable qt5 support
-%define qt5 1
-
 # see http://fedoraproject.org/wiki/Packaging:SourceURL#Github
-%global commit 44331654256df83bc1d3cbb271a8ce3d4c464686
+%global commit 2e8e40d78a331d8e39fe39113bcb7571a7b1d4d6
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-Name:	 liblastfm
+Name:    liblastfm
 Summary: Libraries to integrate Last.fm services
 Version: 1.1.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 
 License: GPL-2.0-or-later
-URL:     https://github.com/lastfm/liblastfm
-# https://github.com/lastfm/liblastfm/archive/%{version}.tar.gz
-#Source0: liblastfm-%{version}.tar.gz
-Source0:  https://github.com/lastfm/liblastfm/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+URL:     https://github.com/drfiemost/liblastfm
+Source0: https://github.com/drfiemost/liblastfm/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+
+# https://github.com/drfiemost/liblastfm/pull/9
+Patch0: make_work_with_stricter_compilation_flags.patch
 
 BuildRequires: make
 BuildRequires: cmake >= 2.8.6
-BuildRequires: pkgconfig(QtNetwork) pkgconfig(QtSql) pkgconfig(QtXml)
+BuildRequires: pkgconfig(Qt5Network)
+BuildRequires: pkgconfig(Qt5Sql)
+BuildRequires: pkgconfig(Qt5Xml)
+BuildRequires: pkgconfig(Qt6Network)
+BuildRequires: pkgconfig(Qt6Sql)
+BuildRequires: pkgconfig(Qt6Xml)
 BuildRequires: ruby
 %if 0%{?fingerprint}
 BuildRequires: fftw3-devel
 BuildRequires: pkgconfig(samplerate)
 %endif
-%if 0%{qt5}
-BuildRequires: pkgconfig(Qt5Core) pkgconfig(Qt5DBus)
-%endif
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
 
 %description
 Liblastfm is a collection of libraries to help you integrate Last.fm services
 into your rich desktop software.
 
-%package fingerprint
+%package qt6
+Summary: Libraries to integrate Last.fm services
+
+%description qt6
+Liblastfm is a collection of libraries to help you integrate Last.fm services
+into your rich desktop software.
+
+%package qt6-fingerprint
 Summary: Liblastfm fingerprint library
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%description fingerprint
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+%description qt6-fingerprint
 %{summary}.
 
-%package devel
+%package qt6-devel
 Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 %if 0%{?fingerprint}
-Requires: %{name}-fingerprint%{?_isa} = %{version}-%{release}
+Requires: %{name}-qt6-fingerprint%{?_isa} = %{version}-%{release}
 %endif
-%description devel
+%description qt6-devel
 %{summary}.
 
 %package qt5
@@ -83,28 +94,24 @@ mkdir %{_target_platform}
 pushd %{_target_platform}
 %{cmake} .. \
   -DBUILD_FINGERPRINT:BOOL=%{?fingerprint:ON}%{!?fingerprint:OFF} \
-  -DBUILD_WITH_QT4:BOOL=ON \
+  -DBUILD_WITH_QT5:BOOL=OFF \
   -DCMAKE_BUILD_TYPE:STRING="Release"
 
 make %{?_smp_mflags}
 popd
 
-%if 0%{?qt5}
 mkdir %{_target_platform}-qt5
 pushd %{_target_platform}-qt5
 %{cmake} .. \
   -DBUILD_FINGERPRINT:BOOL=%{?fingerprint:ON}%{!?fingerprint:OFF} \
-  -DBUILD_WITH_QT4:BOOL=OFF \
+  -DBUILD_WITH_QT5:BOOL=ON \
   -DCMAKE_BUILD_TYPE:STRING="Release"
 
 make %{?_smp_mflags}
-%endif
 
 
 %install
-%if 0%{?qt5}
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}-qt5
-%endif
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
@@ -116,31 +123,29 @@ make test ARGS="-E UrlBuilderTest" -C %{_target_platform}
 make test ARGS="-E UrlBuilderTest" -C %{_target_platform}-qt5
 %endif
 
-#time make -C %{_target_platform} test ARGS="--timeout 300 --output-on-failure -R virtuosobackendtest" ||:
 
+%ldconfig_scriptlets -n liblastfm6-qt6
 
-%ldconfig_scriptlets
-
-%files
+%files qt6
 %doc COPYING
 %doc README.md
-%{_libdir}/liblastfm.so.1*
+%{_libdir}/liblastfm6.so.1*
 
 %if 0%{?fingerprint}
 %ldconfig_scriptlets fingerprint
 
-%files fingerprint
-%{_libdir}/liblastfm_fingerprint.so.1*
+%files qt6-fingerprint
+%{_libdir}/liblastfm_fingerprint6.so.1*
 %endif
 
-%files devel
-%{_includedir}/lastfm/
-%{_libdir}/liblastfm.so
+%files qt6-devel
+%{_includedir}/lastfm6/
+%{_libdir}/liblastfm6.so
+%{_libdir}/cmake/lastfm6/
 %if 0%{?fingerprint}
-%{_libdir}/liblastfm_fingerprint.so
+%{_libdir}/liblastfm_fingerprint6.so
 %endif
 
-%if 0%{qt5}
 %ldconfig_scriptlets qt5
 
 %files qt5
@@ -153,11 +158,11 @@ make test ARGS="-E UrlBuilderTest" -C %{_target_platform}-qt5
 
 %files qt5-fingerprint
 %{_libdir}/liblastfm_fingerprint5.so.1*
-%endif
 
 %files qt5-devel
 %{_includedir}/lastfm5/
 %{_libdir}/liblastfm5.so
+%{_libdir}/cmake/lastfm5/
 %if 0%{?fingerprint}
 %{_libdir}/liblastfm_fingerprint5.so
 %endif
@@ -165,6 +170,13 @@ make test ARGS="-E UrlBuilderTest" -C %{_target_platform}-qt5
 
 
 %changelog
+* Sun Apr 27 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.1.0-18
+- Change upstream source
+- Update to latest commit
+- Backport Amarok developer patch
+- Build on Qt5 and Qt6
+- Remove Qt4 support
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

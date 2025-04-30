@@ -17,10 +17,13 @@ Source6:        ArcusConfig.cmake.in
 Source7:        COPYING-CMAKE-SCRIPTS
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1601917
-Patch1:         libArcus-3.10.0-PyQt6.sip.patch
+Patch:          libArcus-3.10.0-PyQt6.sip.patch
 
 # Actually export symbols
-Patch2:         libArcus-5.2.2-actually-export-symbols.patch
+Patch:          libArcus-5.2.2-actually-export-symbols.patch
+
+# Add missing stdint includes
+Patch:          https://github.com/Ultimaker/libArcus/pull/160.patch
 
 BuildRequires:  protobuf-devel
 BuildRequires:  python3-devel
@@ -83,8 +86,7 @@ rm -rf CMakeLists.txt
 cp -a %{SOURCE4} %{SOURCE5} %{SOURCE6} .
 cp -a pyArcus-%{version}/src/PythonMessage.cpp python/
 
-%patch -P1 -p1
-%patch -P2 -p1 -b .export
+%autopatch -p1
 
 %build
 %cmake -DBUILD_EXAMPLES:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON

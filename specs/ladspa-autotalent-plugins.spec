@@ -96,6 +96,9 @@ export LDFLAGS="${LDFLAGS-} -nostartfiles -shared -Wl,-Bsymbolic -lm"
 %make_install INSTALL_PLUGINS_DIR='%{buildroot}%{_libdir}/ladspa'
 
 
+# Upstream provides no tests.
+
+
 %files
 %license COPYING COPYING-mayer_fft
 %doc README

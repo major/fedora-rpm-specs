@@ -12,6 +12,9 @@ Summary:        Missing widgets and components for PyQt/PySide
 License:        BSD-3-Clause AND MIT
 URL:            %forgeurl
 Source:         %forgesource
+# Fixes test failing on beg endian
+# https://github.com/pyapp-kit/superqt/issues/287
+Patch:          0001-Make-qimage_to_array-work-on-big-endian-288.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

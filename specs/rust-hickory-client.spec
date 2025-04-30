@@ -5,7 +5,7 @@
 %global crate hickory-client
 
 Name:           rust-hickory-client
-Version:        0.24.2
+Version:        0.24.4
 Release:        %autorelease
 Summary:        Hickory DNS is a safe and secure DNS library
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 # * remove unused tracing-subscriber dev-dependency
 Patch:          hickory-client-fix-metadata.diff
 # * skip running doctests which require internet access
-Patch:          0001-do-not-run-doctests-which-require-internet-access.patch
+Patch2:         0001-do-not-run-doctests-which-require-internet-access.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

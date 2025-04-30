@@ -13,6 +13,15 @@ Source:         %{url}/archive/%{version}/jo-%{version}.tar.gz
 #     https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/206
 License:        GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
+# Update GPL-2.0-or-later license notices
+# https://github.com/jpmens/jo/pull/216
+# We will not patch the license notices until/unless upstream merges the PR.
+# Patch:          %%{url}/pull/216.patch
+
+# Add a copy of the GPLv2 license text
+# https://github.com/jpmens/jo/pull/217
+Patch:          %{url}/pull/217.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -62,7 +71,7 @@ or arrays
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %conf
@@ -87,6 +96,7 @@ bash -e ./tests/jo.test
 
 %files
 %license COPYING
+%license LICENSE.GPLv2
 %doc AUTHORS
 %doc ChangeLog
 # NEWS not included because it is empty

@@ -24,16 +24,11 @@
 
 %global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 3
+%global baserelease 4
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
 %global srcdir %{?snapver:testing}%{!?snapver:rpm-%(echo %{rpmver} | cut -d'.' -f1-2).x}
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2356219
-%ifarch %{ix86}
-%global _lto_cflags %{nil}
-%endif
 
 Summary: The RPM package management system
 Name: rpm
@@ -622,6 +617,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Apr 28 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-4
+- Drop no longer needed LTO hack for #2356219
+
 * Thu Apr 17 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-3
 - Temporary fix for #2360342
 

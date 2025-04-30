@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-soupsieve
-Version:        2.6
+Version:        2.7
 Release:        %autorelease
 Summary:        CSS selector library
 

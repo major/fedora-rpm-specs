@@ -5,7 +5,7 @@
 %global crate either
 
 Name:           rust-either
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        General purpose sum type with two cases
 
@@ -59,6 +59,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+use_std-devel

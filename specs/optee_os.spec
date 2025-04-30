@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   4.5.0
+Version:   4.6.0
 Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
@@ -98,6 +98,9 @@ install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{
 %{_datadir}/%{name}
 
 %changelog
+* Mon Apr 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.6.0-1
+- Update to 4.6.0
+
 * Thu Jan 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.0-1
 - Enable Xilinx ZYNQMP and Versal platforms
 

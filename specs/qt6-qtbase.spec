@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -96,7 +96,7 @@ Patch56: qtbase-mysql.patch
 Patch58: qtbase-libglvnd.patch
 
 # upstream patches
-
+Patch100: qtbase-fix-possible-crash-in-fontconfig-database.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -926,6 +926,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Apr 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-2
+- Fix possible crash in FontConfig database
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

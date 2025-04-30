@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2733,6 +2733,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Apr 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-5
+- ceph-19.2.2, build in side tag f43-build-side-110906
+
 * Wed Apr 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

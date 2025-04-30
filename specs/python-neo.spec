@@ -1,8 +1,12 @@
-# downloads LARGE amounts of test data so must be run with network enabled in mock:
-# --with=tests --enable-network
+# IO tests download LARGE amounts of test data so must be run with
+# network enabled in mock:
+# --with io_tests --enable-network
 # Note: all tests pass, they just take a lot of bandwidth and time.
-# 5 tests do not pass because we do not have sonpy in the repos yet.
-%bcond_with tests
+# Tests with unsatisfied dependencies will be skipped.
+%bcond io_tests 0
+
+# Run tests that do not require network or special dependencies.
+%bcond tests 1
 
 %global _description %{expand:
 Neo is a package for representing electrophysiology data in Python, together
@@ -27,26 +31,18 @@ checks for dimensional consistency and automatic unit conversion.
 
 Read the documentation at http://neo.readthedocs.io/}
 
-%global forgeurl  https://github.com/NeuralEnsemble/python-neo
-
 Name:       python-neo
-Version:    0.14.0
+Version:    0.14.1
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
+%global forgeurl https://github.com/NeuralEnsemble/python-neo
 %global tag %{version}
 %forgemeta
 
 License:    BSD-3-Clause
 URL:        %forgeurl
-Source0:    %forgesource
-%if %{with tests}
-# datalad clone of data obtained with these commands:
-# datalad clone https://gin.g-node.org/NeuralEnsemble/ephy_testing_data
-# tar -cvzf ephy_testing_data.tar.gz ephy_testing_data
-Source1:    ephy_testing_data.tar.gz
-%endif
-
+Source:     %forgesource
 
 BuildArch:  noarch
 
@@ -59,21 +55,45 @@ ExcludeArch:  s390x
 %package -n python3-neo
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  datalad
-BuildRequires:  python3-pillow
-BuildRequires:  python3-pytest
+%if %{with tests} || %{with io_tests}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist scipy}
+BuildRequires:  %{py3_dist ipython}
+%if %{with io_tests}
+BuildRequires:  %{py3_dist datalad}
+BuildRequires:  %{py3_dist pyedflib}
+BuildRequires:  %{py3_dist h5py}
+# Retired from Fedora. Dead upstream and didn't work with Python 3.12.
+# However, there is igor2' on PyPI. But that's not available in Fedora.
+%dnl BuildRequires:  %{py3_dist igor}
+BuildRequires:  %{py3_dist klusta}
+BuildRequires:  %{py3_dist nixio}
+BuildRequires:  %{py3_dist pillow}
+BuildRequires:  %{py3_dist probeinterface}
+# Some tests require pynwb. However with the current version (2.8.3)
+# a PermissionError is raised.
+%dnl BuildRequires:  %{py3_dist pynwb}
+%endif
+%endif
 # https://github.com/NeuralEnsemble/python-neo/issues/1471: neuroshare is dead
 
 # Extra requires:
 # Not in fedora yet, to be updated as these are added
 # Recommends:  %%{py3_dist stfio}
+Recommends:  %{py3_dist datalad}
+Recommends:  %{py3_dist h5py}
+# Retired from Fedora. Dead upstream and didn't work with Python 3.12.
+# However, there is igor2' on PyPI. But that's not available in Fedora.
+%dnl Recommends:  %{py3_dist igor}
 Recommends:  %{py3_dist nixio}
 Recommends:  %{py3_dist klusta}
+Recommends:  %{py3_dist pillow}
+Recommends:  %{py3_dist probeinterface}
+Recommends:  %{py3_dist pynwb}
 Recommends:  %{py3_dist scipy}
-Recommends:  %{py3_dist hypy}
-Recommends:  %{py3_dist igor}
 
 %description -n python3-neo %{_description}
+
 
 %prep
 %forgeautosetup
@@ -83,13 +103,13 @@ rm -rf SPECPARTS
 # Remove upstream's pin to py<3.13
 sed -i '/requires-python/ d' pyproject.toml
 
-%if %{with tests}
+# Unpin setuptools
+sed -r -i 's/(setuptools)[<=>]+[0-9.]+/\1/' pyproject.toml
+
+%if %{with io_tests}
 # datalad needs to know who we are later when it tries to download the data sets
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
-
-# Unpack test data tar in ~
-pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 %endif
 
 
@@ -104,16 +124,32 @@ pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 %pyproject_install
 %pyproject_save_files -l neo
 
+
 %check
-# do not export EPHY_TESTING_DATA_FOLDER, use ~
-# exclude one that requires "zugbruecke" to open windows dlls?
-%pyproject_check_import -e *pypl2.pypl2lib*
-%if %{with tests}
-%pytest
+%if 0%{with tests} || 0%{with io_tests}
+%if %{with io_tests}
+# Requires Maxwell H5 (HDF5) compression library, which needs to be
+# and installed manually.
+k="${k:-}${k:+ and }not TestMaxwell"
 %endif
+%pytest \
+%if %{without io_tests}
+  --ignore=neo/test/iotest/ \
+  --ignore=neo/test/rawiotest/ \
+  --deselect=neo/test/utils/test_datasets.py::TestDownloadDataset \
+%endif
+  -r fEs ${k:+-k "${k:-}"}
+%else
+  # do not export EPHY_TESTING_DATA_FOLDER, use ~
+  # exclude one that requires "zugbruecke" to open windows dlls?
+  # Also exclude tests from import check.
+  %pyproject_check_import -e *pypl2.pypl2lib* -e neo.test*
+%endif
+
 
 %files -n python3-neo -f %{pyproject_files}
 %doc README.rst examples doc/source/authors.rst CODE_OF_CONDUCT.md CITATION.txt
+
 
 %changelog
 %autochangelog

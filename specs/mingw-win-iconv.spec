@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.0.9
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Iconv implementation using Win32 API
 
 BuildArch:     noarch
@@ -76,12 +76,15 @@ sed -i 's|\r||' readme.txt ChangeLog
 rm %{buildroot}/%{mingw32_bindir}/win_iconv.exe
 rm %{buildroot}/%{mingw64_bindir}/win_iconv.exe
 
+# Fix file conflict with mingw-libcharset
+rm -f %{buildroot}%{mingw32_includedir}/localcharset.h
+rm -f %{buildroot}%{mingw64_includedir}/localcharset.h
+
 
 %files -n mingw32-win-iconv
 %doc ChangeLog readme.txt
 %{mingw32_bindir}/iconv.dll
 %{mingw32_includedir}/iconv.h
-%{mingw32_includedir}/localcharset.h
 %{mingw32_libdir}/libiconv.dll.a
 
 %files -n mingw32-win-iconv-static
@@ -91,7 +94,6 @@ rm %{buildroot}/%{mingw64_bindir}/win_iconv.exe
 %doc ChangeLog readme.txt
 %{mingw64_bindir}/iconv.dll
 %{mingw64_includedir}/iconv.h
-%{mingw64_includedir}/localcharset.h
 %{mingw64_libdir}/libiconv.dll.a
 
 %files -n mingw64-win-iconv-static
@@ -99,6 +101,9 @@ rm %{buildroot}/%{mingw64_bindir}/win_iconv.exe
 
 
 %changelog
+* Mon Apr 28 2025 Sandro Mani <manisandro@gmail.com> - 0.0.9-2
+- Fix file conflict with mingw-libcharset
+
 * Mon Apr 21 2025 Sandro Mani <manisandro@gmail.com> - 0.0.9-1
 - Update to 0.0.9
 

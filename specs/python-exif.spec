@@ -1,20 +1,19 @@
-%global oname   exif-py
+%global srcname exif-py
 
 Summary:        Python module to extract EXIF information
 Name:           python-exif
-Version:        3.0.0
-Release:        12%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ianare/exif-py
-Source0:        https://github.com/ianare/%{oname}/archive/%{version}/%{oname}-%{version}.tar.gz
+Source0:        https://github.com/ianare/%{srcoame}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
-
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
 %global _description\
 Python Library to extract EXIF information in digital camera image files.
-
 %description %_description
 
 %package -n    python3-exif
@@ -22,24 +21,32 @@ Summary:       Python 3 module to extract EXIF information
 %description -n python3-exif %_description
 
 %prep
-%setup -q -n %{oname}-%{version}
+%autosetup -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l exifread
 ln -s EXIF.py %{buildroot}%{_bindir}/EXIF
+rm -rf %{buildroot}%{python3_sitelib}/tests
 
-%files -n python3-exif
-%license LICENSE.txt
-%doc ChangeLog.rst README.rst
+%check
+%pytest
+
+%files -n python3-exif -f %{pyproject_files}
+%doc README.rst
 %{_bindir}/EXIF
 %{_bindir}/EXIF.py
-%{python3_sitelib}/exifread
-%{python3_sitelib}/ExifRead-*-py*.egg-info
 
 %changelog
+* Mon Apr 28 2025 Terje Rosten <terjeros@gmail.com> - 3.2.0-1
+- 3.2.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

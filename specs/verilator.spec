@@ -16,7 +16,7 @@
 %bcond mold 0
 
 Name:           verilator
-Version:        5.034
+Version:        5.036
 Release:        %autorelease
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPL-3.0-only OR Artistic-2.0
@@ -47,6 +47,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 BuildRequires:  python3-devel
+BuildRequires:	python3-distro
 BuildRequires:  sed
 %if %{with tcmalloc}
 BuildRequires:  gperftools-libs

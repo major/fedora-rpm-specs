@@ -2,7 +2,7 @@
 
 Name:           gnome-shell-extension-freon
 Epoch:          2
-Version:        56
+Version:        58
 %global srcversion EGO-%{version}
 Release:        %autorelease
 Summary:        GNOME Shell extension to display system temperature, voltage, and fan speed
@@ -15,7 +15,12 @@ BuildRequires:  glib2
 
 # Dependencies described here:
 # https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki/Dependency
+%if 0%{?fedora} >= 42
+BuildRequires:  gnome-shell-rpm-generators
+%else
 Requires:       gnome-shell >= 45
+%endif
+
 Requires:       gnome-shell-extension-common
 Requires:       lm_sensors
 Recommends:     nvme-cli

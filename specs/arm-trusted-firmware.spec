@@ -13,8 +13,8 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.12.1
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Version: 2.12.2
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -23,8 +23,6 @@ Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
 # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34940
 Patch3:  0001-fix-imx_trdc.h-header-guard.patch
-# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34953
-Patch4:  0001-fix-zynqmp-fix-length-of-clock-name.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -136,6 +134,9 @@ done
 %endif
 
 %changelog
+* Mon Apr 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.2-1
+- Update to 2.12.2
+
 * Tue Apr 22 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.1-2
 - Drop binutils build fix workaround
 

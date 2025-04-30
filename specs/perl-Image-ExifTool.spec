@@ -1,11 +1,12 @@
 Name:		perl-Image-ExifTool
 Version:	13.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
-Source0:	http://www.sno.phy.queensu.ca/%7Ephil/exiftool/Image-ExifTool-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/authors/id/E/EX/EXIFTOOL/Image-ExifTool-%{version}.tar.gz
 BuildArch:	noarch
+
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
@@ -13,31 +14,40 @@ BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Spec)
+BuildRequires:  perl(integer)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
+
 # Run-time:
-BuildRequires:	perl(Exporter)
-BuildRequires:	perl(FileHandle)
-BuildRequires:	perl(integer)
-BuildRequires:	perl(strict)
-BuildRequires:	perl(vars)
-# Optional run-time:
-# Archive::Zip not used at tests
-# Compress::Zlib not used at tests
-# Cwd not used at tests
-# Digest::MD5 not used at tests
-# Digest::SHA not used at tests
-BuildRequires:	perl(Encode)
-# File::Basename not used at tests
-# File::Glob not used at tests
-# IO::File not used at tests
-# IO::String not used at tests
-# IO::Uncompress::Bunzip2 not used at tests
-BuildRequires:	perl(POSIX)
-# Time::HiRes not used at tests
-BuildRequires:	perl(Time::Local)
-BuildRequires:	perl(Time::Piece)
-# Win32::API not used on Linux
-# Win32::API not used on Linux
-Requires:	perl(FileHandle)
+BuildRequires:  perl(Archive::Zip)
+BuildRequires:  perl(Compress::Raw::Lzma)
+BuildRequires:  perl(Compress::Zlib)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(Digest::SHA)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Glob)
+BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(IO::Compress::Brotli)
+BuildRequires:  perl(IO::Compress::RawDeflate)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IO::String)
+BuildRequires:  perl(IO::Uncompress::Brotli)
+BuildRequires:  perl(IO::Uncompress::Bunzip2)
+BuildRequires:  perl(IO::Uncompress::RawInflate)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(POSIX::strptime)
+BuildRequires:  perl(Term::ReadKey)
+BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(Time::Piece)
+BuildRequires:  perl(Unicode::GCString)
+Requires:       perl(FileHandle)
 
 %description
 ExifTool is a Perl module with an included command-line application for
@@ -57,17 +67,12 @@ Sigma/Foveon, and Sony.
 %setup -q -n Image-ExifTool-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%make_build
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-chmod -R u+w %{buildroot}/*
-
-# Somehow, these empty directories are getting created.
-# Delete them.
-rm -rf %{buildroot}%{perl_vendorlib}/*-linux-thread-multi
+%make_install
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -78,10 +83,15 @@ make test
 %{_bindir}/exiftool
 %{perl_vendorlib}/File/
 %{perl_vendorlib}/Image/
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
+%{_mandir}/man1/exiftool.1*
+%{_mandir}/man3/File::RandomAccess.3pm*
+%{_mandir}/man3/Image::ExifTool*.3pm*
 
 %changelog
+* Tue Feb 18 2025 Xavier Bachelot <xavier@bachelot.org> - 13.10-2
+- Use CPAN URL, which only ships stable releases
+- Clean up specfile
+
 * Mon Feb 17 2025 Tom Callaway <spot@fedoraproject.org> - 13.10-1
 - update to latest stable (13.10)
 - add BR for perl-Time-Piece for test

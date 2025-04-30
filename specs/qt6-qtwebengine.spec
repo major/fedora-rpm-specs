@@ -143,10 +143,35 @@ Patch202: chromium-130-size-assertions.patch
 ExclusiveArch: aarch64 x86_64 ppc64le
 
 BuildRequires: cmake
+BuildRequires: ninja-build >= 1.7.2
 BuildRequires: make
+%if 0%{?rhel} && 0%{?rhel} < 10
+BuildRequires: gcc-toolset-13
+BuildRequires: gcc-toolset-13-libatomic-devel
+%else
+BuildRequires: gcc-c++
+%endif
+
+# gn links statically (for now)
+BuildRequires: libstdc++-static
+BuildRequires: libatomic
+
+BuildRequires: %{__python3}
+BuildRequires: python3-html5lib
+BuildRequires: gperf
+BuildRequires: bison
+BuildRequires: flex
+BuildRequires: perl-interpreter
+
+BuildRequires: nodejs >= 14.9
+BuildRequires: krb5-devel
+BuildRequires: git-core
+
 BuildRequires: qt6-srpm-macros
 BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtbase-private-devel
+%{?_qt6_version:Requires: qt6-qtbase%{?_isa} = %{_qt6_version}}
+
 # TODO: check of = is really needed or if >= would be good enough -- rex
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: qt6-qtdeclarative-devel
@@ -158,27 +183,10 @@ BuildRequires: qt6-qtquickcontrols2-devel
 BuildRequires: qt6-qtwebchannel-devel
 BuildRequires: qt6-qtwebsockets-devel
 BuildRequires: qt6-qthttpserver-devel
-# for examples?
-BuildRequires: ninja-build
-BuildRequires: cmake
-BuildRequires: bison
-BuildRequires: flex
-BuildRequires: gcc-c++
-%if 0%{?rhel} && 0%{?rhel} < 10
-BuildRequires: gcc-toolset-13
-BuildRequires: gcc-toolset-13-libatomic-devel
-%endif
-# gn links statically (for now)
-BuildRequires: libstdc++-static
-BuildRequires: git-core
-BuildRequires: gperf
-BuildRequires: krb5-devel
-BuildRequires: libatomic
-BuildRequires: nodejs
 
 # optional system libraries in the order of the -- Configure summary: listing
 %if 0%{?use_system_re2}
-BuildRequires: pkgconfig(re2)
+BuildRequires: pkgconfig(re2) >= 11.0.0
 %else
 Provides: bundled(re2)
 %endif
@@ -189,16 +197,16 @@ BuildRequires: libicu-devel >= 70
 BuildRequires: pkgconfig(libwebp) >= 0.6.0
 %endif
 %if 0%{?use_system_opus}
-BuildRequires: pkgconfig(opus)
+BuildRequires: pkgconfig(opus) >= 1.3.1
 %endif
 %if %{?use_system_ffmpeg}
-BuildRequires: pkgconfig(libavcodec)
-BuildRequires: pkgconfig(libavformat)
-BuildRequires: pkgconfig(libavutil)
+BuildRequires: pkgconfig(libavutil) >= 58.29.100
+BuildRequires: pkgconfig(libavcodec) >= 60.31.102
+BuildRequires: pkgconfig(libavformat) >= 60.16.100
 BuildRequires: pkgconfig(openh264)
 %endif
 %if %{?use_system_libvpx}
-BuildRequires: pkgconfig(vpx) >= 1.8.0
+BuildRequires: pkgconfig(vpx) >= 1.10.0
 %endif
 %if 0%{?use_system_snappy}
 BuildRequires: pkgconfig(snappy)
@@ -233,10 +241,10 @@ Provides: bundled(libxslt) = 1.1.3
 BuildRequires: pkgconfig(lcms2)
 %endif
 %if 0%{?use_system_libpng}
-BuildRequires: pkgconfig(libpng)
+BuildRequires: pkgconfig(libpng) >= 1.6.0
 %endif
 %if 0%{?use_system_libtiff}
-BuildRequires: pkgconfig(libtiff-4)
+BuildRequires: pkgconfig(libtiff-4) >= 4.2.0
 %endif
 %if 0%{?use_system_libjpeg}
 BuildRequires: pkgconfig(libjpeg)
@@ -245,11 +253,11 @@ BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libopenjp2)
 %endif
 %if 0%{?use_system_harfbuzz}
-BuildRequires: pkgconfig(harfbuzz)
+BuildRequires: pkgconfig(harfbuzz) >= 4.3.0
 %endif
 %if 0%{?use_system_freetype}
+BuildRequires: pkgconfig(freetype2) >= 2.4.2
 BuildRequires: pkgconfig(fontconfig)
-BuildRequires: pkgconfig(freetype2)
 %endif
 %if 0%{?use_system_libpci}
 BuildRequires: pkgconfig(libpci)
@@ -258,8 +266,32 @@ BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(libudev)
 %endif
 
+# qpa-xcb support libraries
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(libdrm)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xproto)
+BuildRequires: pkgconfig(xshmfence)
+BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xkbfile)
+BuildRequires: pkgconfig(xcb)
+
+# required for webrtc
+BuildRequires: pkgconfig(xdamage)
+
+# required for alsa
 BuildRequires: pkgconfig(alsa)
+# required for pulseaudio
 BuildRequires: pkgconfig(libpulse)
+# required for vaapi
+BuildRequires: pkgconfig(libva)
+# required for pipewire
+BuildRequires: pkgconfig(libpipewire-0.3)
+
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(epoxy)
@@ -267,30 +299,9 @@ BuildRequires: pkgconfig(expat)
 BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(libcap)
-BuildRequires: pkgconfig(libdrm)
-BuildRequires: pkgconfig(libpipewire-0.3)
-BuildRequires: pkgconfig(nss)
+BuildRequires: pkgconfig(nss) >= 3.26
 BuildRequires: pkgconfig(poppler-cpp)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(xcomposite)
-BuildRequires: pkgconfig(xcursor)
-BuildRequires: pkgconfig(xdamage)
-BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xfixes)
-BuildRequires: pkgconfig(xi)
-BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: pkgconfig(xkbfile)
-BuildRequires: pkgconfig(xrandr)
-BuildRequires: pkgconfig(xrender)
-%if ! (0%{?rhel} >= 10)
-BuildRequires: pkgconfig(xscrnsaver)
-%endif
-BuildRequires: pkgconfig(xshmfence)
-BuildRequires: pkgconfig(xtst)
-BuildRequires: perl-interpreter
-BuildRequires: %{__python3}
-BuildRequires: python3-html5lib
-BuildRequires: pkgconfig(libva)
+
 
 %if 0%{?fedora} && 0%{?fedora} >= 39
 BuildRequires: python3-zombie-imp
@@ -406,8 +417,6 @@ Provides: bundled(v8) = 11.8.172.18
 # http://www.netlib.org/fdlibm/readme
 Provides: bundled(fdlibm) = 5.3
 
-%{?_qt6_version:Requires: qt6-qtbase%{?_isa} = %{_qt6_version}}
-
 %description
 %{summary}.
 
@@ -450,7 +459,7 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 
 %package -n qt6-qtpdf-examples
 Summary: Example files for qt6-qtpdf
-
+Requires: qt6-qtsvg%{?_isa}
 %description -n qt6-qtpdf-examples
 %{summary}.
 

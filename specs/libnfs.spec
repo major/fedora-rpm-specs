@@ -1,6 +1,6 @@
 Name:		libnfs
 Version:	6.0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Client library for accessing NFS shares over a network
 # The library is licensed as LGPL-2.1-or-later
 # The protocol definition is BSD-2-Clause
@@ -53,7 +53,8 @@ NFS servers using libnfs.
 autoreconf -vif
 
 %build
-%configure --disable-static --disable-examples --disable-werror
+%configure --disable-static --disable-examples --disable-werror \
+           --enable-pthread
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build V=1
@@ -83,6 +84,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Tue Apr 08 2025 Richard W.M. Jones <rjones@redhat.com> - 6.0.2-3
+- Enable the multithreading API
+  (https://github.com/sahlberg/libnfs/blob/master/README.multithreading)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

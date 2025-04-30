@@ -1,9 +1,8 @@
 %global srcname async-timeout
-%global common_desc asyncio-compatible timeout context manager\
-The context manager is useful in cases when you want to apply timeout\
-logic around block of code or in cases when asyncio.wait_for() is not \
-suitable. Also it's much faster than asyncio.wait_for() because timeout\
-doesn't create a new task.
+%global common_desc This is a deprecated package.\
+The functionality has been merged into asyncio.Timeout\
+in the Python standard library.\
+https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout
 
 %if %{defined fedora}
 %bcond_without tests
@@ -11,8 +10,8 @@ doesn't create a new task.
 
 Name:           python-%{srcname}
 Version:        5.0.1
-Release:        1%{?dist}
-Summary:        An asyncio-compatible timeout context manager
+Release:        2%{?dist}
+Summary:        Deprecated, use asyncio.Timeout from the standard library instead
 
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/async-timeout
@@ -24,6 +23,8 @@ BuildArch:      noarch
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+
+Provides:       deprecated()
 
 BuildRequires:  python3-devel
 %if %{with tests}
@@ -60,6 +61,10 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Wed Apr 23 2025 Lumír Balhar <lbalhar@redhat.com> - 5.0.1-2
+- Deprecate python3-async-timeout
+https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout
+
 * Sat Mar 08 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.0.1-1
 - Update to latest upstream release 5.0.1 (closes rhbz#2323243)
 

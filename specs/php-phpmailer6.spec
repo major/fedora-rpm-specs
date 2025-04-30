@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-phpmailer6
 #
-# Copyright (c) 2017-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    2f5c94fe7493efc213f643c23b1b1c249d40f47e
+%global gh_commit    bf74d75a1fde6beaa34a0ddae2ec5fce0f72a144
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.9.3
-Release:        2%{?dist}
+Version:        6.10.0
+Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
 License:        LGPL-2.1-only
@@ -183,7 +183,12 @@ ret=0
 for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     $cmd  -d "sendmail_path=$PWD/test/fakesendmail.sh -t -i " \
-      %{phpunit} --exclude slow,pop3,languages --verbose || ret=1
+      %{phpunit} \
+         --exclude slow,pop3,languages \
+%if 0%{?fedora} >= 43
+         --filter '^((?!(testSigning|testSigningWithCA)).)*$' \
+%endif
+         || ret=1
   fi
 done
 
@@ -204,6 +209,10 @@ exit $ret
 
 
 %changelog
+* Mon Apr 28 2025 Remi Collet <remi@remirepo.net> - 6.10.0-1
+- update to 6.10.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

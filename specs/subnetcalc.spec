@@ -1,5 +1,5 @@
 Name:           subnetcalc
-Version:        2.6.3
+Version:        2.6.4
 Release:        %autorelease
 Summary:        IPv4/IPv6 Subnet Calculator
 License:        GPL-3.0-or-later
