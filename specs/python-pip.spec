@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 25.0.1
+%global base_version 25.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -20,6 +20,7 @@ Summary:        A tool for installing and managing Python packages
 
 # certifi: MPL-2.0
 # CacheControl: Apache-2.0
+# dependency-groups: MIT
 # distlib: Python-2.0.1
 # distro: Apache-2.0
 # idna: BSD-3-Clause
@@ -34,6 +35,7 @@ Summary:        A tool for installing and managing Python packages
 # setuptools: MIT
 # truststore: MIT
 # tomli: MIT
+# tomli-w: MIT
 # typing-extensions: Python-2.0.1
 # urllib3: MIT
 
@@ -84,23 +86,25 @@ Packages" or "Pip Installs Python".
 # You can generate it with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
-Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.1
-Provides: bundled(python%{1}dist(certifi)) = 2024.8.30
+Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.2
+Provides: bundled(python%{1}dist(certifi)) = 2025.1.31
+Provides: bundled(python%{1}dist(dependency-groups)) = 1.3
 Provides: bundled(python%{1}dist(distlib)) = 0.3.9
 Provides: bundled(python%{1}dist(distro)) = 1.9
 Provides: bundled(python%{1}dist(idna)) = 3.10
 Provides: bundled(python%{1}dist(msgpack)) = 1.1
-Provides: bundled(python%{1}dist(packaging)) = 24.2
-Provides: bundled(python%{1}dist(platformdirs)) = 4.3.6
-Provides: bundled(python%{1}dist(pygments)) = 2.18
+Provides: bundled(python%{1}dist(packaging)) = 25
+Provides: bundled(python%{1}dist(platformdirs)) = 4.3.7
+Provides: bundled(python%{1}dist(pygments)) = 2.19.1
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
 Provides: bundled(python%{1}dist(requests)) = 2.32.3
-Provides: bundled(python%{1}dist(resolvelib)) = 1.0.1
-Provides: bundled(python%{1}dist(rich)) = 13.9.4
+Provides: bundled(python%{1}dist(resolvelib)) = 1.1
+Provides: bundled(python%{1}dist(rich)) = 14
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
 Provides: bundled(python%{1}dist(tomli)) = 2.2.1
-Provides: bundled(python%{1}dist(truststore)) = 0.10
-Provides: bundled(python%{1}dist(typing-extensions)) = 4.12.2
+Provides: bundled(python%{1}dist(tomli-w)) = 1.2
+Provides: bundled(python%{1}dist(truststore)) = 0.10.1
+Provides: bundled(python%{1}dist(typing-extensions)) = 4.13.2
 Provides: bundled(python%{1}dist(urllib3)) = 1.26.20
 }
 
@@ -136,7 +140,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3-rpm-generators >= 11-8
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-wheel
 BuildRequires:  bash-completion
 BuildRequires:  ca-certificates
 Requires:       ca-certificates

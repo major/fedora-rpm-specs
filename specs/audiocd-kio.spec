@@ -1,7 +1,7 @@
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -59,6 +59,8 @@ Provides:  kio_audiocd = %{version}-%{release}
 # when conflicting /usr/share/config.kcfg/audiocd_vorbis_encoder.kcfg was dropped
 Conflicts: kf5-audiocd-kio < 24.01.85
 Obsoletes: kf5-audiocd-kio < 24.01.85
+Conflicts: audiocd-kio-libs < 24.01.85
+Obsoletes: audiocd-kio-libs < 24.01.85
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
@@ -134,6 +136,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Tue Apr 29 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.04.0-2
+- Add obsolete/conflic to audiocd-kio-libs #2265260
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.15.1
+Version:        3.15.2
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -96,6 +96,8 @@ the libraries in other localization tools.
 
 %prep
 %setup -q -n %{upstream_name}-%{version}
+# Remove version limit from lxml
+sed -i 's/"lxml.*"/"lxml"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -132,6 +134,12 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Tue Apr 29 2025 Sudip Shil <sshil@redhat.com> - 3.15.2-1
+- update to 3.15.2 (rhbz#2362276)
+
+* Wed Apr 23 2025 Lumír Balhar <lbalhar@redhat.com> - 3.15.1-2
+- Remove version limit from python3-lxml dependency
+
 * Wed Mar 26 2025 Sudip Shil <sshil@redhat.com> - 3.15.1-1
 - update to 3.15.1 (rhbz#2352380)
 - Fix FTBFS with tox 4 (rhbz#2354144)

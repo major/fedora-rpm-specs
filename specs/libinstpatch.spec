@@ -150,6 +150,9 @@ find examples -type f -name '*.py' -print -delete
 %cmake_install
 
 
+# Upstream provides no tests.
+
+
 %files
 %license COPYING
 %{_libdir}/libinstpatch-%{api_version}.so.%{so_version}{,.*}

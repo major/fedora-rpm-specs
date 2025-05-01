@@ -7,7 +7,7 @@
 Name:           rust-opendal
 Version:        0.53.1
 Release:        %autorelease
-Summary:        Apache OpenDAL™: One Layer, All Storage
+Summary:        Apache OpenDAL: One Layer, All Storage
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/opendal
@@ -21,15 +21,15 @@ Patch:          opendal-fix-metadata-auto.diff
 # * Remove fasttrace dev dependency
 # * Remove libtest-mimic dev dependency
 Patch:          opendal-fix-metadata.diff
-# * Don't compile docs as services-s3 is not enabled
-Patch3:         opendal-dont-compile-docs.patch
 # * See https://github.com/apache/opendal/pull/6078
-Patch4:         opendal-fix-tests.patch
+Patch3:         opendal-fix-tests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Apache OpenDAL™: One Layer, All Storage.}
+OpenDAL is an Open Data Access Layer that enables seamless
+interaction with diverse storage services.
+}
 
 %description %{_description}
 
@@ -140,17 +140,20 @@ use the "services-webdav" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f services-fs,services-memcached,services-webdav
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -f services-fs,services-memcached,services-webdav
+%cargo_build
 
 %install
-%cargo_install -f services-fs,services-memcached,services-webdav
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -f services-fs,services-memcached,services-webdav
+# * The documentation requires services-s3 to be enabled
+# * https://github.com/apache/opendal/issues/5932
+%cargo_test -- --lib
+%cargo_test -- --tests
 %endif
 
 %changelog

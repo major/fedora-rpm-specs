@@ -5,7 +5,7 @@
 
 Summary:	A pkg-config implementation by Ruby
 Name:		rubygem-%{gem_name}
-Version:	1.6.1
+Version:	1.6.2
 Release:	1%{?dist}
 # SPDX confirmed
 License:	LGPL-2.0-or-later
@@ -83,6 +83,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Tue Apr 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-1
+- 1.6.2
+
 * Thu Apr 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.1-1
 - 1.6.1
 

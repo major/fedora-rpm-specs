@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        43
-Release:        0.1%{?eln:.eln%{eln}}
+Release:        0.2%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -99,6 +99,8 @@ Source501:      fedora-39-ima.der
 Source502:      fedora-40-ima.der
 Source503:      fedora-41-ima.der
 Source504:      fedora-42-ima.der
+Source505:      fedora-43-ima.der
+Source506:      fedora-44-ima.der
 
 %description
 Fedora package repository files for yum and dnf along with gpg public keys.
@@ -403,6 +405,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Thu Mar 13 2025 Kevin Fenzi <kevin@scrye.com> - 43-0.2
+- Add fedora-43-ima.der and fedora-44-ima.der for ima signing.
+
 * Fri Jan 31 2025 Patrik Polakovic <patrik@alphamail.org> - 43-0.1
 - Rawhide is now F43
 

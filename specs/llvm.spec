@@ -129,6 +129,13 @@
 %global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}.src
 %endif
 
+%global has_crtobjs 1
+%if %{maj_ver} < 21
+%ifarch s390x
+%global has_crtobjs 0
+%endif
+%endif
+
 #region LLVM globals
 
 %if %{with compat_build}
@@ -245,7 +252,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -311,6 +318,10 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 # this might no longer be needed.
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 #endregion CLANG patches
+
+# Fix for glibc >= 2.42
+# https://github.com/llvm/llvm-project/pull/137403
+Patch105: 0001-sanitizer_common-Remove-interceptors-for-deprecated-.patch
 
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
@@ -1814,6 +1825,13 @@ copy_with_relative_symlinks %{buildroot}%{install_libdir} %{buildroot}%{_libdir}
 copy_with_relative_symlinks %{buildroot}%{install_libexecdir} %{buildroot}%{_libexecdir}
 copy_with_relative_symlinks %{buildroot}%{install_includedir} %{buildroot}%{_includedir}
 copy_with_relative_symlinks %{buildroot}%{install_datadir} %{buildroot}%{_datadir}
+
+%if %{maj_ver} >= 21
+# Remove offload libaries since we only want to ship these in the configured
+# install prefix.
+rm -Rf %{buildroot}%{_libdir}/amdgcn-amd-amdhsa
+rm -Rf %{buildroot}%{_libdir}/nvptx64-nvidia-cuda
+%endif
 %endif
 
 # ghost presence for llvm-config, managed by alternatives.
@@ -2765,7 +2783,7 @@ fi
 # Files that appear on all targets
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/libclang_rt.*
 
-%ifnarch s390x
+%if %{has_crtobjs}
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtbegin.o
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtend.o
 %endif
@@ -2809,12 +2827,23 @@ fi
 # libomptarget is not supported on 32-bit systems.
 # s390x does not support the offloading plugins.
 %{expand_libs %{expand:
-    libomptarget.devicertl.a
-    libomptarget-amdgpu*.bc
-    libomptarget-nvptx*.bc
     libomptarget.so
     libLLVMOffload.so
 }}
+
+%if %{maj_ver} < 21
+%{expand_libs %{expand:
+    libomptarget.devicertl.a
+    libomptarget-amdgpu*.bc
+    libomptarget-nvptx*.bc
+}}
+%else
+%{install_libdir}/amdgcn-amd-amdhsa/libompdevice.a
+%{install_libdir}/amdgcn-amd-amdhsa/libomptarget-amdgpu.bc
+%{install_libdir}/nvptx64-nvidia-cuda/libompdevice.a
+%{install_libdir}/nvptx64-nvidia-cuda/libomptarget-nvptx.bc
+%endif
+
 %expand_includes offload
 %endif
 #endregion OPENMP files
@@ -3048,6 +3077,9 @@ fi
 
 #region changelog
 %changelog
+* Sat Apr 26 2025 Tom Stellard <tstellar@redhat.com> - 20.1.3-2
+- Fix build with glibc >= 2.42
+
 * Thu Apr 17 2025 Nikita Popov <npopov@redhat.com> - 20.1.3-1
 - Update to LLVM 20.1.3
 

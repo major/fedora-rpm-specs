@@ -1,9 +1,9 @@
 Name: metacity
-Version: 3.54.0
+Version: 3.56.0
 Release: %autorelease
 Summary: Unobtrusive window manager
 URL: https://wiki.gnome.org/Projects/Metacity
-Source0: https://download.gnome.org/sources/metacity/3.54/metacity-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/metacity/3.56/metacity-%{version}.tar.xz
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT-open-group
 
@@ -69,7 +69,7 @@ rm -f configure
 (if ! test -x configure; then autoreconf -i -f; fi;
  %configure --disable-static --disable-schemas-compile)
 
-SHOULD_HAVE_DEFINED="HAVE_SM HAVE_XINERAMA HAVE_RANDR HAVE_STARTUP_NOTIFICATION"
+SHOULD_HAVE_DEFINED="HAVE_SM HAVE_XINERAMA HAVE_RANDR"
 
 for I in $SHOULD_HAVE_DEFINED; do
   if ! grep -q "define $I" config.h; then

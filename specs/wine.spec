@@ -124,7 +124,7 @@ BuildRequires:  libpcap-devel
 # modular x
 BuildRequires:  libX11-devel
 BuildRequires:  mesa-libGL-devel mesa-libGLU-devel
-%if 0%{?fedora} >= 43
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 BuildRequires:  mesa-compat-libOSMesa-devel
 %else
 BuildRequires:  mesa-libOSMesa-devel
@@ -321,7 +321,7 @@ Requires:       libXrender(x86-64)
 #dlopen in windowscodesc (fixes rhbz#1085075)
 Requires:       libpng(x86-64)
 Requires:       libpcap(x86-64)
-%if 0%{?fedora} >= 43
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 Requires:       mesa-compat-libOSMesa(x86-64)
 %else
 Requires:       mesa-libOSMesa(x86-64)
@@ -356,7 +356,7 @@ Requires:       libXcursor
 #dlopen in windowscodesc (fixes rhbz#1085075)
 Requires:       libpng
 Requires:       libpcap
-%if 0%{?fedora} >= 43
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 Requires:       mesa-compat-libOSMesa
 %else
 Requires:       mesa-libOSMesa

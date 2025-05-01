@@ -23,8 +23,8 @@
 
 # enable|disble bootstrap
 %global bootstrap 0
-# workaround for old gn on rhel, it causes build error: unknown function filter_labels_include()
-%if 0%{?rhel}
+# workaround for old gn on el9, it causes build error: unknown function filter_labels_include()
+%if 0%{?rhel} == 9
 %global bootstrap 1
 %endif
 
@@ -43,9 +43,6 @@
 
 # enable|disable headless client build
 %global build_headless 1
-%ifarch ppc64le
-%global build_headless 0
-%endif
 %if 0%{?flatpak}
 %global build_headless 0
 %endif
@@ -58,9 +55,6 @@
 %if 0%{?rhel} == 9
 %global system_nodejs 0
 %endif
-
-# set esbuild_version
-%global esbuild_version 0.19.2
 
 %if 0%{?rhel} == 8
 %global chromium_pybin /usr/bin/python3.9
@@ -143,7 +137,7 @@
 
 # enable|disable control flow integrity support
 %global cfi 0
-%ifarch x86_64 aarch64
+%ifarch x86_64
 %global cfi 0
 %endif
 
@@ -261,7 +255,7 @@
 %endif
 
 Name:	chromium
-Version: 135.0.7049.114
+Version: 136.0.7103.59
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -283,13 +277,16 @@ Patch21: chromium-123-screen-ai-service.patch
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
-Patch89: chromium-135-system-brotli.patch
+Patch89: chromium-136-system-brotli.patch
 
 # patch for using system libxml
 Patch90: chromium-121-system-libxml.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
+
+# patch for Failed NodeJS version check
+Patch92: chromium-136-checkversion-nodejs.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
@@ -323,7 +320,7 @@ Patch306: chromium-127-el8-ifunc-header.patch
 # workaround for build error due to old atk version on el8
 Patch307: chromium-134-el8-atk-compiler-error.patch
 # Fix build errors due to old clang18 in el 8/9 and f40
-Patch308: chromium-132-el8-unsupport-clang-flags.patch
+Patch308: chromium-136-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 Patch310: chromium-132-el8-clang18-build-error.patch
 Patch311: chromium-133-clang18-template.patch
@@ -333,6 +330,9 @@ Patch312: chromium-123-fstack-protector-strong.patch
 
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
+
+# build error error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
+Patch314: chromium-136-rust-skrifa-build-error.patch
 
 # build error: libadler2 not found, rust-1.86 or newer replaces adler with adler2
 # we have rust-1.86 in f41 and newer
@@ -354,9 +354,6 @@ Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
 
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
-
-# fix build error with new pipewire in f43
-Patch356: chromium-133-pipewire-cast.patch
 
 # error: no matching member function for call to 'Append'
 Patch357: chromium-134-type-mismatch-error.patch
@@ -388,7 +385,6 @@ Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
 Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
-Patch379: 0001-third_party-lss-Don-t-look-for-mmap2-on-ppc64.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -438,7 +434,6 @@ Patch412: add-ppc64-architecture-to-extensions.diff
 
 # Suppress harmless compiler warning messages that appear on ppc64 due to arch-specific warning flags being passed
 Patch413: fix-unknown-warning-option-messages.diff
-Patch414: cargo-add-ppc64.diff
 Patch415: add-ppc64-pthread-stack-size.patch
 # Fix build error on el10
 Patch416: fix-ppc64-rust_png-build-error.patch
@@ -449,14 +444,18 @@ Patch500: flatpak-Add-initial-sandbox-support.patch
 Patch501: flatpak-Adjust-paths-for-the-sandbox.patch
 Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 
+# nodejs patches
+%if ! %{system_nodejs}
+Patch510: 0001-Remove-unused-OpenSSL-config.patch
+Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
+%endif
+
 # upstream patches
 # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4636
 # https://chromium-review.googlesource.com/c/chromium/src/+/6421030
 Patch600: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
 # https://chromium-review.googlesource.com/c/chromium/src/+/6445471
 Patch601: chromium-135-gperf.patch
-# https://skia-review.googlesource.com/c/skia/+/961356
-Patch602: chromium-135-print-review-fail.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -481,21 +480,13 @@ Source10: chromium-browser.appdata.xml
 Source11: master_preferences
 
 %if ! %{system_nodejs}
-Source12: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-x64.tar.xz
-Source13: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-arm64.tar.xz
-Source14: https://nodejs.org/dist/%{nodejs_version}/node-%{nodejs_version}-linux-ppc64le.tar.xz
-%endif
-
-# esbuild binary from https://github.com/evanw/esbuild
-%if 0%{?rhel} && 0%{?rhel} < 10
-Source15: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
-Source16: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
-Source17: https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-%{esbuild_version}.tgz
-%endif
-
-# esbuild binary from fedora/el10
-%if 0%{?fedora} || 0%{?rhel} > 9
-BuildRequires: golang-github-evanw-esbuild
+# nodejs bundles openssl, but we use the system version in el9
+# because openssl contains prohibited code, we remove openssl completely from
+# the tarball, using the script in Source13
+# http://nodejs.org/dist/v${version}/node-${nodejs_version}.tar.gz
+Source12: node-%{nodejs_version}-stripped.tar.gz
+Source13: nodejs-sources.sh
+BuildRequires: openssl-devel
 %endif
 
 BuildRequires: clang
@@ -1006,6 +997,8 @@ Qt6 UI for chromium.
 %patch -P91 -p1 -b .system-opus
 %endif
 
+%patch -P92 -p1 -b .chromium-136-nodejs-checkversion
+
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
@@ -1036,7 +1029,7 @@ Qt6 UI for chromium.
 %patch -P307 -p1 -b .el8-atk-compiler-error
 %endif
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora} == 40
-%patch -P308 -p1 -b .el8-unsupport-clang-flags
+%patch -P308 -p1 -b .unsupport-clang-flags
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P310 -p1 -b .el8-clang18-build-error
 %patch -P311 -p1 -b .clang18-template
@@ -1049,6 +1042,11 @@ Qt6 UI for chromium.
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
+
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora} == 40
+%patch -P314 -p1 -b .rust-skrifa-build-error
+%endif
+
 %if 0%{?rhel}
 %patch -P315 -p1 -b .rust-libadler2
 %endif
@@ -1067,10 +1065,6 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
-
-%if 0%{?fedora} > 41
-%patch -P356 -p1 -b .pipewire-cast
-%endif
 
 %patch -P357 -p1 -b .type-mismatch-error
 
@@ -1097,7 +1091,6 @@ Qt6 UI for chromium.
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
-%patch -P379 -p1 -b .0001-third_party-lss-Don-t-look-for-mmap2-on-ppc64
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1132,7 +1125,6 @@ Qt6 UI for chromium.
 %patch -P411 -p1 -b .dawn-fix-ppc64le-detection
 %patch -P412 -p1 -b .add-ppc64-architecture-to-extensions
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
-%patch -P414 -p1 -b .rust-add-ppc64-case
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
 %patch -P416 -p1 -b .ppc64-rust_png-build-error
 %endif
@@ -1146,7 +1138,6 @@ Qt6 UI for chromium.
 # Upstream patches
 %patch -P600 -p1 -b .add-cfi-suppressions-for-pipewire-functions
 %patch -P601 -p1 -b .gperf-3.2
-%patch -P602 -p1 -b .print-review-fail
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1154,48 +1145,28 @@ find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env py
 
 # Add correct path for nodejs binary
 %if ! %{system_nodejs}
-  pushd third_party/node/linux
-%ifarch x86_64
-  tar xf %{SOURCE12}
-  ln -s node-%{nodejs_version}-linux-x64 node-linux-x64
-%endif
-%ifarch aarch64
-  tar xf %{SOURCE13}
-  # This is weird, but whatever
-  ln -s  node-%{nodejs_version}-linux-arm64 node-linux-x64
-%endif
-%ifarch ppc64le
-  tar xf %{SOURCE14}
-  # This is weird, but whatever
-  ln -s node-%{nodejs_version}-linux-ppc64le node-linux-x64
-%endif
-popd
+  ln -s ../../../node-%{nodejs_version}/node-%{nodejs_version}-linux-x64 third_party/node/linux/node-linux-x64
 %else
   mkdir -p third_party/node/linux/node-linux-x64/bin
   ln -s $(which node) third_party/node/linux/node-linux-x64/bin/node
 %endif
 
-# Get rid of the bundled esbuild
-%if 0%{?fedora} || 0%{?rhel} > 9
-  ln -sf $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
-%else
-  %ifarch x86_64
-    tar -zxf %{SOURCE15} --directory %{_tmppath}
-  %endif
-  %ifarch aarch64
-    tar -zxf %{SOURCE16} --directory %{_tmppath}
-  %endif
-  %ifarch ppc64le
-    tar -zxf %{SOURCE17} --directory %{_tmppath}
-  %endif
-  mv %{_tmppath}/package/bin/esbuild third_party/devtools-frontend/src/third_party/esbuild/esbuild
-%endif
+# Get rid of the prebuilt esbuild binary
+rm -rf third_party/devtools-frontend/src/third_party/esbuild
 
 # Get rid of the pre-built eu-strip binary, it is x86_64 and of mysterious origin
 rm -rf buildtools/third_party/eu-strip/bin/eu-strip
   
 # Replace it with a symlink to the Fedora copy
 ln -s $(which eu-strip) buildtools/third_party/eu-strip/bin/eu-strip
+
+# Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
+# FTBFS on other arch like aarch64/ppc64le
+%if %{bootstrap}
+ln -sf ../../%{chromebuilddir}/gn buildtools/linux64/gn 
+%else
+ln -sf $(which gn) buildtools/linux64/gn
+%endif
 
 %if %{bundlelibusbx}
 # no hackity hack hack
@@ -1213,9 +1184,22 @@ sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channe
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
 
 # bz#2265957, add correct platform
-sed -i "s/Linux x86_64/Linux %{_arch}/" content/common/user_agent.cc
+sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
  
 %build
+
+%if ! %{system_nodejs}
+# Build nodejs and Replace bundle binary
+export CXX=c++
+tar xf %{SOURCE12}
+pushd node-%{nodejs_version}
+patch -p1 < %{_sourcedir}/0001-Remove-unused-OpenSSL-config.patch
+patch -p1 < %{_sourcedir}/0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
+./configure --ninja --shared-openssl --openssl-conf-name=openssl_conf --enable-static --prefix=node-%{nodejs_version}-linux-x64
+ninja -j %{numjobs} -C %{chromebuilddir}
+make install
+popd
+%endif
 
 # reduce warnings
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
@@ -1280,8 +1264,6 @@ CHROMIUM_CORE_GN_DEFINES+=' chrome_pgo_phase=0'
 
 %if ! %{cfi}
 CHROMIUM_CORE_GN_DEFINES+=' is_cfi=false use_thin_lto=false'
-%else
-CHROMIUM_CORE_GN_DEFINES+=' is_cfi=true use_thin_lto=true'
 %endif
 
 %if %{useapikey}
@@ -1326,6 +1308,10 @@ CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level} blink_symbol_level=%{deb
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
+# Disable --warning-suppression-mappings as it causes FTBFS on el9/f40 due to old llvm
+%if 0%{?rhel} == 9 || 0%{?fedora} == 40
+CHROMIUM_CORE_GN_DEFINES+=' clang_warning_suppression_file=""'
+%endif
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1526,20 +1512,16 @@ mkdir -p %{chromebuilddir} && cp -a $(which gn) %{chromebuilddir}/
 
 %{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{chromebuilddir}
 
-%if %{build_headless}
-%{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_HEADLESS_GN_DEFINES" %{headlessbuilddir}
-%endif
-
-%if %{build_headless}
-# Do headless first.
-%build_target %{headlessbuilddir} headless_shell
-%endif
-
 %build_target %{chromebuilddir} chrome
+
 %build_target %{chromebuilddir} chrome_sandbox
 
 %if %{build_chromedriver}
 %build_target %{chromebuilddir} chromedriver
+%endif
+
+%if %{build_headless}
+%build_target %{chromebuilddir} headless_shell
 %endif
 
 %install
@@ -1608,7 +1590,7 @@ pushd %{chromebuilddir}
 popd
 
 %if %{build_headless}
-	pushd %{headlessbuilddir}
+	pushd %{chromebuilddir}
 		cp -a *.pak headless_shell %{buildroot}%{chromium_path}
 	popd
 %endif
@@ -1787,6 +1769,16 @@ fi
 %endif
 
 %changelog
+* Tue Apr 29 2025 Than Ngo <than@redhat.com> - 136.0.7103.59-1
+- Update to 136.0.7103.59
+  * CVE-2025-4096: Heap buffer overflow in HTML
+  * CVE-2025-4050: Out of bounds memory access in DevTools
+  * CVE-2025-4051: Insufficient data validation in DevTools
+  * CVE-2025-4052: Inappropriate implementation in DevTools
+
+* Thu Apr 24 2025 Than Ngo <than@redhat.com> - 136.0.7103.48-1
+- Update to 136.0.7103.48
+
 * Wed Apr 23 2025 Than Ngo <than@redhat.com> - 135.0.7049.114-1
 - Update to 135.0.7049.114
 

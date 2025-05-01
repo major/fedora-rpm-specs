@@ -1,5 +1,5 @@
 Name:           python-openslide
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Python bindings for the OpenSlide library
 
@@ -9,13 +9,15 @@ Source0:        https://github.com/openslide/openslide-python/releases/download/
 
 # Disable Intersphinx so it won't download inventories at build time
 Patch0:         disable-intersphinx.patch
-# RHEL 9: allow pre-PEP 621 setuptools and pytest 6
+# Allow older setuptools and pytest 6
 Patch1:         widen-versions.patch
 
 BuildRequires:  gcc
 BuildRequires:  openslide
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
+# There's a 'test' dependency group but %%pyproject_buildrequires isn't
+# picking it up
+BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 The OpenSlide library allows programs to access virtual slide files

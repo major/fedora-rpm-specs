@@ -35,6 +35,11 @@
 %global build_test OFF
 %endif
 
+# Option to test suite for testing on real HW:
+# May have to set gpu under test with
+# export HIP_VISIBLE_DEVICES=<num> - 0, 1 etc.
+%bcond_with check
+
 # Tensile in 6.4 does not support generics
 # https://github.com/ROCm/Tensile/issues/2124
 %bcond_without tensile
@@ -86,7 +91,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -135,12 +140,21 @@ BuildRequires:  pkgconfig(libzstd)
 %endif
 
 %if %{with test}
-BuildRequires:  gtest-devel
+
 BuildRequires:  blas-devel
 BuildRequires:  libomp-devel
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
+
+%if 0%{?suse_version}
+BuildRequires:  cblas-devel
+BuildRequires:  gcc-fortran
+BuildRequires:  gtest
+%else
+BuildRequires:  gtest-devel
+%endif
+
 %endif
 
 %if %{with ninja}
@@ -193,6 +207,19 @@ sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST
 
 # no git in this build
 sed -i -e 's@find_package(Git REQUIRED)@find_package(Git)@' library/CMakeLists.txt
+
+# On Tumbleweed Q2,2025
+# /usr/include/gtest/internal/gtest-port.h:279:2: error: C++ versions less than C++14 are not supported.
+#   279 | #error C++ versions less than C++14 are not supported.
+# Convert the c++11's to c++14
+sed -i -e 's@CXX_STANDARD 11@CXX_STANDARD 14@' clients/samples/CMakeLists.txt
+
+%if 0%{?suse_version}
+# Suse's libgfortran.so for gcc 14 is here
+# /usr/lib64/gcc/x86_64-suse-linux/14/libgfortran.so
+# Without adding this path with -L, it isn't found, but thankfully it isn't really needed
+sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LINK_LIBS "-lgfortran")@' clients/{benchmarks,gtest}/CMakeLists.txt
+%endif
 
 %build
 
@@ -267,6 +294,19 @@ if [ -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
 fi
     
+%check
+%if %{with test}
+%if %{with check}
+%if 0%{?suse_version}
+export LD_LIBRARY_PATH=%{__builddir}/library/src:$LD_LIBRARY_PATH
+%{__builddir}/clients/staging/rocblas-test --gtest_brief=1
+%else
+export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
+%{_vpath_builddir}/clients/staging/rocblas-test --gtest_brief=1
+%endif
+%endif
+%endif
+
 %files -f %{name}.files
 %license LICENSE.md
 %if %{with tensile}
@@ -285,6 +325,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Improve testing for suse
+
 * Sat Apr 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Add generic gpus
 

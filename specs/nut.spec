@@ -13,8 +13,8 @@
 
 Summary: Network UPS Tools
 Name: nut
-Version: 2.8.2.1
-Release: 5%{?dist}.1.git20240703pr2505
+Version: 2.8.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -47,6 +47,7 @@ BuildRequires: freetype-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gd-devel
+BuildRequires: jq
 %if 0%{?fedora} < 39
 BuildRequires: libgpiod-devel
 %endif
@@ -318,12 +319,18 @@ fi
 %{_unitdir}/nut-driver.target
 %{_unitdir}/nut-server.service
 %{_unitdir}/nut.target
+%{_presetdir}/nut-systemd.preset
+%{_unitdir}/enphase-monitor@.service
+%{_unitdir}/nut-logger.service
+%{_unitdir}/nut-udev-settle.service
 %{_sbindir}/upsd
 %{_bindir}/nutconf
 %{_bindir}/nut-scanner
 %{_libdir}/libnutscan.so.*
+%{_libdir}/libnutconf.so.*
 %{_libexecdir}/nut-driver-enumerator.sh
 %{_libexecdir}/sockdebug
+%{_libexecdir}/enphase-monitor
 %{_datadir}/augeas/lenses/dist/nut*
 %{_datadir}/augeas/lenses/dist/tests/test_nut.aug
 %{_datadir}/%{name}/cmdvartab
@@ -354,6 +361,7 @@ fi
 %{_mandir}/man8/blazer_ser.8.gz
 %{_mandir}/man8/blazer_usb.8.gz
 %{_mandir}/man8/clone.8.gz
+%{_mandir}/man8/clone-outlet.8.gz
 %{_mandir}/man8/dummy-ups.8.gz
 %{_mandir}/man8/everups.8.gz
 %{_mandir}/man8/etapro.8.gz
@@ -369,12 +377,14 @@ fi
 %{_mandir}/man8/ivtscd.8.gz
 %{_mandir}/man8/liebert.8.gz
 %{_mandir}/man8/liebert-esp2.8.gz
+%{_mandir}/man8/liebert-gxe.8.gz
 %{_mandir}/man8/masterguard.8.gz
 %{_mandir}/man8/metasys.8.gz
 %{_mandir}/man8/microdowell.8.gz
 %{_mandir}/man8/microsol-apc.8.gz
 %{_mandir}/man8/mge-utalk.8.gz
 %{_mandir}/man8/mge-shut.8.gz
+%{_mandir}/man8/nhs_ser.8.gz
 %{_mandir}/man8/nutupsdrv.8.gz
 %{_mandir}/man8/nutdrv_atcl_usb.8.gz
 %{_mandir}/man8/nutdrv_siemens_sitop.8.gz
@@ -483,13 +493,18 @@ fi
 %{_libdir}/libupsclient.so
 %{_libdir}/libnutclient.so
 %{_libdir}/libnutclientstub.so
+%{_libdir}/libnutconf.so
 %{_libdir}/libnutscan.so
 %{_libdir}/pkgconfig/libupsclient.pc
 %{_libdir}/pkgconfig/libnutclient.pc
+%{_libdir}/pkgconfig/libnutconf.pc
 %{_libdir}/pkgconfig/libnutclientstub.pc
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Tue Apr 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.3-1
+- updated to 2.8.3 (#2352734)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8.2.1-5.1.git20240703pr2505
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

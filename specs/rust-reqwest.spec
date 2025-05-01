@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.12.12
+Version:        0.12.15
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -53,18 +53,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__internal_proxy_sys_no_cache-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__internal_proxy_sys_no_cache-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__internal_proxy_sys_no_cache" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__internal_proxy_sys_no_cache-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+__rustls-devel
@@ -432,10 +420,8 @@ rm tests/brotli.rs
 
 %if %{with check}
 %check
-# * run tests single-threaded to avoid clobbered environment variables:
-#   https://github.com/seanmonstar/reqwest/issues/2468
 # * skip tests which require internet access
-%{cargo_test -- -- --test-threads 1 --exact %{shrink:
+%{cargo_test -- -- --exact %{shrink:
     --skip test_allowed_methods
     --skip test_badssl_modern
     --skip test_badssl_self_signed

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc4.35
+%define pkgrelease 0.rc4.20250429gitca91b9500108.36
 %define kversion 6
-%define tarfile_release 6.15-rc4
+%define tarfile_release 6.15-rc4-21-gca91b9500108
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.35%{?buildid}%{?dist}
+%define specrelease 0.rc4.20250429gitca91b9500108.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -768,7 +768,7 @@ BuildRequires: (python3-wheel if python3-setuptools < 70)
 BuildRequires: openssl-devel
 %endif
 %if %{with_selftests}
-BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel
+BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel python3-docutils python3-jsonschema
 %ifarch x86_64 riscv64
 BuildRequires: lld
 %endif
@@ -3202,7 +3202,7 @@ pushd tools/testing/selftests
 %endif
 
 %{log_msg "main selftests compile"}
-%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net/bonding iommu cachestat" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net/bonding iommu cachestat pid_namespace rlimits" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
 
 %ifarch %{klptestarches}
 	# kernel livepatching selftest test_modules will build against
@@ -3591,6 +3591,18 @@ pushd tools/testing/selftests/iommu
 find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
 find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
 find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
+popd
+# install rlimits selftests
+pushd tools/testing/selftests/rlimits
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
+popd
+# install pid_namespace selftests
+pushd tools/testing/selftests/pid_namespace
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
 popd
 %endif
 
@@ -4259,8 +4271,11 @@ fi\
 #
 #
 %changelog
-* Mon Apr 28 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc4.35]
+* Tue Apr 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.ca91b9500108.36]
+- redhat/spec: fix selftests dependencies (Gregory Bell) [RHEL-88228]
+- redhat: add namespace selftests to kernel-modules-internal package (Joel Savitz) [RHEL-88635]
 - Turn off CONFIG_PCI_REALLOC_ENABLE_AUTO for Fedora (Justin M. Forbes)
+- Linux v6.15.0-0.rc4.ca91b9500108
 
 * Mon Apr 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.35]
 - Linux v6.15.0-0.rc4

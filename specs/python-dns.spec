@@ -13,7 +13,7 @@
 
 Name:           python-dns
 Version:        2.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -49,7 +49,10 @@ Obsoletes:      python3-dns+curio < 2.3.0-6
 # Duplicate package python3-dnspython
 # https://bugzilla.redhat.com/show_bug.cgi?id=2361734
 Provides:       python3-dnspython = %{version}-%{release}
-Obsoletes:      python3-dnspython < 2.7.0-3
+# This makes sure all subpackages obsolete the replaced subpackages of python-dns
+%define _local_file_attrs dnspython
+%define __dnspython_obsoletes() %{gsub %{name} ^python3%%-dns python3-dnspython} < 2.7.0-3
+%define __dnspython_path .*\.dist-info$
 
 %description -n python3-dns %_description
 
@@ -97,6 +100,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Mon Apr 28 2025 Miro Hrončok <mhroncok@redhat.com> - 2.7.0-3
+- Obsolete python3-dnspython+... from python3-dns+...
+
 * Wed Apr 23 2025 Lumír Balhar <lbalhar@redhat.com> - 2.7.0-2
 - Provide and Obsolete python3-dnspython from python3-dns
 - Package the [doq] extra

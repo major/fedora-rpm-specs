@@ -5,7 +5,7 @@
 %global crate cargo-util-schemas
 
 Name:           rust-cargo-util-schemas
-Version:        0.7.2
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Deserialization schemas for Cargo
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-schema-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-schema-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable-schema" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-schema-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

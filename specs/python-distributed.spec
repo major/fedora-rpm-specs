@@ -8,8 +8,8 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2025.3.0
-%global tag     2025.3.0
+Version:        2025.4.0
+%global tag     2025.4.0
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
 %forgemeta
@@ -44,9 +44,6 @@ Patch:          0005-Skip-doc-test-when-not-running-from-a-git-checkout.patch
 Patch:          0006-Update-make_tls_certs.py-work-with-openssl-3-8701.patch
 # Point the test at the uninstalled version.
 Patch:          0007-Avoid-using-sys.prefix-in-CLI-test.patch
-# Make sure scheduler knows what address to bind to
-# https://github.com/dask/distributed/pull/9051
-Patch:          0008-Return-a-default-value-if-address-resolution-fails.patch
 
 BuildArch:      noarch
 
@@ -106,6 +103,11 @@ clusters.
 %prep
 %forgeautosetup -p1
 
+%if %{with bootstrap}
+# patch out the dask dependency so we can bootstrap it
+sed -r -i '/(dask)[<=> ]+[0-9]+/d' pyproject.toml
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -134,10 +136,19 @@ k="${k-}${k+ and }not test_git_revision"
 # https://github.com/dask/distributed/issues/8437
 k="${k-}${k+ and }not test_steal_twice"
 
+# Test started failing with `--reruns`. It seems to succeed without.
+# Yet we'd like to rerun the truly flaky tests.
+# https://github.com/dask/distributed/issues/9053
+k="${k-}${k+ and }not test_computation_object_code_dask_compute"
+
 pytest_args=(
   -m 'not avoid_ci and not flaky and not slow'
 
   -k "${k-}"
+
+  # Some tests are flaky. Some timing issue with server already
+  # shut down it seems.
+  --reruns 3 --reruns-delay 1
 
   --timeout_method=signal
 

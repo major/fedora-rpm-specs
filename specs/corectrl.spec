@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.4.3
+Version:        1.5.1
 %forgemeta
 Release:        %autorelease
 Summary:        Friendly hardware control
@@ -37,22 +37,21 @@ BuildRequires:  libdrm-devel
 BuildRequires:  ninja-build
 BuildRequires:  cmake(Catch2)
 BuildRequires:  cmake(fmt)
-BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(pugixml) >= 1.11
-BuildRequires:  cmake(Qt5Charts)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core) >= 5.15
 BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Charts)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core) >= 6.8
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(QuaZip-Qt6)
 BuildRequires:  cmake(spdlog) >= 1.4
 BuildRequires:  pkgconfig(botan-2)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(polkit-gobject-1)
-BuildRequires:  pkgconfig(quazip1-qt5) >= 1.0
 BuildRequires:  pkgconfig(x11)
 %if %{with tests}
 BuildRequires:  cmake(trompeloeil) >= 40
@@ -61,8 +60,6 @@ BuildRequires:  cmake(trompeloeil) >= 40
 Requires:       dbus-common
 Requires:       hicolor-icon-theme
 Requires:       polkit%{?_isa}
-Requires:       qca-qt5-ossl%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
 
 # Used to gather more information
 #   * For glxinfo

@@ -70,6 +70,10 @@ License:        MIT
 #    Since this applies to code, and CC0-1.0 is not-allowed for code in Fedora,
 #    we treat this as simply "MIT".
 # "Python-2.0"
+#    This is for npm argparse. See:
+#      argparse has Python 2.0 license issue
+#      https://gitlab.com/fedora/legal/fedora-license-data/-/issues/470
+#    Based on that, we assume the true license should be PSF-2.0 instead.
 SourceLicense:  %{shrink:
                 Apache-2.0 AND
                 BSD-2-Clause AND
@@ -77,7 +81,7 @@ SourceLicense:  %{shrink:
                 CC0-1.0 AND
                 ISC AND
                 MIT AND
-                Python-2.0
+                PSF-2.0
                 }
 URL:            https://github.com/nodejs/llhttp
 Source0:        %{url}/archive/v%{version}/llhttp-%{version}.tar.gz

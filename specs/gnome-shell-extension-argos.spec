@@ -1,9 +1,9 @@
 %global uuid argos@pew.worldwidemann.com
 
 %global forgeurl https://github.com/p-e-w/argos
-%global commit bb591185e4aca3cb65772b2bb68cc537b0318f56
+%global commit 13264042ae8b8a6f9f4778c623780e38e5d1cd89
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20240328
+%global date 20250327
 
 Name:           gnome-shell-extension-argos
 Version:        3^%{date}git%{shortcommit}
@@ -13,12 +13,14 @@ Summary:        Create GNOME Shell extensions in seconds
 License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source:         %{url}/archive/%{commit}/argos-%{commit}.tar.gz#/argos-%{version}.tar.gz
-# mark as compatible with GNOME 47
-Patch:          https://github.com/p-e-w/argos/pull/167.patch#/argos-gnome47.diff
 
 BuildArch:      noarch
 
-Requires:       (gnome-shell >= 45.0 with gnome-shell < 48.0)
+%if 0%{?fedora} >= 42
+BuildRequires:  gnome-shell-rpm-generators
+%else
+Requires:       (gnome-shell >= 45.0 with gnome-shell < 49.0)
+%endif
 
 %description
 Most GNOME Shell extensions do one thing: Add a button with a dropdown menu to

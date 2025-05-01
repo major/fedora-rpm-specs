@@ -7,10 +7,10 @@
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.11+cargo-0.86.0
+%global crate_version 0.10.12+cargo-0.87.0
 
 Name:           rust-cargo-c
-Version:        0.10.11
+Version:        0.10.12
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -55,6 +55,7 @@ Summary:        %{summary}
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # MPL-2.0+
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT

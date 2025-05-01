@@ -6,9 +6,10 @@
 %global debug_package %{nil}
 
 %global giturl  https://github.com/sympy/sympy
+%global commit  fe935ceb303891d1f8bea4c03b19fd9ec9464b02
 
 Name:           sympy
-Version:        1.13.3
+Version:        1.14.0
 Release:        %autorelease
 Summary:        A Python library for symbolic mathematics
 
@@ -17,10 +18,13 @@ Summary:        A Python library for symbolic mathematics
 License:        BSD-3-Clause AND MIT
 URL:            https://sympy.org/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
-# Fix a test failure with python 3.14
-# https://github.com/sympy/sympy/commit/613166ef5995b60610f94a729fa0412a103d47e6
-Patch:          %{name}-tempfile-flush.patch
+Source0:        %{giturl}/archive/%{name}-%{version}.tar.gz
+# For intersphinx
+Source1:        https://matplotlib.org/stable/objects.inv#/objects-matplotlib.inv
+Source2:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
+Source3:        https://numpy.org/doc/stable/objects.inv#/objects-numpy.inv
+# Do not depend on intersphinx_registry, which is not available in Fedora
+Patch:          %{name}-intersphinx.patch
 
 # This package used to be noarch, and should still be noarch.  However, because
 # there is no JDK available on i686 anymore, the antlr4 package is also not
@@ -74,10 +78,7 @@ BuildRequires:  lfortran
 BuildRequires:  %{py3_dist autowrap}
 BuildRequires:  %{py3_dist cloudpickle}
 BuildRequires:  %{py3_dist ipython}
-# FIXME: parser failure in lark on ppc64le
-%ifnarch ppc64le
 BuildRequires:  %{py3_dist lark}
-%endif
 # FIXME: Crashes in llvmlite on ppc64le, s390x and riscv64
 %ifnarch ppc64le s390x riscv64
 BuildRequires:  %{py3_dist llvmlite}
@@ -121,14 +122,6 @@ while keeping the code as simple as possible in order to be
 comprehensible and easily extensible. SymPy is written entirely in
 Python and does not require any external libraries.
 
-%package examples
-License:        BSD-3-Clause
-Summary:        Sympy examples
-Requires:       python3-%{name} = %{version}-%{release}
-
-%description examples
-This package contains example input for sympy.
-
 %package doc
 # This project is BSD-3-Clause.  Other files bundled with the documentation
 # have the following licenses:
@@ -156,6 +149,10 @@ Summary:        Documentation for sympy
 Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
 
+# This can be removed when F46 reaches EOL
+Obsoletes:      %{name}-examples < 1.14.0
+Provides:       %{name}-examples = %{version}-%{release}
+
 %description doc
 HTML documentation for sympy.
 
@@ -182,8 +179,13 @@ for fil in $(grep -rl "^#\![[:blank:]]*%{_bindir}/env" .); do
 done
 
 # Use local objects.inv for intersphinx
-sed -e "s|\('https://mpmath\.org/doc/current/', \)None|\1'%{_docdir}/python-mpmath-doc/html/objects.inv'|" \
+sed -e "s|\('https://matplotlib\.org/stable/', \)None|\1'%{SOURCE1}'|" \
+    -e "s|\(.https://docs\.scipy\.org/doc/scipy/., \)None|\1'%{SOURCE2}'|" \
+    -e "s|\(.https://numpy\.org/doc/stable/., \)None|\1'%{SOURCE3}'|" \
     -i doc/src/conf.py
+
+# Help sphinx find the git commit
+echo -n '%{commit}' > doc/commit_hash.txt
 
 # Permit use of antlr4 4.13
 sed -i s'/4\.11/4.13/g' sympy/parsing/autolev/_parse_autolev_antlr.py \
@@ -214,9 +216,6 @@ popd
 ## Remove extra files
 rm -f %{buildroot}%{_bindir}/{,doc}test
 
-# Don't let an executable script go into the documentation
-chmod -R a-x+X examples
-
 # Fix permissions
 chmod 0755 %{buildroot}%{python3_sitelib}/sympy/benchmarks/bench_symbench.py \
       %{buildroot}%{python3_sitelib}/sympy/testing/tests/diagnose_imports.py
@@ -228,9 +227,6 @@ rm -f %{buildroot}%{_docdir}/%{name}-doc/html/.buildinfo
 rm -fr %{buildroot}%{_docdir}/%{name}-doc/i18n
 %fdupes %{buildroot}%{_docdir}/%{name}-doc
 
-# Try to get rid of pyc files, which aren't useful for documentation
-find examples/ -name '*.py[co]' -print -delete
-
 %check
 %{python3} bin/test -v --parallel
 
@@ -240,9 +236,6 @@ find examples/ -name '*.py[co]' -print -delete
 %doc doc/_build/cheatsheet/combinatoric_cheatsheet.pdf
 %{_bindir}/isympy
 %{_mandir}/man1/isympy.1*
-
-%files examples
-%doc examples/*
 
 %files doc
 %docdir %{_docdir}/%{name}-doc/html

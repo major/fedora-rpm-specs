@@ -5,7 +5,7 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.40
+Version:        0.4.41
 Release:        %autorelease
 Summary:        Date and time library for Rust
 

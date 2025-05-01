@@ -1,6 +1,6 @@
 Name:           perl-File-Fetch
-Version:        1.04
-Release:        512%{?dist}
+Version:        1.08
+Release:        1%{?dist}
 Summary:        Generic file fetching mechanism
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Fetch
@@ -28,13 +28,13 @@ BuildRequires:  perl(Locale::Maketext::Simple)
 BuildRequires:  perl(Module::Load::Conditional) >= 0.66
 BuildRequires:  perl(Params::Check) >= 0.07
 BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 # Keep all downaloaders optional (LWP, curl, rsync etc.).
 # Tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(warnings)
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(IPC::Cmd) >= 0.42
 Requires:       perl(Locale::Maketext::Simple)
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-1
+- 1.08 bump (rhbz#2362740)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

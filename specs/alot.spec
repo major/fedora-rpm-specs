@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -15,6 +15,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-standard-mailcap
 BuildRequires:  make
+BuildRequires:  procps-ng
 Requires:       python3-standard-mailcap
 
 %description
@@ -42,6 +43,7 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 
 %check
 %pyproject_check_import
+%{py3_test_envvars} %{python3} -m unittest
 
 %files -f %{pyproject_files}
 %license COPYING
@@ -51,6 +53,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Mon Apr 28 2025 Dick Marinus <dick@mrns.nl> - 0.11-6
+- Add unittest
+
 * Tue Apr 15 2025 Tomas Tomecek <ttomecek@redhat.com> - 0.11-5
 - Depend on python-standard-mailcap
 

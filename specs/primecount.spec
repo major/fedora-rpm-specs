@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        7.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -104,6 +104,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Apr 29 2025 Kim Walisch <walki@fedoraproject.org> - 7.17-2
+- Sieve_pre_sieve.hpp: Improved pre-sieving using primes ≤ 71
+
 * Mon Apr 28 2025 Kim Walisch <walki@fedoraproject.org> - 7.17-1
 - Sieve_pre_sieve.hpp: Improved pre-sieving using primes ≤ 37
 - Pre-sieving speeds up S2_hard and D algorithms by up to 5%

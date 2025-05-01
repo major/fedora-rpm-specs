@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       78.1.0
+Version:       78.1.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -100,6 +100,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Tue Apr 29 2025 Sandro Mani <manisandro@gmail.com> - 78.1.1-1
+- Update to 78.1.1
+
 * Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 78.1.0-1
 - Update to 78.1.0
 

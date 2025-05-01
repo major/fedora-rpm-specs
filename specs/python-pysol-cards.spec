@@ -2,7 +2,7 @@
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
-Version:        0.18.1
+Version:        0.20.0
 Release:        1%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
@@ -46,6 +46,9 @@ sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Apr 29 2025 Shlomi Fish <shlomif@shlomifish.org> 0.20.0-1
+- Update to 0.20.0 (#2362883)
+
 * Wed Feb 12 2025 Shlomi Fish <shlomif@shlomifish.org> 0.18.1-1
 - Update to 0.18.1 (#2344838)
 - Remove no-longer-needed spec directives.

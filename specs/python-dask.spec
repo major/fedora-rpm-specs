@@ -12,8 +12,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2025.3.0
-%global tag     2025.3.0
+Version:        2025.4.0
+%global tag     2025.4.0
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -148,6 +148,13 @@ rm -rf html/.{doctrees,buildinfo}
 # https://github.com/dask/dask/issues/8499
 k="${k-}${k+ and }not test_development_guidelines_matches_ci"
 
+# Previously excluded for dask-expr. Those tests use parquet files,
+# which involves pyarrow.
+%ifarch s390x
+k="${k-}${k+ and }not test_combine_similar_no_projection_on_one_branch"
+k="${k-}${k+ and }not test_parquet_all_na_column"
+%endif
+
 pytest_args=(
   -m 'not network'
 
@@ -161,7 +168,7 @@ pytest_args=(
 # it gets pulled into the build env anyway
 # https://github.com/dask/dask/issues/11186
 %ifarch s390x
-  --ignore %{buildroot}%{python3_sitelib}/%{srcname}/dataframe/io/tests/test_parquet.py
+  --ignore %{srcname}/dataframe/io/tests/test_parquet.py
 %endif
 
   # Upstream uses 'thread' for Windows, but that kills the whole session, and

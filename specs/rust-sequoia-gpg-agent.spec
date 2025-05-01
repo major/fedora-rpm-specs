@@ -5,7 +5,7 @@
 %global crate sequoia-gpg-agent
 
 Name:           rust-sequoia-gpg-agent
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Library for interacting with GnuPG's gpg-agent
 
@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/sequoia-gpg-agent
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
+# https://gitlab.com/sequoia-pgp/sequoia-gpg-agent/-/issues/9
+Patch:          0001-fix-compatibility-with-gnupg-2.3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

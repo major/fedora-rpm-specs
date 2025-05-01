@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/svarshavchik/%{name}
-%global commit   a7600c7f374b369c2cfa58bca244a1bcccf0d785
-%global date     20241102
+%global commit   fc87e2caa1df0df7e71cf431ebf157b65ceecc69
+%global date     20250322
 %forgemeta
 
 Name:           clean-rpm-gpg-pubkey
@@ -20,7 +20,6 @@ Requires:       fedora-release-common
 Requires:       fedora-repos
 
 %{?perl_default_filter}
-
 
 %description
 A short Perl script for Fedora that removes old PGP keys from the RPM

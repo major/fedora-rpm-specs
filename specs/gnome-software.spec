@@ -17,6 +17,9 @@
 # Disable DKMS/akmods support for RHEL builds
 %bcond dkms %[!0%{?rhel}]
 
+%bcond packagekit 0
+%bcond dnf5 1
+
 # this is not a library version
 %define gs_plugin_version 22
 
@@ -26,12 +29,14 @@
 
 Name:      gnome-software
 Version:   48.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
 Source0:   https://download.gnome.org/sources/gnome-software/48/%{name}-%{tarball_version}.tar.xz
+
+Patch:     0001-dnf5-plugin.patch
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -65,7 +70,9 @@ BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(malcontent-0)
 %endif
 BuildRequires: pkgconfig(ostree-1)
+%if %{with packagekit}
 BuildRequires: pkgconfig(packagekit-glib2) >= %{packagekit_version}
+%endif
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(rpm)
 %if %{with rpmostree}
@@ -78,6 +85,11 @@ Requires: appstream-data
 Requires: appstream%{?_isa} >= %{appstream_version}
 %if %{with webapps}
 Requires: epiphany-runtime%{?_isa}
+%endif
+%if %{with dnf5}
+Requires: dnf5daemon-server%{?_isa}
+Requires: libdnf5-plugin-appstream%{?_isa}
+Requires: rpm-plugin-dbus-announce%{?_isa}
 %endif
 Requires: flatpak%{?_isa} >= %{flatpak_version}
 Requires: flatpak-libs%{?_isa} >= %{flatpak_version}
@@ -97,7 +109,9 @@ Requires: libadwaita >= %{libadwaita_version}
 Requires: librsvg2%{?_isa}
 Requires: libxmlb%{?_isa} >= %{libxmlb_version}
 
+%if %{with packagekit}
 Recommends: PackageKit%{?_isa} >= %{packagekit_version}
+%endif
 Recommends: %{name}-fedora-langpacks
 
 Obsoletes: gnome-software-snap < 3.33.1
@@ -149,8 +163,17 @@ This package includes the rpm-ostree backend.
     -Dmalcontent=false \
 %endif
     -Dgudev=true \
+%if %{with packagekit}
     -Dpackagekit=true \
     -Dpackagekit_autoremove=true \
+%else
+    -Dpackagekit=false \
+%endif
+%if %{with dnf5}
+    -Ddnf5=true \
+%else
+    -Ddnf5=false \
+%endif
     -Dexternal_appstream=false \
 %if %{with rpmostree}
     -Drpm_ostree=true \
@@ -232,6 +255,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_libdir}/gnome-software/plugins-%{gs_plugin_version}
 %{_libdir}/gnome-software/libgnomesoftware.so.%{gs_plugin_version}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_appstream.so
+%if %{with dnf5}
+%{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_dnf5.so
+%endif
 %if %{with webapps}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_epiphany.so
 %endif
@@ -246,7 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %endif
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_modalias.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_os-release.so
+%if %{with packagekit}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_packagekit.so
+%endif
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance-license.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_repos.so
@@ -256,7 +284,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_datadir}/swcatalog/xml
 %{_datadir}/swcatalog/xml/gnome-pwa-list-foss.xml
 %endif
+%if %{with packagekit}
 %{_datadir}/dbus-1/services/org.freedesktop.PackageKit.service
+%endif
 %{_datadir}/dbus-1/services/org.gnome.Software.service
 %{_datadir}/gnome-shell/search-providers/org.gnome.Software-search-provider.ini
 %{_datadir}/glib-2.0/schemas/org.gnome.software.gschema.xml
@@ -288,6 +318,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Tue Apr 29 2025 Milan Crha <mcrha@redhat.com> - 48.1-2
+- Switch from PackageKit to DNF5 plugin
+
 * Fri Apr 11 2025 Milan Crha <mcrha@redhat.com> - 48.1-1
 - Update to 48.1
 

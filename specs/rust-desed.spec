@@ -16,6 +16,7 @@ Patch:          desed-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Update inotify dependency from 0.10.0 to 0.11.0:
 #   https://github.com/SoptikHa2/desed/pull/35
+# * Bump ratatui dependency to 0.29 https://github.com/SoptikHa2/desed/pull/36
 Patch:          desed-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

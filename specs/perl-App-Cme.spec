@@ -1,6 +1,6 @@
 Name:           perl-App-Cme
-Version:        1.041
-Release:        2%{?dist}
+Version:        1.042
+Release:        1%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/App-Cme
@@ -34,7 +34,7 @@ BuildRequires:  perl(File::HomeDir)
 # JSON - not used at test
 BuildRequires:  perl(Log::Log4perl)
 BuildRequires:  perl(open)
-BuildRequires:  perl(Path::Tiny)
+BuildRequires:  perl(Path::Tiny) >= 0.125
 BuildRequires:  perl(Pod::POM)
 BuildRequires:  perl(Pod::POM::View::Text)
 BuildRequires:  perl(Scalar::Util)
@@ -45,12 +45,15 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(YAML::PP)
 # Tests
 BuildRequires:  perl(App::Cmd::Tester)
+BuildRequires:  perl(Config::Model::Backend::Yaml)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(English)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Term::ANSIColor) >= 2.01
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::More)
 # Test::Perl::Critic - optional test
+Requires:       perl(Config::Model::Backend::Yaml)
 Requires:       perl(Config::Model::CursesUI)
 Requires:       perl(Config::Model::FuseUI)
 Requires:       perl(Config::Model::SimpleUI)
@@ -99,6 +102,8 @@ install -D -m 0644 contrib/bash_completion.cme %{buildroot}%{_sysconfdir}/bash_c
 # Install tests - copy tests to tmp
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
+rm %{buildroot}/%{_libexecdir}/%{name}/t/perl-critic.t
+rm %{buildroot}/%{_libexecdir}/%{name}/t/pod.t
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -133,6 +138,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.042-1
+- 1.042 bump (rhbz#2362456)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.041-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate bytemuck
 
 Name:           rust-bytemuck
-Version:        1.22.0
+Version:        1.23.0
 Release:        %autorelease
 Summary:        Muck around with piles of bytes
 
@@ -157,6 +157,18 @@ use the "extern_crate_std" feature of the "%{crate}" crate.
 %files       -n %{name}+extern_crate_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+impl_core_error-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+impl_core_error-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "impl_core_error" feature of the "%{crate}" crate.
+
+%files       -n %{name}+impl_core_error-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+min_const_generics-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -263,6 +275,18 @@ This package contains library source intended for building other packages which
 use the "zeroable_maybe_uninit" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zeroable_maybe_uninit-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroable_unwind_fn-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroable_unwind_fn-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroable_unwind_fn" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroable_unwind_fn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

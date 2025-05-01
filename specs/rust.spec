@@ -289,6 +289,7 @@ BuildRequires:  %{llvm}-devel >= %{min_llvm_version}
 %if %with llvm_static
 BuildRequires:  %{llvm}-static
 BuildRequires:  libffi-devel
+BuildRequires:  libxml2-devel
 %endif
 %endif
 
@@ -379,6 +380,7 @@ Obsoletes:      %{name}-analysis < 1.69.0~
   mkdir -p build/manifests/%{-n*}             \
   %{shrink:                                   \
     env RUSTC_BOOTSTRAP=1                     \
+      RUSTC=%{local_rust_root}/bin/rustc      \
       %{local_rust_root}/bin/cargo tree       \
       --offline --edges normal,build          \
       --prefix none --format "{p}"            \
@@ -391,8 +393,10 @@ Obsoletes:      %{name}-analysis < 1.69.0~
     >build/manifests/%{-n*}/cargo-vendor.txt  \
   }                                           \
 )
+%ifnarch %{bootstrap_arches}
 %{?fedora:BuildRequires: cargo-rpm-macros}
 %{?rhel:BuildRequires: rust-toolset}
+%endif
 
 %description
 Rust is a systems programming language that runs blazingly fast, prevents
@@ -738,7 +742,7 @@ sed -i.lzma -e '/LZMA_API_STATIC/d' src/bootstrap/src/core/build_steps/tool.rs
 %if %{without bundled_llvm} && %{with llvm_static}
 # Static linking to distro LLVM needs to add -lffi
 # https://github.com/rust-lang/rust/issues/34486
-sed -i.ffi -e '$a #[link(name = "ffi")] extern {}' \
+sed -i.ffi -e '$a #[link(name = "ffi")] extern "C" {}' \
   compiler/rustc_llvm/src/lib.rs
 %endif
 

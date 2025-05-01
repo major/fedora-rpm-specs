@@ -8,7 +8,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -135,18 +135,15 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.{a,la,so}
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post selinux
-for pp in /usr/share/selinux/packages/swtpm.pp \
-          /usr/share/selinux/packages/swtpm_svirt.pp \
-          /usr/share/selinux/packages/swtpm_libvirt.pp; do
-  %selinux_modules_install -s %{selinuxtype} ${pp}
-done
+%{selinux_modules_install -s %{selinuxtype} %{shrink:
+    /usr/share/selinux/packages/swtpm.pp
+    /usr/share/selinux/packages/swtpm_svirt.pp
+    /usr/share/selinux/packages/swtpm_libvirt.pp} }
 restorecon %{_bindir}/swtpm
 
 %postun selinux
 if [ $1 -eq  0 ]; then
-  for p in swtpm_svirt swtpm_libvirt swtpm; do
-    %selinux_modules_uninstall -s %{selinuxtype} $p
-  done
+  %selinux_modules_uninstall -s %{selinuxtype} swtpm_svirt swtpm_libvirt swtpm
 fi
 
 %posttrans selinux
@@ -213,6 +210,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Tue Apr 29 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 0.10.0-12
+- Consolidate SELinux macro calls
+
 * Wed Apr  9 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-11
 - Fix some SELinux related issues in the spec file
 

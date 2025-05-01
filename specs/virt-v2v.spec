@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.12
+Version:       2.7.13
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -143,9 +143,9 @@ Requires:      nbdkit-ssh-plugin
 Requires:      nbdkit-vddk-plugin
 %endif
 Requires:      nbdkit-blocksize-filter
-Requires:      nbdkit-cacheextents-filter
 Requires:      nbdkit-cow-filter >= 1.28.3-1.el9
 Requires:      nbdkit-multi-conn-filter
+Requires:      nbdkit-noextents-filter
 Requires:      nbdkit-rate-filter
 Requires:      nbdkit-retry-filter
 
@@ -310,6 +310,9 @@ done
 
 
 %changelog
+* Tue Apr 29 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.13-1
+- New upstream development version 2.7.13
+
 * Tue Apr 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.12-1
 - New upstream development version 2.7.12
 

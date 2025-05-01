@@ -1,12 +1,12 @@
 Name:           quearcode
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for creating QR Codes
 
 License:        GPL-3.0-or-later
 URL:            https://codeberg.org/gwync/quearcode
 Source0:        https://codeberg.org/gwync/quearcode/archive/%{version}.tar.gz
-Source1:        quearcode.desktop
+Source1:        org.esrum.Quearcode.desktop
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -49,13 +49,16 @@ desktop-file-install \
 %files
 %doc COPYING README.md
 %{_bindir}/quearcode
-%{_datadir}/applications/quearcode.desktop
+%{_datadir}/applications/org.esrum.Quearcode.desktop
 %{_datadir}/icons/hicolor/scalable/apps/quearcode.png
 %{_datadir}/appdata/quearcode.appdata.xml
 %{python3_sitelib}/pyquearcode
 %{python3_sitelib}/quearcode-%{version}.dist-info/
 
 %changelog
+* Tue Apr 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4.1-2
+- Match desktop file name to gtk app name.
+
 * Mon Apr 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4.1-1
 - 0.4.1
 

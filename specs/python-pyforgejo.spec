@@ -1,7 +1,7 @@
 %global pypi_name pyforgejo
 
 Name:           python-%{pypi_name}
-Version:        2.0.2
+Version:        2.0.3
 Release:        1%{?dist}
 Summary:        A client library for accessing the Forgejo API
 
@@ -47,6 +47,10 @@ A client library for accessing the Forgejo API
 %license LICENSE
 
 %changelog
+* Tue Apr 29 2025 Packit <hello@packit.dev> - 2.0.3-1
+- Update to version 2.0.3
+- Resolves: rhbz#2360670
+
 * Thu Apr 17 2025 Packit <hello@packit.dev> - 2.0.2-1
 - Update to version 2.0.2
 - Resolves: rhbz#2360670

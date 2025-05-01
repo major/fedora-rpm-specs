@@ -1,4 +1,4 @@
-%global libpqos_ver 6.0.0
+%global libpqos_ver 6.0.1
 %global desc %{expand: \
 This package provides basic support for Intel Resource Director Technology
 including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
@@ -6,8 +6,8 @@ including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
 (CDP) and Memory Bandwidth Allocation (MBA).}
 
 Name:		intel-cmt-cat
-Version:	24.05
-Release:	4%{?dist}
+Version:	25.04
+Release:	2%{?dist}
 Summary:	Intel cache monitoring and allocation technology config tool
 
 License:	BSD-3-Clause
@@ -17,9 +17,6 @@ Source: 	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		0001-alter-install-paths.patch
 Patch1:		0002-remove-build-and-install-of-examples.patch
 Patch2:		0003-allow-debian-flags-to-be-added.patch
-Patch3:		0004-lib-Fix-MBR-value-for-non-SNC-machines.patch
-Patch4:		0005-lib-fix-variable-types-in-common.c-pqos_read.patch
-Patch5:		0006-lib-Fix-calloc-arguments-that-are-in-the-wrong-order.patch
 
 ExclusiveArch:	x86_64
 
@@ -69,6 +66,9 @@ Development files.
 %{_libdir}/libpqos.so
 
 %changelog
+* Tue Apr 29 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 25.04-1
+- Update to 25.04
+
 * Wed Feb 12 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 24.05-4
 - Merging upstream patches and Rawhide FTBFS fix
 

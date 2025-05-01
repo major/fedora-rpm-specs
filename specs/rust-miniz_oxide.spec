@@ -5,7 +5,7 @@
 %global crate miniz_oxide
 
 Name:           rust-miniz_oxide
-Version:        0.8.5
+Version:        0.8.8
 Release:        %autorelease
 Summary:        DEFLATE compression and decompression library rewritten in Rust based on miniz
 
@@ -48,6 +48,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+block-boundary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+block-boundary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "block-boundary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+block-boundary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+simd-devel

@@ -301,7 +301,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -309,6 +309,11 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
+
+Patch: 0001-cpu_map-Install-Ampere-1-ARM-CPU-models.patch
+Patch: 0001-storage-stop-hardcoding-paths-for-mkfs-mount-umount.patch
+Patch: 0001-util-stop-hardcoding-numad-path.patch
+Patch: 0001-Fix-mocking-of-virQEMUCapsProbeHVF-function.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2710,6 +2715,12 @@ exit 0
 
 
 %changelog
+* Tue Apr 29 2025 Daniel P. Berrangé <berrange@redhat.com> - 11.2.0-2
+- Fix install of Ampere 1 ARM CPU model (rhbz #2361196)
+- Fix location of mount, umount (rhbz #2359196)
+- Fix location of numad (rhbz #2359736)
+- Fix tests on rebuild with latest GCC 15
+
 * Tue Apr 01 2025 Cole Robinson <crobinso@redhat.com> - 11.2.0-1
 - Update to version 11.2.0
 

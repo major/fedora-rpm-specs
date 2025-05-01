@@ -5,7 +5,7 @@
 %global crate env_logger
 
 Name:           rust-env_logger
-Version:        0.11.6
+Version:        0.11.8
 Release:        %autorelease
 Summary:        Logging implementation for log which is configured via an environment variable
 
@@ -82,6 +82,18 @@ This package contains library source intended for building other packages which
 use the "humantime" feature of the "%{crate}" crate.
 
 %files       -n %{name}+humantime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+kv-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+kv-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "kv" feature of the "%{crate}" crate.
+
+%files       -n %{name}+kv-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+regex-devel

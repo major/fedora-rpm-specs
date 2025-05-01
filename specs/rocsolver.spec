@@ -101,10 +101,26 @@ BuildRequires:  pkgconfig(libzstd)
 %endif
 
 %if %{with test}
-BuildRequires:  blas-static
+
+%if 0%{?suse_version}
+BuildRequires:  gcc-fortran
+BuildRequires:  gtest
+BuildRequires:  blas-devel-static
+BuildRequires:  lapack-devel-static
+
+# Problem on Tumbleweed 
+# CMake Error at /usr/lib64/cmake/lapack-3.12.0/lapack-targets.cmake:98 (message):
+#  The imported target "blas" references the file
+#
+#     "/usr/lib64/libblas.so.3.12.0"
+
+%else
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
+BuildRequires:  blas-static
 BuildRequires:  lapack-static
+%endif
+
 %endif
 
 %if %{with ninja}

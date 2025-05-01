@@ -3,17 +3,14 @@
 %bcond_with compiz_session
 
 Name:           gnome-flashback
-Version:        3.54.0
+Version:        3.56.0
 Release:        %autorelease
 Summary:        GNOME Flashback session
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeFlashback
-Source0:        https://download.gnome.org/sources/%{name}/3.54/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
 Source1:        %{name}.pamd
-
-# input-sources: use correct function to get attribute type (rhbz#2340243)
-Patch0:         https://gitlab.gnome.org/GNOME/gnome-flashback/-/commit/1bb758374500e247ffab150205d05b72bf21b561.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -62,6 +59,7 @@ Requires:       gnome-panel%{?_isa}
 Requires:       gnome-session%{?_isa}
 Requires:       gnome-settings-daemon%{?_isa}
 Requires:       metacity%{?_isa}
+Requires:       tecla%{?_isa}
 
 Recommends:     alacarte
 Recommends:     geoclue2%{?_isa}

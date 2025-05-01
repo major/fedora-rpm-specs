@@ -4,7 +4,7 @@
 %bcond openjph 1
 
 Name:           libheif
-Version:        1.19.7
+Version:        1.19.8
 Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -165,6 +165,10 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %changelog
+* Sun Apr 27 2025 Packit <hello@packit.dev> - 1.19.8-1
+- Update to version 1.19.8
+- Resolves: rhbz#2362578
+
 * Mon Mar 17 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.19.7-1
 - update to 1.19.7 (resolves rhbz#2349315)
 - enable OpenJPH and drop i686 ifarch for it, it builds fine there now

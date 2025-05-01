@@ -1,7 +1,7 @@
 %define name          xscreensaver
 
-%define mainversion   6.09
-#%%undefine extratarver   1
+%define mainversion   6.10
+%define extratarver   1
 #%%define beta_ver      b2
 %undefine beta_ver
 
@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    5
+%define baserelease    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -73,7 +73,7 @@
 
 Summary:         X screen saver and locker
 Name:            %{name}
-Version:         %{mainversion}
+Version:         %{mainversion}%{?extratarver:.%extratarver}
 Release:         %{?beta_ver:0.}%{baserelease}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}
 Epoch:           1
 License:         MIT
@@ -88,6 +88,9 @@ Source12:        xscreensaver-autostart.desktop
 %endif
 # wrapper script for switching user (bug 1878730)
 Source13:        xscreensaver-newlogin-wrapper
+# bug 129335
+# Remove unwilling words from barcode hack
+Source20:        barcode-words-blacklist.txt
 Source100:       ja.po
 ##
 ## Patches
@@ -102,10 +105,6 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
-# check header directory for ffmpeg related libraries and add to CFLAGS
-Patch4703:       xscreensaver-6.07-0003-check-header-directory-for-ffmpeg-related-libraries-.patch
-# ffmpeg-out.c: include additional header file
-Patch4704:       xscreensaver-6.07-0004-ffmpeg-out.c-include-additional-header-file.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -395,18 +394,21 @@ rm -f driver/XScreenSaver_ad.h
 find . -name \*.c -exec chmod ugo-x {} \;
 
 %__git init
-%__git config user.email "xscreensaver-owner@fedoraproject.org"
-%__git config user.name "XScreenSaver owners"
+%__git config user.email "xscreensaver-maintainer@fedoraproject.org"
+%__git config user.name "XScreenSaver maintainer"
 %__git add .
 %__git commit -m "base" -q
 
 %__cat %PATCH1 | %__git am
+%__cat %SOURCE20 | while read f
+do
+	sed -i hacks/barcode.c -e "\@\"$f\"@s@^.*\$@/**/@"
+done
+%__git commit -m "barcode: sanitize the names of modes" -a
 %__cat %PATCH21 | %__git am
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
-%__cat %PATCH4703 | %__git am
-%__cat %PATCH4704 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -1194,6 +1196,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Apr 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.10.1-1
+- Update to 6.10.1
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:6.09-5
 - Add explicit BR: libxcrypt-devel
 

@@ -5,7 +5,7 @@
 %global crate pasetors
 
 Name:           rust-pasetors
-Version:        0.7.2
+Version:        0.7.4
 Release:        %autorelease
 Summary:        PASETO: Platform-Agnostic Security Tokens (in Rust)
 

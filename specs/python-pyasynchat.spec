@@ -2,8 +2,8 @@
 %global modname asynchat
 
 Name:           python-%{srcname}
-Version:        1.0.2
-Release:        6%{?dist}
+Version:        1.0.4
+Release:        %autorelease
 Summary:        Make %{modname} available for Python 3.12 onwards
 
 License:        Python-2.0.1
@@ -55,19 +55,4 @@ chmod ugo-x README.md LICENSE
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.0.2-4
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 %autochangelog

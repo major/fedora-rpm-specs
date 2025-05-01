@@ -4,14 +4,17 @@
 
 %global crate git2
 
-Name:           rust-git2
-Version:        0.20.1
+Name:           rust-git2_0.19
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Bindings to libgit2 for interoperating with git repositories
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/git2
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop example-only dependencies (clap ^4, time ^0.1)
+Patch:          git2-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -102,6 +105,18 @@ use the "ssh" feature of the "%{crate}" crate.
 %files       -n %{name}+ssh-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ssh_key_from_memory-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ssh_key_from_memory-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ssh_key_from_memory" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ssh_key_from_memory-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unstable-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -129,6 +144,8 @@ use the "vendored-libgit2" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# drop examples that pull in time ^0.1
+rm -rv examples/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

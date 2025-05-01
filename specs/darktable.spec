@@ -110,10 +110,8 @@ ExcludeArch: armv7hl i686 s390x
 
 
 %description
-Darktable is a virtual light-table and darkroom for photographers:
-it manages your digital negatives in a database and lets you view them
-through a zoom-able light-table.
-It also enables you to develop raw images and enhance them.
+darktable manages your camera raw files and images in a database, lets you
+view them through lighttable mode and develop/enhance them in darkroom mode.
 
 %package tools-noise
 Summary:        The noise profiling tools to support new cameras
@@ -249,6 +247,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %changelog
 * Mon Apr 28 2025 Germano Massullo <germano.massullo@gmail.com> - 5.0.1-2
 - rebuilt
+- Updated description
 
 * Wed Feb 12 2025 Germano Massullo <germano.massullo@gmail.com> - 5.0.1-1
 - 5.0.1 release

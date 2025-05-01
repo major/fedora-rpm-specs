@@ -59,6 +59,9 @@ developing applications that use libss7.
 find %{buildroot} -name '*.a' -print -delete
 
 
+# Upstream does not include any tests.
+
+
 %files
 %license LICENSE
 %doc ChangeLog
