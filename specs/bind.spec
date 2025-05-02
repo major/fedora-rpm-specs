@@ -85,8 +85,8 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.35
-Release:  2%{?dist}
+Version:  9.18.36
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -922,6 +922,9 @@ fi;
 %endif
 
 %changelog
+* Fri Apr 25 2025 Petr Mensik <pemensik@redhat.com> - 32:9.18.36-1
+- Update to 9.18.36 (rhbz#2346607)
+
 * Wed Mar 26 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.35-2
 - Backport support for OpenSSL provider required for PKCS11 labels
 - Deactivate jemalloc default linking

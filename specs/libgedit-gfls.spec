@@ -1,16 +1,16 @@
 Name:           libgedit-gfls
-Version:        0.2.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Gedit Technology File Loading and Saving library
 
 License:        LGPL-3.0-or-later
 URL:            https://gedit-text-editor.org/
-Source:         https://download.gnome.org/sources/%{name}/0.2/%{name}-%{version}.tar.xz
+Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
-BuildRequires:  meson
+BuildRequires:  meson >= 0.64
 BuildRequires:  pkgconfig(gio-2.0) >= 2.78
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22

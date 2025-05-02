@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 5599020c7819cff3e6181a60bb17cba07ef012ee
+%global commit 7e35030d91e0a1ca8dd0f8f28c6440c598242fdd
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -17,7 +17,7 @@
 %define CHECKPOLICYVER 3.8
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 41.38
+Version: 41.39
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz

@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-phpspec-prophecy
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    a0165c648cab6a80311c74ffc708a07bb53ecc93
+%global gh_commit    35f1adb388946d92e6edab2aa2cb2b60e132ebd5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -15,8 +15,8 @@
 %bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
-Version:        1.20.0
-Release:        2%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -25,16 +25,16 @@ Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source2:        makesrc.sh
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.2
+BuildRequires:  php(language) >= 7.4
 %if %{with tests}
 BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
-BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 7)
-BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 7)
+BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 8)
+BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 8)
 BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # from composer.json, "require-dev": {
 #        "friendsofphp/php-cs-fixer": "^3.40",
 #        "phpspec/phpspec": "^6.0 || ^7.0"
-#        "phpstan/phpstan": "^1.9",
+#        "phpstan/phpstan": "^2.1.13",
 #        "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0"
 %if %{with phpspec}
 BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
@@ -42,20 +42,22 @@ BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
 BuildRequires:  phpunit8
 BuildRequires:  phpunit9
 BuildRequires:  phpunit10
+BuildRequires:  phpunit11
+BuildRequires:  phpunit12
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
-#        "php":                               "^7.2 || 8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
+#        "php":                               "^7.4 || 8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
 #        "phpdocumentor/reflection-docblock": "^5.2",
-#        "sebastian/comparator":              "^3.0 || ^4.0 || ^5.0 || ^6.0",
+#        "sebastian/comparator":              "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
 #        "doctrine/instantiator":             "^1.2 || ^2.0",
-#        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0 || ^6.0"
-Requires:       php(language) >= 7.2
+#        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
+Requires:       php(language) >= 7.4
 Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
-Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 7)
-Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 7)
+Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 8)
+Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 8)
 Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # From phpcompatinfo report for version 1.11.0
 Requires:       php-pcre
@@ -102,6 +104,9 @@ if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from php
 	if (PHP_VERSION_ID > 80200) {
 		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/Comparator6/autoload.php');
 	}
+	if (PHP_VERSION_ID > 80300) {
+		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/Comparator7/autoload.php');
+	}
     \Fedora\Autoloader\Dependencies::required([$inst]);
 }
 if (!class_exists('SebastianBergmann\\RecursionContext\\Context')) { // v2 from phpunit, v1 from phpspec
@@ -114,6 +119,9 @@ if (!class_exists('SebastianBergmann\\RecursionContext\\Context')) { // v2 from 
 	}
 	if (PHP_VERSION_ID > 80200) {
 		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/RecursionContext6/autoload.php');
+	}
+	if (PHP_VERSION_ID > 80300) {
+		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/RecursionContext7/autoload.php');
 	}
     \Fedora\Autoloader\Dependencies::required([$inst]);
 }
@@ -162,6 +170,21 @@ for cmd in php php81 php82 php83 php84; do
          || ret=1
   fi
 done
+for cmd in php php82 php83 php84; do
+  if which $cmd; then
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+       %{_bindir}/phpunit11 \
+         || ret=1
+  fi
+done
+# Not ready see https://github.com/phpspec/prophecy/issues/640
+for cmd in php php83 php84; do
+  if which $cmd; then
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+       %{_bindir}/phpunit12 \
+         || ignore=1
+  fi
+done
 exit $ret
 %else
 : Test suite disabled
@@ -176,6 +199,10 @@ exit $ret
 
 
 %changelog
+* Wed Apr 30 2025 Remi Collet <remi@remirepo.net> - 1.22.0-1
+- update to 1.22.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.21.0
+Version:                0.21.1
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -25,7 +25,7 @@ Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools >= 0.7.0
 BuildRequires:  git
-BuildRequires:  docker-distribution
+BuildRequires:  golang-github-distribution-3
 
 # Upstream binary package includes the package equivalents below
 Requires:       containerd

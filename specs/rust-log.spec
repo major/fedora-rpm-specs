@@ -5,7 +5,7 @@
 %global crate log
 
 Name:           rust-log
-Version:        0.4.26
+Version:        0.4.27
 Release:        %autorelease
 Summary:        Lightweight logging facade for Rust
 
@@ -14,7 +14,9 @@ URL:            https://crates.io/crates/log
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop references to tests that are not included in published crates
-# * drop dependencies and features for unstable key-value-pair logging support
+# * drop unstable versions of features for key-value-pair logging support
+# * drop dependencies and features for stablized key-value-pair logging support
+#   to avoid packaging additional dependencies
 Patch:          log-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

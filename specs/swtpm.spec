@@ -7,20 +7,11 @@
 
 Summary: TPM Emulator
 Name:           swtpm
-Version:        0.10.0
-Release:        12%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch1:         0001-SELinux-Add-rule-for-swtpm-to-be-able-to-read-passwo.patch
-Patch2:         0001-swtpm-Fix-build-error-on-32bit-systems-due-to-incons.patch
-Patch3:         0001-SELinux-allow-to-map-state-file.patch
-Patch4:         0002-SELinux-add-NFS-permissions-for-swtpm_t.patch
-Patch5:         0001-selinux-Add-rule-to-allow-swtpm_t-opening-of-virt_lo.patch
-Patch6:         0001-swtpm-setup-fix-invalid-path.patch
-Patch7:         0001-swtpm_setup-Use-DISTRO_PROFILES_DIR-when-listing-pro.patch
-Patch8:         0001-swtpm_setup-Do-not-pass-a-TPM-2-profile-to-swtpm-whe.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -50,7 +41,7 @@ BuildRequires:  python3-devel
 BuildRequires:  gmp-devel
 
 Requires:       %{name}-libs = %{version}-%{release}
-Requires:       libtpms >= 0.6.0
+Requires:       libtpms >= 0.10.0
 Requires:       (%{name}-selinux if selinux-policy-targeted)
 
 %description
@@ -210,6 +201,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Wed Apr 30 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.1-1
+- Update to v0.10.1 release
+
 * Tue Apr 29 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 0.10.0-12
 - Consolidate SELinux macro calls
 

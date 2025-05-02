@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc4.20250429gitca91b9500108.36
+%define pkgrelease 0.rc4.20250430gitb6ea1680d0ac.37
 %define kversion 6
-%define tarfile_release 6.15-rc4-21-gca91b9500108
+%define tarfile_release 6.15-rc4-42-gb6ea1680d0ac
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.20250429gitca91b9500108.36%{?buildid}%{?dist}
+%define specrelease 0.rc4.20250430gitb6ea1680d0ac.37%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4271,6 +4271,10 @@ fi\
 #
 #
 %changelog
+* Wed Apr 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.b6ea1680d0ac.37]
+- redhat/configs: Adjust CONFIG_TUNE for s390x (Mete Durlu)
+- Linux v6.15.0-0.rc4.b6ea1680d0ac
+
 * Tue Apr 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.ca91b9500108.36]
 - redhat/spec: fix selftests dependencies (Gregory Bell) [RHEL-88228]
 - redhat: add namespace selftests to kernel-modules-internal package (Joel Savitz) [RHEL-88635]

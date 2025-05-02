@@ -87,13 +87,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        128.9.2
+Version:        128.10.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250416.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250428.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -761,6 +761,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Tue Apr 29 2025 Eike Rathke <erack@redhat.com> - 128.10.0-1
+- Update to 128.10.0
+
 * Thu Apr 17 2025 Eike Rathke <erack@redhat.com> - 128.9.2-1
 - Update to 128.9.2
 

@@ -1,6 +1,6 @@
 Name: dropwatch
-Version: 1.5.4
-Release: 9%{?dist}
+Version: 1.5.5
+Release: 1%{?dist}
 Summary: Kernel dropped packet monitor
 
 License: GPL-2.0-or-later
@@ -46,6 +46,12 @@ network packets.
 %license COPYING
 
 %changelog
+* Wed Apr 30 2025 Hangbin Liu <haliu@redhat.com> - 1.5.5-1
+- Update to version 1.5.5
+- kas is the default symbol lookup method now
+- Fix building without libtool installed
+- Misc fixes for kas lookup logic
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

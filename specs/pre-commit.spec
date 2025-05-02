@@ -30,13 +30,19 @@ Source112:       pre-commit-uninstall.1
 Source113:       pre-commit-validate-config.1
 Source114:       pre-commit-validate-manifest.1
 
+BuildSystem:            pyproject
+BuildOption(prep):      -S git
+BuildOption(install):   -l pre_commit
+# Any Python files inside pre_commit.resources are templates and are not
+# intended to be imported.
+BuildOption(check):     -e 'pre_commit.resources.*'
+BuildOption(generate_buildrequires): %{?with_check:requirements-dev-filtered.txt}
+
 BuildArch:      noarch
 
 # Much functionality relies on invoking git commands.
 Requires:       git-core
-
 BuildRequires:  git-core
-BuildRequires:  python3-devel
 
 %if %{with check}
 # Manually added to speed up the %%check section
@@ -47,36 +53,20 @@ BuildRequires:  python3dist(pytest-xdist)
 A framework for managing and maintaining multi-language pre-commit hooks.
 
 
-%prep
-%autosetup -p1 -S git
+%prep -a
 # Do not generate BR’s for coverage, linters, etc.:
 sed -r '/^(covdefaults|coverage)\b/d' requirements-dev.txt |
   tee requirements-dev-filtered.txt
 
 
-%generate_buildrequires
-%pyproject_buildrequires -r %{?with_check:requirements-dev-filtered.txt}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l pre_commit
-
+%install -a
 install -t %{buildroot}%{_mandir}/man1 -p -m 0644 -D \
     %{SOURCE100} %{SOURCE101} %{SOURCE102} %{SOURCE103} %{SOURCE104} \
     %{SOURCE105} %{SOURCE106} %{SOURCE107} %{SOURCE108} %{SOURCE109} \
     %{SOURCE110} %{SOURCE111} %{SOURCE112} %{SOURCE113} %{SOURCE114}
 
 
-%check
-# Any Python files inside pre_commit.resources are templates and are not
-# intended to be imported.
-%pyproject_check_import -e 'pre_commit.resources.*'
-
+%check -a
 %if %{with check}
 # For general discusson on test failures building distribution packages, see:
 # https://github.com/pre-commit/pre-commit/issues/1183,

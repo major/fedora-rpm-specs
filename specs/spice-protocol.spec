@@ -1,16 +1,14 @@
 Name:           spice-protocol
-Version:        0.14.4
-Release:        7%{?dist}
+Version:        0.14.5
+Release:        1%{?dist}
 Summary:        Spice protocol header files
 # Main headers are BSD, controller / foreign menu are LGPL
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://www.spice-space.org/
 Source0:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.xz
-Source1:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.xz.sig
-Source2:        victortoso-E37A484F.keyring
 
 BuildArch:      noarch
-BuildRequires:  gnupg2
+BuildRequires:  gcc
 BuildRequires:  meson
 
 %description
@@ -19,7 +17,6 @@ and the para-virtual graphics card QXL.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -p1
 
 %build
@@ -37,6 +34,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 
 %changelog
+* Wed Apr 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.14.5-1
+- new version
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

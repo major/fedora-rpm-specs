@@ -5,22 +5,21 @@ Summary:        Electronic Design Automation software; from prototype to product
 License:        GPL-3.0-or-later
 URL:            http://fritzing.org/
 
-Version:        1.0.0
-%global baserelease 6
+Version:        1.0.5
+%global baserelease 1
 
-# The fritzing-app repo does not contain a tag for v1.0.0.
-%global app_date 20230425
-%global app_commit 7b75a63c264b31b9ed69481f1f2c84c53f940e03
-
-# The fritzing-parts repository no longer uses git tags for marking releases.
-# Upstream build scripts seem to just take the latest commit
-# from fritzing-parts's "develop" branch.
+# The upstream developer no longer marks their releases with git tags.
+# The official website says that v1.0.5 was released on 2025-04-14.
 #
-# The app commit we're using is dated 2023-04-25.
-# In the parts repo, the last commit made before that date is from 2023-04-24.
-# Use the fritzing-parts repo as of said commit.
-%global parts_date 20230424
-%global parts_commit e270ebfd8ee7dd40a6ef29ad0d3dba006e9eee61
+# There are no commits in the fritzing-app repo on that date.
+# The latest commit before that date is the one listed below.
+%global app_date 20250402
+%global app_commit b9add9eaa7c426963de20c8514a69d3f15e83bdf
+
+# There are no commits in the fritzing-parts repo on release date.
+# The latest commit made before that date is the one listed below.
+%global parts_date 20240930
+%global parts_commit 76235099ed556e52003de63522fdd74e61d53a36
 
 # Include the commit date in the release numbers
 %global app_release %{baserelease}.%{app_date}%{?dist}
@@ -34,23 +33,34 @@ Source1:        https://github.com/%{name}/%{name}-parts/archive/%{parts_commit}
 # Fedora-specific patch to disable internal auto-updating feature.
 # Also removes dependency of libgit2 (used only during the auto-update process).
 Patch0:         0000-disable-autoupdate.patch
-# Use the system quazip library instead of the bundled one.
-Patch1:         0001-unbundle-quazip.patch
 # Remove references to example sketches that use twitter4j library
 Patch2:         0002-remove-twitter4j.patch
+# Remove the "Qt version cannot be greater than X.Y.Z" check.
+Patch3:         0003-maximum-qt-version.patch
+
+# Fix build issued with Qt 6.9.
+# Borrowed from: https://aur.archlinux.org/cgit/aur.git/plain/0004-Work-around-build-issues-with-Qt-6.9.patch?h=fritzing
+Patch4:         0004-Work-around-build-issues-with-Qt-6.9.patch
+
+# Point library detection scripts to system-provided libs.
+Patch10:        0010-quazip-detect.patch
+Patch11:        0011-ngspice-detect.patch
+Patch12:        0012-clipper1-detect.patch
 
 BuildRequires:  pkgconfig(ngspice)
-BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5PrintSupport)
-BuildRequires:  pkgconfig(Qt5SerialPort)
-BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(quazip1-qt5)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(polyclipping)
+BuildRequires:  pkgconfig(Qt6Concurrent)
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Network)
+BuildRequires:  pkgconfig(Qt6PrintSupport)
+BuildRequires:  pkgconfig(Qt6SerialPort)
+BuildRequires:  pkgconfig(Qt6Sql)
+BuildRequires:  pkgconfig(Qt6Svg)
+BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  pkgconfig(Qt6Xml)
+BuildRequires:  pkgconfig(quazip1-qt6)
 BuildRequires:  pkgconfig(zlib)
 
 BuildRequires:  boost-devel
@@ -59,6 +69,7 @@ BuildRequires:  findutils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+BuildRequires:  svgpp-devel
 
 Requires:       %{name}-parts = %{version}-%{parts_release}
 %if %{undefined flatpak}
@@ -90,7 +101,7 @@ containing both metadata and related graphics.
 
 
 %prep
-%setup -q -n %{name}-app-%{app_commit}
+%autosetup -p1 -n %{name}-app-%{app_commit}
 
 %setup -q -T -D -a 1 -n %{name}-app-%{app_commit}
 mv %{name}-parts-%{parts_commit}/ parts/
@@ -99,16 +110,8 @@ mv %{name}-parts-%{parts_commit}/ parts/
 rm -rf .github || true
 rm -rf parts/.github || true
 
-# We don't want the autoupdater.
-%patch -P 0 -p1 -b .disable-updates
-
-# We use the unbundled version of quazip.
-%patch -P 1 -p1 -b .unbundle-quazip
-rm -rf src/lib/quazip
-
 # The TwitterSaurus examples use (a bundled) twitter4j library, whose license
 # is incompatible with Fedora.
-%patch -P 2 -p1 -b .remove-twitter4j
 rm -f sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Fritzing/TwitterSaurus.fzz
 rm -f sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Processing/twitter4j-core-2.2.5.jar
 rm -rf sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Processing/TwitterSaurus*
@@ -118,9 +121,8 @@ rm -f sketches/core/obsolete/TwitterSaurus.fzz
 sed -e '/<url type="forum">/d' -i '%{rtld_name}.appdata.xml'
 
 
-
 %build
-%qmake_qt5 PREFIX=%{_prefix}
+%qmake_qt6 PREFIX=%{_prefix}
 %make_build V=1
 
 # Generate the parts database
@@ -161,6 +163,16 @@ fi
 
 
 %changelog
+* Wed Apr 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.5-1.20250402
+- Update to v1.0.5
+
+* Wed Apr 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.4-2.20241007
+- Add patch to fix build failure with Qt >= 6.9
+
+* Wed Mar 19 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.4-1.20241007
+- Update to v1.0.4
+- Drop Patch1 (un-bundle quazip - unbundled upstream)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6.20230425
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

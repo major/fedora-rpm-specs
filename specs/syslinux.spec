@@ -10,7 +10,7 @@ Summary: Simple kernel loader which boots from a FAT filesystem
 Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
-Release: 0.31%{?dist}
+Release: 0.32%{?dist}
 License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
@@ -47,10 +47,6 @@ BuildRequires: mingw32-gcc
 Requires: mtools, libc.so.6()(64bit)
 BuildRequires: mingw32-gcc mingw64-gcc
 %endif
-
-# NOTE: extlinux belongs in /sbin, not in /usr/sbin, since it is typically
-# a system bootloader, and may be necessary for system recovery.
-%define _sbindir /sbin
 
 %description
 SYSLINUX is a suite of bootloaders, currently supporting DOS FAT
@@ -263,6 +259,10 @@ fi
 %endif
 
 %changelog
+* Tue Apr 29 2025 Leo Sandoval <lsandova@redhat.com> - 6.04-0.32
+- Remove _sbindir macro, it is not required anymore
+- Resolves: #2362819
+
 * Wed Feb 19 2025 Leo Sandoval <lsandova@redhat.com> - 6.04-0.31
 - Fix true positives SAST findings
 

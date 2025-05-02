@@ -23,14 +23,15 @@
 
 Name:		nordugrid-arc
 Version:	7.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
 License:	Apache-2.0 AND MIT
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-Patch0:		0001-The-VOMSUtilTest-fails-with-OpenSSL-3.5.patch
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1903
+Patch0:		0001-Update-the-VOMS-attribute-certificate-signing-hash-a.patch
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1892
 Patch1:		0001-Fix-shell-syntax-errors-reported-by-lintian.patch
 
@@ -548,9 +549,7 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 
 %prep
 %setup -q
-%if %{?fedora}%{!?fedora:0} >= 43
 %patch -P0 -p1
-%endif
 %patch -P1 -p1
 
 %build
@@ -614,6 +613,9 @@ mkdir -p %{buildroot}%{_localstatedir}/log/arc
 mkdir -p %{buildroot}%{_localstatedir}/spool/arc
 mkdir -p %{buildroot}%{_localstatedir}/spool/arc/ssm
 mkdir -p %{buildroot}%{_localstatedir}/spool/arc/urs
+
+# create config directory
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/arc.conf.d
 
 %find_lang %{name}
 
@@ -972,6 +974,7 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_datadir}/%{pkgdir}/rte/ENV/CONDOR/DOCKER
 %{_sbindir}/a-rex-backtrace-collect
 %config(noreplace) %{_sysconfdir}/arc.conf
+%dir %{_sysconfdir}/arc.conf.d
 
 %files arex-lrms-contrib
 %{_datadir}/%{pkgdir}/cancel-boinc-job
@@ -1130,6 +1133,11 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Wed Apr 30 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-3
+- Update the VOMS attribute certificate signing hash algorithm
+- Re-enable the VOMSUtilTest on Fedora 43 (after above fix)
+- Fix unowned directory /etc/arc.conf.d
+
 * Wed Apr 16 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-2
 - Drop the GFAL plugin for Fedora 43+ and EPEL 10+
 - Drop old obsoletes

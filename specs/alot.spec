@@ -1,12 +1,13 @@
 Name:           alot
 Version:        0.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/pazz/alot
 Source0:        %{url}/archive/%{version}/%{version}.tar.gz
+Patch:          0001-replace-python-magic-with-file-magic.patch
 
 BuildArch:      noarch
 
@@ -53,6 +54,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Tue Apr 29 2025 Dick Marinus <dick@mrns.nl> - 0.11-7
+- Replace python-magic with file-magic
+
 * Mon Apr 28 2025 Dick Marinus <dick@mrns.nl> - 0.11-6
 - Add unittest
 

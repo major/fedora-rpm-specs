@@ -1,24 +1,22 @@
 %global api_version 300
-%global glib_version 2.74
-%global gtk_version 3.20
 
 Name:           libgedit-gtksourceview
-Version:        299.4.0
+Version:        299.5.0
 Release:        %autorelease
 Summary:        Gedit Technology - Source code editing widget
 License:        LGPL-2.1-or-later
 URL:            https://gedit-text-editor.org/
-Source:         https://download.gnome.org/sources/%{name}/299/%{name}-%{version}.tar.xz
+Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 # %%generate_buildrequires in RPM spec
 Patch:          rpmspec.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
-BuildRequires:  meson
-BuildRequires:  pkgconfig(gio-2.0) >= %{glib_version}
+BuildRequires:  meson >= 0.64
+BuildRequires:  pkgconfig(gio-2.0) >= 2.74
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk_version}
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.20
 BuildRequires:  pkgconfig(libxml-2.0)
 
 %description

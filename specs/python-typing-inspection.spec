@@ -35,7 +35,6 @@ tomcli set pyproject.toml lists delitem dependency-groups.tests \
 
 
 %check -a
-%pyproject_check_import
 %pytest
 
 

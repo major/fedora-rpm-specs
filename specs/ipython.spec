@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.32.0
+Version:        8.36.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -24,6 +24,9 @@ Summary:        An enhanced interactive Python shell
 License:        BSD-3-Clause AND MIT AND CC-BY-4.0
 URL:            http://ipython.org/
 Source0:        %pypi_source
+# Compatibility with Python 3.14
+# released upstream in 9.2.0
+Patch:          https://github.com/ipython/ipython/pull/14876.patch
 
 BuildArch:      noarch
 BuildRequires:  make

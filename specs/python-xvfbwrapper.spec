@@ -2,7 +2,7 @@
 %global pypi_name xvfbwrapper
 
 Name:           python-%{pypi_name}
-Version:        0.2.10
+Version:        0.2.12
 Release:        %autorelease
 Summary:        run headless display inside X virtual framebuffer (Xvfb)
 
@@ -21,9 +21,6 @@ Python wrapper for running a display inside X virtual framebuffer (Xvfb)
 Summary:        run headless display inside X virtual framebuffer (Xvfb)
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-mock
-BuildRequires: python3-pytest
 BuildRequires: xorg-x11-server-Xvfb
 
 %description -n python3-%{pypi_name}
@@ -35,21 +32,24 @@ Python wrapper for running a display inside X virtual framebuffer (Xvfb)
 # remove shebang
 sed -i '1{\@^#!/usr/bin/env python@d}' xvfbwrapper.py
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 export DISPLAY=:0.0
 %pytest
 
 %files -n python3-%{pypi_name}
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/%{pypi_name}.py*
 %{python3_sitelib}/__pycache__/%{pypi_name}.*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/*
 
 %changelog
 %autochangelog

@@ -1,4 +1,3 @@
-%global         __cmake_in_source_build 0
 %global         with_cppunit 1
 %global	        gtest 1
 %global         profiling 1
@@ -11,6 +10,9 @@ License:	GPL-2.0-or-later
 URL:            https://github.com/%{name}/%{name}
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Building with Ninja generator fails, further investigation needed
+%global _cmake_generator "Unix Makefiles"
+BuildRequires:  make
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes

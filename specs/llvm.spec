@@ -321,7 +321,7 @@ Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 
 # Fix for glibc >= 2.42
 # https://github.com/llvm/llvm-project/pull/137403
-Patch105: 0001-sanitizer_common-Remove-interceptors-for-deprecated-.patch
+Patch2005: 0001-sanitizer_common-Remove-interceptors-for-deprecated-.patch
 
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)

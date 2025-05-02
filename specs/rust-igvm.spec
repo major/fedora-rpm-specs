@@ -2,25 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sdd
+%global crate igvm
 
-Name:           rust-sdd
-Version:        3.0.8
+Name:           rust-igvm
+Version:        0.3.4
 Release:        %autorelease
-Summary:        Containers and utilities for concurrent and asynchronous programming
+Summary:        Igvm is an implementation of a parser for the Independent Guest Virtual Machine
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/sdd
+License:        MIT
+URL:            https://crates.io/crates/igvm
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-# * drop unused, optional dependency for loom perturbation testing
-Patch:          sdd-fix-metadata.diff
+
+# Bump bitfield-struct to version 0.10. Can be safely removed when version > 0.3.4
+Patch:          igvm-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Scalable lock-free delayed memory reclaimer.}
+The igvm crate is an implementation of a parser for the Independent
+Guest Virtual Machine (IGVM) file format.}
 
 %description %{_description}
 
@@ -35,7 +35,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+igvm-c-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+igvm-c-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "igvm-c" feature of the "%{crate}" crate.
+
+%files       -n %{name}+igvm-c-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

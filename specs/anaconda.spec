@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.16
+Version: 43.17
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -502,6 +502,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 29 2025 Packit <hello@packit.dev> - 43.17-1
+- pyanaconda: storage: efi: never try to decode utf8 when calling efibootmgr
+  (k.koukiou)
+- Add additional config_get Dracut function tests (jkonecny)
+- Run restorecon after copying logs (champetier.etienne)
+- rpm_ostree/installation.py: fix image deployment on s390x (nikita)
+
 * Tue Apr 22 2025 Packit <hello@packit.dev> - 43.16-1
 - Bump required version of blivet to 3.12.1 (vtrefny)
 - Fstab handling moves to blivet (japokorn)

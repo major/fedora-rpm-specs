@@ -53,6 +53,7 @@
 
 %global tools_only 0
 
+%global user_dynamic 1
 %global user_static 1
 %if 0%{?rhel}
 # EPEL/RHEL do not have required -static builddeps
@@ -128,9 +129,13 @@
 
 %global have_gvnc_devel %{defined fedora}
 %global have_sdl_image %{defined fedora}
+%global have_brlapi 1
+%global have_daxctl 1
 %global have_fdt 1
+%global have_multipath 1
 %global have_opengl 1
 %global have_usbredir 1
+%global have_xdp 1
 %global enable_werror 0
 
 
@@ -181,6 +186,28 @@
 %global have_libcbor 1
 %if 0%{?rhel}
 # libcbor missing on centos stream 9
+%global have_libcbor 0
+%endif
+
+%if %{defined flatpak}
+%global user_dynamic 0
+%global user_static 0
+%global have_numactl 0
+%global have_xen 0
+%global have_liburing 0
+%global have_pmem 0
+%global have_libblkio 0
+%global have_brlapi 0
+%global have_daxctl 0
+%global have_multipath 0
+%global have_xdp 0
+%global have_block_gluster 0
+%global have_block_iscsi 0
+%global have_block_rbd 0
+%global have_block_nfs 0
+%global have_librdma 0
+%global have_libcacard 0
+%global have_qatzip 0
 %global have_libcbor 0
 %endif
 
@@ -235,7 +262,13 @@
 %define requires_audio_pa Requires: %{name}-audio-pa = %{evr}
 %define requires_audio_pipewire Requires: %{name}-audio-pipewire = %{evr}
 %define requires_audio_sdl Requires: %{name}-audio-sdl = %{evr}
+%if %{have_brlapi}
 %define requires_char_baum Requires: %{name}-char-baum = %{evr}
+%define obsoletes_char_baum %{nil}
+%else
+%define requires_char_baum %{nil}
+%define obsoletes_char_baum Obsoletes: %{name}-char-baum < %{evr}
+%endif
 %define requires_device_usb_host Requires: %{name}-device-usb-host = %{evr}
 %define requires_device_usb_redirect Requires: %{name}-device-usb-redirect = %{evr}
 %define requires_ui_curses Requires: %{name}-ui-curses = %{evr}
@@ -366,6 +399,7 @@
 %{obsoletes_block_gluster} \
 %{obsoletes_block_rbd} \
 %{obsoletes_block_iscsi} \
+%{obsoletes_char_baum} \
 %{obsoletes_package_virtiofsd} \
 %{obsoletes_package_kvm} \
 Obsoletes: %{name}-system-cris <= %{epoch}:%{version}-%{release} \
@@ -500,9 +534,11 @@ BuildRequires: lzo-devel snappy-devel
 %if %{have_numactl}
 BuildRequires: numactl-devel
 %endif
+%if %{have_multipath}
 # qemu-pr-helper multipath support (requires libudev too)
 BuildRequires: device-mapper-multipath-devel
 BuildRequires: systemd-devel
+%endif
 %if %{have_pmem}
 BuildRequires: libpmem-devel
 %endif
@@ -549,8 +585,10 @@ BuildRequires: spice-server-devel
 %endif
 # VNC JPEG support
 BuildRequires: libjpeg-devel
+%if %{have_brlapi}
 # Braille device support
 BuildRequires: brlapi-devel
+%endif
 %if %{have_block_gluster}
 # gluster block driver
 BuildRequires: glusterfs-api-devel
@@ -590,8 +628,10 @@ BuildRequires: liburing-devel
 BuildRequires: libzstd-devel
 # `hostname` used by test suite
 BuildRequires: hostname
+%if %{have_daxctl}
 # nvdimm dax
 BuildRequires: daxctl-devel
+%endif
 # fuse block device
 BuildRequires: fuse-devel
 %if %{have_jack}
@@ -610,8 +650,10 @@ BuildRequires: pkgconfig(gvnc-1.0)
 BuildRequires: pipewire-devel
 # Used by cryptodev-backend-lkcf
 BuildRequires: keyutils-libs-devel
+%if %{have_xdp}
 # Used by net AF_XDP
 BuildRequires: libxdp-devel
+%endif
 # used by virtio-gpu-rutabaga
 %if %{have_rutabaga_gfx}
 BuildRequires: rutabaga-gfx-ffi-devel
@@ -639,7 +681,9 @@ BuildRequires: libatomic-static
 
 
 # Requires for the Fedora 'qemu' metapackage
+%if %{user_dynamic}
 Requires: %{name}-user = %{epoch}:%{version}-%{release}
+%endif
 Requires: %{name}-system-aarch64 = %{epoch}:%{version}-%{release}
 Requires: %{name}-system-alpha = %{epoch}:%{version}-%{release}
 Requires: %{name}-system-arm = %{epoch}:%{version}-%{release}
@@ -918,11 +962,13 @@ Requires: %{name}-ui-opengl%{?_isa} = %{epoch}:%{version}-%{release}
 This package provides the additional egl-headless UI for QEMU.
 
 
+%if %{have_brlapi}
 %package  char-baum
 Summary: QEMU Baum chardev driver
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description char-baum
 This package provides the Baum chardev driver for QEMU.
+%endif
 
 
 %package device-display-virtio-gpu
@@ -1095,6 +1141,7 @@ x86 system, this will install qemu-system-x86-core
 %endif
 
 
+%if %{user_dynamic}
 %package user
 Summary: QEMU user mode emulation of qemu targets
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
@@ -1114,6 +1161,7 @@ Requires(postun): systemd-units
 #Conflicts: qemu-user-static
 %description user-binfmt
 This package provides the user mode emulation of qemu targets
+%endif
 
 %if %{user_static}
 %package user-static
@@ -1234,7 +1282,6 @@ Summary: QEMU user mode emulation of sh4 qemu targets static build
 %description user-static-sh4
 This package provides the sh4 user mode emulation of qemu targets built as
 static binaries
-%endif
 
 %package user-static-sparc
 Summary: QEMU user mode emulation of sparc qemu targets static build
@@ -1253,6 +1300,7 @@ Summary: QEMU user mode emulation of xtensa qemu targets static build
 %description user-static-xtensa
 This package provides the xtensa user mode emulation of qemu targets built as
 static binaries
+%endif
 
 
 %package system-aarch64
@@ -1749,7 +1797,9 @@ run_configure \
 %if %{defined block_drivers_ro_list}
   --block-drv-ro-whitelist=%{block_drivers_ro_list} \
 %endif
+%if %{have_xdp}
   --enable-af-xdp \
+%endif
   --enable-alsa \
   --enable-attr \
 %ifarch %{ix86} x86_64
@@ -1800,7 +1850,9 @@ run_configure \
   --enable-lzo \
   --enable-malloc-trim \
   --enable-modules \
+%if %{have_multipath}
   --enable-mpath \
+%endif
 %if %{have_numactl}
   --enable-numa \
 %endif
@@ -1850,7 +1902,9 @@ run_configure \
   --with-default-devices \
   --enable-auth-pam \
   --enable-bochs \
+%if %{have_brlapi}
   --enable-brlapi \
+%endif
   --enable-bzip2 \
   --enable-cloop \
   --enable-curses \
@@ -1862,7 +1916,9 @@ run_configure \
 %endif
   --enable-gtk \
   --enable-hv-balloon \
+%if %{have_daxctl}
   --enable-libdaxctl \
+%endif
   --enable-libdw \
   --enable-libkeyutils \
 %if %{have_block_nfs}
@@ -1871,7 +1927,9 @@ run_configure \
 %if %{have_liburing}
   --enable-linux-io-uring \
 %endif
+%if %{user_dynamic}
   --enable-linux-user \
+%endif
   --enable-multiprocess \
   --enable-parallels \
 %if %{have_qatzip}
@@ -2109,6 +2167,7 @@ ln -sf qemu-system-x86_64 %{buildroot}%{_bindir}/qemu-kvm
 
 
 # Install binfmt
+%if %{user_dynamic}
 %global binfmt_dir %{buildroot}%{_exec_prefix}/lib/binfmt.d
 mkdir -p %{binfmt_dir}
 
@@ -2122,6 +2181,7 @@ mkdir -p %{binfmt_dir}
 
 ./scripts/qemu-binfmt-conf.sh %{?ignore_family} --systemd ALL --exportdir %{binfmt_dir} --qemu-path %{_bindir}
 for i in %{binfmt_dir}/*; do mv $i $(echo $i | sed 's/.conf/-dynamic.conf/'); done
+%endif
 
 
 # Install qemu-user-static tree
@@ -2256,10 +2316,12 @@ popd
 
 
 
+%if %{user_dynamic}
 %post user-binfmt
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
 %postun user-binfmt
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
+%endif
 
 %if %{user_static}
 %post user-static-aarch64
@@ -2331,7 +2393,6 @@ popd
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
 %postun user-static-sh4
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
-%endif
 
 %post user-static-sparc
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
@@ -2347,6 +2408,7 @@ popd
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
 %postun user-static-xtensa
 /bin/systemctl --system try-restart systemd-binfmt.service &>/dev/null || :
+%endif
 
 # endif !tools_only
 %endif
@@ -2523,8 +2585,10 @@ popd
 %files ui-egl-headless
 %{_libdir}/%{name}/ui-egl-headless.so
 
+%if %{have_brlapi}
 %files char-baum
 %{_libdir}/%{name}/chardev-baum.so
+%endif
 
 
 %files device-display-virtio-gpu
@@ -2598,6 +2662,7 @@ popd
 %endif
 
 
+%if %{user_dynamic}
 %files user
 %{_bindir}/qemu-i386
 %{_bindir}/qemu-x86_64
@@ -2736,6 +2801,7 @@ popd
 
 %files user-binfmt
 %{_exec_prefix}/lib/binfmt.d/qemu-*-dynamic.conf
+%endif
 
 %if %{user_static}
 %files user-static

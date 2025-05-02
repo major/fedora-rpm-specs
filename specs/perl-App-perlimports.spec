@@ -1,5 +1,5 @@
 Name:           perl-App-perlimports
-Version:        0.000056
+Version:        0.000057
 Release:        %autorelease
 Summary:        A command line utility for cleaning up imports in your Perl code
 

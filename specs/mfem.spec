@@ -2,7 +2,7 @@
 %bcond_without mpich
 
 %global forgeurl https://github.com/mfem/mfem
-Version:        4.7
+Version:        4.8
 %global sover   %{version}.0
 %forgemeta
 

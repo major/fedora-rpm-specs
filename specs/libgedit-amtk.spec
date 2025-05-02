@@ -1,10 +1,10 @@
 Name:           libgedit-amtk
-Version:        5.9.0
+Version:        5.9.1
 Release:        %autorelease
 Summary:        Gedit Technology - Actions, Menus and Toolbars Kit
 License:        LGPL-3.0-or-later
 URL:            https://gedit-text-editor.org/
-Source:         https://download.gnome.org/sources/libgedit-amtk/5.9/%{name}-%{version}.tar.xz
+Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gettext

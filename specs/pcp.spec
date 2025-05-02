@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,6 +9,7 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 
 Patch0: selinux-proc_psi_t.patch
 Patch1: pcp-filter-exact.patch
+Patch2: pcp_openmetrics.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -3613,6 +3614,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Apr 30 2025 Lauren Chilton <lchilton@redhat.com> - 6.3.7-4
+- Backport metric removal for pmdaopenmetrics
+
 * Tue Apr 22 2025 William Cohen <wcohen@redhat.com> - 6.3.7-3
 - Backport the webapi filtering fix to allow the use of exact matching.
 

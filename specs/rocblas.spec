@@ -91,7 +91,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -99,6 +99,7 @@ License:        MIT AND BSD-3-Clause
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch2:         0001-fixup-install-of-tensile-output.patch
 Patch4:         0001-offload-compress-option.patch
+Patch6:         0001-option-to-disable-roctracer-logging.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -108,7 +109,11 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+# roctracer functionality has been patched out of rhel builds
+%if ! 0%{?rhel}
 BuildRequires:  roctracer-devel
+%endif
+
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -158,7 +163,7 @@ BuildRequires:  gtest-devel
 %endif
 
 %if %{with ninja}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:  ninja-build
 %endif
 %if 0%{?suse_version}
@@ -242,7 +247,7 @@ fi
 if [ ${CORES} = 1 ]; then
     CORES=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
     if [ ${CORES}x = x ]; then
-	CORES=4
+        CORES=4
     fi
 fi
 
@@ -274,6 +279,9 @@ fi
     -DTensile_VERBOSE=%{tensile_verbose} \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
     -DTensile_DIR=${TP}/cmake \
+%if 0%{?rhel}
+    -DDISABLE_ROCTRACER=ON \
+%endif
     -DBUILD_WITH_PIP=OFF
 
 %cmake_build
@@ -293,7 +301,7 @@ find %{buildroot}           -name 'rocblas_*'    | sed -f br.sed >> %{name}.test
 if [ -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
 fi
-    
+
 %check
 %if %{with test}
 %if %{with check}
@@ -325,6 +333,11 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Apr 29 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-5
+- add patch for option to disable roctracer logging
+- disable roctracer logging for rhel builds
+- allow for builds on rhel with ninja
+
 * Tue Apr 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Improve testing for suse
 

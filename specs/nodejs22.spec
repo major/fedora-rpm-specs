@@ -804,8 +804,12 @@ sed -e 's#@PREFIX@#%{_prefix}#g' \
 
 %check
 #run unit test that should pass from list
-bash %{SOURCE300} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} %{_builddir}/node-v%{nodejs_version}/test/ %{SOURCE301}
-	
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} \
+  bash %{SOURCE300} \
+       %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} \
+       %{_builddir}/node-v%{nodejs_version}/test/ \
+       %{SOURCE301}
+
 # Fail the build if the versions don't match
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"

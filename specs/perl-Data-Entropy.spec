@@ -1,6 +1,6 @@
 Name:           perl-Data-Entropy
 Version:        0.008
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Entropy (randomness) management
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -8,22 +8,19 @@ URL:            https://metacpan.org/release/Data-Entropy
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Entropy-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  perl-interpreter
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(CPAN)
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::Rijndael)
 BuildRequires:  perl(Crypt::URandom) >= 0.36
-BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Float) >= 0.008
 BuildRequires:  perl(Errno) >= 1.00
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(HTTP::Lite) >= 2.2
 BuildRequires:  perl(IO::File) >= 1.03
-BuildRequires:  perl(Math::BigInt)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Math::BigInt) >= 1.16
 BuildRequires:  perl(Params::Classify)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
@@ -34,6 +31,7 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 Requires:       perl(Crypt::Rijndael)
+Requires:       perl(Crypt::URandom) >= 0.36
 
 %{?perl_default_filter}
 
@@ -67,6 +65,9 @@ explicitly configure a source at all.
 %{_mandir}/man3/Data*
 
 %changelog
+* Wed Apr 30 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.008-2
+- Update dependencies
+
 * Sun Mar 30 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.008-1
 - Update to 0.008, with new maintainer (#2355612)
 

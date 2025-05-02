@@ -35,7 +35,7 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.236.0
+Version: 2.237.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
@@ -110,6 +110,9 @@ fi
 
 %posttrans
 %selinux_relabel_post
+
+# Empty placeholder check to silence rpmlint
+%check
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}

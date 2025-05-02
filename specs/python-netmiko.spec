@@ -2,8 +2,8 @@
 %global sum Multi-vendor library to simplify Paramiko SSH connections to network devices
 
 Name:           python-%{srcname}
-Version:        4.4.0
-Release:        4%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -67,7 +67,9 @@ sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
 %pyproject_check_import -e '*.snmp_autodetect'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
+%{_bindir}/netmiko-bulk-encrypt
 %{_bindir}/netmiko-cfg
+%{_bindir}/netmiko-encrypt
 %{_bindir}/netmiko-grep
 %{_bindir}/netmiko-show
 %license LICENSE
@@ -75,6 +77,9 @@ sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
 
 
 %changelog
+* Tue Apr 29 2025 Harald Jensas <hjensas@redhat.com> - 4.5.0-1
+- Update to 4.5.0 (fixes #2296411)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

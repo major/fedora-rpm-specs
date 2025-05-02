@@ -38,10 +38,6 @@ Summary:        %{summary}
 %description -n python3-aiohappyeyeballs %{common_description}
 
 
-%prep
-%autosetup -n aiohappyeyeballs-%{version} -p1
-
-
 %check -a
 %pytest
 

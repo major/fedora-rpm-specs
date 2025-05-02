@@ -14,6 +14,9 @@ Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 # gpg2 --export --export-options export-minimal 7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E > gpgkey-7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E.gpg
 Source2: gpgkey-7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E.gpg
 
+# from Gentoo sys-devel/bison
+Patch0: bison-3.8.2-gcc15-glibcxx-assertions.patch
+
 # testsuite dependency
 BuildRequires: gcc-c++
 BuildRequires: autoconf
@@ -80,7 +83,7 @@ Bison manual section for more information.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
 %configure

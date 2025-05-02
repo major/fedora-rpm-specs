@@ -5,7 +5,7 @@
 %global crate image
 
 Name:           rust-image
-Version:        0.25.5
+Version:        0.25.6
 Release:        %autorelease
 Summary:        Imaging library
 

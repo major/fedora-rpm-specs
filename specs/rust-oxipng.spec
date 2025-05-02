@@ -4,7 +4,7 @@
 %global crate oxipng
 
 Name:           rust-oxipng
-Version:        9.1.4
+Version:        9.1.5
 Release:        %autorelease
 Summary:        Lossless PNG compression optimizer
 
@@ -21,6 +21,7 @@ Source10:       https://github.com/shssoichiro/oxipng/archive/v%{version}/oxipng
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          oxipng-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * Set autotests = true so we run all the tests
 Patch:          oxipng-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -55,6 +56,7 @@ License:        %{shrink:
 %doc CHANGELOG.md
 %doc MANUAL.txt
 %doc README.md
+%doc SECURITY.md
 %{_bindir}/oxipng
 %{_mandir}/man1/oxipng.1*
 
@@ -72,6 +74,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/MANUAL.txt
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

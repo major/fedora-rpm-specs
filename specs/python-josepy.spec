@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JOSE protocol implementation in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -64,7 +64,8 @@ Documentation for python-%{pypi_name}
 
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-
+rm -f CONTRIBUTING.md
+rm -f CHANGELOG.rst
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -100,6 +101,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Wed Apr 30 2025 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-2
+- Remove installed but unpackaged files
+
 * Wed Apr 09 2025 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-1
 - update to 2.0.0 rhbz#2344768
 - fixes python 3.14 compatibility rhbz#2342557

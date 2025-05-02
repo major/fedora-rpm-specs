@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.10.16
+Version:        3.10.18
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -81,10 +81,6 @@ Provides:       bundled(crate(pyo3-ffi)) = 0.23.3
 %autosetup -p1 -n orjson-%{version}
 %cargo_prep
 
-# Remove unstable features that require rust nightly; the avx512 feature also
-# requires the x86_64 architecture
-tomcli-set Cargo.toml del 'features.unstable-simd'
-tomcli-set Cargo.toml del 'features.avx512'
 # Remove unwind feature, which is not useful here: the comment above it says
 # “Avoid bundling libgcc on musl.”
 tomcli-set Cargo.toml del 'features.unwind'

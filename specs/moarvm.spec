@@ -1,5 +1,5 @@
 Name:           moarvm
-Version:        2025.02
+Version:        2025.04
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
