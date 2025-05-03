@@ -77,6 +77,12 @@ Source0:        https://github.com/fplll/fplll/releases/download/%{version}/fpll
 Source1:        fplll.1
 Source2:        latticegen.1
 
+# Update LPGL 2.1 license text; update LGPL-2.1-or-later license notice
+# https://github.com/fplll/fplll/pull/537
+# OK to patch license text downstream because the PR was merged upstream as:
+# https://github.com/fplll/fplll/commit/223ababba734db294625f835ec26bb1738be9c24
+Patch:          https://github.com/fplll/fplll/commit/223ababba734db294625f835ec26bb1738be9c24.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -186,7 +192,7 @@ the functionality of libfplll.
 
 
 %prep
-%autosetup -n fplll-%{version}
+%autosetup -n fplll-%{version} -p1
 # Unbundle “JSON for Modern C++”:
 echo '#include <nlohmann/json.hpp>' > fplll/io/json.hpp
 %if %{without bundled_thread_pool}

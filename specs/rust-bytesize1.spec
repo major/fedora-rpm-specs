@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate toml_datetime
+%global crate bytesize
 
-Name:           rust-toml_datetime
-Version:        0.6.9
+Name:           rust-bytesize1
+Version:        1.3.3
 Release:        %autorelease
-Summary:        TOML-compatible datetime type
+Summary:        Utility for human-readable bytes representations
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/toml_datetime
+License:        Apache-2.0
+URL:            https://crates.io/crates/bytesize
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump toml dev-dependency from 0.7 to 0.8
+Patch:          bytesize-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A TOML-compatible datetime type.}
+An utility for human-readable bytes representations.}
 
 %description %{_description}
 
@@ -30,8 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

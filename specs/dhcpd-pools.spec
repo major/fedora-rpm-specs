@@ -1,18 +1,18 @@
 Name:		dhcpd-pools
-Version:	3.2
-Release:	9%{?dist}
+Version:	3.3
+Release:	1%{?dist}
 Summary:	ISC dhcpd lease analysis and reporting
 # BSD: dhcpd-pools
 # ASL 2.0: mustache templating (https://gitlab.com/jobol/mustach) src/mustach.[ch]
 # GPLv3+: gnulib (https://www.gnu.org/software/gnulib/) lib/
-# Automatically converted from old format: BSD and ASL 2.0 and GPLv3+ - review is highly recommended.
-License:	LicenseRef-Callaway-BSD AND Apache-2.0 AND GPL-3.0-or-later
-URL:		http://dhcpd-pools.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+License:	BSD-2-Clause AND Apache-2.0 AND GPL-3.0-or-later
+URL:		https://dhcpd-pools.sourceforge.net/
+Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Patch0:		dhcpd-pools-test-color.patch
 BuildRequires:	uthash-devel
 BuildRequires:	gcc, make
 BuildRequires:	perl-generators
-Provides:	bundled(gnulib)
+Provides:	bundled(gnulib) = 2025
 
 %description
 This is for ISC DHCP shared network and pool range usage analysis.  Purpose
@@ -22,12 +22,12 @@ and other organizations that have large IP space.
 
 %prep
 %setup -q
+# "errors" test output has ANSI color, strip/disable
+%patch -P0 -p1
 
 %build
 # configure to match OS install defaults
-# add -std=c99 for gnulib on EPEL7
 %configure \
-    CC="%{__cc} -std=c99" \
     --with-dhcpd-conf=%{_sysconfdir}/dhcp/dhcpd.conf \
     --with-dhcpd-leases=%{_localstatedir}/lib/dhcpd/dhcpd.leases
 
@@ -59,6 +59,11 @@ make check-TESTS
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Apr 28 2025 Chris Adams <linux@cmadams.net> - 3.3-1
+- new upstream version
+- update URLs for http->https
+- update license to SPDX
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

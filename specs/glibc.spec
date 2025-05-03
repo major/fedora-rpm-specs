@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-275-ge04afb7177
+%global glibcsrcdir glibc-2.41.9000-287-g84977600da
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 11
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,22 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu May 01 2025 Patsy Griffin <patsy@redhat.com> - 2.41.9000-12
+- Auto-sync with upstream branch master,
+  commit 84977600dace5a7cfcb0918e6757939fd4969839:
+- math: Fix UB on sinpif (BZ 32925)
+- math: Fix UB on erfcf (BZ 32924)
+- math: Fix UB on cospif (BZ 32923)
+- math: Fix UB on cbrtf (BZ 32922)
+- math: Fix UB on sinhf (BZ 32921)
+- math: Fix UB on logf (BZ 32920)
+- math: Fix UB on coshf (BZ 32919)
+- math: Fix UB on atanhf (BZ 32918)
+- nptl: Fix pthread_getattr_np when modules with execstack are allowed (BZ 32897)
+- RISC-V: Use builtin for ffs and ffsll while supported extension available
+- stdio: Remove UB on printf_fp
+- benchtest: Correct shell script related to bench-malloc-thread
+
 * Fri Apr 25 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-11
 - Auto-sync with upstream branch master,
   commit e04afb71771710cdc6025fe95908f5f17de7b72d:

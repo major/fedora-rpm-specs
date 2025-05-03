@@ -33,12 +33,6 @@ Obsoletes: %{name}-orbiteer-bold-fonts < %{version}-%{release}
 Obsoletes: %{name}-pionilliumtext22l-medium-fonts < %{version}-%{release}
 }
 
-# Filter private libraries
-%global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
-%global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
-#
-
-%global use_autotools 0
 %global use_intermediate 0
 
 %if 0%{?use_intermediate}
@@ -60,7 +54,7 @@ Obsoletes: %{name}-pionilliumtext22l-medium-fonts < %{version}-%{release}
 
 Name: pioneer
 Summary: A game of lonely space adventure
-Version: 20250203
+Version: 20250501
 Release: %autorelease
 
 ## Main license: GPLv3
@@ -69,7 +63,6 @@ Release: %autorelease
 ## contrib/lz4: BSD 2-Clause
 License: GPL-3.0-only AND GPL-2.0-or-later AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain AND BSD-2-Clause
 URL: http://pioneerspacesim.net/
-#Source0: https://github.com/pioneerspacesim/%%{name}/archive/%%{commit}/%%{name}-%%{version}.tar.gz
 Source0: https://github.com/pioneerspacesim/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 
@@ -84,10 +77,11 @@ BuildRequires: chrpath
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
 BuildRequires: fontpackages-devel
-BuildRequires: gcc, gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: glew-devel
 BuildRequires: graphviz
 BuildRequires: ImageMagick
-BuildRequires: pkgconfig
 BuildRequires: pkgconfig(vorbis)
 BuildRequires: pkgconfig(sigc++-2.0)
 BuildRequires: pkgconfig(libcurl)
@@ -99,19 +93,22 @@ BuildRequires: mesa-libGLU-devel
 BuildRequires: NaturalDocs
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: libglvnd-devel
 
 Requires: %{name}-data = %{version}-%{release}
 Requires: hicolor-icon-theme
 Requires: graphviz%{?_isa}
 
+Provides: bundled(fmt) = 10
+
 Obsoletes: %{name}-doc < 0:20191117-3
-Provides: bundled(fmt) = 6.2.1
 
 # I prefer to install binary files manually
 Patch0: %{name}-use_manual_installation.patch
 
 Patch1: %{name}-gcc14.patch
 Patch2: %{name}-fix_GCC15.patch
+Patch3: %{name}-20250501-use_python3.patch
 
 %fontpkg -a
 
@@ -145,25 +142,17 @@ Data files of %{name}.
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
 %patch -P 2 -p1 -b .backup
+%patch -P 3 -p1 -b .backup
 
 %build
-%if 0%{?use_autotools}
-./bootstrap
-%configure --disable-silent-rules --with-ccache --without-strip \
- --with-version --with-extra-version --without-extra-warnings \
- --without-thirdparty --without-external-liblua --with-no-optimise \
- PIONEER_DATA_DIR=%{_datadir}/%{name}/data
-%make_build V=1 OPTIMISE=""
-%else
 mkdir -p build
 %cmake -B build -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DPROJECT_VERSION_INFO:STRING=%{version} \
        -DUSE_SYSTEM_LIBLUA:BOOL=OFF \
-       -DUSE_SYSTEM_LIBGLEW:BOOL=OFF \
+       -DUSE_SYSTEM_LIBGLEW:BOOL=ON \
        -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name}/data -DFMT_INSTALL:BOOL=ON \
        -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name}
 %make_build -C build all build-data
-%endif
 
 ## Build documentation
 #pushd doxygen
@@ -174,11 +163,7 @@ mkdir -p build
 %fontbuild -a
 
 %install
-%if 0%{?use_autotools}
-%make_install
-%else
 %make_install -C build
-%endif
 
 # Install binary files manually
 mkdir -p %{buildroot}%{_bindir}
@@ -186,8 +171,8 @@ install -pm 755 build/pioneer %{buildroot}%{_bindir}/
 install -pm 755 build/modelcompiler %{buildroot}%{_bindir}/
 install -pm 755 build/savegamedump %{buildroot}%{_bindir}/
 
-## Use rpaths versus private libraries
-chrpath -r %{_libdir}/%{name} %{buildroot}%{_bindir}/*
+## Remove rpaths
+chrpath -d %{buildroot}%{_bindir}/*
 
 # Remove unused development files
 rm -rf %{buildroot}%{_includedir}
@@ -264,7 +249,6 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 
 %files
 %{_bindir}/%{name}
-#%%{_libdir}/%%{name}/
 %{_bindir}/modelcompiler
 %{_bindir}/savegamedump
 %{_datadir}/icons/hicolor/16x16/apps/*.png

@@ -2,8 +2,8 @@
 %global         tarball_name    microsoft_security_utilities_secret_masker
 
 Name:           python-%{srcname}
-Version:        1.0.0~b3
-%global         pypi_version    1.0.0b3
+Version:        1.0.0~b4
+%global         pypi_version    1.0.0b4
 Release:        %autorelease
 Summary:        Microsoft Security Utilities - Secret Masker
 License:        MIT

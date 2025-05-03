@@ -3,7 +3,7 @@
 %global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.22.1
+Version:        1.22.3
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -146,6 +146,12 @@ desktop-file-validate \
 
 
 %changelog
+* Thu May 01 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.22.3-1
+- Update to 1.22.3 (#2363239)
+
+* Wed Apr 30 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.22.2-1
+- Update to 1.22.2 (#2363052)
+
 * Sat Apr 26 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.22.1-1
 - Update to 1.22.1 (#2362436)
 

@@ -221,6 +221,9 @@ rm %{buildroot}%{_bindir}/convert*.py
 %if %{with test}
 %if %{with check}
 %check
+# Need to install rpm
+# On gfx1201 on 6.4 there is one failure
+#  24 - test-backend-ops (Subprocess aborted)
 %ctest
 %endif
 %endif

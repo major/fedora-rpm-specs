@@ -5,21 +5,21 @@
 %global crate bytesize
 
 Name:           rust-bytesize
-Version:        1.3.3
+Version:        2.0.1
 Release:        %autorelease
-Summary:        Utility for human-readable bytes representations
+Summary:        Semantic wrapper for byte count representations
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/bytesize
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump toml dev-dependency from 0.7 to 0.8
+# * drop benchmark dependency (divan)
 Patch:          bytesize-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An utility for human-readable bytes representations.}
+Semantic wrapper for byte count representations.}
 
 %description %{_description}
 
@@ -34,6 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +50,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -59,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

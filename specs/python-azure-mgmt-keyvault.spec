@@ -2,14 +2,15 @@
 %bcond_with     tests
 
 %global         srcname     azure-mgmt-keyvault
+%global         tarball_name     azure_mgmt_keyvault
 
 Name:           python-%{srcname}
-Version:        10.3.0
+Version:        11.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Keyvault Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -38,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

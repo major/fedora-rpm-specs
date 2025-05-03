@@ -5,7 +5,7 @@
 %global crate fend-core
 
 Name:           rust-fend-core
-Version:        1.5.5
+Version:        1.5.6
 Release:        %autorelease
 Summary:        Arbitrary-precision unit-aware calculator
 

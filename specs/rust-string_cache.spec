@@ -5,13 +5,16 @@
 %global crate string_cache
 
 Name:           rust-string_cache
-Version:        0.8.8
+Version:        0.8.9
 Release:        %autorelease
 Summary:        String interning library for Rust, developed as part of the Servo project
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/string_cache
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, optional support for malloc_size_of
+Patch:          string_cache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

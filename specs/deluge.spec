@@ -1,17 +1,13 @@
 Name:           deluge
-Version:        2.1.1
-Release:        12%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
-# Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
-Source0:        https://ftp.osuosl.org/pub/deluge/source/2.0/%{name}-%{version}.tar.xz
-Source1:        https://ftp.osuosl.org/pub/deluge/source/2.0/%{name}-%{version}.tar.xz.sha256
+Source0:        https://ftp.osuosl.org/pub/deluge/source/2.2/%{name}-%{version}.tar.xz
+Source1:        https://ftp.osuosl.org/pub/deluge/source/2.2/%{name}-%{version}.tar.xz.sha256
 Source2:        deluge-daemon.service
 Source3:        deluge-web.service
-# Python 3.13 removes cgi module (bug 2292651)
-# https://github.com/deluge-torrent/deluge/commit/5d96cfc72f0bfa36d90afd2725aa2216b8073d66
-Patch0:         deluge-2.1.1-python3_13-cgi-removal.patch
 
 BuildArch:     noarch
 BuildRequires: desktop-file-utils
@@ -136,10 +132,7 @@ desktop-file-install  \
     --remove-category=Application            \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-mkdir -p %{buildroot}%{_metainfodir}
-mv %{buildroot}%{_datadir}/appdata/deluge.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-rmdir %{buildroot}%{_datadir}/appdata
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 ## NOTE: The lang files should REEEAALLLY be in a standard place such as
 ##       /usr/share/locale or similar. It'd make things so much nicer for
@@ -199,7 +192,7 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 %{_datadir}/pixmaps/%{name}.*
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/%{name}.metainfo.xml
 %{python3_sitelib}/%{name}/ui/gtk3
 %{_mandir}/man?/%{name}-gtk*
 %{_mandir}/man?/%{name}.1*
@@ -243,6 +236,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Thu May 01 2025 Michael Cronenworth <mike@cchtml.com> - 2.2.0-1
+- Version update
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.1-12
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

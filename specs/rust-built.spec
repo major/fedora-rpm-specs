@@ -5,7 +5,7 @@
 %global crate built
 
 Name:           rust-built
-Version:        0.7.5
+Version:        0.7.7
 Release:        %autorelease
 Summary:        Crate with information from the time it was built
 

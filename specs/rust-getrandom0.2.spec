@@ -5,7 +5,7 @@
 %global crate getrandom
 
 Name:           rust-getrandom0.2
-Version:        0.2.15
+Version:        0.2.16
 Release:        %autorelease
 Summary:        Small cross-platform library for retrieving random data from system source
 

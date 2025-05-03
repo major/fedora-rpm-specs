@@ -27,6 +27,8 @@ BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
+# runtime
+BuildRequires:  cmake(KF6Kirigami)
 
 # Plasma
 BuildRequires:  cmake(Plasma)
@@ -45,6 +47,8 @@ Requires:       bluez >= 5
 Requires:       bluez-obexd
 Requires:       kf6-kded
 Requires:       pulseaudio-module-bluetooth
+# runtime
+Requires:       kf6-kirigami
 
 # When -autostart was removed
 Obsoletes:      bluedevil-autostart < 5.2.95

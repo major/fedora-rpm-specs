@@ -4,7 +4,7 @@
 %global crate tealdeer
 
 Name:           rust-tealdeer
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Fetch and show tldr help pages for many CLI commands
 
@@ -12,7 +12,6 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tealdeer
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax zip dependency to allow building with both v0.6 and v2
 # * use native-tls instead of rustls
 Patch:          tealdeer-fix-metadata.diff
 
@@ -34,11 +33,21 @@ Summary:        %{summary}
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND MIT AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    Apache-2.0 AND
+    MIT AND
+    Unicode-3.0 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

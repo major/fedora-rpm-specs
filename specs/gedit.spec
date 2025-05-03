@@ -1,24 +1,27 @@
 %global amtk_version 5.9
 %global glib2_version 2.76
 %global gtk3_version 3.22
-%global gtksourceview_version 299.4
+%global gtksourceview_version 299.5
 %global libpeas_version 1.14.1
 %global gspell_version 1.0
-%global tepl_version 6.12
+%global tepl_version 6.13
 
 # Filter provides for plugin .so files
 %global __provides_exclude_from ^%{_libdir}/gedit/plugins/
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%global libgd_commit 3cccf99234288a6121b3945a25cd4ec3b7445c74
 
 Name:		gedit
 Epoch:		2
-Version:	48.1
+Version:	48.2
 Release:	%autorelease
 Summary:	Text editor for the GNOME desktop
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:		https://gedit-text-editor.org/
-Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# libgd is a git submodule by design, but those are not included in git forge snapshot tarballs
+Source:         https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.bz2
 
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
@@ -36,16 +39,15 @@ BuildRequires: which
 BuildRequires: yelp-tools
 BuildRequires: itstool
 BuildRequires: meson
-BuildRequires: vala
-BuildRequires: python3-devel
 BuildRequires: /usr/bin/appstream-util
+
+Provides: bundled(libgd) = %{libgd_commit}
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gspell%{?_isa} >= %{gspell_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: libgedit-gtksourceview%{?_isa} >= %{gtksourceview_version}
 Requires: libgedit-tepl%{?_isa} >= %{tepl_version}
-Requires: libpeas1-loader-python3%{?_isa}
 Requires: python3-gobject
 Requires: gsettings-desktop-schemas
 
@@ -58,6 +60,17 @@ Obsoletes: gedit-plugin-colorschemer < 45.0
 Obsoletes: gedit-plugin-synctex < 45.0
 Obsoletes: gedit-plugin-git < 48.0
 Obsoletes: gedit-plugin-textsize < 48.0
+Obsoletes: gedit-color-schemes < 0-18
+Obsoletes: gedit-control-your-tabs < 0.5.2
+Obsoletes: gedit-latex < 48.0
+Obsoletes: gedit-plugin-bracketcompletion < 48.2
+Obsoletes: gedit-plugin-charmap < 48.2
+Obsoletes: gedit-plugin-codecomment < 48.2
+Obsoletes: gedit-plugin-colorpicker < 48.2
+Obsoletes: gedit-plugin-joinlines < 48.2
+Obsoletes: gedit-plugin-multiedit < 48.2
+Obsoletes: gedit-plugin-sessionsaver < 48.2
+Obsoletes: gedit-plugin-terminal < 48.2
 
 
 %description
@@ -85,6 +98,7 @@ Install gedit-devel if you want to write plugins for gedit.
 
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
+tar --strip-components=1 -xf %{S:1} -C subprojects/libgd
 
 %build
 %meson -Dgtk_doc=true
@@ -95,8 +109,6 @@ Install gedit-devel if you want to write plugins for gedit.
 
 %install
 %meson_install
-%py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/gi/overrides
-%py_byte_compile %{__python3} %{buildroot}%{_libdir}/gedit/plugins/
 
 %find_lang %{name} --with-gnome
 
@@ -111,8 +123,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_datadir}/gedit/
 %{_datadir}/applications/org.gnome.gedit.desktop
 %{_mandir}/man1/gedit.1*
-%{python3_sitelib}/gi/overrides/Gedit.py*
-%{python3_sitelib}/gi/overrides/__pycache__
 %{_libdir}/gedit/girepository-1.0/
 %dir %{_libdir}/gedit
 %dir %{_libdir}/gedit/plugins

@@ -3,14 +3,15 @@
 %bcond_with     tests
 
 %global         srcname     azure-synapse-artifacts
+%global         tarball_name     azure_synapse_artifacts
 
 Name:           python-%{srcname}
-Version:        0.19.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Artifacts Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -40,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

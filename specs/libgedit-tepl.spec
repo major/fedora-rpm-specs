@@ -1,24 +1,24 @@
 %global apiver 6
 
 Name:           libgedit-tepl
-Version:        6.12.0
+Version:        6.13.0
 Release:        %autorelease
 Summary:        Text editor product line library
 License:        LGPL-3.0-or-later
 URL:            https://gedit-text-editor.org/
-Source0:        https://download.gnome.org/sources/%{name}/6.12/%{name}-%{version}.tar.xz
+Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
 BuildRequires:  meson
-BuildRequires:  pkgconfig(glib-2.0) >= 2.62
+BuildRequires:  pkgconfig(glib-2.0) >= 2.74
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
-BuildRequires:  pkgconfig(libgedit-amtk-5)
-BuildRequires:  pkgconfig(libgedit-gfls-1) >= 0.2
-BuildRequires:  pkgconfig(libgedit-gtksourceview-300) >= 2.99.4
+BuildRequires:  pkgconfig(libgedit-amtk-5) >= 5.9
+BuildRequires:  pkgconfig(libgedit-gfls-1) >= 0.3
+BuildRequires:  pkgconfig(libgedit-gtksourceview-300) >= 299.5
 BuildRequires:  pkgconfig(libhandy-1) >= 1.6
 BuildRequires:  pkgconfig(icu-uc) pkgconfig(icu-i18n)
 # test dependencies
@@ -69,7 +69,7 @@ developing applications that use %{name}.
 %doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Tepl-%{apiver}.typelib
-%{_libdir}/libgedit-tepl-%{apiver}.so.2{,.*}
+%{_libdir}/libgedit-tepl-%{apiver}.so.3{,.*}
 
 %files devel
 %{_includedir}/libgedit-tepl-%{apiver}/

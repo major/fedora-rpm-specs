@@ -6,7 +6,7 @@
 %global crate termion
 
 Name:           rust-termion
-Version:        4.0.4
+Version:        4.0.5
 Release:        %autorelease
 Summary:        Bindless library for manipulating terminals
 

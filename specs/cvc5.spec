@@ -28,6 +28,9 @@ Patch:          %{name}-flags.patch
 Patch:          %{name}-skip-himem-tests.patch
 # Adapt to cocoalib 0.99850
 Patch:          %{name}-cocoalib.patch
+# Adapt to cadical 2.1.x
+# https://github.com/cvc5/cvc5/pull/11716
+Patch:          %{name}-cadical.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -4,7 +4,7 @@
 %global         srcname     azure-multiapi-storage
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Client Library for Python with multi API version support
 License:        MIT

@@ -1,7 +1,7 @@
 Name:           pngcheck
-Version:        3.0.3
+Version:        4.0.0
 Release:        %autorelease
-Summary:        Verifies the integrity of PNG, JNG and MNG files
+Summary:        Command-line utility to check PNG image files
 
 # Note that the main package contains only pngcheck, compiled from a single
 # source file, pngcheck.c, under a minimal MIT-style license that matches SPDX
@@ -9,81 +9,63 @@ Summary:        Verifies the integrity of PNG, JNG and MNG files
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/85
 #   https://tools.spdx.org/app/license_requests/187/
 #   https://github.com/spdx/license-list-XML/issues/1725
-# The new utilities licensed under GPL-2.0-or-later are compiled from the gpl/
-# subdirectory and packaged in the extras subpackage.
+# For now, the source archive still contains a couple of utilities licensed
+# under GPL-2.0-or-later, in the gpl/ subdirectory. These were previously
+# packaged an the extras subpackage, but since they were removed upstream
+# immediately after the 4.0.0 release, we choose to stop packaging them now.
 %global extras_license GPL-2.0-or-later
 License:        HPND
 SourceLicense:  %{license} AND %{extras_license}
-URL:            http://www.libpng.org/pub/png/apps/pngcheck.html
-Source:         http://www.libpng.org/pub/png/src/pngcheck-%{version}.tar.gz
+URL:            https://github.com/pnggroup/pngcheck
+Source:         %{url}/archive/v%{version}/pngcheck-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  dos2unix
+
+BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  pkgconfig(zlib)
-BuildRequires:  make
+
+BuildRequires:  cmake(zlib)
+
+# Removed for Fedora 43; Obsoletes can be removed after Fedora 45.
+Obsoletes:      pngcheck-extras < 4.0.0-2
 
 %description
-pngcheck verifies the integrity of PNG, JNG and MNG files (by checking the
-internal 32-bit CRCs [checksums] and decompressing the image data); it can
-optionally dump almost all of the chunk-level information in the image in
-human-readable form. For example, it can be used to print the basic statistics
-about an image (dimensions, bit depth, etc.); to list the color and
-transparency info in its palette (assuming it has one); or to extract the
-embedded text annotations. This is a command-line program with batch
-capabilities.
-
-The current release supports all PNG, MNG and JNG chunks, including the newly
-approved sTER stereo-layout chunk. It correctly reports errors in all but two
-of the images in Chris Nokleberg's brokensuite-20061204.
-
-
-%package extras
-Summary:        Helper utilities distributed with pngcheck
-License:        %{extras_license}
-
-%description extras
-Included with pngcheck (since version 2.1.0) are two helper utilities:
-
-  - pngsplit - break a PNG, MNG or JNG image into constituent chunks (numbered
-    for easy reassembly)
-  - png-fix-IDAT-windowsize - fix minor zlib-header breakage caused by libpng
-    1.2.6
+pngcheck is a command-line utility to check PNG image files, including animated
+PNG, for validity and to give information about metadate inside the file (apart
+from the actual image data).
 
 
 %prep
 %autosetup
 
+dos2unix --keepdate README.md
+
+
+%conf
+%cmake
+
 
 %build
-%make_build -f Makefile.unx \
-    CFLAGS="${CFLAGS-} -DUSE_ZLIB $(pkg-config --cflags zlib)" \
-    LIBS="${LDFLAGS-} $(pkg-config --libs zlib)"
+%cmake_build
 
 
 %install
-install -t '%{buildroot}%{_bindir}' -D -p \
-    pngcheck pngsplit png-fix-IDAT-windowsize
-install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p *.1 gpl/*.1
+%cmake_install
+
+
+# Upstream provides no tests
 
 
 %files
 %license LICENSE
 %doc CHANGELOG
-%doc README
+%doc README.md
+%doc README-303
 %{_bindir}/pngcheck
 %{_mandir}/man1/pngcheck.1*
-
-
-%files extras
-%license gpl/COPYING
-%doc CHANGELOG
-%doc README
-%{_bindir}/pngsplit
-%{_bindir}/png-fix-IDAT-windowsize
-%{_mandir}/man1/pngsplit.1*
-%{_mandir}/man1/png-fix-IDAT-windowsize.1*
 
 
 %changelog

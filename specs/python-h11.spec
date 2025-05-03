@@ -1,3 +1,12 @@
+Name:           python-h11
+Version:        0.16.0
+Release:        %autorelease
+Summary:        A pure-Python, bring-your-own-I/O implementation of HTTP/1.1
+License:        MIT
+URL:            https://github.com/python-hyper/h11
+Source0:        %{pypi_source h11}
+BuildArch:      noarch
+
 %global _description %{expand:
 This is a little HTTP/1.1 library written from scratch in Python, heavily
 inspired by hyper-h2.  It is a "bring-your-own-I/O" library; h11 contains no IO
@@ -8,15 +17,6 @@ that h11 is not immediately useful out of the box: it is a toolkit for building
 programs that speak HTTP, not something that could directly replace requests or
 twisted.web or whatever.  But h11 makes it much easier to implement something
 like requests or twisted.web.}
-
-Name:           python-h11
-Version:        0.14.0
-Release:        %autorelease
-Summary:        A pure-Python, bring-your-own-I/O implementation of HTTP/1.1
-License:        MIT
-URL:            https://github.com/python-hyper/h11
-Source0:        %{pypi_source h11}
-BuildArch:      noarch
 
 
 %description %{_description}
@@ -45,7 +45,7 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files h11
+%pyproject_save_files -l h11
 
 
 %check

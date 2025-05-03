@@ -41,8 +41,11 @@
 # https://github.com/ROCm/hipBLASLt/issues/908
 
 # hipblaslt does not support our default set
-# gfx1200,gfx1201 have building has problems on 6.4.0
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1100;gfx1101;gfx1102"
+# gfx1200,gfx1201 have building problems on 6.4.0
+#
+# build is timing out, remove new for 6.4 gpus
+# gfx942;gfx1100;gfx1101;gfx1102
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -50,7 +53,8 @@
 %global _binary_payload w7T0.xzdio
 
 # Use ninja if it is available
-%if 0%{?fedora} || 0%{?suse_version}
+# Ninja is available on suse but obs times out with ninja build, make doesn't
+%if 0%{?fedora}
 %bcond_without ninja
 %else
 %bcond_with ninja
@@ -64,7 +68,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -169,6 +173,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+# Suse obs times out
+# print out command in scripts
+%if 0%{?suse_version}
+sed -i '2i set -x'                                                             tensilelite/Tensile/Ops/gen_assembly.sh
+sed -i '2i set -x'                                                             library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
+%endif
+
 # Remove venv
 sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
 sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
@@ -253,6 +264,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
        -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
        -DCMAKE_CXX_FLAGS="-fuse-ld=%{rocmllvm_bindir}/ld.lld" \
+       -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
        -DBUILD_WITH_TENSILE=ON \
@@ -299,6 +311,10 @@ fi
 %endif
 
 %changelog
+* Thu May 1 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Reduce gpu set to 6.3
+- mitigate suse build timeout
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

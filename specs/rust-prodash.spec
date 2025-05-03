@@ -5,7 +5,7 @@
 %global crate prodash
 
 Name:           rust-prodash
-Version:        29.0.1
+Version:        29.0.2
 Release:        %autorelease
 Summary:        Dashboard for visualizing progress of asynchronous and possibly blocking tasks
 
@@ -71,6 +71,18 @@ This package contains library source intended for building other packages which
 use the "bytesize" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bytesize-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crosstermion-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crosstermion-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crosstermion" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crosstermion-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ctrlc-devel
@@ -241,6 +253,18 @@ use the "progress-tree-log" feature of the "%{crate}" crate.
 %files       -n %{name}+progress-tree-log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+render-line-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+render-line-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "render-line" feature of the "%{crate}" crate.
+
+%files       -n %{name}+render-line-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+render-line-autoconfigure-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -253,6 +277,42 @@ use the "render-line-autoconfigure" feature of the "%{crate}" crate.
 %files       -n %{name}+render-line-autoconfigure-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+render-line-crossterm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+render-line-crossterm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "render-line-crossterm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+render-line-crossterm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+render-tui-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+render-tui-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "render-tui" feature of the "%{crate}" crate.
+
+%files       -n %{name}+render-tui-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+render-tui-crossterm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+render-tui-crossterm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "render-tui-crossterm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+render-tui-crossterm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+signal-hook-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -263,6 +323,30 @@ This package contains library source intended for building other packages which
 use the "signal-hook" feature of the "%{crate}" crate.
 
 %files       -n %{name}+signal-hook-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tui-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tui-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tui" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tui-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tui-react-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tui-react-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tui-react" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tui-react-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unicode-segmentation-devel
@@ -299,6 +383,18 @@ This package contains library source intended for building other packages which
 use the "unit-bytes" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unit-bytes-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unit-duration-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unit-duration-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unit-duration" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unit-duration-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unit-human-devel

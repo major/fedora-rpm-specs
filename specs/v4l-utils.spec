@@ -5,8 +5,8 @@
 %define with_dvb 1
 
 Name:           v4l-utils
-Version:        1.28.1
-Release:        3%{?dist}
+Version:        1.30.1
+Release:        1%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -46,6 +46,9 @@ BuildRequires:  libbpf-devel
 # For /lib/udev/rules.d ownership
 Requires:       systemd-udev
 Requires:       libv4l%{?_isa} = %{version}-%{release}
+
+Provides:       edid-decode = %{version}-%{release}
+Obsoletes:      edid-decode <= 0-76
 
 %description
 v4l-utils is a collection of various video4linux (V4L) and DVB utilities. The
@@ -194,6 +197,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_udevrulesdir}/../rc_keymaps/*
 %{_bindir}/cec-ctl
 %{_bindir}/cec-follower
+%{_bindir}/edid-decode
 %{_bindir}/ir-ctl
 %{_bindir}/ir-keytable
 %{_bindir}/media-ctl
@@ -203,6 +207,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_bindir}/v4l2-tracer
 %{_mandir}/man1/cec-ctl*.1*
 %{_mandir}/man1/cec-follower*.1*
+%{_mandir}/man1/edid-decode*.1*
 %{_mandir}/man1/ir*.1*
 %{_mandir}/man1/v4l*.1*
 %{_mandir}/man5/rc_keymap*.5*
@@ -269,6 +274,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 
 %changelog
+* Thu May  1 2025 Yanko Kaneti <yaneti@decelra.com> - 1.30.1-1
+- Update to 1.30.1
+- Provides and obsoletes edid-decode which has moved to v4l-utils upstream
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

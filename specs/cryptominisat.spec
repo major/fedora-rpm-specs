@@ -1,19 +1,19 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  ea65a9442fc2604ee5f4ffd0f0fdd0bf481d5b42
+%global cadicommit  7a4ac38119883bf198dcfb646ddee9e755e136a8
 %global shortcommit %(c=%{cadicommit}; echo ${c:0:7})
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
-Version:        5.12.1
+Version:        5.13.0
 Release:        %autorelease
 Summary:        SAT solver
 
 License:        MIT
 URL:            https://www.msoos.org/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/archive/release/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{cadiurl}/archive/%{cadicommit}/cadiback-%{shortcommit}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch:          %{name}-cmake.patch
@@ -25,6 +25,11 @@ Patch:          %{name}-python-library.patch
 Patch:          %{name}-toml.patch
 # Use zlib-ng instead of zlib
 Patch:          %{name}-zlib-ng.patch
+# Adapt to a changed function name in breakid 3.1.3
+Patch:          %{name}-breakid.patch
+# Post-release bug fix w.r.t. -fPIC
+# https://github.com/msoos/cryptominisat/commit/8988f0dda1674cc824a98d1854b37b205bfb5008
+Patch:          %{name}-fpic.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -82,7 +87,7 @@ Provides:       python3-%{name} = %{version}-%{release}
 Python 3 interface to %{name}.
 
 %prep
-%autosetup -p1 -b1
+%autosetup -n %{name}-release-%{version} -p1 -b1
 
 %conf
 # Make cadiback visible to cmake
@@ -110,6 +115,7 @@ sed -i 's/, "pathlib"//' pyproject.toml
 cd ../cadiback
 sed -i '/-d \.git/d;s/^GITID=.*/GITID=%{cadicommit}/' generate
 sed -e 's|@COMPILE@|g++ %{build_cxxflags} -fPIC -std=c++17 -DNDEBUG -I%{_includedir}/cadical %{build_ldflags} -Wl,-h,libcadiback.so.0|' \
+    -e 's|@LINK@|ar|' \
     -e 's| \.\./cadical/build/libcadical\.a||' \
     -e 's|\.\./cadical/build/libcadical\.so|%{_libdir}/libcadical.so|' \
     -e 's|\.\./cadical/src/cadical\.hpp|%{_includedir}/cadical/cadical.hpp|' \
@@ -118,13 +124,13 @@ sed -e 's|@COMPILE@|g++ %{build_cxxflags} -fPIC -std=c++17 -DNDEBUG -I%{_include
 mv libcadiback.so libcadiback.so.0.0.0
 ln -s libcadiback.so.0.0.0 libcadiback.so.0
 ln -s libcadiback.so.0 libcadiback.so
+ln -s include/cadiback.h cadiback.h
 cd -
 
 %cmake \
     -DCMAKE_INSTALL_BINDIR=bin \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DENABLE_ASSERTIONS:BOOL=OFF \
-    -DEXTFEAT:BOOL=ON \
     -DNOBREAKID:BOOL=OFF
 %cmake_build
 %pyproject_wheel
@@ -163,7 +169,7 @@ sed -i 's,/builddir.*cadiback/,%{_libdir}/,' %{buildroot}%{_libdir}/cmake/crypto
 %doc AUTHORS
 %license LICENSE.txt
 %{_libdir}/libcadiback.so.0*
-%{_libdir}/libcryptominisat5.so.5.12
+%{_libdir}/libcryptominisat5.so.5.13
 
 %files -n python3-pycryptosat -f %{pyproject_files}
 %doc python/README.md

@@ -2,21 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate toml_datetime
+%global crate prost-reflect
 
-Name:           rust-toml_datetime
-Version:        0.6.9
+Name:           rust-prost-reflect
+Version:        0.15.2
 Release:        %autorelease
-Summary:        TOML-compatible datetime type
+Summary:        Protobuf library extending prost with reflection support and dynamic messages
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/toml_datetime
+URL:            https://crates.io/crates/prost-reflect
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Relax logos dependency
+Patch:          prost-reflect-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A TOML-compatible datetime type.}
+A protobuf library extending prost with reflection support and dynamic
+messages.}
 
 %description %{_description}
 
@@ -34,6 +38,10 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/src/file_descriptor_set.bin
+%exclude %{crate_instdir}/src/doctest.proto
+%exclude %{crate_instdir}/doc/*.bin
+%exclude %{crate_instdir}/tests
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -47,6 +55,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+miette-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+miette-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "miette" feature of the "%{crate}" crate.
+
+%files       -n %{name}+miette-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -57,6 +77,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+text-format-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+text-format-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "text-format" feature of the "%{crate}" crate.
+
+%files       -n %{name}+text-format-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

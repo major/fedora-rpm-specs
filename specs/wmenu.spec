@@ -1,5 +1,5 @@
 Name:           wmenu
-Version:        0.1.9
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Efficient dynamic menu for Wayland
 

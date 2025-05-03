@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-web
 
 Name:           python-%{srcname}
-Version:        7.2.0
+Version:        7.3.1
 Release:        %autorelease
 Summary:        Microsoft Azure Web Apps Management Client Library for Python
 License:        MIT

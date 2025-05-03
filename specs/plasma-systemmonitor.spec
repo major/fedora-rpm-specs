@@ -12,26 +12,31 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{versi
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
-BuildRequires: cmake(KF6Kirigami2)
-Requires: kf6-kirigami2%{?_isa}
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(KF6ItemModels)
 BuildRequires: cmake(KF6Service)
 BuildRequires: cmake(KF6GlobalAccel)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6NewStuff)
+# runtime
+BuildRequires: cmake(KF6Kirigami)
 BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: ksystemstats
 
 BuildRequires: libksysguard-devel
 
 BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtdeclarative-devel
 
+# runtime
+Requires: kf6-kirigami%{?_isa}
+Requires: kf6-kirigami-addons%{?_isa}
+Requires: kf6-kiconthemes%{?_isa}
 Requires: ksystemstats%{?_isa}
 
 Obsoletes: ksysguard < 5.23

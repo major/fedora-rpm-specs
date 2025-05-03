@@ -65,7 +65,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -275,6 +275,7 @@ fi
 
 %files -f %{name}.files
 %license LICENSE.txt
+%dir %_libexecdir/miopen
 
 %files devel -f %{name}.devel
 %dir %_datadir/miopen
@@ -290,6 +291,9 @@ fi
 %endif
 
 %changelog
+* Thu May 1 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Fix dir ownerships
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

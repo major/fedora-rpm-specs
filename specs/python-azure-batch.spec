@@ -2,14 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     azure-batch
+%global         tarball_name     azure_batch
 
 Name:           python-%{srcname}
-Version:        14.2.0
+Version:        15.0.0~b1
+%global         pypi_version 15.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Batch Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -39,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

@@ -17,6 +17,9 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Allow building against the system-provided `xxhash.h`
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
+# Fix possible infinite loop: https://github.com/rui314/mold/issues/1447
+Patch1:         0002-Prevent-oscillation-when-computing-the-size-of-the-p.patch
+
 BuildRequires:  blake3-devel
 BuildRequires:  cmake
 %if %{use_gcc_toolset}

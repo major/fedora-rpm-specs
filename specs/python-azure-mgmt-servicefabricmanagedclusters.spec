@@ -2,15 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     azure-mgmt-servicefabricmanagedclusters
+%global         tarball_name     azure_mgmt_servicefabricmanagedclusters
 
 Name:           python-%{srcname}
-Version:        2.0.0~b6
-%global         pypi_version    2.0.0b6
+Version:        2.1.0~b1
+%global         pypi_version    2.1.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Service Fabric Managed Clusters Management
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version}}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -40,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{pypi_version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

@@ -5,7 +5,7 @@
 %global crate getset
 
 Name:           rust-getset
-Version:        0.1.3
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Procedural macro for generating the most basic getters and setters on fields
 

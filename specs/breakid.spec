@@ -1,12 +1,12 @@
 Name:           breakid
-Version:        3.1.2
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Symmetry detecting and breaking library
 
 License:        MIT
 URL:            https://github.com/meelgroup/breakid
 VCS:            git:%{url}.git
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/release/%{version}/%{name}-%{version}.tar.gz
 # Do not change Fedora build flags
 Patch:          %{name}-compiler-flags.patch
 # Unbundle bliss, including updating from 0.73 to 0.77
@@ -36,7 +36,7 @@ Header files and library links for developing applications that use
 breakid.
 
 %prep
-%autosetup -p1
+%autosetup -n %{name}-release-%{version} -p1
 
 %conf
 # Make sure the bundled bliss cannot be used
@@ -52,7 +52,7 @@ touch -r README.md.orig README.md
 rm README.md.orig
 
 %build
-%cmake -DLIB_SUFFIX=64
+%cmake -DBREAKID_INSTALL_CMAKE_DIR:PATH=%{_lib}/cmake/breakid
 %cmake_build
 
 %install

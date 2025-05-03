@@ -2,8 +2,8 @@
 %global         tarball_name    azure_mgmt_postgresqlflexibleservers
 
 Name:           python-%{srcname}
-Version:        1.1.0~b1
-%global         pypi_version    1.1.0b1
+Version:        1.1.0~b2
+%global         pypi_version    1.1.0b2
 Release:        %autorelease
 Summary:        The Microsoft Azure Postgresqlflexibleservers Management Client Library
 License:        MIT

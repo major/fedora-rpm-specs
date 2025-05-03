@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.68.0
+Version:        2.71.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -104,6 +104,9 @@ sed -i '/azure/!s/~=/>=/' src/azure-cli/setup.py
 sed -i '/azure/!s/==/>=/' src/azure-cli/setup.py
 sed -i '/azure/!s/~=/>=/' src/azure-cli-core/setup.py
 sed -i '/azure/!s/==/>=/' src/azure-cli-core/setup.py
+
+# This dependency is actually optional and used for telemetry anyway
+sed -i '/py-deviceid/d' src/azure-cli-core/setup.py
 
 # Temporary fix for azure-cli-2.64; upstream pinned to hdinsights 9.0b3 which should have been 9.1b1.
 sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-cli/setup.py

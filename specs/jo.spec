@@ -15,8 +15,8 @@ License:        GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
 # Update GPL-2.0-or-later license notices
 # https://github.com/jpmens/jo/pull/216
-# We will not patch the license notices until/unless upstream merges the PR.
-# Patch:          %%{url}/pull/216.patch
+# Merged upstream, so we are comfortable patching downstream.
+Patch:          %{url}/pull/216.patch
 
 # Add a copy of the GPLv2 license text
 # https://github.com/jpmens/jo/pull/217

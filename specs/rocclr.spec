@@ -60,19 +60,21 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
-Url:            https://github.com/ROCm-Developer-Tools/clr
+Url:            https://github.com/ROCm/clr
 License:        MIT
-Source0:        https://github.com/ROCm-Developer-Tools/clr/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # TODO: it would be nice to separate this into its own package:
 Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
 
+# See https://github.com/ROCm/clr/pull/158
+Patch1:         %{url}/pull/158/commits/d508111ec8fe3ef031685f1e424be62a4a075ddc.patch
 # a fix for building blender
 Patch8:         0001-add-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
-patch10:        https://github.com/ROCm/clr/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
+patch10:        %{url}/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -366,6 +368,10 @@ fi
 %endif
 
 %changelog
+* Thu May 01 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-2
+- Fix linking for comgr.so.3
+- Cleanup
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

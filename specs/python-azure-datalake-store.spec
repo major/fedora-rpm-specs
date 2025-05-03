@@ -2,14 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     azure-datalake-store
+%global         tarball_name    azure_datalake_store
 
 Name:           python-%{srcname}
-Version:        0.0.53
+Version:        1.0.0~a0
+%global         pypi_version 1.0.0a0
 Release:        %autorelease
 Summary:        Azure Data Lake Store Filesystem Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %pypi_source
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 Epoch:          1
 
@@ -40,7 +42,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 # Fix incorrect line endings in the README.
 sed -i 's/\r$//' README.rst

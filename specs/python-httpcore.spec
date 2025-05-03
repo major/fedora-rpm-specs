@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        1.0.8
+Version:        1.0.9
 Release:        %autorelease
 Summary:        Minimal low-level HTTP client
 

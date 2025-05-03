@@ -4,7 +4,7 @@
 %global         srcname     azure-synapse-spark
 
 Name:           python-%{srcname}
-Version:        0.2.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Spark Client Library for Python
 License:        MIT
