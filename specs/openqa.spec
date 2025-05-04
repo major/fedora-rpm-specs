@@ -22,14 +22,16 @@
 
 %global github_owner    os-autoinst
 %global github_name     openQA
-%global github_version  4.6
-%global github_commit   d5cf7898e2b321a8545d85607ef6305b3c73d238
+%global github_version  5
+%global github_commit   10b1e43840bddcc9839be91ebb46fb422effe601
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20240729
+%global github_date     20250430
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
-%global openqa_services openqa-webui.service openqa-gru.service openqa-websockets.service openqa-scheduler.service openqa-enqueue-audit-event-cleanup.service openqa-enqueue-audit-event-cleanup.timer openqa-enqueue-asset-cleanup.service openqa-enqueue-asset-cleanup.timer openqa-enqueue-result-cleanup.service openqa-enqueue-result-cleanup.timer openqa-enqueue-bug-cleanup.service openqa-enqueue-bug-cleanup.timer
+%global openqa_main_service openqa-webui.service
+%global openqa_extra_services openqa-gru.service openqa-websockets.service openqa-scheduler.service openqa-enqueue-audit-event-cleanup.service openqa-enqueue-audit-event-cleanup.timer openqa-enqueue-asset-cleanup.service openqa-enqueue-git-auto-update.service openqa-enqueue-asset-cleanup.timer openqa-enqueue-result-cleanup.service openqa-enqueue-result-cleanup.timer openqa-enqueue-bug-cleanup.service openqa-enqueue-bug-cleanup.timer openqa-enqueue-git-auto-update.timer openqa-enqueue-needle-ref-cleanup.service openqa-enqueue-needle-ref-cleanup.timer
+%global openqa_services %{openqa_main_service} %{openqa_extra_services}
 %global openqa_worker_services openqa-worker.target openqa-slirpvde.service openqa-vde_switch.service openqa-worker-cacheservice.service openqa-worker-cacheservice-minion.service
 
 %if %{undefined tmpfiles_create}
@@ -49,7 +51,7 @@
 # their versioning of mojolicious is different due to
 # https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Text::Glob) perl(Time::Moment) perl(Try::Tiny)
+%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Feature::Compat::Try) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Text::Glob) perl(Time::Moment)
 # Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
@@ -60,7 +62,7 @@
 # Diff from SUSE 2: we have 'sqlite' not 'sqlite3'
 # Diff from SUSE 3: we package bsdcat and bsdtar separately
 # The following line is generated from dependencies.yaml (upstream)
-%define worker_requires bsdcat bsdtar openqa-client optipng os-autoinst < 5 perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
+%define worker_requires bsdcat bsdtar openqa-client optipng os-autoinst perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
 # Diff from SUSE: they have npm as they run npm install in the spec,
 # we do it in update-cache.sh
 # The following line is generated from dependencies.yaml (upstream)
@@ -71,16 +73,20 @@
 # package.
 # Diff from SUSE: Selenium requirements dropped as not available in Fedora,
 # critic and (python) yamllint requirements dropped as we don't run those
-# checks in our package build (except Perl::Critic itself as the
-# compile-check-all test fails on the in-tree critic module if we leave
-# that out), ssh-keygen is in openssh in Fedora (openssh-common in SUSE)
+# checks in our package build, ssh-keygen is in openssh in Fedora
+# (openssh-common in SUSE), Syntax::Keyword::Try::Deparse seems to be
+# missing upstream
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq openssh os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server shfmt
+%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires curl jq openssh os-autoinst perl(App::cpanminus) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 perl(Syntax::Keyword::Try::Deparse) postgresql-server
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
 %define qemu qemu
 %endif
+# Diff from SUSE: perl::Critic::Community is omitted as we do not package it,
+# SUSE has python3-yamllint but we just have yamllint
+# The following line is generated from dependencies.yaml (upstream)
+%define style_check_requires ShellCheck perl(Code::TidyAll) perl(Perl::Critic) yamllint shfmt
 # diff from SUSE: perl(Devel::Cover::Report::Codecovbash) dropped because
 # it's not in Fedora (this means you can't run 'make coverage-codecov')
 # The following line is generated from dependencies.yaml (upstream)
@@ -89,7 +95,7 @@
 # doesn't exist in Fedora (it exists as a source package generating
 # multiple binary packages) and I can't find any reason for it
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_no_selenium_requires %build_requires %cover_requires %qemu %test_requires curl perl(Perl::Tidy) postgresql-devel rsync sudo tar
+%define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl perl(Perl::Tidy) postgresql-devel rsync sudo tar
 # diff from SUSE: chromedriver dropped as we don't package it
 # that makes this look fairly silly, but we want to follow the SUSE
 # spec as close as we can
@@ -100,7 +106,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -130,23 +136,17 @@ Source4:        23-fedora-messaging.t
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
 
-# https://github.com/os-autoinst/openQA/pull/5797
-# https://progress.opensuse.org/issues/164613
-# Do not retry jobs that were obsoleted
-Patch:          0001-Do-not-retry-jobs-that-were-obsoleted.patch
-
-# https://github.com/os-autoinst/openQA/pull/6158
-# Allows using an arbitrary oauth2 field as the 'user id', which we
-# need as there's no 'id' field in ipsilon data
-Patch:          0001-Support-OpenID-Connect-better-in-the-OAuth2-custom-p.patch
-
-# https://github.com/os-autoinst/openQA/pull/6236
-# Fixes some errors in the above patch
-Patch:          0001-Fix-non-custom-OAuth2-providers.patch
-
 # https://github.com/os-autoinst/openQA/pull/6335
-# Fix(?) redirect_uri generation in the oauth2 plugin
-Patch:          0001-oauth2-use-openQA-base_url-not-url_from-to-create-re.patch
+# Fix redirect_uri generation in the oauth2 plugin
+Patch:          0001-oauth2-use-openQA-base_url-to-create-redirect-URI-if.patch
+
+# https://github.com/os-autoinst/openQA/pull/6414
+# Various fixes for git operation configuration
+Patch:          0001-Avoid-git-clone-update-operations-unless-scm-is-set-.patch
+Patch:          0002-Respect-scm-config-setting-in-_get_needles_ref_and_u.patch
+Patch:          0003-Add-git_auto_commit-setting-to-control-commit-of-edi.patch
+Patch:          0004-enqueue_git_update_all-don-t-check-git_auto_clone.patch
+Patch:          0005-Disentangle-git_auto_clone-and-git_auto_update.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -428,9 +428,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 %make_install
 
-mkdir -p %{buildroot}%{_datadir}/openqa/etc/openqa
-ln -s %{_sysconfdir}/openqa/openqa.ini %{buildroot}%{_datadir}/openqa/etc/openqa/openqa.ini
-ln -s %{_sysconfdir}/openqa/database.ini %{buildroot}%{_datadir}/openqa/etc/openqa/database.ini
 mkdir -p %{buildroot}%{_bindir}
 ln -s %{_datadir}/openqa/script/client %{buildroot}%{_bindir}/openqa-client
 ln -s %{_datadir}/openqa/script/openqa-cli %{buildroot}%{_bindir}/openqa-cli
@@ -440,6 +437,7 @@ ln -s %{_datadir}/openqa/script/openqa-load-templates %{buildroot}%{_bindir}/ope
 ln -s %{_datadir}/openqa/script/openqa-clone-custom-git-refspec %{buildroot}%{_bindir}/openqa-clone-custom-git-refspec
 ln -s %{_datadir}/openqa/script/openqa-validate-yaml %{buildroot}%{_bindir}/openqa-validate-yaml
 ln -s %{_datadir}/openqa/script/setup-db %{buildroot}%{_bindir}/openqa-setup-db
+ln -s %{_datadir}/openqa/script/dump-db %{buildroot}%{_bindir}/openqa-dump-db
 ln -s %{_datadir}/openqa/script/openqa-label-all %{buildroot}%{_bindir}/openqa-label-all
 
 # munin
@@ -447,6 +445,7 @@ install -d -m 755 %{buildroot}/%{_datadir}/munin/plugins
 install -m 755 contrib/munin/plugins/minion %{buildroot}/%{_datadir}/munin/plugins/openqa_minion_
 install -d -m 755 %{buildroot}/%{_sysconfdir}/munin/plugin-conf.d
 install -m 644 contrib/munin/config/minion.config %{buildroot}/%{_sysconfdir}/munin/plugin-conf.d/openqa-minion
+install -m 755 contrib/munin/utils/munin-mail %{buildroot}/%{_datadir}/openqa/script/munin-mail
 
 # on the whole I think it's "less bad" to install our duplicate copies
 # of these over top of the ones from the tarball. if they ever go out
@@ -472,6 +471,15 @@ rm -f %{buildroot}%{_datadir}/openqa/script/openqa-auto-update
 rm -f %{buildroot}%{_datadir}/openqa/script/openqa-continuous-update
 rm -f %{buildroot}%{_datadir}/openqa/script/openqa-rollback
 rm -f %{buildroot}%{_datadir}/openqa/script/openqa-check-devel-repo
+rm -f %{buildroot}%{_datadir}/openqa/script/openqa-clean-repo-cache
+
+# See: https://progress.opensuse.org/issues/179359#note-33
+# it does not make sense to ship an empty 'template' config tree
+# under /usr/etc because nobody besides the distributor is meant to
+# put anything in /usr, so who is this helping? removing this avoids
+# unpleasantness with ostree and means we don't have to patch openQA
+# to use /usr/lib instead, we can just ignore the /usr level of config
+rm -rf %{buildroot}%{_prefix}/etc
 
 
 %check
@@ -559,14 +567,14 @@ fi
 
 %files
 %doc README.asciidoc
+%ghost %config(noreplace) %attr(0644,geekotest,root) %{_sysconfdir}/openqa/openqa.ini
+%ghost %config(noreplace) %attr(0640,geekotest,root) %{_sysconfdir}/openqa/database.ini
 %dir %{_sysconfdir}/openqa
-%config(noreplace) %{_sysconfdir}/openqa/openqa.ini
-%config(noreplace) %attr(-,root,geekotest) %{_sysconfdir}/openqa/database.ini
+%dir %{_sysconfdir}/openqa/openqa.ini.d
+%dir %{_sysconfdir}/openqa/database.ini.d
+%{_datadir}/doc/openqa/examples/openqa.ini
+%{_datadir}/doc/openqa/examples/database.ini
 %dir %{_datadir}/openqa
-%dir %{_datadir}/openqa/etc
-%dir %{_datadir}/openqa/etc/openqa
-%{_datadir}/openqa/etc/openqa/openqa.ini
-%{_datadir}/openqa/etc/openqa/database.ini
 %config %{_sysconfdir}/logrotate.d
 # init
 %{_unitdir}/openqa-webui.service
@@ -581,10 +589,14 @@ fi
 %{_unitdir}/openqa-enqueue-audit-event-cleanup.timer
 %{_unitdir}/openqa-enqueue-asset-cleanup.service
 %{_unitdir}/openqa-enqueue-asset-cleanup.timer
+%{_unitdir}/openqa-enqueue-git-auto-update.service
+%{_unitdir}/openqa-enqueue-git-auto-update.timer
 %{_unitdir}/openqa-enqueue-result-cleanup.service
 %{_unitdir}/openqa-enqueue-result-cleanup.timer
 %{_unitdir}/openqa-enqueue-bug-cleanup.service
 %{_unitdir}/openqa-enqueue-bug-cleanup.timer
+%{_unitdir}/openqa-enqueue-needle-ref-cleanup.service
+%{_unitdir}/openqa-enqueue-needle-ref-cleanup.timer
 %{_tmpfilesdir}/openqa-webui.conf
 # web libs
 %{_datadir}/openqa/lib/DBIx/
@@ -616,11 +628,13 @@ fi
 %{_datadir}/openqa/script/openqa-enqueue-asset-cleanup
 %{_datadir}/openqa/script/openqa-enqueue-audit-event-cleanup
 %{_datadir}/openqa/script/openqa-enqueue-bug-cleanup
+%{_datadir}/openqa/script/openqa-enqueue-git-auto-update
 %{_datadir}/openqa/script/openqa-enqueue-result-cleanup
 %{_datadir}/openqa/script/openqa-gru
 %{_datadir}/openqa/script/openqa-webui-daemon
 %{_datadir}/openqa/script/upgradedb
 %{_datadir}/openqa/script/modify_needle
+%{_datadir}/openqa/script/openqa-enqueue-needle-ref-cleanup
 %dir %{_localstatedir}/lib/openqa/share
 %defattr(-,geekotest,root)
 # the database script does creation with 'geekotest' privileges
@@ -641,6 +655,8 @@ fi
 
 %files common
 %license COPYING
+%dir %{_datadir}/doc/openqa
+%dir %{_datadir}/doc/openqa/examples
 %dir %{_datadir}/openqa
 %ghost %dir %{_datadir}/openqa/packed
 %{_datadir}/openqa/lib
@@ -673,8 +689,12 @@ fi
 %files worker
 %{_datadir}/openqa/lib/OpenQA/CacheService/
 %{_datadir}/openqa/lib/OpenQA/Worker/
-%config(noreplace) %{_sysconfdir}/openqa/workers.ini
-%config(noreplace) %attr(0400,_openqa-worker,root) %{_sysconfdir}/openqa/client.conf
+%ghost %config(noreplace) %{_sysconfdir}/openqa/workers.ini
+%ghost %config(noreplace) %attr(0400,_openqa-worker,root) %{_sysconfdir}/openqa/client.conf
+%dir %{_sysconfdir}/openqa/workers.ini.d
+%dir %{_sysconfdir}/openqa/client.conf.d
+%{_datadir}/doc/openqa/examples/workers.ini
+%{_datadir}/doc/openqa/examples/client.conf
 # init
 %dir %{_unitdir}
 %{_prefix}/lib/systemd/system-generators/systemd-openqa-generator
@@ -707,6 +727,7 @@ fi
 %dir %{_localstatedir}/lib/openqa/cache
 # own one pool - to create the others is task of the admin
 %dir %{_localstatedir}/lib/openqa/pool/1
+%{_prefix}/lib/sysctl.d/01-openqa-reload-worker-auto-restart.conf
 
 # Note: remote workers are required to mount /var/lib/openqa/share
 # shared with the server.
@@ -762,7 +783,9 @@ fi
 %{_unitdir}/openqa-scheduler.service.requires/postgresql.service
 %{_unitdir}/openqa-websockets.service.requires/postgresql.service
 %{_datadir}/openqa/script/setup-db
+%{_datadir}/openqa/script/dump-db
 %{_bindir}/openqa-setup-db
+%{_bindir}/openqa-dump-db
 
 %files single-instance
 
@@ -775,9 +798,11 @@ fi
 %files munin
 %defattr(-,root,root)
 %doc contrib/munin/config/minion.config
+%dir %{_datadir}/openqa/script
 %dir %{_sysconfdir}/munin
 %dir %{_sysconfdir}/munin/plugin-conf.d
 %{_datadir}/munin/plugins/openqa_minion_
+%{_datadir}/openqa/script/munin-mail
 %config(noreplace) %{_sysconfdir}/munin/plugin-conf.d/openqa-minion
 
 %files plugin-fedora-messaging
@@ -787,6 +812,10 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Wed Apr 30 2025 Adam Williamson <awilliam@redhat.com> - 5^20250430git10b1e43-1
+- Update to latest upstream git
+- Backport PR #6414 to fix configuration of automatic git operations
+
 * Thu Mar 27 2025 Adam Williamson <awilliam@redhat.com> - 4.6^20240729gitd5cf789-6
 - Backport some OAuth2 fixes we need
 

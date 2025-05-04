@@ -61,7 +61,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -160,6 +160,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
+%if %{with test}
+    -DCMAKE_MATRICES_DIR=%{_builddir}/rocsparse-test-matrices/ \
+%endif
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
@@ -182,7 +185,12 @@ find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.deve
 if [ -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md
 fi
-    
+
+%if %{with test}
+    mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
+    install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{_datadir}/%{name}/matrices
+%endif
+
 %check
 %if %{with test}
 %if %{with check}
@@ -212,9 +220,14 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %{_bindir}/rocsparse*
 %{_datadir}/rocsparse/test/rocsparse_*
 %{_libdir}/rocsparse/rocsparseio-*
+%{_datadir}/rocsparse/matrices/*
+
 %endif
 
 %changelog
+* Fri May 2 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
+- include downloaded matrix files for test subpackage
+
 * Tue Apr 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Improve testing for suse
 

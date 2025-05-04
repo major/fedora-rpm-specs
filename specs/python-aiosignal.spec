@@ -7,9 +7,10 @@ License:        Apache-2.0
 URL:            https://github.com/aio-libs/aiosignal
 Source:         %{pypi_source aiosignal}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l aiosignal
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -28,9 +29,7 @@ Obsoletes:      python-aiosignal-doc < 1.3.1-15
 %description -n python3-aiosignal %{common_description}
 
 
-%prep
-%autosetup -n aiosignal-%{version} -p1
-
+%prep -a
 # Patch out coverage options
 sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
 
@@ -38,26 +37,14 @@ sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
 sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l aiosignal
-
-
-%check
+%check -a
 %pytest
 
 
 %files -n python3-aiosignal -f %{pyproject_files}
-%license LICENSE
-%doc CHANGES.rst CONTRIBUTORS.txt README.rst
+%doc CHANGES.rst
+%doc CONTRIBUTORS.txt
+%doc README.rst
 
 
 %changelog

@@ -8,7 +8,7 @@
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
 Version:        9.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -49,7 +49,6 @@ Obsoletes:      proj-datumgrid < 1.8-6.3.2.6
 %endif
 
 Requires:       proj-data = %{version}-%{release}
-Requires:       bash-completion
 
 %description
 Proj and invproj perform respective forward and inverse transformation of
@@ -367,6 +366,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 
 %changelog
+* Fri May 02 2025 Sandro Mani <manisandro@gmail.com> - 9.6.0-2
+- Remove unnecessary bash-completion requires (#2363242)
+
 * Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 9.6.0-1
 - Update to 9.6.0
 

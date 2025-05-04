@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.16
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -369,6 +369,7 @@ fi
 %{_qt5_bindir}/designer*
 %{_datadir}/applications/*designer.desktop
 %{_datadir}/icons/hicolor/*/apps/designer*.*
+%dir %{_qt5_libdir}/cmake/Qt5DesignerComponents
 %{_qt5_libdir}/cmake/Qt5DesignerComponents/Qt5DesignerComponentsConfig*.cmake
 
 %if 0%{?webkit}
@@ -490,6 +491,9 @@ fi
 
 
 %changelog
+* Fri May 02 2025 Than Ngo <than@redhat.com> - 5.15.16-4
+- Fix rhbz#2293758, Directory is missing in RPM database
+
 * Sun Mar 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.16-3
 - Rebuilt for LLVM 20
 

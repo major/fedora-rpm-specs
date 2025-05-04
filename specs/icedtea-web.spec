@@ -3,26 +3,26 @@
 
 # Build- and run-time version of OpenJDK Java
 %if 0%{?fedora} || 0%{?rhel} > 9
-%global java_version 17
+%global java_version 21
 %else
-%global java_version 11
+%global java_version 17
 %endif
 
 Summary:           Open Source implementation of JSR-56 better known as Java Web Start
 Name:              icedtea-web
 Version:           1.8.8
-Release:           7%{?dist}
+Release:           8%{?dist}
 # Run the following command after removing applet/unused sources in %%prep:
 # licensecheck -r --shortname-scheme=spdx . | sed -e 's/.*: //' | sort -u
 License:           GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Classpath-exception-2.0 AND LGPL-2.1-or-later AND Zlib
 URL:               https://github.com/AdoptOpenJDK/IcedTea-Web
 Source0:           https://github.com/AdoptOpenJDK/IcedTea-Web/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Remove dependency to dunce (normalizes Windows paths to the most compatible format)
-Patch0:            icedtea-web-1.8.8-remove-dunce.patch
-# https://access.redhat.com/documentation/en-us/openjdk/11/html/using_alt-java
-Patch1:            icedtea-web-1.8.8-alt-java.patch
 # Upstream changes since IcedTea-Web 1.8.8
-Patch2:            https://github.com/AdoptOpenJDK/IcedTea-Web/compare/icedtea-web-1.8.8...4b3375b9ad68bec6306c38a976f7c0604fea1852.patch#/icedtea-web-1.8.8-upstream-changes.patch
+Patch0:            https://github.com/AdoptOpenJDK/IcedTea-Web/compare/icedtea-web-1.8.8...af67182516b22e8caa3ff2c3c81be9ef9233563f.patch#/icedtea-web-1.8.8-upstream-changes.patch
+# Remove dependency to dunce (normalizes Windows paths to the most compatible format)
+Patch1:            icedtea-web-1.8.8-remove-dunce.patch
+# https://access.redhat.com/documentation/en-us/openjdk/11/html/using_alt-java
+Patch2:            icedtea-web-1.8.8-alt-java.patch
 # Disable sun.applet javadocs and plugin man page for --disable-pluginjar
 Patch3:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/907.patch#/icedtea-web-1.8.8-disable-pluginjar.patch
 # Use same naming scheme like bash-completion
@@ -33,6 +33,14 @@ Patch5:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/901.patch#/i
 Patch6:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/908.patch#/icedtea-web-1.8.8-javadoc-param.patch
 # Reflect removal of Pack200 Tools and API in Java 17 to IcedTea-Web
 Patch7:            icedtea-web-1.8.8-java18-no-pack200.patch
+# Dummy implementation of JarIndex for IcedTea-Web to support Java 21+
+Patch8:            icedtea-web-1.8.8-java21-jarindex.patch
+# Modify autoconf scripts to support building with Java 21+
+Patch9:            icedtea-web-1.8.8-java21-autoconf.patch
+# Extend JAVADOC_OPTS for Java 21+
+Patch10:           https://github.com/AdoptOpenJDK/IcedTea-Web/pull/970.patch#/icedtea-web-1.8.8-javadoc-21.patch
+# Prepend -Djava.security.manager as workaround for Java 21
+Patch11:           https://github.com/AdoptOpenJDK/IcedTea-Web/pull/971.patch#/icedtea-web-1.8.8-java21-security-manager.patch
 ExclusiveArch:     %{java_arches}
 BuildRequires:     autoconf
 BuildRequires:     automake
@@ -90,15 +98,21 @@ debugging IcedTea-Web.
 
 %prep
 %setup -q -n IcedTea-Web-%{name}-%{version}
-%patch -P0 -p1 -b .remove-dunce
-%patch -P1 -p1 -b .alt-java
-%patch -P2 -p1 -b .upstream-changes
+%patch -P0 -p1 -b .upstream-changes
+%patch -P1 -p1 -b .remove-dunce
+%patch -P2 -p1 -b .alt-java
 %patch -P3 -p1 -b .disable-pluginjar
 %patch -P4 -p1 -b .bash-completion
 %patch -P5 -p1 -b .untranslated-man-pages
 %patch -P6 -p1 -b .javadoc-param
 %if 0%{?java_version} >= 17
 %patch -P7 -p1 -b .java18-no-pack200
+%endif
+%if 0%{?java_version} >= 21
+%patch -P8 -p1 -b .java21-jarindex
+%patch -P9 -p1 -b .java21-autoconf
+%patch -P10 -p1 -b .javadoc-21
+%patch -P11 -p1 -b .java21-security-manager
 %endif
 
 # Remove applet support
@@ -221,6 +235,10 @@ exit 0
 %{_datadir}/%{name}/javaws.src.zip
 
 %changelog
+* Sat May 03 2025 Robert Scheck <robert@fedoraproject.org> - 1.8.8-8
+- Switch from Java 11 to 17 for Red Hat Enterprise Linux 9
+- Add patches for Java 21 support (#2323983, #2340633, #2363798)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

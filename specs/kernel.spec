@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc4.20250430gitb6ea1680d0ac.37
+%define pkgrelease 0.rc4.20250502gitebd297a2affa.39
 %define kversion 6
-%define tarfile_release 6.15-rc4-42-gb6ea1680d0ac
+%define tarfile_release 6.15-rc4-147-gebd297a2affa
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.20250430gitb6ea1680d0ac.37%{?buildid}%{?dist}
+%define specrelease 0.rc4.20250502gitebd297a2affa.39%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -692,6 +692,7 @@ ExclusiveOS: Linux
 Requires: kernel-core-uname-r = %{KVERREL}
 Requires: kernel-modules-uname-r = %{KVERREL}
 Requires: kernel-modules-core-uname-r = %{KVERREL}
+Requires: ((kernel-modules-extra-uname-r = %{KVERREL}) if kernel-modules-extra-matched)
 Provides: installonlypkg(kernel)
 %endif
 
@@ -1442,6 +1443,13 @@ Requires: %{package_name}%{?1:-%{1}}-core = %{specrpmversion}-%{release}\
 This meta package is used to install matching core and devel packages for a given %{?2:%{2} }kernel.\
 %{nil}
 
+%define kernel_modules_extra_matched_package(m) \
+%package modules-extra-matched\
+Summary: Meta package which requires modules-extra to be installed for all kernels.\
+%description modules-extra-matched\
+This meta package provides a single reference that other packages can Require to have modules-extra installed for all kernels.\
+%{nil}
+
 #
 # This macro creates a kernel-<subpackage>-modules-internal package.
 #	%%kernel_modules_internal_package <subpackage> <pretty-name>
@@ -1543,6 +1551,7 @@ summary: kernel meta-package for the %{1} kernel\
 Requires: kernel-%{1}-core-uname-r = %{KVERREL}%{uname_suffix %{1}}\
 Requires: kernel-%{1}-modules-uname-r = %{KVERREL}%{uname_suffix %{1}}\
 Requires: kernel-%{1}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{1}}\
+Requires: ((kernel-%{1}-modules-extra-uname-r = %{KVERREL}%{uname_suffix %{1}}) if kernel-modules-extra-matched)\
 %if "%{1}" == "rt" || "%{1}" == "rt-debug" || "%{1}" == "rt-64k" || "%{1}" == "rt-64k-debug"\
 Requires: realtime-setup\
 %endif\
@@ -1550,25 +1559,6 @@ Provides: installonlypkg(kernel)\
 %description %{1}\
 The meta-package for the %{1} kernel\
 %{nil}
-
-%if %{with_realtime} || %{with_realtime_arm64_64k}
-#
-# this macro creates a kernel-rt-<subpackage>-kvm package
-# %%kernel_kvm_package <subpackage>
-#
-%define kernel_kvm_package() \
-%package %{?1:%{1}-}kvm\
-Summary: KVM modules for package kernel%{?1:-%{1}}\
-Group: System Environment/Kernel\
-Requires: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:%{1}}}\
-Requires: kernel%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Provides: installonlypkg(kernel-module)\
-Provides: kernel%{?1:-%{1}}-kvm-%{_target_cpu} = %{version}-%{release}\
-AutoReq: no\
-%description -n kernel%{?1:-%{1}}-kvm\
-This package provides KVM modules for package kernel%{?1:-%{1}}.\
-%{nil}
-%endif
 
 #
 # This macro creates a kernel-<subpackage> and its -devel and -debuginfo too.
@@ -1600,10 +1590,7 @@ Requires: kernel-%{?1:%{1}-}-modules-core-uname-r = %{KVERREL}%{uname_variant %{
 %endif\
 %{expand:%%kernel_debuginfo_package %{?1:%{1}}}\
 %endif\
-%if "%{1}" == "rt" || "%{1}" == "rt-debug" || "%{1}" == "rt-64k" || "%{1}" == "rt-64k-debug"\
-%{expand:%%kernel_kvm_package %{?1:%{1}} %{!?{-n}:%{1}}%{?{-n}:%{-n*}}}\
-%else \
-%if %{with_efiuki}\
+%if %{with_efiuki} && ("%{1}" != "rt" && "%{1}" != "rt-debug" && "%{1}" != "rt-64k" && "%{1}" != "rt-64k-debug")\
 %package %{?1:%{1}-}uki-virt\
 Summary: %{variant_summary} unified kernel image for virtual machines\
 Provides: installonlypkg(kernel)\
@@ -1617,7 +1604,6 @@ Summary: %{variant_summary} unified kernel image addons for virtual machines\
 Provides: installonlypkg(kernel)\
 Requires: kernel%{?1:-%{1}}-uki-virt = %{specrpmversion}-%{release}\
 Requires(pre): systemd >= 254-1\
-%endif\
 %endif\
 %if %{with_gcov}\
 %{expand:%%kernel_gcov_package %{?1:%{1}}}\
@@ -1845,6 +1831,8 @@ Prebuilt 64k unified kernel image for virtual machines.
 %description 64k-uki-virt-addons
 Prebuilt 64k unified kernel image addons for virtual machines.
 %endif
+
+%kernel_modules_extra_matched_package
 
 %define log_msg() \
 	{ set +x; } 2>/dev/null \
@@ -2876,12 +2864,6 @@ BuildKernel() {
         create_module_file_list "kernel" ../modules.list ../kernel${Variant:+-${Variant}}-modules.list 0 0
         create_module_file_list "internal" ../modules-internal.list ../kernel${Variant:+-${Variant}}-modules-internal.list 0 1
         create_module_file_list "kernel" ../modules-extra.list ../kernel${Variant:+-${Variant}}-modules-extra.list 0 1
-        if [[ "$Variant" == "rt" || "$Variant" == "rt-debug" ]]; then
-            create_module_file_list "kvm" ../modules-rt-kvm.list ../kernel${Variant:+-${Variant}}-modules-rt-kvm.list 0 1
-        fi
-        if [[ "$Variant" == "rt-64k" || "$Variant" == "rt-64k-debug" ]]; then
-            create_module_file_list "kvm" ../modules-rt-64k-kvm.list ../kernel${Variant:+-${Variant}}-modules-rt-64k-kvm.list 0 1
-        fi
 %if 0%{!?fedora:1}
         create_module_file_list "partner" ../modules-partner.list ../kernel${Variant:+-${Variant}}-modules-partner.list 1 1
 %endif
@@ -3693,21 +3675,6 @@ fi\
 /sbin/depmod -a %{KVERREL}%{?1:+%{1}}\
 %{nil}
 
-%if %{with_realtime} || %{with_realtime_arm64_64k}
-#
-# This macro defines a %%post script for a kernel*-kvm package.
-# It also defines a %%postun script that does the same thing.
-#	%%kernel_kvm_post [<subpackage>]
-#
-%define kernel_kvm_post() \
-%{expand:%%post %{?1:%{1}-}kvm}\
-/sbin/depmod -a %{KVERREL}%{?1:+%{1}}\
-%{nil}\
-%{expand:%%postun %{?1:%{1}-}kvm}\
-/sbin/depmod -a %{KVERREL}%{?1:+%{1}}\
-%{nil}
-%endif
-
 #
 # This macro defines a %%post script for a kernel*-modules package.
 # It also defines a %%postun script that does the same thing.
@@ -3873,7 +3840,6 @@ fi\
 %if %{with_realtime_base}
 %kernel_variant_preun -v rt
 %kernel_variant_post -v rt -r kernel
-%kernel_kvm_post rt
 %endif
 
 %if %{with_automotive_base}
@@ -3884,7 +3850,6 @@ fi\
 %if %{with_realtime} && %{with_debug}
 %kernel_variant_preun -v rt-debug
 %kernel_variant_post -v rt-debug
-%kernel_kvm_post rt-debug
 %endif
 
 %if %{with_realtime_arm64_64k_base}
@@ -4181,14 +4146,7 @@ fi\
 %{expand:%%files -f debuginfo%{?3}.list %{?3:%{3}-}debuginfo}\
 %endif\
 %endif\
-%if "%{3}" == "rt" || "%{3}" == "rt-debug" || "%{3}" == "rt-64k" || "%{3}" == "rt-64k-debug"\
-%if "%{3}" == "rt" || "%{3}" == "rt-debug"\
-%{expand:%%files -f kernel-%{?3:%{3}-}modules-rt-kvm.list %{?3:%{3}-}kvm}\
-%else\
-%{expand:%%files -f kernel-%{?3:%{3}-}modules-rt-64k-kvm.list %{?3:%{3}-}kvm}\
-%endif\
-%else\
-%if %{with_efiuki}\
+%if %{with_efiuki} && "%{3}" != "rt" && "%{3}" != "rt-debug" && "%{3}" != "rt-64k" && "%{3}" != "rt-64k-debug"\
 %{expand:%%files %{?3:%{3}-}uki-virt}\
 %dir /lib/modules\
 %dir /lib/modules/%{KVERREL}%{?3:+%{3}}\
@@ -4202,7 +4160,6 @@ fi\
 %{expand:%%files %{?3:%{3}-}uki-virt-addons}\
 %dir /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extra.d/ \
 /lib/modules/%{KVERREL}%{?3:+%{3}}/%{?-k:%{-k*}}%{!?-k:vmlinuz}-virt.efi.extra.d/*.addon.efi\
-%endif\
 %endif\
 %if %{?3:1} %{!?3:0}\
 %{expand:%%files %{3}}\
@@ -4266,11 +4223,28 @@ fi\
 %kernel_variant_files %{_use_vdso} %{with_debug} rt-64k-debug
 %endif
 
+%files modules-extra-matched
+
 # plz don't put in a version string unless you're going to tag
 # and build.
 #
 #
 %changelog
+* Fri May 02 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc4.20250502gitebd297a2affa.39]
+- Turn on ACPI_DEBUG for Fedora (Justin M. Forbes)
+
+* Fri May 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.ebd297a2affa.39]
+- redhat/configs: aarch64: Enable Apple touchbar display driver for Fedora (Neal Gompa)
+- Linux v6.15.0-0.rc4.ebd297a2affa
+
+* Thu May 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.4f79eaa2ceac.38]
+- redhat: remove kernel-rt-kvm package (Clark Williams)
+- redhat: introduce modules-extra-matched meta package (Jan Stancek)
+- Fix up some Netfilter configs for Fedora (Justin M. Forbes)
+- Turn NF_CT_NETLINK_TIMEOUT for Fedora (Justin M. Forbes)
+- Turn on NF_CONNTRACK_TIMEOUT for Fedora (Justin M. Forbes)
+- Linux v6.15.0-0.rc4.4f79eaa2ceac
+
 * Wed Apr 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.b6ea1680d0ac.37]
 - redhat/configs: Adjust CONFIG_TUNE for s390x (Mete Durlu)
 - Linux v6.15.0-0.rc4.b6ea1680d0ac

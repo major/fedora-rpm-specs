@@ -10,12 +10,15 @@ URL:            https://github.com/firefly-cpp/NiaAML-GUI
 # tests and other auxiliary files.
 Source:         %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L niaaml_gui
+BuildOption(generate_buildrequires): -x full,graph,junit,sarif
+
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
  
-BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -35,26 +38,14 @@ Python package.}
 %description %{common_description}
 
 
-%prep
-%autosetup
+%prep -a
 # Do not upper-bound the version of Python!
 # https://github.com/firefly-cpp/NiaAML-GUI/commit/d0084e6d2f05c6af848678db731c41a49c1a2a22#commitcomment-146060179
 sed -r -i 's/^(python[[:blank:]]*=[[:blank:]]*"[^"]+),[^"]+"/\1"/' \
     pyproject.toml
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files niaaml_gui
-
+%install -a
 desktop-file-install --dir='%{buildroot}%{_datadir}/applications' \
     AppData/%{app_id}.desktop
 install -t '%{buildroot}%{_metainfodir}' -p -m 0644 -D \
@@ -63,7 +54,7 @@ install -t '%{buildroot}%{_datadir}/icons/hicolor/256x256/apps' -p -m 0644 -D \
     AppData/niaaml-gui.png
 
 
-%check
+%check -a
 appstream-util validate-relax --nonet \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 

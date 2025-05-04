@@ -1215,7 +1215,8 @@ popd
     -DLLVM_USE_PERF=ON \\\
     -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
     -DBUILD_SHARED_LIBS=OFF \\\
-    -DLLVM_BUILD_LLVM_DYLIB=ON
+    -DLLVM_BUILD_LLVM_DYLIB=ON \\\
+    -DLLVM_ENABLE_FFI:BOOL=ON
 
 %global cmake_config_args %{cmake_common_args}
 
@@ -1313,7 +1314,6 @@ popd
 	-DLLVM_BUILD_UTILS:BOOL=ON \\\
 	-DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple} \\\
 	-DLLVM_DYLIB_COMPONENTS="all" \\\
-	-DLLVM_ENABLE_FFI:BOOL=ON \\\
 	-DLLVM_ENABLE_LIBCXX:BOOL=OFF \\\
 	-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON \\\
 	-DLLVM_ENABLE_PROJECTS="%{projects}" \\\

@@ -13,7 +13,7 @@
 %endif
 %{!?with_rpm: %global with_rpm 1}
 %{!?elfutils_version: %global elfutils_version 0.179}
-%{!?with_boost: %global with_boost 0}
+%{!?with_boost: %global with_boost 1}
 %ifarch x86_64 ppc ppc64 ppc64le aarch64
 %{!?with_dyninst: %global with_dyninst 0%{?fedora} >= 18 || 0%{?rhel} >= 7}
 %else
@@ -124,8 +124,8 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.3~pre17373816g7a71d34b
-Release: 5%{?release_override}%{?dist}
+Version: 5.3
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -161,7 +161,7 @@ Release: 5%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -175,7 +175,7 @@ BuildRequires: pkgconfig(libdebuginfod)
 BuildRequires: pkgconfig(json-c)
 %endif
 %if %{with_dyninst}
-BuildRequires: dyninst-devel >= 13.0
+BuildRequires: dyninst-devel >= 10.0
 BuildRequires: pkgconfig(libselinux)
 %endif
 %if %{with_sqlite}
@@ -189,9 +189,7 @@ BuildRequires: pkgconfig(ncurses)
 BuildRequires: systemd
 %endif
 # Needed for libstd++ < 4.0, without <tr1/memory>
-%if %{with_boost}
 BuildRequires: boost-devel
-%endif
 %if %{with_crash}
 BuildRequires: crash-devel zlib-devel
 %endif
@@ -865,7 +863,10 @@ make check RUNTESTFLAGS=environment_sanity.exp
 
 %pre runtime
 %if %{with_sysusers}
+%if 0%{?fedora} && 0%{?fedora} < 42
 echo '%_systemtap_runtime_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-runtime.conf -
+exit 0
+%endif
 %else
 getent group stapusr >/dev/null || groupadd -f -g 156 -r stapusr
 getent group stapsys >/dev/null || groupadd -f -g 157 -r stapsys
@@ -873,23 +874,29 @@ getent group stapdev >/dev/null || groupadd -f -g 158 -r stapdev
 getent passwd stapunpriv >/dev/null || \
   useradd -c "Systemtap Unprivileged User" -u 159 -g stapunpriv -d %{_localstatedir}/lib/stapunpriv -r -s /sbin/nologin stapunpriv 2>/dev/null || \
   useradd -c "Systemtap Unprivileged User" -g stapunpriv -d %{_localstatedir}/lib/stapunpriv -r -s /sbin/nologin stapunpriv
-%endif
 exit 0
+%endif
 
 %pre server
 %if %{with_sysusers}
+%if 0%{?fedora} && 0%{?fedora} < 42
 echo '%_systemtap_server_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-server.conf -
+exit 0
+%endif
 %else
 getent group stap-server >/dev/null || groupadd -f -g 155 -r stap-server
 getent passwd stap-server >/dev/null || \
   useradd -c "Systemtap Compile Server" -u 155 -g stap-server -d %{_localstatedir}/lib/stap-server -r -s /sbin/nologin stap-server 2>/dev/null || \
   useradd -c "Systemtap Compile Server" -g stap-server -d %{_localstatedir}/lib/stap-server -r -s /sbin/nologin stap-server
-%endif
 exit 0
+%endif
 
 %pre testsuite
 %if %{with_sysusers}
+%if 0%{?fedora} && 0%{?fedora} < 42
 echo '%_systemtap_testsuite_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-testsuite.conf -
+exit 0
+%endif
 %else
 getent passwd stapusr >/dev/null || \
     useradd -c "Systemtap 'stapusr' User" -g stapusr -r -s /sbin/nologin stapusr
@@ -897,8 +904,8 @@ getent passwd stapsys >/dev/null || \
     useradd -c "Systemtap 'stapsys' User" -g stapsys -G stapusr -r -s /sbin/nologin stapsys
 getent passwd stapdev >/dev/null || \
     useradd -c "Systemtap 'stapdev' User" -g stapdev -G stapusr -r -s /sbin/nologin stapdev
-%endif
 exit 0
+%endif
 
 %post server
 
@@ -1342,6 +1349,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri May 02 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
+
 * Thu Feb 06 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.5
 - Respin against dyninst 13 redux
 

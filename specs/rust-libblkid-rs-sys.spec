@@ -6,7 +6,7 @@
 
 Name:           rust-libblkid-rs-sys
 Version:        0.3.1
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Low level bindings for libblkid
 
 License:        MPL-2.0
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/libblkid-rs-sys
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(blkid)
 
 %global _description %{expand:
 Low level bindings for libblkid.}
@@ -65,7 +66,6 @@ use the "static" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(blkid)'
 
 %build
 %cargo_build
@@ -79,53 +79,4 @@ echo 'pkgconfig(blkid)'
 %endif
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jan 02 2025 Chung Chung <cchung@redhat.com> - 0.3.1-1
-- Update to version 0.3.1
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Mar 25 2024 Bryan Gurney <bgurney@redhat.com> - 0.3.0-1
-- Update to version 0.3.0
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Sep 27 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.0-1
-- Update to version 0.2.0
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Feb 06 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.5-1
-- Update to version 0.1.5
-
-* Fri Jan 27 2023 mulhern <amulhern@redhat.com> - 0.1.4-3
-- Remove rpmautospec usage
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Aug 26 2022 mulhern <amulhern@redhat.com> - 0.1.4-1
-- Update to version 0.1.4
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 30 2021 mulhern <amulhern@redhat.com> - 0.1.3-1
-- Update to 0.1.3
-
-* Thu Nov 11 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.2-4
-- Fix patch
-
-* Thu Nov 11 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.2-3
-- Bump bindgen to 0.59.0
-
-* Thu Oct 28 14:54:53 EDT 2021 John Baublitz <jbaublitz@redhat.com> - 0.1.2-1
-- Initial package
+%autochangelog

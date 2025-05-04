@@ -18,11 +18,12 @@ Patch:          python-aws-sam-translator-1.73.0-no-coverage.patch
 # dependencies.
 Patch:          python-aws-sam-translator-1.73.0-no-warning-error.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -l samtranslator
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-
-BuildRequires:  python3-devel
 
 # Because most of the dependencies in the “dev” extra (from
 # requirements/dev.txt) are unwanted or have version bounds that need to be
@@ -116,37 +117,13 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 %description -n python3-aws-sam-translator %{common_description}
 
 
-%prep
-%autosetup -n serverless-application-model-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files samtranslator
-# Bug: Source directory bin/ is installed into site-packages
-# https://github.com/aws/serverless-application-model/issues/2588
-rm -rvf '%{buildroot}%{python3_sitelib}/bin'
-
-
-%check
+%check -a
 # See Makefile target “test”. We cannot run the integration tests because they
 # interact with AWS.
 AWS_DEFAULT_REGION=us-east-1 PYTHONPATH="${PWD}" %pytest -k "${k-}" -n auto
 
 
 %files -n python3-aws-sam-translator -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE/NOTICE/THIRD_PARTY_LICENSES; verify with
-# “rpm -qL -p …”
-%doc CODE_OF_CONDUCT.md
-%doc CONTRIBUTING.md
 %doc DESIGN.md
 %doc HOWTO.md
 %doc README.md

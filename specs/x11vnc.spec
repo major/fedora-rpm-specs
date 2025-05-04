@@ -1,11 +1,6 @@
-# A git snapshot
-%global commit a61f364e385d98677c04070a994397b287385219
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20230801
-
 Name:           x11vnc
-Version:        0.9.16^%{gitdate}git%{shortcommit}
-Release:        5%{?dist}
+Version:        0.9.17
+Release:        1%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -19,7 +14,7 @@ Summary(ru):    VNC-сервер для текущей сессии X11
 # src/xi2_devices.h:        GPL-2.0-or-later
 # src/xkb_bell.h:           GPL-2.0-or-later WITH x11vnc-openssl-exception
 ## Not in any binary package
-# m4/ax_type_socklen_t.m4:  GPL-2.0-or-later WITH Autoconf-exception-2.0
+# m4/ax_type_socklen_t.m4:  GPL-2.0-or-later WITH Autoconf-exception-macro
 ## Not used at all
 # misc/blockdpy.c:          GPL-2.0-or-later
 # misc/connect_switch:      GPL-2.0-or-later
@@ -53,9 +48,9 @@ Summary(ru):    VNC-сервер для текущей сессии X11
 # src/nox11.h:              MIT-open-group
 # tkx11vnc:     GPL-2.0-or-later
 License:        GPL-2.0-or-later AND GPL-2.0-or-later WITH x11vnc-openssl-exception
+SourceLicense:  %{license} AND GPL-2.0-or-later WITH Autoconf-exception-macro AND LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND MIT-open-group
 URL:            https://github.com/LibVNC/x11vnc
-# URL for releases: %%{url}/archive/%%{version}/%%{name}-%%{version}.tar.gz
-Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Enforce system crypto policy
 # <https://fedoraproject.org/wiki/Packaging:CryptoPolicies#C.2FC.2B.2B_applications>
 Patch0:         x11vnc-0.9.16-Respect-a-system-crypto-policy.patch
@@ -116,9 +111,7 @@ a versatile and productive while still easy to use program.
 в использовании.
 
 %prep
-%setup -q -n %{name}-%{commit}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 autoreconf -fi
@@ -158,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Fri May 02 2025 Petr Pisar <ppisar@redhat.com> - 0.9.17-1
+- 0.9.17 bump
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.16^20230801gita61f364-5
 - Add explicit BR: libxcrypt-devel
 

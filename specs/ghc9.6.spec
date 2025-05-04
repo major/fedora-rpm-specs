@@ -17,7 +17,7 @@
 %global ghc_major 9.6
 %global ghc_name ghc%{ghc_major}
 
-%global base_ver 4.18.2.1
+%global base_ver 4.18.3.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.2.0
@@ -35,11 +35,7 @@
 %bcond testsuite 0
 
 # ld
-%if %{defined fedora} || 0%{?rhel} >= 10 || "%{_arch}" == "aarch64"
 %bcond ld_gold 0
-%else
-%bcond ld_gold 1
-%endif
 
 # 9.6 needs llvm 11-15
 # rhel9 binutils too old for llvm13:
@@ -54,19 +50,19 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: 9.6.6
+Version: 9.6.7
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.lz
+Source0: https://downloads.haskell.org/ghc/9.6.7/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.lz
+Source1: https://downloads.haskell.org/ghc/9.6.7/ghc-%{version}-testsuite.tar.lz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
@@ -92,8 +88,6 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
-
-Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
 
 # RISCV64 added to Cabal
 # See: https://github.com/haskell/cabal/pull/9062
@@ -151,7 +145,6 @@ BuildRequires: llvm%{llvm_major}
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
@@ -317,15 +310,15 @@ This provides the hadrian tool which can be used to build ghc.
 %if %{defined ghclibdir}
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.10.3.0
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-3.10.3.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.6.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.3
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.4
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.5
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.300.1
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.301.0
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
@@ -350,7 +343,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause text-2.0.2
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.0
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.4.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.6.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -383,9 +376,10 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
-(
-cd hadrian
-cabal-tweak-dep-ver Cabal '< 3.9' '< 3.11'
+( cd hadrian
+  cabal-tweak-flag selftest False
+  cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+  cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.7'
 )
 
 %patch -P1 -p1 -b .orig
@@ -412,11 +406,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 #%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
-
-#sphinx 7
-%if 0%{?fedora} >= 40
-%patch -P30 -p1 -b .orig
-%endif
 
 %ifarch riscv64
 #RISCV64 cabal support
@@ -830,6 +819,10 @@ make test
 
 
 %changelog
+* Tue Mar 25 2025 Jens Petersen  <petersen@redhat.com> - 9.6.7-24
+- update to 9.6.7
+- https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/9.6.7-notes.html
+
 * Sun Jan 19 2025 Jens Petersen <petersen@redhat.com>
 - setup llvm compiler for all archs not just those defaulting to llvm backend
 

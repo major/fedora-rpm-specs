@@ -2,7 +2,7 @@ Name:           tiled
 Summary:        Tiled Map Editor
 
 Version:        1.11.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -10,7 +10,15 @@ License:        GPL-2.0-or-later AND BSD-2-Clause
 URL:            http://www.mapeditor.org
 Source0:        https://github.com/mapeditor/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         tiled-fix-build-with-qt-6.9.patch
+# Fix build failing with Qt 6.9
+Patch0:         0000-fix-build-with-qt-6.9.patch
+
+# Workaround Qt 6.9 rendering bug
+# See: https://github.com/mapeditor/tiled/issues/4191
+#
+# Taken from upstream:
+# https://github.com/mapeditor/tiled/commit/2c6eb813b877c8e2284ed36c7d04beaacd6a789f
+Patch1:         0001-fix-qt-6.9-rendering-issue.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -174,9 +182,7 @@ as Godot Engine 4 scene files (.tscn).
 
 
 %prep
-%setup -q
-
-%patch -P0 -p1
+%autosetup -p1
 
 # Remove copy of zlib
 rm -rf src/zlib
@@ -280,6 +286,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Fri May 02 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.2-3
+- Add a patch to workaround Qt 6.9 rendering bug (rhbz#2363661)
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1.11.2-2
 - Rebuild (qt6)
 

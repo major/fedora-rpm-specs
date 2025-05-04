@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302210
+Version:        1.302211
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -404,6 +404,17 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri May  2 2025 Paul Howarth <paul@city-fan.org> - 3:1.302211-1
+- Update to 1.302211
+  - Fix broken links in pod for Test2::Event and Test2::Event::Generic (GH#1035)
+  - Fix broken link in pod for Test2::Manual::Tooling::TestBuilder (GH#1033)
+  - Better error message if you use done_testing twice
+  - Test2::Compare: Link to base class for Test2::Compare::* (GH#1038)
+  - Test2::Manual::Anatomy::Event: Small typo in link (GH#1037)
+  - Test2::EventFacet::Info::Table: Fix link to Test2::API::Context (GH#1036)
+  - Test2::Manual::Anatomy::Context: Fix link to test2_stack function (GH#1034)
+  - Spelling correction (GH#1042)
+
 * Sun Mar 30 2025 Paul Howarth <paul@city-fan.org> - 3:1.302210-1
 - Update to 1.302210
   - Fix typo in Test2::Util::Trace docs

@@ -1,6 +1,6 @@
 Name:           libnice
 Version:        0.1.22
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPL-2.1-or-later OR MPL-1.1
@@ -15,6 +15,7 @@ Source2: olivier.pgp
 # Build against the new gupnp-igd
 Patch0:         libnice-gupnp-1.6.patch
 Patch1:         libnice-0.1.22-fix-test-new-trickle-for-glib-2.83.patch
+Patch2:         libnice-0.1.22-fix-openscanhub-findings.patch
 
 BuildRequires:  glib2-devel
 BuildRequires:  gnupg2
@@ -108,6 +109,9 @@ sed \
 
 
 %changelog
+* Fri May 02 2025 Stefan Becker <chemobejk@gmail.com> - 0.1.22-7
+- add upstream patches to fix OpenScanHub findings (#2362866)
+
 * Wed Apr 09 2025 Matej Focko <mfocko@redhat.com> - 0.1.22-6
 - Correct the SPDX license
 

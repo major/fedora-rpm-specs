@@ -273,9 +273,6 @@ export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag
 export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh)"
 %gobuild -o bin/podman-testing ./cmd/podman-testing
 
-# reset LDFLAGS for plugins binaries
-LDFLAGS=''
-
 %{__make} docs docker-docs
 
 %install

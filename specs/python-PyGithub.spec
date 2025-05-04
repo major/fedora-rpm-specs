@@ -29,7 +29,13 @@ Obsoletes:      python3-PyGithub < 1.29-8
 
 # Remove linter(s) from test requirements
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -i '/pytest-cov/d' requirements/test.txt
+# Also remove other unnecessary pytest add-ons
+sed \
+    -e '/pytest-cov/d' \
+    -e '/pytest-github-actions-annotate-failures/d' \
+    -e '/pytest-subtests/d' \
+    -i requirements/test.txt
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

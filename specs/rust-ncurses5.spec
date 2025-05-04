@@ -2,27 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cursive
+%global crate ncurses
 
-Name:           rust-cursive
-Version:        0.21.1
+Name:           rust-ncurses5
+Version:        5.101.0
 Release:        %autorelease
-Summary:        TUI (Text User Interface) library focused on ease-of-use
+Summary:        Very thin wrapper around the ncurses TUI library
 
 License:        MIT
-URL:            https://crates.io/crates/cursive
+URL:            https://crates.io/crates/ncurses
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  ncurses-devel
 
 %global _description %{expand:
-A TUI (Text User Interface) library focused on ease-of-use.}
+A very thin wrapper around the ncurses TUI library.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       ncurses-devel
 
 %description    devel %{_description}
 
@@ -46,88 +48,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+builder-devel
+%package     -n %{name}+extended_colors-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+builder-devel %{_description}
+%description -n %{name}+extended_colors-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "builder" feature of the "%{crate}" crate.
+use the "extended_colors" feature of the "%{crate}" crate.
 
-%files       -n %{name}+builder-devel
+%files       -n %{name}+extended_colors-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crossterm-backend-devel
+%package     -n %{name}+menu-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+crossterm-backend-devel %{_description}
+%description -n %{name}+menu-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "crossterm-backend" feature of the "%{crate}" crate.
+use the "menu" feature of the "%{crate}" crate.
 
-%files       -n %{name}+crossterm-backend-devel
+%files       -n %{name}+menu-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+doc-cfg-devel
+%package     -n %{name}+mouse_v1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+doc-cfg-devel %{_description}
+%description -n %{name}+mouse_v1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "doc-cfg" feature of the "%{crate}" crate.
+use the "mouse_v1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+doc-cfg-devel
+%files       -n %{name}+mouse_v1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ncurses-backend-devel
+%package     -n %{name}+panel-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ncurses-backend-devel %{_description}
+%description -n %{name}+panel-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ncurses-backend" feature of the "%{crate}" crate.
+use the "panel" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ncurses-backend-devel
+%files       -n %{name}+panel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pancurses-backend-devel
+%package     -n %{name}+wide-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pancurses-backend-devel %{_description}
+%description -n %{name}+wide-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pancurses-backend" feature of the "%{crate}" crate.
+use the "wide" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pancurses-backend-devel
+%files       -n %{name}+wide-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+termion-backend-devel
+%package     -n %{name}+wide_chtype-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+termion-backend-devel %{_description}
+%description -n %{name}+wide_chtype-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "termion-backend" feature of the "%{crate}" crate.
+use the "wide_chtype" feature of the "%{crate}" crate.
 
-%files       -n %{name}+termion-backend-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+toml-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+toml-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "toml" feature of the "%{crate}" crate.
-
-%files       -n %{name}+toml-devel
+%files       -n %{name}+wide_chtype-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

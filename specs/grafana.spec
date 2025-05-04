@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -744,15 +744,13 @@ Graphite, InfluxDB & OpenTSDB.
 
 # SELinux package
 %package selinux
-Summary:        SELinux policy module supporting grafana
-BuildRequires: checkpolicy, selinux-policy-devel, selinux-policy-targeted
-%if "%{_selinux_policy_version}" != ""
-Requires:       selinux-policy >= %{_selinux_policy_version}
-%endif
-Requires:       %{name} = %{version}-%{release}
-Requires:	selinux-policy-targeted
-Requires(post):   /usr/sbin/semodule, /usr/sbin/semanage, /sbin/restorecon, /sbin/fixfiles, grafana
-Requires(postun): /usr/sbin/semodule, /usr/sbin/semanage, /sbin/restorecon, /sbin/fixfiles, /sbin/service, grafana
+Summary:             SELinux policy module supporting grafana
+BuildArch:           noarch
+Requires:            %{name} = %{version}-%{release}
+Requires:	           selinux-policy-targeted
+Requires(post):      selinux-policy-targeted, /usr/sbin/semanage
+Requires(postun):    /usr/sbin/semanage
+BuildRequires:       selinux-policy-devel
 
 %description selinux
 SELinux policy module supporting grafana
@@ -766,10 +764,6 @@ SELinux policy module supporting grafana
 rm -r plugins-bundled
 %setup -q -T -D -b 2
 %endif
-
-# SELinux policy
-mkdir SELinux
-cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} SELinux
 
 %patch -P 1 -p1
 %patch -P 2 -p1
@@ -812,15 +806,11 @@ for cmd in grafana grafana-cli grafana-server; do
 done
 
 # SELinux policy
-cd SELinux
-for selinuxvariant in %{selinux_variants}
-do
-  make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
-  mv grafana.pp grafana.pp.${selinuxvariant}
-  make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
-done
-cd -
+mkdir selinux
+cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} selinux
 
+make -f %{_datadir}/selinux/devel/Makefile grafana.pp
+bzip2 -9 grafana.pp
 
 %install
 # dirs, shared files, public html, webpack
@@ -885,14 +875,12 @@ echo "d %{_rundir}/%{name} 0755 %{GRAFANA_USER} %{GRAFANA_GROUP} -" \
 install -p -m 644 -D %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # SELinux policy
-cd SELinux
 for selinuxvariant in %{selinux_variants}
 do
-  install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
-  install -p -m 644 grafana.pp.${selinuxvariant} \
-    %{buildroot}%{_datadir}/selinux/${selinuxvariant}/grafana.pp
+  install -D -m 0644 grafana.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/${selinuxvariant}/grafana.pp.bz2
+  install -D -p -m 0644 selinux/grafana.if \
+    %{buildroot}%{_datadir}/selinux/devel/include/distributed/grafana.if
 done
-cd -
 
 %if 0%{?fedora} >= 42
 %elif 0%{?fedora} || 0%{?rhel} >= 9
@@ -1001,41 +989,49 @@ export GOEXPERIMENT=boringcrypto
 %doc README.md ROADMAP.md SECURITY.md SUPPORT.md UPGRADING_DEPENDENCIES.md WORKFLOW.md
 
 # SELinux policy
+%pre selinux
+for selinuxvariant in %{selinux_variants}
+do
+  %selinux_relabel_pre -s ${selinuxvariant}
+done
+
 %post selinux
 for selinuxvariant in %{selinux_variants}
 do
-  /usr/sbin/semodule -s ${selinuxvariant} -i \
-    %{_datadir}/selinux/${selinuxvariant}/grafana.pp &> /dev/null || :
+  %selinux_modules_install -s ${selinuxvariant} %{_datadir}/selinux/packages/${selinuxvariant}/grafana.pp.bz2 &>/dev/null
+  /usr/sbin/semanage port -a -t grafana_port_t -p tcp 3000 &> /dev/null || :
+  semodule -X400 -r grafana &>/dev/null || true
+  %selinux_relabel_post -s ${selinuxvariant}
 done
-/sbin/restorecon -RvF /usr/sbin/grafana* &> /dev/null || :
-/sbin/restorecon -RvF /usr/bin/grafana* &> /dev/null || :
-/sbin/restorecon -RvF /etc/grafana &> /dev/null || :
-/sbin/restorecon -RvF /var/log/grafana &> /dev/null || :
-/sbin/restorecon -RvF /var/lib/grafana &> /dev/null || :
-/sbin/restorecon -RvF /usr/libexec/grafana-pcp &> /dev/null || :
-/usr/sbin/semanage port -a -t grafana_port_t -p tcp 3000 &> /dev/null || :
 
-%postun selinux
-if [ $1 -eq 0 ] ; then
-/usr/sbin/semanage port -d -p tcp 3000 &> /dev/null || :
-  for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -r grafana &> /dev/null || :
-  done
-  /sbin/restorecon -RvF /usr/sbin/grafana* &> /dev/null || :
-  /sbin/restorecon -RvF /usr/bin/grafana* &> /dev/null || :
-  /sbin/restorecon -RvF /etc/grafana &> /dev/null || :
-  /sbin/restorecon -RvF /var/log/grafana &> /dev/null || :
-  /sbin/restorecon -RvF /var/lib/grafana &> /dev/null || :
-  /sbin/restorecon -RvF /usr/libexec/grafana-pcp &> /dev/null || :
+if [ "$1" -le "1" ]; then # First install
+   # The daemon needs to be restarted for the custom label to be applied.
+   # This will fail in case "post selinux" is executed before the service file is installed,
+   # but then it is safe to ignore since the service will first start with the proper label
+   %systemd_postun_with_restart grafana.service &> /dev/null || :
 fi
 
+%postun selinux
+for selinuxvariant in %{selinux_variants}
+do
+  if [ $1 -eq 0 ]; then
+    /usr/sbin/semanage port -d -p tcp 3000 &> /dev/null || :
+    %selinux_modules_uninstall -s ${selinuxvariant} grafana
+    %selinux_relabel_post -s ${selinuxvariant}
+  fi
+done
+
 %files selinux
-%defattr(-,root,root,0755)
-%doc SELinux/*
-%{_datadir}/selinux/*/grafana.pp
+%{_datadir}/selinux/packages/*/grafana.pp.*
+%{_datadir}/selinux/devel/include/distributed/grafana.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Fri May 2 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-13
+- Added selinux rules for ldap and other observed selinux denials
+- Reworked the spec file selinux sections
+- Fixed the priority of the selinux policy
+
 * Wed Mar 26 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-12
 - fix CVE-2025-30204
 - fix CVE-2024-47875

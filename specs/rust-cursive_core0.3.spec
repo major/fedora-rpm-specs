@@ -4,8 +4,8 @@
 
 %global crate cursive_core
 
-Name:           rust-cursive_core
-Version:        0.4.6
+Name:           rust-cursive_core0.3
+Version:        0.3.7
 Release:        %autorelease
 Summary:        Core components for the Cursive TUI
 
@@ -13,8 +13,12 @@ License:        MIT
 URL:            https://crates.io/crates/cursive_core
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Relax version bound for compact_str
+# * drop ansi and ansi-parser (missing deps include ufmt with test failures)
+# * drop unused markdown support with outdated dependencies
 Patch:          cursive_core-fix-metadata.diff
+# * backported upstream patch to fix tests with unicode-width >=0.1.13:
+#   https://github.com/gyscos/cursive/commit/a0e405e
+Patch2:         0001-Make-spans-test-adaptable-to-unicode-width-version.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -34,7 +38,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/Readme.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,18 +51,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+builder-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+builder-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "builder" feature of the "%{crate}" crate.
-
-%files       -n %{name}+builder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+doc-cfg-devel
@@ -83,6 +75,18 @@ This package contains library source intended for building other packages which
 use the "toml" feature of the "%{crate}" crate.
 
 %files       -n %{name}+toml-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_scroll-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_scroll-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_scroll" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_scroll-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

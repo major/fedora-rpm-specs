@@ -21,25 +21,32 @@
 %endif
 
 Name:           dolphin-emu
-Version:        2503
+Version:        2503a
 Release:        %autorelease
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
 ##The project is licensed under GPLv2+ with some notable exceptions
-#Source/Core/Common/GL/GLExtensions/* is MIT
-#Source/Core/Core/HW/Sram.h is zlib
-#Source/Core/Common/GekkoDisassembler.* is BSD (2 clause)
-##The following is BSD (3 clause):
-#dolphin-5.0/Source/Core/Common/SDCardUtil.cpp
-#dolphin-5.0/Source/Core/Common/BitField.h
-#dolphin-5.0/Source/Core/Core/IPC_HLE/l2cap.h
-#dolphin-5.0/Source/Core/Core/IPC_HLE/hci.h
-#dolphin-5.0/Source/Core/VideoBackends/Software/Clipper.cpp
-#dolphin-5.0/Source/Core/AudioCommon/aldlist.cpp
+#Externals/glslang is BSD-2-Clause AND BSD-3-Clause AND GPL-3.0+ AND Apache-2.0
+#Externals/mbedtls is Apache-2.0
+##The following is MIT:
+#Source/Core/Common/GL/GLExtensions/*
+#Externals/tinygltf/*
+#Externals/cpp-optparse/*
+#Externals/imgui/*
+##The following is Zlib:
+#Source/Core/Core/HW/Sram.h
+#Source/Core/Core/HW/DSPHLE/UCodes/AESnd.cpp
+##The following is BSD-2-Clause:
+#Source/Core/Common/GekkoDisassembler.*
+##The following is BSD-3-Clause:
+#Source/Core/Common/BitField.natvis
+#Source/UnitTests/Core/DSP/HermesBinary.cpp
+#Source/UnitTests/Core/DSP/HermesText.cpp
+#Externals/FreeSurround/*
 ##Any code in Externals has a license break down in Externals/licenses.md
 # Automatically converted from old format: GPLv2+ and BSD and MIT and zlib - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND Zlib
+License:        GPL-2.0-or-later AND MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0 AND GPL-3.0-or-later AND Zlib
 Source0:        https://github.com/%{name}/dolphin/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Source4:        https://github.com/epezent/implot/archive/refs/tags/v%{implot_version}.tar.gz#/implot-%{implot_version}.tar.gz

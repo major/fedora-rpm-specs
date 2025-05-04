@@ -1,6 +1,6 @@
 Name: python-pulp-glue
 Version: 0.32.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The version agnostic Pulp 3 client library in python
 
 License: GPL-2.0-or-later
@@ -66,6 +66,9 @@ sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
 
 %changelog
+* Fri May 02 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-2
+- Removed upper bound on required packaging. (thanks lbalhar)
+
 * Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-1
 - new version
 

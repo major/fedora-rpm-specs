@@ -13,7 +13,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.18.1
+Version:        3.18.2
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -589,6 +589,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Fri May 02 2025 Jerry James  <loganjerry@gmail.com> - 3.18.2-1
+- Version 3.18.2
+
 * Fri Apr 18 2025 Jerry James <loganjerry@gmail.com> - 3.18.1-1
 - Version 3.18.1
 

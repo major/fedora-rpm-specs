@@ -1,6 +1,11 @@
 # https://github.com/pioneerspacesim/pioneer/issues/3846
 ExclusiveArch: %{ix86} x86_64
 
+# Filter private libraries
+%global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
+%global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
+
+
 %global fontlicense       OFL-1.1
 %global fontlicenses      licenses/SIL-1.1.txt
 %global common_description %{expand:
@@ -67,12 +72,7 @@ Source0: https://github.com/pioneerspacesim/%{name}/archive/%{version}/%{name}-%
 
 
 BuildRequires: make
-%if 0%{?use_autotools}
-BuildRequires: autoconf
-BuildRequires: automake
-%else
 BuildRequires: cmake
-%endif
 BuildRequires: chrpath
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
@@ -171,13 +171,17 @@ install -pm 755 build/pioneer %{buildroot}%{_bindir}/
 install -pm 755 build/modelcompiler %{buildroot}%{_bindir}/
 install -pm 755 build/savegamedump %{buildroot}%{_bindir}/
 
-## Remove rpaths
-chrpath -d %{buildroot}%{_bindir}/*
+# Remove rpaths
+chrpath -r %{_libdir}/%{name} %{buildroot}%{_bindir}/*
 
 # Remove unused development files
 rm -rf %{buildroot}%{_includedir}
-rm -rf %{buildroot}%{_libdir}/pioneer/cmake
-rm -rf %{buildroot}%{_libdir}/pioneer/pkgconfig
+rm -rf %{buildroot}%{_libdir}/%{name}/cmake
+rm -rf %{buildroot}%{_libdir}/%{name}/pkgconfig
+
+# Install bundled libraries
+mkdir -p %{buildroot}%{_libdir}/%{name}
+install -pm 755 build/contrib/fmt/libfmt.so* %{buildroot}%{_libdir}/%{name}/
 
 ## Install icons
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
@@ -234,7 +238,7 @@ ln -sf $(fc-match -f "%{file}" "wenquanyimicrohei") %{buildroot}%{_datadir}/%{na
 ln -sf $(fc-match -f "%{file}" "dejavusansmono") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSansMono.ttf
 ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSans.ttf
 
-# Install Pioneer fonts and link to to the Fedora Fonts Packaging paths
+# Install Pioneer fonts and link to Fedora Fonts Packaging paths
 %fontinstall -a
 ln -sf %{_datadir}/fonts/inpionata-fonts/Inpionata.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Inpionata.ttf
 ln -sf %{_datadir}/fonts/orbiteer-fonts/Orbiteer-Bold.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf
@@ -251,6 +255,7 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 %{_bindir}/%{name}
 %{_bindir}/modelcompiler
 %{_bindir}/savegamedump
+%{_libdir}/%{name}/
 %{_datadir}/icons/hicolor/16x16/apps/*.png
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/icons/hicolor/24x24/apps/*.png

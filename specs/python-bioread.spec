@@ -10,9 +10,11 @@ URL:            https://github.com/uwmadison-chm/bioread
 # PyPI sdists lack.
 Source:         %{url}/archive/v%{version}/bioread-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -l bioread
+BuildOption(generate_buildrequires): -x all,dev
+
 BuildArch:      noarch
- 
-BuildRequires:  python3-devel
 
 BuildRequires:  help2man
 
@@ -37,9 +39,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-bioread mat hdf5 all
 
 
-%prep
-%autosetup -n bioread-%{version}
-
+%prep -a
 # Upstream may like to run these as scripts during development, but they will
 # be installed under site-packages without executable permissions, so we should
 # remove the shebangs.
@@ -48,18 +48,7 @@ find bioread/runners/ -type f -name '*.py' -exec sed -r -i '1{/^#!/d}' '{}' '+'
 find bioread/runners/ -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x all,dev
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l bioread
-
+%install -a
 # Do this in %%install rather than %%build because we need the entry points:
 install -d '%{buildroot}%{_mandir}/man1'
 for bin in acq2hdf5 acq2mat acq2txt acq_info acq_layout acq_markers
@@ -72,7 +61,7 @@ do
 done
 
 
-%check
+%check -a
 %pytest -k "${k-}" -v
 
 

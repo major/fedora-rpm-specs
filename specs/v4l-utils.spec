@@ -6,7 +6,7 @@
 
 Name:           v4l-utils
 Version:        1.30.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -48,7 +48,7 @@ Requires:       systemd-udev
 Requires:       libv4l%{?_isa} = %{version}-%{release}
 
 Provides:       edid-decode = %{version}-%{release}
-Obsoletes:      edid-decode <= 0-76
+Obsoletes:      edid-decode < 1
 
 %description
 v4l-utils is a collection of various video4linux (V4L) and DVB utilities. The
@@ -274,6 +274,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 
 %changelog
+* Fri May 02 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.30.1-2
+- Fix obsolete of edid-decode
+
 * Thu May  1 2025 Yanko Kaneti <yaneti@decelra.com> - 1.30.1-1
 - Update to 1.30.1
 - Provides and obsoletes edid-decode which has moved to v4l-utils upstream

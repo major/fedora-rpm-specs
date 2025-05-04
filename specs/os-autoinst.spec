@@ -29,15 +29,15 @@
 
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
-%global github_version  4.6
-%global github_commit   b64e21930954562826566f2b8421324dfaff3559
+%global github_version  5
+%global github_commit   49afb509ef16be98aa94ecae795f89a604cc4064
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20241125
+%global github_date     20250424
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -45,9 +45,6 @@ License:        GPL-2.0-or-later
 URL:            https://os-autoinst.github.io/openQA/
 ExcludeArch:    %{ix86}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
-# https://github.com/os-autoinst/os-autoinst/pull/2550
-# Fix for qemu 9.1.0+
-Patch:          2550.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -72,7 +69,7 @@ Patch:          2550.patch
 # their versioning of mojolicious is different due to
 # https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(Try::Tiny) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
+%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(Feature::Compat::Try) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
 # diff from SUSE: SUSE has python3-yamllint, Fedora has just yamllint
 # The following line is generated from dependencies.yaml (upstream)
 %define yamllint_requires yamllint
@@ -83,7 +80,7 @@ Patch:          2550.patch
 # tigervnc-server-minimal (provider of /usr/bin/Xvnc)
 # SUSE just has 'ipxe-bootimgs', we have -aarch64 and -x86
 # The following line is generated from dependencies.yaml (upstream)
-%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Fatal) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat tigervnc-server-minimal xterm xterm-console
+%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat tigervnc-server-minimal xterm xterm-console
 # The following line is generated from dependencies.yaml (upstream)
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk, and
@@ -205,14 +202,7 @@ export PROVE_ARGS="--timer -v --nocolor"
 # 00-compile-check-all.t fails if this is present and Perl::Critic is
 # not installed
 rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
-# disable tests on s390x because opencv is broken:
-# https://github.com/opencv/opencv/issues/26913
-# we need to get a build through to make os-autoinst installable
-# again, and it should work fine on s390x without a rebuild once
-# openCV is fixed
-%ifnarch s390x
 %ninja_build -C %{__cmake_builddir} check-pkg-build
-%endif
 
 %post openvswitch
 %systemd_post os-autoinst-openvswitch.service
@@ -259,6 +249,7 @@ fi
 %{_prefix}/lib/os-autoinst/script/check_qemu_oom
 %{_prefix}/lib/os-autoinst/script/dewebsockify
 %{_prefix}/lib/os-autoinst/script/vnctest
+%{_bindir}/os-autoinst-generate-needle-preview
 
 %dir %{_prefix}/lib/os-autoinst/schema
 %{_prefix}/lib/os-autoinst/schema/Wheels-01.yaml
@@ -276,6 +267,11 @@ fi
 %files devel
 
 %changelog
+* Fri May 02 2025 Adam Williamson <awilliam@redhat.com> - 5^20250424git49afb50-1
+- Update to latest git
+- Drop merged patch
+- Re-enable s390x tests (should be fixed now)
+
 * Wed Feb 12 2025 Adam Williamson <awilliam@redhat.com> - 4.6^20241125gitb64e219-3
 - Rebuild for opencv-4.11.0 (Sérgio Basto)
 - Disable tests on s390x to get build through (see #2345306)

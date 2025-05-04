@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.19552
+Version:	4.20142
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -21,7 +21,7 @@ The Swiss Army Knife of RFID Research - RRG/Iceman repo
 %build
 export CFLAGS="%{optflags}"
 make %{?_smp_mflags} V=1 clean
-make %{?_smp_mflags} V=1 SKIPLUASYSTEM=1
+make %{?_smp_mflags} V=1 
 rm -rf %{buildroot}/doc/datasheets/
 rm -rf %{buildroot}/doc/original_proxmark3/
 
@@ -30,6 +30,8 @@ chmod -x ./client/luascripts/examples/example_cmdline.lua
 chmod -x ./client/cmdscripts/rdv4_init_extflash.cmd
 chmod -x ./client/pyscripts/xorcheck.py
 chmod -x ./client/cmdscripts/example.cmd
+sed -i 's|^TOOLS_PATH \?= \?None|TOOLS_PATH="/usr/share/proxmark3/"|' ./client/pyscripts/pm3_resources.py
+sed -i 's|^DICTS_PATH \?= \?None|DICTS_PATH="/usr/share/proxmark3/dictionaries"|' ./client/pyscripts/pm3_resources.py
 make %{?_smp_mflags} V=1 install PREFIX=%{buildroot}/usr UDEV_PREFIX=%{buildroot}/etc/udev/rules.d/
 chmod -x %{buildroot}/usr/share/proxmark3/firmware/fullimage.elf
 chmod -x %{buildroot}/usr/share/proxmark3/firmware/bootrom.elf
@@ -49,6 +51,10 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+
+* Thu May 01 2025 Marlin Soose <marlin.soose@esque.ca> - 4.20142
+- Include lua scripting capabilities
+- Bumping package to v4.20142
 
 * Fri Nov 22 2024 Marlin Soose <marlin.soose@esque.ca> - 4.19552
 - Bumping package to v4.19552

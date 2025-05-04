@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -110,7 +110,11 @@ BuildRequires:  pkgconfig(opengl)
 %endif
 
 %if %{with ocl}
+%if 0%{?fedora}
+BuildRequires:  pkgconfig(OpenCL)
+%else
 BuildRequires:  pkgconfig(ocl-icd)
+%endif
 %endif
 BuildRequires:  pkgconfig(numa)
 %if %{with cppheaderparser}
@@ -139,9 +143,16 @@ ROCm Compute Language Runtime
 %package -n rocm-opencl
 Summary:        ROCm OpenCL platform and device tool
 Requires:       comgr(major) = %{comgr_maj_api_ver}
-%if 0%{?rhel} || 0%{?fedora}
-Requires:       ocl-icd%{?_isa}
-Requires:       opencl-filesystem
+%if 0%{?fedora}
+Recommends:  OpenCL-ICD-Loader
+Requires:    opencl-filesystem
+%endif
+%if 0%{?rhel}
+Recommends:  ocl-icd
+Requires:    opencl-filesystem
+%endif
+%if 0%{?suse_version}
+Recommends:  LibOpenCL1
 %endif
 
 %description -n rocm-opencl
@@ -151,7 +162,11 @@ Supports offline and in-process/in-memory compilation.
 %package -n rocm-opencl-devel
 Summary:        ROCm OpenCL development package
 Requires:       rocm-opencl%{?_isa} = %{version}-%{release}
-Requires:       ocl-icd-devel%{?_isa}
+%if 0%{?fedora}
+Requires:  OpenCL-ICD-Loader-devel%{?_isa}
+%else
+Requires:  ocl-icd-devel%{?_isa}
+%endif
 
 %description -n rocm-opencl-devel
 The AMD ROCm OpenCL development package.
@@ -368,6 +383,9 @@ fi
 %endif
 
 %changelog
+* Fri May 02 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-3
+- Use khrono OpenCL ICD for Fedora
+
 * Thu May 01 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-2
 - Fix linking for comgr.so.3
 - Cleanup

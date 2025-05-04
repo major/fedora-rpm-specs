@@ -6,7 +6,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.13.0
+Version: 8.14.0~rc1
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -381,6 +381,8 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %doc docs/TheArtOfHttpScripting.md
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
+%{_bindir}/wcurl
+%{_mandir}/man1/wcurl.1*
 %{_datadir}/zsh
 
 %files -n libcurl
@@ -405,6 +407,10 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri May 02 2025 Jan Macku <jamacku@redhat.com> - 8.14.0~rc1-1
+- new upstream release candidate
+- new utility: wcurl which lets you download URLs without having to remember any parameters
+
 * Wed Apr 02 2025 Jan Macku <jamacku@redhat.com> - 8.13.0-1
 - new upstream release
 - add build time dependency on openssl (required by tests)

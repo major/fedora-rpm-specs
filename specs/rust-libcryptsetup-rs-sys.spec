@@ -6,7 +6,7 @@
 
 Name:           rust-libcryptsetup-rs-sys
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Low level bindings for libcryptsetup
 
 License:        MPL-2.0
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/libcryptsetup-rs-sys
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(libcryptsetup)
 
 %global _description %{expand:
 Low level bindings for libcryptsetup.}
@@ -65,7 +66,6 @@ use the "static" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(libcryptsetup)'
 
 %build
 %cargo_build
@@ -79,74 +79,4 @@ echo 'pkgconfig(libcryptsetup)'
 %endif
 
 %changelog
-* Fri Apr 18 2025 Chung Chung <cchung@redhat.com> - 0.4.1-1
-- Update to version 0.4.1
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Mar 25 2024 Bryan Gurney <bgurney@redhat.com> - 0.4.0-1
-- Update to version 0.4.0
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 0.3.0-1
-- Update to version 0.3.0
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 17 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.4-1
-- Update to version 0.2.4
-
-* Wed Feb 08 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.3-1
-- Upgrade to version 0.2.3
-
-* Fri Jan 27 2023 mulhern <amulhern@redhat.com> - 0.2.1-3
-- Remove rpmautospec usage
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Aug 26 2022 mulhern <amulhern@redhat.com> - 0.2.1-1
-- Upgrade to version 0.2.1
-
-* Wed Jul 27 2022 mulhern <amulhern@redhat.com> - 0.2.0-1
-- local build
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 30 2021 mulhern <amulhern@redhat.com> - 0.1.6-1
-- Update to 0.1.6
-
-* Thu Nov 11 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.5-6
-- Bump bindgen to 0.59.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 23 13:12:06 EDT 2021 John Baublitz <jbaublitz@redhat.com> - 0.1.5-1
-- Update to version 0.1.5
-
-* Wed Mar 31 20:22:54 CEST 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.4-5
-- Bump bindgen to 0.57.
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Nov 27 2020 Fabio Valentini <decathorpe@gmail.com> - 0.1.4-3
-- Bump bindgen to 0.56.
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 01 14:16:59 EDT 2020 John Baublitz <jbaublitz@redhat.com> - 0.1.4-1
-- Initial package
+%autochangelog

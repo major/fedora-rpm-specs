@@ -11,24 +11,16 @@ URL:            https://pypa.github.io/pipx
 %global forgeurl https://github.com/pypa/pipx
 Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l pipx
+BuildOption(generate_buildrequires): -x full,graph,junit,sarif
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # noxfile.py: MAN_DEPENDENCIES
 BuildRequires:  python3dist(argparse-manpage[setuptools])
 
 BuildRequires:  /usr/bin/register-python-argcomplete
-
-# The Markdown documentation is meant to be build with mkdocs. The HTML result
-# is unsuitable for packaging due to various bundled and pre-minified
-# JavaScript and CSS.  See https://bugzilla.redhat.com/show_bug.cgi?id=2006555
-# for discussion of similar problems with Sphinx and Doxygen.
-#
-# We used to choose to install the Markdown documentation sources, as they are
-# relatively readable without further processing but we’ve decided this isn’t
-# really worthwile.
-Obsoletes:      pipx-doc < 1.1.0-9
 
 %description
 pipx is a tool to help you install and run end-user applications written in
@@ -40,21 +32,15 @@ and managing Python packages that can be run from the command line directly as
 applications.
 
 
-%prep
-%autosetup
-
-
-%generate_buildrequires
-# We do not run the tests; but we add the runtime requirements as BR’s anyway
-# so that the build will fail if some are not available in the distribution.
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
+
+%build -a
 # Generate shell completions. “pipx completions” says:
 #
 # Add the appropriate command to your shell's config file
@@ -91,10 +77,7 @@ done
 PYTHONPATH="${PWD}/src" %{python3} scripts/generate_man.py
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l pipx
-
+%install -a
 install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' pipx.1
 
 install -p -m 0644 -D -t '%{buildroot}%{bash_completions_dir}' pipx.bash
@@ -109,7 +92,7 @@ install -p -m 0644 -D pipx.tcsh \
 # different plan.
 
 
-%check
+%check -a
 # It’s just not practical to run the tests. For most of them, we need either
 # (by default) a bundle of sample wheels from PyPI–which is arch-specific, as
 # some of them have compiled extensions—or network access. Previously, we tried
@@ -125,10 +108,6 @@ cd empty
 
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
     %{buildroot}%{_bindir}/pipx --help >/dev/null
-
-# We separately do an import smoke test, although we must note that the package
-# does not provide an API designed for external use.
-%pyproject_check_import
 
 
 %files -f %{pyproject_files}

@@ -1,6 +1,6 @@
 Name:		arm-image-installer
 Version:	5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Writes binary image files to any specified block device
 License:	GPL-2.0-or-later
 URL:		https://github.com/fedora-arm/arm-image-installer/
@@ -37,10 +37,11 @@ install -d %{buildroot}%{_datadir}/arm-image-installer/boards.d
 install -pm 644 boards.d/* %{buildroot}%{_datadir}/arm-image-installer/boards.d/
 
 install -d %{buildroot}%{_bindir}
-install -pm 0755 update-uboot %{buildroot}%{_bindir}/
 install -pm 0755 arm-image-installer %{buildroot}%{_bindir}/
 install -pm 0755 rpi-uboot-update %{buildroot}%{_bindir}/
 install -pm 0755 spi-flashing-disk %{buildroot}%{_bindir}/
+install -pm 0755 update-uboot %{buildroot}%{_bindir}/
+install -pm 0755 update-x13s-bios %{buildroot}%{_bindir}/
 ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-installer
 
 %files
@@ -48,12 +49,16 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %doc AUTHORS README TODO SUPPORTED-BOARDS
 %{_bindir}/arm-image-installer
 %{_bindir}/fedora-arm-image-installer
-%{_bindir}/update-uboot
 %{_bindir}/rpi-uboot-update
 %{_bindir}/spi-flashing-disk
+%{_bindir}/update-uboot
+%{_bindir}/update-x13s-bios
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Fri May 02 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.0-2
+- Ship update-x13s-bios
+
 * Wed Mar 19 2025 Paul Whalen <pwhalen@fedoraproject.org> - 5.0-1
 - Added wifi config option (saypaul)
 - Added ignition url option (pwhalen)

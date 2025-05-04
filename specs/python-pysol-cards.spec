@@ -2,7 +2,7 @@
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
-Version:        0.20.0
+Version:        0.22.0
 Release:        1%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
@@ -29,7 +29,7 @@ initial deals of some PySol FC games.
 %autosetup -n pysol_cards-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
+sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 
 %build
 %py3_build
@@ -46,6 +46,10 @@ sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri May 02 2025 Shlomi Fish <shlomif@shlomifish.org> 0.22.0-1
+- Update to 0.22.0 (#2362883)
+- Remove shebangs from library .py files
+
 * Tue Apr 29 2025 Shlomi Fish <shlomif@shlomifish.org> 0.20.0-1
 - Update to 0.20.0 (#2362883)
 

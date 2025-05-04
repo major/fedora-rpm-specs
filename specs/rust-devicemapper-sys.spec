@@ -6,7 +6,7 @@
 
 Name:           rust-devicemapper-sys
 Version:        0.3.1
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Low level bindings for devicemapper
 
 License:        MPL-2.0
@@ -24,6 +24,7 @@ Low level bindings for devicemapper.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       device-mapper-devel
 
 %description    devel %{_description}
 
@@ -66,59 +67,4 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Dec 18 2024 Bryan Gurney <bgurney@redhat.com> - 0.3.1-1
-- Update to version 0.3.1
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Mar 25 2024 Bryan Gurney <bgurney@redhat.com> - 0.3.0-1
-- Update to version 0.3.0
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.0-1
-- Update to version 0.2.0
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Mar 02 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.5-1
-- Update to version 0.1.5
-
-* Mon Feb 13 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.4-1
-- Update to version 0.1.4
-
-* Tue Jan 31 2023 mulhern <amulhern@redhat.com> - 0.1.3-5
-- Remove changelog file
-
-* Tue Jan 31 2023 mulhern <amulhern@redhat.com> - 0.1.3-4
-- Remove rpmautospec usage
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jul 21 2022 mulhern <amulhern@redhat.com> - 0.1.3-1
-- Upgrade to 0.32.1
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Nov 24 2021 Fabio Valentini <decathorpe@gmail.com> - 0.1.2-1
-- Update to version 0.1.2
-
-* Thu Nov 11 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.1-4
-- Fix patch
-
-* Thu Nov 11 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.1-3
-- Bump bindgen to 0.59.0
-
-* Sat Oct 09 11:29:19 EDT 2021 John Baublitz <jbaublitz@redhat.com> - 0.1.1-1
-- Initial package
+%autochangelog

@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.10
+Version:        0.2.11
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
