@@ -5,7 +5,7 @@
 %global crate chrono-tz-build
 
 Name:           rust-chrono-tz-build
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Internal build script for chrono-tz
 

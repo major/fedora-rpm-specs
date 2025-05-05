@@ -1,5 +1,5 @@
 Name:           nox
-Version:        2025.02.09
+Version:        2025.05.01
 Release:        %autorelease
 Summary:        Flexible test automation
 

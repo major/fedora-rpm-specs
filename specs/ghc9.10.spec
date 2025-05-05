@@ -1,5 +1,5 @@
 # Start: prod settings
-# all *bcond_without* for production builds:
+# all bcond 1 for production builds:
 # - performance build (disable for quick build)
 %bcond perfbuild 1
 %bcond build_hadrian 1
@@ -15,23 +15,25 @@
 %endif
 
 %global ghc_major 9.10
+%global ghc_patchlevel 2
 %global ghc_name ghc%{ghc_major}
 
-%global base_ver 4.20.0.0
-%global Cabal_ver 3.12.0.0
+%global base_ver 4.20.1.0
+%global Cabal_ver 3.12.1.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
-%global ghc_experimental_ver 0.1.0.0
+%global ghc_version_for_lib %{ghc_major}0%{ghc_patchlevel}.0
 %global ghc_platform_ver 0.1.0.0
 %global ghc_toolchain_ver 0.1.0.0
-%global hpc_ver 0.7.0.1
+%global hpc_ver 0.7.0.2
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
 %global hadrian_Cabal_ver 3.10.3.0
 
 # bootstrap needs 9.6+ (& hadrian needs Cabal-3.10)
-%if 0%{?fedora} < 41
+# epel9 ghc too old to build hadrian
+%if 0%{?fedora} == 40 || %{defined el9}
 %global ghcboot_major 9.6
 %endif
 %global ghcboot ghc%{?ghcboot_major}
@@ -45,7 +47,7 @@
 # use system default ld.bfd
 %bcond ld_gold 0
 
-# 9.8 needs llvm 11-15
+# 9.10 needs llvm 11-15
 # note the llvm backend is unsupported for ppc64le
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
@@ -59,12 +61,12 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: 9.10.1
+Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -85,26 +87,14 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
 Patch5: hp2ps-C-gnu17.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# needs more backporting to 9.6
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
-# unregisterised
+Patch10: ghc-9.8.4-ix86-disables-Unique-Word64.patch
+
+# for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
-# Debian patches:
-# bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
-# see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
-#Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
-
-# ppc64le FFI miscompilation
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23034
-Patch35: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12885.patch
-
-# libraries
-Patch100: https://github.com/haskell/os-string/commit/bafe87d871399b58ce4a50592b980c990a3eac39.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -159,7 +149,6 @@ BuildRequires: clang%{llvm_major}
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel >= 4.15
 BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
@@ -236,6 +225,10 @@ Obsoletes: %{name}-xhtml-devel < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-doc < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
 %endif
+Obsoletes: %{name}-ghc-internal < 9.1002.0
+Obsoletes: %{name}-ghc-internal-devel < 9.1002.0
+Obsoletes: %{name}-ghc-internal-doc < 9.1002.0
+Obsoletes: %{name}-ghc-internal-prof < 9.1002.0
 %if %{without manual}
 Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
@@ -287,7 +280,6 @@ The package enables re-indexing of installed library documention.
 
 %package filesystem
 Summary: Shared directories for Haskell documentation
-BuildArch: noarch
 
 %description filesystem
 This package provides some common directories used for
@@ -328,24 +320,23 @@ This provides the hadrian tool which can be used to build ghc.
 %if %{defined ghclibdir}
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-%{Cabal_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-%{Cabal_ver}
-%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.7.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa},numactl-devel%{?_isa} base-%{base_ver}
-%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.2
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.1.0
+%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.3
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.2.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.0.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.3
-%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.2.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.5
+%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.9
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.4.0
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-boot-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD-3-Clause ghc-boot-th-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-compact-%{ghc_compact_ver}
-%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-experimental-%{ghc_experimental_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-experimental-%{ghc_version_for_lib}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-heap-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD-3-Clause ghc-internal-9.1001.0
 # see below for ghc-prim
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-platform-%{ghc_platform_ver}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-toolchain-%{ghc_toolchain_ver}
@@ -354,19 +345,19 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
-%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.2
-%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.17.0
+%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.4
+%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.19.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.25.0
 # see below for rts
 %ghc_lib_subpackage -d -l BSD-3-Clause semaphore-compat-1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.22.0.0
-%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.6
-%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.1
+%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.2
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.1
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.5.1
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.6.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -399,14 +390,20 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
+( cd hadrian
+  cabal-tweak-flag selftest False
+)
 
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P5 -p1 -b .orig
-#%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
+
+%ifarch %{ix86}
+%patch -P10 -p1 -b .orig
+%endif
 
 %ifarch %{ghc_unregisterized_arches} riscv64
 %patch -P16 -p1 -b .orig
@@ -419,27 +416,15 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 #debian
-#%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
-%ifarch ppc64le
-%patch -P 35 -p1 -b .orig
-%endif
-
-(
-cd libraries/os-string
-%patch -P100 -p1 -b .orig
-)
 
 # https://github.com/haskell/directory/pull/184
 rm libraries/directory/directory.buildinfo
 
 
 %build
-# patch4
-autoupdate
-
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
 %if %{with ld_gold}
@@ -483,10 +468,10 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
-ln -s ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
-ln -s ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
-ln -s ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
-ln -s ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
+ln -sf ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
+ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
+ln -sf ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
+ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
 %ghc_libs_build -P -W ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
 
 %ghc_bin_build -W
@@ -508,7 +493,7 @@ ln -s ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
-%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir --hash-unit-ids
+%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
 
 
 %install
@@ -572,17 +557,19 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
 %ghc_gen_filelists ghc-boot %{ghc_version_override}
 %ghc_gen_filelists ghc-compact %{ghc_compact_ver}
-%ghc_gen_filelists ghc-experimental %{ghc_experimental_ver}
+%ghc_gen_filelists ghc-experimental %{ghc_version_for_lib}
 %ghc_gen_filelists ghc-heap %{ghc_version_override}
 %ghc_gen_filelists ghc-platform %{ghc_platform_ver}
 %ghc_gen_filelists ghc-toolchain %{ghc_toolchain_ver}
 %ghc_gen_filelists ghci %{ghc_version_override}
 %ghc_gen_filelists hpc %{hpc_ver}
 
-%ghc_gen_filelists ghc-prim 0.11.0
+%ghc_gen_filelists ghc-internal %{ghc_version_for_lib}
+%ghc_gen_filelists ghc-prim 0.12.0
 %ghc_gen_filelists integer-gmp 1.1
 %ghc_gen_filelists rts %{rts_ver}
 
+%ghc_merge_filelist ghc-internal base
 %ghc_merge_filelist ghc-prim base
 %ghc_merge_filelist integer-gmp base
 %ghc_merge_filelist rts base
@@ -645,6 +632,11 @@ for i in *; do
     esac
 done
 )
+
+# avoid pulling in nodejs unnecessarily
+%if %{without ghc_javascript}
+chmod a-x %{buildroot}%{ghcliblib}/post-link.mjs
+%endif
 
 
 %check
@@ -817,7 +809,6 @@ make test
 
 %if %{with haddock} || %{with manual}
 %files doc
-%{ghc_html_dir}/index.html
 
 %files doc-index
 %{ghc_html_libraries_dir}/gen_contents_index
@@ -829,6 +820,7 @@ make test
 %files filesystem
 %dir %_ghc_doc_dir
 %dir %ghc_html_dir
+%{ghc_html_dir}/index.html
 %dir %ghc_html_libraries_dir
 %endif
 
@@ -842,7 +834,6 @@ make test
 %files manual
 ## needs pandoc
 #%%{ghc_html_dir}/Cabal
-%{ghc_html_dir}/index.html
 %{ghc_html_dir}/users_guide
 %{ghc_html_dir}/Haddock
 %endif
@@ -853,6 +844,13 @@ make test
 
 
 %changelog
+* Sat May 03 2025 Jens Petersen <petersen@redhat.com> - 9.10.2-8
+- https://downloads.haskell.org/~ghc/9.10.2/docs/users_guide/9.10.2-notes.html
+
+* Sat Apr 19 2025 Jens Petersen <petersen@redhat.com> - 9.10.1.20250417-8
+- 9.10.2 RC1
+- os-string-2.0.4
+
 * Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 9.10.1-7
 - fix hp2ps failure with gcc15 C23
 - setup llvm compiler for all archs not just those defaulting to llvm backend

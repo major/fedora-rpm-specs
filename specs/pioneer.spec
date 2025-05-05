@@ -130,9 +130,12 @@ BuildArch: noarch
 BuildRequires: fontconfig
 BuildRequires: dejavu-sans-fonts
 BuildRequires: dejavu-sans-mono-fonts
+BuildRequires: pionilliumtext22l-fonts
+BuildRequires: wqy-microhei-fonts
 Requires: wqy-microhei-fonts
 Requires: dejavu-sans-fonts
 Requires: dejavu-sans-mono-fonts
+Requires: pionilliumtext22l-fonts
 
 %description data
 Data files of %{name}.
@@ -273,6 +276,7 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 %{_datadir}/icons/%{name}/
 %{_datadir}/applications/*.desktop
 %{_metainfodir}/*.metainfo.xml
+%ghost %{_metainfodir}/*.pionilliumtext22l-fonts.metainfo.xml
 
 %files data
 %license licenses/*.txt

@@ -25,7 +25,7 @@
 
 Name:           rocm-examples
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -104,6 +104,15 @@ for f in `find . -name 'Makefile'`; do
     sed -i -e 's@opt/rocm@usr@' $f
 done
 
+# On SLE 15.6
+# libstdc++ is too old and there are several compiling problems like this ..
+# .../Tutorials/reduction/include/Reduction/v0.hpp:31:10: fatal error: 'execution' file not found
+%if 0%{?suse_version}
+%if %{suse_version} <= 1500
+sed -i -e 's@add_subdirectory(Tutorials)@#add_subdirectory(Tutorials)@' CMakeLists.txt
+sed -i -e 's@add_subdirectory(module_api)@message("no module_api")@'    HIP-Basic/CMakeLists.txt
+%endif
+%endif
 
 %build
 %cmake \
@@ -124,6 +133,9 @@ done
 %{_bindir}/*
 
 %changelog
+* Fri May 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Disable building tutorial on sle 15.6
+
 * Thu Apr 24 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Build on suse
 

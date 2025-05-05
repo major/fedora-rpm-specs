@@ -21,9 +21,10 @@ Source1:        get_source
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source2:        chardetect.1
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l chardet
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 Chardet: The Universal Character Encoding Detector
@@ -59,28 +60,12 @@ Obsoletes:      python-chardet-doc < 5.2.0-12
 %{common_description}
 
 
-%prep
-%autosetup -n chardet-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l chardet
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE2}'
 
 
-%check
 # We cannot run the upstream tests because they would require data files with
 # problematic license status.
-%pyproject_check_import
 
 
 %files -n python3-chardet -f %{pyproject_files}

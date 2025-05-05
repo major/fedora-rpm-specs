@@ -17,9 +17,7 @@ Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/1.98.0/mol
 Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/1.98.0/crystals-1.98.0.tar.gz
 Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/1.99.0/fragments-%{version}.tar.gz
 
-# Set installation path of Python files
-Patch0: %{name}-set_pythonpath.patch
-Patch1: %{name}-%{version}-do_not_download_external_files.patch
+Patch1: avogadro2-libs-1.99.0-Fix_typo.patch
 Patch2: %{name}-1.98.1-use_upstream_cmake_config.patch
 
 BuildRequires:  boost-devel
@@ -27,11 +25,10 @@ BuildRequires:  python%{python3_pkgversion}-devel
 %if 0%{?rhel}
 BuildRequires:  epel-rpm-macros
 %endif
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  chrpath
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  make
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(openbabel-3)
@@ -87,8 +84,9 @@ BuildRequires: make
 HTML documentation of %{name}.
 
 %prep
-%autosetup -a 1 -N -n avogadrolibs-%{version}
+%autosetup -p1 -n avogadrolibs-%{version}
 
+tar -xf %{SOURCE1} && mv avogenerators-1.98.0 avogadrogenerators
 tar -xf %{SOURCE2} && mv molecules-1.98.0 molecules
 tar -xf %{SOURCE3} && mv crystals-1.98.0 crystals
 tar -xf %{SOURCE4} && mv fragments-1.99.0 fragments
@@ -96,42 +94,33 @@ tar -xf %{SOURCE4} && mv fragments-1.99.0 fragments
 # Rename LICENSE file
 mv molecules/LICENSE molecules/LICENSE-molecules
 mv fragments/LICENSE fragments/LICENSE-fragments
-
-%patch -P 0 -p0 -b .backup
-%patch -P 1 -p1 -b .backup
-%patch -P 2 -p1 -b .backup
-
-# Make avogadro generators source code available for CMake
-mv avogenerators-1.98.0 avogadrogenerators
 mv avogadrogenerators/README.md avogadrogenerators/README-avogenerators.md
-sed -e 's|../avogadrogenerators|avogadrogenerators|g' -i avogadro/qtplugins/quantuminput/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/insertfragment/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/quantuminput/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/templatetool/CMakeLists.txt
 #
 
 mv thirdparty/libgwavi/README.md thirdparty/libgwavi/README-libgwavi.md
 mv fragments/README.md fragments/README-fragments.md
 
-%build
-mkdir -p build
+%conf
 export CXXFLAGS="%{optflags} -DH5_USE_110_API"
 # RHBZ #1996330
 %ifarch %{power64}
 export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
-%cmake3 -B build -DCMAKE_BUILD_TYPE:STRING=Release \
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DINSTALL_INCLUDE_DIR:PATH=include/avogadro2 -DINSTALL_LIBRARY_DIR:PATH=%{_lib} \
  -Wno-dev \
  -DENABLE_GLSL:BOOL=ON \
- -DENABLE_PYTHON:BOOL=ON  \
- -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DPYTHON_VERSION:STRING=%{python3_version} \
+ -DUSE_PYTHON:BOOL=OFF  \
 %if 0%{?fedora}
- -DUSE_BOOST_PYTHON:BOOL=ON \
  -DUSE_LIBARCHIVE:BOOL=ON \
 %else
- -DUSE_BOOST_PYTHON:BOOL=OFF \
  -DUSE_LIBARCHIVE:BOOL=OFF \
 %endif
  -DENABLE_RPATH:BOOL=OFF \
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
  -DENABLE_TESTING:BOOL=OFF \
  -DUSE_MMTF:BOOL=ON \
  -DUSE_QT:BOOL=ON \
@@ -145,22 +134,18 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DUSE_LIBMSYM:BOOL=OFF \
  -DOpenBabel3_INCLUDE_DIR:PATH=%{_includedir}/openbabel3
 
-%make_build -C build
-
-pushd build/docs
-doxygen
-popd
+%build
+%cmake_build
+%cmake_build -t documentation
 
 %install
-%make_install -C build
+%cmake_install
 
-# Move scale.py* files into %%{python3_sitearch}/avogadro2
-cp -a %{buildroot}%{_libdir}/avogadro2/scripts %{buildroot}%{python3_sitearch}/avogadro2/
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/avogadro2/scripts/*/*.py
-ln -sf %{python3_sitearch}/avogadro2/scripts %{buildroot}%{_libdir}/avogadro2/scripts
-
-chrpath -d %{buildroot}%{_libdir}/lib*.so
+%py3_shebang_fix %{buildroot}%{_libdir}/avogadro2/scripts
 rm -rf %{buildroot}%{_datadir}/doc
+mkdir -p %{buildroot}%_pkgdocdir
+cp -a %_vpath_builddir/docs/html %{buildroot}%_pkgdocdir/html
+
 
 %files
 %doc README.md thirdparty/libgwavi/README-libgwavi.md avogadrogenerators/README-avogenerators.md
@@ -172,7 +157,6 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_libdir}/avogadro2/scripts/
 %{_libdir}/avogadro2/libgwavi.a
 %{_libdir}/avogadro2/staticplugins/
-%{python3_sitearch}/avogadro2/
 %{_datadir}/avogadro2/
 
 %files devel
@@ -181,7 +165,8 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_libdir}/cmake/avogadrolibs/
 
 %files doc
-%doc README.md build/docs/html
+%doc README.md
+%_pkgdocdir/html
 %license LICENSE
 
 %changelog

@@ -3,7 +3,7 @@
 %global _binaries_in_noarch_packages_terminate_build   0
 
 Name:           arch-test
-Version:        0.21
+Version:        0.22
 Release:        %autorelease
 Summary:        Tools to detect architectures runnable by your machine+kernel
 
@@ -69,9 +69,6 @@ binaries without installing required libraries.
 sed -i 's:-s win32.o:-s win32.o -L%{mingw32_libdir}:' Makefile
 sed -i 's:-s win64.o:-s win64.o -L%{mingw64_libdir}:' Makefile
 
-# risc32 cross-build binutils is not available in Fedora
-sed -i '0,/riscv32/ {s/riscv32//}' Makefile
-
 # use triplets of cross-build binutils of Fedora
 sed -i 's/sh4-linux-gnu/sh-linux-gnu/' Makefile
 cat << "EOF" >config
@@ -95,7 +92,7 @@ chmod 644 %{buildroot}%{_mandir}/man1/*
 %doc README
 %{_bindir}/%{name}
 %{_bindir}/elf-arch
-%{_prefix}/lib/%{name}/
+%{_libexecdir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/elf-arch.1*
 

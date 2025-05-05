@@ -1,5 +1,5 @@
 Name:           python-asttokens
-Version:        2.4.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Module to annotate Python abstract syntax trees with source code positions
 
@@ -11,14 +11,7 @@ Source:         https://github.com/gristlabs/asttokens/archive/v%{version}/astto
 Patch:          https://github.com/gristlabs/asttokens/pull/157.patch
 
 BuildArch:      noarch
-BuildRequires:  git-core
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(astroid)
-BuildRequires:  python3dist(six)
 
 %global _description %{expand:
 The asttokens module annotates Python abstract syntax trees (ASTs) with the
@@ -31,29 +24,31 @@ highlighting.}
 
 %package     -n python3-asttokens
 Summary:        %{summary}
-Requires:       %{py3_dist six}
-%{?python_provide:%python_provide python3-asttokens}
 
 %description -n python3-asttokens %_description
 
 %prep
-%autosetup -S git -p1 -n asttokens-%{version}
-git tag %{version}
+%autosetup -p1 -n asttokens-%{version}
+
+%generate_buildrequires
+# Let setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires -x test
 
 %build
-%py3_build
+# Let setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l asttokens
 
 %check
-# test_fixture9 and test_sys_modules tests are currently failing with Python 3.12
 %pytest tests/ -v "${TEST_ARGS[@]}"
 
-%files -n python3-asttokens
-%license LICENSE
+%files -n python3-asttokens -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/*
 
 %changelog
 %autochangelog

@@ -12,6 +12,8 @@ Patch1:		vyper-0001-Use-Cryptodomex.patch
 Patch2:		vyper-0002-Ease-version-requirements.patch
 Patch3:		vyper-0003-Remove-unnecessary-shebang.patch
 Patch4:		vyper-0004-Relax-lark-dependency.patch
+# Backport of https://github.com/vyperlang/vyper/pull/4592
+Patch5:		vyper-0005-Relax-asttokens-dependency.patch
 BuildRequires:	git
 BuildRequires:	python3-cached_property
 BuildRequires:	python3-eth-abi

@@ -3,8 +3,8 @@
 %global srcname python_sql
 
 Name:           python-%{module_name}
-Version:        1.5.2
-Release:        4%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Sat May 03 2025 Dan Horák <dan[at]danny.cz> - 1.6.0-1
+- updated to 1.6.0 (rhbz#2363817)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

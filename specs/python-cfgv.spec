@@ -8,9 +8,11 @@ License:        MIT
 URL:            https://github.com/asottile/cfgv
 Source:         %{url}/archive/v%{version}/cfgv-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l cfgv
+BuildOption(generate_buildrequires): requirements-dev.txt
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 %{summary}.}
@@ -24,26 +26,12 @@ Summary:        %{summary}
 %description -n python3-cfgv %{common_description}
 
 
-%prep
-%autosetup -n cfgv-%{version}
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^(cov|flake8)/# &/' requirements-dev.txt
 
 
-%generate_buildrequires
-%pyproject_buildrequires requirements-dev.txt
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l cfgv
-
-
-%check
+%check -a
 %pytest
 
 

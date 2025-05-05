@@ -16,9 +16,11 @@ Source:         %{pypi_source cmake_build_extension}
 # https://github.com/diegoferigo/cmake-build-extension/pull/55
 Patch:          https://github.com/diegoferigo/cmake-build-extension/pull/55.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -l cmake_build_extension
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
@@ -82,9 +84,7 @@ Requires:       python3-cmake-build-extension = %{version}-%{release}
 %description -n python3-cmake-build-extension-doc %{common_description}
 
 
-%prep
-%autosetup -n cmake_build_extension-%{version} -p1
-
+%prep -a
 # We use the system cmake and ninja-build packages in lieu of the PyPI “cmake”
 # and “ninja” distributions, respectively.
 sed -r -i '/^[[:blank:]]*\b(cmake|ninja)\b[[:blank:]]*$/d' setup.cfg
@@ -96,8 +96,7 @@ cp -rp example test_example
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires
+%generate_buildrequires -a
 %if %{with test_example}
 (
   cd test_example >/dev/null
@@ -110,20 +109,7 @@ cp -rp example test_example
 %endif
 
 
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l cmake_build_extension
-
-
-%check
-# We choose to do an import “smoke test” even when we are test-building the
-# example.
-%pyproject_check_import
-
+%check -a
 %if %{with test_example}
 # Build the example project and run its tests (but do not install any compiled
 # extensions as part of our RPM!)

@@ -5,7 +5,7 @@
 %global crate rustsec
 
 Name:           rust-rustsec
-Version:        0.30.1
+Version:        0.30.2
 Release:        %autorelease
 Summary:        Client library for the RustSec security advisory database
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustsec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * temporarily drop unused features with missing dependencies
+# * drop unused features with missing dependencies
 Patch:          rustsec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -61,6 +61,30 @@ This package contains library source intended for building other packages which
 use the "dependency-tree" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dependency-tree-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+git-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+git-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "git" feature of the "%{crate}" crate.
+
+%files       -n %{name}+git-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+osv-export-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+osv-export-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "osv-export" feature of the "%{crate}" crate.
+
+%files       -n %{name}+osv-export-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

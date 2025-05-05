@@ -5,7 +5,7 @@
 %global crate data-encoding-macro-internal
 
 Name:           rust-data-encoding-macro-internal
-Version:        0.1.15
+Version:        0.1.16
 Release:        %autorelease
 Summary:        Internal library for data-encoding-macro
 

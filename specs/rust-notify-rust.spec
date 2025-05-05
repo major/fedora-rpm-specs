@@ -5,7 +5,7 @@
 %global crate notify-rust
 
 Name:           rust-notify-rust
-Version:        4.11.5
+Version:        4.11.7
 Release:        %autorelease
 Summary:        Show desktop notifications
 

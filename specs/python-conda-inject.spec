@@ -10,9 +10,10 @@ URL:            https://github.com/koesterlab/conda-inject
 # also gives us the tests, but we are unable to run them.
 Source:         %{url}/archive/v%{version}/conda-inject-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -L conda_inject
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 Helper functions for injecting a conda environment into the current python
@@ -28,30 +29,11 @@ Summary:        %{summary}
 %description -n python3-conda-inject %{common_description}
 
 
-%prep
-%autosetup -n conda-inject-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files conda_inject
-
-
-%check
 # Currently, all tests require network access. Furthermore, of the three
 # supported package managers (mamba, conda, and micromamba), the one used for
 # the tests is mamba, and this is the only one that is not currently packaged.
 # We therefore cannot even run the tests in a local mock build with
 # --enable-network unless we patch them to use a different package manager.
-%pyproject_check_import
 
 
 %files -n python3-conda-inject -f %{pyproject_files}

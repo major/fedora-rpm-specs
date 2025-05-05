@@ -12,13 +12,22 @@ URL:            https://github.com/mikedh/cascadio
 # The PyPI project does not have sdists, so we must use the GitHub archive.
 Source:         %{url}/archive/%{version}/cascadio-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): %{?with_tests:-x tests}
+# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
+BuildOption(build):     %{shrink:
+                        -Ccmake.define.SYSTEM_OPENCASCADE=ON
+                        -Clogging.level=INFO
+                        -Ccmake.verbose=true
+                        -Ccmake.build-type="RelWithDebInfo"
+                        -Cinstall.strip=false}
+BuildOption(install):   -L cascadio
+
 # Tests for cascadio fail on s390x, wrong endianness
 # https://github.com/mikedh/trimesh/issues/2251
 # https://bugzilla.redhat.com/show_bug.cgi?id=2298452
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86} s390x
-
-BuildRequires:  python3-devel
 
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -51,35 +60,14 @@ Summary:        %{summary}
 %description -n python3-cascadio %{common_description}
 
 
-%prep
-%autosetup -n cascadio-%{version} -p1
+%prep -a
 # The CMake scripts shipped with the system VTK try to find HDF5 by compiling
 # and linking a C program; we need to enable the C language in the top-level
 # project in order for this to work.
 sed -r -i 's/\bCXX\b/C &/' CMakeLists.txt
 
 
-%generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x tests}
-
-
-%build
-# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
-%{pyproject_wheel \
-    -Ccmake.define.SYSTEM_OPENCASCADE=ON \
-    -Clogging.level=INFO \
-    -Ccmake.verbose=true \
-    -Ccmake.build-type="RelWithDebInfo" \
-    -Cinstall.strip=false}
-
-
-%install
-%pyproject_install
-%pyproject_save_files -L cascadio
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 %pytest
 %endif

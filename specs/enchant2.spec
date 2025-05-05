@@ -1,13 +1,13 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.8.2
-Release:       6%{?dist}
+Version:       2.8.4
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
-URL:           https://github.com/AbiWord/enchant
-Source0:       https://github.com/AbiWord/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
+URL:           https://github.com/rrthomas/enchant
+Source0:       https://github.com/rrthomas/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
 
 %if !0%{?rhel}
 # Look for aspell using pkg-config, instead of AC_CHECK_LIB which adds -laspell
@@ -172,7 +172,7 @@ find %{buildroot} -name '*.la' -delete
 
 
 %files
-%doc AUTHORS NEWS README.md
+%doc AUTHORS NEWS README
 %license COPYING.LIB
 %{_bindir}/enchant-2
 %{_bindir}/enchant-lsmod-2
@@ -241,6 +241,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sat May 03 2025 Sandro Mani <manisandro@gmail.com> - 2.8.4-1
+- Update to 2.8.4
+
 * Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 2.8.2-6
 - Fix package description for mingw32-enchant2
 

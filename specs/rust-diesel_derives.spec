@@ -5,7 +5,7 @@
 %global crate diesel_derives
 
 Name:           rust-diesel_derives
-Version:        2.2.4
+Version:        2.2.5
 Release:        %autorelease
 Summary:        Derive macros for diesel
 

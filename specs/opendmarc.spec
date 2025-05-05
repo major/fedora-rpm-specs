@@ -33,6 +33,9 @@ Patch: 223.patch
 Patch: 224.patch
 Patch: 225.patch
 
+# Fix https://github.com/trusteddomainproject/OpenDMARC/issues/274
+Patch: 0001-libopendmarc-fix-NULL-pointer-deref-in-opendmarc_spf.patch
+
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
 %if (0%{?rhel} < 11) || (0%{?fedora} < 43)

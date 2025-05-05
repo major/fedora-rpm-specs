@@ -3,6 +3,8 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
+%bcond_with test
+
 Name:           magma
 Version:        2.9.0
 Release:        %autorelease
@@ -164,6 +166,7 @@ find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.deve
 #  5184  5184  5184   11835.76 (  23.54)    13724.13 (  20.30)     ---   (  ---  )    4.23e-10        ---    ok
 #  6208  6208  6208   5298.80 (  90.30)    15901.86 (  30.09)     ---   (  ---  )    8.32e-09        ---    ok
 #  7232  7232  7232   11764.14 (  64.31)    20683.31 (  36.58)     ---   (  ---  )    5.11e-10        ---    ok
+%{_vpath_builddir}/testing/testing_sgemm
 %endif
 
 %files -f %{name}.files

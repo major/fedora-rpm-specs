@@ -1,12 +1,13 @@
 # The original RHEL N+1 content set is defined by (build)dependencies
-# of the packages in Fedora ELN. Hence we disable tests and documentation here
+# of the packages in Fedora ELN. Hence we disable tests here
 # to prevent pulling many unwanted packages in.
 # We intentionally keep this enabled on EPEL.
 %bcond tests %[%{defined fedora} || %{defined epel}]
-%bcond doc %[%{defined fedora} || %{defined epel}]
+# Whether to build the manual pages (useful for bootstrapping Sphinx)
+%bcond man 1
 
 %global srcname pip
-%global base_version 25.1
+%global base_version 25.1.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -54,6 +55,14 @@ BuildRequires:  python-setuptools-wheel
 BuildRequires:  python-wheel-wheel
 %endif
 
+%if %{with man}
+# docs/requirements.txt contains many sphinx extensions
+# however, we only build the manual pages thanks to
+# https://github.com/pypa/pip/pull/13168
+# We also always use the "main" Sphinx, not python%%{python3_pkgversion}-sphinx
+BuildRequires:  python3-sphinx
+%endif
+
 # Prevent removing of the system packages installed under /usr/lib
 # when pip install -U is executed.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1550368#c24
@@ -88,7 +97,7 @@ Packages" or "Pip Installs Python".
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.2
 Provides: bundled(python%{1}dist(certifi)) = 2025.1.31
-Provides: bundled(python%{1}dist(dependency-groups)) = 1.3
+Provides: bundled(python%{1}dist(dependency-groups)) = 1.3.1
 Provides: bundled(python%{1}dist(distlib)) = 0.3.9
 Provides: bundled(python%{1}dist(distro)) = 1.9
 Provides: bundled(python%{1}dist(idna)) = 3.10
@@ -156,20 +165,6 @@ written in Python. Many packages can be found in the Python Package Index
 (PyPI). pip is a recursive acronym that can stand for either "Pip Installs
 Packages" or "Pip Installs Python".
 
-%if %{with doc}
-%package doc
-Summary:        A documentation for a tool for installing and managing Python packages
-
-BuildRequires:  python%{python3_pkgversion}-sphinx
-BuildRequires:  python%{python3_pkgversion}-sphinx-inline-tabs
-BuildRequires:  python%{python3_pkgversion}-sphinx-issues
-BuildRequires:  python%{python3_pkgversion}-sphinx-copybutton
-BuildRequires:  python%{python3_pkgversion}-myst-parser
-
-%description doc
-A documentation for a tool for installing and managing Python packages
-
-%endif
 
 %package -n     %{python_wheel_pkg_prefix}-%{srcname}-wheel
 Summary:        The pip wheel
@@ -197,23 +192,12 @@ A Python wheel of pip to use with venv.
 # this goes together with patch4
 rm src/pip/_vendor/certifi/*.pem
 
-# Do not use furo as HTML theme in docs
-# furo is not available in Fedora
-sed -i '/html_theme = "furo"/d' docs/html/conf.py
-
-# towncrier extension for Sphinx is not yet available in Fedora
-sed -i '/"sphinxcontrib.towncrier",/d' docs/html/conf.py
-
 # tests expect wheels in here
 ln -s %{python_wheel_dir} tests/data/common_wheels
 
 # Remove windows executable binaries
 rm -v src/pip/_vendor/distlib/*.exe
 sed -i '/\.exe/d' pyproject.toml
-
-# Remove RIGHT-TO-LEFT OVERRIDE from AUTHORS.txt
-# https://github.com/pypa/pip/pull/12046
-%{python3} -c 'from pathlib import Path; p = Path("AUTHORS.txt"); p.write_text("".join(c for c in p.read_text() if c != "\u202e"))'
 
 # Remove unused test requirements
 sed -Ei '/(pytest-(cov|xdist|rerunfailures)|proxy\.py)/d' tests/requirements.txt
@@ -231,11 +215,8 @@ sed -Ei '/(pytest-(cov|xdist|rerunfailures)|proxy\.py)/d' tests/requirements.txt
 export PYTHONPATH=./src/
 %pyproject_wheel
 
-%if %{with doc}
-# from tox.ini
-sphinx-build-3 -b html docs/html docs/build/html
-sphinx-build-3 -b man  docs/man  docs/build/man  -c docs/html
-rm -rf docs/build/html/{.doctrees,.buildinfo}
+%if %{with man}
+sphinx-build --tag man -b man -d docs/build/doctrees/man -c docs/html docs/man docs/build/man
 %endif
 
 
@@ -244,7 +225,7 @@ export PYTHONPATH=./src/
 %pyproject_install
 %pyproject_save_files -l pip
 
-%if %{with doc}
+%if %{with man}
 pushd docs/build/man
 install -d %{buildroot}%{_mandir}/man1
 for MAN in *1; do
@@ -307,7 +288,7 @@ pytest_k='not completion'
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%if %{with doc}
+%if %{with man}
 %{_mandir}/man1/pip.*
 %{_mandir}/man1/pip-*.*
 %{_mandir}/man1/pip3.*
@@ -321,12 +302,6 @@ pytest_k='not completion'
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/pip3
 
-%if %{with doc}
-%files doc
-%license LICENSE.txt
-%doc README.rst
-%doc docs/build/html
-%endif
 
 %files -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
 %license LICENSE.txt

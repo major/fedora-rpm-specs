@@ -17,6 +17,8 @@ Tool for transforming reStructuredText to PDF using ReportLab
 
 %prep
 %autosetup -n %{name}-%{version} -p 1
+# Remove version limit for packaging
+sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

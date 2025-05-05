@@ -21,7 +21,7 @@ Version:        24.09.26
 # For PyTorch 2.5
 %global commit0 1e83a2fdd3102f65c6f1fb602c1b320486218a99
 Version:        24.09.26
-%define patch_level 1
+%define patch_level 2
 
 %endif
 
@@ -122,6 +122,7 @@ rm -rf %{buildroot}/%{_libdir}/pkgconfig/gtest*
 %endif
 
 %files
+%license LICENSE
 %{_bindir}/isa-info
 %{_bindir}/cpu-info
 %{_bindir}/cache-info
@@ -131,7 +132,6 @@ rm -rf %{buildroot}/%{_libdir}/pkgconfig/gtest*
 %{_libdir}/lib%{name}.so.*
 
 %files devel
-%license LICENSE
 %doc README.md
 %dir %{_datadir}/%{name}
 %{_includedir}/%{name}.h
@@ -140,6 +140,9 @@ rm -rf %{buildroot}/%{_libdir}/pkgconfig/gtest*
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Sat May 3 2025 Tom Rix <Tom.Rix@amd.com> - 24.09.26-2.git1e83a2f.1
+- Move license to main package
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.09.26-1.git1e83a2f.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

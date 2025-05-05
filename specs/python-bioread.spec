@@ -1,5 +1,5 @@
 Name:           python-bioread
-Version:        2025.03.13
+Version:        2025.05.02
 Release:        %autorelease
 Summary:        Utilities to read BIOPAC AcqKnowledge files
 

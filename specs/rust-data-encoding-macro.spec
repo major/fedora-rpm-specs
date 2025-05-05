@@ -5,7 +5,7 @@
 %global crate data-encoding-macro
 
 Name:           rust-data-encoding-macro
-Version:        0.1.17
+Version:        0.1.18
 Release:        %autorelease
 Summary:        Macros for data-encoding
 

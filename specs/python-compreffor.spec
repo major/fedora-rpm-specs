@@ -10,10 +10,12 @@ Source0:        %{url}/archive/%{version}/compreffor-%{version}.tar.gz
 # command’s --help output
 Source1:        compreffor.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l compreffor
+BuildOption(generate_buildrequires): -t
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-
-BuildRequires:  python3-devel
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -32,9 +34,7 @@ Summary:        %{summary}
 %description -n python3-compreffor %{common_description}
 
 
-%prep
-%autosetup -n compreffor-%{version}
-
+%prep -a
 # Drop the setuptools_git_ls_files dependency
 #
 # This dependency makes sense upstream, but we do not need it (and it is
@@ -56,23 +56,19 @@ find src/cython -type f -name '*.c*' -print -delete
 sed -r -i '/^[[:blank:]]*-rrequirements.txt[[:blank:]]*/d' 'tox.ini'
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -t
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l compreffor
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 
-%check
+%check -a
 %tox
 
 

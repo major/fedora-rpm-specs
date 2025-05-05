@@ -7,7 +7,9 @@
 
 %global subpkgs %{fileio}
 
+%if %{defined fedora}
 %bcond ikiwiki 1
+%endif
 
 Name:           git-annex
 Version:        10.20250320

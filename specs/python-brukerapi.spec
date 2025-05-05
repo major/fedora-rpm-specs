@@ -51,9 +51,12 @@ Patch:          %{url}/pull/21.patch
 # https://github.com/isi-nmr/brukerapi-python/pull/22
 Patch:          %{url}/pull/22.patch
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): %{?with_doc_pdf:docs/requirements.txt}
+BuildOption(install):   -l brukerapi
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 
 %if %{with doc_pdf}
@@ -81,16 +84,7 @@ Summary:        Documentation and examples for python-brukerapi
 %description    doc %{common_description}
 
 
-%prep
-%autosetup -n brukerapi-python-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires %{?with_doc_pdf:docs/requirements.txt}
-
-
-%build
-%pyproject_wheel
+%build -a
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
@@ -98,18 +92,12 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l brukerapi
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 
-%check
-# Since tests are described as “minimal”:
-%pyproject_check_import
-
+%check -a
 # Two test errors due to request fixture issues
 # https://github.com/isi-nmr/brukerapi-python/issues/17
 k="${k-}${k+ and }not test_data_load"
