@@ -5,7 +5,7 @@
 %global crate g2p
 
 Name:           rust-g2p
-Version:        1.2.0
+Version:        1.2.2
 Release:        %autorelease
 Summary:        To create types that implement fast finite field arithmetic
 

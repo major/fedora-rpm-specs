@@ -1,7 +1,7 @@
 %global framework kwallet
 
 Name:    kf6-%{framework}
-Version: 6.13.0
+Version: 6.14.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
@@ -9,6 +9,7 @@ License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LG
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 BuildRequires:  cmake(Qca-qt6)
 BuildRequires:  cmake(Qt6Core5Compat)
@@ -38,6 +39,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  cmake(Gpgmepp)
+BuildRequires:  pkgconfig(libsecret-1)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kf6-filesystem
@@ -84,10 +86,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_bindir}/kwallet-query
 %{_kf6_bindir}/kwalletd6
-%{_kf6_datadir}/applications/org.kde.kwalletd6.desktop
+%{_kf6_bindir}/ksecretd
+%{_kf6_datadir}/applications/org.kde.ksecretd.desktop
+%{_kf6_datadir}/dbus-1/services/org.kde.secretservicecompat.service
 %{_kf6_datadir}/dbus-1/services/org.kde.kwalletd5.service
 %{_kf6_datadir}/dbus-1/services/org.kde.kwalletd6.service
-%{_kf6_datadir}/knotifications6/kwalletd6.notifyrc
+%{_kf6_datadir}/knotifications6/ksecretd.notifyrc
 %{_kf6_datadir}/qlogging-categories6/%{framework}*
 %{_kf6_datadir}/xdg-desktop-portal/portals/kwallet.portal
 %{_mandir}/man1/kwallet-query.1*
@@ -103,11 +107,14 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/cmake/KF6Wallet/
 %{_kf6_libdir}/libKF6Wallet.so
 %{_qt6_docdir}/*.tags
- 
+
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Sun Apr 06 2025 Steve Cossette <farchord@gmail.com> - 6.13.0-1
 - 6.13.0
 

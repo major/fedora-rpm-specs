@@ -3,16 +3,14 @@
 %global pkgname win-iconv
 
 Name:          mingw-%{pkgname}
-Version:       0.0.9
-Release:       2%{?dist}
+Version:       0.0.10
+Release:       1%{?dist}
 Summary:       Iconv implementation using Win32 API
 
 BuildArch:     noarch
 License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/win-iconv/win-iconv
 Source0:       https://github.com/win-iconv/win-iconv/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-# Fix static library name
-Patch0:        win-iconv-static-libname.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -101,6 +99,9 @@ rm -f %{buildroot}%{mingw64_includedir}/localcharset.h
 
 
 %changelog
+* Sat May 03 2025 Sandro Mani <manisandro@gmail.com> - 0.0.10-1
+- Update to 0.0.10
+
 * Mon Apr 28 2025 Sandro Mani <manisandro@gmail.com> - 0.0.9-2
 - Fix file conflict with mingw-libcharset
 

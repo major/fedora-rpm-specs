@@ -8,7 +8,7 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.35.2
+Version: 1.35.3
 Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
@@ -18,8 +18,6 @@ Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
 
 # Not upstreamable
 Patch100: fedora-config.patch
-Patch101: https://pagure.io/koji/pull-request/4335.patch
-Patch102: https://pagure.io/koji/c/30cc206.patch
 
 BuildArch: noarch
 Requires: python%{python3_pkgversion}-%{name} = %{version}-%{release}

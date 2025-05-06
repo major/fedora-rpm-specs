@@ -3,7 +3,7 @@
 
 Name:		libs3
 Version:	4.1
-Release:	0.22.20190408git%{shortcommit}%{?dist}
+Release:	0.23.20190408git%{shortcommit}%{?dist}
 Summary:	C Library and Tools for Amazon S3 Access
 
 License:	LGPL-3.0-or-later OR GPL-2.0-or-later
@@ -12,6 +12,9 @@ Source0:	%{url}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 #		Fix compilation with openssl 3.0
 #		https://github.com/bji/libs3/pull/112
 Patch0:		libs3-openssl3.patch
+#		Fix warnings from curl 8.14
+#		https://github.com/bji/libs3/pull/115
+Patch1:		libs3-long-opts.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -35,6 +38,7 @@ developing applications that use %{name}.
 %prep
 %setup -q -n %{name}-%{commit}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 sed -e 's!^CFLAGS +=!& %{build_cflags}!' \
@@ -62,6 +66,9 @@ chmod 755 %{buildroot}%{_libdir}/libs3.so.4.1
 %{_libdir}/libs3.so
 
 %changelog
+* Sun May 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 4.1-0.23.20190408git287e4be
+- Fix warnings from curl 8.14
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-0.22.20190408git287e4be
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

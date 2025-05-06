@@ -2,20 +2,17 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version:        6.13.0
-Release:        3%{?dist}
+Version:        6.14.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 # upstream patches
-#https://invent.kde.org/frameworks/kimageformats/-/merge_requests/361
-Patch0:         kf6-kimageformats-361.patch
-#https://invent.kde.org/frameworks/kimageformats/-/merge_requests/362
-Patch1:         kf6-kimageformats-362.patch
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
@@ -67,6 +64,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Tue Apr 22 2025 Alessandro Astone <ales.astone@gmail.com> - 6.13.0-3
 - Add corrective patch for the building the JXR plugin on i686
 

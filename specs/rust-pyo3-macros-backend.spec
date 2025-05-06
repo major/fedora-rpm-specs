@@ -5,7 +5,7 @@
 %global crate pyo3-macros-backend
 
 Name:           rust-pyo3-macros-backend
-Version:        0.24.1
+Version:        0.24.2
 Release:        %autorelease
 Summary:        Code generation for PyO3 package
 
@@ -61,10 +61,6 @@ use the "experimental-async" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop stray executable bit from non-executable text files:
-# https://github.com/PyO3/pyo3/pull/5047
-chmod -x ./src/attributes.rs
-chmod -x ./src/intopyobject.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

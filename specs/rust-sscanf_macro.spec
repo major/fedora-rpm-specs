@@ -5,17 +5,15 @@
 %global crate sscanf_macro
 
 Name:           rust-sscanf_macro
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Proc-Macros for the sscanf Crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/sscanf_macro
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sscanf_macro-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Update strsim to 0.11 (https://github.com/mich101mich/sscanf/pull/12)
+# * drop unnecessary version restriction for the unicode-width dependency
 Patch:          sscanf_macro-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

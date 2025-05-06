@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -103,6 +103,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Sun May 04 2025 Kevin Fenzi <kevin@scrye.com> - 1.4.6-29
+- Add fix for additional case of grep warnings with cron.
+
 * Sat Apr 19 2025 Kevin Fenzi <kevin@scrye.com> - 1.4.6-28
 - Add a fix to grep warning about escaping /s. Fixes rhbz#2360502
 

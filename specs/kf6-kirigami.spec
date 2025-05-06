@@ -1,12 +1,13 @@
 %global framework kirigami
 
 Name:           kf6-%{framework}
-Version:        6.13.0
-Release:        3%{?dist}
+Version:        6.14.0
+Release:        1%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
 Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -75,6 +76,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKirigamiDialogs.so.%{version}
 %{_kf6_libdir}/libKirigamiLayouts.so.6
 %{_kf6_libdir}/libKirigamiLayouts.so.%{version}
+%{_kf6_libdir}/libKirigamiLayoutsPrivate.so.6
+%{_kf6_libdir}/libKirigamiLayoutsPrivate.so.%{version}
 %{_kf6_libdir}/libKirigamiPlatform.so.6
 %{_kf6_libdir}/libKirigamiPlatform.so.%{version}
 %{_kf6_libdir}/libKirigamiPrimitives.so.6
@@ -93,6 +96,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKirigamiDelegates.so
 %{_kf6_libdir}/libKirigamiDialogs.so
 %{_kf6_libdir}/libKirigamiLayouts.so
+%{_kf6_libdir}/libKirigamiLayoutsPrivate.so
 %{_kf6_libdir}/libKirigamiPlatform.so
 %{_kf6_libdir}/libKirigamiPrimitives.so
 %{_kf6_libdir}/libKirigamiPrivate.so
@@ -103,6 +107,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-3
 - Rebuild (qt6)
 

@@ -6,7 +6,7 @@
 %global crate libadwaita-sys
 
 Name:           rust-libadwaita-sys
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        FFI bindings for libadwaita
 

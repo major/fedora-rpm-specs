@@ -5,13 +5,15 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.24.1
+Version:        0.24.2
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pyo3
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          pyo3-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * relax chrono-tz dependency to allow building with 0.6..=0.10
 # * drop MSVC- and MinGW-only features
@@ -498,12 +500,6 @@ use the "uuid" feature of the "%{crate}" crate.
 %cargo_prep
 # drop files that are not useful
 rm -r emscripten/ newsfragments/
-# drop stray executable bit from non-executable text files:
-# https://github.com/PyO3/pyo3/pull/5047
-chmod -x ./guide/src/conversions/traits.md
-chmod -x ./src/conversions/std/ipaddr.rs
-chmod -x ./src/conversions/std/time.rs
-chmod -x ./tests/test_intopyobject.rs
 
 %generate_buildrequires
 # unit tests require optional dependencies

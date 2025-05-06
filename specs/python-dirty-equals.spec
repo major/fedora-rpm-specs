@@ -11,9 +11,14 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/dirty-equals
 Source:         %{pypi_source dirty_equals}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): %{shrink:
+  %{?!with_bootstrap:-x pydantic}
+  requirements/tests-filtered.txt
+}
+BuildOption(install):   -l dirty_equals
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 The dirty-equals Python library (mis)uses the __eq__ method to make python code
@@ -37,9 +42,7 @@ Summary:        %{summary}
 %endif
 
 
-%prep
-%autosetup -n dirty_equals-%{version}
-
+%prep -a
 # Patch out coverage analysis dependencies
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 #
@@ -60,20 +63,7 @@ sed -r 's/^(coverage|pytest-(pretty|examples))/# \1/' requirements/tests.in |
 sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 
 
-%generate_buildrequires
-%pyproject_buildrequires %{?!with_bootstrap:-x pydantic} requirements/tests-filtered.txt
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l dirty_equals
-
-
-%check
+%check -a
 # Tests in this module require pytest-examples; see %%prep for notes on this.
 ignore="${ignore-} --ignore=tests/test_docs.py"
 

@@ -8,8 +8,8 @@
 
 Name:    kf6-%{framework}
 Summary: Breeze icon theme library
-Version: 6.13.0
-Release: 2%{?dist}
+Version: 6.14.0
+Release: 1%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
 # folder-edit-sign-encrypt.svg is LGPL-2.1-or-later
@@ -18,6 +18,7 @@ Release: 2%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND CC-BY-SA-4.0
 URL:     https://api.kde.org/frameworks/breeze-icons/html/
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 ## upstream patches
 
@@ -190,6 +191,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %endif
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Mon Apr 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.13.0-2
 - Split out Fedora installer icon to separate subpackage
 

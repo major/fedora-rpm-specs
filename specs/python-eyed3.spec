@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
@@ -13,6 +13,10 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-deprecation
 BuildRequires:  python3-filetype
 BuildRequires:  python3-setuptools
+# Test dependencies.
+BuildRequires:  python3-factory-boy
+BuildRequires:  python3-pytest
+BuildRequires:  python3-six
 
 %global _description\
 A Python module and program for processing ID3 tags. Information about\
@@ -41,6 +45,13 @@ Requires:       python3-six
 %py3_install
 
 
+%check
+# Ignore tests which require:
+# - test data (test_classic_plugin.py, test_core.py, id3/test_frames.py,
+# id3_test_rva.py, test_issues.py)
+py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,id3/test_frames.py,test_jsonyaml_plugin.py,id3/test_rva.py,test_issues.py}
+
+
 %files -n python3-%{srcname}
 %doc AUTHORS.rst HISTORY.rst README.rst examples/
 %license LICENSE
@@ -50,6 +61,9 @@ Requires:       python3-six
 
 
 %changelog
+* Wed Apr 09 2025 Miro Hrončok <mhroncok@redhat.com> - 0.9.7-10
+- Enable tests (#2349843)
+
 * Wed Apr 09 2025 David King <amigadave@amigadave.com> - 0.9.7-9
 - Disable tests (#2349843)
 

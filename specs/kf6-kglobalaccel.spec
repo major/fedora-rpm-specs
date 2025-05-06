@@ -1,8 +1,8 @@
 %global framework kglobalaccel
 
 Name:    kf6-%{framework}
-Version: 6.13.0
-Release: 2%{?dist}
+Version: 6.14.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -10,6 +10,7 @@ License: CC0-1.0 AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
@@ -83,6 +84,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-2
 - Rebuild (qt6)
 

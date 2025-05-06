@@ -1,5 +1,5 @@
 Name:          notcurses
-Version:       3.0.14
+Version:       3.0.16
 Release:       %autorelease
 Summary:       Character graphics and TUI library
 License:       Apache-2.0

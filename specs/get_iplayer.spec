@@ -1,5 +1,5 @@
 Name:           get_iplayer
-Version:        3.35
+Version:        3.36
 Release:        %autorelease
 Summary:        Lists, records and streams BBC iPlayer TV and radio programmes
 

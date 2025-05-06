@@ -5,7 +5,7 @@
 %global crate g2gen
 
 Name:           rust-g2gen
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Macro to create types that implement fast finite field arithmetic
 

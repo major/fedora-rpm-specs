@@ -32,7 +32,7 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.0+ (registerized s390x needs 9.2)
-%global ghcboot_major 9.4
+%global ghcboot_major 9.2
 %global ghcboot ghc%{?ghcboot_major}
 
 %if %{without hadrian}
@@ -54,7 +54,7 @@
 %bcond_with testsuite
 
 # ld
-%ifarch aarch64 riscv64
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 10 || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64"
 %bcond ld_gold 0
 %else
 %bcond ld_gold 1
@@ -83,7 +83,7 @@ Version: 9.4.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -192,7 +192,6 @@ BuildRequires: llvm%{llvm_major}
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
@@ -425,6 +424,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+( cd hadrian
+  cabal-tweak-flag selftest False
+)
 
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
@@ -432,7 +434,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %patch -P5 -p1 -b .orig
 # should be safe but enabling in fedora first
-%if 0%{?fedora}
+%if %{defined fedora} || 0%{?rhel} >= 10
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
@@ -468,7 +470,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P27 -p1 -b .orig
 
 #sphinx 7
-%if 0%{?fedora} >= 40
+%if %{defined fedora} || 0%{?rhel} >= 10
 %patch -P30 -p1 -b .orig
 %endif
 
@@ -1047,6 +1049,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sun May 04 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-34
+- use ld.bfd on all archs for epel10 and f43 rawhide (breaking)
+
 * Sat Jan 18 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-33
 - fix hp2ps failure with gcc15 C23
 - setup llvm compiler for all archs not just those defaulting to llvm backend

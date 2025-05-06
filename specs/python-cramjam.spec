@@ -142,6 +142,11 @@ done
 # newly *revealed* problems. This merits further investigation.
 k="${k-}${k+ and }not test_variants_decompress_into"
 
+# Regression with miniz_oxide>0.8.5
+# https://github.com/milesgranger/cramjam/issues/211
+# Failed: DID NOT RAISE <class 'cramjam.DecompressionError'>
+k="${k-}${k+ and }not test_variants_raise_exception[deflate]"
+
 %pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v -n auto
 %endif
 

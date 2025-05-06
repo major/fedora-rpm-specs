@@ -38,7 +38,7 @@ Casttube is a python library to interact with the Youtube Chromecast api.
 
 %install
 %py3_install
-rm -f %{buildroot}/usr/LICENSE
+rm -f %{buildroot}%{_prefix}/LICENSE
 
 %check
 %if %{with_tests}

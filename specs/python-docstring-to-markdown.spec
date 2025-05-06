@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/python-lsp/docstring-to-markdown
 
 Name:           python-%{pypi_name}
-Version:        0.16
+Version:        0.17
 Release:        %{autorelease}
 Summary:        On the fly conversion of Python docstrings to Markdown
 %forgemeta

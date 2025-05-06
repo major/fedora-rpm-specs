@@ -4,13 +4,13 @@
 %global	core_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250218
-%global	githash	d591880a3912419fe320e46a075f1fa1cb75e7ad
+%global	gitdate	20250502
+%global	githash	d41b3c27f01cd78af76a264b7d39394456188d54
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	3
+%global	baserelease	1
 %global	alphatag		.rc2
 
 
@@ -421,6 +421,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sun May 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250502gitd41b3c2-1.rc2
+- Update to the latest git (20250502gitd41b3c2)
+
 * Thu Apr 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-3.rc2
 - Update %%cmake macro usage (to prepare for cmake 4 and related changes)
 

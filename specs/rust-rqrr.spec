@@ -5,7 +5,7 @@
 %global crate rqrr
 
 Name:           rust-rqrr
-Version:        0.9.1
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Detect and read QR codes from any image source
 

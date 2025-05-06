@@ -1,5 +1,3 @@
-%global __cmake_in_source_build 1
-
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 0
 %if 0%{?usesnapshot}
@@ -33,8 +31,7 @@ Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
 # Use Qwt Widget Library
 Patch0:         %{name}_20200614git5c84f7f.patch
-Patch1:         %{name}_bison-3.7.patch
-Patch2:         fix-leaf-none.patch
+Patch1:         %{name}_bison-3.8.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  flex
@@ -159,9 +156,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
-* Fri Apr 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7-1
+* Sun May 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7-1
 - Update to 1:3.7-1
-- Add fix-leaf-none.patch
+- Add %%{name}_bison-3.8.patch
 
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1:3.6-10
 - Rebuild with gsl 2.8

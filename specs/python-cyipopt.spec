@@ -18,10 +18,12 @@ License:        EPL-2.0
 URL:            https://github.com/mechmotum/cyipopt
 Source:         %{pypi_source cyipopt}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l cyipopt ipopt ipopt_wrapper
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 
 BuildRequires:  pkgconfig(ipopt) >= 3.12
@@ -98,9 +100,7 @@ BuildArch:      noarch
 %description doc %{common_description}
 
 
-%prep
-%autosetup -n cyipopt-%{version} -p1
-
+%prep -a
 # Replace zero-length files in the tests with proper empty text files, i.e.,
 # just a newline. It makes sense for __init__.py files to be empty, but the
 # empty test files look like a mistake, so an upstream issue was filed:
@@ -115,13 +115,7 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc_pdf}
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
 PYTHONPATH="${BLIB}" %make_build -C docs latex \
@@ -130,12 +124,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l cyipopt ipopt ipopt_wrapper
-
-
-%check
+%check -a
 %ifarch %{power64} s390x
 # Arch-dependent failures of test_minimize_ipopt_jac_with_scipy_methods[cobyla]
 # https://github.com/mechmotum/cyipopt/issues/237

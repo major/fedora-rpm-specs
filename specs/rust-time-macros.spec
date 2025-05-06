@@ -5,7 +5,7 @@
 %global crate time-macros
 
 Name:           rust-time-macros
-Version:        0.2.20
+Version:        0.2.22
 Release:        %autorelease
 Summary:        Procedural macros for the time crate
 

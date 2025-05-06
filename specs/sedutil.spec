@@ -8,8 +8,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		sedutil
-Version:	1.49.6
-Release:	3%{?dist}
+Version:	1.49.13
+Release:	1%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -19,7 +19,8 @@ URL:		https://github.com/%{OWNER}/%{PROJECT}/wiki
 Source0:	https://github.com/%{OWNER}/%{PROJECT}/archive/%{gittag}/%{name}-%{gittag}.tar.gz
 
 # sedutil does not work on big-endian architectures
-ExcludeArch:	ppc ppc64 ppc64le s390 s390x
+# Common/DtaEndianFixup.h:37:2: error: #error This code does not support big endian architectures
+ExcludeArch:	ppc ppc64 s390 s390x
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -79,6 +80,11 @@ ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
+* Sun May 04 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.49.13-1
+- Update to 1.49.13
+- Remove ExcludeArch: ppc64le since it is now fixed:
+  https://github.com/Drive-Trust-Alliance/sedutil/issues/489
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

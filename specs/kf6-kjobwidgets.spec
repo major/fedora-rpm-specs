@@ -1,14 +1,15 @@
 %global framework kjobwidgets
 
 Name:           kf6-%{framework}
-Version:        6.13.0
-Release:        2%{?dist}
+Version:        6.14.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License:        CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source1:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  cmake
@@ -21,12 +22,21 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  python3-devel
+BuildRequires:  python3-build
+BuildRequires:  python3-setuptools
+BuildRequires:  clang-devel
 
 BuildRequires:  pkgconfig(xkbcommon)
 Requires:       kf6-filesystem
 
 %description
 %{summary}.
+
+%package        -n python3-%{name}
+Summary:        Qt for Python bindings for %{name}
+%description    -n python3-%{name}
+The package contains the pyside6 bindings library for %{name}
 
 %package        devel
 Summary:        Development files for %{name}
@@ -68,11 +78,17 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/cmake/KF6JobWidgets/
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 %{_qt6_docdir}/*.tags
- 
+
+%files -n python3-%{name}
+%{python3_sitearch}/KJobWidgets.cpython-%{python3_version_nodots}*.so
+
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
+- 6.14.0
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.13.0-2
 - Rebuild (qt6)
 

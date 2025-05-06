@@ -1,20 +1,34 @@
 Name:           perl-MooseX-Types-VariantTable
 Version:        0.04
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Type constraint based variant table
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/MooseX-Types-VariantTable
+URL:            https://metacpan.org/dist/MooseX-Types-VariantTable
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/MooseX-Types-VariantTable-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Devel::PartialDump)
+BuildRequires:  perl(Hash::Util::FieldHash::Compat)
 BuildRequires:  perl(Moose) >= 0.75
+BuildRequires:  perl(Moose::Object)
+BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(MooseX::Clone) >= 0.03
 BuildRequires:  perl(MooseX::Types::Structured) >= 0.12
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Sub::Exporter)
+BuildRequires:  perl(Sub::Name)
+BuildRequires:  perl(namespace::clean)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(MooseX::Types::Moose)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::use::ok)
 Requires:       perl(MooseX::Clone) >= 0.03
@@ -29,15 +43,15 @@ constraints.
 %setup -q -n MooseX-Types-VariantTable-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes
@@ -45,6 +59,12 @@ make test
 %{_mandir}/man3/Moose*
 
 %changelog
+* Sun May 04 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.04-43
+- Update dependencies (#2363624)
+- Pass NO_PERLLOCAL=1 to Makefile.PL
+- Use %%{make_build} and %%{make_install} where appropriate
+- Replace %%{__perl} by /usr/bin/perl
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate procs
 
 Name:           rust-procs
-Version:        0.14.9
+Version:        0.14.10
 Release:        %autorelease
 Summary:        Modern replacement for ps
 

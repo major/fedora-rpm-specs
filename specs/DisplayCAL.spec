@@ -2,18 +2,19 @@
 %define lc_name %(echo "%{name}" | tr '[:upper:]' '[:lower:]')
 
 Name:		DisplayCAL
-Version:	3.9.14
-Release:	4%{?dist}
+Version:	3.9.15
+Release:	2%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
 Source0:	%{pypi_source}
 Patch0:		displaycal-3.9.3-udev-dir.patch
 Patch1:		displaycal-skip-update-check.patch
-Patch2:		displaycal-3.9.14-fix-autostart-location.patch
-Patch3:		displaycal-3.9.12-delete-pyvercheck.patch
+Patch2:		displaycal-3.9.15-fix-autostart-location.patch
+Patch3:		displaycal-3.9.15-downgrade-wxpython.patch
 
-BuildRequires:	gcc
+BuildArch:	noarch
+
 BuildRequires:	git-core
 BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	pkgconfig(xinerama)
@@ -29,6 +30,9 @@ Requires:	SDL2_mixer
 
 Provides:	%{lc_name} = %{version}-%{release}
 Provides:	dispcalGUI = %{version}-%{release}
+
+# For archful->noarch chnage
+Obsoletes:	%{name} < 3.9.15-2
 
 %description
 This utility calibrates and characterizes display devices using one
@@ -75,6 +79,10 @@ export CFLAGS="%{build_cflags} -Wno-incompatible-pointer-types"
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart/
 mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buildroot}%{_sysconfdir}/xdg/autostart/
 
+# Drop files that aren't supposed to be shipped
+rm -rfv %{buildroot}%{python3_sitelib}/{misc,tests,util}
+rm -rfv %{buildroot}%{_datadir}/doc-base
+
 %files -f %{pyproject_files}
 %docdir %{_docdir}/%{name}-%{version}/
 %doc %{_docdir}/%{name}-%{version}/*
@@ -88,6 +96,14 @@ mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buil
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Sun May 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.15-2
+- Downgrade required wxPython
+- Drop not-to-be-shipped files
+- Switch to noarch
+
+* Sun May 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.15-1
+- Update to 3.9.15
+
 * Sat Mar 15 2025 Lumír Balhar <lbalhar@redhat.com> - 3.9.14-4
 - Fix compatibility with the latest setuptools
 
