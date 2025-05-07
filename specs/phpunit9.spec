@@ -1,16 +1,15 @@
 # remirepo/fedora spec file for phpunit9
 #
-# Copyright (c) 2010-2024 Remi Collet
-#
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2010-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 
-%global gh_commit    f80235cb4d3caa59ae09be3adf1ded27521d1a9c
-%global gh_date      2024-12-05
+%global gh_commit    43d2cb18d0675c38bd44982a5d1d88f6d53d8d95
+%global gh_date      2025-05-02
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -23,12 +22,12 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.22
+%global upstream_version 9.6.23
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -42,7 +41,7 @@ Patch0:         %{name}-rpm.patch
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
 BuildRequires:  (php-composer(doctrine/instantiator) >= 1.5.0         with php-composer(doctrine/instantiator) <  3)
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.12.1            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
@@ -80,7 +79,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
 #        "doctrine/instantiator": "^1.5.0 || ^2",
-#        "myclabs/deep-copy": "^1.12.1",
+#        "myclabs/deep-copy": "^1.13.1",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^9.2.31",
@@ -108,7 +107,7 @@ Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-xmlwriter
 Requires:       (php-composer(doctrine/instantiator) >= 1.5.0         with php-composer(doctrine/instantiator) <  3)
-Requires:       (php-composer(myclabs/deep-copy) >= 1.12.1            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
@@ -142,12 +141,9 @@ Recommends:     phpunit11
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 8.0.0
-Requires:       php-reflection
 Requires:       php-openssl
 Requires:       php-pcntl
-Requires:       php-pcre
 Requires:       php-phar
-Requires:       php-spl
 
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Provides:       php-composer(phpunit/phpunit) = %{version}
@@ -162,7 +158,7 @@ It is an instance of the xUnit architecture for unit testing frameworks.
 This package provides the version %{ver_major} of PHPUnit,
 available using the %{name} command.
 
-Documentation: https://phpunit.readthedocs.io/
+Documentation: https://phpunit.de/documentation.html
 
 
 %prep
@@ -262,6 +258,10 @@ exit $ret
 
 
 %changelog
+* Sun May  4 2025 Remi Collet <remi@remirepo.net> - 9.6.23-1
+- update to 9.6.23
+- raise dependency on myclabs/deep-copy 1.13.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,11 +14,12 @@ License:        MIT
 URL:            https://github.com/miguelgrinberg/Flask-SocketIO/
 Source:         %{url}/archive/v%{version}/Flask-SocketIO-%{version}.tar.gz
 
-BuildArch:      noarch
- 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -t
+BuildOption(install):   -l flask_socketio
 
-# Documentation
+BuildArch:      noarch
+
 %if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
@@ -48,8 +49,7 @@ Summary:        Documentation for %{name}
 %description    doc %{common_description}
 
 
-%prep
-%autosetup -n Flask-SocketIO-%{version}
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i \
     -e 's/--cov[^[:blank:]]*//g' \
@@ -57,12 +57,7 @@ sed -r -i \
     tox.ini
 
 
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-
-%build
-%pyproject_wheel
+%build -a
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}/src" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
@@ -70,12 +65,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l flask_socketio
-
-
-%check
+%check -a
 # Because of its name, flask_socketio.test_client is mistaken for a test; then,
 # pytest fails because of an import path mismatch, since that module is
 # available both here in the build directory and in the buildroot. Simply

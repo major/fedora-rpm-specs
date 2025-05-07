@@ -3,9 +3,9 @@
 #
 # remirepo spec file for php-pecl-ds
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -22,6 +22,7 @@
 %global sources      %{pecl_name}-%{version}
 
 # For test suite, see https://github.com/php-ds/tests/commits/master
+# version 1.5.1  (version 1.6.0 exist but requires phpunit12, so PHP 8.3)
 %global gh_commit    3d14aa6f8c25d38d79c90924150c51636544e4a8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-ds
@@ -30,8 +31,8 @@
 
 Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.5.0
-Release:        8%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -72,7 +73,7 @@ to the PHP array.
 mv %{gh_project}-%{gh_commit} tests
 
 # Don't install/register tests, install examples as doc
-%{?_licensedir:sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml}
+sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
 # Sanity check, really often broken
@@ -138,13 +139,12 @@ done
    %{_bindir}/phpunit9 \
       --do-not-cache-result \
       --bootstrap tests/autoload.php \
-      --verbose tests
+      tests
 %endif
 
 
 %files
-%{?_licensedir:%license %{sources}/LICENSE}
-%{!?_licensedir:%doc %{pecl_docdir}/%{pecl_name}}
+%license %{sources}/LICENSE
 %{pecl_xmldir}/%{name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
@@ -152,6 +152,10 @@ done
 
 
 %changelog
+* Sat May  3 2025 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

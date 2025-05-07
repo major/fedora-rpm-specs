@@ -1,14 +1,11 @@
 Name:   ibus-speech-to-text
-Version:  0.4.0
-Release:  2%{?dist}
+Version:  0.5.0
+Release:  1%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
 BuildArch:  noarch
 License:  GPL-3.0-or-later
-URL:     https://github.com/PhilippeRo/IBus-Speech-To-Text
-Source0: https://github.com/PhilippeRo/IBus-Speech-To-Text/archive/refs/tags/%{version}.tar.gz
-# Adjust Locale.number_symbols changes in Babel 2.14 
-# https://github.com/python-babel/babel/releases/tag/v2.14.0
-Patch0: babel.patch
+URL:     https://github.com/Manish7093/IBus-Speech-To-Text
+Source0: https://github.com/Manish7093/IBus-Speech-To-Text/archive/refs/tags/%{version}.tar.gz
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  ibus-devel >= 1.5.3
@@ -32,7 +29,6 @@ which can be used to dictate text to any application
 
 %prep
 %setup -q -n IBus-Speech-To-Text-%{version}
-%patch 0 -p1 -b .orig~
 
 %build
 %meson
@@ -55,6 +51,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Mon May 5 2025 Manish Tiwari <matiwari@redhat.com> 0.5.0-1
+- Update to 0.5.0 release
+- Remove babel.patch
+
 * Wed Jan 15 2025 Manish Tiwari <matiwari@redhat.com> 0.4.0-2
 - Added desktop-file-validate to ensure .desktop file compliance
 

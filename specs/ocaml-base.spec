@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/janestreet/base
 
 Name:           ocaml-base
-Version:        0.17.1
+Version:        0.17.2
 Release:        %autorelease
 Summary:        Jane Street standard library for OCaml
 
@@ -20,6 +20,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/base-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch:          %{name}-mathlib.patch
+# Do not use the popcount instruction until Fedora moves to x86_64-v2
+Patch:          %{name}-popcount.patch
 
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0

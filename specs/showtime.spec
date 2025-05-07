@@ -2,12 +2,8 @@
 %global gtk4_version 4.15.0
 %global libadwaita_version 1.6~beta
 
-%global interim_pkg_ver beta.1
-
 Name:           showtime
-# FIXME: Simplify versioning to 48.1 after 48.1 is released.
-# Don't touch it for 48.0 to avoid upgrade path issues.
-Version:        48.0~20250201.%{interim_pkg_ver}
+Version:        48.1
 
 Release:        %autorelease
 Summary:        Modern video player built using GTK4
@@ -19,8 +15,7 @@ URL:            https://apps.gnome.org/Showtime/
 %global tarball_version %(echo %{version} | tr '~' '.' | sed 's/\.0//')
 %global major_version %(cut -d "." -f 1 <<<%{tarball_version})
 
-# Modify this once the package is released
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-48.%{interim_pkg_ver}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -57,7 +52,7 @@ language and subtitle tracks, and screenshots — everything you
 need for a straightforward viewing experience.
 
 %prep
-%autosetup -p1 -n %{name}-48.%{interim_pkg_ver}
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson

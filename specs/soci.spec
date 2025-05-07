@@ -65,7 +65,7 @@ install %{name}-sqlite3.}
 %{?with_mysql:%package        mysql
 Summary:        MySQL back-end for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-BuildRequires:  mysql-devel
+BuildRequires:  mariadb-connector-c-devel
 
 %description    mysql
 This package contains the MySQL back-end for %{name}, i.e.,
@@ -143,7 +143,7 @@ to install %{name}-sqlite3.}
 Summary:        MySQL back-end for %{name}
 Requires:       %{name}-devel = %{version}-%{release}
 Requires:       %{name}-mysql = %{version}-%{release}
-Requires:       mysql-devel
+Requires:       mariadb-connector-c-devel
 
 %description    mysql-devel
 This package contains the MySQL back-end for %{name}, i.e., header

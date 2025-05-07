@@ -1,3 +1,7 @@
+%if 0%{?rhel} <= 9
+%global _sysusersdir /usr/lib/sysusers.d
+%endif
+
 Name:           testcloud
 # Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
 Version:        0.11.7
@@ -35,6 +39,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 
+Requires:       acl
 Requires:       genisoimage
 Requires:       libvirt-daemon
 Requires:       libvirt-daemon-config-network

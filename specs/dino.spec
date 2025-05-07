@@ -1,5 +1,5 @@
 Name:       dino
-Version:    0.4.5
+Version:    0.5.0
 Release:    %autorelease
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -36,11 +36,14 @@ BuildRequires: libgcrypt-devel
 BuildRequires: libgee-devel
 BuildRequires: libnice-devel
 BuildRequires: libnotify-devel
+BuildRequires: libomemo-c-devel
 BuildRequires: libsignal-protocol-c-devel
 BuildRequires: libsoup-devel
 BuildRequires: libsrtp-devel
 BuildRequires: make
+BuildRequires: meson
 BuildRequires: ninja-build
+BuildRequires: protobuf-c-devel
 BuildRequires: qrencode-devel
 BuildRequires: sqlite-devel
 BuildRequires: vala
@@ -70,10 +73,6 @@ Development files for dino.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}
 
-# Remove the bundled library
-rm .gitmodules
-rm -r plugins/signal-protocol/libsignal-protocol-c
-
 
 %build
 # Build in C89 mode due to Vala compiler problem:
@@ -84,21 +83,17 @@ rm -r plugins/signal-protocol/libsignal-protocol-c
 %global build_type_safety_c 0
 %set_build_flags
 CC="$CC -std=gnu89"
-# Use the system version of libsignal-protocol-c instead of the bundled one.
-export SHARED_SIGNAL_PROTOCOL=true
-%configure
-%make_build
-
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 %find_lang %{name}
 %find_lang %{name}-omemo
 %find_lang %{name}-openpgp
 
-
 %check
-make test
+%meson_test
 desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
@@ -121,10 +116,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 %files devel
 %{_datadir}/vala/vapi/crypto-vala.*
 %{_datadir}/vala/vapi/dino.*
+%{_datadir}/vala/vapi/libdino.vapi
 %{_datadir}/vala/vapi/qlite.*
 %{_datadir}/vala/vapi/xmpp-vala.*
 %{_includedir}/crypto-vala.h
-%{_includedir}/dino.h
+%{_includedir}/libdino.h
 %{_includedir}/dino_i18n.h
 %{_includedir}/qlite.h
 %{_includedir}/xmpp-vala.h

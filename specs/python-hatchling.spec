@@ -15,9 +15,12 @@ Source310:      hatchling-dep-synced.1
 Source400:      hatchling-metadata.1
 Source500:      hatchling-version.1
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l hatchling
+# We cannot run the “downstream integration tests” included with the PyPI sdist
+# in an offline build. The primary tests are Hatch’s “backend” tests.
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 This is the extensible, standards compliant build backend used by Hatch.}
@@ -31,34 +34,13 @@ Summary:        %{summary}
 %description -n python3-hatchling %{common_description}
 
 
-%prep
-%autosetup -n hatchling-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l hatchling
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' \
     '%{SOURCE200}' \
     '%{SOURCE300}' '%{SOURCE310}' \
     '%{SOURCE400}' \
     '%{SOURCE500}'
-
-
-%check
-# We cannot run the “downstream integration tests” included with the PyPI sdist
-# in an offline build. The primary tests are Hatch’s “backend” tests.
-%pyproject_check_import
 
 
 %files -n python3-hatchling -f %{pyproject_files}

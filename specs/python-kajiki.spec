@@ -1,8 +1,8 @@
 %global modname kajiki
 
 Name:               python-kajiki
-Version:            0.9.2
-Release:            9%{?dist}
+Version:            1.0.2
+Release:            1%{?dist}
 Summary:            Really fast well-formed xml templates
 
 License:            MIT
@@ -12,9 +12,9 @@ Source0:            %pypi_source kajiki
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      python3-babel
-BuildRequires:      python3-pytz
+#BuildRequires:      python3-setuptools
+#BuildRequires:      python3-babel
+#BuildRequires:      python3-pytz
 BuildRequires:      python3-pytest
 
 
@@ -44,19 +44,28 @@ speed! Don't delay! Pick up your copy of Kajiki today!
 %prep
 %autosetup -n kajiki-%{version} -p 1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files kajiki
 
-%files -n python3-kajiki
-%doc README.rst LICENSE.rst CHANGES.rst PKG-INFO
+%check
+%pytest
+
+%files -n python3-kajiki -f %{pyproject_files}
+%doc README.rst LICENSE.rst PKG-INFO
 %{_bindir}/kajiki
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/kajiki-%{version}-*
 
 %changelog
+* Mon May 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.0.2-1
+- Update to upstream
+- Migrate to pyproject
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

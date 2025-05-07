@@ -1,12 +1,8 @@
-#global git_short_hash df9de70
-#global git_hash df9de7020c4317a484c39f7330e6d1c9ca3d9ec9
-
 Name:		domoticz
-Version:	2024.7
-Release:	5%{?dist}
+Version:	2025.1
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
-# Automatically converted from old format: GPLv3+ and ASL 2.0 and Boost and BSD and MIT - review is highly recommended.
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
 URL:		http://www.domoticz.com
 Source0:	https://github.com/domoticz/domoticz/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -15,6 +11,8 @@ Source1:	%{name}.service
 Source2:	%{name}.conf
 # Manually update version reported inside app
 Source3:	%{name}-appversion
+# https://github.com/Thalhammer/jwt-cpp/tree/71c3d36507183ceb74b9cf10d1232fe1223bdfb0
+Source4:	jwt-cpp-71c3d36507183ceb74b9cf10d1232fe1223bdfb0.zip
 
 # Use system tinyxpath (https://github.com/domoticz/domoticz/pull/1759)
 Patch1:		%{name}-tinyxpath.patch
@@ -49,9 +47,9 @@ Requires(postun):	systemd
 Requires(preun):	systemd
 
 Requires:	google-droid-sans-fonts
-Recommends:     mosquitto
+Recommends:	mosquitto
 Recommends:	system-python-libs >= 3.4
-#Recommends:     zwave-js-ui
+#Recommends:	zwave-js-ui
 
 Provides:	bundled(js-ace)
 Provides:	bundled(js-angularamd) = 0.2.1
@@ -79,6 +77,7 @@ Provides:	bundled(js-ozwcp)
 Provides:	bundled(js-less) = 1.3.0
 Provides:	bundled(js-ion-sound) = 3.0.6
 Provides:	bundled(js-zeroclipboard) = 1.0.4
+Provides:	bundled(jwt-cpp) = 0.0-git20241116
 
 %global _python_bytecompile_extra 0
 
@@ -92,7 +91,6 @@ any mobile device
 
 %prep
 %setup -q -n %{name}-%{version}
-#setup -q -n %{name}-%{git_hash}
 %patch -P 1 -p1 -b.tinyxpath
 %patch -P 2 -p1 -b.python
 %patch -P 3 -p1 -b.python-link
@@ -103,6 +101,10 @@ sed -i 's/sTypeSetPoint/sTypeSetpoint/g' hardware/ZWaveBase.cpp
 rm -rf sqlite/
 rm -rf tinyxpath/
 cp -p %{SOURCE3} ./appversion.h
+# jwt-cpp external bundled library
+unzip -d extern %{SOURCE4}
+rmdir extern/jwtcpp/
+mv extern/jwt-cpp-71c3d36507183ceb74b9cf10d1232fe1223bdfb0/ extern/jwtcpp/
 
 # Create a sysusers.d config file
 cat >domoticz.sysusers.conf <<EOF
@@ -245,6 +247,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Mon May 05 2025 Michael Cronenworth <mike@cchtml.com> - 2025.1-1
+- New stable release
+
 * Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2024.7-5
 - Rebuild (jsoncpp)
 

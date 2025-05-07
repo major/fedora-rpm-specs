@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/forms
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.2.12
+Version:        1.2.13
 Release:        %autorelease
 Summary:        Sesquilinear and quadratic forms
 

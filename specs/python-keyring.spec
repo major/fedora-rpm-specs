@@ -11,9 +11,19 @@ License:        MIT
 URL:            https://github.com/jaraco/keyring
 Source:         %{pypi_source keyring}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x %{?with_tests:test,}completion
+BuildOption(install):   -l keyring
+# - keyring.backends.macOS does not import on this platform
+# - keyring.devpi_client and keyring.testing are test hooks that require pluggy
+#   and/or pytest; we can import them only if the test dependencies are present
+BuildOption(check):     %{shrink:
+                        -e 'keyring.backends.macOS*'
+                        %{?!with_tests:-e 'keyring.devpi_client'}
+                        %{?!with_tests:-e 'keyring.testing*'}
+                        }
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 BuildRequires:  help2man
 
@@ -75,21 +85,13 @@ for a particular shell. For example, bash needs the bash-completion package to
 be installed.
 
 
-%prep
-%setup -q -n keyring-%{version}
-
+%prep -a
 # This will be installed in site-packages without the executable bit set, so
 # the shebang should be removed.
 sed -r -i '1{/^#!/d}' keyring/cli.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x %{?with_tests:test,}completion
-
-
-%build
-%pyproject_wheel
-
+%build -a
 for sh in bash zsh tcsh
 do
   PYTHONPATH="${PWD}/build/lib" '%{python3}' -m keyring \
@@ -97,9 +99,7 @@ do
 done
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l keyring
+%install -a
 install -D -p -m 0644 keyring.bash \
     '%{buildroot}%{bash_completions_dir}/keyring'
 install -D -p -m 0644 keyring.zsh \
@@ -117,27 +117,11 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
     '%{buildroot}%{_bindir}/keyring'
 
 
-%check
+%check -a
 %if %{with tests}
 
 %if %{with desktop_tests}
 %global __pytest xwfb-run -- pytest
-
-%if %{defined el10}
-# These hang; it is not clear what is going wrong. The issue is probably due to
-# something unexpected about the headless session, rather than a more serious
-# issue with keyring. It would be nice to try this in a virtualenv in an
-# interactive graphical session on a CentOS Stream 10 virtual machine and see
-# if the tests still hang. On Python 3.13, we see:
-#   tests/test_multiprocess.py::test_multiprocess_get
-#   tests/test_multiprocess.py::test_multiprocess_get_after_native_get
-#     /usr/lib64/python3.13/multiprocessing/popen_fork.py:67:
-#     DeprecationWarning: This process (pid=629) is multi-threaded, use of
-#     fork() may lead to deadlocks in the child.  self.pid = os.fork()
-# …which suggests the outline of one possible explanation.
-ignore="${ignore-} --ignore=tests/test_multiprocess.py"
-%endif
-
 %endif
 
 %pytest -k "${k-}" ${ignore-} -rs

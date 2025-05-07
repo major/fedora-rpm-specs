@@ -4,7 +4,7 @@ Version:        2.0.0
 %global prerel  rc8
 %global uver    %{version}%{?prerel}
 %global tag     %{name}-%{uver}
-Release:        0.35.%{prerel}%{?dist}
+Release:        0.36.%{prerel}%{?dist}
 
 Summary:        RepRap printer interface and tools
 # Only AppData is FSFAP
@@ -23,6 +23,8 @@ ExcludeArch:    %{ix86}
 Patch1:         %{url}/pull/1224.patch
 Patch2:         %{url}/pull/1262.patch
 Patch3:         %{url}/pull/1303.patch
+# Fix a crash on Python 3.13
+Patch4:         %{url}/pull/1428.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-Cython
@@ -200,6 +202,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 
 %changelog
+* Mon May 05 2025 Miro Hrončok <mhroncok@redhat.com> - 1:2.0.0-0.36.rc8
+- Fix a crash on Python 3.13
+
 * Fri Mar 28 2025 Miro Hrončok <mhroncok@redhat.com> - 1:2.0.0-0.35.rc8
 - Exclude i686 on Fedora 42+
 

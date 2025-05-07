@@ -110,6 +110,11 @@ done
 
 %autopatch -p1
 
+# Fix unbundling patch for flatpak builds, where jxrlib is not in the runtime
+if [ %{_prefix} != /usr -a -d %{_includedir}/jxrlib ] ; then
+  sed -i -e 's|/usr/include/jxrlib|%{_includedir}/jxrlib|' Makefile.gnu
+fi
+
 # remove all included libs to make sure these don't get used during compile
 rm -r Source/Lib* Source/ZLib Source/OpenEXR
 

@@ -1,28 +1,26 @@
 # remirepo/fedora spec file for php-bartlett-PHP-CompatInfo
 #
-# Copyright (c) 2011-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2011-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 
-%bcond_with          generators
-
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    9875282a35266aa2b66416303c06edcd70fc50a1
+%global gh_commit    25777bc305fac9344a2193e5328f7743eb6b77c9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-04-24
+%global gh_date      2025-05-01
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.1.4
+%global upstream_version  7.2.3
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -35,15 +33,13 @@ Source1:        fedora-review-check
 Source9:        makesrc.sh
 
 # Relocate the database
-Patch0:         %{name}-6.0.0-rpm.patch
+Patch0:         %{name}-7.2.3-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
 BuildRequires:  php-json
-%if %{with generators}
 BuildRequires:  composer-generators
-%endif
 
 Requires:       php(language) >= 8.1
 Requires:       php-cli
@@ -58,65 +54,6 @@ Requires:       php-simplexml
 Requires:       php-spl
 Requires:       php-xmlreader
 
-%if %{without generators}
-# Bundled libraries
-# License BSD-3-Clause
-Provides: bundled(php-composer(bartlett/php-compatinfo-db)) = 6.12.0
-Provides: bundled(php-composer(nikic/php-parser)) = v5.3.1
-# License MIT
-Provides: bundled(php-composer(bartlett/sarif-php-sdk)) = 1.5.0
-Provides: bundled(php-composer(brick/math)) = 0.12.1
-Provides: bundled(php-composer(composer/semver)) = 3.4.3
-Provides: bundled(php-composer(doctrine/cache)) = 2.2.0
-Provides: bundled(php-composer(doctrine/collections)) = 1.8.0
-Provides: bundled(php-composer(doctrine/common)) = 3.4.5
-Provides: bundled(php-composer(doctrine/dbal)) = 3.9.3
-Provides: bundled(php-composer(doctrine/deprecations)) = 1.1.3
-Provides: bundled(php-composer(doctrine/event-manager)) = 2.0.1
-Provides: bundled(php-composer(doctrine/inflector)) = 2.0.10
-Provides: bundled(php-composer(doctrine/instantiator)) = 2.0.0
-Provides: bundled(php-composer(doctrine/lexer)) = 3.0.1
-Provides: bundled(php-composer(doctrine/orm)) = 2.20.0
-Provides: bundled(php-composer(doctrine/persistence)) = 3.4.0
-Provides: bundled(php-composer(psr/cache)) = 3.0.0
-Provides: bundled(php-composer(psr/clock)) = 1.0.0
-Provides: bundled(php-composer(psr/container)) = 2.0.2
-Provides: bundled(php-composer(psr/event-dispatcher)) = 1.0.0
-Provides: bundled(php-composer(psr/log)) = 3.0.2
-Provides: bundled(php-composer(ramsey/collection)) = 2.0.0
-Provides: bundled(php-composer(ramsey/uuid)) = 4.7.6
-Provides: bundled(php-composer(symfony/cache)) = v6.4.14
-Provides: bundled(php-composer(symfony/cache-contracts)) = v3.5.0
-Provides: bundled(php-composer(symfony/clock)) = v6.4.13
-Provides: bundled(php-composer(symfony/config)) = v6.4.14
-Provides: bundled(php-composer(symfony/console)) = v6.4.14
-Provides: bundled(php-composer(symfony/dependency-injection)) = v6.4.13
-Provides: bundled(php-composer(symfony/deprecation-contracts)) = v3.5.0
-Provides: bundled(php-composer(symfony/event-dispatcher)) = v6.4.13
-Provides: bundled(php-composer(symfony/event-dispatcher-contracts)) = v3.5.0
-Provides: bundled(php-composer(symfony/filesystem)) = v6.4.13
-Provides: bundled(php-composer(symfony/finder)) = v6.4.13
-Provides: bundled(php-composer(symfony/http-client)) = v6.4.14
-Provides: bundled(php-composer(symfony/http-client-contracts)) = v3.5.0
-Provides: bundled(php-composer(symfony/messenger)) = v6.4.13
-Provides: bundled(php-composer(symfony/polyfill-ctype)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-intl-grapheme)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-intl-normalizer)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-mbstring)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-php72)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-php80)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-php83)) = v1.31.0
-Provides: bundled(php-composer(symfony/polyfill-php84)) = v1.31.0
-Provides: bundled(php-composer(symfony/process)) = v6.4.14
-Provides: bundled(php-composer(symfony/requirements-checker)) = v2.0.1
-Provides: bundled(php-composer(symfony/serializer)) = v6.4.13
-Provides: bundled(php-composer(symfony/service-contracts)) = v3.5.0
-Provides: bundled(php-composer(symfony/stopwatch)) = v6.4.13
-Provides: bundled(php-composer(symfony/string)) = v6.4.13
-Provides: bundled(php-composer(symfony/var-exporter)) = v6.4.13
-
-Provides: php-composer(bartlett/php-compatinfo) = %{version}
-%endif
 Provides: phpcompatinfo = %{version}
 
 
@@ -148,31 +85,6 @@ done
 rm -r vendor/bartlett/*/.github
 rm -r vendor/bartlett/*/.changes
 
-: Hack for PHP 8.4
-sed -e '/php83/d;s/php82/php83/' config/set/up-to-php83.php | tee config/set/up-to-php84.php
-
-%if %{without generators}
-: List bundled libraries and Licenses
-php -r '
-    $pkgs = file_get_contents("vendor/composer/installed.json");
-    $pkgs = json_decode($pkgs, true);
-    if (!is_array($pkgs) || !isset($pkgs["packages"])) {
-        echo "cant decode json file\n";
-        exit(3);
-    }
-    $res = [];
-    foreach($pkgs["packages"] as $pkg) {
-        $lic = implode(" and ", $pkg["license"]);
-        if (!isset($res[$lic])) $res[$lic] = [];
-        $res[$lic][] = sprintf("Provides: bundled(php-composer(%s)) = %s", $pkg["name"], $pkg["version"]);
-    }
-    foreach($res as $lic => $lib) {
-        sort($lib);
-        printf("# License %s\n%s\n", $lic, implode("\n", $lib));
-    }
-'
-%endif
-
 
 %build
 # Nothing
@@ -180,7 +92,7 @@ php -r '
 
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
-for i in bin config data resources src vendor composer.*
+for i in bin config data resources src vendor composer.* autoload.php
 do cp -pr $i %{buildroot}%{_datadir}/%{name}/$i
 done
 
@@ -212,6 +124,12 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Mon May  5 2025 Remi Collet <remi@remirepo.net> - 7.2.3-1
+- update to 7.2.3
+- re-license spec file to CECILL-2.1
+- always build with composer-generators
+- update bundled bartlett/php-compatinfo-db to 6.16.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           fmt
-Version:        11.1.4
+Version:        11.2.0
 Release:        %autorelease
 
 License:        MIT

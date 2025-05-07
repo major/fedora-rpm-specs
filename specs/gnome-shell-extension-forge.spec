@@ -2,7 +2,7 @@
 %global uuid            %{extension}@jmmaranan.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        84
+Version:        87
 Release:        %autorelease
 Summary:        Tiling and window manager for GNOME Shell
 # main source code: GPL-3.0-or-later
@@ -11,11 +11,9 @@ License:        GPL-3.0-or-later AND MIT
 URL:            https://github.com/forge-ext/forge
 BuildArch:      noarch
 
-Source:         %{url}/archive/v47-%{version}/%{extension}-47-%{version}.tar.gz
+Source:         %{url}/archive/v48-%{version}/%{extension}-48-%{version}.tar.gz
 # downstream-only
 Patch:          0001-Adjust-makefile-for-Fedora.patch
-# https://github.com/forge-ext/forge/pull/438
-Patch:          0002-bump-gnome-version.patch
 
 BuildRequires:  make
 BuildRequires:  gettext
@@ -29,7 +27,7 @@ Forge is a GNOME Shell extension that provides tiling/window management.
 
 
 %prep
-%autosetup -p 1 -n %{extension}-47-%{version}
+%autosetup -p 1 -n %{extension}-48-%{version}
 
 # relocate files we don't want to ship in the extension directory
 mv lib/css/LICENSE LICENSE-css

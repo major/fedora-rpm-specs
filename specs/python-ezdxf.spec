@@ -1,5 +1,3 @@
-%bcond pyside6 1
-
 Name:           python-ezdxf
 Version:        1.4.1
 Release:        %autorelease
@@ -71,15 +69,20 @@ Source17:       ezdxf-info.1
 Source18:       ezdxf-strip.1
 Source19:       ezdxf-view.1
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x draw,dev,draw5,dev5
+BuildOption(install):   -l ezdxf
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if %{undefined fc41}
 ExcludeArch:    %{ix86}
 %endif
 
-BuildRequires:  python3-devel
-BuildRequires:  gcc-c++
-
 BuildRequires:  dos2unix
+# For %%py3_shebang_fix in %%prep, before generated BR’s are ready:
+BuildRequires:  python3-devel
+
+BuildRequires:  gcc-c++
 
 # Standard styles use OpenSans and Liberation fonts; see
 # src/ezdxf/tools/standards.py
@@ -121,14 +124,6 @@ Requires:       font(liberationsans)
 Requires:       font(liberationsansnarrow)
 Requires:       font(liberationserif)
 
-# This extra brought in dev/test dependencies, so it did not make sense to
-# package, and it was eventually removed upstream anyway.
-Obsoletes:      python3-ezdxf+all < 0.17.2-7
-%if %{without pyside6}
-Obsoletes:      python3-ezdxf+draw < 1.3.1-2
-Obsoletes:      python3-ezdxf+dev < 1.3.1-2
-%endif
-
 # ezdxf/addons/binpacking.py is derived from an unspecified version of py3dbp
 # (https://github.com/enzoruiz/3dbinpacking, https://pypi.org/project/py3dbp/).
 # The implementation is significantly forked, so unbundling will not be
@@ -138,7 +133,7 @@ Provides:       bundled(python3dist(py3dbp))
 %description -n python3-ezdxf %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-ezdxf %{?with_pyside6:draw,}draw5
+%pyproject_extras_subpkg -n python3-ezdxf draw,draw5
 
 
 %package        doc
@@ -149,8 +144,7 @@ BuildArch:      noarch
 %description    doc %{common_description}
 
 
-%prep
-%autosetup -n ezdxf-%{version} -p1
+%prep -a
 # Note that C++ sources in the GitHub tarball are *not* Cython-generated, and
 # we must not remove them.
 
@@ -171,18 +165,7 @@ sed -r -i '1{/^#!/d}' src/ezdxf/addons/drawing/qtviewer.py
 find . -type f -name '.gitignore' -print -delete
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x %{?with_pyside6:draw,dev,}draw5,dev5
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l ezdxf
-
+%install -a
 # Do not package header files
 find '%{buildroot}%{python3_sitearch}' -type f -name '*.h' -print -delete
 sed -r -i 's@%{python3_sitearch}.*/[^/]+\.h$@# &@' %{pyproject_files}
@@ -192,7 +175,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE15}' '%{SOURCE16}' '%{SOURCE17}' '%{SOURCE18}' '%{SOURCE19}'
 
 
-%check
+%check -a
 # No need to set EZDXF_TEST_FILES because the files in question are not
 # available (and are presumably not freely distributable). This is fine; it
 # just means a few tests are automatically skipped.

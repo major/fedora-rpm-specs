@@ -29,8 +29,8 @@ Source:         %{forgesource}
 Patch:          %{forgeurl}/-/merge_requests/4.patch
 
 BuildSystem:            pyproject
-BuildOption(install):   -l helpdev
 BuildOption(generate_buildrequires): -x memory_info
+BuildOption(install):   -l helpdev
 
 BuildArch:      noarch
 

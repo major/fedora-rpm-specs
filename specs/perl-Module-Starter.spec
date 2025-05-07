@@ -1,9 +1,8 @@
 Name:           perl-Module-Starter
 Epoch:          1
-Version:        1.77
-Release:        14%{?dist}
+Version:        1.78
+Release:        1%{?dist}
 Summary:        A simple starter kit for any module
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Starter
 Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/Module-Starter-%{version}.tar.gz
@@ -41,6 +40,10 @@ Requires:  perl(Software::LicenseUtils) >= 0.103005
 %{?perl_default_filter}
 # Filter in-lined Perl code from lib/Module/Starter/Simple.pm
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((ExtUtils::MakeMaker|inc::Module::Install|Module::Build|Test::More)\\)
+# Remove underspecied dependencies
+%global __requires_exclude %{__requires_exclude}|^perl\\(version\\)$
+# Hide private modules
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((Foo::Bar|Module::Starter::TestPlugin)\\)
 
 %description
 This is a CPAN module/utility to assist in the creation of new modules in a
@@ -54,6 +57,19 @@ plugins to create modules using templates as recommended by Damian Conway's
 perl-Module-Starter-PBP for the aforementioned templates.)
 
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+Requires:       perl(ExtUtils::MakeMaker)
+Requires:       perl(Test::More) >= 0.94
+Requires:       perl(version) >= 0.77
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Module-Starter-%{version}
 
@@ -64,20 +80,43 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+# t/test-dist.t writes in o $PWD/t/data
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset DONT_DEL_TEST_DIST MODULE_STARTER_DIR RELEASE_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_bindir}/*
-%{_mandir}/man[13]/*.[13]*
+%dir %{perl_vendorlib}/Module
+%{perl_vendorlib}/Module/Starter{,.pm}
+%{_bindir}/module-starter
+%{_mandir}/man1/module-starter.*
+%{_mandir}/man3/*Module::Starter{.,::}*
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon May 05 2025 Petr Pisar <ppisar@redhat.com> - 1:1.78-1
+- 1.78 bump
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.77-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

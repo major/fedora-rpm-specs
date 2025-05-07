@@ -15,6 +15,12 @@ Source:         %{pypi_source frozenlist}
 # an unbounded recursion of nested temporary directories.
 Patch:          0001-Downstream-only-Build-normal-wheels-in-place.patch
 
+# Exclude _frozenlist.cpp from bdists/wheels
+# https://github.com/aio-libs/frozenlist/pull/649
+# Rebased on the setup.cfg from the sdist, with different whitespace; news
+# fragment in CHANGES/ omitted.
+Patch:          frozenlist-1.6.0-exclude-_frozenlist-cpp.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l frozenlist
 

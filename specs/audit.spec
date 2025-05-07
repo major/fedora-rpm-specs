@@ -14,7 +14,7 @@ BuildRequires: systemd
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-rules%{?_isa} = %{version}-%{release}
-Requires(post): systemd coreutils
+Requires(post): systemd coreutils awk
 Requires(preun): systemd
 Requires(postun): systemd coreutils
 Recommends: initscripts-service
@@ -89,6 +89,7 @@ Management Facility) database, through an IBM Tivoli Directory Server
 %package rules
 Summary: audit rules and utilities
 License: GPL-2.0-or-later
+Requires(post): coreutils
 Recommends: %{name} = %{version}-%{release}
 
 %description rules

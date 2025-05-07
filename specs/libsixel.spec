@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://github.com/libsixel/libsixel
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/libsixel/libsixel/issues/81
+# Taken from https://github.com/libsixel/libsixel/pull/89
+Patch:          libsixel-fix-bash-completions.patch
+
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gdlib)

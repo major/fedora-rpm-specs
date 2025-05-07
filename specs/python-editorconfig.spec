@@ -23,9 +23,10 @@ Source0:        %{url}/archive/v%{version}/editorconfig-core-py-%{version}.tar.g
 %global tests_url https://github.com/editorconfig/editorconfig-core-test
 Source1:        %{tests_url}/archive/%{tests_commit}/editorconfig-core-test-%{tests_commit}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l editorconfig
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # For tests:
 BuildRequires:  cmake
@@ -58,19 +59,12 @@ Summary:        Documentation for python-editorconfig
 
 %prep
 %setup -q -n editorconfig-core-py-%{version}
-
 rm -vrf tests
 %setup -q -n editorconfig-core-py-%{version} -T -D -b 1
 mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
+%build -a
 %make_build -C docs text SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %if %{with doc_pdf}
 %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
@@ -79,17 +73,15 @@ mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
 %cmake -DPYTHON_EXECUTABLE='%{python3}'
 
-%install
-%pyproject_install
-%pyproject_save_files -l editorconfig
 
+%install -a
 # The command-line tool would conflict with the one from the C version of
 # EditorConfig. It could be installed under a different name, if anyone ever
 # reports a need for it.
 rm '%{buildroot}%{_bindir}/editorconfig'
 
 
-%check
+%check -a
 export %{py3_test_envvars}
 %ctest
 

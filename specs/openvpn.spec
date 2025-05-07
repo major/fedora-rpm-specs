@@ -22,7 +22,7 @@
 
 Name:              openvpn
 Version:           2.6.14
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -62,6 +62,7 @@ BuildRequires:     systemd
 BuildRequires:     systemd-devel
 
 %{?systemd_requires}
+Requires(post):    /usr/bin/awk
 
 %if %{with dco}
 Recommends:        kmod-ovpn-dco >= 0.2
@@ -237,6 +238,9 @@ done
 
 
 %changelog
+* Mon May 5 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-2
+- Add Requires(post) on awk (RHBZ#2363809)
+
 * Wed Apr 2 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-1
 - Update to upstream OpenVPN 2.6.14
 - Fixes CVE-2025-2704

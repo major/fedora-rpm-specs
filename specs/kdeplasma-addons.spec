@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
 Version: 6.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -104,7 +104,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_datadir}/kwin/effects/cube/
 %{_kf6_datadir}/plasma/plasmoids/*
 %{_kf6_datadir}/plasma/desktoptheme/default/widgets/*
-%{_kf6_datadir}/plasma/desktoptheme/default/weather/*
+%{_kf6_datadir}/plasma/desktoptheme/default/weather/
 %{_kf6_datadir}/plasma/wallpapers/*
 %{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.categories
 %{_kf6_qtplugindir}/plasma/applets/*.so
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 6.3.4-2
+- Fix rhbz#2290339 - Directories are missing in RPM database
+
 * Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
 - 6.3.4
 

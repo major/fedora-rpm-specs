@@ -12,8 +12,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2025.4.0
-%global tag     2025.4.0
+Version:        2025.4.1
+%global tag     %{version}
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -46,14 +46,16 @@ BuildRequires:  python3dist(scikit-image)
 BuildRequires:  python3dist(xarray)
 %endif
 # Optional test requirements.
+BuildRequires:  python3dist(aiohttp)
+BuildRequires:  python3dist(bottleneck)
+BuildRequires:  python3dist(crick)
 BuildRequires:  python3dist(fastavro)
 BuildRequires:  python3dist(h5py)
+BuildRequires:  python3dist(jsonschema)
+BuildRequires:  python3dist(matplotlib)
 BuildRequires:  python3dist(psutil)
-# libarrow tests don't pass on s390x either.
-%ifnarch s390x
-BuildRequires:  python3dist(pyarrow) >= 14.0.1
-%endif
 BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(python-snappy)
 BuildRequires:  python3dist(sqlalchemy)
 BuildRequires:  python3dist(tables)
 BuildRequires:  python3dist(zarr)
@@ -163,9 +165,6 @@ pytest_args=(
   -k "${k-}"
 
 # arrow tests all fail on s390x, it's not at all BE-safe
-# the exclusion of arrow as a build dep on s390x above is meant to
-# ensure these tests get skipped, but dask-expr requires arrow, so it
-# it gets pulled into the build env anyway
 # https://github.com/dask/dask/issues/11186
 %ifarch s390x
   --ignore %{srcname}/dataframe/io/tests/test_parquet.py

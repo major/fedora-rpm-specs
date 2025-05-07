@@ -9,9 +9,11 @@ License:        Apache-2.0
 URL:            https://github.com/googleapis/google-resumable-media-python
 Source:         %{url}/archive/v%{version}/google-resumable-media-python-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x requests
+BuildOption(install):   -l google
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
@@ -38,31 +40,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-google-resumable-media requests
 
 
-%prep
-%autosetup -n google-resumable-media-python-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x requests
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l google
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
 %pytest tests/unit
-mv google{_,}
 %endif
 
 

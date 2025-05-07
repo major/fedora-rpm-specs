@@ -1,5 +1,5 @@
 Name:          human-theme-gtk
-Version:       2.3.0
+Version:       2.4.0
 Release:       1%{?dist}
 Summary:       Human theme for GTK
 Summary(fr):   Thème Human pour GTK
@@ -44,8 +44,8 @@ install -Dpm 644 data/profile.sh %{buildroot}/etc/profile.d/%{name}.sh
 %config(noreplace) /etc/profile.d/%{name}.sh
 %license LICENSE
 %doc README.md
-# the entire source code is GPL-3.0-or-later, except metacity-1/* which is LGPL-2.1-or-later,
-# and gtk-2.0/* which is CC-BY-SA-3.0-or-later
+# the entire source code is GPL-3.0-or-later, except */metacity-1/* which is LGPL-2.1-or-later,
+# and */gtk-2.0/* which is CC-BY-SA-3.0-or-later
 %{_datadir}/themes/human-theme/
 %{_datadir}/themes/human-theme-blue/
 %{_datadir}/themes/human-theme-green/
@@ -53,6 +53,9 @@ install -Dpm 644 data/profile.sh %{buildroot}/etc/profile.d/%{name}.sh
 
 
 %changelog
+* Mon May 05 2025 Fabrice Creuzot <code@luigifab.fr> - 2.4.0-1
+- New upstream release
+
 * Fri Apr 04 2025 Fabrice Creuzot <code@luigifab.fr> - 2.3.0-1
 - New upstream release
 

@@ -11,7 +11,7 @@
 
 Name:           python-meson-python
 Summary:        Meson Python build backend (PEP 517)
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 
 # SPDX
@@ -21,11 +21,15 @@ Source:         %{pypi_source meson_python}
 
 # Downstream-only patch to remove the patchelf dependency (and corresponding
 # functionality), controlled by the patchelf build conditional
-Patch100:         meson_python-remove-patchelf.patch
+Patch100:       meson-python-0.18.0-remove-patchelf.patch
+
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -p %{?with_tests:-x test}
+# LICENSE duplicates LICENSES/MIT.txt, which is handled automatically.
+BuildOption(install):   -l mesonpy
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # for %%pyproject_buildrequires -p
 BuildRequires:  pyproject-rpm-macros >= 1.15.1
 
@@ -79,20 +83,7 @@ sed -r -i "s/^  '(pytest-mock)/#&/" pyproject.toml
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires -p %{?with_tests:-x test}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files mesonpy
-
-
-%check
+%check -a
 %if %{with tests}
 # Note: tests are *not* safe for parallel execution with pytest-xdist.
 
@@ -112,16 +103,10 @@ k="${k-}${k+ and }not test_uneeded_rpath"
 %endif
 
 %pytest ${ignore-} -k "${k-}"
-
-%else
-%pyproject_check_import
 %endif
 
 
 %files -n python3-meson-python -f %{pyproject_files}
-# LICENSE duplicates LICENSES/MIT.txt. Currently, neither is automatically
-# installed into the dist-info metadata directory.
-%license LICENSES/*
 %doc CHANGELOG.rst
 %doc README.rst
 

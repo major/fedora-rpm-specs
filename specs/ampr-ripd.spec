@@ -8,12 +8,14 @@
 
 Summary: Routing daemon for the ampr network
 Name: ampr-ripd
-Version: 2.4.1
-Release: 10%{?dist}
+Version: 2.4.2
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.yo2loj.ro/hamprojects/
-BuildRequires: gcc, dos2unix, systemd
+BuildRequires: gcc
+BuildRequires: dos2unix
+BuildRequires: systemd
 BuildRequires: make
 Requires(post): systemd
 Requires(preun): systemd
@@ -22,19 +24,16 @@ Source0: http://www.yo2loj.ro/hamprojects/%{name}-%{version}.tgz
 Source1: ampr-ripd.service
 # upstream notified
 Source2: COPYING
-Patch0: ampr-ripd-2.4.1-install-fix.patch
-Patch1: ampr-ripd-2.1.1-examples-noshebang.patch
-Patch2: ampr-ripd-2.4.1-pidfile.patch
+Patch: ampr-ripd-2.4.2-install-fix.patch
+Patch: ampr-ripd-2.1.1-examples-noshebang.patch
+Patch: ampr-ripd-2.4.1-pidfile.patch
 
 %description
 Routing daemon written in C similar to Hessu's rip44d including optional
 resending of RIPv2 broadcasts for router injection.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .install-fix
-%patch -P1 -p1 -b .examples-noshebang
-%patch -P2 -p1 -b .pidfile
+%autosetup -p1
 cp %{SOURCE2} .
 
 %build
@@ -69,6 +68,10 @@ install -Dpm 644 -t %{buildroot}%{_datadir}/%{name}/examples examples/ampr-run.s
 %{_unitdir}/%{name}.service
 
 %changelog
+* Mon May  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.4.2-1
+- New version
+  Resolves: rhbz#2363569
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

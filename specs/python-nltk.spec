@@ -1,8 +1,8 @@
 %global mod_name nltk
 Name:           python-nltk
 Epoch:          1
-Version:        3.8.1
-Release:        9%{?dist}
+Version:        3.9.1
+Release:        1%{?dist}
 Summary:        Natural Language Toolkit
 
 # The entire source code is ASL 2.0 except nltk/stem/porter.py is
@@ -12,6 +12,9 @@ License:        Apache-2.0 AND LicenseRef-Callaway-GPLv2+-with-exceptions
 URL:            http://www.nltk.org/
 Source0:        https://github.com/nltk/nltk/archive/%{version}.tar.gz#/%{mod_name}-%{version}.tar.gz
 BuildArch:      noarch
+
+# https://github.com/nltk/nltk/pull/3309
+Patch1: fix-import-WordNetLemmatizer.patch
 
 %global _description\
 NLTK is a Python package that simplifies the construction of programs\
@@ -41,7 +44,7 @@ research projects.
 This package provides the Python 3 build of NLTK.
 
 %prep
-%autosetup -n %{mod_name}-%{version}
+%autosetup -p1 -n %{mod_name}-%{version}
 
 for f in $(grep -Frl '/usr/bin/env' %{mod_name}); do
   sed -i -e "s|^#!/usr/bin/env python$|#!%{__python3}|g" $f
@@ -70,6 +73,9 @@ done
 
 
 %changelog
+* Tue Mar 11 2025 Romain Geissler <romain.geissler@amadeus.com> - 1:3.9.1-1
+- Update to 3.9.1 (#2303929)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.8.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

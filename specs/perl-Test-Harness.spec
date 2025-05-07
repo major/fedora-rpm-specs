@@ -7,8 +7,8 @@
 
 Name:           perl-Test-Harness
 Epoch:          1
-Version:        3.50
-Release:        2%{?dist}
+Version:        3.52
+Release:        1%{?dist}
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Harness
@@ -156,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.52-1
+- 3.52 bump (rhbz#2363879)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.50-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           ncnn
-Version:        20240820
+Version:        20250503
 Release:        %autorelease
 Summary:        A high-performance neural network inference framework
 

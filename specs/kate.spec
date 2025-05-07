@@ -7,7 +7,7 @@
 Name:    kate
 Summary: Advanced Text Editor
 Version: 25.04.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -141,6 +141,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %files plugins -f plugins.lang
 %{_kf6_datadir}/kateproject/
 %{_kf6_datadir}/katexmltools/
+%dir %{_kf6_plugindir}/ktexteditor/
 %{_kf6_plugindir}/ktexteditor/compilerexplorer.so
 %{_kf6_plugindir}/ktexteditor/externaltoolsplugin.so
 %{_kf6_plugindir}/ktexteditor/katebacktracebrowserplugin.so
@@ -179,6 +180,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 25.04.0-4
+- Fix rhbz#2293747, Directory is missing in RPM database
+
 * Mon Apr 14 2025 Pavel Solovev <daron439@gmail.com> - 25.04.0-3
 - Add optional KF6Archive
 

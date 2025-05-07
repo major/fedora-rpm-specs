@@ -1,21 +1,21 @@
-%global forgeurl https://github.com/flareteam/flare-game
-
 Name:       flare
 Version:    1.14
 Release:    %autorelease
+Summary:    A single player, 2D-isometric, action Role-Playing Game
 
+%global forgeurl https://github.com/flareteam/flare-game
+%global tag v%{version}
 %forgemeta
 
-Summary:    A single player, 2D-isometric, action Role-Playing Game
 # See: https://github.com/flareteam/flare-game/blob/master/distribution/org.flarerpg.Flare.appdata.xml
 License:    GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:        http://www.flarerpg.org
-Source0:    %{forgesource}
+Source:     %{forgesource}
+# Backport patch for CMake 4.x
+# https://github.com/flareteam/flare-game/commit/5b61dfd69f4ecbaca6439caa9ae41b3168e4d21a
+Patch:      0001-Minimum-CMake-version-3.5.patch
 
-Requires:   %{name}-engine%{?_isa} = %{version}
-Requires:   font(liberationsans)
-
-Obsoletes:   %{name}-data <= 0.18
+BuildArch:  noarch
 
 BuildRequires: cmake
 BuildRequires: libappstream-glib
@@ -23,7 +23,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: font(liberationsans)
 
-BuildArch: noarch
+Requires:   %{name}-engine%{?_isa} = %{version}
+Requires:   font(liberationsans)
+
+Obsoletes:  %{name}-data <= 0.18
 
 
 %description
@@ -41,7 +44,7 @@ the game data, allowing anyone to easily modify game contents. Open formats are
 preferred (png, ogg). The game code is C++.
 
 %prep
-%setup -q -n %{name}-game-%{version}
+%forgeautosetup -p1
 
 
 %build

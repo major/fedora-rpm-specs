@@ -2,16 +2,17 @@
 %define lc_name %(echo "%{name}" | tr '[:upper:]' '[:lower:]')
 
 Name:		DisplayCAL
-Version:	3.9.15
+Version:	3.9.16
 Release:	2%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
-Source0:	%{pypi_source}
+Source0:	%{pypi_source %{name}}
 Patch0:		displaycal-3.9.3-udev-dir.patch
 Patch1:		displaycal-skip-update-check.patch
 Patch2:		displaycal-3.9.15-fix-autostart-location.patch
 Patch3:		displaycal-3.9.15-downgrade-wxpython.patch
+Patch4:		displaycal-3.9.16-revert-license-field-change.patch
 
 BuildArch:	noarch
 
@@ -96,6 +97,12 @@ rm -rfv %{buildroot}%{_datadir}/doc-base
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Mon May 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.16-2
+- Add patch to fix license field in pyproject metadata
+
+* Mon May 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.16-1
+- Update to 3.9.16
+
 * Sun May 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.15-2
 - Downgrade required wxPython
 - Drop not-to-be-shipped files

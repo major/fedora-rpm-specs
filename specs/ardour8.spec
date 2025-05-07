@@ -109,7 +109,7 @@ BuildRequires:  pkgconfig(x11) >= 1.1
 BuildRequires:  python3
 BuildRequires:  python-unversioned-command
 BuildRequires:  kiss-fft-static
-BuildRequires:  qm-dsp-static
+BuildRequires:  (qm-dsp-static >= 1.7 with qm-dsp-static < 1.8)
 BuildRequires:  symlinks
 
 Requires:       google-droid-sans-mono-fonts

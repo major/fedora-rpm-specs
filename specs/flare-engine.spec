@@ -1,25 +1,22 @@
-%global forgeurl https://github.com/flareteam/flare-engine
-
 %global shortname flare
 
 Name:       flare-engine
 Version:    1.14
 Release:    %autorelease
-
-%forgemeta
-
 Summary:    A single player, 2D-isometric, action Role-Playing Engine
+
+%global forgeurl https://github.com/flareteam/flare-engine
+%global tag v%{version}
+%forgemeta
 
 # cmake/FindSDL2* is BSD-3-Clause
 # https://github.com/flareteam/flare-engine/commit/777b3da2179f3f39fa1b8afdd0cc284b2069d065
 License:    GPL-3.0-or-later AND BSD-3-Clause
 URL:        http://www.flarerpg.org
-Source0:    %{forgesource}
-
-Requires:   font(liberationsans)
-# We would like to use `font(unifont)` here like above, but that's
-# ambigious and installs the package providing OTF (we need TTF)
-Requires:   unifont-ttf-fonts
+Source:     %{forgesource}
+# Backport patch for CMake 4.x
+# https://github.com/flareteam/flare-engine/commit/9500379f886484382bba2f893faf49865de9f2c0
+Patch:      0001-Minimum-CMake-version-3.5.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -31,8 +28,13 @@ BuildRequires: pkgconfig(SDL2_ttf)
 BuildRequires: desktop-file-utils
 BuildRequires: font(liberationsans)
 # We would like to use `font(unifont)` here like above, but that's
-# ambigious and installs the package providing OTF (we need TTF)
+# ambiguous and installs the package providing OTF (we need TTF)
 BuildRequires: unifont-ttf-fonts
+
+Requires:   font(liberationsans)
+# We would like to use `font(unifont)` here like above, but that's
+# ambigious and installs the package providing OTF (we need TTF)
+Requires:   unifont-ttf-fonts
 
 
 %description
@@ -53,7 +55,7 @@ This package contains the engine only.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%forgeautosetup -p1
 
 
 %build

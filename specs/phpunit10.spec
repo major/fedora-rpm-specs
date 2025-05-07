@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    bd68a781d8e30348bc297449f5234b3458267ae8
-%global gh_date      2025-02-07
+%global gh_commit    8080be387a5be380dda48c6f41cee4a13aadab3d
+%global gh_date      2025-05-02
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.45
+%global upstream_version 10.5.46
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -49,7 +49,7 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.12.1            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.1.15   with php-composer(phpunit/php-code-coverage) < 11)
@@ -85,7 +85,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-mbstring": "*",
 #        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
-#        "myclabs/deep-copy": "^1.12.1",
+#        "myclabs/deep-copy": "^1.13.1",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^10.1.15",
@@ -112,7 +112,7 @@ Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-xmlwriter
-Requires:       (php-composer(myclabs/deep-copy) >= 1.12.1            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 10.1.15   with php-composer(phpunit/php-code-coverage) < 11)
@@ -157,7 +157,7 @@ It is an instance of the xUnit architecture for unit testing frameworks.
 This package provides the version %{ver_major} of PHPUnit,
 available using the %{name} command.
 
-Documentation: https://phpunit.readthedocs.io/
+Documentation: https://phpunit.de/documentation.html
 
 
 %prep
@@ -265,6 +265,10 @@ exit $ret
 
 
 %changelog
+* Sun May  4 2025 Remi Collet <remi@remirepo.net> - 10.5.46-1
+- update to 10.5.46
+- raise dependency on myclabs/deep-copy 1.13.1
+
 * Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 10.5.45-1
 - update to 10.5.45
 

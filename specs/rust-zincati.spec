@@ -10,7 +10,7 @@
 
 Name:           rust-zincati
 Version:        0.0.30
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -22,6 +22,8 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 # git diff --no-prefix zincati-*/Cargo.toml
 #Patch0:         fedora-zincati-cargo-manifest-overrides.diff
 %endif
+
+Patch0:         0001-cincinnati-fix-updates-nodes-comparison-logic.patch
 
 # Skip 32 bits architectures, see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046993
@@ -151,6 +153,10 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Mon May 05 2025 Jean-Baptiste Trystram <jbtrystram@redhat.com> - 0.0.30-3
+- Backport patch to fix rollback not sticking from https://github.com/coreos/zincati/pull/1293
+  See https://github.com/coreos/fedora-coreos-tracker/issues/1938
+
 * Wed Apr 16 2025 Tiago Bueno <49003339+tlbueno@users.noreply.github.com> - 0.0.30-2
 - Add install zincati-update-now file into spec
 

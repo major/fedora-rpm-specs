@@ -8,6 +8,9 @@ License:        MIT
 URL:            https://github.com/microsoft/jschema-to-python
 Source:         %{pypi_source jschema_to_python}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l jschema_to_python
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -26,26 +29,12 @@ Summary:        %{summary}
 %description -n python3-jschema-to-python %{common_description}
 
 
-%prep
-%autosetup -n jschema_to_python-%{version}
+%prep -a
 # Fix CRNL line termination
 find . -type f -exec dos2unix --keepdate '{}' '+'
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l jschema_to_python
-
-
-%check
+%check -a
 %pytest
 
 

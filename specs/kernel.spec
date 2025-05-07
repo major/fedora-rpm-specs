@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc4.20250502gitebd297a2affa.39
+%define pkgrelease 0.rc5.42
 %define kversion 6
-%define tarfile_release 6.15-rc4-147-gebd297a2affa
+%define tarfile_release 6.15-rc5
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.20250502gitebd297a2affa.39%{?buildid}%{?dist}
+%define specrelease 0.rc5.42%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4230,8 +4230,16 @@ fi\
 #
 #
 %changelog
-* Fri May 02 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc4.20250502gitebd297a2affa.39]
+* Mon May 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.42]
+- Linux v6.15.0-0.rc5
+
+* Sun May 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.e8ab83e34bdc.41]
+- Linux v6.15.0-0.rc4.e8ab83e34bdc
+
+* Sat May 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.95d3481af6dc.40]
 - Turn on ACPI_DEBUG for Fedora (Justin M. Forbes)
+- redhat: fix kernel-rt-kvm package removal for Fedora (Thorsten Leemhuis)
+- Linux v6.15.0-0.rc4.95d3481af6dc
 
 * Fri May 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc4.ebd297a2affa.39]
 - redhat/configs: aarch64: Enable Apple touchbar display driver for Fedora (Neal Gompa)

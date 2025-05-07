@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        81%{?dist}
+Release:        82%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -124,6 +124,7 @@ BuildRequires:  libxcrypt-devel
 BuildRequires:  openssl-devel
 BuildRequires:  net-snmp-devel, openslp-devel
 BuildRequires:  systemd-units systemd-rpm-macros
+%{?sysusers_requires_compat}
 Requires:       net-snmp-libs
 Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
 Requires:       openssl
@@ -530,13 +531,7 @@ fi
 :;
 
 %pre libs
-if [ $1 -eq 1 ]; then
-#  first install: create the 'pegasus' user and group:
-   {
-      %sysusers_create_compat %{SOURCE13}
-   } >/dev/null 2>&1 || :;
-fi
-:;
+%sysusers_create_compat %{SOURCE13}
 
 %post libs
 if [ $1 -eq 1 ]; then
@@ -580,6 +575,10 @@ fi
 
 
 %changelog
+* Mon May 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-82
+- Update user/group creation
+  Resolves: #2363971
+
 * Wed Apr 02 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-81
 - Updated OpenSSL certificates set up
 

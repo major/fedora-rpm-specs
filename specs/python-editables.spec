@@ -9,9 +9,10 @@ URL:            https://github.com/pfmoore/editables
 # PyPI source distributions lack tests; use the GitHub archive
 Source:         %{url}/archive/%{version}/editables-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l editables
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Most of the dependencies, and all of the pytest options, in tox.ini are for
 # coverage analysis and for installation with pip/virtualenv. Rather than
@@ -33,35 +34,17 @@ Python, without needing a reinstall.}
 %package -n python3-editables
 Summary:        %{summary}
 
-# Dropped in F41
+# Dropped in F41; this upgrade path may be removed after F43
 Obsoletes:      python-editables-doc < 0.5-5
 
 %description -n python3-editables %{common_description}
 
 
-%prep
-%autosetup -n editables-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files editables
-
-
-%check
+%check -a
 %pytest
 
 
 %files -n python3-editables -f %{pyproject_files}
-%license LICENSE.txt
 %doc CHANGELOG.md
 %doc README.md
 

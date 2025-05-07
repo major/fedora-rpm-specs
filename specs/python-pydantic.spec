@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.11.3
+Version:        2.11.4
 %global srcversion %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting

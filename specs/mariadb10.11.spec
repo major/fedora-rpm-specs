@@ -23,14 +23,6 @@
 %global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::|wsrep)
 %global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/%{majorname}/plugin/.*\\.so)$
 
-# Temporary workaround to fix the "internal compiler error" described in https://bugzilla.redhat.com/show_bug.cgi?id=2239498
-# TODO: Remove when the issue is resolved
-%ifarch i686
-%global _lto_cflags %{nil}
-%endif
-
-
-
 # For some use cases we do not need some parts of the package. Set to "...with" to exclude
 %bcond_with    clibrary
 %bcond_with    config
@@ -155,7 +147,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          6%{?with_debug:.debug}%{?dist}
+Release:          7%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -173,7 +165,6 @@ Source4:          https://github.com/PCRE2Project/pcre2/releases/download/pcre2-
 %endif
 Source6:          README.mariadb-docs
 Source8:          README.wsrep_sst_rsync_tunnel
-Source10:         mariadb.tmpfiles.d.in
 Source11:         mysql.service.in
 Source12:         mariadb-prepare-db-dir.sh
 Source14:         mariadb-check-socket.sh
@@ -545,10 +536,10 @@ Requires:         (mysql-selinux >= 1.0.10 if selinux-policy-targeted)
 %endif
 
 Requires:         coreutils
-# We require this to be present for %%{_tmpfilesdir}
-Requires:         systemd
-# Make sure it's there when scriptlets run, too
-%{?systemd_requires}
+
+# 'Recommends' instead of 'Requires' for systems without systemd - e.g. containers
+Recommends:       systemd
+
 # RHBZ#1496131; use 'iproute' instead of 'net-tools'
 Requires:         iproute
 
@@ -855,7 +846,7 @@ mv %{SOURCE4} redhat-linux-build/extra/pcre2/
 # Remove JAR files that upstream puts into tarball
 find . -name "*.jar" -type f -exec rm --verbose -f {} \;
 # Remove testsuite for the mariadb-connector-c
-rm -rf libmariadb/unittest
+rm -r libmariadb/unittest
 %if %{without rocksdb}
 rm -r storage/rocksdb/
 %endif
@@ -893,7 +884,7 @@ cat %{SOURCE52} | tee -a mysql-test/unstable-tests
 cat %{SOURCE53} | tee -a mysql-test/unstable-tests
 %endif
 
-cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
+cp %{SOURCE2} %{SOURCE3} %{SOURCE11} %{SOURCE12} \
    %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} %{SOURCE73} scripts
 
 # Create a sysusers.d config file
@@ -970,6 +961,8 @@ fi
          -DMYSQL_DATADIR="%{dbdatadir}" \
          -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
          -DTMPDIR=/var/tmp \
+         -DINSTALL_SYSTEMD_TMPFILESDIR="" \
+         -DINSTALL_SYSTEMD_SYSUSERSDIR="" \
          -DGRN_DATA_DIR=share/%{majorname}-server/groonga \
          -DGROONGA_NORMALIZER_MYSQL_PROJECT_NAME=%{majorname}-server/groonga-normalizer-mysql \
          -DENABLED_LOCAL_INFILE=ON \
@@ -1084,10 +1077,10 @@ mkdir -p %{buildroot}%{logfiledir}
 chmod 0750 %{buildroot}%{logfiledir}
 touch %{buildroot}%{logfile}
 
-# current setting in my.cnf is to use /var/run/mariadb for creating pid file,
-# however since my.cnf is not updated by RPM if changed, we need to create mysqld
-# as well because users can have odd settings in their /etc/my.cnf
+# PID file directory
 mkdir -p %{buildroot}%{pidfiledir}
+
+# DB datadir
 install -p -m 0755 -d %{buildroot}%{dbdatadir}
 
 %if %{with config}
@@ -1118,12 +1111,6 @@ install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-socket %{buildroot}%{
 install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-upgrade %{buildroot}%{_libexecdir}/mariadb-check-upgrade
 install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}%{_libexecdir}/mariadb-scripts-common
 
-# Install downstream version of tmpfiles
-install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
-echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{majorname}.conf
-
-# Remove any upstream variant of the sysusers.d config
-rm -r %{buildroot}%{_sysusersdir}/*
 # Install downstream version of sysusers.d config
 install -m0644 -D support-files/%{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
@@ -1685,7 +1672,6 @@ fi
 %attr(0660,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
-%{_tmpfilesdir}/%{majorname}.conf
 %{_sysusersdir}/%{name}.conf
 
 %if %{with cracklib}
@@ -1811,6 +1797,9 @@ fi
 %endif
 
 %changelog
+* Mon May 05 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-7
+- Bump release for package rebuild
+
 * Tue Apr 22 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-6
 - Bump release for package rebuild
 

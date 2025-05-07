@@ -1,13 +1,13 @@
 Name:           perl-Math-Polygon
-Version:        1.10
-Release:        19%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Maintaining polygon data
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Group:          Development/Libraries
 URL:            https://metacpan.org/release/Math-Polygon
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Math-Polygon-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -22,7 +22,6 @@ BuildRequires:  perl(List::Util) >= 1.13
 BuildRequires:  perl(Math::Trig)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Data::Dumper)
@@ -32,14 +31,25 @@ BuildRequires:  perl(Test::More) >= 0.47
 Requires:       perl(List::Util) >= 1.13
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(List::Util\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((List::Util|Test::More)\\)$
 
 %description
 These Perl modules provide basic transformations on two-dimensional polygons
 in pure Perl.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.47
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Math-Polygon-%{version}
+chmod a+x t/*.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -47,17 +57,34 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc ChangeLog README README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Math
+%{perl_vendorlib}/Math/Polygon{,.pm,.pod}
+%{_mandir}/man3/Math::Polygon{.,::}*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon May 05 2025 Petr Pisar <ppisar@redhat.com> - 1.11-1
+- 1.11 bump
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

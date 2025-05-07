@@ -3,7 +3,7 @@
 Name:    amarok
 Summary: Media player
 Version: 3.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -196,7 +196,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 %{_kf5_datadir}/dbus-1/services/org.kde.amarok.service
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/knotifications5/amarok.notifyrc
-%{_kf5_datadir}/kpackage/amarok/org.kde.amarok.*
+%{_kf5_datadir}/kpackage/amarok
 %{_kf5_datadir}/kpackage/genericqml/org.kde.amarok.context
 %{_kf5_datadir}/kservices5/ServiceMenus/amarok_append.desktop
 %{_kf5_datadir}/kservices5/amarok*
@@ -248,6 +248,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 3.2.2-2
+- Fix rhbz#2290341 - Directory is missing in RPM database
+
 * Sat Feb 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 3.2.2-1
 - 3.2.2
 

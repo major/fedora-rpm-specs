@@ -1,7 +1,7 @@
 %global giturl  https://github.com/SRI-CSL/libpoly
 
 Name:           libpoly
-Version:        0.1.13
+Version:        0.2.0
 Release:        %autorelease
 Summary:        C library for manipulating polynomials
 
@@ -9,9 +9,6 @@ License:        LGPL-3.0-or-later
 URL:            https://sri-csl.github.io/libpoly/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix incompatible pointer type, an error with GCC 14
-# See https://github.com/SRI-CSL/libpoly/pull/76
-Patch:          %{name}-gcc14.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -68,7 +65,6 @@ rm setup.py
 %build
 %cmake %{_cmake_skip_rpath} \
   -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
-  -DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5 \
   -DLIBPOLY_BUILD_STATIC:BOOL=OFF \
   -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
 %cmake_build

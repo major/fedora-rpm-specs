@@ -17,9 +17,12 @@ Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 # https://github.com/pgjones/hypercorn/pull/267
 Patch:          %{url}/pull/267.patch
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -t -x h3,trio,uvloop
+BuildOption(install):   -L hypercorn
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  help2man
 
 %global common_description %{expand:
@@ -43,22 +46,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-hypercorn h3 trio uvloop
 
 
-%prep
-%autosetup -n hypercorn-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires -t -x h3,trio,uvloop
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files hypercorn
-
+%install -a
 # We must wait until %%install to generate the man page so we can use the
 # generated entry point that was installed in the buildroot.
 install -d %{buildroot}%{_mandir}/man1
@@ -69,7 +57,7 @@ install -d %{buildroot}%{_mandir}/man1
     %{buildroot}%{_bindir}/hypercorn
 
 
-%check
+%check -a
 %tox -- -- -v -k "${k-}"
 
 

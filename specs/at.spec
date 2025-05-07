@@ -3,7 +3,7 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    14%{?dist}
+Release:    15%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
 License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
@@ -161,10 +161,15 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %{_bindir}/atrm
 %{_bindir}/atq
 %attr(4755,root,root)       %{_bindir}/at
+%{_datadir}/at/
 %{_datadir}/at/batch-job
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Mon May 05 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-15
+- Claim ownership of /usr/share/at
+- Resolves: rhbz#2283298
+
 * Mon Jan 27 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-14
 - Unify bin and sbin directories
 - Resolves: rhbz#2339910

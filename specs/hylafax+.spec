@@ -9,7 +9,7 @@
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
 Version:   7.0.11
-Release:   1%{?dist}
+Release:   3%{?dist}
 # Automatically converted from old format: libtiff and BSD with advertising - review is highly recommended.
 License:   libtiff AND LicenseRef-Callaway-BSD-with-advertising
 URL:       http://hylafax.sourceforge.net
@@ -26,12 +26,12 @@ Source7:   hylafax+_sysconfig
 Provides:    hylafax = %{version}-%{release}
 Requires:    %{name}-client%{?_isa} = %{version}-%{release}
 
-BuildRequires: libjpeg-devel, libtiff-devel, zlib-devel, pam-devel, openldap-devel, uucp, %{_bindir}/tiffcp
+BuildRequires: libjpeg-devel, libtiff-devel, zlib-devel, pam-devel, openldap-devel, %{_bindir}/tiffcp
 BuildRequires: openssl-devel
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: libxcrypt-devel
-BuildRequires: %{_sbindir}/sendmail, ghostscript, mgetty
+BuildRequires: %{_sbindir}/sendmail, ghostscript
 %if 0%{?fedora} >= 16 || 0%{?rhel} >= 7
 BuildRequires: jbigkit-devel
 %endif
@@ -53,7 +53,7 @@ Requires: urw-base35-fonts
 BuildRequires: ghostscript-fonts
 Requires: ghostscript-fonts
 %endif
-Requires:    ghostscript, uucp, gawk, sharutils, mailx, crontabs, %{_bindir}/tiffcp, mgetty
+Requires:    ghostscript, gawk, sharutils, mailx, crontabs, %{_bindir}/tiffcp
 Requires:    openssl
 Conflicts:   mgetty-sendfax
 Obsoletes:   hylafax < 5.5.2-1
@@ -84,7 +84,7 @@ windows.
 Summary:     Client programs for HylaFAX fax servers
 Provides:    hylafax-client = %{version}-%{release}
 Obsoletes:   hylafax-client < 5.5.2-1
-Requires:    %{_sbindir}/sendmail, uucp
+Requires:    %{_sbindir}/sendmail
 
 %description client
 HylaFAX(tm) is a enterprise-strength fax server supporting
@@ -99,6 +99,8 @@ fax clients which may reside on machines different from the server.
 #   not understand the config options used by that macro
 STRIP=':' \
 ./configure \
+        --with-FAXUID=daemon \
+        --with-FAXGID=daemon \
         --with-DIR_BIN=%{_bindir} \
         --with-DIR_SBIN=%{_sbindir} \
         --with-DIR_LIB=%{_libdir} \
@@ -354,7 +356,7 @@ fi
 %{faxspool}/bin/qp-encode.awk
 %{faxspool}/bin/rfc2047-encode.awk
 %{faxspool}/bin/wedged
-%defattr(-,uucp,uucp,-)
+%defattr(-,daemon,daemon,-)
 %dir %{faxspool}
 %dir %{faxspool}/client
 %dir %{faxspool}/etc
@@ -363,13 +365,13 @@ fi
 %dir %{faxspool}/recvq
 %dir %{faxspool}/status
 %config(noreplace) %{faxspool}/etc/xferfaxlog
-%attr(700,uucp,uucp) %dir %{faxspool}/docq
-%attr(700,uucp,uucp) %dir %{faxspool}/doneq
-%attr(700,uucp,uucp) %dir %{faxspool}/archive
-%attr(700,uucp,uucp) %dir %{faxspool}/sendq
-%attr(700,uucp,uucp) %dir %{faxspool}/tmp
-%attr(700,uucp,uucp) %dir %{faxspool}/pollq
-%defattr(600,uucp,uucp,-)
+%attr(700,daemon,daemon) %dir %{faxspool}/docq
+%attr(700,daemon,daemon) %dir %{faxspool}/doneq
+%attr(700,daemon,daemon) %dir %{faxspool}/archive
+%attr(700,daemon,daemon) %dir %{faxspool}/sendq
+%attr(700,daemon,daemon) %dir %{faxspool}/tmp
+%attr(700,daemon,daemon) %dir %{faxspool}/pollq
+%defattr(600,daemon,daemon,-)
 %config(noreplace) %{faxspool}/etc/hosts.hfaxd
 
 %files client
@@ -421,11 +423,17 @@ fi
 %{_sysconfdir}/hylafax/faxmail/application/pdf
 %{_sysconfdir}/hylafax/faxmail/application/octet-stream
 %{_sysconfdir}/hylafax/faxmail/image/tiff
-%defattr(-,uucp,uucp,-)
+%defattr(-,daemon,daemon,-)
 %dir %{faxspool}
 %dir %{faxspool}/etc
 
 %changelog
+* Mon May 5 2025 Lee Howard <faxguy@howardsilvan.com> - 7.0.11-3
+- remove mgetty dependency
+
+* Mon May 5 2025 Lee Howard <faxguy@howardsilvan.com> - 7.0.11-2
+- remove uucp dependency by switching FAXUID and FAXGID to daemon
+
 * Fri Apr 25 2025 Lee Howard <faxguy@howardsilvan.com> - 7.0.11-1
 - update to 7.0.11
 

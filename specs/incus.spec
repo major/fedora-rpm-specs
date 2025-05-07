@@ -2,7 +2,7 @@
 %bcond doc 0
 
 # Swagger version to download for documentation
-%global swaggerui_version 5.17.2
+%global swaggerui_version 5.21.0
 %global swaggerui_source_baseurl https://github.com/swagger-api/swagger-ui/raw/v%{swaggerui_version}/dist/
 
 # Enable tests
@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.8
+Version:        6.12
 
 %gometa
 
@@ -18,7 +18,7 @@ Version:        6.8
 %global golicenses COPYING
 
 Name:           incus
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -57,8 +57,11 @@ Source203:      %{swaggerui_source_baseurl}/swagger-ui.css#/swagger-ui-%{swagger
 # Patches upstream or proposed upstream
 
 # Downstream only patches
+## Fix format string issues with Go 1.24
+Patch1001:      incus-6.12-Fix-build-with-Go-1.24.patch
+
 ## Allow offline builds
-Patch1001:      incus-0.2-doc-Remove-downloads-from-sphinx-build.patch
+Patch1002:      incus-0.2-doc-Remove-downloads-from-sphinx-build.patch
 
 %global bashcompletiondir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || :)
 %global selinuxtype targeted
@@ -317,13 +320,7 @@ BuildRequires:  python3-sphinx-notfound-page
 BuildRequires:  python3-sphinx-remove-toctrees
 BuildRequires:  python3-sphinx-reredirects
 BuildRequires:  python3-sphinx-tabs
-BuildRequires:  python3-sphinxcontrib-applehelp
 BuildRequires:  python3-sphinxcontrib-devhelp
-BuildRequires:  python3-sphinxcontrib-htmlhelp
-BuildRequires:  python3-sphinxcontrib-jquery
-BuildRequires:  python3-sphinxcontrib-jsmath
-BuildRequires:  python3-sphinxcontrib-qthelp
-BuildRequires:  python3-sphinxcontrib-serializinghtml
 BuildRequires:  python3-sphinxext-opengraph
 
 %description doc
@@ -433,7 +430,6 @@ install -m0755 -vp %{gobuilddir}/lib/* %{buildroot}%{_libexecdir}/%{name}/
 install -d %{buildroot}%{_mandir}/man1
 cp -p %{gobuilddir}/man/*.1 %{buildroot}%{_mandir}/man1/
 
-
 # install shell completions
 install -D -m0644 -vp %{gobuilddir}/completions/%{name}.bash %{buildroot}%{bashcompletiondir}/%{name}
 install -D -m0644 -vp %{gobuilddir}/completions/%{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
@@ -463,6 +459,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Mon May 05 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 6.12-1
+- Update to incus-6.12
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

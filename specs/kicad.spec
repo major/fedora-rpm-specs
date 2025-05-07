@@ -55,7 +55,9 @@ Provides:       bundled(libdxflib) = 3.26.4
 Provides:       bundled(polyclipping) = 6.4.2
 Provides:       bundled(potrace) = 1.15
 
+%if %{undefined flatpak}
 Requires:       electronics-menu
+%endif
 Requires:       libgit2
 Requires:       libngspice
 Requires:       libsecret
@@ -108,6 +110,8 @@ Documentation for KiCad.
     -DKICAD_USE_CMAKE_FINDPROTOBUF=ON \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DOCC_INCLUDE_DIR=%{_includedir}/opencascade \
+    -DOCC_LIBRARY_DIR=%{_libdir} \
     -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
 %cmake_build
 

@@ -9,8 +9,8 @@ URL:            https://github.com/asottile/cfgv
 Source:         %{url}/archive/v%{version}/cfgv-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(install):   -l cfgv
 BuildOption(generate_buildrequires): requirements-dev.txt
+BuildOption(install):   -l cfgv
 
 BuildArch:      noarch
 

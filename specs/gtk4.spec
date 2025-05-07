@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.19.0
+Version:        4.19.1
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -209,6 +209,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_bindir}/gtk4-encode-symbolic-svg
 %{_bindir}/gtk4-path-tool
 %{_bindir}/gtk4-query-settings
+%{_datadir}/bash-completion/completions/gtk4-builder-tool
 %{_datadir}/gettext/
 %{_datadir}/gir-1.0/
 %{_datadir}/gtk-4.0/gtk4builder.rng
@@ -237,6 +238,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/applications/org.gtk.Demo4.desktop
 %{_datadir}/applications/org.gtk.PrintEditor4.desktop
 %{_datadir}/applications/org.gtk.WidgetFactory4.desktop
+%{_datadir}/bash-completion/completions/gtk4-demo
+%{_datadir}/bash-completion/completions/gtk4-image-tool
+%{_datadir}/bash-completion/completions/gtk4-node-editor
+%{_datadir}/bash-completion/completions/gtk4-path-tool
+%{_datadir}/bash-completion/completions/gtk4-print-editor
+%{_datadir}/bash-completion/completions/gtk4-rendernode-tool
+%{_datadir}/bash-completion/completions/gtk4-widget-factory
 %{_datadir}/icons/hicolor/*/apps/org.gtk.gtk4.NodeEditor*.svg
 %{_datadir}/icons/hicolor/*/apps/org.gtk.Demo4*.svg
 %{_datadir}/icons/hicolor/*/apps/org.gtk.PrintEditor4*.svg

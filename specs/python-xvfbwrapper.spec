@@ -2,7 +2,7 @@
 %global pypi_name xvfbwrapper
 
 Name:           python-%{pypi_name}
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        run headless display inside X virtual framebuffer (Xvfb)
 
@@ -40,16 +40,14 @@ sed -i '1{\@^#!/usr/bin/env python@d}' xvfbwrapper.py
 
 %install
 %pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
 export DISPLAY=:0.0
 %pytest
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{pypi_name}.py*
-%{python3_sitelib}/__pycache__/%{pypi_name}.*
-%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/*
 
 %changelog
 %autochangelog

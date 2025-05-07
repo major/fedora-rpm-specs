@@ -1,15 +1,15 @@
-%global commit 374ec24c12d8276e6274d296e458bdfb3a650357
+%global commit 0c0c3ad76400f05414b5e6c96f85e73831000d17
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20240903
+%global commitdate 20250502
 
-Name:		unzboot
-Version:	0.1~git.%{commitdate}.%{shortcommit}
-Release:	2%{?dist}
+Name:       unzboot
+Version:    0.1~git.%{commitdate}.%{shortcommit}
+Release:    1%{?dist}
 
-Summary:	Extracts a kernel vmlinuz image from a EFI application
-License:	GPL-2.0-or-later
+Summary:    Extracts a kernel vmlinuz image from a EFI application
+License:    GPL-2.0-or-later
 
-URL:            https://github.com/eballetbo/unzboot
+URL:        https://github.com/eballetbo/unzboot
 # Upstream is still under development so they are not tagging releases
 # yet. Use the following to do a rebase to a new snapshot:
 #
@@ -20,6 +20,7 @@ BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: meson
 BuildRequires: zlib
+BuildRequires: libzstd
 
 %description
 The unzboot program extracts a kernel vmlinuz image from
@@ -42,6 +43,10 @@ compressed form.
 %{_bindir}/unzboot
 
 %changelog
+* Mon May 5 2025 Enric Balletbo i Serra <eballetbo@redhat.com> -  0.1~git.20250502.0c0c3ad-1
+- Add zstd compressed kernel support
+- Introduce test case infrastructure and add gunzip tests
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~git.20240903.374ec24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

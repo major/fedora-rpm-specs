@@ -3,8 +3,8 @@
 %bcond_with network_tests
 
 Name:           python-aiodns
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Simple DNS resolver for asyncio
 
 License:        MIT
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon May 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-1
+- 3.3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

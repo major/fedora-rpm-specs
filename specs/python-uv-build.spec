@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.6.16
+Version:        0.6.17
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -82,16 +82,10 @@ Source:         %{pypi_source uv_build}
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 # Note that uv-build currently only uses version-ranges, not pubgrub.
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev b70cf707aa43f21b32f3a61b8a0889b15032d5c4
-%global pubgrub_snapdate 20250202
+%global pubgrub_rev a3b4db3abb1829ce889fb89fa6d157fef529ef7e
+%global pubgrub_snapdate 20250423
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
-
-# This patch is for the forked, bundled pubgrub crate.
-#
-# build(deps): bump ron from 0.9.0-alpha.1 to 0.10.1
-# https://github.com/pubgrub-rs/pubgrub/pull/330
-Patch200:       https://github.com/pubgrub-rs/pubgrub/pull/330.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Also, there are a couple of test failures on 32-bit platforms.

@@ -8,8 +8,8 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2025.4.0
-%global tag     2025.4.0
+Version:        2025.4.1
+%global tag     %{version}
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
 %forgemeta
@@ -58,6 +58,7 @@ BuildRequires:  python3dist(aiohttp)
 # BuildRequires:  python3dist(asyncssh)
 # Tests need a newer version than currently available.
 # BuildRequires:  python3dist(bokeh)
+BuildRequires:  python3dist(crick)
 BuildRequires:  python3dist(cryptography)
 BuildRequires:  python3dist(h5py)
 BuildRequires:  python3dist(ipykernel)
@@ -67,6 +68,8 @@ BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(jsonschema)
 BuildRequires:  python3dist(jupyter-client)
 BuildRequires:  python3dist(lz4)
+BuildRequires:  python3dist(matplotlib)
+BuildRequires:  python3dist(netcdf4)
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pandas)
 # paramiko must be skipped because we don't have an ssh server we can connect to.
@@ -81,6 +84,8 @@ BuildRequires:  python3dist(pytest-timeout)
 # BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pyzmq)
 BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(scipy)
+BuildRequires:  python3dist(python-snappy)
 BuildRequires:  python3dist(zstandard)
 
 %description

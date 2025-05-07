@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    024473a478be9df5fdaca2c793f2232fe788e414
+%global gh_commit    1720ddd719e16cf0db4eb1c6eca108031636d46c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   DeepCopy
@@ -17,7 +17,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-myclabs-deep-copy%{major}
-Version:        1.13.0
+Version:        1.13.1
 Release:        1%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Sun May  4 2025 Remi Collet <remi@remirepo.net> - 1.13.1-1
+- update to 1.13.1
+
 * Wed Feb 12 2025 Remi Collet <remi@remirepo.net> - 1.13.0-1
 - update to 1.13.0
 - re-license spec file to CECILL-2.1

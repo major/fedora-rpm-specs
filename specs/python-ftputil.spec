@@ -13,9 +13,11 @@ URL:            https://ftputil.sschwarzer.net/
 # Git hosting: https://git.sr.ht/~sschwarzer/ftputil
 Source:         %{pypi_source ftputil}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l ftputil
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # There is no list of test dependencies anywhere in the PyPI sdist. We could
 # use an archive from https://git.sr.ht/~sschwarzer/ftputil, but it’s easier
 # just to list them manually:
@@ -49,24 +51,7 @@ Requires:       ftp
 %description -n python3-ftputil %{common_description}
 
 
-%prep
-%autosetup -n ftputil-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l ftputil
-
-
-%check
+%check -a
 # These tests require a real FTP server.
 ignore="${ignore-} --ignore=test/test_real_ftp.py"
 

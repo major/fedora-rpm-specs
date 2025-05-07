@@ -62,6 +62,9 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 %check
 %if %{with tests}
+# Charset-normalizer 3.4.2 failures
+# https://github.com/httpie/cli/issues/1628
+normalizer="not test_terminal_output_response_charset_detection and not test_terminal_output_request_charset_detection"
 # Werkzeug >= 3 failures
 # https://github.com/httpie/cli/issues/1530
 issue1530="not test_compress_form and not test_binary"
@@ -69,7 +72,7 @@ issue1530="not test_compress_form and not test_binary"
 plugins="not test_plugins_installation and not test_plugin_installation_with_custom_config and not test_plugins_listing and not test_plugins_uninstall and not test_plugins_double_uninstall and not test_broken_plugins"
 # New argparse behavior, TODO report upstream
 argparse="not (test_naked_invocation and args3)"
-%pytest -v -k "$issue1530 and $plugins and $argparse"
+%pytest -v -k "$normalizer and $issue1530 and $plugins and $argparse"
 %else
 %pyproject_check_import
 %endif

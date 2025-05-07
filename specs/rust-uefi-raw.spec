@@ -5,13 +5,15 @@
 %global crate uefi-raw
 
 Name:           rust-uefi-raw
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Raw UEFI types and bindings for protocols, boot, and runtime services
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/uefi-raw
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          uefi-raw-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -7,7 +7,7 @@
 
 Name:    kaccounts-integration
 Version: 25.04.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
@@ -158,6 +158,7 @@ popd
 %{_kf6_datadir}/applications/kcm_kaccounts.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_kaccounts.so
 %{_kf6_plugindir}/kded/kded_accounts.so
+%dir %{_qt6_plugindir}/kaccounts/daemonplugins
 %{_qt6_plugindir}/kaccounts/daemonplugins/kaccounts_kio_webdav_plugin.so
 %{_kf6_libdir}/libkaccounts6.so.*
 %{_kf6_qmldir}/org/kde/kaccounts/
@@ -184,6 +185,9 @@ popd
 
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 25.04.0-3
+- Fix rhbz#2293746 - Directory is missing in RPM database
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
 - Rebuild (qt6)
 

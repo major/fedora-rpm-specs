@@ -14,10 +14,12 @@ BuildRequires:        pkgconfig(libcap-ng)
 BuildRequires:        pkgconfig(libselinux)
 BuildRequires:        pkgconfig(libsystemd)
 BuildRequires:        pkgconfig(systemd)
+BuildRequires:        bindgen-cli
 BuildRequires:        gcc
 BuildRequires:        glibc-devel
 BuildRequires:        meson
 BuildRequires:        python3-docutils
+BuildRequires:        rust
 Requires:             dbus-common
 
 %description

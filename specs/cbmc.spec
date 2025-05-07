@@ -4,7 +4,7 @@
 %define utils_version 1.3
 
 Name:           cbmc
-Version:        6.5.0
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
@@ -18,13 +18,6 @@ Source1:        https://github.com/aufover/%{name}-utils/archive/v%{utils_versio
 Patch:         %{name}-add-cmd-line-arg.patch
 # Fix compilation on F41+
 Patch:         %{name}-f41-fix-build.patch
-# Addx compatibility with GCC 15
-# * https://github.com/diffblue/cbmc/pull/8620
-# * https://github.com/diffblue/cbmc/pull/8621
-# * https://github.com/diffblue/cbmc/pull/8622
-# * https://github.com/diffblue/cbmc/pull/8625
-# * https://github.com/diffblue/cbmc/pull/8626
-Patch:         %{name}-gcc15.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -138,6 +131,9 @@ mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Mon May 05 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.6.0-1
+- rebase to the latest upstream release (rhbz#2362802)
+
 * Wed Apr 23 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.5.0-1
 - rebase to the latest upstream release (rhbz#2352414)
 

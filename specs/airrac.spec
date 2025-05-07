@@ -17,7 +17,6 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
-BuildRequires:  mysql-devel
 
 %description
 %{name} is a C++ library of airline revenue accounting classes and

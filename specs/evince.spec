@@ -17,7 +17,7 @@
 
 Name:           evince
 Version:        48.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
@@ -25,6 +25,7 @@ URL:            https://wiki.gnome.org/Apps/Evince
 Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 Patch:          evince-46.3.1-kpathsea-header-files.patch
+Patch:          evince-48.0-presentation-scaling.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -287,6 +288,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Mon May 05 2025 Marek Kasik <mkasik@redhat.com> - 48.0-2
+- Fix scaling in presentation mode with fractional scaling
+- Resolves: #2327479
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

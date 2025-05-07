@@ -11,7 +11,7 @@ Source:             %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz
 BuildArch:          noarch
 
 # For %%py3_shebang_fix in %%prep, before generated BuildRequires are ready
-BuildRequires:      pyproject-rpm-macros
+BuildRequires:      python3-devel
 
 BuildSystem:            pyproject
 BuildOption(install):   -l flask_migrate

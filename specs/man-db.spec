@@ -2,8 +2,8 @@
 
 Summary: Tools for searching and reading man pages
 Name: man-db
-Version: 2.13.0
-Release: 2%{?dist}
+Version: 2.13.1
+Release: 1%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
@@ -229,11 +229,15 @@ fi
 %lang(sv)       %{_datadir}/man/sv/man*/*
 %lang(tr)       %{_datadir}/man/tr/man*/*
 %lang(zh_CN)    %{_datadir}/man/zh_CN/man*/*
+%lang(uk)	%{_datadir}/man/uk/man*/*
 
 %files cron
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Mon May 05 2025 Lukas Javorsky <ljavorsk@redhat.com> - 2.13.1-1
+- Rebase to version 2.13.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

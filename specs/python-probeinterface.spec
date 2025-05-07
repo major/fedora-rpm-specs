@@ -15,7 +15,7 @@
 %bcond zarr 1
 
 Name:           python-probeinterface
-Version:        0.2.26
+Version:        0.2.28
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
@@ -35,9 +35,12 @@ Source0:        %{url}/archive/%{version}/probeinterface-%{version}.tar.gz
 Source1:        %{probe_url}/neuronexus/A1x32-Poly3-10mm-50-177/A1x32-Poly3-10mm-50-177.json
 Source2:        %{probe_url}/cambridgeneurotech/ASSY-156-P-1/ASSY-156-P-1.json
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x test%{?with_doc_pdf:,docs}
+BuildOption(install):   -l probeinterface
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 
 %if %{with doc_pdf}
@@ -104,9 +107,7 @@ Summary:        Documentation for probeinterface
 %description    doc %{common_description}
 
 
-%prep
-%autosetup -n probeinterface-%{version} -p1
-
+%prep -a
 # Do not require an exact matplotlib version to build documentation:
 sed -r -i 's/(matplotlib)==/\1>=/' pyproject.toml
 
@@ -130,18 +131,7 @@ install -t "${PROBE_CACHE}/cambridgeneurotech" -p -m 0644 -D '%{SOURCE2}'
 echo "latex_engine = 'xelatex'" >> doc/conf.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x test%{?with_doc_pdf:,docs}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l probeinterface
-
+%install -a
 %if %{with doc_pdf}
 # Building this in %%install instead of %%build is a hack, but it is the
 # easiest workaround for the unusual fact that importing the package requires
@@ -152,9 +142,7 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' %make_build -C doc latex \
 %endif
 
 
-%check
-%pyproject_check_import
-
+%check -a
 # Skip tests that unconditionally download probe interface definitions and
 # bypass the cache.
 # https://github.com/SpikeInterface/probeinterface/issues/70.

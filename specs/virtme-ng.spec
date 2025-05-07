@@ -9,7 +9,7 @@
 
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.33
+Version:        1.35
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease
@@ -32,6 +32,7 @@ BuildRequires:  python3-devel
 BuildRequires:  argparse-manpage
 %if %{with optimized_init}
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  glibc-static
 %endif
 
 Recommends:     qemu-kvm
@@ -124,6 +125,7 @@ rm -rf %{buildroot}%{python3_sitelib}/usr
 %{_bindir}/virtme-configkernel
 %{_bindir}/virtme-mkinitramfs
 %{_bindir}/virtme-prep-kdir-mods
+%{_bindir}/virtme-ssh-proxy
 %{bash_completions_dir}/{virtme-ng,vng}-prompt
 %{_mandir}/man1/vng.1*
 

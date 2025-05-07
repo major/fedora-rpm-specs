@@ -21,7 +21,6 @@ BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
 BuildRequires:  pkgconfig(rmol)
 BuildRequires:  pkgconfig(sevmgr)
-BuildRequires:  mysql-devel
 
 %description
 %{name} is a C++ library of airline inventory management classes and

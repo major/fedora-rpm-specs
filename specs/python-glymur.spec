@@ -15,6 +15,9 @@ Source1:        jp2dump.1
 Source2:        jpeg2jp2.1
 Source3:        tiff2jp2.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l glymur
+
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported
 # architectures.  We can still make all the built RPMs noarch.  Since the
@@ -23,11 +26,9 @@ Source3:        tiff2jp2.1
 %global debug_package %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
+%if %{undefined fc41}
 ExcludeArch:    %{ix86}
 %endif
-
-BuildRequires:  python3-devel
 
 # Test dependencies are now only listed in CI configurations, e.g.
 # ci/travis-313.yaml, so we must enumerate them manually.
@@ -43,7 +44,7 @@ BuildRequires:  %{py3_dist gdal}
 BuildRequires:  openjpeg2
 BuildRequires:  libtiff
 
-%if %[ %{defined fc42} || %{defined fc41} || %{defined fc40} || %{defined el9} ]
+%if %[ %{defined fc42} || %{defined fc41} ]
 # Workaround for setuptools<77.0.3; see
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
 %global no_pep_639_backend 1
@@ -72,33 +73,19 @@ Recommends:     %{py3_dist gdal}
 %description -n python3-glymur %_description
 
 
-%prep
-%autosetup -n glymur-%{srcversion} -p1
-
+%prep -a
 %if 0%{?no_pep_639_backend}
 tomcli set pyproject.toml del project.license
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
+%install -a
 install -m 0644 -p -D -t '%{buildroot}%{_mandir}/man1' \
     '%{SOURCE1}' '%{SOURCE2}' '%{SOURCE3}'
 
 
-%pyproject_install
-%pyproject_save_files -l glymur
-
-
-%check
-%pytest ${ignore-} -k "${k-}" -n auto -rs -v
+%check -a
+%pytest -n auto -rs -v
 
 
 %files -n python3-glymur -f %{pyproject_files}

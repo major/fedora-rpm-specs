@@ -13,6 +13,9 @@ License:        MIT
 URL:            https://github.com/ofek/hatch-vcs
 Source:         %{pypi_source hatch_vcs}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l hatch_vcs
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -35,28 +38,9 @@ Summary:        %{summary}
 %description -n python3-hatch-vcs %{common_description}
 
 
-%prep
-%autosetup -n hatch_vcs-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l hatch_vcs
-
-
-%check
+%check -a
 %if %{with tests}
 %pytest
-%else
-%pyproject_check_import
 %endif
 
 

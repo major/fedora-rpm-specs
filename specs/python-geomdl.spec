@@ -32,8 +32,8 @@ Patch:          geomdl-5.3.1-unconditional-Cython.patch
 Patch:          %{forgeurl}/pull/163.patch
 
 BuildSystem:            pyproject
-BuildOption(install):   -l geomdl
 BuildOption(generate_buildrequires): requirements.txt
+BuildOption(install):   -l geomdl
 %if %{without vtk_dep}
 # Need python3dist(vtk) for geomdl.visualization.vtk_helpers, but it is not
 # worth adding the BuildRequires just for an import check.

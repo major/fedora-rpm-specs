@@ -7,9 +7,12 @@ License:        BSD-3-Clause
 URL:            https://github.com/hgrecco/flexcache
 Source:         %{pypi_source flexcache}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l flexcache
+# We remove flexcache.testsuite manually in %%install.
+BuildOption(check):     -e 'flexcache.testsuite*'
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # See the test extra in pyproject.toml. We list test dependencies manually
 # since we do not want pytest-cov
@@ -31,22 +34,7 @@ Summary:        %{summary}
 %description -n python3-flexcache %{common_description}
 
 
-%prep
-%autosetup -n flexcache-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l flexcache
-
+%install -a
 # Upstream probably doesn’t want to install flexcache.testsuite, but we don’t
 # know how to suggest a fix given “[BUG] options.packages.find.exclude not
 # taking effect when include_package_data = True”,
@@ -58,7 +46,7 @@ rm -rvf '%{buildroot}%{python3_sitelib}/flexcache/testsuite'
 sed -r -i '/\/flexcache\/testsuite/d' %{pyproject_files}
 
 
-%check
+%check -a
 %pytest
 
 

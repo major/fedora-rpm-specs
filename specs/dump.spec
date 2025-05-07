@@ -1,4 +1,4 @@
-%define PREVER b47
+%define PREVER b52
 %define DUMP_VERSION 0.4%{PREVER}
 
 %define _legacy_common_support 1
@@ -12,10 +12,10 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.58.%{PREVER}%{?dist}
+Release:       0.59.%{PREVER}%{?dist}
 License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
-Source:        http://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
+Source:        https://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
 BuildRequires: e2fsprogs-devel >= 1.18, readline-devel >= 4.2
 BuildRequires: zlib-devel, bzip2-devel, automake, make
 BuildRequires: device-mapper-devel, libselinux-devel
@@ -29,10 +29,6 @@ Requires:      rmt
 Obsoletes:     dump-static <= 0.4
 Provides:      dump-static
 %endif
-
-Patch0:        dump-buildfix.patch
-Patch1:        dump-remove-lzo.patch
-Patch2:        dump-apath.patch
 
 # No dump package in RHEL (restore remains)
 Patch101:      dump-replacement.patch
@@ -63,18 +59,12 @@ restoring filesystems after backups.
 %prep
 %setup -q -n dump-%{DUMP_VERSION}
 
-%patch 0 -p1 -b .buildfix
-%patch 1 -p1 -b .remove-lzo
-%patch 2 -p1 -b .apath
-
 %if 0%{?rhel}
 rm -rf dump/*.c
 %patch 101 -p1
 %endif
 
 %build
-autoreconf -fiv
-
 export CFLAGS="$RPM_OPT_FLAGS -Wall -Wpointer-arith -Wstrict-prototypes \
 -Wmissing-prototypes -Wno-char-subscripts -fno-strict-aliasing"
 
@@ -131,6 +121,11 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Mon May 05 2025 Jeff Makey <jeff@makey.net> - 1:0.4-0.59.b52
+- New upstream release 0.4b52
+- Drop buildfix, remove-lzo, and apath patches, which are now applied upstream
+- Fix ftruncate errors (#2348433, #2359295)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.58.b47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

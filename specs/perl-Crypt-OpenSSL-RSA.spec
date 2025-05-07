@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-RSA
-Version:        0.33
-Release:        8%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for RSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-RSA
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon May 05 2025 Xavier Bachelot <xavier@bachelot.org> - 0.34-1
+- Update to 0.34 (RHBZ#2364100)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

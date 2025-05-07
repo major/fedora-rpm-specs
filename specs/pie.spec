@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        2c73701769a0edffd1f5f051b658f1ac31c78c64
+%global gh_commit        453a46225915d29c714480d4897b7905d91c3236
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.9.0
+%global upstream_version 0.10.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -24,7 +24,7 @@
 
 Name:           pie
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        PHP Installer for Extensions
 
 # SPDX: pie is BSD-3-Clause, all dependencies are MIT
@@ -136,6 +136,9 @@ done
 
 
 %changelog
+* Sun May  4 2025 Remi Collet <remi@remirepo.net> - 0.10.0-1
+- update to 0.10.0
+
 * Tue Apr 15 2025 Remi Collet <remi@remirepo.net> - 0.9.0-2
 - update to 0.9.0
 - add notice about dnf in self-update output

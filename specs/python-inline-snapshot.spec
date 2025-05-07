@@ -15,9 +15,12 @@ License:        MIT
 URL:            https://github.com/15r10nk/inline-snapshot
 Source:         %{pypi_source inline_snapshot}
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -g dev -x black,dirty-equals
+BuildOption(install):   -l inline_snapshot
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 
 %global common_description %{expand:
@@ -36,9 +39,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-inline-snapshot black,dirty-equals
 
 
-%prep
-%autosetup -n inline_snapshot-%{version} -p1
-
+%prep -a
 # Remove linters, typecheckers, formatters, coverage analysis tools, etc. from
 # the “dev” dependency group so we can use it to generate BuildRequires.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -50,20 +51,7 @@ tomcli set pyproject.toml lists delitem --no-first --type regex \
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires -g dev -x black,dirty-equals
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l inline_snapshot
-
-
-%check
+%check -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 ignore="${ignore-} --ignore=tests/test_typing.py"
 %if %{without pydantic_tests}

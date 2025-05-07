@@ -21,7 +21,6 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
-BuildRequires:  mysql-devel
 
 %description
 %{name} is a C++ library of Revenue Management and Optimisation classes 

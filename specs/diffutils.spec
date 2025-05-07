@@ -1,11 +1,18 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 # upstream fixes
-
+# cross compile build of 3.12 diffutils fails
+Patch: diffutils-3.12-cross-compiler-build-fail.patch
+# sdiff: continue → break
+Patch: diffutils-3.12-sdiff-continue-break.patch
+# sdiff: pacify gcc -flto -Wmaybe-uninitialized
+Patch: 0001-sdiff-pacify-gcc-flto-Wmaybe-uninitialized.patch
+# sdiff: port back to C17
+Patch: 0001-sdiff-port-back-to-C17.patch
 License: GPL-3.0-or-later
 Provides: bundled(gnulib)
 BuildRequires: gcc
@@ -55,6 +62,13 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 3.12-2
+- Upstream patches
+  * cross compile build of 3.12 diffutils fails
+  * sdiff: continue → break
+  * sdiff: pacify gcc -flto -Wmaybe-uninitialized
+  * sdiff: port back to C17
+
 * Fri Apr 11 2025 Than Ngo <than@redhat.com> - 3.12-1
 - Fixed rhbz#2358545, Update to 3.12
 

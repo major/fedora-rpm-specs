@@ -13,9 +13,11 @@ License:        MIT
 URL:            https://github.com/kyrus/python-junit-xml
 Source:         %{url}/archive/%{commit}/python-junit-xml-%{commit}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -t
+BuildOption(install):   -l junit_xml
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 A Python module for creating JUnit XML test result documents that can be read
@@ -49,28 +51,14 @@ Obsoletes:      python3-junit_xml < 1.9^20200222gitba89b41-8
 %description -n python3-junit-xml %{common_description}
 
 
-%prep
-%autosetup -n python-junit-xml-%{commit}
+%prep -a
 # Remove shebang line in non-script source
 sed -r -i '1{/^#!/d}' junit_xml/__init__.py
 # Do not require pytest-sugar for testing; it is only for prettier output.
 sed -r -i 's/^([[:blank:]]+)(pytest-sugar)/\1# \2/' tox.ini
 
 
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l junit_xml
-
-
-%check
+%check -a
 %tox
 
 

@@ -9,7 +9,7 @@ originally based on Microsoft GSL.
 %global debug_package %{nil}
 
 Name:           gsl-lite
-Version:        0.42.0
+Version:        0.43.0
 Release:        %autorelease
 Summary:        Header-only version of ISO C++ Guidelines Support Library (GSL)
 
@@ -21,6 +21,7 @@ Summary:        Header-only version of ISO C++ Guidelines Support Library (GSL)
 #   - script/upload-conan.py
 #   - test/lest_cpp03.hpp
 License:        MIT
+SourceLicense:  %{license} AND BSL-1.0
 URL:            https://github.com/gsl-lite/gsl-lite
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

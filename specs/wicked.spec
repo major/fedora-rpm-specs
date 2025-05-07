@@ -6,24 +6,19 @@
 %global wicked_statedir %{_rundir}/%{name}
 %global wicked_storedir %{_sharedstatedir}/%{name}
 
-%if 0%{?fedora} >= 30
-%global dbus_service dbus-broker.service
-%else
+%if 0%{?rhel} && 0%{?rhel} < 9
 %global dbus_service dbus-daemon.service
+%else
+%global dbus_service dbus-broker.service
 %endif
 
 Name:           wicked
-Version:        0.6.69
-Release:        9%{?dist}
+Version:        0.6.77
+Release:        1%{?dist}
 Summary:        Network configuration infrastructure
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://en.opensuse.org/Portal:Wicked
 Source0:        https://github.com/openSUSE/%{name}/archive/version-%{version}/%{name}-version-%{version}.tar.gz
-
-# Backport from upstream
-## From: https://github.com/openSUSE/wicked/commit/d48906e79036bcf36214235eaaf2feca09060d46
-Patch0001:      0001-wireless-Remove-libiw-dependencies.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -31,9 +26,7 @@ BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  systemd
-%if 0%{?fedora} >= 30 || 0%{?rhel} >= 8
 BuildRequires:  systemd-rpm-macros
-%endif
 
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(dbus-1)
@@ -142,6 +135,7 @@ fi
 %dir %{_sysconfdir}/wicked
 %config(noreplace) %{_sysconfdir}/wicked/common.xml
 %config(noreplace) %{_sysconfdir}/wicked/client.xml
+%config(noreplace) %{_sysconfdir}/wicked/client-nbft.xml
 %config(noreplace) %{_sysconfdir}/wicked/server.xml
 %config(noreplace) %{_sysconfdir}/wicked/nanny.xml
 %dir %{_sysconfdir}/wicked/scripts
@@ -184,6 +178,7 @@ fi
 %{_mandir}/man8/wicked-redfish.8*
 %{_mandir}/man8/wickedd.8*
 %{_mandir}/man8/wicked-ethtool.8*
+%{_mandir}/man8/wicked-firmware.8*
 %attr(0750,root,root) %dir %{wicked_storedir}
 
 %files devel
@@ -197,6 +192,10 @@ fi
 %{_libdir}/libwicked-%{version}.so
 
 %changelog
+* Tue May 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.6.77-1
+- Rebase to version 0.6.77
+- Small packaging cleanups
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.69-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

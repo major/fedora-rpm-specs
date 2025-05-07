@@ -1,15 +1,13 @@
-%global base_version 3.51
+%global base_version 3.57
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.51
-Release:        512%{?dist}
+Version:        3.57
+Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
 Source0:        https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-ParseXS-%{base_version}.tar.gz
-# # Added man page perlxs* which are missing in tarball
-Patch0:         ExtUtils-ParseXS-3.51-Add-perlxs-man-pages.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -24,6 +22,7 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Exporter) >= 5.57
+BuildRequires:  perl(fields)
 # ExtUtils::XSSymSet not needed
 BuildRequires:  perl(File::Basename)
 # Getopt::Long not tested
@@ -39,6 +38,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.47
 Requires:       perl(Exporter) >= 5.57
+Requires:       perl(fields)
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Exporter\\)$
@@ -64,7 +64,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n ExtUtils-ParseXS-%{base_version}
-%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -117,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 30 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.57-1
+- 3.57 bump (rhbz#2363711)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.51-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

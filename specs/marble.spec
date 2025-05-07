@@ -2,7 +2,7 @@ Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
 URL:     http://edu.kde.org/marble/
@@ -247,6 +247,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 %files widget-qt6
 %{_libdir}/libmarblewidget-qt6.so.*
+%dir %{_libdir}/marble
 %{_libdir}/marble/plugins/
 %{_qt6_plugindir}/marblethumbnail.so
 # include part here too
@@ -262,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Mon May 05 2025 Than Ngo <than@redhat.com> - 1:25.04.0-2
+- Fix rhbz#2283997 - Directory is missing in RPM database
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.0-1
 - 25.04.0
 
