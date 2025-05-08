@@ -62,8 +62,8 @@ Source3:        pdf2txt.1
 
 BuildSystem:            pyproject
 BuildOption(prep):      -S git
-BuildOption(install):   -l pdfminer
 BuildOption(generate_buildrequires): -x image
+BuildOption(install):   -l pdfminer
 
 BuildArch:      noarch
 

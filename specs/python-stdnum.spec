@@ -1,13 +1,13 @@
 %global srcname stdnum
 
 Name:           python-%{srcname}
-Version:        1.20
-Release:        4%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
 License:        LGPL-2.0-or-later
-URL:            http://arthurdejong.org/python-stdnum/
-Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+URL:            https://arthurdejong.org/python-stdnum/
+Source0:        https://github.com/arthurdejong/python-stdnum/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 #BuildRequires:  python3-setuptools
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Tue May 06 2025 Dan Horák <dan[at]danny.cz> - 2.0-1
+- updated to 2.0 (rhbz#2364242)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

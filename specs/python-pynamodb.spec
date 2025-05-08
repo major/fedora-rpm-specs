@@ -16,9 +16,11 @@ URL:            https://github.com/pynamodb/PynamoDB
 # and tests.
 Source:         %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x signals requirements-filtered.txt
+BuildOption(install):   -l pynamodb
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -50,9 +52,7 @@ Summary:        Documentation and examples for PynamoDB
 %description doc %{common_description}
 
 
-%prep
-%autosetup -n PynamoDB-%{version} -p1
-
+%prep -a
 {
 %if %{with doc_pdf}
   # Un-pin exact versions in doc dependencies.
@@ -66,25 +66,14 @@ Summary:        Documentation and examples for PynamoDB
 } | tee requirements-filtered.txt
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x signals requirements-filtered.txt
-
-
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc_pdf}
 %make_build -C docs SPHINXOPTS='-j%{?_smp_build_ncpus}' latex
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l pynamodb
-
-
-%check
+%check -a
 # The integration tests need to connect to a local copy of DynamoDB; see the
 # “Run dynamodb_local” step in .github/workflows.test.yaml. We can’t use a
 # pre-compiled Java application for testing, and only a negligible number of

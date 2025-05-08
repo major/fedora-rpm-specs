@@ -5,7 +5,7 @@
 %global crate wayland-server
 
 Name:           rust-wayland-server
-Version:        0.31.7
+Version:        0.31.9
 Release:        %autorelease
 Summary:        Bindings to the standard C implementation of the wayland protocol, server side
 

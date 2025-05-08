@@ -18,11 +18,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
-BuildRequires:  mysql-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  xapian-core-devel
-BuildRequires:  mysql-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libicu-devel
 BuildRequires:  protobuf-devel

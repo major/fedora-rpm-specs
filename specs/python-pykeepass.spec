@@ -24,9 +24,12 @@ URL:            %{forgeurl}
 # The GitHub archive has tests; the PyPI sdist does not.
 Source:         %{forgesource}
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install):   -l pykeepass
+
 BuildArch:      noarch
  
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 
 %global common_description %{expand:
@@ -48,26 +51,8 @@ Summary:        %{summary}
 tomcli set pyproject.toml lists delitem project.optional-dependencies.test pdoc
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l pykeepass
-
-
-%check
-# This is worthwhile even though we run the tests; tests did not catch a
-# missing pykeepass.kdbx_parsing package in the 4.0.7 release, but an import
-# check would have.
-%pyproject_check_import
-
-%{python3} -m unittest discover -s tests -v
+%check -a
+%{py3_test_envvars} %{python3} -m unittest discover -s tests -v
 
 
 %files -n python3-pykeepass -f %{pyproject_files}

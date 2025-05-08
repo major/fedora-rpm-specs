@@ -4,7 +4,7 @@
 
 # https://github.com/jsimonetti/rtnetlink
 %global goipath         github.com/jsimonetti/rtnetlink
-Version:                1.4.1
+Version:                1.4.2
 
 %gometa -L -f
 

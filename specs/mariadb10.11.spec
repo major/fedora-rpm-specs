@@ -209,8 +209,6 @@ Patch4:           %{majorname}-logrotate.patch
 Patch7:           %{majorname}-scripts.patch
 #   Patch9: pre-configure to comply with guidelines
 Patch9:           %{majorname}-ownsetup.patch
-#   Patch12: fixes of RocksDB for GCC 13
-Patch12:          rocksdb-6.8-gcc13.patch
 #   Patch13: bundle the FMT library
 Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
@@ -855,9 +853,6 @@ rm -r storage/rocksdb/
 %patch -P4 -p1
 %patch -P7 -p1
 %patch -P9 -p1
-%if %{with rocksdb}
-%patch -P12 -p1 -d storage/rocksdb/rocksdb/
-%endif
 %if %{with bundled_fmt}
 %patch -P13 -p1
 %endif
@@ -930,6 +925,27 @@ fi
         exit 1
     fi
 %endif
+
+
+# Adjust the compliation flags:
+# First initialize the distribution default values
+%{set_build_flags}
+# Add custom tweaks
+CFLAGS="$CFLAGS -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
+# Force the 'PIC' mode so that we can build libmysqld.so
+CFLAGS="$CFLAGS -fPIC"
+
+# When making a debug build, remove all optimizations
+%if %{with debug}
+# -D_FORTIFY_SOURCE requires optimizations enabled. Disable the fortify.
+%undefine _fortify_level
+CFLAGS=`echo "$CFLAGS" | sed -r 's/-O[0123]//'`
+CFLAGS="$CFLAGS -O0 -g"
+%endif
+
+# Apply the updated values
+CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
+
 
 # The INSTALL_xxx macros have to be specified relative to CMAKE_INSTALL_PREFIX
 # so we can't use %%{_datadir} and so forth here.
@@ -1006,35 +1022,8 @@ fi
 # The issue is that the MariaDB upstream level of hardening is lower than expected by Red Hat
 # We disable this option to the default compilation flags (which have higher level of hardening) will be used
 
-
-CFLAGS="$CFLAGS -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
-# force PIC mode so that we can build libmysqld.so
-CFLAGS="$CFLAGS -fPIC"
-
-%if %{with debug}
-# Override all optimization flags when making a debug build
-# -D_FORTIFY_SOURCE requires optimizations enabled. Disable the fortify.
-%undefine _fortify_level
-CFLAGS=`echo "$CFLAGS" | sed -r 's/-O[0123]//'`
-
-CFLAGS="$CFLAGS -O0 -g"
-
-# Fixes for Fedora 32 & Rawhide (GCC 10.0):
-%if 0%{?fedora} >= 32
-CFLAGS="$CFLAGS -Wno-error=class-memaccess"
-CFLAGS="$CFLAGS -Wno-error=enum-conversion"
-# endif f32
-%endif
-# endif debug
-%endif
-
-CXXFLAGS="$CFLAGS"
-CPPFLAGS="$CFLAGS"
-export CFLAGS CXXFLAGS CPPFLAGS
-
-
-# Print all Cmake options values; "-LAH" means "List Advanced Help"
-cmake -B %{_vpath_builddir} -LAH
+# Print all cached CMake options values; "-N" means to run in read-only mode; "-LAH" means "List Advanced Help" for each option
+cmake -B %{_vpath_builddir} -N -LAH
 
 %cmake_build
 

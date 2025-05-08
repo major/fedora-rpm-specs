@@ -6,7 +6,7 @@
 
 Name:           OpenMesh
 Version:        %{pkg_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A generic and efficient polygon mesh data structure
 License:        BSD-3-Clause
 URL:            http://www.openmesh.org/
@@ -17,7 +17,6 @@ Source1:        README.Fedora
 # for unit tests, instead of using CMake FetchContent and git to retrieve the GTest sources.
 Patch0:         OpenMesh-11.0.0-gtest.patch
 
-BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -83,15 +82,14 @@ EOF
 done
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DCMAKE_BUILD_TYPE=RELEASE -DQT_VERSION=6 -DOPENMESH_BUILD_UNIT_TESTS=ON \
-%if 0%{?fedora} && 0%{?fedora} >= 43
 %if "%{?_lib}" == "lib64"
-    -DLIB_SUFFIX:STRING=64 \
-%endif
+    %{?_cmake_lib_suffix64} \
 %endif
 
 %{cmake_build}
-make -C %{_vpath_builddir} doc %{?_smp_mflags}
+%{cmake_build} -t doc
 
 # deduplicate documentation files (to avoid an rpmlint error in OpenMesh-doc.noarch)
 rdfind -makesymlinks true %{_vpath_builddir}/Build/share/OpenMesh/Doc/html
@@ -99,11 +97,11 @@ symlinks -rc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html
 
 %check
 %ifnarch s390x
-make -C %{_vpath_builddir} test %{?_smp_mflags}
+%ctest
 %endif
 
 %install
-make -C %{_vpath_builddir} install DESTDIR=%{buildroot}
+%cmake_install
 
 # Get rid of static libraries
 rm %{buildroot}%{_libdir}/*.a
@@ -159,6 +157,10 @@ done
 %doc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html/*
 
 %changelog
+* Tue May 06 2025 Cristian Le <git@lecris.dev> - 11.0.0-3
+- Allow CMake 4.0 build
+- Use standard cmake macros
+
 * Tue Mar 11 2025 Laurent Rineau <laurent.rineau@cgal.org> - 11.0.0-2
 - add missing build requirements for the OpenMesh test suite
 - temporarily disable the tests on s390x, because the I/O functions of OpenMesh

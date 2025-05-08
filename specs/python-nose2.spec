@@ -13,8 +13,8 @@ Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 Source1:        nose2.1
 
 BuildSystem:            pyproject
-BuildOption(install):   -l nose2
 BuildOption(generate_buildrequires): -e %{toxenv}-nocov
+BuildOption(install):   -l nose2
 # We remove nose2.tests from the buildroot in %%install.
 BuildOption(check):     -e nose2.tests*
 

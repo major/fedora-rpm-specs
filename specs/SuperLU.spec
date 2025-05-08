@@ -1,7 +1,7 @@
 %global genname superlu
 
 Name:		SuperLU
-Version:	7.0.0
+Version:	7.0.1
 Release:	%autorelease
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD-2-Clause AND GPL-2.0-or-later
@@ -9,12 +9,15 @@ URL:		https://portal.nersc.gov/project/sparse/superlu/
 Source0:	https://github.com/xiaoyeli/superlu/archive/v%{version}/%{genname}-%{version}.tar.gz
 
 # Use a pre-made configuration file for Make
-Source1:      %{name}-fedora-make.inc.in
+Source1:     %{name}-fedora-make.inc.in
 
-Patch0:	%{genname}-removemc64.patch
+Patch0:	 %{genname}-removemc64.patch
 
 # Fix ldflags of example files
-Patch1:       %{name}-fix_example_builds.patch
+Patch1:      %{name}-fix_example_builds.patch
+
+# Fix 'VERSION_BugFix' number
+Patch2:      %{name}-%{version}-fix_version.patch
 
 BuildRequires: pkgconfig(flexiblas)
 %if 0%{?epel}
@@ -52,6 +55,7 @@ The %{name}-doc package contains all the help HTML documentation.
 
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
 
 rm -f make.inc
 cp -pf %{SOURCE1} make.inc.in

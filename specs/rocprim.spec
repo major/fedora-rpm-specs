@@ -9,14 +9,17 @@
 # there is no debug package
 %global debug_package %{nil}
 
-# Option to test suite for testing on real HW:
+# Option to test suite for testing on real HW during build
 %bcond_with check
+# Option to build test subpackage
+%bcond_with test
+
 # For documentation
 %bcond_with doc
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
@@ -24,8 +27,6 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/%{name}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
-# Only headers, cmake infra
-BuildArch: noarch
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
 
@@ -43,7 +44,7 @@ BuildRequires:  doxygen
 BuildRequires:  python3dist(marshalparser)
 %endif
 
-%if %{with check}
+%if %{with check} || %{with test}
 BuildRequires:  gtest-devel
 %endif
 
@@ -55,9 +56,23 @@ for developing performant GPU-accelerated code on AMD ROCm platform.
 Summary:        ROCm parallel primatives
 Provides:       rocprim-static = %{version}-%{release}
 
+# the devel subpackage is only headers and cmake infra
+BuildArch: noarch
+
 %description devel
 The rocPRIM is a header-only library providing HIP parallel primitives
 for developing performant GPU-accelerated code on AMD ROCm platform.
+
+%if %{with test}
+%package test
+Summary:        upstream tests for ROCm parallel primatives
+Provides:       rocprim-test = %{version}-%{release}
+Requires:       rocprim-devel
+Requires:       gtest
+
+%description test
+tests for the rocPRIM package
+%endif
 
 %prep
 %setup -q -n %{upstreamname}-rocm-%{version}
@@ -70,7 +85,7 @@ for developing performant GPU-accelerated code on AMD ROCm platform.
 	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
 	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-%if %{with check}
+%if %{with check} || %{with test}
     -DBUILD_TEST=ON \
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
@@ -87,7 +102,13 @@ if [ -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt
 fi
 
+%if %{with test}
+# force the cmake test file to use absolute paths for its referenced binaries
+sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmake
+%endif
+
 %if %{with check}
+%check
 %ctest
 %endif
 
@@ -98,7 +119,20 @@ fi
 %{_includedir}/%{name}
 %{_datadir}/cmake/rocprim
 
+%if %{with test}
+%files test
+%{_bindir}/test*
+%dir %{_bindir}/%{name}
+%{_bindir}/%{name}/CTestTestfile.cmake
+%endif
+
+
 %changelog
+* Mon May 5 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-2
+- create test subpackage and add --with test flag
+- move during-build checks to %check section
+- change build to be noarch only for -devel subpackage so that arch-specific tests could be packaged in -test
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

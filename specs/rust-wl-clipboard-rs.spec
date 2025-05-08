@@ -5,7 +5,7 @@
 %global crate wl-clipboard-rs
 
 Name:           rust-wl-clipboard-rs
-Version:        0.8.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Access to the Wayland clipboard for terminal and other window-less applications
 
@@ -13,11 +13,6 @@ Summary:        Access to the Wayland clipboard for terminal and other window-le
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/wl-clipboard-rs
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Bump proptest-derive to 0.5
-# * Bump wayland-protocols to 0.32
-# * Bump wayland-protocols-wlr to 0.3
-Patch:          wl-clipboard-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

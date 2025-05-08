@@ -1,5 +1,5 @@
 Name:           upx
-Version:        5.0.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
@@ -44,6 +44,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Tue May 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.1-1
+- 5.0.1
+
 * Thu Feb 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.0-1
 - 5.0.0
 

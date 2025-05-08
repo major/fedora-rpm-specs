@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.51.9
+Version:        3.54.6
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -35,6 +35,9 @@ This is the command line interface for Oracle Cloud Infrastructure.}
 
 # Remove upper limits and pinned dependencies.
 sed -i -e 's/,[<=]\+[0-9\.]\+//' -e 's/==/>=/' setup.py
+
+# Ignore the version of certifi.
+sed -i -e 's/certifi>=[0-9\.]*/certifi/' setup.py
 
 # Work around a versioning bug when trying to find terminaltables.
 sed -i 's/terminaltables>=[0-9\.]\+/terminaltables/' setup.py

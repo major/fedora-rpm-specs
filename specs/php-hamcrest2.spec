@@ -6,7 +6,8 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    8c3d0a3f6af734494ad8f6fbbee0ba92422859f3
+%global gh_date      2025-04-30
+%global gh_commit    f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     hamcrest
 %global gh_project   hamcrest-php
@@ -15,43 +16,38 @@
 %bcond_without       tests
 
 Name:           php-hamcrest2
-Version:        2.0.1
-Release:        12%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        PHP port of Hamcrest Matchers
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+# git snapshot with tests
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 # Use generated autoloader instead of composer one
 Patch0:         bootstrap-autoload.patch
-# Upstream patch for testsuite
-Patch1:         upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json, require-dev:
-#               "phpunit/php-file-iterator": "^1.4 || ^2.0",
+#               "phpunit/php-file-iterator": "^1.4 || ^2.0 || ^3.0",
 #               "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0 || ^8.0 || ^9.0"
 BuildRequires:  phpunit9
-# composer.json, require:
-#      "php": "^5.3|^7.0|^8.0"
-BuildRequires:  php(language) >= 5.3
-# From phpcompatinfo report for 2.0.0
-BuildRequires:  php-reflection
+BuildRequires:  php(language) >= 7.4
+# From phpcompatinfo report for 2.1.1
 BuildRequires:  php-ctype
 BuildRequires:  php-dom
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 %endif
 
-Requires:       php(language) >= 5.3
-# From phpcompatinfo report for 2.0.0
+# composer.json, require:
+#      "php": "^7.4|^8.0"
+Requires:       php(language) >= 7.4
+# From phpcompatinfo report for 2.1.1
 Requires:       php-ctype
 Requires:       php-dom
-Requires:       php-pcre
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -73,8 +69,7 @@ Autoloader: %{_datadir}/php/%{ns_project}%{major}/autoload.php
 %setup -q -n %{gh_project}-%{gh_commit}
 
 %patch -P0 -p0 -b .rpm
-%patch -P1 -p1 -b .up
-find . -name \*.rpm -o -name \*.up -exec rm {} \;
+find . -name \*.rpm -exec rm {} \; -print
 
 # Move to Library tree
 mv hamcrest/%{ns_project}.php hamcrest/%{ns_project}/%{ns_project}.php
@@ -105,7 +100,7 @@ cd tests
 ret=0
 for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit9 --verbose || ret=1
+    $cmd %{_bindir}/phpunit9 || ret=1
   fi
 done
 exit $ret
@@ -122,6 +117,10 @@ exit $ret
 
 
 %changelog
+* Tue May  6 2025 Remi Collet <remi@remirepo.net> - 2.1.1-1
+- update to 2.1.1
+- raise dependency on PHP 7.4
+
 * Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 2.0.1-12
 - switch to phpunit9
 - re-license spec file to CECILL-2.1

@@ -5,7 +5,7 @@
 %global crate insta
 
 Name:           rust-insta
-Version:        1.42.2
+Version:        1.43.1
 Release:        %autorelease
 Summary:        Snapshot testing library for Rust
 

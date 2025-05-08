@@ -1,6 +1,6 @@
 Name:           CheMPS2
 Version:        1.8.9
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A spin-adapted implementation of DMRG for ab initio quantum chemistry
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -40,6 +40,7 @@ developing applications that use %{name}.
 %setup -q
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %cmake -DMKL=OFF -DLAPACK_LIBRARIES="-lflexiblas" -DENABLE_XHOST=OFF -DSHARED_ONLY=ON
 %cmake_build
@@ -65,6 +66,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 %{_libdir}/libchemps2.so
 
 %changelog
+* Tue May 06 2025 Cristian Le <git@lecris.dev> - 1.8.9-27
+- Allow CMake 4.0 build
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

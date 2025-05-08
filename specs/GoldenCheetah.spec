@@ -15,7 +15,7 @@ Version:        3.6
 Release:        0.32.RC4%{?dist}
 %else
 Version:        3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -30,7 +30,7 @@ Source1:        %{name}.desktop
 # https://github.com/GoldenCheetah/GoldenCheetah/issues/2690
 Source2:        %{name}.appdata.xml
 # Use Qwt Widget Library
-Patch0:         %{name}_20200614git5c84f7f.patch
+Patch0:         %{name}-3.7-qwtconfig.pri.patch
 Patch1:         %{name}_bison-3.8.patch
 
 BuildRequires:  gcc-c++
@@ -40,20 +40,26 @@ BuildRequires:  ImageMagick
 BuildRequires:  pkgconfig(libusb)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Charts)
-BuildRequires:  pkgconfig(Qt5QuickWidgets)
-BuildRequires:  pkgconfig(Qt5Multimedia)
-BuildRequires:  pkgconfig(Qt5Script)
-BuildRequires:  pkgconfig(Qt5SerialPort)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5Help)
-BuildRequires:  pkgconfig(Qt5WebKit)
-BuildRequires:  pkgconfig(Qt5Bluetooth)
-BuildRequires:  pkgconfig(Qt5WebEngine)
-BuildRequires:  pkgconfig(Qt5WebChannel)
-BuildRequires:  pkgconfig(Qt5Location)
-#BuildRequires:  pkgconfig(QxtCore-qt5)
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Charts)
+BuildRequires:  pkgconfig(Qt6QuickWidgets)
+BuildRequires:  pkgconfig(Qt6Multimedia)
+BuildRequires:  pkgconfig(Qt6SerialPort)
+BuildRequires:  pkgconfig(Qt6Svg)
+BuildRequires:  pkgconfig(Qt6Help)
+BuildRequires:  pkgconfig(Qt6Bluetooth)
+BuildRequires:  pkgconfig(Qt6WebEngineCore)
+BuildRequires:  pkgconfig(Qt6WebChannel)
+BuildRequires:  pkgconfig(Qt6Positioning)
+BuildRequires:  pkgconfig(Qt6Quick)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  pkgconfig(Qt6Network)
+BuildRequires:  pkgconfig(Qt6Concurrent)
+BuildRequires:  pkgconfig(Qt6Sql)
+BuildRequires:  pkgconfig(Qt6Xml)
+BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:  pkgconfig(Qt6QmlModels)
 BuildRequires:  pkgconfig(libical)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(zlib)
@@ -61,8 +67,9 @@ BuildRequires:  lmfit-devel
 BuildRequires:  libkml-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qttranslations
+BuildRequires:  qt6-linguist
+BuildRequires:  qt6-qttranslations
+BuildRequires:  qt6-qt5compat-devel
 BuildRequires:  R-core-devel
 BuildRequires:  R-Rcpp-devel
 BuildRequires:  R-RInside-devel
@@ -71,8 +78,8 @@ BuildRequires:  gsl-devel
 BuildRequires:  make
 Requires:       hicolor-icon-theme
 
-# qt5-qtwebengine-devel is missing on ppc64, ppc64le, s390x CPU architectures.
-ExclusiveArch:  %{qt5_qtwebengine_arches}
+# qt6-qtwebengine-devel is missing on ppc64, ppc64le, s390x CPU architectures.
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 %description
 #Golden Cheetah is a program for cyclists: 
@@ -111,8 +118,8 @@ find . -type f  \( -name "*.cpp" -o -name "*.h" \) -exec chmod a-x {} \;
 
 %build
 # Create translation files.
-lrelease-qt5 src/Resources/translations/*.ts
-%{_qt5_qmake} %{_qt5_qmake_flags}
+lrelease-qt6 src/Resources/translations/*.ts
+%{_qt6_qmake} %{_qt6_qmake_flags}
 %make_build
 
 %install
@@ -132,7 +139,7 @@ install -m 0644 src/Resources/translations/gc_{es,nl,zh-tw,pt-br,pt,ru,it,cs,ja,
 #icons
 for size in 256 48 32 16; do
   install -d %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps
-  convert doc/web/logo.jpg -resize ${size} %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/%{name}.png
+  magick doc/web/logo.jpg -resize ${size} %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/%{name}.png
 done
 
 %find_lang %{name} --all-name --with-qt
@@ -156,6 +163,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Sun May 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7-2
+- Porting to qt6
+- Add %%{name}-3.7-qwtconfig.pri.patch
+- Remove "env QT_QPA_PLATFORM=xcb" from GoldenCheetah.desktop
+
 * Sun May 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7-1
 - Update to 1:3.7-1
 - Add %%{name}_bison-3.8.patch

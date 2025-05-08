@@ -1,6 +1,6 @@
 Name: cockpit-session-recording
-Version: 17
-Release: 2%{?dist}
+Version: 19
+Release: 1%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.1-or-later
 URL:     https://github.com/Scribery/%{name}
@@ -26,41 +26,41 @@ Requires: cockpit-system
 Requires: tlog
 Requires: sssd-proxy
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-icons)) = 5.4.0
-Provides: bundled(npm(@patternfly/react-styles)) = 5.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
+Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
+Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(array-timsort)) = 1.0.3
-Provides: bundled(npm(attr-accept)) = 2.2.4
+Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(base64-js)) = 1.5.1
 Provides: bundled(npm(buffer)) = 6.0.3
-Provides: bundled(npm(comment-json)) = 4.2.3
+Provides: bundled(npm(comment-json)) = 4.2.5
 Provides: bundled(npm(core-util-is)) = 1.0.3
 Provides: bundled(npm(esprima)) = 4.0.1
-Provides: bundled(npm(file-selector)) = 2.1.0
-Provides: bundled(npm(focus-trap)) = 7.5.4
+Provides: bundled(npm(file-selector)) = 2.1.2
+Provides: bundled(npm(focus-trap)) = 7.6.2
 Provides: bundled(npm(has-own-prop)) = 2.0.0
 Provides: bundled(npm(ieee754)) = 1.2.1
-Provides: bundled(npm(ini)) = 4.1.0
-Provides: bundled(npm(jquery)) = 3.6.4
+Provides: bundled(npm(ini)) = 5.0.0
+Provides: bundled(npm(jquery)) = 3.7.1
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.5
+Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(repeat-string)) = 1.6.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.2.0
-Provides: bundled(npm(throttle-debounce)) = 5.0.0
+Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(xterm-addon-canvas)) = 0.4.0
-Provides: bundled(npm(xterm)) = 5.1.0
 
 %description
 Cockpit module providing session recording configuration and playback.
@@ -82,6 +82,15 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue May 6 2025 Packit <hello@packit.dev> - 19-1
+ * Update to PatternFly 6
+
+* Mon May 5 2025 Packit <hello@packit.dev> - 18-1
+ * Support testing against OStree images
+ * Fix player SearchEntry onClick
+ * Switch to @xterm/xterm and @xterm/addon-canvas
+ * stylelint: Update deprecated at-import-partial-extension
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

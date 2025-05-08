@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -54,6 +54,8 @@ Patch1: sane-backends-1.0.23-soname.patch
 Patch2: sane-backends-1.0.23-sane-config-multilib.patch
 # https://gitlab.com/sane-project/backends/-/merge_requests/862
 Patch3: backends-gcc15-bool-kw.patch
+# https://gitlab.com/sane-project/backends/-/merge_requests/871/diffs?commit_id=01a041c02cd7
+Patch4: 0001-pixma-Use-snprint-instead-of-sprintf-to-avoid-buffer.patch
 
 URL: http://www.sane-project.org
 
@@ -409,6 +411,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Tue May 06 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-4
+- fix crash in pixma (fedora#2358843)
+
 * Wed Feb 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-3
 - drop daemon %%pre scriptlet for F42 and newer
 

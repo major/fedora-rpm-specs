@@ -13,9 +13,10 @@ License:        MIT
 URL:            https://github.com/pydicom/pydicom-data
 Source:         %{url}/archive/%{commit}/pydicom-data-%{commit}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l data_store
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Test dependencies
 BuildRequires:  %{py3_dist pytest}
@@ -39,25 +40,7 @@ Summary:        %{summary}
 %description -n python3-pydicom-data %{common_description}
 
 
-%prep
-%autosetup -n pydicom-data-%{commit} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l data_store
-
-
-%check
-%pyproject_check_import
+%check -a
 %pytest -v
 
 

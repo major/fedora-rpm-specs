@@ -5,7 +5,7 @@
 %global crate wayland-protocols-misc
 
 Name:           rust-wayland-protocols-misc
-Version:        0.3.6
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Generated API for misc and deprecated wayland protocol extensions
 

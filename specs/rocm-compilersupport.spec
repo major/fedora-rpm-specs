@@ -58,10 +58,15 @@
 # Enable ppc and aarch64 builds
 %bcond_with alt_arch
 
+# There is a circular dependency with rocm-runtime
+# https://github.com/ROCm/llvm-project/issues/269
+# Turn this on when there isn't a rocm-runtime to use
+%bcond_with bootstrap
+
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        5.rocm%{rocm_version}%{?dist}
+Release:        6.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -269,6 +274,13 @@ Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
 %package -n rocm-llvm
 Summary:       The ROCm LLVM
 Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
+%if %{without bootstrap}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2362780
+#  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
+#  Failed to 'dlopen' libhsa-runtime64.so
+# Leave off the version so bootstrapping doesn't have to happen every release.
+Requires:      rocm-runtime-devel
+%endif
 
 %description -n rocm-llvm
 %{summary}
@@ -1233,6 +1245,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Tue May 6 2025 Tom Rix <Tom.Rix@amd.com> - 19-6.rocm6.4.0
+- handle dlopen of libhsa-runtime64.so
+
 * Thu Apr 24 2025 Marcus Rueckert <mrueckert@suse.de> - 19-5.rocm6.4.0
 - earlier packaging approaches used the hip package name instead of
   hipcc, provide/obsolete that package.

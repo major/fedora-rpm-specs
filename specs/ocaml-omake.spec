@@ -12,8 +12,8 @@ Summary:        Build system with automated dependency analysis
 # MIT
 # - lib/*
 #
-# LGPLv2 with the OpenSSL and OCaml linking exceptions
-# FIXME: This exception probably needs a new SPDX name
+# LGPL-2.1-only with the cryptsetup-OpenSSL-exception but the exception could not be applied to LGPL
+# so keeping as LGPL-2.1-only only
 # - src/clib/fam_inotify.c
 # - src/clib/fam_kqueue.c
 # - src/clib/fam_pseudo.h
@@ -30,7 +30,7 @@ Summary:        Build system with automated dependency analysis
 # - src/clib/unixsupport.h
 # - src/libmojave/*
 #
-# GPLv2 with the OCaml linking exception:
+# GPL-2.0-only WITH cryptsetup-OpenSSL-exception:
 # - doc/src/omake-doc.tex
 # - src/clib/omake_shell_sys.c
 # - src/clib/readline.c
@@ -43,11 +43,11 @@ Summary:        Build system with automated dependency analysis
 # - src/shell/omake_shell_sys.mli
 # - src/shell/omake_shell_sys_type.ml
 #
-# GPLv2+:
+# GPL-2.0-or-later:
 # - src/clib/lm_termsize.c
 # - src/env/omake_exp_lex.mli
 # - src/env/omake_exp_parse.mly
-License:        MIT AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
+License:        MIT AND LGPL-2.1-only AND GPL-2.0-only WITH cryptsetup-OpenSSL-exception AND GPL-2.0-or-later
 
 URL:            http://projects.camlcity.org/projects/omake.html
 VCS:            git:%{giturl}.git

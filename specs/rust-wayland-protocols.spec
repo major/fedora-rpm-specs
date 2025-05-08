@@ -5,7 +5,7 @@
 %global crate wayland-protocols
 
 Name:           rust-wayland-protocols
-Version:        0.32.6
+Version:        0.32.8
 Release:        %autorelease
 Summary:        Generated API for the officials wayland protocol extensions
 

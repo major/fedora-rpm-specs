@@ -5,7 +5,7 @@
 %global crate wayland-protocols-plasma
 
 Name:           rust-wayland-protocols-plasma
-Version:        0.3.6
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Generated API for the Plasma wayland protocol extensions
 
@@ -25,7 +25,7 @@ Generated API for the Plasma wayland protocol extensions.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Provides:       bundled(plasma-wayland-protocols) = 1.10.0
+Provides:       bundled(plasma-wayland-protocols) = 1.16.0
 
 %description    devel %{_description}
 

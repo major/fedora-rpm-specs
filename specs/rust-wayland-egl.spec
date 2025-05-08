@@ -5,7 +5,7 @@
 %global crate wayland-egl
 
 Name:           rust-wayland-egl
-Version:        0.32.5
+Version:        0.32.7
 Release:        %autorelease
 Summary:        Bindings to libwayland-egl
 

@@ -3,7 +3,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-executor-plugins
-Version:        9.3.3
+Version:        9.3.5
 Release:        %autorelease
 Summary:        Stable interface for interactions between Snakemake and its executor plugins
 
@@ -14,9 +14,11 @@ URL:            https://github.com/snakemake/snakemake-interface-executor-plugin
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-executor-plugins-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_interface_executor_plugins
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 %if %{without bootstrap}
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
@@ -37,27 +39,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-interface-executor-plugins %{common_description}
 
 
-%prep
-%autosetup -n snakemake-interface-executor-plugins-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_interface_executor_plugins
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 %if %{without bootstrap}
 %pytest -v tests/tests.py
 %endif

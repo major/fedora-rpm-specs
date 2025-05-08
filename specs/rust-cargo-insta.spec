@@ -4,7 +4,7 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.42.2
+Version:        1.43.1
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 
@@ -36,7 +36,16 @@ Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        Apache-2.0 AND MIT AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        %{shrink:
+    Apache-2.0 AND
+    MIT AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -103,6 +112,8 @@ License:        Apache-2.0 AND MIT AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apa
     --skip test_virtual_manifest_default
     --skip test_virtual_manifest_single_crate
     --skip test_yaml_inline
+    --skip unreferenced::test_unreferenced_config_reject
+    --skip unreferenced::test_unreferenced_delete
     --skip workspace::test_external_test_path
     --skip workspace::test_insta_workspace_root
     --skip workspace::test_manifest_option

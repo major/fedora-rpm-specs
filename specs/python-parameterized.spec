@@ -16,17 +16,27 @@ Patch:          https://github.com/wolever/parameterized/pull/169.patch
 # Fix tests to handle Python 3.13 stripping indents from docstrings
 Patch:          https://github.com/wolever/parameterized/pull/176.patch
 
-BuildArch:      noarch
+# Remove test dependency on PyPI mock
+#
+# Use `unittest.mock` from the Python standard library instead.
+#
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
+Patch:          https://github.com/wolever/parameterized/pull/186.patch
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l parameterized
+# - parameterized.test is only importable when running the tests
+BuildOption(check):     -e parameterized.test
+
+BuildArch:      noarch
 
 # Upstream supports tox, and in theory we could generate these by something like:
 #   %%pyproject_buildrequires -t -e %%{toxenv}-nose2,%%{toxenv}-pytest4,%%{toxenv}-unit
 # but upstream is not keeping up, and we would also have to patch in support
 # for environments after py311. It’s not worth it; we can more easily run the
 # tests manually and specify the BR’s manually. See %%check.
-BuildRequires:  python3dist(nose2)
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist nose2}
+BuildRequires:  %{py3_dist pytest}
 
 %description
 %{summary}.
@@ -39,36 +49,20 @@ Summary:        %{summary}
 %{summary}.
 
 
-%prep
-%autosetup -p1 -n parameterized-%{version}
-sed -r -i 's/^import mock/from unittest import mock/' parameterized/test.py
+%prep -a
 # Workaround for:
 #   Support pytest7
 #   https://github.com/wolever/parameterized/issues/167
 sed -r -i 's/assert_equal\(missing/# &/' parameterized/test.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files parameterized
-
-
-%check
+%check -a
 %{py3_test_envvars} %{python3} -m nose2 -v
 %pytest parameterized/test.py
 %{py3_test_envvars} %{python3} -m unittest -v parameterized.test
 
 
 %files -n python3-parameterized -f %{pyproject_files}
-# pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc CHANGELOG.txt README.rst
 
 

@@ -1,5 +1,5 @@
 Name:           atasm
-Version:        1.28
+Version:        1.29
 Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
@@ -48,12 +48,15 @@ popd
 
 %files
 %license LICENSE
-%doc VERSION.TXT README.md docs/atasm.blurb docs/atasm.txt
+%doc VERSION.TXT README.md docs/atasm.blurb docs/atasm.pdf
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 
 %changelog
+* Tue May 06 2025 Dan Horák <dan[at]danny.cz> - 1.29-1
+- update to 1.29 (rhbz#2364463)
+
 * Fri Apr 25 2025 Dan Horák <dan[at]danny.cz> - 1.28-1
 - update to 1.28 (rhbz#2362347)
 

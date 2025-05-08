@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc 1
+%bcond doc %[ %{defined fc42} || %{defined fc41} ]
 
 # For now, we treat https://github.com/wtclarke/mrs_nifti_standard as a bundled
 # dependency. However, it’s not clear if it makes sense to try to unbundle it
@@ -43,6 +43,11 @@ Source15:       mrs_tools-reshape.1
 Source16:       mrs_tools-split.1
 Source17:       mrs_tools-vis.1
 
+BuildSystem:            pyproject
+BuildOption(install):   -l nifti_mrs mrs_tools
+# - nifti_mrs.vis requires (via the VIS extra), the nonfree fsl-mrs
+BuildOption(check):     -e nifti_mrs.vis
+
 # The base package is arched due to endian-dependent test failures, but the
 # binary packages are noarch and contain no compiled code.
 %global debug_package %{nil}
@@ -51,8 +56,6 @@ Source17:       mrs_tools-vis.1
 # ExcludeArch: %%{ix86}.
 ExcludeArch:    %{ix86}
  
-BuildRequires:  python3-devel
-
 BuildRequires:  %{py3_dist pytest}
 
 %if %{with doc}
@@ -99,6 +102,11 @@ Provides:       bundled(mrs_nifti_standard) = %{std_version}
 Provides:       mrs_tools = %{version}-%{release}
 Obsoletes:      mrs_tools < 1.3.0-3
 
+%if %{without doc}
+# Removed for F43, so we can drop the Obsoletes after F45:
+Obsoletes:      python-nifti-mrs-doc < 1.3.3-5
+%endif
+
 %description -n python3-nifti-mrs %{common_description}
 
 
@@ -132,12 +140,7 @@ find ../mrs_nifti_standard-%{std_version} -mindepth 1 -maxdepth 1 -type f \
 ln ../mrs_nifti_standard-%{std_version}/LICENSE LICENSE-mrs_nifti_standard
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
+%build -a
 %if %{with doc}
 PYTHONPATH="${PWD}/src" %make_build -C apidoc latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
@@ -145,15 +148,13 @@ PYTHONPATH="${PWD}/src" %make_build -C apidoc latex \
 %endif
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l nifti_mrs mrs_tools
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE15}' '%{SOURCE16}' '%{SOURCE17}'
 
 
-%check
+%check -a
 %ifarch s390x
 # Tests fail when file endianness does not match host endianness
 # https://github.com/wtclarke/nifti_mrs_tools/issues/16

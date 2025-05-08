@@ -15,7 +15,6 @@ BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(readline)
-BuildRequires:  mysql-devel
 
 %description
 %{name} aims at providing a clean API, and the corresponding C++

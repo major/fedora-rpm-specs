@@ -4,12 +4,6 @@
 #global gitdate 20241117.082905
 #global shortcommit %%(c=%%{gitcommit}; echo ${c:0:7})
 
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-%global orcus_version 0.20
-%else
-%global orcus_version 0.18
-%endif
-
 Name:           LabPlot
 Version:        2.12.0%{?gitdate:~%{gitdate}.%{shortcommit}}
 Release:        %autorelease
@@ -124,9 +118,6 @@ This package contains the LabPlot Software Development Kit.
 
 %prep
 %autosetup -p1 -n %{genname}-%{!?gitcommit:%{version}}%{?gitcommit}
-sed -i 's|${PC_LIBORIGIN_INCLUDE_DIRS}|/usr/include/liborigin|' cmake/FindLibOrigin.cmake
-sed -i 's|${PC_ORCUS_INCLUDE_DIRS}|/usr/include/liborcus-%{orcus_version}|' cmake/FindOrcus.cmake
-sed -i 's|${PC_IXION_INCLUDE_DIRS}|/usr/include/libixion-%{orcus_version}|' cmake/FindOrcus.cmake
 
 %build
 %cmake_kf6

@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.9.1
+Version:        4.9.2
 Release:        1%{?dist}
 Summary:        Distribution compose tool
 
@@ -139,6 +139,13 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Tue May 06 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.2-1
+- Drop compatibility with Koji < 1.32 (lsedlar)
+- kiwibuild: Add support for use_buildroot_repo option (lsedlar)
+- gather: Resolve symlinks before linking packages (lsedlar)
+- Make requests instrumentation optional (lsedlar)
+- Fix incorrect log line (lsedlar)
+
 * Thu Apr 03 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.1-1
 - util: Fix typo in regex for container digests (lsedlar)
 - Resolve container tags to digests (lsedlar)

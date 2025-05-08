@@ -6,6 +6,8 @@
 %global with_libs %[%{defined fedora} || %{defined epel} || %{defined eln}]
 # requires qt-4.x
 %global with_qt %{defined fedora}
+# scons is not available in RHEL
+%global with_bundled_scons %[%{defined eln} || %{defined rhel}]
 
 %if 0%{?epel}
 Name:           gpsd-epel
@@ -13,13 +15,21 @@ Name:           gpsd-epel
 Name:           gpsd
 %endif
 Version:        3.25
-Release:        16%{?dist}
+Release:        17%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
 License:        BSD-2-Clause
 URL:            https://gpsd.gitlab.io/gpsd/index.html
 Source0:        https://download-mirror.savannah.gnu.org/releases/gpsd/%{pkgname}-%{version}.tar.gz
+%if %{with_bundled_scons}
+# used only for building
+%global scons_ver 4.9.1
+%global scons python3 scons-%{scons_ver}/scripts/scons.py
+Source1:        https://github.com/SCons/scons/archive/%{scons_ver}/scons-%{scons_ver}.tar.gz
+%else
+%global scons scons
+%endif
 Source11:       gpsd.sysconfig
 
 # Add old status names to gps.h for compatibility
@@ -33,7 +43,9 @@ BuildRequires:  ncurses-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  gtk3-devel
+%if !%{with_bundled_scons}
 BuildRequires:  python3-scons
+%endif
 BuildRequires:  python3-gobject
 BuildRequires:  python3-cairo
 BuildRequires:  python3-pyserial
@@ -151,6 +163,10 @@ do not reference it or depend on it in any way.
 %patch -P 1 -p1 -b .apistatus
 %patch -P 2 -p1 -b .sconsflags
 
+%if %{with_bundled_scons}
+%setup -q -T -D -a 1
+%endif
+
 # don't try reloading systemd when installing in the build root
 sed -i 's|systemctl daemon-reload|true|' SConscript
 
@@ -163,7 +179,7 @@ export CCFLAGS="%{optflags}"
 export LINKFLAGS="%{__global_ldflags}"
 
 # breaks with %%{_smp_mflags}
-scons \
+%{scons} \
     dbus_export=yes \
     systemd=yes \
 %if %{with_qt}
@@ -197,7 +213,7 @@ scons \
 export CCFLAGS="%{optflags}"
 export LINKFLAGS="%{__global_ldflags}"
 
-DESTDIR=%{buildroot} scons install systemd_install udev-install
+DESTDIR=%{buildroot} %{scons} install systemd_install udev-install
 
 %if %{with_core}
 # use the old name for udev rules
@@ -379,6 +395,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Tue May 06 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-17
+- bundle scons in eln and rhel source rpm
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        4.0.1
-Release:        2%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -96,6 +96,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Tue May 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
+- 4.0.2
+
 * Mon Apr 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-2
 - Use release tarball
 

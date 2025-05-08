@@ -1,5 +1,5 @@
 Name:           python-charset-normalizer
-Version:        3.4.1
+Version:        3.4.2
 Release:        %autorelease
 Summary:        The Real First Universal Charset Detector
 # SPDX
@@ -44,9 +44,7 @@ sed -i 's/"mypy.*"//' pyproject.toml
 %pyproject_save_files charset_normalizer
 
 %check
-# The ignore is required until
-# https://github.com/jawah/charset_normalizer/issues/591 is fixed
-%pytest -W ignore::PendingDeprecationWarning
+%pytest
 
 %files -n python3-charset-normalizer -f %{pyproject_files}
 %license LICENSE

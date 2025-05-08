@@ -10,9 +10,10 @@ URL:            https://github.com/ohsu-comp-bio/py-tes
 # GitHub source archive.
 Source:         %{url}/archive/%{version}/py-tes-%{version}.tar.gz
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l tes
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Most of the dependencies in tests/requirements.txt pertain to linting and
 # coverage analysis. (Plus, the package wants to use the deprecated nose
@@ -38,24 +39,7 @@ Summary:        %{summary}
 %description -n python3-py-tes %{common_description}
 
 
-%prep
-%autosetup -n py-tes-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l tes
-
-
-%check
+%check -a
 # Integration tests require a running server
 ignore="${ignore-} --ignore=tests/integration"
 

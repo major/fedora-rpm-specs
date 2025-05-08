@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a7
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -302,7 +302,7 @@ BuildRequires: libappstream-glib
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
-BuildRequires: %{python_wheel_pkg_prefix}-wheel-wheel
+BuildRequires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
 %endif
 %endif
 
@@ -377,6 +377,20 @@ Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.pat
 #
 # See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
 Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
+
+# 00460 # f876c748b89770cfee4148c3dd3acbc3dd527eb6
+# gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
+#
+# (actual changes in .whl files removed to make this patch smaller)
+#
+# gh-127906: Add missing sys import to test_cppext
+Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
+
+# 00461 # 920175020b21c0aff5edcc4c28d688b5061f591c
+# Downstream only: Install wheel in test venvs when setuptools < 71
+#
+# This can be removed when Fedora 41 goes EOL (or updates setuptools).
+Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
 
 # (New patches go here ^^^)
 #
@@ -635,7 +649,7 @@ Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
 
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: %{python_wheel_pkg_prefix}-wheel-wheel
+Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
@@ -700,7 +714,7 @@ Summary: Free Threading (PEP 703) version of the Python runtime
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: %{python_wheel_pkg_prefix}-wheel-wheel
+Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
 License: %{libs_license}
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
@@ -1726,6 +1740,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon May 05 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~a7-3
+- Drop requirement on python-wheel-wheel with setuptools >= 71
+
 * Tue Apr 22 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.14.0~a7-2
 - Apply Intel's CET for mitigation against control-flow hijacking attacks
 

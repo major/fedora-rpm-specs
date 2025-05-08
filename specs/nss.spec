@@ -1,5 +1,5 @@
 %global nspr_version 4.36.0
-%global nss_version 3.110.0
+%global nss_version 3.111.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+5]
+%global nspr_release %[%baserelease+6]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -1087,6 +1087,9 @@ fi
 
 
 %changelog
+* Mon May 05 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.111.0-1
+- Update NSS to 3.111.0
+
 * Tue Apr 22 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.110.0-2
 - Dissable test ssl_policy_pkix_oscp due to dns resolution issues on the host
 - Related: FC-1613

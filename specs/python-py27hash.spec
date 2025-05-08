@@ -12,13 +12,14 @@ URL:            https://github.com/neuml/py27hash
 # The GitHub tarball contains tests; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/py27hash-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -l py27hash
+
 # Since the package previously had an arch-dependent failure, we build on all
 # platforms (the base package is not noarch) to flush out any similar issues.
 # However, we produce only a noarch binary package. Since there is no compiled
 # code, there is no debug package.
 %global debug_package %{nil}
-
-BuildRequires:  python3-devel
 
 %global common_description %{expand:
 This package helps ease the migration from Python 2 to 3 for applications that
@@ -38,24 +39,7 @@ BuildArch:      noarch
 %description -n python3-py27hash %{common_description}
 
 
-%prep
-%autosetup -n py27hash-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l py27hash
-
-
-%check
+%check -a
 # See scripts/tests.sh, which we have here slightly modified for our purposes:
 SRC_DIR='%{buildroot}%{python3_sitelib}'
 TEST_DIR="${PWD}/test/python"

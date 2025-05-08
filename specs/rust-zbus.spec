@@ -6,7 +6,7 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        5.5.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        API for D-Bus communication
 

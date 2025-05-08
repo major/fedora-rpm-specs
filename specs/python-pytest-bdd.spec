@@ -16,17 +16,17 @@ Source11:       pytest-bdd-generate.1
 Source12:       pytest-bdd-migrate.1
 
 BuildSystem:            pyproject
-BuildOption(install):   pytest_bdd
 BuildOption(generate_buildrequires): -t
+BuildOption(install):   -L pytest_bdd
 
 BuildArch:      noarch
 
 # Required for: tests/feature/test_report.py::test_complex_types
 # Also in pyproject.toml:[tool.poetry.group.dev.dependencies]
-BuildRequires:  python3dist(pytest-xdist) >= 3.3.1
+BuildRequires:  %{py3_dist pytest-xdist} >= 3.3.1
 
 # Required for: tests/feature/test_tags.py (top-level pkg_resources import)
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  %{py3_dist setuptools}
 
 %global common_description %{expand:
 pytest-bdd implements a subset of the Gherkin language to enable automating

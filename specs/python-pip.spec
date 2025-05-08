@@ -179,8 +179,6 @@ Requires:       ca-certificates
 %{crypt_compat_recommends 3.11}
 %{crypt_compat_recommends 3.10}
 %{crypt_compat_recommends 3.9}
-%{crypt_compat_recommends 3.8}
-%{crypt_compat_recommends 3.7}
 %endif
 
 %description -n %{python_wheel_pkg_prefix}-%{srcname}-wheel

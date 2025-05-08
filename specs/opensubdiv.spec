@@ -25,6 +25,19 @@ Patch:         	%{name}-rpath.patch
 # make doxygen generated files consistent across builds & architectures
 Patch:          opensubdiv-3.5.0-reproducible-docs.patch
 
+# Downstream-only: do not compile static libraries
+#
+# When compiling shared libraries, do not compile static libraries. This
+# patch suffices for Linux, but would have issues on some other platforms,
+# and it’s not quite the behavior we would probably suggest upstream if we
+# tried.
+#
+# We need to patch this rather than removing static libraries after the
+# fact because the static libraries would still appear in the installed
+# CMake files, causing problems for other packages like OpenUSD that want
+# to link OpenSubdiv.
+Patch:          0001-Downstream-only-do-not-compile-static-libraries.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  graphviz-devel
@@ -93,10 +106,6 @@ make test V=1
 
 %install
 %cmake_install
-
-# Remove static files
-find %{buildroot} -name '*.la' -delete
-find %{buildroot} -name '*.a' -delete
 
 %files
 %license LICENSE.txt

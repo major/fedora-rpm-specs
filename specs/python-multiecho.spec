@@ -18,9 +18,10 @@ Source:         %{url}/archive/%{version}/multiecho-%{version}.tar.gz
 # https://github.com/Donders-Institute/multiecho/commit/c9d355d012c4603700489d5a192abc1e8818cba9
 Patch:          %{url}/commit/c9d355d012c4603700489d5a192abc1e8818cba9.patch
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l multiecho
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %if %{with tests}
 # setup.py: tests_require
@@ -42,8 +43,7 @@ Summary:        %{summary}
 %description -n python3-multiecho %{common_description}
 
 
-%prep
-%autosetup -n multiecho-%{version} -p1
+%prep -a
 # Remove the shebang from the multiecho.combination module; upstream seems to
 # have intended it to be directly executable as a script when working on the
 # source, but it will not be installed with the executable bit set, so the
@@ -52,21 +52,7 @@ Summary:        %{summary}
 sed -r -i '1{/^#!/d}' multiecho/combination.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l multiecho
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 %pytest
 %endif

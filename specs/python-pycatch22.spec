@@ -30,7 +30,9 @@ Source:         %{forgesource}
 #   https://github.com/DynamicsAndNeuralSystems/catch22/issues/29
 Patch:          0001-Downstream-only-use-unbundled-catch22-library.patch
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l pycatch22 catch22_C
+
 BuildRequires:  gcc
 
 # See comments above the patch to unbundle the catch22 C implementation.
@@ -56,32 +58,13 @@ Summary:        %{summary}
 %description -n python3-pycatch22 %{common_description}
 
 
-%prep
-%autosetup %{forgesetupargs} -p1
-
+%prep -a
 # Remove the bundled copy of the catch22 package, but not the Python extension
 # module implementation in the same directory.
 find src/C -type f ! -name 'catch22_wrap.c' -print -delete
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l pycatch22 catch22_C
-
-
-%check
-# We aren’t highly confident that the upstream test scripts have good coverage.
-# Let’s run an import ”smoke test” first just to be sure.
-%pyproject_check_import
-
+%check -a
 # There is no verification of output values; we are just checking that the
 # script *runs*.
 %{py3_test_envvars} '%{python3}' tests/testing.py

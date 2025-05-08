@@ -5,7 +5,7 @@
 %global crate ct-codecs
 
 Name:           rust-ct-codecs
-Version:        1.1.3
+Version:        1.1.5
 Release:        %autorelease
 Summary:        Constant-time hex and base64 codecs from libsodium reimplemented in Rust
 

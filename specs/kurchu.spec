@@ -1,0 +1,60 @@
+%global koji_minver 1.35
+
+Name:           kurchu
+Version:        0.4.3
+Release:        1%{?dist}
+Summary:        Assembles Fedora/CentOS resources to create artifact collections
+
+License:        GPL-2.0-or-later
+URL:            https://gitlab.com/VelocityLimitless/Projects/%{name}
+Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  scdoc
+Requires:       git-core
+Requires:       koji >= %{koji_minver}
+Requires:       python3-koji-cli-plugins >= %{koji_minver}
+Requires:       lftp
+Requires:       s3cmd
+Requires:       tree
+
+%description
+%{summary}.
+
+
+%prep
+%autosetup -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+
+%pyproject_save_files -L %{name}
+
+mkdir -p %{buildroot}%{_mandir}/man5
+scdoc < docs/%{name}.toml.5.scd > %{buildroot}%{_mandir}/man5/%{name}.toml.5
+
+%check
+%pytest
+
+
+%files -f %{pyproject_files}
+%license COPYING
+%doc README.md examples
+%{_bindir}/%{name}
+%{_mandir}/man5/%{name}.toml.5*
+
+
+%changelog
+* Tue May 06 2025 Neal Gompa <ngompa@velocitylimitless.com> - 0.4.3-1
+- Initial package

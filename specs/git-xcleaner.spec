@@ -1,6 +1,6 @@
 Name:           git-xcleaner
-Version:        2.0
-Release:        4%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 
 Summary:        Interactive git branch removal TUI
 
@@ -41,6 +41,12 @@ install -Dpm 644 man/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue May 06 2025 Lukas Zapletal <lzap+rpm@redhat.com> - 3.1-1
+- New upstream release 3.1
+
+* Tue May 06 2025 Lukas Zapletal <lzap+rpm@redhat.com> - 3.0-1
+- New upstream release 3.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

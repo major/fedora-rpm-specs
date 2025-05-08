@@ -1,13 +1,11 @@
 Name:           spice
-Version:        0.15.1
-Release:        8%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Implements the SPICE protocol
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://www.spice-space.org/
 Source0:        http://www.spice-space.org/download/releases/%{name}-%{version}.tar.bz2
-Source1:        http://www.spice-space.org/download/releases/%{name}-%{version}.tar.bz2.sig
-Source2:        victortoso-E37A484F.keyring
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=613529
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -16,19 +14,19 @@ ExclusiveArch:  x86_64
 ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 riscv64
 %endif
 
-BuildRequires: make
+BuildRequires:  meson ninja-build
 BuildRequires:  gcc gcc-c++
 BuildRequires:  pkgconfig
 BuildRequires:  glib2-devel >= 2.22
-BuildRequires:  spice-protocol >= 0.14.0
+BuildRequires:  spice-protocol >= 0.14.5
 BuildRequires:  opus-devel
 BuildRequires:  pixman-devel openssl-devel libjpeg-devel
 BuildRequires:  libcacard-devel cyrus-sasl-devel
 BuildRequires:  lz4-devel
 BuildRequires:  gstreamer1-devel gstreamer1-plugins-base-devel
 BuildRequires:  orc-devel
-BuildRequires:  gnupg2
 BuildRequires:  git-core
+BuildRequires:  python3-pyparsing
 
 %description
 The Simple Protocol for Independent Computing Environments (SPICE) is
@@ -65,22 +63,23 @@ using spice-server, you will need to install spice-server-devel.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -S git_am
 
 
 %build
-%define configure_client --disable-client
-%configure --enable-smartcard --disable-client --enable-lz4 --enable-gstreamer=1.0 --disable-celt051 --disable-werror
-make %{?_smp_mflags} WARN_CFLAGS='' V=1
+%meson \
+	-Dopus=enabled \
+	-Dsmartcard=enabled \
+	-Dlz4=true \
+	-Dgstreamer=1.0
 
+%meson_build
+
+%check
+%meson_test
 
 %install
-make DESTDIR=%{buildroot} install
-rm -f %{buildroot}%{_libdir}/libspice-server.a
-rm -f %{buildroot}%{_libdir}/libspice-server.la
-mkdir -p %{buildroot}%{_libexecdir}
-
+%meson_install
 
 %ldconfig_scriptlets server
 
@@ -98,6 +97,9 @@ mkdir -p %{buildroot}%{_libexecdir}
 
 
 %changelog
+* Tue May 06 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.16.0-1
+- new version
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

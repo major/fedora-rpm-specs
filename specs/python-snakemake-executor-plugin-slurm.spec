@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        0.15.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -13,9 +13,11 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_slurm
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  snakemake >= 8
 %if %{with tests}
@@ -34,26 +36,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-executor-plugin-slurm %{common_description}
 
 
-%prep
-%autosetup -n snakemake-executor-plugin-slurm-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_slurm
-
-
-%check
-%pyproject_check_import
-
+%check -a
 %if %{with tests}
 %pytest -v tests/tests.py
 %endif

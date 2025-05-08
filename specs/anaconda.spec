@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.17
+Version: 43.18
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -38,7 +38,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.63-1
+%define pykickstartver 3.64-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.12.1-1
 %define rpmver 4.15.0
@@ -502,6 +502,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 06 2025 Packit <hello@packit.dev> - 43.18-1
+- liveinst: Propagate the AT-SPI bus address to Anaconda for Wayland (neal)
+- Include bootc command in expected pykickstart commands (ppolawsk)
+- docs: Collect release notes for F42 (k.koukiou)
+- Revert "Do not copy resolv.conf to target system at the end of installation"
+  (mkolman)
+- README-testing-changes.rst: add "newc:" syntax (butirsky)
+- fix initrd syntax in README-testing-changes.rst (butirsky)
+
 * Tue Apr 29 2025 Packit <hello@packit.dev> - 43.17-1
 - pyanaconda: storage: efi: never try to decode utf8 when calling efibootmgr
   (k.koukiou)

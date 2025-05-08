@@ -14,12 +14,14 @@ Source0:        %{pypi_source pymapvbvd}
 Source1:        pymapvbvd-test-data.tar.zst
 Source2:        get_test_data.sh
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x tests
+BuildOption(install):   -l mapvbvd
+
 BuildArch:      noarch
 # PyMapVBVD assumes the platform is little-endian
 # https://bugzilla.redhat.com/show_bug.cgi?id=2225518
 ExcludeArch:    s390x
-
-BuildRequires:  python3-devel
 
 %global common_description %{expand:
 Python port of the Matlab mapVBVD tool for reading Siemens raw data 'twix'
@@ -49,22 +51,15 @@ Summary:        %{summary}
 rm -v versioneer.py
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -x tests
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l mapvbvd
-
-
-%check
+%check -a
 %pytest -v
 
 

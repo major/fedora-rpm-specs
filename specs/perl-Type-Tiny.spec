@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
-Version:        2.006000
-Release:        2%{?dist}
+Version:        2.008002
+Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -62,6 +62,7 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
 # optional
+BuildRequires:  perl(boolean)
 # N/A in Fedora: BuildRequires:  perl(Class::InsideOut)
 BuildRequires:  perl(Class::ISA)
 %if "%{version}" >= "2.000001"
@@ -189,6 +190,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Mon May 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.008002-1
+- 2.008002 bump (rhbz#2357958)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.006000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

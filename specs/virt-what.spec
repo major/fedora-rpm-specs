@@ -1,6 +1,6 @@
 Name:           virt-what
 Version:        1.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Detect if we are running in a virtual machine
 License:        GPL-2.0-or-later
 
@@ -13,6 +13,11 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
+
+# Add detection of systemd-nspawn (upstream)
+Patch:          0001-virt-what-detect-systemd-nspawn.patch
+# Add detection of WSL2 (upstream)
+Patch:          0002-Add-support-for-WSL2.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -98,7 +103,7 @@ autoreconf -i
 
 
 %build
-%configure
+%configure || { cat config.log; exit 1; }
 make
 
 
@@ -121,6 +126,9 @@ fi
 
 
 %changelog
+* Tue May 06 2025 Richard W.M. Jones <rjones@redhat.com> - 1.27-3
+- Add support for systemd-nspawn and WSL2
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

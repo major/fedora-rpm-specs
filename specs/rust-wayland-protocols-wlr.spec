@@ -5,7 +5,7 @@
 %global crate wayland-protocols-wlr
 
 Name:           rust-wayland-protocols-wlr
-Version:        0.3.6
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Generated API for the WLR wayland protocol extensions
 
@@ -15,7 +15,7 @@ License:        MIT AND HPND-sell-variant
 URL:            https://crates.io/crates/wayland-protocols-wlr
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-#  * Exclude unwanted files
+# * Exclude unwanted files
 Patch:          wayland-protocols-wlr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

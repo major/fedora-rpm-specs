@@ -5,7 +5,7 @@
 # https://github.com/golang/sys
 %global goipath         golang.org/x/sys
 %global forgeurl        https://github.com/golang/sys
-Version:                0.32.0
+Version:                0.33.0
 
 %gometa
 

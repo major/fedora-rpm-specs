@@ -19,8 +19,8 @@ Source:         %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
 Patch:          %{url}/pull/284.patch
 
 BuildSystem:            pyproject
-BuildOption(install):   -l pyrsistent _pyrsistent_version pvectorc
 BuildOption(generate_buildrequires): requirements-filtered.txt
+BuildOption(install):   -l pyrsistent _pyrsistent_version pvectorc
 
 BuildRequires:  gcc
 

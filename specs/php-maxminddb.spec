@@ -3,13 +3,13 @@
 #
 # remirepo spec file for php-maxminddb
 #
-# Copyright (c) 2018-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2018-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit   5b2d7a721dedfaef9dc20822c5fe7d26f9f8eb90
+%global gh_commit   815939e006b7e68062b540ec9e86aaa8be2b6ce4
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    maxmind
 %global gh_project  MaxMind-DB-Reader-php
@@ -29,8 +29,8 @@
 
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
-Version:       1.12.0
-Release:       2%{?dist}
+Version:       1.12.1
+Release:       1%{?dist}
 License:       Apache-2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -228,6 +228,10 @@ exit $ret
 
 
 %changelog
+* Tue May  6 2025 Remi Collet <remi@remirepo.net> - 1.12.1-1
+- update to 1.12.1
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

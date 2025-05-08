@@ -15,7 +15,6 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(cppzmq)
-BuildRequires:  mysql-devel
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
