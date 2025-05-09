@@ -10,16 +10,19 @@ URL:            https://github.com/leshchenko1979/reretry
 # Source:         %%{pypi_source reretry}
 Source:         %{url}/archive/%{version}/reretry-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): tests/test-requirements.txt
+BuildOption(install):   -l reretry
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # Optional dependency; allows preserving function signatures. Add a BR to make
 # sure it is available, and so that we test with it.
-BuildRequires:  python3dist(decorator)
+BuildRequires:  %{py3_dist decorator}
 
 # Depend explicitly on pytest, not just indirectly via pytest-asyncio in
 # tests/requirements.txt.
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 An easy to use retry decorator.
@@ -53,29 +56,12 @@ From original retry:
 Summary:        %{summary}
 
 # Optional dependency; allows preserving function signatures.
-Recommends:     python3dist(decorator)
+Recommends:     %{py3_dist decorator}
 
 %description -n python3-reretry %{common_description}
 
 
-%prep
-%autosetup -n reretry-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires tests/test-requirements.txt
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l reretry
-
-
-%check
+%check -a
 %pytest
 
 

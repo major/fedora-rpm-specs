@@ -2,10 +2,10 @@
 %global srcname GeoIP2-python
 %global desc This package provides an API for the GeoIP2 web services.
 %global test_data MaxMind-DB
-%global test_data_rls 1271107ccad72c320bc7dc8aefd767cba550101a
+%global test_data_rls b5ff09ebb67d959ae68118a058fe344a6994b046
 
 Name:           python-%{pypi_name}
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 Summary:        MaxMind GeoIP2 API
 

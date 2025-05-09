@@ -7,8 +7,8 @@
 
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
-Version: 6.3.4
-Release: 2%{?dist}
+Version: 6.3.5
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -123,6 +123,9 @@ Requires:       qqc2-desktop-style%{?_isa}
 %endif
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
+- 6.3.5
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.4-2
 - Rebuild (qt6)
 

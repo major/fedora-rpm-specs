@@ -1,5 +1,5 @@
 Name:    plasma-systemmonitor
-Version: 6.3.4
+Version: 6.3.5
 Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
@@ -76,6 +76,9 @@ resources.
 %{_kf6_datadir}/kconf_update/plasma-systemmonitor*
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
+- 6.3.5
+
 * Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
 - 6.3.4
 

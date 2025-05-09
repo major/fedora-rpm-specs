@@ -10,9 +10,11 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-cluster-s
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-cluster-sync-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_cluster_sync
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
@@ -29,27 +31,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-executor-plugin-cluster-sync %{common_description}
 
 
-%prep
-%autosetup -n snakemake-executor-plugin-cluster-sync-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_cluster_sync
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 %pytest -v tests/tests.py
 
 

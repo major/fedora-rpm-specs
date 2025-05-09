@@ -147,7 +147,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          7%{?with_debug:.debug}%{?dist}
+Release:          8%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -165,6 +165,7 @@ Source4:          https://github.com/PCRE2Project/pcre2/releases/download/pcre2-
 %endif
 Source6:          README.mariadb-docs
 Source8:          README.wsrep_sst_rsync_tunnel
+Source10:         mariadb.tmpfiles.d.in
 Source11:         mysql.service.in
 Source12:         mariadb-prepare-db-dir.sh
 Source14:         mariadb-check-socket.sh
@@ -534,10 +535,10 @@ Requires:         (mysql-selinux >= 1.0.10 if selinux-policy-targeted)
 %endif
 
 Requires:         coreutils
-
-# 'Recommends' instead of 'Requires' for systems without systemd - e.g. containers
-Recommends:       systemd
-
+# We require this to be present for %%{_tmpfilesdir}
+Requires:         systemd
+# Make sure it's there when scriptlets run, too
+%{?systemd_requires}
 # RHBZ#1496131; use 'iproute' instead of 'net-tools'
 Requires:         iproute
 
@@ -879,7 +880,7 @@ cat %{SOURCE52} | tee -a mysql-test/unstable-tests
 cat %{SOURCE53} | tee -a mysql-test/unstable-tests
 %endif
 
-cp %{SOURCE2} %{SOURCE3} %{SOURCE11} %{SOURCE12} \
+cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
    %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} %{SOURCE73} scripts
 
 # Create a sysusers.d config file
@@ -1067,6 +1068,9 @@ chmod 0750 %{buildroot}%{logfiledir}
 touch %{buildroot}%{logfile}
 
 # PID file directory
+# current setting in my.cnf is to use /var/run/mariadb for creating pid file,
+# however since my.cnf is not updated by RPM if changed, we need to create mysqld
+# as well because users can have odd settings in their /etc/my.cnf
 mkdir -p %{buildroot}%{pidfiledir}
 
 # DB datadir
@@ -1099,6 +1103,10 @@ install -p -m 755 %{_vpath_builddir}/scripts/mariadb-prepare-db-dir %{buildroot}
 install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-socket %{buildroot}%{_libexecdir}/mariadb-check-socket
 install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-upgrade %{buildroot}%{_libexecdir}/mariadb-check-upgrade
 install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}%{_libexecdir}/mariadb-scripts-common
+
+# Install downstream version of tmpfiles
+install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
+echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{majorname}.conf
 
 # Install downstream version of sysusers.d config
 install -m0644 -D support-files/%{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
@@ -1661,6 +1669,7 @@ fi
 %attr(0660,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
+%{_tmpfilesdir}/%{majorname}.conf
 %{_sysusersdir}/%{name}.conf
 
 %if %{with cracklib}
@@ -1786,6 +1795,10 @@ fi
 %endif
 
 %changelog
+* Wed May 07 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-8
+- Bump release for package rebuild
+- Partial revert of the removal of the tmpfiles.d
+
 * Mon May 05 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-7
 - Bump release for package rebuild
 

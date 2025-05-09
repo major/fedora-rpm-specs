@@ -1,10 +1,10 @@
 %global npm_name aw-webui
 
-%global commit cb9a7ecc58de8f4ffcc674deb44a52e10b2c6225
+%global commit 9259df7e1084cdff43fb2ac9b956c29c308acfeb
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           nodejs-%{npm_name}
-Version:        0^20250323.%{short_commit}
+Version:        0^20250507.%{short_commit}
 Release:        %autorelease
 Summary:        A web-based UI for ActivityWatch, built with Vue.js
 
@@ -21,6 +21,8 @@ Source2:        %{npm_name}-%{short_commit}-nm-dev.tgz
 Source3:        %{npm_name}-%{short_commit}-bundled-licenses.txt
 Source4:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo.png
 Source5:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e2b135505fe5d6b3042960a638892cf/logo/logo.svg
+# Fix missing regenerator dependency
+Patch:          https://github.com/ActivityWatch/aw-webui/pull/677.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch

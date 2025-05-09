@@ -13,9 +13,11 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm-job
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-jobstep-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_slurm_jobstep
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  snakemake >= 8
 %if %{with tests}
@@ -35,27 +37,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-executor-plugin-slurm-jobstep %{common_description}
 
 
-%prep
-%autosetup -n snakemake-executor-plugin-slurm-jobstep-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_slurm_jobstep
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 %if %{with tests}
 %pytest -v tests/tests.py
 %endif

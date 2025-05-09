@@ -107,7 +107,13 @@ done
 patch -p1 < debian/patches/01_manpages.dpatch
 
 # Change paperconf to paper in 03_html2ps.dpatch
-sed -i 's|paperconf|paper --no-size|g' debian/patches/03_html2ps.dpatch
+sed -i \
+%if 0%{?rhel} && 0%{?rhel} < 10
+    's|paperconf|paper|g' \
+%else
+    's|paperconf|paper --no-size|g' \
+%endif
+     debian/patches/03_html2ps.dpatch
 
 # 03_html2ps.dpatch is against 1.0b5, adjust it to 1.0b6
 < debian/patches/03_html2ps.dpatch sed -e 's|/opt/misc/|/it/sw/share/www/|' | \

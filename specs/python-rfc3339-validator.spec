@@ -10,6 +10,9 @@ License:        MIT
 URL:            https://github.com/naimetti/rfc3339-validator
 Source:         %{pypi_source rfc3339_validator}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l rfc3339_validator
+
 BuildArch:      noarch
 
 # Drop the pytest-runner test dependency and “setup.py test” support
@@ -29,16 +32,14 @@ BuildArch:      noarch
 # https://github.com/naimetti/rfc3339-validator/pull/8
 Patch:          rfc3339-validator-0.1.4-drop-pytest-runner.patch
 
-BuildRequires:  python3-devel
-
 %if %{with tests}
 # We use manual BR’s rather than generating dependencies from tox (which uses
 # requirements_dev.txt) because dependencies there are pinned to exact versions
 # and most of them are linter, coverage, and other tools that we would need to
 # patch out.
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(strict-rfc3339)
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist hypothesis}
+BuildRequires:  %{py3_dist strict-rfc3339}
 %endif
 
 %global common_description %{expand:
@@ -53,28 +54,9 @@ Summary:        %{summary}
 %description -n python3-rfc3339-validator %{common_description}
 
 
-%prep
-%autosetup -n rfc3339_validator-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l rfc3339_validator
-
-
-%check
+%check -a
 %if %{with tests}
 %pytest
-%else
-%pyproject_check_import
 %endif
 
 

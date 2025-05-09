@@ -19,9 +19,12 @@ Source10:       ulid.1
 Source11:       ulid-build.1
 Source12:       ulid-show.1
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x pydantic
+BuildOption(install):   -l ulid
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # Test dependencies are defined in [envs.default] in hatch.toml. They have
 # tight version pins and include coverage tools; it is easier to maintain a
 # manual list.
@@ -60,27 +63,12 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-python-ulid pydantic
 
 
-%prep
-%autosetup -n python_ulid-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x pydantic
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l ulid
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
 
-%check
+%check -a
 %pytest -v
 
 

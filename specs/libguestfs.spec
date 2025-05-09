@@ -45,7 +45,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.55.10
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -104,7 +104,6 @@ BuildRequires: libselinux-utils
 BuildRequires: libselinux-devel
 BuildRequires: fuse, fuse-devel
 BuildRequires: pcre2-devel
-BuildRequires: file-devel
 BuildRequires: libvirt-devel
 BuildRequires: gperf
 BuildRequires: rpm-devel
@@ -266,12 +265,6 @@ BuildRequires: xz
 %if !0%{?rhel}
 BuildRequires: zerofree
 %endif
-%if !0%{?rhel}
-%ifnarch %{arm} aarch64 s390 s390x riscv64
-# http://zfs-fuse.net/issues/94
-BuildRequires: zfs-fuse
-%endif
-%endif
 BuildRequires: zstd
 
 # Main package requires the appliance.  This allows the appliance to
@@ -366,9 +359,6 @@ For enhanced features, install:
            libguestfs-ufs  adds UFS (BSD) support
 %endif
            libguestfs-xfs  adds XFS support
-%if !0%{?rhel}
-           libguestfs-zfs  adds ZFS support
-%endif
 
 For developers:
 
@@ -497,20 +487,6 @@ Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %description xfs
 This adds XFS support to %{name}.  Install it if you want to process
 disk images containing XFS.
-
-
-%if !0%{?rhel}
-%ifnarch %{arm} aarch64 s390 s390x riscv64
-%package zfs
-Summary:       ZFS support for %{name}
-License:       GPL-2.0-or-later
-Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description zfs
-This adds ZFS support to %{name}.  Install it if you want to process
-disk images containing ZFS.
-%endif
-%endif
 
 
 %package inspect-icons
@@ -851,13 +827,6 @@ move_to strace          zz-packages-rescue
 move_to vim-minimal     zz-packages-rescue
 move_to rsync           zz-packages-rsync
 move_to xfsprogs        zz-packages-xfs
-%if !0%{?rhel}
-%ifnarch %{arm} aarch64 s390 s390x riscv64
-move_to zfs-fuse        zz-packages-zfs
-%endif
-%else
-remove zfs-fuse
-%endif
 
 %if !0%{?rhel}
 # On Fedora you need kernel-modules-extra to be able to mount
@@ -974,14 +943,6 @@ rm ocaml/html/.gitignore
 
 %files xfs
 %{_libdir}/guestfs/supermin.d/zz-packages-xfs
-
-%if !0%{?rhel}
-%ifnarch %{arm} aarch64 s390 s390x riscv64
-%files zfs
-%{_libdir}/guestfs/supermin.d/zz-packages-zfs
-%endif
-%endif
-
 
 %files inspect-icons
 # no files
@@ -1104,6 +1065,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed May 07 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.10-2
+- Remove file-devel BR
+- Remove libguestfs-zfs subpackage
+
 * Sat Apr 26 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.10-1
 - New upstream development version 1.55.10
 - Fix macro in comment

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -298,7 +298,7 @@ BuildRequires: /usr/sbin/ifconfig
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
-BuildRequires: %{python_wheel_pkg_prefix}-wheel-wheel
+BuildRequires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
 %endif
 %endif
 
@@ -374,6 +374,18 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 #
 # See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
 Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
+
+# 00460 # f399a428258bbb149de1a9b8a62583bf77742eb0
+# gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
+#
+# (actual changes in .whl files removed to make this patch smaller)
+#
+# gh-127906: Add missing sys import to test_cppext
+Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
+
+# 00461 # 47f50dd1f049470c33edb114754529777ab2332f
+# Downstream only: Install wheel in test venvs when setuptools < 71
+Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
 
 # (New patches go here ^^^)
 #
@@ -637,7 +649,7 @@ Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
 
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: %{python_wheel_pkg_prefix}-wheel-wheel
+Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
@@ -1693,6 +1705,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue May 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.10-3
+- Drop requirement on python-wheel-wheel with setuptools >= 71
+
 * Tue Apr 22 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.10-2
 - Apply Intel's CET for mitigation against control-flow hijacking attacks
 

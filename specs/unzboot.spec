@@ -20,7 +20,7 @@ BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: meson
 BuildRequires: zlib
-BuildRequires: libzstd
+BuildRequires: libzstd-devel
 
 %description
 The unzboot program extracts a kernel vmlinuz image from

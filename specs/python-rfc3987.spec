@@ -7,9 +7,10 @@ License:        GPL-3.0-or-later
 URL:            https://codeberg.org/atufi/rfc3987
 Source:         %{pypi_source rfc3987}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l rfc3987
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global _description %{expand:
 This module provides regular expressions according to RFC 3986 “Uniform
@@ -27,28 +28,13 @@ Summary:        %{summary}
 %description -n python3-rfc3987 %{_description}
 
 
-%prep
-%autosetup -n rfc3987-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l rfc3987
-
+%install -a
 # Remove shebang from non-executable library file.
 # https://codeberg.org/atufi/rfc3987/pulls/19
 sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/rfc3987.py
 
 
-%check
+%check -a
 %{py3_test_envvars} %{python3} -m doctest -v rfc3987.py
 
 

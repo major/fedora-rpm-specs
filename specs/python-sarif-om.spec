@@ -17,11 +17,13 @@ Source:         %{pypi_source sarif_om}
 # Rebased on the released PyPI sdist (with different whitespace in setup.cfg)
 Patch:          sarif_om-1.0.4-setuptools-deprecations.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -l sarif_om
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 %if %{with regenerate}
-BuildRequires:  python3dist(jschema-to-python)
+BuildRequires:  %{py3_dist jschema-to-python}
 %endif
 BuildRequires:  dos2unix
 
@@ -42,8 +44,7 @@ Summary:        %{summary}
 %description -n python3-sarif-om %{common_description}
 
 
-%prep
-%autosetup -n sarif_om-%{version}
+%prep -a
 %if %{with regenerate}
 rm -rf sarif_om
 %endif
@@ -51,11 +52,7 @@ rm -rf sarif_om
 find . -type f -exec dos2unix --keepdate '{}' '+'
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
+%build -p
 %if %{with regenerate}
 # See the “Generation” section in README.rst.
 %{python3} -m jschema_to_python \
@@ -67,17 +64,9 @@ find . -type f -exec dos2unix --keepdate '{}' '+'
     --force \
     -vv
 %endif
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l sarif_om
-
-
-%check
 # Upstream does not provide any tests
-%pyproject_check_import
 
 
 %files -n python3-sarif-om -f %{pyproject_files}

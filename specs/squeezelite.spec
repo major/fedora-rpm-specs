@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   262994a989dc29ce3be4390c57c6a43373dfdca2
+%global commit   bb7ae0615f6e661c217a1c77fdff70122859c3c5
 %forgemeta
 
 # Allow AAC to be played directly in the client rather than
@@ -9,7 +9,7 @@
 
 
 Name:            squeezelite
-Version:         2.0.0.1517
+Version:         2.0.0.1533
 Release:         %autorelease
 Summary:         Headless music player for streaming from Lyrion Music Server
 

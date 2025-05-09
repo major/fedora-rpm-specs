@@ -17,15 +17,31 @@ URL:            https://github.com/TomGeorge1234/RatInABox
 # large that it is doubtful whether it is worth packaging them.
 Source:         %{pypi_source ratinabox}
 
+%if %{with torch}
+%ifarch %{x86_64} %{arm64}
+%global can_test_torch 1
+%endif
+%endif
+
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x test%{?with_gymnasium:,gymnasium}
+BuildOption(install):   -l ratinabox
+# Outer conditional avoids an empty BuildOption, which would be an error.
+%if %{without gymnasium} || !0%{?can_test_torch}
+BuildOption(check):     %{shrink:
+                        %{?!can_test_torch:-e '*.contribs.NeuralNetworkNeurons'}
+                        %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'}
+                        }
+%endif
+
 # The package is arched so that the BR and weak dependency on python-torch can
 # be conditionalized. It does not contain compiled machine code, so there are
 # no debugging symbols.
 %global debug_package %{nil}
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # (Plus, python-scikit-learn has dropped i686.)
 ExcludeArch:    %{ix86}
-
-BuildRequires:  python3-devel
 
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
@@ -56,35 +72,7 @@ Recommends:     (%{py3_dist torch} if (python3(x86-64) or python3(aarch-64)))
 %endif
 
 
-%prep
-%autosetup -n ratinabox-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x test%{?with_gymnasium:,gymnasium}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l ratinabox
-
-
-%check
-# Let’s do this in addition to running the tests, so we can be aware of any
-# issues in contribs that may not be tested.
-%if %{with torch}
-%ifarch %{x86_64} %{arm64}
-%global can_test_torch 1
-%endif
-%endif
-%{pyproject_check_import \
-    %{?!can_test_torch:-e '*.contribs.NeuralNetworkNeurons'} \
-    %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'} }
-
+%check -a
 %if %{without gymnasium}
 # Indirectly (via ratinabox/contribs/TaskEnvironment.py) requires pettingzoo:
 ignore="${ignore-} --ignore=tests/test_taskenv.py"

@@ -1,10 +1,10 @@
-#global candidate rc0
+%global candidate rc0
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
 
 # Project sub name
-%global pname trusted-firmware-a-lts
+%global pname trusted-firmware-a
 
 # This is a noarch package that can be built on any host architecture.
 # The default configuration is to allow building only on aarch64 via
@@ -13,16 +13,14 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.12.2
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Version: 2.13
+Release: 0.1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
-Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-v%{version}%{?candidate:-%{candidate}}.tar.gz
+Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
-# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34940
-Patch3:  0001-fix-imx_trdc.h-header-guard.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -59,7 +57,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %endif
 
 %prep
-%autosetup -n %{pname}-v%{version}%{?candidate:-%{candidate}} -p1
+%autosetup -n %{pname}-%{version}%{?candidate:-%{candidate}} -p1
 
 cp %SOURCE1 .
 
@@ -134,6 +132,9 @@ done
 %endif
 
 %changelog
+* Wed May 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.13-0.1.rc0
+- Update to 2.13 RC0
+
 * Mon Apr 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.2-1
 - Update to 2.12.2
 

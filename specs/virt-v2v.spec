@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.13
+Version:       2.7.14
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -276,6 +276,7 @@ done
 %{_libexecdir}/virt-v2v-in-place
 %endif
 %{_bindir}/virt-v2v-inspector
+%{_bindir}/virt-v2v-open
 %{_mandir}/man1/virt-v2v.1*
 %{_mandir}/man1/virt-v2v-hacking.1*
 %{_mandir}/man1/virt-v2v-input-vmware.1*
@@ -284,6 +285,7 @@ done
 %{_mandir}/man1/virt-v2v-in-place.1*
 %endif
 %{_mandir}/man1/virt-v2v-inspector.1*
+%{_mandir}/man1/virt-v2v-open.1*
 %{_mandir}/man1/virt-v2v-output-local.1*
 %{_mandir}/man1/virt-v2v-output-openstack.1*
 %if !0%{?rhel}
@@ -310,6 +312,10 @@ done
 
 
 %changelog
+* Wed May 07 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.14-1
+- New upstream development version 2.7.14
+- New tool: virt-v2v-open
+
 * Tue Apr 29 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.13-1
 - New upstream development version 2.7.13
 

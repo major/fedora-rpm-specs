@@ -1,5 +1,5 @@
 Name:           perl-Crypt-OpenSSL-RSA
-Version:        0.34
+Version:        0.35
 Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for RSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed May 07 2025 Xavier Bachelot <xavier@bachelot.org> - 0.35-1
+- Update to 0.35 (RHBZ#2364877)
+  - Fixes CVE-2024-2467 (RHBZ#2269568)
+
 * Mon May 05 2025 Xavier Bachelot <xavier@bachelot.org> - 0.34-1
 - Update to 0.34 (RHBZ#2364100)
 

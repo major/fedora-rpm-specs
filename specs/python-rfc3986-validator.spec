@@ -1,64 +1,50 @@
-%global srcname  rfc3986_validator
-%global slugname rfc3986_validator
-%global pkgname  rfc3986-validator
-%global forgeurl https://github.com/naimetti/rfc3986-validator
-
-%global common_description %{expand:
-A pure python RFC3986 validator.
-}
-
-%bcond_without tests
-
-Name:           python-%{pkgname}
+Name:           python-rfc3986-validator
 Version:        0.1.1
-%forgemeta
 Release:        %autorelease
 Summary:        Pure python RFC3986 validator
+
+# SPDX
 License:        MIT
-URL:            %{forgeurl}
-Source:         %{pypi_source}
+URL:            https://github.com/naimetti/rfc3986-validator
+Source:         %{pypi_source rfc3986_validator}
+
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install):   -l rfc3986_validator
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
-#This patch removes the pytest-runner from the setup.py config, because of its
-#deprecation upstream (see https://pypi.org/project/pytest-runner/ deprecation notice)
-#It also adds some missing test dependecies.
+# Removing deprecated pytest-runner and adding missing test dependencies
+# https://github.com/naimetti/rfc3986-validator/pull/3
 #
-#An issue has been submited upstream regarding it
-#https://github.com/naimetti/rfc3986-validator/issues/2
-Patch0:         0001_removing_pytest_runner_and_adding_test_requirements.patch
+# Fixes:
+#
+# https://github.com/naimetti/rfc3986-validator/issues/2
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          0001_removing_pytest_runner_and_adding_test_requirements.patch
+
+%global common_description %{expand:
+%{summary}.}
 
 %description %{common_description}
 
-%package -n python3-%{pkgname}
+
+%package -n python3-rfc3986-validator
 Summary: %summary
 
-%description -n python3-%{pkgname} %{common_description}
+%description -n python3-rfc3986-validator %{common_description}
 
-%prep
-%autosetup -n %{srcname}-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test}
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files %{slugname}
-
-%check
-%pyproject_check_import
-%if %{with tests}
+%check -a
 PYTHONWARNINGS=ignore %pytest -vv tests
-%endif
 
-%files -n python3-%{pkgname} -f %{pyproject_files}
-%license LICENSE
+
+%files -n python3-rfc3986-validator -f %{pyproject_files}
+%doc HISTORY.rst
 %doc README.md
+
 
 %changelog
 %autochangelog

@@ -4,8 +4,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.3.4
-Release: 3%{?dist}
+Version: 6.3.5
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -28,8 +28,6 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream patches
-# https://invent.kde.org/plasma/plasma-workspace/-/commit/47d502353720004fa2d0e7b0065994b75b3e0ded.patch
-Patch0: 47d502353720004fa2d0e7b0065994b75b3e0ded.patch
 
 ## upstreamable Patches
 
@@ -688,6 +686,9 @@ fi
 
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
+- 6.3.5
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.4-3
 - Rebuild (qt6)
 

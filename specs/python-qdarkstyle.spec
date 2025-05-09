@@ -34,10 +34,12 @@ Patch:          %{url}/pull/355.patch
 # https://github.com/ColinDuquesnoy/QDarkStyleSheet/pull/356
 Patch:          %{url}/pull/356.patch
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x develop,example
+BuildOption(install):   -l qdarkstyle
+
 BuildArch:      noarch
  
-BuildRequires:  python3-devel
-
 BuildRequires:  hardlink
 
 # This is required for the error-reporting option in the CLI. We have it as a
@@ -75,9 +77,7 @@ Recommends:     %{py3_dist helpdev}
 %{_mandir}/man1/qdarkstyle.utils.1*
 
 
-%prep
-%autosetup -n QDarkStyleSheet-v.%{version} -p1
-
+%prep -a
 %if %{with recompile_assets}
 rm -vf qdarkstyle/*/*style.{qrc,qss} qdarkstyle/*/_variables.scss
 %endif
@@ -96,11 +96,7 @@ find 'qdarkstyle' -type f -name '*.py' \
   xargs -r -t sed -r -i '1{/^#!/d}'
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x develop,example
-
-
-%build
+%build -p
 %if %{with recompile_assets}
 # QT_QPA_PLATFORM=offscreen keeps us from needing something like xvfb-run,
 # xwfb-run, or wlheadless-run.
@@ -109,13 +105,9 @@ find 'qdarkstyle' -type f -name '*.py' \
 QT_QPA_PLATFORM=offscreen PYTHONPATH="${PWD}" %{python3} -m qdarkstyle.utils \
     --create 'pyqt5'
 %endif
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l qdarkstyle
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
@@ -124,10 +116,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 hardlink -c -v '%{buildroot}%{python3_sitelib}/qdarkstyle/'
 
 
-%check
-# Let’s do this in addition to running the tests, just to be sure.
-%pyproject_check_import
-
+%check -a
 %pytest
 
 

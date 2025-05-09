@@ -8,7 +8,7 @@
 %global date0 20240318
 %global pypi_version 2.3.0
 %else
-%global pypi_version 2.5.1
+%global pypi_version 2.7.0
 %endif
 
 %global desc %{expand: \

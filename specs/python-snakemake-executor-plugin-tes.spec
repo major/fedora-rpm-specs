@@ -18,9 +18,11 @@ Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-tes-%{versi
 # https://github.com/snakemake/snakemake-executor-plugin-tes/pull/16
 Patch:          %{url}/pull/16.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_tes
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  snakemake >= 8
 %if %{with tests}
@@ -40,26 +42,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-executor-plugin-tes %{common_description}
 
 
-%prep
-%autosetup -n snakemake-executor-plugin-tes-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_tes
-
-
-%check
-%pyproject_check_import
-
+%check -a
 %if %{with tests}
 %pytest -v tests/tests.py
 %endif

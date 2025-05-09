@@ -1,6 +1,6 @@
 Name:    plasma-vault
 Summary: Plasma Vault offers strong encryption features in a user-friendly way
-Version: 6.3.4
+Version: 6.3.5
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -9,8 +9,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # Upstream changes
-# https://invent.kde.org/plasma/plasma-vault/-/commit/a982e58679caa583ceb4cc883d1c1923dab54db9
-Patch0: a982e58679caa583ceb4cc883d1c1923dab54db9.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -64,6 +62,9 @@ prying eyes even when the user is logged in.
 
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
+- 6.3.5
+
 * Wed Apr 02 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.4-1
 - 6.3.4
 

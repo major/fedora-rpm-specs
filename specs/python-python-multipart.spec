@@ -7,9 +7,10 @@ License:        Apache-2.0
 URL:            https://github.com/Kludex/python-multipart
 Source:         %{pypi_source python_multipart}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l python_multipart multipart
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # See testenv.deps from
 # https://github.com/Kludex/python-multipart/blob/%%{version}/tox.ini.  Because
@@ -63,24 +64,7 @@ Obsoletes:      python3-multipart < 0.1
 %description -n python3-python-multipart %{common_description}
 
 
-%prep
-%autosetup -n python_multipart-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l python_multipart multipart
-
-
-%check
+%check -a
 %pytest
 
 

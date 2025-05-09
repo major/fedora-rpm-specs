@@ -1,11 +1,14 @@
 Name:           perl-Crypt-OpenSSL-EC
 Version:        1.32
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Perl extension for OpenSSL EC (Elliptic Curves) library
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-EC
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKEM/Crypt-OpenSSL-EC-%{version}.tar.gz
+# Adapt to ExtUtils::ParseXS ≥ 3.57, bug #2364629, CPAN RT#164982,
+# proposed to the upstream.
+Patch0:         Crypt-OpenSSL-EC-1.32-Remove-never-compiled-EC_POINTs_make_affine-and-EC_P.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -38,8 +41,19 @@ BuildRequires:  perl(Test::More)
 This package provides a Perl standard (non-object-oriented) interface to the
 OpenSSL Elliptic Curve library. Some object-oriented calls are supported.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Crypt::OpenSSL::Bignum) >= 0.04
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Crypt-OpenSSL-EC-%{version}
+%autosetup -p1 -n Crypt-OpenSSL-EC-%{version}
 
 %build
 unset OPENSSL_LIB OPENSSL_PREFIX
@@ -48,19 +62,39 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Crypt*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Crypt
+%dir %{perl_vendorarch}/auto/Crypt/OpenSSL
+%{perl_vendorarch}/auto/Crypt/OpenSSL/EC
+%dir %{perl_vendorarch}/Crypt
+%dir %{perl_vendorarch}/Crypt/OpenSSL
+%{perl_vendorarch}/Crypt/OpenSSL/EC.pm
+%{_mandir}/man3/Crypt::OpenSSL::EC.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 07 2025 Petr Pisar <ppisar@redhat.com> - 1.32-20
+- Adapt to ExtUtils::ParseXS ≥ 3.57 (bug #2364629)
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

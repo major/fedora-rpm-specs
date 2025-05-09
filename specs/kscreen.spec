@@ -1,16 +1,13 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.3.4
-Release: 3%{?dist}
+Version: 6.3.5
+Release: 1%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-#osd: Create OsdManager after QGuiApplication
-Patch0: https://invent.kde.org/plasma/kscreen/-/commit/50de20ad885c2e74fc8781ad6952656385afb4fe.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -72,6 +69,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.5-1
+- 6.3.5
+
 * Wed Apr 23 2025 Vinicius <viniciush.dev@gmail.com> - 1:6.3.4-3
 - Backport a fix for when the shortcut for Display Configuration does not
   work due to dbus communication issues

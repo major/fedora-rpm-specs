@@ -10,9 +10,11 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-cluster-g
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-cluster-generic-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_cluster_generic
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
@@ -35,23 +37,7 @@ Summary:        %{summary}
 %autosetup -n snakemake-executor-plugin-cluster-generic-%{version}
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_cluster_generic
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 %if %{without bootstrap}
 %pytest -v tests/tests.py
 %endif

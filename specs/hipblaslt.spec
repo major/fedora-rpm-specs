@@ -43,9 +43,9 @@
 # hipblaslt does not support our default set
 # gfx1200,gfx1201 have building problems on 6.4.0
 #
-# build is timing out, remove new for 6.4 gpus
-# gfx942;gfx1100;gfx1101;gfx1102
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-"
+# build is timing out, remove some of the ISA targets
+# gfx942;gfx1102
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -68,7 +68,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -311,6 +311,9 @@ fi
 %endif
 
 %changelog
+* Wed May 7 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
+- put gfx1100;gfx1101 back into build target list
+
 * Thu May 1 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Reduce gpu set to 6.3
 - mitigate suse build timeout

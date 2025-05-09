@@ -8,7 +8,7 @@
 %global date0 20240326 
 %global pypi_version 0.19.0a0
 %else
-%global pypi_version 0.20.1
+%global pypi_version 0.22.0
 %endif
 
 # check takes too long, make optional

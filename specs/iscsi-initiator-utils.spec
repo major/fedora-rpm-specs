@@ -1,6 +1,6 @@
 %global open_iscsi_version	2.1
-%global open_iscsi_build	10
-%global commit0			d0f04ae4b9bf0bc0be55fbda5f235afdfbf5dd19
+%global open_iscsi_build	11
+%global commit0			4b3e853ab468a95d8a035efa8fc4298a6c6318a3
 %global shortcommit0		%(c=%{commit0}; echo ${c:0:7})
 
 # Disable python2 build by default
@@ -10,7 +10,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 0.git%{shortcommit0}%{?dist}.3
+Release: 0.git%{shortcommit0}%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -272,6 +272,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %endif
 
 %changelog
+* Wed May 07 2025 Chris Leech <cleech@redhat.com> - 6.2.1.11-0.git4b3e853
+- Open-iSCSI upstream 2.1.11
+
 * Wed Jan 22 2025 Chris Leech <cleech@redhat.com> - 6.2.1.10-0.gitd0f04ae.3
 - FTBFS: use /usr/bin instead of /usr/sbin
 

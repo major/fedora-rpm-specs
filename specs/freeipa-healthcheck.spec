@@ -16,8 +16,8 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.17
-Release:        6%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -26,8 +26,6 @@ Source0:        https://github.com/freeipa/freeipa-healthcheck/archive/%{version
 Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
-Patch0002:      0002-Allow-etc-hosts-to-have-either-0644-or-0664-permissi.patch
-Patch0003:      0003-Compatibility-fix-for-PyCA-cryptography-42.0.0.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -157,6 +155,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Tue May 06 2025 Rob Crittenden <rcritten@redhat.com> - 0.18-1
+- Update to 0.18 release
+
 * Mon Jan 20 2025 Rob Crittenden <rcritten@redhat.com> - 0.17-6
 - Upstream patch to fix python-cryptography 42+ deprecation errors from
   ipalib/x509.py

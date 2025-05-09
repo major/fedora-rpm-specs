@@ -18,6 +18,7 @@ Patch3:         tcltls-1.7.22-fall-through.patch
 Patch4:         tcltls-1.7.22-openssl3.patch
 Patch5:         tcltls-1.7.22-tcl-9_0.patch
 Patch6:         tcltls-1.7.22-tcl-9_0_second.patch
+Patch7:         tcltls-1.7.22-tcl-9_0_third.patch
 
 BuildRequires:  make
 %if 0%{?fedora} || 0%{?rhel} >= 8

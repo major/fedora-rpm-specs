@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -77,6 +77,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed May 07 2025 Steve Cossette <farchord@gmail.com> - 6.14.0-2
+- Respun
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

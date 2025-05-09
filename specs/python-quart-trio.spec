@@ -9,14 +9,16 @@ URL:            https://github.com/pgjones/quart-trio
 # PyPI source distributions lack tests, changelog, etc.; use the GitHub archive
 Source:         %{url}/archive/%{version}/quart-trio-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -t
+BuildOption(install):   -L quart_trio
+
 # Downstream-only: patch out coverage analysis
 # 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 %global common_description %{expand:
 Quart-Trio is an extension for Quart to support the Trio event loop. This is an
@@ -32,24 +34,7 @@ Summary:        %{summary}
 %description -n python3-quart-trio %{common_description}
 
 
-%prep
-%autosetup -n quart-trio-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files quart_trio
-
-
-%check
+%check -a
 %tox -- -- -v
 
 

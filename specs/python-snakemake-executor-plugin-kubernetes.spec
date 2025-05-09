@@ -13,9 +13,11 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-kubernete
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-kubernetes-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_executor_plugin_kubernetes
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  snakemake >= 8
 %if %{with tests}
@@ -35,9 +37,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-executor-plugin-kubernetes %{common_description}
 
 
-%prep
-%autosetup -n snakemake-executor-plugin-kubernetes-%{version}
-
+%prep -a
 # Remove upstream’s upper-bound on the version of kubernetes. This package
 # routinely ends up briefly failing to build from source and sometimes failing
 # to install due to “incompatible” major-version updates in python-kubernetes,
@@ -48,22 +48,7 @@ Summary:        %{summary}
 sed -r -i 's/(kubernetes = ".*),<[^"]+"/\1"/' pyproject.toml
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_executor_plugin_kubernetes
-
-
-%check
-%pyproject_check_import
-
+%check -a
 %if %{with tests}
 %pytest -v tests/tests.py
 %endif

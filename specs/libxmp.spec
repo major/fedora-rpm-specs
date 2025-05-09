@@ -18,6 +18,9 @@ Provides: bundled(md5-plumb)
 License: 0BSD AND BSD-3-Clause AND ISC AND MIT AND LicenseRef-Fedora-Public-Domain
 URL: http://xmp.sourceforge.net/
 
+# Fix array subscript underflow in Pha Packer loader (CVE-2025-47256).
+Patch0: libxmp-CVE-2025-47256.patch
+
 %description
 Libxmp is a library that renders module files to PCM data. It supports
 over 90 mainstream and obscure module formats including Protracker (MOD),
@@ -42,7 +45,7 @@ and Amiga file packers including gzip, bzip2, SQSH, Powerpack, etc.
 This package contains the header and development library.
 
 %prep
-%setup -q
+%autosetup -p1
 for file in docs/Changelog ; do
         iconv -f iso8859-1 -t utf8 -o $file.utf $file && touch -r $file $file.utf && mv $file.utf $file
 done
@@ -68,6 +71,7 @@ chmod 755 %{buildroot}%{_libdir}/libxmp.so.*
 %doc docs/libxmp.html docs/libxmp.pdf docs/{fixloop,formats}.txt
 %{_includedir}/xmp.h
 %{_mandir}/man3/libxmp.3*
+%dir %{_libdir}/cmake/libxmp
 %{_libdir}/cmake/libxmp/libxmp-config-version.cmake
 %{_libdir}/cmake/libxmp/libxmp-config.cmake
 %{_libdir}/pkgconfig/libxmp.pc

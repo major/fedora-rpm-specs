@@ -1,8 +1,8 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2024.1.3
-Release:       2%{?dist}
+Version:       2025.1
+Release:       1%{?dist}
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
 URL:           https://github.com/inducer/pudb
@@ -54,6 +54,9 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 %{_bindir}/pudb
 
 %changelog
+* Wed May 07 2025 Lumír Balhar <lbalhar@redhat.com> - 2025.1-1
+- Update to 2025.1 (rhbz#2364599)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

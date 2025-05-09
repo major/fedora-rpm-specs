@@ -8,7 +8,9 @@
 
 %define arches_qemu_kvm         %{ix86} x86_64 %{power64} %{arm} aarch64 s390x riscv64
 %if 0%{?rhel}
-    %if 0%{?rhel} > 8
+    %if 0%{?rhel} >= 10
+        %define arches_qemu_kvm     x86_64 aarch64 s390x riscv64
+    %elif 0%{?rhel} >= 9
         %define arches_qemu_kvm     x86_64 aarch64 s390x
     %else
         %define arches_qemu_kvm     x86_64 %{power64} aarch64 s390x
@@ -300,8 +302,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 11.2.0
-Release: 2%{?dist}
+Version: 11.3.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -310,7 +312,6 @@ URL: https://libvirt.org/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
 
-Patch: 0001-cpu_map-Install-Ampere-1-ARM-CPU-models.patch
 Patch: 0001-storage-stop-hardcoding-paths-for-mkfs-mount-umount.patch
 Patch: 0001-util-stop-hardcoding-numad-path.patch
 Patch: 0001-Fix-mocking-of-virQEMUCapsProbeHVF-function.patch
@@ -2715,6 +2716,9 @@ exit 0
 
 
 %changelog
+* Wed May 07 2025 Cole Robinson <crobinso@redhat.com> - 11.3.0-1
+- Update to version 11.3.0
+
 * Tue Apr 29 2025 Daniel P. Berrangé <berrange@redhat.com> - 11.2.0-2
 - Fix install of Ampere 1 ARM CPU model (rhbz #2361196)
 - Fix location of mount, umount (rhbz #2359196)

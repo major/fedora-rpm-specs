@@ -1,5 +1,7 @@
+%global giturl  https://github.com/flintlib/flint
+
 Name:           flint
-Version:        3.2.1
+Version:        3.2.2
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 
@@ -12,8 +14,8 @@ Summary:        Fast Library for Number Theory
 # BSD-2-Clause: src/bernoulli/mod_p_harvey.c
 License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later) AND BSD-2-Clause
 URL:            https://flintlib.org/
-VCS:            git:https://github.com/flintlib/flint.git
-Source:         https://flintlib.org/download/%{name}-%{version}.tar.gz
+VCS:            git:%{giturl}.git
+Source:         %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++

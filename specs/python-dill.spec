@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name: python-dill
-Version: 0.3.9
+Version: 0.4.0
 Release: %autorelease
 Summary: Serialize all of Python
 
@@ -9,10 +9,6 @@ License: BSD-3-Clause
 
 URL: https://github.com/uqfoundation/dill
 Source: %{pypi_source dill}
-
-# Initial support for Python 3.14
-# source: https://github.com/uqfoundation/dill/commit/2bee9e4ead44963191
-Patch: Support-Python-3.14.patch
 
 BuildArch: noarch
 
@@ -58,7 +54,7 @@ Summary:  %{summary}
 
 
 %prep
-%autosetup -n dill-%{version} -p1
+%autosetup -n dill-%{version}
 
 
 %generate_buildrequires

@@ -1,21 +1,23 @@
-%global pypi_name semantic_version
-%global srcname python-semanticversion
-
-Name:           python-%{pypi_name}
+Name:           python-semantic_version
 Version:        2.10.0
 Release:        %autorelease
 Summary:        Library implementing the 'SemVer' scheme
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/rbarrois/python-semanticversion
-Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/python-semanticversion-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
+
+# Test dependencies manually cherry-picked from the [dev] extra
+# Upstream uses nose2, but pytest works as well
 BuildRequires:  python3-pytest
-BuildRequires:  sed
+%if %{undefined rhel} || %{defined epel}
+# Optional test dependency
+BuildRequires:  python3-django
+%endif
 
 %global _description %{expand:
 This small python library provides a few tools to handle semantic versioning in
@@ -23,48 +25,29 @@ Python.}
 
 %description %{_description}
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-semantic_version
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name} %{_description}
-
-%package doc
-Summary:        Documentation for python-%{pypi_name}
-
-%description doc
-%{summary}.
+%description -n python3-semantic_version %{_description}
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
-
-# Drop unnecessary dependency
-sed -i '/zest\.releaser\[recommended\]/d' setup.cfg
+%autosetup -p1 -n python-semanticversion-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x doc
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
-# generate html docs
-make -C docs html
-# remove the sphinx-build leftovers
-rm -rf docs/_build/html/.{doctrees,buildinfo}
-
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l semantic_version
 
 %check
 %pytest
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+%files -n python3-semantic_version -f %{pyproject_files}
 %doc README.rst ChangeLog CREDITS
-
-%files doc
-%license LICENSE
-%doc docs/_build/html
 
 %changelog
 %autochangelog

@@ -5,7 +5,7 @@ Version: 3.12.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -18,6 +18,7 @@ Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
 Patch1: 0002-Drop-parted-device-cache-during-reset.patch
+Patch2: 0003-Fix-getting-filesystem-size-from-udev.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -115,6 +116,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Wed May 07 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.12.1-3
+- Fix getting filesystem size from udev
+
 * Wed Apr 09 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.12.1-2
 - Drop parted device cache during reset (#2357214)
 

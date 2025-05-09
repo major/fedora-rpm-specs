@@ -13,10 +13,10 @@ Source0:        %{url}/archive/v%{version}/scooby-%{version}.tar.gz
 Source1:        scooby.1
 
 BuildSystem:            pyproject
-BuildOption(install):   -l scooby
 # We cannot package (nor generate BR’s from) the “cpu” extra because it
 # requires python3dist(mkl), which is proprietary software.
 BuildOption(generate_buildrequires): %{?with_tests:requirements_test.txt}
+BuildOption(install):   -l scooby
 
 BuildArch:      noarch
 

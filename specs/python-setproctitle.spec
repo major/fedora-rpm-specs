@@ -2,7 +2,7 @@
 %global         forgeurl https://github.com/dvarrazzo/py-setproctitle
 
 Name:           python-%{pypi_name}
-Version:        1.3.5
+Version:        1.3.6
 %global tag     version-%{version}
 %forgemeta
 Release:        %{autorelease}

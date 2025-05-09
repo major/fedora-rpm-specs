@@ -1,6 +1,6 @@
 Name:           plasma-mobile
-Version:        6.3.4
-Release:        2%{?dist}
+Version:        6.3.5
+Release:        1%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
@@ -141,6 +141,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
 %changelog
+* Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
+- 6.3.5
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 6.3.4-2
 - Rebuild (qt6)
 

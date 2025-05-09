@@ -14,13 +14,16 @@ Source0:        %{pypi_source pyxdf}
 %global ex_url https://github.com/xdf-modules/example-files
 Source1:        %{ex_url}/archive/%{ex_commit}/example-files-%{ex_commit}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -l pyxdf
+# pyxdf.cli.playback_lsl would require pylsl, not packaged
+BuildOption(check):     -e pyxdf.cli.playback_lsl
+
 # The package is pure Python and contains no compiled code; however, it has a
 # history of endian-dependent test failures, so we make the base package arched
 # to ensure the tests run on all architectures (so that any future regressions
 # are detected quickly). All binary packages are noarch.
 %global debug_package %{nil}
- 
-BuildRequires:  python3-devel
 
 # See the “dev” dependency group, which also includes unwanted linters etc.
 BuildRequires:  %{py3_dist pytest}
@@ -76,20 +79,7 @@ command line for basic functionality.
 ln -s ../example-files-%{ex_commit}/ example-files
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l pyxdf
-
-
-%check
+%check -a
 %pytest
 
 

@@ -167,6 +167,10 @@ ln -s mariadb_version.h %{buildroot}%{_includedir}/mysql/mysql_version.h
 # Install config files
 install -D -p -m 0644 my.cnf %{buildroot}%{_sysconfdir}/my.cnf
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
+%if %{with testsuite}
+echo %{_libdir}/mariadb/connector-c/tests > %{name}.conf
+install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%endif
 
 
 
@@ -180,6 +184,12 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 # Note: there must be a database called 'test' created for the testcases to be run
 %if %{with testsuite}
 %ctest --test-dir %{__cmake_builddir}/unittest/libmariadb/
+%endif
+
+%if %{with testsuite}
+%post -n %{name}-test -p /usr/bin/ldconfig
+
+%postun -n %{name}-test -p /usr/bin/ldconfig
 %endif
 
 
@@ -231,8 +241,10 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 %files test
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
-# Note: The following shared library should be moved from libdir to some sub-directory. e.g. libdir/mariadb/connector-c/tests
-%{_libdir}/libcctap.so
+%dir %{_libdir}/mariadb/connector-c
+%dir %{_libdir}/mariadb/connector-c/tests
+%{_libdir}/mariadb/connector-c/tests/libcctap.so
+%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %endif
 
 

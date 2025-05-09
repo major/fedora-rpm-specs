@@ -21,9 +21,11 @@ Source13:       quart-shell.1
 # (This also patches out pytest-sugar because it’s unnecessary.)
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x dotenv requirements/tests.in
+BuildOption(install):   -l quart
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %global common_description %{expand:
 Quart is an async Python web microframework. Using Quart you can,
@@ -46,27 +48,12 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-quart dotenv
 
 
-%prep
-%autosetup -n quart-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x dotenv requirements/tests.in
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l quart
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 
-%check
+%check -a
 %pytest -v
 
 

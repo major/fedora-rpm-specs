@@ -5,8 +5,8 @@
 %endif
 
 Name:          speech-dispatcher
-Version:       0.12.0
-Release:       2%{?dist}
+Version:       0.12.1
+Release:       1%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -280,6 +280,9 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{python3_sitearch}/speechd*
 
 %changelog
+* Wed May 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.12.1-1
+- 0.12.1
+
 * Thu Apr 24 2025 Vojtech Polasek <krecoun@gmail.com> - 0.12.0-2
 - enable espeak-ng module by default
 

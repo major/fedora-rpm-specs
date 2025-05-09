@@ -11,9 +11,11 @@ URL:            https://github.com/bagel897/pytoolconfig
 # not worth it, and just do without the Sphinx documentation.
 Source:         %{pypi_source pytoolconfig}
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x validation,global,doc
+BuildOption(install):   -L pytoolconfig
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Selected dependencies from [tool.pdm-dev-dependencies] in pyproject.toml for
 # testing:
@@ -39,24 +41,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-pytoolconfig validation global doc
 
 
-%prep
-%autosetup -n pytoolconfig-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x validation,global,doc
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files pytoolconfig
-
-
-%check
+%check -a
 %pytest -v
 
 

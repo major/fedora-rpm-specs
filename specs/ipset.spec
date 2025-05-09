@@ -1,6 +1,6 @@
 Name:             ipset
-Version:          7.22
-Release:          2%{?dist}
+Version:          7.23
+Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
 License:          GPL-2.0-only
@@ -9,11 +9,6 @@ Source0:          %{url}/%{name}-%{version}.tar.bz2
 Source1:          %{name}.service
 Source2:          %{name}.start-stop
 Source3:          %{name}-config
-
-Patch001: 0001-Replace-BUG_ON-with-WARN_ON_ONCE-according-to-usage-.patch
-Patch002: 0002-lib-data-Fix-for-global-buffer-overflow-warning-by-A.patch
-Patch003: 0003-lib-ipset-Avoid-argv-array-overstepping.patch
-Patch004: 0004-tests-Reduce-testsuite-run-time.patch
 
 BuildRequires:    libmnl-devel
 BuildRequires:    automake
@@ -179,6 +174,9 @@ fi
 
 
 %changelog
+* Wed May 07 2025 Phil Sutter <psutter@redhat.com> - 7.23-1
+- new version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

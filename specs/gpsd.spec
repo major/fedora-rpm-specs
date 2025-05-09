@@ -7,7 +7,7 @@
 # requires qt-4.x
 %global with_qt %{defined fedora}
 # scons is not available in RHEL
-%global with_bundled_scons %[%{defined eln} || %{defined rhel}]
+%global with_bundled_scons %{defined rhel}
 
 %if 0%{?epel}
 Name:           gpsd-epel
@@ -22,11 +22,11 @@ Summary:        Service daemon for mediating access to a GPS
 License:        BSD-2-Clause
 URL:            https://gpsd.gitlab.io/gpsd/index.html
 Source0:        https://download-mirror.savannah.gnu.org/releases/gpsd/%{pkgname}-%{version}.tar.gz
-%if %{with_bundled_scons}
 # used only for building
 %global scons_ver 4.9.1
-%global scons python3 scons-%{scons_ver}/scripts/scons.py
 Source1:        https://github.com/SCons/scons/archive/%{scons_ver}/scons-%{scons_ver}.tar.gz
+%if %{with_bundled_scons}
+%global scons %{python3} scons-%{scons_ver}/scripts/scons.py
 %else
 %global scons scons
 %endif

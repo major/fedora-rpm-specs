@@ -11,7 +11,7 @@
 %global pie_vend         pecl
 %global pie_proj         zip
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.22.5
+%global upstream_version 1.22.6
 #global upstream_prever  RC6
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
@@ -124,6 +124,9 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Wed May  7 2025 Remi Collet <remi@remirepo.net> - 1.22.6-1
+- update to 1.22.6
+
 * Thu Feb 20 2025 Remi Collet <remi@remirepo.net> - 1.22.5-1
 - update to 1.22.5
 - re-license spec file to CECILL-2.1

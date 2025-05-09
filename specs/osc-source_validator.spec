@@ -4,20 +4,27 @@
 %global srcname obs-service-source_validator
 
 Name:           osc-source_validator
-Version:        0.19
-Release:        16%{?dist}
+Version:        0.39
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 Summary:        OBS source service to validate sources
 URL:            https://github.com/openSUSE/obs-service-source_validator
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl(Build)
 Requires:       gnupg2
 Requires:       obs-build
 Requires:       osc
 Requires:       rpm-build
-Requires:       /usr/bin/xmllint
+Requires:       %{_bindir}/xmllint
+Requires:       %{_bindir}/cpio
+Requires:       unzip
+Requires:       perl(Date::Parse)
+Requires:       perl(Time::Zone)
+Requires:       perl(Time::Local)
+Requires:       perl(Time::localtime)
 
 # TODO: Rename this package...
 Provides:       %{srcname} = %{version}-%{release}
@@ -31,7 +38,7 @@ used via project wide defined services.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version}
 
 %build
 # Nothing to do
@@ -39,11 +46,17 @@ used via project wide defined services.
 %install
 %make_install
 
+%check
+%make_build test
+
 %files
 %license COPYING
 %{obssvcroot}/*
 
 %changelog
+* Wed May 07 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.39-1
+- New upstream release 0.39
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

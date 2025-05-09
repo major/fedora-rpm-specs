@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        104
+Version:        105
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -45,18 +45,18 @@ Requires:       criu-libs
 Requires:       libcriu2
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
+Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(file-selector)) = 2.1.2
-Provides: bundled(npm(focus-trap)) = 7.6.2
+Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.2.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -92,6 +92,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed May 07 2025 Packit <hello@packit.dev> - 105-1
+- Translation updates
+- Bug fixes
+
 * Wed Apr 23 2025 Packit <hello@packit.dev> - 104-1
 - Upgraded to Patternfly 6
 - Link service containers to service pages

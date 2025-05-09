@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-setuptools_scm
-Version:        8.2.1
+Version:        8.3.1
 Release:        %autorelease
 Summary:        Blessed package to manage your versions by SCM tags
 
@@ -19,15 +19,6 @@ BuildRequires:  git-core
 %if %{undefined rhel}
 BuildRequires:  mercurial
 %endif
-# Manually listed test dependencies from tox.ini, to avoid pulling tox into RHEL
-BuildRequires:  python%{python3_pkgversion}dist(pytest)
-BuildRequires:  python%{python3_pkgversion}dist(setuptools) >= 45
-BuildRequires:  python%{python3_pkgversion}dist(wheel)
-# build is used only for one test, we don't need it in RHEL just for that
-%if %{undefined rhel}
-BuildRequires:  python%{python3_pkgversion}dist(build)
-%endif
-# rich omitted, pulled in only with the [rich] extra
 %endif
 
 %description
@@ -50,13 +41,16 @@ It also handles file finders for the supported SCMs.
 %prep
 %autosetup -p1 -n setuptools_scm-%{version}
 %if %{defined rhel}
+# Remove unnecessary test dependencies:
+# rich is listed in both [rich] and [test] extras, so we need to be more careful
+sed -Ei '/^test = \[/,/^\]/ { /"(rich|build)",/d }' pyproject.toml
 # Don't blow up all of the tests by failing to report the installed version of build
 sed -i '0,/VERSION_PKGS/{s/, "build"//}' testing/conftest.py
 %endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:%{!?rhel:-x rich}}
+%pyproject_buildrequires %{?with_tests:-x test} %{!?rhel:-x rich}
 
 
 %build
