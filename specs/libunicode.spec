@@ -42,7 +42,7 @@ The %{name}-tools package contains tools about %{name}.
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIBUNICODE_UCD_DIR=%{_datadir}/unicode/ucd \
+    -DLIBUNICODE_UCD_DIR=/usr/share/unicode/ucd \
 
 %cmake_build
 

@@ -7,7 +7,7 @@
 %bcond tests 0
 
 Name:           fedora-repoquery
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Fedora release repos package query tool
 
@@ -22,12 +22,11 @@ BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Glob-devel
 BuildRequires:  ghc-base-devel
-BuildRequires:  ghc-bodhi-devel
-BuildRequires:  ghc-cached-json-file-devel
 BuildRequires:  ghc-case-insensitive-devel
 BuildRequires:  ghc-curl-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-fedora-releases-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-regex-compat-devel
 BuildRequires:  ghc-safe-devel

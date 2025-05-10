@@ -114,7 +114,7 @@ libiscsi interface for interacting with %{name}
 # avoid undefined references linking failures
 %undefine _ld_as_needed
 
-%meson -Diqn_prefix=iqn.1994-05.com.redhat -Discsi_sbindir=/usr/bin
+%meson -Diqn_prefix=iqn.1994-05.com.redhat -Discsi_sbindir=%{_sbindir}
 %meson_build
 
 %make_build LDFLAGS="%{build_ldflags}" iqn_prefix=iqn.1994-05.com.redhat DBROOT=/var/lib/iscsi libiscsi
@@ -147,11 +147,11 @@ touch $RPM_BUILD_ROOT%{_rundir}/lock/iscsi/lock
 rm $RPM_BUILD_ROOT/etc/iscsi/initiatorname.iscsi
 rm $RPM_BUILD_ROOT/etc/udev/rules.d/50-iscsi-firmware-login.rules
 rm $RPM_BUILD_ROOT/usr/lib/systemd/system-generators/ibft-rule-generator
-rm $RPM_BUILD_ROOT/usr/bin/brcm_iscsiuio
-rm $RPM_BUILD_ROOT/usr/bin/iscsi-gen-initiatorname
-rm $RPM_BUILD_ROOT/usr/bin/iscsi_discovery
-rm $RPM_BUILD_ROOT/usr/bin/iscsi_fw_login
-rm $RPM_BUILD_ROOT/usr/bin/iscsi_offload
+rm $RPM_BUILD_ROOT/%{_sbindir}/brcm_iscsiuio
+rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi-gen-initiatorname
+rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_discovery
+rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_fw_login
+rm $RPM_BUILD_ROOT/%{_sbindir}/iscsi_offload
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi-gen-initiatorname.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_discovery.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_fw_login.8

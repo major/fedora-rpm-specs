@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	20.0.0
-Release:	1%{?dist}
+Version:	19.0.1
+Release:	4%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -825,8 +825,11 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu May 8 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.1-3
+- Arrow 19.0.1, rebuild with liborc-2.1.2-1
+
 * Mon Apr 28 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 20.0.0-1
-- Arrow 20.0.0 GA
+- Arrow 20.0.0 GA (side tag)
 
 * Sat Apr 19 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.1-3
 - Arrow 19.0.1, w/ liborc-2.1.1-2 (orc-format-1.1.0) again

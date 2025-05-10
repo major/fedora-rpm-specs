@@ -1,8 +1,8 @@
-%global pypi_name pytest-timeout
+%global pypi_name pytest_timeout
 
 Name:           python-pytest-timeout
-Version:        2.3.1
-Release:        5%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
 # SPDX
@@ -28,7 +28,7 @@ Summary:        %{summary}
 %description -n python3-pytest-timeout %_description
 
 %prep
-%autosetup -p1 -n pytest-timeout-%{version}
+%autosetup -p1 -n pytest_timeout-%{version}
 # python-ipdb FTBFS currently
 sed -i -e '/\s*ipdb$/d' tox.ini
 
@@ -50,6 +50,9 @@ sed -i -e '/\s*ipdb$/d' tox.ini
 %doc README.rst
 
 %changelog
+* Fri May 09 2025 Scott Talbert <swt@techie.net> - 2.4.0-1
+- Update to new upstream release 2.4.0 (#2364241)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

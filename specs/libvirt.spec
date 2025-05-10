@@ -85,12 +85,8 @@
     %endif
 %endif
 
-# Fedora has zfs-fuse
-%if 0%{?fedora}
-    %define with_storage_zfs      0%{!?_without_storage_zfs:1}
-%else
-    %define with_storage_zfs      0
-%endif
+# Fedora rawhide dropped zfs-fuse
+%define with_storage_zfs      0
 
 %define with_storage_iscsi_direct 0%{!?_without_storage_iscsi_direct:1}
 # libiscsi has been dropped in RHEL-9
@@ -303,7 +299,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -2716,6 +2712,9 @@ exit 0
 
 
 %changelog
+* Thu May 08 2025 Cole Robinson <crobinso@redhat.com> - 11.3.0-2
+- zfs-fuse is gone from rawhide, drop libvirt-daemon-storage-zfs
+
 * Wed May 07 2025 Cole Robinson <crobinso@redhat.com> - 11.3.0-1
 - Update to version 11.3.0
 

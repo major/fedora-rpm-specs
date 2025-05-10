@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.7
-Release:        1.rc1%{?dist}.4
+Release:        2.rc1%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -91,15 +91,16 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %preun
 %systemd_preun rpcbind.service rpcbind.socket
 
+# NOTE: We only restart rpcbind.socket in the %postun scriptlet in order to
+# avoid the race described in:
+#
+# https://github.com/systemd/systemd/issues/13271
+# https://github.com/systemd/systemd/issues/8102
+#
+# Restarting rpcbind.socket causes rpcbind.service to be restarted automatically
+# due to "Requires=rpcbind.socket" in the rpcbind.service unit file.
 %postun
-%systemd_postun_with_restart rpcbind.service rpcbind.socket
-
-%triggerin -- rpcbind > 0.2.2-2.0
-if systemctl -q is-enabled rpcbind.socket
-then
-	/bin/systemctl reenable rpcbind.socket  >/dev/null 2>&1 || :
-	/bin/systemctl restart rpcbind.socket >/dev/null 2>&1 || :
-fi
+%systemd_postun_with_restart rpcbind.socket
 
 %files
 %license COPYING
@@ -119,6 +120,9 @@ fi
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Wed May  7 2025 Scott Mayhew <smayhew@redhat.com> - 1.2.7-2.rc1
+- Fix rpm scriptlets to remove excessive restarts during upgrade
+
 * Wed Jan 29 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.7-1.rc1.4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -19,9 +19,15 @@ URL:            https://github.com/snakemake/snakemake-interface-storage-plugins
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-storage-plugins-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_interface_storage_plugins
+%if %{with bootstrap}
+# Some things can’t be imported because we don’t have snakemake.
+BuildOption(check):     -e '*.registry*' -e '*.storage_object' -e '*.tests'
+%endif
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 %if %{without bootstrap}
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
@@ -42,28 +48,8 @@ Summary:        %{summary}
 %description -n python3-snakemake-interface-storage-plugins %{common_description}
 
 
-%prep
-%autosetup -n snakemake-interface-storage-plugins-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_interface_storage_plugins
-
-
-%check
+%check -a
 %if %{without bootstrap}
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
 %if %{without network_tests}
 # The following tests require network access:
 k="${k-}${k+ and }not (TestTestStorageBase and test_storage)"
@@ -72,10 +58,6 @@ k="${k-}${k+ and }not (TestTestStorageBase and test_inventory)"
 %endif
 
 %pytest -k "${k-}" -v tests/tests.py
-%else
-# Some things can’t be imported because we don’t have snakemake during
-# bootstrapping.
-%pyproject_check_import -e '*.registry*' -e '*.storage_object' -e '*.tests'
 %endif
 
 

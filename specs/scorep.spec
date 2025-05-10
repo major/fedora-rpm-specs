@@ -1,58 +1,44 @@
-# Only these have llvm/clang >= 6.  x86_64 el7 has llvm7.0, but not
-# clang7.0; it has llvm-toolset-7, but not available in koji.
-%global dowrap 0%{!?el7:1}
-
 # OMPI4 oshcc is now not on all arches (depending on UCX)
 %global oshm 1
-# Fixme: There's something odd here, since aarch64 has the oshm compilers
-%ifarch aarch64
-%{?el7:%global oshm 0}
-%endif
 
 # libunwind for score-p
 %bcond_without libunwind
 
-# Needed to get scorep-score built (depending on use of cube C++ lib)
-%{?el7:%global dts devtoolset-9}
-
 Name:           scorep
-Version:        8.4
-Release:        4%{?dist}
+Version:        9.0
+Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
-Patch1:         scorep-rpath.patch
-# Update the GMP header of Score-P to fix configure issues related to the GCC plug-in when building with GCC 14
-Patch2:         scorep-update-fake-gmp-header.patch
 BuildRequires:  make
 BuildRequires:  gcc-gfortran
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  binutils-devel
 BuildRequires:  chrpath
-BuildRequires:  cube-libs-devel >= 4.8.2
+BuildRequires:  cube-libs-devel >= 4.9
 BuildRequires:  ocl-icd-devel
-BuildRequires:  opari2 >= 2.0
-BuildRequires:  otf2-devel >= 3.0
+BuildRequires:  opari2 >= 2.0.9
+BuildRequires:  otf2-devel >= 3.1
 BuildRequires:  papi-devel
 BuildRequires:  gcc-plugin-devel
-# Required for cubelib to build scorep-score against cubew 4.5
+# Required for cubelib to build scorep-score against cubew
 BuildRequires:  %{?dts:%dts-}gcc-c++
-%if 0%{?dowrap}
 BuildRequires:  llvm-devel
 BuildRequires:  clang
 BuildRequires:  clang-devel
-%endif
 BuildRequires:  automake libtool
 %{?with_libunwind:BuildRequires:  libunwind-devel}
+BuildRequires:  gotcha-devel%{?_isa} >= 1.0.5
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       binutils-devel%{?_isa}
-Requires:       cube-libs-devel%{?_isa} >= 4.8.2
-Requires:       otf2-devel%{?_isa} >= 3.0
+Requires:       cube-libs-devel%{?_isa} >= 4.9
+Requires:       otf2-devel%{?_isa} >= 3.1
 Requires:       papi-devel%{?_isa}
 Requires:       ocl-icd-devel%{?_isa}
-Requires:       opari2%{?_isa} >= 2.0
+Requires:       opari2%{?_isa} >= 2.0.9
+Requires:       gotcha-devel%{?_isa} >= 1.0.5
 %{?with_libunwind:Requires:  libunwind-devel%{?_isa}}
 # s390 is missing papi and libunwind; 32-bit fails with configure
 # "cannot determine instruction set" in v7.0.
@@ -61,27 +47,17 @@ ExcludeArch: s390 s390x armv7hl i686
 %global with_mpich 1
 %global with_openmpi 1
 
-# el7 has both 1.10 and 3.0, except on ppc64
-%ifarch ppc64
-%global with_openmpi3 0
-%else
-%global with_openmpi3 0%{?el7}
-%endif
-
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
 %if %{with_openmpi}
 %global mpi_list %{?mpi_list} openmpi
 %endif
-%if %{with_openmpi3}
-%global mpi_list %{?mpi_list} openmpi3
-%endif
 
 # Avoid missing symbol link errors in test
 %undefine _ld_as_needed
 # Avoid in test
-#   /usr/bin/ld: pomp_tpd_: TLS reference in ./.libs/libscorep_adapter_opari2_op nmp_event.so mismatches non-TLS reference in jacobi_omp_f90-jacobi.mod.o
+#   /usr/bin/ld: pomp_tpd_: TLS reference in ./.libs/libscorep_adapter_opari2_openmp_event.so mismatches non-TLS reference in jacobi_omp_f90-jacobi.mod.o
 %undefine _hardened_build
 
 %global __requires_exclude_from ^%{_libdir}(/(openmpi|mpich)/lib)?/libscorep_.*|^%{_docdir}/.*$
@@ -124,8 +100,8 @@ Score-P configuration files.
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes for mpich
 BuildRequires:  mpich-devel
 Requires:       %{name}-mpich-libs%{?_isa} = %{version}-%{release}
-Requires:       cube-devel%{?_isa} >= 4.8.2
-Requires:       otf2-devel%{?_isa} >= 3.0
+Requires:       cube-devel%{?_isa} >= 4.9
+Requires:       otf2-devel%{?_isa} >= 3.1
 Requires:       papi-devel%{?_isa}
 
 %description mpich
@@ -154,8 +130,8 @@ Score-P mpich configuration files.
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes for openmpi
 BuildRequires:  openmpi-devel
 Requires:       %{name}-openmpi-libs%{?_isa} = %{version}-%{release}
-Requires:       cube-devel%{?_isa} >= 4.8.2
-Requires:       otf2-devel%{?_isa} >= 3.0
+Requires:       cube-devel%{?_isa} >= 4.9
+Requires:       otf2-devel%{?_isa} >= 3.1
 Requires:       papi-devel%{?_isa}
 
 %description openmpi
@@ -177,35 +153,6 @@ Summary:        Score-P openmpi configuration files
 Score-P openmpi configuration files.
 %endif
 
-%if %{with_openmpi3}
-%package openmpi3
-Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes for openmpi3
-BuildRequires:  openmpi3-devel
-Requires:       %{name}-openmpi3-libs%{?_isa} = %{version}-%{release}
-Requires:       cube-devel%{?_isa} >= 4.8.2
-Requires:       otf2-devel%{?_isa} >= 3.0
-Requires:       papi-devel%{?_isa}
-
-%description openmpi3
-%desc
-
-This package was compiled with openmpi3.
-
-%package openmpi3-libs
-Summary:        Score-P openmpi3 runtime libraries
-
-%description openmpi3-libs
-Score-P openmpi3 runtime libraries.
-Requires:       %{name}-openmpi-config%{?_isa} = %{version}-%{release}
-
-%package openmpi3-config
-Summary:        Score-P openmpi3 configuration files
-
-%description openmpi3-config
-Score-P openmpi3 configuration files.
-%endif
-
-
 %prep
 %setup -q
 # Bundled libs in vendor/
@@ -213,8 +160,6 @@ rm -rf vendor/{opari2,otf2,cubew,cubelib}
 mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
-%patch -P 1 -p1 -b .rpath
-%patch -P 2 -p1
 
 %build
 # This package uses -Wl,-wrap to wrap calls at link time.  This is incompatible
@@ -234,12 +179,6 @@ mkdir serial
 cd serial
 %configure %{configure_opts} --without-mpi --without-shmem
 find -name Makefile -exec sed -r -i 's,-L%{_libdir}/?( |$),,g;s,-L/usr/lib/../%{_lib} ,,g' {} \;
-
-# We need to build the plugin for the system compiler, which
-# presumably is going to be used when scorep is run, although we're
-# overall compiling with devtooset on el7.  I couldn't see a better
-# way of doing it than re-configuring here.
-%{?el7:(cd build-gcc-plugin; export PATH=%_bindir:$PATH; ./config.status --recheck CXX=%_bindir/g++)}
 
 %make_build V=1
 cd -
@@ -262,7 +201,6 @@ do
       -e "s/hardcode_into_libs='yes'/hardcode_into_libs='no'/" \
       build-backend/config.status
   # See serial version
-  %{?el7:(cd build-gcc-plugin; export PATH=%_bindir:$PATH; ./config.status --recheck CXX=%_bindir/g++)}
   %make_build V=1
   module purge
   cd -
@@ -283,9 +221,7 @@ find %{buildroot} -name '*.a' -delete
 
 # Strip rpath
 chrpath -d %{buildroot}%{_libdir}/*.so.* %{buildroot}%{_bindir}/scorep-score
-%if 0%{?dowrap}
 chrpath -d %{?dowrap:%{buildroot}%{_libexecdir}/scorep/scorep-library-wrapper-generator}
-%endif
 
 # Fixme: I haven't figured out how to get this re-built with the final
 # build-gcc-plugin result; kludge it for now.
@@ -318,9 +254,7 @@ make -C serial check V=1
 %{_bindir}/scorep-score
 %{_bindir}/scorep-wrapper
 %{_bindir}/scorep-preload-init
-%if %{dowrap}
 %{_bindir}/scorep-libwrap-init
-%endif
 %{_libdir}/scorep/
 %{_includedir}/scorep/
 # Are the libtools in here necessary (different from vanilla)?
@@ -365,9 +299,7 @@ make -C serial check V=1
 %{_libdir}/mpich/bin/scorep-score
 %{_libdir}/mpich/bin/scorep-wrapper
 %{_libdir}/mpich/bin/scorep-preload-init
-%if %{dowrap}
 %{_libdir}/mpich/bin/scorep-libwrap-init
-%endif
 %{_libdir}/mpich/lib/scorep/
 %{_includedir}/mpich-%{_arch}/scorep/
 
@@ -403,9 +335,7 @@ make -C serial check V=1
 %{_libdir}/openmpi/bin/scorep-score
 %{_libdir}/openmpi/bin/scorep-wrapper
 %{_libdir}/openmpi/bin/scorep-preload-init
-%if %{dowrap}
 %{_libdir}/openmpi/bin/scorep-libwrap-init
-%endif
 %{_libdir}/openmpi/lib/scorep/
 %{_includedir}/openmpi-%{_arch}/scorep/
 
@@ -419,42 +349,17 @@ make -C serial check V=1
 %{_libdir}/openmpi/share/scorep
 %endif
 
-%if %{with_openmpi3}
-%files openmpi3
-%license COPYING
-%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
-%{_libdir}/openmpi3/bin/scorep
-%{_libdir}/openmpi3/bin/scorep-backend-info
-%{_libdir}/openmpi3/bin/scorep-g++
-%{_libdir}/openmpi3/bin/scorep-gcc
-%{_libdir}/openmpi3/bin/scorep-gfortran
-%{_libdir}/openmpi3/bin/scorep-info
-%{_libdir}/openmpi3/bin/scorep-mpicc
-%{_libdir}/openmpi3/bin/scorep-mpicxx
-%{_libdir}/openmpi3/bin/scorep-mpif77
-%{_libdir}/openmpi3/bin/scorep-mpif90
-%if %oshm
-%{_libdir}/openmpi3/bin/scorep-oshcc
-%{_libdir}/openmpi3/bin/scorep-oshcxx
-%{_libdir}/openmpi3/bin/scorep-oshfort
-%endif
-%{_libdir}/openmpi3/bin/scorep-score
-%{_libdir}/openmpi3/bin/scorep-wrapper
-%{_libdir}/openmpi3/bin/scorep-preload-init
-%{_libdir}/openmpi3/lib/scorep/
-%{_includedir}/openmpi3-%{_arch}/scorep/
-
-%files openmpi3-libs
-%{_libdir}/openmpi3/lib/*.so*
-
-%files openmpi3-config
-%license COPYING
-%{_libdir}/openmpi3/bin/scorep-config
-%{_libdir}/openmpi3/share/scorep
-%endif
-
-
 %changelog
+* Tue Apr 29 2025 Jan André Reuter <j.reuter@fz-juelich.de> - 9.0-1
+- New version 9.0
+- Require cube >= 4.9
+- Require otf2 >= 3.1
+- Require opari2 >= 2.0.9
+- Drop GCC 14 patch as fixed upstream
+- Add gotcha-devel dependency
+- Remove el7-isms
+- Drop rpath patch
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.903.0
+Version:        0.904.0
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -46,6 +46,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Filter::Util::Call)
@@ -65,6 +66,7 @@ BuildRequires:  perl(utf8)
 %if %{with perl_YAML_LibYAML_enables_optional_test} && !%{defined perl_bootstrap}
 # Optional Tests
 BuildRequires:  perl(boolean)
+BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(Path::Class)
 %endif
 
@@ -159,6 +161,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May  8 2025 Paul Howarth <paul@city-fan.org> - 1:0.904.0-1
+- 0.904.0 bump (rhbz#2365093)
+
 * Mon Feb 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.903.0-1
 - 0.903.0 bump (rhbz#2343445)
 

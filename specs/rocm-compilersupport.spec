@@ -61,7 +61,11 @@
 # There is a circular dependency with rocm-runtime
 # https://github.com/ROCm/llvm-project/issues/269
 # Turn this on when there isn't a rocm-runtime to use
+%if 0%{?rhel}
+%bcond_without bootstrap
+%else
 %bcond_with bootstrap
+%endif
 
 
 Name:           rocm-compilersupport

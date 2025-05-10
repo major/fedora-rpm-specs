@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -313,7 +313,9 @@ from the R project.  This package provides the static libRmath library.
 %build
 # Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
 sed -i -e '/R_LIBS_SITE=/s/^/#/g' etc/Renviron.in
-echo 'R_LIBS_SITE=${R_LIBS_SITE-'"'/usr/local/lib/R/site-library:/usr/local/lib/R/library:%{_libdir}/R/library:%{_datadir}/R/library'"'}' >> etc/Renviron.in
+# Only packages which are needed as runtime dependencies are rebuilt for
+# flatpaks in /app, build dependencies are from buildroot in /usr
+echo 'R_LIBS_SITE=${R_LIBS_SITE-'"'/usr/local/lib/R/site-library:/usr/local/lib/R/library:%{_libdir}/R/library:%{_datadir}/R/library%{?flatpak::/usr/%{_lib}/R/library:/usr/share/R/library}'"'}' >> etc/Renviron.in
 # No inconsolata on RHEL tex
 %if 0%{?rhel}
 export R_RD4PDF="times,hyper"
@@ -400,6 +402,12 @@ for i in tex/latex bibtex/bib bibtex/bst; do
   mkdir -p %{buildroot}%{_texdist}/$i
   (cd %{buildroot}%{_texdist}/$i && ln -s %{_datadir}/R/texmf/$i R)
 done
+
+%if 0%{?flatpak}
+# keep compatibility with shebang dependencies
+mkdir -p %{buildroot}/usr/bin
+ln -s /app/bin/Rscript %{buildroot}/usr/bin/Rscript
+%endif
 
 %check
 %if %{with tests}
@@ -920,6 +928,9 @@ TZ="Europe/Paris" make check
 %{_pkgdocdir}
 %docdir %{_pkgdocdir}
 %{_sysconfdir}/ld.so.conf.d/*
+%if 0%{?flatpak}
+/usr/bin/Rscript
+%endif
 
 %files core-devel
 %{_libdir}/pkgconfig/libR.pc
@@ -950,6 +961,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed Apr 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5.0-4
+- Fix flatpak build
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.0-3
 - Add libzstd-devel to Requires
 

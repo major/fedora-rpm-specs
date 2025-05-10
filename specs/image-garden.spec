@@ -1,5 +1,5 @@
 Name:     image-garden
-Version:  0.2
+Version:  0.3
 Release:  %autorelease
 Summary:  Tool for creating test virtual machines
 
@@ -9,7 +9,7 @@ Source:   %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildArch:     noarch
 BuildRequires: make
-BuildRequires: shellcheck 
+BuildRequires: shellcheck
 Requires:      edk2-aarch64
 Requires:      edk2-ovmf
 Requires:      genisoimage
@@ -19,6 +19,7 @@ Requires:      qemu-system-aarch64-core
 Requires:      qemu-system-x86-core
 Requires:      wget
 Requires:      whois
+Requires:      xz
 
 %description
 Image Garden downloads, initializes and optionally operates virtual machine

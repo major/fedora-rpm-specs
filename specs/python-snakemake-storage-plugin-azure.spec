@@ -16,9 +16,11 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-azure
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-azure-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_storage_plugin_azure
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 %if %{with tests}
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
@@ -37,26 +39,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-storage-plugin-azure %{common_description}
 
 
-%prep
-%autosetup -n snakemake-storage-plugin-azure-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_storage_plugin_azure
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
+%check -a
 %if %{with tests}
 %pytest -v -k "${k-}" tests/tests.py
 %endif

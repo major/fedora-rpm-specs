@@ -60,6 +60,9 @@ This package contains the libsheepdog shared library.
 %setup -q
 %patch -P0 -p1
 
+# urcu/compiler.h from userspace-rcu-devel requires __STDC_VERSION__ 201112L
+sed -r -i 's/-std=gnu99/-std=gnu23/' configure.ac
+
 %build
 ./autogen.sh
 

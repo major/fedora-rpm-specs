@@ -2,7 +2,7 @@
 %global _vpath_srcdir src
 
 Name:           daggy
-Version:        2.1.3
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Data Aggregation Utility and C/C++ developer library
 
@@ -39,7 +39,7 @@ Summary: Development files for %{name}
 %autosetup
 
 %build
-%cmake -DVERSION=%{version} src
+%cmake -DVERSION=%{version}.0 src
 %cmake_build
 
 %install

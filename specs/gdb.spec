@@ -923,6 +923,10 @@ fi
 # endif scl
 
 %changelog
+* Wed May 07 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-6.8-bz466901-backtrace-full-prelinked.patch.  Prelinking
+  is no longer supported, there seems little point keeping this test.
+
 * Fri Apr 25 2025 Alexandra Hájková <ahajkova@redhat.com>
 - Backport "Fix another timeout in gdb.base/bg-execution-repeat.exp"
   (Tom de Vries)

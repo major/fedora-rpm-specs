@@ -6,31 +6,25 @@
 %if 0%{?el7}
 %global dts devtoolset-9
 %endif
-%{!?bash_completion_dir:%global bash_completion_dir /usr/share/bash-completion/comlpetions}
-# Interface version (used by fake cubelib-config in build)
-%global intver 12:0:2
+%{!?bash_completion_dir:%global bash_completion_dir /usr/share/bash-completion/completions}
+
 
 Name:           cube
-Version:        4.8.2
-Release:        5%{?dist}
+Version:        4.9
+Release:        1%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
-Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubegui-%{version}.tar.gz
+Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortv/dist/cubegui-%{version}.tar.gz
 Source1:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubew-%{cubew_vers}.tar.gz
-Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubelib-%{version}.tar.gz
-%if 0
-Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubegui/tags/cubegui-4.8-rc1/cubegui-4.8-rc1.tar.gz
-Source1:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubew/tags/cubew-4.8-rc1/cubew-4.8-rc1.tar.gz
-Source2:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubelib/tags/cubelib-4.8-rc1/cubelib-4.8-rc1.tar.gz
-%endif
+Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortv/dist/cubelib-%{version}.tar.gz
 BuildRequires:  dbus-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 BuildRequires:  zlib-devel
 BuildRequires: 	make
-BuildRequires:  %{?dts:%dts-}gcc-c++
+BuildRequires:  gcc-c++
 %ifarch %qt5_qtwebengine_arches
 # Not in ppc64le el9, for instance
 BuildRequires:  qt5-qtwebengine-devel
@@ -100,17 +94,6 @@ The %{name}-doc package contains documentation for %{name}.
 tar fx %SOURCE0
 tar fx %SOURCE1
 tar fx %SOURCE2
-# Fiddle for cubelib not being installed when building cubegui
-cat <<+ >cubelib-config
-#!/bin/sh
-case \$1 in
---cppflags|--cflags) printf '%s\n' -I$(pwd)/cubelib-%ver/inst%_includedir/cubelib ;;
---ldflags)  printf '%s\n' -L$(pwd)/cubelib-%ver/inst%_libdir ;;
---libs) printf '%s\n' '-lcube4 -lz' ;;
---interface-version) printf '%s\n' %intver ;;
-esac
-+
-chmod +x cubelib-config
 # In v4.7 these files define compiler flags overriding the supplied
 # ones in configure, which actually breaks the test for working CC due
 # to -fPIE inconsistency.
@@ -120,13 +103,37 @@ chmod +x cubelib-config
 
 
 %build
-%{?dts:. /opt/rh/%dts/enable}
 # This may not be the best way to eliminate rpath from the -config binaries.
 # rpmlint still complains, apparently about a string which doesn't
 # affect --ldflags or show up in chrpath -l.
 %global unhardcode \
   sed -i -e 's/HARDCODE_INTO_LIBS"]="1"/HARDCODE_INTO_LIBS"]="0"/' \\\
          -e "s/hardcode_into_libs='yes'/hardcode_into_libs='no'/"
+cd cubelib-%ver
+%configure --enable-shared --disable-static --disable-silent-rules \
+   CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
+%unhardcode build-frontend/config.status
+%make_build
+make install DESTDIR=$(pwd)/inst
+cd ..
+# Interface version (used by fake cubelib-config in build)
+intver=$(awk -F \" '/^#define LIBRARY_INTERFACE_VERSION/ {print $2}' cubelib-%version/src/cubelib-config-frontend.h)
+# Fiddle for cubelib not being installed when building cubegui by
+# making a dummy -config script which prints what we want.  Ideally
+# the package should be split into components now, but presumably that
+# means a new revview
+cat <<+ >cubelib-config
+#!/bin/sh
+case \$1 in
+--cppflags|--cflags) printf '%s\n' -I$(pwd)/cubelib-%ver/inst%_includedir/cubelib ;;
+--ldflags)  printf '%s\n' -L$(pwd)/cubelib-%ver/inst%_libdir ;;
+--ltldflags)  printf '%s\n' -L$(pwd)/cubelib-%ver/inst%_libdir ;;
+--libs) printf '%s\n' '-lcube4 -lz' ;;
+--interface-version) printf '%s\n' $intver ;;
+--include) printf '%s\n' $(pwd)/cubelib-%ver/inst%_includedir ;;
+esac
++
+chmod +x cubelib-config
 cd cubew-%cubew_vers
 # The configure configuration now ignores $CFLAGS etc. in the
 # environment and actually fails for want of -fPIC, sigh, but not if
@@ -135,15 +142,10 @@ cd cubew-%cubew_vers
    CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
 %unhardcode build-backend/config.status
 %make_build
-cd ../cubelib-%ver
-%configure --enable-shared --disable-static --disable-silent-rules \
-   CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
-%unhardcode build-frontend/config.status
-%make_build
 # Collect it for use by cubegui
 make install DESTDIR=$(pwd)/inst
 # Wrong paths in .la cause trouble
-rm inst%_libdir/*.la
+#rm inst%_libdir/*.la
 cd ../cubegui-%ver
 # Kludge: For some reason the Qt dependencies are found as .so paths
 # in Fedora (only), and libtool re-orders them with libcube4gui after what it
@@ -248,33 +250,19 @@ cat >%{buildroot}%{_libdir}/cube-plugins/plugins.abignore <<EOF
 file_name_regexp = .*-plugin\\.so.*
 EOF
 
+mv %{buildroot}%{_prefix}/lib/cmake/CubeW %{buildroot}%{_libdir}/cmake/ || :
+rmdir %{buildroot}%{_prefix}/lib/cmake || :
+
 mkdir -p %{buildroot}%{bash_completion_dir}
-mv %{buildroot}%{_bindir}/cubegui-autocompletion.sh %{buildroot}%{bash_completion_dir}/cubegui
+mv %{buildroot}%{_bindir}/cubegui-autocompletion.sh %{buildroot}%{bash_completion_dir}/cube
 # For MacOS?
 rm %{buildroot}%{_bindir}/maccubegui.sh
 
 
 %check
-%{?dts:. /opt/rh/%dts/enable}
 make -C cubelib-%ver check || { cat test/test*/*log && false; }
 make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
-
-%if 0%{?el7}
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
 
 %ldconfig_scriptlets libs
 %ldconfig_scriptlets guilib
@@ -306,6 +294,7 @@ fi
 %{_bindir}/cube_merge
 %{_bindir}/cube_nodeview
 %{_bindir}/cube_part
+%{_bindir}/cube_pop_metrics
 %{_bindir}/cube_rank
 %{_bindir}/cube_regioninfo
 %{_bindir}/cube_remap2
@@ -314,21 +303,19 @@ fi
 %{_bindir}/cube_test
 %{_bindir}/cube_topoassist
 %{_bindir}/tau2cube
-%{_libdir}/libgraphwidgetcommon-plugin.so.10*
 %{_libdir}/cube-plugins/
 %{_datadir}/appdata/*.appdata.xml
 %{_datadir}/applications/CUBE.desktop
 %{_datadir}/icons/*
 %{_datadir}/cubegui/
-%{bash_completion_dir}/cubegui
-
-%files devel
+%{bash_completion_dir}/cube
 
 %files libs
 %license cubegui-%ver/COPYING
 %{_bindir}/cube_server
 %exclude %{_libdir}/lib%{name}4gui*.so*
-%{_libdir}/lib%{name}*.so.12*
+%{_libdir}/lib%{name}*.so.13*
+%{_libdir}/libcube4w.so.12*
 %{_datadir}/cubelib/
 %{_datadir}/cubew/
 
@@ -338,17 +325,20 @@ fi
 %{_includedir}/cubew
 %{_includedir}/cubelib
 %{_libdir}/lib%{name}*.so
+%{_libdir}/cmake/CubeLib/CubeLibConfig.cmake
+%{_libdir}/cmake/CubeW/CubeWConfig.cmake
 %doc cubegui-%ver/examples
 
 %files guilib
 %license cubegui-%ver/COPYING
 %{_libdir}/lib%{name}4gui.so.10*
-%{_libdir}/libgraphwidgetcommon-plugin.so
+%{_libdir}/libcube_graphwidgetcommon_plugin.so.10*
 
 %files guilib-devel
 %{_bindir}/cubegui-config
 %{_includedir}/cubegui
 %{_libdir}/lib%{name}4gui.so
+%{_libdir}/cmake/CubeGui/CubeGuiConfig.cmake
 
 %files doc
 %license cubegui-%ver/COPYING
@@ -358,6 +348,13 @@ fi
 
 
 %changelog
+* Thu Apr 24 2025 Dave Love <loveshack@fedoraproject.org> - 4.9-1
+- Update to v4.9
+- Remove el7 support
+
+* Thu Apr 24 2025 Jan Andre Reuter <j.reuter@fz-juelich.de> - 4.8.2-6
+- Fix bash-completion (rhbz#2315798)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

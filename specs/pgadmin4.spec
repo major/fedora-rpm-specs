@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.2
+Version:        9.3
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -264,6 +264,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu May 08 2025 Sandro Mani <manisandro@gmail.com> - 9.3-1
+- Update to 9.3
+
 * Wed Apr 09 2025 Sandro Mani <manisandro@gmail.com> - 9.2-1
 - Update to 9.2
 

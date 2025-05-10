@@ -3,9 +3,10 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.4.7
-Release:	4%{?dist}
+Version:	3.4.8
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library
+# No license change for 3.4.8
 # No license change for 3.4.7
 # No license change for 3.4.6
 # The following SPDX licenses are extracted from the sources using
@@ -41,8 +42,6 @@ URL:		http://sourceware.org/libffi
 Source0:	https://github.com/libffi/libffi/releases/download/v%{version}/libffi-%{version}.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
-
-Patch1:		libffi-3.4.7-ppc64-static-trampolines.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -142,6 +141,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Wed May 07 2025 DJ Delorie <dj@redhat.com> - 3.4.8-1
+- Rebase to libffi 3.4.8.
+
 * Fri Apr 04 2025 Andrea Bolognani <abologna@redhat.com> - 3.4.7-4
 - Fix riscv64 build (thanks David Abdurachmanov and Rich Jones)
 

@@ -2,13 +2,13 @@
 
 %global syslog_ng_major_ver 4
 %global syslog_ng_minor_ver 8
-%global syslog_ng_patch_ver 1
+%global syslog_ng_patch_ver 2
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -611,6 +611,13 @@ fi
 
 
 %changelog
+* Thu May 08 2025 Peter Czanik <peter@czanik.hu> - 4.8.2-1
+- update to 4.8.2, a bug fix release
+- fixes an inproper certificate validation problem (CVE-2024-47619)
+- fixes elasticsearch-http() and other drivers after a backwards
+  incompatible fix in format-json
+- reliability and performance improvements in the S3 destination
+
 * Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.1-3
 - Rebuilt for abseil-cpp-20250127.0
 

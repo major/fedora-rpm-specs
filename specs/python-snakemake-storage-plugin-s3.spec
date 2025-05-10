@@ -15,9 +15,11 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-s3
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-s3-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_storage_plugin_s3
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
@@ -36,27 +38,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-storage-plugin-s3 %{common_description}
 
 
-%prep
-%autosetup -n snakemake-storage-plugin-s3-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_storage_plugin_s3
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 %if %{without network_tests}
 # The following tests require network access:
 k="${k-}${k+ and }not (TestStorageNoSettings and test_storage)"

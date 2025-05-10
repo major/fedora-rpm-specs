@@ -1,6 +1,6 @@
 Name:           libtpms
 Version:        0.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
 License:        BSD-3-Clause AND LicenseRef-TCGL
 
@@ -12,6 +12,7 @@ Source2:        gpgkey-B818B9CADF9089C2D5CEC66B75AD65802A0B4211.asc
 
 Patch0001:      0001-tpm2-Add-padding-to-OBJECT-for-32bit-targets.patch
 Patch0002:      0001-tpm2-Add-asserts-to-silence-compiler-warning-due-to-.patch
+Patch0003:      0001-tpm2-Fix-bugs-in-RuntimeProfileDedupStrItems.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -66,6 +67,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Thu May 08 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-4
+- Apply fix to string deduplication function
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -17,9 +17,11 @@ Patch:          %{url}/pull/5.patch
 # Rebased to apply on top of 5.patch, above.
 Patch:          0001-Update-webdav4-dependency-to-0.10.0.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_storage_plugin_webdav
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
@@ -36,27 +38,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-storage-plugin-webdav %{common_description}
 
 
-%prep
-%autosetup -n snakemake-storage-plugin-webdav-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_storage_plugin_webdav
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 # The following tests require network access and a webdav test server that
 # upstream CI sets up with docker, which will of course not be possible here:
 k="${k-}${k+ and }not (TestStorage and test_storage)"

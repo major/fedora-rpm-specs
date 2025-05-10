@@ -3,7 +3,7 @@
 
 Name:		vpnc
 Version:	0.5.3^20241114.git%{shortcommit}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	IPSec VPN client compatible with Cisco equipment
 License:	GPL-2.0-or-later and BSD-2-Clause
 URL:		https://davidepucci.it/doc/vpnc/
@@ -19,7 +19,7 @@ Source8:	%{name}-tmpfiles.conf
 Source99:	fetch-sources.sh
 
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	gcc
 BuildRequires:	libgcrypt-devel > 1.1.90
 BuildRequires:	gnutls-devel
 # required for ./makeman.pl
@@ -27,24 +27,15 @@ BuildRequires:	perl-interpreter
 BuildRequires:	perl(autodie)
 BuildRequires:	perl(filetest)
 BuildRequires:	perl(if)
-BuildRequires:  systemd-rpm-macros
-Requires:	iproute vpnc-script
+BuildRequires:	systemd-rpm-macros
+Requires:	iproute vpnc-script usermode
+Obsoletes:	vpnc-consoleuser < 0.5.3^20241114.git11e15a1-2
 
 %description
 An IPSec VPN client with support for IP tunelling, Xauth, ESP,
 Mode Configuration and shared-secret IPSec authentication.
 
 Compatible with Cisco's EasyVPN equipment.
-
-
-%package consoleuser
-Summary:	Allows console user to run the VPN client directly
-Requires:	vpnc = %{version}-%{release}
-Requires:	usermode
-
-%description consoleuser
-Allows the console user to run the IPSec VPN client directly without
-switching to the root account.
 
 %prep
 %autosetup -p1 -n %{name}-%{commit}
@@ -53,7 +44,7 @@ switching to the root account.
 CFLAGS="$RPM_OPT_FLAGS -fPIE" LDFLAGS="$RPM_OPT_FLAGS -pie" make PREFIX=/usr
 
 %install
-make install DESTDIR="$RPM_BUILD_ROOT" PREFIX=/usr SBINDIR=%{_sbindir}
+make install DESTDIR="$RPM_BUILD_ROOT" PREFIX=/usr SBINDIR=%{_libexecdir}
 rm -f $RPM_BUILD_ROOT%{_bindir}/pcf2vpnc
 chmod 0644 src/pcf2vpnc
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pcf2vpnc.1
@@ -68,7 +59,7 @@ install -Dp -m 0644 %{SOURCE4} \
 install -Dp -m 0644 %{SOURCE4} \
     $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/vpnc-disconnect
 install -m 0755 %{SOURCE5} \
-    $RPM_BUILD_ROOT%{_sbindir}/vpnc-helper
+    $RPM_BUILD_ROOT%{_libexecdir}/vpnc-helper
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/vpnc
 ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/vpnc-disconnect
@@ -95,22 +86,26 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %{_tmpfilesdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/vpnc/default.conf
-%{_sbindir}/vpnc
 %{_bindir}/cisco-decrypt
-%{_sbindir}/vpnc-disconnect
+%{_bindir}/vpnc
+%{_bindir}/vpnc-disconnect
+%{_libexecdir}/vpnc
+%{_libexecdir}/vpnc-disconnect
+%{_libexecdir}/vpnc-helper
 %{_mandir}/man8/vpnc.*
 %{_mandir}/man1/cisco-decrypt.*
 %{_unitdir}/vpnc@.service
-
-%files consoleuser
 %config(noreplace) %{_sysconfdir}/security/console.apps/vpnc*
 %config(noreplace) %{_sysconfdir}/pam.d/vpnc*
-%{_bindir}/vpnc
-%{_bindir}/vpnc-disconnect
-%{_sbindir}/vpnc-helper
 
 
 %changelog
+* Wed May 07 2025 Christian Krause <chkr@fedoraproject.org> - 0.5.3^20241114.git11e15a1-2
+- Fix issues with /usr/bin/ and /usr/sbin/ merge (#2363531)
+- Always use consolehelper, implicitly allowed for root,
+  remove consoleuser sub-package
+- Remove pam_console.so from vpnc.pam (not available anymore)
+
 * Mon Mar 24 2025 Lubomir Rintel <lkundrak@v3.sk> - 0.5.3^20241114.gitc4837a1-1
 - Update to a snapshot from an active upstream Git repository
 

@@ -47,7 +47,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.8
+Version:   2.0.9
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -69,6 +69,7 @@ BuildRequires: systemd-devel
 BuildRequires: libarchive-devel
 BuildRequires: libcbor-devel
 BuildRequires: libblkid-devel
+BuildRequires: readline-devel
 %if 0%{?have_passim}
 BuildRequires: passim-devel
 %endif

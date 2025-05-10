@@ -1,6 +1,6 @@
 Name:           python-pytest-testinfra
-Version:        10.1.1
-Release:        4%{?dist}
+Version:        10.2.2
+Release:        1%{?dist}
 Summary:        Unit testing for config-managed server state
 
 License:        Apache-2.0
@@ -29,21 +29,20 @@ Suggests:       python3-pytest-testinfra+salt
 Suggests:       python3-pytest-testinfra+winrm
 
 # python-testinfra is a duplicate with wrong name
-Provides: 	python3-testinfra = %{version}-%{release}
-Obsoletes: 	python3-testinfra < 5.3.1-14
+Provides:       python3-testinfra = %{version}-%{release}
 
 %description -n python3-pytest-testinfra %_description
 
 %pyproject_extras_subpkg -n python3-pytest-testinfra ansible,paramiko,salt,winrm
 
 %prep
-%autosetup -p1 -n pytest-testinfra-%{version}
+%autosetup -p1 -n pytest_testinfra-%{version}
 
 # types-paramiko package is not available and is not needed for build tests
-sed -i '/types-paramiko/d' test-requirements.txt
+sed -i '/types-paramiko/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t 
+%pyproject_buildrequires -x ansible,paramiko,salt,winrm -e %{toxenv}
 
 %build
 %pyproject_wheel
@@ -60,7 +59,4 @@ sed -i '/types-paramiko/d' test-requirements.txt
 %doc README.rst
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

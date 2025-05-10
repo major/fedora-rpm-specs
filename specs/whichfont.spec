@@ -1,6 +1,6 @@
 Name:          whichfont
-Version:       2.1.0
-Release:       4%{?dist}
+Version:       2.2.0
+Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,12 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Thu May 08 2025 Sudip Shil <sshil@redhat.com> - 2.2.0-1
+- Modified input_char to handle multiple words as a single input string, allowing space-separated characters.
+- :: as the delimiter for Fontconfig parameters.
+- help section in better format
+- Modified tests.sh to include new test cases for space-separated inputs and :: parameter handling.
+
 * Tue Apr 15 2025 Sudip Shil <sshil@redhat.com> - 2.1.0-0
 - Added --language (-l) CLI option to detect the default font for a given language code, which detects and prints the default font family that supports the specified language.
 - Introduced valid_langs[] array containing known language codes supported by fontconfig, Rejects invalid language codes early with a clear error message.

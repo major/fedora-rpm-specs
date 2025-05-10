@@ -288,6 +288,9 @@ Patch91: chromium-108-system-opus.patch
 # patch for Failed NodeJS version check
 Patch92: chromium-136-checkversion-nodejs.patch
 
+# Fix FTBFS caused by bindgen-cli-0.71, rust-1.79.0 on EL9
+Patch93: chromium-136-el9-bindgen-cli-build-error.patch
+
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
@@ -1000,7 +1003,8 @@ Qt6 UI for chromium.
 %patch -P91 -p1 -b .system-opus
 %endif
 
-%patch -P92 -p1 -b .chromium-136-nodejs-checkversion
+%patch -P92 -p1 -b .nodejs-checkversion
+%patch -P93 -p1 -b .bindgen-cli-build-error
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9

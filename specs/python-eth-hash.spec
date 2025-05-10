@@ -30,6 +30,8 @@ Summary: %{summary}
 
 %description -n python3-eth-hash %{common_description}
 
+%pyproject_extras_subpkg -n python3-eth-hash pycryptodomex
+
 %check -a
 %pytest ./tests/core/ ./tests/backends/pycryptodome
 

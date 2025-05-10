@@ -1,7 +1,7 @@
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
 URL:     https://apps.kde.org/kajongg/
@@ -39,7 +39,9 @@ BuildRequires: python3-devel
 BuildRequires: python3-twisted >= 16.6.0
 Requires:      python3-twisted >= 16.6.0
 
-Requires: python3-pyqt6-base
+# Previously, 'python3-pyqt6-base' was enough, but it isn't any longer.
+# It looks for 'PyQt6.QtSvgWidgets' which is not in the base package.
+Requires: python3-pyqt6
 # for ogg123
 Requires: vorbis-tools
 Requires: python3-QtPy
@@ -85,6 +87,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu May 08 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-2
+- Fixed pyqt6 dependancy to get the full package instead of the base one
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

@@ -71,7 +71,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 25.1.0-rc2
+%global ver 25.1.0
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -445,6 +445,12 @@ rm -vf %{buildroot}%{_libdir}/libGLX_mesa.so
 rm -vf %{buildroot}%{_libdir}/libEGL_mesa.so
 # XXX can we just not build this
 rm -vf %{buildroot}%{_libdir}/libGLES*
+
+%if ! 0%{?with_asahi}
+# This symlink is unconditionally created when any kmsro driver is enabled
+# We don't want this one so delete it
+rm -vf %{buildroot}%{_libdir}/dri/apple_dri.so
+%endif
 
 # glvnd needs a default provider for indirect rendering where it cannot
 # determine the vendor

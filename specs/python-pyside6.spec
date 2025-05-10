@@ -278,7 +278,7 @@ ninja apidocinstall
 # setuptools can find them.
 cp %{__cmake_builddir}/sources/shiboken6/shibokenmodule/{*.py,*.txt} sources/shiboken6/shibokenmodule/
 cp %{__cmake_builddir}/sources/pyside6/PySide6/*.py sources/pyside6/PySide6/
-%{__python3} setup.py --qtpaths=%{_qt6_bindir}/qtpaths install_scripts --install-dir=%{buildroot}%{_bindir}
+%{__python3} setup.py --qtpaths=/usr/%{_lib}/qt6/bin/qtpaths install_scripts --install-dir=%{buildroot}%{_bindir}
 for name in PySide6 shiboken6 shiboken6_generator; do
   mkdir -p %{buildroot}%{python3_sitearch}/$name-%{version}-py%{python3_version}.egg-info
   cp -p $name.egg-info/{PKG-INFO,top_level.txt} \
@@ -290,8 +290,8 @@ done
 
 # Add symlinks for tools used by pyside_tool.py
 mkdir -p %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
-ln -sf %{_qt6_libexecdir}/{qmlcachegen,qmlimportscanner,qmltyperegistrar,rcc,uic} %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
-ln -sf %{_qt6_bindir}/{assistant,balsam,balsamui,designer,linguist,lrelease,lupdate,qmlformat,qmllint,qmlls,qsb} %{buildroot}%{python3_sitelib}/%{camel_name}
+ln -sf /usr/%{_lib}/qt6/libexec/{qmlcachegen,qmlimportscanner,qmltyperegistrar,rcc,uic} %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
+ln -sf /usr/%{_lib}/qt6/bin/{assistant,balsam,balsamui,designer,linguist,lrelease,lupdate,qmlformat,qmllint,qmlls,qsb} %{buildroot}%{python3_sitelib}/%{camel_name}
 
 # Create scripts folders (this basically replicates prepare_packages() in build_scripts/main.py)
 mkdir -p %{buildroot}%{python3_sitelib}/%{camel_name}/scripts

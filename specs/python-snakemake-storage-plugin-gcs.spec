@@ -10,9 +10,11 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-gcs
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-gcs-%{version}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -L snakemake_storage_plugin_gcs
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  snakemake >= 8
@@ -29,27 +31,7 @@ Summary:        %{summary}
 %description -n python3-snakemake-storage-plugin-gcs %{common_description}
 
 
-%prep
-%autosetup -n snakemake-storage-plugin-gcs-%{version}
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files snakemake_storage_plugin_gcs
-
-
-%check
-# Just in case the tests are not very thorough:
-%pyproject_check_import
-
+%check -a
 # The following tests require network access *and* cloud credentials:
 k="${k-}${k+ and }not (TestStorage and test_list_candidate_matches)"
 k="${k-}${k+ and }not (TestStorage and test_storage)"

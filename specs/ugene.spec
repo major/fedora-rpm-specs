@@ -2,24 +2,24 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20250122
-%global	gitcommit		9c788569aa7e36b0f07a850ec4f8755d7f6f25b4
+%global	gitdate		20250428
+%global	gitcommit		ea4503585b90105e7e938557122cbc43bcd8c815
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		354100d3f0c6bf05acb796baff8b1860f61cb9d0
+%global	gitcommit_free		6efa8bdfb69a0a945d7f434a81d24f9c97a658e7
 %else
 # currently 41.0 branch
-%global	gitdate		20211117
-%global	gitcommit		2d776cc668bc5019452e25ecc330c88093e75c48
+%global	gitdate		20250313
+%global	gitcommit		c0dffab5a15e01c026f80cf0a7033b08112a355f
 # New git commit with non-free part using "git filter-branch"
-%global	gitcommit_free		f995e33068c5959c1bab249cd04ed3776e9b2d96
+%global	gitcommit_free		b0631c54cc0603a88793ed5d6ee02dec196b823e
 %endif
 
 
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20250124
-%global	tarballtime	1006
+%global	tarballdate	20250430
+%global	tarballtime	1705
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		52.0
+%global	mainver		52.1
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -164,10 +164,16 @@ sed -i.nonfree CMakeLists.txt -e '\@add_subdirectory.*plugins_3rdparty/psipred@d
 sed -i.nonfree ugene.pro -e '\@plugins_3rdparty/psipred@d'
 	%GIT commit -m "remove nonfree code" -a
 
+# Workaround
+sed -i src/ugene_globals.pri \
+	-e '\@DEFINES.=UGENE_VERSION=@i DEFINES+=U2_APP_VERSION=\$\${UGENE_VERSION}'
+	%GIT commit -m "set U2_APP_VERSION as a workaround" -a
+
 %build
 %if		0%{?use_gitbare} >= 1
 cd %{name}
 %endif
+
 %{qmake_qt5} -r \
 	PREFIX=%{_libdir}/%{name} \
 	UGENE_EXCLUDE_LIST_ENABLED=1 \
@@ -263,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu May 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 52.1-1
+- 52.1
+
 * Fri Jan 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 52.0-1
 - 52.0
 

@@ -1,3 +1,6 @@
+# the shortcuts plugin uses libxfce4kbd-private
+%bcond xfce4kbd %{undefined flatpak}
+
 %global minorversion 0.6
 
 Name:           mousepad
@@ -22,7 +25,9 @@ BuildRequires:  glib2-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  gspell-devel
 BuildRequires:  polkit-devel
+%if %{with xfce4kbd}
 BuildRequires:  libxfce4ui-devel
+%endif
 
 %description
 Mousepad aims to be an easy-to-use and fast editor. It's target is an editor for
@@ -72,7 +77,7 @@ Development files for Mousepad plugin development
 %autosetup
 
 %build
-%meson
+%meson %{!?with_xfce4kbd:-Dshortcuts-plugin=disabled}
 %meson_build
 
 %install

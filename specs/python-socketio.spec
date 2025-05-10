@@ -12,12 +12,14 @@ Source:         %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x client,asyncio_client -t
+BuildOption(install):   -l socketio
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
 # Extra testing dependencies
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 Socket.IO is a transport protocol that enables real-time bidirectional
@@ -41,24 +43,7 @@ Obsoletes:      python-socketio-doc < 5.11.2-4
 %pyproject_extras_subpkg -n python3-socketio client asyncio_client
 
 
-%prep
-%autosetup -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x client,asyncio_client -t
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l socketio
-
-
-%check
+%check -a
 %pytest
 
 

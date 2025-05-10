@@ -2,7 +2,7 @@
 %global lbname lib%{intname}
 
 Name: google-benchmark
-Version: 1.9.2
+Version: 1.9.3
 Release: %autorelease
 
 License: Apache-2.0

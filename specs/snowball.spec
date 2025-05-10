@@ -9,7 +9,7 @@
 %global giturl  https://github.com/snowballstem/snowball
 
 Name:           snowball
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Snowball compiler and stemming algorithms
 
@@ -36,6 +36,8 @@ BuildRequires:  javapackages-tools
 
 # Python dependencies
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist build}
+BuildRequires:  %{py3_dist setuptools}
 
 %global desc %{expand:Snowball is a small string processing language for creating stemming
 algorithms for use in Information Retrieval, plus a collection of
@@ -56,6 +58,8 @@ gathering contributions over time.}
 - Danish
 - Dutch
 - English (Standard, Porter)
+- Esperanto
+- Estonian
 - Finnish
 - French
 - German
@@ -149,12 +153,16 @@ Stemming algorithms written in Python 3.
 # Fix an RST error
 sed -i 's/\(libstemmer_c-\)\*/\1\\*/' doc/libstemmer_c_README
 
+# Build the python algorithms with system python packages
+sed -i 's/-m build/& --no-isolation/' GNUmakefile
+
 %generate_buildrequires
 cd python
-rm -f modules.txt README.rst src
-ln -s ../libstemmer/modules.txt .
-ln -s ../README.rst .
-ln -s . src
+if [ ! -L modules.txt ]; then
+  ln -s ../libstemmer/modules.txt .
+  ln -s ../README.rst .
+  ln -s . src
+fi
 %pyproject_buildrequires
 
 %build

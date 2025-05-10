@@ -172,9 +172,13 @@ Patch:          0001-chore-Add-license-texts-for-things-bundled-in-the-as.patch
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-8.30.0-modified-assets.patch
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+# Generate BR’s for all supported extras to ensure they do not FTI
+BuildOption(generate_buildrequires): -x reports,messaging
+BuildOption(install):   -l snakemake
+BuildOption(check):     -e '*.tests*'
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 BuildRequires:  help2man
 
@@ -407,13 +411,6 @@ BuildRequires:  %{py3_dist google-cloud-storage}
 %autosetup -n snakemake-%{version} -p1
 %setup -q -T -D -a 1 -c -n snakemake-%{version}
 
-%py3_shebang_fix .
-# Remove shebangs from non-executable scripts. The Python script is executable
-# in the source tree but will be installed without executable permissions.
-sed -r -i '1{/^#!/d}' \
-    snakemake/executors/jobscript.sh \
-    snakemake/executors/google_lifesciences_helper.py
-
 # Copy and rename nano and vim extensions readmes for use in the main
 # documentation directory.
 for editor in nano vim
@@ -440,18 +437,14 @@ Assets.spec["tailwindcss/tailwind.css"].sha256 = "$(
 EOF
 
 
-%generate_buildrequires
-# Generate BR’s for all supported extras to ensure they do not FTI
-%pyproject_buildrequires -x reports,messaging
+%install -a
+# Fix shebangs (no /usr/env shebangs)
+%py3_shebang_fix %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}
 
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l snakemake
+# Remove shebangs from non-executable scripts. The Python script is executable
+# in the source tree but will be installed without executable permissions.
+sed -r -i '1{/^#!/d}' \
+    %{buildroot}%{python3_sitelib}/snakemake/executors/google_lifesciences_helper.py
 
 # Mark license files in the asset bundle.
 sed -r -i 's@^.*/(LICEN[CS]E|NOTICE)[^/]*$@%%license &@' %{pyproject_files}
@@ -476,12 +469,7 @@ find '%{buildroot}%{_datadir}/vim/vimfiles' \
     -type f -name 'README.*' -print -delete
 
 
-%check
-# Even if we are running the tests, this is useful; it could turn up import
-# errors that would only be revealed by tests we had to disable (e.g. due to
-# network access).
-%pyproject_check_import -e '*.tests*'
-
+%check -a
 %if %{with tests}
 %if %{without network_tests}
 # The following require network access (at least DNS) and pass if it is

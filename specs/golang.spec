@@ -141,7 +141,7 @@ Provides: bundled(golang(golang.org/x/arch)) = 0.12.0
 Provides: bundled(golang(golang.org/x/build)) = 0.0.0.20241205234318.b850320af2a4
 Provides: bundled(golang(golang.org/x/crypto)) = 0.30.0
 Provides: bundled(golang(golang.org/x/mod)) = 0.22.0
-Provides: bundled(golang(golang.org/x/net)) = 0.32.1.0.20250121202134.9a960c88dd98
+Provides: bundled(golang(golang.org/x/net)) = 0.32.1.0.20250304185419.76f9bf3279ef
 Provides: bundled(golang(golang.org/x/sync)) = 0.10.0
 Provides: bundled(golang(golang.org/x/sys)) = 0.28.0
 Provides: bundled(golang(golang.org/x/telemetry)) = 0.0.0.20241204182053.c0ac0e154df3
@@ -502,6 +502,8 @@ fi
 %dir %{goroot}
 %{goroot}/api/
 %{goroot}/lib/time/
+%{goroot}/lib/wasm/
+%{goroot}/lib/fips140/
 
 # ensure directory ownership, so they are cleaned up if empty
 %dir %{gopath}

@@ -15,7 +15,7 @@ Name:			clover2
 
 # For Version, see README.md and so on
 Version:		%{mainver}
-Release:		10%{?dist}
+Release:		11%{?dist}
 Summary:		Yet another compiler language
 
 # app-sample/	unused
@@ -27,6 +27,8 @@ Source0:		%{name}-%{tarballdate}T%{tarballtime}.tar.gz
 Source1:		create-clover-git-bare-tarball.sh
 # Port to pcre2 (bug 2128279)
 Patch1:		clover2-11.0.0-0001-port-to-pcre2.patch
+# block TCGETA usage on ppc64le for now on 2.42
+Patch2:		clover2-11.0.0-0002-block-TCGETA-usage-on-ppc64le.patch
 
 # Upstream suggests to use clang
 BuildRequires:	clang
@@ -95,6 +97,7 @@ sed -i.lib Makefile.in -e 's|/lib$|/%{_lib}|'
 
 git commit -m "Apply Fedora specific configuration" -a
 cat %PATCH1 | git am
+cat %PATCH2 | git am
 
 %build
 cd clover2
@@ -149,6 +152,9 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Thu May 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.0.0-11
+- block TCGETA usage on ppc64le for now on 2.42
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

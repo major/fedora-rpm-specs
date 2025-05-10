@@ -1,6 +1,6 @@
 Name:    ofono
 Summary: Open Source Telephony
-Version: 2.16
+Version: 2.17
 Release: 1%{?dist}
 
 # oFono is GPL. This covers most of the source files.
@@ -89,6 +89,9 @@ make check
 
 
 %changelog
+* Thu May 08 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.17-1
+- Update to v2.17
+
 * Thu Mar 27 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.16-1
 - Update to v2.16
 

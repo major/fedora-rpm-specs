@@ -5,7 +5,7 @@ Name:    python-AppTools
 Version: 5.3.0
 %forgemeta
 
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Enthought Tool Suite Application Tools
 # Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
@@ -41,12 +41,11 @@ and many more.
 
 %description %{common_description}
 
+
 %package -n python-%{srcname}-doc
 Summary: Documentation for %{name}
 
 BuildRequires: make
-BuildRequires: python3dist(sphinx)
-BuildRequires: python3dist(enthought-sphinx-theme)
 
 Provides:  python-AppTools-doc = %{version}-%{release}
 Obsoletes: python-AppTools-doc < 4.4.0-1
@@ -54,29 +53,35 @@ Obsoletes: python-AppTools-doc < 4.4.0-1
 %description -n python-%{srcname}-doc
 Documentation and examples for %{name}.
 
+
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary: %summary
+BuildRequires: python%{python3_pkgversion}-devel
 
-Requires: python3dist(numpy)
-Requires: python3dist(pyface)
-Requires: python3dist(configobj)
-
-BuildRequires: python3-devel
-BuildRequires: python3dist(traits)
-BuildRequires: python3dist(setuptools)
-
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 %description -n python%{python3_pkgversion}-%{srcname} %{common_description}
+
+
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} gui
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} h5
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} persistence
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} preferences
+
 
 %prep
 %setup -q -n %{srcname}-%{version}
+# Drop pinning numpy version
+sed -i -e 's/numpy < 2.0/numpy/' setup.py
 # remove exec permission
 find examples -type f -exec chmod 0644 {} ";"
 cp -p %{SOURCE1} README.fedora
 
 
+%generate_buildrequires
+%pyproject_buildrequires -x docs,test,gui,h5,persistence,preferences
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 pushd docs
 PYTHONPATH=../build/lib make html SPHINXBUILD=%{_bindir}/sphinx-build-3
@@ -84,20 +89,22 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license *LICENSE*.txt
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc CHANGES.txt
-%{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{srcname}/
 
 %files -n python-%{srcname}-doc
 %license *LICENSE*.txt
 %doc docs/build/html examples README.fedora
 
+
 %changelog
+* Thu May 08 2025 Orion Poplawski <orion@nwra.com> - 5.3.0-5
+- Use pyproject macros and add extras
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,26 +1,30 @@
-%bcond_without check
-%bcond_without html
 %global pname colorspacious
 
 Name: python-%{pname}
 Version: 1.1.2
-Release: 25%{?dist}
+Release: 28%{?dist}
 Summary: Perform colorspace conversions accurately and easily
 License: MIT
 URL: https://github.com/njsmith/colorspacious
-Source0: https://files.pythonhosted.org/packages/source/c/%{pname}/%{pname}-%{version}.tar.gz
+Source: %url/archive/v%{version}/colorspacious-%{version}.tar.gz
 Patch0: %{name}-1.1.2-sphinx.patch
-%if %{with html}
+Patch1: pytest.patch
+
+# Documentation dependencies
 BuildRequires: graphviz
 BuildRequires: make
+BuildRequires: python3-ipython
 BuildRequires: python3-ipython-sphinx
+BuildRequires: python3-jsonschema
+BuildRequires: python3-matplotlib
+BuildRequires: python3-mistune
 BuildRequires: python3-sphinx_rtd_theme
 BuildRequires: python3-sphinxcontrib-bibtex
-BuildRequires: python3-matplotlib
-%endif
-%if %{with check}
-BuildRequires: python3-nose
-%endif
+BuildRequires: texinfo
+# Test dependency
+BuildRequires: python3-pytest
+# Build dependency
+BuildRequires: python3-numpy
 BuildArch: noarch
 
 %global desc \
@@ -36,21 +40,9 @@ CAM02-UCS / CAM02-LCD / CAM02-SCD spaces proposed by Luo et al (2006).
 %description
 %{desc}
 
-%package doc
-Summary: HTML documentation for python colorspacious module
-
-%description doc
-%{desc}
-
-This package contains the HTML documentation.
-
 %package -n python3-%{pname}
 Summary: Perform colorspace conversions accurately and easily
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-numpy
-Requires: python3-numpy
-%{?python_provide:%python_provide python3-%{pname}}
 
 %description -n python3-%{pname}
 %{desc}
@@ -60,35 +52,53 @@ This package contains the python3 module.
 %prep
 %setup -q -n %{pname}-%{version}
 %patch -P0 -p1
-rm -r *.egg-info
+%patch -P1 -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%if %{with html}
+%pyproject_wheel
+
 pushd doc
-PYTHONPATH=`realpath ../build/lib.linux*` make html
+PYTHONPATH=`realpath ../build/lib.linux*` make texinfo
+pushd _build
+pushd texinfo
+makeinfo --docbook colorspacious.texi
 popd
-%endif
-%py3_build
+popd
+popd
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l colorspacious
 
-%if %{with check}
+mkdir -p %{buildroot}%{_datadir}/help/en/colorspacious
+install -m644 doc/_build/texinfo/colorspacious.xml %{buildroot}%{_datadir}/help/en/colorspacious
+cp -p -r doc/_build/texinfo/colorspacious-figures %{buildroot}%{_datadir}/help/en/colorspacious/
+
 %check
-nosetests-3 --all-modules colorspacious
-%endif
+%pyproject_check_import
+%pytest -v colorspacious/*.py
 
-%if %{with html}
-%files doc
-%doc doc/_build/html/*
-%endif
 
-%files -n python3-%{pname}
+%files -n python3-%{pname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pname}
+%dir %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/colorspacious
 
 %changelog
+* Thu May 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.2-28
+- Additional documentation dependencies
+
+* Thu May 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.2-27
+- Modernize spec file
+- Use docbook for documentation
+
+* Thu May 08 2025 Miro Hrončok <mhroncok@redhat.com> - 1.1.2-26
+- Use pytest instead of nose
+- Fixes: rhbz#2349840
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

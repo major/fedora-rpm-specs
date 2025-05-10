@@ -9,29 +9,27 @@ brute force search of several...
 
 
 Name:           python-%{pypi_name}
-Version:        0.8.20
-Release:        9%{?dist}
+Version:        0.8.27
+Release:        1%{?dist}
 Summary:        Bindings for the scrypt key derivation function library
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            http://bitbucket.org/mhallin/py-scrypt
-Source0:        https://files.pythonhosted.org/packages/source/s/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://github.com/holgern/py-scrypt
+Source0:        %{pypi_source scrypt}
  
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
-
-# Missing license file: https://bitbucket.org/mhallin/py-scrypt/issues/31
-# Broken tests in source tarball: https://bitbucket.org/mhallin/py-scrypt/issues/21
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
 
 %description
 %{common_desc}
 
 %package -n     python3-%{pypi_name}
 Summary:        Bindings for the scrypt key derivation function library
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Provides:       bundled(scrypt) = 1.2.0
+Provides:       bundled(scrypt) = 1.2.1
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -51,14 +49,20 @@ sed -i '1d' scrypt/scrypt.py
 %install
 %py3_install
 
+%check
+%{pytest}
 
 %files -n python3-%{pypi_name}
+%license LICENSE
 %doc README.rst
 %{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/_%{pypi_name}*.so
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu May 08 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.27-1
+- Updated to version 0.8.27
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -685,6 +685,13 @@ Source0:    README
 %obsolete_ticket https://src.fedoraproject.org/rpms/gnome-online-miners/c/aed3cac7c83e5f4787a7cf60eda4a8aa8fe47c59
 %obsolete gnome-online-miners 3.34.0-12
 
+%obsolete_ticket https://src.fedoraproject.org/rpms/dmraid/c/2a27f40357e52d5497a0245b05624ce37b8474e6
+%obsolete dmraid 1.0.0.rc16-61
+%obsolete dmraid-devel 1.0.0.rc16-61
+%obsolete dmraid-events 1.0.0.rc16-61
+%obsolete dmraid-events-logwatch 1.0.0.rc16-61
+%obsolete dmraid-libs 1.0.0.rc16-61
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 
