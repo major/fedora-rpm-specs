@@ -1,30 +1,23 @@
 Name:           python-vhacdx
-Version:        0.0.4
+Version:        0.0.8.post2
 Release:        %autorelease
 Summary:        Python bindings for V-HACD
 
-# The entire source is MIT.
+# The entire source is MIT, except:
 #
-# There is supposed to be a bundled copy of the header-only V-HACD library
-# (https://src.fedoraproject.org/rpms/v-hacd,
-# https://github.com/kmammou/v-hacd) at src/vhacdx/VHACD.h, licensed
-# BSD-3-CLause. This file would be present in any archive exported from GitHub,
-# but it is currently missing from the PyPI sdist. If the bundled library
-# appears, we will remove it in %%prep and use the system copy instead.
-#
-# Regardless of the above, since v-hacd is a header-only library, it is
-# effectively a static library and its BSD-3-Clause license still contributes
-# to the license of the binary RPMs even when the system copy is used.
+# BSD-3-Clause:
+#   A bundled copy of the header-only V-HACD library appears as
+#   src/vhacdx/VHACD.h. We remove it in %%prep in favor of the system library,
+#   but since header-only libraries are effectively static libraries,
+#   BSD-3-Clause still appears in the licenses of the binary RPMs.
 License:        MIT AND BSD-3-Clause
-SourceLicense:  MIT
 URL:            https://github.com/trimesh/vhacdx
 Source:         %{pypi_source vhacdx}
 
-# Fix the “test” extra
-# https://github.com/trimesh/vhacdx/pull/1
-Patch:          %{url}/pull/1.patch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install):   -l vhacdx
 
-BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
 BuildRequires:  v-hacd-devel
@@ -46,40 +39,19 @@ Summary:        %{summary}
 %description -n python3-vhacdx %{common_description}
 
 
-%prep
-%autosetup -n vhacdx-%{version} -p1
-
+%prep -a
 # Remove the bundled copy of the V-HACD library (use the system one instead).
-# This file is currently missing from the PyPI sdists.
-rm -vf src/vhacdx/VHACD.h
-
-# Add the V-HACD license to the LICENSE file
-# https://github.com/trimesh/vhacdx/pull/3
-#
-# Until upstream considers this PR, we copy in the V-HACD license file
-# separately.
-cp -p /usr/share/licenses/v-hacd-devel/LICENSE ./LICENSE-VHACD
+rm -v src/vhacdx/VHACD.h
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l vhacdx
-
+%install -a
 # We have no idea what to suggest upstream should change to keep pybind11 from
 # installing C++ source files, but it isn’t useful to package them.
 find '%{buildroot}%{python3_sitearch}' -type f -name '*.cpp' -print -delete
 sed -r -i '/\.cpp$/d' '%{pyproject_files}'
 
 
-%check
+%check -a
 %pytest
 
 

@@ -30,9 +30,14 @@ Source:         %{url}/archive/v%{version}/ttfautohint-py-%{version}.tar.gz
 # on setuptools.
 Patch:         %{url}/pull/22.patch
 
+BuildSystem:            pyproject
+%if %{with tests}
+BuildOption(generate_buildrequires): test-requirements-filtered.txt
+%endif
+BuildOption(install):   -l ttfautohint
+
 BuildArch: noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  ttfautohint-devel
 
 %global common_description %{expand:
@@ -56,31 +61,22 @@ Requires:       ttfautohint-libs
 %description -n python3-ttfautohint-py %{common_description}
 
 
-%prep
-%autosetup -n ttfautohint-py-%{version} -p1
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -s 's/^(coverage)\b/# &/' test-requirements.txt |
   tee test-requirements-filtered.txt
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires %{?with_tests:test-requirements-filtered.txt}
 
 
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l ttfautohint
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 %pytest -v
 %endif

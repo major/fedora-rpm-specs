@@ -1,6 +1,6 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
-Version: 1.32
+Version: 1.33
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
@@ -105,13 +105,13 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %{_mandir}/*/alternatives*
 
 %changelog
+* Fri May 09 2025 Lukas Nykryn <lnykryn@redhat.com> - 1.33-1
+- alternatives: ignore all bin/sbin differences on systems with merged bin/sbin
+
 * Thu Mar 13 2025 Jan Macku <jamacku@redhat.com> - 1.32-1
 - Allow paths with /usr/sbin and /usr/bin as equivalent
 - mkosi: update conf to match latest mkosi version
 - Translated using Weblate (Italian)
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.31-2
 - Rebuilt for the bin-sbin merge (2nd attempt)

@@ -36,7 +36,7 @@ This package contains the development libraries for %{name}.
 sed -i 's|$(PREFIX)/lib/|$(DESTDIR)%{_libdir}/|g' src/Makefile
 
 %build
-%make_build solib FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch" BLAS="-l%{blaslib}" LAPACK=
+%make_build solib FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch $LDFLAGS" BLAS="-l%{blaslib}" LAPACK=
 
 %install
 make install-shlib LIBDIR=%{_libdir} PREFIX="%{buildroot}"
@@ -44,7 +44,7 @@ make install-shlib LIBDIR=%{_libdir} PREFIX="%{buildroot}"
 chmod 755 %{buildroot}%{_libdir}/libqrupdate.*
 
 %check
-make test FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch" BLAS="-l%{blaslib}" LAPACK=
+make test FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow-argument-mismatch $LDFLAGS" BLAS="-l%{blaslib}" LAPACK=
 
 %ldconfig_scriptlets
 

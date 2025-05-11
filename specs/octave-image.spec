@@ -1,7 +1,7 @@
 %global octpkg image
 
 Name:           octave-%{octpkg}
-Version:        2.16.0
+Version:        2.16.1
 Release:        1%{?dist}
 Summary:        Image processing for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ export XTRA_CXXFLAGS="-fPIC"
 
 
 %changelog
+* Fri May 09 2025 Orion Poplawski <orion@nwra.com> - 2.16.1-1
+- Update to 2.16.1
+
 * Sat Mar 15 2025 Orion Poplawski <orion@nwra.com> - 2.16.0-1
 - Update to 2.16.0
 

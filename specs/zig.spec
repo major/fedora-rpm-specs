@@ -44,7 +44,7 @@
 
 Name:           zig
 Version:        0.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -74,6 +74,8 @@ Patch:          0003-increase-upper-bounds-of-main-zig-executable-to-9G.patch
 # https://github.com/ziglang/zig/pull/23644
 Patch:          0004-build-pass-zig-lib-dir-as-directory-instead-of-as-st.patch
 
+# Zig invokes the C compiler to figure out system info
+Requires:  gcc
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -242,6 +244,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Fri May 09 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-3
+- add gcc to runtime dependencies
+
 * Thu Apr 24 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-2
 - fix and re-enable documentation
 

@@ -7,7 +7,7 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.7
+Version: 3.6.2.9
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
 Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
@@ -39,6 +39,7 @@ Provides: bundled(mojoal)
 %endif
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: glad
 BuildRequires: glm-devel
 # for KHR/khrplatform.h
 BuildRequires: libglvnd-devel
@@ -89,9 +90,9 @@ rm -r freetype-2.1.3
 rmdir googletest
 popd
 pushd Engine/libsrc
-rm -r glad{,-gles2}/include/KHR
-ln -s /usr/include/KHR glad/include
-ln -s /usr/include/KHR glad-gles2/include
+rm -r glad{,-gles2}/{src,include}
+glad --reproducible --out-path=glad       --profile="compatibility" --api="gl=2.1"    --generator="c" --spec="gl" --extensions="GL_EXT_framebuffer_object"
+glad --reproducible --out-path=glad-gles2 --profile="core"          --api="gles2=2.0" --generator="c" --spec="gl" --extensions=""
 rm -r ogg
 rm -r theora
 rm -r vorbis
@@ -134,6 +135,10 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Fri May 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.9-1
+- update to 3.6.2.9
+- regenerate glad sources
+
 * Fri Feb 28 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.7-1
 - update to 3.6.2.7
 - switch build system to cmake

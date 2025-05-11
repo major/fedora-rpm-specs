@@ -5,7 +5,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-storage-plugin-azure
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Snakemake storage plugin for Azure Blob Storage
 
@@ -25,7 +25,7 @@ BuildArch:      noarch
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 %endif
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 A Snakemake storage plugin to read and write from Azure Blob Storage.}

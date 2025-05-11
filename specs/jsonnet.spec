@@ -1,7 +1,6 @@
 Name:           jsonnet
-Version:        0.21.0~rc2
-%global so_version 0
-Release:        2%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -15,7 +14,7 @@ License:        Apache-2.0 AND MIT AND CC0-1.0
 
 URL:            https://github.com/google/jsonnet
 %global srcversion %{gsub %{version} ~ -}
-Source0:        %{url}/archive/v%{srcversion}/%{name}-%{srcversion}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{srcversion}.tar.gz
 
 # Downstream man pages in groff_man(7) format
 Source1:        jsonnet.1
@@ -31,8 +30,11 @@ Patch:          0002-patch-CMakeLists.txt-to-stop-overriding-build-flags.patch
 Patch:          0003-Use-system-provided-rapidyaml.patch
 # Fedora/CentOS10 doesn't have the latest setuptools
 Patch:          0004-use-older-setuptools.patch
+# Fix tag error where libc++ is tagged -rc2
+Patch:          0005-fix-cpp-lib-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# safe to clean up "if" statements after 2026-05-31
 %if %{undefined fc40} && %{undefined fc41}
 ExcludeArch:    %{ix86}
 %endif
@@ -136,7 +138,7 @@ export CXXFLAGS="%{optflags} -fPIC -I%{_includedir}/nlohmann"
 %cmake_build
 
 # make python binding
-%{__cp} %{__cmake_builddir}/lib%{name}*.so.%{so_version}{,.*} .
+%{__cp} %{__cmake_builddir}/lib%{name}*.s* .
 %pyproject_wheel
 
 
@@ -168,8 +170,8 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}.so.%{so_version}{,.*}
-%{_libdir}/lib%{name}++.so.%{so_version}{,.*}
+%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}++.so.*
 
 %files devel
 %{_includedir}/lib%{name}*
@@ -187,6 +189,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Fri May 9 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0
+- Build 0.21.0
+
 * Fri Apr 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.21.0~rc2-2
 - Rebuilt for rapidyaml 0.9.0
 

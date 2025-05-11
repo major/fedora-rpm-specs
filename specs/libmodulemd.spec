@@ -23,8 +23,8 @@
 %endif
 
 Name:           %{upstream_name}%{?v2_suffix}
-Version:        2.15.0
-Release:        16%{?dist}
+Version:        2.15.1
+Release:        1%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -33,19 +33,14 @@ Summary:        Module metadata manipulation library
 # contrib/release-tools/semver: GPL-3.0-only
 # modulemd/tests/test_data/f29.yaml:            Apache-2.0
 # modulemd/tests/test_data/f29-updates.yaml:    Apache-2.0
-# xml_specs/reduced/tests/good/module_stream_build_license.xml: MIT AND (MIT AND GPL-3.0-or-later)
+# xml_specs/reduced/tests/good/module_stream_build_license.xml: MIT AND GPL-3.0-or-later
 License:        MIT
+SourceLicense:  %{license} AND GPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/fedora-modularity/libmodulemd
 Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
-# Fix building with glib2-doc 2.79.0, in upstream after 2.15.0
-Patch0:         modulemd-2.15.0-build-Move-computing-gtk-doc-module-paths-to-the-che.patch
-Patch1:         modulemd-2.15.0-doc-Adapt-GLib-documentation-path-to-GLib-2.79.0.patch
-# Fix building with glib2-doc 2.80.1, in upstream after 2.15.0,
-# <https://github.com/fedora-modularity/libmodulemd/pull/619>.
-Patch2:         modulemd-2.15.0-doc-Adapt-GLib-documentation-path-to-GLib-2.80.1.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.47
@@ -194,6 +189,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Fri May 09 2025 Petr Pisar <ppisar@redhat.com> - 2.15.1-1
+- 2.15.1 bump
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

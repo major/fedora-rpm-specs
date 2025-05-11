@@ -5,7 +5,7 @@
 Name:          yelp
 Epoch:         2
 Version:       42.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 # Automatically converted from old format: LGPLv2+ and ASL 2.0 and GPLv2+ - review is highly recommended.
@@ -15,6 +15,8 @@ Source:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_v
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=687960
 Patch1:        0001-Center-new-windows.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2357092
+Patch2:        yelp-CVE-2025-3155.patch
 
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libhandy-1) >= %{libhandy_version}
@@ -96,6 +98,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Fri May 09 2025 Jan Grulich <jgrulich@redhat.com> - 2:42.2-9
+- Fix CVE-2025-3155 - arbitrary file-read
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:42.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

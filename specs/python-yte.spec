@@ -12,7 +12,7 @@ Source0:        %{url}/archive/v%{version}/yte-%{version}.tar.gz
 Source1:        yte.1
 
 BuildSystem:            pyproject
-BuildOption(install):   yte
+BuildOption(install):   -L yte
 
 BuildArch:      noarch
 

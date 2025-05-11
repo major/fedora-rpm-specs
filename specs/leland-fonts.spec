@@ -1,6 +1,6 @@
 %global giturl  https://github.com/MuseScoreFonts/Leland
 
-Version:        0.77
+Version:        0.78
 Release:        %autorelease
 URL:            https://musescore.org/
 VCS:            git:%{giturl}.git
@@ -76,7 +76,7 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Leland/Leland.json
 for name in leland leland-text; do
   sed -e 's,updatecontact,update_contact,g' \
       -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
-      -e 's,\(https://www.musescore.org\),,' \
+      -e 's,\(MuseScore\) (\(https://www.musescore.org\)),<a href="\2">\1</a>,' \
       -e 's,&,&amp;,' \
       -i %{buildroot}%{_metainfodir}/%{fontorg}.${name}-fonts.metainfo.xml
 done

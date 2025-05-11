@@ -87,11 +87,13 @@ Source:         %{pypi_source uv_build}
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
+BuildSystem:            pyproject
+BuildOption(install):   -l uv_build
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Also, there are a couple of test failures on 32-bit platforms.
 ExcludeArch:   %{ix86}
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
@@ -178,7 +180,7 @@ tomcli set Cargo.toml false profile.release.strip
 %cargo_prep
 
 
-%generate_buildrequires
+%generate_buildrequires -p
 # For unclear reasons, maturin checks for all crate dependencies when it is
 # invoked as part of %%pyproject_buildrequires – including those corresponding
 # to optional features.
@@ -186,23 +188,14 @@ tomcli set Cargo.toml false profile.release.strip
 # Since maturin always checks for dev-dependencies, we need -t so that they are
 # generated even when the “check” bcond is disabled.
 %cargo_generate_buildrequires -a -t
-%pyproject_buildrequires
 
 
-%build
+%build -p
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 
-%pyproject_wheel
 
-
-%install
-%pyproject_install
-%pyproject_save_files -l uv_build
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with check}
 # These tests require files from scripts/packages/built-by-uv/, which are not
 # included in the sdist.

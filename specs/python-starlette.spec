@@ -8,8 +8,8 @@ URL:            https://www.starlette.io/
 Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(install):   -l starlette
 BuildOption(generate_buildrequires): -x full
+BuildOption(install):   -l starlette
 
 BuildArch:      noarch
 

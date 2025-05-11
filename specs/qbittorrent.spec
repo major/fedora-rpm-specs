@@ -1,8 +1,8 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 5.0.4
-Release: 2%{?dist}
+Version: 5.1.0
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://www.qbittorrent.org
@@ -11,8 +11,6 @@ Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 Source2: https://github.com/qbittorrent/qBittorrent/raw/master/5B7CC9A2.asc
 Source3: qbittorrent-nox.README
-
-Patch0:  qbittorrent-fix-qt6.9-build.patch
 
 ExcludeArch:   %{ix86}
 
@@ -117,6 +115,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/ru/man1/qbittorrent-nox.1*
 
 %changelog
+* Fri May 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 1:5.1.0-1
+- Update to 5.1.0
+- Fixes: rhbz#2359332
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1:5.0.4-2
 - Rebuild (qt6)
 

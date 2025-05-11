@@ -299,7 +299,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -1087,6 +1087,9 @@ Summary: Client side libraries
 # Needed by default sasl.conf - no onerous extra deps, since
 # 100's of other things on a system already pull in krb5-libs
 Requires: cyrus-sasl-gssapi
+    %if !%{with_storage_zfs}
+Obsoletes: libvirt-daemon-driver-storage-zfs < %{version}-%{release}
+    %endif
 
 %description libs
 Shared libraries for accessing the libvirt daemon.
@@ -2712,6 +2715,9 @@ exit 0
 
 
 %changelog
+* Thu May 08 2025 Adam Williamson <awilliam@redhat.com> - 11.3.0-3
+- Properly obsolete libvirt-daemon-driver-storage-zfs
+
 * Thu May 08 2025 Cole Robinson <crobinso@redhat.com> - 11.3.0-2
 - zfs-fuse is gone from rawhide, drop libvirt-daemon-storage-zfs
 

@@ -52,7 +52,9 @@ Patch:          %{url}/pull/21.patch
 Patch:          %{url}/pull/22.patch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): %{?with_doc_pdf:docs/requirements.txt}
+%if %{with doc_pdf}
+BuildOption(generate_buildrequires): docs/requirements.txt
+%endif
 BuildOption(install):   -l brukerapi
 
 BuildArch:      noarch

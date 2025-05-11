@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-gcs
-Version:        1.1.3
+Version:        1.1.4
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for Google Cloud Storage
 
@@ -12,12 +12,13 @@ Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-gcs-%{versio
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_storage_plugin_gcs
+# All tests require Docker, network access, and/or cloud credentials.
 
 BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 %{summary}.}
@@ -29,16 +30,6 @@ BuildRequires:  snakemake >= 8
 Summary:        %{summary}
 
 %description -n python3-snakemake-storage-plugin-gcs %{common_description}
-
-
-%check -a
-# The following tests require network access *and* cloud credentials:
-k="${k-}${k+ and }not (TestStorage and test_list_candidate_matches)"
-k="${k-}${k+ and }not (TestStorage and test_storage)"
-k="${k-}${k+ and }not (TestStorage and test_storage_dbg)"
-k="${k-}${k+ and }not (TestStorage and test_storage_not_existing)"
-
-%pytest -v -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-gcs -f %{pyproject_files}

@@ -10,7 +10,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-autodoc
-Version:        2023.06.19
+Version:        2025.05.09
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 
@@ -76,7 +76,7 @@ gap -l '%{buildroot}%{gap_libdir};' --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %endif
 
 %files
-%doc CHANGES README.md
+%doc CHANGES.md README.md
 %license COPYRIGHT LICENSE
 %dir %{gap_libdir}/pkg/%{pkgname}/
 %{gap_libdir}/pkg/%{pkgname}/*.g

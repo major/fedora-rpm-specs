@@ -32,11 +32,13 @@ Source114:       pre-commit-validate-manifest.1
 
 BuildSystem:            pyproject
 BuildOption(prep):      -S git
+%if %{with check}
+BuildOption(generate_buildrequires): requirements-dev-filtered.txt
+%endif
 BuildOption(install):   -l pre_commit
 # Any Python files inside pre_commit.resources are templates and are not
 # intended to be imported.
 BuildOption(check):     -e 'pre_commit.resources.*'
-BuildOption(generate_buildrequires): %{?with_check:requirements-dev-filtered.txt}
 
 BuildArch:      noarch
 

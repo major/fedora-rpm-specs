@@ -32,13 +32,13 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.10.0
+%global mpl_images_version 3.10.3
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.10.0
+Version:        3.10.3
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -64,9 +64,6 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
-
-# https://github.com/matplotlib/matplotlib/pull/29518
-Patch0003:      0006-Increase-tolerance-on-more-arches.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -20,7 +20,7 @@ URL:		http://www.scalasca.org/
 Source0:	http://apps.fz-juelich.de/scalasca/releases/scalasca/%shortver/dist/%name-%version.tar.gz
 #               https://apps.fz-juelich.de/scalasca/releases/scalasca/2.6/dist/scalasca-2.6.2.tar.gz
 BuildRequires: make
-BuildRequires:	otf2-devel >= 3.0, cube-devel >= 4.8
+BuildRequires:	otf2-devel >= 3.0, cube-libs-devel >= 4.8
 BuildRequires:	zlib-devel openmpi-devel chrpath gcc-c++
 %if %{with mpich}
 BuildRequires:	mpich-devel

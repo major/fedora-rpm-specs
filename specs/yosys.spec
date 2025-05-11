@@ -1,10 +1,10 @@
-%global commit0 fee39a3284c90249e1d9684cf6944ffbbcbb8f90
+%global commit0 53c22ab7c0ced80861c7536c5dae682c30fb5834
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250411
+%global snapdate 20250506
 
 Name:           yosys
-Version:        0.52
+Version:        0.53
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -33,9 +33,6 @@ Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 # Use relative path (instead of assuming a bundled submodule) when
 # referencing the cxxopts.hpp include file.
 Patch3:         0003-fedora-yosys-cxxopts-patch.patch
-
-# fix upstream regression (https://github.com/YosysHQ/yosys/issues/4964)
-Patch4:         0004-fix-upstream-regression.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -176,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Tue May 06 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.53.1.20250506git53c22ab
+- update to 0.53 snapshot
+
 * Fri Apr 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.52.1.20250411gitfee39a3
 - update to 0.52 snapshot
 - update man pages from Debian

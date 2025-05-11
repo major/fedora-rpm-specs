@@ -3,8 +3,8 @@
 %global py3_prefix python%{python3_pkgversion}
 
 Name:               python-cairosvg
-Version:            2.7.0
-Release:            9%{?dist}
+Version:            2.7.1
+Release:            1%{?dist}
 Summary:            A Simple SVG Converter for Cairo
 
 License:            LGPL-3.0-or-later
@@ -21,7 +21,6 @@ BuildRequires:      %{py3_prefix}-defusedxml
 BuildRequires:      %{py3_prefix}-pillow
 BuildRequires:      %{py3_prefix}-setuptools
 BuildRequires:      %{py3_prefix}-pytest
-BuildRequires:      %{py3_prefix}-pytest-cov
 BuildRequires:      %{py3_prefix}-pytest-runner
 # actually python3-cairocffi should have that dependency (see bug 1698217) but
 # for now just add the requirement here.
@@ -55,6 +54,8 @@ rm -rf %{srcname}.egg-info
 # test suite
 mkdir test_non_regression/cairosvg_reference/
 cp -a $(ls -1 . | grep -v test_non_regression) test_non_regression/cairosvg_reference/
+# Fix compatibility with newer setuptools
+sed -i "/console-scripts/s/-/_/" setup.cfg test_non_regression/cairosvg_reference/setup.cfg
 
 %build
 %py3_build
@@ -76,6 +77,12 @@ rm -f %{buildroot}%{python3_sitelib}/%{modname}/test_api.py
 %{_bindir}/cairosvg
 
 %changelog
+* Fri May 09 2025 Orion Poplawski <orion@nwra.com> - 2.7.1-1
+- Update to 2.7.1
+
+* Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 2.7.0-10
+- Fix compatibility with newer setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

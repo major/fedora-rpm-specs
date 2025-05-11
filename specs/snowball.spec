@@ -9,7 +9,7 @@
 %global giturl  https://github.com/snowballstem/snowball
 
 Name:           snowball
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Snowball compiler and stemming algorithms
 

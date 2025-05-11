@@ -1,18 +1,17 @@
 Name:		python-augeas
-Version:	1.1.0
-Release:	15%{?dist}
+Version:	1.2.0
+Release:	1%{?dist}
 Summary:	Python bindings to augeas
 License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
 Source0:	https://github.com/hercules-team/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:		%{name}-test-package-installation.patch
-BuildArch:	noarch
 
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
-BuildRequires:	augeas
+BuildRequires:	augeas-devel
 BuildRequires:	python3-pytest
 BuildRequires:	python3-cffi
+BuildRequires:	gcc
 
 %description
 python-augeas is a set of Python bindings around augeas.
@@ -38,18 +37,19 @@ python3-augeas is a set of Python bindings around augeas.
 %{py3_install}
 
 %check
-pytest-3
+%{pytest}
 
 %files -n python3-augeas
 %license COPYING
-%doc AUTHORS README.txt
-%{python3_sitelib}/augeas.py
-%{python3_sitelib}/augeas/
-%{python3_sitelib}/python_augeas-*.egg-info
-%{python3_sitelib}/__pycache__/*
-
+%doc AUTHORS README.md
+%{python3_sitearch}/_augeas.abi3.so
+%{python3_sitearch}/augeas/
+%{python3_sitearch}/python_augeas-*.egg-info
 
 %changelog
+* Thu May 08 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.2.0-1
+- Rebased to 1.2.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

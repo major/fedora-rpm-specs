@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    36%{?dist}
+Release:    37%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPL-2.0-only
@@ -87,7 +87,7 @@ printf 'install:\n\techo skipped\n' > platforms/redhat/Makefile
 %configure \
         --sysconfdir="/etc/apcupsd" \
         --with-cgi-bin="/var/www/apcupsd" \
-        --sbindir=/sbin \
+        --sbindir=%{_bindir} \
         --enable-cgi \
         --enable-pthreads \
         --enable-net \
@@ -144,7 +144,11 @@ rm examples/*.in
 %config(noreplace) /etc/apcupsd/onbattery
 %config(noreplace) /etc/logrotate.d/apcupsd
 /usr/share/hal/fdi/policy/20thirdparty/80-apcupsd-ups-policy.fdi
-%attr(0755,root,root) /sbin/*
+%{_bindir}/apcaccess
+%{_bindir}/apctest
+%{_bindir}/apcupsd
+%{_bindir}/smtp
+
 %{_mandir}/*/*
 
 %files cgi
@@ -177,6 +181,9 @@ rm examples/*.in
 
 
 %changelog
+* Fri May 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.14.14-37
+- Move binaries from sbin to bin, 2365293.
+
 * Wed Apr 23 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 3.14.14-36
 - Fix libusb conditional to make it build on EPEL 10
   Fixes: RHBZ#2337139

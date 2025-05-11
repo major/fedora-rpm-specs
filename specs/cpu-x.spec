@@ -3,7 +3,7 @@
 %global appid io.github.thetumultuousunicornofdarkness.%{name}
 
 Name:           cpu-x
-Version:        5.2.0
+Version:        5.3.0
 %forgemeta
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more
@@ -15,8 +15,6 @@ URL:            https://thetumultuousunicornofdarkness.github.io/CPU-X/
 Source0:        %{forgesource}
 # https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/issues/362
 Patch0:         %{name}_policy.patch
-# https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/issues/376
-Patch1:         https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/commit/b32f05bc1a8ecc56d4ca7eb749168c1219881307.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  desktop-file-utils

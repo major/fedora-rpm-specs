@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-ftp
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        A Snakemake plugin for handling input and output via FTP
 
@@ -22,7 +22,7 @@ BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 A Snakemake storage plugin that handles files and directories on an FTP

@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        34
+Version:        35
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -20,12 +20,10 @@ BuildRequires: systemd-rpm-macros
 %endif
 
 %global cockpitver 275
-%global cockpitstorver 336.2
 
 %define _unitdir /usr/lib/systemd/system
 
 # Unpin cockpit-storaged when anaconda-webui get's migrated to Patternfly 6
-Requires: cockpit-storaged <= %{cockpitstorver}
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
@@ -40,13 +38,13 @@ Requires: fedora-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
-Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.3.0
-Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
@@ -57,10 +55,10 @@ Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
-Provides: bundled(npm(react-dom)) = 18.2.0
+Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
-Provides: bundled(npm(react)) = 18.2.0
+Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
@@ -122,6 +120,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu May 08 2025 Packit <hello@packit.dev> - 35-1
+- Port patternfly version to 6
+- fix: can't click outside of header dropdown to close it
+
 * Tue Apr 15 2025 Packit <hello@packit.dev> - 34-1
 - Migrate isFinal to new ProductData API
 - storage: reclaim dialog: rely on official property for sticky header

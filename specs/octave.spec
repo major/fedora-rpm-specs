@@ -142,7 +142,7 @@ BuildRequires:  texlive-metapost
 %endif
 BuildRequires:  zlib-devel
 # For check
-BuildRequires:  mesa-dri-drivers
+BuildRequires:  mesa-libGL
 %ifnarch s390 s390x
 BuildRequires:  xorg-x11-drv-dummy
 %endif
@@ -157,6 +157,7 @@ Requires:       hicolor-icon-theme
 Requires:       java-headless
 %endif
 Requires:       less
+%if %{undefined flatpak}
 Requires:       info
 Requires:       texinfo
 # Rrom scripts/general/private/__publish_latex_output__.m
@@ -175,6 +176,7 @@ Requires:       tex(color.sty)
 Requires:       tex(epsfig.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(graphicx.sty)
+%endif
 
 
 %description
@@ -223,9 +225,9 @@ sed -i -e 's/OCTAVE_CHECK_LIB(suitesparseconfig,/OCTAVE_CHECK_LIB(suitesparsecon
 %endif
 
 %build
-export AR=%{_bindir}/gcc-ar
-export RANLIB=%{_bindir}/gcc-ranlib
-export NM=%{_bindir}/gcc-nm
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
 export F77=gfortran
 # TODO: some items appear to be bundled in libcruft..
 #   gl2ps.c is bundled.  Anything else?
@@ -234,7 +236,7 @@ export F77=gfortran
 %endif
 %if %{with java}
 # Find libjvm.so for this architecture in generic location
-libjvm=$(find /usr/lib/jvm/jre/lib -name libjvm.so -printf %h)
+libjvm=$(find %{_jvmdir}/jre/lib -name libjvm.so -printf %h)
 export JAVA_HOME=%{java_home}
 %endif
 # JIT support is still experimental, and causes a segfault on ARM.
@@ -258,7 +260,7 @@ fi
  --disable-silent-rules \
  --with-blas=%{blaslib}%{?with_blas64:64}  \
 %if %{with java}
- --with-java-includedir=/usr/lib/jvm/java/include \
+ --with-java-includedir=%{_jvmdir}/java/include \
  --with-java-libdir=$libjvm \
 %endif
  --with-qrupdate \
@@ -340,12 +342,12 @@ do
 ARCH=\$(uname -m)
 
 case \$ARCH in
-x86_64 | ia64 | s390x | aarch64 | ppc64 | ppc64le | riscv64) LIB_DIR=/usr/lib64
-                       SECONDARY_LIB_DIR=/usr/lib
+x86_64 | ia64 | s390x | aarch64 | ppc64 | ppc64le | riscv64) LIB_DIR=%{_libdir}
+                       SECONDARY_LIB_DIR=%{_prefix}/lib
                        ;;
 * )
-                       LIB_DIR=/usr/lib
-                       SECONDARY_LIB_DIR=/usr/lib64
+                       LIB_DIR=%{_prefix}/lib
+                       SECONDARY_LIB_DIR=%{_prefix}/lib64
                        ;;
 esac
 

@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-storage-plugin-zenodo
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for reading from and writing to zenodo.org
 
@@ -19,7 +19,7 @@ BuildOption(install):   -L snakemake_storage_plugin_zenodo
 BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 %endif

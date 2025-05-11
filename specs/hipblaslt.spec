@@ -41,7 +41,11 @@
 # https://github.com/ROCm/hipBLASLt/issues/908
 
 # hipblaslt does not support our default set
+#
 # gfx1200,gfx1201 have building problems on 6.4.0
+# https://github.com/ROCm/hipBLASLt/issues/2060
+# uncomment and comment out the real list below to reproduce
+# %%global amdgpu_targets "gfx1201"
 #
 # build is timing out, remove some of the ISA targets
 # gfx942;gfx1102
@@ -68,7 +72,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -311,6 +315,9 @@ fi
 %endif
 
 %changelog
+* Fri May 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Document gfx1201 failure
+
 * Wed May 7 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
 - put gfx1100;gfx1101 back into build target list
 

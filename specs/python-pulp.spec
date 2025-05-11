@@ -10,7 +10,7 @@ files and call GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK, XPRESS,
 CHOCO, MIPCL, SCIP to solve linear problems.}
 
 Name:           python-pulp
-Version:        2.9.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        A python Linear Programming API
 
@@ -22,24 +22,21 @@ License:        BSD-1-Clause
 URL:            https://coin-or.github.io/pulp/
 Source:         %forgesource
 
-# https://github.com/sanjayankur31/pulp/tree/fedora-2.6.0
-# Do not install bundled cbc
+# Do not install bundled cbc; downstream-only, as upstream obviously wants to
+# keep bundling.
 Patch:          0001-Remove-bundled-cbc.patch
-
-# Some tests fail
-# https://github.com/coin-or/pulp/issues/799
-# (This one may happen only in Koji, or may be flaky:)
-# ERROR: test_time_limit_no_solution (pulp.tests.test_pulp.HiGHS_CMDTest.test_time_limit_no_solution)
-# ERROR: test_invalid_var_names (pulp.tests.test_pulp.SCIP_CMDTest.test_invalid_var_names)
-# FAIL: test_measuring_solving_time (pulp.tests.test_pulp.SCIP_CMDTest.test_measuring_solving_time)
-Patch:          pulp-2.9.0-report-and-skip.patch
-
+# Downstream-only: handle system cbc renamed to Cbc
+#
 # Beginning with Fedora 42, the cbc executable in coin-or-Cbc is renamed to Cbc
-# due to a file conflict with libcouchbase-tools (RHBZ#2335063). We need a
-# (downstream-only) patch to correct the path.
-Patch1000:      pulp-2.9.0-cbc-renamed.patch
+# due to a file conflict with libcouchbase-tools (RHBZ#2335063).
+Patch:          0002-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
+# Skip HiGHS_CMDTest.test_time_limit_no_solution
+#
+# A temporary downstream workaround for
+# https://github.com/coin-or/pulp/issues/832.
+Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
 
-# Don't build nor test on i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
@@ -81,15 +78,14 @@ Recommends:     scip
 
 # These alternative solvers appear to be free software, but are not packaged.
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
-# - COINMP_DLL
-# This was previously packaged as coin-or-CoinMP, but was orphaned and retired
-# for Fedora 42. It is a bit difficult to get pulp to find the shared library
-# correctly, so we do not bother with supporting this in Fedora 41 and older
-# even though the solver is packaged there.
-# - FSCIP_CMD (https://ug.zib.de/index.php)
-# According to the link, fscip/FiberSCIP this is now part of SCIP, but it is
-# not remotely clear how we could build an fscip binary in our scip package.
-# - MIPCL_CMD (https://github.com/tingyingwu2010/MIPCL)
+# - COINMP_DLL (previously packaged as coin-or-CoinMP, but orphaned and retired
+#   for Fedora 42)
+# - CYLP (https://github.com/coin-or/CyLP, would be coin-or-CyLP if packaged)
+# - FSCIP_CMD (https://ug.zib.de/index.php): According to the link, this is now
+#   part of SCIP, but it is not remotely clear how we could build an fscip
+#   binary in our scip package.
+# - MIPCL_CMD
+#   (https://github.com/tingyingwu2010/MIPCL)
 # - PYGLPK (https://github.com/bradfordboyle/pyglpk)
 # BuildRequires:  %%{py3_dist glpk}
 # Recommends:     %%{py3_dist glpk}
@@ -109,6 +105,8 @@ Recommends:     scip
 # - GUROBI
 # - GUROBI_CMD
 # - MOSEK
+# - SAS94
+# - SASCAS
 # - XPRESS
 # - XPRESS_CMD
 # - XPRESS_PY
@@ -116,11 +114,7 @@ Recommends:     scip
 %description -n python3-pulp %_description
 
 %prep
-%forgeautosetup -N
-%autopatch -p1 -M 999
-%if %[ %{undefined fc40} && %{undefined fc41} ]
-%autopatch -p1 -m 1000
-%endif
+%forgeautosetup -p1
 
 # remove bundled/precompiled cbc
 rm -rf pulp/solverdir/cbc
@@ -148,8 +142,7 @@ sed -r \
 
 %install
 %pyproject_install
-
-%pyproject_save_files -l pulp
+%pyproject_save_files -L pulp
 
 %check
 # Using pulptest binary to test the package
@@ -158,7 +151,10 @@ sed -r \
 %endif
 
 %files -n python3-pulp -f %{pyproject_files}
-%doc README.rst HISTORY
+%license LICENSE
+%doc AUTHORS
+%doc HISTORY
+%doc README.rst
 %{_bindir}/pulptest
 
 %changelog

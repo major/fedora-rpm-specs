@@ -6,8 +6,8 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        9
-Release:        3%{?dist}
+Version:        11
+Release:        1%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -18,7 +18,8 @@ Source0:        https://gitlab.gnome.org/World/fractal/-/archive/%{tarball_versi
 # cargo vendor && tar jcvf ../fractal-%%{version}-vendor.tar.bz2 vendor/ ; popd
 Source1:        fractal-%{version}-vendor.tar.bz2
 # fix the build with vendored sources
-Patch:          cargo-vendor.patch
+Patch0:          cargo-vendor.patch
+Patch1:          sass.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -28,6 +29,7 @@ BuildRequires:  cargo-rpm-macros
 BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 BuildRequires:  meson
+BuildRequires:  rubygem-sass
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -38,6 +40,7 @@ BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(openssl)
@@ -94,6 +97,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu May 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 11-1
+- 11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

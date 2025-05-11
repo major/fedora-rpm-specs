@@ -1,5 +1,5 @@
 Name:		phoc
-Version:	0.46.0
+Version:	0.47~rc1
 Release:	%{autorelease}
 Summary:	Display compositor designed for phones
 

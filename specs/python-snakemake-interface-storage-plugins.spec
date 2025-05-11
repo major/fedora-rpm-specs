@@ -7,7 +7,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-interface-storage-plugins
-Version:        3.5.0
+Version:        4.2.1
 Release:        %autorelease
 Epoch:          1
 Summary:        Stable interface for interactions between Snakemake and its storage plugins
@@ -31,7 +31,7 @@ BuildArch:      noarch
 %if %{without bootstrap}
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 BuildRequires:  %{py3_dist snakemake-storage-plugin-http}
 %endif
 

@@ -9,18 +9,19 @@
 
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
-Version: 2.9.7
-Release: 9%{?dist}
+Version: 2.9.8
+Release: 2%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
-Source: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-%{version}.tar.gz
+Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
 Source1: mod_security.conf
 Source2: 10-mod_security.conf
 Source3: modsecurity_localrules.conf
-Patch0: modsecurity-2.9.3-lua-54.patch
 Patch1: modsecurity-2.9.3-apulibs.patch
 Patch2: mod_security-2.9.3-remote-rules-timeout.patch
 Patch3: mod_security-2.9.7-send_error_bucket.patch
+Patch4: mod_security-2.9.7-pipedlogs.patch
+Patch5: mod_security-2.9.8-fixes.patch
 
 Requires: httpd httpd-mmn = %{_httpd_mmn}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -28,7 +29,7 @@ Requires: httpd httpd-mmn = %{_httpd_mmn}
 Requires(pre): httpd-filesystem
 %endif
 
-BuildRequires: gcc, make, autoconf, automake, libtool
+BuildRequires: gcc, make, autoconf, automake, libtool, git-core
 BuildRequires: httpd-devel
 BuildRequires: perl-generators
 BuildRequires: pcre2-devel
@@ -64,7 +65,7 @@ This package contains the ModSecurity Audit Log Collector.
 %endif
 
 %prep
-%autosetup -p1 -n modsecurity-%{version}
+%autosetup -p1 -n modsecurity-v%{version} -S git
 
 %build
 ./autogen.sh
@@ -146,6 +147,15 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Fri May 09 2025 Joe Orton  <jorton@redhat.com> - 2.9.8-2
+- fix variety of compiler warnings
+
+* Fri May 09 2025 Joe Orton  <jorton@redhat.com> - 2.9.8-1
+- rebase to 2.9.8
+
+* Fri May 09 2025 Joe Orton  <jorton@redhat.com> - 2.9.7-10
+- fix issues with piped logging (by Tomas Korbar, upstream #2823)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.9.7-9
 - Add explicit BR: libxcrypt-devel
 

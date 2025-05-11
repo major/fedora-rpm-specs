@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-http
-Version:        0.2.3
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Snakemake storage plugin for downloading input files from HTTP(s)
 
@@ -15,10 +15,6 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-http
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-http-%{version}.tar.gz
 
-# Fix typo in description, donwload/download
-# https://github.com/snakemake/snakemake-storage-plugin-http/pull/16
-Patch:          %{url}/pull/16.patch
-
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_storage_plugin_http
 
@@ -26,7 +22,7 @@ BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 %{summary}.}

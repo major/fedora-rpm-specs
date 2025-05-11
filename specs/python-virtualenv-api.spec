@@ -25,8 +25,12 @@ Patch:          %{url}/pull/56.patch
 #   2.1.18: pytest is failing in four units
 #   https://github.com/sjkingo/virtualenv-api/issues/55
 
+BuildSystem:            pyproject
+BuildOption(install):   -l virtualenvapi
+
 BuildArch:      noarch
 
+# For %%py3_shebang_fix in %%prep, before dynamic BuildRequires are ready
 BuildRequires:  python3-devel
 
 # Upstream does not name pip and virtualenv as dependencies, but they should
@@ -56,29 +60,13 @@ Requires:       /usr/bin/pip
 %description -n python3-virtualenv-api %{common_description}
 
 
-%prep
-%autosetup -n virtualenv-api-%{version} -p1
+%prep -a
 %py3_shebang_fix example.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files virtualenvapi
-
-
-%check
+%check -a
 %if %{with tests}
 %{py3_test_envvars} '%{python3}' -m unittest -v tests.py
-%else
-%pyproject_check_import
 %endif
 
 

@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.10
+Version:       1.55.11
 Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -78,6 +78,9 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
+
+# Upstream patch that removes zfs-fuse
+Patch:         0001-appliance-Remove-zfs-fuse.patch
 
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
@@ -1065,6 +1068,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri May 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.11-2
+- New upstream development version 1.55.11
+- Backport upstream patch to really remove zfs-fuse dependency
+
 * Wed May 07 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.10-2
 - Remove file-devel BR
 - Remove libguestfs-zfs subpackage

@@ -4,7 +4,7 @@
 %endif
 
 Name:           hardinfo2
-Version:        2.2.10
+Version:        2.2.13
 Release:        %autorelease
 Summary:        System Information and Benchmark for Linux Systems
 
@@ -59,7 +59,9 @@ BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5OpenGL)
-
+BuildRequires:  /usr/bin/glslangValidator
+BuildRequires:  /usr/bin/glslc
+BuildRequires:  libdecor-devel
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(cairo-png)
@@ -140,6 +142,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/hardinfo2/modules/devices.so
 %{_libdir}/hardinfo2/modules/network.so
 %{_libdir}/hardinfo2/modules/qgears2
+%{_libdir}/hardinfo2/modules/vkgears
 %{_metainfodir}/org.hardinfo2.hardinfo2.metainfo.xml
 %{_datadir}/applications/hardinfo2.desktop
 %dir %{_datadir}/hardinfo2

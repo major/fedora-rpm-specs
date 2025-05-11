@@ -53,7 +53,7 @@ BuildRequires:  cmake(Qt6Core5Compat)
 
 Requires:       qt6-qt5compat
 Requires:       hicolor-icon-theme
-Requires:       kf5-kservice
+Requires:       kf6-filesystem
 Requires:       ncurses-term
 
 %description
@@ -62,6 +62,9 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 
 %prep
 %forgeautosetup -p1
+
+sed -i -e 's|kservices5/ServiceMenus|kio/servicemenus|g' src/contour/CMakeLists.txt
+
 
 %build
 %cmake \
@@ -89,7 +92,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc README.md
 %{_bindir}/contour
 %{_datadir}/applications/*.desktop
-%{_datadir}/kservices5/ServiceMenus/*.desktop
+%{_datadir}/kio/servicemenus/*.desktop
 %dir %{_datadir}/contour
 %dir %{_datadir}/contour/shell-integration
 %{_datadir}/contour/shell-integration/shell-integration.bash

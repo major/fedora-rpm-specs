@@ -15,7 +15,9 @@ Source1:        scooby.1
 BuildSystem:            pyproject
 # We cannot package (nor generate BR’s from) the “cpu” extra because it
 # requires python3dist(mkl), which is proprietary software.
-BuildOption(generate_buildrequires): %{?with_tests:requirements_test.txt}
+%if %{with tests}
+BuildOption(generate_buildrequires): requirements_test.txt
+%endif
 BuildOption(install):   -l scooby
 
 BuildArch:      noarch

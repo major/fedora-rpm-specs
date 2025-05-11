@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-webdav
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Snakemake storage plugin for webdav
 
@@ -9,13 +9,6 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-webdav
 # We use the GitHub archive instead of the PyPI sdist to get CHANGELOG.md and
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-webdav-%{version}.tar.gz
-# Do not use SemVer-based version bounds for fsspec
-# https://github.com/snakemake/snakemake-storage-plugin-webdav/pull/5
-Patch:          %{url}/pull/5.patch
-# Update webdav4 dependency to 0.10.0
-# https://github.com/snakemake/snakemake-storage-plugin-webdav/pull/6
-# Rebased to apply on top of 5.patch, above.
-Patch:          0001-Update-webdav4-dependency-to-0.10.0.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_storage_plugin_webdav
@@ -24,7 +17,7 @@ BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 A Snakemake storage plugin for handling input and output via webdav.}

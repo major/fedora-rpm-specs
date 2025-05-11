@@ -11,7 +11,8 @@ License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
 Source:         %{pypi_source xxhash}
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l xxhash
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libxxhash) >= 0.8.2
@@ -28,32 +29,21 @@ Summary:        %{summary}
 %description -n python3-xxhash %{common_description}
 
 
-%prep
-%autosetup -n xxhash-%{version}
+%prep -a
 # Remove bundled xxhash library
 rm -rvf deps
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
+%build -p
 # Normally, no extra flags are required to link the xxhash shared library, but
 # we are prepared:
 export CFLAGS="${CFLAGS} $(pkgconf --cflags libxxhash)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs-only-L libxxhash)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs-only-other libxxhash)"
 export XXHASH_LINK_SO='1'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l xxhash
-
-
-%check
+%check -a
 cd tests
 %{py3_test_envvars} %{python3} -m unittest discover
 

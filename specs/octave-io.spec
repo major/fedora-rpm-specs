@@ -1,8 +1,8 @@
 %global octpkg io
 
 Name:           octave-%{octpkg}
-Version:        2.6.4
-Release:        13%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Input/Output in external formats
 # Automatically converted from old format: GPLv3+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD
@@ -39,6 +39,7 @@ Input/Output in external formats.
 %octave_cmd pkg rebuild
 
 %files
+%{_metainfodir}/io.sourceforge.octave.io.metainfo.xml
 %{octpkglibdir}
 %dir %{octpkgdir}
 %{octpkgdir}/*.m
@@ -52,6 +53,9 @@ Input/Output in external formats.
 
 
 %changelog
+* Fri May 09 2025 Orion Poplawski <orion@nwra.com> - 2.7.0-1
+- Update to 2.7.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

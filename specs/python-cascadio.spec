@@ -13,7 +13,9 @@ URL:            https://github.com/mikedh/cascadio
 Source:         %{url}/archive/%{version}/cascadio-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): %{?with_tests:-x tests}
+%if %{with tests}
+BuildOption(generate_buildrequires): -x tests
+%endif
 # https://scikit-build-core.readthedocs.io/en/latest/configuration.html
 BuildOption(build):     %{shrink:
                         -Ccmake.define.SYSTEM_OPENCASCADE=ON

@@ -1,5 +1,5 @@
 Name:		phosh-mobile-settings
-Version:	0.46.0
+Version:	0.47~rc1
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -7,6 +7,8 @@ URL:		https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
 Source:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version_no_tilde _}/phosh-mobile-settings-v%{version_no_tilde _}.tar.gz
 # FIXME: tests fail if build directory is used a XDG_RUNTIME_DIR
 Patch0:	shorter-xdg_runtime_dir-path.patch
+# https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/201
+Patch1:	201.patch
 
 ExcludeArch:	i686
 

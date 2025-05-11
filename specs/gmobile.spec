@@ -1,7 +1,7 @@
 %bcond docs 1
 
 Name:     gmobile
-Version:  0.2.2
+Version:  0.3.0
 Release:  %autorelease
 Summary:  Functions useful in mobile related, glib based projects
 
@@ -67,7 +67,8 @@ Documentation for the gmobile library.
     -Dgtk_doc=true \
     -Dman=true \
 %endif
-    -Dexamples=false
+    -Dexamples=false \
+    -Dvapi=false
 %meson_build
 
 %install

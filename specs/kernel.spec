@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc5.250508gd76bb1ebb558.46
+%define pkgrelease 0.rc5.250509g9c69f8884904.47
 %define kversion 6
-%define tarfile_release 6.15-rc5-43-gd76bb1ebb558
+%define tarfile_release 6.15-rc5-136-g9c69f8884904
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.250508gd76bb1ebb558.46%{?buildid}%{?dist}
+%define specrelease 0.rc5.250509g9c69f8884904.47%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -251,6 +251,8 @@ Summary: The Linux kernel
 %define with_rtonly    %{?_with_rtonly:       1} %{?!_with_rtonly:       0}
 # Only build the automotive kernel (--with automotiveonly):%
 %define with_automotiveonly %{?_with_automotiveonly:       1} %{?!_with_automotiveonly:       0}
+# Only build the tools package
+%define with_toolsonly %{?_with_toolsonly:    1} %{?!_with_toolsonly:    0}
 # Control whether we perform a compat. check against published ABI.
 %define with_kabichk   %{?_without_kabichk:   0} %{?!_without_kabichk:   1}
 # Temporarily disable kabi checks until RC.
@@ -423,6 +425,33 @@ Summary: The Linux kernel
 %define with_debuginfo 0
 %define with_vdso_install 0
 %define with_selftests 1
+%endif
+
+# if requested, only build tools
+%if %{with_toolsonly}
+%define with_tools 1
+%define with_up 0
+%define with_base 0
+%define with_debug 0
+%define with_realtime 0
+%define with_realtime_arm64_64k 0
+%define with_arm64_16k 0
+%define with_arm64_64k 0
+%define with_automotive 0
+%define with_cross_headers 0
+%define with_doc 0
+%define with_selftests 0
+%define with_headers 0
+%define with_efiuki 0
+%define with_zfcpdump 0
+%define with_vdso_install 0
+%define with_kabichk 0
+%define with_kabidwchk 0
+%define with_kabidw_base 0
+%define with_kernel_abi_stablelists 0
+%define with_selftests 0
+%define with_vdso_install 0
+%define with_configchecks 0
 %endif
 
 # RT and Automotive kernels are only built on x86_64 and aarch64
@@ -4230,8 +4259,16 @@ fi\
 #
 #
 %changelog
-* Thu May 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.d76bb1ebb558.46]
+* Fri May 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.9c69f8884904.47]
 - Shorten the uname for git snapshots (Justin M. Forbes)
+
+* Fri May 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.9c69f8884904.46]
+- Enable the gs_usb CAN bus driver in RHEL (Radu Rendec)
+- Stop disabling some modules needed to run on Azure (Pierre-Yves Chibon)
+- redhat/configs: enable ACPI_DEBUG on non-debug kernels (Mark Langsdorf)
+- specfile:  add with_toolsonly variable to build only tools packages (Clark Williams)
+- redhat/configs: Enable CONFIG_TYPEC_TBT_ALTMODE in RHEL (Desnes Nunes) [RHEL-78931]
+- Linux v6.15.0-0.rc5.9c69f8884904
 
 * Thu May 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.d76bb1ebb558.45]
 - Linux v6.15.0-0.rc5.d76bb1ebb558

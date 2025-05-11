@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.7.0
+Version:        1.8.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri May 09 2025 Packit <hello@packit.dev> - 1.8.0-1
+- You can now validate a Packit config passed to the Packit CLI via a path, e.g., `packit config validate -c /tmp/my-custom-packit-config.yml`. (#2556)
+- The `--resultdir` argument in `build_in_mock` now defaults to the current directory (`"."`), preventing loss of build artifacts when not explicitly set. (#2567)
+- Resolves: rhbz#2365298
+
 * Sun Apr 13 2025 Packit <hello@packit.dev> - 1.7.0-1
 - We have implemented a set of options `osh_options` that allow you to customize OpenScanHub scans via config. (#2570)
 - Resolves: rhbz#2359309

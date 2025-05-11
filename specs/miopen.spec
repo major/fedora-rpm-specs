@@ -51,11 +51,7 @@
 %global _binary_payload w7T0.xzdio
 
 # Use ninja if it is available
-%if 0%{?fedora} || 0%{?suse_version}
 %bcond_without ninja
-%else
-%bcond_with ninja
-%endif
 
 %if %{with ninja}
 %global cmake_generator -G Ninja
@@ -65,7 +61,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -125,7 +121,7 @@ BuildRequires:  gtest-devel
 %endif
 
 %if %{with ninja}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:  ninja-build
 %endif
 %if 0%{?suse_version}
@@ -291,6 +287,9 @@ fi
 %endif
 
 %changelog
+* Fri May 9 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
+- use ninja-build for epel builds
+
 * Thu May 1 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Fix dir ownerships
 

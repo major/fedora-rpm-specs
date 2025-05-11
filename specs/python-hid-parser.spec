@@ -1,12 +1,12 @@
 %bcond_without check
 %global pname hid-parser
-%global commit 7d947404d8259bc42fbb81dd0d81bd6d315e4ef0
+%global commit 4b7944f4999e152c678cd7fa76278b7e2535c3ff
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate 20210228
+%global snapshotdate 20211206
 
 Name:           python-hid-parser
 Version:        0.0.3
-Release:        10.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        11.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Parse HID report descriptors
 License:        MIT
 URL:            https://github.com/usb-tools/python-hid-parser
@@ -14,7 +14,12 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 # compatibility with pytest 8
 # downstream-only patch, upstream seems dead
-Patch:          Minimal-patch-for-compatibility-with-pytest-8.patch
+# https://github.com/usb-tools/python-hid-parser/pull/23
+Patch:          https://github.com/usb-tools/python-hid-parser/pull/23.patch#/%{name}-pytest-8.patch
+# https://github.com/usb-tools/python-hid-parser/pull/18
+Patch:          https://github.com/usb-tools/python-hid-parser/pull/18.patch#/%{name}-fix-GenericDesktopControls-Rz.patch
+# backport fix from solaar fork
+Patch:          %{name}-solaar.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -57,6 +62,10 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Fri May 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.0.3-11.20211206git4b7944f
+- update to 20211206 snapshot
+- backport fixes from Solaar and upstream PRs
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-10.20210228git7d94740
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

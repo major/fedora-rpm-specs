@@ -9,8 +9,8 @@ URL:            https://github.com/pydantic/typing-inspection
 Source:         %{pypi_source typing_inspection}
 
 BuildSystem:            pyproject
-BuildOption(install):   -l typing_inspection
 BuildOption(generate_buildrequires): -g tests
+BuildOption(install):   -l typing_inspection
 
 BuildArch:      noarch
 

@@ -6,7 +6,6 @@ Summary:        Automatically sets up a PostgreSQL testing instance
 License:        Apache-2.0
 URL:            https://github.com/tk0miya/testing.postgresql
 Source:         %{pypi_source testing.postgresql}
-BuildArch:      noarch
 
 # Backport unreleased commit 738c8eb19a4b064dd74ff851c379dd1cbf11bc65
 # “Use utility methods of testing.common.database >= 1.1.0”, required
@@ -21,7 +20,12 @@ Patch:          %{url}/commit/577445d8ff5e0ea89ccaf09fd5b82165a0875afe.patch
 # https://github.com/tk0miya/testing.postgresql/pull/44
 Patch:          %{url}/pull/44.patch
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x testing
+BuildOption(install):   -l testing
+
+BuildArch:      noarch
+
 BuildRequires:  postgresql-server
 
 %global common_description %{expand:
@@ -39,26 +43,12 @@ Requires:       postgresql-server
 %description -n python3-testing.postgresql %{common_description}
 
 
-%prep
-%autosetup -n testing.postgresql-%{version} -p1
+%prep -a
 # Do not generate a BR on deprecated python3dist(nose); use pytest instead
 sed -r -i "s/'nose'/'pytest'/" setup.py
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x testing
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l testing
-
-
-%check
+%check -a
 %pytest
 
 

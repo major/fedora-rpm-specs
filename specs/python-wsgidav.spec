@@ -1,3 +1,9 @@
+# Add BuildRequires solely to enable additional import checks? We do not
+# consider these worthwhile in general, but they are here if we want them.
+%bcond pymongo 0
+%bcond mercurial 0
+%bcond mysqlclient 0
+
 Name:           python-wsgidav
 Version:        4.3.3
 Release:        %autorelease
@@ -14,8 +20,44 @@ Source0:        %{url}/archive/v%{version}/wsgidav-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        wsgidav.1
 
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x pam -t
+BuildOption(install):   -l wsgidav
+# - wsgidav.dav_error: Cannot import wsgidav.dav_error: raises ImportError due
+#   to circular import, https://github.com/mar10/wsgidav/issues/340
+# - wsgidav.dc.nt_dc: platform-specific (Windows); requires
+#   https://pypi.org/project/pywin32/, not packaged for obvious reasons
+# - wsgidav.prop_man.couch_property_manager: requires python-couchdb, retired
+# - wsgidav.prop_man.mongo_property_manager: requires python-pymongo, which
+#   *is* packaged, but which we do not want to pull in just for an import check
+# - wsgidav.samples.hg_dav_provider: requires mercurial, which *is* packaged,
+#   but which we do not want to pull in just for an import check
+# - wsgidav.samples.mongo_dav_provider: requires python-pymongo, which *is*
+#   packaged, but which we do not want to pull in just for an import check
+# - wsgidav.samples.mysql_dav_provider: requires python-mysqlclient, which *is*
+#   packaged, but which we do not want to pull in just for an import check
+BuildOption(check):     %{shrink:
+                        -e wsgidav.dav_error
+                        -e wsgidav.dc.nt_dc
+                        -e wsgidav.prop_man.couch_property_manager
+                        %{?!with_pymongo:-e wsgidav.prop_man.mongo_property_manager}
+                        %{?!with_mercurial:-e wsgidav.samples.hg_dav_provider}
+                        %{?!with_pymongo:-e wsgidav.samples.mongo_dav_provider}
+                        %{?!with_mysqlclient:-e wsgidav.samples.mysql_dav_provider}
+                        }
+
+
 BuildArch:      noarch
-BuildRequires:  python3-devel
+
+%if %{with pymongo}
+BuildRequires:  %{py3_dist pymongo}
+%endif
+%if %{with mercurial}
+BuildRequires:  %{py3_dist mercurial}
+%endif
+%if %{with mysqlclient}
+BuildRequires:  %{py3_dist mysqlclient}
+%endif
 
 %global common_description %{expand:
 A generic and extendable WebDAV server written in Python and based on WSGI.
@@ -48,9 +90,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-wsgidav pam
 
 
-%prep
-%autosetup -n wsgidav-%{version}
-
+%prep -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 # - pytest-cov is a coverage tool
 # - pytest-html is not packaged, and is only used for generating reports
@@ -69,22 +109,11 @@ sed -r -i 's/^([[:blank:]]*)(webtest\b)/\1# \2/' tox.ini
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x pam -t
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l wsgidav
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
-%check
+%check -a
 %if v"0%{?python3_version}" >= v"3.13"
 ignore="${ignore-} --ignore=tests/test_wsgidav_app.py"
 %endif

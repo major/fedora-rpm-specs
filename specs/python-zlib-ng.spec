@@ -10,7 +10,9 @@ License:        PSF-2.0
 URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(prep):      -S git
+BuildOption(install):   -l zlib_ng
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib-ng)
@@ -60,8 +62,7 @@ Summary:        %{summary}
 %description -n python3-zlib-ng %{common_description}
 
 
-%prep
-%autosetup -S git -p1
+%prep -a
 # Remove bundled zlib-ng library if present (not in GitHub archive because it
 # is a git submodule, so this is just an extra precaution).
 rm -rvf src/zlib_ng/zlib-ng
@@ -70,23 +71,13 @@ rm -rvf src/zlib_ng/zlib-ng
 git tag v%{version}
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
+%build -p
 export CFLAGS="${CFLAGS} $(pkgconf --cflags zlib-ng)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs zlib-ng)"
 export PYTHON_ZLIB_NG_LINK_DYNAMIC='1'
-%pyproject_wheel
 
 
-%install
-%pyproject_install
-%pyproject_save_files -l zlib_ng
-
-
-%check
+%check -a
 # It is difficult for us to run the CLI tests in this environment. We get:
 #
 #   ModuleNotFoundError: No module named 'zlib_ng'

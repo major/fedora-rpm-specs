@@ -1,17 +1,18 @@
-%global commit0 ed9ac857059f3b29fb4dd5ca3a2ec1256bdb0aae
+%global commit0 cebbb63edfba502905470c904f8e6f1c6ce28ba9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global commitdate0 20200428
+%global commitdate0 20250221
 
 Name:		glmark2
-Version:	2023.01
-Release:	8%{?dist}
-Summary:	Benchmark for OpenGL 2.0
+Version:	2023.01^%{commitdate0}git%{shortcommit0}
+Release:	1%{?dist}
+Summary:	Benchmark for OpenGL 2.0 and ES 2.0
 
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
+# all sources are GPL-3.0-or-later
+# src/libmatrix: MIT
+License:	GPL-3.0-or-later AND MIT
 URL:		https://github.com/glmark2/glmark2
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
 
 ## The bellow sources are carried by Fedora package maintaners
@@ -70,6 +71,7 @@ Source7:	%{name}.appdata.xml
 ##
 
 BuildRequires:	gcc-c++
+BuildRequires:	glad2
 BuildRequires:	meson
 BuildRequires:	libjpeg-devel
 BuildRequires:	pkgconfig(libpng16)
@@ -87,15 +89,13 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	appdata-tools
 
 
-# https://github.com/Dav1dde/glad/tree/glad2 MIT and ASL 2.0
-Provides: bundled(glad2)
 # https://launchpad.net/libmatrix/ MIT
 Provides: bundled(libmatrix)
 
 Requires:	%{name}-common = %{version}-%{release}
 
 %description
-Glmark2 is a benchmark for OpenGL 2.0.
+glmark2 is an OpenGL 2.0 and ES 2.0 benchmark.
 
 
 
@@ -118,11 +118,17 @@ Common graphical assets for Glmark2 benchmark suite
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit0}
 
 # Remove bundled libraries!
 rm -r src/libjpeg-turbo src/libpng src/zlib
-rm -r waf waflib
+rm -r src/glad
+glad \
+  --reproducible \
+  --out-path src/glad \
+  --api egl=1.5,gl:compatibility=2.1,gles1:common=1.0,gles2=2.0,glx=1.4,wgl=1.0 \
+  --extensions EGL_EXT_image_dma_buf_import_modifiers,EGL_EXT_platform_base,EGL_KHR_platform_gbm,EGL_KHR_platform_wayland,EGL_KHR_platform_x11,EGL_MESA_platform_surfaceless,GL_EXT_framebuffer_object,GL_OES_mapbuffer,GL_OES_required_internalformat,GLX_EXT_swap_control,GLX_MESA_swap_control,WGL_ARB_extensions_string,WGL_EXT_extensions_string,WGL_EXT_swap_control \
+  c
 
 %build
 %meson -Dflavors=drm-gl,drm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-glesv2,gbm-glesv2,gbm-gl
@@ -221,6 +227,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Fri May 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 2023.01^20250221gitcebbb63-1
+- update to 20250221 snapshot
+- regenerate glad2 sources
+- correct License: tag
+- update Summary: and description
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

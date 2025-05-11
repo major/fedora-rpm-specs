@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-fs
-Version:        1.0.6
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Snakemake storage plugin that reads and writes from a local filesystem
 
@@ -17,7 +17,7 @@ BuildOption(install):   -L snakemake_storage_plugin_fs
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 A Snakemake storage plugin that reads and writes from a locally mounted

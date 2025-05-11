@@ -13,8 +13,8 @@ URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
 
 BuildSystem:            pyproject
-BuildOption(install):   -l typeguard
 BuildOption(generate_buildrequires):  -x test
+BuildOption(install):   -l typeguard
 
 BuildArch:      noarch
 

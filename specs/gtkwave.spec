@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.122
+Version:	3.3.123
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -194,10 +194,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Fri May  9 2025 Paul Howarth <paul@city-fan.org> - 3.3.123-1
+- Update to 3.3.123
+  - Fix broken autocoalesce of bitblasted vectors that fix for GH#428 in
+    3.3.122 introduced
+  - Fix improper autocoalesce of adjacent duplicate symbols
+  - Preserve dimension on integer array element when expanded
+
 * Tue Apr 22 2025 Paul Howarth <paul@city-fan.org> - 3.3.122-1
 - Update to 3.3.122
   - Buffer warning fix in fstVcdIDForFwrite
-  - Warning fixes in vzt_read.c and fstapi.c.
+  - Warning fixes in vzt_read.c and fstapi.c
   - Prototype fixes for port to gcc15
   - Fixes for tcl9 compatibility
   - Added fixes for --saveonexit command line option

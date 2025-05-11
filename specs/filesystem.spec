@@ -255,8 +255,14 @@ while a do
       sta = posix.stat(a)
       stb = posix.stat(b)
 
-      if sta and not stb then
-        print('Symlinking /usr/sbin/'..name..'->/usr/bin/'..name)
+      --# Allow two cases: the path in /sbin doesn't exist,
+      --# or both paths exist and are symlinks that point to the same target.
+      --# The second case covers symlinks to /etc/alternatives and such.
+      if (sta and not stb) or
+         (sta and stb and
+          sta.type == "link" and stb.type == "link" and
+          posix.readlink(a) == posix.readlink(b)) then
+        print('Symlinking /usr/sbin/'..name..' -> /usr/bin/'..name)
         posix.symlink("../bin/"..name, "/usr/sbin/"..name)
       end
     end
@@ -281,8 +287,11 @@ while a do
       sta = posix.stat(a)
       stb = posix.stat(b)
 
-      if sta and not stb then
-        print('Symlinking '..b..'->/usr/bin/'..name)
+      if (sta and not stb) or
+         (sta and stb and
+          sta.type == "link" and stb.type == "link" and
+          posix.readlink(a) == posix.readlink(b)) then
+        print('Symlinking '..b..' -> /usr/bin/'..name)
         posix.symlink("../bin/"..name, b)
       elseif not sta and stb and stb.type == "link" then
         target = posix.readlink(b)
@@ -316,8 +325,11 @@ while b do
       sta = posix.stat(a)
       stb = posix.stat(b)
 
-      if sta and not stb then
-        print('Symlinking /usr/sbin/'..name..'->'..a)
+      if (sta and not stb) or
+         (sta and stb and
+          sta.type == "link" and stb.type == "link" and
+          posix.readlink(a) == posix.readlink(b)) then
+        print('Symlinking /usr/sbin/'..name..' -> '..a)
         posix.symlink("../bin/"..name, "/usr/sbin/"..name)
       end
     end
@@ -350,7 +362,11 @@ for _,path in pairs({"/usr/sbin", "/usr/local/sbin"}) do
 
           target = posix.readlink(v)
           name = v:match("^.+/(.+)$")
-          if target ~= "../bin/"..name then
+          if target ~= "../bin/"..name and
+             target ~= path:gsub("/sbin","/bin").."/"..name and
+             target ~= "../.."..path:gsub("/sbin","/bin").."/"..name and
+             target ~= "../../.."..path:gsub("/sbin","/bin").."/"..name then
+
             print(path.." cannot be merged yet, "..v.." points to "..target)
             good = false
             break

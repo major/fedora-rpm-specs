@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-s3
-Version:        0.3.1
+Version:        0.3.3
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for S3 API storage (AWS S3, MinIO, etc.)
 
@@ -22,7 +22,7 @@ BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  snakemake >= 8
+BuildRequires:  snakemake >= 9
 
 %global common_description %{expand:
 A Snakemake storage plugin for S3 API storage (AWS S3, MinIO, etc.). For

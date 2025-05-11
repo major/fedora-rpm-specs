@@ -9,8 +9,8 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.24.1
-Release:        2%{?dist}
+Version:        1.25.0
+Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -25,11 +25,16 @@ Source0:        https://github.com/micropython/micropython/archive/v%{version}.t
 %global berkley_commit 85373b548f1fb0119a463582570b44189dfb09ae
 Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
 
-%global mbedtls_commit edb8fec9882084344a314368ac7fd957a187519c
+%global mbedtls_commit 107ea89daaefb9867ea9121002fbbdf926780e98
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit 68e3e07bc7ab63931cead3854b2a114e9a084248
+%global micropython_lib_commit 5b496e944ec045177afa1620920a168410b7f60b
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
+
+# Fix FTBFS with gcc 15 using the -Wunterminated-string-literal warning.
+# Resolved upstream:
+# https://github.com/micropython/micropython/pull/17269
+Patch: fix-gcc-15-ftbfs.patch
 
 # Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -52,7 +57,7 @@ BuildRequires:  openssl-devel
 %global cpython_version_tests 3.12
 BuildRequires:  %{_bindir}/python%{cpython_version_tests}
 
-Provides:       bundled(mbedtls) = 3.5.1
+Provides:       bundled(mbedtls) = 3.6.2
 Provides:       bundled(libdb) = 1.85
 Provides:       bundled(micropython-lib) = %{version}
 
@@ -116,6 +121,12 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Fri May 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.25.0-1
+- Update to 1.25.0
+- Security fixes for CVE-2023-52353 and CVE-2024-23744 in mbedtls
+- Fix FTBFS with GCC 15
+Resolves: rhbz#2359781, rhbz#2259505, rhbz#2259499, rhbz#2340849
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

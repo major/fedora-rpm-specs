@@ -1,6 +1,6 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
-Version:        3.1.8
+Version:        3.2.0
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
@@ -55,7 +55,10 @@ make install-redhat \
     SBIN=%{_bindir} \
     DESTDIR=%{buildroot}
 
-sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildroot}%{_sysconfdir}/%{name}/framework.conf
+sed -i \
+    -e 's/# modprobe_on_install.*/modprobe_on_install="true"/g' \
+    -e 's/# post_transaction.*/post_transaction="dracut --regenerate-all --force"/g' \
+    %{buildroot}%{_sysconfdir}/%{name}/framework.conf
 
 %post
 %systemd_post %{name}.service

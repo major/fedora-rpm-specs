@@ -1,6 +1,6 @@
 Name:           gpgverify
 Version:        2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Signature verifier for easy and safe scripting
 
 License:        Boehm-GC
@@ -35,6 +35,9 @@ cp --preserve=timestamps macros.gpgverify %{buildroot}%{rpmmacrodir}/
 %license license.txt
 
 %changelog
+* Fri May 09 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.1-3
+- Rebuilt to retry the testsuite.
+
 * Wed May 07 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.1-2
 - Added a separate license file.
 
