@@ -1,7 +1,7 @@
-%global revision 3120
+%global revision 3243
 
 Name:		64tass
-Version:	1.59.%{revision}
+Version:	1.60.%{revision}
 Release:	%autorelease
 Summary:	6502 assembler
 License:	LGPL-2.0-only AND LGPL-2.0-or-later AND GPL-2.0-or-later AND MIT

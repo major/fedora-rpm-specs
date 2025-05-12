@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20250404
-Release: 2%{?dist}
+Version: 20250510
+Release: 1%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -81,6 +81,25 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Sat May 10 2025 Richard Russon <rich@flatcap.org> - 20250510-1
+- Contrib
+  - #4616 Fix gpg-json output
+- Bug Fixes
+  - #4600 main: don't stop if /var/spool/mail is missing
+  - #4602 color: fix quoted maths
+  - #4604 Don't consider "weed" when writing an email to file
+  - #4605 help: fix leaks
+  - #4612 imap: check for incomplete Mailboxes on sync
+  - #4622 fix label completion crash
+- Translations
+  - #4622 update Esperanto translation
+  - Update lt_LT translations
+- Docs
+  -  docs: fix broken functions
+- Build
+  - #4607 Check for DocBook XSL
+  - #4618 Build and test on FreeBSD
+
 * Wed Apr 16 2025 Michael J Gruber <mjg@fedoraproject.org> - 6:20250404-2
 - exclude i686 arch for i686 leaf package
 

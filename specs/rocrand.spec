@@ -48,6 +48,20 @@
 %global cmake_generator %{nil}
 %endif
 
+# The common parts of the cmake configuration
+%global cmake_config \\\
+  -DCMAKE_CXX_COMPILER=hipcc \\\
+  -DCMAKE_C_COMPILER=hipcc \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
+  -DCMAKE_BUILD_TYPE=%build_type \\\
+  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
+  -DCMAKE_SKIP_RPATH=ON \\\
+  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
+  -DROCM_SYMLINK_LIBS=OFF \\\
+  -DBUILD_TEST=%build_test
+	
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
@@ -61,9 +75,18 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
+# gfx950 is an experimental target
+# Enabling will short circuit the normal build.
+# There is no check support.
+# To use do
+# $ module load rocm/gfx950
+#     <do stuff>
+# $ module purge
+%bcond_with gfx950
+
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -80,7 +103,11 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
 %endif
 
 %if %{with doc}
@@ -132,39 +159,74 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
+%if %{with gfx950}
+
+%package gfx950
+Summary:        The gfx950 rocRAND package
+Provides:       rocrand-gfx950 = %{version}-%{release}
+Conflicts:      %{name}
+
+%description gfx950
+%{summary}
+
+%package gfx950-devel
+Summary:        The gfx950 rocRAND development package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Provides:       rocrand-gfx950-devel = %{version}-%{release}
+Conflicts:      %{name}-devel
+
+%description gfx950-devel
+%{summary}
+
+%if %{with test}
+%package gfx950-test
+Summary:        The gfx950 rocRAND test package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Conflicts:      %{name}-test
+
+%description gfx950-test
+%{summary}
+
+%endif # gfx950-test
+%endif # gfx950
+
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+# On Tumbleweed Q2,2025
+# /usr/include/gtest/internal/gtest-port.h:279:2: error: C++ versions less than C++14 are not supported.
+#   279 | #error C++ versions less than C++14 are not supported.
+# https://github.com/ROCm/rocRAND/issues/639
+# Convert the c++11's to c++14
+sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/{cpp_wrapper,package}/}CMakeLists.txt
+
 %build
-%cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
-    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DCMAKE_BUILD_TYPE=%build_type \
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-    -DROCM_SYMLINK_LIBS=OFF \
+
+%if %{with gfx950}
+
+module load rocm/gfx950
+
+%cmake %{cmake_generator} %{cmake_config} \
+    -DAMDGPU_TARGETS=${ROCM_GPUS} \
+    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
+    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
+    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
+
+%else
+%cmake %{cmake_generator} %{cmake_config} \
     -DAMDGPU_TARGETS=%{gpu_list} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
-    -DBUILD_TEST=%build_test
+    -DCMAKE_INSTALL_LIBDIR=%_libdir
+%endif
 
 %cmake_build
 
+%if %{with gfx950}
+module purge
+%endif
+
+
 %install
 %cmake_install
-
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name 'test_*'       | sed -f br.sed >  %{name}.test
-find %{buildroot}           -name '*RAND'        | sed -f br.sed >> %{name}.test
-%endif
 
 if [ -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
@@ -173,25 +235,65 @@ fi
 %check
 %if %{with test}
 %if %{with check}
-# Assumes default
+%if 0%{?suse_version}
+# Need some help to find librocrand.so on suse
+# find . -name 'librocrand.so.1'
+export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
+%endif
+
 %ctest
 %endif
 %endif
 
-%files -f %{name}.files
+%if %{with gfx950}
+%files gfx950
 %doc README.md
 %license LICENSE.txt
+%{_libdir}/rocm/gfx950/lib/librocrand.so.1{,.*}
 
-%files devel -f %{name}.devel
-%dir %{_libdir}/cmake/rocrand
-%dir %{_includedir}/rocrand
-%{_includedir}/rocrand/*
+%files gfx950-devel
+%dir %{_libdir}/rocm/gfx950/lib/cmake/rocrand
+%dir %{_libdir}/rocm/gfx950/include/rocrand
+%{_libdir}/rocm/gfx950/include/rocrand/*.{h,hpp}
+%{_libdir}/rocm/gfx950/lib/cmake/rocrand/*.cmake
+%{_libdir}/rocm/gfx950/lib/librocrand.so
 
 %if %{with test}
-%files test -f rocrand.test
+%files gfx950-test
+%dir %{_libdir}/rocm/gfx950/bin/rocRAND
+%{_libdir}/rocm/gfx950/bin/test_*
+%{_libdir}/rocm/gfx950/bin/rocRAND/*.cmake
+%endif
+
+%else
+
+%files 
+%doc README.md
+%license LICENSE.txt
+%{_libdir}/librocrand.so.1{,.*}
+
+%files devel 
+%dir %{_libdir}/cmake/rocrand
+%dir %{_includedir}/rocrand
+%{_includedir}/rocrand/*.{h,hpp}
+%{_libdir}/cmake/rocrand/*.cmake
+%{_libdir}/librocrand.so
+
+%if %{with test}
+%files test
+%dir %{_bindir}/rocRAND
+%{_bindir}/test_*
+%{_bindir}/rocRAND/*.cmake
+%endif
 %endif
 
 %changelog
+* Sat May 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Add experimental gfx950
+
+* Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Improve testing on suse
+
 * Fri Apr 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Add generic gpus
 

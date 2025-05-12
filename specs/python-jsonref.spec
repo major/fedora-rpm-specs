@@ -1,12 +1,15 @@
 Name:           python-jsonref
 Version:        1.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library for automatic dereferencing of JSON Reference objects
 
 License:        MIT
 URL:            https://github.com/gazpachoking/jsonref
 # PyPI tarball doesn't have tests
 Source:         %{url}/archive/v%{version}/jsonref-%{version}.tar.gz
+# https://github.com/gazpachoking/jsonref/commit/f18f30772df086bebdcc9b1b76a35558b4a0a897
+Patch:          0001-Migrate-to-pdm-backend.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -30,7 +33,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n jsonref-%{version}
+%autosetup -p 1 -n jsonref-%{version}
 
 
 %generate_buildrequires
@@ -56,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue May 06 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-9
+- Add upstream patch to switch from pdm-pep517 to pdm-backend
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Summary:	IPv6/IPv4 address information, format change, filter and calculation utility
 Name:		ipv6calc
-Version:	4.3.0
+Version:	4.3.1
 Release:	1%{?gittag}%{?dist}
 URL:		https://www.deepspace6.net/projects/%{name}.html
 License:	GPL-2.0-only
@@ -38,7 +38,7 @@ BuildRequires:	automake make
 BuildRequires:	gcc
 BuildRequires:	openssl-devel
 BuildRequires:	perl-generators
-BuildRequires:	perl(Digest::MD5), perl(Digest::SHA1), perl(URI::Escape)
+BuildRequires:	perl(Digest::MD5), perl(Digest::SHA), perl(URI::Escape)
 BuildRequires:	perl(strict), perl(warnings)
 BuildRequires:	procps-ng
 Requires:	unzip
@@ -380,6 +380,10 @@ fi
 
 
 %changelog
+* Sat May 10 2025 Peter Bieringer <pb@bieringer.de> - 4.3.1-1
+- Final release 4.3.1
+- BuildReq: perl(Digest::SHA1) -> perl(Digest::SHA)
+
 * Wed Jan 29 2025 Peter Bieringer <pb@bieringer.de> - 4.3.0-1
 - Final release 4.3.0
 - Update recommend IP2Location >= 8.6.0

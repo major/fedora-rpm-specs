@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/cosmos72/schemesh
 
 Name:    schemesh
-Version: 0.9.0
+Version: 0.9.1
 Release: 1%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
@@ -11,9 +11,6 @@ Summary: Fusion between a Unix shell and a Lisp REPL
 License: GPL-2.0-or-later
 URL:     %{forgeurl}
 Source0: %{forgesource}
-# Fixes tests that fails
-# https://github.com/cosmos72/schemesh/issues/26
-Patch0:  https://github.com/cosmos72/schemesh/commit/470e7ecd2a452d2d9eaac6b29558f58806f5580e.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -34,7 +31,6 @@ replacing bash, zsh, pdksh etc.
 
 %prep
 %forgesetup
-%patch -P 0 -p1
 
 %build
 %make_build \
@@ -59,6 +55,9 @@ time ./schemesh_test
 %{_libdir}/schemesh/
 
 %changelog
+* Sat May 10 2025 Jonny Heggheim <hegjon@gmail.com> - 0.9.1-1
+- Updated to version 0.9.1
+
 * Sat May 03 2025 Jonny Heggheim <hegjon@gmail.com> - 0.9.0-1
 - Updated to version 0.9.0
 

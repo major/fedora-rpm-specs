@@ -18,7 +18,7 @@
 %bcond check 0
 %endif
 
-%ifarch x86_64
+%ifarch %{x86_64}
 %bcond thunks 0
 %elif 0%{?fedora} >= 41
 %global has_sysroot 1
@@ -32,7 +32,7 @@
 %bcond x86_debug 0
 
 Name:       fex-emu
-Version:    2502%{?commit:^%{date}git%{commit}}
+Version:    2505%{?commit:^%{date}git%{commit}}
 Release:    %autorelease
 Summary:    Fast usermode x86 and x86-64 emulator for ARM64
 
@@ -44,8 +44,8 @@ URL:        https://fex-emu.com
 Source0:    %{forgeurl}/commit/%{commit}/%{srcname}-%{commit}.tar.gz
 %else
 Source0:    %{forgeurl}/archive/%{srcname}-%{version}/%{srcname}-%{srcname}-%{version}.tar.gz
-Source1:    README.fedora
 %endif
+Source1:    README.fedora
 
 # The sysroot is built using build-fex-sysroot.sh, which downloads Fedora RPMs
 # for x86_64, repacks them into the sysroot tarball, and extracts licensing
@@ -67,12 +67,12 @@ SourceLicense: %{fex_license} %{sysroot_license}
 # https://github.com/FEX-Emu/FEX/issues/4267
 %{lua:
 local externals = {
-  { name="cpp-optparse", ref="eab4212", owner="Sonicadvance1", path="../Source/Common/cpp-optparse", license="MIT" },
+  { name="cpp-optparse", ref="9f94388", owner="Sonicadvance1", path="../Source/Common/cpp-optparse", license="MIT" },
   { name="drm-headers", ref="0675d2f", owner="FEX-Emu", package="kernel", version="6.13", license="GPL-2.0-only" },
   { name="jemalloc", ref="02ca52b", owner="FEX-Emu", version="5.3.0", license="MIT" },
   { name="jemalloc", ref="4043539", owner="FEX-Emu", path="jemalloc_glibc", version="5.3.0", license="MIT" },
   { name="robin-map", ref="d5683d9", owner="FEX-Emu", version="1.3.0", license="MIT" },
-  { name="Vulkan-Headers", ref="29f979e", owner="KhronosGroup", package="vulkan-headers", version="1.3.296", license="Apache-2.0" },
+  { name="Vulkan-Headers", ref="cacef30", owner="KhronosGroup", package="vulkan-headers", version="1.4.310", license="Apache-2.0" },
 }
 
 for i, s in ipairs(externals) do
@@ -94,8 +94,12 @@ function print_setup_externals()
 end
 }
 
-# ThunkGen: Fixes compiling with LLVM 20
-Patch:          %{forgeurl}/pull/4408.patch
+# LinuxEmulation: Implement custom longjump that is fortification safe
+Patch:          %{forgeurl}/commit/a37def2c22e528477f64296747228400ddc40222.patch
+# Async: Add run_one interface to enable more fine-grained event loop control
+Patch:          %{forgeurl}/commit/8eaf45414c05c9e7ef6f74a323d95fe7e0d883c1.patch
+# FEXServer: Don't time out while clients are still connected
+Patch:          %{forgeurl}/commit/c326e2d669fd5e9356f6107e188413a449cc1fd7.patch
 
 # FEX upstream only supports these architectures
 %if %{with x86_debug}
@@ -301,8 +305,10 @@ fi
 %{_bindir}/FEXpidof
 %{_bindir}/FEXServer
 %{_libdir}/libFEXCore.so.%{version}
+%ifnarch %{x86_64}
 %{_binfmtdir}/FEX-x86.conf
 %{_binfmtdir}/FEX-x86_64.conf
+%endif
 %{_datadir}/fex-emu/AppConfig/
 %{_mandir}/man1/FEX.1*
 

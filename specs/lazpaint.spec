@@ -34,6 +34,9 @@ BuildRequires: lazarus-tools
 BuildRequires: libappstream-glib
 
 BuildRequires: dos2unix
+%if %{defined flatpak}
+BuildRequires: xmlstarlet
+%endif
 
 Requires: hicolor-icon-theme
 
@@ -94,6 +97,14 @@ for PROJECT in ${LAZ_PROJECTS[@]}; do
 		-i "${PROJECT}"
 done
 
+%if %{defined flatpak}
+# gtk2 is not part of the runtime and is built in /app for flatpaks
+xmlstarlet edit --inplace \
+	-s '/CONFIG/ProjectOptions/BuildModes/Item2/CompilerOptions' -t elem -n Other \
+	-s '$prev' -t elem -n CustomOptions \
+	-i '$prev' -t attr -n Value -v '-k-L%{_libdir}' \
+	lazpaint/lazpaint.lpi
+%endif
 
 %build
 LAZ_PACKAGES=(%{laz_packages})

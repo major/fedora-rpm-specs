@@ -20,6 +20,10 @@
 %else
 %global with_openmpi 1
 %endif
+%if 0%{?flatpak}
+%global with_mpich 0
+%global with_openmpi 0
+%endif
 
 ## BLAS ##
 %if 0%{?fedora} || 0%{?rhel} >= 9

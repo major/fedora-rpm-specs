@@ -10,7 +10,7 @@
 
 # https://github.com/google/go-jsonnet
 %global goipath         github.com/google/go-jsonnet
-Version:                0.20.0
+Version:                0.21.0
 
 %gometa -L -f
 

@@ -6,11 +6,11 @@
 %global crate webpki-roots
 
 Name:           rust-webpki-roots
-Version:        0.26.8
+Version:        0.26.10
 Release:        %autorelease
 Summary:        Mozilla's CA root certificates for use with webpki
 
-License:        MPL-2.0
+License:        CDLA-Permissive-2.0
 URL:            https://crates.io/crates/webpki-roots
 Source:         %{crates_source}
 

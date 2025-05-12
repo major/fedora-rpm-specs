@@ -275,12 +275,12 @@ rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
 %check
 %if %{with tests}
 %cmake_build --target ryml-test-run-verbose
-%if %{with python}
-%pytest -v
 %endif
-%else
+
 %if %{with python}
 %pyproject_check_import
+%if %{with tests}
+%pytest -v
 %endif
 %endif
 

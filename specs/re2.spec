@@ -2,7 +2,7 @@
 # no longer build the Python extension on i686; in the medium term, we wish to
 # drop i686 support altogether, but we must coordinate all reverse dependencies
 # doing so first; see the notes in %%check.
-%bcond python %{expr:0%{?__isa_bits} != 32} || %{defined fc41} || %{defined fc40}}
+%bcond python %[ %{?__isa_bits} != 32 || %{defined fc41} ]
 
 Name:           re2
 %global tag 2024-07-02

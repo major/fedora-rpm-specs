@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250410
+Version:	20250509
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -555,6 +555,44 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Fri May 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250509-1
+- Update to 20250509
+- Amphion: Update vpu firmware
+- amd_pmf: Update AMD PMF TA Firmware to v3.1
+- amdgpu: update dcn 4.01 firmware to 0.1.8.0
+- qcom: Add link for SM8350 GPU firmware
+- cirrus: cs35l56: Add/update firmware for Cirrus Amps for some ASUS/Lenovo laptops
+- update firmware for MT7925 WiFi device
+- mediatek MT7925: update bluetooth firmware to 20250425073330
+- rtw89: 8852c: add tables for dynamic antenna TXPWR
+- rtw89: 8922a: update fw to v0.35.71.0
+- brcm: Add NVRAM file for Radxa Rock Pi X mini PC
+- i915: Update Xe3LPD DMC to v2.23
+- rtl_bt: Update RTL8852B BT USB FW to 0x098B_154B
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: IPQ5018 hw1.0: update to WLAN.HK.2.6.0.1-01300-QCAHKSWPL_SILICONZ-1
+- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00284-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
+- ath12k: QCN9274 hw2.0: update board-2.bin
+- qcom: vpu: update video firmware binary for SA8775p
+- iwlwifi: add/update firmwares to core95-82 release
+- iwlwifi: add Bz-hr FW for core93-123 release
+- qcom: add QUPv3 firmware for QCS9100 platform
+- ASoC: tas2781: Swap channel for SPI projects.
+- bmi260: Add BMI260 IMU initial configuration data file
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x1881_BA06
+- rtw89: 8922a: update element RF TXPWR to R40
+- rtw89: 8852c: update element RF TXPWR to R78
+- rtw89: 8852c: add fw v0.27.125.0 with format version 2
+- Revert "rtw89: 8852c: update fw to v0.27.125.0"
+- qcom: vpu: add video firmware binary for qcm6490
+- amdgpu: many firmware updates
+- intel: ish: Update license file for ISH
+- intel: avs: Update topology file for I2S for many codecs
+- intel: avs: Update topology file for HDMI/HDAudio codecs
+- intel: avs: Update topology file for Digital Microphone Array
+- xe: Update GUC to v70.44.1 for BMG and LNL
+- i915: Update GUC to v70.44.1 for i915 platforms
+
 * Thu Apr 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250410-1
 - Update to 20250410
 - qcom:x1e80100: Iris Support for Lenovo T14s G6 Qualcomm platform

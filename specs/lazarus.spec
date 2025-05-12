@@ -1,27 +1,25 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        3.8
+Version:        4.0
 
 %global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
-%global qt5pas_version 2.15
+%global qt5pas_version 2.16
 %global qt5pas_release %(relstr="%{version}.%{baserelease}"; relstr=(${relstr//./ }); ((relno=${relstr[0]}*10000 + ${relstr[1]}*100 + ${relstr[2]})); echo "${relno}%{?dist}";)
 
 # The qt6pas version is taken from lcl/interfaces/qt6/cbindings/Qt6Pas.pro
-%global qt6pas_version 6.2.8
+%global qt6pas_version 6.2.10
 %global qt6pas_release %{qt5pas_release}
 
-# The IDE itself is licensed under GPLv2+, with minor parts under the modified LGPL.
+# The IDE itself is licensed under GPLv2+, with minor parts under a modified LGPL.
 # The Lazarus Component Library has parts licensed under all the licenses mentioned in the tag.
-#
-# GNU Classpath style exception, see COPYING.modifiedLGPL
 %global license_doc   GPL-2.0-or-later
 %global license_tools GPL-2.0-or-later
-%global license_ide   GPL-2.0-or-later AND LGPL-2.0 WITH Classpath-exception-2.0
-%global license_lcl   GPL-2.0-or-later AND LGPL-2.0 WITH Classpath-exception-2.0 AND MPL-1.1 AND Apache-2.0
+%global license_ide   GPL-2.0-or-later AND LGPL-2.0-only WITH Independent-modules-exception
+%global license_lcl   GPL-2.0-or-later AND LGPL-2.0-only WITH Independent-modules-exception AND MPL-1.1 AND Apache-2.0
 License:        %{license_lcl}
 
 URL:            http://www.lazarus-ide.org/
@@ -31,20 +29,6 @@ Source100:      lazarus.appdata.xml
 
 # Lazarus wants to put arch-specific stuff in /usr/share - make it go in /usr/lib istead
 Patch0:         0000-Makefile_patch.diff
-
-# lazbuild can be too eager to rebuild some Lazarus packages.
-# This causes build failures on other Fedora packages, as it tries to overwrite files in /usr/lib.
-#
-# Taken from Debian:
-# https://sources.debian.org/data/main/l/lazarus/3.0%2Bdfsg1-6/debian/patches/Fixed-crash-when-trying-to-recompile-packages.patch
-Patch1:         0001-crash-when-trying-to-recompile-packages.patch
-
-# Fix SIGSEGV on startup in programs built using the Qt5 widgetset
-# rhbz: https://bugzilla.redhat.com/show_bug.cgi?id=2323227
-#
-# Backport of upstream commit:
-# https://gitlab.com/freepascal.org/lazarus/lazarus/-/commit/7ae720285564f69e85216a0889b3ae4308661860
-Patch2:         0002-qt5-segfault.patch
 
 # -- Build-time dependencies
 
@@ -564,6 +548,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat May 10 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.0-1
+- Update to v4.0
+- Drop Patch1 (crash in lazbuild) - issue fixed upstream
+- Drop Patch2 (Qt5 segfault) - backport from this release
+- Fix license tag ("LGPL-2.0 WITH Classpath-exception-2.0" -> "LGPL-2.0-only WITH Independent-modules-exception")
+
 * Wed Jan 22 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.8-1
 - Update to v3.8
 

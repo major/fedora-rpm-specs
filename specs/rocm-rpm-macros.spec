@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        6.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -25,6 +25,7 @@ Source15:       gfx1102
 Source16:       gfx1103
 Source17:       default.rhel
 Source18:       gfx12
+Source19:       gfx950
 
 # Just some files
 %global debug_package %{nil}
@@ -83,6 +84,7 @@ install -pm 644 %{SOURCE14} modules
 install -pm 644 %{SOURCE15} modules
 install -pm 644 %{SOURCE16} modules
 install -pm 644 %{SOURCE18} modules
+install -pm 644 %{SOURCE19} modules
 
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
@@ -108,6 +110,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Fri May 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Add gfx950 module
+
 * Wed Apr 16 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
 - fixing typo in rocm_gpu_list_test macro
 

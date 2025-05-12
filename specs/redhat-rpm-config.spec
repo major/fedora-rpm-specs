@@ -11,7 +11,7 @@ Name: redhat-rpm-config
 Version: 343
 Release: %autorelease
 # config.guess, config.sub are GPL-3.0-or-later WITH Autoconf-exception-generic
-License: GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic AND Boehm-GC
+License: GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic
 URL: https://src.fedoraproject.org/rpms/redhat-rpm-config
 
 # Core rpm settings
@@ -68,7 +68,6 @@ Source304: find-requires
 
 # Misc helper scripts
 Source400: dist.sh
-Source404: gpgverify
 
 # Snapshots from http://git.savannah.gnu.org/gitweb/?p=config.git
 Source500: https://git.savannah.gnu.org/cgit/config.git/plain/config.guess
@@ -127,6 +126,8 @@ Requires: dwz >= 0.4
 Requires: zip
 Requires: (annobin-plugin-gcc if gcc)
 Requires: (gcc-plugin-annobin if gcc)
+# ↓ to not break packages that buildrequire GnuPG but use it through GPGverify
+Requires: (gpgverify if gnupg2)
 
 # for brp-mangle-shebangs
 Requires: %{_bindir}/find
@@ -161,7 +162,6 @@ install -p -m 444 -t %{buildroot}%{rrcdir} redhat-hardened-*
 install -p -m 444 -t %{buildroot}%{rrcdir} redhat-annobin-*
 install -p -m 755 -t %{buildroot}%{rrcdir} config.*
 install -p -m 755 -t %{buildroot}%{rrcdir} dist.sh
-install -p -m 755 -t %{buildroot}%{rrcdir} gpgverify
 install -p -m 755 -t %{buildroot}%{rrcdir} brp-*
 
 install -p -m 755 -t %{buildroot}%{rrcdir} find-*
@@ -230,7 +230,6 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %{rrcdir}/dist.sh
 %{rrcdir}/find-provides
 %{rrcdir}/find-requires
-%{rrcdir}/gpgverify
 %{rrcdir}/macros
 %{rrcdir}/redhat-hardened-*
 %{rrcdir}/rpmrc

@@ -203,6 +203,8 @@ developing applications that use sleef-quad.
 
 %prep
 %autosetup -n sleef-%{tag} -p1
+# Remove an unwanted hidden file from the docs
+find docs/ -type f -name .nojekyll -print -delete
 
 
 %conf

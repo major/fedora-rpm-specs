@@ -26,6 +26,15 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/bramstein/sfnt2woff-zopfli/pull/18
 Patch:          %{url}/pull/18.patch
 
+# Fix segfault due to https://bugs.debian.org/785795.
+#   Remaining Debian patch rollup
+# https://github.com/bramstein/sfnt2woff-zopfli/pull/20
+# - Fix segfault due to https://bugs.debian.org/785795
+# - Add arithmetic overflow checks in woff encoding routines
+# - Fix CVE-2010-1028: WOFF heap corruption due to integer overflow
+# - fix some compiler and cppcheck warnings
+Patch:          %{url}/pull/20.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -70,6 +79,9 @@ install -t '%{buildroot}%{_bindir}' -p sfnt2woff-zopfli woff2sfnt-zopfli
 install -d '%{buildroot}%{_mandir}/man1'
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 \
     sfnt2woff-zopfli.1 woff2sfnt-zopfli.1
+
+
+# Upstream provides no tests
 
 
 %files

@@ -70,7 +70,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        6.rocm%{rocm_version}%{?dist}
+Release:        7.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -912,7 +912,7 @@ pushd .
 popd
 
 # Make directories users of rocm-rpm-modules will install to
-%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103
+%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx950 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103
 for gpu in %{modules_gpu_list}
 do
     mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
@@ -1077,6 +1077,11 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %dir %{_libdir}/rocm/gfx942/include
 %dir %{_libdir}/rocm/gfx942/lib
 %dir %{_libdir}/rocm/gfx942/lib/cmake
+%dir %{_libdir}/rocm/gfx950
+%dir %{_libdir}/rocm/gfx950/bin
+%dir %{_libdir}/rocm/gfx950/include
+%dir %{_libdir}/rocm/gfx950/lib
+%dir %{_libdir}/rocm/gfx950/lib/cmake
 %dir %{_libdir}/rocm/gfx1031
 %dir %{_libdir}/rocm/gfx1031/bin
 %dir %{_libdir}/rocm/gfx1031/include
@@ -1249,6 +1254,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Fri May 9 2025 Tom Rix <Tom.Rix@amd.com> - 19-7.rocm6.4.0
+- Add gfx950 to modules
+
 * Tue May 6 2025 Tom Rix <Tom.Rix@amd.com> - 19-6.rocm6.4.0
 - handle dlopen of libhsa-runtime64.so
 

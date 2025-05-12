@@ -7,7 +7,7 @@
 
 Name:           fpc
 Version:        3.2.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Free Pascal Compiler
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception
@@ -94,8 +94,9 @@ Patch8:         fpc-3.2.2--fallback-to-localhost-when-no-dns-server-specified.pa
 # The compiler produces incorrect "unit unused" hints
 # if symbols from a unit are used only for compile-time checks.
 #
-# Backport of upstream commit:
+# Backport of upstream commits:
 # https://gitlab.com/freepascal.org/fpc/source/-/commit/22ec4a20332f8208273604b46e727e481f6502eb.patch
+# https://gitlab.com/freepascal.org/fpc/source/-/commit/397293f09f7a3e116119ab629687c64aae507539.patch
 Patch9:         fpc-3.2.2--compiletime-check-is-usage.patch
 
 # FPC's LaTeX docs use the \htmladdnormallink command, which has been removed in recent TexLive versions.
@@ -383,6 +384,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Sat May 10 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-18
+- Fix Patch9 causing internal compiler errors
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 %{?mingw_package_header}
 
 %global origname sdl2-compat
-%global sdl3_minver 3.2.10
+%global sdl3_minver 3.2.12
 
 Name:           mingw-%{origname}
-Version:        2.32.54
+Version:        2.32.56
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 2.0 runtime compatibility library using SDL 3.0
 # License of SDL-2.0 headers
@@ -126,6 +126,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Sat May 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.56-1
+- Update to 2.32.56
+
 * Fri Apr 11 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.54-1
 - Update to 2.32.54
 
