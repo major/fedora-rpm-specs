@@ -4,8 +4,13 @@ Version:        1.11.0
 Release:        %autorelease -b 13
 Summary:        Libraries for processing and visualizing scientific raster data
 
-# The entire source is LGPL-2.1-or-later, except files noted at the License
-# fields of certain subpackages.
+# The entire source is LGPL-2.1-or-later (but see below), except files noted at
+# the License fields of certain subpackages.
+#
+# The project has a custom exception for the LGPL-2.1-or-later, currently under
+# review:
+#   License/exception review: Simple Library Usage License
+#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/658
 License:        LGPL-2.1-or-later
 # Additionally, the following are removed in %%prep to assert that they do not
 # contribute to the built package:

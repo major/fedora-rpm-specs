@@ -20,8 +20,42 @@ Source2:        woff2sfnt.1
 
 # It’s possible that tableOrder could be freed twice if a failure occurs. Set
 # the pointer null after freeing it to prevent this. There is no current
-# upstream to which this could be reported.
+# upstream to which this could be reported; however, this was reported to the
+# sfnt2woff-zopfli fork:
+#
+# Fix a possible double free in woffEncode()
+# https://github.com/bramstein/sfnt2woff-zopfli/pull/18
 Patch:          possible-double-free.patch
+
+# Add full text of the three WOFF licenses:
+#   - LICENSE-WOFF-MPL, from
+#     https://www.mozilla.org/media/MPL/1.1/index.0c5913925d40.txt
+#   - LICENSE-WOFF-GPL, from
+#     https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+#   - LICENSE-WOFF-LGPL, from
+#     https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+# https://github.com/bramstein/sfnt2woff-zopfli/commit/7e08f1c944142c8e37050d9e02d91ec326d60ba5
+Patch:          https://github.com/bramstein/sfnt2woff-zopfli/commit/7e08f1c944142c8e37050d9e02d91ec326d60ba5.patch
+# Update GPL/LGPL license texts for remote-only FS
+# https://github.com/bramstein/sfnt2woff-zopfli/pull/21
+Patch:          https://github.com/bramstein/sfnt2woff-zopfli/pull/21.patch
+
+# Fix segfault due to https://bugs.debian.org/785795.
+#   Remaining Debian patch rollup
+# https://github.com/bramstein/sfnt2woff-zopfli/pull/20
+# Since the patches from the sfnt2woff-zopfli do not apply directly, we link
+# the patches Debian uses for woff (which they call woff-tools) where possible;
+# see https://sources.debian.org/patches/woff-tools/0:2009.10.04-2.
+# - Fix segfault due to https://bugs.debian.org/785795
+#   https://github.com/bramstein/sfnt2woff-zopfli/pull/20/commits/51d74ebc4ab782f9e272fa4f135ee2375c991a5b
+#   Rebased from the sfnt2woff-zopfli fork onto the original woff release
+Patch:          segfault-debian-bug-785795.patch
+# - Add arithmetic overflow checks in woff encoding routines
+Patch:          https://sources.debian.org/data/main/w/woff-tools/0%3A2009.10.04-2/debian/patches/add-overflow-checks.patch
+# - Fix CVE-2010-1028: WOFF heap corruption due to integer overflow
+Patch:          https://sources.debian.org/data/main/w/woff-tools/0%3A2009.10.04-2/debian/patches/CVE-2010-1028.patch
+# - fix some compiler and cppcheck warnings
+Patch:          https://sources.debian.org/data/main/w/woff-tools/0%3A2009.10.04-2/debian/patches/fix-compiler-and-cppcheck-warnings.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -41,6 +75,11 @@ decoding Web Open Font Format (WOFF) files.
 
 %build
 %make_build CFLAGS="${CFLAGS}"
+awk '
+    /BEGIN LICENSE BLOCK/ { b = 1 }
+    b
+    /END LICENSE BLOCK/ { b = 0 }' woff.c |
+  tee LICENSE-WOFF
 
 
 %install
@@ -51,8 +90,17 @@ install -d '%{buildroot}%{_mandir}/man1'
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 
 
+# Upstream provides no tests
+
+
 %files
+%license LICENSE-WOFF
+%license LICENSE-WOFF-MPL
+%license LICENSE-WOFF-GPL
+%license LICENSE-WOFF-LGPL
+
 %doc woff-2009-10-03.html
+
 %{_bindir}/sfnt2woff
 %{_bindir}/woff2sfnt
 %{_mandir}/man1/sfnt2woff.1*

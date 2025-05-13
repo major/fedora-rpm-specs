@@ -45,6 +45,11 @@ URL:            https://zeromq.org/languages/python/
 %global forgeurl https://github.com/zeromq/pyzmq
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
+# Update GPL license notices for remote-only FSF
+# https://github.com/zeromq/pyzmq/pull/2099
+# We are comfortable patching this because the PR was merged upstream.
+Patch:          %{forgeurl}/pull/2099.patch
+
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): test-requirements-filtered.txt
 # https://scikit-build-core.readthedocs.io/en/latest/configuration.html
@@ -162,7 +167,9 @@ k="${k-}${k+ and }not (TestFrame and test_lifecycle2)"
 %ifarch %{power64}
 # Several of the green/gevent tests fail with segmentation faults, so we
 # disable all of them for simplicity.
-# TODO: Can we reproduce this in a virtualenv and report it upstream?
+#
+# BUG: test_green_device crashes with Python 3.12 on ppc64le
+# https://github.com/zeromq/pyzmq/issues/1880
 k="${k-}${k+ and }not Green"
 %endif
 

@@ -93,26 +93,14 @@ plain-text documentation files, changelogs, and so on.
 %make_install install-profile -C src %{wcd_opts}
 %find_lang wcd --with-man
 
-%if 0%{?fedora} && 0%{?fedora} < 39
-# Historically, this package accepted the upstream default of building the
-# binary as wcd.exe, and the spec file contained claims that the name of the
-# binary might change periodically and that this was not important.
-#
-# We feel that this was misguided: the name of the command that users type is
-# *very* important, and it should match system conventions. We maintain the old
-# name as a symbolic link for compatibility.
-ln -s wcd '%{buildroot}%{_bindir}/wcd.exe'
-%endif
+
+# Upstream does not provide any tests
 
 
 %files -f wcd.lang
 %license %{_pkgdocdir}/copying.txt
 
 %{_bindir}/wcd
-%if 0%{?fedora} && 0%{?fedora} < 39
-# See the comment in %%install.
-%{_bindir}/wcd.exe
-%endif
 %{_mandir}/man1/wcd.1*
 
 %config(noreplace) %{_sysconfdir}/profile.d/wcd.sh

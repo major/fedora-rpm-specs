@@ -25,6 +25,7 @@ BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  python3-devel
 BuildRequires:  python3-build
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  clang-devel
 
 BuildRequires:  pkgconfig(xkbcommon)

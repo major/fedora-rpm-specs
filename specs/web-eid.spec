@@ -3,12 +3,11 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2325424
 
 
-%global _hardened_build 1
 %global build_number 654-2004
 
 Name:    web-eid
 Version: 2.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -100,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sun May 11 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-3
+- Removed unnecessary %%global _hardened_build 1
+
 * Fri Apr 11 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-2
 - Adds 126.patch
 

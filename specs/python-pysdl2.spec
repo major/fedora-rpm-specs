@@ -14,6 +14,8 @@ Summary:        Python SDL2 bindings
 License:        LicenseRef-Fedora-Public-Domain
 URL:            %forgeurl
 Source:         %forgesource
+# Backport patch addressing test failing with sdl2-compat
+Patch:          %{forgeurl}/pull/280.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -82,7 +84,7 @@ export SDL_RENDER_DRIVER=software
 export PYTHONFAULTHANDLER=1
 
 # Skip game controller tests (no dummy device implemented)
-%pytest -v --ignore sdl2/test/gamecontroller_test.py
+%pytest -r fEs --ignore sdl2/test/gamecontroller_test.py
 
 
 %files -n python3-pysdl2 -f %{pyproject_files}

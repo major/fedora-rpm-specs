@@ -4,7 +4,7 @@ aiohttp package. The purpose of this package is to provide an\
 easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
-Version:        0.7.7
+Version:        0.7.8
 Release:        1%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun May 11 2025 Georg Sauthoff <mail@gms.tf> - 0.7.8-1
+- bump version (fixes fedora#2338886)
+
 * Sun Jan 19 2025 Georg Sauthoff <mail@gms.tf> - 0.7.7-1
 - bump version (fixes fedora#2326558)
 

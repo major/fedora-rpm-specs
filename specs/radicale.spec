@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.2
+%define radicale_version  3.5.3
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -130,6 +130,7 @@ Upgrade hints from major version 2 -> 3 can be found here:
 %package -n python3-%{radicale_package_name}
 Summary:          Python module for Radicale
 Recommends:       python3-bcrypt
+Recommends:       python3-argon2-cffi
 Recommends:       python3-passlib
 %{?python_provide:%python_provide python3-%{name}}
 Obsoletes:        python-%{radicale_package_name} < %{version}-%{release}
@@ -527,6 +528,10 @@ fi
 
 
 %changelog
+* Sun May 11 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.3-1
+- Update to 3.5.3
+- Recommends: python3-argon2-cffi
+
 * Wed Apr 23 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.2-1
 - Add support for optional environment file /etc/sysconfig/radicale
 - Package template for /etc/sysconfig/radicale

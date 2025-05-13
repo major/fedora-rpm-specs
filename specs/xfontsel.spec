@@ -16,11 +16,11 @@ License:        X11
 #   - aclocal.m4
 # FSFULLR AND HPND-sell-variant:
 #   - Makefile.in
-# GPL-2.0-or-later WITH Autotools-exception-generic:
+# GPL-2.0-or-later WITH Autoconf-exception-generic:
 #   - compile
 #   - depcomp
 #   - missing
-# GPL-3.0-or-later WITH Autotools-exception-generic:
+# GPL-3.0-or-later WITH Autoconf-exception-generic:
 #   - config.guess
 #   - config.sub
 # HPND-sell-variant:
@@ -31,8 +31,8 @@ SourceLicense:  %{shrink:
                 FSFAP-no-warranty-disclaimer AND
                 FSFUL AND
                 FSFULLR AND
-                GPL-2.0-or-later WITH Autotools-exception-generic AND
-                GPL-3.0-or-later WITH Autotools-exception-generic AND
+                GPL-2.0-or-later WITH Autoconf-exception-generic AND
+                GPL-3.0-or-later WITH Autoconf-exception-generic AND
                 HPND-sell-variant
                 }
 URL:            https://www.x.org
@@ -92,6 +92,9 @@ autoreconf --force --install --verbose
 
 %install
 %make_install
+
+
+# Upstream provides no tests.
 
 
 %files

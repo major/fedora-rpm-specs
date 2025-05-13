@@ -13,9 +13,7 @@ Patch:          anet-0.3.3-no_IPv6_multicast_test.patch
 
 BuildRequires:  gcc-gnat fedora-gnat-project-common make ahven-devel
 BuildRequires:  gprbuild
-BuildRequires:  gnupg2
-# gpgverify was introduced in redhat-rpm-config 129.
-BuildRequires:  redhat-rpm-config >= 129
+BuildRequires:  gpgverify
 BuildRequires:  asciidoctor
 BuildRequires:  sed
 # Build only on architectures where GPRbuild is available:

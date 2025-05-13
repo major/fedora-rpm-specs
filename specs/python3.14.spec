@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a7
+%global prerel b1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -57,54 +57,56 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 25.0.1
-%global setuptools_version 67.6.1
-%global wheel_version 0.43.0
+%global pip_version 25.1.1
+%global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14.1
-Provides: bundled(python3dist(certifi)) = 2024.8.30
+Provides: bundled(python3dist(cachecontrol)) = 0.14.2
+Provides: bundled(python3dist(certifi)) = 2025.1.31
+Provides: bundled(python3dist(dependency-groups)) = 1.3.1
 Provides: bundled(python3dist(distlib)) = 0.3.9
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.10
 Provides: bundled(python3dist(msgpack)) = 1.1
-Provides: bundled(python3dist(packaging)) = 24.2
-Provides: bundled(python3dist(platformdirs)) = 4.3.6
-Provides: bundled(python3dist(pygments)) = 2.18
+Provides: bundled(python3dist(packaging)) = 25
+Provides: bundled(python3dist(platformdirs)) = 4.3.7
+Provides: bundled(python3dist(pygments)) = 2.19.1
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
 Provides: bundled(python3dist(requests)) = 2.32.3
-Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.9.4
+Provides: bundled(python3dist(resolvelib)) = 1.1
+Provides: bundled(python3dist(rich)) = 14
 Provides: bundled(python3dist(setuptools)) = 70.3
 Provides: bundled(python3dist(tomli)) = 2.2.1
-Provides: bundled(python3dist(truststore)) = 0.10
-Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(tomli-w)) = 1.2
+Provides: bundled(python3dist(truststore)) = 0.10.1
+Provides: bundled(python3dist(typing-extensions)) = 4.13.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
-# vendor.txt files not in .whl
-#  $ %%{_rpmconfigdir}/pythonbundles.py \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/setuptools/_vendor/vendored.txt) \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/pkg_resources/_vendor/vendored.txt)
+# vendor.txt not in .whl
+# Bundled packages are defined in multiple files. Generate the list with:
+# git clone https://github.com/pypa/setuptools && git switch v%%{setuptools_version}
+# pip freeze --path setuptools/_vendor > vendored.txt
+# %%{_rpmconfigdir}/pythonbundles.py vendored.txt
 %global setuptools_bundled_provides %{expand:
-Provides: bundled(python3dist(importlib-metadata)) = 6
-Provides: bundled(python3dist(importlib-resources)) = 5.10.2
-Provides: bundled(python3dist(jaraco-text)) = 3.7
-Provides: bundled(python3dist(more-itertools)) = 8.8
-Provides: bundled(python3dist(ordered-set)) = 3.1.1
-Provides: bundled(python3dist(packaging)) = 23
-Provides: bundled(python3dist(platformdirs)) = 2.6.2
+Provides: bundled(python3dist(autocommand)) = 2.2.2
+Provides: bundled(python3dist(backports-tarfile)) = 1.2
+Provides: bundled(python3dist(importlib-metadata)) = 8
+Provides: bundled(python3dist(inflect)) = 7.3.1
+Provides: bundled(python3dist(jaraco-collections)) = 5.1
+Provides: bundled(python3dist(jaraco-context)) = 5.3
+Provides: bundled(python3dist(jaraco-functools)) = 4.0.1
+Provides: bundled(python3dist(jaraco-text)) = 3.12.1
+Provides: bundled(python3dist(more-itertools)) = 10.3
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.4
-Provides: bundled(python3dist(zipp)) = 3.7
-}
-# wheel
-#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
-%global wheel_bundled_provides %{expand:
-Provides: bundled(python3dist(packaging)) = 24
+Provides: bundled(python3dist(typeguard)) = 4.3
+Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(wheel)) = 0.45.1
+Provides: bundled(python3dist(zipp)) = 3.19.2
 }
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -355,19 +357,6 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00454 # 1d5d7e9ce724fbbd89645d637303d12731c2a622
-# Invoke regen-token rst with rstfile as an argument
-#
-# Proposed upstream: https://github.com/python/cpython/pull/132304
-Patch454: 00454-invoke-regen-token-rst-with-rstfile-as-an-argument.patch
-
-# 00456 # 8f50cf7170e39c02d52cb5f99d647eeefad2f685
-# Find the correct group name in test_group_no_follow_symlinks
-#
-# Reported: https://github.com/python/cpython/issues/132356
-# Fix proposed upstream: https://github.com/python/cpython/pull/132357
-Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.patch
-
 # 00459 # 9cf6fed17de184d2e17ace2b5063e782e7e186ba
 # Apply Intel Control-flow Technology for x86-64
 #
@@ -377,14 +366,6 @@ Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.pat
 #
 # See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
 Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
-
-# 00460 # f876c748b89770cfee4148c3dd3acbc3dd527eb6
-# gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
-#
-# (actual changes in .whl files removed to make this patch smaller)
-#
-# gh-127906: Add missing sys import to test_cppext
-Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
 
 # 00461 # 920175020b21c0aff5edcc4c28d688b5061f591c
 # Downstream only: Install wheel in test venvs when setuptools < 71
@@ -653,8 +634,6 @@ Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-Provides: bundled(python3dist(wheel)) = %{wheel_version}
-%wheel_bundled_provides
 # License manually combined from Python + setuptools + wheel
 License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
@@ -721,9 +700,7 @@ Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-Provides: bundled(python3dist(wheel)) = %{wheel_version}
-%wheel_bundled_provides
-# License combined from Python libs + pip + setuptools + wheel
+# License combined from Python libs + pip + setuptools
 License: %{libs_license} AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
@@ -784,13 +761,11 @@ extension modules.
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
-  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
 fi
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
-rm Lib/test/wheeldata/wheel-%{wheel_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1282,8 +1257,9 @@ CheckPython() {
   # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
   # freethreading{,-debug} build, skipping it to shorten the build time
   # see: https://github.com/python/cpython/issues/121719
-  # test_external_inspection sometimes fails on freethreading-debug
-  # see: https://github.com/python/cpython/issues/130035
+  # test_interrupt and test_interrupt_no_handler
+  # reported in https://github.com/python/cpython/issues/133651
+  # test_displays reported https://github.com/python/cpython/issues/133682
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1293,7 +1269,9 @@ CheckPython() {
     %endif
     -i test_freeze_simple_script \
     -i test_check_probes \
-    -i test_external_inspection \
+    -i test_interrupt \
+    -i test_interrupt_no_handler \
+    -i test_displays \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1362,6 +1340,7 @@ CheckPython freethreading
 %{1}/_pyrepl/\
 %{1}/asyncio/\
 %{1}/collections/\
+%{1}/compression/\
 %{1}/concurrent/\
 %{1}/ctypes/\
 %{1}/curses/\
@@ -1377,6 +1356,7 @@ CheckPython freethreading
 %{1}/pydoc_data/\
 %{1}/re/\
 %{1}/sqlite3/\
+%{1}/string/\
 %{1}/sysconfig/\
 %{1}/tomllib/\
 %{1}/unittest/\
@@ -1435,7 +1415,6 @@ CheckPython freethreading
 %{1}/_codecs_jp.%{2}.so\
 %{1}/_codecs_kr.%{2}.so\
 %{1}/_codecs_tw.%{2}.so\
-%{1}/_contextvars.%{2}.so\
 %{1}/_csv.%{2}.so\
 %{1}/_ctypes.%{2}.so\
 %{1}/_curses.%{2}.so\
@@ -1462,6 +1441,7 @@ CheckPython freethreading
 %{1}/_posixsubprocess.%{2}.so\
 %{1}/_queue.%{2}.so\
 %{1}/_random.%{2}.so\
+%{1}/_remote_debugging.%{2}.so\
 %{1}/_sha1.%{2}.so\
 %{1}/_sha2.%{2}.so\
 %{1}/_sha3.%{2}.so\
@@ -1590,7 +1570,6 @@ CheckPython freethreading
 %{1}/_testcapi.%{2}.so\
 %{1}/_testclinic.%{2}.so\
 %{1}/_testclinic_limited.%{2}.so\
-%{1}/_testexternalinspection.%{2}.so\
 %{1}/_testimportmultiple.%{2}.so\
 %{1}/_testinternalcapi.%{2}.so\
 %{1}/_testlimitedcapi.%{2}.so\
@@ -1740,6 +1719,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed May 07 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~b1-1
+- Update to Python 3.14.0b1
+
 * Mon May 05 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~a7-3
 - Drop requirement on python-wheel-wheel with setuptools >= 71
 

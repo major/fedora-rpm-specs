@@ -1,6 +1,6 @@
 Name:           perl-EV
 Version:        4.34
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
@@ -11,6 +11,8 @@ URL:            https://metacpan.org/release/EV
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/EV-%{version}.tar.gz
 Patch0:         perl-EV-4.03-Don-t-ask-questions-at-build-time.patch
 Patch1:         perl-EV-4.30-Don-t-check-bundled-libev.patch
+# https://github.com/Perl/perl5/issues/22353#issuecomment-2198256977
+Patch2:         perl-EV-4.34-typemap-remove-unescaped-quotes.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -46,6 +48,7 @@ much more detailed information.
 
 %patch -P0 -p1
 %patch -P1 -p0
+%patch -P2 -p1
 
 # remove all traces of the bundled libev
 rm -fr ./libev
@@ -78,6 +81,9 @@ PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%
 
 
 %changelog
+* Wed May 07 2025 Carl George <carlwgeorge@fedoraproject.org> - 4.34-7
+- Add patch to remove unescaped quotes from typemap file rhbz#2364628
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.34-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

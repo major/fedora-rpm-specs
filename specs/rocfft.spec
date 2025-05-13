@@ -34,7 +34,10 @@
 %endif
 
 # Option to test suite for testing on real HW:
+# May have to set gpu under test with
+# export HIP_VISIBLE_DEVICES=<num> - 0, 1 etc.
 %bcond_with check
+
 # For docs
 %bcond_with doc
 
@@ -59,6 +62,23 @@
 %global cmake_generator %{nil}
 %endif
 
+%global cmake_config \\\
+  -DCMAKE_CXX_COMPILER=hipcc \\\
+  -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \\\
+  -DCMAKE_C_COMPILER=hipcc \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
+  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
+  -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
+  -DBUILD_CLIENTS_TESTS=%{build_test} \\\
+  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
+  -DCMAKE_BUILD_TYPE=%{build_type} \\\
+  -DROCFFT_BUILD_OFFLINE_TUNER=OFF \\\
+  -DROCFFT_KERNEL_CACHE_ENABLE=OFF \\\
+  -DROCM_SYMLINK_LIBS=OFF \\\
+  -DSQLITE_USE_SYSTEM_PACKAGE=ON
+
 %bcond_with generic
 %global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
 %if %{with generic}
@@ -67,9 +87,18 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
+# gfx950 is an experimental target
+# Enabling will short circuit the normal build.
+# There is no check support.
+# To use do
+# $ module load rocm/gfx950
+#     <do stuff>
+# $ module purge
+%bcond_with gfx950
+
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -152,6 +181,37 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
+%if %{with gfx950}
+
+%package gfx950
+Summary:        The gfx950 rocFFT package
+Provides:       rocfft-gfx950 = %{version}-%{release}
+Conflicts:      %{name}
+
+%description gfx950
+%{summary}
+
+%package gfx950-devel
+Summary:        The gfx950 rocFFT development package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Provides:       rocfft-gfx950-devel = %{version}-%{release}
+Conflicts:      %{name}-devel
+
+%description gfx950-devel
+%{summary}
+
+%if %{with test}
+%package gfx950-test
+Summary:        The gfx950 rocFFT test package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Conflicts:      %{name}-test
+
+%description gfx950-test
+%{summary}
+
+%endif # gfx950-test
+%endif # gfx950
+
 %prep
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
 
@@ -170,26 +230,27 @@ export LDFLAGS="${LDFLAGS} -pie"
 # So switch from libgcc to rocm-llvm's libclang-rt.builtins with
 # the rtlib=compiler-rt. Leave unwind unchange with unwindlib=libgcc
 
-%cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \
-    -DCMAKE_C_COMPILER=hipcc \
-    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+%if %{with gfx950}
+
+module load rocm/gfx950
+
+%cmake %{cmake_generator} %{cmake_config} \
+    -DAMDGPU_TARGETS=${ROCM_GPUS} \
+    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
+    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
+    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
+
+%else
+%cmake %{cmake_generator} %{cmake_config} \
     -DAMDGPU_TARGETS=%{gpu_list} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
-    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-    -DBUILD_CLIENTS_TESTS=%{build_test} \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-    -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DROCFFT_BUILD_OFFLINE_TUNER=OFF \
-    -DROCFFT_KERNEL_CACHE_ENABLE=OFF \
-    -DROCM_SYMLINK_LIBS=OFF \
-    -DSQLITE_USE_SYSTEM_PACKAGE=ON
+    -DCMAKE_INSTALL_LIBDIR=%_libdir
 
 %cmake_build
+%endif
+
+%if %{with gfx950}
+module purge
+%endif
 
 %install
 %cmake_install
@@ -199,16 +260,6 @@ find %{buildroot} -type f -name "rocfft_rtc_helper" -print0 | xargs -0 -I {} /us
 
 # we don't need or want the client-info file installed by rocfft
 rm -rf %{buildroot}/%{_prefix}/.info
-
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]'     | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'       | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'             | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'          | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name 'rocfft-test'      | sed -f br.sed >  %{name}.test
-find %{buildroot}           -name 'rtc_helper_crash' | sed -f br.sed >> %{name}.test
-%endif
 
 if [ -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
@@ -225,20 +276,51 @@ fi
 %endif
 %endif
 
-%files -f %{name}.files
+%if %{with gfx950}
+%files gfx950
 %doc README.md
 %license LICENSE.md
+%{_libdir}/rocm/gfx950/lib/librocfft.so.0{,.*}
 
-%files devel -f %{name}.devel
-%dir %{_libdir}/cmake/rocfft
-%dir %{_includedir}/rocfft
-%{_includedir}/rocfft/*
+%files gfx950-devel
+%dir %{_libdir}/rocm/gfx950/include/rocfft
+%dir %{_libdir}/rocm/gfx950/lib/cmake/rocfft
+%{_libdir}/rocm/gfx950/include/rocfft/*.h
+%{_libdir}/rocm/gfx950/lib/librocfft.so
+%{_libdir}/rocm/gfx950/lib/cmake/rocfft/*.cmake
+
 
 %if %{with test}
-%files test -f %{name}.test
+%files gfx950-test
+%{_libdir}/rocm/gfx950/bin/rocfft-test
+%{_libdir}/rocm/gfx950/bin/rtc_helper_crash
+%endif
+
+%else
+
+%files
+%doc README.md
+%license LICENSE.md
+%{_libdir}/librocfft.so.0{,.*}
+
+%files devel
+%dir %{_libdir}/cmake/rocfft
+%dir %{_includedir}/rocfft
+%{_includedir}/rocfft/*.h
+%{_libdir}/librocfft.so
+%{_libdir}/cmake/rocfft/*.cmake
+
+%if %{with test}
+%files test
+%{_bindir}/rocfft-test
+%{_bindir}/rtc_helper_crash
+%endif
 %endif
 
 %changelog
+* Sun May 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Add experimential gfx950
+
 * Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Improve testing on suse
 

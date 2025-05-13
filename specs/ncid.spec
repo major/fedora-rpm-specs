@@ -1,13 +1,12 @@
 Name:       ncid
-Version:    1.17
-Release:    8%{?dist}
+Version:    1.18
+Release:    2%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
 Url:        http://ncid.sourceforge.net
 Source0:    https://sourceforge.net/projects/ncid/files/%{name}/%{version}/%{name}-%{version}-src.tar.gz
-Patch0:     ncid-exec-wish-fix.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if !%{defined fc40} && !%{defined fc41}
@@ -111,7 +110,7 @@ the Festival text-to-speech voice synthesis system.
 
 %prep
 
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 
 %build
 make %{?_smp_mflags} EXTRA_CFLAGS="$RPM_OPT_FLAGS" libdir libcdir
@@ -483,6 +482,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Sat May 10 2025 <jlc@users.sourceforge.net> 1.18-2
+- updated for new upstream release
+
 * Fri Jan 24 2025 <jlc@users.sourceforge.net> 1.17-7
 - replaced {_sbindir} with {_prefix}/sbin
 

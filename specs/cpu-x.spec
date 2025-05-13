@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(glfw3) >= 3.3
 BuildRequires:  pkgconfig(gtkmm-3.0) >= 3.12.0
 BuildRequires:  pkgconfig(json-c)
 %if 0%{?flatpak}
-BuildRequires:  libcpuid-static >= 0.7.0
+BuildRequires:  libcpuid-static >= 0.8.0
 %else
 BuildRequires:  pkgconfig(libcpuid) >= 0.7.0
 %endif

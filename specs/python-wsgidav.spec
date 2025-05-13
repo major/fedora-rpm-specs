@@ -20,11 +20,18 @@ Source0:        %{url}/archive/v%{version}/wsgidav-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        wsgidav.1
 
+# Fix recursive import
+# https://github.com/mar10/wsgidav/commit/991a23f5f5f3f46232eacd96666e23c1b5e110b5
+#
+# Fixes:
+#
+# Cannot import wsgidav.dav_error: raises ImportError due to circular import
+# https://github.com/mar10/wsgidav/issues/340#event-17603260087
+Patch:         %{url}/commit/991a23f5f5f3f46232eacd96666e23c1b5e110b5.patch
+
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -x pam -t
 BuildOption(install):   -l wsgidav
-# - wsgidav.dav_error: Cannot import wsgidav.dav_error: raises ImportError due
-#   to circular import, https://github.com/mar10/wsgidav/issues/340
 # - wsgidav.dc.nt_dc: platform-specific (Windows); requires
 #   https://pypi.org/project/pywin32/, not packaged for obvious reasons
 # - wsgidav.prop_man.couch_property_manager: requires python-couchdb, retired
@@ -37,7 +44,6 @@ BuildOption(install):   -l wsgidav
 # - wsgidav.samples.mysql_dav_provider: requires python-mysqlclient, which *is*
 #   packaged, but which we do not want to pull in just for an import check
 BuildOption(check):     %{shrink:
-                        -e wsgidav.dav_error
                         -e wsgidav.dc.nt_dc
                         -e wsgidav.prop_man.couch_property_manager
                         %{?!with_pymongo:-e wsgidav.prop_man.mongo_property_manager}

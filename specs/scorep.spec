@@ -6,7 +6,7 @@
 
 Name:           scorep
 Version:        9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -100,7 +100,7 @@ Score-P configuration files.
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes for mpich
 BuildRequires:  mpich-devel
 Requires:       %{name}-mpich-libs%{?_isa} = %{version}-%{release}
-Requires:       cube-devel%{?_isa} >= 4.9
+Requires:       cube-libs-devel%{?_isa} >= 4.9
 Requires:       otf2-devel%{?_isa} >= 3.1
 Requires:       papi-devel%{?_isa}
 
@@ -130,7 +130,7 @@ Score-P mpich configuration files.
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes for openmpi
 BuildRequires:  openmpi-devel
 Requires:       %{name}-openmpi-libs%{?_isa} = %{version}-%{release}
-Requires:       cube-devel%{?_isa} >= 4.9
+Requires:       cube-libs-devel%{?_isa} >= 4.9
 Requires:       otf2-devel%{?_isa} >= 3.1
 Requires:       papi-devel%{?_isa}
 
@@ -350,6 +350,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Sun May 11 2025 Dave Love <loveshack@fedoraproject.org> - 9.0-2
+- Depend on cube-libs-devel, not cube-devel
+
 * Tue Apr 29 2025 Jan André Reuter <j.reuter@fz-juelich.de> - 9.0-1
 - New version 9.0
 - Require cube >= 4.9

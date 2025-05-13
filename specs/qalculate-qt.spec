@@ -12,6 +12,11 @@ URL:            https://qalculate.github.io/
 # https://github.com/Qalculate/qalculate-qt/issues/121
 Source:         https://github.com/Qalculate/qalculate-qt/archive/v%{version}/qalculate-qt-%{version}.tar.gz
 
+# Use the latest GPLv2 license text
+# https://github.com/Qalculate/qalculate-qt/pull/199
+# We are comfortable patching this because the PR was merged upstream.
+Patch:          https://github.com/Qalculate/qalculate-qt/pull/199.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

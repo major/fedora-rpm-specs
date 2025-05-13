@@ -1,5 +1,5 @@
 Name:           btrfs-backup-ng
-Version:        0.6.5
+Version:        0.6.6
 Release:        %autorelease
 Summary:        Intelligent, feature-rich backups for btrfs
 
@@ -14,10 +14,11 @@ Requires:    btrfs-progs
 
 
 %description
-btrfs-backup-ng supports incremental backups for *btrfs* using
-*snapshots* and *send/receive* between filesystems. Think of it as a basic
-version of Time Machine. Backups can be stored locally and/or remotely (e.g. via
-SSH). Multi-target setups are supported as well as dealing with transmission
+btrfs-backup-ng is a command line utility for creating incremental
+backups for *btrfs* using *snapshots* and *send/receive* between
+filesystems. Think of it as a basic version of Time Machine.
+Backups can be stored locally and/or remotely (e.g. via SSH).
+Multi-target setups are supported as well as dealing with transmission
 failures (e.g. due to network outage).
 
 

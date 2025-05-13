@@ -1,6 +1,6 @@
 %global srcname level-zero
-%global lib_version 1.21
-%global patch_version 9
+%global lib_version 1.22
+%global patch_version 0
 
 Name:           oneapi-%{srcname}
 Version:        %{lib_version}.%{patch_version}

@@ -1,5 +1,5 @@
 Name:           devscripts
-Version:        2.25.11
+Version:        2.25.12
 Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
@@ -153,6 +153,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Sun May 11 2025 Sandro Mani <manisandro@gmail.com> - 2.25.12-1
+- Update to 2.25.12
+
 * Sat May 03 2025 Sandro Mani <manisandro@gmail.com> - 2.25.11-1
 - Update to 2.25.11
 
