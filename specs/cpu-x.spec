@@ -3,7 +3,7 @@
 %global appid io.github.thetumultuousunicornofdarkness.%{name}
 
 Name:           cpu-x
-Version:        5.3.0
+Version:        5.3.1
 %forgemeta
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more
@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(json-c)
 %if 0%{?flatpak}
 BuildRequires:  libcpuid-static >= 0.8.0
 %else
-BuildRequires:  pkgconfig(libcpuid) >= 0.7.0
+BuildRequires:  pkgconfig(libcpuid) >= 0.7.1
 %endif
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)

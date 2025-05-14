@@ -1,11 +1,10 @@
 Name:           podman-compose
-Version:        1.3.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
 Source0:	https://github.com/containers/podman-compose/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         1110.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -41,6 +40,9 @@ sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 %{_bindir}/podman-compose
 
 %changelog
+* Mon May 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-1
+- 1.4.0
+
 * Thu Jan 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-2
 - Patch for environment bug.
 

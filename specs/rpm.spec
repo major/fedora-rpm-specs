@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 4
+%global baserelease 5
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -119,9 +119,9 @@ rpm-4.20-sysusers.patch
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/298
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
-0001-Revert-Replace-dbiset-internals-with-STL-vector-algo.patch
-
 # Patches already upstream:
+0001-Fix-a-refactoring-regression-in-rich-dep-and-rpmdb-s.patch
+0001-Fix-a-regression-when-calling-rpmReadPackageFile-wit.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -617,6 +617,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon May 12 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-5
+- Upstream fixes for #2360342 and #2362996
+
 * Mon Apr 28 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-4
 - Drop no longer needed LTO hack for #2356219
 

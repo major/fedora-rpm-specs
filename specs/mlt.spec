@@ -20,7 +20,7 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.30.0
+Version:        7.32.0
 Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
@@ -30,7 +30,6 @@ Summary:        Toolkit for broadcasters, video editors, media players, transcod
 License:        GPL-3.0-only AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mltframework.org/
 Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch1:         gcc15.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -282,6 +281,10 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon May 12 2025 Martin Gansser <martinkg@fedoraproject.org> - 7.32.0-1
+- Update to version 7.32.0
+- Resolves: rhbz#2364964
+
 * Tue Feb 04 2025 Packit <hello@packit.dev> - 7.30.0-1
 - Update to version 7.30.0
 - Resolves: rhbz#2338931

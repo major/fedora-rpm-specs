@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -244,11 +244,8 @@ Patch72: hplip-gcc15-stdc23.patch
 # status history table shows unformatted QDateTime values
 # https://bugs.launchpad.net/hplip/+bug/1956547
 Patch73: hplip-format-qdatetime.patch
-# revert to old hash for now until plugin.conf has newer hashes,
-# and make sure we see prompts when installing plugin...
-# https://bugs.launchpad.net/hplip/+bug/2110100
+# make sure we see prompts when installing plugin...
 # https://bugs.launchpad.net/hplip/+bug/2110101
-Patch74: hplip-plugin-reverthash.patch
 Patch75: hplip-plugin-stdout.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -610,9 +607,7 @@ done
 %patch -P 72 -p1 -b .gcc-strc23
 # https://bugs.launchpad.net/hplip/+bug/1956547
 %patch -P 73 -p1 -b .format-qdatetime
-# https://bugs.launchpad.net/hplip/+bug/2110100
 # https://bugs.launchpad.net/hplip/+bug/2110101
-%patch -P 74 -p1 -b .hashrevert
 %patch -P 75 -p1 -b .stdout
 
 # Fedora specific patches now, don't put a generic patches under it
@@ -985,6 +980,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon May 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-4
+- plugin.conf now looks to use sha256 as well per email comms with HP, drop the revert
+
 * Wed May 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-3
 - hp-plugin failed checksum due usage of different hashes (fedora#2361230)
 - output is not seen after installing plugin (fedora#2361230)

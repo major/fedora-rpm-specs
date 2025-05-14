@@ -1,17 +1,17 @@
-#define prerelease beta1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        16.0.1
-Release:        2%{?dist}
+Version:        17.0.0
+Release:        0.1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/16.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/17.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Fix leading whitespace in desktop file
@@ -20,8 +20,6 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # Fix debuginfod detection
 Patch3:         qt-creator-debuginfod.patch
-# Drop refereces to unbundled yaml-cpp
-Patch4:         qt-creator_unbundle.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -142,7 +140,7 @@ User documentation for %{name}.
 rm -rf src/shared/qbs
 rm -rf src/plugins/help/qlitehtml/litehtml
 #rm -rf src/libs/3rdparty/syntax-highlighting/src
-rm -rf src/libs/3rdparty/yaml-cpp
+# rm -rf src/libs/3rdparty/yaml-cpp
 
 
 %build
@@ -189,7 +187,7 @@ diff -u %{SOURCE1} $outfile
 
 %files
 %doc README.md
-%license LICENSE.GPL3-EXCEPT
+%license LICENSES/LICENSE.GPL3-EXCEPT
 %{_bindir}/qtcreator
 %{_bindir}/qtcreator.sh
 %{_libdir}/qtcreator
@@ -213,6 +211,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Sun May 11 2025 Sandro Mani <manisandro@gmail.com> - 17.0.0-0.1.beta1
+- Update to 17.0.0-beta1
+
 * Fri Apr 18 2025 Marie Loise Nolden <loise@kde.org> 16.0.1-2
 - rebuild for https://bodhi.fedoraproject.org/updates/FEDORA-2025-c13c1cc191
 
@@ -223,7 +224,7 @@ diff -u %{SOURCE1} $outfile
 - Rebuild (qt6)
 
 * Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> 16.0.0-1
-- Update to 16.0.0 
+- Update to 16.0.0
 
 * Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 16.0.0-0.2.beta1
 - Rebuild (qt6)

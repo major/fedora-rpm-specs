@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        35
+Version:        36
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -23,7 +23,7 @@ BuildRequires: systemd-rpm-macros
 
 %define _unitdir /usr/lib/systemd/system
 
-# Unpin cockpit-storaged when anaconda-webui get's migrated to Patternfly 6
+Requires: cockpit-storaged
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
@@ -120,6 +120,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon May 12 2025 Packit <hello@packit.dev> - 36-1
+- build: bring back cockpit-storaged requirement
+
 * Thu May 08 2025 Packit <hello@packit.dev> - 35-1
 - Port patternfly version to 6
 - fix: can't click outside of header dropdown to close it

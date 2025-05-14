@@ -1,11 +1,11 @@
 Name:           python-pyproject-api
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        API to interact with the python pyproject.toml based projects
 
 License:        MIT
 URL:            https://pyproject-api.readthedocs.org
-Source0:        https://files.pythonhosted.org/packages/source/p/pyproject-api/pyproject_api-%{version}.tar.gz
+Source:         %{pypi_source pyproject_api}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

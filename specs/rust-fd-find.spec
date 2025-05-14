@@ -13,7 +13,8 @@ URL:            https://crates.io/crates/fd-find
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop jemallocator dependency
-# * allow older lscolors (0.17, 0.18): RHBZ#2293822
+# * build(deps): bump lscolors from 0.19.0 to 0.20.0:
+#   https://github.com/sharkdp/fd/commit/4505da8771ffe2bf544928ede34ab45a09b5e56d
 # * update etcetera to 0.10
 #   (https://github.com/sharkdp/fd/commit/54fca540e8875d11d40ef549003096b06b7b28c3,
 #   https://github.com/sharkdp/fd/pull/1711)

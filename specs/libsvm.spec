@@ -1,8 +1,8 @@
 %global shver 4
 %global maven_group_id tw.edu.ntu.csie
-%global pom_file_version 3.31
+%global pom_file_version 3.35
 %global octpkg %{name}
-%global release_date 2024-08-30
+%global release_date 2025-05-11
 %global cpp_std c++17
 %global giturl https://github.com/cjlin1/libsvm
 
@@ -20,7 +20,7 @@
 %bcond python %[!0%{?rhel}]
 
 Name:           libsvm
-Version:        3.35
+Version:        3.36
 Release:        %autorelease
 Summary:        A Library for Support Vector Machines
 
@@ -140,7 +140,7 @@ cp -p %{SOURCE5} pom.xml
 # org.sonatype.oss.oss-parent is deprecated and slated for removal from Fedora
 %pom_remove_parent
 
-# Update the POM file, which is stuck on version 3.31
+# Update the POM file, which is stuck on version 3.35
 %pom_xpath_set '/pom:project/pom:version' %{version}
 
 %mvn_file %{maven_group_id}:%{name} %{maven_group_id}/%{name}

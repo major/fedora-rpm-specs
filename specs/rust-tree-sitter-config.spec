@@ -14,6 +14,10 @@ URL:            https://crates.io/crates/tree-sitter-config
 Source:         %{crates_source}
 # * Upstream license file - tree-sitter/tree-sitter#1520
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
+# Manually created patch for downstream crate metadata changes
+# * Update etcetera to 0.10:
+#   https://github.com/tree-sitter/tree-sitter/pull/4392
+Patch:          tree-sitter-config-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

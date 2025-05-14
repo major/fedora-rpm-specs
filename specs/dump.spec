@@ -1,8 +1,6 @@
 %define PREVER b52
 %define DUMP_VERSION 0.4%{PREVER}
 
-%define _legacy_common_support 1
-
 %if 0%{?rhel}
 Summary:       Program for restoring ext2/ext3 filesystems
 Name:          restore
@@ -12,7 +10,7 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.59.%{PREVER}%{?dist}
+Release:       0.60.%{PREVER}%{?dist}
 License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
 Source:        https://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
@@ -21,6 +19,7 @@ BuildRequires: zlib-devel, bzip2-devel, automake, make
 BuildRequires: device-mapper-devel, libselinux-devel
 BuildRequires: lzo-minilzo
 BuildRequires: lzo-devel, libtool
+BuildRequires: libblkid-devel libuuid-devel
 # This Requires is now mandatory because we need to ensure the "disk"
 # group is created before installation (#60461)
 Requires:      setup
@@ -121,6 +120,10 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Mon May 12 2025 Jeff Makey <jeff@makey.net> - 1:0.4-0.60.b52
+- Drop obsolete use of -fcommon
+- BuildRequires libblkid-devel & libuuid-devel to disable workarounds
+
 * Mon May 05 2025 Jeff Makey <jeff@makey.net> - 1:0.4-0.59.b52
 - New upstream release 0.4b52
 - Drop buildfix, remove-lzo, and apath patches, which are now applied upstream

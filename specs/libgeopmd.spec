@@ -1,4 +1,4 @@
-%define abi_ver 2.1.0
+%define abi_ver 2.2.0
 %global desc %{expand: \
 The Global Extensible Open Power Manager (GEOPM) provides a framework to
 explore power and energy optimizations on platforms with heterogeneous mixes
@@ -9,7 +9,7 @@ optimize system hardware settings to achieve energy efficiency and/or
 performance objectives.}
 
 Name:		libgeopmd
-Version:	3.1.0
+Version:	3.2.0
 Release:	%autorelease
 Summary:	C/C++ implementation of the GEOPM access service
 
@@ -18,7 +18,7 @@ URL:		https://geopm.github.io
 Source0:	https://github.com/geopm/geopm/archive/v%{version}/geopm-%{version}.tar.gz
 
 Patch0:		libgeopmd-fedora.patch
-Patch1:		test-fails-in-pid-namespace.patch
+Patch1:		0001-Avoid-Wnon-virtual-dtor-option-in-CFLAGS.patch
 
 ExclusiveArch:	x86_64
 
@@ -27,10 +27,12 @@ BuildRequires:	automake
 BuildRequires:	gcc-c++
 BuildRequires:	glibc-devel
 BuildRequires:	gmock-devel
+BuildRequires:	grpc-devel
 BuildRequires:	gtest-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libtool
 BuildRequires:	liburing-devel
+BuildRequires:	protobuf-devel
 BuildRequires:	systemd-devel
 BuildRequires:	zlib-ng-compat-devel
 
@@ -56,18 +58,6 @@ Requires:	geopmd
 %prep
 %autosetup -p1 -n geopm-%{version}
 
-# gcc 15 include cstdint
-sed -i '/#include <cmath>.*/a#include <cstdint>' libgeopmd/src/Cpuid.cpp
-sed -i '/#include <cmath>.*/a#include <cstdint>' libgeopmd/contrib/json11/json11.cpp
-sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/include/geopm/Cpuid.hpp
-sed -i '/#include <functional>.*/a#include <cstdint>' libgeopmd/src/SSTIOGroup.hpp
-sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/src/SSTControl.hpp
-sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/src/SSTSignal.hpp
-sed -i '/#include <vector>.*/a#include <cstdint>' libgeopmd/src/SDBus.hpp
-sed -i '/#include <regex>.*/a#include <iomanip>' libgeopmd/test/geopm_test.cpp
-sed -i '/#include <algorithm>.*/a#include <iomanip>' libgeopmd/test/MSRIOGroupTest.cpp
-sed -i 's/struct sigaction newact;/struct sigaction newact = {};/g' libgeopmd/test/POSIXSignalTest.cpp
-
 pushd %{name}
 echo %{version} > VERSION
 autoreconf -vif
@@ -76,7 +66,8 @@ popd
 %build
 pushd %{name}
 %configure \
-	--disable-build-gtest
+	--disable-build-gtest \
+	--enable-grpc
 %make_build
 popd
 
@@ -104,8 +95,7 @@ popd
 %{_libdir}/%{name}.so
 
 %files -n geopmd-cli
-%{_bindir}/geopmread
-%{_bindir}/geopmwrite
+%{_sbindir}/geopmbatch
 
 %changelog
 %autochangelog

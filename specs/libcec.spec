@@ -1,17 +1,17 @@
-%if 0%{?fedora}
-%global with_python 1
-%endif
-
 Name:          libcec
-Version:       6.0.2
-Release:       19%{?dist}
+Version:       7.0.0
+Release:       2%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
 Source0:       https://github.com/Pulse-Eight/%{name}/archive/%{name}-%{version}.tar.gz
+
+# https://github.com/knight-of-ni/libcec/commit/f4a314a601b3d1d074c9ebed0abb898533935c59.patch
 Patch1:        libcec-pythonlib.patch
-# Fix FTBFS with Python 3.13
-Patch2:        libcec-python13.patch
+
+# Per i686 leaf package policy 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -20,38 +20,35 @@ BuildRequires: libXrandr-devel
 BuildRequires: lockdev-devel
 BuildRequires: ncurses-devel
 BuildRequires: platform-devel
-%if 0%{?with_python}
 BuildRequires: python3-devel
-%endif
 BuildRequires: swig
 BuildRequires: systemd-devel
 BuildRequires: findutils
 
 %description
-libCEC allows you in combination with the right hardware to control your device 
+libCEC allows you in combination with the right hardware to control your device
 with your TV remote control over your existing HDMI cabling.
 
-libCEC is an enabling platform for the CEC bus in HDMI, it allows developers to 
-interact with other HDMI devices without having to worry about the communication 
+libCEC is an enabling platform for the CEC bus in HDMI, it allows developers to
+interact with other HDMI devices without having to worry about the communication
 overhead, handshaking, and the various ways of send messages for each vendor.
 
 %package       devel
-Summary:       Development package for %{name}
+Summary:       Development files for %{name}
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      pkgconfig
 
-%description devel
-Files for development with %{name}.
+%description  devel
+This package contains libraries and header files for
+developing applications that use %{name}.
 
-%if 0%{?with_python}
 %package -n    python3-libcec
-Summary:       A Python 3 interface to libcec
+Summary:       Python3 bindings for %{name}
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 %py_provides   python3-cec
 
 %description -n python3-libcec
-Python 3 bindings for libcec
-%endif
+This package contains Python3 bindings for %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{name}-%{version}
@@ -62,42 +59,67 @@ rm -rf driver
 
 %build
 %cmake \
-    -DHAVE_LINUX_API=on
+    -DHAVE_LINUX_API=on \
+    .
 
 %cmake_build
 
 %install
 %cmake_install
 
+# install systemd unit files
+install -Dm 644 systemd/cec-active-source.service %{buildroot}%{_unitdir}/cec-active-source.service
+install -Dm 644 systemd/cec-active-source.timer %{buildroot}%{_unitdir}/cec-active-source.timer
+install -Dm 644 systemd/cec-poweroff-tv.service %{buildroot}%{_unitdir}/cec-poweroff-tv.service
+
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -delete
 
 # Remove versioned binaries
-rm %{buildroot}/%{_bindir}/cec-client %{buildroot}/%{_bindir}/cecc-client
-mv %{buildroot}/%{_bindir}/cec-client-%{version} %{buildroot}/%{_bindir}/cec-client
-mv %{buildroot}/%{_bindir}/cecc-client-%{version} %{buildroot}/%{_bindir}/cecc-client
+rm %{buildroot}%{_bindir}/cec-client %{buildroot}%{_bindir}/cecc-client
+mv %{buildroot}%{_bindir}/cec-client-%{version} %{buildroot}%{_bindir}/cec-client
+mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-client
 
 %ldconfig_scriptlets
 
+%post
+%systemd_post cec-active-source.service cec-active-source.timer cec-poweroff-tv.service
+
+%preun
+%systemd_preun cec-active-source.service cec-active-source.timer cec-poweroff-tv.service
+
+%postun
+%systemd_postun_with_restart cec-active-source.service cec-active-source.timer cec-poweroff-tv.service
+
 %files
-%license COPYING
-%doc AUTHORS
+%license LICENSE.md
+%doc AUTHORS README.md
 %{_bindir}/cec-client
 %{_bindir}/cecc-client
 %{_libdir}/libcec.so.*
+
+%{_unitdir}/cec-active-source.service
+%{_unitdir}/cec-active-source.timer
+%{_unitdir}/cec-poweroff-tv.service
 
 %files devel
 %{_includedir}/libcec
 %{_libdir}/pkgconfig/libcec.pc
 %{_libdir}/libcec.so
 
-%if 0%{?with_python}
 %files -n python3-libcec
 %{_bindir}/pyCecClient
 %{python3_sitearch}/cec/
-%endif
 
 %changelog
+* Mon May 12 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 7.0.0-2
+- exclide i686 arch per fedora leaf package policy
+
+* Mon May 12 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 7.0.0-1
+- 7.0.0 release
+- install bundled systemd service files
+- build python3 bindings for epel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

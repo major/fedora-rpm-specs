@@ -11,8 +11,8 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.16.0
-Release:        3%{?dist}
+Version:        1.16.1
+Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -287,6 +287,9 @@ fi
 
 
 %changelog
+* Mon May 12 2025 David King <amigadave@amigadave.com> - 1.16.1-1
+- Update to 1.16.1 (#2365496)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.16.0-3
 - Drop call to %%sysusers_create_compat
 

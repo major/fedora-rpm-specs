@@ -280,6 +280,11 @@ BuildRequires: gcc-c++
 BuildRequires: gdb
 BuildRequires: glibc-all-langpacks
 BuildRequires: tzdata
+
+# Perf support is only available on x86_64 and aarch64 right now
+%ifarch x86_64 aarch64
+BuildRequires: perf
+%endif
 %endif
 
 %if %{with jit}

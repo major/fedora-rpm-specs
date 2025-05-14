@@ -4,7 +4,7 @@
 Name:    pam-kwallet
 Summary: PAM module for KWallet
 Version: 6.3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}.git
 
@@ -55,6 +55,9 @@ Requires: kf6-kwallet
 
 
 %changelog
+* Mon May 12 2025 Steve Cossette - 6.3.5-2
+- Rebuild for Frameworks 6.14
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

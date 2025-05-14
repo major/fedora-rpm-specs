@@ -33,7 +33,7 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        3.1.2
+Version:        3.1.3
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 
@@ -101,6 +101,9 @@ install -p -m 0644 -Dt %{buildroot}%{_mandir}/man1/ %{SOURCE1}
 %if %{with tests}
 # Editable mode doesn’t work when operating on the system site-packages
 k="${k-}${k+ and }not test_editable_mode"
+# These require network access.
+k="${k-}${k+ and }not test_install_from_git_url"
+k="${k-}${k+ and }not test_install_from_zip_url"
 
 %pytest -k "${k-}"
 %endif

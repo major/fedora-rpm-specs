@@ -2,7 +2,7 @@ Name: docbook-simple
 Version: 1.1
 Release: 34%{?dist}
 Summary: Simplified DocBook is a small subset of the DocBook XML DTD
-License: Freely redistributable without restriction
+License: DocBook-DTD
 URL: http://www.oasis-open.org/docbook/xml/simple/
 Source0: http://www.docbook.org/xml/simple/1.1/%{name}-%{version}.zip
 Source1: %{name}.README.redhat

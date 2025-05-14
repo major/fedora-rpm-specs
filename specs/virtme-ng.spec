@@ -9,7 +9,7 @@
 
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.35
+Version:        1.36
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease

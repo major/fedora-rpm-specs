@@ -1,5 +1,5 @@
 Name:           glsl-analyzer
-Version:        1.5.1
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Language server for GLSL
 License:        GPL-3.0-only
@@ -12,6 +12,7 @@ Source1:        https://github.com/nolanderc/glsl-samples/archive/95264d5602cc85
 Patch1:         0001-Add-fPIE-compiler-flag.patch
 
 BuildRequires:  zig
+BuildRequires:  zig-rpm-macros
 # testing
 BuildRequires:  pytest
 BuildRequires:  python3-lsprotocol
@@ -29,10 +30,11 @@ sed -i 's/b.run(&.{ "git", "describe", "--tags", "--always" })/"%{version}"/' bu
 tar -xf %{SOURCE1} -C tests/glsl-samples --strip-components=1
 
 %build
-zig build install -Doptimize=ReleaseSafe --prefix ./build --verbose --verbose-cc --verbose-link --summary all
+%zig_prep
+%zig_build
 
 %install
-install -m 755 -p -D -t %{buildroot}%{_bindir} build/bin/*
+%zig_install
 
 %check
 # tests stuck on aarch64

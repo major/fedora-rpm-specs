@@ -23,6 +23,8 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * allow rstest 0.23: https://github.com/nushell/nushell/pull/14350
 # * allow procfs 0.17 and which 7: https://github.com/nushell/nushell/pull/14489
 # * allow roxmltree 0.20: https://github.com/nushell/nushell/pull/14513
+# * Update lscolors from 0.17 to 0.20:
+#   https://github.com/nushell/nushell/pull/15737
 Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354

@@ -1,5 +1,5 @@
 Name:           perl-Tree-DAG_Node
-Version:        1.34
+Version:        1.35
 Release:        1%{?dist}
 Summary:        Class for representing nodes in a tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,9 +61,14 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Tree::DAG_Node.3*
 
 %changelog
+* Mon May 12 2025 Paul Howarth <paul@city-fan.org> - 1.35-1
+- Update to 1.35
+  - Change sub hashref2string() so it does not generate an error or warning when
+    the node or node name is '' (empty string), undef or 0 (zero)
+
 * Mon Apr 28 2025 Paul Howarth <paul@city-fan.org> - 1.34-1
 - Update to 1.34
-  - Fix test failures due to line endings on Windows (GH#2)
+  - Fix test failures due to line endings on Windows (GH#4)
   - The 2 test files t/tree.with*.txt ship as ISO-8859-1, while
     t/tree.utf8.attributes.txt ships as UTF-8; so...
     - Don't explicitly use UTF-8 encoding in DAG_Node.pm's sub read_tree();

@@ -4,7 +4,7 @@
 %global crate gengo-bin
 
 Name:           rust-gengo-bin
-Version:        0.12.2
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -39,6 +39,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
@@ -53,6 +54,7 @@ License:        %{shrink:
                 MIT AND
                 (MIT OR Unlicense) AND
                 MPL-2.0 AND
+                Unicode-3.0 AND
                 Unicode-DFS-2016 
                 }
 # LICENSE.dependencies contains a full license breakdown
@@ -95,6 +97,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+chromaterm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chromaterm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chromaterm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chromaterm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+color-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -105,18 +119,6 @@ This package contains library source intended for building other packages which
 use the "color" feature of the "%{crate}" crate.
 
 %files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+owo-colors-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+owo-colors-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "owo-colors" feature of the "%{crate}" crate.
-
-%files       -n %{name}+owo-colors-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+relative-luminance-devel

@@ -16,6 +16,8 @@ Source:         %{crates_source}
 # * temporarily bump reedline from 0.36.0 to 0.37.0
 # * Allow rstest 0.23 (https://github.com/nushell/nushell/pull/14350)
 # * Allow which 7 (https://github.com/nushell/nushell/pull/14489)
+# * Update lscolors from 0.17 to 0.20:
+#   https://github.com/nushell/nushell/pull/15737
 Patch:          nu-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

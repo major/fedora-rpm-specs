@@ -9,7 +9,7 @@ true of requests in terms of caching.}
 
 Name:           python-%{pypi_name}
 Summary:        httplib2 caching for requests
-Version:        0.14.2
+Version:        0.14.3
 Release:        1%{?dist}
 License:        MIT
 
@@ -64,6 +64,10 @@ Recommends:  python3-%{pypi_name}+redis
 
 
 %changelog
+* Sat May 03 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.14.3-1
+- Update to 0.14.3
+- Fixes: rhbz#2363147
+
 * Fri Mar 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.14.2-1
 - Update to 0.14.2
 - Fixes: rhbz#2336159

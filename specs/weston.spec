@@ -1,17 +1,13 @@
 %global apiver 14
 
 Name:           weston
-Version:        14.0.1
-Release:        3%{?dist}
+Version:        14.0.2
+Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        MIT and CC-BY-SA-3.0
 URL:            http://wayland.freedesktop.org/
 Source0:        https://gitlab.freedesktop.org/wayland/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
-
-# Backport from upstream
-## Allow neatvnc 0.9.0 as a build dependency
-Patch0:         https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1649.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -217,6 +213,10 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Mon May 12 2025 Erico Nunes <ernunes@redhat.com> - 14.0.2-1
+- Update to 14.0.2
+- Drop upstreamed neatvnc patch
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

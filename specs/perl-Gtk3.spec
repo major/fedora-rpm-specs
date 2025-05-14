@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk3
 Version:        0.038
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl interface to the 3.x series of the GTK+ toolkit
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk3
@@ -11,6 +11,7 @@ Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Gtk3-%{version}.t
 # proposed to an upstream.
 Patch0:         Gtk3-0.038-Create-temporary-files-for-tests-in-HOME.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  gtk3
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -122,6 +123,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 12 2025 Petr Pisar <ppisar@redhat.com> - 0.038-16
+- Correct a list of build dependencies
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.038-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

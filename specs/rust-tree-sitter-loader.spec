@@ -16,6 +16,8 @@ Source:         %{crates_source}
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
 # Manually created patch for downstream crate metadata changes
 # * Disable feature 'wasm'
+# * Update etcetera to 0.10:
+#   https://github.com/tree-sitter/tree-sitter/pull/4392
 Patch:          tree-sitter-loader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

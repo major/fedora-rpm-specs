@@ -300,6 +300,12 @@ tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
 # Bump pulldown-cmark to 0.13:
 # https://github.com/helix-editor/helix/commit/7275b7f85014aad7e15d4987ec4f2249572eecfb
 tomcli set helix-term/Cargo.toml str dependencies.pulldown-cmark.version 0.13
+# Bump etcetera to 0.10:
+# https://github.com/helix-editor/helix/commit/9440feae7cf1bd67a741eb0b9bc2450a40e1b431
+for t in helix-{core,loader,stdx}/Cargo.toml
+do
+  tomcli set "${t}" str dependencies.etcetera 0.10
+done
 
 # Rename license files for themes so they can be installed
 find runtime/themes/licenses -type f -exec /bin/sh -c 'cp -pav {} LICENSE-themes-$(basename {} .LICENSE)' \;

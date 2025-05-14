@@ -86,7 +86,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -101,6 +101,7 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -288,6 +289,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Fix gfx950 mock build
+
 * Sat May 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Add experimental gfx950
 

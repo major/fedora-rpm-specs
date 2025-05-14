@@ -1,10 +1,11 @@
+%global cpan_version 0.019
 Name:           perl-IO-Compress-Brotli
-Version:        0.019
-Release:        1%{?dist}
+Version:        %{cpan_version}000
+Release:        2%{?dist}
 Summary:        Perl bindings for Brotli compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Brotli/
-Source0:        https://cpan.metacpan.org/authors/id/M/MG/MGV/IO-Compress-Brotli-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/M/MG/MGV/IO-Compress-Brotli-%{cpan_version}.tar.gz
 Patch0:         IO-Compress-Brotli-0.019-Use-pkgconfig-instead-of-bundled-libbrotli.patch
 
 # Build
@@ -49,7 +50,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n IO-Compress-Brotli-%{version}
+%setup -q -n IO-Compress-Brotli-%{cpan_version}
 %patch -P0 -p1
 
 # Remove bundled source
@@ -92,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 12 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.019000-2
+- Fix version of rpm package
+
 * Fri May 09 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.019-1
 - 0.019 bump
 

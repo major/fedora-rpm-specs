@@ -3,8 +3,8 @@
 %bcond_without tests
 
 Name:           python-deepdiff
-Version:        8.4.1
-Release:        2%{?dist}
+Version:        8.5.0
+Release:        1%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -16,7 +16,7 @@ BuildRequires:  make
 BuildRequires:  python3-devel
 
 # For tests
-# Cherry picked test reqs from requirements-dev.txt
+# Cherry picked test reqs from pyproject.toml
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(numpy)
@@ -68,11 +68,9 @@ find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 # This leads to downstream problems like:
 #  https://bugzilla.redhat.com/2246614
 # We replace all the version matching clauses with compatible release clauses:
-sed -i 's/==/~=/' requirements*.txt
-# Relax a bit the click version.
-sed -i 's/click~=8.1.8/click~=8.1.7/' requirements*.txt
-# Relax a bit the pyyaml version for EPEL 10.
-sed -i 's/pyyaml~=6.0.2/pyyaml~=6.0.1/' requirements*.txt
+sed -i 's/==/~=/' pyproject.toml
+# Relax a bit the flit-core version for EPEL 10.
+sed -i '/flit_core/{s/>=3.11/>=3.9/}' pyproject.toml
 
 
 %generate_buildrequires
@@ -115,6 +113,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat May 10 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.5.0-1
+- Update to 8.5.0 (rhbz#2365409).
+
 * Wed Apr 16 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.4.1-2
 - Relax a bit the pyyaml version for EPEL 10
 

@@ -279,6 +279,11 @@ BuildRequires: tix-devel
 BuildRequires: tk-devel < 1:9
 BuildRequires: tzdata
 
+# Perf support is only available on x86_64 and aarch64 right now
+%ifarch x86_64 aarch64
+BuildRequires: perf
+%endif
+
 %if %{with valgrind}
 BuildRequires: valgrind-devel
 %endif

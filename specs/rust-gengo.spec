@@ -5,7 +5,7 @@
 %global crate gengo
 
 Name:           rust-gengo
-Version:        0.12.2
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Allow an older version of rstest
+# * update gix dependency to 0.72
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -49,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+chromaterm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chromaterm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chromaterm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chromaterm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+max-performance-devel

@@ -7,7 +7,7 @@
 Name:           rust-relative-luminance
 Version:        1.0.0
 Release:        %autorelease
-Summary:        Utlities to manage relative luminance
+Summary:        Utilities to manage relative luminance
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/relative-luminance
@@ -17,12 +17,14 @@ Source:         %{crates_source}
 #   unmaintained.
 # * Remove dev-dependencies hsv and owo-colors, used only for the removed
 #   contrast example.
+# * Fix a typo in the crate description:
+#   https://github.com/spenserblack/relative-luminance-rs/pull/1
 Patch:          relative-luminance-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utlities to manage relative luminance.}
+Utilities to manage relative luminance.}
 
 %description %{_description}
 

@@ -36,8 +36,6 @@ BuildRequires:  javapackages-tools
 
 # Python dependencies
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist build}
-BuildRequires:  %{py3_dist setuptools}
 
 %global desc %{expand:Snowball is a small string processing language for creating stemming
 algorithms for use in Information Retrieval, plus a collection of
@@ -153,16 +151,13 @@ Stemming algorithms written in Python 3.
 # Fix an RST error
 sed -i 's/\(libstemmer_c-\)\*/\1\\*/' doc/libstemmer_c_README
 
-# Build the python algorithms with system python packages
-sed -i 's/-m build/& --no-isolation/' GNUmakefile
+# Don't build the Python package via make, we'll use %%pyproject_wheel
+sed -Ei 's@\$\(python\) -m build [^\)]*@cp -a * ../../python@' GNUmakefile
+ln -s ../libstemmer/modules.txt python
+ln -s . python/src
 
 %generate_buildrequires
 cd python
-if [ ! -L modules.txt ]; then
-  ln -s ../libstemmer/modules.txt .
-  ln -s ../README.rst .
-  ln -s . src
-fi
 %pyproject_buildrequires
 
 %build
@@ -184,11 +179,10 @@ cd -
 %endif
 
 # Build the python algorithms
+unlink python/modules.txt
+unlink python/src
 %make_build dist_libstemmer_python
-cd dist
-tar xf snowballstemmer-%{version}.tar.*
-cd -
-cd dist/snowballstemmer-%{version}
+cd python
 %pyproject_wheel
 cd -
 
@@ -222,7 +216,7 @@ cd -
 %endif
 
 # Install the python algorithms
-cd dist/snowballstemmer-%{version}
+cd python
 %pyproject_install
 %pyproject_save_files -l snowballstemmer
 cd -
@@ -235,6 +229,7 @@ make check
 %ifarch %{java_arches}
 make check_java
 %endif
+export %{py3_test_envvars} PYTHONSAFEPATH=1
 make check_python
 
 %files

@@ -81,6 +81,34 @@
 %global cmake_generator %{nil}
 %endif
 
+%global cmake_config \\\
+  -DCMAKE_CXX_COMPILER=hipcc \\\
+  -DCMAKE_C_COMPILER=hipcc \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
+  -DCMAKE_BUILD_TYPE=%{build_type} \\\
+  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
+  -DCMAKE_SKIP_RPATH=ON \\\
+  -DCMAKE_VERBOSE_MAKEFILE=ON \\\
+  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
+  -DROCM_SYMLINK_LIBS=OFF \\\
+  -DHIP_PLATFORM=amd \\\
+  -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \\\
+  -DBUILD_CLIENTS_TESTS=%{build_test} \\\
+  -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
+  -DBUILD_FORTRAN_CLIENTS=OFF \\\
+  -DBLAS_LIBRARY=cblas \\\
+  -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \\\
+  -DBUILD_WITH_HIPBLASLT=OFF \\\
+  -DTensile_COMPILER=hipcc \\\
+  -DTensile_CPU_THREADS=${CORES} \\\
+  -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
+  -DTensile_VERBOSE=%{tensile_verbose} \\\
+  -DTensile_DIR=${TP}/cmake \\\
+  -DDISABLE_ROCTRACER=ON \\\
+  -DBUILD_WITH_PIP=OFF
+
 %bcond_with generic
 %global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
 %if %{with generic}
@@ -89,9 +117,18 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
+# gfx950 is an experimental target
+# Enabling will short circuit the normal build.
+# There is no check support.
+# To use do
+# $ module load rocm/gfx950
+#     <do stuff>
+# $ module purge
+%bcond_with gfx950
+
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -109,7 +146,7 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-
+BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -118,7 +155,7 @@ BuildRequires:  python3-tensile-devel
 BuildRequires:  python3-joblib
 %else
 BuildRequires:  python311-tensile-devel
-%endif
+%endif # suse_version < 1699
 # OBS vm times out without console output
 %global tensile_verbose 2
 %global tensile_library_format yaml
@@ -132,9 +169,11 @@ BuildRequires:  msgpack-devel
 %global tensile_verbose 1
 %global tensile_library_format msgpack
 %endif
-
-%endif
-%endif
+%endif # suse_version
+%else
+%global tensile_verbose %{nil}
+%global tensile_library_format %{nil}
+%endif # tensile
 
 %if %{with compress}
 BuildRequires:  pkgconfig(libzstd)
@@ -147,6 +186,7 @@ BuildRequires:  libomp-devel
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
+BuildRequires:  roctracer-devel
 
 %if 0%{?suse_version}
 BuildRequires:  cblas-devel
@@ -201,6 +241,37 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
+%if %{with gfx950}
+
+%package gfx950
+Summary:        The gfx950 rocBLAS package
+Provides:       rocblas-gfx950 = %{version}-%{release}
+Conflicts:      %{name}
+
+%description gfx950
+%{summary}
+
+%package gfx950-devel
+Summary:        The gfx950 rocBLAS development package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Provides:       rocblas-gfx950-devel = %{version}-%{release}
+Conflicts:      %{name}-devel
+
+%description gfx950-devel
+%{summary}
+
+%if %{with test}
+%package gfx950-test
+Summary:        The gfx950 rocBLAS test package
+Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
+Conflicts:      %{name}-test
+
+%description gfx950-test
+%{summary}
+
+%endif # gfx950-test
+%endif # gfx950
+
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "cblas" )@' clients/CMakeLists.txt
@@ -247,50 +318,32 @@ if [ ${CORES} = 1 ]; then
     fi
 fi
 
-%cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
-    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_VERBOSE_MAKEFILE=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-    -DROCM_SYMLINK_LIBS=OFF \
-    -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{gpu_list} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
-    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS=%{build_test} \
-    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-    -DBUILD_FORTRAN_CLIENTS=OFF \
-    -DBLAS_LIBRARY=cblas \
-    -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
-    -DBUILD_WITH_HIPBLASLT=OFF \
-    -DTensile_COMPILER=hipcc \
-    -DTensile_CPU_THREADS=${CORES} \
-    -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
-    -DTensile_VERBOSE=%{tensile_verbose} \
+%if %{with gfx950}
+
+module load rocm/gfx950
+
+%cmake %{cmake_generator} %{cmake_config} \
+    -DGPU_TARGETS=${ROCM_GPUS} \
+    -DBUILD_WITH_TENSILE=OFF \
+    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
+    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
+    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
+
+%else
+%cmake %{cmake_generator} %{cmake_config} \
+    -DGPU_TARGETS=%{gpu_list} \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
-    -DTensile_DIR=${TP}/cmake \
-    -DDISABLE_ROCTRACER=ON \
-    -DBUILD_WITH_PIP=OFF
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+
+%endif
 
 %cmake_build
+%if %{with gfx950}
+module purge
+%endif
 
 %install
 %cmake_install
-
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name 'library'      | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-find %{buildroot}           -name 'rocblas-*'    | sed -f br.sed >  %{name}.test
-find %{buildroot}           -name 'rocblas_*'    | sed -f br.sed >> %{name}.test
 
 if [ -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
@@ -309,24 +362,54 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files -f %{name}.files
+%if %{with gfx950}
+%files gfx950
 %license LICENSE.md
+%{_libdir}/rocm/gfx950/lib/librocblas.so.4{,.*}
+
+%files gfx950-devel
+%dir %{_libdir}/rocm/gfx950/include/rocblas
+%dir %{_libdir}/rocm/gfx950/lib/cmake/rocblas
+%{_libdir}/rocm/gfx950/include/rocblas/rocblas_module.f90
+%{_libdir}/rocm/gfx950/lib/librocblas.so
+%{_libdir}/rocm/gfx950/lib/cmake/rocblas/*.cmake
+
+%if %{with test}
+%files gfx950-test
+%{_libdir}/rocm/gfx950/bin/rocblas*
+%endif
+
+%else
+
+%files
+%license LICENSE.md
+%{_libdir}/librocblas.so.4{,.*}
 %if %{with tensile}
 %dir %{_libdir}/rocblas
 %dir %{_libdir}/rocblas/library
+%{_libdir}/rocblas/library/Kernels*
+%{_libdir}/rocblas/library/Tensile*
 %endif
 
-%files devel -f %{name}.devel
+%files devel 
 %doc README.md
 %dir %{_libdir}/cmake/rocblas
 %dir %{_includedir}/rocblas
 %{_includedir}/rocblas/*
+%{_libdir}/cmake/rocblas/*.cmake
+%{_libdir}/librocblas.so
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/rocblas*
 %endif
 
+%endif # gfx950
+
 %changelog
+* Sun May 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-7
+- Add experimental gfx950
+
 * Tue May 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - disable roctracer for everyone
 

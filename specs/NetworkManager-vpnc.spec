@@ -8,10 +8,13 @@ Summary:   NetworkManager VPN plugin for vpnc
 Name:      NetworkManager-vpnc
 Epoch:     1
 Version:   1.4.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source0:   https://download.gnome.org/sources/NetworkManager-vpnc/1.4/%{name}-%{version}.tar.xz
+# Fix configuration editor plugin for gnome-control-center
+# Upstream merge request: https://gitlab.gnome.org/GNOME/NetworkManager-vpnc/-/merge_requests/19
+Patch0:    0001-Export-nm_vpn_editor_factory_vpnc-properly.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -55,6 +58,7 @@ the vpnc server with NetworkManager (GNOME files).
 
 %prep
 %setup -q
+%patch 0 -p1
 
 
 %build
@@ -112,6 +116,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Sun May 11 2025 Christian Krause <chkr@fedoraproject.org> - 1:1.4.0-3
+- Fix configuration editor in gnome-control-center (rh #2360779)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           mariadb-java-client
-Version:        3.5.0
+Version:        3.5.3
 Release:        %autorelease
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 License:        LGPL-2.1-only
@@ -16,24 +16,19 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(net.java.dev.jna:jna)
 BuildRequires:  mvn(net.java.dev.jna:jna-platform)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.osgi:osgi.cmpn)
 BuildRequires:  mvn(org.osgi:osgi.core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 
-BuildRequires:  mvn(org.assertj:assertj-core)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.5.0-7
 
 %description
 MariaDB Connector/J is a Type 4 JDBC driver, also known as the Direct to
 Database Pure Java Driver. It was developed specifically as a lightweight
 JDBC connector for use with MySQL and MariaDB database servers.
-
-%package        javadoc
-Summary:        Javadoc for %{name}
-
-%description    javadoc
-This package contains the API documentation for %{name}.
 
 %package        tests
 Summary:        Tests for %{name}
@@ -51,6 +46,11 @@ grep -l -r '^import ch\.qos\.logback\.classic' src/test | xargs rm -v
 %pom_remove_dep software.amazon.awssdk:bom
 %pom_remove_dep software.amazon.awssdk:rds
 
+# upstream uses two crypto implementations: bouncycastle and one from JDK15+
+%pom_remove_dep org.bouncycastle:bcpkix-jdk18on
+mv src/main/java15/org/mariadb/jdbc/plugin/authentication/standard/ParsecPasswordPluginTool.java src/main/java/org/mariadb/jdbc/plugin/authentication/standard/ParsecPasswordPluginTool.java
+sed -i '/requires.*org\.bouncycastle.*;/d' src/main/java9/module-info.java
+
 # used in buildtime for generating OSGI metadata
 %pom_remove_plugin biz.aQute.bnd:bnd-maven-plugin
 
@@ -60,6 +60,7 @@ grep -l -r '^import ch\.qos\.logback\.classic' src/test | xargs rm -v
 # make the slf4j dependency version-independent
 %pom_remove_dep org.slf4j:slf4j-api
 %pom_add_dep org.slf4j:slf4j-api
+%pom_add_dep org.junit.jupiter:junit-jupiter-params
 
 # use the latest OSGi implementation
 %pom_change_dep -r :org.osgi.core org.osgi:osgi.core
@@ -100,7 +101,7 @@ rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsN
 %build
 # tests are skipped, while they require running application server
 # NOTE this parameter skips running tests but still compiles them (instead of -f)
-%mvn_build -- -DskipTests=true
+%mvn_build -j -- -DskipTests=true
 
 xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
 
@@ -110,9 +111,6 @@ install -m 644 -D tests-classpath %{buildroot}/%{_datadir}/%{name}-tests/classpa
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %files tests -f .mfiles-tests

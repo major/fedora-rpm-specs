@@ -5,7 +5,7 @@
 %global crate libloading
 
 Name:           rust-libloading
-Version:        0.8.6
+Version:        0.8.7
 Release:        %autorelease
 Summary:        Bindings for native dynamic library loading primitives
 

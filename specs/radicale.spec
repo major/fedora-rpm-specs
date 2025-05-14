@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.5.3
-%define radicale_release  1
+%define radicale_release  3
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -80,7 +80,6 @@ BuildRequires:    hardlink
 BuildRequires:    python3-defusedxml >= 0.7.1
 BuildRequires:    python3-passlib >= 1.7.4
 BuildRequires:    python3-vobject >= 0.9.6
-BuildRequires:    python3-dateutil >= 2.8.1
 
 Conflicts:        radicale < 3.0.0
 Conflicts:        radicale2
@@ -528,6 +527,9 @@ fi
 
 
 %changelog
+* Mon May 12 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.3-3
+- Remove obsolete BuildRequire: python3-dateutil
+
 * Sun May 11 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.3-1
 - Update to 3.5.3
 - Recommends: python3-argon2-cffi

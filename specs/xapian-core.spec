@@ -7,7 +7,7 @@
 
 Name:          xapian-core
 Version:       1.4.29
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The Xapian Probabilistic Information Retrieval Library
 License:       GPL-2.0-or-later
 URL:           https://www.xapian.org/
@@ -103,6 +103,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/xapian-config.1*
 
 %changelog
+* Mon May 12 2025 Christiano Anderson <chris@christiano.dev> - 1.4.29-2
+- Rebuild 1.4.29
+
 * Thu May 01 2025 Christiano Anderson <chris@christiano.dev> - 1.4.29-1
 - Update to 1.4.29
 

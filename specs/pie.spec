@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        453a46225915d29c714480d4897b7905d91c3236
+%global gh_commit        6f6ce74a648b786b516739b7985d5cdf8e8bc110
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.10.0
+%global upstream_version 0.12.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -136,6 +136,9 @@ done
 
 
 %changelog
+* Fri May  9 2025 Remi Collet <remi@remirepo.net> - 0.12.0-1
+- update to 0.12.0
+
 * Sun May  4 2025 Remi Collet <remi@remirepo.net> - 0.10.0-1
 - update to 0.10.0
 

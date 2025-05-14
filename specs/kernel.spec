@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc5.250509g9c69f8884904.47
+%define pkgrelease 0.rc6.49
 %define kversion 6
-%define tarfile_release 6.15-rc5-136-g9c69f8884904
+%define tarfile_release 6.15-rc6
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.250509g9c69f8884904.47%{?buildid}%{?dist}
+%define specrelease 0.rc6.49%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,8 +4259,19 @@ fi\
 #
 #
 %changelog
-* Fri May 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.9c69f8884904.47]
+* Mon May 12 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc6.49]
+- Set Fedora configs for 6.15 (Justin M. Forbes)
+
+* Mon May 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.49]
 - Shorten the uname for git snapshots (Justin M. Forbes)
+- Linux v6.15.0-0.rc6
+
+* Sun May 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.3ce9925823c7.48]
+- Linux v6.15.0-0.rc5.3ce9925823c7
+
+* Sat May 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.1a33418a69cc.47]
+- nvme: explicitly enable the nvme keyring (Maurizio Lombardi)
+- Linux v6.15.0-0.rc5.1a33418a69cc
 
 * Fri May 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc5.9c69f8884904.46]
 - Enable the gs_usb CAN bus driver in RHEL (Radu Rendec)

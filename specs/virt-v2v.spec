@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.14
+Version:       2.7.15
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -234,7 +234,7 @@ mv $RPM_BUILD_ROOT%{_bindir}/virt-v2v-in-place $RPM_BUILD_ROOT%{_libexecdir}/
 rm $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-in-place.1*
 # these are also not supported on RHEL
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-input-xen.1*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-output-rhv.1*
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-output-ovirt.1*
 %endif
 
 # Find locale files.
@@ -289,7 +289,7 @@ done
 %{_mandir}/man1/virt-v2v-output-local.1*
 %{_mandir}/man1/virt-v2v-output-openstack.1*
 %if !0%{?rhel}
-%{_mandir}/man1/virt-v2v-output-rhv.1*
+%{_mandir}/man1/virt-v2v-output-ovirt.1*
 %endif
 %{_mandir}/man1/virt-v2v-release-notes-1.42.1*
 %{_mandir}/man1/virt-v2v-release-notes-2.*.1*
@@ -312,6 +312,9 @@ done
 
 
 %changelog
+* Mon May 12 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.15-1
+- New upstream development version 2.7.15
+
 * Wed May 07 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.14-1
 - New upstream development version 2.7.14
 - New tool: virt-v2v-open

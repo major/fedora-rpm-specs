@@ -1,5 +1,5 @@
 Name:           python-multidict
-Version:        6.3.0
+Version:        6.4.3
 Release:        %autorelease
 Summary:        MultiDict implementation
 
@@ -42,11 +42,17 @@ sed -e "/--cov/d" \
 %check
 # circular import tests fail in mock
 # benchmark tests require pytest_codspeed which isn't packaged yet
+# leaks & isolated tests require objgraph which isn't packaged yet
 %pytest \
     --verbose \
+    -m "not leaks" \
     --ignore tests/test_circular_imports.py \
     --ignore tests/test_multidict_benchmarks.py \
     --ignore tests/test_views_benchmarks.py \
+    --ignore tests/isolated/multidict_extend_dict.py \
+    --ignore tests/isolated/multidict_extend_multidict.py \
+    --ignore tests/isolated/multidict_extend_tuple.py \
+    --ignore tests/isolated/multidict_update_multidict.py \
     tests
 
 %files -n python3-multidict -f %{pyproject_files}

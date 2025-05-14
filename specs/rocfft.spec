@@ -98,7 +98,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -115,6 +115,7 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with test}
 BuildRequires:  rocrand-devel
@@ -235,18 +236,19 @@ export LDFLAGS="${LDFLAGS} -pie"
 module load rocm/gfx950
 
 %cmake %{cmake_generator} %{cmake_config} \
-    -DAMDGPU_TARGETS=${ROCM_GPUS} \
+    -DGPU_TARGETS=${ROCM_GPUS} \
     -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
     -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
     -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
 
 %else
 %cmake %{cmake_generator} %{cmake_config} \
-    -DAMDGPU_TARGETS=%{gpu_list} \
+    -DGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir
 
-%cmake_build
 %endif
+
+%cmake_build
 
 %if %{with gfx950}
 module purge
@@ -318,6 +320,9 @@ fi
 %endif
 
 %changelog
+* Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Fix gfx950 mock build
+
 * Sun May 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Add experimential gfx950
 

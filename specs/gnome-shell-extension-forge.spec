@@ -2,7 +2,7 @@
 %global uuid            %{extension}@jmmaranan.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        87
+Version:        88
 Release:        %autorelease
 Summary:        Tiling and window manager for GNOME Shell
 # main source code: GPL-3.0-or-later

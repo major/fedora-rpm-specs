@@ -5,16 +5,18 @@
 %global crate libdeflater
 
 Name:           rust-libdeflater
-Version:        1.23.1
+Version:        1.24.0
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/libdeflater
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Do not depend on criterion; it is needed only for benchmarks.
+Patch:          libdeflater-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Bindings to libdeflate for DEFLATE (de)compression exposed as non-
@@ -89,8 +91,6 @@ use the "use_rust_alloc" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on criterion; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.criterion
 
 %generate_buildrequires
 %cargo_generate_buildrequires

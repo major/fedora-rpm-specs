@@ -50,7 +50,10 @@ sed -i '0,/VERSION_PKGS/{s/, "build"//}' testing/conftest.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x test} %{!?rhel:-x rich}
+# Note: We only pull in the [rich] extra when running tests.
+# This is to make the new Python version bootstrapping simpler
+# as setuptools_scm is an early package and rich is a late one.
+%pyproject_buildrequires %{?with_tests:-x test %{!?rhel:-x rich}}
 
 
 %build

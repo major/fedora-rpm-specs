@@ -1,6 +1,6 @@
 Name:           tellico
-Version:        4.0.1
-Release:        3%{?dist}
+Version:        4.1.2
+Release:        1%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
@@ -118,6 +118,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.te
 
 
 %changelog
+* Mon May 12 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 4.1.2-1
+- Update to 4.1.2
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 4.0.1-3
 - Rebuild (qt6)
 

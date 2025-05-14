@@ -10,7 +10,7 @@
 Name: cups-browsed
 Epoch: 1
 Version: 2.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -150,11 +150,15 @@ do
         fi
     fi
 done
-# Set BrowseRemoteProtocols to none in light of CVE-2024-47176 
-if ! grep -Fxq "# added by post scriptlet" %{_sysconfdir}/cups/cups-browsed.conf
+
+# Set BrowseRemoteProtocols to none in light of CVE-2024-47176 when upgrading
+if [ $1 -gt 1 ]
 then
-        cp %{_sysconfdir}/cups/cups-browsed.conf %{_sysconfdir}/cups/cups-browsed.conf.rpmsave
-        sed -i "s/^\s*BrowseRemoteProtocols.*/# added by post scriptlet\nBrowseRemoteProtocols none/" %{_sysconfdir}/cups/cups-browsed.conf
+  if ! grep -Fxq "# added by post scriptlet" %{_sysconfdir}/cups/cups-browsed.conf && ! grep -iq "^\s*BrowseRemoteProtocols none" %{_sysconfdir}/cups/cups-browsed.conf
+  then
+    cp %{_sysconfdir}/cups/cups-browsed.conf %{_sysconfdir}/cups/cups-browsed.conf.rpmsave
+    sed -i "s/^\s*BrowseRemoteProtocols.*/# added by post scriptlet\nBrowseRemoteProtocols none/" %{_sysconfdir}/cups/cups-browsed.conf
+  fi
 fi
 
 %preun
@@ -213,6 +217,9 @@ fi
 
 
 %changelog
+* Mon May 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-4
+- cups-browsed.conf is not clean for rpmconf (fedora#2363223)
+
 * Mon Apr 14 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-3
 - Add BrowseOptionsUpdate directive
 

@@ -3,7 +3,7 @@
 
 Name:           python-avalara
 Version:        25.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AvaTax Python SDK
 
 
@@ -47,9 +47,7 @@ Summary: %{summary}
 %pyproject_check_import
 # Not running tests here as they require you to have an account and an internet connection.
 
-%files -n python3-%{pkgname}
-%{python3_sitelib}/Avalara-%{version}.dist-info
-%{python3_sitelib}/avalara
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %doc README.md
 %license LICENSE.txt
 

@@ -1,5 +1,5 @@
 Name:       bpfilter
-Version:    0.3.0
+Version:    0.4.0
 Release:    %autorelease
 Summary:    BPF-based packet filtering framework
 
@@ -8,6 +8,9 @@ Summary:    BPF-based packet filtering framework
 License:    GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:        https://bpfilter.io
 Source:     https://github.com/facebook/bpfilter/archive/refs/tags/v%{version}.tar.gz#/bpfilter-%{version}.tar.gz
+
+Patch0:     0001-tests-unit-prevent-mocked-functions-from-being-inlin.patch
+Patch1:     0002-tests-unit-fix-bf_bpf_obj_get-mock-wrong-return-valu.patch
 
 BuildRequires: bison
 BuildRequires: cmake

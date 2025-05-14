@@ -1,6 +1,6 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
-Version:        3.2.0
+Version:        3.2.1
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
@@ -8,8 +8,6 @@ URL:            http://linux.dell.com/dkms
 BuildArch:      noarch
 
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/dell/dkms/pull/526.patch
-Patch1:         https://patch-diff.githubusercontent.com/raw/dell/dkms/pull/527.patch
 
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros

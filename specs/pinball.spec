@@ -3,7 +3,7 @@
 
 Name:           pinball
 Version:        0.3.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Emilia 3D Pinball Game
 # core license is GPLv2+
 # gnu table licenses are (GFDL or Free Art or CC-BY-SA) and GPLv3 and CC-BY-SA
@@ -11,6 +11,7 @@ Summary:        Emilia 3D Pinball Game
 License: GPL-2.0-or-later AND FSFAP AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            http://pinball.sourceforge.net
 Source0:        https://github.com/sergiomb2/pinball/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         6.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  libXt-devel
@@ -44,6 +45,9 @@ May be used in pinball-pinedit.
 
 %prep
 %setup -q
+
+%patch -P 0 -p1
+
 sed -i 's/Exec=pinball/Exec=pinball-wrapper/' pinball.desktop
 ./bootstrap
 
@@ -97,6 +101,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon May 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.3.4-19
+- Patch for keyboard config issue.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

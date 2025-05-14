@@ -1,20 +1,22 @@
 # Fedora spec file for php-pecl-uuid
 #
-# Copyright (c) 2012-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
+%global pie_vend    pecl
+%global pie_proj    uuid
 %global pecl_name   uuid
 %global ini_name    40-%{pecl_name}.ini
 %global sources     %{pecl_name}-%{version}
 
 Summary:       Universally Unique Identifier extension for PHP
 Name:          php-pecl-uuid
-Version:       1.2.1
-Release:       3%{?dist}
+Version:       1.3.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source:        https://pecl.php.net/get/%{sources}.tgz
@@ -32,10 +34,11 @@ Requires:      php(api) = %{php_core_api}
 # both provides same extension, with different API
 Conflicts:     uuid-php
 
-Provides:      php-%{pecl_name} = %{version}
-Provides:      php-%{pecl_name}%{?_isa} = %{version}
-Provides:      php-pecl(%{pecl_name}) = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:      php-%{pecl_name}                 = %{version}
+Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -122,6 +125,11 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Mon May 12 2025 Remi Collet <remi@remirepo.net> - 1.3.0-1
+- update to 1.3.0
+- re-license spec file to CECILL-2.1
+- add virtual provides php-pie(pecl/uuid)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

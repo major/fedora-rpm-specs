@@ -5,7 +5,7 @@
 %global crate ahash
 
 Name:           rust-ahash
-Version:        0.8.11
+Version:        0.8.12
 Release:        %autorelease
 Summary:        Non-cryptographic hash function using AES-NI for high performance
 
@@ -13,8 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ahash
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * remove non-standard benchmark test target
 # * drop unused benchmarks and benchmark-only criterion dev-dependency
-# * drop unused support for the unmaintained atomic-polyfill crate
 Patch:          ahash-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -50,6 +50,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+atomic-polyfill-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+atomic-polyfill-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "atomic-polyfill" feature of the "%{crate}" crate.
+
+%files       -n %{name}+atomic-polyfill-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+compile-time-rng-devel
@@ -151,8 +163,6 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# remove benchmark sources from non-standard path in tests/
-rm tests/{bench.rs,map_tests.rs}
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -165,18 +175,7 @@ rm tests/{bench.rs,map_tests.rs}
 
 %if %{with check}
 %check
-%ifarch x86_64 aarch64 ppc64le
 %cargo_test
-%endif
-%ifarch %{ix86}
-# * skip tests that cannot allocate enough memory
-%cargo_test -- -- --skip hash_quality_test::fallback_tests::fallback_test_no_full_collisions
-%endif
-%ifarch s390x
-# * one test fails only on s390x:
-#   https://github.com/tkaitchuck/aHash/issues/152
-%cargo_test -- -- --skip operations::test::test_add_length
-%endif
 %endif
 
 %changelog

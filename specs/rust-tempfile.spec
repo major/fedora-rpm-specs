@@ -5,7 +5,7 @@
 %global crate tempfile
 
 Name:           rust-tempfile
-Version:        3.19.1
+Version:        3.20.0
 Release:        %autorelease
 Summary:        Library for managing temporary files and directories
 

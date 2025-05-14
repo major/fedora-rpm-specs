@@ -2,7 +2,7 @@ Name:       libtelnet
 Version:    0.23
 Release:    11%{?dist}
 Summary:    TELNET protocol parsing framework
-License:    LicenseRef-Fedora-Public-Domain
+License:    Unlicense-libtelnet
 URL:        http://github.com/seanmiddleditch/libtelnet
 
 Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz

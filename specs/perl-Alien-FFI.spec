@@ -1,6 +1,6 @@
 Name:           perl-Alien-FFI
 Version:        0.27
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Make available libffi
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-FFI
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 12 2025 Petr Pisar <ppisar@redhat.com> - 0.27-11
+- Rebuild against libffi-3.4.8 (bug #2365498)
+
 * Tue Mar 04 2025 Petr Pisar <ppisar@redhat.com> - 0.27-10
 - Rebuild against libffi-3.4.7
 

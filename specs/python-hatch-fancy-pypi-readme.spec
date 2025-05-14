@@ -1,6 +1,6 @@
 Name:           python-hatch-fancy-pypi-readme
-Version:        24.1.0
-Release:        6%{?dist}
+Version:        25.1.0
+Release:        1%{?dist}
 Summary:        Hatch plugin for writing fancy PyPI readmes
 
 License:        MIT
@@ -52,11 +52,13 @@ sed -i 's/ \"pytest-icdiff\", \"coverage\[toml\]\", //g' pyproject.toml
 %files -n python3-hatch-fancy-pypi-readme -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md
-# fedora-review tool reported to mark this as %%doc or %%license file
-%doc %{python3_sitelib}/hatch_fancy_pypi_readme-%{version}.dist-info/licenses/AUTHORS.md
 %{_bindir}/hatch-fancy-pypi-readme
 
 %changelog
+* Mon May 12 2025 Parag Nemade <pnemade AT redhat DOT com> - 25.1.0-1
+- Update to 25.1.0 version (#2363257)
+- Upstream does not provide now AUTHORS.md file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

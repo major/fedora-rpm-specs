@@ -5,7 +5,7 @@
 
 Name:          tesseract-tessdata
 Version:       4.1.0
-Release:       9%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:       10%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:       Trained models for the Tesseract Open Source OCR Engine
 BuildArch:     noarch
 
@@ -66,7 +66,7 @@ Data for processing images of mathematics with the Tesseract Open Source OCR Eng
 %package -n tesseract-langpack-%{macrolang}\
 Summary:       %{langname} language data for %{name}\
 BuildArch:     noarch\
-Requires:      tesseract\
+Requires:      tesseract-common\
 Requires:      %{name}-doc = %{version}-%{release}\
 %{-l:Provides:      %{name}-langpack-%{langcode} = %{version}-%{release}\
 Supplements:   (tesseract and langpacks-%{langcode})}\
@@ -90,7 +90,7 @@ trained models for the Tesseract Open Source OCR Engine.\
 %package -n tesseract-script-%{pkgname}\
 Summary:       %{scriptname} script data for %{name}\
 BuildArch:     noarch\
-Requires:      tesseract\
+Requires:      tesseract-common\
 Requires:      %{name}-doc = %{version}-%{release}\
 \
 %description -n tesseract-script-%{pkgname}\
@@ -304,6 +304,9 @@ rm -f %{buildroot}/%{_datadir}/tesseract/tessdata/pdf.ttf
 
 
 %changelog
+* Mon May 12 2025 Sandro Mani <manisandro@gmail.com> - 4.1.0-10
+- Require tesseract-common from langpack/script packages
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

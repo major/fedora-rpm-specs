@@ -1,5 +1,5 @@
 %global pypi_name orderly-set
-%global pypi_version 5.3.0
+%global pypi_version 5.4.1
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/orderly_set-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed May 07 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.4.1-1
+- Update to upstream version 5.4.1.
+
 * Mon Mar 31 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.3.0-1
 - Update to upstream version 5.3.0.
 
