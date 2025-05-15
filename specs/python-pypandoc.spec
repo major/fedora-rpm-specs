@@ -26,7 +26,9 @@ converter, allowing parsing and conversion of pandoc-formatted text.}
 
 %package -n     python%{python3_pkgversion}-pypandoc
 Summary:        %{summary}
+%if ! 0%{?flatpak}
 Requires:       pandoc
+%endif
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:     texlive-scheme-basic
 Recommends:     texlive-collection-fontsrecommended

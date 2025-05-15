@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -284,8 +284,7 @@ Source11: idle3.appdata.xml
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
-# Fixup distutils/unixccompiler.py to remove standard library path from rpath
-# Was Patch0 in ivazquez' python3000 specfile
+# Fixup distutils/unixccompiler.py to remove standard library path from rpath Was Patch0 in ivazquez' python3000 specfile
 Patch1: 00001-rpath.patch
 
 # 00251 # af0f1ba72e01cb93371ff21fb7ca889daa43fa7a
@@ -346,6 +345,19 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # Backported from 3.12+:
 # https://github.com/python/cpython/pull/126503
 Patch458: 00458-test_ssl-don-t-stop-threadedechoserver-on-oserror-in-connectionhandler.patch
+
+# 00462 # c9db492d8924b2d1a0991e36f3c2b4f9c2ec8942
+# Fix PySSL_SetError handling SSL_ERROR_SYSCALL
+#
+# Python 3.10 changed from using SSL_write() and SSL_read() to SSL_write_ex() and
+# SSL_read_ex(), but did not update handling of the return value.
+#
+# Change error handling so that the return value is not examined.
+# OSError (not EOF) is now returned when retval is 0.
+#
+# This resolves the issue of failing tests when a system is
+# stressed on OpenSSL 3.5.
+Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
 
 # (New patches go here ^^^)
 #
@@ -1662,6 +1674,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue May 13 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.12-3
+- Fix PySSL_SetError handling SSL_ERROR_SYSCALL
+- This fixes random flakiness of test_ssl on stressed machines
+
 * Wed Apr 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.12-2
 - test_ssl: Don't stop ThreadedEchoServer on OSError in ConnectionHandler
 - Fixes: rhbz#2355052

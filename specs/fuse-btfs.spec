@@ -2,7 +2,7 @@
 
 Summary:	FUSE filesystem Bittorrent
 Name:		fuse-btfs
-Version:	3.0
+Version:	3.1
 Release:	%autorelease
 
 License:	GPL-3.0-only

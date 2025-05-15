@@ -341,6 +341,7 @@ Patch0113: 0113-Don-t-disable-cf-protection-for-qgs.patch
 Patch0114: 0114-Delete-broken-checks-for-GCC-version-that-break-fsta.patch
 #Patch0115: 0115-Use-distro-provided-rapidjson-package.patch
 Patch0116: 0116-Don-t-stomp-on-VERBOSE-variable.patch
+Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
 
 # 0200-0299 -> against intel-sgx-ssl.git
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch

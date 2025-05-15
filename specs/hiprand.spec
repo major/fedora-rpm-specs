@@ -41,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -140,15 +140,6 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name 'test_*'       | sed -f br.sed >  %{name}.test
-%endif
-
 if [ -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt
 fi
@@ -167,20 +158,27 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files -f %{name}.files
+%files
 %doc README.md
 %license LICENSE.txt
+%{_libdir}/libhiprand.so.1{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %dir %{_libdir}/cmake/hiprand
 %dir %{_includedir}/hiprand
 %{_includedir}/hiprand/*
+%{_libdir}/libhiprand.so
+%{_libdir}/cmake/hiprand/*.cmake
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/test*
 %endif
 
 %changelog
+* Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Cleanup module build
+
 * Sun Apr 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Improve testing on suse
 

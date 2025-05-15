@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-composer-spdx-licenses
 #
-# Copyright (c) 2015-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    560bdcf8deb88ae5d611c80a2de8ea9d0358cc0a
+%global gh_commit    edf364cefe8c43501e21e88110aac10b284c3c9f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     composer
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-composer-spdx-licenses
-Version:        1.5.8
-Release:        5%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Version:        1.5.9
+Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        SPDX licenses list and validation library
 
 License:        MIT
@@ -36,8 +36,8 @@ BuildRequires:  php-json
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 7",
-# ignore min version, test suite passes with 9.6.13
+#        "symfony/phpunit-bridge": "^3 || ^7",
+#        "phpstan/phpstan": "^1.11"
 BuildRequires: phpunit9
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
@@ -107,7 +107,7 @@ export BUILDROOT_SPDX=%{buildroot}
 sed -e  '/setUp()/s/$/:void/' -i tests/*.php
 
 ret=0
-for cmd in php php80 php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     $cmd -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
       --bootstrap %{buildroot}%{php_home}/Composer/Spdx/autoload.php \
@@ -131,6 +131,10 @@ exit $ret
 
 
 %changelog
+* Tue May 13 2025 Remi Collet <remi@remirepo.net> - 1.5.9-1
+- update to 1.5.9 (SPDX 3.26.0)
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

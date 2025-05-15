@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc6.49
+%define pkgrelease 0.rc6.250513ge9565e23cd89.50
 %define kversion 6
-%define tarfile_release 6.15-rc6
+%define tarfile_release 6.15-rc6-47-ge9565e23cd89
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.49%{?buildid}%{?dist}
+%define specrelease 0.rc6.250513ge9565e23cd89.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,8 +4259,9 @@ fi\
 #
 #
 %changelog
-* Mon May 12 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc6.49]
+* Tue May 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.e9565e23cd89.50]
 - Set Fedora configs for 6.15 (Justin M. Forbes)
+- Linux v6.15.0-0.rc6.e9565e23cd89
 
 * Mon May 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.49]
 - Shorten the uname for git snapshots (Justin M. Forbes)

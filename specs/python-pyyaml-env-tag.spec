@@ -1,12 +1,12 @@
 Name:           python-pyyaml-env-tag
-Version:        0.1
-Release:        13%{?dist}
+Version:        1.0
+Release:        1%{?dist}
 Summary:        A custom YAML tag for referencing environment variables in YAML files
 BuildArch:      noarch
 
 License:        MIT
 URL:            https://github.com/waylan/pyyaml-env-tag
-Source0:        %{pypi_source pyyaml_env_tag}
+Source0:        https://github.com/waylan/pyyaml-env-tag/archive/%{version}/pyyaml_env_tag-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 
@@ -22,7 +22,7 @@ A custom YAML tag for referencing environment variables in YAML files.
 
 
 %prep
-%autosetup -p1 -n pyyaml_env_tag-%{version}
+%autosetup -p1 -n pyyaml-env-tag-%{version}
 
 
 %generate_buildrequires
@@ -48,6 +48,9 @@ A custom YAML tag for referencing environment variables in YAML files.
 
 
 %changelog
+* Tue May 13 2025 Sandro Mani <manisandro@gmail.com> - 1.0-1
+- Update to 1.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

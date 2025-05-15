@@ -61,7 +61,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -173,6 +173,11 @@ sed -i -e 's@find_path(HALF_INCLUDE_DIR half/half.hpp)@#find_path(HALF_INCLUDE_D
 for f in `find . -type f -name '*.hpp' -o -name '*.cpp' `; do
     sed -i -e 's@#include <half/half.hpp>@#include <half.hpp>@' $f
 done
+# On 6.4.0
+# ../test/verify.hpp:198:56: error: no member named 'expr' in namespace 'half_float::detail'
+#  198 |     if constexpr(std::is_same_v<T, half_float::detail::expr>)
+# This is not our float, hack it out
+sed -i -e 's@std::is_same_v<T, half_float::detail::expr>@0@' test/verify.hpp
 
 # Tries to download its own googletest
 # No good knob to turn it off so hack the cmake
@@ -257,23 +262,17 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}           -name 'install_*'    | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-find %{buildroot}           -name 'test_*'       | sed -f br.sed >  %{name}.test
-
 if [ -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
 fi
 
-%files -f %{name}.files
+%files
 %license LICENSE.txt
 %dir %_libexecdir/miopen
+%{_libdir}/libMIOpen.so.1{,.*}
+%{_libexecdir}/miopen/install*.sh
 
-%files devel -f %{name}.devel
+%files devel
 %dir %_datadir/miopen
 %dir %_datadir/miopen/db
 %dir %_includedir/miopen
@@ -281,12 +280,18 @@ fi
 %doc README.md
 %_datadir/miopen/*
 %_includedir/miopen/*
+%{_libdir}/libMIOpen.so
+%{_libdir}/cmake/miopen/*.cmake
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/test*
 %endif
 
 %changelog
+* Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Cleanup module build
+
 * Fri May 9 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
 - use ninja-build for epel builds
 

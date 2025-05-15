@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 45%{?dist}
+Release: 46%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -160,6 +160,8 @@ License: LicenseRef-Callaway-Python AND LicenseRef-Callaway-MIT AND Apache-2.0 A
 # =====================
 # General global macros
 # =====================
+
+%global pkgname python%{pybasever}
 
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
@@ -1131,6 +1133,16 @@ Provides: bundled(python3dist(appdirs)) = 1.4.3
 Provides: bundled(mpdecimal) = %{libmpdec_version}
 Provides: bundled(libmpdec) = %{libmpdec_version}
 
+# Provides of the subpackages contained in flatpackage
+Provides: %{pkgname}-libs = %{version}-%{release}
+Provides: %{pkgname}-devel = %{version}-%{release}
+Provides: %{pkgname}-idle = %{version}-%{release}
+Provides: %{pkgname}-tkinter = %{version}-%{release}
+Provides: %{pkgname}-test = %{version}-%{release}
+%if %{with debug_build}
+Provides: %{pkgname}-debug = %{version}-%{release}
+%endif
+
 # The description for the flat package
 %description
 Python %{pybasever} package for developers.
@@ -2094,6 +2106,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 23 2025 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-46
+- Add RPM Provides for python3.6-libs, python3.6-devel, python3.6-idle, python3.6-tkinter, python3.6-test
+
 * Wed Apr 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-45
 - Fix the flakiness of test_ftplib
 

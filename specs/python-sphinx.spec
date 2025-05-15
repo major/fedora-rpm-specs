@@ -2,6 +2,8 @@
 # Without the packages, we have warnings in docs, but it's not a hard dependency
 # We don't want to support sphinxcontrib-* in RHEL, hence disabling the dependencies
 %bcond sphinxcontrib %{undefined rhel}
+# RHEL does not include python3-snowballstemmer (SRPM: snowball)
+%bcond snowballstemmer %{undefined rhel}
 # Also, we don't have all the tests requirements
 %bcond tests 1
 
@@ -279,6 +281,17 @@ sed -i -e '/pytest-xdist/d' pyproject.toml
 sed -i '/"defusedxml/d' pyproject.toml
 sed -i 's/from defusedxml./from xml.etree./' sphinx/testing/util.py tests/test_theming/test_theming.py
 
+%if %{without snowballstemmer}
+# Drop dependency on snowballstemmer for RHEL, implement dummy method instead
+sed -i -e '/snowballstemmer/d' pyproject.toml
+sed -i -e 's/^import \(snowballstemmer\)/from . import dummystemmer as \1/' sphinx/search/*.py
+cat > sphinx/search/dummystemmer.py <<_EOF
+class stemmer:
+    def __init__(self, *args, **kwargs): pass
+    def stemWord(self, word): return word
+_EOF
+%endif
+
 %if %{without imagemagick_tests}
 rm tests/test_extensions/test_ext_imgconverter.py
 %endif
@@ -368,6 +381,14 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 k="not test_autodoc_type_aliases"
 %if %{without internet}
 k="${k} and not linkcheck and not test_latex_images and not test_build_latex_doc"
+%endif
+
+%if %{without snowballstemmer}
+# Without snowballstemmer, some tests have to be skipped as well,
+# as the results with dummystemmer do not exactly match the testcases
+k="${k} and not test_meta_keys_are_handled_for_language_en and not test_stemmer"
+k="${k} and not test_term_in_heading_and_section and not test_IndexBuilder"
+k="${k} and not test_check_js_search_indexes"
 %endif
 
 %pytest -k "${k}"

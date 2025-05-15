@@ -20,8 +20,8 @@
 %endif
 
 Name:           buildbot
-Version:        4.2.1
-Release:        4%{?dist}
+Version:        4.3.0
+Release:        1%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -257,13 +257,6 @@ Obsoletes:      %{name}-doc < %{version}-%{release}
 This package contains only the buildworker implementation.
 The buildbot-master package contains the buildmaster.
 
-%pre worker
-getent group buildbot-worker >/dev/null || groupadd -r buildbot-worker
-getent passwd buildbot-worker >/dev/null || \
-    useradd -r -g buildbot-worker -d %{_sharedstatedir}/buildbot/worker -s /sbin/nologin \
-    -c "Service account for the Buildbot worker" buildbot-worker
-exit 0
-
 %post worker
 for worker in $(systemctl list-units 'buildbot-worker@*.service' --all --plain --no-legend | cut -d '@' -f 2 | cut -d '.' -f 1); do
   systemctl restart buildbot-worker@"$worker".service
@@ -279,6 +272,7 @@ done
 %dir %{_sharedstatedir}/buildbot
 %dir %attr(-, buildbot-worker, buildbot-worker) %{_sharedstatedir}/buildbot/worker
 %{_unitdir}/buildbot-worker@.service
+%{_sysusersdir}/buildbot-worker.conf
 
 # ---------------------------------------------------------------------
 
@@ -324,9 +318,13 @@ Summary:        Buildbot documentation
 cd ..
 cd buildbot_worker-%{version}
 
-# Create a sysusers.d config file
+# Create sysusers.d config files
 cat >buildbot.sysusers.conf <<EOF
 u buildbot-master - 'Service account for the Buildbot master' %{_sharedstatedir}/buildbot/master -
+EOF
+
+cat >buildbot-worker.sysusers.conf <<EOF
+u buildbot-worker - 'Service account for the Buildbot worker' %{_sharedstatedir}/buildbot/worker -
 EOF
 
 %build
@@ -388,6 +386,7 @@ pushd ../%{name}_worker-%{version}
 %py3_install
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/buildbot-worker.1
 install -m0644 -D buildbot.sysusers.conf %{buildroot}%{_sysusersdir}/buildbot.conf
+install -m0644 -D buildbot-worker.sysusers.conf %{buildroot}%{_sysusersdir}/buildbot-worker.conf
 popd
 
 # Purge windows-only files
@@ -406,6 +405,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Tue May 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.3.0-1
+- 4.3.0
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.1-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

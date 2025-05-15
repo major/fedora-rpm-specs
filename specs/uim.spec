@@ -1,11 +1,11 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.9.1
+%global srcver	1.9.5
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.9.1
+Version:	1.9.5
 Release:	1%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
@@ -16,7 +16,7 @@ URL:		https://github.com/uim/uim/
 
 BuildRequires:	libXft-devel libX11-devel libXext-devel libXrender-devel libXau-devel libXdmcp-devel libXt-devel
 BuildRequires:	libgcroots-devel
-BuildRequires:	gtk2-devel gtk3-devel ncurses-devel
+BuildRequires:	gtk3-devel ncurses-devel
 %if %{with canna}
 BuildRequires:	Canna-devel
 %endif
@@ -34,7 +34,7 @@ Source0:	https://github.com/uim/uim/releases/download/%{version}/uim-%{version}.
 Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
-Patch4:		uim-ftbfs.patch
+#Patch4:		uim-ftbfs.patch
 
 
 Summary:	A multilingual input method library
@@ -59,14 +59,6 @@ Obsoletes:	%{name}-canna < %{version}-%{release}
 Summary:	Development files for the Uim library
 Requires:	uim = %{version}-%{release}
 
-%package	gtk2
-Summary:	GTK+2 support for Uim
-Requires:	uim = %{version}-%{release}
-# for update-gtk-immodules
-Requires(post):	gtk2 >= 2.9.1-2
-Requires(postun): gtk2
-Obsoletes:	%{name}-gnome < 1.8.5-4
-
 %package	gtk3
 Summary:	GTK+3 support for Uim
 Requires:	uim = %{version}-%{release}
@@ -74,6 +66,7 @@ Requires:	uim = %{version}-%{release}
 Requires(post):	gtk3
 Requires(postun): gtk3
 Obsoletes:	%{name}-gnome < 1.8.5-4
+Obsoletes:	%{name}-gtk2 < 1.9.5-1
 
 %package	qt
 Summary:	Qt4 support for Uim
@@ -141,13 +134,6 @@ languages.
 This package contains the header files and the libraries which is
 needed for developing Uim applications.
 
-%description	gtk2
-Uim is a multilingual input method library. Uim aims to
-provide secure and useful input methods for all
-languages.
-
-This package provides the Gtk IM module and helper program.
-
 %description	gtk3
 Uim is a multilingual input method library. Uim aims to
 provide secure and useful input methods for all
@@ -203,7 +189,6 @@ autoconf
 	--with-m17nlib \
 	--with-eb --with-eb-conf=%{_libdir}/eb.conf \
 	--without-scim \
-        --with-gtk2 --with-gnome2 \
 	--with-gtk3 --enable-gnome3-applet \
 	--with-qt4 --with-qt4-immodule \
 	--enable-kde4-applet \
@@ -212,7 +197,8 @@ autoconf
 	--disable-openssl \
 	--with-sqlite3 \
 	--with-lispdir=%{_datadir}/emacs/site-lisp \
-	--enable-pref
+	--enable-pref \
+	--enable-default-toolkit=gtk3
 #sed -i -e 's/^\(hardcode_direct=\)$/\1yes/' -e 's/^\(hardcode_minus_L=\)$/\1no/' -e 's/^\(libext=\)$/\1"a"/' -e 's/^hardcode_libdir_flag_spec.*$'/'hardcode_libdir_flag_spec=" -D__LIBTOOL_IS_A_FOOL__ "/' libtool
 sed -i -e 's/^\(hardcode_direct=\)$/\1no/' -e 's/^\(hardcode_minus_L=\)$/\1no/' -e 's/^\(libext=\)$/\1"a"/' libtool
 make
@@ -408,22 +394,6 @@ fi
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*
 
-%files	gtk2
-%doc AUTHORS NEWS README
-%license COPYING
-# BSD
-%{_bindir}/uim-toolbar-gtk
-# BSD and LGPLv2+
-%{_bindir}/uim-toolbar-gtk-systray
-# BSD
-%{_bindir}/uim-pref-gtk
-%{_bindir}/uim-im-switcher-gtk
-%{_bindir}/uim-input-pad-ja
-%{_libdir}/gtk-2.0/2.*/immodules/*.so
-%{_libexecdir}/uim-candwin-gtk
-%{_libexecdir}/uim-candwin-horizontal-gtk
-%{_libexecdir}/uim-candwin-tbl-gtk
-
 %files	gtk3
 %doc AUTHORS NEWS README
 %license COPYING
@@ -495,6 +465,11 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Tue May 13 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.5-1
+- New upstream release.
+  Resolves: rhbz#2363935
+- Upstream dropped gtk2 support.
+
 * Fri Apr 18 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.1-1
 - New upstream release.
   Resolves: rhbz#2359276

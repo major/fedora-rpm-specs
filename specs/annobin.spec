@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.93
+Version: 12.94
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 13 2025 Nick Clifton  <nickc@redhat.com> - 12.94-1
+- Annocheck: Update heuristic for detecting gcc files to cope with gcc 15.  (#2365824)
+
 * Mon Mar 17 2025 Nick Clifton  <nickc@redhat.com> - 12.93-1
 - Annocheck: Fix test for GO revision.  (RHEL-56031)
 

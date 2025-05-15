@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -391,6 +391,19 @@ Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
 # 00461 # 47f50dd1f049470c33edb114754529777ab2332f
 # Downstream only: Install wheel in test venvs when setuptools < 71
 Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
+
+# 00462 # 5324dc5f57e0068f7e4f7b2f20006e88ff5f4e47
+# Fix PySSL_SetError handling SSL_ERROR_SYSCALL
+#
+# Python 3.10 changed from using SSL_write() and SSL_read() to SSL_write_ex() and
+# SSL_read_ex(), but did not update handling of the return value.
+#
+# Change error handling so that the return value is not examined.
+# OSError (not EOF) is now returned when retval is 0.
+#
+# This resolves the issue of failing tests when a system is
+# stressed on OpenSSL 3.5.
+Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
 
 # (New patches go here ^^^)
 #
@@ -1710,6 +1723,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri May 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.10-4
+- Fix PySSL_SetError handling SSL_ERROR_SYSCALL
+- This fixes random flakiness of test_ssl on stressed machines
+
 * Tue May 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.10-3
 - Drop requirement on python-wheel-wheel with setuptools >= 71
 

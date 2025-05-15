@@ -11,6 +11,10 @@ Source0: https://github.com/pygobject/pycairo/releases/download/v%{version}/pyca
 # Since Python 3.13, the flag is no longer allowed.
 Patch: https://github.com/pygobject/pycairo/pull/366.patch
 
+# Support Python 3.14 - typing.ByteString has been removed
+# Patch is backwards compatible
+Patch: https://github.com/pygobject/pycairo/pull/389.patch
+
 BuildRequires: gcc
 BuildRequires: pkgconfig(cairo)
 BuildRequires: python3-devel

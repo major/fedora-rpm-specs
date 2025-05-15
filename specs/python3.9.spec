@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -770,6 +770,16 @@ Requires: tzdata
 # This breaks many things, including python -m venv.
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 Requires: expat >= 2.6
+
+# Provides of the subpackages contained in flatpackage
+Provides: %{pkgname}-libs = %{version}-%{release}
+Provides: %{pkgname}-devel = %{version}-%{release}
+Provides: %{pkgname}-idle = %{version}-%{release}
+Provides: %{pkgname}-tkinter = %{version}-%{release}
+Provides: %{pkgname}-test = %{version}-%{release}
+%if %{with debug_build}
+Provides: %{pkgname}-debug = %{version}-%{release}
+%endif
 
 # The description for the flat package (SRPM and built)
 %description
@@ -1845,6 +1855,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 23 2025 Miro Hrončok <mhroncok@redhat.com> - 3.9.22-2
+- Add RPM Provides for python3.9-libs, python3.9-devel, python3.9-idle, python3.9-tkinter, python3.9-test
+
 * Wed Apr 09 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.22-1
 - Update to 3.9.22
 

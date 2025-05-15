@@ -22,7 +22,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:10})
 
 Name:           inkscape
-Version:        1.4
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Vector-based drawing program using SVG
 
@@ -31,7 +31,7 @@ URL:            https://inkscape.org/
 Source0:        https://media.inkscape.org/dl/resources/file/inkscape-%{version}.tar.xz
 
 # The signatures were uploaded by the responsible release manager, and includes release date and commit, not using macros because it's inconsistent.
-Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-1.4_2024-10-09_e7c3feb100.tar.xz.sig
+Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-1.4.2_2025-05-08_ebf0e940d0.tar.xz.sig
 
 # Keyring(s)
 Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
@@ -42,15 +42,12 @@ Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source100:      Fedora-Color-Palette.gpl
 
-# Fix member name - fixes FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2340648
-Patch0:         https://gitlab.com/inkscape/inkscape/-/merge_requests/6755.patch
-
-Patch1:         inkscape-1.4-poppler-25.02.0-01.patch
-Patch2:         inkscape-1.4-poppler-25.02.0-02.patch
-Patch3:         inkscape-1.4-poppler-25.02.0-03.patch
-Patch4:         inkscape-1.4-poppler-25.02.0-04.patch
-Patch5:         inkscape-1.4-poppler-25.02.0-05.patch
-Patch6:         inkscape-1.4-poppler-25.02.0-06.patch
+#Patch1:         inkscape-1.4-poppler-25.02.0-01.patch
+#Patch2:         inkscape-1.4-poppler-25.02.0-02.patch
+#Patch3:         inkscape-1.4-poppler-25.02.0-03.patch
+#Patch4:         inkscape-1.4-poppler-25.02.0-04.patch
+#Patch5:         inkscape-1.4-poppler-25.02.0-05.patch
+#Patch6:         inkscape-1.4-poppler-25.02.0-06.patch
 
 # Don't drop i686 until at least texlive no longer needs it -GC, 2023-08-10
 #%%if 0%%{?fedora} >= 39
@@ -188,7 +185,7 @@ graphics in W3C standard Scalable Vector Graphics (SVG) file format.
 %prep
 %{gpgverify} --keyring='%{SOURCE10}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-%autosetup -n inkscape-1.4_2024-10-09_e7c3feb100 -p1
+%autosetup -n inkscape-1.4.2_2025-05-08_ebf0e940d0 -p1
 %py3_shebang_fix .
 
 # https://bugs.launchpad.net/inkscape/+bug/314381

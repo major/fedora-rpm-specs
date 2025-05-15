@@ -2,28 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate yoke
+%global crate deadpool
 
-Name:           rust-yoke
-Version:        0.7.5
+Name:           rust-deadpool
+Version:        0.12.2
 Release:        %autorelease
-Summary:        Abstraction allowing borrowed data to be carried along with its backing data
+Summary:        Dead simple async pool
 
-License:        Unicode-3.0
-URL:            https://crates.io/crates/yoke
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/deadpool
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Do not depend on postcard; it is needed only for one (patched-out) example.
-Patch:          yoke-fix-metadata.diff
-# * Downstream-only: ignore an example that would depend on the postcard crate:
-#   it is not worth packaging this merely to compile an example.
-Patch10:        0001-Downstream-only-ignore-an-example-that-would-depend-.patch
+# * Omit benchmark-only criterion dev-dependency
+# * Omit deprecated async-std dev-dependency
+# * Omit config dev-dependency; it is required only for a single test, which is
+#   not even compiled unless we build and run tests with both the managed and
+#   serde features. (Only managed is a default feature.)
+# * Exclude the test-build.sh shell script to avoid generating an
+#   otherwise-unnecessary dependency on the bash shell.
+Patch:          deadpool-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Abstraction allowing borrowed data to be carried along with the backing
-data it borrows from.}
+Dead simple async pool.}
 
 %description %{_description}
 
@@ -37,7 +39,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,28 +57,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+managed-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+managed-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "managed" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+managed-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+rt_tokio_1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+rt_tokio_1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "rt_tokio_1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+rt_tokio_1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -89,16 +93,16 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zerofrom-devel
+%package     -n %{name}+unmanaged-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zerofrom-devel %{_description}
+%description -n %{name}+unmanaged-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zerofrom" feature of the "%{crate}" crate.
+use the "unmanaged" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zerofrom-devel
+%files       -n %{name}+unmanaged-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -106,17 +110,17 @@ use the "zerofrom" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f derive
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -f derive
+%cargo_build
 
 %install
-%cargo_install -f derive
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -f derive
+%cargo_test
 %endif
 
 %changelog

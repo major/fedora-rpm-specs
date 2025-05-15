@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
-Version:	4.9.2
-Release:	15%{?dist}
+Version:	4.9.3
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -12,8 +12,7 @@ BuildRequires: make
 
 Patch1:  lftp-4.0.9-date_fmt.patch
 Patch2:  lftp-4.9.2-cdefs.patch
-Patch3:  lftp-4.9.2-gnutls-peers2.patch
-Patch4:  lftp-4.9.2-fedora-c99.patch
+Patch3:  lftp-4.9.2-tls-close.patch
 
 %description
 LFTP is a sophisticated ftp/http file transfer program. Like bash, it has job
@@ -36,9 +35,8 @@ Utility scripts for use with lftp.
 %ifarch ppc64le
 %patch -P2 -p1 -b .cdefs
 %endif
-%patch -P3 -p1 -b .gnutls-peers2
+%patch -P3 -p1 -b .tls-close
 
-%patch -P4 -p1 -b .fedora-c99
 # Avoid trying to re-run autoconf
 touch -r aclocal.m4 configure m4/needtrio.m4
 
@@ -97,6 +95,7 @@ desktop-file-install	\
 %{_libdir}/liblftp-tasks.so.*
 %{_datadir}/applications/lftp.desktop
 %{_datadir}/icons/hicolor/*/apps/*
+%{_datadir}/zsh/site-functions/_lftp
 
 
 
@@ -105,6 +104,12 @@ desktop-file-install	\
 
 
 %changelog
+* Tue May 13 2025 Tomas Korbar <tkorbar@redhat.com> - 4.9.3-2
+- Make lftp properly close TLS session on file upload
+
+* Mon Jan 27 2025 Michal Ruprich <mruprich@redhat.com> - 4.9.3-1
+- New version 4.9.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

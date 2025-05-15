@@ -1,6 +1,6 @@
 Name:           gmime
 Version:        2.6.23
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Library for creating and parsing MIME messages
 
 # Files in examples/, src/ and tests/ are GPLv2+
@@ -19,7 +19,10 @@ BuildRequires:  zlib-devel >= 1.2.1.1
 BuildRequires:  gettext-devel, gtk-doc
 BuildRequires:  automake autoconf
 
-Patch3: gmime-2.5.8-gpg-error.patch
+Patch1: gmime-2.5.8-gpg-error.patch
+Patch2: gmime-2.6.23-build-avoid-useless-configure-time-checks.patch
+Patch3: gmime-2.6.23-check-ac_cv_sys_file_offset_bits-against-empty.string.patch
+Patch4: gmime-2.6.23-tune-up-fix-for-autoconf-2-72.patch
 
 # mono available only on selected architectures
 %ifarch  %mono_arches
@@ -70,7 +73,10 @@ for developing mono applications that use libgmime.
 
 %prep
 %setup -q
-%patch -P3 -p1 -b .gpg-error
+%patch -P1 -p1 -b .gpg-error
+%patch -P2 -p1 -b .build-avoid-useless-configure-time-checks
+%patch -P3 -p1 -b .check-ac_cv_sys_file_offset_bits-against-empty.string.patch
+%patch -P4 -p1 -b .tune-up-fix-for-autoconf-2-72.patch
 
 %build
 autoreconf -vif
@@ -119,6 +125,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %endif
 
 %changelog
+* Tue May 13 2025 Jan Grulich <jgrulich@redhat.com> - 2.6.23-24
+- Fix build against autoconf 2.72
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.23-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

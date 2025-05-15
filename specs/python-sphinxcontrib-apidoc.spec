@@ -2,15 +2,13 @@
 
 
 Name:           python-%{pypi_name}
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        A Sphinx extension for running 'sphinx-apidoc' on each build
 
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.sphinx-doc.org/
-Source0:        https://files.pythonhosted.org/packages/source/s/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-# Proposed upstream: https://github.com/sphinx-contrib/apidoc/pull/23
-Patch:          Annotate-the-list-of-strings-for-Sphinx-8.2.patch
+Source0:        https://files.pythonhosted.org/packages/source/s/sphinxcontrib_apidoc/sphinxcontrib_apidoc-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-sphinx
@@ -43,7 +41,7 @@ Requires:   python3-sphinx
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n sphinxcontrib_apidoc-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

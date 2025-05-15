@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        20.29.3
+Version:        20.31.2
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 
@@ -35,9 +35,9 @@ BuildRequires:  python3-time-machine
 %endif
 
 # RPM installed wheels
-BuildRequires:  %{python_wheel_pkg_prefix}-pip-wheel
-BuildRequires:  %{python_wheel_pkg_prefix}-setuptools-wheel
-BuildRequires:  %{python_wheel_pkg_prefix}-wheel-wheel
+BuildRequires:  %{python_wheel_pkg_prefix}-pip-wheel >= 25.1
+BuildRequires:  %{python_wheel_pkg_prefix}-setuptools-wheel >= 70.1
+# python-wheel-wheel is only used on Python 3.8 which is retired from Fedora 42+
 
 %global _description %{expand:
 virtualenv is a tool to create isolated Python environments.
@@ -62,11 +62,10 @@ Summary:        Tool to create isolated Python environments
 Provides:       virtualenv = %{version}-%{release}
 
 # RPM installed wheels
-Requires:       %{python_wheel_pkg_prefix}-pip-wheel
-# Python 3.12 virtualenvs are created without setuptools/wheel,
-# but the users can still do --wheel=bundle --setuptools=bundle to force them:
-Requires:       %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires:       %{python_wheel_pkg_prefix}-wheel-wheel
+Requires:       %{python_wheel_pkg_prefix}-pip-wheel >= 25.1
+# Python 3.12 virtualenvs are created without setuptools,
+# but the users can still do --setuptools=bundle to force them:
+Requires:       %{python_wheel_pkg_prefix}-setuptools-wheel >= 70.1
 # This was a requirement for Python 3.6+2.7 virtual environments
 Obsoletes:      %{python_wheel_pkg_prefix}-wheel0.37-wheel < 0.37.1-20
 

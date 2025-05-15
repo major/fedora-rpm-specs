@@ -8,7 +8,7 @@
 
 Name:           gnome-tour
 Version:        48.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPL-3.0-or-later
@@ -24,6 +24,8 @@ URL:            https://gitlab.gnome.org/GNOME/gnome-tour
 Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
+
+Patch1:         gnome-tour-adapt-to-libadwaita-api-changes.patch
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
@@ -104,6 +106,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Tue May 13 2025 Jan Grulich <jgrulich@redhat.com> - 48.1-2
+- Adapt to libadwaita API changes
+
 * Thu Mar 27 2025 Fabio Valentini <decathorpe@gmail.com> - 48.1-1
 - Update to 48.1
 

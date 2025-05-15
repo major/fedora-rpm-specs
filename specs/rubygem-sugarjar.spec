@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 1.1.3
+%global version 2.0.1
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -12,8 +12,8 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 4%{?dist}
-Summary: A git/github helper utility
+Release: 1%{?dist}
+Summary: A git/GitHub helper utility
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: http://www.github.com/jaymzh/sugarjar
@@ -24,12 +24,12 @@ Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # tar -cf rubygem-sugarjar-${version?}-specs.tar spec/
 Source1: %{name}-%{version}-specs.tar
 BuildRequires: rubygems-devel
-BuildRequires: rubygem(mixlib-shellout)
 %if %{with tests}
 BuildRequires: rubygem(rspec)
-BuildRequires: rubygem(mixlib-log)
 BuildRequires: rubygem(deep_merge)
-BuildRequires: (gh or hub)
+BuildRequires: rubygem(mixlib-log)
+BuildRequires: rubygem(mixlib-shellout)
+BuildRequires: gh
 BuildRequires: git
 %endif
 BuildArch: noarch
@@ -39,9 +39,14 @@ BuildArch: noarch
 
 %package -n sugarjar
 Summary: A git/github helper utility
-Requires: (gh or hub)
+Requires: ruby(release) >= 3.2
+Requires: gh
 Requires: git
 Requires: git-core
+Requires: rubygem(deep_merge)
+Requires: rubygem(mixlib-log)
+Requires: rubygem(mixlib-shellout)
+Requires: rubygem(pastel)
 %description -n sugarjar
 %{common_description}
 
@@ -63,15 +68,18 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 mkdir -p %{buildroot}%{bash_completions_dir}
 cp -a %{buildroot}%{gem_instdir}/extras/sugarjar_completion.bash %{buildroot}%{bash_completions_dir}/sugarjar_completion.bash
 
+mkdir -p %{buildroot}%{_docdir}/sugarjar/examples
+cp -a %{buildroot}/%{gem_instdir}/examples/* %{buildroot}%{_docdir}/sugarjar/examples/
+cp -a %{buildroot}/%{gem_instdir}/{README.md,LICENSE,CONTRIBUTING.md,CHANGELOG.md} %{buildroot}%{_docdir}/sugarjar/
+
 %if %{with tests}
 %check
 pushd .%{gem_instdir}
 cp -a %{_builddir}/spec .
-# repoconfig_spec requires a git repo
-# and in general isn't very applicable to ensuring
-# the resulting install is functional, so nuke it
-# and run the rest
+# These two specs require a git repo, so we exclude them. Filed a bug
+# upstream: https://github.com/jaymzh/sugarjar/issues/194
 rm spec/repoconfig_spec.rb
+rm spec/commands/feature_spec.rb
 rspec spec
 %endif
 
@@ -85,16 +93,21 @@ rm -rf %{buildroot}
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/sugarjar_completion.bash
 %license %{gem_instdir}/LICENSE
-%doc %{gem_instdir}/README.md
+%doc %{_docdir}/sugarjar/{README.md,LICENSE,CONTRIBUTING.md,CHANGELOG.md}
+%doc %{_docdir}/sugarjar/examples/*
 %{gem_libdir}
 %exclude %{gem_cache}
-%exclude %{gem_instdir}/{Gemfile,sugarjar.gemspec}
+%exclude %{gem_instdir}/{Gemfile,sugarjar.gemspec,CHANGELOG.md,README.md,LICENSE,CONTRIBUTING.md}
 %exclude %{gem_instdir}/extras
+%exclude %{gem_instdir}/examples
 # We don't have ri/rdoc in our sources
 %exclude %{gem_docdir}
 %{gem_spec}
 
 %changelog
+* Mon May 12 2025 Phil Dibowitz <phil@ipom.com> - 2.0.1-1
+- New upstream version
+
 * Thu Feb 20 2025 Phil Dibowitz <phil@ipom.com> - 1.1.3-1
 - New upstream version
 

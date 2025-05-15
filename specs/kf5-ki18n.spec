@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon for localization
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbL-1.0
@@ -67,7 +67,7 @@ developing applications that use %{name}.
 %{_kf5_libdir}/libKF5I18n.so.*
 %{_kf5_libdir}/libKF5I18nLocaleData.so.*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}*
-%{_kf5_qmldir}/org/kde/i18n/localeData/
+%{_kf5_qmldir}/org/kde/i18n/
 %{_kf5_qtplugindir}/kf5/ktranscript.so
 %lang(ca) %{_datadir}/locale/ca/LC_SCRIPTS/ki18n5/
 %lang(ca@valencia) %{_datadir}/locale/ca@valencia/LC_SCRIPTS/ki18n5/
@@ -85,7 +85,6 @@ developing applications that use %{name}.
 %lang(sr) %{_datadir}/locale/uk/LC_SCRIPTS/ki18n5/
 
 %files devel
-
 %{_kf5_includedir}/KI18n/
 %{_kf5_includedir}/KI18nLocaleData/
 %{_kf5_libdir}/libKF5I18n.so
@@ -95,6 +94,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue May 13 2025 Than Ngo <than@redhat.com> - 5.116.0-4
+- Fix rhbz#2291071 - Directory is missing in RPM database
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

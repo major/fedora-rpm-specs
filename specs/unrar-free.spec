@@ -1,5 +1,5 @@
 Name:           unrar-free
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Free software version of the non-free unrar utility
 

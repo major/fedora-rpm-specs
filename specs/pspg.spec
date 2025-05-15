@@ -1,6 +1,6 @@
 Summary:	A unix pager optimized for psql
 Name:		pspg
-Version:	5.8.9
+Version:	5.8.11
 Release:	1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -40,6 +40,10 @@ columns, and lot of color themes are included.
 
 
 %changelog
+* Tue May 13 2025 Pavel Raiskup <praiskup@redhat.com> - 5.8.11-1
+- https://github.com/okbob/pspg/releases/tag/5.8.11
+- https://github.com/okbob/pspg/releases/tag/5.8.10
+
 * Sun Apr 27 2025 Pavel Raiskup <praiskup@redhat.com> - 5.8.9-1
 - https://github.com/okbob/pspg/releases/tag/5.8.9
 - https://github.com/okbob/pspg/releases/tag/5.8.8

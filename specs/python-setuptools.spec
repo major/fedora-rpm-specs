@@ -61,6 +61,10 @@ BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 
+%if %{with bootstrap}
+BuildRequires:  unzip
+%endif
+
 %if %{with tests}
 BuildRequires:  gcc
 %endif
@@ -69,9 +73,10 @@ BuildRequires:  gcc
 # adds the dependency on python3-rpm-generators, so we require it manually
 # The minimal version is for bundled provides verification script to accept multiple files as input
 BuildRequires:  python3-rpm-generators >= 12-8
+# we also use %%{_pyproject_wheeldir}, so an explicit requirement on the pyproject-macros is needed
+BuildRequires:  pyproject-rpm-macros
 
 %if %{without bootstrap}
-BuildRequires:  pyproject-rpm-macros >= 0-44
 # Not to use the pre-generated egg-info, we use setuptools from previous build to generate it
 BuildRequires:  python%{python3_pkgversion}-setuptools
 %endif
@@ -124,14 +129,13 @@ have dependencies on other packages.
 This package also contains the runtime components of setuptools, necessary to
 execute the software that requires pkg_resources.
 
-%if %{without bootstrap}
+
 %package -n     %{python_wheel_pkg_prefix}-%{srcname}-wheel
 Summary:        The setuptools wheel
 %{bundled}
 
 %description -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
 A Python wheel of setuptools to use with venv.
-%endif
 
 
 %prep
@@ -159,7 +163,9 @@ rm -r docs/conf.py
 
 %build
 %if %{with bootstrap}
-%py3_build
+%{python3} setup.py bdist_wheel
+mkdir -p %{_pyproject_wheeldir}
+mv dist/%{python_wheel_name} %{_pyproject_wheeldir}
 %else
 %pyproject_wheel
 %endif
@@ -167,27 +173,21 @@ rm -r docs/conf.py
 
 %install
 %if %{with bootstrap}
-# The setup.py install command tries to import distutils
-# but the distutils-precedence.pth file is not yet respected
-# and Python 3.12+ no longer has distutils in the standard library.
-ln -s setuptools/_distutils distutils
-PYTHONPATH=$PWD:setuptools/_vendor %py3_install
-unlink distutils
+mkdir -p %{buildroot}%{python3_sitelib}
+unzip %{_pyproject_wheeldir}/%{python_wheel_name} -d %{buildroot}%{python3_sitelib} -x setuptools-%{version}.dist-info/RECORD
+echo rpm > %{buildroot}%{python3_sitelib}/setuptools-%{version}.dist-info/INSTALLER
 %else
 %pyproject_install
-%pyproject_save_files setuptools pkg_resources _distutils_hack
+%pyproject_save_files -l setuptools pkg_resources _distutils_hack
+sed -Ei '/\/tests\b/d' %{pyproject_files}
 %endif
 
 # https://github.com/pypa/setuptools/issues/2709
 find %{buildroot}%{python3_sitelib} -name tests -print0 | xargs -0 rm -r
 
-%if %{without bootstrap}
-sed -Ei '/\/tests\b/d' %{pyproject_files}
-
 # Install the wheel for the python-setuptools-wheel package
 mkdir -p %{buildroot}%{python_wheel_dir}
 install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
-%endif
 
 
 %check
@@ -231,23 +231,21 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %files -n python%{python3_pkgversion}-setuptools %{?!with_bootstrap:-f %{pyproject_files}}
-%license LICENSE
 %doc docs/* NEWS.rst README.rst
 %{python3_sitelib}/distutils-precedence.pth
 %if %{with bootstrap}
-%{python3_sitelib}/setuptools-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/setuptools-%{version}.dist-info/
+%license %{python3_sitelib}/setuptools-%{version}.dist-info/licenses/LICENSE
 %{python3_sitelib}/pkg_resources/
 %{python3_sitelib}/setuptools/
 %{python3_sitelib}/_distutils_hack/
 %endif
 
-%if %{without bootstrap}
 %files -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
 %license LICENSE
 # we own the dir for simplicity
 %dir %{python_wheel_dir}/
 %{python_wheel_dir}/%{python_wheel_name}
-%endif
 
 
 %changelog

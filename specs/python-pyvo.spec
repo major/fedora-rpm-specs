@@ -13,7 +13,7 @@ The pyvo module currently provides these main capabilities:              \
 * Get information about an object via its name                   
 
 Name:           python-%{srcname}
-Version:        1.6.1
+Version:        1.6.2
 Release:        %autorelease
 Summary:        %{sum}
 

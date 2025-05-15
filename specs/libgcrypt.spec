@@ -14,19 +14,14 @@ print(string.sub(hash, 0, 16))
 }
 
 Name: libgcrypt
-Version: 1.11.0
-Release: 5%{?dist}
+Version: 1.11.1
+Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
 Source2: https://gnupg.org/signature_key.asc
 # Pass the annobin flags to the libgcrypt.so (#2016349)
 Patch1: libgcrypt-1.10.1-annobin.patch
-# https://dev.gnupg.org/T7167
-Patch2: libgcrypt-1.11.0-Disable-SHA3-s390x-acceleration-for-CSHAKE.patch
-# https://dev.gnupg.org/T7220
-Patch3: libgcrypt-1.11.0-cf-protection.patch
-Patch4: libgcrypt-1.11.0-pac-bti-protection.patch
 # https://gitlab.com/redhat-crypto/libgcrypt/libgcrypt-mirror/-/merge_requests/19/
 Patch5: libgcrypt-1.11.0-marvin.patch
 
@@ -64,9 +59,6 @@ applications using libgcrypt.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch 1 -p1
-%patch 2 -p1
-%patch 3 -p1
-%patch 4 -p1
 %patch 5 -p1
 
 %build
@@ -98,10 +90,11 @@ make check
 # try in faked FIPS mode too
 LIBGCRYPT_FORCE_FIPS_MODE=1 make check
 
-PROFILE=%{?dist} annocheck --ignore-unknown --verbose --profile=${PROFILE:1} $RPM_BUILD_ROOT%{gcrylibdir}/libgcrypt.so.20.5.0
+%define libpath $RPM_BUILD_ROOT%{gcrylibdir}/%{gcrysoname}.?.?
+
+PROFILE=%{?dist} annocheck --ignore-unknown --verbose --profile=${PROFILE:1} %{libpath}
 
 # Add generation of HMAC checksums of the final stripped binaries 
-%define libpath $RPM_BUILD_ROOT%{gcrylibdir}/%{gcrysoname}.?.?
 %define __spec_install_post \
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
@@ -181,6 +174,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Tue May 13 2025 Jakub Jelen <jjelen@redhat.com> - 1.11.1-1
+- New upstream release (#2364878)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -106,7 +106,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -147,6 +147,13 @@ Patch:          0002-Respect-scm-config-setting-in-_get_needles_ref_and_u.patch
 Patch:          0003-Add-git_auto_commit-setting-to-control-commit-of-edi.patch
 Patch:          0004-enqueue_git_update_all-don-t-check-git_auto_clone.patch
 Patch:          0005-Disentangle-git_auto_clone-and-git_auto_update.patch
+
+# https://github.com/os-autoinst/openQA/pull/6446
+# various fixes for template dumping/loading
+Patch:          0001-load-templates-fix-loading-of-job-templates.patch
+Patch:          0002-load-templates-job-groups-simplify-don-t-error-on-gr.patch
+Patch:          0003-t-load-templates-check-harder-for-what-gets-loaded.patch
+Patch:          0004-dump-templates-dump-job-groups-as-they-exist-fix-gro.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -812,6 +819,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Tue May 13 2025 Adam Williamson <awilliam@redhat.com> - 5^20250430git10b1e43-2
+- Backport PR #6446 to fix template dump/load issues
+
 * Wed Apr 30 2025 Adam Williamson <awilliam@redhat.com> - 5^20250430git10b1e43-1
 - Update to latest upstream git
 - Backport PR #6414 to fix configuration of automatic git operations

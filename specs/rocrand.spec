@@ -21,17 +21,23 @@
 %global build_type RelWithDebInfo
 %endif
 
-# It is necessary to use this with a local build
-# export QA_RPATHS=0xff
+# flags for testing, neither should be enabled for official builds in koji
+# relevant HW is required to run %check
 %bcond_with test
-%if %{with test}
+%bcond_with check
+
+# do not check for rpaths when building test subpackages
+%if %{with test} || %{with check}
+%global __brp_check_rpaths %{nil}
+%endif
+
+# enable building of tests if check or test are enabled
+%if %{with test} || %{with check}
 %global build_test ON
 %else
 %global build_test OFF
 %endif
 
-# Option to test suite for testing on real HW:
-%bcond_with check
 # For docs
 %bcond_with doc
 
@@ -61,7 +67,7 @@
   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
   -DBUILD_TEST=%build_test
-	
+
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
@@ -86,7 +92,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -103,7 +109,7 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
 
-%if %{with test}
+%if %{with test} || %{with check}
 %if 0%{?suse_version}
 BuildRequires:  gtest
 %else
@@ -232,9 +238,8 @@ module purge
 if [ -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 fi
-    
+
 %check
-%if %{with test}
 %if %{with check}
 %if 0%{?suse_version}
 # Need some help to find librocrand.so on suse
@@ -243,7 +248,6 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %ctest
-%endif
 %endif
 
 %if %{with gfx950}
@@ -289,6 +293,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue May 13 2025 Tim Flink <tflink@fedoraproject.org> - 6.3.0-6
+- updated logic to adhere to desired test and check behavior
+
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
 - Fix gfx950 mock build
 

@@ -7,7 +7,7 @@
 %global crate sudo-rs
 
 Name:           sudo-rs
-Version:        0.2.4
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 
@@ -53,11 +53,7 @@ mv %{buildroot}/%{_bindir}/visudo %{buildroot}/%{_bindir}/visudo-rs
 
 %if %{with check}
 %check
-# * skip a test that requires "/var/log/wtmp" to be present: secure_open_is_predictable
-# * skip tests that rely on "daemon" having UID 1: test_unix_group, test_unix_user, test_get_user_and_group_by_id:
-#   https://github.com/trifectatechfoundation/sudo-rs/issues/708
-#   https://github.com/trifectatechfoundation/sudo-rs/issues/1030
-%cargo_test -f pam-login -- -- --exact --skip system::audit::test::secure_open_is_predictable --skip system::interface::test::test_unix_group --skip system::interface::test::test_unix_user
+%cargo_test -f pam-login
 %endif
 
 %files

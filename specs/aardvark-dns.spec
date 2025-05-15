@@ -22,7 +22,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.14.0
+Version: 1.15.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND MIT AND Zlib
 Release: %autorelease
@@ -53,6 +53,23 @@ BuildRequires: rust-srpm-macros
 Forwards other request to configured resolvers.
 Read more about configuration in `src/backend/mod.rs`.
 
+%package tests
+Summary: Tests for %{name}
+
+Requires: %{name} = %{epoch}:%{version}-%{release}
+Requires: bats
+Requires: bind-utils
+Requires: jq
+Requires: netavark
+Requires: nmap-ncat
+Requires: dnsmasq
+
+%description tests
+%{summary}
+
+This package contains system tests for %{name} and is only intended to be used
+for gating tests.
+
 %prep
 %autosetup -Sgit %{name}-%{version}
 # Following steps are only required on environments like koji which have no
@@ -78,6 +95,14 @@ tar fx %{SOURCE1}
 %install
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install
 
+%{__install} -d -p %{buildroot}%{_datadir}/%{name}/test
+%{__cp} -rp test/* %{buildroot}%{_datadir}/%{name}/test/
+%{__rm} -rf %{buildroot}%{_datadir}/%{name}/test/tmt/    
+
+# Add empty check section to silence rpmlint warning.
+# No tests meant to be run here.
+%check
+
 %files
 %license LICENSE
 %if (0%{?fedora} || 0%{?rhel} >= 10) && !%{defined copr_username}
@@ -86,6 +111,9 @@ tar fx %{SOURCE1}
 %endif
 %dir %{_libexecdir}/podman
 %{_libexecdir}/podman/%{name}
+
+%files tests
+%{_datadir}/%{name}/test
 
 %changelog
 %autochangelog

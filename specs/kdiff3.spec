@@ -1,15 +1,11 @@
-%undefine __cmake_in_source_build
-# %%global gitcommit_full ad0d6a26ef59652247322971753bf142231a703a
-# %%global gitcommit %%(c=%%{gitcommit_full}; echo ${c:0:7})
-
 Name:           kdiff3
-Version:        1.12.2
+Version:        1.12.3
 Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND BSD-2-Clause AND CC0-1.0 AND MIT
 URL:            https://invent.kde.org/sdk/kdiff3
-Source0:        https://invent.kde.org/sdk/kdiff3/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -47,8 +43,6 @@ KDiff3 is a program that
 
 %prep
 %autosetup -p1
-#-n KDE-%{name}-%{gitcommit}
-
 
 %build
 %cmake_kf6 -DBUILD_WITH_QT6:BOOL=ON
@@ -70,19 +64,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %doc README
 %{_bindir}/%{name}
 %{_kf6_plugindir}/kfileitemaction/kdiff3fileitemaction.so
-# %{_kf6_plugindir}/parts/kdiff3part.so
 %{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svgz
-# %{_datadir}/kservices6/kdiff3part.desktop
-# %%{_datadir}/kservices5/kdiff3part.desktop
-# %{_datadir}/kxmlgui6/%{name}
-# %{_datadir}/kxmlgui6/kdiff3part
 %{_mandir}/man1/%{name}.1*
 
 
 %changelog
+* Tue May 13 2025 Steve Cossette <farchord@gmail.com> - 1.12.3-1
+- 1.12.3
+
 * Tue Mar 25 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 1.12.2-1
 - Update to 1.12.2
 

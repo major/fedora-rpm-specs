@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -10,6 +10,7 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 Patch0: selinux-proc_psi_t.patch
 Patch1: pcp-filter-exact.patch
 Patch2: pcp_openmetrics.patch
+Patch3: selinux-pcp_pmie_t.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -3614,6 +3615,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Tue May 13 2025 William Cohen <wcohen@redhat.com> - 6.3.7-5
+- Add selinux policy for new pcp_pmie_t failure (BZ 2363903)
+
 * Wed Apr 30 2025 Lauren Chilton <lchilton@redhat.com> - 6.3.7-4
 - Backport metric removal for pmdaopenmetrics
 

@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        82%{?dist}
+Release:        83%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -124,7 +124,6 @@ BuildRequires:  libxcrypt-devel
 BuildRequires:  openssl-devel
 BuildRequires:  net-snmp-devel, openslp-devel
 BuildRequires:  systemd-units systemd-rpm-macros
-%{?sysusers_requires_compat}
 Requires:       net-snmp-libs
 Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
 Requires:       openssl
@@ -530,9 +529,6 @@ if [ $1 -eq 0 ] ; then
 fi
 :;
 
-%pre libs
-%sysusers_create_compat %{SOURCE13}
-
 %post libs
 if [ $1 -eq 1 ]; then
    # Create Symbolic Links for SDK Libraries
@@ -575,6 +571,10 @@ fi
 
 
 %changelog
+* Tue May 13 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-83
+- Remove manual user/group creation entirely
+  Related: #2363971
+
 * Mon May 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-82
 - Update user/group creation
   Resolves: #2363971

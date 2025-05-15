@@ -21,14 +21,14 @@ BuildRequires:  vim-minimal
 
 # Test dependencies:
 BuildRequires:  git-core
-BuildRequires:  python3dist(netifaces)
 BuildRequires:  python3dist(pexpect)
 BuildRequires:  python3dist(psutil)
 BuildRequires:  python3dist(pytest)
-# There is no `python-hglib` package for EPEL
+# There are no `python-hglib` and `python3-netifaces` packages for EPEL
 %if 0%{?fedora}
 BuildRequires:  mercurial
 BuildRequires:  python-hglib
+BuildRequires:  python3dist(netifaces)
 %endif
 
 Requires:       python3
@@ -49,6 +49,10 @@ Patch0:         0001-Fix-TypeError-bad-argument-type-for-built-in-operati.patch
 
 # Fix unit tests
 Patch1:         0002-Rename-assertion-method.patch
+
+# Fix compatibility with Python 3.14:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336943
+Patch2:         0003-Fix-compatibility-with-Python-3.14.patch
 
 %description
 Powerline is a status-line plugin for vim, and provides status-lines and prompts

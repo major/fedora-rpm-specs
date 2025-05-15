@@ -40,7 +40,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -147,31 +147,31 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-find %{buildroot}           -name '%{name}*'     | sed -f br.sed >  %{name}.test
-
 if [ -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 fi
 
-%files -f %{name}.files
+%files
 %license LICENSE.md
+%{_libdir}/libhipblas.so.2{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %doc README.md
 %dir %{_libdir}/cmake/hipblas
 %dir %{_includedir}/hipblas
 %{_includedir}/hipblas/*
+%{_libdir}/libhipblas.so
+%{_libdir}/cmake/hipblas/*.cmake
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/hipblas*
 %endif
 
 %changelog
+* Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Cleanup module build
+
 * Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-2
 - Rebuild against newer hipblas-common
 

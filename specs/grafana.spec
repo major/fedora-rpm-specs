@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -79,6 +79,7 @@ Patch9:           0009-update-wrappers-and-systemd-with-distro-paths.patch
 Patch10:          0010-remove-bcrypt-references.patch
 Patch11:          0011-fix-dompurify-CVE.patch
 Patch12:          0012-fix-jwt-CVE.patch
+Patch13:          0013-fix-CVE-2025-4123.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -777,6 +778,7 @@ rm -r plugins-bundled
 %patch -P 10 -p1
 %patch -P 11 -p1
 %patch -P 12 -p1
+%patch -P 13 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -1027,6 +1029,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Tue May 13 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-14
+- fix CVE-2025-4123
+
 * Fri May 2 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-13
 - Added selinux rules for ldap and other observed selinux denials
 - Reworked the spec file selinux sections

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:		mingw-libffi
-Version:	3.4.7
+Version:	3.4.8
 Release:	1%{?dist}
 Summary:	A portable foreign function interface library for MinGW
 
@@ -103,6 +103,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue May 13 2025 Sandro Mani <manisandro@gmail.com> - 3.4.8-1
+- Update to 3.4.8
+
 * Wed Mar 05 2025 Sandro Mani <manisandro@gmail.com> - 3.4.7-1
 - Update to 3.4.7
 

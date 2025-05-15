@@ -40,7 +40,7 @@
 
 Name:           %{hipfft_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm FFT marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -142,12 +142,6 @@ sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' 
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-
 if [ -f %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md
 fi
@@ -165,14 +159,17 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files -f %{name}.files
+%files
 %license LICENSE.md
+%{_libdir}/libhipfft.so.0{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %doc README.md
 %dir %{_libdir}/cmake/hipfft
 %dir %{_includedir}/hipfft
 %{_includedir}/hipfft/*
+%{_libdir}/libhipfft.so
+%{_libdir}/cmake/hipfft/*.cmake
 
 %if %{with test}
 %files test
@@ -180,6 +177,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Cleanup module build
+
 * Mon Apr 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Improve testing for suse
 

@@ -1,6 +1,6 @@
 Name:		sigscheme
-Version:	0.9.1
-Release:	12%{?dist}
+Version:	0.9.3
+Release:	1%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
 BuildRequires: make
@@ -8,7 +8,7 @@ BuildRequires:	libgcroots-devel
 BuildRequires:	gcc
 
 Source0:	https://github.com/uim/sigscheme/releases/download/%{version}/%{name}-%{version}.tar.bz2
-Patch1:		%{name}-vararg-func.patch
+#Patch1:		%%{name}-vararg-func.patch
 
 
 Summary:	R5RS Scheme interpreter for embedded use
@@ -63,6 +63,10 @@ make check
 %{_libdir}/pkgconfig/sigscheme.pc
 
 %changelog
+* Tue May 13 2025 Akira TAGOH <tagoh@redhat.com> - 0.9.3-1
+- New upstrem release.
+  Resolves: rhbz#2363953
+
 * Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 0.9.1-12
 - Fix FTBFS.
   Resolves: rhbz#2341349

@@ -1,5 +1,5 @@
 Name:           socket_wrapper
-Version:        1.4.4
+Version:        1.5.0
 Release:        %autorelease
 
 License:        BSD-3-Clause

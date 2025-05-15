@@ -1,7 +1,7 @@
 Summary:   5250 Telnet protocol and Terminal
 Name:      tn5250
-Version:   0.17.6
-Release:   4%{?dist}
+Version:   0.18.0
+Release:   1%{?dist}
 # doc/tn5250*.1 are GPLv2+
 License:   LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:       https://github.com/tn5250/tn5250
@@ -50,8 +50,8 @@ autoreconf -vfi
 
 mkdir -p %{buildroot}/%{_datadir}/%{name}
 mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/{48x48,64x64}/apps
-install -m644 -p linux/5250.tcap %{buildroot}/%{_datadir}/%{name}
-install -m644 -p linux/5250.terminfo %{buildroot}/%{_datadir}/%{name}
+install -m644 -p termcaps/linux/5250.tcap %{buildroot}/%{_datadir}/%{name}
+install -m644 -p termcaps/linux/5250.terminfo %{buildroot}/%{_datadir}/%{name}
 install -m644 -p tn5250-48x48.png %{buildroot}/%{_datadir}/icons/hicolor/48x48/apps/tn5250.png
 install -m644 -p tn5250-62x48.png %{buildroot}/%{_datadir}/icons/hicolor/64x64/apps/tn5250.png
 install -m644 -p tn5250-48x48.xpm %{buildroot}/%{_datadir}/icons/hicolor/48x48/apps/tn5250.xpm
@@ -60,31 +60,41 @@ rm -f %{buildroot}/%{_libdir}/lib5250.la
 mkdir -p %{buildroot}/%{_datadir}/applications
 desktop-file-install  \
    --dir %{buildroot}/%{_datadir}/applications %{SOURCE1}
-cp -pf linux/README README.Linux
+cp -pf termcaps/linux/README README.Linux
 
-/usr/bin/tic -o %{buildroot}/%{_datadir}/terminfo linux/5250.terminfo
+/usr/bin/tic -o %{buildroot}/%{_datadir}/terminfo termcaps/linux/5250.terminfo
 
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README* TODO
-%{_mandir}/man1/*
-%{_mandir}/man5/*
-%{_libdir}/*.so.*
-%{_bindir}/*
-%{_datadir}/icons/hicolor/*/apps/*
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
-%{_datadir}/applications/*
+%doc AUTHORS ChangeLog README*
+%{_bindir}/5250keys
+%{_bindir}/lp5250d
+%{_bindir}/scs2*
+%{_bindir}/tn5250
+%{_bindir}/xt5250
+%{_libdir}/lib5250.so.*
+%{_mandir}/man1/lp5250d.1*
+%{_mandir}/man1/scs2*.1*
+%{_mandir}/man1/tn5250.1*
+%{_mandir}/man5/tn5250rc.5*
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/%{name}/
+%{_datadir}/applications/xt5250.desktop
 %{_datadir}/terminfo/5/5250
 %{_datadir}/terminfo/x/xterm-5250
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/%{name}/
+%{_includedir}/%{name}.h
+%{_libdir}/lib5250.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Tue May 13 2025 Dan Horák <dan[at]danny.cz> - 0.18.0-1
+- updated to 0.18.0 (rhbz#2365794)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.4.14
-Release:        8%{?dist}
+Version:        4.5.9
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -223,6 +223,7 @@ EOF
     --with-template-objects \
     --with-template-extinfo \
     --enable-event-broker \
+    --disable-static \
     STRIP=/bin/true
 
 %make_build all
@@ -258,7 +259,9 @@ bzip2 -9 %{name}.pp
 
 # relocated to sbin (Fedora-specific)
 install -d -m 0755 %{buildroot}%{_bindir}
+%if 0%{?fedora} < 42 && 0%{?rhel} < 11
 mv %{buildroot}%{_sbindir}/nagiostats %{buildroot}%{_bindir}/nagiostats
+%endif
 
 install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}/private
 mv %{buildroot}%{_sysconfdir}/%{name}/resource.cfg %{buildroot}%{_sysconfdir}/%{name}/private/resource.cfg
@@ -420,9 +423,11 @@ fi
 %license LICENSE
 %{_datadir}/%{name}/html/[^cd]*
 %{_datadir}/%{name}/html/contexthelp/
-%{_datadir}/%{name}/html/d3/
 
+%if 0%{?fedora} < 42 && 0%{?rhel} < 11
 %{_sbindir}/*
+%endif
+
 %{_bindir}/*
 %{_libdir}/%{name}/cgi-bin/*cgi
 %if 0%{?rhel} > 6 || 0%{?fedora} > 20
@@ -475,6 +480,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Tue May 13 2025 Guido Aulisi <guido.aulisi@inps.it> - 4.5.9-1
+- Update to 4.5.9
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.4.14-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

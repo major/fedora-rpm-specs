@@ -44,6 +44,28 @@ License:        MIT AND Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-C
 URL:            https://pip.pypa.io/
 Source0:        https://github.com/pypa/pip/archive/%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
 
+# The following sources are wheels used only for tests.
+# They are not bundled in the built package and do not contribute to the overall license.
+# They are pre-built but only contain text files, rebuilding them in %%build has very little benefit.
+
+# setuptools.whl
+# We cannot use RPM-packaged python-setuptools-wheel because upstream pins to <80.
+# See https://github.com/pypa/pip/pull/13357 for rationale.
+Source1:        https://files.pythonhosted.org/packages/0d/6d/b4752b044bf94cb802d88a888dc7d288baaf77d7910b7dedda74b5ceea0c/setuptools-79.0.1-py3-none-any.whl
+
+# wheel.whl
+# We cannot use RPM-packaged python-wheel-wheel because we intent to drop that package in wheel 0.46+.
+# That version of wheel has runtime dependencies and is generally useless as a standalone wheel.
+# See https://github.com/pypa/pip/pull/13382 as an attempt to drop the requirement from pip tests.
+Source2:        https://files.pythonhosted.org/packages/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b/wheel-0.45.1-py3-none-any.whl
+
+# coverage.whl
+# There is no RPM-packaged python-coverage-wheel, the package is archful.
+# Upstream uses this to measure coverage, which we don't.
+# This is a dummy placeholder package that only contains empty coverage.process_startup().
+# That way, we don't need to patch the usage out of conftest.py.
+Source3:        coverage-0-py3-none-any.whl
+
 BuildArch:      noarch
 
 %if %{with tests}
@@ -51,8 +73,7 @@ BuildRequires:  /usr/bin/git
 BuildRequires:  /usr/bin/hg
 BuildRequires:  /usr/bin/bzr
 BuildRequires:  /usr/bin/svn
-BuildRequires:  python-setuptools-wheel
-BuildRequires:  python-wheel-wheel
+BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 %endif
 
 %if %{with man}
@@ -190,15 +211,18 @@ A Python wheel of pip to use with venv.
 # this goes together with patch4
 rm src/pip/_vendor/certifi/*.pem
 
-# tests expect wheels in here
-ln -s %{python_wheel_dir} tests/data/common_wheels
-
 # Remove windows executable binaries
 rm -v src/pip/_vendor/distlib/*.exe
 sed -i '/\.exe/d' pyproject.toml
 
 # Remove unused test requirements
 sed -Ei '/(pytest-(cov|xdist|rerunfailures)|proxy\.py)/d' tests/requirements.txt
+
+%if %{with tests}
+# tests expect wheels in here
+mkdir tests/data/common_wheels
+cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} tests/data/common_wheels
+%endif
 
 
 %if %{with tests}
@@ -272,15 +296,20 @@ grep "pem$" %{pyproject_files} && exit 1 || true
 # Upstream tests
 # bash completion tests only work from installed package
 pytest_k='not completion'
+# this clashes with our PYTHONPATH
+pytest_k="$pytest_k and not environments_with_no_pip"
+# this seems to require internet (despite no network marker)
+# added in https://github.com/pypa/pip/pull/13378 TODO drop this in the next release
+pytest_k="$pytest_k and not test_prompt_for_keyring_if_needed and not test_double_install_fail and not test_install_sdist_links and not test_lock_vcs and not test_lock_archive and not test_backend_sees_config_via_sdist"
+# this cannot import breezy, TODO investigate
+pytest_k="$pytest_k and not (functional and bazaar)"
+# failures to investigate
+pytest_k="$pytest_k and not test_all_fields and not test_report_mixed_not_found and not test_basic_show"  # "Editable project location" missing
+pytest_k="$pytest_k and not test_basic_install_from_wheel"
+pytest_k="$pytest_k and not test_check_unsupported"
 
-# --ignore'd tests are not compatible with the latest virtualenv
-# These files contain almost 500 tests so we should enable them back
-# as soon as pip will be compatible upstream
-# https://github.com/pypa/pip/pull/8441
-# among them, tests/functional/test_proxy.py needs proxy.py which is not
-# yet packaged in Fedora
-%pytest -m 'not network' -k "$(echo $pytest_k)" \
-    --ignore tests/functional --ignore tests/lib/test_lib.py
+%pytest -n auto -m 'not network' -k "$(echo $pytest_k)" \
+    --ignore tests/functional/test_proxy.py  # no proxy.py in Fedora
 %endif
 
 

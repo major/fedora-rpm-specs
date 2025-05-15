@@ -1,5 +1,5 @@
 Name:           python-trove-classifiers
-Version:        2025.4.11.15
+Version:        2025.5.9.12
 Release:        1%{?dist}
 Summary:        Canonical source for classifiers on PyPI (pypi.org)
 
@@ -35,6 +35,10 @@ Summary:        %{summary}
 # Replace @@VERSION@@ with %%version
 %writevars -f pyproject.toml version
 
+# Make the the CLI tests work in %%check
+# https://github.com/pypa/trove-classifiers/issues/219
+sed -i 's@{BINDIR}/@@' tests/test_cli.py
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -55,9 +59,14 @@ Summary:        %{summary}
 
 %files -n python3-trove-classifiers -f %{pyproject_files}
 %doc README.*
+%{_bindir}/trove-classifiers
 
 
 %changelog
+* Fri May 09 2025 Packit <hello@packit.dev> - 2025.5.9.12-1
+- Update to 2025.5.9.12
+- Resolves rhbz#2362823
+
 * Fri Apr 11 2025 Packit <hello@packit.dev> - 2025.4.11.15-1
 - Update to 2025.4.11.15
 - Resolves rhbz#2359114

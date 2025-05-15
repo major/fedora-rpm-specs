@@ -2,7 +2,7 @@
 %global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
-%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order whereto python-zunclient python-watcherclient python-cyborgclient python-senlinclient python-muranoclient python-saharaclient
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order whereto python-zunclient python-watcherclient python-cyborgclient python-senlinclient python-muranoclient python-saharaclient python-designateclient python-magnumclient python-barbicanclient
 # Exclude sphinx from BRs if docs are disabled
 %if ! 0%{?with_doc}
 %global excluded_brs %{excluded_brs} sphinx openstackdocstheme
@@ -27,7 +27,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          7.1.2
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
@@ -193,6 +193,9 @@ export PYTHON=%{__python3}
 %license LICENSE
 
 %changelog
+* Fri May 02 2025 Miro Hrončok <mhroncok@redhat.com> - 7.1.2-5
+- Exclude BuildRequires for python-designateclient, python-magnumclient, python-barbicanclient
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,6 +16,8 @@ Patch:     0001-do-no-leak-file-descriptors.patch
 Patch:     make_error_func_prototype_complete.patch
 # https://github.com/cronie-crond/cronie/pull/200
 Patch:     fix_range_parsing.patch
+# https://github.com/cronie-crond/cronie/pull/201
+Patch:     move_parsing_code.patch
 
 Requires:  dailyjobs
 

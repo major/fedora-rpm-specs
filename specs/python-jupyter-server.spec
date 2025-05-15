@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-jupyter-server
-Version:        2.15.0
+Version:        2.16.0
 Release:        %autorelease
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause

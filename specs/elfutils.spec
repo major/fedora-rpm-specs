@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.193
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -432,6 +432,7 @@ fi
 %{_includedir}/elfutils/libdwfl.h
 %{_includedir}/elfutils/libdwelf.h
 %{_includedir}/elfutils/version.h
+%{_includedir}/elfutils/libdwfl_stacktrace.h
 %{_libdir}/libasm.so
 %{_libdir}/libdw.so
 %{_libdir}/pkgconfig/libdw.pc

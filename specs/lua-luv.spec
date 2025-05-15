@@ -20,7 +20,7 @@
 %global luajit_libdir %{_libdir}/luajit/%{luajit_version}
 %global luajit_builddir obj-luajit
 
-%global real_version 1.50.0
+%global real_version 1.51.0
 %global extra_version 0
 
 %if 0%{?rhel} && 0%{?rhel} < 9
@@ -54,11 +54,13 @@ Url:            https://github.com/luvit/luv
 Requires:       lua(abi) = %{lua_version}
 %endif
 
-Source0:        https://github.com/luvit/luv/archive/v%{real_version}-%{extra_version}/luv-%{version}.tar.gz
+Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_version}/luv-%{version}.tar.gz
 
 Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
 Patch1:         lua-luv-disable-udp-test.patch
+# Thread test fails on i686, see https://github.com/luvit/luv/issues/751
+Patch2:         lua-luv-disable-thread-test.patch
 
 
 %description

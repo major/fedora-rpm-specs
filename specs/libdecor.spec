@@ -1,5 +1,5 @@
 Name:           libdecor
-Version:        0.2.2
+Version:        0.2.3
 Release:        5%{?dist}
 Summary:        Wayland client side decoration library
 

@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.25.0
+Version:        4.26.0
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -83,9 +83,6 @@ Summary:        %{summary}
 # It recommends all Python versions it supports. (This is an exception to
 # the rule that Fedora packages may not require the alternative interpreters.)
 %if 0%{?fedora}
-%if 0%{?fedora} < 42
-Recommends:     python3.8
-%endif
 Recommends:     python3.9
 Recommends:     python3.10
 Recommends:     pypy3-devel
@@ -106,7 +103,7 @@ Recommends:     python3-devel
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
 sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|pluggy|distlib|cachetools|build\[virtualenv\]|setuptools|flaky)>=.*/"\1",/g' \
         -e 's/"(time-machine)>=[^;"]+/"\1/' \
-        -e 's/"(virtualenv)>=.*/"\1>=20",/g' \
+        -e 's/"(virtualenv)>=.*/"\1>=20.29",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
     pyproject.toml
 
@@ -127,6 +124,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 
 %if %{with tests}
 %check
+# Upstream requires virtualenv >= 20.31 for tests, and no longer sets VIRTUALENV_WHEEL.
+# To support environments with older virtualenv, we set it manually:
+%if v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("virtualenv"))' 2>/dev/null || echo 0)" < v"20.31"
+export VIRTUALENV_WHEEL=bundle
+%endif
+
 # Skipped tests use internal virtualenv functionality to
 # download wheels which does not work with "bundled" version of wheel in
 # the Fedora's virtualenv patch.
@@ -140,23 +143,26 @@ k="${k-}${k+ and }not test_str_convert_ok_py39"
 %endif
 
 # https://github.com/tox-dev/tox/commit/698f1dd663
-# Until we have setuptools 70.1+ we skip those
+# The tests fail with setuptools < 70.1
+%if v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("setuptools"))' 2>/dev/null || echo 0)" < v"70.1"
 k="${k-}${k+ and }not test_result_json_sequential"
 k="${k-}${k+ and }not test_setuptools_package"
 k="${k-}${k+ and }not test_skip_develop_mode"
 k="${k-}${k+ and }not test_tox_install_pkg_sdist"
+%else
+# this test fails with virtualenv < 20.31 with bundled wheel
+test -z $VIRTUALENV_WHEEL || k="${k-}${k+ and }not test_result_json_sequential"
+%endif
 
 # The following tests either need internet connection or installed tox
 # so we only run them on the CI.
 %if %{without ci_tests}
-k="${k-}${k+ and }not test_virtualenv_flipped_settings"
-k="${k-}${k+ and }not test_virtualenv_env_ignored_if_set"
-k="${k-}${k+ and }not test_virtualenv_env_used_if_not_set"
 k="${k-}${k+ and }not test_build_wheel_external"
 k="${k-}${k+ and }not keyboard_interrupt"
 k="${k-}${k+ and }not test_call_as_module"
 k="${k-}${k+ and }not test_call_as_exe"
 k="${k-}${k+ and }not test_run_installpkg_targz"
+test -z $VIRTUALENV_WHEEL && k="${k-}${k+ and }not test_result_json_sequential"
 %endif
 
 %pytest -v -n auto -k "${k-}" --run-integration

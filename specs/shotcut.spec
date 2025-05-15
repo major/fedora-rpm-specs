@@ -68,8 +68,8 @@ BuildRequires:  pkgconfig(Qt6QuickControls2)
 BuildRequires:  pkgconfig(Qt6WebSockets)
 BuildRequires:  pkgconfig(Qt6Xml)
 BuildRequires:  pkgconfig(Qt6Linguist)
-BuildRequires:  pkgconfig(mlt++-7) >= 7.6.0
-BuildRequires:  pkgconfig(mlt-framework-7) >= 7.6.0
+BuildRequires:  pkgconfig(mlt++-7) >= 7.32.0
+BuildRequires:  pkgconfig(mlt-framework-7) >= 7.32.0
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  webvfx-devel
 BuildRequires:  fftw-devel
