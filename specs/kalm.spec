@@ -1,7 +1,7 @@
 %global app_id  org.kde.kalm
 
 Name:           kalm
-Version:        25.04.0
+Version:        25.04.1
 Release:        1%{?dist}
 Summary:        Breathing techniques app
 # LGPL: code
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

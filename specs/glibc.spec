@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-287-g84977600da
+%global glibcsrcdir glibc-2.41.9000-306-gad966bc4ef
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,29 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue May 13 2025 DJ Delorie <dj@redhat.com> - 2.41.9000-13
+- Auto-sync with upstream branch master,
+  commit ad966bc4efd9e69cbbda2073121cc68f1deb9588.
+- added benchtest inputs for log2l
+- added benchtest inputs for expl
+- aarch64: fix unwinding in longjmp
+- added benchtest inputs for powl
+- added benchtest inputs for fmal
+- manual: fix typo for sched_[sg]etattr
+- malloc: Improve malloc initialization
+- Document all CLOCK_* values
+- malloc: Improved double free detection in the tcache
+- Correct spelling mistake in test file
+- hurd: Make rename refuse trailing slashes [BZ #32570]
+- Implement C23 compoundn
+- hurd: Fix tst-stack2 test build on Hurd
+- nss: remove undefined behavior and optimize getaddrinfo
+- powerpc: Remove POWER7 strncasecmp optimization
+- manual: add more pthread functions
+- S390: Add new s390 platform z17.
+- Correct test descriptors in libm-test-pown.inc
+- malloc: Inline tcache_try_malloc
+
 * Thu May 01 2025 Patsy Griffin <patsy@redhat.com> - 2.41.9000-12
 - Auto-sync with upstream branch master,
   commit 84977600dace5a7cfcb0918e6757939fd4969839:

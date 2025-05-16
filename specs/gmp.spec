@@ -14,7 +14,11 @@ Source2: gmp.h
 Source3: gmp-mparam.h
 Patch2: gmp-6.0.0-debuginfo.patch
 Patch3: gmp-intel-cet.patch
+# https://gmplib.org/repo/gmp/rev/8e7bb4ae7a18
 Patch4: gmp-6.3.0-c23.patch
+# https://gmplib.org/list-archives/gmp-devel/2023-August/006198.html
+# https://gmplib.org/repo/gmp/rev/372acfd0c33e
+Patch5: gmp-6.3.0-s390x-popcount.patch
 
 # * Main sources are dual licensed under LGPL-3.0-or-later and GPL-2.0-or-later
 #   Either only one may be active or both simultaneously.
@@ -27,8 +31,6 @@ BuildRequires: autoconf automake libtool
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: git
-#autoreconf on arm needs:
-BuildRequires: perl-Carp
 # Generate the .hmac checksum unless --without fips is used
 %bcond_without fips
 %if %{with fips}
@@ -79,11 +81,6 @@ in applications.
 %prep
 %autosetup -S git
 
-# switch the defaults to new cpus on s390x
-%ifarch s390x
-( cd mpn/s390_64; ln -s z10 s390x )
-%endif
-
 %build
 autoreconf -ifv
 if as --help | grep -q execstack; then
@@ -94,6 +91,11 @@ fi
 %ifarch %{ix86}
   export CFLAGS=$(echo %{optflags} | sed -e "s/-mtune=[^ ]*//g" | sed -e "s/-march=[^ ]*/-march=i686/g")
   export CXXFLAGS=$(echo %{optflags} | sed -e "s/-mtune=[^ ]*//g" | sed -e "s/-march=[^ ]*/-march=i686/g")
+%endif
+
+# set baseline to z13
+%ifarch s390x
+  export MPN_PATH="s390_64/z13 s390_64 generic"
 %endif
 
 %configure --enable-cxx --enable-fat
@@ -134,14 +136,6 @@ basearch=%{_arch}
 %ifarch %{ix86}
 basearch=i386
 %endif
-# always use arm for arm*
-%ifarch %{arm}
-basearch=arm
-%endif
-# superH architecture support
-%ifarch sh3 sh4
-basearch=sh
-%endif
 # Rename files and install wrappers
 
 mv %{buildroot}/%{_includedir}/gmp.h %{buildroot}/%{_includedir}/gmp-${basearch}.h
@@ -151,10 +145,8 @@ install -m644 %{SOURCE3} %{buildroot}/%{_includedir}/gmp-mparam.h
 
 
 %check
-%ifnarch ppc
 export LD_LIBRARY_PATH=`pwd`/.libs
 %make_build check
-%endif
 
 %ldconfig_scriptlets
 

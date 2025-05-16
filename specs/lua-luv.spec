@@ -60,7 +60,8 @@ Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
 Patch1:         lua-luv-disable-udp-test.patch
 # Thread test fails on i686, see https://github.com/luvit/luv/issues/751
-Patch2:         lua-luv-disable-thread-test.patch
+# https://github.com/luvit/luv/pull/770
+Patch2:         lua-luv-fix-heap-use-after-free.patch
 
 
 %description

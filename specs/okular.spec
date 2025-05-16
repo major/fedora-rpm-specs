@@ -14,8 +14,8 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 25.04.0
-Release: 2%{?dist}
+Version: 25.04.1
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -187,7 +187,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 %{_kf6_metainfodir}/org.kde.okular-*.metainfo.xml
 %{_kf6_datadir}/okular/
 %{_kf6_datadir}/icons/hicolor/*/*/*
-%{_kf6_datadir}/kconf_update/okular.upd
 %{_mandir}/man1/okular.1*
 %{_kf6_datadir}/qlogging-categories6/okular.categories
 
@@ -222,6 +221,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Mon Apr 14 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
 - Rebuild (qt6)
 

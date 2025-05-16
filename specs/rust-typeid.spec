@@ -12,12 +12,6 @@ Summary:        Const TypeId and non-'static TypeId
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/typeid
 Source:         %{crates_source}
-# * EPEL9: Ignore doctests that require very recent Rust compilers
-# * In this crate, some doctests use Rust features from versions newer than the
-#   MSRV. It’s therefore necessary to ignore some of them on EPEL9. If this
-#   patch becomes too unwieldy, we could choose to start skipping doctests there
-#   entirely.
-Patch1009:      0001-EPEL9-Ignore-doctests-that-require-very-recent-Rust-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,14 +48,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -N
-# NOTE: The -p1 in %%autosetup, above, must be replaced with -N so that we can
-# do conditional patching, below.
-%autopatch -M 999 -p1
-# We reserved patch number 1000+<N> for EPEL<N>.
-%if 0%{?el9}
-%patch -P 1009 -p1
-%endif
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

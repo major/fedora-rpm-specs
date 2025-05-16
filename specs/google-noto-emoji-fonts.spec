@@ -5,11 +5,9 @@
 
 %global fontname google-noto-emoji
 
-%if (0%{?fedora} > 25)
-%global buildfont 1
-%else
+# The font build process need to download the code from the internet,
+# skip to build the font.
 %global buildfont 0
-%endif
 
 BuildRequires:  gcc
 BuildRequires:  fontpackages-devel
@@ -27,7 +25,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  make
 
 Version: 20241008
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google
@@ -56,7 +54,7 @@ This package provides the Google “Noto Emoji” Black-and-White emoji font.
 Obsoletes:      google-noto-emoji-color-fonts < 20220916-6
 Provides:       google-noto-emoji-color-fonts = %{version}-%{release}
 }
-%global fonts1            NotoColorEmoji.ttf
+%global fonts1            Noto-COLRv1.ttf
 %global fontdescription1  %{expand:
 This package provides the Google “Noto Color Emoji” colored emoji font.
 }
@@ -64,9 +62,6 @@ This package provides the Google “Noto Color Emoji” colored emoji font.
 Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
 Source4:        Noto_Emoji.zip
 
-Patch0:         noto-emoji-build-all-flags.patch
-Patch1:         noto-emoji-use-gm.patch
-Patch2:         noto-emoji-use-system-pngquant.patch
 
 %fontpkg -a
 
@@ -86,7 +81,7 @@ export LANG=C.UTF-8
 
 %make_build OPT_CFLAGS="$RPM_OPT_FLAGS" BYPASS_SEQUENCE_CHECK='True'
 %else
-cp -p fonts/NotoColorEmoji.ttf .
+cp -p fonts/Noto-COLRv1.ttf .
 %endif
 
 %fontbuild -a
@@ -101,6 +96,9 @@ cp -p fonts/NotoColorEmoji.ttf .
 
 
 %changelog
+* Wed Apr  9 2025 Peng Wu <pwu@redhat.com> - 20241008-3
+- Switch to use the COLRv1 font format
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241008-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

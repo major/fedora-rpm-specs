@@ -16,7 +16,6 @@ BuildRequires: python3-hamcrest
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-benchmark
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{git_commit}
 BuildOption(install): -l %{pypi_name}
 
 %description  %{common_description}

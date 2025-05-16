@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.98.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -357,15 +357,20 @@ exit 0
 %systemd_post %{name}.service
 
 alternatives --install %{_sbindir}/sendmail mta %{_sbindir}/sendmail.exim 10 \
-	--slave %{_bindir}/mailq mta-mailq %{_bindir}/mailq.exim \
-	--slave %{_bindir}/runq mta-runq %{_bindir}/runq.exim \
-	--slave %{_bindir}/rsmtp mta-rsmtp %{_bindir}/rsmtp.exim \
-	--slave %{_bindir}/rmail mta-rmail %{_bindir}/rmail.exim \
-	--slave /etc/pam.d/smtp mta-pam /etc/pam.d/exim \
-	--slave %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.exim \
-	--slave /usr/lib/sendmail mta-sendmail /usr/lib/sendmail.exim \
-	--slave %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man8/exim.8.gz \
+	--follower %{_bindir}/mailq mta-mailq %{_bindir}/mailq.exim \
+	--follower %{_bindir}/runq mta-runq %{_bindir}/runq.exim \
+	--follower %{_bindir}/rsmtp mta-rsmtp %{_bindir}/rsmtp.exim \
+	--follower %{_bindir}/rmail mta-rmail %{_bindir}/rmail.exim \
+	--follower /etc/pam.d/smtp mta-pam /etc/pam.d/exim \
+	--follower %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.exim \
+	--follower /usr/lib/sendmail mta-sendmail /usr/lib/sendmail.exim \
+	--follower %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man8/exim.8.gz \
 	--initscript exim
+
+# Make sure that /usr/sbin/sendmail is not missing, if /usr/sbin is a
+# directory. The symlink will only be created if there is no symlink
+# or file already.
+test -h /usr/sbin || ln -s ../bin/sendmail /usr/sbin/sendmail 2>/dev/null || :
 
 %preun
 %systemd_preun %{name}.service
@@ -505,6 +510,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Fri May 09 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.98.2-2
+- Make sure the /usr/sbin/sendmail symlink exists (if /usr/sbin is a directory)
+
 * Wed Mar 26 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.98.2-1
 - New version
   Resolves: CVE 2025-30232

@@ -43,7 +43,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.27.0
+Version:        2.28.0
 %global tag %{version}
 %forgemeta
 
@@ -74,34 +74,22 @@ Patch0:         0001-Downstream-only-unpin-virtualenv.patch
 # The easiest option is to add it there.
 Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
 
+# Upstream patch:
+# https://github.com/getsentry/sentry-python/pull/4388
+Patch2:         0003-test-logs-avoid-failures-when-running-with-integrati.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  python3dist(botocore)
-BuildRequires:  python3dist(certifi)
-BuildRequires:  python3dist(djangorestframework)
 BuildRequires:  python3dist(gevent)
 BuildRequires:  python3dist(graphene)
-BuildRequires:  python3dist(jsonschema)
-BuildRequires:  python3dist(protobuf)
-BuildRequires:  python3dist(psycopg2)
 BuildRequires:  python3dist(pyramid)
-BuildRequires:  python3dist(pysocks)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-aiohttp)
-BuildRequires:  python3dist(pytest-asyncio)
-BuildRequires:  python3dist(pytest-django)
-BuildRequires:  python3dist(pytest-forked)
-BuildRequires:  python3dist(pytest-localserver)
-BuildRequires:  python3dist(python-multipart)
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(typer)
 BuildRequires:  python3dist(wheel)
 %if %{with network_tests}
 BuildRequires:  python3dist(boto3)
-BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(pytest-httpx)
 %endif
 BuildRequires:  redis
@@ -305,7 +293,7 @@ sed -r -i '/(mypy-protobuf)/d' tox.ini
 sed -r -i '/(types-protobuf)/d' tox.ini
 
 %generate_buildrequires
-%pyproject_buildrequires -x %{extras_csv} -e %{toxenvs_csv}
+%pyproject_buildrequires %{?with_tests:-x %{extras_csv} -e %{toxenvs_csv}}
 
 
 %build
@@ -374,6 +362,7 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.rq"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.sqlalchemy"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.starlette"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.tornado"
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.typer"
 %endif
 
 %pyproject_check_import ${skip_import_check}
@@ -451,9 +440,10 @@ ignore="${ignore-} --ignore=tests/integrations/pyramid"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop_sampled"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_manual_stop_unsampled"
-deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_stop"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_auto_start_and_stop_sampled"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_manual_stop_sampled"
 deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_manual_stop_unsampled"
+deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::test_continuous_profiler_manual_start_and_stop"
 deselect="${deselect-} --deselect=tests/profiler/test_transaction_profiler.py::test_profile_captured"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing_decorator"

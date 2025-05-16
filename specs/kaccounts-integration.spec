@@ -6,8 +6,8 @@
 %endif
 
 Name:    kaccounts-integration
-Version: 25.04.0
-Release: 3%{?dist}
+Version: 25.04.1
+Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
@@ -185,6 +185,9 @@ popd
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Mon May 05 2025 Than Ngo <than@redhat.com> - 25.04.0-3
 - Fix rhbz#2293746 - Directory is missing in RPM database
 

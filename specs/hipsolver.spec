@@ -40,7 +40,7 @@
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -142,33 +142,33 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-find %{buildroot}           -name '%{name}-*'    | sed -f br.sed >  %{name}.test
-find %{buildroot}           -name 'mat_*'        | sed -f br.sed >> %{name}.test
-find %{buildroot}           -name 'posmat_*'     | sed -f br.sed >> %{name}.test
-
 if [ -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 fi
 
-%files -f %{name}.files
+%files
 %license LICENSE.md
+%{_libdir}/libhipsolver.so.0{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %doc README.md
 %dir %{_libdir}/cmake/hipsolver
 %dir %{_includedir}/hipsolver
 %{_includedir}/hipsolver/*
+%{_libdir}/libhipsolver.so
+%{_libdir}/cmake/hipsolver/*.cmake
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%dir %{_datadir}/hipsolver
+%{_datadir}/hipsolver/test/*
+%{_bindir}/hipsolver*
 %endif
 
 %changelog
+* Wed May 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Cleanup module build
+
 * Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

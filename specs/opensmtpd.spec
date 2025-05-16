@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.6.0p1
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -156,30 +156,35 @@ install -m0644 -D opensmtpd.sysusers.conf %{buildroot}%{_sysusersdir}/opensmtpd.
 
 %post
 %systemd_post %{name}.service
-%{_sbindir}/alternatives --install %{_sbindir}/sendmail mta %{_sbindir}/sendmail.opensmtpd 10 \
-	--slave %{_bindir}/mailq mta-mailq %{_bindir}/mailq.opensmtpd \
+alternatives --install %{_sbindir}/sendmail mta %{_sbindir}/sendmail.opensmtpd 10 \
+	--follower %{_bindir}/mailq mta-mailq %{_bindir}/mailq.opensmtpd \
 	%if 0%{?_with_pam}
-	--slave /etc/pam.d/smtp mta-pam /etc/pam.d/smtp.opensmtpd \
+	--follower /etc/pam.d/smtp mta-pam /etc/pam.d/smtp.opensmtpd \
 	%endif
 	%if 0%{?_with_bdb}
-	--slave %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.opensmtpd \
-	--slave %{_sbindir}/makemap mta-makemap %{_sbindir}/makemap.opensmtpd \
-	--slave %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man8/newaliases.opensmtpd.8.gz \
-	--slave %{_mandir}/man8/makemap.8.gz mta-makemapman %{_mandir}/man8/makemap.opensmtpd.8.gz \
+	--follower %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.opensmtpd \
+	--follower %{_sbindir}/makemap mta-makemap %{_sbindir}/makemap.opensmtpd \
+	--follower %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man8/newaliases.opensmtpd.8.gz \
+	--follower %{_mandir}/man8/makemap.8.gz mta-makemapman %{_mandir}/man8/makemap.opensmtpd.8.gz \
 	%endif
-	--slave /usr/lib/sendmail mta-sendmail %{_sbindir}/sendmail.opensmtpd \
-	--slave %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.opensmtpd.1.gz \
-	--slave %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.opensmtpd.5.gz \
-	--slave %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man8/sendmail.opensmtpd.8.gz \
-	--slave %{_mandir}/man8/smtp.8.gz mta-smtpman %{_mandir}/man8/smtp.opensmtpd.8.gz \
-	--slave %{_mandir}/man8/smtpd.8.gz mta-smtpdman %{_mandir}/man8/smtpd.opensmtpd.8.gz \
+	--follower /usr/lib/sendmail mta-sendmail %{_sbindir}/sendmail.opensmtpd \
+	--follower %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.opensmtpd.1.gz \
+	--follower %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.opensmtpd.5.gz \
+	--follower %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man8/sendmail.opensmtpd.8.gz \
+	--follower %{_mandir}/man8/smtp.8.gz mta-smtpman %{_mandir}/man8/smtp.opensmtpd.8.gz \
+	--follower %{_mandir}/man8/smtpd.8.gz mta-smtpdman %{_mandir}/man8/smtpd.opensmtpd.8.gz \
 	--initscript opensmtpd
 exit 0
+
+# Make sure that /usr/sbin/sendmail is not missing, if /usr/sbin is a
+# directory. The symlink will only be created if there is no symlink
+# or file already.
+test -h /usr/sbin || ln -s ../bin/sendmail /usr/sbin/sendmail 2>/dev/null || :
 
 %preun
 %systemd_preun %{name}.service
 if [ "$1" = 0 ]; then
-    %{_sbindir}/alternatives --remove mta %{_sbindir}/sendmail.opensmtpd
+    alternatives --remove mta %{_sbindir}/sendmail.opensmtpd
 fi
 exit 0
 
@@ -188,7 +193,7 @@ exit 0
 if [ "$1" -ge "1" ]; then
 	mta=`readlink /etc/alternatives/mta`
 	if [ "$mta" == "%{_sbindir}/sendmail.opensmtpd" ]; then
-	    %{_sbindir}/alternatives --set mta %{_sbindir}/sendmail.opensmtpd
+	    alternatives --set mta %{_sbindir}/sendmail.opensmtpd
 	fi
 fi
 exit 0
@@ -257,6 +262,9 @@ exit 0
 
 
 %changelog
+* Sat May 10 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.6.0p1-6
+- Make sure the /usr/sbin/sendmail symlink is created on unmerged systems
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.6.0p1-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

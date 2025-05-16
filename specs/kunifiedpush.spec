@@ -1,5 +1,5 @@
 Name:           kunifiedpush
-Version:        25.04.0
+Version:        25.04.1
 Release:        1%{?dist}
 Summary:        UnifiedPush client library and distributor daemon
 License:        BSD-2-Clause AND CC0-1.0 AND BSD-3-Clause AND LGPL-2.0-or-later
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_push_notificatio
 %{_kf6_libdir}/cmake/KUnifiedPush/
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

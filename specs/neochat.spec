@@ -1,5 +1,5 @@
 Name: neochat
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
@@ -58,7 +58,6 @@ BuildRequires: gcc-c++
 BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
-BuildRequires: reuse
 
 Requires: breeze-icon-theme
 Requires: hicolor-icon-theme
@@ -123,6 +122,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

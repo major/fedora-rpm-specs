@@ -1,7 +1,7 @@
 %global pypi_name hexbytes
 
 Name:          python-%{pypi_name}
-Version:       1.3.0
+Version:       1.3.1
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Python `bytes` subclass that decodes hex, with a readable console output
@@ -13,7 +13,6 @@ BuildRequires: python3-eth-utils
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description

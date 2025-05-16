@@ -2,18 +2,14 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        25.04.0
-Release:        3%{?dist}
+Version:        25.04.1
+Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/src/%{name}-%{version}.tar.xz
 
 # Upstream
-
-# Fix session restore: https://invent.kde.org/system/dolphin/-/commit/c0bf226aa1cc02c9bffff1ec05e07a255d8d2f6e
-# Will prolly be fixed in 25.04.1
-Patch0:         c0bf226aa1cc02c9bffff1ec05e07a255d8d2f6e.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -163,6 +159,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Wed Apr 16 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-3
 - Added fix for session restore
 

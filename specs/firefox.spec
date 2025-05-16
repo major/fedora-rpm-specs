@@ -194,7 +194,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        138.0.3
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1200,6 +1200,7 @@ fi
 %{_datadir}/metainfo/*.appdata.xml
 %dir %{mozappdir}
 %license %{mozappdir}/LICENSE
+%{mozappdir}/browser
 %{mozappdir}/browser/chrome
 %{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %{mozappdir}/distribution/distribution.ini
@@ -1250,6 +1251,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed May 14 2025 Martin Stransky <stransky@redhat.com> - 138.0.3-2
+- Fixed rhbz#2283790
+
 * Mon May 12 2025 Martin Stransky <stransky@redhat.com> - 138.0.3-1
 - Updated to 138.0.3
 

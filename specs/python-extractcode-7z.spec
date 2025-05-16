@@ -22,6 +22,9 @@ URL:            https://github.com/nexB/scancode-plugins
 # rm -rfv scancode-plugins-21.5.31.tar.gz
 Source:         %{pypi_name}-%{version}.tar.gz
 Patch:          0001-Fix-Linux-distribution-detection.patch
+# Make discovering 7zip more robust
+# Backported and adapted from https://github.com/aboutcode-org/scancode-plugins/pull/54
+Patch:          0001-Make-SevenzipPaths.get_locations-more-robust.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

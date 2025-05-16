@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.123
+Version:	3.3.124
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -194,6 +194,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Wed May 14 2025 Paul Howarth <paul@city-fan.org> - 3.3.124-1
+- Update to 3.3.124
+  - Ensure type name in $var for VCD saver is >0 length
+  - Preserve bitblasted vector ordering with VCD saver.
+  - Use full type names in VCD saver instead of abbreviations
+  - Dump all bits for a bitblasted vector in VCD saver in order to ensure
+    stray bit extractions do not cause a failure to reconstruct vectors in
+    proper order in the extracted file
+
 * Fri May  9 2025 Paul Howarth <paul@city-fan.org> - 3.3.123-1
 - Update to 3.3.123
   - Fix broken autocoalesce of bitblasted vectors that fix for GH#428 in

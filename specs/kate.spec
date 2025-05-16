@@ -6,8 +6,8 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 25.04.0
-Release: 4%{?dist}
+Version: 25.04.1
+Release: 1%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -180,6 +180,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Mon May 05 2025 Than Ngo <than@redhat.com> - 25.04.0-4
 - Fix rhbz#2293747, Directory is missing in RPM database
 

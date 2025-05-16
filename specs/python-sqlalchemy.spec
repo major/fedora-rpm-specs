@@ -58,10 +58,10 @@ License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
 
-# Fix test suite on Python 3.14 (almost, but not quite, so skip test_is_generic below)
+# Fix test suite on Python 3.14
 # https://bugzilla.redhat.com/show_bug.cgi?id=2350336
 # https://gerrit.sqlalchemy.org/c/sqlalchemy/sqlalchemy/+/5739
-Patch0:         python-sqlalchemy-2.0.40-py314-almost.patch
+Patch0:         https://github.com/sqlalchemy/sqlalchemy/commit/adef933f8d.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -119,6 +119,10 @@ Documentation for SQLAlchemy.
 
 %prep
 %autosetup -p1 -n %{canonicalname}-%{version}
+%if %{defined rhel}
+# greenlet is only used in conjunction with the asyncio extras; fixed in 2.1
+sed -i -e '/greenlet/d' setup.cfg
+%endif
 
 %build
 %pyproject_wheel
@@ -151,9 +155,6 @@ done > doc-files.txt
 select_expression=""
 %if %{without mypy}
 select_expression="${select_expression}${select_expression:+ and }not Mypy"
-%endif
-%if %{with py314quirk}
-select_expression="${select_expression}${select_expression:+ and }not test_is_generic"
 %endif
 
 %pytest test \

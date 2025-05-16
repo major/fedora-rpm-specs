@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -537,7 +537,7 @@ exit 0
 if [ $1 -ge 1 ] ; then
 	mta=`readlink %{_sysconfdir}/alternatives/mta`
 	if [ "$mta" == "%{_sbindir}/sendmail.sendmail" ] || [ "$mta" == "/usr/sbin/sendmail.sendmail" ]; then
-		alternatives --set mta /usr/sbin/sendmail.sendmail
+		alternatives --set mta %{_sbindir}/sendmail.sendmail
 	fi
 fi
 exit 0
@@ -547,22 +547,29 @@ exit 0
 
 # Set up the alternatives files for MTAs.
 alternatives --install \
-        /usr/sbin/sendmail mta /usr/sbin/sendmail.sendmail 90 \
-	--slave /usr/sbin/makemap mta-makemap /usr/sbin/makemap.sendmail \
-	--slave /usr/sbin/editmap mta-editmap /usr/sbin/editmap.sendmail \
-	--slave %{_bindir}/mailq mta-mailq %{_bindir}/mailq.sendmail \
-	--slave %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.sendmail \
-	--slave %{_bindir}/rmail mta-rmail %{_bindir}/rmail.sendmail \
-	--slave %{_prefix}/lib/sendmail mta-sendmail %{_prefix}/lib/sendmail.sendmail \
-	--slave %{_sysconfdir}/pam.d/smtp mta-pam %{_sysconfdir}/pam.d/smtp.sendmail \
-	--slave %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man8/sendmail.sendmail.8.gz \
-	--slave %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.sendmail.1.gz \
-	--slave %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man1/newaliases.sendmail.1.gz \
-	--slave %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.sendmail.5.gz \
-	--slave %{_mandir}/man8/rmail.8.gz mta-rmailman %{_mandir}/man8/rmail.sendmail.8.gz \
-	--slave %{_mandir}/man8/makemap.8.gz mta-makemapman %{_mandir}/man8/makemap.sendmail.8.gz \
-	--slave %{_mandir}/man8/editmap.8.gz mta-editmapman %{_mandir}/man8/editmap.sendmail.8.gz \
+	    %{_sbindir}/sendmail mta %{_sbindir}/sendmail.sendmail 90 \
+	--follower %{_sbindir}/makemap mta-makemap %{_sbindir}/makemap.sendmail \
+	--follower %{_sbindir}/editmap mta-editmap %{_sbindir}/editmap.sendmail \
+	--follower %{_bindir}/mailq mta-mailq %{_bindir}/mailq.sendmail \
+	--follower %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.sendmail \
+	--follower %{_bindir}/rmail mta-rmail %{_bindir}/rmail.sendmail \
+	--follower %{_prefix}/lib/sendmail mta-sendmail %{_prefix}/lib/sendmail.sendmail \
+	--follower %{_sysconfdir}/pam.d/smtp mta-pam %{_sysconfdir}/pam.d/smtp.sendmail \
+	--follower %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man8/sendmail.sendmail.8.gz \
+	--follower %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.sendmail.1.gz \
+	--follower %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man1/newaliases.sendmail.1.gz \
+	--follower %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.sendmail.5.gz \
+	--follower %{_mandir}/man8/rmail.8.gz mta-rmailman %{_mandir}/man8/rmail.sendmail.8.gz \
+	--follower %{_mandir}/man8/makemap.8.gz mta-makemapman %{_mandir}/man8/makemap.sendmail.8.gz \
+	--follower %{_mandir}/man8/editmap.8.gz mta-editmapman %{_mandir}/man8/editmap.sendmail.8.gz \
 	--initscript sendmail > /dev/null 2>&1
+
+# Make sure that /usr/sbin/sendmail is not missing, if /usr/sbin is a
+# directory. The symlink will only be created if there is no symlink
+# or file already.
+test -h /usr/sbin || ln -s ../bin/sendmail /usr/sbin/sendmail 2>/dev/null || :
+test -h /usr/sbin || ln -s ../bin/makemap /usr/sbin/makemap 2>/dev/null || :
+test -h /usr/sbin || ln -s ../bin/editmap /usr/sbin/editmap 2>/dev/null || :
 
 # Rebuild maps.
 {
@@ -590,7 +597,7 @@ fi
 # Create self-signed SSL certificate
 if [ ! -f %{sslkey} ]; then
   umask 077
-  %{_bindir}/openssl genrsa 4096 > %{sslkey} 2> /dev/null
+  openssl genrsa 4096 >%{sslkey} 2>/dev/null
 fi
 
 if [ ! -f %{sslcert} ]; then
@@ -599,7 +606,7 @@ if [ ! -f %{sslcert} ]; then
     FQDN=localhost.localdomain
   fi
 
-  %{_bindir}/openssl req -new -key %{sslkey} -x509 -sha256 -days 365 -set_serial $RANDOM -out %{sslcert} \
+  openssl req -new -key %{sslkey} -x509 -sha256 -days 365 -set_serial $RANDOM -out %{sslcert} \
     -subj "/C=--/ST=SomeState/L=SomeCity/O=SomeOrganization/OU=SomeOrganizationalUnit/CN=${FQDN}/emailAddress=root@${FQDN}"
   chmod 600 %{sslcert}
 fi
@@ -609,7 +616,7 @@ exit 0
 %preun
 %systemd_preun sendmail.service sm-client.service
 if [ $1 = 0 ]; then
-	alternatives --remove mta /usr/sbin/sendmail.sendmail
+	alternatives --remove mta %{_sbindir}/sendmail.sendmail
 fi
 exit 0
 
@@ -750,6 +757,9 @@ exit 0
 
 
 %changelog
+* Wed May 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-12
+- Fixed alternative scripts for /usr/(s)bin merge
+
 * Tue Apr  1 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-11
 - Added fix for gcc-15
 

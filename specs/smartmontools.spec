@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		https://www.smartmontools.org/
@@ -82,7 +82,7 @@ autoreconf -i
 # update SOURCE5 on maintainer's machine prior commiting, there's no internet connection on builders
 %make_build update-smart-drivedb
 ./update-smart-drivedb -s - -u sf drivedb.h ||:
-cp drivedb.h ../drivedb.h ||:
+cp drivedb.h %{SOURCE5} ||:
 
 %make_build CXXFLAGS="$RPM_OPT_FLAGS -fpie" LDFLAGS="-pie -Wl,-z,relro,-z,now"
 
@@ -169,6 +169,9 @@ fi
 
 
 %changelog
+* Wed May 14 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-2
+- fix automation updating drivedb and update it (rhbz#2366204)
+
 * Wed Apr 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-1
 - updated to 7.5
 

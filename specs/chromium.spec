@@ -1663,7 +1663,6 @@ fi
 %config %{_sysconfdir}/%{name}/master_preferences
 %config %{_sysconfdir}/%{name}/policies/
 %{_bindir}/chromium-browser
-%{chromium_path}/*.bin
 %{chromium_path}/chrome_*.pak
 %{chromium_path}/chrome_crashpad_handler
 %{chromium_path}/resources.pak
@@ -1687,13 +1686,12 @@ fi
 %endif
 
 %files common
-%ifarch x86_64 aarch64 ppc64le
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*
 %{chromium_path}/vk_swiftshader_icd.json
 %{chromium_path}/libEGL.so*
 %{chromium_path}/libGLESv2.so*
-%endif
+%{chromium_path}/*.bin
 %if %{bundleicu}
 %{chromium_path}/icudtl.dat
 %endif

@@ -2,10 +2,13 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.1
-Release:        2%{?dist}
+Version:        19.2
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
+# Disable arch due to several test failures of
+# CTestGameWorld and Sql/* in %check
+ExcludeArch: s390x
 
 #
 # CC-BY-SA
@@ -37,9 +40,6 @@ Source0:        https://github.com/ddnet/ddnet/archive/%{version}/%{name}-%{vers
 Patch1:         0001-Disabled-network-lookup-test.patch
 # Unbundle md5 and json-parser
 Patch2:         0002-Unbundle-md5_and_json-parser.patch
-# Fixes "format not a string literal and no format arguments [-Werror=format-security]"
-# https://github.com/ddnet/ddnet/issues/9961
-Patch3:         0003-let-dbg_assert-format-the-string.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -181,6 +181,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon May 12 2025 Packit <hello@packit.dev> - 19.2-1
+- Update to version 19.2
+- Resolves: rhbz#2363940
+- Remove 0003-let-dbg_assert-format-the-string.patch
+- Disable s390x again due to several errors in check
+
 * Thu Apr 03 2025 Rafael Fontenelle <rafaelff@gnome.org> - 19.1-2
 - Disable Ipv4AndIpv6Work network test
 - Re-enable s390x architecture

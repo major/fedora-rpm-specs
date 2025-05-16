@@ -4,7 +4,7 @@
 %global srcname obs-service-source_validator
 
 Name:           osc-source_validator
-Version:        0.39
+Version:        0.40
 Release:        1%{?dist}
 License:        GPL-2.0-or-later
 Summary:        OBS source service to validate sources
@@ -54,6 +54,9 @@ used via project wide defined services.
 %{obssvcroot}/*
 
 %changelog
+* Wed May 14 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.40-1
+- New upstream release 0.40
+
 * Wed May 07 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.39-1
 - New upstream release 0.39
 

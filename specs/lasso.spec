@@ -59,10 +59,10 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
-Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
+Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
 
 Patch01: fix-removed-xmlsec-deprecations.patch
 Patch02: fix-openssl-implicit-declarations.patch
@@ -79,6 +79,8 @@ Patch7: lasso-2.8.2-python_313.patch
 Patch8: automake-version.patch
 # GCC 15 (https://git.entrouvert.org/entrouvert/lasso/pulls/27.patch)
 Patch9: lasso-2.8.2-gcc15.patch
+# https://dev.entrouvert.org/issues/105622
+Patch10: lasso-2.8.2-python_314.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -194,6 +196,7 @@ library.
 %patch -P 7 -p1
 %patch -P 8 -p1
 %patch -P 9 -p1
+%patch -P 10 -p1
 
 # Remove any python script shebang lines (unless they refer to python3)
 sed -i -E -e '/^#![[:blank:]]*(\/usr\/bin\/env[[:blank:]]+python[^3]?\>)|(\/usr\/bin\/python[^3]?\>)/d' \
@@ -279,6 +282,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Wed May 14 2025 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-17
+- Add patch to fix python binding tests with python 3.14 (RHBZ#2365819)
+
 * Tue Feb 18 2025 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-16
 - Drop EL7/python2 support
 - Set min_hash_algo to sha256 for f42+

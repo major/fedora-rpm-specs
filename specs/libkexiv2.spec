@@ -7,7 +7,7 @@
 
 Name:    libkexiv2
 Summary: A wrapper around Exiv2 library
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -117,6 +117,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

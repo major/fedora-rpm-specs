@@ -1,7 +1,7 @@
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 25.04.0
-Release: 2%{?dist}
+Version: 25.04.1
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
 URL:     https://apps.kde.org/kajongg/
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Thu May 08 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-2
 - Fixed pyqt6 dependancy to get the full package instead of the base one
 

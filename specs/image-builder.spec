@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        17
+Version:        19
 
 %gometa
 
@@ -233,6 +233,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed May 14 2025 Packit <hello@packit.dev> - 19-1
+Changes with 19
+----------------
+  * refactor: use standard logger instead of logrus (#214)
+    * Author: Lukáš Zapletal, Reviewers: Michael Vogt
+
+— Somewhere on the Internet, 2025-05-14
+
+
 * Thu Apr 17 2025 Packit <hello@packit.dev> - 17-1
 Changes with 17
 ----------------

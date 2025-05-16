@@ -85,8 +85,12 @@
     %endif
 %endif
 
-# Fedora rawhide dropped zfs-fuse
-%define with_storage_zfs      0
+# Fedora had zfs-fuse until F43
+%if 0%{?fedora} && 0%{?fedora} < 43
+    %define with_storage_zfs      0%{!?_without_storage_zfs:1}
+%else
+    %define with_storage_zfs      0
+%endif
 
 %define with_storage_iscsi_direct 0%{!?_without_storage_iscsi_direct:1}
 # libiscsi has been dropped in RHEL-9
@@ -700,6 +704,9 @@ Requires: /usr/bin/qemu-img
 Obsoletes: libvirt-daemon-driver-storage-rbd < 5.2.0
     %endif
 Obsoletes: libvirt-daemon-driver-storage-sheepdog < 8.8.0
+    %if !%{with_storage_zfs}
+Obsoletes: libvirt-daemon-driver-storage-zfs < 11.4.0
+    %endif
 
 %description daemon-driver-storage-core
 The storage driver plugin for the libvirtd daemon, providing
@@ -1087,9 +1094,6 @@ Summary: Client side libraries
 # Needed by default sasl.conf - no onerous extra deps, since
 # 100's of other things on a system already pull in krb5-libs
 Requires: cyrus-sasl-gssapi
-    %if !%{with_storage_zfs}
-Obsoletes: libvirt-daemon-driver-storage-zfs < %{version}-%{release}
-    %endif
 
 %description libs
 Shared libraries for accessing the libvirt daemon.

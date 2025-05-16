@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.8.1
+Version:	5.8.2
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
@@ -654,6 +654,12 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun May 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.2-1
+- Update to version 5.8.2
+- Use reserved uid and gid 194 for the xrootd user
+  - https://pagure.io/packaging-committee/issue/1444
+  - https://src.fedoraproject.org/rpms/setup/pull-request/27
+
 * Wed Apr 16 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.1-1
 - Update to version 5.8.1
 

@@ -1,16 +1,14 @@
 %define microversion 0.8.1
 
 Name:           guichan
-Version:        0.8.2
-Release:        33%{?dist}
+Version:        0.8.3
+Release:        1%{?dist}
 Summary:        Portable C++ GUI library for games using Allegro, SDL and OpenGL
 
 License:        BSD-3-Clause
-URL:            http://guichan.sourceforge.net
-#Source0:        http://downloads.sourceforge.net/guichan/%{name}-%{version}.tar.gz
-Source0:        http://guichan.googlecode.com/files/%{name}-%{version}.tar.gz
+URL:            https://github.com/darkbitsorg/guichan
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         guichan-0.8.1-extended-utf8-support.patch
-#Patch1:         guichan-mircoversion.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  allegro-devel, SDL-devel, SDL_image-devel, libGL-devel, libtool, automake
@@ -34,7 +32,6 @@ package is needed to build programs written using guichan.
 %prep
 %setup -q
 %patch -P0 -p1
-#%patch1 -p0
 
 
 %build
@@ -44,7 +41,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 # Removing Libtool archives and static libraries
@@ -57,14 +53,14 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README TODO
-%{_libdir}/libguichan-%{microversion}.so.1
-%{_libdir}/libguichan-%{microversion}.so.1.1.0
-%{_libdir}/libguichan_allegro-%{microversion}.so.1
-%{_libdir}/libguichan_allegro-%{microversion}.so.1.1.0
-%{_libdir}/libguichan_opengl-%{microversion}.so.1
-%{_libdir}/libguichan_opengl-%{microversion}.so.1.1.0
-%{_libdir}/libguichan_sdl-%{microversion}.so.1
-%{_libdir}/libguichan_sdl-%{microversion}.so.1.1.0
+%{_libdir}/libguichan-%{microversion}.so.2
+%{_libdir}/libguichan-%{microversion}.so.2.1.0
+%{_libdir}/libguichan_allegro-%{microversion}.so.2
+%{_libdir}/libguichan_allegro-%{microversion}.so.2.1.0
+%{_libdir}/libguichan_opengl-%{microversion}.so.2
+%{_libdir}/libguichan_opengl-%{microversion}.so.2.1.0
+%{_libdir}/libguichan_sdl-%{microversion}.so.2
+%{_libdir}/libguichan_sdl-%{microversion}.so.2.1.0
 
 %files devel
 %{_includedir}/guichan.hpp
@@ -79,6 +75,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
 %changelog
+* Wed May 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-1
+- New upstream location, 0.8.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

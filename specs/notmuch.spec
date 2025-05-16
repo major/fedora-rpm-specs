@@ -28,9 +28,13 @@ Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 # as per author's instructions on the mailing-list
 # `gpg --export --export-options export-minimal 7A18807F100A4570C59684207E4E65C8720B706B > gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg`
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
-Patch1:         0001-test-allow-to-use-full-scan.patch
-Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
-Patch3:         0003-test-use-NOTMUCH_NEW_OPTIONS-in-atomicity.py.patch
+Patch:          0001-test-allow-to-use-full-scan.patch
+Patch:          0002-test-use-NOTMUCH_NEW-consistently.patch
+Patch:          0003-test-use-NOTMUCH_NEW_OPTIONS-in-atomicity.py.patch
+Patch:          0004-test-correct-comparison-order-in-T380.patch
+Patch:          0005-test-do-not-pass-T380.1-for-the-wrong-reasons.patch
+Patch:          0006-test-reword-T380.2-to-be-clearer.patch
+Patch:          0007-test-set-up-the-outcount-for-T380.1.patch
 
 BuildRequires:  make
 %if 0%{?fedora} >= 41

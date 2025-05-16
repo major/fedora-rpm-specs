@@ -1,6 +1,6 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.sw
 %{_datadir}/icons/hicolor/scalable/apps/sweeper.svg
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

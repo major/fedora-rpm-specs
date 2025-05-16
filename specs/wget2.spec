@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -28,6 +28,9 @@ Patch0002:      0002-dont-truncate-no-clobber.patch
 # Add --show-progress as alias for --force-progress for wget1 compat
 # rhbz#2348997
 Patch0003:      0003-Add-show-progress.patch
+# Fix redirect regression
+# https://gitlab.com/gnuwget/wget2/-/issues/689
+Patch0004:      %{url}/-/commit/400713caebb51e17046c7d884e08729a27cfa505.patch#/0004-Fix-redirect-regression.patch
 
 # Buildsystem build requirements
 BuildRequires:  autoconf

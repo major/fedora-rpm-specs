@@ -38,13 +38,6 @@ Patch:          jiff-fix-metadata.diff
 Patch10:        0001-Downstream-only-Omit-doctests-that-require-hifitime.patch
 # * Downstream-only: Omit doctests that require jiff-static
 Patch11:        0001-Downstream-only-Omit-doctests-that-require-jiff-stat.patch
-# * EPEL9: Ignore doctests that require very recent Rust compilers
-# * In this crate, doctests and examples (but not the lib and integration tests)
-#   are allowed to use Rust features from versions newer than the MSRV. It’s
-#   therefore necessary to ignore some of them on EPEL9. If this patch becomes too
-#   unwieldy, we could choose to start skipping doctests and/or examples there
-#   entirely.
-Patch1009:      0001-EPEL9-Ignore-doctests-that-require-very-recent-Rust-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli
@@ -208,15 +201,7 @@ use the "tzdb-zoneinfo" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -N
-# NOTE: The -p1 in %%autosetup, above, must be replaced with -N so that we can
-# do conditional patching, below.
-%autopatch -M 999 -p1
-# We reserved patch number 1000+<N> for EPEL<N>.
-%if 0%{?el9}
-%patch -P 1009 -p1
-%endif
-
+%autosetup -n %{crate}-%{version} -p1
 # Drop dev-dependency hifitime: not packaged, and only for doctests",
 tomcli set Cargo.toml del \
     "target.'cfg(not(target_family = \"wasm\"))'.dev-dependencies.hifitime"

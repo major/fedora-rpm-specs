@@ -1,6 +1,6 @@
 Name:    kio-extras
-Version: 25.04.0
-Release: 2%{?dist}
+Version: 25.04.1
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -134,6 +134,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Wed Apr 16 2025 Jan Grulich <jgrulich@redhat.com> - 25.04.0-2
 - Rebuild (qt6)
 

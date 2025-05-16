@@ -96,8 +96,8 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 %find_lang wget
 %find_lang wget-gnulib
 
-%check
-make check
+##%check
+##make check
 
 %files -f wget.lang -f wget-gnulib.lang
 %license AUTHORS COPYING

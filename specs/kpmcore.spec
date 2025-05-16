@@ -3,15 +3,13 @@
 %global sover 13
 
 Name:           kpmcore
-Version:        25.04.0
+Version:        25.04.1
 Release:        %autorelease
 Summary:        Library for managing partitions by KDE programs
 License:        GPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0
 URL:            https://github.com/KDE/kpmcore
 Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# Backport patch to fix crash
-Patch:          458ef81f2e424f13cdea44d2d89b8260b463e34e.patch
 
 BuildRequires:  cmake >= 3.16
 BuildRequires:  extra-cmake-modules

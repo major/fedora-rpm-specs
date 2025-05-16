@@ -70,7 +70,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        7.rocm%{rocm_version}%{?dist}
+Release:        8.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -278,12 +278,16 @@ Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
 %package -n rocm-llvm
 Summary:       The ROCm LLVM
 Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
+%if 0%{?suse_version}
+Requires:      ( rocm-runtime-devel if distribution-release )
+%else
 %if %{without bootstrap}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2362780
 #  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
 #  Failed to 'dlopen' libhsa-runtime64.so
 # Leave off the version so bootstrapping doesn't have to happen every release.
 Requires:      rocm-runtime-devel
+%endif
 %endif
 
 %description -n rocm-llvm
@@ -1254,6 +1258,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Tue May 13 2025 Egbert Eich <eich@suse.com> - 19-8.rocm6.4.0
+- For SUSE address circular dependency when building in OBS.
+
 * Fri May 9 2025 Tom Rix <Tom.Rix@amd.com> - 19-7.rocm6.4.0
 - Add gfx950 to modules
 

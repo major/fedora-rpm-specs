@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.10.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -536,21 +536,26 @@ popd
 	readme_directory=%{postfix_readme_dir} &> /dev/null
 
 ALTERNATIVES_DOCS=""
-[ "%%{_excludedocs}" = 1 ] || ALTERNATIVES_DOCS='--slave %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.postfix.1.gz
-	--slave %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man1/newaliases.postfix.1.gz
-	--slave %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man1/sendmail.postfix.1.gz
-	--slave %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.postfix.5.gz
-	--slave %{_mandir}/man8/smtp.8.gz mta-smtpman %{_mandir}/man8/smtp.postfix.8.gz
-	--slave %{_mandir}/man8/smtpd.8.gz mta-smtpdman %{_mandir}/man8/smtpd.postfix.8.gz'
+[ "%%{_excludedocs}" = 1 ] || ALTERNATIVES_DOCS='--follower %{_mandir}/man1/mailq.1.gz mta-mailqman %{_mandir}/man1/mailq.postfix.1.gz
+	--follower %{_mandir}/man1/newaliases.1.gz mta-newaliasesman %{_mandir}/man1/newaliases.postfix.1.gz
+	--follower %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man1/sendmail.postfix.1.gz
+	--follower %{_mandir}/man5/aliases.5.gz mta-aliasesman %{_mandir}/man5/aliases.postfix.5.gz
+	--follower %{_mandir}/man8/smtp.8.gz mta-smtpman %{_mandir}/man8/smtp.postfix.8.gz
+	--follower %{_mandir}/man8/smtpd.8.gz mta-smtpdman %{_mandir}/man8/smtpd.postfix.8.gz'
 
-%{_sbindir}/alternatives --install %{postfix_command_dir}/sendmail mta %{postfix_command_dir}/sendmail.postfix 60 \
-	--slave %{_bindir}/mailq mta-mailq %{_bindir}/mailq.postfix \
-	--slave %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.postfix \
-	--slave %{_sysconfdir}/pam.d/smtp mta-pam %{_sysconfdir}/pam.d/smtp.postfix \
-	--slave %{_bindir}/rmail mta-rmail %{_bindir}/rmail.postfix \
-	--slave %{_prefix}/lib/sendmail mta-sendmail %{_prefix}/lib/sendmail.postfix \
+alternatives --install %{postfix_command_dir}/sendmail mta %{postfix_command_dir}/sendmail.postfix 60 \
+	--follower %{_bindir}/mailq mta-mailq %{_bindir}/mailq.postfix \
+	--follower %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.postfix \
+	--follower %{_sysconfdir}/pam.d/smtp mta-pam %{_sysconfdir}/pam.d/smtp.postfix \
+	--follower %{_bindir}/rmail mta-rmail %{_bindir}/rmail.postfix \
+	--follower %{_prefix}/lib/sendmail mta-sendmail %{_prefix}/lib/sendmail.postfix \
 	$ALTERNATIVES_DOCS \
 	--initscript postfix
+
+# Make sure that /usr/sbin/sendmail is not missing, if /usr/sbin is a
+# directory. The symlink will only be created if there is no symlink
+# or file already.
+test -h /usr/sbin || ln -s ../bin/sendmail /usr/sbin/sendmail 2>/dev/null || :
 
 %if %{with sasl}
 # Move sasl config to new location
@@ -597,7 +602,7 @@ exit 0
 %systemd_preun %{name}.service
 
 if [ "$1" = 0 ]; then
-    %{_sbindir}/alternatives --remove mta %{postfix_command_dir}/sendmail.postfix
+    alternatives --remove mta %{postfix_command_dir}/sendmail.postfix
 fi
 exit 0
 
@@ -849,6 +854,10 @@ fi
 %endif
 
 %changelog
+* Thu May 08 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:3.10.2-2
+- Make sure the /usr/sbin/sendmail symlink is created on unmerged systems
+  Resolves: rhbz#2360491
+
 * Thu Apr 24 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.2-1
 - New version
   Resolves: rhbz#2361704

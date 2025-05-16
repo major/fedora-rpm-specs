@@ -1,6 +1,6 @@
 Name:           heimdall
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Flash firmware on to Samsung Galaxy S devices
 License:        MIT
 URL:            https://git.sr.ht/~grimler/Heimdall
@@ -10,7 +10,7 @@ Source2:        %{name}.desktop
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  libusb1-devel >= 1.0.8
 BuildRequires:  zlib-devel
@@ -97,6 +97,9 @@ EOF
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed May 14 2025 LuK1337 <priv.luk@gmail.com> - 2.2.1-1
+- Update to 2.2.1
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

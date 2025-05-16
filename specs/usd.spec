@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.25.2
+%global downstream_so_version 0.25.5
 
 %bcond alembic       1
 %bcond draco         1
@@ -27,7 +27,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        25.02a
+Version:        25.05
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -130,7 +130,7 @@ Patch:          0001-Downstream-only-add-an-SONAME-version.patch
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/2266
 # See also:
 # hdEmbree: add support for building against embree4
-# https://github.com/PixarAnimationStudios/USD/pull/2266
+# https://github.com/PixarAnimationStudios/USD/pull/2313
 Patch:          %{forgeurl}/pull/2266.patch
 
 # Downstream-only: use the system double-conversion library
@@ -146,16 +146,6 @@ Patch:          0005-Downstream-only-use-the-system-libdeflate.patch
 # Downstream-only: use the system libavif library
 Patch:          0006-Downstream-only-use-the-system-libavif.patch
 
-# work: account for task_group_base interface change in oneTBB 2022.0.0
-# https://github.com/PixarAnimationStudios/OpenUSD/pull/3392
-# Merged as commit 534b22c12dc18203ab5b233792debca8bf843b2e.
-Patch:          %{forgeurl}/commit/534b22c12dc18203ab5b233792debca8bf843b2e.patch
-
-# Add missing #include <cstdint>
-# https://github.com/PixarAnimationStudios/OpenUSD/pull/3487
-# Fixes failure to compile with GCC 15
-Patch:          %{forgeurl}/pull/3487.patch
-
 # Base
 BuildRequires:  gcc-c++
 
@@ -170,7 +160,7 @@ BuildRequires:  help2man
 BuildRequires:  pkgconfig(blosc)
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  hdf5-devel
-BuildRequires:  opensubdiv-devel >= 3.6.0
+BuildRequires:  cmake(OpenSubdiv)
 BuildRequires:  pkgconfig(tbb)
 # Unbundled:
 BuildRequires:  cmake(double-conversion)
@@ -640,6 +630,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_bindir}/sdfdump
 %{_bindir}/sdffilter
 %{_bindir}/usdGenSchema
+%{_bindir}/usdInitSchema
 %{_bindir}/usdcat
 %{_bindir}/usdchecker
 %if %{with draco}
@@ -667,6 +658,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_mandir}/man1/sdfdump.1*
 %{_mandir}/man1/sdffilter.1*
 %{_mandir}/man1/usdGenSchema.1*
+%{_mandir}/man1/usdInitSchema.1*
 %{_mandir}/man1/usdcat.1*
 %{_mandir}/man1/usdchecker.1*
 %if %{with draco}

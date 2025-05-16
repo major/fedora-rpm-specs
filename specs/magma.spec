@@ -139,11 +139,6 @@ make generate
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-
 %if %{with test}
 %check
 # Results should be something like
@@ -169,12 +164,16 @@ find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.deve
 %{_vpath_builddir}/testing/testing_sgemm
 %endif
 
-%files -f %{name}.files
+%files
 %license COPYRIGHT
+%{_libdir}/libmagma.so.2{,.*}
+%{_libdir}/libmagma_sparse.so.2{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %{_includedir}/*.h
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/libmagma.so
+%{_libdir}/libmagma_sparse.so
 
 %changelog
 %autochangelog

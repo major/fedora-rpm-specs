@@ -1,6 +1,6 @@
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 
 License: LGPL-2.0-only AND LGPL-3.0-only
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

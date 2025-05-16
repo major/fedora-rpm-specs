@@ -1,6 +1,6 @@
 Name:           ballz
 Version:        1.0.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        B.A.L.L.Z. - platform/puzzle game where you control a rolling ball
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -52,6 +52,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed May 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0.4-16
+- guichan rebuild.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

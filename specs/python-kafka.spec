@@ -6,7 +6,7 @@
 %global with_doc 1
 
 Name:             python-%{mod_name}
-Version:          2.1.5
+Version:          2.2.6
 Release:          1%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
@@ -81,12 +81,12 @@ install -pm 755 kafka/record/_crc32c.py %{buildroot}/%{python3_sitelib}/%{mod_na
 # Uses the py3_shebang_fix macro manually because pyproject_install macro
 # doesn't automatically changes the Python shebangs.
 %py3_shebang_fix %{buildroot}/%{python3_sitelib}/%{mod_name}/record/_crc32c.py
-%pyproject_save_files %{mod_name}
+%pyproject_save_files '*' +auto
 
 # Ignores integrational tests requiring network access and tests requiring
 # crc32c that is required only for the test and is not packaged in Fedora.
 %check
-%pytest --ignore="test/test_consumer_integration.py" --ignore="test/record/test_util.py" test
+%pytest --ignore="test/record/test_util.py" test
 
 %files -n python3-%{mod_name} -f %{pyproject_files}
 %doc AUTHORS.md CHANGES.md README.rst
@@ -122,6 +122,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Wed May 14 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.2.6-1
+- update to 2.2.6 (rhbz#2362805)
+
 * Wed Apr 09 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.1.5-1
 - update to 2.1.5 (rhbz#2357574)
 

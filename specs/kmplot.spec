@@ -2,7 +2,7 @@
 
 Name:    kmplot
 Summary: Mathematical Function Plotter 
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

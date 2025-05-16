@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ibireme/yyjson
-Version:        0.10.0
+Version:        0.11.1
 %global tag %{version}
 %forgemeta
 
@@ -47,7 +47,6 @@ sed -i '/-Werror/d' CMakeLists.txt
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DYYJSON_BUILD_TESTS=ON \
 
 %cmake_build

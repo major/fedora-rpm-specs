@@ -5,7 +5,7 @@
 %bcond compat 0
 
 Name:           mpdecimal
-Version:        4.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Library for general decimal arithmetic
 License:        BSD-2-Clause

@@ -12,10 +12,6 @@ Summary:        ZeroFrom trait for constructing
 License:        Unicode-3.0
 URL:            https://crates.io/crates/zerofrom
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Loosen the MSRV to 1.79 for EPEL9. The MSRV is inherited from the ICU4X
-#   workspace, and nothing in this crate currently requires a later Rust.
-Patch:          zerofrom-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

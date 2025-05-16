@@ -8,7 +8,7 @@
 #global external_lilypond_fonts 1
 
 Name:    calligra 
-Version: 25.04.0
+Version: 25.04.1
 Release: 1%{?dist}
 Summary: An integrated office suite
 
@@ -512,6 +512,9 @@ done
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Sat Apr 12 2025 Steve Cossette <farchord@gmail.com> - 25.04.0-1
 - 25.04.0
 

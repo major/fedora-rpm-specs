@@ -1,9 +1,9 @@
 # build Python plugins (disabled by default due to #2048781)
-%bcond_with python
+%bcond python 0
 
 Name:           falkon
-Version:        25.04.0
-Release:        3%{?dist}
+Version:        25.04.1
+Release:        1%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -17,9 +17,6 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 Patch0:         falkon-3.1.0-native-scrollbars.patch
 
 ## upstream patches
-# upstream fix for crash when creating bookmarks toolbar on startup (#2361191)
-# will be in 25.04.1
-Patch100:       falkon-25.04.0-fix-crash-rh2361191.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -50,7 +47,7 @@ BuildRequires:  cmake(KF6Archive)
 BuildRequires:  openssl-devel
 BuildRequires:  xcb-util-devel
 
-%if 0%{?with_python}
+%if %{with python}
 BuildRequires:  python3-devel
 BuildRequires:  cmake(PySide6)
 BuildRequires:  cmake(Shiboken6)
@@ -112,7 +109,7 @@ lightweight and fast and offers advanced functions such as
 %prep
 %autosetup -p1
 
-%if 0%{?with_python}
+%if %{with python}
 # delete falkon_hellopython and falkon_helloqml translations, those plugins are
 # not shipped
 rm -f po/*/falkon_hello*.po
@@ -124,7 +121,11 @@ rm -rf po
 
 
 %build
+%if %{with python}
 %cmake_kf6
+%else
+%cmake_kf6 -DBUILD_PYTHON_SUPPORT=OFF
+%endif
 %cmake_build
 
 
@@ -133,7 +134,7 @@ rm -rf po
 
 # translations (find_lang_kf6 does not support --all-name, so adapt it)
 find %{buildroot}/%{_datadir}/locale/ -name "*.qm" -type f | sed 's:%{buildroot}/::;s:%{_datadir}/locale/\([a-zA-Z_\@]*\)/LC_MESSAGES/\([^/]*\.qm\):%lang(\1) %{_datadir}/locale/\1/LC_MESSAGES/\2:' >%{name}.lang
-%if 0%{?with_python}
+%if 0%{with python}
 find %{buildroot}/%{_datadir}/locale/ -name "*.mo" -type f | sed 's:%{buildroot}/::;s:%{_datadir}/locale/\([a-zA-Z_\@]*\)/LC_MESSAGES/\([^/]*\.mo\):%lang(\1) %{_datadir}/locale/\1/LC_MESSAGES/\2:' >>%{name}.lang
 %endif
 
@@ -146,8 +147,6 @@ desktop-file-install \
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.falkon.appdata.xml
 
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %doc README.md CHANGELOG
@@ -163,7 +162,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 %{_kf6_qtplugindir}/falkon/StatusBarIcons.so
 %{_kf6_qtplugindir}/falkon/TabManager.so
 %{_kf6_qtplugindir}/falkon/VerticalTabs.so
-%if 0%{?with_python}
+%if %{with python}
 %{_kf6_qtplugindir}/falkon/i18n.py
 %{_kf6_qtplugindir}/falkon/middleclickloader/
 %{_kf6_qtplugindir}/falkon/runaction/
@@ -182,6 +181,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
+- 25.04.1
+
 * Mon Apr 21 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 25.04.0-3
 - Upstream fix for crash when creating bookmarks toolbar on startup (#2361191)
 

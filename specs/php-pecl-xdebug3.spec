@@ -11,12 +11,14 @@
 
 %bcond_without     tests
 
+%global pie_vend   xdebug
+%global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  082c5dbafbe9cfd1b7c7cdee7935ad5c0eccf7e2
+%global gh_commit  f2121978d70a21aab8c91d38484caeee66f85525
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.2
+%global upstream_version 3.4.3
 #global upstream_prever  beta1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -47,17 +49,17 @@ BuildRequires:  pkgconfig(zlib) >= 1.2.9
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
-Provides:       php-%{pecl_name}              = %{version}
-Provides:       php-%{pecl_name}%{?_isa}      = %{version}
-Provides:       php-pecl(Xdebug)              = %{version}
-Provides:       php-pecl(Xdebug)%{?_isa}      = %{version}
-Provides:       php-pie(xdebug/xdebug)        = %{version}
-Provides:       php-xdebug-xdebug             = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pecl(Xdebug)                 = %{version}
+Provides:       php-pecl(Xdebug)%{?_isa}         = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 # package was renamed on new major version
-Obsoletes:      php-pecl-%{pecl_name}         < 3
-Provides:       php-pecl-%{pecl_name}         = %{version}-%{release}
-Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+Obsoletes:      php-pecl-%{pecl_name}            < 3
+Provides:       php-pecl-%{pecl_name}            = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
 
 
 %description
@@ -202,6 +204,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Wed May 14 2025 Remi Collet <remi@remirepo.net> - 3.4.3-1
+- update to 3.4.3
+
 * Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 3.4.2-1
 - update to 3.4.2
 
