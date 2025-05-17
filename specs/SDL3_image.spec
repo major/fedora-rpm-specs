@@ -100,6 +100,9 @@ applications that use %{name}.
 %install
 %cmake_install
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2355928
+mv %{buildroot}%{_bindir}/showimage{,3}
+
 %check
 %ctest
 
@@ -111,7 +114,7 @@ applications that use %{name}.
 
 %files devel
 %{_bindir}/showanim
-%{_bindir}/showimage
+%{_bindir}/showimage3
 %{_libdir}/lib%{name}.so
 %{_includedir}/%{name}/
 %{_libdir}/cmake/%{name}/

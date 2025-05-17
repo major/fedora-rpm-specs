@@ -2,7 +2,7 @@
 
 Name:           yaml-cpp
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        MIT
 Summary:        A YAML parser and emitter for C++
@@ -11,10 +11,12 @@ Source0:        https://github.com/jbeder/yaml-cpp/archive/%{version}/%{name}-%{
 
 Patch0:         yaml-cpp-include.patch
 
+# Allow CMake 4.0 build
+Patch1:         https://github.com/jbeder/yaml-cpp/pull/1211.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  make
 
 %description
 yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
@@ -39,26 +41,34 @@ The %{name}-static package contains the static library for %{name}.
 %autosetup -p1
 
 %build
-%cmake -B build_static \
+# Define separate build directories for static and shared
+%global _vpath_builddir %{_target_platform}-${variant}
+
+variant=static
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DYAML_CPP_BUILD_TOOLS:BOOL=OFF \
     -DYAML_CPP_FORMAT_SOURCE:BOOL=OFF \
     -DYAML_CPP_INSTALL:BOOL=ON \
     -DYAML_BUILD_SHARED_LIBS:BOOL=OFF \
     -DYAML_CPP_BUILD_TESTS:BOOL=OFF
-%make_build -C build_static
 
-%cmake -B build_shared \
+variant=shared
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DYAML_CPP_BUILD_TOOLS:BOOL=OFF \
     -DYAML_CPP_FORMAT_SOURCE:BOOL=OFF \
     -DYAML_CPP_INSTALL:BOOL=ON \
     -DYAML_BUILD_SHARED_LIBS:BOOL=ON \
     -DYAML_CPP_BUILD_TESTS:BOOL=OFF
-%make_build -C build_shared
+
+for variant in static shared; do
+  %cmake_build
+done
 
 %install
-%make_install -C build_static yaml-cpp
+variant=static
+%cmake_install
 
 # Move files so they don't get trampled
 mv %{buildroot}%{_libdir}/cmake/%{name} \
@@ -66,7 +76,8 @@ mv %{buildroot}%{_libdir}/cmake/%{name} \
 mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig/%{name}-static.pc
 
-%make_install -C build_shared
+variant=shared
+%cmake_install
 
 %files
 %doc CONTRIBUTING.md README.md
@@ -86,6 +97,9 @@ mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
 %{_libdir}/pkgconfig/%{name}-static.pc
 
 %changelog
+* Thu May 15 2025 Cristian Le <git@lecris.dev> - 0.8.0-3
+- Allow to build with CMake 4.0 and Ninja generator
+
 * Sun Jan 26 2025 Richard Shaw <hobbes1069@gmail.com> - 0.8.0-2
 - Added patch for FTBFS, BZ#2341591.
 

@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.4.0
+%global package_version 1.4.1
 
 %global gocryptfs_version 2.5.1
 %global squashfuse_version 0.6.0
@@ -44,7 +44,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -483,6 +483,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Thu May 15 2025 Dave Dykstra <dwd@cern.ch> - 1.4.1
+- Update to upstream 1.4.1
+
 * Wed Mar 19 2025 Dave Dykstra <dwd@cern.ch> - 1.4.0
 - Update to upstream 1.4.0
 

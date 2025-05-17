@@ -7,6 +7,7 @@ Summary(fr):    Une bibliothèque multimédia multi-plateforme
 License:        Zlib
 URL:            http://www.glfw.org/index.html
 Source0:        https://github.com/glfw/glfw/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %{name}-doxygen.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -21,7 +22,7 @@ BuildRequires:  pkgconfig(xrandr)
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  libxkbcommon-devel
-BuildRequires:  vulkan-devel
+BuildRequires:  vulkan-loader-devel
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 
@@ -70,7 +71,7 @@ with %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 find . -type f | xargs sed -i 's/\r//'
 
 %build

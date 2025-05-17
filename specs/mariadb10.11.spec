@@ -541,6 +541,8 @@ Requires:         systemd
 %{?systemd_requires}
 # RHBZ#1496131; use 'iproute' instead of 'net-tools'
 Requires:         iproute
+# The 'wsrep_sst_common' and 'wsrep_sst_rsync_tunnel' calls 'which' utility
+%{?with_galera:Requires: which}
 
 %{?with_conflicts_mysql:Conflicts: mysql-server}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}

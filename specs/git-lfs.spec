@@ -34,7 +34,8 @@ Patch1:         5998.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify >= 2
+# GPGverify 2 supports clearsigned files.
 
 BuildRequires:  golang(github.com/dpotapov/go-spnego)
 BuildRequires:  golang(github.com/git-lfs/gitobj/v2) >= 2.1.1
@@ -81,50 +82,12 @@ storing the file contents on a remote server.
 
 %prep
 tar xf %{SOURCE2}
-keyring="$(ls git-lfs-git-lfs-*/keys.asc)"
-
-#
-# Replicate gpgverify, because it requires detached signatures.
-#
-
-fatal_error() {
-    message="$1"  # an error message
-    status=$2     # a number to use as the exit code
-    echo "gpgverify: $message" >&2
-    exit $status
-}
-
-check_status() {
-    action="$1"  # a string that describes the action that was attempted
-    status=$2    # the exit code of the command
-    if test $status -ne 0 ; then
-        fatal_error "$action failed." $status
-    fi
-}
-
-# Make a temporary working directory.
-workdir="$(mktemp --directory)"
-check_status 'Making a temporary directory' $?
-workring="${workdir}/keyring.gpg"
-
-# Decode any ASCII armor on the keyring. This is harmless if the keyring isn't
-# ASCII-armored.
-gpg2 --homedir="${workdir}" --yes --output="${workring}" --dearmor "${keyring}"
-check_status 'Decoding the keyring' $?
-
-# Verify the signature using the decoded keyring.
-gpgv2 --homedir="${workdir}" --keyring="${workring}" "%{SOURCE1}"
-check_status 'Signature verification' $?
-
-# Clean up. (This is not done in case of an error that may need inspection.)
-rm --recursive --force ${workdir}
-
-#
-# END gpgverify.
-#
-
+%{gpgverify} --keyrings git-lfs-git-lfs-*/keys.asc --data='%{SOURCE1}' \
+             --output=trusted_checksums
+# Remember that a clearsigned file can contain surrounding unsigned text. Only
+# the verified text in trusted_checksums can be trusted.
 cd %{_sourcedir}
-sha256sum --check --ignore-missing %{SOURCE1}
+sha256sum --check --ignore-missing --strict '%{builddir}/trusted_checksums'
 
 %goprep
 cp -p %SOURCE3 .

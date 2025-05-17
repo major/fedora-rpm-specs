@@ -2,7 +2,7 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.4.4
+%global package_version 8.4.5
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.4.4
+%global last_tested_version 8.4.5
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -113,7 +113,6 @@ URL:              http://www.mysql.com
 License:          GPL-2.0-or-later AND LGPL-2.1-only AND BSL-1.0 AND BSD-2-Clause
 
 Source0:          https://cdn.mysql.com/Downloads/MySQL-8.4/mysql-%{version}.tar.gz
-Source2:          mysql_config_multilib.sh
 Source3:          my.cnf.in
 Source6:          README.mysql-docs
 Source7:          README.mysql-license
@@ -183,7 +182,6 @@ BuildRequires:    rpcgen
 BuildRequires:    libtirpc-devel
 BuildRequires:    protobuf-lite-devel
 BuildRequires:    zlib-devel
-BuildRequires:    multilib-rpm-config
 # Tests requires time and ps and some perl modules
 BuildRequires:    procps
 BuildRequires:    time
@@ -535,7 +533,7 @@ cat %{SOURCE53} | tee -a mysql-test/%{skiplist}
 
 
 
-cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
+cp %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
    %{SOURCE14} %{SOURCE15} %{SOURCE17} %{SOURCE18} %{SOURCE31} scripts
 
 %build
@@ -622,13 +620,6 @@ cmake -B %{_vpath_builddir} -LAH
 %install
 %cmake_install
 
-# multilib support for shell scripts
-# we only apply this to known Red Hat multilib arches, per bug #181335
-if %multilib_capable; then
-mv %{buildroot}%{_bindir}/mysql_config %{buildroot}%{_bindir}/mysql_config-%{__isa_bits}
-install -p -m 0755 %{_vpath_builddir}/scripts/mysql_config_multilib %{buildroot}%{_bindir}/mysql_config
-fi
-
 # install INFO_SRC, INFO_BIN into libdir (upstream thinks these are doc files,
 # but that's pretty wacko --- see also %%{name}-file-contents.patch)
 install -p -m 0644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/mysql/
@@ -702,7 +693,7 @@ rm -r %{buildroot}%{_sysconfdir}/ld.so.conf.d
 %endif
 
 %if ! %{with devel}
-rm %{buildroot}%{_bindir}/mysql_config*
+rm %{buildroot}%{_bindir}/mysql_config
 rm -r %{buildroot}%{_includedir}/mysql
 rm %{buildroot}%{_datadir}/aclocal/mysql.m4
 rm %{buildroot}%{_libdir}/pkgconfig/mysqlclient.pc
@@ -712,11 +703,11 @@ rm %{buildroot}%{_mandir}/man1/mysql_config.1*
 
 %if ! %{with client}
 rm %{buildroot}%{_bindir}/{mysql,mysql_config_editor,\
-mysql_plugin,mysqladmin,mysqlbinlog,\
-mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap,my_print_defaults}
+mysqladmin,mysqlbinlog,\
+mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}
 rm %{buildroot}%{_mandir}/man1/{mysql,mysql_config_editor,\
-mysql_plugin,mysqladmin,mysqlbinlog,\
-mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap,my_print_defaults}.1*
+mysqladmin,mysqlbinlog,\
+mysqlcheck,mysqldump,mysqlimport,mysqlshow,mysqlslap}.1*
 %endif
 
 %if %{with config}
@@ -986,8 +977,7 @@ fi
 
 %if %{with devel}
 %files -n %{pkgname}-devel
-%{_bindir}/mysql_config*
-%exclude %{_bindir}/mysql_config_editor
+%{_bindir}/mysql_config
 %{_includedir}/mysql
 %{_datadir}/aclocal/mysql.m4
 %dir %{_libdir}/mysql
@@ -1117,6 +1107,9 @@ fi
 %endif
 
 %changelog
+* Mon Apr 28 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.5-1
+- Rebase to 8.4.5
+
 * Wed Apr 09 2025 Michal Schorm <mschorm@redhat.com> - 8.4.4-1
 - Rebase to 8.4.0
 

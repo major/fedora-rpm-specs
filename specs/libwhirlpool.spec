@@ -5,7 +5,7 @@ Name:		libwhirlpool
 Version:	1.1
 Release:	9%{?dist}
 
-License:	Public Domain
+License:	Unlicense-libwhirlpool
 URL:		https://github.com/dfateyev/libwhirlpool
 
 Source0:	https://github.com/dfateyev/libwhirlpool/archive/v%{version}.tar.gz

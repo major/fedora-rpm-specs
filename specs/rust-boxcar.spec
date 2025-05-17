@@ -5,7 +5,7 @@
 %global crate boxcar
 
 Name:           rust-boxcar
-Version:        0.2.11
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Concurrent, append-only vector
 
@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          boxcar-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * Do not depend on criterion; it is needed only for benchmarks.
 # * Exclude benchmarks, since bench.rs carries its own MIT license and this
 #   complicates packaging. We suggested this upstream in
 #   https://github.com/ibraheemdev/boxcar/pull/8, which was merged, but upstream
@@ -24,7 +25,6 @@ Patch:          boxcar-fix-metadata-auto.diff
 Patch:          boxcar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 A concurrent, append-only vector.}
@@ -60,8 +60,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on criterion; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.criterion
 
 %generate_buildrequires
 %cargo_generate_buildrequires

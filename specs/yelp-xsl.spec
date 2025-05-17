@@ -2,13 +2,15 @@
 
 Name:           yelp-xsl
 Version:        42.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        XSL stylesheets for the yelp help browser
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-3-Clause
 URL:            https://download.gnome.org/sources/yelp-xsl
 Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
 BuildArch:      noarch
+
+Patch0:         yelp-xsl-CVE-2025-3155.patch
 
 BuildRequires:  gcc
 BuildRequires:  itstool
@@ -54,6 +56,9 @@ XSL stylesheets in yelp-xsl.
 
 
 %changelog
+* Thu May 15 2025 Jan Grulich <jgrulich@redhat.com> - 42.1-7
+- Fix CVE-2025-3155 - arbitrary file-read
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

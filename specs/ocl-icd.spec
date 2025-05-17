@@ -1,20 +1,20 @@
 Name:           ocl-icd
-Version:        2.3.2
+Version:        2.3.3
 Release:        %autorelease
 Summary:        OpenCL Library (Installable Client Library) Bindings
-
 License:        BSD-2-Clause
 URL:            https://github.com/OCL-dev/%{name}/
+
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc
+BuildRequires:  asciidoc
 BuildRequires:  automake
 BuildRequires:  autoconf
-BuildRequires:  make
+BuildRequires:  gcc
 BuildRequires:  libtool
+BuildRequires:  make
 BuildRequires:  opencl-headers
 BuildRequires:  ruby rubygems
-BuildRequires:  asciidoc
 BuildRequires:  xmlto
 
 %description
@@ -38,19 +38,18 @@ autoreconf -vfi
 
 %install
 %make_install
-rm -vf %{buildroot}%{_libdir}/*.la
 rm -vrf %{buildroot}%{_defaultdocdir}
 
 %check
 make check
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING
 %doc NEWS README
-%{_libdir}/libOpenCL.so.*
-%{_mandir}/man7/libOpenCL*.7.*
+%{_libdir}/libOpenCL.so.1
+%{_libdir}/libOpenCL.so.1.0.0
+%{_mandir}/man7/libOpenCL.7*
+%{_mandir}/man7/libOpenCL.so.7*
 
 %files devel
 %doc ocl_icd_loader_gen.map ocl_icd_bindings.c

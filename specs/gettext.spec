@@ -7,7 +7,7 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.24
+Version: 0.25
 Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
@@ -404,7 +404,7 @@ make check LIBUNISTRING=-lunistring
 %{_datadir}/%{name}/config.rpath
 %{_datadir}/%{name}/*.h
 %{_datadir}/%{name}/msgunfmt.tcl
-%{_datadir}/aclocal/*
+%{_datadir}/%{name}/m4/*
 %{_includedir}/autosprintf.h
 %{_includedir}/gettext-po.h
 %{_infodir}/autosprintf*
@@ -451,6 +451,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Mon May 12 2025 Manish Tiwari <matiwari@redhat.com> - 0.25-1
+- update to 0.25 release
+- https://savannah.gnu.org/news/?id=10769
+
 * Thu Feb 27 2025 Manish Tiwari <matiwari@redhat.com> - 0.24-1
 - update to 0.24 release
 - https://savannah.gnu.org/news/?id=10730

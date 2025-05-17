@@ -16,7 +16,7 @@
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
 Version:        7.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 # Don't rebuild libxc for pylibxc
@@ -98,6 +98,10 @@ mv %{buildroot}%{_libdir}/pylibxc %{buildroot}%{python3_sitearch}
 # Remove bibtex bibliography placed in an odd location
 rm -f %{buildroot}%{_includedir}/libxc.bib
 
+# Patch the location of the moved files (BZ #2365328)
+sed -i 's|${_IMPORT_PREFIX}/include/|%{_libdir}/gfortran/modules|g' %{buildroot}%{_libdir}/cmake/Libxc/LibxcTargets-Fortran.cmake
+sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g' %{buildroot}%{_libdir}/pkgconfig/libxcf03.pc
+
 %ldconfig_scriptlets
 
 # Run tests, don't parallellize them
@@ -124,6 +128,9 @@ rm -f %{buildroot}%{_includedir}/libxc.bib
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Wed May 14 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 7.0.0-4
+- Fix BZ#2365328.
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

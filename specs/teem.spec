@@ -1,3 +1,5 @@
+%bcond levmar %{defined fedora} || %{defined el8}
+
 Name:           teem
 Version:        1.11.0
 %global so_version 1
@@ -168,7 +170,9 @@ BuildRequires:  zlib-devel
 BuildRequires:  libpng-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  fftw-devel
+%if %{with levmar}
 BuildRequires:  levmar-devel
+%endif
 
 %global common_description %{expand:
 What Is Teem?
@@ -271,7 +275,7 @@ rm -rvf python
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DTeem_USE_LIB_INSTALL_SUBDIR=ON \
     -DTeem_FFTW3=ON \
-    -DTeem_LEVMAR=ON
+    -DTeem_LEVMAR=%{?with_levmar:ON}%{?!with_levmar:OFF}
 
 
 %build
@@ -309,11 +313,10 @@ install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
 
 
 %check
-# We must exclude probeSS_ctmr04 and probeSS_ctmr10 on certain architectures
-# due to overly-strict rounding requirements.
-%ifarch %{arm64} %{power64} s390x
+# Tests probeSS_ctmr04 and probeSS_ctmr10 have overly-strict rounding
+# requirements; they fail on certain architectures, and the details may differ
+# in e.g. EPEL branches. We find it best to skip them unconditionally.
 %global ctest_excludes --exclude-regex '^(probeSS_ctmr(04|10))$'
-%endif
 
 # Tests are not parallel-safe
 %global _smp_mflags -j1

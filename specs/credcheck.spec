@@ -43,7 +43,7 @@ BuildRequires: cracklib-devel cracklib-dicts
 #(12.0 when the Password Reuse Policy feature is used) is automatically
 #satisfied and there is no need to specify the lowest version of
 #postgresql-server in the Requires macro
-Requires: postgresql-server-any
+Requires: postgresql-server
 %if %{with cracklib}
 Requires: cracklib-dicts
 %if 0%{?with_selinux}

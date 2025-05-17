@@ -40,7 +40,6 @@ Summary:        %{summary}
 # the licenses of statically linked rust dependencies, based on the output of
 # %%{cargo_license_summary}:
 #
-# Apache-2.0 OR MIT
 # CC0-1.0
 # ISC
 # MIT

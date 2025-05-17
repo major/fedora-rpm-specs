@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc6.250514g9f35e33144ae.51
+%define pkgrelease 0.rc6.250515g088d13246a46.54
 %define kversion 6
-%define tarfile_release 6.15-rc6-52-g9f35e33144ae
+%define tarfile_release 6.15-rc6-105-g088d13246a46
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.250514g9f35e33144ae.51%{?buildid}%{?dist}
+%define specrelease 0.rc6.250515g088d13246a46.54%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,7 +4259,15 @@ fi\
 #
 #
 %changelog
-* Wed May 14 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc6.250514g9f35e33144ae.51]
+* Thu May 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.088d13246a46.54]
+- Revert "kbuild: Require pahole <v1.28 or >v1.29 with GENDWARFKSYMS on X86" (Justin M. Forbes)
+- Revert CONFIG_GENKSYMS for x86 (Justin M. Forbes)
+
+* Thu May 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.088d13246a46.53]
+- Flip GENKSYMS for RHEL (Justin M. Forbes)
+- Linux v6.15.0-0.rc6.088d13246a46
+
+* Thu May 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.9f35e33144ae.52]
 - Move MITIGATION_ITS to the x86 directory (Justin M. Forbes)
 - Set MITIGATION_ITS for Fedora (Justin M. Forbes)
 - Fedora: arm: Updates for QCom devices (Souradeep Chowdhury)

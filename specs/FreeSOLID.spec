@@ -1,27 +1,14 @@
 Name:           FreeSOLID
-Version:        2.1.1
-Release:        51%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 Summary:        3D collision detection C++ library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://sourceforge.net/projects/freesolid/
-Source0:        http://sourceforge.net/projects/freesolid/files/FreeSOLID/FreeSOLID-2.1.1.zip/FreeSOLID-2.1.1.zip
-# https://sourceforge.net/tracker/?func=detail&aid=3484912&group_id=65180&atid=510061
-Patch0:         %{name}-%{version}-src.patch
-# https://sourceforge.net/tracker/?func=detail&aid=3484910&group_id=65180&atid=510061
-Patch1:         %{name}-%{version}-headers.patch
-# https://sourceforge.net/tracker/?func=detail&aid=3484908&group_id=65180&atid=510061
-Patch2:         %{name}-%{version}-endpoint.patch
+Source0:        https://sourceforge.net/projects/freesolid/files/%{name}-%{version}.zip
 # https://sourceforge.net/tracker/?func=detail&aid=3484907&group_id=65180&atid=510061
-Patch3:         %{name}-%{version}-autotools.patch
-# https://sourceforge.net/tracker/?func=detail&aid=3484909&group_id=65180&atid=510061
-Patch4:         %{name}-%{version}-fsf-fix.patch
-# https://sourceforge.net/tracker/?func=detail&aid=3484911&group_id=65180&atid=510061
-Patch5:         %{name}-%{version}-pkgconfig.patch
-# https://sourceforge.net/tracker/?func=detail&aid=3509457&group_id=65180&atid=510059
-Patch6:         %{name}-%{version}-configure.patch
-Patch7:         %{name}-%{version}-freesolid-config.patch
-Patch8:         %{name}-%{version}-Makefile.am-update.patch
+Patch0:         %{name}-%{version}-autotools.patch
+Patch1:         %{name}-%{version}-pkgconfig.patch
+Patch2:         %{name}-%{version}-Makefile.am-update.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  autoconf
@@ -53,19 +40,11 @@ Libraries and header files for developing applications that use %{name}.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-#%%patch6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
 mv configure.in configure.ac
 autoupdate
 
-%if 0%{?fedora} > 24
 # check for libqhull/qhull_a.h instead of qhull/qhull_a.h
 sed -i -e 's,qhull/qhull_a.h,libqhull/qhull_a.h,' configure*
-%endif
 
 mkdir m4
 rm acinclude.m4 aclocal.m4
@@ -76,7 +55,7 @@ chmod 755 configure
 %build
 autoreconf -fvi
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -99,6 +78,9 @@ rm -rf sample/*.o sample/.libs $(find sample -type f -a -executable)
 %{_includedir}/*
 
 %changelog
+* Wed May 14 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.1.2-1
+- Update to 2.1.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

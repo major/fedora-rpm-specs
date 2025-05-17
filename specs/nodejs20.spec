@@ -48,7 +48,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 19
-%global nodejs_patch 1
+%global nodejs_patch 2
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -78,7 +78,7 @@
 %global c_ares_version 1.34.5
 
 # llhttp - from deps/llhttp/include/llhttp.h
-%global llhttp_version 8.1.2
+%global llhttp_version 9.2.1
 
 # libuv - from deps/uv/include/uv/version.h
 %global libuv_version 1.46.0

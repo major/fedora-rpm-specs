@@ -1,9 +1,9 @@
-%global	majorver	3.13.3
+%global	majorver	3.13.4
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	3
+%global	baserelease	1
 
 %global	gem_name	rspec-expectations
 
@@ -23,9 +23,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
-# https://github.com/rspec/rspec/pull/164
-# Support ruby34 Hash#inspect syntax
-Patch0:	rubygem-rspec-expectations-pr164-ruby34-hash-syntax.patch
+# Workaround tests wrt diff/lcs diff format
+# Partially revert 3.13.3 -> 3.13.4 change
+Patch0:	rubygem-rspec-expectations-3.13.4-diff_spec-format-revert.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -57,7 +57,8 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
-%patch -P0 -p2
+
+%patch -P0 -p1
 
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -113,6 +114,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Thu May 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.4-1
+- 3.13.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

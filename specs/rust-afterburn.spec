@@ -6,8 +6,8 @@
 %global crate afterburn
 
 Name:           rust-afterburn
-Version:        5.7.0
-Release:        4%{?dist}
+Version:        5.8.2
+Release:        1%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -18,8 +18,6 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 
 # build(deps): bump mailparse from 0.15.0 to 0.16.1
 # (Only the Cargo.toml portion, not the Cargo.lock portion)
-# Allows (but does not require) mailparse 0.16.
-Patch:          afterburn-5.7.0-mailparse.0.16.patch
 
 ExcludeArch:    %{ix86}
 
@@ -161,6 +159,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Thu May 15 2025 Packit <hello@packit.dev> - 5.8.2-1
+- New upstream release
+
 * Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.7.0-4
 - Allow mailparse 0.16
 

@@ -4,7 +4,7 @@
 %global         adw_version 1.4.0
 
 Name:           dialect
-Version:        2.4.2
+Version:        2.5.0
 Release:        %autorelease
 Summary:        A translation app for GNOME based on Google Translate
 
@@ -25,6 +25,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  gstreamer1-devel
 BuildRequires:  gtk4-devel
 BuildRequires:  libadwaita-devel >= %{adw_version}
+BuildRequires:  libsecret-devel
 BuildRequires:  libsoup3-devel
 BuildRequires:  blueprint-compiler
 BuildRequires:  python3-devel
@@ -34,6 +35,7 @@ Requires:       hicolor-icon-theme
 Requires:       gstreamer1-plugins-base
 Requires:       gtk4
 Requires:       libadwaita >= %{adw_version}
+Requires:       libsecret
 Requires:       libsoup3
 Requires:       python3-gobject
 Requires:       python3-dbus

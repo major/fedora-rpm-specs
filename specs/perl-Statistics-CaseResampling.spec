@@ -1,6 +1,6 @@
 Name:           perl-Statistics-CaseResampling
 Version:        0.15
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Resampling and calculation of medians with confidence intervals
 # Mersenne Twister is somewhat bundled, CPAN RT#85284
 # _mt.c, mt.h:  BSD-3-Clause (license text copied in mt19937ar.license,
@@ -16,6 +16,9 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-Ca
 # An excerpt from
 # <http://www.math.sci.hiroshima-u.ac.jp/m-mat/MT/MT2002/CODES/mt19937ar.c>.
 Source1:        mt19937ar.license
+# Fix building with ExtUtils::ParseXS ≥ 3.57, bug #2366487, CPAN RT#157217,
+# proposed to upstream
+Patch0:         Statistics-CaseResampling-0.15-Fix-variadic-XSUB.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -56,7 +59,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Statistics-CaseResampling-%{version}
+%autosetup -p1 -n Statistics-CaseResampling-%{version}
 install -m 0644 %{SOURCE1} mt19937ar.license
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -98,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 15 2025 Petr Pisar <ppisar@redhat.com> - 0.15-38
+- Fix building with ExtUtils::ParseXS ≥ 3.57 (bug #2366487)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

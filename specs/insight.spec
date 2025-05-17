@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -34,8 +34,8 @@ Provides:	bundled(libiberty) = %{snap}
 Provides:	bundled(md5-gcc) = %{snap}
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	tcl-devel
-BuildRequires:	tk-devel
+BuildRequires:	tcl8-devel
+BuildRequires:	tk8-devel
 BuildRequires:	iwidgets
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel >= 6.0
@@ -334,6 +334,10 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+
+* Thu May 15 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-22
+- Use Tcl/Tk version 8.
+  BZ #2337719 & 2366460.
 
 * Tue Jan 21 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-21
 - Patch "bool" to rename a variable conflicting with a reserved word.

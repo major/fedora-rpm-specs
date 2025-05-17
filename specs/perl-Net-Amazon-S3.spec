@@ -1,6 +1,6 @@
 Name:       perl-Net-Amazon-S3
 Version:    0.991
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Use the Amazon Simple Storage Service (S3)
 # README.md reports the code is derived from an ADSL-licensed code.
 License:    (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ADSL
@@ -11,6 +11,9 @@ Patch0:     Net-Amazon-S3-0.86-Normalize-shellbang.patch
 # Fix a content type check in multi-part upload, in upstream after 0.991,
 # <https://github.com/rustyconover/net-amazon-s3/issues/124>
 Patch1:     Net-Amazon-S3-0.991-Fix-initiate_multipart_upload-content-type-check.patch
+# Fix a Net::Amazon::S3::Request::Role::HTTP::Header role constructor, in upstream
+# after 0.991, <https://github.com/rustyconover/net-amazon-s3/pull/130>
+Patch2:     Net-Amazon-S3-0.991-Fix-precedence-error-vs.patch
 BuildArch:  noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -195,6 +198,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 15 2025 Petr Pisar <ppisar@redhat.com> - 0.991-10
+- Fix a Net::Amazon::S3::Request::Role::HTTP::Header role constructor
+  (upstream GH#130)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

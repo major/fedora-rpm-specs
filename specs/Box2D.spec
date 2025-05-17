@@ -1,7 +1,6 @@
-%global __cmake_in_source_build 1
 Name: Box2D
 Version:  2.4.2
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary: A 2D Physics Engine for Games
 
 License: Zlib
@@ -10,7 +9,6 @@ Source0: https://github.com/erincatto/box2d/archive/v%{version}/%{name}-%{versio
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
-BuildRequires: make
 
 %package devel
 Summary: Development files for %{name}
@@ -39,9 +37,7 @@ rm -r extern
 %cmake_build
 
 %install
-%make_install
-
-%ldconfig_scriptlets
+%cmake_install
 
 %files
 %license LICENSE
@@ -54,6 +50,9 @@ rm -r extern
 %{_libdir}/cmake/box2d/*.cmake
 
 %changelog
+* Thu May 15 2025 Cristian Le <git@lecris.dev> - 2.4.2-4
+- Allow to build with ninja
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,9 +1,10 @@
 Summary:	Firmware for Epson flatbed scanners
 Name:		iscan-firmware
 Version:	20241112
-Release:	15%{?dist}
-# AVASYSPL.en.txt and LICENSE.EPSON.en.txt are LicenseRef-Fedora-Firmware
-# COPYING.EPSON.en.txt and COPYING.EPSON are not-allowed license
+Release:	%autorelease
+# AVASYSPL.en.txt and LICENSE.EPSON.en.txt are LicenseRef-Fedora-Firmware:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/608
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/610
 License:	LicenseRef-Fedora-Firmware
 URL:		http://download.ebz.epson.net/dsc/search/01/search/
 BuildArch:	noarch
@@ -36,14 +37,6 @@ Source8:    iscan-plugin-gt-1500-2.2.0-1.x86_64.rpm
 Source9:    esci-interpreter-gt-f720-0.1.1-2.x86_64.rpm
 # GT-X770, Perfection V500 Photo
 Source10:   iscan-plugin-gt-x770-2.1.2-1.i386.rpm
-# GT-X830
-Source11:   iscan-plugin-gt-x830-1.0.1-1.x86_64.rpm
-# GT-X820, Perfection V600 Photo
-# GT-F730, GT-S630, Perfection V33, Perfection V330 Photo
-# GT-F740, GT-S640, Perfection V37, Perfection V370
-# GT-S650, Perfection V19, Perfection V39
-# Perfection V550 Photo
-Source12:   epsonscan2-non-free-plugin-1.0.0.6-1.x86_64.rpm
 
 Requires:	linux-firmware
 
@@ -61,20 +54,12 @@ Firmware for the following Epson flatbed scanners:
 * esfw7C: Perfection V500 PHOTO / GT-X770
 * esfw86: GT-1500 / GT-D1000
 * esfw8b: Perfection V30/V300 / GT-F720 / GT-S620
-* esfwA1: Perfection V600 PHOTO / GT-X820
-* esfwad: Perfection V33/V330 PHOTO / GT-F730 / GT-S630
-* esfwdd: Perfection V37/V370 / GT-F740 / GT-S640
-* esfweb: Perfection V550 PHOTO
-* esfw010c: Perfection V19/V39 / GT-S650
-* esfw0111: GT-X830
-* esfw0282: Perfection V39II
 
 %prep
 %setup -c -T
 for f in \
     %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} \
-    %{SOURCE6} %{SOURCE7} %{SOURCE8} %{SOURCE9} %{SOURCE10} %{SOURCE11} \
-    %{SOURCE12}; do
+    %{SOURCE6} %{SOURCE7} %{SOURCE8} %{SOURCE9} %{SOURCE10}; do
     rpm2cpio $f | cpio -idm --no-absolute-filenames
 done
 
@@ -89,8 +74,6 @@ done
 %install
 mkdir -p %{buildroot}%{_prefix}/lib/firmware/epson
 install -pm644 .%{_datadir}/*/*.bin %{buildroot}%{_prefix}/lib/firmware/epson/
-
-mv %{buildroot}%{_prefix}/lib/firmware/epson/{Esfw0111.bin,esfw0111.bin}
 
 %files
 %license AVASYSPL.en.txt EAPL.en.txt LICENSE.EPSON.en.txt
@@ -107,39 +90,6 @@ mv %{buildroot}%{_prefix}/lib/firmware/epson/{Esfw0111.bin,esfw0111.bin}
 %{_prefix}/lib/firmware/epson/esfw7C.bin
 %{_prefix}/lib/firmware/epson/esfw86.bin
 %{_prefix}/lib/firmware/epson/esfw8b.bin
-%{_prefix}/lib/firmware/epson/esfwA1.bin
-%{_prefix}/lib/firmware/epson/esfwad.bin
-%{_prefix}/lib/firmware/epson/esfwdd.bin
-%{_prefix}/lib/firmware/epson/esfweb.bin
-%{_prefix}/lib/firmware/epson/esfw010c.bin
-%{_prefix}/lib/firmware/epson/esfw0111.bin
-%{_prefix}/lib/firmware/epson/esfw0282.bin
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241112-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Nov 12 2024 Simone Caronni <negativo17@gmail.com> - 20241112-14
-- Update and clean up.
-- Trim changelog.
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+%autochangelog

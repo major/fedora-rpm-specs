@@ -4,7 +4,7 @@
 
 
 Name:           sleuthkit
-Version:        4.13.0
+Version:        4.14.0
 Release:        %autorelease
 Summary:        The Sleuth Kit (TSK)
 
@@ -12,7 +12,8 @@ Summary:        The Sleuth Kit (TSK)
 License:        CPL-1.0 AND IPL-1.0 AND GPL-2.0-or-later
 URL:            https://www.sleuthkit.org
 Source0:        https://github.com/sleuthkit/sleuthkit/archive/sleuthkit-%{version}/sleuthkit-%{version}.tar.gz
-Patch0:         0001-Avoid-defining-bool-datatype.patch
+Patch0:         0001-Don-t-redefine-bool.-That-causes-collisions.patch
+Patch1:         0001-Avoid-defining-bool-datatype.patch
 
 BuildRequires: make
 BuildRequires:  libtool

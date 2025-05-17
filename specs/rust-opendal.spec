@@ -5,7 +5,7 @@
 %global crate opendal
 
 Name:           rust-opendal
-Version:        0.53.1
+Version:        0.53.2
 Release:        %autorelease
 Summary:        Apache OpenDAL: One Layer, All Storage
 
@@ -21,8 +21,6 @@ Patch:          opendal-fix-metadata-auto.diff
 # * Remove fasttrace dev dependency
 # * Remove libtest-mimic dev dependency
 Patch:          opendal-fix-metadata.diff
-# * See https://github.com/apache/opendal/pull/6078
-Patch3:         opendal-fix-tests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

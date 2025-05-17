@@ -11,7 +11,7 @@
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -32,6 +32,9 @@ BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
+%if 0%{?examples}
+BuildRequires: cmake(absl)
+%endif
 BuildRequires: pkgconfig(grpc++)
 BuildRequires: pkgconfig(libprotobuf-c)
 BuildRequires: pkgconfig(protobuf)
@@ -163,6 +166,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu May 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.9.0-2
+- Add direct build dependency on abseil-cpp
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

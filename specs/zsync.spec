@@ -12,6 +12,8 @@ Source0:       http://zsync.moria.org.uk/download/%{name}-%{version}.tar.bz2
 
 # https://sources.debian.org/data/main/z/zsync/0.6.2-7/debian/patches/fix-build-with-gcc-14.patch
 Patch1:        fix-build-with-gcc-14.patch
+# https://github.com/madler/zlib/commit/6a043145ca6e9c55184013841a67b2fef87e44c0 (modif'd to apply)
+Patch2:        remove-ub-in-zlib.patch
 
 BuildRequires: gcc
 BuildRequires: make

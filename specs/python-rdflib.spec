@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        7.1.3
+Version:        7.1.4
 Release:        %autorelease
 Summary:        Python library for working with RDF
 License:        BSD-3-Clause

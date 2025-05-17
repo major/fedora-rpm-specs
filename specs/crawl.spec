@@ -5,7 +5,7 @@
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.32.1
+Version:       0.33.0
 Release:       %autorelease
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
@@ -129,8 +129,8 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 %make_build all V=1 debug -C crawl-ref/crawl-tiles \
 %else
 %make_build all -C crawl-ref/crawl-tiles \
- CFOPTIMIZE_L="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
- CFOTHERS="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
+ CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
+ CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags` -DUSE_TILE" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
  GAME=crawl-tiles \
@@ -144,8 +144,8 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 %make_build all V=1 debug -C crawl-ref/source \
 %else
 %make_build all -C crawl-ref/source \
- CFOPTIMIZE_L="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
- CFOTHERS="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
+ CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
+ CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
  SOUND=y V=y MONOSPACED_FONT=y \
@@ -159,8 +159,8 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 %make_install debug -C crawl-ref/source \
 %else
 %make_install -C crawl-ref/source \
- CFOPTIMIZE_L="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
- CFOTHERS="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
+ CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
+ CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
  SOUND=y V=y MONOSPACED_FONT=y \
@@ -174,8 +174,8 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 %make_install install-xdg-data debug -C crawl-ref/crawl-tiles \
 %else
 %make_install install-xdg-data -C crawl-ref/crawl-tiles \
- CFOPTIMIZE_L="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
- CFOTHERS="%{build_cxxflags} -fPIC `%{_bindir}/libpng16-config --cflags`" \
+ CFOPTIMIZE_L="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
+ CFOTHERS="%{build_cxxflags} `%{_bindir}/libpng16-config --cflags`" \
  EXTERNAL_LDFLAGS="%{__global_ldflags}" \
 %endif
  GAME=crawl-tiles \
@@ -196,6 +196,10 @@ install -pm 644 README* %{buildroot}%{_pkgdocdir}/
 # rhbz#2015328
 cp -a %{buildroot}%{_datadir}/%{name}/docs %{buildroot}%{_datadir}/%{name}-tiles/
 
+# Remove duplicated files
+rm -rf %{buildroot}%{_datadir}/crawl-tiles/dat/*
+ln -sv %{_datadir}/crawl/dat %{buildroot}%{_datadir}/crawl-tiles/dat
+
 # Install manpage
 mkdir -p %{buildroot}%{_mandir}/man6
 install -pm 644 crawl-ref/docs/crawl.6 %{buildroot}%{_mandir}/man6/
@@ -211,8 +215,8 @@ mv %{buildroot}%{_datadir}/applications/org.develz.Crawl_tiles.desktop %{buildro
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 ## Links to system's fonts
-ln -sf $(fc-match -f "%{file}" "bitstreamverasansmono") %{buildroot}%{_datadir}/%{name}-tiles/dat/tiles/VeraMono.ttf
-ln -sf $(fc-match -f "%{file}" "bitstreamverasans") %{buildroot}%{_datadir}/%{name}-tiles/dat/tiles/Vera.ttf
+ln -sf $(fc-match -f "%{file}" "bitstreamverasansmono") %{buildroot}%{_datadir}/%{name}/dat/tiles/VeraMono.ttf
+ln -sf $(fc-match -f "%{file}" "bitstreamverasans") %{buildroot}%{_datadir}/%{name}/dat/tiles/Vera.ttf
 
 ## Install appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
@@ -221,7 +225,6 @@ mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{
 %files
 %{_bindir}/crawl
 %{_mandir}/man6/crawl*
-%{_datadir}/%{name}/
 
 %files common-data
 %license LICENSE
@@ -235,7 +238,6 @@ mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{
 
 %files tiles
 %{_bindir}/crawl-tiles
-%{_datadir}/%{name}-tiles/
 %{_datadir}/applications/%{name}-tiles.desktop
 %{_metainfodir}/%{name}-tiles.appdata.xml
 

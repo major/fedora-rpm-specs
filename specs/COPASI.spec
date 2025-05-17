@@ -143,6 +143,9 @@ Patch14: %{name}-4.41.283-fix_missing_header.patch
 # This patch sets path to find qcustomplot-qt5 libraries on Fedora
 Patch15: %{name}-find_qcp_libs.patch
 
+# Allow CMake 4.0 builds
+Patch20: https://github.com/copasi/COPASI/pull/11.patch
+
 %description
 COPASI is a software application for simulation and analysis of biochemical
 networks and their dynamics.

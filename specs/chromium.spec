@@ -190,6 +190,7 @@
 %global bundlelibsecret 0
 %global bundleopus 0
 %global bundlelcms2 0
+%global bundlesimdutf 1
 
 # workaround for build error
 # disable bundleminizip for Fedora > 39 due to switch to minizip-ng
@@ -212,6 +213,7 @@
 %endif
 %if 0%{?fedora}
 %global bundlecrc32c 0
+%global bundlesimdutf 0
 %endif
 %if 0%{?rhel} > 9 || 0%{?fedora}
 %global bundlelibopenjpeg2 0
@@ -255,7 +257,7 @@
 %endif
 
 Name:	chromium
-Version: 136.0.7103.92
+Version: 136.0.7103.113
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -781,6 +783,10 @@ BuildRequires:	java-openjdk-headless
 
 BuildRequires: libevdev-devel
 
+%if ! %{bundlesimdutf}
+BuildRequires: simdutf-devel
+%endif
+
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
@@ -812,7 +818,9 @@ Provides: bundled(boringssl)
 %if %{bundlebrotli}
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
-
+%if %{bundlesimdutf} 
+Provides: bundled(simdutf) = 6.4.0
+%endif
 Provides: bundled(bspatch)
 Provides: bundled(cacheinvalidation) = 20150720
 Provides: bundled(colorama) = 799604a104
@@ -1505,6 +1513,9 @@ system_libs=()
 %if 0%{?noopenh264}
 	system_libs+=(openh264)
 %endif
+%if ! %{bundlesimdutf}
+   system_libs+=(simdutf)
+%endif
 
 build/linux/unbundle/replace_gn_files.py --system-libraries ${system_libs[@]}
 
@@ -1777,6 +1788,11 @@ fi
 %endif
 
 %changelog
+* Wed May 14 2025 Than Ngo <than@redhat.com> - 136.0.7103.113-1
+- Update to 136.0.7103.113
+  * CVE-2025-4664: Insufficient policy enforcement in Loader
+  * CVE-2025-4609: Incorrect handle provided in unspecified circumstances in Mojo
+
 * Wed May 07 2025 Than Ngo <than@redhat.com> - 136.0.7103.92-1
 - Update to 136.0.7103.92
   * CVE-2025-4372: Use after free in WebAudio

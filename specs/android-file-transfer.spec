@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:           android-file-transfer
-Version:        4.4
+Version:        4.5
 Release:        1%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Thu May 15 2025 Marek Blaha <mblaha@redhat.com> - 4.5-1
+- Update to version 4.5
+
 * Tue Apr 01 2025 Marek Blaha <mblaha@redhat.com> - 4.4-1
 - Update to version 4.4
 - Switch to Qt6

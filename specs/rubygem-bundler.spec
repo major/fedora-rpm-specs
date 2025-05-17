@@ -3,25 +3,29 @@
 # Enable test when building on local.
 %bcond_with tests
 
-%global connection_pool_version 2.3.0
-%global fileutils_version 1.4.1
-%global molinillo_version 0.8.0
-%global net_http_persistent_version 4.0.0
-%global thor_version 1.2.1
-%global tmpdir_version 0.1.0
-%global tsort_version 0.1.1
-%global uri_version 0.10.1
+%global connection_pool_version 2.5.0
+%global fileutils_version 1.7.3
+%global net_http_persistent_version 4.0.4
+%global pub_grub_version 0.5.0
+%global securerandom_version 0.4.1
+%global thor_version 1.3.2
+%global tsort_version 0.2.0
+%global uri_version 1.0.3
 
 Name: rubygem-%{gem_name}
-Version: 2.3.25
-Release: 7%{?dist}
+Version: 2.6.9
+Release: 1%{?dist}
 Summary: Library and utilities to manage a Ruby application's gem dependencies
-License: MIT
+# Ruby or BSD: lib/bundler/vendor/{securerandom,uri,fileutils}
+License: MIT AND (Ruby or BSD)
 URL: https://bundler.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rubygems/rubygems/ && cd rubygems
-# git archive -v -o bundler-2.3.25-specs.txz bundler-v2.3.25 bundler/spec/ bundler/tool/bundler/{rubocop,standard,test}_gems.rb
-Source1: %{gem_name}-%{version}-specs.txz
+# git archive -v -o bundler-2.6.9-specs.tar.gz bundler-v2.6.9 bundler/spec/ tool/bundler/{rubocop,standard,test}_gems.rb
+Source1: %{gem_name}-%{version}-specs.tar.gz
+# This revert changes which seems to require some setup prior running specs.
+# https://github.com/rubygems/rubygems/issues/8698
+Patch0: rubygem-bundler-2.6.9-Revert-changes-in-spec-sectup.patch
 # ruby package has just soft dependency on rubygem(io-console), while
 # Bundler always requires it.
 Requires: rubygem(io-console)
@@ -30,6 +34,7 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby
 %if %{with tests}
 BuildRequires: ruby-devel
+BuildRequires: libyaml-devel
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(rspec) >= 3.0
 BuildRequires: %{_bindir}/git
@@ -40,10 +45,10 @@ BuildRequires: gcc
 # https://github.com/bundler/bundler/issues/3647
 Provides: bundled(rubygem-connection_pool) = %{connection_pool_version}
 Provides: bundled(rubygem-fileutils) = %{fileutils_version}
-Provides: bundled(rubygem-molinillo) = %{molinillo_version}
-Provides: bundled(rubygem-net-http-persisntent) = %{net_http_persistent_version}
+Provides: bundled(rubygem-net-http-persistent) = %{net_http_persistent_version}
+Provides: bundled(rubygem-pub_grub) = %{pub_grub_version}
+Provides: bundled(rubygem-securerandom) = %{securerandom_version}
 Provides: bundled(rubygem-thor) = %{thor_version}
-Provides: bundled(rubygem-tmpdir) = %{tmpdir_version}
 Provides: bundled(rubygem-tsort) = %{tsort_version}
 Provides: bundled(rubygem-uri) = %{uri_version}
 BuildArch: noarch
@@ -63,6 +68,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+( cd %{builddir}
+%patch 0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -94,7 +103,7 @@ for n in 5 1; do
 done
 
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 # Check bundled libraries.
 [ `ls lib/bundler/vendor | wc -l` == 8 ]
 
@@ -112,35 +121,35 @@ pushd .%{gem_instdir}
   puts Bundler::FileUtils::VERSION"`" \
   == '%{fileutils_version}' ]
 
-# Molinillo.
-[ `ruby -e '
-  module Bundler; end
-  require "./lib/bundler/vendor/molinillo/lib/molinillo/gem_metadata"
-  puts Bundler::Molinillo::VERSION'` == '%{molinillo_version}' ]
+# PubGrub
+[ `ruby -Ilib -e '
+  module Bundler; end;
+  require "bundler/vendor/pub_grub/lib/pub_grub/version";
+  puts Bundler::PubGrub::VERSION'` == '%{pub_grub_version}' ]
 
 # Net::HTTP::Persistent.
 [ `ruby -Ilib -e '
   module Bundler; module Persistent; module Net; module HTTP; end; end; end; end
-  require "./lib/bundler/vendor/net-http-persistent/lib/net/http/persistent"
-  puts Bundler::Persistent::Net::HTTP::Persistent::VERSION'` == '%{net_http_persistent_version}' ]
+  require "bundler/vendor/net-http-persistent/lib/net/http/persistent"
+  puts Gem::Net::HTTP::Persistent::VERSION'` == '%{net_http_persistent_version}' ]
+
+# SecureRandom.
+[ `ruby -Ilib -e '
+  module Bundler; module Random; end; end;
+  require "bundler/vendor/securerandom/lib/securerandom";
+  puts Bundler::SecureRandom::VERSION'` == '%{securerandom_version}' ]
 
 # Thor.
 [ `ruby -e '
-  module Bundler; end
+  module Bundler; end;
   require "./lib/bundler/vendor/thor/lib/thor/version"
   puts Bundler::Thor::VERSION'` == '%{thor_version}' ]
 
-# tmpdir
-# TODO: Provide some real version test if version is available.
-ruby -e "
-  module Bundler; end; \
-  require './lib/bundler/vendor/tmpdir/lib/tmpdir'"
-
-# tsort
-# TODO: Provide some real version test if version is available.
-ruby -e '
-  module Bundler; end
-  require "./lib/bundler/vendor/tsort/lib/tsort.rb"'
+# TSort
+[ `ruby -Ilib -e '
+  module Bundler; end;
+  require "bundler/vendor/tsort/lib/tsort";
+  puts Bundler::TSort::VERSION'` == '%{tsort_version}' ]
 
 # URI.
 [ "`ruby -e "
@@ -154,21 +163,17 @@ ruby -e '
 # Nevertheless, the test suite should run for local builds.
 %if %{with tests}
 
-cp -r %{_builddir}/bundler/spec .
-cp -r %{_builddir}/bundler/tool .
+cp -a %{builddir}/bundler/spec .
+cp -a %{builddir}/tool ..
 
-# Use the `ruby_core?` test version, so it matches the expectaion without
-# making another assumpitons about directory layout.
-sed -i '/if Spec::Path.ruby_core?/ s/$/ || true/' spec/commands/version_spec.rb
+# This dependency is relevant just to RubyGems. Removing it we can omit
+# `BR: libffi-devel`
+sed -i '/"fiddle"/ s/^/#/' ../tool/bundler/test_gems.rb
 
 # This test fails due to rubypick.
 sed -i '/^    context "when disable_exec_load is set" do$/,/^    end$/ {
   /it "runs" do/a\        skip
 }' spec/commands/exec_spec.rb
-
-# RDoc is not default gem on Fedora.
-sed -i '/^    context "given a default gem shippped in ruby" do$/,/^    end$/ s/^/#/' \
-  spec/commands/info_spec.rb
 
 # Avoid unexpected influence of Fedora specific configuration. This forces
 # Ruby to load this empty operating_system.rb instead of operatin_system.rb
@@ -176,22 +181,55 @@ sed -i '/^    context "given a default gem shippped in ruby" do$/,/^    end$/ s/
 mkdir -p %{_builddir}/rubygems/rubygems/defaults/
 touch %{_builddir}/rubygems/rubygems/defaults/operating_system.rb
 
-# Convince the test suite, that the Ruby repo layout is used. This seems to be
+# The sources are not stored in Git repository nor they come from Ruby source
+# tarball. However, the test suite makes some assumptions based on that. Lets
+# try to tweak them.
+# 1. Standard Bundler layout is used:
+sed -i '/def ruby_core_tarball\?/,/^    end$/ {
+  /^    end$/i\      # Hardcode standar Bundler layout\n      return false
+}' spec/support/path.rb
+# 2. But without Git repo, we can't get hash:
+sed -i '/def git_commit_sha\?/a\      return "unknown"' spec/support/build_metadata.rb
+# 3. These are checking the Git repository content and would be disabled for Ruby
+# tarball, but we change that condition above for different reasons 🙈
+mv spec/quality_spec.rb{,.disable}
+# 4. This check manpages conent and does not really influence runtime stability.
+mv spec/quality_es_spec.rb{,.disable}
+# 5. Convince the test suite, that the Ruby repo layout is used. This seems to be
 # more suitable then assuming that the Bundler repo is used. `GEM_COMMAND` env
 # variable unfortunately brings in another set of assumptions.
-sed -i '/\s:ruby_repo\s/ s/=>.*/=> true/' spec/support/filters.rb
+sed -i '/\sruby_repo:\s/ s/ruby_repo: .*/ruby_repo: true/' spec/support/filters.rb
+# 6. Use the `ruby_core?` test version, so it matches the expectaion without
+# making another assumpitons about directory layout.
+sed -i '/if Spec::Path.ruby_core?/ s/$/ || true/' spec/commands/version_spec.rb
 
 # We work with released version => change the condition.
 # https://github.com/rubygems/rubygems/issues/5926
 sed -i '/release.*be_falsey/I s/be_falsey/be_truthy/' spec/bundler/build_metadata_spec.rb
 
+# This test is very specific to directory layouts and it its usefulness
+# is mostly for upstream to point out some changes which needs to be included.
+sed -i '/it "stays in sync with the rubygems implementation" do/a\    skip' spec/bundler/ci_detector_spec.rb
+
+# Fix the compilation issues likely caused by:
+# https://fedoraproject.org/wiki/Changes/PortingToModernC#Use_of_incompatible_pointer_types_without_a_cast
+# https://github.com/rubygems/rubygems/issues/8694
+sed -i 's/VALUE foo()/VALUE foo(VALUE _)/' spec/install/gemfile/git_spec.rb
+
+# Please note that spec/install/security_policy_spec.rb fails with DEFAULT
+# crypto policy. Use `update-crypto-policies --set LEGACY` to make it pass.
+# https://github.com/rubygems/rubygems/issues/8693
+
+# The `BUNDLER_GEM_DEFAULT_DIR` is useful to make pass e.g.:
+# rspec ./spec/commands/exec_spec.rb:203 # bundle exec with default gems when not specified in Gemfile uses version provided by ruby
+#
 # It is necessary to require spec_helper.rb explicitly.
 # https://github.com/bundler/bundler/pull/5634
-RUBYOPT=-I%{_builddir}/rubygems GEM_PATH=%{gem_dir} rspec -rspec_helper spec -f d
+RUBYOPT=-I%{_builddir}/rubygems GEM_PATH=%{gem_dir} BUNDLER_GEM_DEFAULT_DIR=%{gem_dir} rspec -rspec_helper spec -f d
 
 %endif
 
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -201,10 +239,6 @@ popd
 %exclude %{gem_instdir}/bundler.gemspec
 %{gem_instdir}/exe
 %{gem_libdir}
-%exclude %{gem_libdir}/bundler/.document
-%exclude %{gem_libdir}/bundler/templates/.document
-%exclude %{gem_libdir}/bundler/vendor/.document
-%exclude %{gem_libdir}/bundler/man/.document
 %doc %{gem_libdir}/bundler/man/*
 %exclude %{gem_cache}
 %{gem_spec}
@@ -217,6 +251,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Apr 11 2025 Vít Ondruch <vondruch@redhat.com> - 2.6.9-1
+- Update to Bundler 2.6.9.
+  Resolves: rhbz#2143547
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.25-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

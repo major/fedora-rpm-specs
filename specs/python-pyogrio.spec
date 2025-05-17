@@ -4,7 +4,7 @@
 %global srcname pyogrio
 
 Name:           python-%{srcname}
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Vectorized spatial vector file format I/O using GDAL/OGR
 
@@ -17,10 +17,6 @@ URL:            https://github.com/geopandas/pyogrio
 Source:         %pypi_source %{srcname}
 # Some Fedora-specific things
 Patch:          0001-Drop-extra-dependencies.patch
-# https://github.com/geopandas/pyogrio/pull/497
-Patch:          0002-Fix-WKB-writing-on-big-endian-systems.patch
-# Fix compatibility with GDAL 3.10
-Patch:          https://github.com/geopandas/pyogrio/pull/489.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

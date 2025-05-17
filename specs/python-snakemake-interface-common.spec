@@ -1,5 +1,5 @@
 Name:           python-snakemake-interface-common
-Version:        1.17.4
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Common functions and classes for Snakemake and its plugins
 
@@ -11,11 +11,11 @@ URL:            https://github.com/snakemake/snakemake-interface-common
 Source:         %{url}/archive/v%{version}/snakemake-interface-common-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(install):   -L snakemake_interface_common
+BuildOption(install):   -l snakemake_interface_common
 
 BuildArch:      noarch
 
-# See: [tool.poetry.dev-dependencies] in pyproject.toml
+# See: [tool.pixi.feature.dev.dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
@@ -35,7 +35,6 @@ Summary:        %{summary}
 
 
 %files -n python3-snakemake-interface-common -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 

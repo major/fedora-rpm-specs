@@ -1,6 +1,6 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,7 +17,7 @@ BuildRequires:	sqlite-devel
 BuildRequires:	sqlite2-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	zlib-devel
-BuildRequires:	%{_bindir}/iconv
+BuildRequires:	/usr/bin/iconv
 
 Requires:	%{_bindir}/odbcinst
 
@@ -48,7 +48,7 @@ done
 
 
 %build
-%configure
+%configure --with-odbc=$(pkg-config --variable=prefix odbc)
 make %{_smp_mflags}
 
 
@@ -76,12 +76,11 @@ cat > odbc.ini.sample <<- 'EOD'
 EOD
 
 %post
-/sbin/ldconfig
 if [ -x %{_bindir}/odbcinst ] ; then
-	INST=$(%{_bindir}/mktemp)
+	INST=$(mktemp)
 
 	if [ -r %{_libdir}/libsqliteodbc.so ] ; then
-		%{_bindir}/cat > $INST <<- 'EOD'
+		cat > $INST <<- 'EOD'
 			[SQLITE]
 			Description=SQLite ODBC 2.X
 			Driver=%{_libdir}/libsqliteodbc.so
@@ -90,23 +89,23 @@ if [ -x %{_bindir}/odbcinst ] ; then
 			FileUsage=1
 		EOD
 
-		%{_bindir}/odbcinst -q -d -n SQLITE | %{_bindir}/grep '^\[SQLITE\]' >/dev/null || {
+		%{_bindir}/odbcinst -q -d -n SQLITE | grep '^\[SQLITE\]' >/dev/null || {
 			%{_bindir}/odbcinst -i -d -n SQLITE -f $INST || true
 		}
 
-		%{_bindir}/cat > $INST <<- 'EOD'
+		cat > $INST <<- 'EOD'
 			[SQLite Datasource]
 			Driver=SQLITE
 		EOD
 
 		%{_bindir}/odbcinst -q -s -n "SQLite Datasource" | \
-		%{_bindir}/grep '^\[SQLite Datasource\]' >/dev/null || {
+		grep '^\[SQLite Datasource\]' >/dev/null || {
 			%{_bindir}/odbcinst -i -l -s -n "SQLite Datasource" -f $INST || true
 		}
 	fi
 
 	if [ -r %{_libdir}/libsqlite3odbc.so ] ; then
-		%{_bindir}/cat > $INST <<- 'EOD'
+		cat > $INST <<- 'EOD'
 			[SQLITE3]
 			Description=SQLite ODBC 3.X
 			Driver=%{_libdir}/libsqlite3odbc.so
@@ -115,22 +114,22 @@ if [ -x %{_bindir}/odbcinst ] ; then
 			FileUsage=1
 		EOD
 
-		%{_bindir}/odbcinst -q -d -n SQLITE3 | %{_bindir}/grep '^\[SQLITE3\]' >/dev/null || {
+		%{_bindir}/odbcinst -q -d -n SQLITE3 | grep '^\[SQLITE3\]' >/dev/null || {
 			%{_bindir}/odbcinst -i -d -n SQLITE3 -f $INST || true
 		}
 
-		%{_bindir}/cat > $INST <<- 'EOD'
+		cat > $INST <<- 'EOD'
 			[SQLite3 Datasource]
 			Driver=SQLITE3
 		EOD
 
 		%{_bindir}/odbcinst -q -s -n "SQLite3 Datasource" | \
-		%{_bindir}/grep '^\[SQLite3 Datasource\]' >/dev/null || {
+		grep '^\[SQLite3 Datasource\]' >/dev/null || {
 			%{_bindir}/odbcinst -i -l -s -n "SQLite3 Datasource" -f $INST || true
 		}
 	fi
 
-	%{_bindir}/rm -f $INST || true
+	rm -f $INST || true
 fi
 
 
@@ -147,9 +146,6 @@ if [ "$1" = "0" ] ; then
 fi
 
 
-%postun -p /sbin/ldconfig
-
-
 %files
 %license license.terms
 %doc README ChangeLog odbc.ini.sample
@@ -157,6 +153,9 @@ fi
 
 
 %changelog
+* Thu May 15 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.99991-6
+- Fix flatpak build
+
 * Tue Jan 21 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.99991-5
 - Fix FTBFS on F42.
 

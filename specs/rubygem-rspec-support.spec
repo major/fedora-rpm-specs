@@ -1,9 +1,9 @@
 %global	gem_name	rspec-support
 
-%global	mainver	3.13.2
+%global	mainver	3.13.3
 %undefine	prever
 
-%global	baserelease	3
+%global	baserelease	1
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -22,9 +22,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
-# https://github.com/rspec/rspec/pull/164
-# Support ruby34 Hash#inspect syntax
-Patch0:	rubygem-rspec-support-pr164-ruby34-hash-syntax.patch
+# Workaround tests wrt diff/lcs diff format
+# Partially revert 3.13.2 -> 3.13.3 change
+Patch0:	rubygem-rspec-support-3.13.3-diff_spec-format-revert.patch
 Patch100:	rubygem-rspec-support-3.2.1-callerfilter-searchpath-regex.patch
 
 #BuildRequires:	ruby(release)
@@ -61,7 +61,7 @@ Documentation for %{name}
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
-%patch -P0 -p2
+%patch -P0 -p1
 %patch -P100 -p1
 
 %build
@@ -110,6 +110,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Thu May 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.3-1
+- 3.13.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

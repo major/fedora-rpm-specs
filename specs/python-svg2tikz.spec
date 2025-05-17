@@ -1,11 +1,11 @@
 %global         srcname         svg2tikz
 %global         forgeurl        https://github.com/xyz2tex/svg2tikz
-Version:        3.2.0
+Version:        3.3.0
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Convert SVG to TikZ/PGF code
 
 License:        GPL-2.0-or-later
@@ -79,7 +79,7 @@ ln -s %{python3_sitelib}/%{srcname}/tikz_export_output.inx \
 %{_bindir}/svg2tikz
 # Poetry does not mark license files
 # https://github.com/python-poetry/poetry/issues/1350
-#%license %{python3_sitelib}/svg2tikz-2.1.0.dist-info/LICENSE
+%license LICENSE
 
 %files -n inkscape-%{srcname}
 %license LICENSE
@@ -91,6 +91,9 @@ ln -s %{python3_sitelib}/%{srcname}/tikz_export_output.inx \
 
 
 %changelog
+* Wed Mar 12 2025 Benson Muite <fed500@fedoraproject.org> - 3.3.0-1
+- Update to latest release
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -10,10 +10,30 @@
 Name:           perl-POE-Component-IRC
 Summary:        A POE component for building IRC clients
 Version:        6.93
-Release:        13%{?dist}
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+Release:        14%{?dist}
+# LICENSE:      (GPL-1.0-or-later OR Artistic-1.0-Perl) declaration,
+#               GPL-1.0 text and Artistic-1.0 text
+# other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# t/inc/Crypt/PasswdMD5.pm: Beerware AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
+## Not used at build or in any binary package
+# repackage.sh: GPL-2.0-or-later
+## Stripped from source archive
+# docs/draft-brocklesby-irc-isupport-03.txt:    non-free
+# docs/draft-mitchell-irc-capabilities-02.html: non-free
+# docs/rfc2810.html: non-free
+# docs/rfc2811.html: non-free
+# docs/rfc2812.html: non-free
+# docs/rfc2813.html: non-free
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-Component-IRC-%{version}.tar.gz 
+SourceLicense:  (%{license}) AND Beerware AND GPL-2.0-or-later
+# Origin Source0 URL:
+# https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-Component-IRC-%%{version}.tar.gz
+# stripped from non-free IETF documents with repackage.sh script.
+Source0:        POE-Component-IRC-%{version}_repackaged.tar.gz
+Source1:        repackage.sh
+# Fix webirc check in connection configuration, CPAN RT#157738,
+# proposed to upstream
+Patch0:         POE-Component-IRC-6.93-Fix-for-Perl-5.42.0.patch
 URL:            https://metacpan.org/release/POE-Component-IRC
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -115,6 +135,7 @@ is to it. Cool, no?
 
 %package tests
 Summary:        Tests for %{name}
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Beerware
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
@@ -143,7 +164,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n POE-Component-IRC-%{version}
+%autosetup -p1 -n POE-Component-IRC-%{version}
 chmod -c -x examples/*
 # Remove bundled modules
 for D in t/inc/Crypt t/inc/Net; do
@@ -191,13 +212,22 @@ make test
 %files
 %license LICENSE
 %doc Changes docs/ examples/
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/POE
+%dir %{perl_vendorlib}/POE/Component
+%{perl_vendorlib}/POE/Component/IRC{,.pm}
+%dir %{perl_vendorlib}/POE/Filter
+%{perl_vendorlib}/POE/Filter/IRC{,.pm}
+%{_mandir}/man3/POE::Component::IRC{.,::}*
+%{_mandir}/man3/POE::Filter::IRC{.,::}*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 15 2025 Petr Pisar <ppisar@redhat.com> - 6.93-14
+- Fix webirc check in connection configuration (CPAN RT#157738)
+- Remove non-free IETF documents from the package
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.93-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

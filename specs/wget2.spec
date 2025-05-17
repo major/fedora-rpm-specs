@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -114,9 +114,8 @@ use functionality from GNU Wget2.
 %package wget
 Summary:        %{name} shim to provide wget
 Requires:       wget2%{?_isa} = %{version}-%{release}
-# Replace wget
+# Replace wget1
 Conflicts:      wget < 2
-Obsoletes:      wget < 2
 Provides:       wget = %{version}-%{release}
 Provides:       wget%{?_isa} = %{version}-%{release}
 # From original wget package
@@ -193,6 +192,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Wed May 14 2025 Michal Ruprich <mruprich@redhat.com> - 2.2.0-5
+- Removing Obsoletes so that wget2 can be replaced by wget1
+
 * Fri Feb 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.2.0-3
 - Backport support for --show-progress flag
   Resolves: rhbz#2348997

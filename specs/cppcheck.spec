@@ -2,7 +2,7 @@
 
 Name:           cppcheck
 Version:        2.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -22,9 +22,9 @@ BuildRequires:  tinyxml2-devel >= 2.1.0
 BuildRequires:  zlib-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-linguist
 BuildRequires:  make
 
 
@@ -58,7 +58,7 @@ from xml files first generated using cppcheck.
 rm -r externals/tinyxml2
 # Generate the Qt online-help file
 cd gui/help
-qhelpgenerator-qt5 online-help.qhcp -o online-help.qhc
+%{_qt6_libexecdir}/qhelpgenerator online-help.qhcp -o online-help.qhc
 
 %build
 # Manuals
@@ -68,7 +68,7 @@ pandoc man/reference-cfg-format.md -o man/reference-cfg-format.html -s --number-
 
 # Binaries
 # Upstream doesn't support shared libraries (unversioned solib)
-%cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON -DHAVE_RULES=yes -DBUILD_GUI=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF
+%cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON -DHAVE_RULES=yes -DBUILD_GUI=1 -DUSE_QT6=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF
 %cmake_build
 
 %install
@@ -109,6 +109,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Thu May 15 2025 Troy Dawson <tdawson@redhat.com> - 2.17.1-2
+- Change from qt5 to qt6
+
 * Sat Mar 22 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.17.1-1
 - 2.17.1
 

@@ -1,7 +1,7 @@
 Summary:        Command line tool that displays bandwidth usage on an interface
 Name:           iftop
 Version:        1.0
-Release:        0.35.pre4%{?dist}
+Release:        0.36.pre4%{?dist}
 # {ip,sll,tcp}.h are BSD-4-Clause-UC, rest is GPL-2.0-or-later
 License:        GPL-2.0-or-later AND BSD-4-Clause-UC
 URL:            http://www.ex-parrot.com/~pdw/%{name}/
@@ -10,6 +10,7 @@ Patch0:         iftop-1.0-ncursesw.patch
 Patch1:         iftop-1.0-git20181003.patch
 Patch2:         iftop-1.0-gcc10.patch
 Patch3:         iftop-configure-c99.patch
+Patch4:         iftop-function-args.patch
 BuildRequires:  gcc, make, ncurses-devel, libpcap-devel
 
 %description
@@ -25,6 +26,7 @@ touch -c -r configure.ac{.ncursesw,}
 %patch -P1 -p1 -b .git20181003
 %patch -P2 -p1 -b .gcc10
 %patch -P3 -p1 -b .c99
+%patch -P4 -p1 -b .fargs
 # Avoid re-running autoconf.
 touch -r aclocal.m4 configure*
 
@@ -42,6 +44,9 @@ touch -r aclocal.m4 configure*
 %{_mandir}/man8/%{name}.*
 
 %changelog
+* Thu May 15 2025 Nicolas Chauvet <kwizart@gmail.com> - 1.0-0.36.pre4
+- Fix FTBFS - rhbz#2340638
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.35.pre4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

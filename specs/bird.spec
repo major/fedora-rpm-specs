@@ -1,13 +1,13 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          2.16.2
+Version:          3.1.1
 Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
-URL:              https://bird.network.cz/
-Source0:          https://bird.network.cz/download/bird-%{version}.tar.gz
+URL:              https://bird.nic.cz/
+Source0:          https://bird.nic.cz/download/bird-%{version}.tar.gz
 Source1:          bird.service
 Source2:          bird.tmpfilesd
 Source3:          bird.sysusersd
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Tue May 13 2025 Robert Scheck <robert@fedoraproject.org> - 3.1.1-1
+- Upgrade to 3.1.1 (#2332837)
+
 * Mon Apr 07 2025 Robert Scheck <robert@fedoraproject.org> - 2.16.2-1
 - Upgrade to 2.16.2
 
