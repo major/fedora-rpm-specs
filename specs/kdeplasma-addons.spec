@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -107,6 +107,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_datadir}/plasma/desktoptheme/default/weather/
 %{_kf6_datadir}/plasma/wallpapers/*
 %{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.categories
+%{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.renamecategories
 %{_kf6_qtplugindir}/plasma/applets/*.so
 %{_kf6_plugindir}/krunner/kcms/kcm_krunner_charrunner.so
 %{_kf6_plugindir}/krunner/kcms/kcm_krunner_dictionary.so
@@ -133,6 +134,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_metainfodir}/*.appdata.xml
 %{_libdir}/qt6/qml/org/kde/plasmacalendar/astronomicaleventsconfig/*
 %{_kf6_plugindir}/kded/kameleon.so
+%{_kf6_plugindir}/krunner/krunner_colors.so
 %{_kf6_libexecdir}/kauth/kameleonhelper
 %{_kf6_datadir}/dbus-1/system-services/org.kde.kameleonhelper.service
 %{_kf6_datadir}/dbus-1/system.d/org.kde.kameleonhelper.conf
@@ -149,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

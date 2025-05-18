@@ -1,5 +1,5 @@
 Name:           plasma-mobile
-Version:        6.3.5
+Version:        6.3.90
 Release:        1%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -17,6 +17,7 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(libudev)
+BuildRequires: pkgconfig(libdrm)
 
 BuildRequires: cmake(KF6Auth)
 BuildRequires: cmake(KF6Bookmarks)
@@ -96,7 +97,8 @@ Obsoletes: plasma-nm-mobile < 5.27.81
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.xml ||:
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_network,mobile_hotspot,mobile_info,mobile_onscreenkeyboard,mobile_power,mobile_time,mobile_wifi}.desktop
+#desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_network,mobile_hotspot,mobile_info,mobile_onscreenkeyboard,mobile_power,mobile_time,mobile_wifi}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mobile_onscreenkeyboard,mobile_time}.desktop
 
 %files -f plasma_applet_org.kde.phone.homescreen.lang
 %license LICENSES/*
@@ -137,10 +139,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_qtplugindir}/plasma/applets/*.so
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_start.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mobile_*.so
-%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

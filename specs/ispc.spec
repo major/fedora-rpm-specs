@@ -1,5 +1,5 @@
 Name:		ispc
-Version:	1.25.3
+Version:	1.27.0
 Release:	%autorelease
 Summary:	C-based SPMD programming language compiler
 
@@ -7,7 +7,7 @@ License:	BSD-3-Clause
 URL:		https://ispc.github.io/
 Source0:	https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:		aarch64-tests.patch
+#Patch0:		aarch64-tests.patch
 
 BuildRequires:	bison
 BuildRequires:	cmake

@@ -36,6 +36,7 @@ BuildRequires: git
 BuildRequires: make
 BuildRequires: desktop-file-utils
 BuildRequires: flex
+BuildRequires: fdupes
 BuildRequires: fontpackages-devel
 BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(sqlite3)
@@ -69,22 +70,23 @@ religion and skill systems, and a grand variety of monsters to fight and
 run from, making each game unique and challenging.
 
 ####################
-%global fonts font(bitstreamverasans)
-%global fonts %{fonts} font(bitstreamverasansmono)
 %package common-data
 Summary: Common data files of %{name}
 BuildArch: noarch
-BuildRequires: fontconfig %{fonts}
 Requires: hicolor-icon-theme
-Requires: %{fonts}
 
 %description common-data
 Data files for tiles and console versions of %{name}.
 
 ####################
+%global fonts font(bitstreamverasans)
+%global fonts %{fonts} font(bitstreamverasansmono)
 %package tiles
 Summary:  Roguelike dungeon exploration game with tiles
+BuildRequires: fontconfig %{fonts}
 Requires: %{name}-common-data = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
+Requires: %{fonts}
 Obsoletes: %{name}-tiles-data < 0:0.27.0
 
 %description tiles
@@ -196,40 +198,38 @@ install -pm 644 README* %{buildroot}%{_pkgdocdir}/
 # rhbz#2015328
 cp -a %{buildroot}%{_datadir}/%{name}/docs %{buildroot}%{_datadir}/%{name}-tiles/
 
-# Remove duplicated files
-rm -rf %{buildroot}%{_datadir}/crawl-tiles/dat/*
-ln -sv %{_datadir}/crawl/dat %{buildroot}%{_datadir}/crawl-tiles/dat
+# Links to system's font
+ln -sf $(fc-match -f "%{file}" "bitstreamverasansmono") %{buildroot}%{_datadir}/%{name}-tiles/dat/tiles/VeraMono.ttf
+ln -sf $(fc-match -f "%{file}" "bitstreamverasans") %{buildroot}%{_datadir}/%{name}-tiles/dat/tiles/Vera.ttf
 
 # Install manpage
 mkdir -p %{buildroot}%{_mandir}/man6
 install -pm 644 crawl-ref/docs/crawl.6 %{buildroot}%{_mandir}/man6/
 
-## Instal icons
+# Instal icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/512x512/apps
 install -Dpm 644 crawl-ref/crawl-tiles/dat/tiles/stone_soup_icon-32x32.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 install -Dpm 644 crawl-ref/crawl-tiles/dat/tiles/stone_soup_icon-512x512.png %{buildroot}%{_datadir}/icons/hicolor/512x512/apps
 
-## Install desktop file
+# Install desktop file
 mv %{buildroot}%{_datadir}/applications/org.develz.Crawl_tiles.desktop %{buildroot}%{_datadir}/applications/%{name}-tiles.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-## Links to system's fonts
-ln -sf $(fc-match -f "%{file}" "bitstreamverasansmono") %{buildroot}%{_datadir}/%{name}/dat/tiles/VeraMono.ttf
-ln -sf $(fc-match -f "%{file}" "bitstreamverasans") %{buildroot}%{_datadir}/%{name}/dat/tiles/Vera.ttf
-
-## Install appdata file
+# Install appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{_metainfodir}/%{name}-tiles.appdata.xml
+
+# Remove duplicated files
+%fdupes -s %{buildroot}%{_datadir}
 
 %files
 %{_bindir}/crawl
 %{_mandir}/man6/crawl*
+%{_datadir}/%{name}/
 
 %files common-data
 %license LICENSE
-%{_datadir}/%{name}/
-%{_datadir}/%{name}-tiles/
 %{_pkgdocdir}/
 %{_datadir}/icons/hicolor/32x32/apps/*.png
 %{_datadir}/icons/hicolor/512x512/apps/*.png
@@ -238,6 +238,7 @@ mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{
 
 %files tiles
 %{_bindir}/crawl-tiles
+%{_datadir}/%{name}-tiles/
 %{_datadir}/applications/%{name}-tiles.desktop
 %{_metainfodir}/%{name}-tiles.appdata.xml
 

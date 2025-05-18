@@ -8,7 +8,7 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -20,10 +20,6 @@ Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%
 Source10: discoverrc
 
 ## upstream patches
-# Hide Plasma categories on a non-KDE desktop
-# Requested by Fedora Budgie (Cf. https://pagure.io/fedora-kde/SIG/issue/607)
-# Drop with 6.4
-Patch0: https://invent.kde.org/plasma/discover/-/commit/55ec79edc1892e9db5c8ab0743923387c56d1465.patch
 
 ## downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
@@ -248,12 +244,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 %files -f discover.lang
 %{_bindir}/plasma-discover
-%{_bindir}/plasma-discover-update
 %{_kf6_metainfodir}/org.kde.discover.appdata.xml
 %{_datadir}/applications/org.kde.discover.desktop
 %{_datadir}/applications/org.kde.discover.urlhandler.desktop
 %{_datadir}/icons/hicolor/*/apps/plasmadiscover.*
 %{_datadir}/icons/hicolor/*/apps/flatpak-discover.*
+%{_datadir}/icons/hicolor/*/apps/snapdiscover.svg
 %{_datadir}/kxmlgui5/plasmadiscover/
 %if 0%{?snap}
 %{_libexecdir}/discover/
@@ -320,6 +316,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

@@ -1,6 +1,6 @@
 Name:    plasma-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
@@ -53,7 +53,8 @@ https://community.kde.org/Plasma/Browser_Integration
 
 %build
 %cmake_kf6 \
-  -DMOZILLA_DIR:PATH=%{_libdir}/mozilla
+  -DMOZILLA_DIR:PATH=%{_libdir}/mozilla \
+  -DLIBREWOLF_DIR:PATH=%{_libdir}/librewolf
 %cmake_build
 
 
@@ -69,6 +70,7 @@ https://community.kde.org/Plasma/Browser_Integration
 %config %{_sysconfdir}/opt/edge/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %{_bindir}/plasma-browser-integration-host
 %{_libdir}/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json
+%{_libdir}/librewolf/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %{_kf6_plugindir}/kded/browserintegrationreminder.so
 %{_kf6_datadir}/krunner/dbusplugins/plasma-runner-browserhistory.desktop
 %{_kf6_datadir}/krunner/dbusplugins/plasma-runner-browsertabs.desktop
@@ -76,6 +78,9 @@ https://community.kde.org/Plasma/Browser_Integration
 %{_kf6_qtplugindir}/kf6/kded/browserintegrationflatpakintegrator.so
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

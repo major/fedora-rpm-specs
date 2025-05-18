@@ -1,5 +1,5 @@
 Name:           python-pyyaml-env-tag
-Version:        1.0
+Version:        1.1
 Release:        1%{?dist}
 Summary:        A custom YAML tag for referencing environment variables in YAML files
 BuildArch:      noarch
@@ -39,7 +39,7 @@ A custom YAML tag for referencing environment variables in YAML files.
 
 
 %check
-%{python3} test_yaml_env_tag.py
+PYTHONPATH=$PWD %{python3} tests/test_yaml_env_tag.py
 
 
 %files -n python3-pyyaml-env-tag -f %{pyproject_files}
@@ -48,6 +48,9 @@ A custom YAML tag for referencing environment variables in YAML files.
 
 
 %changelog
+* Fri May 16 2025 Sandro Mani <manisandro@gmail.com> - 1.1-1
+- Update to 1.1
+
 * Tue May 13 2025 Sandro Mani <manisandro@gmail.com> - 1.0-1
 - Update to 1.0
 

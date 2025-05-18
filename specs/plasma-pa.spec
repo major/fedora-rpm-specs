@@ -1,5 +1,5 @@
 Name:    plasma-pa
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
@@ -66,17 +66,19 @@ rm -fv %{buildroot}%{_kf6_libdir}/libplasma-volume.so
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.volume/
 %{_kf6_qmldir}/org/kde/plasma/private/volume/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_pulseaudio.so
 %{_kf6_qtplugindir}/kf6/kded/audioshortcutsservice.so
+%{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.volume.so
 %{_kf6_datadir}/applications/kcm_pulseaudio.desktop
-%{_kf6_metainfodir}/org.kde.plasma.volume.appdata.xml
 %{_kf6_libdir}/libplasma-volume.so.6
 %{_kf6_libdir}/libplasma-volume.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/plasmapa.categories
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

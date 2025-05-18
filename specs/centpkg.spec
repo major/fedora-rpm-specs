@@ -4,8 +4,8 @@
 %endif
 
 Name:           centpkg
-Version:        0.9.1
-Release:        2%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -78,6 +78,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri May 16 2025 Troy Dawson <tdawson@redhat.com> - 0.10.0-1
+- Make lookaside cache work with SIG dist-git using "modern" layout (nforro)
+- Avoid superfluous quotes in request-gated-side-tag help (churchyard)
+- determine_rhel_state: Handle z-stream branches (sgallagh)
+- Authenticate to Product Pages (sgallagh)
+-- NOTE: centpkg time will be slower due to product page authentication.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

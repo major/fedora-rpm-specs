@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -121,8 +121,10 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
 %{_kf6_datadir}/knotifications6/powerdevil.notifyrc
 %{_kf6_datadir}/applications/kcm_powerdevilprofilesconfig.desktop
+%{_kf6_datadir}/applications/kcm_mobile_power.desktop
 %{_userunitdir}/plasma-powerdevil.service
 %{_qt6_plugindir}/kf6/krunner/krunner_powerdevil.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_mobile_power.so
 %{_kf6_qmldir}/org/kde/plasma/private/batterymonitor/batterymonitorplugin.qmltypes
 %{_kf6_qmldir}/org/kde/plasma/private/batterymonitor/kde-qmlmodule.version
 %{_kf6_qmldir}/org/kde/plasma/private/batterymonitor/libbatterymonitorplugin.so
@@ -152,7 +154,11 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_datadir}/qlogging-categories6/batterymonitor.categories
 %{_kf6_datadir}/qlogging-categories6/brightness.categories
 
+
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

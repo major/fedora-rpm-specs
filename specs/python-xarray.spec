@@ -1,7 +1,7 @@
 %global srcname xarray
 
 Name:           python-%{srcname}
-Version:        2025.1.1
+Version:        2025.4.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
@@ -9,25 +9,20 @@ License:        Apache-2.0
 URL:            https://github.com/pydata/xarray
 Source:         %pypi_source %{srcname}
 
-# Fix test_dask_da_groupby_quantile.
-Patch:          https://github.com/pydata/xarray/pull/9945.patch
-
-# https://github.com/pydata/xarray/pull/9949
-Patch:          0001-Fix-test_doc_example-on-big-endian-systems.patch
 # https://github.com/pydata/xarray/pull/9964
-Patch:          0002-Avoid-unsafe-casts-from-float-to-unsigned-int.patch
+Patch:          0001-Avoid-unsafe-casts-from-float-to-unsigned-int.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(bottleneck)
-BuildRequires:  python3dist(dask[array]) >= 2023.9
-BuildRequires:  python3dist(dask[dataframe]) >= 2023.9
-BuildRequires:  python3dist(pint) >= 0.16
+BuildRequires:  python3dist(dask[array]) >= 2023.11
+BuildRequires:  python3dist(dask[dataframe]) >= 2023.11
+BuildRequires:  python3dist(pint) >= 0.22
 BuildRequires:  python3dist(pytest) >= 2.7.1
 BuildRequires:  python3dist(pytest-xdist)
-BuildRequires:  python3dist(rasterio) >= 1.1
-BuildRequires:  python3dist(seaborn) >= 0.11
+BuildRequires:  python3dist(rasterio) >= 1.3
+BuildRequires:  python3dist(seaborn) >= 0.13
 
 %global _description %{expand: \
 Xarray (formerly xray) is an open source project and Python package that
@@ -68,6 +63,8 @@ Summary:        %{summary}
 
 %check
 rm -rf xarray
+
+echo >> pytest.ini  # Ignore any command-line arguments from upstream.
 
 pytest_args=(
   -n auto

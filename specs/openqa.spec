@@ -106,7 +106,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -196,18 +196,17 @@ Obsoletes:      openqa < 4.3-7
 # The NPM bundled dependency generator does not work as the modules
 # seem to be stripped down to the minimum openQA needs - package.json
 # is stripped out. So we have to list these manually
-Provides:       bundled(nodejs-ace-builds) = 1.35.2
-Provides:       bundled(nodejs-anser) = 2.1.1
-Provides:       bundled(nodejs-bootstrap) = 5.3.3
+Provides:       bundled(nodejs-ace-builds) = 1.40.1
+Provides:       bundled(nodejs-anser) = 2.3.2
+Provides:       bundled(nodejs-bootstrap) = 5.3.5
 Provides:       bundled(nodejs-chosen-js) = 1.8.7
 Provides:       bundled(nodejs-d3) = 7.9.0
 Provides:       bundled(nodejs-dagre-d3) = 0.6.4
-Provides:       bundled(nodejs-datatables.net) = 2.1.2
-Provides:       bundled(nodejs-datatables.net-bs5) = 2.1.2
+Provides:       bundled(nodejs-datatables.net) = 2.3.0
+Provides:       bundled(nodejs-datatables.net-bs5) = 2.3.0
 Provides:       bundled(nodejs-fork-awesome) = 1.2.0
 Provides:       bundled(nodejs-jquery) = 3.7.1
 Provides:       bundled(nodejs-jquery-ujs) = 1.2.3
-Provides:       bundled(nodejs-shepherd.js) = 11.2.0
 Provides:       bundled(nodejs-timeago) = 1.6.7
 
 # Note: Fedora does not have the issue SUSE has with noarch. on Fedora

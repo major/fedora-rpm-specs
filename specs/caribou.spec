@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -24,7 +24,7 @@ BuildRequires:  python3-gobject-devel
 BuildRequires:  intltool
 BuildRequires:  gnome-doc-utils
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  clutter-devel
 BuildRequires:  vala
 BuildRequires:  libXtst-devel
@@ -99,7 +99,11 @@ non-gnome-shell sessions.
 
 %prep
 %autosetup -p1
-autoreconf -fiv
+
+gettextize --copy --force
+aclocal --install -I m4
+autoreconf --verbose --force --install
+
 find -name '*.vala' -exec touch {} \;
 
 %build
@@ -156,6 +160,9 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Fri May 16 2025 Leigh Scott <leigh123linux@gmail.com> - 0.4.21-44
+- Fix m4 issue with new gettext
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

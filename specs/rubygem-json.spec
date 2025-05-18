@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		2.11.3
+%global	pkg_version_num		2.12.0
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Fri May 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.12.0-1
+- 2.12.0
+
 * Tue Apr 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11.3-1
 - 2.11.3
 

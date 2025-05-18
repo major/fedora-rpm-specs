@@ -1,7 +1,7 @@
 %global orig_name org.kde.plasma.nano
 
 Name:    plasma-nano
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -70,6 +70,9 @@ Requires: qt6-qtdeclarative
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

@@ -1,5 +1,5 @@
 Name:           thorvg
-Version:        0.15.11
+Version:        0.15.12
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 
@@ -90,9 +90,9 @@ popd
 %doc CONTRIBUTING.md
 %{_libdir}/libthorvg.so.0
 %{_libdir}/libthorvg.so.0.*
-%{_bindir}/tvg_svg2png
-%{_bindir}/tvg_svg2tvg
-%{_bindir}/tvg_lottie2gif
+%{_bindir}/tvg-svg2png
+%{_bindir}/tvg-svg2tvg
+%{_bindir}/tvg-lottie2gif
 
 %files devel
 %{_includedir}/thorvg.h

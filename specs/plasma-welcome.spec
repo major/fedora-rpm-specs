@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        6.3.5
+Version:        6.3.90
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
@@ -59,7 +59,7 @@ rm Messages.sh
 %install
 %cmake_install
 %find_lang %{name} --all-name --with-html
-
+rm -fv %{buildroot}%{_kf6_libdir}/libplasma-welcome-publicplugin.a
 %check
 # commented out until upstream fixes duplicate entries
 #appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}.*.xml
@@ -72,9 +72,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 %{_kf6_datadir}/applications/%{orgname}.desktop
 %{_kf6_metainfodir}/%{orgname}.*.xml
 %{_kf6_plugindir}/kded/kded_plasma-welcome.so
+%{_kf6_qmldir}/org/kde/plasma/welcome/
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

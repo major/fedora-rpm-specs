@@ -283,6 +283,7 @@ done
 %patch -P 13 -p1 -b .qwt
 %patch -P 14 -p1 -b .backup
 %patch -P 15 -p1 -b .backup
+%patch -P 20 -p1 -b .cmake4
 
 %if 0%{?with_python}
 %patch -P 11 -p1 -b .porting_to_python310

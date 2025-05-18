@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -23,6 +23,7 @@ BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6DocTools)
@@ -87,7 +88,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_bindir}/plasmoidviewer
 %{_bindir}/iconexplorer
 %{_bindir}/kqml
-%{_qt6_plugindir}/ktexteditor/iconexplorerplugin.so
+%{_kf6_plugindir}/ktexteditor/iconexplorerplugin.so
 %{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.lookandfeelexplorer/
 %{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.themeexplorer
 %{_kf6_datadir}/plasma/shells/org.kde.plasma.plasmoidviewershell
@@ -109,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

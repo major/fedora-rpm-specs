@@ -1,5 +1,5 @@
 Name:           bids-schema
-Version:        1.0.5
+Version:        1.0.8
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -113,7 +113,7 @@ Features:
   • simple CLI bindings (e.g. bst export)
 
 
-%pyproject_extras_subpkg -n python3-bidsschematools render expressions
+%pyproject_extras_subpkg -n python3-bidsschematools validation render expressions
 
 
 %prep
@@ -133,7 +133,7 @@ rm -rf src/js/ src/css/
 
 %generate_buildrequires
 pushd tools/schemacode >/dev/null
-%pyproject_buildrequires -x render,expressions
+%pyproject_buildrequires -x validation,render,expressions
 popd >/dev/null
 
 
@@ -158,17 +158,21 @@ install -t '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
 
 pushd tools/schemacode >/dev/null
 %pyproject_install
-%pyproject_save_files -l bidsschematools
+%pyproject_save_files -L bidsschematools
 popd
 
+# Include a copy of the “exported” JSON version of the schema in the base
+# package to imitate the structure of
+# https://github.com/bids-standard/bids-schema. See readthedocs.yml.
+install -p -m 0644 \
+    -t '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}' \
+    '%{buildroot}%{python3_sitelib}/bidsschematools/data/schema.json'
+
 # Unbundle the schema data from the Python library.
-# Since the schema directory is replaced by a symbolic link into the base
-# package, we must remove its contents from the files list, and we must remove
-# the directory itself so that we can list it manually without %%dir.
 sed -r -i '/\/bidsschematools\/data\/schema(\/|$)/d' %{pyproject_files}
-for thing in metaschema.json schema
+for thing in metaschema.json schema.json
 do
-  rm -rv "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
+  rm "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
   # Create an absolute symlink into the buildroot and then convert it to a
   # relative one; the relative symlink works both in %%check and after the
   # package is actually installed.
@@ -177,14 +181,6 @@ do
       "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
   symlinks -c -o "%{buildroot}%{python3_sitelib}/bidsschematools/data/${thing}"
 done
-
-# Generate and include a copy of the “exported” JSON version of the schema to
-# imitate the structure of https://github.com/bids-standard/bids-schema. See
-# readthedocs.yml. We do this in %%install rather than %%build because we need
-# to use the generated “bst” entry point.
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-    %{buildroot}%{_bindir}/bst -v export --output \
-        '%{buildroot}%{_datadir}/bids-schema/versions/%{bidsversion}/schema.json'
 
 # Do not ship the tests.
 sed -r -i '/\/bidsschematools\/tests(\/|$)/d' %{pyproject_files}
@@ -230,33 +226,10 @@ ln -s "${PWD}/bids-examples-%{examples_commit}" \
     tools/schemacode/tests/data/bids-examples
 ln -s "${PWD}/bids-error-examples-%{error_examples_commit}" \
     tools/schemacode/tests/data/bids-error-examples
-# We also link the actual schema data, as unbundled and installed in the
-# buildroot.
-rm -rvf 'tools/schemacode/src/bidsschematools/data'
-ln -s '%{buildroot}%{python3_sitelib}/bidsschematools/data' \
-    'tools/schemacode/src/bidsschematools/data'
 # All of this manipulation is OK here in %%check because we already built the
 # wheel and installed the library to the buildroot.
 
 %pytest ${ignore-} -k "${k-}" -v
-
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
-# Added for F42; can be removed in F45 (upgrade path for three releases)
-%pretrans -p <lua> -n python3-bidsschematools
-path = "%{python3_sitelib}/bidsschematools/data/schema"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
 
 
 %files
@@ -285,14 +258,9 @@ end
 
 
 %files -n python3-bidsschematools -f %{pyproject_files}
+%license tools/schemacode/LICENSE
 %doc %dir %{_docdir}/python3-bidsschematools
 %doc %{_docdir}/python3-bidsschematools/README.md
-
-# Symbolic link into the appropriate directory in the base package:
-%{python3_sitelib}/bidsschematools/data/schema
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
-# Added for F42; can be removed in F45 (upgrade path for three releases)
-%ghost %{python3_sitelib}/bidsschematools/data/schema.rpmmoved
 
 %{_bindir}/bst
 %{_mandir}/man1/bst.1*

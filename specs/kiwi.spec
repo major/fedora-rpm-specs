@@ -8,7 +8,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.2.19
+Version:        10.2.22
 Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -117,6 +117,7 @@ Summary:        KIWI - host requirements for container images
 Provides:       kiwi-image:docker
 Provides:       kiwi-image:oci
 Provides:       kiwi-image:appx
+Provides:       kiwi-image:wsl
 Provides:       kiwi-image-docker-requires = %{version}-%{release}
 Obsoletes:      kiwi-image-docker-requires < %{version}-%{release}
 Provides:       kiwi-image-wsl-requires = %{version}-%{release}
@@ -616,6 +617,9 @@ fi
 
 
 %changelog
+* Fri May 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.22-1
+- Update to 10.2.22
+
 * Thu May 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.19-1
 - Update to 10.2.19
 

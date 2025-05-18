@@ -1,4 +1,4 @@
-Version:        2.8.14
+Version:        2.8.15
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -225,6 +225,7 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 
 %files -n libgensio-ipmisol
 %license COPYING COPYING.LIB
+%{_libdir}/lib%{name}_openipmi_oshandler.so.*
 %{_libexecdir}/%{name}/%{version}/lib%{name}_ipmisol.so
 
 

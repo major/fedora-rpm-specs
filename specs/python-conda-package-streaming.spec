@@ -57,7 +57,7 @@ sed -i -e '/"conda"/d' -e '/conda-package-handling/d' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files -L %{pkgname}
+%pyproject_save_files -l %{pkgname}
 
 %check
 %if %{without bootstrap}
@@ -76,7 +76,6 @@ export CONDA_EXE
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 
 
 %changelog

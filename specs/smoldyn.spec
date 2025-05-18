@@ -8,7 +8,7 @@
 
 Name:  smoldyn
 Summary: A particle-based spatial stochastic simulator
-Version: 2.72
+Version: 2.74
 Release: %autorelease
 
 # The rxnparam.c and SurfaceParam.c source code files are in the public domain.
@@ -187,7 +187,7 @@ popd
 pushd %{__cmake_builddir}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
-xvfb-run ctest -j1 -VV -R "test_api|test_sanity|test_biosimulator" --output-on-failure --debug
+xvfb-run ctest -j1 -R "test_api|test_sanity|test_biosimulator" --output-on-failure
 popd
 
 %files

@@ -1,5 +1,5 @@
 Name:    ksystemstats
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
@@ -34,6 +34,7 @@ BuildRequires:  libnl3-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig(libpcap)
+BuildRequires:  libdrm-devel
 
 %description
 KSystemStats is a daemon that collects statistics about the running system.
@@ -67,8 +68,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
 %{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
+%{_libexecdir}/ksystemstats_intel_helper
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

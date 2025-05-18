@@ -1,6 +1,6 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -27,6 +27,8 @@ BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  pkgconfig(wayland-protocols)
 
 BuildRequires:  cmake(Plasma)
 
@@ -55,8 +57,7 @@ KCM and KDED modules for managing displays in KDE.
 %files -f %{name}.lang
 %license LICENSES
 %{_bindir}/kscreen-console
-%{_datadir}/metainfo/org.kde.kscreen.appdata.xml
-%{_datadir}/plasma/plasmoids/org.kde.kscreen/
+%{_bindir}/hdrcalibrator
 %{_kf6_datadir}/applications/kcm_kscreen.desktop
 %{_kf6_datadir}/kglobalaccel/org.kde.kscreen.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
@@ -69,6 +70,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.5-1
 - 6.3.5
 

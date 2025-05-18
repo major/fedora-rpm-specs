@@ -1,7 +1,7 @@
 Name:           persepolis
-Version:        5.1.0
+Version:        5.1.1
 Release:        1%{?dist}
-Summary:        A powerful download manager powered by aria2
+Summary:        A powerful graphical download manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -24,12 +24,11 @@ Requires:       python3-qt5 qt5-qtsvg
 Recommends:     yt-dlp ffmpeg-free python3-dasbus
 
 %description
-Persepolis is a download manager and a GUI for aria2 powered by Python.
- - Graphical UI front end for aria2
- - Multi-segment downloading
+Persepolis is a Download Manager written in Python.
+ - Multi segment downloading
  - Scheduling downloads
- - Download queue
-
+ - Download queuing
+ - Finding and downloading video from Youtube, Vimeo, DailyMotion, ...
 
 %prep
 %autosetup -p1
@@ -67,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri May 16 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.1.1-1
+- New bugfix upstream release: 5.1.1
+
 * Tue Apr 22 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.1.0-1
 - New minor upstream release: 5.1.0
 

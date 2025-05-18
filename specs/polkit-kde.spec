@@ -2,7 +2,7 @@
 
 Name:    polkit-kde
 Summary: PolicyKit integration for KDE Desktop
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND CC0-1.0
@@ -65,12 +65,15 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 %license LICENSES/*
 %{_kf6_libexecdir}/polkit-kde-authentication-agent-1
 %{_sysconfdir}/xdg/autostart/polkit-kde-authentication-agent-1.desktop
-%{_kf6_datadir}/knotifications6/policykit1-kde.notifyrc
+%{_kf6_datadir}/knotifications6/polkit-kde-authentication-agent-1.notifyrc
 %{_kf6_datadir}/applications/org.kde.polkit-kde-authentication-agent-1.desktop
 %{_userunitdir}/plasma-polkit-agent.service
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

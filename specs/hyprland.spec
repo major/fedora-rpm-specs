@@ -1,5 +1,5 @@
 Name:           hyprland
-Version:        0.45.2
+Version:        0.49.0
 Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor that doesn't sacrifice on its looks
 
@@ -12,6 +12,8 @@ Summary:        Dynamic tiling Wayland compositor that doesn't sacrifice on its 
 # ./protocols/wlr-gamma-control-unstable-v1.xml: HPND-sell-variant and/or ntp_disclaimer
 # ./protocols/wlr-layer-shell-unstable-v1.xml: HPND-sell-variant and/or ntp_disclaimer
 # ./protocols/wlr-output-management-unstable-v1.xml: HPND-sell-variant and/or ntp_disclaimer
+# ./protocols/frog-color-management-v1.xml: HPND-sell-variant and/or ntp_disclaimer
+# ./protocols/xx-color-management-v4.xml: HPND-sell-variant and/or ntp_disclaimer
 License:        BSD-3-Clause AND BSD-2-Clause AND LGPL-2.1-or-later AND HPND-sell-variant
 URL:            https://github.com/hyprwm/Hyprland
 Source:         %{url}/releases/download/v%{version}/source-v%{version}.tar.gz
@@ -30,6 +32,7 @@ BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(hyprcursor)
+BuildRequires:  pkgconfig(hyprgraphics)
 BuildRequires:  pkgconfig(hyprland-protocols)
 BuildRequires:  pkgconfig(hyprlang)
 BuildRequires:  pkgconfig(hyprutils)
@@ -73,8 +76,10 @@ Provides:       bundled(udis86) = 1.7.2^1.git5336633
 
 Requires:       xorg-x11-server-Xwayland%{?_isa}
 Requires:       xdg-desktop-portal%{?_isa}
+Requires:       aquamarine%{?_isa} >= 0.8.0
 Requires:       hyprcursor%{?_isa} >= 0.1.9
-Requires:       hyprutils%{?_isa} >= 0.2.3
+Requires:       hyprutils%{?_isa} >= 0.7.0
+Requires:       hyprgraphics%{?_isa} >= 0.1.3
 
 # Used in the default configuration
 Recommends:     kitty
@@ -110,6 +115,7 @@ Requires:       pkgconfig(gbm)
 Requires:       pkgconfig(glesv2)
 Requires:       pkgconfig(hwdata)
 Requires:       pkgconfig(hyprcursor)
+Requires:       pkgconfig(hyprgraphics)
 Requires:       pkgconfig(hyprlang)
 Requires:       pkgconfig(hyprutils)
 Requires:       pkgconfig(hyprwayland-scanner)

@@ -2,8 +2,8 @@
 
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.4.7
-Release: 3%{?dist}
+Version: 2.4.8
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -34,7 +34,6 @@ Patch29: 0011-el-gamal-default-to-3072-bits.patch
 Patch30: 0012-gpg-default-digest-algorithm-SHA512.patch
 Patch31: 0013-gpg-Prefer-SHA-512-and-SHA-384-in-personal-digest.patch
 Patch32: 0018-Avoid-simple-memory-dumps-via-ptrace.patch
-Patch33: 0019-Disallow-compressed-signatures-and-certificates.patch
 Patch34: 0029-Add-keyboxd-systemd-support.patch
 Patch35: 0033-Support-large-RSA-keygen-in-non-batch-mode.patch
 
@@ -139,7 +138,6 @@ to the base GnuPG package
 %patch 30 -p1 -b .default-sha512
 %patch 31 -p1 -b .prefer-sha512
 %patch 32 -p1 -b .dump-ptrace
-%patch 33 -p1 -b .compressed
 %patch 34 -p1 -b .keyboxd-units
 %patch 35 -p1 -b .large-rsa
 
@@ -252,6 +250,10 @@ make -k check
 
 
 %changelog
+* Fri May 16 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.8-1
+- New upstream release 2.4.8
+- Remove problematic patch breaking Poppler
+
 * Wed Mar 26 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.7-3
 - Pull more patches from FreePG project
 

@@ -66,12 +66,13 @@ Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
 
 Patch01: fix-removed-xmlsec-deprecations.patch
 Patch02: fix-openssl-implicit-declarations.patch
+# GCC14 (https://listes.entrouvert.com//arc/lasso/2024-01/msg00000.html)
 Patch3: lasso-libxml2.patch
-# https://git.entrouvert.org/entrouvert/lasso/commit/253e8abe7b83d4d8f3d8dd5f886a54f4e173cc28
+# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/253e8abe7b83d4d8f3d8dd5f886a54f4e173cc28)
 Patch4: 253e8abe7b83d4d8f3d8dd5f886a54f4e173cc28.patch
-# https://git.entrouvert.org/entrouvert/lasso/commit/625bf7d9c11ec366c45514d5ec12ab1cdd8ce094
+# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/625bf7d9c11ec366c45514d5ec12ab1cdd8ce094)
 Patch5: 625bf7d9c11ec366c45514d5ec12ab1cdd8ce094.patch
-# https://git.entrouvert.org/entrouvert/lasso/commit/3e6f9076e19368b29a932373955a5dccd2f3cc46
+# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/3e6f9076e19368b29a932373955a5dccd2f3cc46)
 Patch6: 3e6f9076e19368b29a932373955a5dccd2f3cc46.patch
 # https://dev.entrouvert.org/issues/92106
 Patch7: lasso-2.8.2-python_313.patch

@@ -1,5 +1,5 @@
 Name:           powerstat
-Version:        0.04.04
+Version:        0.04.05
 Release:        1%{?dist}
 Summary:        Measures the power consumption of a machine
 
@@ -51,6 +51,9 @@ deviation and min/max of the gathered data.
 
 
 %changelog
+* Fri May 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.04.05-1
+- Update to latest release
+
 * Tue Mar 11 2025 Benson Muite <fed500@fedoraproject.org> - 0.04.04-1
 - Update to latest release
 

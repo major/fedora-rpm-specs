@@ -4,7 +4,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -85,6 +85,7 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(Qt6Location)
 BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  polkit-qt6-1-devel
@@ -583,6 +584,7 @@ fi
 %dir %{_userunitdir}/plasma-workspace@.target.d/
 %{_libdir}/kconf_update_bin/plasma6.3-update-clipboard-database-2-to-3
 %{_datadir}/kconf_update/plasma6.3-update-clipboard-database-2-to-3.upd
+%{_kf6_datadir}/timezonefiles/timezones.json
 # PAM
 %config(noreplace) %{_sysconfdir}/pam.d/kde
 %config(noreplace) %{_sysconfdir}/pam.d/kde-fingerprint
@@ -638,10 +640,12 @@ fi
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.upd
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.py
 %{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-custom-position-of-panels.upd
+%{_kf6_datadir}/kconf_update/plasma6.4-migrate-fullscreen-notifications-to-dnd.upd
 %{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
 %{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
 %{_libdir}/kconf_update_bin/plasma6.0-remove-dpi-settings
 %{_libdir}/kconf_update_bin/plasmashell-6.0-keep-custom-position-of-panels
+%{_libdir}/kconf_update_bin/plasma6.4-migrate-fullscreen-notifications-to-dnd
 %{_kf6_datadir}/kglobalaccel/org.kde.krunner.desktop
 
 %files devel
@@ -686,6 +690,9 @@ fi
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

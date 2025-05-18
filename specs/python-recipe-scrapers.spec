@@ -1,6 +1,6 @@
 %global         srcname         recipe-scrapers
 %global         forgeurl        https://github.com/hhursev/%{srcname}
-Version:        15.2.1
+Version:        15.7.1
 %global         tag             v%{version}
 %forgemeta
 

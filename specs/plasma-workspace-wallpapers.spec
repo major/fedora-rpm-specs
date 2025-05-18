@@ -1,5 +1,5 @@
 Name:    plasma-workspace-wallpapers
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -63,6 +63,8 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Kokkini/
 %{_datadir}/wallpapers/MilkyWay/
 %{_datadir}/wallpapers/Mountain/
+%{_datadir}/wallpapers/Nexus/
+%{_datadir}/wallpapers/Nuvole/
 %{_datadir}/wallpapers/OneStandsOut/
 %{_datadir}/wallpapers/Opal/
 %{_datadir}/wallpapers/PastelHills/
@@ -73,9 +75,11 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Shell/
 %{_datadir}/wallpapers/summer_1am/
 %{_datadir}/wallpapers/Volna/
-%{_datadir}/wallpapers/Nexus/
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

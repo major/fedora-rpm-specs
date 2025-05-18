@@ -7,6 +7,7 @@ Summary:        Perl interface for the MusicBrainz libdiscid library
 License:        MIT
 URL:            https://metacpan.org/release/MusicBrainz-DiscID
 Source0:        https://cpan.metacpan.org/authors/id/N/NJ/NJH/MusicBrainz-DiscID-%{version}.tar.gz
+Patch0:         rhbz-2364631.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libdiscid-devel
@@ -24,7 +25,7 @@ interface to libdiscid, because it makes use of perl's Object Oriented
 functionality.
 
 %prep
-%setup -q -n MusicBrainz-DiscID-%{version}
+%autosetup -p1 -n MusicBrainz-DiscID-%{version}
 chmod -c a-x examples/*.pl
 
 %build

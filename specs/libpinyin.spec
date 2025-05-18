@@ -1,7 +1,7 @@
 %global snapshot 0
 
 Name:           libpinyin
-Version:        2.10.1
+Version:        2.10.2
 Release:        1%{?dist}
 Summary:        Library to deal with pinyin
 
@@ -108,6 +108,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Fri May 16 2025 Peng Wu  <pwu@redhat.com> - 2.10.2-1
+- Update to 2.10.2
+- fix memory leaks
+
 * Mon Mar 24 2025 Peng Wu <pwu@redhat.com> - 2.10.1-1
 - Update to 2.10.1
 - bug fixes

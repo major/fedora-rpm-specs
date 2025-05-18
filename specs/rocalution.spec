@@ -49,7 +49,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -155,33 +155,33 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name '%{name}*'     | sed -f br.sed >  %{name}.test
-%endif
-
 if [ -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 fi
 
-%files -f %{name}.files
+%files
 %license LICENSE.md
+%{_libdir}/librocalution.so.1{,.*}
+%{_libdir}/librocalution_hip.so.1{,.*}
 
-%files devel -f %{name}.devel
+%files devel
 %doc README.md
 %dir %{_libdir}/cmake/rocalution
 %dir %{_includedir}/rocalution
 %{_includedir}/rocalution/*
+%{_libdir}/librocalution.so
+%{_libdir}/librocalution_hip.so
+%{_libdir}/cmake/rocalution/*.cmake
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/rocalution*
 %endif
 
 %changelog
+* Fri May 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Cleanup module build
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

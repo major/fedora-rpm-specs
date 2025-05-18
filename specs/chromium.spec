@@ -290,9 +290,6 @@ Patch91: chromium-108-system-opus.patch
 # patch for Failed NodeJS version check
 Patch92: chromium-136-checkversion-nodejs.patch
 
-# Fix FTBFS caused by bindgen-cli-0.71, rust-1.79.0 on EL9
-Patch93: chromium-136-el9-bindgen-cli-build-error.patch
-
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
@@ -324,7 +321,7 @@ Patch306: chromium-127-el8-ifunc-header.patch
 
 # workaround for build error due to old atk version on el8
 Patch307: chromium-134-el8-atk-compiler-error.patch
-# Fix build errors due to old clang18 in el 8/9 and f40
+# Fix build errors due to old clang18 in el8
 Patch308: chromium-136-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 Patch310: chromium-132-el8-clang18-build-error.patch
@@ -336,7 +333,8 @@ Patch312: chromium-123-fstack-protector-strong.patch
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
 
-# build error error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
+# old rust version causes build error on el8:
+# error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch
 
 # build error: libadler2 not found, rust-1.86 or newer replaces adler with adler2
@@ -503,7 +501,7 @@ BuildRequires: llvm
 BuildRequires: lld
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
-BuildRequires: gcc-toolset-13-libatomic-devel
+BuildRequires: gcc-toolset-14-libatomic-devel
 %endif
 
 BuildRequires: rustc
@@ -1012,7 +1010,6 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
-%patch -P93 -p1 -b .bindgen-cli-build-error
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
@@ -1043,7 +1040,7 @@ Qt6 UI for chromium.
 %endif
 %patch -P307 -p1 -b .el8-atk-compiler-error
 %endif
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora} == 40
+%if 0%{?rhel} == 8
 %patch -P308 -p1 -b .unsupport-clang-flags
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P310 -p1 -b .el8-clang18-build-error
@@ -1061,7 +1058,7 @@ Qt6 UI for chromium.
 %endif
 %endif
 
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora} == 40
+%if 0%{?rhel} == 8
 %patch -P314 -p1 -b .rust-skrifa-build-error
 %endif
 

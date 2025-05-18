@@ -2,7 +2,7 @@
 %define libver 1
 
 Name: dwarves
-Version: 1.29
+Version: 1.30
 Release: 1%{?dist}
 License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
@@ -15,9 +15,9 @@ BuildRequires: zlib-devel
 BuildRequires: elfutils-devel >= 0.130
 
 %description
-dwarves is a set of tools that use the debugging information inserted in
-ELF binaries by compilers such as GCC, used by well known debuggers such as
-GDB, and more recent ones such as systemtap.
+dwarves is a set of tools that use the debugging information inserted in ELF
+binaries by compilers such as GCC, used by well known debuggers such as GDB,
+and more recent ones such as systemtap.
 
 Utilities in the dwarves suite include pahole, that can be used to find
 alignment holes in structs and classes in languages such as C, C++, but not
@@ -41,8 +41,8 @@ gcc, with the same compiler flags, and then use codiff to make sure the
 original .o file and the new one generated from debug info produces the same
 debug info.
 
-Pahole also can be used to use all this type information to pretty print raw data
-according to command line directions.
+Pahole also can be used to use all this type information to pretty print raw
+data according to command line directions.
 
 Headers can have its data format described from debugging info and offsets from
 it can be used to further format a number of records.
@@ -79,7 +79,7 @@ rm -Rf %{buildroot}
 %files
 %doc README.ctracer
 %doc README.btf
-%doc changes-v1.29
+%doc changes-v1.30
 %doc NEWS
 %{_bindir}/btfdiff
 %{_bindir}/codiff
@@ -131,15 +131,21 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Fri May 16 2025 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.30-1
+- New release: 1.30
+- Better detection of abort during DWARF loader thread processing
+- pahole now detects presence of libbpf APIs and BTF features using weak function
+  declarations when built using a shared library libbpf
+- Type tags are emitted for BPF arena pointers with new BTF "attributes" feature
+
 * Wed Jan 15 2025 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.29-1
+- New release: 1.29
 - Multithreading is now in the DWARF loader using a jobs queue and a pool of worker threads.
 - The BTF encoding now is always reproducible, and as fast/faster than before.
 - The memory consumption is reduced.
 - Support for multiple BTF_DECL_TAGs pointing to same tag.
 - Verify that pfunct prints btf_decl_tags read from BTF.
 - Don't print functions twice when using 'pfunct -f function_name'.
-
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
 * Fri Dec  6 2024 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.28-1
 - New release: 1.28

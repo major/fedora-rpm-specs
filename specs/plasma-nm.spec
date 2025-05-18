@@ -1,6 +1,6 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -207,6 +207,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %find_lang plasmanetworkmanagement-kcm
 %find_lang plasmanetworkmanagement-libs
 %find_lang plasmanetworkmanagement_openvpnui
+%find_lang kcm_cellular_network
+%find_lang kcm_mobile_hotspot
+%find_lang kcm_mobile_wifi
 %if %{with openconnect}
 %find_lang plasmanetworkmanagement_openconnectui
 %endif
@@ -223,7 +226,7 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 
-%files -f plasma_applet_org.kde.plasma.networkmanagement.lang -f plasmanetworkmanagement-kded.lang -f plasmanetworkmanagement-libs.lang -f plasmanetworkmanagement-kcm.lang
+%files -f plasma_applet_org.kde.plasma.networkmanagement.lang -f plasmanetworkmanagement-kded.lang -f plasmanetworkmanagement-libs.lang -f plasmanetworkmanagement-kcm.lang -f kcm_cellular_network.lang -f kcm_mobile_wifi.lang -f kcm_mobile_hotspot.lang
 %{_libdir}/libplasmanm_internal.so
 %{_libdir}/libplasmanm_editor.so
 # plasma-nm applet
@@ -239,9 +242,15 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 
 # kcm
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_networkmanagement.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_mobile_hotspot.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_mobile_wifi.so
 %{_datadir}/kcm_networkmanagement/qml/
 %{_kf6_datadir}/applications/kcm_networkmanagement.desktop
 %{_kf6_datadir}/applications/org.kde.vpnimport.desktop
+%{_kf6_datadir}/applications/kcm_cellular_network.desktop
+%{_kf6_datadir}/applications/kcm_mobile_hotspot.desktop
+%{_kf6_datadir}/applications/kcm_mobile_wifi.desktop
 
 %files openvpn -f plasmanetworkmanagement_openvpnui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openvpnui.so
@@ -287,6 +296,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

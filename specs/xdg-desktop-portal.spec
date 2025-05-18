@@ -7,7 +7,7 @@
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.20.0
+Version: 1.20.1
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
@@ -15,8 +15,6 @@ Summary: Portal frontend service to flatpak
 License: LGPL-2.1-or-later
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
-
-Patch0:  xdp-make-sure-host-registry-xdpappinfo-updates-become-visible.patch
 
 BuildRequires: gcc
 BuildRequires: gettext

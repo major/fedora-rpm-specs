@@ -1,8 +1,5 @@
-# X11 session is not shipped anymore
-%bcond x11 0
-
 Name:    kwin
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -131,13 +128,18 @@ Obsoletes: kwin < 5.19.5-3
 
 Requires:   %{name}-wayland = %{version}-%{release}
 
-%description
-%{summary}.
+# Merge -wayland subpackage
+Conflicts: %{name}-wayland < 6.3.90
+Obsoletes: %{name}-wayland < 6.3.90
+Provides:  %{name}-wayland = %{version}-%{release}
+Provides:  %{name}-wayland%{?_isa} = %{version}-%{release}
 
-%package        wayland
-Summary:        KDE Window Manager with Wayland support
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       %{name}-common%{?_isa} = %{version}-%{release}
+# Obsolete kwin-wayland-nvidia package as this is now done automatically
+# by kwin-wayland
+Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
+Provides:       %{name}-wayland-nvidia = %{version}-%{release}
+# Obsolete -x11 for Plasma 6
+Obsoletes:      %{name}-x11 < 5.92.0
 %if ! 0%{?rhel} >= 10
 Requires:       (kwayland-integration%{?_isa} if kf5-kwindowsystem%{?_isa})
 %endif
@@ -147,37 +149,9 @@ BuildRequires:  xorg-x11-server-Xwayland
 Requires:       xorg-x11-server-Xwayland
 # KWinQpaPlugin (and others?)
 
-# Obsolete kwin-wayland-nvidia package as this is now done automatically
-# by kwin-wayland
-Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
-Provides:       %{name}-wayland-nvidia = %{version}-%{release}
-%if ! %{with x11}
-# Obsolete kwin-x11 as we are dropping the package
-%if 0%{?fedora}
-Obsoletes:      %{name}-x11 < 5.92.0
-%else
-Obsoletes:      %{name}-x11 < %{version}-%{release}
-Conflicts:      %{name}-x11 < %{version}-%{release}
-%endif
-%endif
-%description    wayland
+%description
 %{summary}.
 
-%if %{with x11}
-%package        x11
-Summary:        KDE Window Manager with X11 support
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-Requires:       xorg-x11-server-Xorg
-# Plasma X11 is deprecated and will be removed with Plasma 6.0
-Provides:       deprecated()
-# http://bugzilla.redhat.com/605675
-Provides:       firstboot(windowmanager) = kwin_x11
-# KWinX11Platform (and others?)
-
-%description    x11
-%{summary}.
-%endif
 
 %package        common
 Summary:        Common files for KWin X11 and KWin Wayland
@@ -239,24 +213,21 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 # temporary(?) hack to allow initial-setup to use /usr/bin/kwin too
 ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
-%if ! %{with x11}
-# Delete x11 session stuff
-rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwin_x11.service
-%endif
-
 
 %files
 %{_bindir}/kwin
+%{_bindir}/kwin_wayland_wrapper
+%{_datadir}/kwin-wayland/
+%caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_wayland
+%{_userunitdir}/plasma-kwin_wayland.service
+%dir %{_sysconfdir}/xdg/Xwayland-session.d
 
 %files common -f kwin6.lang
-%{_datadir}/kwin
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
 %{_kf6_qtplugindir}/kwin/
 %{_kf6_qtplugindir}/kf6/packagestructure/kwin_*.so
-%{_qt6_plugindir}/org.kde.kdecoration3.kcm/kcm_auroraedecoration.so
-%{_kf6_qtplugindir}/org.kde.kdecoration3/*.so
-%{_qt6_qmldir}/org/kde/kwin
+%{_qt6_qmldir}/org/kde/kwin/
 %{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-delete-desktop-switching-shortcuts
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-remove-breeze-tabbox-default
@@ -264,6 +235,7 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 %{_kf6_libdir}/kconf_update_bin/kwin-6.1-remove-gridview-expose-shortcuts
 %{_libexecdir}/kwin_killer_helper
 %{_libexecdir}/kwin-applywindowdecoration
+%{_libexecdir}/kwin-tabbox-preview
 %{_datadir}/kconf_update/kwin.upd
 %{_kf6_datadir}/knotifications6/kwin.notifyrc
 %{_kf6_datadir}/config.kcfg/kwin.kcfg
@@ -274,18 +246,6 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows.desktop
 %{_datadir}/applications/*.desktop
-
-%files wayland
-%{_bindir}/kwin_wayland_wrapper
-%caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_wayland
-%{_userunitdir}/plasma-kwin_wayland.service
-%dir %{_sysconfdir}/xdg/Xwayland-session.d
-
-%if %{with x11}
-%files x11
-%{_kf6_bindir}/kwin_x11
-%{_userunitdir}/plasma-kwin_x11.service
-%endif
 
 %files libs
 %{_kf6_datadir}/qlogging-categories6/org_kde_kwin.categories
@@ -304,6 +264,13 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Fri May 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.90-1
+- Update 6.3.90
+- Merge kwin-wayland subpackage into main package
+
+* Mon May 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.5-2
+- Backport support for a11y keyboard monitor interface
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

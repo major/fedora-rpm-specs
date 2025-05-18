@@ -7,8 +7,8 @@
 %endif
 
 Name:    plasma-breeze
-Version: 6.3.5
-Release: 2%{?dist}
+Version: 6.3.90
+Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -167,6 +167,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Mon May 12 2025 Than Ngo <than@redhat.com> - 6.3.5-2
 - Fix rhbz#2292576 - Directory is missing in RPM database
 

@@ -1,6 +1,6 @@
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.0.41
+%global package_version 8.0.42
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -19,7 +19,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.41
+%global last_tested_version 8.0.42
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1106,6 +1106,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.42-1
+- Rebase to MySQL 8.0.42
+
 * Sun Apr 06 2025 Michal Schorm <mschorm@redhat.com> - 8.0.41-2
 - Switch from the RPM scriptlet to the sysusers.d configuration
   for 'mysql' user / group creation

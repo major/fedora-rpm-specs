@@ -38,12 +38,12 @@
 # rpm -ba|--rebuild --define "static_openssl 1"
 %{?static_openssl:%global static_libcrypto 1}
 
-%global openssh_ver 9.9p1
+%global openssh_ver 10.0p1
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 15%{?dist}
+Release: 1%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -65,146 +65,118 @@ Source21: ssh-host-keys-migration.service
 Source22: parallel_test.sh
 Source23: parallel_test.Makefile
 
-#https://bugzilla.mindrot.org/show_bug.cgi?id=2581
-Patch100: openssh-6.7p1-coverity.patch
-
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1402
-# https://bugzilla.redhat.com/show_bug.cgi?id=1171248
-# record pfs= field in CRYPTO_SESSION audit event
-Patch200: openssh-7.6p1-audit.patch
-# Audit race condition in forked child (#1310684)
-Patch201: openssh-7.1p2-audit-race-condition.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2049947
-Patch202: openssh-9.0p1-audit-log.patch
-
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
-Patch400: openssh-7.8p1-role-mls.patch
+Patch0001: 0001-openssh-7.8p1-role-mls.patch
 #https://bugzilla.redhat.com/show_bug.cgi?id=781634
-Patch404: openssh-6.6p1-privsep-selinux.patch
-#?
-Patch502: openssh-6.6p1-keycat.patch
-
+Patch0002: 0002-openssh-6.6p1-privsep-selinux.patch
+Patch0003: 0003-openssh-6.6p1-keycat.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1644
-Patch601: openssh-6.6p1-allow-ip-opts.patch
+Patch0004: 0004-openssh-6.6p1-allow-ip-opts.patch
 #(drop?) https://bugzilla.mindrot.org/show_bug.cgi?id=1925
-Patch606: openssh-5.9p1-ipv6man.patch
-#?
-Patch607: openssh-5.8p2-sigpipe.patch
+Patch0005: 0005-openssh-5.9p1-ipv6man.patch
+Patch0006: 0006-openssh-5.8p2-sigpipe.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1789
-Patch609: openssh-7.2p2-x11.patch
-
-#?
-Patch700: openssh-7.7p1-fips.patch
-#?
-Patch702: openssh-5.1p1-askpass-progress.patch
+Patch0007: 0007-openssh-7.2p2-x11.patch
+Patch0008: 0008-openssh-5.1p1-askpass-progress.patch
 #https://bugzilla.redhat.com/show_bug.cgi?id=198332
-Patch703: openssh-4.3p2-askpass-grab-info.patch
+Patch0009: 0009-openssh-4.3p2-askpass-grab-info.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1635 (WONTFIX)
-Patch707: openssh-8.7p1-redhat.patch
+Patch0010: 0010-openssh-8.7p1-redhat.patch
 # warn users for unsupported UsePAM=no (#757545)
-Patch711: openssh-7.8p1-UsePAM-warning.patch
-
+Patch0011: 0011-openssh-7.8p1-UsePAM-warning.patch
 # GSSAPI Key Exchange (RFC 4462 + RFC 8732)
 # from https://github.com/openssh-gsskex/openssh-gsskex/tree/fedora/master
 # and
 # Reenable MONITOR_REQ_GSSCHECKMIC after gssapi-with-mic failures
 # upstream MR:
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/21
-Patch800: openssh-9.6p1-gssapi-keyex.patch
+Patch0012: 0012-openssh-9.6p1-gssapi-keyex.patch
 #http://www.mail-archive.com/kerberos@mit.edu/msg17591.html
-Patch801: openssh-6.6p1-force_krb.patch
-# add new option GSSAPIEnablek5users and disable using ~/.k5users by default (#1169843)
-# CVE-2014-9278
-Patch802: openssh-6.6p1-GSSAPIEnablek5users.patch
+Patch0013: 0013-openssh-6.6p1-force_krb.patch
 # Improve ccache handling in openssh (#991186, #1199363, #1566494)
 # https://bugzilla.mindrot.org/show_bug.cgi?id=2775
-Patch804: openssh-7.7p1-gssapi-new-unique.patch
+Patch0014: 0014-openssh-7.7p1-gssapi-new-unique.patch
 # Respect k5login_directory option in krk5.conf (#1328243)
-Patch805: openssh-7.2p2-k5login_directory.patch
-
+Patch0015: 0015-openssh-7.2p2-k5login_directory.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1780
-Patch901: openssh-6.6p1-kuserok.patch
+Patch0016: 0016-openssh-6.6p1-kuserok.patch
 # Use tty allocation for a remote scp (#985650)
-Patch906: openssh-6.4p1-fromto-remote.patch
+Patch0017: 0017-openssh-6.4p1-fromto-remote.patch
 # privsep_preauth: use SELinux context from selinux-policy (#1008580)
-Patch916: openssh-6.6.1p1-selinux-contexts.patch
+Patch0018: 0018-openssh-6.6.1p1-selinux-contexts.patch
 # log via monitor in chroots without /dev/log (#2681)
-Patch918: openssh-6.6.1p1-log-in-chroot.patch
+Patch0019: 0019-openssh-6.6.1p1-log-in-chroot.patch
 # scp file into non-existing directory (#1142223)
-Patch919: openssh-6.6.1p1-scp-non-existing-directory.patch
+Patch0020: 0020-openssh-6.6.1p1-scp-non-existing-directory.patch
+# add new option GSSAPIEnablek5users and disable using ~/.k5users by default (#1169843)
+# CVE-2014-9278
+Patch0021: 0021-openssh-6.6p1-GSSAPIEnablek5users.patch
 # apply upstream patch and make sshd -T more consistent (#1187521)
-Patch922: openssh-6.8p1-sshdT-output.patch
+Patch0022: 0022-openssh-6.8p1-sshdT-output.patch
 # Add sftp option to force mode of created files (#1191055)
-Patch926: openssh-6.7p1-sftp-force-permission.patch
+Patch0023: 0023-openssh-6.7p1-sftp-force-permission.patch
 # make s390 use /dev/ crypto devices -- ignore closefrom
-Patch939: openssh-7.2p2-s390-closefrom.patch
+Patch0024: 0024-openssh-7.2p2-s390-closefrom.patch
 # Move MAX_DISPLAYS to a configuration option (#1341302)
-Patch944: openssh-7.3p1-x11-max-displays.patch
+Patch0025: 0025-openssh-7.3p1-x11-max-displays.patch
 # Pass inetd flags for SELinux down to openbsd compat level
-Patch949: openssh-7.6p1-cleanup-selinux.patch
+Patch0026: 0026-openssh-7.6p1-cleanup-selinux.patch
 # Sandbox adjustments for s390 and audit
-Patch950: openssh-7.5p1-sandbox.patch
+Patch0027: 0027-openssh-7.5p1-sandbox.patch
 # PKCS#11 URIs (upstream #2817, 2nd iteration)
 # https://github.com/Jakuje/openssh-portable/commits/jjelen-pkcs11
 # git show > ~/devel/fedora/openssh/openssh-8.0p1-pkcs11-uri.patch
-Patch951: openssh-8.0p1-pkcs11-uri.patch
+Patch0028: 0028-openssh-8.0p1-pkcs11-uri.patch
 # Unbreak scp between two IPv6 hosts (#1620333)
-Patch953: openssh-7.8p1-scp-ipv6.patch
+Patch0029: 0029-openssh-7.8p1-scp-ipv6.patch
 # Mention crypto-policies in manual pages (#1668325)
 # clarify rhbz#2068423 on the man page of ssh_config
-Patch962: openssh-8.0p1-crypto-policies.patch
+Patch0030: 0030-openssh-8.0p1-crypto-policies.patch
 # Use OpenSSL KDF (#1631761)
-Patch964: openssh-8.0p1-openssl-kdf.patch
+Patch0031: 0031-openssh-8.0p1-openssl-kdf.patch
 # sk-dummy.so built with -fvisibility=hidden does not work
-Patch965: openssh-8.2p1-visibility.patch
+Patch0032: 0032-openssh-8.2p1-visibility.patch
 # Do not break X11 without IPv6
-Patch966: openssh-8.2p1-x11-without-ipv6.patch
-# ssh-keygen printing fingerprint issue with Windows keys (#1901518)
-Patch974: openssh-8.0p1-keygen-strip-doseol.patch
+Patch0033: 0033-openssh-8.2p1-x11-without-ipv6.patch
 # sshd provides PAM an incorrect error code (#1879503)
-Patch975: openssh-8.0p1-preserve-pam-errors.patch
-
+Patch0034: 0034-openssh-8.0p1-preserve-pam-errors.patch
 # Implement kill switch for SCP protocol
-Patch977: openssh-8.7p1-scp-kill-switch.patch
-
+Patch0035: 0035-openssh-8.7p1-scp-kill-switch.patch
 # Workaround for lack of sftp_realpath in older versions of RHEL
 # https://bugzilla.redhat.com/show_bug.cgi?id=2038854
 # https://github.com/openssh/openssh-portable/pull/299
 # downstream only
-Patch981: openssh-8.7p1-recursive-scp.patch
-# https://github.com/djmdjm/openssh-wip/pull/13
-Patch982: openssh-8.7p1-minrsabits.patch
+Patch0036: 0036-openssh-8.7p1-recursive-scp.patch
+# Downstream alias for MinRSABits
+Patch0037: 0037-openssh-8.7p1-minrsabits.patch
 # downstream only, IBMCA tentative fix
 # From https://bugzilla.redhat.com/show_bug.cgi?id=1976202#c14
-Patch984: openssh-8.7p1-ibmca.patch
-
+Patch0038: 0038-openssh-8.7p1-ibmca.patch
+#https://bugzilla.mindrot.org/show_bug.cgi?id=1402
+# https://bugzilla.redhat.com/show_bug.cgi?id=1171248
+# record pfs= field in CRYPTO_SESSION audit event
+Patch0039: 0039-openssh-7.6p1-audit.patch
+# Audit race condition in forked child (#1310684)
+Patch0040: 0040-openssh-7.1p2-audit-race-condition.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2049947
+Patch0041: 0041-openssh-9.0p1-audit-log.patch
+Patch0042: 0042-openssh-7.7p1-fips.patch
 # Add missing options from ssh_config into ssh manpage
 # upstream bug:
 # https://bugzilla.mindrot.org/show_bug.cgi?id=3455
-Patch1002: openssh-8.7p1-ssh-manpage.patch
-
+Patch0043: 0043-openssh-8.7p1-ssh-manpage.patch
 # Don't propose disallowed algorithms during hostkey negotiation
 # upstream MR:
 # https://github.com/openssh/openssh-portable/pull/323
-Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
-
-Patch1012: openssh-9.0p1-evp-fips-kex.patch
-Patch1014: openssh-8.7p1-nohostsha1proof.patch
-
-Patch1015: openssh-9.6p1-pam-rhost.patch
-Patch1016: openssh-9.9p1-separate-keysign.patch
-# upstream cf3e48ee8ba1beeccddd2f203b558fa102be67a2
-# upstream 0c3927c45f8a57b511c874c4d51a8c89414f74ef
-Patch1017: openssh-9.9p1-mlkembe.patch
-# upstream 3f02368e8e9121847727c46b280efc280e5eb615
-# upstream 67a115e7a56dbdc3f5a58c64b29231151f3670f5
-Patch1020: openssh-9.9p1-match-regression.patch
-# upstream 6ce00f0c2ecbb9f75023dbe627ee6460bcec78c2
-# upstream 0832aac79517611dd4de93ad0a83577994d9c907
-# added https://www.openwall.com/lists/oss-security/2025/02/22/1
-Patch1021: openssh-9.9p2-error_processing.patch
-# Downstream patch, OpenSSL based MLKEM implementation
-Patch1022: openssh-9.9p1-openssl-mlkem.patch
+Patch0044: 0044-openssh-8.7p1-negotiate-supported-algs.patch
+Patch0045: 0045-openssh-9.0p1-evp-fips-kex.patch
+Patch0046: 0046-openssh-8.7p1-nohostsha1proof.patch
+Patch0047: 0047-openssh-9.6p1-pam-rhost.patch
+Patch0048: 0048-openssh-9.9p1-separate-keysign.patch
+Patch0049: 0049-openssh-9.9p1-openssl-mlkem.patch
+# https://www.openwall.com/lists/oss-security/2025/02/22/1
+#https://bugzilla.mindrot.org/show_bug.cgi?id=2581
+Patch1000: 1000-openssh-coverity.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -327,73 +299,7 @@ This package contains a test SK driver used for OpenSSH test purposes
 
 %prep
 gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
-%setup -q
-
-%patch -P 400 -p1 -b .role-mls
-%patch -P 404 -p1 -b .privsep-selinux
-
-%patch -P 502 -p1 -b .keycat
-
-%patch -P 601 -p1 -b .ip-opts
-%patch -P 606 -p1 -b .ipv6man
-%patch -P 607 -p1 -b .sigpipe
-%patch -P 609 -p1 -b .x11
-%patch -P 702 -p1 -b .progress
-%patch -P 703 -p1 -b .grab-info
-%patch -P 707 -p1 -b .redhat
-%patch -P 711 -p1 -b .log-usepam-no
-# 
-%patch -P 800 -p1 -b .gsskex
-%patch -P 801 -p1 -b .force_krb
-%patch -P 804 -p1 -b .ccache_name
-%patch -P 805 -p1 -b .k5login
-# 
-%patch -P 901 -p1 -b .kuserok
-%patch -P 906 -p1 -b .fromto-remote
-%patch -P 916 -p1 -b .contexts
-%patch -P 918 -p1 -b .log-in-chroot
-%patch -P 919 -p1 -b .scp
-%patch -P 802 -p1 -b .GSSAPIEnablek5users
-%patch -P 922 -p1 -b .sshdt
-%patch -P 926 -p1 -b .sftp-force-mode
-%patch -P 939 -p1 -b .s390-dev
-%patch -P 944 -p1 -b .x11max
-%patch -P 949 -p1 -b .refactor
-%patch -P 950 -p1 -b .sandbox
-%patch -P 951 -p1 -b .pkcs11-uri
-%patch -P 953 -p1 -b .scp-ipv6
-%patch -P 962 -p1 -b .crypto-policies
-%patch -P 964 -p1 -b .openssl-kdf
-%patch -P 965 -p1 -b .visibility
-%patch -P 966 -p1 -b .x11-ipv6
-%patch -P 974 -p1 -b .keygen-strip-doseol
-%patch -P 975 -p1 -b .preserve-pam-errors
-
-%patch -P 977 -p1 -b .kill-scp
-
-%patch -P 981 -p1 -b .scp-sftpdirs
-%patch -P 982 -p1 -b .minrsabits
-%patch -P 984 -p1 -b .ibmca
-
-%patch -P 200 -p1 -b .audit
-%patch -P 201 -p1 -b .audit-race
-%patch -P 202 -p1 -b .audit-log
-%patch -P 700 -p1 -b .fips
-
-%patch -P 1002 -p1 -b .ssh-manpage
-
-%patch -P 1006 -p1 -b .negotiate-supported-algs
-
-%patch -P 1012 -p1 -b .evp-fips-dh
-%patch -P 1014 -p1 -b .nosha1hostproof
-%patch -P 1015 -p1 -b .pam-rhost
-%patch -P 1016 -p1 -b .sep-keysign
-%patch -P 1017 -p1 -b .mlkembe
-%patch -P 1020 -p1 -b .match
-%patch -P 1021 -p1 -b .errcode_set
-%patch -P 1022 -p1 -b .openssl-mlkem
-
-%patch -P 100 -p1 -b .coverity
+%autosetup -T -b 0 -p1
 
 autoreconf
 
@@ -633,6 +539,7 @@ test -f %{sysconfig_anaconda} && \
 %dir %attr(0711,root,root) %{_datadir}/empty.sshd
 %attr(0755,root,root) %{_sbindir}/sshd
 %attr(0755,root,root) %{_libexecdir}/openssh/sshd-session
+%attr(0755,root,root) %{_libexecdir}/openssh/sshd-auth
 %attr(0755,root,root) %{_libexecdir}/openssh/sftp-server
 %attr(0755,root,root) %{_libexecdir}/openssh/sshd-keygen
 %attr(0644,root,root) %{_mandir}/man5/sshd_config.5*
@@ -671,6 +578,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Fri May 16 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-1
+- Rebase to OpenSSH 10.0p1
+
 * Thu Apr 17 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-15
 - Require OpenSSL 3.5 to support PQ crypto
 - Suppress systemd warning on restart sshd

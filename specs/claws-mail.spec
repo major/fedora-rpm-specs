@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -442,6 +442,7 @@ SOURCEAPI=$(grep -A 1 VERSION_NUMERIC src/common/version.h | tr -d '\n' | perl -
 
 
 %build
+autopoint -f
 autoreconf -f
 %configure --disable-dependency-tracking \
            --disable-rpath \
@@ -651,6 +652,10 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Fri May 16 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-2
+- Run autopoint before autoreconf, since apparently autoreconf doesn't
+  do it automatically, but that breaks badly with gettext 0.25.
+
 * Mon Feb 24 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-1
 - Update to 4.3.1.
 - Add BR pkgconfig(ayatana-appindicator3-0.1)

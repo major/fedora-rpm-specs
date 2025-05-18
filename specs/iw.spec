@@ -1,11 +1,11 @@
 Name:           iw
 Version:        6.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A nl80211 based wireless configuration tool
 
 # part of sha256.c is public domain
 License:        ISC AND LicenseRef-Fedora-Public-Domain
-URL:            http://wireless.kernel.org/en/users/Documentation/iw
+URL:            https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html
 Source0:        http://www.kernel.org/pub/software/network/iw/iw-%{version}.tar.xz
 
 BuildRequires:  gcc
@@ -41,6 +41,9 @@ export CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %changelog
+* Fri May 16 2025 Jose Ignacio Tornos Martinez <jtornosm@redhat.com> - 6.9-4
+- Fix Documentation path (https://bugzilla.redhat.com/show_bug.cgi?id=2366225)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

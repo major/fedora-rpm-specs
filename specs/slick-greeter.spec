@@ -3,7 +3,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -15,9 +15,8 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:	make
 BuildRequires:	desktop-file-utils
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	intltool
-BuildRequires:	gnome-common
 BuildRequires:	pkgconfig(liblightdm-gobject-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libcanberra)
@@ -71,7 +70,11 @@ Slick-greeter customisation for the MATE desktop.
 %{__install} -pm 0644 %{SOURCE2} %{name}.conf.example
 %{__mkdir} -p m4
 
-NOCONFIGURE=1 ./autogen.sh
+sed -i '/AC_CONFIG_FILES/,/]/ s/po\/Makefile\.in//g' configure.ac
+
+gettextize --copy --force
+aclocal --install -I m4
+autoreconf --verbose --force --install
 
 
 %build
@@ -137,6 +140,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri May 16 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.9-3
+- Fix m4 issue with new gettext
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

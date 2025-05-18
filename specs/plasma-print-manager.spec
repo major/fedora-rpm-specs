@@ -2,7 +2,7 @@
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -87,14 +87,12 @@ Provides:       kde-print-manager-libs = 1:%{version}-%{release}
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kde-add-printer.desktop
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ConfigurePrinter.desktop
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueue.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_bindir}/kde-add-printer
 %{_bindir}/kde-print-queue
 %{_bindir}/configure-printer
 %{_kf6_qmldir}/org/kde/plasma/printmanager/
@@ -102,7 +100,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 %{_kf6_datadir}/qlogging-categories6/pmlogs.categories
 %{_kf6_datadir}/knotifications6/printmanager.notifyrc
 %{_kf6_datadir}/applications/kcm_printer_manager.desktop
-%{_kf6_datadir}/applications/org.kde.kde-add-printer.desktop
 %{_kf6_datadir}/applications/org.kde.ConfigurePrinter.desktop
 %{_kf6_datadir}/applications/org.kde.PrintQueue.desktop
 %{_kf6_metainfodir}/org.kde.plasma.printmanager.appdata.xml
@@ -116,6 +113,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 

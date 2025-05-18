@@ -214,8 +214,10 @@ BuildRequires:  pkgconfig(protobuf)
 BuildRequires:  protobuf-compiler
 BuildRequires:  pkgconfig(re2)
 BuildRequires:  pkgconfig(openssl)
+%if ! (0%{?rhel} >= 10)
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires:  cmake(c-ares)
 BuildRequires:  abseil-cpp-devel
 # Sets XXH_INCLUDE_ALL, which means xxhash is used as a header-only library
@@ -442,6 +444,13 @@ Patch:          0001-Downstream-only-work-around-Distribution.tests_requi.patch
 # up builds.  It also makes this package easier port to new EPEL branches.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Remove-usage-of-coverage.patch
+
+# Don't include <openssl/engine.h>
+# OpenSSL in Fedora provides this header in a separate openssl-devel-engine
+# RPM, which is deprecated and subject to future removal.. RHEL10 has no
+# such package, nor has this version of grpc has not caught up with the
+# removal of engine and related headers.
+Patch:		grpc-1.48.4-core-tsi-ssl_transport_security.cc.patch
 
 Requires:       grpc-data = %{version}-%{release}
 

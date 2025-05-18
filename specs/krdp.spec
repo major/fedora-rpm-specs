@@ -3,7 +3,7 @@
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.3.5
+Version:        6.3.90
 Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -30,10 +30,9 @@ BuildRequires:  cmake(Qt6Network) >= %{qt6minver}
 BuildRequires:  cmake(Qt6DBus) >= %{qt6minver}
 BuildRequires:  cmake(Qt6WaylandClient) >= %{qt6minver}
 BuildRequires:  cmake(Qt6Keychain)
-# Constrain to FreeRDP 2 for now: https://invent.kde.org/plasma/krdp/-/issues/15
-BuildRequires:  (cmake(FreeRDP) >= 2.10 with cmake(FreeRDP) < 3)
-BuildRequires:  (cmake(WinPR) >= 2.10 with cmake(WinPR) < 3)
-BuildRequires:  (cmake(FreeRDP-Server) >= 2.10 with cmake(FreeRDP-Server) < 3)
+BuildRequires:  cmake(FreeRDP) >= 3.1
+BuildRequires:  cmake(WinPR) >= 3.1
+BuildRequires:  cmake(FreeRDP-Server) >= 3.1
 BuildRequires:  cmake(KPipeWire) >= 5.27.80
 BuildRequires:  cmake(PlasmaWaylandProtocols)
 BuildRequires:  pkgconfig(wayland-client)
@@ -106,6 +105,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
+- 6.3.90
+
 * Tue May 06 2025 Steve Cossette <farchord@gmail.com> - 6.3.5-1
 - 6.3.5
 
