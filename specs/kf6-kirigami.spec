@@ -1,7 +1,7 @@
 %global framework kirigami
 
 Name:           kf6-%{framework}
-Version:        6.14.0
+Version:        6.14.1
 Release:        1%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -107,6 +107,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 17 2025 Alessandro Astone <ales.astone@gmail.com> - 6.14.1-1
+- 6.14.1 bugfix release
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

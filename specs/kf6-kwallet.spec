@@ -1,8 +1,8 @@
 %global framework kwallet
 
 Name:    kf6-%{framework}
-Version: 6.14.0
-Release: 2%{?dist}
+Version: 6.14.1
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -112,6 +112,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 17 2025 Alessandro Astone <ales.astone@gmail.com> - 6.14.1-1
+- 6.14.1 bugfix release
+
 * Wed May 07 2025 Steve Cossette <farchord@gmail.com> - 6.14.0-2
 - Respun
 

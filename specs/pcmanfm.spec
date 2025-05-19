@@ -51,7 +51,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	1%{?dist}%{flagrel}
+Release:	2%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -87,6 +87,7 @@ BuildRequires:	menu-cache-devel
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	intltool
 
 %if 0%{?use_gitbare}
@@ -165,10 +166,12 @@ cat %PATCH104 | git am
 cat %PATCH202 | git am
 
 %if 0%{?use_gitbare}
-sh autogen.sh
-
+# gettext 0.25 needs autopoint
+sed -i configure.ac \
+	-e '\@IT_PROG_INTLTOOL@i AM_GNU_GETTEXT_VERSION([0.19])'
+autopoint -f
 # Patch0
-autoreconf -fi
+autoreconf -fi -I m4
 %endif
 
 # permission fix
@@ -241,6 +244,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Sat May 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-2
+- Call autopoint with gettext 0.25 (ref: bug 2366708)
+
 * Thu Mar 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-1
 - 1.4.0
 

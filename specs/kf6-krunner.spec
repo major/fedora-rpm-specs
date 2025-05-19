@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.14.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution with parallelized query system
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -38,6 +38,7 @@ KRunner provides a parallelized query system extendable via plugins.
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
+Requires:       cmake(KF6CoreAddons)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -77,6 +78,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu May 15 2025 Pavel Solovev <daron439@gmail.com> - 6.14.0-2
+- Add missing dependency
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

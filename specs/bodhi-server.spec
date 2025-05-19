@@ -1,6 +1,6 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 25.5.0
+%global pypi_version 25.5.1
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}

@@ -1,12 +1,15 @@
 Name:           CheMPS2
 Version:        1.8.9
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A spin-adapted implementation of DMRG for ab initio quantum chemistry
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/SebWouters/CheMPS2
 Source0:        https://github.com/SebWouters/CheMPS2/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Allow to build for CMake 4.0
+Patch:          https://github.com/SebWouters/CheMPS2/pull/85.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(flexiblas)
@@ -37,10 +40,9 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %cmake -DMKL=OFF -DLAPACK_LIBRARIES="-lflexiblas" -DENABLE_XHOST=OFF -DSHARED_ONLY=ON
 %cmake_build
@@ -66,6 +68,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 %{_libdir}/libchemps2.so
 
 %changelog
+* Thu May 15 2025 Cristian Le <git@lecris.dev> - 1.8.9-28
+- Add an upstream patch to build with CMake 4.0
+
 * Tue May 06 2025 Cristian Le <git@lecris.dev> - 1.8.9-27
 - Allow CMake 4.0 build
 

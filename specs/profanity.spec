@@ -1,9 +1,8 @@
 Name:           profanity
-Version:        0.14.0
-Release:        7%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        A console based XMPP client
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://profanity-im.github.io/
 Source0:        https://profanity-im.github.io/tarballs/%{name}-%{version}.tar.gz
@@ -39,7 +38,10 @@ BuildRequires:  qrencode-devel
 BuildRequires:  libcmocka-devel
 # For docs:
 BuildRequires:  doxygen
-BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(docutils)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  texinfo
+BuildRequires:  tree
 
 %description
 Profanity is a console based XMPP client written in C using ncurses
@@ -75,14 +77,17 @@ BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
 %description    doc
-The %{name}-doc package contains HTML documentation for developing
+The %{name}-doc package contains docbook documentation for developing
 applications that use %{name}.
 
 
 
 %prep
 %autosetup
-
+# Output docbook instead of HTML
+sed -i "s/GENERATE_HTML          = YES/GENERATE_HTML          = NO/g" apidocs/c/c-prof.conf
+sed -i "s/GENERATE_DOCBOOK       = NO/GENERATE_DOCBOOK       = YES/g" apidocs/c/c-prof.conf
+sed -i "s/DOCBOOK_PROGRAMLISTING = NO/DOCBOOK_PROGRAMLISTING = YES/g" apidocs/c/c-prof.conf
 
 %build
 autoreconf -i -W all
@@ -91,14 +96,19 @@ autoreconf -i -W all
 
 # Build HTML documentation
 pushd apidocs/c/
-doxygen c-prof.conf  # results are in apidocs/c/html/
+doxygen c-prof.conf  # results are in apidocs/c/docbook/
+tree
 popd
 pushd apidocs/python/
 sphinx-apidoc -f -o . src
-make html  # results are in apidocs/python/_build/html
+make texinfo  # results are in apidocs/python/_build/texinfo
+pushd _build
+pushd texinfo
+makeinfo --docbook ProfanityPythonPluginsAPI.texi
+tree
 popd
-# Remove hidden file generated
-rm -f apidocs/python/_build/html/.buildinfo
+popd
+popd
 
 
 %install
@@ -106,11 +116,15 @@ rm -f apidocs/python/_build/html/.buildinfo
 # Remove libprofanity.la generated
 rm -f %{buildroot}%{_libdir}/libprofanity.la
 
-# Install HTML documentation for the doc subpackage
-mkdir -p %{buildroot}%{_pkgdocdir}/c/
-mkdir -p %{buildroot}%{_pkgdocdir}/python/
-cp -a apidocs/c/html/ %{buildroot}%{_pkgdocdir}/c/
-cp -a apidocs/python/_build/html/ %{buildroot}%{_pkgdocdir}/python/
+# Install docbook documentation for the doc subpackage
+mkdir -p %{buildroot}%{_datadir}/help/en/profanity/
+for file in apidocs/c/docbook/*.xml;
+do
+  install -m644 ${file} \
+    %{buildroot}%{_datadir}/help/en/profanity
+done
+install -m644 apidocs/python/_build/texinfo/ProfanityPythonPluginsAPI.xml \
+  %{buildroot}%{_datadir}/help/en/profanity
 
 # Install example config file
 cp -a profrc.example %{buildroot}%{_datadir}/%{name}/
@@ -131,7 +145,7 @@ make check
 
 
 %files libs
-%{_libdir}/libprofanity.so.*
+%{_libdir}/libprofanity.so.0*
 
 
 %files devel
@@ -140,12 +154,16 @@ make check
 
 
 %files doc
-%{_pkgdocdir}/c/
-%{_pkgdocdir}/python/
+%dir  %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/profanity
 
 
 
 %changelog
+* Fri May 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.15.0-1
+- Update to latest release
+- Use docbook
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

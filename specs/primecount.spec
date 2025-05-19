@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.17
-Release:        2%{?dist}
+Version:        7.18
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -39,6 +39,7 @@ nth_prime(10**24) (https://oeis.org/A006988).
 
 %package        libs
 Summary:        C++ library for fast prime counting
+%ldconfig_scriptlets
 
 %description    libs
 This package contains a C++ library for counting primes below an
@@ -101,9 +102,22 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_includedir}/primecount.h
 %{_includedir}/primecount.hpp
 %{_libdir}/libprimecount.so
+%dir %{_libdir}/cmake/primecount
+%{_libdir}/cmake/primecount/*.cmake
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sat May 17 2025 Kim Walisch <walki@fedoraproject.org> - 7.18-1
+- Add CMake find_package(primecount) support
+- libprimecount.md: Add CMake find_package(primecount) section
+- PhiTiny.cpp: Reduce code bloat
+- Move private header files from /include to /src
+- src/CMakeLists.txt: Update for private header files in /src
+- test/CMakeLists.txt: Update for private header files in /src
+- Vector.hpp: Get rid of std::is_trivial which is deprecated in C++26
+- Update to latest primesieve-12.9 library
+- Update to latest libdivide-5.2.0 library
+
 * Tue Apr 29 2025 Kim Walisch <walki@fedoraproject.org> - 7.17-2
 - Sieve_pre_sieve.hpp: Improved pre-sieving using primes ≤ 71
 

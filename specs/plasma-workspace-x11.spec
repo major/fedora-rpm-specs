@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -71,6 +71,7 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(Qt6Location)
 BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  polkit-qt6-1-devel
@@ -159,7 +160,7 @@ Provides:       plasma-workspace-xorg = %{version}-%{release}
 Provides:       plasma-workspace-xorg%{?_isa} = %{version}-%{release}
 # Split of Xorg session into subpackage
 Obsoletes:      plasma-workspace < 5.19.5-2
-Requires:       plasma-workspace = %{version}
+Requires:       plasma-workspace >= %{plasma_version}
 Requires:       kwin-x11
 Requires:       kf6-kidletime-x11
 Requires:       xorg-x11-server-Xorg
@@ -216,6 +217,11 @@ sed -i \
 
 
 %changelog
+* Sun May 18 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.90-1
+- 6.3.90 (6.4 Beta 1)
+- Relax versioned dependency on plasma-workspace to >=
+- Add BuildRequires: cmake(Qt6Location) to make cmake happy
+
 * Wed May 07 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.5-1
 - 6.3.5
 

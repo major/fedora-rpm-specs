@@ -54,7 +54,7 @@
 %global source_directory 1.43-development
 
 Name:           nbdkit
-Version:        1.43.8
+Version:        1.43.9
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -635,6 +635,8 @@ nbdkit-noparallel-filter   Serialize requests to the underlying plugin.
 nbdkit-nozero-filter       Adjust handling of zero requests by plugins.
 
 nbdkit-offset-filter       Serve an offset and range.
+
+nbdkit-openonce-filter     Open the underlying plugin once.
 
 nbdkit-partition-filter    Serve a single partition.
 
@@ -1358,6 +1360,7 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-noparallel-filter.so
 %{_libdir}/%{name}/filters/nbdkit-nozero-filter.so
 %{_libdir}/%{name}/filters/nbdkit-offset-filter.so
+%{_libdir}/%{name}/filters/nbdkit-openonce-filter.so
 %{_libdir}/%{name}/filters/nbdkit-partition-filter.so
 %{_libdir}/%{name}/filters/nbdkit-pause-filter.so
 %{_libdir}/%{name}/filters/nbdkit-protect-filter.so
@@ -1403,6 +1406,7 @@ fi
 %{_mandir}/man1/nbdkit-noparallel-filter.1*
 %{_mandir}/man1/nbdkit-nozero-filter.1*
 %{_mandir}/man1/nbdkit-offset-filter.1*
+%{_mandir}/man1/nbdkit-openonce-filter.1*
 %{_mandir}/man1/nbdkit-partition-filter.1*
 %{_mandir}/man1/nbdkit-pause-filter.1*
 %{_mandir}/man1/nbdkit-protect-filter.1*
@@ -1536,6 +1540,10 @@ fi
 
 
 %changelog
+* Sat May 17 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.9-1
+- New upstream development branch version 1.43.9
+- New nbdkit-openonce-filter
+
 * Mon May 12 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.8-1
 - New upstream development branch version 1.43.8
 

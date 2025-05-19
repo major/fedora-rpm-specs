@@ -1,6 +1,6 @@
 Name:    ksystemstats
 Version: 6.3.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -68,9 +68,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
 %{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
-%{_libexecdir}/ksystemstats_intel_helper
+%caps(cap_permon=ep) %{_libexecdir}/ksystemstats_intel_helper
 
 %changelog
+* Sat May 17 2025 Alessandro Astone <ales.astone@gmail.com> - 6.3.90-2
+- Set CAP_PERMON on the Intel GPU helper process:
+  https://mail.kde.org/pipermail/distributions/2025-April/001572.html
+  https://invent.kde.org/plasma/ksystemstats/-/commit/924e43d5c899f6be0ed371ca6a5ea1b7d7c14abe
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

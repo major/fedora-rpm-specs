@@ -6,7 +6,7 @@
 %global crate toml
 
 Name:           rust-toml
-Version:        0.8.20
+Version:        0.8.22
 Release:        %autorelease
 Summary:        Native Rust encoder and decoder of TOML-formatted files and streams
 
@@ -97,6 +97,18 @@ This package contains library source intended for building other packages which
 use the "preserve_order" feature of the "%{crate}" crate.
 
 %files       -n %{name}+preserve_order-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unbounded-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unbounded-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unbounded" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unbounded-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

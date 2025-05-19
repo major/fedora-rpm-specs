@@ -9,13 +9,13 @@
 %global grub2_commit     6811f6f09d61996a3acbc4fc0414e45964f0e2d9
 
 # Preferrably the latest stable version shipped in Fedora
-%global edk2_stable_date 20241117
+%global edk2_stable_date 20250221
 %global edk2_stable_str  edk2-stable%(d=%{edk2_stable_date}; echo ${d:0:6})
 
 Summary:        Free software EFI/UEFI standalone file system drivers
 Name:           efifs
 Version:        1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://efi.akeo.ie/
 Source0:        https://github.com/pbatard/efifs/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC5/%{efi_arch_u
 %{efi_esp_dir}/
 
 %changelog
+* Sat May 17 2025 Robert Scheck <robert@fedoraproject.org> 1.11-3
+- Update bundled edk2 to 20250221 (#2340114)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

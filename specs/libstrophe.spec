@@ -1,12 +1,16 @@
 Name:           libstrophe
-Version:        0.13.1
-Release:        4%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        An XMPP library for C
 
-# Automatically converted from old format: MIT and GPLv3 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND GPL-3.0-only
+License:        MIT AND GPL-3.0-only
 URL:            https://strophe.im/%{name}/
-Source0:        https://github.com/strophe/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://github.com/strophe/libstrophe/releases/download/%{version}/libstrophe-%{version}.tar.gz
+Source1:        https://github.com/strophe/libstrophe/releases/download/%{version}/libstrophe-%{version}.tar.gz.asc
+# https://github.com/strophe/libstrophe/issues/253
+Patch:          C23.patch
+# https://keys.openpgp.org/search?q=F8ADC1F9A68A7AFF0E2C89E4391A5EFC2D1709DE
+Source2:        F8ADC1F9A68A7AFF0E2C89E4391A5EFC2D1709DE.asc
 
 BuildRequires:  gcc
 BuildRequires:  automake
@@ -19,7 +23,9 @@ BuildRequires:  expat-devel
 BuildRequires:  openssl-devel
 # For docs
 BuildRequires:  doxygen
-BuildRequires:  lcov
+BuildRequires:  texinfo
+# For signature verification
+BuildRequires:  gpgverify
 
 %description
 libstrophe is a minimal XMPP library written in C. It has almost no
@@ -42,28 +48,26 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Documentation for %{name}
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
 
 %description    doc
-The %{name}-doc package contains HTML documentation for developing
+The %{name}-doc package contains docbook documentation for developing
 applications that use %{name}.
 
 
 
 %prep
-%autosetup
-
+%autosetup -p1
+sed -i "s/GENERATE_DOCBOOK       = NO/GENERATE_DOCBOOK       = YES/g" Doxyfile
+sed -i "s/GENERATE_HTML          = YES/GENERATE_HTML          = NO/g" Doxyfile
 
 %build
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 autoreconf -i -W all
 # expat is the default; use --with-libxml2 to switch
-# create a code coverage report: --enable-coverage
-%configure --disable-static --enable-coverage
+%configure --disable-static
 %make_build
-# Build HTML documentation
+# Build docbook documentation
 doxygen
-make coverage  # results are in coverage/
-
 
 %install
 %make_install
@@ -78,22 +82,25 @@ mv %{buildroot}%{_libdir}/%{name}/examples/.deps %{buildroot}%{_libdir}/%{name}/
 rm -f %{buildroot}%{_libdir}/%{name}/examples/.dirstamp
 rm -f %{buildroot}%{_libdir}/%{name}/examples/deps/.dirstamp
 
-# Install HTML documentation for the doc subpackage
-mkdir -p %{buildroot}%{_pkgdocdir}/
-cp -a docs/html/ %{buildroot}%{_pkgdocdir}/
-cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
-
+# Install docbook documentation for the doc subpackage
+mkdir -p %{buildroot}%{_datadir}/help/en/libstrophe
+for file in docs/docbook/*.xml
+do
+  install -m644 ${file} %{buildroot}%{_datadir}/help/en/libstrophe/
+done
 
 %check
-# the tests suite is launched with 'make coverage'
-# no need to run it twice
-
+make check
 
 
 %files
-%license LICENSE.txt GPL-LICENSE.txt MIT-LICENSE.txt
-%doc README AUTHORS ChangeLog 
-%{_libdir}/%{name}.so.*
+%license LICENSE.txt
+%license GPL-LICENSE.txt
+%license MIT-LICENSE.txt
+%doc README
+%doc AUTHORS
+%doc ChangeLog 
+%{_libdir}/%{name}.so.0*
 
 
 %files devel
@@ -105,11 +112,18 @@ cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
 
 
 %files doc
-%{_pkgdocdir}/html/
-
+%license LICENSE.txt
+%license GPL-LICENSE.txt
+%license MIT-LICENSE.txt
+%dir %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/libstrophe
 
 
 %changelog
+* Fri May 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.14.0-1
+- Update to 0.14.0 bz#2352379
+- Use docbook for documentation
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

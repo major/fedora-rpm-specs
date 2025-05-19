@@ -1,7 +1,7 @@
 Name:           libghemical
 Summary:        Libraries for the Ghemical chemistry package
 Version:        3.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 
 # SPDX confirmed
 License:        GPL-2.0-or-later
@@ -14,6 +14,8 @@ BuildRequires:  glib2-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  make
+BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  libtool
 BuildRequires:  intltool
 BuildRequires:  libint-devel
@@ -40,10 +42,16 @@ Libraries and header include files for developing programs based on %{name}.
 %prep
 %autosetup
 
-%build
 sed -i 's/blas/flexiblas/g' configure.ac
 sed -i 's/lapack/flexiblas/g' configure.ac
-autoreconf -ivf
+
+# gettext 0.25 needs autopoint
+sed -i configure.ac \
+	-e '\@^IT_PROG_INTLTOOL@i AM_GNU_GETTEXT_VERSION([0.19])'
+
+%build
+autopoint -f
+autoreconf -ivf -I m4
 
 %configure --enable-mopac7 --enable-mpqc --disable-static --disable-sctest
 %make_build
@@ -71,6 +79,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Sat May 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-27
+- Call autopoint with gettext 0.25 (ref: bug 2366708)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -207,15 +207,17 @@
 %global bundleffmpegfree 0
 %global bundlefreetype 0
 %global bundlelibxml 0
-# need libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
 %if 0%{?fedora} > 41
+# require libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
 %global bundlelibtiff 0
 %endif
 %if 0%{?fedora}
 %global bundlecrc32c 0
+%endif
+%if 0%{?fedora} && 0%{?fedora} < 43
 %global bundlesimdutf 0
 %endif
-%if 0%{?rhel} > 9 || 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 %global bundlelibopenjpeg2 0
 %global bundleharfbuzz 0
 %global bundlebrotli 0

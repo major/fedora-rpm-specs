@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.8
-Release:  4%{?dist}
+Version:  12.9
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,13 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sat May 17 2025 Kim Walisch <walki@fedoraproject.org> - 12.9-1
+- CMakeLists.txt: Speed up build by removing compile dependencies
+- Move private header files from /include to /src
+- src/CMakeLists.txt: Update for private header files in /src
+- test/CMakeLists.txt: Update for private header files in /src
+- Vector.hpp: Get rid of std::is_trivial which is deprecated in C++26
+
 * Sun Apr 13 2025 Kim Walisch <walki@fedoraproject.org> - 12.8-4
 - Fix changelog issue in primesieve.spec
 

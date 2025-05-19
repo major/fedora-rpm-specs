@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.3.5
+Version: 6.3.90
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -13,7 +13,7 @@ URL:     https://userbase.kde.org/KWin
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/kwin-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -64,7 +64,7 @@ BuildRequires:  lcms2-devel
 BuildRequires:  glib2-devel
 BuildRequires:  pipewire-devel
 
-# Wayland (Why does CMakeLists.txt require Wayland libraries unconditionally?)
+# Wayland (Why does CMakeLists.txt still require Wayland libraries here?)
 BuildRequires:  wayland-devel >= 1.23.0
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  libxkbcommon-devel >= 0.4
@@ -113,8 +113,7 @@ BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  pkgconfig(libcanberra)
 
 ## Runtime deps
-Requires:       kwin-libs%{?_isa} = %{version}
-Requires:       kwin-common%{?_isa} = %{version}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kscreenlocker%{?_isa}
 Requires:       kf6-kirigami2%{?_isa}
 Requires:       kf6-kdeclarative%{?_isa}
@@ -149,33 +148,89 @@ This version is maintained by individual Fedora packagers and NOT supported by
 the Fedora KDE SIG. (See kwin-wayland for the default version, using Wayland,
 maintained by the KDE SIG.)
 
+%package        libs
+Summary:        %{name} runtime libraries
+# See the comment in the main package above
+Provides:       deprecated()
+
+%description    libs
+%{summary}.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       cmake(Qt6Core)
+Requires:       cmake(Qt6Gui)
+Requires:       cmake(Qt6Quick)
+Requires:       cmake(KF6Config)
+Requires:       cmake(KF6CoreAddons)
+Requires:       cmake(KF6WindowSystem)
+Requires:       pkgconfig(wayland-server)
+# See the comment in the main package above
+Provides:       deprecated()
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
 
 %prep
-%setup -q -n kwin-%{version}
-
-# set component for the install step
-sed -i \
- -e 's/install(TARGETS kwin_x11 /install(TARGETS kwin_x11 COMPONENT X11 /g' \
- src/CMakeLists.txt
-sed -i \
- -e 's/ecm_install_configured_files(INPUT plasma-kwin_x11\.service\.in /ecm_install_configured_files(INPUT plasma-kwin_x11.service.in COMPONENT X11 /g' \
- CMakeLists.txt
+%setup -q
 
 
 %build
-%cmake_kf6 -DKWIN_BUILD_DECORATIONS:BOOL=OFF -DKWIN_BUILD_KCMS:BOOL=OFF
-%cmake_build --target kwin_x11
+%cmake_kf6
+%cmake_build
 
 %install
-%cmake_install --component X11
+%cmake_install
+%find_lang %{name} --with-html --all-name
 
 
-%files
+%files -f %{name}.lang
+%license LICENSES/*.txt
 %{_kf6_bindir}/kwin_x11
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/applications/*.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/kconf_update/%{name}.upd
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
+%{_kf6_datadir}/knsrcfiles/*-x11.knsrc
+%{_kf6_datadir}/krunner/dbusplugins/kwin-runner-windows-x11.desktop
+%{_kf6_libdir}/kconf_update_bin/kwin-6.0-delete-desktop-switching-shortcuts-x11
+%{_kf6_libdir}/kconf_update_bin/kwin-6.0-remove-breeze-tabbox-default-x11
+%{_kf6_libdir}/kconf_update_bin/kwin-6.0-reset-active-mouse-screen-x11
+%{_kf6_libdir}/kconf_update_bin/kwin-6.1-remove-gridview-expose-shortcuts-x11
+%{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules_x11
+%{_kf6_qtplugindir}/%{name}/
+%{_kf6_qtplugindir}/kf6/packagestructure/kwin_*_x11.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
+%{_libexecdir}/kwin_killer_helper_x11
+%{_libexecdir}/kwin-applywindowdecoration-x11
+%{_qt6_qmldir}/org/kde/kwin_x11/
 %{_userunitdir}/plasma-kwin_x11.service
+
+%files libs
+%{_kf6_datadir}/qlogging-categories6/org_kde_kwin_x11.categories
+%{_kf6_libdir}/lib%{name}.so.6{,.*}
+%{_kf6_libdir}/libkcmkwincommon-x11.so.6{,.*}
+
+%files devel
+%{_includedir}/%{name}/
+%{_kf6_datadir}/dbus-1/interfaces/*.xml
+%{_kf6_libdir}/cmake/KWinX11/
+%{_kf6_libdir}/cmake/KWinX11DBusInterface/
+%{_kf6_libdir}/lib%{name}.so
 
 
 %changelog
+* Sun May 18 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.90-1
+- 6.3.90 (6.4 Beta 1)
+- kwin-x11 is now its own tarball, adapt packaging accordingly
+- add -devel and -libs subpackages (marked deprecated as the main package is)
+- file list taken from Pavel Sovolev's Copr package, %%files libs split out
+
 * Wed May 07 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.5-1
 - 6.3.5
 

@@ -191,6 +191,7 @@ cp -a crawl-ref/source crawl-ref/crawl-tiles
 # Move doc files into /usr/share/crawl/docs (bz#1498448)
 mkdir -p %{buildroot}%{_datadir}/%{name}/docs
 mv %{buildroot}%{_pkgdocdir}/*.txt %{buildroot}%{_datadir}/%{name}/docs/
+mv %{buildroot}%{_pkgdocdir}/quickstart.md %{buildroot}%{_datadir}/%{name}/docs/
 mv %{buildroot}%{_pkgdocdir}/develop %{buildroot}%{_datadir}/%{name}/docs/
 install -pm 644 crawl-ref/CREDITS.txt %{buildroot}%{_pkgdocdir}/
 install -pm 644 README* %{buildroot}%{_pkgdocdir}/
