@@ -1,4 +1,4 @@
-%global candidate rc0
+%global candidate rc1
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
@@ -14,7 +14,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.13
-Release: 0.1%{?candidate:.%{candidate}}%{?dist}
+Release: 0.2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -132,6 +132,9 @@ done
 %endif
 
 %changelog
+* Sun May 18 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.13-0.2.rc1
+- Update to 2.13 RC1
+
 * Wed May 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.13-0.1.rc0
 - Update to 2.13 RC0
 

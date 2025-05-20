@@ -1,5 +1,5 @@
 Name:    rofi
-Version: 1.7.8
+Version: 1.7.9
 Release: 1%{?dist}
 Summary: A window switcher, application launcher and dmenu replacement
 
@@ -13,6 +13,8 @@ Summary: A window switcher, application launcher and dmenu replacement
 License: MIT
 URL:     https://github.com/davatorium/%{name}
 Source:  %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
+
+Patch:   rofi-1.7.9-missing-rofi-actions-manpage.patch
 
 BuildRequires: pkgconfig
 BuildRequires: gcc
@@ -132,6 +134,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 
 %changelog
+* Sun May 18 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.9-1
+- Update to 1.7.9 (#2367106)
+
 * Mon Jan 20 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.8-1
 - Update to 1.7.8 (#2338863)
 

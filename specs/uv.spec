@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.17
+Version:        0.7.5
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -161,9 +161,9 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev a3b4db3abb1829ce889fb89fa6d157fef529ef7e
+%global pubgrub_rev 73d6ecf5a4e4eb1c754b8c3255c4d31bdc266fdb
 %global pubgrub_baseversion 0.3.0
-%global pubgrub_snapdate 20250423
+%global pubgrub_snapdate 20250509
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
@@ -495,31 +495,34 @@ tomcli set Cargo.toml append workspace.exclude crates/uv-bench
 # do without.
 tomcli set Cargo.toml append workspace.exclude crates/uv-dev
 
-# Do not request static linking of liblzma – not even when the performance
-# feature is enabled.
-tomcli set crates/uv-extract/Cargo.toml lists delitem \
-    features.performance 'xz2/static'
+# Do not request static linking of anything (particularly, liblzma)
+tomcli set crates/uv/Cargo.toml lists delitem \
+    features.default 'uv-distribution/static'
+tomcli set crates/uv-distribution/Cargo.toml del features.static
+tomcli set crates/uv-extract/Cargo.toml del features.static
 
 # Disable several default features that control which tests are compiled and
 # executed, and which are not usable in offline builds:
 #
-# ”Introduces a dependency on managed Python installations.”
-# (These are pre-compiled Pythons downloaded from the Internet.)
-tomcli set crates/uv/Cargo.toml lists delitem features.default 'python-managed'
+# - crates-io: Introduces a testing dependency on crates.io.
+# - git: Introduces a testing dependency on Git. This sounds innocuous – we
+#   have git! – but in fact, it controls tests of git dependencies, which
+#   implies accessing remote repositories, e.g. on GitHub.
+# - pypi: Introduces a testing dependency on PyPI.
+# - python-managed: Introduces a testing dependency on managed Python
+#   installations. (These are pre-compiled Pythons downloaded from the
+#   Internet.)
 #
-# ”Introduces a dependency on PyPI.”
-tomcli set crates/uv/Cargo.toml lists delitem features.default 'pypi'
+# These are OK:
+# - python: Introduces a testing dependency on a local Python installation.
+# - slow-tests: Include "slow" test cases.
+# - test-ecosystem: Includes test cases that require ecosystem packages
 #
-# ”Introduces a dependency on Git.”
-# This sounds innocuous – we have git! – but in fact, it controls tests of git
-# dependencies, which implies accessing remote repositories, e.g. on GitHub.
-tomcli set crates/uv/Cargo.toml lists delitem features.default 'git'
-#
-# ”Introduces a dependency on crates.io.”
-tomcli set crates/uv/Cargo.toml lists delitem features.default 'crates-io'
 # Note that the python-patch feature, which ”introduces a dependency on a local
 # Python installation with specific patch versions,” is already not among the
 # default features.
+tomcli set crates/uv/Cargo.toml lists delitem features.default-tests \
+    '(crates-io|git|pypi|python-managed)'
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter
@@ -645,9 +648,41 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_empty_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_no_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 
-# These tests require specific Python interpreter versions (down to patch
-# release number), which upstream normally downloads, precompiled, into the
-# build area; they might also require network access.
+# These tests require specific Python interpreter versions, which upstream
+# normally downloads, precompiled, into the build area; they might also require
+# network access.
+# -p uv --test it:
+skip="${skip-} --skip version::self_version"
+skip="${skip-} --skip version::self_version_json"
+skip="${skip-} --skip version::self_version_short"
+skip="${skip-} --skip version::version_bump_minor"
+skip="${skip-} --skip version::version_bump_patch"
+skip="${skip-} --skip version::version_bump_patch_short"
+skip="${skip-} --skip version::version_get"
+skip="${skip-} --skip version::version_get_dynamic"
+skip="${skip-} --skip version::version_get_fallback_missing_strict"
+skip="${skip-} --skip version::version_get_fallback_missing_strict_preview"
+skip="${skip-} --skip version::version_get_fallback_unmanaged"
+skip="${skip-} --skip version::version_get_fallback_unmanaged_json"
+skip="${skip-} --skip version::version_get_fallback_unmanaged_short"
+skip="${skip-} --skip version::version_get_fallback_unmanaged_strict"
+skip="${skip-} --skip version::version_get_json"
+skip="${skip-} --skip version::version_get_short"
+skip="${skip-} --skip version::version_get_workspace"
+skip="${skip-} --skip version::version_major_complex_mess"
+skip="${skip-} --skip version::version_major_dev"
+skip="${skip-} --skip version::version_major_dry"
+skip="${skip-} --skip version::version_major_post"
+skip="${skip-} --skip version::version_major_uncompleted"
+skip="${skip-} --skip version::version_major_version"
+skip="${skip-} --skip version::version_minor_uncompleted"
+skip="${skip-} --skip version::version_missing_bump"
+skip="${skip-} --skip version::version_patch_uncompleted"
+skip="${skip-} --skip version::version_set_dry"
+skip="${skip-} --skip version::version_set_dynamic"
+skip="${skip-} --skip version::version_set_invalid"
+skip="${skip-} --skip version::version_set_value"
+skip="${skip-} --skip version::version_set_value_short"
 # -p uv-client --test it:
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 
@@ -676,6 +711,25 @@ skip="${skip-} --skip help::help_with_no_pager"
 # Could not set global tracing subscriber: SetGlobalDefaultError("a global
 #   default trace dispatcher has already been set")
 skip="${skip-} --skip middleware::tests::test_tracing_url"
+
+# Upstream is trying to ensure platform-independent byte-for-byte deterministic
+# wheels. This isn’t quite working out. It would be nice to understand this,
+# but this kind of reproducibility can be brittle, and there are many possible
+# innocuous reasons behind it.
+# ---- tests::built_by_uv_building stdout ----
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Snapshot Summary ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Snapshot: built_by_uv_building-6
+# Source: crates/uv-build-backend/src/lib.rs:516
+# ────────────────────────────────────────────────────────────────────────────────
+# Expression: format!("{:x}", sha2::Sha256::digest(&index_wheel_contents))
+# ────────────────────────────────────────────────────────────────────────────────
+# -old snapshot
+# +new results
+# ────────────┬───────────────────────────────────────────────────────────────────
+#     0       │-ac3f68ac448023bca26de689d80401bff57f764396ae802bf4666234740ffbe3
+#           0 │+7ba9bfcaf3c0354c2cb8578922a00726b1ff6bdfa85fcb738bd45978fa86fd0a
+# ────────────┴───────────────────────────────────────────────────────────────────
+skip="${skip-} --skip tests::built_by_uv_building"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

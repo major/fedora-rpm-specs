@@ -121,6 +121,18 @@ use the "v1_24" feature of the "%{crate}" crate.
 %files       -n %{name}+v1_24-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_26-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_26-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_26" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_26-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

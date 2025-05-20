@@ -1,6 +1,6 @@
 Name:           liblouis
-Version:        3.28.0
-Release:        8%{?dist}
+Version:        3.33.0
+Release:        1%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -17,6 +17,7 @@ BuildRequires:  gcc
 BuildRequires:  hardlink
 BuildRequires:  help2man
 BuildRequires:  libyaml-devel
+BuildRequires:  m4
 BuildRequires:  make
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
@@ -189,6 +190,10 @@ cd -
 
 
 %changelog
+* Sun May 18 2025 Martin Gieseking <martin.gieseking@uos.de> - 3.33.0-1
+- Update to 3.33.0
+- Added missing BR m4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

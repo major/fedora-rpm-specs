@@ -1,6 +1,6 @@
 Name:           liblouisutdml
 Version:        2.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Braille transcription library for UTDML documents
 License:        LGPL-3.0-or-later
 URL:            http://liblouis.org
@@ -10,6 +10,12 @@ Source0:        https://github.com/liblouis/%{name}/releases/download/v%{version
 Patch0:         liblouisutdml-failing-testsuite.patch
 # add missing #includes
 Patch1:         liblouisutdml-includes.patch
+# upstream patch to fix build issue with GCC 15
+# https://github.com/liblouis/liblouisutdml/commit/4ff52b8cbb9ba9a3f35befc44be6c4156f127356
+Patch2:         liblouisutdml-gcc15.patch
+# upstream patch to adapt tests to changes in liblouis >= 3.30.0
+# https://github.com/liblouis/liblouisutdml/pull/107/commits/228386099b45d93884fd4b4ddfc67bbc2f81a9f0
+Patch3:         liblouisutdml-wiskunde.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
@@ -17,8 +23,9 @@ BuildRequires:  libtool
 BuildRequires:  help2man
 BuildRequires:  liblouis-devel >= 3.27
 BuildRequires:  libxml2-devel
-BuildRequires:  texinfo-tex
+BuildRequires:  m4
 BuildRequires:  make
+BuildRequires:  texinfo-tex
 
 
 # gnulib is a copylib that has been granted an exception from the no-bundled-libraries policy
@@ -71,8 +78,8 @@ provided by %{name}-utils.
 %prep
 %autosetup -p1
 
-
 %build
+autoreconf -fi
 %configure --disable-static --disable-java-bindings
 make %{?_smp_mflags}
 make -C doc liblouisutdml.pdf
@@ -116,6 +123,11 @@ rm -rf %{buildroot}/%{_defaultdocdir}/liblouisutdml
 
 
 %changelog
+* Sun May 18 2025 Martin Gieseking <martin.gieseking@uos.de> - 2.12.0-5
+- Added upstream patch to fix build issues with GCC 15.
+- Added upstream patch to adapt tests to changes in liblouis >= 3.30.0
+- Rebuild autotools files.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

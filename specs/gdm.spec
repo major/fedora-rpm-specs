@@ -2,6 +2,7 @@
 
 %define gtk3_version 2.99.2
 
+%global major_version %%(echo %{version} | cut -d '.' -f1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gdm
@@ -12,7 +13,7 @@ Summary:        The GNOME Display Manager
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GDM
-Source0:        https://download.gnome.org/sources/gdm/47/gdm-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gdm/%{major_version}/gdm-%{tarball_version}.tar.xz
 Source1:        org.gnome.login-screen.gschema.override
 
 # moved here from pulseaudio-gdm-hooks-11.1-16

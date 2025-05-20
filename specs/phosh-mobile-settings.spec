@@ -1,14 +1,17 @@
+%global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
+
 Name:		phosh-mobile-settings
-Version:	0.47~rc1
+Version:	0.47.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
 Source:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version_no_tilde _}/phosh-mobile-settings-v%{version_no_tilde _}.tar.gz
+# This library doesn't compile into a DSO nor has any tagged releases.
+# Other projects such as gnome-shell use it this way.
+Source:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # FIXME: tests fail if build directory is used a XDG_RUNTIME_DIR
 Patch0:	shorter-xdg_runtime_dir-path.patch
-# https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/201
-Patch1:	201.patch
 
 ExcludeArch:	i686
 
@@ -37,6 +40,8 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	dbus-daemon
 BuildRequires:	feedbackd-devel >= 0.7.0
+# gvc
+BuildRequires:	pkgconfig(libpulse) >= 12.99.3
 
 Requires:	feedbackd >= 0.8.0
 Requires:	phoc >= 0.34.0
@@ -46,7 +51,8 @@ Requires:	phosh >= 0.44.0
 Mobile Settings App for phosh and related components
 
 %prep
-%autosetup -p1 -n %{name}-v%{version_no_tilde _}
+%autosetup -a1 -p1 -n %{name}-v%{version_no_tilde _}
+mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 mkdir -p /tmp/runtime-dir
 chmod 0700 /tmp/runtime-dir
 

@@ -47,7 +47,7 @@
 
 Name:          gdal
 Version:       3.10.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -438,18 +438,9 @@ cp -a %{SOURCE4} .
 
 %install
 %cmake_install
-# FIXME These should not be installed, the counterparts without the *.py suffix are the wanted ones
-rm -f %{buildroot}%{_bindir}/*.py
-# FIXME Fix bash-completion filenames
-for file in %{buildroot}%{_datadir}/bash-completion/completions/*.py; do
-  mv $file ${file/.py/}
-done
 
 %if %{with mingw}
 %mingw_make_install
-# FIXME These should not be installed, the counterparts without the *.py suffix are the wanted ones
-rm -f %{buildroot}%{mingw32_bindir}/*.py
-rm -f %{buildroot}%{mingw64_bindir}/*.py
 # Delete data from cross packages
 rm -r %{buildroot}%{mingw32_datadir}
 rm -r %{buildroot}%{mingw64_datadir}
@@ -462,6 +453,9 @@ mv %{buildroot}%{_includedir}/%{name}/cpl_config.h %{buildroot}%{_includedir}/%{
 cp -a %{SOURCE2} %{buildroot}%{_includedir}/%{name}/cpl_config.h
 mv %{buildroot}%{_bindir}/%{name}-config %{buildroot}%{_bindir}/%{name}-config-%{cpuarch}
 cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
+
+# FIXME Fix shebangs
+find %{buildroot} -name '*.py' -exec sed -i 's|^#!python$|#!/usr/bin/python3|g' {} \;
 
 
 %if %{with mingw}
@@ -476,25 +470,25 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %files
-%{_bindir}/gdaladdo
-%{_bindir}/gdalbuildvrt
 %{_bindir}/gdal_contour
 %{_bindir}/gdal_create
-%{_bindir}/gdaldem
-%{_bindir}/gdalenhance
 %{_bindir}/gdal_footprint
 %{_bindir}/gdal_grid
+%{_bindir}/gdal_rasterize
+%{_bindir}/gdal_translate
+%{_bindir}/gdal_viewshed
+%{_bindir}/gdaladdo
+%{_bindir}/gdalbuildvrt
+%{_bindir}/gdaldem
+%{_bindir}/gdalenhance
 %{_bindir}/gdalinfo
 %{_bindir}/gdallocationinfo
 %{_bindir}/gdalmanage
 %{_bindir}/gdalmdiminfo
 %{_bindir}/gdalmdimtranslate
-%{_bindir}/gdal_rasterize
 %{_bindir}/gdalsrsinfo
 %{_bindir}/gdaltindex
 %{_bindir}/gdaltransform
-%{_bindir}/gdal_translate
-%{_bindir}/gdal_viewshed
 %{_bindir}/gdalwarp
 %{_bindir}/gnmanalyse
 %{_bindir}/gnmmanage
@@ -508,23 +502,23 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/8211*
 %{_bindir}/s57dump
 %endif
-%{_datadir}/bash-completion/completions/gdaladdo
-%{_datadir}/bash-completion/completions/gdalbuildvrt
 %{_datadir}/bash-completion/completions/gdal-config
 %{_datadir}/bash-completion/completions/gdal_contour
 %{_datadir}/bash-completion/completions/gdal_create
+%{_datadir}/bash-completion/completions/gdal_grid
+%{_datadir}/bash-completion/completions/gdal_rasterize
+%{_datadir}/bash-completion/completions/gdal_translate
+%{_datadir}/bash-completion/completions/gdal_viewshed
+%{_datadir}/bash-completion/completions/gdaladdo
+%{_datadir}/bash-completion/completions/gdalbuildvrt
 %{_datadir}/bash-completion/completions/gdaldem
 %{_datadir}/bash-completion/completions/gdalenhance
-%{_datadir}/bash-completion/completions/gdal_grid
 %{_datadir}/bash-completion/completions/gdalinfo
 %{_datadir}/bash-completion/completions/gdallocationinfo
 %{_datadir}/bash-completion/completions/gdalmanage
-%{_datadir}/bash-completion/completions/gdal_rasterize
 %{_datadir}/bash-completion/completions/gdalsrsinfo
 %{_datadir}/bash-completion/completions/gdaltindex
 %{_datadir}/bash-completion/completions/gdaltransform
-%{_datadir}/bash-completion/completions/gdal_translate
-%{_datadir}/bash-completion/completions/gdal_viewshed
 %{_datadir}/bash-completion/completions/gdalwarp
 %{_datadir}/bash-completion/completions/ogr2ogr
 %{_datadir}/bash-completion/completions/ogrinfo
@@ -597,39 +591,57 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files python-tools
 %{_bindir}/gdal2tiles
+%{_bindir}/gdal2tiles.py
 %{_bindir}/gdal2xyz
+%{_bindir}/gdal2xyz.py
 %{_bindir}/gdalattachpct
+%{_bindir}/gdalattachpct.py
 %{_bindir}/gdal_calc
+%{_bindir}/gdal_calc.py
 %{_bindir}/gdalcompare
+%{_bindir}/gdalcompare.py
 %{_bindir}/gdal_edit
+%{_bindir}/gdal_edit.py
 %{_bindir}/gdal_fillnodata
+%{_bindir}/gdal_fillnodata.py
 %{_bindir}/gdal_merge
+%{_bindir}/gdal_merge.py
 %{_bindir}/gdalmove
+%{_bindir}/gdalmove.py
 %{_bindir}/gdal_pansharpen
+%{_bindir}/gdal_pansharpen.py
 %{_bindir}/gdal_polygonize
+%{_bindir}/gdal_polygonize.py
 %{_bindir}/gdal_proximity
+%{_bindir}/gdal_proximity.py
 %{_bindir}/gdal_retile
+%{_bindir}/gdal_retile.py
 %{_bindir}/gdal_sieve
+%{_bindir}/gdal_sieve.py
 %{_bindir}/ogr_layer_algebra
+%{_bindir}/ogr_layer_algebra.py
 %{_bindir}/ogrmerge
+%{_bindir}/ogrmerge.py
 %{_bindir}/pct2rgb
+%{_bindir}/pct2rgb.py
 %{_bindir}/rgb2pct
-%{_datadir}/bash-completion/completions/gdal2tiles
-%{_datadir}/bash-completion/completions/gdal2xyz
-%{_datadir}/bash-completion/completions/gdal_calc
-%{_datadir}/bash-completion/completions/gdalchksum
-%{_datadir}/bash-completion/completions/gdalcompare
-%{_datadir}/bash-completion/completions/gdal_edit
-%{_datadir}/bash-completion/completions/gdal_fillnodata
-%{_datadir}/bash-completion/completions/gdalident
-%{_datadir}/bash-completion/completions/gdalimport
-%{_datadir}/bash-completion/completions/gdal_merge
-%{_datadir}/bash-completion/completions/gdalmove
-%{_datadir}/bash-completion/completions/gdal_polygonize
-%{_datadir}/bash-completion/completions/gdal_proximity
-%{_datadir}/bash-completion/completions/gdal_retile
-%{_datadir}/bash-completion/completions/gdal_sieve
-%{_datadir}/bash-completion/completions/ogrmerge
+%{_bindir}/rgb2pct.py
+%{_datadir}/bash-completion/completions/gdal2tiles.py
+%{_datadir}/bash-completion/completions/gdal2xyz.py
+%{_datadir}/bash-completion/completions/gdal_calc.py
+%{_datadir}/bash-completion/completions/gdal_edit.py
+%{_datadir}/bash-completion/completions/gdal_fillnodata.py
+%{_datadir}/bash-completion/completions/gdal_merge.py
+%{_datadir}/bash-completion/completions/gdal_polygonize.py
+%{_datadir}/bash-completion/completions/gdal_proximity.py
+%{_datadir}/bash-completion/completions/gdal_retile.py
+%{_datadir}/bash-completion/completions/gdal_sieve.py
+%{_datadir}/bash-completion/completions/gdalchksum.py
+%{_datadir}/bash-completion/completions/gdalcompare.py
+%{_datadir}/bash-completion/completions/gdalident.py
+%{_datadir}/bash-completion/completions/gdalimport.py
+%{_datadir}/bash-completion/completions/gdalmove.py
+%{_datadir}/bash-completion/completions/ogrmerge.py
 %{_mandir}/man1/gdal2tiles.1*
 %{_mandir}/man1/gdal_calc.1*
 %{_mandir}/man1/gdalcompare.1*
@@ -665,23 +677,41 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %if %{with python3}
 %files -n mingw32-python3-%{name}
 %{mingw32_bindir}/gdal2tiles
+%{mingw32_bindir}/gdal2tiles.py
 %{mingw32_bindir}/gdal2xyz
+%{mingw32_bindir}/gdal2xyz.py
 %{mingw32_bindir}/gdal_calc
+%{mingw32_bindir}/gdal_calc.py
 %{mingw32_bindir}/gdal_edit
+%{mingw32_bindir}/gdal_edit.py
 %{mingw32_bindir}/gdal_fillnodata
+%{mingw32_bindir}/gdal_fillnodata.py
 %{mingw32_bindir}/gdal_merge
+%{mingw32_bindir}/gdal_merge.py
 %{mingw32_bindir}/gdal_pansharpen
+%{mingw32_bindir}/gdal_pansharpen.py
 %{mingw32_bindir}/gdal_polygonize
+%{mingw32_bindir}/gdal_polygonize.py
 %{mingw32_bindir}/gdal_proximity
+%{mingw32_bindir}/gdal_proximity.py
 %{mingw32_bindir}/gdal_retile
+%{mingw32_bindir}/gdal_retile.py
 %{mingw32_bindir}/gdal_sieve
+%{mingw32_bindir}/gdal_sieve.py
 %{mingw32_bindir}/gdalattachpct
+%{mingw32_bindir}/gdalattachpct.py
 %{mingw32_bindir}/gdalcompare
+%{mingw32_bindir}/gdalcompare.py
 %{mingw32_bindir}/gdalmove
+%{mingw32_bindir}/gdalmove.py
 %{mingw32_bindir}/ogr_layer_algebra
+%{mingw32_bindir}/ogr_layer_algebra.py
 %{mingw32_bindir}/ogrmerge
+%{mingw32_bindir}/ogrmerge.py
 %{mingw32_bindir}/pct2rgb
+%{mingw32_bindir}/pct2rgb.py
 %{mingw32_bindir}/rgb2pct
+%{mingw32_bindir}/rgb2pct.py
 %{mingw32_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw32_python3_sitearch}/osgeo/
 %{mingw32_python3_sitearch}/osgeo_utils/
@@ -703,23 +733,41 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %if %{with python3}
 %files -n mingw64-python3-%{name}
 %{mingw64_bindir}/gdal2tiles
+%{mingw64_bindir}/gdal2tiles.py
 %{mingw64_bindir}/gdal2xyz
+%{mingw64_bindir}/gdal2xyz.py
 %{mingw64_bindir}/gdal_calc
+%{mingw64_bindir}/gdal_calc.py
 %{mingw64_bindir}/gdal_edit
+%{mingw64_bindir}/gdal_edit.py
 %{mingw64_bindir}/gdal_fillnodata
+%{mingw64_bindir}/gdal_fillnodata.py
 %{mingw64_bindir}/gdal_merge
+%{mingw64_bindir}/gdal_merge.py
 %{mingw64_bindir}/gdal_pansharpen
+%{mingw64_bindir}/gdal_pansharpen.py
 %{mingw64_bindir}/gdal_polygonize
+%{mingw64_bindir}/gdal_polygonize.py
 %{mingw64_bindir}/gdal_proximity
+%{mingw64_bindir}/gdal_proximity.py
 %{mingw64_bindir}/gdal_retile
+%{mingw64_bindir}/gdal_retile.py
 %{mingw64_bindir}/gdal_sieve
+%{mingw64_bindir}/gdal_sieve.py
 %{mingw64_bindir}/gdalattachpct
+%{mingw64_bindir}/gdalattachpct.py
 %{mingw64_bindir}/gdalcompare
+%{mingw64_bindir}/gdalcompare.py
 %{mingw64_bindir}/gdalmove
+%{mingw64_bindir}/gdalmove.py
 %{mingw64_bindir}/ogr_layer_algebra
+%{mingw64_bindir}/ogr_layer_algebra.py
 %{mingw64_bindir}/ogrmerge
+%{mingw64_bindir}/ogrmerge.py
 %{mingw64_bindir}/pct2rgb
+%{mingw64_bindir}/pct2rgb.py
 %{mingw64_bindir}/rgb2pct
+%{mingw64_bindir}/rgb2pct.py
 %{mingw64_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw64_python3_sitearch}/osgeo/
 %{mingw64_python3_sitearch}/osgeo_utils/
@@ -728,6 +776,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Fri May 16 2025 Sandro Mani <manisandro@gmail.com> - 3.10.3-2
+- Fix *.py scripts packaging
+
 * Mon Apr 07 2025 Sandro Mani <manisandro@gmail.com> - 3.10.3-1
 - Update to 3.10.3
 

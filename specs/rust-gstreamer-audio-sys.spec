@@ -6,7 +6,7 @@
 %global crate gstreamer-audio-sys
 
 Name:           rust-gstreamer-audio-sys
-Version:        0.23.5
+Version:        0.23.6
 Release:        %autorelease
 Summary:        FFI bindings to libgstaudio-1.0
 
@@ -106,7 +106,7 @@ use the "v1_22" feature of the "%{crate}" crate.
 %package     -n %{name}+v1_24-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gstreamer-audio-1.0) >= 1.23
+Requires:       pkgconfig(gstreamer-audio-1.0) >= 1.24
 
 %description -n %{name}+v1_24-devel %{_description}
 
@@ -114,6 +114,19 @@ This package contains library source intended for building other packages which
 use the "v1_24" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_24-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_26-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gstreamer-audio-1.0) >= 1.26
+
+%description -n %{name}+v1_26-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_26" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_26-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

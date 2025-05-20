@@ -1,13 +1,6 @@
-# Test::Warnings introduced in Fedora 18
-%if 0%{?fedora} < 18 && 0%{?rhel} < 7
-%global no_test_warnings 1
-%else
-%global no_test_warnings 0
-%endif
-
 Name:		perl-Exporter-Tiny
 Version:	1.006002
-Release:	6%{?dist}
+Release:	8%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://exportertiny.github.io/
@@ -15,33 +8,26 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Exporter/Exporter-Tiny-%{ve
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.17
+# If we don't have at least 5.37.2 then we'll need Lexical::Var
+BuildRequires:	perl(:VERSION) >= 5.37.2
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
-# Optional Functionality
-# Note: Lexical::Var and Lexical::Sub both come from the perl-Lexical-Var package
-# Not needed from 5.37.2 onwards, which have experimental lexical export support
-# So we should be able to drop this (and the runtime dep) for F-38 later
-BuildRequires:	perl(Lexical::Var)
 # Test Suite
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.47
 # Optional Tests
 BuildRequires:	perl(Test::Fatal)
-%if ! %{no_test_warnings}
 BuildRequires:	perl(Test::Warnings)
-%endif
-# Runtime
+# Dependencies
 Requires:	perl(Carp)
-Recommends:	perl(Lexical::Var)
 
 # Avoid doc-file dependency on perl(base)
 %{?perl_default_filter}
@@ -69,12 +55,11 @@ rm -rv ./inc/
 sed -i -e '/^inc\//d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -92,6 +77,13 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Sun May 18 2025 Paul Howarth <paul@city-fan.org> - 1.006002-8
+- Remove more legacy cruft
+- Use %%{make_build} and %%{make_install}
+
+* Sun May 18 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.006002-7
+- Remove obsolete dependency on Lexical::Var
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.006002-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

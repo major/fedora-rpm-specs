@@ -1,5 +1,5 @@
 Name:           cpuid
-Version:        20250316
+Version:        20250419
 Release:        %autorelease
 Summary:        Dumps information about the CPU(s)
 

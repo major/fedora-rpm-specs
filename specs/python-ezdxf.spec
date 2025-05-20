@@ -1,5 +1,5 @@
 Name:           python-ezdxf
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Python package to create/manipulate DXF drawings
 

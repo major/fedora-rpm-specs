@@ -56,7 +56,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.2
+Version:        3.0.4
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -281,12 +281,6 @@ Patch2:         gimp-2.99.19-no-phone-home-default.patch
 # use external help browser directly if help browser plug-in is not built
 Patch3:         gimp-2.99.19-external-help-browser.patch
 
-# Patches submitted upstream:
-
-# Avoid type names and keywords to fix building with C23
-# https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2097
-Patch4:         0001-Avoid-type-names-and-keywords.patch
-
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -358,8 +352,6 @@ EOF
 %patch 1 -p1 -b .cm-system-monitor-profile-by-default
 %patch 2 -p1 -b .no-phone-home-default
 %patch 3 -p1 -b .external-help-browser
-
-%patch 4 -p1 -b .avoid-type-names-and-keywords
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files

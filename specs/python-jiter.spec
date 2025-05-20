@@ -2,21 +2,20 @@
 %global _description %{summary}.
 
 Name:           python-%{srcname}
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 
 # python-jiter is MIT only, but the rest are rust libraries
 # based on cargo_license_summary output:
 #
-# Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
-# MIT OR Apache-2.0 (duplicate)
+# MIT OR Apache-2.0
 License:        %{shrink:
-                (Apache-2.0 OR MIT) AND
                 (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-                MIT
+                MIT AND
+                (MIT OR Apache-2.0)
                 }
 URL:            https://github.com/pydantic/jiter/
 Source:         %{pypi_source %{srcname}}

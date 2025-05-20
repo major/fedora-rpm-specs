@@ -1,8 +1,8 @@
 %global pypi_name hole
 
 Name:           python-%{pypi_name}
-Version:        0.7.0
-Release:        9%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Python client for interacting with a *hole instance
 
 License:        MIT
@@ -41,12 +41,15 @@ This module is consuming the details provided by the endpoint /api.php only.
 %py3_install
 
 %files -n python3-%{pypi_name}
-%doc CHANGES.rst README.rst example.py
+%doc CHANGES.rst README.rst
 %license LICENSE
 %{python3_sitelib}/%{pypi_name}/
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Sun May 18 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.0-1
+- Update to latest upstream release (closes rhbz#2355733)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

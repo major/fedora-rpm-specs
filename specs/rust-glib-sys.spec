@@ -6,7 +6,7 @@
 %global crate glib-sys
 
 Name:           rust-glib-sys
-Version:        0.20.9
+Version:        0.20.10
 Release:        %autorelease
 Summary:        FFI bindings to libglib-2.0
 
@@ -224,7 +224,7 @@ use the "v2_82" feature of the "%{crate}" crate.
 %package     -n %{name}+v2_84-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(glib-2.0) >= 2.83
+Requires:       pkgconfig(glib-2.0) >= 2.84
 
 %description -n %{name}+v2_84-devel %{_description}
 

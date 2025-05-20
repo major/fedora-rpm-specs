@@ -26,6 +26,9 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# gsetting overrides for the "Server with GUI" installation
+Source1:    	org.gnome.settings-daemon.plugins.power.gschema.override
+
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.49.0
@@ -87,6 +90,21 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%if 0%{?rhel}
+%package    	server-defaults
+Summary:    	Workstation settings overrides for Server with GUI
+Requires:   	%{name} = %{version}-%{release}
+
+BuildArch:      noarch
+
+# handle the transition from archful to noarch
+Obsoletes:      %{name}-server-defaults < 48.1
+
+%description	server-defaults
+The {%name}-server-defaults package contains gsettings schema overrides
+for the default behavior of Workstation in the Server with GUI product.
+%endif
+
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
 
@@ -96,6 +114,10 @@ developing applications that use %{name}.
 
 %install
 %meson_install
+
+%if 0%{?rhel}
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
+%endif
 
 %find_lang %{name} --with-gnome
 
@@ -198,6 +220,11 @@ developing applications that use %{name}.
 %files devel
 %{_includedir}/gnome-settings-daemon-%{major_version}
 %{_libdir}/pkgconfig/gnome-settings-daemon.pc
+
+%if 0%{?rhel}
+%files server-defaults
+%{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.override
+%endif
 
 %changelog
 %autochangelog

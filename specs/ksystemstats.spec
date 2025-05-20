@@ -68,7 +68,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
 %{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
-%caps(cap_permon=ep) %{_libexecdir}/ksystemstats_intel_helper
+%caps(cap_perfmon=ep) %{_libexecdir}/ksystemstats_intel_helper
 
 %changelog
 * Sat May 17 2025 Alessandro Astone <ales.astone@gmail.com> - 6.3.90-2

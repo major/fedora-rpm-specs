@@ -5,7 +5,7 @@
 %global crate git2
 
 Name:           rust-git2
-Version:        0.20.1
+Version:        0.20.2
 Release:        %autorelease
 Summary:        Bindings to libgit2 for interoperating with git repositories
 

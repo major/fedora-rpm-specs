@@ -1,16 +1,13 @@
 Name:      zint
-Version:   2.13.0
-Release:   5%{?dist}
+Version:   2.15.0
+Release:   1%{?dist}
 Summary:   Barcode generator library
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:   GPL-3.0-or-later
+License:   BSD-3-Clause AND GPL-3.0-or-later
 URL:       http://www.zint.org.uk
 Source:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.gz
 
-# patch to disable creation of rpaths
-Patch0:    %{name}-rpath.patch
 # create shared libQZint instead of static one
-Patch1:    %{name}-shared.patch
+Patch0:    %{name}-shared.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -67,9 +64,7 @@ C library and header files needed to develop applications that use libQZint.
 
 
 %prep
-%setup -q -n %{name}-%{version}-src
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n %{name}-%{version}-src
 
 # fix line endings
 sed -i "s|\r||g" docs/manual.txt
@@ -104,7 +99,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 %files
 %doc docs/manual.txt README TODO
-%license LICENSE
+%license LICENSE frontend/COPYING
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_libdir}/libzint.so.*
@@ -127,6 +122,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
 %changelog
+* Sun May 18 2025 Martin Gieseking <martin.gieseking@uos.de> - 2.15.0-1
+- Update to 2.15.0
+- Dropped rpath patch which is no longer required
+- Updated license (libzint is now licensed under BSD-3-Clause)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

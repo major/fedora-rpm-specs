@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302211
+Version:        1.302212
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -404,6 +404,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun May 18 2025 Paul Howarth <paul@city-fan.org> - 3:1.302212-1
+- Update to 1.302212
+  - Add a workaround for Test::Class::Moose
+
 * Fri May  2 2025 Paul Howarth <paul@city-fan.org> - 3:1.302211-1
 - Update to 1.302211
   - Fix broken links in pod for Test2::Event and Test2::Event::Generic (GH#1035)

@@ -4,7 +4,7 @@
 %global crate gst-plugin-gtk4
 
 Name:           rust-gst-plugin-gtk4
-Version:        0.13.5
+Version:        0.13.6
 Release:        %autorelease
 Summary:        GStreamer GTK 4 sink element
 

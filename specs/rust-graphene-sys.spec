@@ -6,7 +6,7 @@
 %global crate graphene-sys
 
 Name:           rust-graphene-sys
-Version:        0.20.7
+Version:        0.20.10
 Release:        %autorelease
 Summary:        FFI bindings to libgraphene-1.0
 

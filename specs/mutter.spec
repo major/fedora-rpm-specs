@@ -11,6 +11,12 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
+%if 0%{?rhel} >= 10
+%bcond x11 0
+%else
+%bcond x11 1
+%endif
+
 Name:          mutter
 Version:       48.2
 Release:       %autorelease
@@ -154,7 +160,12 @@ the functionality of the installed %{name} package.
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build
-%meson -Degl_device=true
+%meson -Degl_device=true \
+%if %{without x11}
+  -Dx11=false \
+%endif
+%{nil}
+
 %meson_build
 
 %install
@@ -169,7 +180,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_bindir}/mutter
 %{_libdir}/lib*.so.*
 %{_libdir}/mutter-%{mutter_api_version}/
+%if %{with x11}
 %{_libexecdir}/mutter-restart-helper
+%endif
 %{_libexecdir}/mutter-x11-frames
 %{_mandir}/man1/mutter.1*
 %{_bindir}/gdctl

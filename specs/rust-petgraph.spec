@@ -6,7 +6,7 @@
 %global crate petgraph
 
 Name:           rust-petgraph
-Version:        0.7.1
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Graph data structure library
 
@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/petgraph
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop optional feature with outdated quickcheck dependency
+#   (https://github.com/petgraph/petgraph/issues/787)
 # * exclude files that are only useful for upstream development
 Patch:          petgraph-fix-metadata.diff
 
@@ -37,9 +38,9 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CONTRIBUTING.rst
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASES.rst
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -160,6 +161,18 @@ This package contains library source intended for building other packages which
 use the "stable_graph" feature of the "%{crate}" crate.
 
 %files       -n %{name}+stable_graph-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unstable-devel

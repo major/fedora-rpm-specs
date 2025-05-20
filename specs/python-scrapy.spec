@@ -1,8 +1,8 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.12.0
-Release:	2%{?dist}
+Version:	2.13.0
+Release:	1%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -22,26 +22,6 @@ from data mining to monitoring and automated testing.
 %package -n python3-%{pkg_name}
 Summary:	%{summary}
 
-BuildRequires: make
-BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-sphinx
-BuildRequires:	python3-sphinx_rtd_theme
-BuildRequires:	python3-cssselect
-BuildRequires:	python3-lxml
-BuildRequires:	python3-twisted
-BuildRequires:	python3-w3lib
-BuildRequires:	python3-queuelib
-BuildRequires:	python3-sphinx-hoverxref
-BuildRequires:	python3-sphinx-notfound-page
-BuildRequires:	python-tldextract
-BuildRequires:	python3-service-identity
-BuildRequires:	python3-parsel
-BuildRequires:	python3-itemadapter
-BuildRequires:	python3-itemloaders
-BuildRequires:	python3-pydispatcher
-BuildRequires:	python3-pyOpenSSL
-BuildRequires:	python3-cryptography 
 Requires:	python3-pyOpenSSL
 Requires:	python3-twisted
 Requires:	python3-lxml
@@ -82,30 +62,30 @@ This package contains the documentation for %{name}
 
 %prep
 %autosetup -n %{pkg_name}-%{version}
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %build
-%py3_build
+%pyproject_wheel
 pushd docs
 %make_build html && rm -r build/html/.buildinfo
 popd
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python3-%{pkg_name}
 %license LICENSE
 %doc AUTHORS PKG-INFO
 %{python3_sitelib}/scrapy
-%{python3_sitelib}/Scrapy-*.egg-info
+%{python3_sitelib}/scrapy-%{version}.dist-info/
 %{_bindir}/scrapy
 
-%files doc
-%doc docs/build/html
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Sun May 18 2025 Eduardo Echeverria <echevemaster@gmail.com> - 2.13.0-1
+- Update to 2.13.0
 
 * Mon Dec 23 2024 Eduardo Echeverria <echevemaster@gmail.com> - 2.12.0-1
 - Update to 2.12.0

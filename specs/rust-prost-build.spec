@@ -12,6 +12,10 @@ Summary:        Generate Prost annotated Rust types from Protocol Buffers files
 License:        Apache-2.0
 URL:            https://crates.io/crates/prost-build
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * build(deps): update petgraph requirement from >=0.6, <=0.7 to >=0.6, <=0.8:
+#   https://github.com/tokio-rs/prost/pull/1268
+Patch:          prost-build-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  /usr/bin/protoc

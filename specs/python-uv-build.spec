@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.6.17
+Version:        0.7.5
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -82,8 +82,8 @@ Source:         %{pypi_source uv_build}
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 # Note that uv-build currently only uses version-ranges, not pubgrub.
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev a3b4db3abb1829ce889fb89fa6d157fef529ef7e
-%global pubgrub_snapdate 20250423
+%global pubgrub_rev 73d6ecf5a4e4eb1c754b8c3255c4d31bdc266fdb
+%global pubgrub_snapdate 20250509
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 

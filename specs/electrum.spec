@@ -1,6 +1,6 @@
 Name:           electrum
 Version:        4.5.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
@@ -15,6 +15,7 @@ Source4:        %{name}.1
 
 Patch0:         relax-protobuf-requirement.patch
 Patch1:         fix-secp256k1.patch
+Patch2:         relax-aiorpcx-requirements.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
