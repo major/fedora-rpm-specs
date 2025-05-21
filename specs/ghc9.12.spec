@@ -1,20 +1,20 @@
 # Start: prod settings
 # all bcond 1 for production builds:
-# - performance build (disable for quick build)
+# - release build (disable for quick build)
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2329744
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25536
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25541
-%bcond perfbuild 0
+%bcond releasebuild 0
 %else
-%bcond perfbuild 1
+%bcond releasebuild 1
 %endif
 %bcond build_hadrian 1
 %bcond manual 1
 # End: prod settings
 
 # not for production builds
-%if %{without perfbuild}
+%if %{without releasebuild}
 # disable profiling libraries (overriding macros.ghc-srpm)
 %undefine with_ghc_prof
 # disable haddock documentation (overriding macros.ghc-os)
@@ -45,8 +45,8 @@
 
 # bootstrap needs 9.6+
 # better would be to test ghc version
-%if 0%{?fedora} < 41
-%global ghcboot_major 9.6
+%if 0%{?fedora} < 43
+%global ghcboot_major 9.8
 %endif
 %global ghcboot ghc%{?ghcboot_major}
 
@@ -64,20 +64,20 @@
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%if 0%{?rhel} == 9
+%if %{defined el9}
 %global llvm_major 12
 %else
 # only available for f41+
 %global llvm_major 18
 %endif
-%global ghc_llvm_archs s390x riscv64
+%global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -96,9 +96,11 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
 Patch5: hp2ps-C-gnu17.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25963 for 64bit 9.8.4 boot
+Patch6: https://gitlab.haskell.org/ghc/ghc/-/commit/0dabd3c132f6b15548944d8d479d7d0415be813e.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# needs more backporting to 9.6
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
+# should be in 9.14 and enabled by default for release flavor
+#Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -133,6 +135,7 @@ BuildRequires: %{ghcboot}-directory-devel
 BuildRequires: %{ghcboot}-filepath-devel
 BuildRequires: %{ghcboot}-ghc-boot-th-devel
 BuildRequires: %{ghcboot}-haskeline-devel
+BuildRequires: %{ghcboot}-parsec-devel
 BuildRequires: %{ghcboot}-pretty-devel
 BuildRequires: %{ghcboot}-process-devel
 BuildRequires: %{ghcboot}-stm-devel
@@ -164,7 +167,6 @@ BuildRequires: clang%{llvm_major}
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
@@ -269,6 +271,13 @@ install the main ghc package.
 Summary: Makes %{name} default ghc
 Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Conflicts: ghc-compiler
+Conflicts: ghc8.10-compiler-default
+Conflicts: ghc9.0-compiler-default
+Conflicts: ghc9.2-compiler-default
+Conflicts: ghc9.4-compiler-default
+Conflicts: ghc9.6-compiler-default
+Conflicts: ghc9.8-compiler-default
+Conflicts: ghc9.10-compiler-default
 
 %description compiler-default
 The package contains symlinks to make %{name} the default GHC compiler.
@@ -411,6 +420,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+( cd hadrian
+  cabal-tweak-flag selftest False
+)
 
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
@@ -419,6 +431,13 @@ Installing this package causes %{name}-*-prof packages corresponding to
 #%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
+
+# Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
+%ifnarch %{ix86}
+%if 0%{?fedora} >= 43
+%patch -P6 -p1 -b .orig
+%endif
+%endif
 
 %ifarch %{ghc_unregisterized_arches} riscv64
 %patch -P16 -p1 -b .orig
@@ -437,9 +456,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 
 %build
-# patch4
-autoupdate
-
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
 %if %{with ld_gold}
@@ -497,18 +513,21 @@ ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 %global hadrian %{_bindir}/hadrian-%{ghc_major}
 %endif
 
-%global hadrian_flavour %[%{?with_perfbuild} ? "perf" : "quick"]
+# https://gitlab.haskell.org/ghc/ghc/blob/ghc-9.12/hadrian/doc/flavours.md
+%global hadrian_flavour %[%{?with_releasebuild} ? "release" : "quick"]
 %ifarch %{ghc_llvm_archs}
 %define hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
-## to turn on debug build
-#%%define hadrian_debug +debug_ghc+debug_info+lint+assertions "*.*.ghc.hs.opts += -dtag-inference-checks"
+# turn on debug build
+%if %{with releasebuild}
+%define hadrian_debug +debug_info
+%endif
 
 # -j224 caused rts "resource exhausted (Too many open files)"
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
-# try release instead of perf
+# --hash-unit-ids should be redundant for 9.14 release flavor
 %{hadrian} %{?_smp_mflags} --flavour=%{hadrian_flavour}%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
 
 
@@ -544,8 +563,11 @@ done
 
 %if %{with haddock}
 # remove short hashes
-for d in %{buildroot}%{ghc_html_libraries_dir}/*/; do
-mv $d $(echo $d | sed -e "s/\(.*\)-.*/\\1/")
+for pkg in $(/usr/lib/rpm/ghc-pkg-wrapper %{buildroot}%{ghclibdir} list --simple-output | sed -e s/rts-%{rts_ver}// -e s/system-cxx-std-lib-1.0//); do
+pkgid=$(/usr/lib/rpm/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field $pkg id --simple-output)
+sed -i -e "s!\(^haddock-.*\)$pkgid!\\1$pkg!" %{buildroot}%{ghcliblib}/package.conf.d/$pkgid.conf
+# FIXME this breaks haddock index links
+mv %{buildroot}%{ghc_html_libraries_dir}/{$pkgid,$pkg}
 done
 %endif
 
@@ -876,6 +898,13 @@ make test
 
 
 %changelog
+* Mon May 19 2025 Jens Petersen <petersen@redhat.com> - 9.12.2-7
+- use 'release' flavor instead of 'perf'
+- bump boot compiler to ghc9.8
+- use new NCG for riscv64 (thanks to supersven)
+- add conflicts for other ghcX.Y-compiler-default packages
+- also munge haddock paths in .conf files
+
 * Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 9.12.2-6
 - move ghc-internal into base subpackage
 - make ghc-filesystem arch for now for index.html

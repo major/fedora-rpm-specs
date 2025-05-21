@@ -1,6 +1,6 @@
 Name:       pure-ftpd
-Version:    1.0.51
-Release:    9%{?dist}
+Version:    1.0.52
+Release:    1%{?dist}
 Summary:    Lightweight, fast and secure FTP server
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -220,6 +220,10 @@ fi
 
 
 %changelog
+* Tue May 20 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.52-1
+- update to 1.0.52 rhbz#2313435
+- Fixes CVE-2024-48208 rhbz#2343476
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.51-9
 - Add explicit BR: libxcrypt-devel
 

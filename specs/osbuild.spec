@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        147
+Version:        149
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        147
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -329,6 +329,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed May 07 2025 Packit <hello@packit.dev> - 149-1
+Changes with 149
+----------------
+  *  In Fedora 41+, depend on typer-slim rather than typer (#2075)
+    * Author: Ben Beasley, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * Update images dependency ref to latest (#2078)
+    * Author: SchutzBot, Reviewers: Michael Vogt, Tomáš Hozza
+  * Update images dependency ref to latest (#2082)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * [RFC] tools: drop requirement for `module_platform_id` from request (#2087)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Neal Gompa (ニール・ゴンパ), Simon de Vlieger
+  * solver: Call update_cache (#2084)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Neal Gompa (ニール・ゴンパ), Simon de Vlieger
+  * solver: Use load_repos instead of update_and_load_enabled_repos (#2081)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-05-07
+
+
 * Thu Apr 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 146-2
 - In Fedora 41+, depend on python3-typer-slim rather than python3-typer, working
   around a file conflict

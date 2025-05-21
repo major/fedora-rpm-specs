@@ -5,7 +5,7 @@
 %global crate asn1
 
 Name:           rust-asn1
-Version:        0.20.0
+Version:        0.21.3
 Release:        %autorelease
 Summary:        ASN.1 (DER) parser and writer for Rust
 

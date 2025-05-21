@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        139
+Version:        141
 
 %gometa
 
@@ -168,7 +168,7 @@ Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.2.2
 Provides: bundled(golang(github.com/golang/glog)) = 1.2.3
 Provides: bundled(golang(github.com/golang/groupcache)) = 41bb18b
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.4
-Provides: bundled(golang(github.com/google/go-cmp)) = 0.6.0
+Provides: bundled(golang(github.com/google/go-cmp)) = 0.7.0
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.20.2
 Provides: bundled(golang(github.com/google/go-intervals)) = 0.0.2
 Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.9
@@ -229,13 +229,13 @@ Provides: bundled(golang(github.com/oasdiff/yaml)) = f31be36
 Provides: bundled(golang(github.com/oasdiff/yaml3)) = d218240
 Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
-Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0
+Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.6.0
-Provides: bundled(golang(github.com/osbuild/images)) = a1ca7f3
+Provides: bundled(golang(github.com/osbuild/images)) = 0.144.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -697,6 +697,31 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed May 14 2025 Packit <hello@packit.dev> - 141-1
+Changes with 141
+----------------
+  * Add templates to subscription image options (HMS-6050) (#4712)
+    * Author: rverdile, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Replace logrus with log (#4715)
+    * Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Test/cross-distro: add version check for cross-building el8 on el9 (#4706)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * Test/cross-distro: fix one issue and make the test more robust on "ZStream" branches (#4694)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  * cloudapi: Fix missing specs for koji ContainerResolve (#4709)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  * cloudapi: drop ImageRequest.GetImageOptions() method (#4711)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Sanne Raymaekers
+  * go.mod: bump images to v0.144.0 (#4718)
+    * Author: Sanne Raymaekers, Reviewers: Florian Schüller, Lukáš Zapletal, Simon de Vlieger
+  * go.mod: update osbuild/images to v0.143.0 (#4713)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Sanne Raymaekers
+  * internal: drop `internal/fsnode` package (#4714)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-05-14
+
+
 * Tue Apr 22 2025 Packit <hello@packit.dev> - 139-1
 Changes with 139
 ----------------

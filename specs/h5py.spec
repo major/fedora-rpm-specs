@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -104,6 +104,9 @@ Requires:       mpich
 pushd %{name}-%{version}
 %autopatch -p1
 popd
+# Effectively ignore the ResourceWarning in test_TemporaryFile
+sed -i 's/"ignore:unclosed file:ResourceWarning"/"ignore::ResourceWarning"/' %{name}-%{version}/h5py/tests/test_file2.py
+
 mv %{name}-%{version} serial
 %{?with_openmpi:cp -al serial openmpi}
 %{?with_mpich:cp -al serial mpich}
@@ -229,6 +232,9 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 
 
 %changelog
+* Mon May 19 2025 Terje Rosten <terjeros@gmail.com> - 3.13.0-2
+- Add patch from Karolina Surma to fix build on Python 3.14
+
 * Mon Apr 28 2025 Terje Rosten <terjeros@gmail.com> - 3.13.0-1
 - 3.13.0
 

@@ -5,7 +5,7 @@ Stylish top panel that holds indicators and spawns an application
 launcher.}
 
 Name:           wingpanel
-Version:        8.0.2
+Version:        8.0.3
 Release:        %autorelease
 Summary:        Stylish top panel
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later

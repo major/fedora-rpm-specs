@@ -6,7 +6,7 @@
 %global crate rustls
 
 Name:           rust-rustls
-Version:        0.23.26
+Version:        0.23.27
 Release:        %autorelease
 Summary:        Modern TLS library written in Rust
 
@@ -14,6 +14,7 @@ License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/rustls
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * relax brotli dependency to allow building with both v7 and v8
 # * default to the ring crypto backend
 # * drop support for the aws-lc-rs crypto backend
 # * drop unused, benchmark-only bencher dev-dependency

@@ -3,7 +3,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -37,8 +37,8 @@ BuildRequires:  jxrlib-devel
 
 Requires:       kf6-filesystem
 # for eps plugin read/write support
-Requires:       poppler-utils
-Requires:       ghostscript
+Recommends:     poppler-utils
+Recommends:     ghostscript
 
 %description
 This framework provides additional image format plugins for QtGui.  As
@@ -64,6 +64,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Fri May 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.14.0-2
+- Soften EPS dependencies
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

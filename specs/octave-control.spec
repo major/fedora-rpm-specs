@@ -1,7 +1,7 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        4.1.1
+Version:        4.1.2
 Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ done;
 
 
 %changelog
+* Mon May 19 2025 Thomas Sailer <fedora@tsailer.ch> - 4.1.2-1
+- Update to 4.1.2
+
 * Sun Feb 09 2025 Thomas Sailer <fedora@tsailer.ch> - 4.1.1-1
 - Update to 4.1.1
 

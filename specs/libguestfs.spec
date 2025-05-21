@@ -44,8 +44,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.11
-Release:       2%{?dist}
+Version:       1.55.12
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -78,9 +78,6 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
-
-# Upstream patch that removes zfs-fuse
-Patch:         0001-appliance-Remove-zfs-fuse.patch
 
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
@@ -672,6 +669,9 @@ for %{name}.
 %setup -q
 %autopatch -p1
 
+# ACLOCAL_PATH is temporarily required to work around
+# https://bugzilla.redhat.com/show_bug.cgi?id=2366708
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 autoreconf -fiv
 
 # For sVirt to work, the local temporary directory we use in the tests
@@ -1068,6 +1068,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon May 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.12-1
+- New upstream development version 1.55.12
+
 * Fri May 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.11-2
 - New upstream development version 1.55.11
 - Backport upstream patch to really remove zfs-fuse dependency

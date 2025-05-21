@@ -2,27 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate monostate
 
-%global crate terminal-light
-
-Name:           rust-terminal-light
-Version:        1.8.0
+Name:           rust-monostate
+Version:        0.1.14
 Release:        %autorelease
-Summary:        Tells you whether your terminal is dark or light
+Summary:        Type that deserializes only from one specific value
 
-License:        MIT
-URL:            https://crates.io/crates/terminal-light
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/monostate
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax crossterm dependency to allow building with both v0.28 and v0.29
-Patch:          terminal-light-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Tells you whether your terminal is dark or light.}
+Type that deserializes only from one specific value.}
 
 %description %{_description}
 
@@ -36,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

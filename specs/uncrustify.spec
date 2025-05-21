@@ -1,10 +1,9 @@
 Name:		uncrustify
-Version:	0.80.1
+Version:	0.81.0
 Release:	%autorelease
 Summary:	Reformat Source
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:	GPL-2.0-only
+License:	GPL-2.0-or-later
 URL:		https://uncrustify.sourceforge.net/
 Source0:	https://prdownloads.sourceforge.net/uncrustify/uncrustify-%{version}.tar.gz
 BuildRequires:  gcc-c++

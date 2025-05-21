@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc6.250515g088d13246a46.54
+%define pkgrelease 0.rc7.57
 %define kversion 6
-%define tarfile_release 6.15-rc6-105-g088d13246a46
+%define tarfile_release 6.15-rc7
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.250515g088d13246a46.54%{?buildid}%{?dist}
+%define specrelease 0.rc7.57%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,9 +4259,22 @@ fi\
 #
 #
 %changelog
-* Thu May 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.088d13246a46.54]
-- Revert "kbuild: Require pahole <v1.28 or >v1.29 with GENDWARFKSYMS on X86" (Justin M. Forbes)
-- Revert CONFIG_GENKSYMS for x86 (Justin M. Forbes)
+* Mon May 19 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc7.57]
+- powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Mon May 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc7.57]
+- redhat/configs: remove CRC16 config files (Scott Weaver)
+- Linux v6.15.0-0.rc7
+
+* Sun May 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.5723cc3450bc.56]
+- Revert CONFIG_GENKSYMS in pending for x86 (Justin M. Forbes)
+- Linux v6.15.0-0.rc6.5723cc3450bc
+
+* Sat May 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.172a9d94339c.55]
+- Linux v6.15.0-0.rc6.172a9d94339c
+
+* Fri May 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.fee3e843b309.54]
+- Linux v6.15.0-0.rc6.fee3e843b309
 
 * Thu May 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc6.088d13246a46.53]
 - Flip GENKSYMS for RHEL (Justin M. Forbes)

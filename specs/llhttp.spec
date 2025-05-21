@@ -17,9 +17,16 @@
 # code, so we need to include this in an additional source. For details, see:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/what-can-be-packaged/#pregenerated-code
 
+# This package is a dependency of libgit2 which in turn is one of rpmautospec.
+# When upgrading to a version with a new soname, this package needs to provide
+# both in order to bootstrap itself and libgit2. Set %%bootstrap and
+# %%previous_so_version for this (and unset and rebuild later).
+%bcond bootstrap 0
+
 Name:           llhttp
 Version:        9.3.0
 %global so_version 9.3
+%global previous_so_version 9.2
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 
@@ -36,6 +43,14 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 # There is no C++ involved, but CMake searches for a C++ compiler.
 BuildRequires:  gcc-c++
+
+%if %{with bootstrap}
+%if "%{_lib}" == "lib64"
+BuildRequires:  libllhttp.so.%{previous_so_version}()(64bit)
+%else
+BuildRequires:  libllhttp.so.%{previous_so_version}
+%endif
+%endif
 
 %description
 This project is a port of http_parser to TypeScript. llparse is used to
@@ -68,6 +83,11 @@ developing applications that use llhttp.
 %install
 %cmake_install
 
+%if %{with bootstrap}
+cp -vp %{_libdir}/libllhttp.so.%{previous_so_version}{,.*} \
+    %{buildroot}%{_libdir}
+%endif
+
 
 # The same obstacles that prevent us from re-generating the C sources from
 # TypeScript also prevent us from running the tests, which rely on NodeJS.
@@ -78,6 +98,9 @@ developing applications that use llhttp.
 %license LICENSE
 %doc README.md
 %{_libdir}/libllhttp.so.%{so_version}{,.*}
+%if %{with bootstrap}
+%{_libdir}/libllhttp.so.%{previous_so_version}{,.*}
+%endif
 
 
 %files devel

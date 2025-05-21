@@ -1,6 +1,6 @@
 Name:           FreeSOLID
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        3D collision detection C++ library
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://sourceforge.net/projects/freesolid/
@@ -45,6 +45,7 @@ autoupdate
 
 # check for libqhull/qhull_a.h instead of qhull/qhull_a.h
 sed -i -e 's,qhull/qhull_a.h,libqhull/qhull_a.h,' configure*
+sed -i -e 's,VERSION=2.1.1,VERSION=2.1.2,' configure*
 
 mkdir m4
 rm acinclude.m4 aclocal.m4
@@ -78,6 +79,9 @@ rm -rf sample/*.o sample/.libs $(find sample -type f -a -executable)
 %{_includedir}/*
 
 %changelog
+* Sat May 17 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.1.2-2
+- Fix version in FreeSOLID-2.1.2-pkgconfig.patch
+
 * Wed May 14 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.1.2-1
 - Update to 2.1.2
 

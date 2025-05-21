@@ -5,7 +5,7 @@
 %global crate dua-cli
 
 Name:           rust-dua-cli
-Version:        2.29.2
+Version:        2.30.1
 Release:        %autorelease
 Summary:        Tool to conveniently learn about the disk usage of directories
 
@@ -13,7 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/dua-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Update gix-glob dependency to version 0.18
+# * bump gix-glob dependency from 0.17 to 0.18
+# * relax trash dependency to >=3,<6
 Patch:          dua-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -25,17 +26,25 @@ A tool to conveniently learn about the disk usage of directories, fast!.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
+# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
-License:        MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+# Zlib
+License:        %{shrink:
+    MIT AND
+    Unicode-3.0 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT) AND
+    Zlib
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

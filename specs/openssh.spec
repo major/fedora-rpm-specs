@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -578,6 +578,14 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon May 19 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-2
+- Provide better diagnostics for non-supported private keys
+  (https://github.com/openssh/openssh-portable/pull/564)
+- Ignore too short hostkeys in known_hosts file
+  (https://github.com/openssh/openssh-portable/pull/567)
+- Switch to systemd-socket activation for ssh-agent
+  Resolves: rhbz#2181353
+
 * Fri May 16 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-1
 - Rebase to OpenSSH 10.0p1
 

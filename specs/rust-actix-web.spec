@@ -6,7 +6,7 @@
 %global crate actix-web
 
 Name:           rust-actix-web
-Version:        4.10.2
+Version:        4.11.0
 Release:        %autorelease
 Summary:        Powerful, pragmatic, and extremely fast web framework for Rust
 

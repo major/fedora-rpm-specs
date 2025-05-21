@@ -1,6 +1,8 @@
+%bcond optional_tests %{undefined rhel}
+
 Name:		librdkafka
 Version:	2.4.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	Apache-2.0
@@ -16,7 +18,9 @@ BuildRequires:	lz4-devel
 BuildRequires:	openssl-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	zlib-devel
+%if %{with optional_tests}
 BuildRequires:	rapidjson-devel
+%endif
 
 Patch1: disable-ssl-engine.patch
 Patch2: include-ossl-rand.patch
@@ -89,6 +93,9 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Mon May 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-4
+- Avoid rapidjson dependency on RHEL
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

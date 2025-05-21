@@ -9,12 +9,23 @@ License:        MIT
 URL:            https://gitlab.com/rubdos/pyreflink
 Source0:        %{pypi_source}
 
+# Downstream-only: remove setup_requires on pytest-runner
+#
+# A full migration away from pytest-runner, tests_require, and "setup.py
+# test" would require a more significant change, so this patch is
+# inadequate for offering as a PR to upstream.
+#
+# Retire pytest-runner
+# https://gitlab.com/rubdos/pyreflink/-/issues/16
+#
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          reflink-0.2.2-no-pytest-runner.patch
+
 BuildRequires:  btrfs-progs
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cffi)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-runner)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
 

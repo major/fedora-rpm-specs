@@ -2,27 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate rayon-cond
 
-%global crate terminal-light
-
-Name:           rust-terminal-light
-Version:        1.8.0
+Name:           rust-rayon-cond
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Tells you whether your terminal is dark or light
+Summary:        Experimental iterator wrapper that is conditionally parallel or serial
 
-License:        MIT
-URL:            https://crates.io/crates/terminal-light
+# Upstream license specification: Apache-2.0/MIT
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/rayon-cond
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax crossterm dependency to allow building with both v0.28 and v0.29
-Patch:          terminal-light-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Tells you whether your terminal is dark or light.}
+Experimental iterator wrapper that is conditionally parallel or serial.}
 
 %description %{_description}
 
@@ -36,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

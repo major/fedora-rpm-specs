@@ -152,7 +152,6 @@ The devel package contains the unbound library and the include files
 %package libs
 Summary: Libraries used by the unbound server and client applications
 Recommends: %{name}-anchor
-%{?sysusers_requires_compat}
 %if ! 0%{with_python2}
 # Make explicit conflict with no longer provided python package
 Obsoletes: python2-unbound < 1.9.3
@@ -394,8 +393,6 @@ mkdir -p %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
 install -p -m 0755 %{SOURCE28} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
 install -p -m 0644 %{SOURCE29} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
 
-%pre libs
-%sysusers_create_compat %{SOURCE20}
 
 %post
 %systemd_post unbound.service

@@ -1,7 +1,7 @@
 %global srcname stdnum
 
 Name:           python-%{srcname}
-Version:        2.0
+Version:        2.1
 Release:        1%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Mon May 19 2025 Dan Horák <dan[at]danny.cz> - 2.1-1
+- updated to 2.1 (rhbz#2366977)
+
 * Tue May 06 2025 Dan Horák <dan[at]danny.cz> - 2.0-1
 - updated to 2.0 (rhbz#2364242)
 

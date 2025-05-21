@@ -1,5 +1,5 @@
 Name:           wsl-setup
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Windows Subsystem for Linux setup script and configuration
 License:        MIT
@@ -13,6 +13,7 @@ Source4:        wsl-oobe.sh
 Source5:        firstboot-override.conf
 Source6:        wsl-setup-tmpfiles.conf
 Source7:        wsl-setup-user-tmpfiles.conf
+Source8:        wsl-setup
 
 BuildRequires:  systemd-rpm-macros
 
@@ -33,8 +34,9 @@ Provides WSL specific configuration files and first-time setup script.
 %install
 install -pm 0644 %{SOURCE1} LICENSE
 install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ %{SOURCE2}
-install -Dpm0644 -t %{buildroot}%{_prefix}/lib/ %{SOURCE3}
+install -Dpm0644 -T %{SOURCE3} %{buildroot}%{_datarootdir}/wsl-setup/wsl-distribution.conf.template
 install -Dpm0755 -T %{SOURCE4} %{buildroot}%{_libexecdir}/wsl/oobe.sh
+install -Dpm0755 -T %{SOURCE8} %{buildroot}%{_bindir}/wsl-setup
 ln -s ..%{_prefix}/lib/wsl-distribution.conf %{buildroot}%{_sysconfdir}/wsl-distribution.conf
 
 # WSL provides a socket for x11, but we need to ensure its linked to in /tmp.
@@ -55,16 +57,17 @@ install -Dpm0644 %{SOURCE5} %{buildroot}%{_unitdir}/systemd-firstboot.service.d/
 
 
 %post
-# generate the "auto" naming
-. %{_sysconfdir}/os-release
-DYNAMIC_NAME="${NAME// /}-${VERSION_ID%.*}"
-sed -i "s,DEFAULT_NAME,${DYNAMIC_NAME}," %{_sysconfdir}/wsl-distribution.conf
+# generate the "auto" naming, using the defaults
+%{_bindir}/wsl-setup
 
 
 %files
+%{_bindir}/wsl-setup
 %config(noreplace) %{_sysconfdir}/wsl.conf
-%{_prefix}/lib/wsl-distribution.conf
+%ghost %{_prefix}/lib/wsl-distribution.conf
 %{_sysconfdir}/wsl-distribution.conf
+%dir %{_datarootdir}/wsl-setup/
+%{_datarootdir}/wsl-setup/wsl-distribution.conf.template
 %{_libexecdir}/wsl/oobe.sh
 %{_tmpfilesdir}/%{name}.conf
 %{_user_tmpfilesdir}/%{name}.conf

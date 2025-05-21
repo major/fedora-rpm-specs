@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.15
+Version:       2.7.16
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -46,7 +46,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.49.8-1
+BuildRequires: libguestfs-devel >= 1:1.55.12-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion, bash-completion-devel
 BuildRequires: file-devel
@@ -91,7 +91,7 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.49.8-1
+Requires:      libguestfs%{?_isa} >= 1:1.55.12-1
 Requires:      guestfs-tools >= 1.49.7-1
 
 # XFS is the default filesystem in Fedora and RHEL.
@@ -206,6 +206,9 @@ for %{name}.
 %endif
 %autosetup -p1
 
+# ACLOCAL_PATH is temporarily required to work around
+# https://bugzilla.redhat.com/show_bug.cgi?id=2366708
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 autoreconf -fiv
 
 
@@ -312,6 +315,9 @@ done
 
 
 %changelog
+* Mon May 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.16-1
+- New upstream development version 2.7.16
+
 * Mon May 12 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.15-1
 - New upstream development version 2.7.15
 

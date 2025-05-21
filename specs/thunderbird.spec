@@ -87,13 +87,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        128.10.0
+Version:        128.10.1
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250428.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250519.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -301,10 +301,10 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %ifarch aarch64
 #%patch -P 226 -p1 -b .1354671
 %endif
-#FIXME %patch -P 416 -p1 -b .SIOCGSTAMP
+#FIXME %%patch -P 416 -p1 -b .SIOCGSTAMP
 %patch -P 418 -p1 -b .mozbz-1512162
 # most likely fixed
-#%patch -P 419 -p1 -b .bindgen
+#%%patch -P 419 -p1 -b .bindgen
 
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf
@@ -761,6 +761,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Mon May 19 2025 Eike Rathke <erack@redhat.com> - 128.10.1-1
+- Update to 128.10.1
+
 * Tue Apr 29 2025 Eike Rathke <erack@redhat.com> - 128.10.0-1
 - Update to 128.10.0
 

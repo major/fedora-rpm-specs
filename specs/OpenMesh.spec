@@ -6,7 +6,7 @@
 
 Name:           OpenMesh
 Version:        %{pkg_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A generic and efficient polygon mesh data structure
 License:        BSD-3-Clause
 URL:            http://www.openmesh.org/
@@ -97,7 +97,7 @@ symlinks -rc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html
 
 %check
 %ifnarch s390x
-%ctest
+%ctest -j1 # Run tests sequentially to avoid I/O conflicts
 %endif
 
 %install
@@ -157,6 +157,9 @@ done
 %doc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html/*
 
 %changelog
+* Mon May 19 2025 Laurent Rineau <laurent.rineau@cgal.org> - 11.0.0-4
+- Fix ctest invocation to prevent parallel execution during I/O tests
+
 * Tue May 06 2025 Cristian Le <git@lecris.dev> - 11.0.0-3
 - Allow CMake 4.0 build
 - Use standard cmake macros

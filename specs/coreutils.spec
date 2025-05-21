@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -31,6 +31,11 @@ Patch103: coreutils-python3.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
+
+# cp/mv: do not fail when copying of trivial NFSv4 ACLs fails (rhbz#2363149)
+# https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=8a356b77717a2e4f735ec06e326880ca1f61aadb
+# https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=955360a66c99bdd9ac3688519a8b521b06958fd3
+Patch105: coreutils-9.6-cp-improve-nfsv4-acl-support.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -278,6 +283,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon May 19 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.7-2
+- cp/mv: do not fail when copying of trivial NFSv4 ACLs fails (rhbz#2363149)
+
 * Wed Apr 09 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.7-1
 - rebase to latest upstream release (rhbz#2358624)
 

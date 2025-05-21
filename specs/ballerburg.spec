@@ -1,6 +1,6 @@
 Name:           ballerburg
 Version:        1.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Two players, two castles, and a hill in between
 
 License:        GPL-3.0-or-later
@@ -9,6 +9,8 @@ Source0:        https://framagit.org/baller/ballerburg/-/archive/v%{version}/%{n
 Source1:        https://baller.frama.io/king.png
 Source2:        %{name}.desktop
 Source3:        %{name}.appdata.xml
+
+Patch:          ballerburg-1.2.3-Fix_depends.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -32,7 +34,7 @@ modern operating systems.
 
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 
 %build
@@ -86,6 +88,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon May 19 2025 Cristian Le <git@lecris.dev> - 1.2.3-2
+- Allow to build with ninja
+
 * Sun Mar 09 2025 Andrea Musuruane <musuruan@gmail.com> - 1.2.3-1
 - Updated to new upstream release
 

@@ -1,4 +1,3 @@
-# Created by pyp2rpm-3.2.2
 Name:           ampy
 Version:        1.0.5
 Release:        %autorelease
@@ -12,13 +11,9 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-
-%?python_enable_dependency_generator
 
 Provides:       adafruit-%{name} = %{version}-%{release}
-Provides:       python3-adafruit-%{name} = %{version}-%{release}
-%{?python_provide:%python_provide python3-adafruit-%{name}}
+%py_provides    python3-adafruit-%{name}
 
 
 %description
@@ -42,24 +37,27 @@ interaction like a shell or terminal to send input to a board.
 sed -i '1d' $(grep -lr '#!/usr/')
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{name}
 
 
 %check
-%{__python3} -m unittest tests/test_*.py -v
+%pyproject_check_import
+%{python3} -m unittest tests/test_*.py -v
 
 
-%files
+%files -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/adafruit_ampy-%{version}-py%{python3_version}.egg-info
 
 
 %changelog

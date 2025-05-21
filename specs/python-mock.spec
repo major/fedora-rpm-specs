@@ -16,10 +16,8 @@ Patch1:         %{url}/commit/f3e3d82aab.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-six
 %endif
 
 
@@ -52,24 +50,28 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
 %autosetup -p1 -n mock-%{version}
 
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
+
+%build
+%pyproject_wheel
+
+
+%check
+%pyproject_check_import
 
 %if %{with tests}
-%check
 %pytest
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mock
 
 
-%files -n python%{python3_pkgversion}-mock
-%license LICENSE.txt
+%files -n python%{python3_pkgversion}-mock -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/*.egg-info/
-%{python3_sitelib}/mock/
 
 
 %changelog

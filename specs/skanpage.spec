@@ -1,6 +1,6 @@
 Name:     skanpage
 Version:  25.04.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
@@ -51,7 +51,6 @@ BuildRequires:  cmake(Leptonica)
 Requires: qt6-qtquickcontrols2
 Requires: kf6-kirigami
 Requires: kquickimageeditor-qt6
-Requires: tesseract
 
 Recommends: sane-backends-drivers-scanners
 
@@ -90,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Mon May 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.04.1-2
+- Revert tesseract dependency
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

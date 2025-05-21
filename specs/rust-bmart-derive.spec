@@ -2,27 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-# prevent executables from being installed
-%global cargo_install_bin 0
+%global crate bmart-derive
 
-%global crate terminal-light
-
-Name:           rust-terminal-light
-Version:        1.8.0
+Name:           rust-bmart-derive
+Version:        0.1.4
 Release:        %autorelease
-Summary:        Tells you whether your terminal is dark or light
+Summary:        Bohemia Automation common tools library (derive macros)
 
 License:        MIT
-URL:            https://crates.io/crates/terminal-light
+URL:            https://crates.io/crates/bmart-derive
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax crossterm dependency to allow building with both v0.28 and v0.29
-Patch:          terminal-light-fix-metadata.diff
+# * include license file
+# * https://github.com/eva-ics/bmart/pull/1
+Source1:        https://github.com/eva-ics/bmart/raw/2d8447ea8731fb933bb1d94d6df0c099ff28f5bd/LICENSE
 
-BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Tells you whether your terminal is dark or light.}
+Bohemia Automation common tools library (derive macros).}
 
 %description %{_description}
 
@@ -55,6 +52,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# copy in license file
+cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -99,7 +99,6 @@ Provides:       python3-ipython-console = %{version}-%{release}
 Obsoletes:      python3-ipython-console < 5.3.0-1
 Conflicts:      python2-ipython < 7
 
-BuildRequires:  python3-backcall
 BuildRequires:  python3-decorator
 BuildRequires:  python3-jedi >= 0.10
 BuildRequires:  python3-pexpect

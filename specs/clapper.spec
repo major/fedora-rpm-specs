@@ -1,5 +1,5 @@
 Name:           clapper
-Version:        0.6.1
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Modern media player powered by GStreamer and GTK4
 
@@ -13,20 +13,26 @@ BuildRequires:  gobject-introspection-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 
+BuildRequires:  gettext
+BuildRequires:  gi-docgen
+BuildRequires:  graphviz
 BuildRequires:  pkgconfig(gio-2.0) >= 2.76.0
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.76.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.76.0
 BuildRequires:  pkgconfig(gmodule-2.0) >= 2.76.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.76.0
-BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gstreamer-audio-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gstreamer-base-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gstreamer-pbutils-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gstreamer-tag-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.20.0
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.24.0
+BuildRequires:  pkgconfig(gstreamer-audio-1.0) >= 1.24.0
+BuildRequires:  pkgconfig(gstreamer-base-1.0) >= 1.24.0
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0) >= 1.24.0
+BuildRequires:  pkgconfig(gstreamer-tag-1.0) >= 1.24.0
+BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.24.0
 BuildRequires:  pkgconfig(gtk4) >= 4.10.0
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.4.0
-Buildrequires:  pkgconfig(libsoup-3.0)
+BuildRequires:  pkgconfig(libpeas-2)
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(microdns)
+BuildRequires:  vala
 
 Requires:       hicolor-icon-theme
 

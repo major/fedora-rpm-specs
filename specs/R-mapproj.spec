@@ -2,7 +2,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.2.11
+Version:          1.2.12
 Release:          %autorelease
 Summary:          Map Projections
 

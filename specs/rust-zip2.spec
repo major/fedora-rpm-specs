@@ -4,8 +4,8 @@
 
 %global crate zip
 
-Name:           rust-zip
-Version:        3.0.0
+Name:           rust-zip2
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -33,7 +33,7 @@ Patch:          zip-fix-metadata-auto.diff
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
-Patch10:        zip-3.0.0-omitted-test-files.patch
+Patch10:        zip-2.1.4-omitted-test-files.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -183,28 +183,40 @@ use the "deflate-flate2" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate-flate2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deflate-flate2-zlib-devel
+%package     -n %{name}+deflate-miniz-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deflate-flate2-zlib-devel %{_description}
+%description -n %{name}+deflate-miniz-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deflate-flate2-zlib" feature of the "%{crate}" crate.
+use the "deflate-miniz" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deflate-flate2-zlib-devel
+%files       -n %{name}+deflate-miniz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deflate-flate2-zlib-rs-devel
+%package     -n %{name}+deflate-zlib-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deflate-flate2-zlib-rs-devel %{_description}
+%description -n %{name}+deflate-zlib-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deflate-flate2-zlib-rs" feature of the "%{crate}" crate.
+use the "deflate-zlib" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deflate-flate2-zlib-rs-devel
+%files       -n %{name}+deflate-zlib-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deflate-zlib-ng-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate-zlib-ng-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate-zlib-ng" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate-zlib-ng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+deflate-zopfli-devel
@@ -231,6 +243,18 @@ use the "deflate64" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+flate2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+flate2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "flate2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+flate2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -253,18 +277,6 @@ This package contains library source intended for building other packages which
 use the "hmac" feature of the "%{crate}" crate.
 
 %files       -n %{name}+hmac-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+jiff-02-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+jiff-02-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "jiff-02" feature of the "%{crate}" crate.
-
-%files       -n %{name}+jiff-02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+lzma-devel

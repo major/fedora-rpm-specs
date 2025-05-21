@@ -4,7 +4,7 @@ Name:           lcd4linux
 Version:        0.11
 # We package an svn snapshot of what will become 0.11 since upstream has
 # neglected to do a new release for ages
-Release:        0.35.svn%{svn_rev}%{?dist}
+Release:        0.36.svn%{svn_rev}%{?dist}
 Summary:        Display system state on an external LCD display
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -34,14 +34,18 @@ and some subsystems and displays it on an external liquid crystal display.
 
 
 %prep
-%setup -q -n trunk
-%patch -P0 -p1
+%autosetup -p1 -n trunk
 chmod +x bootstrap configure
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 ./bootstrap
 cp -a %{SOURCE4} .
 
 
 %build
+# The AddFunction() function which is part of the eval/parser code gets called
+# with a function callback with many different prototypes. So this cannot work
+# with the strict prototype matching -std=gnu23 enables.
+export CFLAGS="%{optflags} -std=gnu17"
 %configure
 make %{?_smp_mflags}
 sed -e "s@#Display 'XWindow'@Display 'XWindow'@" \
@@ -75,6 +79,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE3}
 
 
 %changelog
+* Sun May 18 2025 Hans de Goede <hdegoede@redhat.com> - 0.11-0.36.svn1200
+- Fix FTBFS (rhbz#2340711)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.35.svn1200
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -46,7 +46,7 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.05.0
+Version:          10.05.1
 Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
@@ -314,6 +314,12 @@ mv -f %{buildroot}%{_bindir}/{gsc,gs}
 rm -f %{buildroot}%{_docdir}/%{name}/{AUTHORS,COPYING,*.tex,*.hlp,*.txt}
 rm -f %{buildroot}%{_datadir}/%{name}/doc
 
+# pdf2dsc is unsupported upstream, but some packages (gv, emacs-auctex) use it in Fedora.
+# Remove it for Centos, keep it in Fedora, but unsupported
+%if %{without pdf2dsc}
+rm -f %{buildroot}%{_bindir}/pdf2dsc
+%endif
+
 # ---------------
 
 # Move html documentation into html/ subdir:
@@ -476,6 +482,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon May 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-1
+- 10.05.1, security fix for CVE-2025-46646 (fedora#2362935, fedora#2362446, fedora#2362640)
+
 * Fri Mar 21 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.0-1
 - 10.05.0 (fedora#2351692)
 

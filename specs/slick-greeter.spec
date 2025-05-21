@@ -3,7 +3,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.9
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -17,6 +17,7 @@ BuildRequires:	make
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
+#BuildRequires:	gnome-common
 BuildRequires:	pkgconfig(liblightdm-gobject-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libcanberra)
@@ -70,12 +71,8 @@ Slick-greeter customisation for the MATE desktop.
 %{__install} -pm 0644 %{SOURCE2} %{name}.conf.example
 %{__mkdir} -p m4
 
-sed -i '/AC_CONFIG_FILES/,/]/ s/po\/Makefile\.in//g' configure.ac
-
-gettextize --copy --force
-aclocal --install -I m4
-autoreconf --verbose --force --install
-
+export ACLOCAL_PATH=/usr/share/gettext/m4/
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure	\
@@ -140,6 +137,9 @@ autoreconf --verbose --force --install
 
 
 %changelog
+* Mon May 19 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.9-4
+- Use a better fix for new gettext
+
 * Fri May 16 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.9-3
 - Fix m4 issue with new gettext
 

@@ -111,13 +111,13 @@ URL:            https://www.gimp.org
 %global alsa_minver 1.0.0
 %global appstream_glib_minver 0.7.7
 %global atk_minver 2.4.0
-%global babl_minver 0.1.112
+%global babl_minver 0.1.114
 %global cairo_minver 1.14.0
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
 %global freetype2_minver 2.1.7
 %global gdk_pixbuf_minver 2.30.8
-%global gegl_minver 0.4.58
+%global gegl_minver 0.4.62
 %global exiv2_minver 0.27.4
 %global gettext_minver 0.19.8
 %global gexiv2_minver 0.14.0

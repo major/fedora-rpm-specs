@@ -66,7 +66,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -716,7 +716,9 @@ cp ext/bcmath/libbcmath/LICENSE libbcmath_LICENSE
 cp ext/date/lib/LICENSE.rst timelib_LICENSE
 
 # Multiple builds for multiple SAPIs
-mkdir build-cgi build-embedded \
+# mod_php (apache2handler) and libphp (embed) can not be built from same tree
+mkdir \
+    build-cgi \
 %if %{with modphp}
     build-apache \
 %endif
@@ -881,11 +883,10 @@ fi
 %make_build
 }
 
-# Build /usr/bin/php-cgi with the CGI SAPI, and most shared extensions
+# Build cli and cgi SAPI, and most shared extensions
 pushd build-cgi
 
-build --libdir=%{_libdir}/php \
-      --enable-pcntl \
+build --enable-pcntl \
       --enable-opcache \
       --with-capstone \
       --enable-phpdbg --enable-phpdbg-readline \
@@ -962,6 +963,8 @@ popd
 
 without_shared="--without-gd \
       --disable-dom --disable-dba --without-unixODBC \
+      --without-mysqli \
+      --disable-pdo \
       --disable-opcache \
       --disable-phpdbg \
       --without-ffi \
@@ -975,33 +978,21 @@ without_shared="--without-gd \
       --disable-sysvmsg --disable-sysvshm --disable-sysvsem"
 
 %if %{with modphp}
-# Build Apache module, and the CLI SAPI, /usr/bin/php
+# Build Apache module
+# use separate build to avoid libedit, libncurses...
 pushd build-apache
 build --with-apxs2=%{_httpd_apxs} \
-      --libdir=%{_libdir}/php \
-      --without-mysqli \
-      --disable-pdo \
       ${without_shared}
 popd
 %endif
 
-# Build php-fpm
+# Build php-fpm and embed
 pushd build-fpm
 build --enable-fpm \
       --with-fpm-acl \
       --with-fpm-systemd \
       --with-fpm-selinux \
-      --libdir=%{_libdir}/php \
-      --without-mysqli \
-      --disable-pdo \
-      ${without_shared}
-popd
-
-# Build for inclusion as embedded script language into applications,
-# /usr/lib[64]/libphp7.so
-pushd build-embedded
-build --enable-embed \
-      --without-mysqli --disable-pdo \
+      --enable-embed \
       ${without_shared}
 popd
 
@@ -1135,7 +1126,7 @@ make -C build-ztscli install \
 %endif
 
 # Install the version for embedded script language in applications + php_embed.h
-make -C build-embedded install-sapi install-headers \
+make -C build-fpm install-sapi install-headers \
      INSTALL_ROOT=$RPM_BUILD_ROOT
 
 # Install the php-fpm binary
@@ -1147,7 +1138,7 @@ make -C build-cgi install \
      INSTALL_ROOT=$RPM_BUILD_ROOT
 
 # Use php-config from embed SAPI to reduce used libs
-install -m 755 build-embedded/scripts/php-config $RPM_BUILD_ROOT%{_bindir}/php-config
+install -m 755 build-fpm/scripts/php-config $RPM_BUILD_ROOT%{_bindir}/php-config
 
 # Install the default configuration file
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/
@@ -1498,6 +1489,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Mon May 19 2025 Remi Collet <remi@remirepo.net> - 8.4.7-2
+- use same build tree for fpm and embed
+
 * Tue May  6 2025 Remi Collet <remi@remirepo.net> - 8.4.7-1
 - Update to 8.4.7 - http://www.php.net/releases/8_4_7.php
 

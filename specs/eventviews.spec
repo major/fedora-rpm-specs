@@ -1,12 +1,16 @@
 Name:    eventviews
 Version: 25.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://mail.kde.org/pipermail/release-team/2025-May/013672.html
+# https://invent.kde.org/pim/eventviews/-/commit/976f0dead0a65f55aa9a419d7520bfa2fc40ce8a
+Patch0:  fix-regression-in-filterAcceptsRow.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -88,6 +92,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon May 19 2025 Alessandro Astone <ales.astone@gmail.com> - 25.04.1-2
+- Backport patch to fix regression in KOrganizer's todo view
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

@@ -1,11 +1,12 @@
 Name:           perl-Module-Install-Repository
 Version:        0.08
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automatically sets repository URL from Svn/Svk/Git checkout
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-Repository
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Install-Repository-%{version}.tar.gz
 Patch0:         Module-Install-Repository-0.06-Fix-building-on-Perl-without-dot-in-INC.patch
+Patch1:         Module-Install-Repository-0.08-Update-test_requires.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -27,9 +28,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests
-BuildRequires:  perl(Path::Class)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(warnings)
 
 %description
 Module::Install::Repository is a Module::Install plugin to automatically
@@ -39,6 +38,7 @@ added to resources under META.yml.
 %prep
 %setup -q -n Module-Install-Repository-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Module::Install::Repository.3*
 
 %changelog
+* Fri May 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.08-3
+- Remove unused test dependencies
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

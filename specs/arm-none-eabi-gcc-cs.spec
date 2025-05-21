@@ -1,7 +1,7 @@
 %global processor_arch arm
 %global target         %{processor_arch}-none-eabi
 %global gcc_ver        %{version}
-%global gcc_short_ver  13.1
+%global gcc_short_ver  15.1
 
 # we need newlib to compile complete gcc, but we need gcc to compile newlib,
 # so compile minimal gcc first
@@ -9,8 +9,8 @@
 
 Name:           %{target}-gcc-cs
 Epoch:          1
-Version:        14.1.0
-Release:        4%{?dist}
+Version:        15.1.0
+Release:        1%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -18,8 +18,6 @@ Source0:        http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 
 Source1:        README.fedora
 Source2:        bootstrapexplain
-
-Patch1:  	gcc12-hack.patch
 
 #BuildRequires:	autoconf = 2.69
 BuildRequires:  gcc-c++
@@ -54,9 +52,6 @@ compile c++ code for the %{target} platform, instead of for the native
 
 %prep
 %setup -q -c
-pushd gcc-%{gcc_ver}
-%patch -P1 -p0 -b .hack
-popd
 pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f
 popd
@@ -292,6 +287,9 @@ popd
 %endif
 
 %changelog
+* Mon May 19 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:15.1.0-1
+- updated to 15.1.0
+
 * Tue Apr 15 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:14.1.0-4
 - rebuild for new arm-none-eabi-newlib
 

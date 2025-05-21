@@ -11,13 +11,11 @@ Patch0:         allow-errors-in-notebooks-with-external-images.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-ipykernel
 BuildRequires:  python3-ipython-sphinx
 BuildRequires:  python3-jupyter-client
 BuildRequires:  python3-matplotlib
 BuildRequires:  python3-nbconvert
-BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-bibtex
 BuildRequires:  python3-sphinx-copybutton
 BuildRequires:  python3-sphinxcontrib-rsvgconverter
@@ -65,8 +63,11 @@ sed -i "/'sphinx_codeautolink',  # automatic links from code to documentation/d"
 # https://github.com/spatialaudio/nbsphinx/commit/a921973a5d8ecc39c6e0218457
 sed -i "s/'sphinx >= 1.8, < 8.2'/'sphinx >= 1.8'/" setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 # fake the git tag for docs to put the right version in
 git tag %{version}
 # ignore errors - nbsphinx cannot load images from Internet
@@ -77,14 +78,16 @@ PYTHONPATH=build/lib sphinx-build-3 doc html
 rm -rf html/{.doctrees,.buildinfo,conf.py,_sources}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l nbsphinx
 
 
-%files -n python3-nbsphinx
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -n python3-nbsphinx -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/nbsphinx
-%{python3_sitelib}/nbsphinx-%{version}-py%{python3_version}.egg-info/
 
 %files -n python-nbsphinx-doc
 %license LICENSE

@@ -1,42 +1,42 @@
-%global pypi_name pigpio
-
-Name:           python-%{pypi_name}
+Name:           python-pigpio
 Version:        1.78
 Release:        %autorelease
 Summary:        Raspberry Pi GPIO module
 
 License:        Unlicense
 URL:            http://abyz.co.uk/rpi/pigpio/python.html
-Source0:        %pypi_source
+Source0:        %{pypi_source pigpio}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 Raspberry Pi Python module to access the pigpio daemon.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-pigpio
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-pigpio
 Raspberry Pi Python module to access the pigpio daemon.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n pigpio-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pigpio
 
-%files -n python3-%{pypi_name}
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+%check
+%pyproject_check_import
+
+%files -n python3-pigpio -f %{pyproject_files}
 
 %changelog
 %autochangelog
