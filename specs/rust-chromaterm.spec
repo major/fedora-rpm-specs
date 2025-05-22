@@ -5,7 +5,7 @@
 %global crate chromaterm
 
 Name:           rust-chromaterm
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Yet another crate for terminal colors
 

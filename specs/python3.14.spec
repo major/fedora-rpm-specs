@@ -86,10 +86,7 @@ Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
 # vendor.txt not in .whl
-# Bundled packages are defined in multiple files. Generate the list with:
-# git clone https://github.com/pypa/setuptools && git switch v%%{setuptools_version}
-# pip freeze --path setuptools/_vendor > vendored.txt
-# %%{_rpmconfigdir}/pythonbundles.py vendored.txt
+# %%{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@')
 %global setuptools_bundled_provides %{expand:
 Provides: bundled(python3dist(autocommand)) = 2.2.2
 Provides: bundled(python3dist(backports-tarfile)) = 1.2
@@ -766,6 +763,7 @@ extension modules.
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@') --compare-with '%setuptools_bundled_provides'
 fi
 
 %if %{with rpmwheels}

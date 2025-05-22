@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 24.09.2
-Release: 71%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 25.03.0
+Release: 52%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit df4f80a60d4cd712870aa73d32d5677448c11c78
+%define ovncommit c24b1aa3c724de1aa9fd2461f07e4127a6bfa190
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 9e07a69bbb2a7d3eb35f9b487161c50cfa5bd65e
-%define ovsshortcommit 9e07a69
+%define ovscommit bb059333496a9b48d6d798b6b32108c9f2720479
+%define ovsshortcommit bb05933
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -437,6 +437,152 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue May 20 2025 Dumitru Ceara <dceara@redhat.com> - 25.03.0-52
+- Updated the OVN sources to upstream release 25.03.0
+  with the base OVN commit c24b1aa3c724de1aa9fd2461f07e4127a6bfa190
+  and OVS commit bb059333496a9b48d6d798b6b32108c9f2720479.
+  The following commits are also synced:
+- tests: Don't assume first bucket will be chosen.
+[Upstream: 362d2c0b9bc13da031c08497504c2601b5de6897]
+
+- ci: Add permanent fix for /etc/hosts file.
+[Upstream: 5c32795e0745897d6e6fcd9a33b9c523f5ebe919]
+
+- pinctrl: Remove useless volatile qualifier.
+[Upstream: 30717870c70dac547a8bd92b35010cc74dfbbbe8]
+
+- tests: Add direct lsp to dynamic-routing tests.
+[Upstream: 65ae5bef3db049648804535e63a72a06dbce48cc]
+
+- ovn-controller: Update handlers for route changes.
+[Upstream: 2a77e7230fd72ce705ac1c2ffc071f4ca20f4bb5]
+
+- route: Filter datapaths that should advertise.
+[Upstream: 0a9906c82158d829fb8052d764a93825ea2bc9ee]
+
+- northd: Set REGBIT_CONNTRACK_COMMIT earlier.
+[Upstream: 7454213615258cc445ce7e49f9d50c6c5abfbc7b]
+
+- contoller, northd: Limit number of claims for virtual ports.
+[Upstream: 9f1c2b14a0ba300e1719d57f62ebf1c060d63c35]
+
+- controller: Remove only commited virtual port binding requests.
+[Upstream: 81c5e0168c6c0fc98c3bb64a43aa1561d7900dfe]
+
+- controller: Make sure we will update routes on tracked port change.
+[Upstream: 2f6cf63351c0bbc2637f0a7713eec4689a9b283b]
+
+- northd: Prevent SB LB duplicates.
+[Upstream: 58735ad207803aa9c5d6cd236dc9aafab83c18c6]
+
+- tests: Fix racy hard_age value.
+[Upstream: 4b7392d1a467f1de51d4bf869f534d2d29b485d1]
+
+- tests: Prevent flakiness of "LR ct-commit-all" test.
+[Upstream: 2c98b6c13464ddb7c1ad40c49df4d806b6a76073]
+
+- ovn-nb: Improve docs for nbctl --template lb-add.
+[Upstream: b4a897ac0aeec16b01eb64b52d7ff0df40081a6a]
+
+- ovn-nbctl.8: Document the "--route-table" option.
+[Upstream: 5713cd605f5012d06135f302de7bcf42affedbb2]
+
+- ovn-architecture.7: Fix outdated nb_cfg description.
+[Upstream: eabf8251ca3ee537c9facd3d1986ab82b6b84a02]
+
+- tests: Don't hardcode table numbers in the default flows test.
+[Upstream: df4e4bf291f396234b29e15ee68110545a741243]
+
+- controller: Optimize adding 'dps' to the local datapaths.
+[Upstream: 5ad811ce400838c4d024fb23fc3b1ee66944c78a]
+
+- controller: Expand the helper lport_get_peer().
+[Upstream: 4e7f4a1e4c6d00382d7880eb4aa73e1db9ca3102]
+
+- controller: Add a helper lport_get_cr_port().
+[Upstream: 354c4b298516ad1ee45bc1a40f575b701a81c91d]
+
+- controller: Add debug/dump-local-datapaths unixctl.
+[Upstream: 77f6069e891df4bd96f4285149f5417d1c4fdf26]
+
+- northd: Avoid matching on ct_state.dnat in logical flows.
+[Upstream: 5a12b937f1a035d926842b72730656776d4ab8cf]
+
+- lib: northd: Add a new ct-state-save feature flag.
+[Upstream: 87f8d012aeae27f0e47066d508ea9b2278d5ee63]
+
+- lib: ovn-controller: Add a new ct_state_save() logical action.
+[Upstream: 001ba9a3ae1a55d41ebd5958f8f944821205bd55]
+
+- northd: Limit flooding the self originated neigh disc packets.
+[Upstream: fe5740e2c75fdb815a1dec7d812e88694727d366]
+
+- northd: Fix network_id computation for IPv6 LRP networks.
+[Upstream: 4b41c118a01a715201937f9279bd95cf562bef70]
+
+- ovn-nbctl: Add --template option for lb-add.
+[Upstream: 1d7951c3cedc82d32e922cb01659ae1f9c1a213a]
+
+- tests: Use scapy contrib BFD implementation.
+[Upstream: d5b6169d3ffc566dca7d8a34e1e89fd85b1b8ddb]
+
+- controller, northd: Add command to enable time warp.
+[Upstream: 202a2a8675e9030b97d5d21ba50ec1008139c346]
+
+- docs: Fix up stage-hint ovn-sb documentation.
+[Upstream: 40b7ffe7a0b41eda468f800dc113413eebe9663f]
+
+- northd: Do not drop ip traffic with destination vip expressed via template vars.
+[Upstream: 2326d64f48ad3f8f103a3238a8154bc8529a0465]
+
+- northd: Use next-hop network for SNAT when lb_force_snat_ip=router_ip.
+[Upstream: 6756ece392bafcc2e2041369e0dfffb377f8d9e7]
+
+- ovs: Update the submodule to include python F824 fix.
+[Upstream: d0143b75379761ed8a927b9bc6b66b9446076cf8]
+
+- ci: Add missing llvm package into Fedora.
+[Upstream: bd4c1eee96aa3fd6d4f5e294dcab604a45e54f6d]
+
+- controller: Redirect traffic for container port.
+[Upstream: 664a82eeb830f284ee5fdfc941f399a78e88f3f0]
+
+- multinode tests: Simplify/Cleanup migration test.
+[Upstream: e07c56c430be705452cfd083741e4d21b9c47042]
+
+- lb: Make the LB validation consistent.
+[Upstream: 1a3fd5de519b962769a5b377ff7bdc674fa4068e]
+
+- tests: Ignore FDB transaction errors.
+[Upstream: 5e2b1ecf945b1124c4593ea76a86cd81bfbc6a9b]
+
+- controller: Fix possible NULL ptr access in lport_is_local().
+[Upstream: 65e7bcbf2bc2673262c621bd714d0e8c3e855b78]
+
+- controller: Fix active mac-binding refresh for IPv6.
+[Upstream: e664d16d03aaeac963c203d455794d94a21978ae]
+
+- tests: Fix flaky "IGMP incremental processing".
+[Upstream: 4a8b656a2ad650a28c6e181c507a4326c2725290]
+
+- tests: Avoid adding two similar load balancers.
+[Upstream: d3adc824a28e3a19fa1067f2be4c978516c89d94]
+
+- Fix missing load balancer hairpin flows.
+[Upstream: a4a71fcad105e32fa09fd330b9e8b06c2f565614]
+
+- ovn.at: Run 'ACL Conntrack ID propagation' for each northd type.
+[Upstream: c6af3c568813f10f4971ebe7ac0fabcb0f838225]
+
+- ci: Bump the Ubuntu image to 24.04.
+[Upstream: 06b49b45633cae02c9060e0fa0d799514cd7aa67]
+
+- docs: Move "Transit Router" notes to the "Logical_Router" section.
+[Upstream: ea9d0982fa08a76c36f7e611936d30fb2edf7e15]
+
+- containers: Get sparse from the official GitHub mirror.
+[Upstream: 0cb2b9b2be9a6efb91fb4e6992e33251840a2884]
+
 * Wed May 14 2025 Dumitru Ceara <dceara@redhat.com> - 24.09.2-71
 - Sync to upstream ovn 24.09 branch commit 018cc071642d.
 

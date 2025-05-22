@@ -149,7 +149,8 @@ install -Dpm0644 _niri -t %{buildroot}%{zsh_completions_dir}
 %check
 # * skip tests that require a running session
 # * limit test parallelism to avoid "too many open files" errors
-%cargo_test -- --workspace --exclude niri-visual-tests -- --test-threads 8
+export RAYON_NUM_THREADS=2
+%cargo_test -- --workspace --exclude niri-visual-tests -- --test-threads 2
 %endif
 
 %post

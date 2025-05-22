@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/litemap
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
-# * Do not depend on postcard; we patch out tests and examples that require it
 # * Omit removed examples from Cargo.toml
 Patch:          litemap-fix-metadata.diff
 # * Fix test panics/segfaults in litemap on big-endian hosts
@@ -117,8 +116,7 @@ use the "yoke" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a dependency on the internal icu_benchmark_macros crate;
-# examples/litemap_postcard.rs also requires postcard
+# Avoid a dependency on the internal icu_benchmark_macros crate
 rm -rv examples/
 %cargo_prep
 

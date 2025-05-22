@@ -1,6 +1,6 @@
 Name:           perl-Statistics-CaseResampling
-Version:        0.15
-Release:        38%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Resampling and calculation of medians with confidence intervals
 # Mersenne Twister is somewhat bundled, CPAN RT#85284
 # _mt.c, mt.h:  BSD-3-Clause (license text copied in mt19937ar.license,
@@ -16,9 +16,6 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-Ca
 # An excerpt from
 # <http://www.math.sci.hiroshima-u.ac.jp/m-mat/MT/MT2002/CODES/mt19937ar.c>.
 Source1:        mt19937ar.license
-# Fix building with ExtUtils::ParseXS ≥ 3.57, bug #2366487, CPAN RT#157217,
-# proposed to upstream
-Patch0:         Statistics-CaseResampling-0.15-Fix-variadic-XSUB.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -101,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 20 2025 Petr Pisar <ppisar@redhat.com> - 0.16-1
+- 0.16 bump
+
 * Thu May 15 2025 Petr Pisar <ppisar@redhat.com> - 0.15-38
 - Fix building with ExtUtils::ParseXS ≥ 3.57 (bug #2366487)
 

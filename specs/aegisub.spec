@@ -189,6 +189,7 @@ URL:            https://github.com/TypesettingTools/%{name}
 
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # https://github.com/TypesettingTools/Aegisub/pull/375
+# Merged in main, will be incorporated in source in next release
 Patch1:         0001-fix-Fallback-to-X11-if-lacks-EGL-support.patch
 
 BuildRequires:  boost-devel
@@ -217,6 +218,10 @@ BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(uchardet)
 
 Requires: hicolor-icon-theme
+
+# luajit does not support ppc64le
+# FTBFS on s390x due to upstream endianness bug (fedora#2367466)
+ExcludeArch: ppc64le s390x
 
 # Heavily modified upon the original project
 Provides: bundled(cajun-jsonapi) = 2.0.1

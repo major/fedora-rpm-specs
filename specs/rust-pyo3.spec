@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.24.2
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -21,6 +21,8 @@ Patch:          pyo3-fix-metadata.diff
 # * make unsafe subinterpreter support available via cfg flag:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
+# https://github.com/PyO3/pyo3/pull/5161
+Patch3:         0001-fix-FromPyObject-impl-for-uuid-Uuid-on-big-endian-ar.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -123,6 +125,18 @@ use the "abi3-py313" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py313-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+abi3-py314-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3-py314-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3-py314" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3-py314-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -171,6 +185,18 @@ use the "anyhow" feature of the "%{crate}" crate.
 %files       -n %{name}+anyhow-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+arc_lock-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arc_lock-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arc_lock" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arc_lock-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+auto-initialize-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -181,6 +207,18 @@ This package contains library source intended for building other packages which
 use the "auto-initialize" feature of the "%{crate}" crate.
 
 %files       -n %{name}+auto-initialize-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bigdecimal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bigdecimal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bigdecimal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bigdecimal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel
@@ -339,6 +377,18 @@ use the "jiff-02" feature of the "%{crate}" crate.
 %files       -n %{name}+jiff-02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+lock_api-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+lock_api-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "lock_api" feature of the "%{crate}" crate.
+
+%files       -n %{name}+lock_api-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+macros-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -411,6 +461,30 @@ use the "num-rational" feature of the "%{crate}" crate.
 %files       -n %{name}+num-rational-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ordered-float-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ordered-float-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ordered-float" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ordered-float-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parking_lot-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parking_lot-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parking_lot" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parking_lot-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+py-clone-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -471,6 +545,18 @@ use the "smallvec" feature of the "%{crate}" crate.
 %files       -n %{name}+smallvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+time-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+time-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "time" feature of the "%{crate}" crate.
+
+%files       -n %{name}+time-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unindent-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -515,8 +601,9 @@ rm -r emscripten/ newsfragments/
 %check
 # * unit tests require an UTF-8 locale
 # * unit tests require the "auto-initialize" feature
+# * run tests for all third-party crate integrations
 export LANG=C.utf8
-%cargo_test -f auto-initialize
+%cargo_test -f auto-initialize,full
 %endif
 
 %changelog

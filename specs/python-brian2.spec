@@ -22,7 +22,7 @@ Documentation for Brian2 can be found at http://brian2.readthedocs.org}
 %global forgeurl https://github.com/brian-team/brian2
 
 Name:           python-brian2
-Version:        2.8.0.4
+Version:        2.9.0
 Release:        %autorelease
 Summary:        A clock-driven simulator for spiking neural networks
 
@@ -34,9 +34,6 @@ Summary:        A clock-driven simulator for spiking neural networks
 License:        CECILL-2.0
 URL:            https://briansimulator.org
 Source0:        %forgesource
-
-# Compatibility with the latest setuptools
-Patch:          https://github.com/brian-team/brian2/commit/71a6536.patch
 
 # Drop i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -80,6 +77,8 @@ sed -r \
     -e 's/pytest>=8/pytest/' \
     -i pyproject.toml
 
+
+cat pyproject.toml
 
 # Remove unnecessary files
 find . -name ".gitignore" -print -delete

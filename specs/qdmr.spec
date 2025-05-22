@@ -14,7 +14,7 @@
 
 Name:		qdmr
 Version:	0.12.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
 URL:		https://dm3mat.darc.de/qdmr/
@@ -48,6 +48,8 @@ BuildRequires:	libappstream-glib
 Patch:		qdmr-0.12.1-fix-docbook-xsl-path.patch
 # https://github.com/hmatuschek/qdmr/pull/587
 Patch:		qdmr-0.12.1-metainfo-fix.patch
+# https://github.com/hmatuschek/qdmr/pull/594
+Patch:		qdmr-0.12.1-icons-path-fix.patch
 
 %description
 A Qt5 application to program DMR radios. DMR is a digital modulation
@@ -115,7 +117,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_udevrulesdir}/99-qdmr.rules
 %{_datadir}/applications/qdmr.desktop
 %{_metainfodir}/de.darc.dm3mat.qdmr.metainfo.xml
-%{_datadir}/icons/hicolor/*/qdmr.png
+%{_datadir}/icons/hicolor/*/apps/qdmr.png
 %{_mandir}/man1/dmrconf.1*
 %{_mandir}/man1/qdmr.1*
 
@@ -134,6 +136,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Tue May 20 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.12.1-4
+- Fixed icons path
+
 * Tue May 13 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.12.1-3
 - Added appdata metainfo validation according to the review
 

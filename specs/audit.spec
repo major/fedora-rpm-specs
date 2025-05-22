@@ -14,7 +14,7 @@ BuildRequires: systemd
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-rules%{?_isa} = %{version}-%{release}
-Requires(post): systemd coreutils awk
+Requires(post): systemd coreutils
 Requires(preun): systemd
 Requires(postun): systemd coreutils
 Recommends: initscripts-service
@@ -144,7 +144,7 @@ if [ -f /run/ostree-booted ] ; then
 fi
 # If an upgrade, restart it if it's running
 if [ $1 -eq 2 ] ; then
-    state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
+    state=$(systemctl show -P ActiveState auditd)
     if [ $state = "active" ] ; then
         auditctl --signal stop || true
         systemctl start auditd

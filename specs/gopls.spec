@@ -4,7 +4,7 @@
 # https://github.com/golang/tools
 %global goipath         golang.org/x/tools/gopls
 %global forgeurl        https://github.com/golang/tools
-Version:                0.17.1
+Version:                0.18.1
 %global tag             gopls/v%{version}
 %{lua: rpm.define("safe_tag " .. string.gsub(rpm.expand("%tag"), "/", "-"))}
 %global distprefix      %{nil}
@@ -31,7 +31,10 @@ Summary:        gopls, the Go language server
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
+# We build with GO111MODULE=off so can't test anything in module mode.
 Patch:          0001-Skip-tests-that-require-module-mode.patch
+# Fix compatibility with latest golang-x-tools.
+Patch:          0002-internal-event-export-ocagent-delete.patch
 
 Obsoletes:      golang-x-tools-gopls < 1:0.22.0-3
 Provides:       golang-x-tools-gopls = %{version}-%{release}

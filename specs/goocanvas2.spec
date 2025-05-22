@@ -3,7 +3,7 @@
 
 Name:           goocanvas2
 Version:        2.0.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A new canvas widget for GTK+ that uses cairo for drawing
 # COPYING:          LGPL-2.0 text
 # po/cs.po:         "same license as the goocanvas package"
@@ -138,7 +138,7 @@ rm -r ABOUT-NLS aclocal.m4 bindings/Makefile.in bindings/python/Makefile.in \
 
 %build
 gtkdocize
-autoreconf -fi
+autoreconf -I/usr/share/gettext/m4 -fi
 # python GI wrapper is not enabled yet until i figure a proper way to package it
 %configure \
     --enable-gtk-doc \
@@ -178,6 +178,9 @@ find %buildroot -name '*.la' -delete
 %{_datadir}/gir-1.0/GooCanvas-2.0.gir
 
 %changelog
+* Tue May 20 2025 Petr Pisar <ppisar@redhat.com> - 2.0.4-20
+- Adapt to gettext 0.25
+
 * Wed May 07 2025 Petr Pisar <ppisar@redhat.com> - 2.0.4-19
 - Correct a license tag to "LGPL-2.0-or-later"
 

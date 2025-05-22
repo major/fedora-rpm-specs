@@ -88,6 +88,18 @@ use the "deserialize_json" feature of the "%{crate}" crate.
 %files       -n %{name}+deserialize_json-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+deserialize_postcard_1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deserialize_postcard_1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deserialize_postcard_1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deserialize_postcard_1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+experimental-devel
 Summary:        %{summary}
 BuildArch:      noarch

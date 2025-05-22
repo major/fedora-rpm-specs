@@ -1,6 +1,6 @@
 Name:          libdwarf
 Epoch:         1
-Version:       0.12.0
+Version:       2.0.0
 Release:       %autorelease
 Summary:       Library to access the DWARF Debugging file format 
 
@@ -63,10 +63,10 @@ to access DWARF debug information.
 %files
 %doc src/lib/libdwarf/ChangeLog src/lib/libdwarf/README
 %license src/lib/libdwarf/COPYING src/lib/libdwarf/LIBDWARFCOPYRIGHT src/lib/libdwarf/LGPL.txt
-%{_libdir}/libdwarf.so.0
-%{_libdir}/libdwarf.so.0.*
-%{_libdir}/libdwarfp.so.0
-%{_libdir}/libdwarfp.so.0.*
+%{_libdir}/libdwarf.so.2
+%{_libdir}/libdwarf.so.2.*
+%{_libdir}/libdwarfp.so.2
+%{_libdir}/libdwarfp.so.2.*
 
 
 %files static
@@ -76,7 +76,7 @@ to access DWARF debug information.
 
 %files devel
 %doc doc/*.pdf
-%{_includedir}/libdwarf-0
+%{_includedir}/libdwarf-2
 %{_libdir}/libdwarf.so
 %{_libdir}/libdwarfp.so
 %{_libdir}/pkgconfig/libdwarf.pc

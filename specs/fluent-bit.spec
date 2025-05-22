@@ -11,6 +11,11 @@ Patch0: fluent-bit-cmake-c99.patch
 Patch1: fluent-bit-cmake-c99-2.patch
 Patch3: 0002-Bypass-incompatible-pointer-types-for-Kubernetes-Eve.patch
 Patch4: librdkafka-no-openssl-engine.patch
+# avoid issue due to two incompatible copies of zstd
+# https://github.com/fluent/fluent-bit/issues/10139
+# lightly tweaked to make changes to CMakeLists.txt apply
+# from upstream commit 5f409f55ec667b525716be4afd54b5485c9d55c1
+Patch5: 0001-build-use-the-system-provided-libzstd-if-found.patch
 
 
 BuildRequires: pkgconfig
@@ -30,6 +35,7 @@ BuildRequires: gnutls-devel
 BuildRequires: openssl-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libyaml-devel
+BuildRequires: libzstd-devel
 BuildRequires: openssl
 
 %if 0%{?rhel} <= 9
@@ -66,6 +72,7 @@ Fluent Bit is a high performance and multi-platform log forwarder.
     -DFLB_OUT_ES=On\
     -DFLB_OUT_SLACK=Off\
     -DFLB_OUT_TD=Off\
+    -DFLB_PREFER_SYSTEM_LIB_ZSTD=On\
     -DFLB_RELEASE=On\
     -DFLB_SHARED_LIB=Off\
     -DFLB_TESTS_INTERNAL=Off\

@@ -9,6 +9,11 @@ Summary:        Common base representation of python source code for pylint and 
 License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Based on: https://github.com/pylint-dev/astroid/pull/2747
+# and https://github.com/pylint-dev/astroid/pull/2731
+Patch:          Initial-fixes-for-Python-3.14.patch
+Patch:          Test-with-Python-3.14.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

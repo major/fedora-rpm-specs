@@ -20,36 +20,30 @@ programming.}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(httplib2)
-BuildRequires:  python3dist(keyring)
-BuildRequires:  python3dist(lazr-restfulclient) >= 0.9.19
-BuildRequires:  python3dist(lazr-uri)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(testresources)
-BuildRequires:  python3dist(wadllib)
 
 %description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x keyring,testing
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
+%pyproject_check_import
 %{py3_test_envvars} %{python3} -m unittest src/%{pypi_name}/tests/*py
 
-%files -n python3-%{pypi_name}
-%license COPYING.txt
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

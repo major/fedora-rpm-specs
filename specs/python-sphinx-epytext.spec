@@ -1,16 +1,14 @@
-%global pypi_name sphinx-epytext
-Name:           python-%{pypi_name}
+Name:           python-sphinx-epytext
 Version:        0.0.4
 Release:        %autorelease
 Summary:        Sphinx epytext extension
 
 License:        MIT
 URL:            https://github.com/jayvdb/sphinx-epytext
-Source0:        %{pypi_source}
+Source0:        %{pypi_source sphinx-epytext}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %global _description %{expand:
 This package provides basic support for epytext docstrings in Sphinx autodoc.}
@@ -18,27 +16,30 @@ This package provides basic support for epytext docstrings in Sphinx autodoc.}
 %description %_description
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-sphinx-epytext
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-sphinx-epytext %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n sphinx-epytext-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l sphinx_epytext
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-sphinx-epytext -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/sphinx_epytext/
-%{python3_sitelib}/sphinx_epytext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

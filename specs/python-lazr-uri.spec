@@ -16,10 +16,8 @@ The lazr.uri package includes code for parsing and dealing with URIs.}
 
 %package -n     python3-lazr-uri
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-lazr-uri}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-lazr-uri  %_description
 
@@ -27,21 +25,23 @@ BuildRequires:  python3-setuptools
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l lazr
 
 %check
+%pyproject_check_import
 %{py3_test_envvars} %{python3} -m unittest src/lazr/uri/tests/*py
 
-%files -n python3-lazr-uri
-%license COPYING.txt
+%files -n python3-lazr-uri -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/lazr/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

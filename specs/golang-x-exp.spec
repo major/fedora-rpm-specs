@@ -9,7 +9,7 @@
 # https://github.com/golang/exp
 %global goipath         golang.org/x/exp
 %global forgeurl        https://github.com/golang/exp
-%global commit          7f521ea00fb803b5b0afbd67743292096b09056b
+%global commit          ce4c2cf36ca66590d58a095f544974374ea9c33e
 
 %gometa
 
@@ -41,7 +41,7 @@ BuildRequires:  libglvnd-devel
 
 %prep
 %goprep -A
-%autopatch -p1
+# %autopatch -p1
 rm -rfv event jsonrpc2 shiny
 
 %if %{without bootstrap}

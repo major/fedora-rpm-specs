@@ -29,6 +29,9 @@ Source0: https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version
 Patch0:  %{name}-use_builtin_find_blas_lapack.patch
 Patch1:  %{name}-fix-cmake4.patch
 
+# Remove newer cmake_policy
+Patch2:  %{name}-fix_compatibility_cmake330.patch
+
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -146,6 +149,10 @@ BuildArch:      noarch
 
 %prep
 %autosetup -N -n %{name}-%{version}
+
+%if 0%{?fedora} < 42
+%patch -P 2 -p1 -b .backup
+%endif
 
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup

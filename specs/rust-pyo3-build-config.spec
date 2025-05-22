@@ -5,7 +5,7 @@
 %global crate pyo3-build-config
 
 Name:           rust-pyo3-build-config
-Version:        0.24.2
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Build configuration for the PyO3 ecosystem
 
@@ -108,6 +108,18 @@ This package contains library source intended for building other packages which
 use the "abi3-py313" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py313-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3-py314-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3-py314-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3-py314" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3-py314-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py37-devel

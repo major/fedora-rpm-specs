@@ -6,13 +6,12 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 
 Name:           python-%{upname}
-Version:        2024.2.26
-Release:        5%{?dist}
+Version:        2025.4.15
+Release:        1%{?dist}
 Summary:        %{common_sum}
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
-URL:            http://alir3z4.github.io/%{upname}
+License:        GPL-3.0-or-later
+URL:            https://github.com/Alir3z4/%{upname}/
 Source0:        https://files.pythonhosted.org/packages/source/h/%{upname}/%{upname}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -38,17 +37,21 @@ Obsoletes:      python2-%{upname} <= %{version}-%{release}
 
 %prep
 %autosetup -n %{upname}-%{version}
-%{__rm} -fr *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
+%pyproject_install
+%pyproject_save_files html2text
+
 %{__mkdir} -p %{buildroot}%{_mandir}/man1
 
-%py3_install
 %{__mv} -f %{buildroot}%{_bindir}/%{upname} %{buildroot}%{_bindir}/python3-%{upname}
 export PYTHONPATH="%{buildroot}%{python3_sitelib}"
 help2man --no-discard-stderr -s 1 -N -o %{buildroot}%{_mandir}/man1/python3-%{upname}.1 %{buildroot}%{_bindir}/python3-%{upname}
@@ -63,10 +66,12 @@ popd
 
 
 %check
+%pyproject_check_import
 %{__python3} -m pytest
+%pytest %{_builddir}
 
 
-%files -n python3-%{upname}
+%files -n python3-%{upname} -f %{pyproject_files}
 %license AUTHORS.* COPYING
 %doc README.* ChangeLog.* PKG-INFO
 %{_bindir}/python3-%{upname}
@@ -75,11 +80,12 @@ popd
 %{_mandir}/man1/python3-%{upname}.1*
 %{_mandir}/man1/%{upname}.1*
 %{_mandir}/man1/%{name}.1*
-%{python3_sitelib}/%{upname}
-%{python3_sitelib}/%{upname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Wed May 21 2025 David Kaufmann <astra@ionic.at> - 2025.4.15-1
+- Update to 2025.4.15
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2.26-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

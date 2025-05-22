@@ -9,12 +9,11 @@
 %global _docdir_fmt %{name}
 
 Name:       vdirsyncer
-Version:    0.19.2
-Release:    7%{?dist}
+Version:    0.19.3
+Release:    1%{?dist}
 Summary:    %{sum}
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
+License:    BSD-3-Clause
 URL:        https://github.com/pimutils/%{name}
 Source0:    %{pypi_source}
 
@@ -151,6 +150,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Wed May 21 2025 David Kaufmann <astra@ionic.at> - 0.19.3-1
+- Update to v0.19.3
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

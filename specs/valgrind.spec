@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.25.0
-Release: 3%{?dist}
+Version: 3.25.1
+Release: 1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -84,15 +84,6 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-# VALGRIND_3_25_BRANCH patches
-Patch5: 0001-Prepare-NEWS-for-branch-3.25-fixes.patch
-Patch6: 0002-FreeBSD-close_range-syscall.patch
-Patch7: 0003-Bug-503641-close_range-syscalls-started-failing-with.patch
-Patch8: 0004-mount-syscall-param-filesystemtype-may-be-NULL.patch
-Patch9: 0005-Add-workaround-for-missing-riscv_hwprobe-syscall-258.patch
-Patch10: 0006-Don-t-count-closed-inherited-file-descriptors.patch
-Patch11: 0007-regtest-use-bin-cat-in-none-tests-fdleak_cat.vgtest.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -272,14 +263,6 @@ Valgrind User Manual for details.
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -519,6 +502,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Tue May 20 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.1-1
+- Valgrind 3.25.1 final
+
 * Fri May 16 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.0-3
 - Add 2 more VALGRIND_3_25_BRANCH patches
 

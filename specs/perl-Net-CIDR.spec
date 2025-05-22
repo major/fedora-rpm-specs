@@ -1,5 +1,5 @@
 Name:           perl-Net-CIDR
-Version:        0.23
+Version:        0.24
 Release:        1%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,11 +48,17 @@ addresses.
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Tue May 20 2025 Paul Howarth <paul@city-fan.org> - 0.24-1
+- Update to 0.24 (no changes)
+
 * Mon Mar 10 2025 Paul Howarth <paul@city-fan.org> - 0.23-1
 - Update to 0.23
+  - Add metadata to Makefile.PL and use Test::More (GH#3)
 
 * Sun Mar 09 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.22-1
 - Update to 0.22
+  - Improve several error messages
+  - Allow unabbreviated IPv6 addresses
 - Use %%{make_build} and %%{make_install} where appropriate
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-12

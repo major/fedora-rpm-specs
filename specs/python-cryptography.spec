@@ -5,7 +5,7 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        44.0.0
+Version:        45.0.2
 Release:        %autorelease
 Summary:        PyCA's cryptography library
 
@@ -24,10 +24,6 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
                 # created by ./vendor_rust.py helper script
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
-
-# Merged for 45.0.0+
-# https://github.com/pyca/cryptography/pull/12091
-Patch: 12091.patch
 
 ExclusiveArch:  %{rust_arches}
 

@@ -8,14 +8,14 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.53-development
+%global source_directory 1.54-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.53.9
+Version:       1.54.0
 Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
@@ -390,6 +390,9 @@ end
 
 
 %changelog
+* Tue May 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.54.0-1
+- New upstream stable version 1.54.0
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.9-1
 - New upstream version 1.53.9
 - Enable ocaml-gettext again

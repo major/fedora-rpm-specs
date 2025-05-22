@@ -1,5 +1,5 @@
 Name:           python-icalendar
-Version:        6.3.0
+Version:        6.3.1
 Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
@@ -80,6 +80,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Tue May 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.3.1-1
+- 6.3.1
+
 * Thu May 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.3.0-1
 - 6.3.0
 

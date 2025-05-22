@@ -4,7 +4,7 @@
 %bcond introspection 0
 
 Name:           libinstpatch
-Version:        1.1.6
+Version:        1.1.7
 %global api_version 1.0
 %global so_version 2
 Release:        %autorelease
@@ -37,23 +37,6 @@ SourceLicense:  %{license} AND GPL-2.0-only
 
 %global forgeurl https://github.com/swami/libinstpatch
 Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
-
-# Fix warning from libinstpatch-scan.c (gtkdoc)
-# https://github.com/swami/libinstpatch/pull/71
-Patch:          %{forgeurl}/pull/71.patch
-# Rename variables called “bool”
-# https://github.com/swami/libinstpatch/pull/80
-#
-# Fixes failure to compile with GCC 15, where C23 is the default, so bool is a
-# keyword.
-Patch:          %{forgeurl}/pull/80.patch
-# Fix “1.1.6: build with GTKDOC_ENABLED=ON fails”
-# https://github.com/swami/libinstpatch/issues/65#issuecomment-2628456174
-Patch:          libinstpatch-1.1.6-gtkdoc.patch
-# Eliminate CMake warnings
-# https://github.com/swami/libinstpatch/pull/77
-# (Fixes CMake 4.0 compatibility.)
-Patch:          %{forgeurl}/pull/77.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

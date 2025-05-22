@@ -1,8 +1,8 @@
 %global framework kirigami-addons
 
 Name:           kf6-%{framework}
-Version:        1.7.0
-Release:        2%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -92,6 +92,9 @@ and header files for developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/librarymanager6.tar.bz2
 
 %changelog
+* Tue May 20 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.8.0-1
+- 1.8.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1.7.0-2
 - Rebuild (qt6)
 

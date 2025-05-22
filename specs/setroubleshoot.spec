@@ -6,10 +6,10 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.35
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
-Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
+Source0: https://gitlab.com/-/project/24478376/uploads/eade7bc68ab559b9afc00d59644bdee0/setroubleshoot-3.3.35.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
 # git format-patch -N 3.3.34
@@ -73,7 +73,6 @@ to user preference. The same tools can be run on existing log files.
 %autosetup -p 1 -S git
 
 %build
-./autogen.sh
 %configure PYTHON=%{__python3} --enable-seappletlegacy=no --with-auditpluginsdir=/etc/audit/plugins.d
 make
 
@@ -109,7 +108,6 @@ Requires: python3-gobject-base >= 3.11
 Requires: dbus
 Requires: python3-dbus python3-dasbus python3-six
 Requires: polkit
-Requires: initscripts-service
 
 %description server
 Provides tools to help diagnose SELinux problems. When AVC messages
@@ -119,10 +117,10 @@ to user preference. The same tools can be run on existing log files.
 
 
 %post server
-/sbin/service auditd reload >/dev/null 2>&1 || :
+/usr/bin/auditctl --signal reload >/dev/null 2>&1 || :
 
 %postun server
-/sbin/service auditd reload >/dev/null 2>&1 || :
+/usr/bin/auditctl --signal reload >/dev/null 2>&1 || :
 
 %files server -f %{name}.lang
 %{_bindir}/sealert
@@ -194,6 +192,11 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Mon May 19 2025 Petr Lautrbach <lautrbach@redhat.com> - 3.3.35-5
+- Reload auditd using auditctl instead of service
+- Drop dependency on initscripts-service
+Resolves: rhbz#2365614
+
 * Mon Mar 03 2025 Petr Lautrbach <lautrbach@redhat.com> - 3.3.35-4
 - Update tmpfiles.d config (bz#2346971)
 

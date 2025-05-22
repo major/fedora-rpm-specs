@@ -9,12 +9,12 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 45%{?dist}
+Release: 46%{?dist}
 Summary: A process-transparent configuration system
 # COPYING:                                  GPL-2.0 text
 # defaults/gconf-defaults-main.c:           GPL-2.0-or-later
 # gsettings/gconfsettingsbackend-module.c:  LGPL-2.0-or-later
-## Used at built-time but not in any binary package
+## Unbundled and not in any binary package
 # aclocal.m4:                   FSFULLRWD AND FSFULLR AND
 #                               GPL-2.0-or-later WITH Libtool-exception AND
 #                               GPL-2.0-or-later WITH Autoconf-exception-generic AND
@@ -45,11 +45,20 @@ Patch1: drop-spew.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1197773
 Patch2: gconf-3.2.6-gconf-engine_key_is_writable.patch
 
+# Since gettext 0.25, one needs to execute autopoint (excplicitly or implictly
+# by autoreconf) and that requires pinning to a version with
+# AM_GNU_GETTEXT_VERSION() macro in configure.ac, bug #2366708.
+# gettext 0.21 is available since EPEL9.
+Patch3: GConf-3.2.6-Use-gettext-0.21.patch
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=755992
 Patch99: workaround-crash.patch
 Patch100: pkill-hack.patch
 
-BuildRequires: gettext
+BuildRequires: autoconf >= 2.60
+BuildRequires: automake >= 1.9
+BuildRequires: libtool
+BuildRequires: gettext-devel >= 0.21
 BuildRequires: gtk-doc >= 0.9
 BuildRequires: intltool
 BuildRequires: make
@@ -59,7 +68,6 @@ BuildRequires: pkgconfig(libxml-2.0) >= %{libxml2_version}
 %if 0%{?defaults_service}
 BuildRequires: pkgconfig(polkit-gobject-1) >= 0.92
 %endif
-BuildRequires: autoconf automake libtool
 # we need to do python shebang mangling using pathfix.py
 BuildRequires: python3-devel
 
@@ -89,9 +97,16 @@ development using GConf.
 
 %prep
 %autosetup -p1 -n GConf-%{version}
+# Remove bundled and generated files
+rm ABOUT-NLS aclocal.m4 backends/Makefile.in config.guess config.h.in \
+    config.sub configure defaults/Makefile.in depcomp \
+    doc/gconf/Makefile.in doc/Makefile.in examples/Makefile.in \
+    gconf/Makefile.in gsettings/Makefile.in gtk-doc.make INSTALL install-sh \
+    intltool-extract.in intltool-merge.in intltool-update.in ltmain.sh \
+    Makefile.in missing po/Makefile.in.in tests/Makefile.in
 
 %build
-autoreconf --force --install
+autoreconf -Im4 --force --install
 
 %configure --disable-static \
       %{?defaults_service:--enable-defaults-service} \
@@ -176,6 +191,9 @@ fi
 %{_datadir}/gir-1.0/GConf-2.0.gir
 
 %changelog
+* Tue May 20 2025 Petr Pisar <ppisar@redhat.com> - 3.2.6-46
+- Adapt to gettext 0.25
+
 * Tue Feb 25 2025 Petr Pisar <ppisar@redhat.com> - 3.2.6-45
 - Correct a license to "LGPL-2.0-or-later AND GPL-2.0-or-later"
 - Correct directories ownership

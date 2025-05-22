@@ -89,7 +89,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 %files
 %license LICENSES/*
-/usr/lib64/qt6/sbom/%{qt_module}-%{qt_version}.spdx
+%{_prefix}/lib64/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_datadir}/translations/catalogs.json
 %lang(ar) %{_qt6_translationdir}/*_ar.qm
 %lang(bg) %{_qt6_translationdir}/*_bg.qm
@@ -109,7 +109,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 %lang(hr) %{_qt6_translationdir}/*_hr.qm
 %lang(it) %{_qt6_translationdir}/*_it.qm
 %lang(ja) %{_qt6_translationdir}/*_ja.qm
-%lang(ko) %{_qt6_translationdir}/*_ka.qm
+%lang(ka) %{_qt6_translationdir}/*_ka.qm
 %lang(ko) %{_qt6_translationdir}/*_ko.qm
 %lang(lt) %{_qt6_translationdir}/*_lt.qm
 %lang(lv) %{_qt6_translationdir}/*_lv.qm

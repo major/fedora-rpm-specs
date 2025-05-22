@@ -4,7 +4,7 @@
 # https://github.com/golang/mobile
 %global goipath         golang.org/x/mobile
 %global forgeurl        https://github.com/golang/mobile
-%global commit          8578da9835fd365e78a6e63048c103b27a53a82c
+%global commit          78cd7a343bde765feaecace9f575518435d13e11
 
 %gometa
 
@@ -17,7 +17,7 @@ platforms.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        %autorelease
 Summary:        Go support for Mobile devices
 
 # Upstream license specification: BSD-3-Clause
@@ -25,6 +25,7 @@ Summary:        Go support for Mobile devices
 License:        LicenseRef-Callaway-BSD
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch0:         fix_tests.patch
 
 # required for tests
 BuildRequires:  pkgconfig(glesv2)
@@ -37,6 +38,7 @@ BuildRequires:  pkgconfig(openal)
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -62,76 +64,10 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %files
 %license PATENTS LICENSE
-%doc doc example AUTHORS CONTRIBUTING.md README.md CONTRIBUTORS exp/README
+%doc doc example CONTRIBUTING.md README.md exp/README
 %{_bindir}/*
 
 %gopkgfiles
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.21
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.19
-- Rebuild for golang 1.22.0
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0-0.13
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Tue Jul 19 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.12.20220719git8578da9
-- Bump to 8578da9835fd365e78a6e63048c103b27a53a82c. Fixes rhbz#2045669.
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.11
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Jan 23 02:39:46 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.7.20210123gite6ae53a
-- Bump to commit 973feb4309de5c3aad0553fc987d76abf1fa58f7
-
-* Fri Aug 07 19:46:00 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.6.20200807git973feb4
-- Bump to commit 973feb4309de5c3aad0553fc987d76abf1fa58f7
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Feb 07 01:28:53 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.4.20200207git0df4eb2
-- Update to 0df4eb2385467a487d418c6358313e9e838256ae
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Apr 25 01:09:12 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0-0.1.20190623git3e0bab5
-- Initial package
+%autochangelog

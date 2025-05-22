@@ -10,7 +10,7 @@
 
 Name:           %{target}-newlib
 Version:        4.5.0.20241231
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C library intended for use on %{target} embedded systems
 # For a breakdown of the licensing, see NEWLIB-LICENSING
 License:        BSD-2-Clause AND BSD-4-Clause AND LGPL-2.1-or-later AND ISC AND GPL-3.0-or-later AND MIT
@@ -121,6 +121,9 @@ rm -rf $NANO_ROOT
 %{_prefix}/%{target}/lib/*
 
 %changelog
+* Tue May 20 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.5.0.20241231-2
+- rebuild for new gcc 15.1
+
 * Mon Apr 14 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.5.0.20241231-1
 - updated to 4.5.0.20241231
 

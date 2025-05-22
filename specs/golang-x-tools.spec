@@ -12,7 +12,7 @@
 %global forgeurl        https://github.com/golang/tools
 Epoch:                  1
 # This package should be split per go.mod
-Version:                0.29.0
+Version:                0.33.0
 
 %gometa -L
 
@@ -301,6 +301,8 @@ mv %{buildroot}%{_bindir}/bundle %{buildroot}%{_bindir}/gobundle
 %if %{without bootstrap}
 %if %{with check}
 %check
+# This should be enabled by go.mod, but we're ignoring it with GO111MODULE=off.
+export GODEBUG=gotypesalias=1
 %gocheck -t cmd -d imports -t internal/lsp -d go/pointer -d internal/imports -t gopls -d internal/packagesdriver -t go/packages -d go/analysis/unitchecker -d go/ssa -t internal/refactor
 %endif
 %endif

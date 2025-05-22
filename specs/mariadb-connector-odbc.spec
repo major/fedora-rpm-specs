@@ -29,15 +29,16 @@ and it supports both Unicode and ANSI modes.
 %setup -q -n %{name}-%{version}-src
 %patch -P1 -p1
 
+sed -i -e "s|/usr/include/mariadb|$(pkg-config --variable=includedir libmariadb)|" CMakeLists.txt
 
 
 %build
 
 %cmake \
        -DCMAKE_BUILD_TYPE="%{?with_debug:Debug}%{!?with_debug:RelWithDebInfo}" \
-       -DMARIADB_LINK_DYNAMIC="%{_libdir}/libmariadb.so" \
+       -DMARIADB_LINK_DYNAMIC="$(pkg-config --variable=libdir libmariadb)/libmariadb.so" \
 \
-       -DINSTALL_LAYOUT=RPM \
+       -DINSTALL_LAYOUT=%{!?flatpak:RPM}%{?flatpak:DEFAULT} \
        -DINSTALL_LIBDIR="%{_lib}" \
        -DINSTALL_LIB_SUFFIX="%{_lib}" \
        -DINSTALL_DOCDIR="%{_defaultdocdir}/%{name}" \

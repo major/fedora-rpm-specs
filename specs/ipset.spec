@@ -1,5 +1,5 @@
 Name:             ipset
-Version:          7.23
+Version:          7.24
 Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
@@ -174,6 +174,9 @@ fi
 
 
 %changelog
+* Tue May 20 2025 Phil Sutter <psutter@redhat.com> - 7.24-1
+- new version
+
 * Wed May 07 2025 Phil Sutter <psutter@redhat.com> - 7.23-1
 - new version
 

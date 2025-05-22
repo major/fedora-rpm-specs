@@ -14,14 +14,10 @@ URL:            https://crates.io/crates/icu_collections
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
-# * Do not depend on postcard; it is needed only for one (skipped) test.
 Patch:          icu_collections-fix-metadata.diff
-# * Downstream-only: unconditionally skip compiling tests that would require
-#   postcard.
-Patch10:        icu_collections-1.5.0-no-postcard.patch
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   circular (path-based) dev-dependency on the icu crate.
-Patch11:        icu_collections-1.5.0-no-icu-dev-dependency.patch
+Patch10:        icu_collections-1.5.0-no-icu-dev-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
