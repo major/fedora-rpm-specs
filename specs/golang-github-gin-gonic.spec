@@ -6,7 +6,7 @@
 
 # https://github.com/gin-gonic/gin
 %global goipath         github.com/gin-gonic/gin
-Version:                1.10.0
+Version:                1.10.1
 
 %gometa
 

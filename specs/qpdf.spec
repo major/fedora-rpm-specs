@@ -1,6 +1,6 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 11.10.1
+Version: 12.2.0
 Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c, but those are not compiled in (GNUTLS is used)
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
@@ -122,7 +122,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 %{_bindir}/fix-qdf
 %{_bindir}/qpdf
 %{_bindir}/zlib-flate
-%{_mandir}/man1/*
+%{_mandir}/man1/fix-qdf.1.gz
+%{_mandir}/man1/qpdf.1.gz
+%{_mandir}/man1/zlib-flate.1.gz
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/qpdf
 %dir %{zsh_completions_dir}
@@ -131,8 +133,8 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 %files libs
 %doc README.md TODO.md ChangeLog
 %license Artistic-2.0 LICENSE.txt NOTICE.md
-%{_libdir}/libqpdf.so.29
-%{_libdir}/libqpdf.so.29.*
+%{_libdir}/libqpdf.so.30
+%{_libdir}/libqpdf.so.30.*
 
 %files devel
 %doc examples/*.cc examples/*.c
@@ -146,6 +148,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Mon May 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 12.2.0-1
+- qpdf-12.2.0 is available (fedora#2350975)
+
 * Tue Feb 18 2025 Zdenek Dohnal <zdohnal@redhat.com> - 11.10.1-1
 - 11.10.1 (fedora#2345950)
 

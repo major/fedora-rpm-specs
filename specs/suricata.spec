@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 7.0.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -54,6 +54,9 @@ Requires: python3-pyyaml
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
+%if 0%{?fedora} < 42 || 0%{?epel} >= 8
+Requires(pre): /usr/sbin/useradd
+%endif
 
 # Rust is not working on ppc64le systems (bz 1757548)
 # Or i686 (bz 2047425)
@@ -83,11 +86,6 @@ sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
 %endif
 find rust/ -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 autoreconf -fv --install
-
-# Create a sysusers.d config file
-cat >suricata.sysusers.conf <<EOF
-u suricata - - - -
-EOF
 
 %build
 #  ensure standard Rust compiler flags are set
@@ -145,11 +143,21 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 
 cp suricata-update/README.rst doc/suricata-update-README.rst
 
+%if 0%{?fedora} >= 42
+# Create a sysusers.d config file
+cat >suricata.sysusers.conf <<EOF
+u suricata - - - -
+EOF
 install -m0644 -D suricata.sysusers.conf %{buildroot}%{_sysusersdir}/suricata.conf
+%endif
 
 %check
 make check
 
+%pre
+%if 0%{?fedora} < 42 || 0%{?epel} >= 8
+getent passwd suricata >/dev/null || useradd -r -M -s /sbin/nologin suricata
+%endif
 
 %post
 %systemd_post suricata.service
@@ -192,9 +200,14 @@ fi
 %attr(2770,suricata,suricata) %dir /run/%{name}/
 %{_tmpfilesdir}/%{name}.conf
 %{_datadir}/%{name}/rules
+%if 0%{?fedora} >= 42
 %{_sysusersdir}/suricata.conf
+%endif
 
 %changelog
+* Wed May 21 2025 Steve Grubb <sgrubb@redhat.com> 7.0.10-2
+- Fix sysusers.d config to only be F42 and later
+
 * Tue Mar 25 2025 Steve Grubb <sgrubb@redhat.com> 7.0.10-1
 - New bugfix release
 

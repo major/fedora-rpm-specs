@@ -41,7 +41,7 @@ Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
 
 # Upstream commits
 
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	gnome-common
 BuildRequires:	gtk-doc itstool
 BuildRequires:	intltool
@@ -130,6 +130,8 @@ Requires:	%{name}-qt5%{?_isa} = %{version}-%{release}
 %build
 # Make libtoolize happy.
 %{__cat} %{_datadir}/aclocal/intltool.m4 > aclocal.m4
+# gettext-0.25 fix
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 # Bootstrap
 NOCONFIGURE=1 ./autogen.sh
 

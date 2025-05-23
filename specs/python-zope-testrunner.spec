@@ -73,6 +73,9 @@ cp -p COPYRIGHT.rst COPYRIGHT
 
 %install
 %pyproject_install
+%pyproject_save_files zope
+sed -Ei '/badsyntax.+\.pyc/d' %{pyproject_files}
+
 mkdir -p %{buildroot}%{_mandir}/man1
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
 help2man -s 1 -o %{buildroot}%{_mandir}/man1/zope-testrunner.1 \
@@ -101,13 +104,12 @@ unset PYTHONHOME
 %check
 %tox
 
-%files -n python3-zope-testrunner
+%files -n python3-zope-testrunner -f %{pyproject_files}
 %doc CHANGES.html README.html
 %license COPYRIGHT LICENSE.md
 %{_bindir}/zope-testrunner
 %{_mandir}/man1/zope-testrunner.1*
-%{python3_sitelib}/zope.testrunner*
-%{python3_sitelib}/zope/testrunner/
+%{python3_sitelib}/zope.testrunner*.pth
 %exclude %{python3_sitelib}/zope/testrunner/tests
 
 %files doc

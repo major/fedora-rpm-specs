@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        High productivity build system
 
@@ -60,7 +60,6 @@ BuildRequires:  python3-gobject-base
 BuildRequires:  wxGTK-devel
 BuildRequires:  bindgen
 %endif
-BuildRequires:  binutils-gold
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  gettext
@@ -77,14 +76,19 @@ BuildRequires:  pkgconfig(glib-sharp-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  gtk-doc
 BuildRequires:  itstool
+BuildRequires:  mercurial
+BuildRequires:  gcovr
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  zlib-static
 BuildRequires:  python3dist(cython)
+BuildRequires:  python3dist(fastjsonschema)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  /usr/bin/pcap-config
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  llvm-devel
 BuildRequires:  cups-devel
+BuildRequires:  /usr/bin/wx-config
+BuildRequires:  /usr/bin/sdl2-config
 %endif
 
 %description

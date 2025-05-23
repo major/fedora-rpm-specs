@@ -47,7 +47,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.9
+Version:   2.0.10
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd

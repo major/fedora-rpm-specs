@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           maturin
-Version:        1.8.3
+Version:        1.8.6
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0
@@ -20,21 +20,18 @@ SourceLicense:  MIT OR Apache-2.0
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
-# BSL-1.0
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     0BSD AND
     Apache-2.0 AND
     Apache-2.0 WITH LLVM-exception AND
     BSD-3-Clause AND
-    BSL-1.0 AND
     MIT AND
     MPL-2.0 AND
     Unicode-3.0 AND
@@ -45,7 +42,7 @@ License:        %{shrink:
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
+    (MIT OR Zlib OR Apache-2.0) AND
     (MIT-0 OR Apache-2.0) AND
     (Unlicense OR MIT)
 }
@@ -70,8 +67,14 @@ Patch:          0003-remove-shebang-from-non-executable-__init__.py-file.patch
 #   https://github.com/PyO3/maturin/pull/2404
 Patch:          0004-Bump-base64-from-0.21-to-0.22-and-itertools-from-0.1.patch
 
+# * revert to building maturin with setuptools instead of boostrapping maturin
+Patch:          0005-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
+
+# maturin requires cargo to be available in $PATH
+Requires:       cargo
 
 %py_provides python3-maturin
 

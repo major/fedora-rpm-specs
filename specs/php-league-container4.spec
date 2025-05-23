@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-league-container4
 #
-# Copyright (c) 2016-2024 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2016-2025 Shawn Iwinski <shawn@iwin.ski>
 #                         Remi Collet <remi@remirepo.net>
 #
 # License: MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     thephpleague
 %global github_name      container
-%global github_version   4.2.4
-%global github_commit    7ea728b013b9a156c409c6f0fc3624071b742dec
+%global github_version   4.2.5
+%global github_commit    d3cebb0ff4685ff61c749e54b27db49319e2ec00
 
 %global major            4
 
@@ -32,7 +32,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A fast and intuitive dependency injection container version %{major}
 
 License:       MIT
@@ -149,6 +149,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed May 21 2025 Remi Collet <remi@remirepo.net> - 4.2.5-1
+- update to 4.2.5
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

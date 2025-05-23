@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            1.18.0
+%global tag            1.19.0
 Version:               %{tag}
 %else
 %global date           20210813
@@ -14,7 +14,7 @@ Version:               1.4.0
 
 %forgemeta
 
-Release:               3%{?dist}
+Release:               1%{?dist}
 Summary:               Read the wireless mbus protocol to acquire utility meter readings
 License:               GPL-3.0-or-later
 Url:                   %{forgeurl}
@@ -106,6 +106,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed May 21 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.19.0-1
+- Update to 1.19.0 (rhbz#2354241)
+
 * Tue Jan 21 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.18.0-3
 - Fix FTBFS on F42.
 

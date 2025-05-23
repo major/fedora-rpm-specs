@@ -1,7 +1,7 @@
 %global         srcname     pyopenssl
 
 Name:           pyOpenSSL
-Version:        25.0.0
+Version:        25.1.0
 Release:        %autorelease
 Summary:        Python wrapper module around the OpenSSL library
 License:        Apache-2.0

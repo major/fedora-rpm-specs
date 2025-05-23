@@ -1,5 +1,5 @@
 Name:       sessreg
-Version:    1.1.3
+Version:    1.1.4
 Release:    %autorelease
 Summary:    Utility to manage utmp/wtmp entries for X sessions
 License:    MIT AND MIT-open-group 

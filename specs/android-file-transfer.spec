@@ -3,7 +3,7 @@
 
 Name:           android-file-transfer
 Version:        4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
@@ -18,7 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(fuse)
+BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(libmagic)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(Qt6)
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Wed May 21 2025 Marek Blaha <mblaha@redhat.com> - 4.5-2
+- Switch to fuse3
+
 * Thu May 15 2025 Marek Blaha <mblaha@redhat.com> - 4.5-1
 - Update to version 4.5
 

@@ -1,6 +1,6 @@
 Name:           remind
 Version:        05.00.05
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
 # GPL-2.0-only: main software
@@ -19,6 +19,7 @@ Patch:          use-system-libjsonparser.diff
 
 # temporary
 Patch:          remove-timezone-tests-from-compare.patch
+Patch:          0001-Do-not-use-obsolete-tail-2-syntax.-Instead-use-tail-.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -144,6 +145,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Mon May 19 2025 Dick Marinus <dick@mrns.nl> - 05.00.05-3
+- Fix tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 05.00.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

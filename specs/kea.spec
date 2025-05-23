@@ -43,31 +43,21 @@ BuildRequires: boost-devel
 BuildRequires: gcc-c++
 # %%configure --with-openssl
 BuildRequires: openssl-devel
-%if 0%{?fedora} > 40
 # https://bugzilla.redhat.com/show_bug.cgi?id=2300868#c4
 BuildRequires: openssl-devel-engine
-%endif
-%if 0%{?fedora} || 0%{?rhel} > 7
-# %%configure --with-mysql
-BuildRequires: mariadb-connector-c-devel
 # %%configure --with-pgsql
-%if 0%{?fedora} > 40 || 0%{?rhel} > 9
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: libpq-devel
 %else
 BuildRequires: postgresql-server-devel
 %endif
-%else
 # %%configure --with-mysql
-BuildRequires: mariadb-devel
-# %%configure --with-pgsql
-BuildRequires: postgresql-devel
-%endif
+BuildRequires: mariadb-connector-c-devel
 BuildRequires: log4cplus-devel
 %if %{with sysrepo}
 # %%configure --with-sysrepo
 BuildRequires: sysrepo-devel
 %endif
-
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind-devel
 %endif

@@ -12,12 +12,6 @@ Summary:        Abstraction allowing borrowed data to be carried along with its 
 License:        Unicode-3.0
 URL:            https://crates.io/crates/yoke
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Do not depend on postcard; it is needed only for one (patched-out) example.
-Patch:          yoke-fix-metadata.diff
-# * Downstream-only: ignore an example that would depend on the postcard crate:
-#   it is not worth packaging this merely to compile an example.
-Patch10:        0001-Downstream-only-ignore-an-example-that-would-depend-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

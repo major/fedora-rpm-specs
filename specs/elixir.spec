@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.18.3
+Version:  1.18.4
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/%{version}/bin/.+\\.ps1$
 
@@ -10,7 +10,7 @@ Release:  %autorelease
 Summary:  A modern approach to programming for the Erlang VM
 License:  Apache-2.0
 URL:      https://elixir-lang.org/
-VCS:      git:https://github.com/%{upstream}/%{realname}.git
+VCS:      git:https://github.com/%{upstream}/%{name}.git
 Source0:  https://github.com/%{upstream}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  https://github.com/%{upstream}/%{name}/releases/download/v%{version}/Docs.zip#/%{name}-%{version}-doc.zip
 # See https://bugzilla.redhat.com/1470583
@@ -60,35 +60,20 @@ find -name ".build" -exec rm \{\} \;
 # Remove windows-specific scripts
 find -name '*.bat' -exec rm \{\} \;
 
-# This contains a failing test. We want `make test` for most tests, but
-# this deals with ANSI codes which rpmbuild strips.
-rm lib/elixir/test/elixir/io/ansi_test.exs
-
-# Remove VCS-specific files
-find . -name .gitignore -delete
-find . -name .gitkeep -delete
-
 # Let the Makefile speak!
 sed -i '/^Q\s*:=/d' Makefile
 
 %build
-# No nonger necessary starting from RPM 4.20.
-# https://github.com/rpm-software-management/rpm/pull/2616
-export LANG=C.UTF-8
 export REBAR3=/usr/bin/rebar3
 export ERL_LIBS=/usr/share/erlang/lib/
 make compile
 make build_man
 
 %check
-
 # Remove vendored rebar3, as it is provided by the erlang-rebar3 package.
 rm -f ./lib/mix/test/fixtures/rebar3
 export REBAR3=/usr/bin/rebar3
 
-# No nonger necessary starting from RPM 4.20.
-# https://github.com/rpm-software-management/rpm/pull/2616
-export LANG=C.UTF-8
 export ERL_LIBS=/usr/share/erlang/lib/
 make test
 

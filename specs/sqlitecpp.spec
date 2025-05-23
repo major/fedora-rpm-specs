@@ -1,7 +1,7 @@
 %global richname SQLiteCpp
 
 Name: sqlitecpp
-Version: 3.3.2
+Version: 3.3.3
 Release: %autorelease
 
 License: MIT
@@ -39,9 +39,6 @@ sed -e "s,\r,," -i README.md
 
 # Removing bundled libraries...
 rm -rf {sqlite3,googletest}
-
-# Adding missing includes...
-sed -e "17i #include <cstdint>" -i include/SQLiteCpp/Statement.h
 
 %build
 %cmake -G Ninja \

@@ -1,6 +1,6 @@
 Name: kexec-tools
 Version: 2.0.31
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://kernel.org/pub/linux/utils/kernel/kexec
 License: GPL-2.0-only
 Summary: The kexec/kdump userspace component
@@ -14,6 +14,7 @@ BuildRequires: libtool
 BuildRequires: gcc
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
+BuildRequires: libzstd-devel
 
 #START INSERT
 
@@ -81,6 +82,9 @@ rm -f %{buildroot}/%{_libdir}/kexec-tools/kexec_test
 %doc TODO
 
 %changelog
+* Wed May 21 2025 Coiby Xu <coxu@redhat.com> - 2.0.31-2
+- Add BuildRequires libzstd-devel to support loading zstd-compressed kernel
+
 * Tue Apr 22 2025 Packit <hello@packit.dev> - 2.0.31-1
 - Update to version 2.0.31
 - Resolves: rhbz#2359477

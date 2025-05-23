@@ -10,7 +10,7 @@
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
 Version: 2.9.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
@@ -21,7 +21,7 @@ Patch1: modsecurity-2.9.3-apulibs.patch
 Patch2: mod_security-2.9.3-remote-rules-timeout.patch
 Patch3: mod_security-2.9.7-send_error_bucket.patch
 Patch4: mod_security-2.9.7-pipedlogs.patch
-Patch5: mod_security-2.9.8-fixes.patch
+Patch5: mod_security-2.9.8-warnings.patch
 
 Requires: httpd httpd-mmn = %{_httpd_mmn}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -147,6 +147,9 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Wed May 21 2025 Joe Orton  <jorton@redhat.com> - 2.9.8-3
+- updated warning fixes, synced with upstream PR 3372
+
 * Fri May 09 2025 Joe Orton  <jorton@redhat.com> - 2.9.8-2
 - fix variety of compiler warnings
 

@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -24,6 +24,7 @@ Patch2: nut-2.8.0-piddir-owner.patch
 #quick fix. TODO: fix it properly
 Patch9: nut-2.6.5-rmpidf.patch
 Patch15: nut-c99-strdup.patch
+Patch16: nut-2.8.3-rhinoname.patch
 
 Requires(post): coreutils systemd
 Requires(preun): systemd
@@ -133,6 +134,7 @@ necessary to develop NUT client applications.
 %patch -P 2 -p1 -b .piddir-owner
 %patch -P 9 -p1 -b .rmpidf
 %patch -P 15 -p1
+%patch -P 16 -p2 -b .rhinoname
 
 sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
 sed -i "s|sys.argv\[0\]|'%{_datadir}/%{name}/nut-monitor/nut-monitor'|" scripts/python/app/NUT-Monitor-py3qt5.in
@@ -240,6 +242,9 @@ do
   touch -r $fe $fe.new
   mv -f $fe.new $fe
 done
+
+# rename rhino to nutdrv_rhino to prevent file conflict (rhbz#2367057)
+mv %{buildroot}%{_mandir}/man8/rhino.8 %{buildroot}%{_mandir}/man8/nutdrv_rhino.8
 
 # install PyNUT
 install -p -D -m 644 scripts/python/module/PyNUT.py %{buildroot}%{python3_sitelib}/PyNUT.py
@@ -402,7 +407,7 @@ fi
 %{_mandir}/man8/powerman-pdu.8.gz
 %endif
 %{_mandir}/man8/powerpanel.8.gz
-%{_mandir}/man8/rhino.8.gz
+%{_mandir}/man8/nutdrv_rhino.8.gz
 %{_mandir}/man8/richcomm_usb.8.gz
 %{_mandir}/man8/riello_ser.8.gz
 %{_mandir}/man8/riello_usb.8.gz
@@ -502,6 +507,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed May 21 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.3-2
+- rename rhino to nutdrv_rhino to prevent file conflict (rhbz#2367057)
+
 * Tue Apr 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.3-1
 - updated to 2.8.3 (#2352734)
 

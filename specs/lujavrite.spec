@@ -23,6 +23,7 @@ and using JNI interface to invoke Java methods.
 %autosetup -p1 -C
 
 %build
+export LDFLAGS=-llua-5.4
 export JAVA_HOME=%{_jvmdir}/jre-21-openjdk
 ./build.sh
 

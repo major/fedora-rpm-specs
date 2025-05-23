@@ -14,7 +14,7 @@
 %global giturl  https://github.com/Z3Prover/z3
 
 Name:           z3
-Version:        4.14.1
+Version:        4.15.0
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -267,7 +267,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.14*
+%{_libdir}/libz3.so.4.15*
 
 %files devel
 %{_includedir}/z3/

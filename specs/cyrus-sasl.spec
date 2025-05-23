@@ -65,8 +65,6 @@ BuildRequires: libdb-devel-static
 BuildRequires: python3 nss_wrapper socket_wrapper krb5-server
 BuildRequires: make
 BuildRequires: libxcrypt-devel
-Requires(pre): /usr/sbin/useradd /usr/sbin/groupadd
-Requires(postun): /usr/sbin/userdel /usr/sbin/groupdel
 Requires: /sbin/nologin
 Provides: user(%username)
 Provides: group(%username)
@@ -327,8 +325,6 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/cat8/saslauthd.8
 %check
 make check %{?_smp_mflags}
 
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 %post
 %systemd_post saslauthd.service

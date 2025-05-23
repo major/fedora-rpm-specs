@@ -5,7 +5,7 @@
 # https://github.com/gotestyourself/gotest.tools
 %global goipath         gotest.tools
 %global forgeurl        https://github.com/gotestyourself/gotest.tools
-Version:                3.5.1
+Version:                3.5.2
 
 %gometa -L
 

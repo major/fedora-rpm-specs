@@ -15,6 +15,8 @@ Patch:		retis-release-profile.diff
 # - Relax the bindgen version requirement to allow using the one packaged in
 #   Fedora.
 # - Relax the dependency on cargo-platform (only required for c8s).
+# - Relax the dependency on pnet_packet to allow 0.35:
+#   https://github.com/retis-org/retis/pull/524
 Patch:		retis-fix-deps.diff
 # Manually created to remove CFLAGS for BPF targets as the default ones are
 # incompatible with the 'bpf' target (e.g. -mtls-dialect=gnu or

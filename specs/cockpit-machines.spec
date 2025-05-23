@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        331
+Version:        332
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -153,6 +153,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed May 21 2025 Packit <hello@packit.dev> - 332-1
+- The "shareable" attribute of disks is no longer modified by Cockpit
+- Bug fixes and translation updates
+
 * Wed May 07 2025 Packit <hello@packit.dev> - 331-1
 - Translation updates
 - Bug fixes

@@ -1,10 +1,10 @@
-%global DATE 20250425
-%global gitrev ac84ab7066626410dfe17804c7abd090e875ba3b
+%global DATE 20250521
+%global gitrev b9def1721b12cae307c1a1ebc49030fce6531dfa
 %global gcc_version 15.1.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -3765,6 +3765,26 @@ end
 %endif
 
 %changelog
+* Wed May 21 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-2
+- update from releases/gcc-15 branch
+  - PRs ada/112958, ada/120104, c/120057, c++/119863, c++/119864, c++/119938,
+	c++/119939, c++/119981, c++/119996, c++/120012, c++/120013,
+	c++/120023, c++/120125, c++/120161, c++/120350, fortran/102891,
+	fortran/102900, fortran/119928, fortran/119986, fortran/120049,
+	fortran/120107, fortran/120139, fortran/120163, fortran/120179,
+	fortran/120191, ipa/119852, ipa/119973, ipa/120006, ipa/120146,
+	libfortran/120152, libfortran/120153, libfortran/120158,
+	libfortran/120196, libstdc++/118260, libstdc++/119427,
+	libstdc++/119714, libstdc++/120029, libstdc++/120114,
+	libstdc++/120159, libstdc++/120187, libstdc++/120190,
+	libstdc++/120198, libstdc++/120293, modula2/115276, modula2/119914,
+	modula2/119915, modula2/120117, modula2/120188, preprocessor/116047,
+	preprocessor/120061, target/119610, testsuite/119909,
+	tree-optimization/111873, tree-optimization/119712,
+	tree-optimization/120043, tree-optimization/120048,
+	tree-optimization/120074, tree-optimization/120089,
+	tree-optimization/120143, tree-optimization/120211
+
 * Fri Apr 25 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-1
 - update from releases/gcc-15 branch
   - GCC 15.1 release

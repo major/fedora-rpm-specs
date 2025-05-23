@@ -67,7 +67,6 @@
 %if %{defined el9}
 %global llvm_major 12
 %else
-# only available for f41+
 %global llvm_major 18
 %endif
 %global ghc_llvm_archs s390x
@@ -433,10 +432,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 rm libffi-tarballs/libffi-*.tar.gz
 
 # Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
-%ifnarch %{ix86}
-%if 0%{?fedora} >= 43
+# remove for ghc-9.10
+%if "%{_arch}" != "i686" || %{?fedora} < 43
 %patch -P6 -p1 -b .orig
-%endif
 %endif
 
 %ifarch %{ghc_unregisterized_arches} riscv64

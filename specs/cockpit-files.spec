@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 20
+Version: 21
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed May 21 2025 Packit <hello@packit.dev> - 21-1
+- Bug fixes and translation updates
+
 * Wed May 7 2025 Packit <hello@packit.dev> - 20-1
 - Translation updates
 - Bug fixes

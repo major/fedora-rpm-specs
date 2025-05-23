@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        338
-Release:        2%{?dist}
+Version:        339
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -618,6 +618,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed May 21 2025 Packit <hello@packit.dev> - 339-1
+- Add cockpit/ws arm64 container
+- Storage: Disk Self-Test error warnings on the overview page
+- Bug fixes and translation updates
+
 * Wed May 07 2025 Packit <hello@packit.dev> - 338-1
 - Translation updates
 - Bug fixes

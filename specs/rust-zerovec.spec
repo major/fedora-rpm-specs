@@ -14,7 +14,8 @@ URL:            https://crates.io/crates/zerovec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks.
-# * Drop the zv_serde example, which would require postcard.
+# * "Drop the zv_serde example, which would require the internal
+#   icu_benchmark_macros crate.
 # * Do not depend on getrandom; nothing that needs it is included in the crate.
 # * Do not depend on postcard; it is needed only for benchmarks, and for one
 #   example, which we also remove.

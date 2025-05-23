@@ -1,11 +1,11 @@
 Name:           glib2
-Version:        2.84.1
+Version:        2.85.0
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
 License:        LGPL-2.1-or-later
 URL:            https://www.gtk.org
-Source:         https://download.gnome.org/sources/glib/2.84/glib-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/glib/2.85/glib-%{version}.tar.xz
 
 # Required for RHEL core crypto components policy. Good for Fedora too.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260

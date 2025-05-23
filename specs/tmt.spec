@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.48.0
+Version:        1.49.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -76,7 +76,7 @@ Provides:       tmt-provision-virtual == %{version}-%{release}
 Obsoletes:      tmt-provision-virtual < %{version}-%{release}
 %endif
 Requires:       tmt == %{version}-%{release}
-Requires:       python3-testcloud >= 0.11.3
+Requires:       python3-testcloud >= 0.11.7
 Requires:       libvirt-daemon-config-network
 Requires:       openssh-clients
 # Recommend qemu system emulators for supported arches
@@ -169,6 +169,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 %files -n tmt+all -f %{_pyproject_ghost_distinfo}
 
 %changelog
+* Wed May 21 2025 Packit <hello@packit.dev> - 1.49.0-1
+- Update to version 1.49.0
+
 * Fri May 09 2025 Packit <hello@packit.dev> - 1.48.0-1
 - Update to version 1.48.0
 

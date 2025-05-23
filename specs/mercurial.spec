@@ -23,6 +23,10 @@ Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
 Source1: mercurial-site-start.el
 # Patch cargo metadata for dependency versions available in Fedora
 Patch0:  mercurial-rust-metadata.patch
+# Fix build with Python 3.14.0b1
+# Fixes https://bugzilla.redhat.com/2365820
+Patch1:  https://foss.heptapod.net/mercurial/mercurial-devel/-/merge_requests/1405.patch
+
 BuildRequires: make
 BuildRequires: emacs-el
 BuildRequires: emacs-nox

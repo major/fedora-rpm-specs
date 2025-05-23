@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.86.0
+Version:        1.87.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.85.0
-%global bootstrap_channel 1.85.0
-%global bootstrap_date 2025-02-20
+%global bootstrap_version 1.86.0
+%global bootstrap_channel 1.86.0
+%global bootstrap_date 2025-04-03
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -45,7 +45,7 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
-%global bundled_llvm_version 19.1.7
+%global bundled_llvm_version 20.1.1
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -138,7 +138,11 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.86.0-unbundle-sqlite.patch
+Patch6:         rustc-1.87.0-unbundle-sqlite.patch
+
+# Split the absolute path of libclang_rt.profile.a when passed to profiler_builtns
+# Upstream PR: https://github.com/rust-lang/rust/pull/139677
+Patch7:         0001-Fix-profiler_builtins-build-script-to-handle-full-pa.patch
 
 ### RHEL-specific patches below ###
 
@@ -687,6 +691,8 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %patch -P6 -p1
 %endif
 
+%patch -P7 -p1
+
 %if %with disabled_libssh2
 %patch -P100 -p1
 %endif
@@ -875,7 +881,7 @@ test -r "%{profiler}"
   --set build.optimized-compiler-builtins=false \
   --set rust.llvm-tools=false \
   --enable-extended \
-  --tools=cargo,clippy,rls,rust-analyzer,rustfmt,src \
+  --tools=cargo,clippy,rust-analyzer,rustfmt,src \
   --enable-vendor \
   --enable-verbose-tests \
   --release-channel=%{channel} \
@@ -893,8 +899,12 @@ test -r "%{profiler}"
 mkdir -p "%{profraw}"
 %{__x} build sysroot --rust-profile-generate="%{profraw}"
 # Build cargo as a workload to generate compiler profiles
+# We normally use `x.py`, but in this case we invoke the stage 2 compiler and libs
+# directly to ensure we use the instrumented compiler.
 env LLVM_PROFILE_FILE="%{profraw}/default_%%m_%%p.profraw" \
-  %{__x} --keep-stage=0 --keep-stage=1 build cargo
+  LD_LIBRARY_PATH=$PWD/build/host/stage2/lib \
+  RUSTC=$PWD/build/host/stage2/bin/rustc \
+  cargo build --manifest-path=src/tools/cargo/Cargo.toml
 # Finalize the profile data and clean up the raw files
 llvm-profdata merge -o "%{profdata}" "%{profraw}"
 rm -r "%{profraw}" build/%{rust_triple}/stage2*/
@@ -940,9 +950,6 @@ DESTDIR=%{buildroot} %{__x} install
 for triple in %{?all_targets} ; do
   DESTDIR=%{buildroot} %{__x} install --target=$triple std
 done
-
-# The rls stub doesn't have an install target, but we can just copy it.
-%{__install} -t %{buildroot}%{_bindir} build/%{rust_triple}/stage2-tools-bin/rls
 
 # These are transient files used by x.py dist and install
 rm -rf ./build/dist/ ./build/tmp/
@@ -1060,7 +1067,6 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{__x} test --no-fail-fast rust-analyzer || :
 
 %{__x} test --no-fail-fast rustfmt || :
-
 
 %ldconfig_scriptlets
 
@@ -1188,7 +1194,6 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %files analyzer
-%{_bindir}/rls
 %{_bindir}/rust-analyzer
 %doc src/tools/rust-analyzer/README.md
 %license src/tools/rust-analyzer/LICENSE-{APACHE,MIT}

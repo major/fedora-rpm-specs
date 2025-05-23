@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 %global		native_wayland	1
 
 %global		majorver		4.20
-%define		mainver		4.20.0
+%define		mainver		4.20.1
 %undefine		betaver		
 
 %define		baserelease		1
@@ -19,7 +19,7 @@ Summary:	A handy file search tool
 # SPDX confirmed
 License:	GPL-2.0-only
 URL:		https://docs.xfce.org/apps/catfish/start
-Source0:	https://archive.xfce.org/src/apps/catfish/%{majorver}/catfish-%{version}%{?betaver}.tar.bz2
+Source0:	https://archive.xfce.org/src/apps/catfish/%{majorver}/catfish-%{version}%{?betaver}.tar.xz
 BuildArch:	noarch
 
 BuildRequires:	desktop-file-utils
@@ -37,11 +37,11 @@ BuildRequires:	/usr/bin/appstream-util
 
 # gir repository
 Requires:	gdk-pixbuf2
-Requires:	glib2
+Requires:	glib2 >= 2.25.0
 Requires:	gobject-introspection
-Requires:	gtk3 >= 3.10.0
-Requires:	pango
-Requires:	xfconf
+Requires:	gtk3 >= 3.22.0
+Requires:	pango >= 1.38.0
+Requires:	xfconf >= 4.16.0
 # optional zeitgeist dependency not listed
 # /usr/share/mime/globs2
 Requires:	shared-mime-info
@@ -71,8 +71,6 @@ sed -i meson.build \
 	-e '\@dependency@s|,[ \t]*required[^)]*||'
 sed -i meson.build \
 	-e '\@dependency@s|)|, required: false)|' \
-	-e '\@gtk_update_icon_cache@s|true|false|' \
-	-e '\@update_desktop_database@s|true|false|' \
 	%{nil}
 
 %build
@@ -150,6 +148,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu May 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.20.1-1
+- 4.21.1
+
 * Thu Jan 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.20.0-1
 - 4.20.0
 

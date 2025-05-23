@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/icu_locid
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
-# * Do not depend on postcard; affected tests are patched out.
 # * Omit removed examples from Cargo.toml
 # * Restore the litemap dev-dependency, and particularly its testing feature, in
 #   the normalized Cargo.toml; this could be fixed upstream by a change
@@ -23,9 +22,6 @@ Source:         %{crates_source}
 #   suggesting this upstream because the icu_locid crate has been refactored
 #   away for the upcoming ICU4X 2.0 release.
 Patch:          icu_locid-fix-metadata.diff
-# * Downstream-only: unconditionally skip compiling tests that would require
-#   postcard.
-Patch10:        icu_locid-1.5.0-no-postcard.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

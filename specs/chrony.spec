@@ -1,5 +1,6 @@
 %global _hardened_build 1
-%global clknetsim_ver 64df92
+%global clknetsim_ver d60afc
+%global prerelease -pre1
 %bcond_without debug
 %bcond_without nts
 
@@ -8,8 +9,8 @@
 %endif
 
 Name:           chrony
-Version:        4.6.1
-Release:        2%{?dist}
+Version:        4.7
+Release:        0.1.pre1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -69,8 +70,8 @@ md5sum -c <<-EOF | (! grep -v 'OK$')
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
-        c11159b78b89684eca773db6236a9855  examples/chronyd.service
-        46fa3e2d42c8eb9c42e71095686c90ed  examples/chronyd-restricted.service
+        274a44cd51981d6d4d3a44dfc92c94ab  examples/chronyd.service
+        5ddbb8a8055f587cb6b0b462ca73ea46  examples/chronyd-restricted.service
 EOF
 
 # don't allow packaging without vendor zone
@@ -205,6 +206,9 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed May 21 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-0.1.pre1
+- update to 4.7-pre1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

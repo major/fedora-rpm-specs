@@ -203,8 +203,7 @@ Source72:         mariadb-server-galera.te
 # https://github.com/dciabrin/wsrep_sst_rsync_tunnel/blob/master/wsrep_sst_rsync_tunnel
 Source73:         wsrep_sst_rsync_tunnel
 
-#   Patch4: Red Hat distributions specific logrotate fix
-#   it would be big unexpected change, if we start shipping it now. Better wait for MariaDB 10.2
+#   Patch4: Use the correct log file pathname for Red Hat installations
 Patch4:           %{majorname}-logrotate.patch
 #   Patch7: add to the CMake file all files where we want macros to be expanded
 Patch7:           %{majorname}-scripts.patch
@@ -214,7 +213,7 @@ Patch9:           %{majorname}-ownsetup.patch
 Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
-
+#   Bundling of the PCRE 10.44 library until upstream resolves issues with the 10.45 version
 Patch15:          %{majorname}-pcre.patch
 
 # This macro is used for package/sub-package names in the entire specfile
@@ -359,13 +358,14 @@ a server daemon (mariadbd) and many different client programs and libraries.
 The base package contains the standard MariaDB/MySQL client programs and
 utilities.
 
+%if %?mariadb_default
 %description -n %{pkgname}
 MariaDB is a community developed fork from MySQL - a multi-user, multi-threaded
 SQL database server. It is a client/server implementation consisting of
 a server daemon (mariadbd) and many different client programs and libraries.
 The base package contains the standard MariaDB/MySQL client programs and
 utilities.
-
+%endif
 
 %package          -n %{pkgname}-client-utils
 BuildArch:        noarch
@@ -978,8 +978,8 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DINSTALL_SCRIPTDIR=bin \
          -DINSTALL_SUPPORTFILESDIR=share/%{majorname} \
          -DMYSQL_DATADIR="%{dbdatadir}" \
-         -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
-         -DTMPDIR=/var/tmp \
+         -DMYSQL_UNIX_ADDR="%{dbdatadir}/mysql.sock" \
+         -DTMPDIR=%{_localstatedir}/tmp \
          -DINSTALL_SYSTEMD_TMPFILESDIR="" \
          -DINSTALL_SYSTEMD_SYSUSERSDIR="" \
          -DGRN_DATA_DIR=share/%{majorname}-server/groonga \
@@ -1062,7 +1062,7 @@ fi
 # but that's pretty wacko --- see also %%{majorname}-file-contents.patch)
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{majorname}/
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{majorname}/
-rm -r %{buildroot}%{_datadir}/doc/%{majorname}/MariaDB-server-%{version}
+rm -r %{buildroot}%{_docdir}/%{majorname}/MariaDB-server-%{version}
 
 # Logfile creation
 mkdir -p %{buildroot}%{logfiledir}
@@ -1480,7 +1480,7 @@ fi
 
 %if %{with common}
 %files -n %{pkgname}-common
-%doc %{_datadir}/doc/%{majorname}
+%doc %{_docdir}/%{majorname}
 %dir %{_datadir}/%{majorname}
 %{_datadir}/%{majorname}/charsets
 %if %{with clibrary}

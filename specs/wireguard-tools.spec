@@ -1,6 +1,6 @@
 Name:           wireguard-tools
-Version:        1.0.20210914
-Release:        9%{?dist}
+Version:        1.0.20250521
+Release:        1%{?dist}
 URL:            https://www.wireguard.com/
 Summary:        Fast, modern, secure VPN tunnel
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -58,6 +58,9 @@ WITH_BASHCOMPLETION=yes WITH_WGQUICK=yes WITH_SYSTEMDUNITS=yes -C src
 %{_mandir}/man8/wg-quick.8*
 
 %changelog
+* Wed May 21 2025 Joe Doss <joe@solidadmin.com> - 1.0.20250521-1
+- Update to 1.0.20250521
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20210914-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
