@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 4
+%global patch_ver 5
 #global rc_ver 3
 
 %bcond_with snapshot_build
@@ -267,7 +267,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	6%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -341,6 +341,9 @@ Patch2005: 0001-sanitizer_common-Remove-interceptors-for-deprecated-.patch
 # Fix for glibc >= 2.42 on ppc64le
 Patch2008: 0001-sanitizer_common-Disable-termio-ioctls-on-PowerPC.patch.20
 Patch2108: 0001-sanitizer_common-Disable-termio-ioctls-on-PowerPC.patch
+
+# Fix release build test failure on LLVM 20.1.5.
+Patch2009: ff2e8f93f6090965e82d799af43f6dfef52baa66.patch
 
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
@@ -540,9 +543,9 @@ Requires:	%{pkg_name_llvm}-static%{?_isa} = %{version}-%{release}
 Requires:	%{pkg_name_llvm}-test%{?_isa} = %{version}-%{release}
 Requires:	%{pkg_name_llvm}-googletest%{?_isa} = %{version}-%{release}
 
-%if %{without compat_build}
-Requires(pre):	alternatives
-%endif
+
+Requires(post):	alternatives
+Requires(postun):	alternatives
 
 Provides:	llvm-devel(major) = %{maj_ver}
 
@@ -1797,11 +1800,6 @@ popd
 rm -f %{buildroot}%{install_libdir}/libLLVMBOLT*.a
 #endregion BOLT installation
 
-# Do not create symlinks for i686 to avoid multilib conflicts.
-# Don't ship man pages altogether.
-%ifarch %{ix86}
-rm -rf %{buildroot}%{install_mandir}
-%else
 # Create symlinks from the system install prefix to the llvm install prefix.
 # Do this at the end so it includes any files added by preceding steps.
 mkdir -p %{buildroot}%{_bindir}
@@ -1859,6 +1857,11 @@ rm -Rf %{buildroot}%{_libdir}/amdgcn-amd-amdhsa
 rm -Rf %{buildroot}%{_libdir}/nvptx64-nvidia-cuda
 %endif
 %endif
+
+# ghost presence for llvm-config, managed by alternatives.
+touch %{buildroot}%{_bindir}/llvm-config-%{maj_ver}
+%if %{without compat_build}
+touch %{buildroot}%{_bindir}/llvm-config
 %endif
 
 %if %{with bundle_compat_lib}
@@ -2281,14 +2284,36 @@ cp %{_vpath_builddir}/.ninja_log %{buildroot}%{_datadir}
 %ldconfig_scriptlets -n %{pkg_name_lld}-libs
 %endif
 
+%post -n %{pkg_name_llvm}-devel
+update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config %{__isa_bits}
 %if %{without compat_build}
-%pre -n %{pkg_name_llvm}-devel
-# llvm-config used to be managed by alternatives.
-# Remove them if they still exist.
-update-alternatives --remove-all llvm-config 2>/dev/null || :
-%if %{maj_ver} <= 20
-update-alternatives --remove-all llvm-config-%{maj_ver} 2>/dev/null || :
+update-alternatives --install %{_bindir}/llvm-config llvm-config %{install_bindir}/llvm-config %{__isa_bits}
+
+# During the upgrade from LLVM 16 (F38) to LLVM 17 (F39), we found out the
+# main llvm-devel package was leaving entries in the alternatives system.
+# Try to remove them now.
+for v in 14 15 16; do
+  if [[ -e %{_bindir}/llvm-config-$v
+        && "x$(%{_bindir}/llvm-config-$v --version | awk -F . '{ print $1 }')" != "x$v" ]]; then
+    update-alternatives --remove llvm-config-$v %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  fi
+done
 %endif
+
+%postun -n %{pkg_name_llvm}-devel
+if [ $1 -eq 0 ]; then
+  update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config
+fi
+%if %{without compat_build}
+# When upgrading between minor versions (i.e. from x.y.1 to x.y.2), we must
+# not remove the alternative.
+# However, during a major version upgrade (i.e. from 16.x.y to 17.z.w), the
+# alternative must be removed in order to give priority to a newly installed
+# compat package.
+if [[ $1 -eq 0
+      || "x$(%{_bindir}/llvm-config%{exec_suffix} --version | awk -F . '{ print $1 }')" != "x%{maj_ver}" ]]; then
+  update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+fi
 %endif
 
 %if %{without compat_build}
@@ -2309,24 +2334,20 @@ fi
   local maj_ver = rpm.expand("%{maj_ver}")
   for arg in rpm.expand("%*"):gmatch("%S+") do
     print(install_bindir .. "/" .. arg .. "\\n")
-    if not rpm.expand("%{ix86}"):find(rpm.expand("%{_arch}")) then
-      print(bindir .. "/" .. arg .. "-" .. maj_ver .. "\\n")
-      if rpm.expand("%{without compat_build}") == "1" then
-        print(bindir .. "/" .. arg .. "\\n")
-      end
+    print(bindir .. "/" .. arg .. "-" .. maj_ver .. "\\n")
+    if rpm.expand("%{without compat_build}") == "1" then
+      print(bindir .. "/" .. arg .. "\\n")
     end
   end
 }
 
 %define expand_mans() %{lua:
-  if not rpm.expand("%{ix86}"):find(rpm.expand("%{_arch}")) then
-    local mandir = rpm.expand("%{_mandir}")
-    local maj_ver = rpm.expand("%{maj_ver}")
-    for arg in rpm.expand("%*"):gmatch("%S+") do
-      print(mandir .. "/man1/" .. arg .. "-" .. maj_ver .. ".1.gz\\n")
-      if rpm.expand("%{without compat_build}") == "1" then
-        print(mandir .. "/man1/" .. arg .. ".1.gz\\n")
-      end
+  local mandir = rpm.expand("%{_mandir}")
+  local maj_ver = rpm.expand("%{maj_ver}")
+  for arg in rpm.expand("%*"):gmatch("%S+") do
+    print(mandir .. "/man1/" .. arg .. "-" .. maj_ver .. ".1.gz\\n")
+    if rpm.expand("%{without compat_build}") == "1" then
+      print(mandir .. "/man1/" .. arg .. ".1.gz\\n")
     end
   end
 }
@@ -2336,8 +2357,7 @@ fi
   local install_dir = rpm.expand("%{-i*}")
   for arg in rpm.expand("%*"):gmatch("%S+") do
     print(install_dir .. "/" .. arg .. "\\n")
-    if rpm.expand("%{without compat_build}") == "1" and
-       not rpm.expand("%{ix86}"):find(rpm.expand("%{_arch}")) then
+    if rpm.expand("%{without compat_build}") == "1" then
       print(dir .. "/" .. arg .. "\\n")
     end
   end
@@ -2552,7 +2572,12 @@ fi
 %files -n %{pkg_name_llvm}-devel
 %license llvm/LICENSE.TXT
 
-%expand_bins llvm-config
+%{install_bindir}/llvm-config
+%ghost %{_bindir}/llvm-config-%{maj_ver}
+%if %{without compat_build}
+%ghost %{_bindir}/llvm-config
+%endif
+
 %expand_mans llvm-config
 %expand_includes llvm llvm-c
 %{expand_libs %{expand:
@@ -2570,10 +2595,8 @@ fi
 %exclude %{install_libdir}/libLLVMTestingSupport.a
 %exclude %{install_libdir}/libLLVMTestingAnnotations.a
 %if %{without compat_build}
-%ifnarch %{ix86}
 %exclude %{_libdir}/libLLVMTestingSupport.a
 %exclude %{_libdir}/libLLVMTestingAnnotations.a
-%endif
 %endif
 
 %files -n %{pkg_name_llvm}-cmake-utils
@@ -2659,9 +2682,7 @@ fi
 %expand_bins clang-tblgen
 %dir %{install_datadir}/clang/
 %if %{without compat_build}
-%ifnarch %{ix86}
 %dir %{_datadir}/clang
-%endif
 %endif
 
 %files -n %{pkg_name_clang}-resource-filesystem
@@ -3076,17 +3097,14 @@ fi
 
 #region changelog
 %changelog
+* Thu May 22 2025 Nikita Popov <npopov@redhat.com> - 20.1.5-1
+- Update to LLVM 20.1.5
+
 * Tue May 06 2025 Tom Stellard <tstellar@redhat.com> - 20.1.4-6
 - Fix build on ppc64le with glibc >= 2.42
 
 * Tue May 06 2025 Nikita Popov <npopov@redhat.com> - 20.1.4-5
 - Update to LLVM 20.1.4
-
-* Mon May 05 2025 Nikita Popov <npopov@redhat.com> - 20.1.3-4
-- Remove symlinks from i686 package, fixing multilib
-
-* Wed Apr 30 2025 Nikita Popov <npopov@redhat.com> - 20.1.3-3
-- Remove alternatives support for llvm-config (rhbz#2361779)
 
 * Sat Apr 26 2025 Tom Stellard <tstellar@redhat.com> - 20.1.3-2
 - Fix build with glibc >= 2.42

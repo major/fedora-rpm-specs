@@ -1,5 +1,5 @@
 Name:           gtypist
-Version:        2.10
+Version:        2.10.1
 Release:        %autorelease
 Summary:        GNU typing tutor
 License:        GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later

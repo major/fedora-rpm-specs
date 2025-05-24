@@ -29,7 +29,7 @@
 %endif
 
 %bcond bundled_sqlite %{with bootstrap}
-
+%bcond bundled_cares %{with bootstrap}
 # LTO is currently broken on Node.js builds
 %define _lto_cflags %{nil}
 
@@ -315,10 +315,14 @@ Conflicts: node <= 0.3.2-12
 Provides: nodejs-punycode = %{punycode_version}
 Provides: npm(punycode) = %{punycode_version}
 
+%if %{with bundled_cares}
 # Node.js has forked c-ares from upstream in an incompatible way, so we need
 # to carry the bundled version internally.
 # See https://github.com/nodejs/node/commit/766d063e0578c0f7758c3a965c971763f43fec85
 Provides: bundled(c-ares) = %{c_ares_version}
+%else
+BuildRequires: c-ares-devel
+%endif
 
 # Node.js is closely tied to the version of v8 that is used with it. It makes
 # sense to use the bundled version because upstream consistently breaks ABI
@@ -603,6 +607,7 @@ export PATH="${cwd}/.bin:$PATH"
            %{!?with_bundled_sqlite:--shared-sqlite} \
            --shared-brotli \
            --shared-libuv \
+           --shared-cares \
            --with-intl=small-icu \
            --with-icu-default-data-dir=%{icudatadir} \
            --without-corepack \

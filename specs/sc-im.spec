@@ -1,5 +1,5 @@
 Name:           sc-im         
-Version:        0.8.4
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Spreadsheet Calculator Improvised, ncurses based vim-like spreadsheet calculator 
 
@@ -7,7 +7,6 @@ License:        BSD-4-Clause
 URL:            https://github.com/andmarti1424/sc-im           
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz      
 
-Patch:          0001-fix-for-gcc-incompatability.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -65,6 +64,12 @@ Gosling and Mark Weiser, and mods were later added by Chuck Martin.
 %{_datadir}/sc-im/plot_pie
 %{_datadir}/sc-im/plot_scatter
 %{_datadir}/sc-im/sc-im_help
+
+# Themes
+%{_datadir}/themes/dracula.sc
+%{_datadir}/themes/old.sc
+%{_datadir}/themes/papercolor-dark.sc
+%{_datadir}/themes/prince.persia.sc
 
 %changelog
 %autochangelog

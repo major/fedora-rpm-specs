@@ -20,6 +20,9 @@ Patch:          %{url}/pull/289.patch
 # Do not include tests in bdists/wheels
 # https://github.com/jplana/python-etcd/pull/290
 Patch:          %{url}/pull/290.patch
+# Support Python 3.14
+# https://github.com/jplana/python-etcd/pull/294
+Patch:          %{url}/pull/294.patch
 
 #VCS: git:https://github.com/jplana/python-etcd
 

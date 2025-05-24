@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    8afe311eca49171bf95405cc0078be9a3821f9f2
+%global gh_commit    d364b9e5d0d3b18a2573351a1786fbf96b7e0792
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
-%global gh_date      2025-02-07
+%global gh_date      2025-05-21
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.0
-Release:        2%{?dist}
+Version:        8.0.2
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Thu May 22 2025 Remi Collet <remi@remirepo.net> - 8.0.2-1
+- update to 8.0.2
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 8.0.0-2
 - enable test suite
 

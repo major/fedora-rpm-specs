@@ -8,8 +8,7 @@
 %bcond bootstrap 0
 
 %bcond inline_snapshot %{undefined el10}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2356388
-%bcond orjson %{undefined el10}
+%bcond orjson 1
 # https://bugzilla.redhat.com/show_bug.cgi?id=2321338
 %bcond passlib %{undefined el10}
 # Not yet packaged: https://pypi.org/project/PyJWT/
@@ -999,6 +998,7 @@ ignore="${ignore-} --ignore=tests/test_fastapi_cli.py"
 ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_cookie_param_models/*"
 ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_header_param_models/*"
 ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_query_param_models/*"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_query_params_str_validations/test_tutorial015.py"
 %endif
 
 %if %{without orjson}

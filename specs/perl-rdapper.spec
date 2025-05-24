@@ -1,5 +1,5 @@
 Name:           perl-rdapper
-Version:        1.10
+Version:        1.12
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 22 2025 Petr Pisar <ppisar@redhat.com> - 1.12-1
+- 1.12 bump
+
 * Wed Mar 19 2025 Petr Pisar <ppisar@redhat.com> - 1.10-1
 - 1.10 bump
 

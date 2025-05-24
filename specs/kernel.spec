@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.15.0
 %define specversion 6.15.0
 %define patchversion 6.15
-%define pkgrelease 0.rc7.58
+%define pkgrelease 0.rc7.250522gd608703fcdd9.59
 %define kversion 6
-%define tarfile_release 6.15-rc7
+%define tarfile_release 6.15-rc7-14-gd608703fcdd9
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.58%{?buildid}%{?dist}
+%define specrelease 0.rc7.250522gd608703fcdd9.59%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.0
 
@@ -4259,11 +4259,18 @@ fi\
 #
 #
 %changelog
-* Tue May 20 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.0-0.rc7.58]
-- Revert "loop: Add sanity check for read/write_iter" (Justin M. Forbes)
+* Thu May 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc7.d608703fcdd9.59]
+- Linux v6.15.0-0.rc7.d608703fcdd9
 
-* Tue May 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc7.58]
-- powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+* Wed May 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc7.4a95bc121ccd.58]
+- redhat/configs: automotive: enable MHI_BUS_EP (Eric Chanudet)
+- Fix PHYSICAL_ALIGN for x86 Fedora (Justin M. Forbes)
+- Switch ZSWAP_ZPOOL_DEFAULT to ZSMALLOC as ZBUD has been removed (Justin M. Forbes)
+- redhat: configs: rhel: Enable CX231XX drivers (Kate Hsuan)
+- configs: add redhat/configs/common/generic/CONFIG_OBJTOOL_WERROR (Ryan Sullivan) [RHEL-85301]
+- redhat: make ENABLE_WERROR also enable OBJTOOL_WERROR (Ryan Sullivan) [RHEL-85301]
+- redhat/configs: Enable CONFIG_X86_POSTED_MSI (Jerry Snitselaar)
+- Linux v6.15.0-0.rc7.4a95bc121ccd
 
 * Mon May 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.15.0-0.rc7.57]
 - redhat/configs: remove CRC16 config files (Scott Weaver)

@@ -1,7 +1,7 @@
 %global upstreamname HIPIFY
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # This is a clang tool so best to build with clang
@@ -76,6 +76,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

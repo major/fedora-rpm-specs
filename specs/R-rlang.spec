@@ -59,6 +59,10 @@ pushd %{packname}
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' DESCRIPTION
+
+%if %{without suggests}
+rm -f tests/testthat/test-deparse.R # pillar stuff
+%endif
 popd
 
 
@@ -77,7 +81,7 @@ export LANG=C.UTF-8
 %if %{with suggests}
 %{_bindir}/R CMD check %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes --no-manual
 %endif
 
 

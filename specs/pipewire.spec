@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 4
-%global microversion 2
+%global microversion 3
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -554,6 +554,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf
 %{_datadir}/pipewire/pipewire.conf.avail/10-rates.conf
 %{_datadir}/pipewire/pipewire.conf.avail/20-upmix.conf
+%{_datadir}/pipewire/pipewire.conf.avail/50-raop.conf
 %{_datadir}/pipewire/minimal.conf
 %{_datadir}/pipewire/filter-chain.conf
 %{_datadir}/pipewire/filter-chain/*.conf
@@ -885,6 +886,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu May 22 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.3-1
+- Update version to 1.4.3
+
 * Fri Apr 24 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.2-2
 - Rebuild for libcamera
 

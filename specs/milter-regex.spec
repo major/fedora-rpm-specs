@@ -7,7 +7,7 @@
 
 Name:		milter-regex
 Version:	2.7
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Milter plug-in for regular expression filtering
 License:	BSD-2-Clause
 URL:		http://www.benzedrine.ch/milter-regex.html
@@ -51,7 +51,7 @@ EOF
 
 %build
 make %{?_smp_mflags} -f Makefile.linux \
-	CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192 -std=gnu17" \
+	CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192 -DSM_CONF_STDBOOL_H=1" \
 	LDFLAGS="-Wl,-z,now -Wl,-z,relro %{?__global_ldflags} -Wl,--as-needed -L/usr/lib/libmilter -lmilter -lpthread"
 
 %install
@@ -106,6 +106,9 @@ exit 0
 %endif
 
 %changelog
+* Thu May 22 2025 Paul Howarth <paul@city-fan.org> - 2.7-18
+- Build with -DSM_CONF_STDBOOL_H=1 so it's not necessary to use -std=gnu17
+
 * Wed Feb 12 2025 Paul Howarth <paul@city-fan.org> - 2.7-17
 - Drop EL-7 support
 - Add sysusers.d config file to allow rpm to create users/groups automatically

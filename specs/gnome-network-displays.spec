@@ -1,7 +1,7 @@
 %global major_minor_version %%(cut -d "." -f 1,2 <<<%{version})
 
 Name:           gnome-network-displays
-Version:        0.96.0
+Version:        0.97.0
 Release:        1%{?dist}
 Summary:        Screencasting for GNOME
 
@@ -79,6 +79,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Thu May 22 2025 Packit <hello@packit.dev> - 0.97.0-1
+- Update to version 0.97.0
+- Resolves: rhbz#2367943
+
 * Mon Apr 07 2025 Packit <hello@packit.dev> - 0.96.0-1
 - Update to version 0.96.0
 - Resolves: rhbz#2354531

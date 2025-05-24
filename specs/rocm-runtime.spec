@@ -13,7 +13,7 @@
 %global enableimage 1
 %endif
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
@@ -183,6 +183,9 @@ fi
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
 - Update to 6.4.0
 

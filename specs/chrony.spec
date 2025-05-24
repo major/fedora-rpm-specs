@@ -10,7 +10,7 @@
 
 Name:           chrony
 Version:        4.7
-Release:        0.1.pre1%{?dist}
+Release:        0.2.pre1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -98,6 +98,10 @@ rm -f getdate.c
 mv clknetsim-*-%{clknetsim_ver}* test/simulation/clknetsim
 
 %build
+%ifarch aarch64
+# workaround for bug #2367978
+CFLAGS="$RPM_OPT_FLAGS -fno-inline"
+%endif
 %configure \
 %{?with_debug: --enable-debug} \
         --enable-ntp-signd \
@@ -206,6 +210,9 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Thu May 22 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-0.2.pre1
+- add workaround for broken build on aarch64
+
 * Wed May 21 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-0.1.pre1
 - update to 4.7-pre1
 

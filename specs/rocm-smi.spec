@@ -1,5 +1,5 @@
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -14,7 +14,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -118,6 +118,9 @@ fi
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Sat Apr 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - devel requires libdrm-devel
 - refactor empty return patch

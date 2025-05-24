@@ -1,26 +1,21 @@
 Name:           perl-Text-FindIndent
-Version:        0.11
-Release:        28%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Heuristically determine the indent style
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-FindIndent
-Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Text-FindIndent-%{version}.tar.gz
-# Remove using of use_ptar from Makefile. It is used to create correct
-# archive on Windows
-Patch0:         Text-FindIndent-0.11-Remove-use_ptar-from-Makefile.patch
-# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148296
-Patch1:         Text-FindIndent-0.11-Remove-using-of-MI-DSL.patch
+Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Text-FindIndent-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(constant)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Spec)
@@ -30,13 +25,22 @@ BuildRequires:  perl(Test::More) >= 0.80
 This is an experimental distribution that attempts to intuit the underlying
 indent "policy" for a text file (most likely a source code file).
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Text-FindIndent-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-# Remove bundled modules
-rm -rf ./inc
-perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -44,7 +48,16 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -54,7 +67,14 @@ make test
 %{perl_vendorlib}/Text*
 %{_mandir}/man3/Text*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu May 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-1
+- 0.12 bump (rhbz#2367314)
+- Package tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

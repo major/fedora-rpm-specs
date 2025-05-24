@@ -5,15 +5,15 @@
 %global toolchain clang
 
 # Sometimes releases require legacy versions of LLVM
-%if 0%{?fedora} && 0%{?fedora} >= 41
+%if 0%{?fedora} && 0%{?fedora} > 43
 %global llvm_legacy 1
 %else
 %global llvm_legacy 0
 %endif
-%global llvm_legacy_ver 18
+%global llvm_legacy_ver 20
 
 Name: pocl
-Version: 6.0
+Version: 7.0
 Release: %autorelease
 
 # The entire code is under MIT
@@ -23,9 +23,6 @@ License: MIT AND BSD-1-Clause AND (GPL-3.0-or-later OR LGPL-3.0-or-later)
 Summary: Portable Computing Language - an OpenCL implementation
 URL: https://github.com/%{name}/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Add missing includes for modern libstdc++ versions
-Patch100: %{name}-6.0-add-missing-includes.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42
@@ -44,18 +41,19 @@ BuildRequires: compiler-rt
 BuildRequires: llvm-devel
 %endif
 
-BuildRequires: cmake
 BuildRequires: glew-devel
 BuildRequires: hwloc-devel
 BuildRequires: libedit-devel
-BuildRequires: libtool
 BuildRequires: libtool-ltdl-devel
 BuildRequires: mesa-libEGL-devel
 BuildRequires: mesa-libGL-devel
-BuildRequires: ninja-build
 BuildRequires: ocl-icd-devel
 BuildRequires: uthash-devel
 BuildRequires: zlib-devel
+
+BuildRequires: cmake
+BuildRequires: libtool
+BuildRequires: ninja-build
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1082364
 Requires: libstdc++-devel%{?_isa}
@@ -138,7 +136,7 @@ export CXX="clang++-%{llvm_legacy_ver}"
 
 %files
 %doc README.md doc/sphinx/source/*.rst
-%license LICENSE
+%license COPYING
 %{_sysconfdir}/OpenCL/vendors/%{name}.icd
 %{_libdir}/lib%{name}.so.2*
 %{_datadir}/%{name}/

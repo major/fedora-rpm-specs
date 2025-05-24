@@ -5,28 +5,14 @@
 
 Name: totem
 Epoch: 1
-Version: 43.1
-Release: 6%{?dist}
+Version: 43.2
+Release: 1%{?dist}
 Summary: Movie player for GNOME
 
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License: LicenseRef-Callaway-GPLv2+-with-exceptions
 URL: https://wiki.gnome.org/Apps/Videos
 Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/369
-# https://gitlab.gnome.org/GNOME/totem/-/issues/593
-# https://bugzilla.redhat.com/show_bug.cgi?id=2176726
-# Fixes crash when trying to delete last video
-Patch: 0001-grilo-Fix-crash-when-deleting-video.patch
-# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/410
-Patch: 0001-remove-broken-plugins.patch
-# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/422
-Patch: 0001-add-new-AVI-mime-type.patch
-# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/426
-Patch: 0001-thumbnailer-Bump-memory-usage-limit.patch
-Patch: 0001-thumbnailer-Work-around-OpenBLAS-thread-usage.patch
-Patch: 0001-thumbnailer-Set-number-of-threads-to-1-for-common-de.patch
 
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(gnome-desktop-3.0)
@@ -189,6 +175,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_datadir}/gir-1.0/Totem-1.0.gir
 
 %changelog
+* Thu May 22 2025 nmontero <nmontero@redhat.com> - 1:43.2-1
+- Update to 43.2
+
 * Fri May 09 2025 Robert Mader <robert.mader@collabora.com> - 1:43.1-6
 - Fixed thumbnailer crashing on setups with many CPU cores/threads
 

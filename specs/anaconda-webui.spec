@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        36
+Version:        38
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,19 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu May 22 2025 Packit <hello@packit.dev> - 38-1
+- Fix gnome detection logic: use process inspection to detect GNOME instead of XDG_CURRENT_DESKTOP
+
+* Wed May 21 2025 Packit <hello@packit.dev> - 37.1-1
+- show bootloader devices on review screen
+- components: storage: fix disabled radio buttons
+- storage: avoid rendering wizard pages while Cockpit Storage is active
+- components: keyboard: run Gnome keyboard settings only on Gnome variant
+- components: disk encryption: show selected keyboard also for non-gnome
+- components: localization: show all keyboards for selection
+- build: Introduce node_modules/ as submodule
+- Support home reuse also on MBR partitioned disks
+
 * Mon May 12 2025 Packit <hello@packit.dev> - 36-1
 - build: bring back cockpit-storaged requirement
 

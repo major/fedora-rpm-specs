@@ -1,6 +1,6 @@
 Name:           podman-compose
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -34,12 +34,19 @@ unmodified and rootless.
 #Drop spurious shebang
 sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 
+#Install bash completion
+install -Dpm 0644 completion/bash/podman-compose -t %{buildroot}%{bash_completions_dir}
+
 
 %files -f %{pyproject_files}
 %doc README.md CONTRIBUTING.md docs/ examples
 %{_bindir}/podman-compose
+%{bash_completions_dir}/podman-compose
 
 %changelog
+* Thu May 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-2
+- Ship bash completion
+
 * Mon May 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-1
 - 1.4.0
 

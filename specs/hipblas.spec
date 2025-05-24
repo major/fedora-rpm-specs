@@ -6,7 +6,7 @@
 
 %global upstreamname hipBLAS
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -40,7 +40,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -169,6 +169,9 @@ fi
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Cleanup module build
 

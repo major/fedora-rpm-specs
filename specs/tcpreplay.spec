@@ -1,5 +1,5 @@
 # EL4 doesn't have libpcap-devel
-%if 0%{?rhel} && "%rhel" < "5"
+%if 0%{?rhel} && 0%{?rhel} < 5
 %define pcapdep libpcap
 %else
 %define pcapdep libpcap-devel
@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.

@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate etcetera
+%global crate outref
 
-Name:           rust-etcetera0.8
-Version:        0.8.0
+Name:           rust-outref
+Version:        0.5.2
 Release:        %autorelease
-Summary:        Obtain configuration, data, cache, & other directories
+Summary:        Out reference
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/etcetera
+License:        MIT
+URL:            https://crates.io/crates/outref
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          etcetera-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An unopinionated library for obtaining configuration, data, cache, &
-other directories.}
+Out reference.}
 
 %description %{_description}
 
@@ -33,9 +30,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%exclude %{crate_instdir}/justfile
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -52,6 +51,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# remove un-needed files
+rm -rfv .github
+
 %cargo_prep
 
 %generate_buildrequires

@@ -1,3 +1,7 @@
+%bcond inline_snapshot 1
+# Currently, all tests are snapshot-based.
+%bcond tests %{with inline_snapshot}
+
 Name:           python-rich-toolkit
 Version:        0.14.6
 Release:        %autorelease
@@ -13,12 +17,16 @@ BuildOption(install):   -l rich_toolkit
 
 BuildArch:      noarch
 
+%if %{with tests}
 # Testing dependencies; these are included in the “dev” dependency group, but
 # this also includes a number of dependencies that are only used for debugging,
 # typechecking, running the examples, etc.; we therefore maintain this list
 # manually rather than attempting to generate it.
 BuildRequires:  %{py3_dist pytest} >= 8.3.2
+%if %{with inline_snapshot}
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.12.1
+%endif
+%endif
 
 %global common_description %{expand:
 This is a very opinionated set of components for building CLI applications. It
@@ -34,7 +42,14 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%if %{with tests}
+%if %{without inline_snapshot}
+ignore="${ignore-} --ignore=tests/test_toolkit.py"
+ignore="${ignore-} --ignore=tests/test_tagged_style.py"
+%endif
+
+%pytest ${ignore-} -v
+%endif
 
 
 %files -n python3-rich-toolkit -f %{pyproject_files}

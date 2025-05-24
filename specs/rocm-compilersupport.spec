@@ -6,7 +6,7 @@
 %global comgr_full_api_ver %{comgr_maj_api_ver}.0.0
 # Upstream tags are based on rocm releases:
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 19
@@ -70,7 +70,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        8.rocm%{rocm_version}%{?dist}
+Release:        9.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1258,6 +1258,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 19-9.rocm6.4.1:
+- Update to 6.4.1
+
 * Tue May 13 2025 Egbert Eich <eich@suse.com> - 19-8.rocm6.4.0
 - For SUSE address circular dependency when building in OBS.
 

@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -50,6 +50,9 @@ library header file documentation.
 %autosetup -n %{name}-soapy-sdr-%{version}
 
 %build
+# TODO: Remove in the next release
+# https://github.com/pothosware/SoapySDR/commit/fbf9f3c328868f46029284716df49095ab7b99a6
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export Python_ADDITIONAL_VERSIONS="%{python3_version}"
 %cmake -DUSE_PYTHON_CONFIG=ON -DPYTHON3_EXECUTABLE=%{__python3} -DSOAPY_SDR_EXTVER=%{release}
 %cmake_build
@@ -95,6 +98,9 @@ ctest -V %{?_smp_mflags}
 %{_pkgdocdir}/*
 
 %changelog
+* Thu May 22 2025 Cristian Le <git@lecris.dev> - 0.8.1-16
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

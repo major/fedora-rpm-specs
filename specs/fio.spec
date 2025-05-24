@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.39
-Release:	3%{?dist}
+Version:	3.40
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -289,6 +289,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Thu May 22 2025 Pavel Reichl <preichl@redhat.com> - 3.40-1
+- Update to upstream v3.40
+- Related: rhbz#2367663
+
 * Mon Mar 10 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.39-3
 - Properly enable tcmalloc, only in Fedora
 - Related: rhbz#2299495

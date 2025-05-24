@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -17,15 +17,17 @@ Summary:        Library for accessing the Czech Data Boxes
 ## Not delivered in any binary package
 # aclocal.m4:   GPL-2.0-or-later WITH Libtool-exception AND FSFULLR
 # client/Makefile.in:       FSFULLR
-# config.guess: GPL-3.0-or-later WITH Libtool-exception
+# config.guess: GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # config.rpath: FSFULLR
-# config.sub:   GPL-3.0-or-later WITH Libtool-exception
+# config.sub:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # configure:    GPL-2.0-or-later WITH Libtool-exception AND FSFUL
 # depcomp:      GPL-2.0-or-later WITH Libtool-exception
 # doc/Makefile.in:  FSFULLR
 # install-sh:       X11 AND LicenseRef-Fedora-Public-Domain
 # ltmain.sh:        GPL-2.0-or-later WITH Libtool-exception AND
-#                   GPL-3.0-or-later AND GPL-3.0-or-later WITH Libtool-exception
+#                   GPL-3.0-or-later WITH Libtool-exception AND
+#                   TODO: <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/661>
+#                   GPL-3.0-or-later
 # m4/gettext.m4:    FSFULLR
 # m4/gpgme.m4:      FSFULLR
 # m4/iconv.m4:      FSFULLR
@@ -44,7 +46,8 @@ Summary:        Library for accessing the Czech Data Boxes
 # m4/progtest.m4:   FSFULLR
 # Makefile.in:      FSFULLR
 # missing:          GPL-2.0-or-later WITH Libtool-exception
-# po/Makefile.in.in:    (Something similar to FSFUL)
+# po/Makefile.in.in:    LicenseRef-Fedora-UltraPermissive
+#                       TODO: <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/764>
 # src/Makefile.in:          FSFULLR
 # test/Makefile.in:         FSFULLR
 # test/offline/Makefile.in: FSFULLR
@@ -52,6 +55,7 @@ Summary:        Library for accessing the Czech Data Boxes
 # test/simline/Makefile.in: FSFULLR
 # test-driver:      GPL-2.0-or-later WITH Libtool-exception
 License:        LGPL-3.0-or-later AND GPL-3.0-or-later
+#SourceLicense:  %%{license} AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-2.0-or-later WITH Libtool-exception AND FSFULLR AND FSFUL AND X11 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive
 URL:            http://xpisar.wz.cz/%{name}/
 Source0:        %{url}dist/%{name}-%{version}.tar.xz
 Source1:        %{url}dist/%{name}-%{version}.tar.xz.asc
@@ -69,6 +73,8 @@ Patch2:         libisds-0.11.2-client-sendxmldoc-Fix-a-use-after-free-on-two-pla
 Patch3:         libisds-0.11.2-Fix-building-with-libxml2-2.12.0.patch
 # Fix reporting an amount of transferred data, in upstream after 0.11.0
 Patch4:         libisds-0.11.2-Fix-using-CURLOPT_XFERINFOFUNCTION-curl-option.patch
+# Fix building with curl-8.14.0
+Patch5:         libisds-0.11.2-Fix-passing-integers-to-curl_easy_setopt.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -179,6 +185,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Wed May 21 2025 Petr Pisar <ppisar@redhat.com> - 0.11.2-13
+- Fix building with curl-8.14.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

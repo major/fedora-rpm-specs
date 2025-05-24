@@ -1,14 +1,11 @@
 Name:           libzfcphbaapi
 Summary:        HBA API for the zFCP device driver
-Version:        3.0.2
-Release:        3%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 License:        EPL-1.0
 URL:            https://github.com/ibm-s390-linux/libzfcphbaapi
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         %{name}-3.0.2-fedora.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2340768
-# https://github.com/ibm-s390-linux/libzfcphbaapi/pull/3
-Patch2:         %{name}-3.0.2-gcc15.patch
 
 ExclusiveArch:  s390 s390x
 
@@ -88,6 +85,9 @@ fi
 
 
 %changelog
+* Thu May 22 2025 Dan Horák <dan[at]danny.cz> - 3.0.3-1
+- updated to 3.0.3
+
 * Fri Jan 31 2025 Dan Horák <dan[at]danny.cz> - 3.0.2-3
 - fix build with GCC 15 (rhbz#2340768)
 

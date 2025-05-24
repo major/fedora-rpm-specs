@@ -14,7 +14,7 @@
 
 Name:		qdmr
 Version:	0.12.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
 URL:		https://dm3mat.darc.de/qdmr/
@@ -65,7 +65,7 @@ This library is built from the qdmr SRPM.
 
 %package -n libdmrconf-doc
 Summary:	Documentation for libdmrconf
-Requires:	libdmrconf{?_isa} = %{version}-%{release}
+Requires:	libdmrconf = %{version}-%{release}
 BuildArch:	noarch
 
 %description -n libdmrconf-doc
@@ -136,6 +136,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Thu May 22 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.12.1-5
+- Fixed libdmrconf requirement
+  Resolves: rhbz#2366685
+
 * Tue May 20 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.12.1-4
 - Fixed icons path
 

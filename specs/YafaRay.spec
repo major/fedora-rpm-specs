@@ -44,6 +44,10 @@ Patch2:         YafaRay-include.patch
 BuildRequires:	blender-rpm-macros
 BuildRequires:	boost-devel
 BuildRequires:	cmake
+# Note: Cannot use ninja with swig apparently
+# ninja: error: build.ninja:4216: multiple rules generate src/bindings/yafaray_v3_interface.py
+%global _cmake_generator "Unix Makefiles"
+BuildRequires:	make
 BuildRequires:	gcc-c++
 #BuildRequires:	git
 BuildRequires:	libappstream-glib
@@ -153,6 +157,8 @@ find . -name "*.c" -exec chmod 644 {} \;
 find . -name "*.cc" -exec chmod 644 {} \;
 
 %build
+# TODO: Remove in the next release
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
 	-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true \
 	-DCMAKE_SKIP_RPATH:BOOL=true \

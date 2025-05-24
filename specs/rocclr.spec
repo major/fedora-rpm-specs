@@ -7,7 +7,7 @@
 
 %global rocm_major 6
 %global rocm_minor 4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -383,6 +383,9 @@ fi
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Fri May 02 2025 Jeremy Newton <alexjnewt@hotmail.com> - 6.4.0-3
 - Use khrono OpenCL ICD for Fedora
 

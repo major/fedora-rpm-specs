@@ -64,6 +64,8 @@ rm -rf dump/*.c
 %endif
 
 %build
+autoreconf -fiv
+
 export CFLAGS="$RPM_OPT_FLAGS -Wall -Wpointer-arith -Wstrict-prototypes \
 -Wmissing-prototypes -Wno-char-subscripts -fno-strict-aliasing"
 

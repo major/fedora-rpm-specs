@@ -6,7 +6,7 @@
 
 %global upstreamname RCCL
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -202,7 +202,10 @@ fi
 %endif
 
 %changelog
-* Tue Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
+* Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Fix suse
 
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1

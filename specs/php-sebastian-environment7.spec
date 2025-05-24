@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    855f3ae0ab316bbafe1ba4e16e9f3c078d24a0c5
+%global gh_commit    a5c75038693ad2e8d4b6c15ba2403532647830c4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
-%global gh_date      2024-07-03
+%global gh_date      2025-05-21
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -26,8 +26,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.2.0
-Release:        3%{?dist}
+Version:        7.2.1
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -45,8 +45,8 @@ BuildRequires:  php-posix
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^11.0"
-BuildRequires:  phpunit11
+#        "phpunit/phpunit": "^11.3"
+BuildRequires:  phpunit11 >= 11.3
 %endif
 
 # from composer.json, "require": {
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Thu May 22 2025 Remi Collet <remi@remirepo.net> - 7.2.1-1
+- update to 7.2.1
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 7.2.0-3
 - enable test suite
 

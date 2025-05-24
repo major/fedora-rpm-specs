@@ -1,84 +1,85 @@
 Name:           ezstream
 Version:        1.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line source client for Icecast media streaming servers
 ## Not installed files:
-# aclocal.m4:               FSFULLR
-# build-aux/compile:        GPLv2+ with Autoconf exception
-# build-aux/config.guess:   GPLv3+ with Autoconf exception
+# aclocal.m4:               FSFULLRWD
+# build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # build-aux/config.rpath:   FSFULLR
-# build-aux/config.sub:     GPLv3+ with Autoconf exception
-# build-aux/depcomp:        GPLv2+ with Autoconf exception
-# build-aux/install-sh:     MIT and Public Domain
-# build-aux/ltmain.sh:      GPLv3+ and
-#                           GPLv3+ with Libtool exception and
-#                           GPLv2+ with Libtool exception
-# build-aux/missing:        GPLv2+ with Autoconf exception
-# build-aux/test-driver:    GPLv2+ with Autoconf exception
-# compat/getopt.c:          MIT and BSD
-# compat/reallocarray.c:    MIT
-# configure:                GPLv2+ with Libtool exception and FSFUL
-# doc/Makefile.in:          FSFULLR
-# examples/Makefile.in:     FSFULLR
+# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/install-sh:     X11 AND LicenseRef-Fedora-Public-Domain
+# build-aux/ltmain.sh:      GPL-2.0-or-later WITH Libtool-exception AND
+#                           GPL-3.0-or-later WITH Libtool-exception AND
+#                           TODO:
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/661>
+#                           GPL-3.0-or-later
+# build-aux/missing:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/test-driver:    GPL-2.0-or-later WITH Autoconf-exception-generic
+# compat/getopt.c:          ISC AND BSD-2-Clause
+# compat/reallocarray.c:    ISC
+# configure:                FSFUL AND GPL-2.0-or-later WITH Libtool-exception
+# doc/Makefile.in:          FSFULLRWD
+# examples/Makefile.in:     FSFULLRWD
 # INSTALL:                  FSFUL
-# m4/attribute.m4:          MIT
-# m4/ccflags.m4:            MIT
-# m4/libshout.m4:           MIT
-# m4/libtool.m4:            GPLv2+ with Libtool exception and FSFULLR and FSFUL
-# m4/libxml2.m4:            MIT
+# m4/attribute.m4:          ISC
+# m4/ccflags.m4:            ISC
+# m4/libshout.m4:           ISC
+# m4/libtool.m4:            FSFULLR AND GPL-2.0-or-later WITH Libtool-exception AND FSFUL
+# m4/libxml2.m4:            ISC
 # m4/ltoptions.m4:          FSFULLR
 # m4/ltsugar.m4:            FSFULLR
 # m4/ltversion.m4:          FSFULLR
-# m4/Makefile.in:           FSFULLR
-# m4/tree.m4:               MIT
-# Makefile.in:              FSFULLR
-# src/Makefile.in:          FSFULLR
-# tests/Makefile.in:        FSFULLR
+# m4/Makefile.in:           FSFULLRWD
+# m4/tree.m4:               ISC
+# Makefile.in:              FSFULLRWD
+# src/Makefile.in:          FSFULLRWD
+# tests/Makefile.in:        FSFULLRWD
 ## Installed files:
-# compat/strlcat.c:         MIT
-# compat/strlcpy.c:         MIT
-# compat/strtonum.c:        MIT
-# COPYING:                  GPLv2
-# doc/ezstream-cfgmigrate.1.in.in:  MIT
-# doc/ezstream-file.sh.1*:  MIT
-# doc/ezstream.1*:          GPLv2
-# src/cfg.c:                MIT
-# src/cfg.h:                MIT
-# src/cfg_decoder.c:        MIT
-# src/cfg_decoder.h:        MIT
-# src/cfg_encoder.c:        MIT
-# src/cfg_encoder.h:        MIT
-# src/cfg_intake.c:         MIT
-# src/cfg_intake.h:         MIT
-# src/cfg_private.h:        MIT
-# src/cfg_server.c:         MIT
-# src/cfg_server.h:         MIT
-# src/cfg_stream.c:         MIT
-# src/cfg_stream.h:         MIT
-# src/cfgfile_xml.c:        MIT
-# src/cfgfile_xml.h:        MIT
-# src/cmdline.c:            MIT
-# src/cmdline.h:            MIT
-# src/ezconfig0.c:          GPLv2
-# src/ezconfig0.h:          GPLv2
-# src/ezstream.c:           GPLv2
-# src/ezstream.h:           MIT
-# src/ezstream-cfgmigrate.c:    MIT
-# src/ezstream-file.sh.in:  MIT
-# src/log.c:                MIT
-# src/log.h:                MIT
-# src/mdata.c:              MIT
-# src/mdata.h:              MIT
-# src/playlist.c:           MIT
-# src/playlist.h:           MIT
-# src/stream.c:             MIT
-# src/stream.h:             MIT
-# src/util.c:               GPLv2
-# src/util.h:               GPLv2
-# src/xalloc.c:             MIT
-# src/xalloc.h:             MIT
-# Automatically converted from old format: GPLv2 and MIT - review is highly recommended.
-License:        GPL-2.0-only AND LicenseRef-Callaway-MIT
+# compat/strlcat.c:         ISC
+# compat/strlcpy.c:         ISC
+# compat/strtonum.c:        ISC
+# COPYING:                  GPL-2.0-only
+# doc/ezstream-cfgmigrate.1.in.in:  ISC
+# doc/ezstream-file.sh.1.in.in:     ISC
+# doc/ezstream.1.in.in:             GPL-2.0-only
+# src/cfg.c:                ISC
+# src/cfg.h:                ISC
+# src/cfg_decoder.c:        ISC
+# src/cfg_decoder.h:        ISC
+# src/cfg_encoder.c:        ISC
+# src/cfg_encoder.h:        ISC
+# src/cfg_intake.c:         ISC
+# src/cfg_intake.h:         ISC
+# src/cfg_private.h:        ISC
+# src/cfg_server.c:         ISC
+# src/cfg_server.h:         ISC
+# src/cfg_stream.c:         ISC
+# src/cfg_stream.h:         ISC
+# src/cfgfile_xml.c:        ISC
+# src/cfgfile_xml.h:        ISC
+# src/cmdline.c:            ISC
+# src/cmdline.h:            ISC
+# src/ezconfig0.c:          GPL-2.0-only
+# src/ezconfig0.h:          GPL-2.0-only
+# src/ezstream.c:           GPL-2.0-only
+# src/ezstream.h:           ISC
+# src/ezstream-cfgmigrate.c:    ISC
+# src/ezstream-file.sh.in:  ISC
+# src/log.c:                ISC
+# src/log.h:                ISC
+# src/mdata.c:              ISC
+# src/mdata.h:              ISC
+# src/playlist.c:           ISC
+# src/playlist.h:           ISC
+# src/stream.c:             ISC
+# src/stream.h:             ISC
+# src/util.c:               GPL-2.0-only
+# src/util.h:               GPL-2.0-only
+# src/xalloc.c:             ISC
+# src/xalloc.h:             ISC
+License:        GPL-2.0-only AND ISC
 URL:            https://www.icecast.org/%{name}/
 Source0:        https://downloads.xiph.org/releases/%{name}/%{name}-%{version}.tar.gz
 # Link to distribution-wide certificate store, not upsreamable
@@ -113,7 +114,7 @@ Metadata support is provided by TagLib library.
 %setup -q
 %patch -P0 -p1
 # Regenerate a build script
-autoreconf -fi
+autoreconf -I /usr/share/gettext/m4 -fi
 # Remove bundled code
 rm compat/{getopt,reallocarray}.c
 # Copy examples for a documention
@@ -151,6 +152,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir} $RPM_BUILD_ROOT%{_datadir}/examples
 %{_mandir}/man1/ezstream-file.sh.1*
 
 %changelog
+* Thu May 22 2025 Petr Pisar <ppisar@redhat.com> - 1.0.2-12
+- Adapt to gettext-0.25
+- Correct a license tag to "GPL-2.0-only AND ISC"
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

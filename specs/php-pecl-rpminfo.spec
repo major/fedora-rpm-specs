@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-rpminfo
 #
-# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2018-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -17,10 +17,12 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:         0001-relax-test-for-RPM-5.patch
 
 ExcludeArch:    %{ix86}
 
@@ -56,6 +58,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RPMINFO_VERSION/{s/.* "//;s/".*$//;p}' php_rpminfo.h)
 if test "x${extver}" != "x%{version}"; then
@@ -123,6 +127,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu May 22 2025 Remi Collet <remi@remirepo.net> - 1.2.0-3
+- add upstream patch to relax test for RPM 5
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

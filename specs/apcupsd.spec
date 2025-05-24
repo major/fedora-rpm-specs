@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    37%{?dist}
+Release:    38%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPL-2.0-only
@@ -147,7 +147,7 @@ rm examples/*.in
 %{_bindir}/apcaccess
 %{_bindir}/apctest
 %{_bindir}/apcupsd
-%{_bindir}/smtp
+%exclude %{_bindir}/smtp
 
 %{_mandir}/*/*
 
@@ -181,6 +181,9 @@ rm examples/*.in
 
 
 %changelog
+* Thu May 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.14.14-38
+- Don't ship /usr/bin/smtp, not used, conflicts with opensmtpd.
+
 * Fri May 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.14.14-37
 - Move binaries from sbin to bin, 2365293.
 

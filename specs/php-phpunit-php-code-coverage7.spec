@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage7
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -30,7 +30,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        7.0.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PHP code coverage information
 
 # SPDX: Main license is BSD-3-Clause
@@ -47,7 +47,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with_tests}
 BuildRequires:  php(language) >= 7.2
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 2.0.2          with php-composer(phpunit/php-file-iterator) <  3)
-BuildRequires:  (php-composer(phpunit/php-token-stream) >= 3.1.0           with php-composer(phpunit/php-token-stream) <  5)
+BuildRequires:  (php-composer(phpunit/php-token-stream) >= 4.0             with php-composer(phpunit/php-token-stream) <  5)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 1.2.1          with php-composer(phpunit/php-text-template) <  2)
 BuildRequires:  (php-composer(sebastian/code-unit-reverse-lookup) >= 1.0.1 with php-composer(sebastian/code-unit-reverse-lookup) <  2)
 BuildRequires:  (php-composer(sebastian/environment) >= 4.2.2              with php-composer(sebastian/environment) <  5)
@@ -75,7 +75,7 @@ Requires:       php(language) >= 7.1
 Requires:       php-dom
 Requires:       php-xmlwriter
 Requires:       (php-composer(phpunit/php-file-iterator) >= 2.0.2          with php-composer(phpunit/php-file-iterator) <  3)
-Requires:       (php-composer(phpunit/php-token-stream) >= 3.1.1           with php-composer(phpunit/php-token-stream) <  5)
+Requires:       (php-composer(phpunit/php-token-stream) >= 4.0             with php-composer(phpunit/php-token-stream) <  5)
 Requires:       (php-composer(phpunit/php-text-template) >= 1.2.1          with php-composer(phpunit/php-text-template) <  2)
 Requires:       (php-composer(sebastian/code-unit-reverse-lookup) >= 1.0.1 with php-composer(sebastian/code-unit-reverse-lookup) <  2)
 Requires:       (php-composer(sebastian/environment) >= 4.2.2              with php-composer(sebastian/environment) <  5)
@@ -86,10 +86,7 @@ Requires:       (php-composer(theseer/tokenizer) >= 1.1.3                  with 
 Suggests:       php-xdebug
 Recommends:     php-pcov
 # From phpcompatinfo report for version 5.0.0
-Requires:       php-reflection
-Requires:       php-date
 Requires:       php-json
-Requires:       php-spl
 Requires:       php-tokenizer
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -126,10 +123,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/SebastianBergmann/FileIterator2/autoload.php',
-    [
-        '%{php_home}/%{ns_vendor}/PhpTokenStream4/autoload.php',
-        '%{php_home}/%{ns_vendor}/PhpTokenStream3/autoload.php',
-	],
+    '%{php_home}/%{ns_vendor}/PhpTokenStream4/autoload.php',
     '%{php_home}/Text/Template/Autoload.php',
     '%{php_home}/%{ns_vendor}/CodeUnitReverseLookup/autoload.php',
     '%{php_home}/%{ns_vendor}/Environment4/autoload.php',
@@ -161,7 +155,7 @@ EOF
 
 
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     FILTER="--filter '^((?!(testCloverForFileWithIgnoredLines|testCloverForClassWithAnonymousFunction|testForFileWithIgnoredLines|testForClassWithAnonymousFunction|testForBankAccountTest|testGetLinesToBeIgnored3|testGetLinesToBeIgnoredOneLineAnnotations)).)*$'"
     $cmd $EXT \
@@ -183,6 +177,9 @@ exit $ret
 
 
 %changelog
+* Thu May 22 2025 Remi Collet <remi@remirepo.net> - 7.0.17-4
+- drop phpunit/php-token-stream v3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

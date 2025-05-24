@@ -1,6 +1,6 @@
 Name:           Coin4
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level 3D visualization library
 
 License:        BSD-3-Clause AND GPL-3.0-or-later
@@ -16,6 +16,11 @@ Patch3:         0011-Fix-SoCamera-manpage.patch
 # when running under Wayland so we patch it out.
 # https://forum.freecadweb.org/viewtopic.php?f=8&t=33359#p279513
 Patch4:         coin-no_glx.patch
+# Allow CMake 4.0 builds
+# Cherrypicked from:
+# - https://github.com/coin3d/coin/commit/36abede21bc47a72a5c9666e7ec321f7c54b70c5
+# - https://github.com/coin3d/coin/commit/ecd34feb12b652f935a901e38b1f8bdf63bf43a3
+Patch5:         Coin4-4.0.3-Allow_CMake_4.0.patch
 
 
 BuildRequires:  cmake
@@ -160,6 +165,9 @@ fi
 
 
 %changelog
+* Thu May 15 2025 Cristian Le <git@lecris.dev> - 4.0.3-3
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 668
-Release: 2%{?dist}
+Version: 678
+Release: 1%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 Source1: lesspipe.sh
@@ -33,7 +33,7 @@ files, and you'll use it frequently.
 %prep
 %setup -q
 %patch -P 4 -p1 -b .time
-%patch -P 5 -p1 -b .fsync
+%patch -P 5 -p2 -b .fsync
 %patch -P 6 -p1 -b .manpage-add-old-bot-option
 %patch -P 8 -p1 -b .lessecho-usage
 %patch -P 9 -p1 -b .less-filters-man
@@ -63,6 +63,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 %{_mandir}/man1/*
 
 %changelog
+* Thu May 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 678-1
+- updated to 678 (#2367012)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 668-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

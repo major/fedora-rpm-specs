@@ -11,6 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         xmvn5-snapshot-20250515.054327-9016d86.tar.zst
 Source21:       toolchains-openjdk21.xml
+Source25:       toolchains-openjdk25.xml
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -206,9 +207,6 @@ xmvn-subst -s -R %{buildroot} %{buildroot}%{_datadir}/%{name}/
 # /usr/bin/%{name}
 ln -s %{_datadir}/%{name}/bin/mvn %{buildroot}%{_bindir}/%{name}
 
-# mvn-local symlink
-ln -s %{name} %{buildroot}%{_bindir}/mvn-local
-
 # make sure our conf is identical to maven so yum won't freak out
 install -d -m 755 %{buildroot}%{_datadir}/%{name}/conf/
 cp -P ${maven_home}/conf/settings.xml %{buildroot}%{_datadir}/%{name}/conf/
@@ -221,9 +219,10 @@ rm -rf %{buildroot}%{_datadir}/%{name}/{configuration.xml,config.d/,conf/toolcha
 ln -sf %{_jpbindingdir}/%{name}-toolchains.xml %{buildroot}%{_datadir}/%{name}/conf/toolchains.xml
 install -p -m 644 %{SOURCE21} %{buildroot}%{_datadir}/%{name}/conf/toolchains-openjdk21.xml
 %jp_binding --verbose --base-pkg %{name}-minimal --binding-pkg %{name}-toolchain-openjdk21 --variant openjdk21 --ghost %{name}-toolchains.xml --target %{_datadir}/%{name}/conf/toolchains-openjdk21.xml --requires java-21-openjdk-devel
+install -p -m 644 %{SOURCE25} %{buildroot}%{_datadir}/%{name}/conf/toolchains-openjdk25.xml
+%jp_binding --verbose --base-pkg %{name}-minimal --binding-pkg %{name}-toolchain-openjdk25 --variant openjdk25 --ghost %{name}-toolchains.xml --target %{_datadir}/%{name}/conf/toolchains-openjdk25.xml --requires java-25-openjdk-devel
 
 %files
-%{_bindir}/mvn-local
 
 %files minimal -f .mfiles-xmvn
 %{_bindir}/%{name}

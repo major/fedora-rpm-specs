@@ -7,7 +7,7 @@
 %global upstreamname rocRAND
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -92,7 +92,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -293,6 +293,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Tue May 13 2025 Tim Flink <tflink@fedoraproject.org> - 6.3.0-6
 - updated logic to adhere to desired test and check behavior
 

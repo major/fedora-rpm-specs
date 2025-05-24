@@ -2,7 +2,7 @@
 
 Name:       calls
 Version:    48.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later

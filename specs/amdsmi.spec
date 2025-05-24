@@ -1,5 +1,5 @@
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -160,6 +160,7 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %{_bindir}/amd-smi
 %{_libexecdir}/amdsmi_cli
 %{python3_sitelib}/amdsmi
+%exclude %{_docdir}/amd_smi/copyright
 
 %files devel
 %dir %{_includedir}/amd_smi
@@ -176,6 +177,9 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %endif
 
 %changelog
+* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
+- Update to 6.4.1
+
 * Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
 - Update to 6.4.0
 

@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pnet_datalink
+%global crate postmark
 
-Name:           rust-pnet_datalink
-Version:        0.35.0
+Name:           rust-postmark
+Version:        0.11.3
 Release:        %autorelease
-Summary:        Cross-platform, datalink layer networking
+Summary:        Postmark rust client
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pnet_datalink
+URL:            https://crates.io/crates/postmark
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          pnet_datalink-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Cross-platform, datalink layer networking.}
+A rust library to query Postmark API.}
 
 %description %{_description}
 
@@ -34,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,64 +48,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+netmap-devel
+%package     -n %{name}+indexmap-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+netmap-devel %{_description}
+%description -n %{name}+indexmap-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "netmap" feature of the "%{crate}" crate.
+use the "indexmap" feature of the "%{crate}" crate.
 
-%files       -n %{name}+netmap-devel
+%files       -n %{name}+indexmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+netmap_sys-devel
+%package     -n %{name}+reqwest-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+netmap_sys-devel %{_description}
+%description -n %{name}+reqwest-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "netmap_sys" feature of the "%{crate}" crate.
+use the "reqwest" feature of the "%{crate}" crate.
 
-%files       -n %{name}+netmap_sys-devel
+%files       -n %{name}+reqwest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pcap-devel
+%package     -n %{name}+reqwest-native-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pcap-devel %{_description}
+%description -n %{name}+reqwest-native-tls-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pcap" feature of the "%{crate}" crate.
+use the "reqwest-native-tls" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pcap-devel
+%files       -n %{name}+reqwest-native-tls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+reqwest-rustls-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+reqwest-rustls-tls-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "reqwest-rustls-tls" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+reqwest-rustls-tls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -114,17 +101,17 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f reqwest
 
 %build
-%cargo_build
+%cargo_build -f reqwest
 
 %install
-%cargo_install
+%cargo_install -f reqwest
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f reqwest
 %endif
 
 %changelog

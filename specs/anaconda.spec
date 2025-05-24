@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.18
+Version: 43.20
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -502,6 +502,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 20 2025 Packit <hello@packit.dev> - 43.20-1
+- Support home reuse on MBR partitioned disks (rvykydal)
+- pyanaconda: localization: adjust existing keyboard API to fetch all available
+  keyboards (k.koukiou)
+- print newline after waiting (jbock-java)
+- storage: improve the guard for biosboot partition mount point constraint
+  (rvykydal)
+
 * Tue May 06 2025 Packit <hello@packit.dev> - 43.18-1
 - liveinst: Propagate the AT-SPI bus address to Anaconda for Wayland (neal)
 - Include bootc command in expected pykickstart commands (ppolawsk)

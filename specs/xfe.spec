@@ -1,12 +1,12 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
-%global	main_version	2.0.1
+%global	main_version	2.1
 
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
-Version:	%{main_version}.respin1
+Version:	%{main_version}
 Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
@@ -35,7 +35,9 @@ BuildRequires:	libXrandr-devel
 BuildRequires:	startup-notification-devel
 BuildRequires:	/usr/bin/pkexec
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(polkit-gobject-1)
+BuildRequires:	pkgconfig(udisks2)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-aux)
 BuildRequires:	pkgconfig(xcb-event)
@@ -171,6 +173,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Thu May 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1-1
+- 2.1
+
 * Tue Mar 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.1.respin1-1
 - 2.0.1 respin
 

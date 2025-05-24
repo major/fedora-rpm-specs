@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -21,9 +21,6 @@ BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6ShaderTools)
-BuildRequires:  cmake(Qt6Core5Compat)
-
-Requires:       qt6-qt5compat
 
 # Renamed from kf6-kirigami2
 Obsoletes:      kf6-kirigami2 < 5.246.0
@@ -107,6 +104,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed May 21 2025 Pavel Solovev <daron439@gmail.com> - 6.14.1-2
+- Remove unused dependency
+
 * Sat May 17 2025 Alessandro Astone <ales.astone@gmail.com> - 6.14.1-1
 - 6.14.1 bugfix release
 

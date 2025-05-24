@@ -923,6 +923,10 @@ fi
 # endif scl
 
 %changelog
+* Mon May 12 2025 Keith Seitz <keiths@redhat.com>
+- Remove gdb-rhbz1149205-catch-syscall-after-fork-test.patch
+  in favor of upstream commit.
+
 * Wed May 07 2025 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-6.8-bz466901-backtrace-full-prelinked.patch.  Prelinking
   is no longer supported, there seems little point keeping this test.

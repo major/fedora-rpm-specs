@@ -1,5 +1,5 @@
-Name:             python-alembic
-Version:          1.16.1
+Name:             python-alembic1.14
+Version:          1.14.1
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -10,7 +10,7 @@ Source0:          %{pypi_source alembic}
 
 # Specific to Fedora: The tzdata Python package is essentially just a copy of
 # the main tzdata package, we don’t need to have it.
-Patch:            python-alembic-1.15.2-no-tzdata-pkg.patch
+Patch:            python-alembic1.14-1.14.1-no-tzdata-pkg.patch
 
 BuildArch:        noarch
 
@@ -25,7 +25,7 @@ BuildRequires:    python3-pytest-xdist
 BuildRequires:    tzdata
 
 %global _description %{expand:
-Alembic is a database migration tool written by the author of SQLAlchemy. A
+Alembic is a database migrations tool written by the author of SQLAlchemy. A
 migrations tool offers the following functionality:
 
 • Can emit ALTER statements to a database in order to change the structure of
@@ -36,27 +36,31 @@ migrations tool offers the following functionality:
   similarly, doing the same steps in reverse.
 • Allows the scripts to execute in some sequential manner.
 
-Documentation and status of Alembic is at https://alembic.sqlalchemy.org/}
+Documentation and status of Alembic is at https://alembic.sqlalchemy.org/
+
+This is a compatibility package for older versions of SQLAlchemy.}
 
 %description %_description
 
 
-%package -n python3-alembic
+%package -n python3-alembic1.14
 Summary:          %summary
+Conflicts:        python3-alembic >= 1.15
+Provides:         python3-alembic = %{?epoch:%{epoch}:}%{version}-%{release}
 
-%description -n python3-alembic %_description
+%description -n python3-alembic1.14 %_description
 
 
 # Don’t use the %%pyproject_extras_subpkg macro, we want it to depend on the
 # main tzdata package, not python3dist(tzdata) (which we don’t have).
 
-%package -n python3-alembic+tz
-Summary: Metapackage for python3-alembic: tz extra
-Requires: python3-alembic = %{?epoch:%{epoch}:}%{version}-%{release}
+%package -n python3-alembic1.14+tz
+Summary: Metapackage for python3-alembic1.14: tz extra
+Requires: python3-alembic1.14 = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: tzdata
 
-%description -n python3-alembic+tz
-This is a metapackage bringing in tz extra requires for python3-alembic.
+%description -n python3-alembic1.14+tz
+This is a metapackage bringing in tz extra requires for python3-alembic1.14.
 It contains no code, just makes sure the dependencies are installed.
 
 
@@ -102,7 +106,7 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 %pytest %{?!rhel:-n auto}
 
 
-%files -n python3-alembic -f %{pyproject_files}
+%files -n python3-alembic1.14 -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with rpm -qL -p ...
 %doc README.rst CHANGES
 %{_bindir}/alembic
@@ -113,7 +117,7 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 %{_mandir}/man1/alembic-%{python3_version}.1{,.*}
 
 
-%files -n python3-alembic+tz
+%files -n python3-alembic1.14+tz
 %ghost %{python3_sitelib}/*.dist-info
 
 

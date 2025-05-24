@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.19.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -22,6 +22,9 @@ BuildRequires:	libbpf-devel
 
 Requires:	libbpf
 %endif
+
+# Patches
+Patch1: stalld-sched_attr-Do-not-define-for-glibc-2.41.patch
 
 %define _hardened_build 1
 
@@ -66,6 +69,9 @@ export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu May 22 2025 John Kacur <jkacur@redhat.com> - 1.19.8-3
+- Add patch to conditionally use glibc sched attar if available
+
 * Wed Feb 19 2025 Clark Williams <williams@redhat.com> - 1.19.8-2
 - sync up with other builds
 

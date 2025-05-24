@@ -2,18 +2,10 @@
 # https://github.com/varnishcache/varnish-cache/issues/2269
 %global debug_package %{nil}
 
-%if 0%{?rhel} == 7
-%global _use_internal_dependency_generator 0
-%global __find_provides %{_builddir}/%{name}-%{version}/find-provides %__find_provides
-%global __python /usr/bin/python3.4
-%else
-%global __python %{__python3}
-%endif
-
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi c3d5882003eb87e5e93dc09fb9513ca96db3ca3c
-%global vrt 20.1
+%global abi 2e8180f788715e5bc44df08479d60c9435d79bdd
+%global vrt 21.0
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
@@ -37,17 +29,13 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
+Source2: varnish.sysusers
 
-# Fix for h2 switch in varnishtest
-# https://github.com/varnishcache/varnish-cache/issues/4298
-Patch1:  varnish-7.7.0_fix_4298.patch
-
-%if 0%{?fedora} > 29 || 0%{?rhel} > 7
 Provides: varnish%{_isa} = %{version}-%{release}
 Provides: varnishd(abi)%{_isa} = %{abi}
 Provides: varnishd(vrt)%{_isa} = %{vrt}
@@ -62,14 +50,12 @@ Provides: vmod(purge)%{_isa} = %{version}-%{release}
 Provides: vmod(std)%{_isa} = %{version}-%{release}
 Provides: vmod(unix)%{_isa} = %{version}-%{release}
 Provides: vmod(vtc)%{_isa} = %{version}-%{release}
-%endif
 
+BuildRequires: systemd-rpm-macros
+%{?systemd_requires}
+%{?sysusers_requires_compat}
 
-%if 0%{?rhel} == 7
-BuildRequires: python34 python34-sphinx python34-docutils
-%else
 BuildRequires: python3, python3-sphinx, python3-docutils
-%endif
 BuildRequires: gcc
 %if %{with system_allocator}
 # use glibc
@@ -84,7 +70,6 @@ BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: pcre2-devel
 BuildRequires: pkgconfig
-BuildRequires: systemd-units
 
 # Extra requirements for the build suite
 #   needs haproxy2
@@ -100,12 +85,8 @@ Requires: logrotate
 Requires: ncurses
 Requires: pcre2
 Requires: redhat-rpm-config
-Requires(pre): shadow-utils
 Requires(post): /usr/bin/uuidgen
-Requires(post): systemd-units
-Requires(post): systemd-sysv
-Requires(preun): systemd-units
-Requires(postun): systemd-units
+
 %if %{with system_allocator}
 # use glibc
 %else
@@ -144,7 +125,6 @@ Documentation files for %name
 
 %prep
 %setup -q
-%patch 1 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -187,7 +167,7 @@ getconf PAGESIZE
 # Man pages are prebuilt. No need to regenerate them.
 export RST2MAN=/bin/true
 # Explicit python, please
-export PYTHON=%{__python}
+export PYTHON=python3
 
 %configure LT_SYS_LIBRARY_PATH=%_libdir \
  --disable-static \
@@ -235,11 +215,6 @@ make -j2 check
 %install
 rm -rf %{buildroot}
 
-# mock el7 defaults to LANG=C, which makes python3 fail when parsing utf8 text
-%if 0%{?rhel} == 7
-export LANG=en_US.UTF-8
-%endif
-
 %{make_install}
 
 # None of these for fedora
@@ -258,6 +233,7 @@ mkdir -p %{buildroot}%{_unitdir}
 install -D -m 0644 redhat/varnish.service %{buildroot}%{_unitdir}/varnish.service
 install -D -m 0644 redhat/varnishncsa.service %{buildroot}%{_unitdir}/varnishncsa.service
 install -D -m 0755 redhat/varnishreload %{buildroot}%{_sbindir}/varnishreload
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/varnish.conf
 
 echo %{_libdir}/varnish > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
@@ -266,6 +242,9 @@ echo %{_libdir}/varnish > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arc
 chmod 644 lib/libvmod_*/*.c
 chmod 644 lib/libvmod_*/*.h
 %endif
+
+%pre
+%sysusers_create_compat %{SOURCE2}
 
 %files
 %if "%{_sbindir}" != "%{_bindir}"
@@ -287,9 +266,9 @@ chmod 644 lib/libvmod_*/*.h
 %config(noreplace) %{_sysconfdir}/logrotate.d/varnish
 %config %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
-
 %{_unitdir}/varnish.service
 %{_unitdir}/varnishncsa.service
+%{_sysusersdir}/varnish.conf
 
 %files devel
 %license LICENSE
@@ -304,16 +283,6 @@ chmod 644 lib/libvmod_*/*.h
 %license LICENSE
 %doc doc/html
 %doc doc/changes*.html
-
-
-%pre
-getent group varnish >/dev/null ||
-groupadd -r varnish
-getent passwd varnish >/dev/null ||
-useradd -r -g varnish -d /var/lib/varnish -s /sbin/nologin \
-	-c "Varnish Cache" varnish
-exit 0
-
 
 %post
 %systemd_post varnish varnishncsa
@@ -330,6 +299,12 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu May 22 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.7.1-2
+- Correct ABI and VRT versions
+- Pulled el7 support
+- Removed patches merged upstream
+- Use systemd setup for users
+
 * Tue May 20 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.1-1
 - new version 7.7.1
 

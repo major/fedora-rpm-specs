@@ -8,7 +8,7 @@
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		17%{?dist}
+Release:		18%{?dist}
 # License is like BSD-4-Clause but without the 4th clause
 # We use spamd.c but not queue.h
 # See READNE for details
@@ -98,7 +98,7 @@ EOF
 %build
 # Harden the build if supported
 %global _hardened_build 1
-export CFLAGS="%{__global_cflags} -fno-strict-aliasing -D_GNU_SOURCE -std=gnu17"
+export CFLAGS="%{__global_cflags} -fno-strict-aliasing -D_GNU_SOURCE -DSM_CONF_STDBOOL_H=1"
 export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{__global_ldflags} -Wl,--as-needed $LDLIBS"
 %configure \
 	--disable-drac				\
@@ -175,6 +175,9 @@ exit 0
 %{_unitdir}/milter-greylist.service
 
 %changelog
+* Thu May 22 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-18
+- Build with -DSM_CONF_STDBOOL_H=1 so it's not necessary to use -std=gnu17
+
 * Fri Feb 14 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-17
 - Drop EL-7 support
 - Add sysusers.d config file to allow rpm to create users/groups automatically

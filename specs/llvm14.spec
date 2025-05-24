@@ -71,7 +71,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -91,6 +91,8 @@ Patch0:		0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
 Patch1:		0001-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
 Patch2:		0001-Disable-CrashRecoveryTest.DumpStackCleanup-test-on-a.patch
 Patch3:		test-go-py-pipes.patch
+Patch4: cstdint.patch
+Patch5: 141083.patch
 
 BuildRequires:	sed
 BuildRequires:	gcc
@@ -218,8 +220,6 @@ LLVM's modified googletest sources.
 # No LTO support with Clang on riscv64
 # Fails with "exceeded PCRE's backtracking limit"
 %global _lto_cflags %nil
-%else
-%global _lto_cflags -flto=thin
 %endif
 
 %ifarch s390 s390x %{arm} %ix86 riscv64
@@ -564,6 +564,10 @@ fi
 %endif
 
 %changelog
+* Thu May 22 2025 Nikita Popov <npopov@redhat.com> - 14.0.5-12
+- Fix FTBFS (rhbz#2340790)
+- Fix bitcode in archives (rhbz#2365433)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

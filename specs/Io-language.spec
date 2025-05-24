@@ -6,7 +6,7 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Io is a small, prototype-based programming language
 License:        BSD-3-Clause
 URL:            https://iolanguage.org
@@ -129,6 +129,7 @@ sed -i /sse/d CMakeLists.txt
 %endif
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 cmake . -DOpenGL_GL_PREFERENCE=GLVND -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
 make INSTALL_PREFIX=%{_prefix} OPTIMIZE="$RPM_OPT_FLAGS" \
   DLL_COMMAND='-shared -Wl,-soname="libiovmall.so.2"'
@@ -277,6 +278,9 @@ done
 
 
 %changelog
+* Thu May 22 2025 Cristian Le <git@lecris.dev> - 20170906-22
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20170906-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
