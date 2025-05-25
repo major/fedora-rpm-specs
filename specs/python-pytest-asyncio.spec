@@ -1,7 +1,7 @@
 %bcond_without  tests
 
 Name:           python-pytest-asyncio
-Version:        0.24.0
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Pytest support for asyncio
 License:        Apache-2.0
@@ -61,7 +61,10 @@ sed -e '/setuptools_scm/ s/>=6.2//' -i pyproject.toml
 # of pytest and pre-release versions of python, so we'll skip those tests.
 export PYTEST_ADDOPTS="-k 'not test_can_use_explicit_event_loop_fixture and \
 not test_event_loop_fixture_finalizer_raises_warning_when_fixture_leaves_loop_unclosed and \
-not test_event_loop_fixture_finalizer_raises_warning_when_test_leaves_loop_unclosed'"
+not test_event_loop_fixture_finalizer_raises_warning_when_test_leaves_loop_unclosed and \
+not test_event_loop_fixture_asyncgen_error and \
+not test_event_loop_already_closed and \
+not test_event_loop_fixture_handles_unclosed_async_gen'"
 %pytest
 %else
 %pyproject_check_import

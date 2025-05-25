@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        25.3.0
+Version:        25.5.10
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
@@ -63,19 +63,17 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5Sql)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5WebSockets)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5XmlPatterns)
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6WebSockets)
+BuildRequires:  cmake(Qt6Xml)
 
 # Switch to 'botan2'
 # * https://github.com/pbek/QOwnNotes/issues/1263
@@ -84,7 +82,7 @@ BuildRequires:  pkgconfig(botan-2) >= 2.12.0
 %endif
 
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtbase%{?_isa}
+Requires:       qt6-qtbase%{?_isa}
 
 Recommends:     %{name}-translations = %{version}-%{release}
 Recommends:     hunspell
@@ -154,10 +152,10 @@ mkdir -p src/%{_target_platform}
 %build
 # Build translations
 # * https://github.com/pbek/QOwnNotes/issues/1744
-lrelease-qt5 src/%{appname}.pro
+lrelease-qt6 src/%{appname}.pro
 
 pushd src/%{_target_platform}
-%qmake_qt5                        \
+%qmake_qt6                        \
     PREFIX=%{buildroot}%{_prefix} \
     %if 0%{?fedora} >= 32
     USE_SYSTEM_BOTAN=1            \
@@ -188,11 +186,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.xml
 
 %files -f %{appname}.lang translations
-%if 0%{?fedora} <= 34
-%{_datadir}/qt5/translations/%{appname}_ceb.qm
-%{_datadir}/qt5/translations/%{appname}_fil.qm
-%{_datadir}/qt5/translations/%{appname}_hil.qm
-%endif
 
 %changelog
 %autochangelog

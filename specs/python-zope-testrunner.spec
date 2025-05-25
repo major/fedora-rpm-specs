@@ -102,7 +102,9 @@ rm -f docs/_build/html/.buildinfo
 unset PYTHONHOME
 
 %check
-%tox
+# Run one test separately due to https://github.com/zopefoundation/zope.testrunner/issues/189
+%tox -- -- -t '!testrunner-edge-cases' -vc
+%tox -- -- -t  'testrunner-edge-cases' -vc
 
 %files -n python3-zope-testrunner -f %{pyproject_files}
 %doc CHANGES.html README.html

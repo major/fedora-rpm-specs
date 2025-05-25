@@ -1,15 +1,16 @@
 %global pkgname     resynthesizer
-%global commit      3846f799b25362efd877c9d9032a29318ab81aaa
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapshotver 20250518git%{shortcommit}
+%global srcversion  3.0
+#%%global commit      3846f799b25362efd877c9d9032a29318ab81aaa
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global snapshotver 20250518git%%{shortcommit}
 
 Name:     gimp-%{pkgname}
 Version:  3.0.0
-Release:  %autorelease -p -s %{snapshotver}
+Release:  %autorelease %{?snapshotver:-p -s %{snapshotver}}
 Summary:  GIMP plug-in for texture synthesis
 License:  GPL-3.0-or-later
 URL:      https://github.com/bootchk/%{pkgname}
-Source0:  %{url}/archive/%{commit}/%{pkgname}-%{?snapshotver:%{snapshotver}}%{!?snapshotver:%{version}}.tar.gz
+Source0:  %{url}/archive/refs/tags/%{?commit:%{commit}}%{!?commit:v%{srcversion}}/%{pkgname}-%{?snapshotver:%{snapshotver}}%{!?snapshotver:%{version}}.tar.gz
 
 # Build requirements
 BuildRequires:  gcc
@@ -31,7 +32,6 @@ Requires:       gegl04
 # due to missing dependencies or upstream limitations
 ExcludeArch: s390x
 
-
 %description
 Modern texture synthesis plugin for GIMP 3 implementing:
 - AI-assisted inpainting and object removal
@@ -41,7 +41,7 @@ Modern texture synthesis plugin for GIMP 3 implementing:
 - GPU-accelerated processing (CUDA/OpenCL)
 
 %prep
-%autosetup -n %{pkgname}-%{?commit:%{commit}}%{!?commit:%{version}}
+%autosetup -n %{pkgname}-%{?commit:%{commit}}%{!?commit:%{srcversion}}
 
 %generate_buildrequires
 

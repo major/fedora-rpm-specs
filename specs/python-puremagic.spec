@@ -1,8 +1,8 @@
 %global pypi_name puremagic
 
 Name:           python-%{pypi_name}
-Version:        1.28
-Release:        %{autorelease}
+Version:        1.29
+Release:        %autorelease
 Summary:        Pure python implementation of magic file detection
 
 %global forgeurl https://github.com/cdgriffith/puremagic

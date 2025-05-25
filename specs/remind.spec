@@ -1,6 +1,6 @@
 Name:           remind
-Version:        05.00.05
-Release:        3%{?dist}
+Version:        05.03.07
+Release:        1%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
 # GPL-2.0-only: main software
@@ -18,7 +18,6 @@ Patch:          use-system-libjsonparser.diff
 
 
 # temporary
-Patch:          remove-timezone-tests-from-compare.patch
 Patch:          0001-Do-not-use-obsolete-tail-2-syntax.-Instead-use-tail-.patch
 
 BuildRequires:  gcc
@@ -32,6 +31,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(json-parser)
 BuildRequires:  desktop-file-utils
+BuildRequires:  tzdata
 Recommends:     remind-tools
 Recommends:     remind-gui
 Recommends:     remind-doc
@@ -107,14 +107,10 @@ rm src/json.c
 desktop-file-validate %{buildroot}%{_datadir}/applications/tkremind.desktop
 
 %check
-# NOTE(neil): 2024-01-09 disabling tz.rem as it is broken
-
-sed -iE 's,^TZ=America.*,,;s,^TZ=Europe.*,,' tests/test-rem
-
 make test
 
 %files
-%doc README
+%doc README.md
 %license COPYRIGHT
 %attr(0755,-,-) %{_bindir}/%{name}
 %{_bindir}/rem
@@ -123,7 +119,7 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %files doc
-%doc README docs/
+%doc README.md docs/
 %doc www/ examples/ contrib/
 
 %files tools
@@ -145,6 +141,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Fri May 23 2025 Dick Marinus <dick@mrns.nl> - 05.03.07-1
+- v05.03.07
+
 * Mon May 19 2025 Dick Marinus <dick@mrns.nl> - 05.00.05-3
 - Fix tests
 

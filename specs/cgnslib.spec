@@ -7,7 +7,7 @@
 
 Name:           cgnslib
 Version:        4.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -18,13 +18,14 @@ Patch0:         cgnslib-cmake-install-dirs.patch
 Patch1:         cgnslib_desktop.patch
 Patch2:         cgnslib-c99.patch
 Patch3:         cgnslib-i686.patch
+# Allow building with Ninja generator
+Patch4:         https://github.com/CGNS/CGNS/pull/845.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
 BuildRequires:  hdf5-devel
 BuildRequires:  libXmu-devel
-BuildRequires:  make
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  tcl-devel < 1:9
@@ -404,6 +405,9 @@ ctest || :
 
 
 %changelog
+* Fri May 23 2025 Cristian Le <git@lecris.dev> - 4.5.0-5
+- Allow to build with ninja
+
 * Thu Feb 13 2025 Orion Poplawski <orion@nwra.com> - 4.5.0-4
 - Rebuild with hdf5 1.14.6
 

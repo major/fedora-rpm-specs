@@ -1,8 +1,8 @@
 %global git_user0 gtownsend
 
 Name:           icon
-Version:        9.5.20i
-Release:        11%{?dist}
+Version:        9.5.24b
+Release:        1%{?dist}
 Summary:        Icon programming language
 License:        LicenseRef-Fedora-Public-Domain
 URL:            https://www2.cs.arizona.edu/icon/
@@ -11,15 +11,11 @@ Source0:        https://github.com/%{git_user0}/%{name}/archive/v%{version}/%{na
 # Fedora-specific patch to avoid stripping executables
 Patch0:         icon-nostrip.patch
 
-# Fedora-specific patch to use Fedora XPM library (also requires a sed command
-# in the prep section)
-Patch1:         icon-system-xpm.patch
-
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xpm)
-BuildRequires: make
 
 
 %global _description %{expand:
@@ -37,24 +33,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{name}-%{version}
-rm -rf src/xpm
-%patch -P 0 -p1 -b .nostrip
-%patch -P 1 -p1 -b .system-xpm
-
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 make X-Configure name=linux
-sed -i -e 's|CFLAGS = -O|CFLAGS = %{optflags}|' Makedefs
+# The Makefile does not explicitly set an -std flag. The code makes use
+# of some constructs that are rejected when compiling in gnu23 mode (default
+# in GCC15). It'd be better to patch those properly, but for now, this'll do.
+sed -i -e 's|CFLAGS = -O|CFLAGS = %{optflags} -std=gnu99|' Makedefs
 sed -i -e 's|Igpx|Xpm|' Makedefs
-%ifarch armv7hl
-# Icon doesn't work correctly on armv7hl build with -O2, due to complicated
-# type casting issues, probably involving C undefined behavior. As of
-# 2020-08-01, Greg Townsend, an Icon maintainer, recommends using only
-#-O rather than -O2.
-#   https://list.arizona.edu/sympa/arc/icon-language/2020-08/msg00000.html
-sed -i -e 's|-O2|-O|' Makedefs
-%endif
 
 # NOTE: make fails if smp_mflags is used
 make -j1 All
@@ -110,6 +97,9 @@ install -p -m0755 bin/xgamma %{buildroot}%{_bindir}/icon-xgamma
 
 
 %changelog
+* Fri May 23 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 9.5.24b-1
+- Update to v9.5.24b
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.20i-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

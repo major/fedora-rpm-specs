@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -52,7 +52,6 @@ BuildRequires:  python3dist(twisted) >= 17.9
 BuildRequires:  python3dist(jinja2) >= 2.1
 BuildRequires:  python3dist(zope-interface) >= 4.1.1
 BuildRequires:  python3dist(sqlalchemy)
-BuildRequires:  python3dist(sqlalchemy-migrate) >= 0.9
 BuildRequires:  python3dist(python-dateutil) >= 1.5
 BuildRequires:  python3dist(txaio) >= 2.2.2
 BuildRequires:  python3dist(autobahn) >= 0.16
@@ -405,6 +404,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.3.0-2
+- Drop unneeded sqlalchemy-migrate dependency.
+
 * Tue May 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.3.0-1
 - 4.3.0
 

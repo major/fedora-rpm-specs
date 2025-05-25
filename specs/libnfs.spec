@@ -1,6 +1,6 @@
 Name:		libnfs
 Version:	6.0.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Client library for accessing NFS shares over a network
 # The library is licensed as LGPL-2.1-or-later
 # The protocol definition is BSD-2-Clause
@@ -8,6 +8,9 @@ Summary:	Client library for accessing NFS shares over a network
 License:	LGPL-2.1-or-later AND BSD-2-Clause AND GPL-3.0-or-later
 URL:		https://github.com/sahlberg/libnfs
 Source0:	%{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/sahlberg/libnfs/pull/518
+Patch0:         libnfs-6.0.2-fix_gnutls_undefined_symbols.patch
 
 BuildRequires:	automake
 BuildRequires:	gcc
@@ -50,6 +53,7 @@ NFS servers using libnfs.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch -P0 -p1
 autoreconf -vif
 
 %build
@@ -84,6 +88,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Fri May 23 2025 Xavier Bachelot <xavier@bachelot.org> - 6.0.2-4
+- Add upstream patch to fix undefined symbols (RHBZ#2368146)
+
 * Tue Apr 08 2025 Richard W.M. Jones <rjones@redhat.com> - 6.0.2-3
 - Enable the multithreading API
   (https://github.com/sahlberg/libnfs/blob/master/README.multithreading)

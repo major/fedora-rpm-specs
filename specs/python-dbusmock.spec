@@ -1,7 +1,7 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.34.3
+Version:          0.35.0
 Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
@@ -52,6 +52,10 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Fri May 23 2025 Packit <hello@packit.dev> - 0.35.0-1
+- modemmanager: Add operator code (thanks Guido Günther)
+- modemmanager: Allow to set CellBroadcast channel list (thanks Guido Günther)
+
 * Fri Feb 21 2025 Packit <hello@packit.dev> - 0.34.3-1
 - tests: Relax libnotify expected format for libnotify 0.8.4
 

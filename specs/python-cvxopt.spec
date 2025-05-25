@@ -3,7 +3,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -17,6 +17,9 @@ Patch:          %{name}-signed.patch
 # Replace _PyUnicode_AsString with PyUnicode_AsUTF8 for python 3.13
 # https://github.com/cvxopt/cvxopt/pull/247
 Patch:          %{name}-python3.13.patch
+# Fix a refcounting bug in the DSDP interface
+# Patch courtesy of Victor Stinner
+Patch:          %{name}-dsdp-refcount.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -139,6 +142,9 @@ export FLEXIBLAS=netlib
 %doc examples/
 
 %changelog
+* Fri May 23 2025 Jerry James  <loganjerry@gmail.com> - 1.3.2-10
+- Add patch to fix refcount bug
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.3.2-9
 - Rebuild with gsl 2.8
 

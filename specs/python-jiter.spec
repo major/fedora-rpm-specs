@@ -2,7 +2,7 @@
 %global _description %{summary}.
 
 Name:           python-%{srcname}
-Version:        0.9.1
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 

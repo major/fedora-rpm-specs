@@ -13,7 +13,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.18.2
+Version:        3.19.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -40,10 +40,10 @@ URL:            https://dune.build
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/dune-%{version}.tar.gz
 # When building without lwt, remove libraries that need it
-Patch:          %{name}-no-lwt.patch
+Patch0:         %{name}-no-lwt.patch
 # Temporary workaround for broken debuginfo (rhbz#2168932)
 # See https://github.com/ocaml/dune/issues/6929
-Patch:          %{name}-debuginfo.patch
+Patch1:         %{name}-debuginfo.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -80,7 +80,7 @@ Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eec
 Provides:       bundled(ocaml-inotify) = 2.3
 Provides:       bundled(ocaml-lwd) = 0.3
 Provides:       bundled(ocaml-notty) = 0.2.3
-Provides:       bundled(ocaml-opam) = 2.2.0~alpha2
+Provides:       bundled(ocaml-opam) = 2.2.0
 Provides:       bundled(ocaml-opam-file-format) = 2.1.6
 Provides:       bundled(ocaml-re) = 1.11.0
 Provides:       bundled(ocaml-sha) = 1.15.4
@@ -589,6 +589,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Fri May 23 2025 Jerry James  <loganjerry@gmail.com> - 3.19.0-1
+- Version 3.19.0
+
 * Fri May 02 2025 Jerry James  <loganjerry@gmail.com> - 3.18.2-1
 - Version 3.18.2
 

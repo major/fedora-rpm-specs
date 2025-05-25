@@ -2,8 +2,8 @@
 %global owner beltoforion
 Name:           muParser
 Summary:        A fast math parser library
-Version:        2.3.4
-Release:        6%{?dist}
+Version:        2.3.5
+Release:        1%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
@@ -52,6 +52,9 @@ Development files and the documentation
 %{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.5-1
+- 2.3.5
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

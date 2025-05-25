@@ -1,9 +1,7 @@
 Name:           python-yara
-Version:        4.5.1
+Version:        4.5.3
 Summary:        Python binding for the YARA pattern matching tool
 License:        Apache-2.0
-# TODO: return to 1 with each next release
-%global         baserelease 6
 URL:            https://github.com/VirusTotal/yara-python/
 VCS:            https://github.com/VirusTotal/yara-python/
 #               https://github.com/VirusTotal/yara-python/tags
@@ -16,8 +14,8 @@ VCS:            https://github.com/VirusTotal/yara-python/
 
 %global         gituser         VirusTotal
 %global         gitname         yara-python
-%global         gitdate         20240525
-%global         commit          2880de0358e1ec871093759d74309f4dc080d726
+%global         gitdate         20250523
+%global         commit          5caac1ea81f7e700dc7969abd9706dd0cd1580ec
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -35,10 +33,10 @@ and a Boolean expression which determine its logic.}
 %endif
 
 %if 0%{?with_release}
-Release:        %autorelease -b %baserelease
+Release:        %autorelease
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %else
-Release:        %autorelease -b %baserelease -s %{gitdate}git%{shortcommit}
+Release:        %autorelease -s %{gitdate}git%{shortcommit}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-git%{gitdate}-%{shortcommit}.tar.gz
 %endif
 

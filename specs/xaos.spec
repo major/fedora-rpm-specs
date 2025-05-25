@@ -1,7 +1,5 @@
-%global alt_name XaoS
-
 Name:           xaos
-Version:        4.3.3
+Version:        4.3.4
 Release:        %autorelease
 Summary:        A fast, portable real-time interactive fractal zoomer
 
@@ -14,8 +12,11 @@ URL:            %forgeurl
 Source:         %forgesource
 
 ExcludeArch:    %{ix86}
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-rpm-macros qt6-linguist
+
+BuildRequires:  cmake(qt6)
+BuildRequires:  gcc
+BuildRequires:  libatomic
+BuildRequires:  qt6-linguist
 
 
 %description
@@ -42,9 +43,9 @@ on-the-fly plane switching.
 # Binary
 install -D --mode 0755 --target-directory %{buildroot}%{_bindir} bin/%{name}
 
-# Data; Datapath forced to %%{alt_name} (not configurable)
-install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/%{alt_name}/catalogs catalogs/*.cat
-cp --archive examples tutorial %{buildroot}%{_datadir}/%{alt_name}
+# Data; Datapath forced to XaoS (not configurable)
+install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/XaoS/catalogs catalogs/*.cat
+cp --archive examples tutorial %{buildroot}%{_datadir}/XaoS
 
 # Icon, .desktop, AppData
 install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/metainfo xdg/%{name}.appdata.xml
@@ -58,7 +59,7 @@ install -D --mode 0644 --target-directory %{buildroot}%{_mandir}/man6 doc/%{name
 %doc CREDITS.md NEWS doc/README
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/%{alt_name}
+%{_datadir}/XaoS
 %{_datadir}/applications/io.github.xaos_project.XaoS.desktop
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/pixmaps/%{name}.png

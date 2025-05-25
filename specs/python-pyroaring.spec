@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 
 Name:           python-%{pypi_name}
-Version:        1.0.0
+Version:        1.0.1
 Release:        %{autorelease}
 Summary:        Fast and lightweight set for unsigned 32 bits integers
 %global tag %{version}

@@ -36,6 +36,10 @@ Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
 Source2: varnish.sysusers
 
+# Fix for h2 switch in varnishtest
+# https://github.com/varnishcache/varnish-cache/issues/4298
+Patch0:   varnish-7.7.0_fix_4298.patch
+
 Provides: varnish%{_isa} = %{version}-%{release}
 Provides: varnishd(abi)%{_isa} = %{abi}
 Provides: varnishd(vrt)%{_isa} = %{vrt}
@@ -125,6 +129,7 @@ Documentation files for %name
 
 %prep
 %setup -q
+%patch 0 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -302,7 +307,6 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 * Thu May 22 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.7.1-2
 - Correct ABI and VRT versions
 - Pulled el7 support
-- Removed patches merged upstream
 - Use systemd setup for users
 
 * Tue May 20 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.1-1

@@ -1,9 +1,9 @@
 Name:           liblouisutdml
 Version:        2.12.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Braille transcription library for UTDML documents
 License:        LGPL-3.0-or-later
-URL:            http://liblouis.org
+URL:            https://liblouis.io
 Source0:        https://github.com/liblouis/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # upstream patch to fix failing testsuite
 # https://github.com/liblouis/liblouisutdml/pull/101/commits/10254fc8216fba30e03c2bb3650d1699bfcb3716
@@ -123,6 +123,9 @@ rm -rf %{buildroot}/%{_defaultdocdir}/liblouisutdml
 
 
 %changelog
+* Fri May 23 2025 Martin Gieseking <martin.gieseking@uos.de> - 2.12.0-6
+- Updated URL of upstream website.
+
 * Sun May 18 2025 Martin Gieseking <martin.gieseking@uos.de> - 2.12.0-5
 - Added upstream patch to fix build issues with GCC 15.
 - Added upstream patch to adapt tests to changes in liblouis >= 3.30.0

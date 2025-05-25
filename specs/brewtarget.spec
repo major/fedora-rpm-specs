@@ -1,6 +1,6 @@
 Name:           brewtarget
-Version:        4.0.17
-Release:        %{autorelease}
+Version:        4.1.0
+Release:        %autorelease
 Summary:        An open source beer recipe creation tool 🍺
 
 %global forgeurl https://github.com/Brewtarget/brewtarget
@@ -13,8 +13,8 @@ Summary:        An open source beer recipe creation tool 🍺
 #     images/server-database.png images/kbruch.png images/help-contents.png
 # LGPL-2.1-only: images/backup.png
 License:    GPL-3.0-or-later AND BSD-2-Clause AND WTFPL AND (CC-BY-SA-3.0 OR LGPL-3.0-only) AND LGPL-2.1-only
-URL:        %{forgeurl}
-Source:     %{forgesource}
+URL:        %forgeurl
+Source:     %forgesource
 # Downstream only patches
 Patch:      0001-Modify-boost-requirements-for-Fedora.patch
 Patch:      0002-Fix-name-of-lupdate-executable.patch
@@ -29,7 +29,6 @@ BuildRequires:  cmake(valijson)
 BuildRequires:  cmake(xalanc)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  git-core
 BuildRequires:  meson
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(xerces-c)
@@ -53,7 +52,7 @@ It also can export and import recipes in BeerXML.}
 
 
 %prep
-%autosetup -n %{name}-%{version} -S git
+%forgeautosetup -p1
 # Crude way of disabling testLogRotation
 sed -i -e '/testLogRotation/d' meson.build
 

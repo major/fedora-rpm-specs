@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.33.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -10,7 +10,7 @@ Summary:        Braille translation and back-translation library
 # - gnulib/c++defs.h
 # - gnulib/warn-on-use.h
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
-URL:            http://liblouis.org
+URL:            https://liblouis.io
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
@@ -190,6 +190,9 @@ cd -
 
 
 %changelog
+* Fri May 23 2025 Martin Gieseking <martin.gieseking@uos.de> - 3.33.0-2
+- Updated URL of upstream website.
+
 * Sun May 18 2025 Martin Gieseking <martin.gieseking@uos.de> - 3.33.0-1
 - Update to 3.33.0
 - Added missing BR m4

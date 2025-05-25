@@ -1,18 +1,24 @@
+%bcond autoreconf 1
+
 Name:           rlwrap
-Version:        0.46.1
+Version:        0.46.2
 Release:        %autorelease
 Summary:        Wrapper for GNU readline
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/hanslub42/rlwrap
-Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  python3-rpm-macros
 BuildRequires:  readline-devel
+%if %{with autoreconf}
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
+%endif
 
 %description
 rlwrap is a 'readline wrapper' that uses the GNU readline library to
@@ -26,7 +32,11 @@ lists can be specified on the command line.
 %autosetup -p1
 
 
-%build
+%dnl workaround for RPM < 4.18 not having %conf
+%{?conf:%conf}
+%{!?conf:%build}
+autoreconf -fiv
+
 %if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 # issues with rl_message function signature even though readline is not upgraded
 # https://gcc.gnu.org/gcc-15/porting_to.html
@@ -46,6 +56,9 @@ export CFLAGS="%{optflags} -std=gnu17"
 %endif
 
 %configure
+
+
+%{?conf:%build}
 %make_build
 
 

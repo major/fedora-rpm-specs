@@ -16,9 +16,9 @@ License:       Apache-2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
 
-# Temporary hotfix for https://bugzilla.redhat.com/2359689
-# Reported upstream in https://github.com/kislyuk/argcomplete/issues/535
-Patch:         hotfix-bz2359689.patch
+# Only execute Python interpreters
+# Fix for https://bugzilla.redhat.com/2359689
+Patch:         https://github.com/kislyuk/argcomplete/commit/0f0797b11c.patch
 
 BuildRequires: python3-devel
 

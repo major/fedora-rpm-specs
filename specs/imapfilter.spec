@@ -1,5 +1,5 @@
 Name:           imapfilter
-Version:        2.8.2
+Version:        2.8.3
 Release:        %autorelease
 Summary:        A flexible client side mail filtering utility for IMAP servers
 

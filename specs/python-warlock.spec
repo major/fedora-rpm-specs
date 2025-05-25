@@ -2,7 +2,7 @@
 
 Name:           python-warlock
 Version:        2.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python object model built on top of JSON schema
 
 License:        Apache-2.0
@@ -32,7 +32,7 @@ sed -i 's/\(jsonpatch\).*"^\(.*\)"/\1 = ">= \2"/' pyproject.toml
 cat pyproject.toml | grep -e json
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -42,13 +42,16 @@ cat pyproject.toml | grep -e json
 %pyproject_save_files warlock
 
 %check
-%tox
+%pyproject_check_import warlock
 
 %files -n python3-%{github_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 
 %changelog
+* Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.1-9
+- Fix FTBFS
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

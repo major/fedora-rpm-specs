@@ -1,8 +1,8 @@
 %global irr_version 1.9.0mt13
 %global minetest_game_version 5.8.0
 Name:     minetest
-Version:  5.11.0
-Release:  3%{?dist}
+Version:  5.12.0
+Release:  1%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -10,7 +10,6 @@ License:  LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-CC-BY-SA
 URL:      https://luanti.org
 
 Source0:  https://github.com/luanti-org/luanti/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:  %{name}.desktop
 Source2:  %{name}@.service
 Source3:  %{name}.rsyslog
 Source4:  %{name}.logrotate
@@ -51,6 +50,7 @@ BuildRequires:  libpq-devel
 BuildRequires:  hiredis-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  libXi-devel
+BuildRequires:  cmake(SDL2)
 
 Requires:       %{name}-server = %{version}-%{release}
 
@@ -133,7 +133,7 @@ export LDFLAGS
 %cmake_install
 
 # Add desktop file
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.luanti.luanti.desktop
 
 # Systemd unit file
 mkdir -p %{buildroot}%{_unitdir}/
@@ -175,7 +175,7 @@ rm -rf %{buildroot}%{_datadir}/doc/luanti
 
 %find_lang luanti
 
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{name}.%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.luanti.luanti.metainfo.xml
 
 install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.conf
 
@@ -197,12 +197,11 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 %{_datadir}/luanti/client
 %{_datadir}/luanti/fonts
 %{_datadir}/luanti/textures
-%{_datadir}/applications/%{name}.desktop
-%exclude %{_datadir}/applications/net.%{name}.%{name}.desktop
+%{_datadir}/applications/org.luanti.luanti.desktop
 %{_datadir}/icons/hicolor/*/apps/luanti.png
 %{_datadir}/icons/hicolor/scalable/apps/luanti.svg
 %{_mandir}/man6/luanti.*
-%{_datadir}/metainfo/net.%{name}.%{name}.metainfo.xml
+%{_datadir}/metainfo/org.luanti.luanti.metainfo.xml
 
 %files server
 %license doc/lgpl-2.1.txt
@@ -224,6 +223,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12.0-1
+- 5.12.0
+
 * Tue Mar 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.11.0-3
 - Rebuilt for spatialindex 2.1.0
 

@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.6.0
-Release:        2%{?dist}
+Version:        4.6.2
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -12,24 +12,17 @@ Summary:        Fast, header-only C++ machine learning library
 License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
-Patch0:		cmake_stb_available.patch
-# Drop pytest-runner and "setup.py test" support
-# https://github.com/mlpack/mlpack/pull/3921
-# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
-Patch1:		https://github.com/mlpack/mlpack/pull/3921.patch
 
 # Drop support for i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+# s390 and s390x do not build---maybe worth trying again in a few years?
+ExcludeArch:    s390
+ExcludeArch:	s390x
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-# Use cmake28 package on RHEL.
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:  cmake28 >= 2.8.5
-%else
-BuildRequires:  cmake >= 2.8.5
-%endif
+BuildRequires:  cmake >= 3.11
 
 BuildRequires:  armadillo-devel >= 10.8.2
 BuildRequires:  ensmallen-devel >= 2.10.0
@@ -59,6 +52,8 @@ BuildRequires:  stb_image-devel >= %{min_stb_image}
 BuildRequires:  stb_image-static
 BuildRequires:  stb_image_write-devel
 BuildRequires:  stb_image_write-static
+BuildRequires:  stb_image_resize2-devel
+BuildRequires:  stb_image_resize2-static
 
 # For generating man pages (CMake configuration takes care of this assuming
 # txt2man is installed).  It is possible that we could just add all the man
@@ -69,12 +64,6 @@ BuildRequires:  txt2man
 # Required for building Python bindings.
 BuildRequires: 	python3-devel, python3-Cython, python3-setuptools, python3-numpy
 BuildRequires:	python3-pandas, python3-pytest, python3-wheel
-
-# something doesn't like size_t being unsigned long on s390
-ExcludeArch:    s390
-# The s390x builders don't currently have enough RAM to build mlpack.
-# (Check again for mlpack 4.0, which should require much less RAM.)
-#ExcludeArch:	s390x
 
 %description
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -167,14 +156,13 @@ margins.  This package provides the Python bindings for mlpack.
 # Make sure pip is available.
 %{python3} -m ensurepip --upgrade
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-# On RHEL6, the Boost CMake scripts fail for some reason.  I don't have the
-# time (or patience) to investigate, but if we force CMake to find Boost "the
-# hard way" by specifying Boost_NO_BOOST_CMAKE=1, it works.
-%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=%{python3} -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
-%else
-%{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=%{python3} -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
-%endif
+%{cmake} \
+    -D CMAKE_INSTALL_LIBDIR=%{_libdir} \
+    -D BUILD_TESTS=OFF \
+    -D BUILD_PYTHON_BINDINGS=ON \
+    -D PYTHON_EXECUTABLE=%{python3} \
+    -D STB_IMAGE_INCLUDE_DIR=%{_includedir} \
+    -D USE_SYSTEM_STB=ON
 
 # Try and reduce RAM usage.
 %ifarch armv7hl
@@ -318,10 +306,14 @@ cmake -B %{__cmake_builddir} \
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Fri May 23 2025 Ryan Curtin <ryan@ratml.org> - 4.6.2-1
+- Update to latest stable version.
+- Clean up archaic configuration bits from previous decades.
+
 * Sun Apr 06 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.0-2
 - Drop pytest-runner / "setup.py test" support from setup.py
 
-* Fri Apr 04 2025 Ryan Curtin <ryan@ramtl.org> - 4.6.0-1
+* Fri Apr 04 2025 Ryan Curtin <ryan@ratml.org> - 4.6.0-1
 - Update to latest stable version.
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2

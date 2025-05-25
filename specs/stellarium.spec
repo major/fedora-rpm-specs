@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        25.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -9,6 +9,7 @@ Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/ste
 Patch0:         md4c.patch
 # https://github.com/Stellarium/stellarium/commit/bbcd60ae52b6f1395ef2390a2d2ba9d0f98db548
 Patch1:         stellarium-fix-qt6.9-build.patch
+Patch2:         a27f10f55cdd0bcdbe74071e5b020e0297b8c57a.patch
 
 # Disabled due to lconvert segfaulting on armv7hl and i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
@@ -67,6 +68,7 @@ Data files for the stellarium package.
 
 %patch -P 0 -p0
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 # Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
@@ -110,6 +112,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> = 25.1-4
+- Patch for GL context crash
+
 * Fri Mar 28 2025 Jan Grulich <jgrulich@redhat.com: - 25.1-3
 - Disable builds on i686
 

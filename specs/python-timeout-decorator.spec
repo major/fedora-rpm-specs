@@ -2,7 +2,7 @@
 %global srcname timeout-decorator
 
 Name:           python-%{srcname}
-Version:        0.4.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Timeout decorator for Python
 
@@ -26,7 +26,7 @@ A python module which provides a timeout decorator.
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -37,7 +37,7 @@ A python module which provides a timeout decorator.
 
 %if %{with tests}
 %check
-%tox
+%pyproject_check_import timeout_decorator
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
