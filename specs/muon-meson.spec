@@ -1,10 +1,8 @@
-%global         commit      a2f0f77effb5824690df1851d55754e0fd04cdd0
-%global         shortcommit %(c=%{commit}; echo ${c:0:8})
-%global         testcommit  1e565931348f15f3f9b654f46ab4bf5fa009ca4f
-%global         testshortcommit  %(c=%{testcommit}; echo ${c:0:8})
+%global         testcommit  591b5a053f9aa15245ccbd1d334cf3f8031b1035
+%global         testshortcommit  %(c=%{testcommit}; echo ${c:0:7})
 %global         srcname muon
 Name:           muon-meson
-Version:        0.3.1^20240926.a2f0f77e
+Version:        0.4.0
 Release:        %{autorelease}
 Summary:        C implementation of meson
 
@@ -27,10 +25,9 @@ Summary:        C implementation of meson
 
 License:        Apache-2.0 AND GPL-3.0-only AND MIT AND Unlicense
 URL:            https://muon.build
-Source0:        https://git.sr.ht/~lattis/%{srcname}/archive/%{shortcommit}.tar.gz
-Source1:        https://git.sr.ht/~lattis/meson-tests/archive/%{testshortcommit}.tar.gz
-# Skip tests which fail due to fedora specific build flags
-# These do not fail in normal operation
+Source0:        https://git.sr.ht/~lattis/%{srcname}/archive/%{version}.tar.gz#/muon-%{version}.tar.gz
+Source1:        https://github.com/muon-build/meson-tests/archive/%{testcommit}/meson-tests-%{testshortcommit}.tar.gz
+# Skip tests which fail
 Patch:          skip-tests.patch
 
 BuildRequires:  git
@@ -55,13 +52,13 @@ Provides:       bundled(tiny_json)
 An implementation of the meson build system in c99 with minimal dependencies.
 
 %prep
-%autosetup -n %{srcname}-%{shortcommit} -p 1
+%autosetup -n %{srcname}-%{version} -p 1
 tar xf %{SOURCE1}
-mv meson-tests-%{testshortcommit} tests/project/meson-tests
+mv meson-tests-%{testcommit} subprojects/meson-tests
 
 %build
 CFLAGS="-fPIE -DBOOTSTRAP_NO_TRACY %{optflags}" ./bootstrap.sh %{_vpath_builddir}
-%{_vpath_builddir}/muon setup \
+%{_vpath_builddir}/muon-bootstrap setup \
  -Dprefix=%{_prefix} \
  -Dwebsite=false \
  -Dstatic=false \
@@ -71,7 +68,7 @@ CFLAGS="-fPIE -DBOOTSTRAP_NO_TRACY %{optflags}" ./bootstrap.sh %{_vpath_builddir
  -Dlibcurl=enabled \
  -Dlibpkgconf=enabled \
  %{_vpath_builddir}
-%{_vpath_builddir}/muon -C %{_vpath_builddir} samu
+%{_vpath_builddir}/muon-bootstrap -C %{_vpath_builddir} samu
 
 %check
 %{_vpath_builddir}/muon -C %{_vpath_builddir} test

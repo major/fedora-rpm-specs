@@ -3,7 +3,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     2.4.0
-Release:     6%{?dist}
+Release:     7%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -38,7 +38,7 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXpm-devel
 BuildRequires:  libXv-devel
-BuildRequires:  jack-audio-connection-kit-devel
+BuildRequires:  pipewire-jack-audio-connection-kit-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  doxygen
 BuildRequires:  graphviz
@@ -100,6 +100,7 @@ popd
 %build
 %configure \
   --extra-cflags="%{optflags} -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D_LARGEFILE_SOURCE=1 -D_GNU_SOURCE=1 $(pkg-config --cflags libavformat)" \
+  --extra-ldflags="$(pkg-config --libs jack)" \
   --X11-path=%{_prefix} \
   --libdir=%{_lib} \
   --disable-oss \
@@ -179,6 +180,9 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Sat May 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-7
+- switch JACK build dependency to the one providede by pipewire
+
 * Mon Feb 10 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-6
 - backport fix for building with FFmpeg 7.1 (rhbz#2344722)
 

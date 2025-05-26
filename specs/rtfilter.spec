@@ -5,7 +5,9 @@ Summary:        Realtime digital filtering functions for multichannel signals
 
 License:        LGPL-3.0-only
 URL:            https://github.com/mmlabs-mindmaze/rtfilter
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Make clock_gettime() test C23 compatible
+Patch:          gcc15.patch
 
 BuildRequires:  check-devel
 BuildRequires:  cmake

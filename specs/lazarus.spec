@@ -3,7 +3,7 @@ Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        4.0
 
-%global baserelease 1
+%global baserelease 2
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -404,6 +404,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # but are actually required by lazbuild to run properly.
 %exclude %{_libdir}/%{name}/ide/packages/ideconfig
 %exclude %{_libdir}/%{name}/ide/packages/idedebugger
+%exclude %{_libdir}/%{name}/ide/packages/idepackager
+%exclude %{_libdir}/%{name}/ide/packages/ideproject
+%exclude %{_libdir}/%{name}/ide/packages/ideutils
 
 %{_bindir}/lazarus-ide
 %{_bindir}/startlazarus
@@ -432,6 +435,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %dir %{_libdir}/%{name}/ide/packages/
 %{_libdir}/%{name}/ide/packages/ideconfig
 %{_libdir}/%{name}/ide/packages/idedebugger
+%{_libdir}/%{name}/ide/packages/idepackager
+%{_libdir}/%{name}/ide/packages/ideproject
+%{_libdir}/%{name}/ide/packages/ideutils
 
 %{_bindir}/lazbuild
 %{_bindir}/lazres
@@ -548,6 +554,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sun May 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.0-2
+- Fix lazbuild failing to build programs if IDE is not installed
+
 * Sat May 10 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.0-1
 - Update to v4.0
 - Drop Patch1 (crash in lazbuild) - issue fixed upstream

@@ -151,16 +151,13 @@ Source959:      unu-ccmerge.1
 Source960:      unu-ccsettle.1
 Source961:      unu-save.1
 
-# Patch CMakeLists.txt to fix library install paths to match what Fedora
-# expects. It is not immediately obvious if this patch is suitable for
-# sending upstream or not.
-Patch:          lib_install_dir.patch
-
-# Patch CMakeLists.txt to work with CMake version 4. This is downstream-only
-# because upstream development has progressed so far since the last stable
-# release (in 2012!) that CMakeLists.txt now looks quite different. Applies on
-# top of lib_install_dir.patch.
-Patch:          teem-1.11.0-cmake4.patch
+# This is the combination of an older patch to fix library install paths to
+# suit FHS standards for Fedora, and some adjustments for compatibility with
+# CMake 4. This is downstream-only for now because upstream development has
+# progressed so far since the last stable release (in 2012!) that
+# CMakeLists.txt now looks quite different. However, a new release is planned,
+# and we should re-evaluate what might need to be upstreamed when that happens.
+Patch:          teem-1.11.0-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

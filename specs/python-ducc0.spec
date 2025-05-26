@@ -1,16 +1,13 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.37.1
+Version:        0.38.0
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
 License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-3-Clause)
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source ducc0}
-
-# Backport upstream patch to allow setting custom build flags
-Patch:          allow_custom_cflags.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -67,11 +64,7 @@ export DUCC0_USE_NANOBIND=true
 
 %check
 %pyproject_check_import
-%ifarch ppc64le
-%pytest -q python/test -k "not test_nufft"
-%else
 %pytest -q python/test
-%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -1,7 +1,7 @@
 %global abi 4
 
 Name: libxmp
-Version: 4.6.2
+Version: 4.6.3
 Release: %autorelease
 Summary: A multi-format module playback library
 Source0: https://downloads.sourceforge.net/project/xmp/libxmp/%{version}/libxmp-%{version}.tar.gz
@@ -17,9 +17,6 @@ Provides: bundled(md5-plumb)
 # src/mkstemp.c: BSD-3-Clause
 License: 0BSD AND BSD-3-Clause AND ISC AND MIT AND LicenseRef-Fedora-Public-Domain
 URL: http://xmp.sourceforge.net/
-
-# Fix array subscript underflow in Pha Packer loader (CVE-2025-47256).
-Patch0: libxmp-CVE-2025-47256.patch
 
 %description
 Libxmp is a library that renders module files to PCM data. It supports

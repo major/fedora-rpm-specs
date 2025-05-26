@@ -1,7 +1,7 @@
 %global srcname prometheus_client
 
 Name:           python-%{srcname}
-Version:        0.21.1
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Python client for Prometheus
 
@@ -18,47 +18,31 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(decorator)
-BuildRequires:  python3dist(pytest)
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{summary}.
 
-%package -n python3-%{srcname}+twisted
-Summary:        %{summary}
-Requires:       python3-%{srcname} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       python%{python3_version}dist(twisted)
-BuildRequires:  python3dist(twisted)
-%{?python_provide:%python_provide python3-%{srcname}+twisted}
-
-%description -n python3-%{srcname}+twisted
-%{summary}.
-
-"twisted" extras.
+%pyproject_extras_subpkg -n python3-%{srcname} twisted
 
 %prep
 %autosetup -p1 -n client_python-%{version}
 sed -i -e '1{/^#!/d}' prometheus_client/__init__.py
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
-%{__python3} -m pytest -v
+%pytest -v
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md MAINTAINERS.md
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
-
-%files -n python3-%{srcname}+twisted
-%{?python_extras_subpkg:%ghost %{python3_sitelib}/%{srcname}-*.egg-info/}
 
 %changelog
 %autochangelog

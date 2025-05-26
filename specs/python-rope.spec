@@ -10,6 +10,9 @@ Summary:        Python Code Refactoring Library
 License:        LGPL-3.0-or-later
 URL:            %forgeurl
 Source:         %forgesource
+# Fix tests failing with Python 3.13
+# https://github.com/python-rope/rope/issues/801
+Patch:          %forgeurl/pull/809.patch
 
 BuildArch:      noarch
 
@@ -61,20 +64,7 @@ sed -i '/pytest-cov/d' pyproject.toml
 
 
 %check
-%if v"0%{?python3_version}" >= v"3.13"
-# Test failures with Python 3.13.3rc3
-# https://github.com/python-rope/rope/issues/801
-k="${k-}${k+ and }not (AutoImportTest and test_skipping_directories_not_accessible_because_of_permission_error)"
-k="${k-}${k+ and }not (DocstringNoneAssignmentHintingTest and test_hint_parametrized_iterable)"
-k="${k-}${k+ and }not (DocstringNoneAssignmentHintingTest and test_hint_parametrized_iterator)"
-k="${k-}${k+ and }not (DocstringNotImplementedAssignmentHintingTest and test_hint_parametrized_iterable)"
-k="${k-}${k+ and }not (DocstringNotImplementedAssignmentHintingTest and test_hint_parametrized_iterator)"
-k="${k-}${k+ and }not (PEP0484CommentNoneAssignmentHintingTest and test_hint_parametrized_iterable)"
-k="${k-}${k+ and }not (PEP0484CommentNoneAssignmentHintingTest and test_hint_parametrized_iterator)"
-k="${k-}${k+ and }not (PEP0484CommentNotImplementedAssignmentHintingTest and test_hint_parametrized_iterable)"
-k="${k-}${k+ and }not (PEP0484CommentNotImplementedAssignmentHintingTest and test_hint_parametrized_iterator)"
-%endif
-%pytest -v ${k+-k }"${k-}"
+%pytest -r fEs
 
 
 %files -n python3-rope -f %{pyproject_files}

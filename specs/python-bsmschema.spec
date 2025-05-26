@@ -1,6 +1,6 @@
 Name:           python-bsmschema
 Summary:        BIDS Stats Models Schema
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 
 License:        Apache-2.0

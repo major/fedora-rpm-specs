@@ -1,5 +1,5 @@
 Name:           python-autograd
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Efficiently computes derivatives of numpy code
 
@@ -14,8 +14,7 @@ Source:         %forgesource
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-scipy
+BuildRequires:  %{py3_dist tomcli}
 
 %global _description %{expand:
 Autograd can automatically differentiate native Python and Numpy code. It can
@@ -31,8 +30,7 @@ gradient-based optimization.}
 
 %package -n python3-autograd
 Summary:        %{summary}
-
-Recommends:     python3-scipy
+Recommends:     python3-autograd+scipy
 
 %description -n python3-autograd %_description
 
@@ -42,13 +40,23 @@ Summary:        %{summary}
 %description doc
 Documentation for %{name}.
 
+%pyproject_extras_subpkg -n python3-autograd scipy
+
 
 %prep
 %forgeautosetup -p1
 
+# Remove pytest-cov and related options
+tomcli set pyproject.toml \
+    arrays delitem project.optional-dependencies.test pytest-cov
+# Remove `tool.pytest.ini_options` entirely since most options are
+# related to coverage. We set our own options in %%check.
+tomcli set pyproject.toml \
+    del tool.pytest.ini_options
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x scipy,test
 
 
 %build
@@ -61,17 +69,12 @@ Documentation for %{name}.
 
 
 %check
-%pyproject_check_import
-
-# https://github.com/HIPS/autograd/issues/588#issuecomment-1479446916
-k="${k-}${k+ and }not test_odeint"
-
-%pytest -k "${k-}"
+%pytest -r fEs
 
 
 %files -n python3-autograd -f %{pyproject_files}
 %license license.txt
-%doc README.md
+%doc README.md docs/tutorial.md
 
 
 %files doc

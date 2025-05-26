@@ -9,7 +9,7 @@
 TinyGLTF is a header only C++11 glTF 2.0 library.}
 
 Name:           tinygltf
-Version:        2.9.5
+Version:        2.9.6
 Release:        %autorelease
 Summary:        Header only C++11 tiny glTF 2.0 library
 

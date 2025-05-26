@@ -225,12 +225,13 @@ rm -fv %{buildroot}/usr/contrib/brl/bseg/boxm2/ocl/boxm2_ocl_where_root_dir.h
 # 99% tests passed, 5 tests failed out of 997
 # Total Test time (real) =  23.64 sec
 # The following tests FAILED:
+#        30 -  vul_vul_test_driver (invalid test name)
 #        781 - acal_test_metadata (Failed)
 #        816 - bkml_test_bkml (Subprocess aborted)
 #        836 - volm_test_candidate_region_parser (Subprocess aborted)
 #        979 - vifa_test_int_faces_attr (Subprocess aborted)
 #        980 - vifa_test_int_faces_adj_attr (Subprocess aborted)
-%ctest -E "(acal_test_metadata|bkml_test_bkml|volm_test_candidate_region_parser|vifa_test_int_faces_attr|vifa_test_int_faces_adj_attr)"
+%ctest -E "(acal_test_metadata|bkml_test_bkml|volm_test_candidate_region_parser|vifa_test_int_faces_attr|vifa_test_int_faces_adj_attr|vul_vul_test_driver)"
 %else
 # A number of test fail, but not deterministically on aarch and ppc64le etc, e.g:
 

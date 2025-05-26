@@ -1,7 +1,7 @@
 Summary:        Library providing binary-decimal and decimal-binary routines for IEEE doubles
 Name:           double-conversion
 Version:        3.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://github.com/google/double-conversion
@@ -35,7 +35,7 @@ There is extensive documentation in src/double-conversion.h. Other
 examples can be found in test/cctest/test-conversions.cc.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %cmake -DBUILD_TESTING=ON
@@ -58,6 +58,9 @@ examples can be found in test/cctest/test-conversions.cc.
 %{_includedir}/%{name}/
 
 %changelog
+* Fri May 23 2025 Cristian Le <git@lecris.dev> - 3.3.1-3
+- Apply the CMake 4 patch
+
 * Fri Mar 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.1-2
 - Patch for CMake 4
 

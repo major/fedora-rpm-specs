@@ -89,6 +89,7 @@ The %{name}-tools package contains command-line tools for working with VIPS.
 
 %package doc
 Summary:	Documentation for %{name}
+BuildArch:	noarch
 Conflicts:	%{name} < %{version}-%{release}, %{name} > %{version}-%{release}
 
 %description doc

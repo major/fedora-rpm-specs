@@ -1,5 +1,5 @@
 Name:           thorvg
-Version:        0.15.12
+Version:        0.15.13
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 
@@ -57,10 +57,14 @@ Summary: Documentation
 BuildArch:  noarch
 
 %description doc
-HTML documentation for ThorVG.
+Docbook documentation for ThorVG.
 
 %prep
 %autosetup -n thorvg-%{version} -p1
+# Generate docbook documentation
+sed -i "s/GENERATE_DOCBOOK       = NO/GENERATE_DOCBOOK       = YES/g" docs/Doxyfile
+sed -i "s/# DOCBOOK_PROGRAMLISTING = NO/ DOCBOOK_PROGRAMLISTING = YES/g" docs/Doxyfile
+sed -i "s/GENERATE_HTML          = YES/GENERATE_HTML          = NO/g" docs/Doxyfile
 
 %build
 %meson -Dengines=all \
@@ -79,6 +83,11 @@ popd
 
 %install
 %meson_install
+mkdir -p %{buildroot}%{_datadir}/help/en/ThorVG
+for file in docs/docbook/*.*
+do
+  install -m644 $file  %{buildroot}%{_datadir}/help/en/ThorVG
+done
 
 %check
 %meson_test
@@ -103,7 +112,8 @@ popd
 
 %files doc
 %license LICENSE
-%doc docs/html
+%dir  %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/ThorVG
 
 %changelog
 %autochangelog

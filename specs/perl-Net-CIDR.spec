@@ -1,5 +1,5 @@
 Name:           perl-Net-CIDR
-Version:        0.24.1
+Version:        0.25
 Release:        1%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,10 @@ addresses.
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Sat May 24 2025 Paul Howarth <paul@city-fan.org> - 0.25-1
+- Update to 0.25 (rhbz#2368340)
+  - Fix warning with Perl 5.40
+
 * Wed May 21 2025 Paul Howarth <paul@city-fan.org> - 0.24.1-1
 - Update to 0.24.1
   - Strip extra leading zeros from octets in addr2cidr (GH#4)

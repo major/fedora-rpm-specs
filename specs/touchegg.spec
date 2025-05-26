@@ -1,13 +1,12 @@
 Name:           touchegg
-Version:        2.0.17
-Release:        2%{?dist}
+Version:        2.0.18
+Release:        1%{?dist}
 Summary:        Multi-touch gesture recognizer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/JoseExposito/touchegg
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         add_missing_include.patch
 
 ExcludeArch:    %{ix86}
 
@@ -80,6 +79,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Sat May 24 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.18-1
+- Update to 2.0.18
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

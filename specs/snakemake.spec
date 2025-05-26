@@ -41,7 +41,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        9.4.0
+Version:        9.5.1
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -467,6 +467,7 @@ find '%{buildroot}%{_datadir}/vim/vimfiles' \
 # The following require network access (at least DNS) and pass if it is
 # available.
 k="${k-}${k+ and }not test_ancient"
+k="${k-}${k+ and }not test_dynamic_container"
 k="${k-}${k+ and }not test_github_issue78"
 k="${k-}${k+ and }not test_issue1083"
 k="${k-}${k+ and }not test_issue3361_pass"

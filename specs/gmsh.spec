@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.13.2
-Release:    8%{?dist}
+Release:    9%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -47,6 +47,9 @@ Patch5:     gmsh_unbundle_gl2ps.patch
 Patch6:     gmsh-cstdint.patch
 # Fix incompatible size_t* -> uint64_t* conversions
 Patch7:     gmsh_uint64.patch
+# Fix build failure with GCC15
+# https://gitlab.onelab.info/gmsh/gmsh/-/issues?show=eyJpaWQiOiIzMjc2IiwiZnVsbF9wYXRoIjoiZ21zaC9nbXNoIiwiaWQiOjQ0MTB9
+Patch8:     gmsh-gcc15.patch
 
 BuildRequires: alglib-devel
 BuildRequires: ann-devel
@@ -409,6 +412,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Sat May 24 2025 Sandro Mani <manisandro@gmail.com> - 4.13.2-9
+- Add fix for GCC15 build failure
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.13.2-8
 - Rebuild for tcl/tk
 
