@@ -1,5 +1,5 @@
 Name:           plutosvg
-Version:        0.0.6
+Version:        0.0.7
 Release:        %autorelease
 Summary:        Tiny SVG rendering library in C
 License:        MIT
@@ -66,7 +66,7 @@ done
 %license LICENSE
 %doc README.md
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.0.6
+%{_libdir}/lib%{name}.so.%{version}
 
 %files devel
 %{_includedir}/%{name}

@@ -1,5 +1,6 @@
 Name: lazpaint
-%global prettyname LazPaint
+%global name_pretty LazPaint
+%global name_rtld io.github.bgrabitmap.LazPaint
 
 Summary: Simple image editor
 URL: https://lazpaint.github.io
@@ -9,19 +10,17 @@ URL: https://lazpaint.github.io
 # BGRAControls also borrows some Boost-licensed code
 License: GPL-3.0-only AND LGPL-3.0-only
 
-Version: 7.2.2
-Release: 9%{?dist}
+Version: 7.3
+Release: 1%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
-%global bitmap_version   11.5.8
-%global controls_version 7.7
+%global bitmap_version   11.6.6
+%global controls_version 9.0.2
 
 %global github https://github.com/bgrabitmap
 Source0: %{github}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source10: %{github}/bgrabitmap/archive/v%{bitmap_version}/bgrabitmap-%{bitmap_version}.tar.gz
 Source20: %{github}/bgracontrols/archive/v%{controls_version}/bgracontrols-%{controls_version}.tar.gz
-
-Source100: %{name}.appdata.xml
 
 %global widgetset gtk2
 
@@ -44,29 +43,30 @@ ExclusiveArch: %{fpc_arches}
 
 
 %description
-%{prettyname} is a simple image editor, like PaintBrush or Paint.Net,
+%{name_pretty} is a simple image editor, like PaintBrush or Paint.Net,
 written in Lazarus (Free Pascal), using the BGRABitmap library.
 
 It supports a variety of file formats, including layered bitmaps
 and even 3D files.
 
-%{prettyname} also offers a command-line interface for using it from a terminal,
+%{name_pretty} also offers a command-line interface for using it from a terminal,
 as well as a Python script system that allows the user
 to write their own layer effects.
 
 
 %prep
 %setup -q
-ln %{SOURCE100} lazpaint/release/%{name}.appdata.xml
 
 # unpack BGRABitmap
 tar xzf %{SOURCE10}
-mv bgrabitmap-%{bitmap_version}/bgrabitmap  ./bgrabitmap
+rmdir use/bgrabitmap
+mv bgrabitmap-%{bitmap_version}/bgrabitmap  use/bgrabitmap
 rm -rf bgrabitmap-%{bitmap_version}/
 
 # unpack BGRAControls
 tar xzf %{SOURCE20}
-mv bgracontrols-%{controls_version}  ./bgracontrols
+rmdir use/bgracontrols
+mv bgracontrols-%{controls_version}  use/bgracontrols
 rm -rf bgracontrols-%{controls_version}/
 
 # Apply patches.
@@ -78,8 +78,8 @@ dos2unix lazpaint/release/bin/i18n/*.po
 
 
 %global laz_packages  %{expand:
-	bgrabitmap/bgrabitmappack.lpk
-	bgracontrols/bgracontrols.lpk
+	use/bgrabitmap/bgrabitmappack.lpk
+	use/bgracontrols/bgracontrols.lpk
 	lazpaintcontrols/lazpaintcontrols.lpk
 }
 
@@ -128,10 +128,10 @@ done
 # Upstream provides a desktop file, but it's a bit of a mess
 # and doesn't pass desktop-file-validate.
 # Instead of trying to fix it, let's just write a desktop file ourselves.
-cat > lazpaint/release/%{name}.desktop << EOF
+cat > lazpaint/release/%{name_rtld}.desktop << EOF
 [Desktop Entry]
 Type=Application
-Name=%{prettyname}
+Name=%{name_pretty}
 GenericName=Image editor
 Comment=%{summary}
 Icon=%{name}
@@ -169,29 +169,32 @@ done
 # -- desktop file and appstream data
 
 install -m 755 -d %{buildroot}%{_datadir}/applications
-install -m 644 -p lazpaint/release/%{name}.desktop %{buildroot}%{_datadir}/applications/
+install -m 644 -p lazpaint/release/%{name_rtld}.desktop %{buildroot}%{_datadir}/applications/
 
 install -m 755 -d %{buildroot}%{_metainfodir}
-install -m 644 -p lazpaint/release/%{name}.appdata.xml %{buildroot}%{_metainfodir}/
+install -m 644 -p Install/flatpak/%{name_rtld}.metainfo.xml %{buildroot}%{_metainfodir}/
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name_rtld}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name_rtld}.metainfo.xml
 
 
 %files
 %license COPYING.txt
-%license bgracontrols/docs/COPYING.LGPL.txt
-%license bgracontrols/docs/COPYING.modifiedLGPL.txt
+%license use/bgracontrols/docs/COPYING.LGPL.txt
+%license use/bgracontrols/docs/COPYING.modifiedLGPL.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name_rtld}.desktop
 %{_datadir}/icons/hicolor/**/apps/%{name}.png
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/%{name_rtld}.metainfo.xml
 
 
 %changelog
+* Sun May 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.3-1
+- Update to v7.3 (with BGRABitmap v11.6.6 and BGRAControls 9.0.2)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

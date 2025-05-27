@@ -11,7 +11,7 @@
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
 Version: 6.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -166,6 +166,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.9.0-3
+- Rebuilt for abseil-cpp 20250512.0
+
 * Thu May 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.9.0-2
 - Add direct build dependency on abseil-cpp
 

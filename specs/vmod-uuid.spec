@@ -71,7 +71,7 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
-* Thu May 22 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-24
+* Mon May 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-24
 - Rebuild for varnish-7.7.1
 
 * Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-23

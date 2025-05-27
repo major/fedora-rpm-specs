@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -611,6 +611,9 @@ fi
 
 
 %changelog
+* Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.2-2
+- Rebuilt for abseil-cpp 20250512.0
+
 * Thu May 08 2025 Peter Czanik <peter@czanik.hu> - 4.8.2-1
 - update to 4.8.2, a bug fix release
 - fixes an inproper certificate validation problem (CVE-2024-47619)

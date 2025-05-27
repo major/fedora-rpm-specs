@@ -2,11 +2,13 @@
 
 Summary: Generate and verify various DNS records such as SSHFP, TLSA and OPENPGPKEY
 Name: hash-slinger
-Version: 3.2
-Release: 6%{?dist}
+Version: 3.4
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Url:  https://github.com/letoams/%{name}/
 Source:  %{url}archive/%{version}/%{name}-%{version}.tar.gz
+# Handle M2Crypto no longer being available
+Patch:   tlsa-disable.patch
 %if %{with man}
 # Only to regenerate the man page, which is shipped per default
 Buildrequires: xmlto
@@ -14,7 +16,9 @@ Buildrequires: xmlto
 BuildRequires: python3-devel, make
 Requires: python3 >= 3.4
 Requires: python3-dns, python3-unbound
-Requires: openssh-clients >= 4, python3-m2crypto, python3-gnupg >= 0.3.7
+Requires: openssh-clients >= 4, python3-gnupg >= 0.3.7
+# Refer to patch tlsa-disable.patch
+Recommends: python3-m2crypto
 BuildArch: noarch
 Obsoletes: sshfp < 2.0
 Provides: sshfp  = %{version}
@@ -33,7 +37,7 @@ ipseckey    Generate RFC-4025 IPSECKEY DNS records on Libreswan
 This package has incorporated the old 'sshfp' and 'swede' commands/packages
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %make_build all
@@ -48,6 +52,12 @@ This package has incorporated the old 'sshfp' and 'swede' commands/packages
 %doc %{_mandir}/man1/*
 
 %changelog
+* Sun May 25 2025 Frank Crawford <frank@crawford.emu.id.au> - 3.4-2
+- Disable tlsa if M2Crypto not available - BZ2318306 and BZ2367115
+
+* Sun May 25 2025 Frank Crawford <frank@crawford.emu.id.au> - 3.4-1
+- Updated to 3.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

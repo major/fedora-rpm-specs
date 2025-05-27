@@ -1,22 +1,21 @@
 %if 0%{?fedora}
 %global xapian_core_support ON
-%global clang_support OFF
 %global build_wizard ON
-%global system_spdlog ON
 %else
 %global xapian_core_support OFF
-%global clang_support OFF
 %global build_wizard OFF
-%global system_spdlog OFF
 %endif
 %global build_search %{xapian_core_support}
+%global clang_support ON
 %global system_sqlite3 ON
+%global system_spdlog ON
+%global system_fmt ON
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.13.2
-Release: 5%{?dist}
+Version: 1.14.0
+Release: 1%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -127,6 +126,13 @@ BuildRequires: sqlite-devel
 # SQLITE_VERSION defined in deps/sqlite3/sqlite3.h
 Provides: bundled(sqlite) = 3.42.0
 %endif
+%if "%{system_fmt}" == "ON"
+BuildRequires: fmt-devel
+%else
+# deps/fmt/README.md
+Provides: bundled(fmt) = 10.2.1
+%endif
+
 Requires: perl-interpreter
 Requires: graphviz
 
@@ -253,7 +259,8 @@ cp %{SOURCE3} .
 	-DPYTHON_EXECUTABLE=%{_bindir}/python3 \
 	-Dbuild_xmlparser=ON \
 	-Duse_sys_sqlite3=%{system_sqlite3} \
-	-Duse_sys_spdlog=%{system_spdlog}
+	-Duse_sys_spdlog=%{system_spdlog} \
+	-Duse_sys_fmt=%{system_fmt}
 
 %cmake_build %{?_smp_mflags}
 
@@ -334,6 +341,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Sun May 25 2025 Than Ngo <than@redhat.com> - 2:1.14.0-1
+- Fix rhbz#2368381, update to 1.14.0
+
 * Tue Feb 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.13.2-5
 - Use bundled spdlog on RHEL
 

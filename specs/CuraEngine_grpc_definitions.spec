@@ -1,6 +1,6 @@
 Name:           CuraEngine_grpc_definitions
 Version:        0.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        gRPC Proto Definitions for CuraEngine
 License:        MIT
 URL:            https://github.com/Ultimaker/CuraEngine_grpc_definitions
@@ -64,6 +64,9 @@ popd
 %{_libdir}/libcuraengine_grpc_definitions.so
 
 %changelog
+* Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.0-11
+- Rebuilt for abseil-cpp 20250512.0
+
 * Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.0-10
 - Rebuilt for abseil-cpp-20250127.0
 

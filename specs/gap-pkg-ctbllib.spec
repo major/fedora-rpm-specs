@@ -9,7 +9,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.10
+Version:        1.3.11
 Release:        %autorelease
 Summary:        GAP Character Table Library
 

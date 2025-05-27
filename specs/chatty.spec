@@ -3,7 +3,7 @@
 %global libcmatrix_version 0.0.3
 
 Name:    chatty
-Version: 0.8.7
+Version: 0.8.8
 Release: %{autorelease}
 Summary: A libpurple messaging client
 
@@ -85,8 +85,8 @@ mv libcmatrix-v%{libcmatrix_version} subprojects/libcmatrix
 %check
 # Adding symlink so tests find the libjabber
 ln -s /tmp/libjabber.so /tmp/libjabber.so.0
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/sm.puri.chatty.metainfo.xml
-desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.chatty.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/sm.puri.Chatty.metainfo.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Chatty.desktop
 # the upstream meson tests already validate the desktop file
 # and the appstream file
 LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
@@ -108,12 +108,12 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 
 %files -f purism-chatty.lang
 %{_bindir}/chatty
-%{_sysconfdir}/xdg/autostart/sm.puri.chatty-daemon.desktop
+%{_sysconfdir}/xdg/autostart/sm.puri.Chatty-daemon.desktop
 %{_datadir}/glib-2.0/schemas/sm.puri.Chatty.gschema.xml
-%{_datadir}/applications/sm.puri.chatty.desktop
+%{_datadir}/applications/sm.puri.Chatty.desktop
 %{_datadir}/icons/hicolor/*/apps/sm.puri.Chatty*.svg
 %{_datadir}/dbus-1/services/sm.puri.Chatty.service
-%{_metainfodir}/sm.puri.chatty.metainfo.xml
+%{_metainfodir}/sm.puri.Chatty.metainfo.xml
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/chatty

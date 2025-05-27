@@ -29,6 +29,8 @@ Patch:          0008-Make-valgrind-optional-for-riscv64.patch
 # https://github.com/Tencent/rapidjson/pull/1261
 # https://nvd.nist.gov/vuln/detail/CVE-2024-38517
 Patch:          0009-Prevent-int-underflow-when-parsing-exponents.patch
+# https://github.com/Tencent/rapidjson/pull/2250
+Patch:          0010-Increase-CMake-minimum-version-to-3.5-fixes-2159.patch
 
 BuildRequires:	cmake
 BuildRequires:	make

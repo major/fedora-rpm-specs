@@ -1,5 +1,5 @@
 Name:      python-typing-extensions
-Version:   4.13.2
+Version:   4.14.0~rc1
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
@@ -41,7 +41,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-%{version}
+%autosetup -n typing_extensions-4.14.0rc1
 
 
 %generate_buildrequires
@@ -70,6 +70,9 @@ cd src
 
 
 %changelog
+* Sun May 25 2025 Jonny Heggheim <hegjon@gmail.com> - 4.14.0~rc1-1
+- Updated to version 4.14.0rc1
+
 * Thu Apr 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.2-1
 - Update to 4.13.2
 

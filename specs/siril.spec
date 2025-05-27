@@ -2,11 +2,11 @@
 ExcludeArch:    %{ix86}
 
 %global forgeurl https://gitlab.com/free-astro/siril
-%global tag 1.4.0-beta1
+%global tag 1.4.0-beta2
 %forgemeta
 
 Name:           siril
-Version:        1.4.0~beta1
+Version:        1.4.0~beta2
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -26,6 +26,9 @@ Summary:        Astronomical image processing software
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND Zlib
 URL:            https://siril.org
 Source:         %{forgesource}
+
+# Fix error in appdata
+Patch:          edae53d38f3d47ff469e3b5b7dd36372f6590d13.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -94,6 +97,9 @@ rm -rf subprojects/yyjson
 %install
 %meson_install
 
+# Do not install locale README
+rm -rf %{buildroot}%{_pkgdocdir}/python_module/locale
+
 %find_lang %{name}
 
 
@@ -104,7 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.siril
 
 %files -f %{name}.lang
 %license %{_pkgdocdir}/{LICENSE.md,GPL-2.0-or-later.txt,LICENSE_sleef.txt,LICENSE_zlib.txt}
-%doc AUTHORS ChangeLog README.md
+%doc ChangeLog README.md
+%{_pkgdocdir}/AUTHORS
+%{_pkgdocdir}/python_module
 %{_bindir}/%{name}*
 %{_datadir}/applications/org.siril.Siril.desktop
 %{_datadir}/mime/packages/%{name}.xml

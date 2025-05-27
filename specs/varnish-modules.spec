@@ -81,7 +81,7 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
-* Thu May 22 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.26.1-2
+* Sun May 25 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.26.1-2
 - Rebuilt for varnish-7.7.1
 
 * Wed Mar 26 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.26.0-1

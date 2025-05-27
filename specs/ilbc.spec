@@ -1,7 +1,7 @@
 Name:       ilbc
 Summary:    Internet Low Bitrate Codec
 Version:    3.0.4
-Release:    14%{?dist}
+Release:    15%{?dist}
 License:    BSD-3-Clause
 URL:        https://github.com/TimothyGu/libilbc
 
@@ -59,6 +59,9 @@ rm -fr %{buildroot}%{_docdir}/libilbc
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-15
+- Rebuilt for abseil-cpp 20250512.0
+
 * Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-14
 - Rebuilt for abseil-cpp-20250127.0
 

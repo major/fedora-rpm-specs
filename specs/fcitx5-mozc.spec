@@ -1,9 +1,10 @@
-%bcond bundle_abslcpp   0
-
 # The latest version of fcitx5-mozc requires newer
 # version of protobuf than we have in Fedora 
 # Bundling it for now
 %bcond bundle_protobuf  1
+
+# The bundled protobuf is not compatible with abseil-cpp 20250515
+%bcond bundle_abslcpp   %{with bundle_protobuf}
 
 # Enabling test also requires gtest, and we have to
 # bundle it since the build system is not designed to
@@ -59,7 +60,7 @@ Version:        2.30.5618.102
 # of by forgemeta after importing to dist-git
 Release:        %autorelease
 Summary:        A wrapper of mozc for fcitx5
-License:        BSD and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL
+License:        BSD and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL%{?with_bundle_abslcpp: and ASL-2.0}
 URL:            %{forgeurl}
 
 # main source
@@ -87,9 +88,8 @@ Source6:        http://www.post.japanpost.jp/zipcode/dl/jigyosyo/zip/jigyosyo.zi
 
 # add -v to ninja command, to make verbose output during building
 Patch0:         mozc-build-verbosely.patch
-%if %{without bundle_abslcpp}
+# only applied if the bundle_abslcpp bcond is false
 Patch1:         0001-use-system-absl.patch
-%endif
 
 BuildRequires:  python3-devel
 BuildRequires:  gettext 
@@ -103,6 +103,9 @@ BuildRequires:  fcitx5-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  %{py3_dist six}
 # BuildRequires:  gtest-devel
+%if %{with bundle_abslcpp}
+BuildRequires:  gmock-devel
+%endif
 BuildRequires:  jsoncpp-devel
 BuildRequires:  binutils
 

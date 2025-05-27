@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.7.6
+Version:        0.7.8
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -161,9 +161,9 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev 73d6ecf5a4e4eb1c754b8c3255c4d31bdc266fdb
+%global pubgrub_rev 06ec5a5f59ffaeb6cf5079c6cb184467da06c9db
 %global pubgrub_baseversion 0.3.0
-%global pubgrub_snapdate 20250509
+%global pubgrub_snapdate 20250523
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
@@ -680,9 +680,11 @@ skip="${skip-} --skip version::version_missing_bump"
 skip="${skip-} --skip version::version_patch_uncompleted"
 skip="${skip-} --skip version::version_set_dry"
 skip="${skip-} --skip version::version_set_dynamic"
+skip="${skip-} --skip version::version_set_evil_constraints"
 skip="${skip-} --skip version::version_set_invalid"
 skip="${skip-} --skip version::version_set_value"
 skip="${skip-} --skip version::version_set_value_short"
+skip="${skip-} --skip version::version_set_workspace"
 # -p uv-client --test it:
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 

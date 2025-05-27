@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           libvoikko
-Version:        4.3.2
+Version:        4.3.3
 Release:        %autorelease
 Summary:        Voikko is a library for spellcheckers and hyphenators
 

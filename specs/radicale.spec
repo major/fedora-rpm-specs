@@ -20,8 +20,8 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.3
-%define radicale_release  3
+%define radicale_version  3.5.4
+%define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -527,6 +527,9 @@ fi
 
 
 %changelog
+* Sun May 25 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.4-1
+- Update to 3.5.4
+
 * Mon May 12 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.3-3
 - Remove obsolete BuildRequire: python3-dateutil
 

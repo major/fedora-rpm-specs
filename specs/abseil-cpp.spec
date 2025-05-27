@@ -1,8 +1,8 @@
 # Installed library version
-%global lib_version 2501.0.0
+%global lib_version 2505.0.0
 
 Name:           abseil-cpp
-Version:        20250127.1
+Version:        20250512.0
 Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
@@ -24,15 +24,17 @@ License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Disable the DestroyedCallsFail test on GCC due to flakiness.
-# https://github.com/abseil/abseil-cpp/commit/f004e6c0a9a25e16fd2a1ae671a9cacfa79625b4
-#
-# Fixes:
-#
-# [Bug]: In 20250127.0, flaky failures of Table.DestroyedCallsFail fails in
-# absl_raw_hash_set_test
-# https://github.com/abseil/abseil-cpp/issues/1834
-Patch:          https://github.com/abseil/abseil-cpp/commit/f004e6c0a9a25e16fd2a1ae671a9cacfa79625b4.patch
+# Adjust Table.GrowExtremelyLargeTable to avoid OOM on i386
+# https://github.com/abseil/abseil-cpp/pull/1888
+# Partial fix for:
+# [Bug]: Test regressions in 20250512.0 on i686
+# https://github.com/abseil/abseil-cpp/issues/1887
+Patch:          https://github.com/abseil/abseil-cpp/pull/1888.patch
+
+# Skip StackTrace.FixupNoFixupEquivalence on i386
+# Downstream-only, because it does not address the root cause:
+# https://github.com/abseil/abseil-cpp/issues/1887
+Patch:          0001-Skip-StackTrace.FixupNoFixupEquivalence-on-i386.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -136,9 +138,6 @@ skips="${skips})$"
 %doc FAQ.md README.md UPGRADES.md
 # All shared libraries except installed TESTONLY libraries; see the %%files
 # list for the -testing subpackage for those.
-%{_libdir}/libabsl_bad_any_cast_impl.so.%{lib_version}
-%{_libdir}/libabsl_bad_optional_access.so.%{lib_version}
-%{_libdir}/libabsl_bad_variant_access.so.%{lib_version}
 %{_libdir}/libabsl_base.so.%{lib_version}
 %{_libdir}/libabsl_city.so.%{lib_version}
 %{_libdir}/libabsl_civil_time.so.%{lib_version}
@@ -177,7 +176,6 @@ skips="${skips})$"
 %{_libdir}/libabsl_int128.so.%{lib_version}
 %{_libdir}/libabsl_kernel_timeout_internal.so.%{lib_version}
 %{_libdir}/libabsl_leak_check.so.%{lib_version}
-%{_libdir}/libabsl_log_entry.so.%{lib_version}
 %{_libdir}/libabsl_log_flags.so.%{lib_version}
 %{_libdir}/libabsl_log_globals.so.%{lib_version}
 %{_libdir}/libabsl_log_initialize.so.%{lib_version}
@@ -199,8 +197,8 @@ skips="${skips})$"
 %{_libdir}/libabsl_poison.so.%{lib_version}
 %{_libdir}/libabsl_random_distributions.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_distribution_test_util.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_entropy_pool.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_platform.so.%{lib_version}
-%{_libdir}/libabsl_random_internal_pool_urbg.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_randen.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_randen_hwaes.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_randen_hwaes_impl.so.%{lib_version}
@@ -261,6 +259,9 @@ skips="${skips})$"
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Thu May 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20250512.0-1
+- Update to 20250512.0 (close RHBZ#2366373)
+
 * Wed Mar 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20250127.1-1
 - Update to 20250127.1 (close RHBZ#2353223)
 

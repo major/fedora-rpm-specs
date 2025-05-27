@@ -1,7 +1,7 @@
 %global tarball_name xkbcommon
 
 Name:           libxkbcommon
-Version:        1.9.2
+Version:        1.10.0
 Release:        1%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
@@ -129,6 +129,9 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/xkbcli-dump-keymap-x11.1.gz
 
 %changelog
+* Mon May 26 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.10.0-1
+- libxkbcommon 1.10.0
+
 * Wed May 21 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.9.2-1
 - libxkbcommon 1.9.2
 

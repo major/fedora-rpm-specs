@@ -1,5 +1,5 @@
 Name:           pdfarranger
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        PDF file merging, rearranging, and splitting
 

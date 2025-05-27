@@ -1,5 +1,5 @@
 Name:       ibus-table-others
-Version:    1.3.20
+Version:    1.3.21
 Release:    %autorelease
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
@@ -86,6 +86,7 @@ cd ${RPM_BUILD_ROOT}/%{_datadir}/ibus-table/tables/
 %{_bindir}/ibus-table-createdb -i -n compose.db
 %{_bindir}/ibus-table-createdb -i -n emoticon-table.db
 %{_bindir}/ibus-table-createdb -i -n ipa-x-sampa.db
+%{_bindir}/ibus-table-createdb -i -n lean.db
 %{_bindir}/ibus-table-createdb -i -n latex.db
 %{_bindir}/ibus-table-createdb -i -n rusle.db
 %{_bindir}/ibus-table-createdb -i -n rustrad.db
@@ -232,9 +233,11 @@ EOF
 
 %files -n ibus-table-code
 %{_datadir}/appdata/emoticon-table.appdata.xml
+%{_datadir}/ibus-table/tables/lean.db
 %{_datadir}/ibus-table/tables/latex.db
 %{_datadir}/ibus-table/tables/cns11643.db
 %{_datadir}/ibus-table/tables/emoticon-table.db
+%{_datadir}/ibus-table/icons/lean.svg
 %{_datadir}/ibus-table/icons/latex.svg
 %{_datadir}/ibus-table/icons/cns11643.png
 %{_datadir}/ibus-table/icons/ibus-emoticon.svg

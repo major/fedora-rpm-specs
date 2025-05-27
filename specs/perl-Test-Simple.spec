@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302213
+Version:        1.302214
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -404,6 +404,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun May 25 2025 Paul Howarth <paul@city-fan.org> - 3:1.302214-1
+- Update to 1.302214
+  - Fix typo in documentation
+
 * Mon May 19 2025 Paul Howarth <paul@city-fan.org> - 3:1.302213-1
 - Update to 1.302213
   - Fix duplicate words in Changes file (GH#1044)

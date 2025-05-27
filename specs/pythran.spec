@@ -1,5 +1,5 @@
 Name:           pythran
-Version:        0.17.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Ahead of Time Python compiler for numeric kernels
 
@@ -108,13 +108,16 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 k="not test_numpy_negative_binomial"
 # https://github.com/serge-sans-paille/pythran/issues/2214
 k="$k and not (TestDoctest and test_tutorial)"
+# https://github.com/serge-sans-paille/pythran/pull/2310#issuecomment-2873711746
+k="$k and not test_ndenumerate and not test_ndindex1 and not test_ndindex2"
 %if 0%{?__isa_bits} == 32
 # These tests cause memory (address space) exhaustion; see discussion in
 # https://src.fedoraproject.org/rpms/pythran/pull-request/28.
-for t in test_fftn_{8,17,20,22} \
+for t in test_fftn_{8,16,17,20,22} \
     test_{h,ih,ir}fft_{8,14} \
     test_{,i}fft_3d{,_axis,f64_axis,int64_axis} \
-    test_numpy_random_bytes1
+    test_numpy_random_bytes1 \
+    test_convolve_2b
 do
   k="$k and not ${t}"
 done

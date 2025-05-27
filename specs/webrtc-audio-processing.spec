@@ -1,6 +1,6 @@
 Name:           webrtc-audio-processing
 Version:        1.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
@@ -65,6 +65,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3-7
+- Rebuilt for abseil-cpp 20250512.0
+
 * Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3-6
 - Rebuilt for abseil-cpp-20250127.0
 
