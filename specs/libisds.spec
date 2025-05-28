@@ -47,7 +47,7 @@ Summary:        Library for accessing the Czech Data Boxes
 # Makefile.in:      FSFULLR
 # missing:          GPL-2.0-or-later WITH Libtool-exception
 # po/Makefile.in.in:    LicenseRef-Fedora-UltraPermissive
-#                       TODO: <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/764>
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/764>
 # src/Makefile.in:          FSFULLR
 # test/Makefile.in:         FSFULLR
 # test/offline/Makefile.in: FSFULLR

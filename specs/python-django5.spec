@@ -26,10 +26,13 @@ URL:            https://www.djangoproject.com/
 Source:         %{pypi_source Django}
 Source:         %{name}.rpmlintrc
 
-Patch:          Django-allow-setuptools-76.diff
+Patch:          Django-allow-new-setuptools.diff
 # these tests would sometimes trigger the following exception
 # UnicodeEncodeError: 'utf-8' codec can't encode characters in position 12-13: surrogates not allowed
 Patch:          Django-skip-flaky-unicode-tests.diff
+
+# Python 3.14: Fixed copying BaseContext and its subclasses - super objects are copyable
+Patch:          https://github.com/django/django/commit/8d7b1423f89bcc.patch
 
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1

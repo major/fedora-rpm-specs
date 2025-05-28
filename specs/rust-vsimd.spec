@@ -2,23 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate mio
+%global crate vsimd
 
-Name:           rust-mio
-Version:        1.0.4
+Name:           rust-vsimd
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Lightweight non-blocking I/O
+Summary:        SIMD utilities
 
 License:        MIT
-URL:            https://crates.io/crates/mio
+URL:            https://crates.io/crates/vsimd
 Source:         %{crates_source}
+# * https://github.com/Nugine/simd/commit/c6540229a0f02c14eedfa4ed8694815cd6410ba7
+Source10:       https://github.com/Nugine/simd/raw/refs/tags/v%{version}/LICENSE
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          mio-fix-metadata-auto.diff
+Patch:          vsimd-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Update const-str to 0.6. This is just a dev-depencency. We have not
+#   suggested updating upstream because this would increase the MSRV from 1.63
+#   to 1.77, and we suspect that (especially considering both libraries are by
+#   the same author) upstream is trying to avoid this.
+Patch:          vsimd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Lightweight non-blocking I/O.}
+SIMD utilities.}
 
 %description %{_description}
 
@@ -33,7 +41,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,70 +56,71 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+log-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+log-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+log-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+net-devel
+%package     -n %{name}+detect-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+net-devel %{_description}
+%description -n %{name}+detect-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "net" feature of the "%{crate}" crate.
+use the "detect" feature of the "%{crate}" crate.
 
-%files       -n %{name}+net-devel
+%files       -n %{name}+detect-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+os-ext-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+os-ext-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "os-ext" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+os-ext-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+os-poll-devel
+%package     -n %{name}+unstable-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+os-poll-devel %{_description}
+%description -n %{name}+unstable-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "os-poll" feature of the "%{crate}" crate.
+use the "unstable" feature of the "%{crate}" crate.
 
-%files       -n %{name}+os-poll-devel
+%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp -p '%{SOURCE10}' .
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -a
+%cargo_build
 
 %install
-%cargo_install -a
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -a
+%cargo_test
 %endif
 
 %changelog

@@ -16,13 +16,13 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.0.0
+%global upstream_version  2.1.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.30.3
+%global minimal_libmongo  1.30.4
 %global minimal_libcrypt  1.12.0
 
 # Build dependencies
@@ -32,7 +32,7 @@
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -168,6 +168,9 @@ OPT="-n"
 
 
 %changelog
+* Mon May 26 2025 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+
 * Thu Apr 10 2025 Remi Collet <remi@remirepo.net> - 2.0.0-2
 - also obsolete php-mongodb
 

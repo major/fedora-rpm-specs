@@ -15,6 +15,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/cloudpipe/cloudpickle
 Source0:        %{url}/archive/v%{version}/cloudpickle-v%{version}.tar.gz
 
+# Python 3.14: Fix test_locally_defined_class_with_type_hints()
+Patch:          https://github.com/cloudpipe/cloudpickle/pull/570.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

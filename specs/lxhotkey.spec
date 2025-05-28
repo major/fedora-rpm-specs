@@ -1,6 +1,6 @@
 Name:			lxhotkey
 Version:		0.1.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Hotkeys management utility
 
 License:		GPL-2.0-or-later
@@ -34,6 +34,8 @@ developing applications that use %{name}.
 %prep
 %autosetup
 
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 bash autogen.sh
 
 %build
@@ -80,6 +82,9 @@ desktop-file-install \
 %{_includedir}/%{name}/
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-2
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Tue Mar 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-1
 - 0.1.2
 

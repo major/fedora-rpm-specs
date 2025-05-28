@@ -402,7 +402,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -551,9 +551,6 @@ ExcludeArch: %{ix86}
 %define java_static_libs_rpo() %{expand:
 }
 
-%define java_unstripped_rpo() %{expand:
-}
-
 %define java_docs_rpo() %{expand:
 }
 
@@ -645,10 +642,6 @@ Source16: CheckVendor.java
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
-# Regenerate jmod-less jlink hashsums after the build do all evil things
-# The stripped debuginfo may fail this operation, but that is currently broken anyway
-Source19: BuildShaSumFile.java
-
 ############################################
 #
 # RPM/distribution specific patches
@@ -708,10 +701,12 @@ Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
 # OpenJDK patches which missed last update
 #
 #############################################
-# 8352692: Add support for extra jlink options
-Patch2000: 0001-8352692-Add-support-for-extra-jlink-options.patch
-# 8352689: Allow for hash sum overrides when linking from the run-time image
-Patch2001: 0002-8352689-Allow-for-hash-sum-overrides-when-linking-fr.patch
+# JDK-8350137: After JDK-8348975, Linux builds contain man pages for windows only tools
+Patch2000: 0001-8350137-After-JDK-8348975-Linux-builds-contain-man-p.patch
+# JDK-8353185: Introduce the concept of upgradeable files in context of JEP 493
+Patch2001: 0001-8353185-Introduce-the-concept-of-upgradeable-files-i.patch
+# JDK-8355524: Only every second line in upgradeable files is being used
+Patch2002: 0001-8355524-Only-every-second-line-in-upgradeable-files-.patch
 
 #############################################
 #
@@ -925,17 +920,6 @@ The %{origin_nice} %{featurever} libraries for static linking - portable edition
 %endif
 
 %if %{include_normal_build}
-%package unstripped
-Summary: The %{origin_nice} %{featurever} runtime environment.
-
-%{java_unstripped_rpo %{nil}}
-
-%description unstripped
-The %{origin_nice} %{featurever} runtime environment.
-
-%endif
-
-%if %{include_normal_build}
 %package docs
 Summary: %{origin_nice} %{featurever} API documentation
 
@@ -1018,9 +1002,11 @@ pushd %{top_level_dir_name}
 # Skipping fips patch whil eit is not ready for jdk22 %%patch -P1001 -p1
 # Patches in need of upstreaming
 %patch -P1100 -p1
-# Patches which missed the 24+36 GA release
+
+# Patches not yet in 24.0.1
 %patch -P2000 -p1
 %patch -P2001 -p1
+%patch -P2002 -p1
 popd # openjdk
 
 
@@ -1090,14 +1076,6 @@ gcc ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
 
 echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
-function create_jlink_argfile() {
-    local argfile=${1}
-
-    # Ensure parent directory exists
-    mkdir -p $(dirname ${argfile})
-    echo "--sha-overrides=@\${java.home}/conf/runtimelink-sha-overrides.conf" > ${argfile}
-}
-
 function buildjdk() {
     local outputdir=${1}
     local buildjdk=${2}
@@ -1108,8 +1086,6 @@ function buildjdk() {
 
     local top_dir_abs_src_path=$(pwd)/%{top_level_dir_name}
     local top_dir_abs_build_path=$(pwd)/${outputdir}
-    # Only used for "internal" debug symbols builds
-    local jlink_args_file=$top_dir_abs_build_path/jlink-args-file
 
     # This must be set using the global, so that the
     # static libraries still use a dynamic stdc++lib
@@ -1119,9 +1095,6 @@ function buildjdk() {
         libc_link_opt="dynamic";
     fi
 
-    jlink_flags="--save-jlink-argfiles=${jlink_args_file}"
-    create_jlink_argfile ${jlink_args_file}
-
     echo "Using output directory: ${outputdir}";
     echo "Checking build JDK ${buildjdk} is operational..."
     ${buildjdk}/bin/java -version
@@ -1129,9 +1102,6 @@ function buildjdk() {
     echo "Using debuglevel: ${debuglevel}"
     echo "Using link_opt: ${link_opt}"
     echo "Using debug_symbols: ${debug_symbols}"
-    if [ -n "${jlink_flags}" ]; then
-      echo "Using extra jlink flags: '${jlink_flags}'"
-    fi
     echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
     mkdir -p ${outputdir}
@@ -1163,10 +1133,10 @@ function buildjdk() {
     --with-boot-jdk=${buildjdk} \
     --with-debug-level=${debuglevel} \
     --with-native-debug-symbols="${debug_symbols}" \
+    --disable-absolute-paths-in-output \
     --enable-unlimited-crypto \
     --enable-linkable-runtime \
     --enable-keep-packaged-modules \
-    --with-extra-jlink-flags="${jlink_flags}" \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
     --with-libjpeg=${link_opt} \
@@ -1199,59 +1169,11 @@ function buildjdk() {
     popd
 }
 
-function stripjdk() {
-    local outputdir=${1}
-    local jdkimagepath=${outputdir}/images/%{jdkimage}
-    local jreimagepath=${outputdir}/images/%{jreimage}
-    local jmodimagepath=${outputdir}/images/jmods
-    local supportdir=${outputdir}/support
-
-    if [ "x$suffix" = "x" ] ; then
-        # Keep the unstripped version for consumption by RHEL RPMs
-        cp -a ${jdkimagepath}{,.unstripped}
-
-        # Strip the files
-        for file in $(find ${jdkimagepath} ${jreimagepath} ${supportdir} -type f) ; do
-            if file ${file} | grep -q 'ELF'; then
-                noextfile=${file/.so/};
-                objcopy --only-keep-debug ${file} ${noextfile}.debuginfo;
-                objcopy --add-gnu-debuglink=${noextfile}.debuginfo ${file};
-                strip -g ${file};
-            fi
-        done
-
-        # Rebuild jmod files against the stripped binaries
-        if [ ! -d ${supportdir} ] ; then
-            echo "Support directory missing.";
-            exit 15
-        fi
-        for cmd in $(find ${supportdir} -name '*.jmod_exec.cmdline') ; do
-            pre=${cmd/_exec/_pre};
-            post=${cmd/_exec/_post};
-            jmod=$(echo ${cmd}|sed 's#.*_create_##'|sed 's#_exec.cmdline##')
-            echo "Rebuilding ${jmod} against stripped binaries...";
-            if [ -e ${pre} ] ; then
-                echo "Executing ${pre}...";
-                cat ${pre} | sh -s ;
-            fi
-            echo "Executing ${cmd}...";
-            cat ${cmd} | sh -s ;
-            if [ -e ${post} ] ; then
-                echo "Executing ${post}...";
-                cat ${post} | sh -s ;
-            fi
-        done
-        rm -rf ${jdkimagepath}/jmods
-        cp -a ${jmodimagepath} ${jdkimagepath}
-    fi
-}
-
 function installjdk() {
     local outputdir=${1}
     local installdir=${2}
     local jdkimagepath=${installdir}/images/%{jdkimage}
     local jreimagepath=${installdir}/images/%{jreimage}
-    local unstripped=${jdkimagepath}.unstripped
 
     echo "Installing build from ${outputdir} to ${installdir}..."
     mkdir -p ${installdir}
@@ -1280,7 +1202,7 @@ function installjdk() {
         fi;
     done
 
-    for imagepath in ${jdkimagepath} ${jreimagepath} ${unstripped}; do
+    for imagepath in ${jdkimagepath} ${jreimagepath}; do
 
         if [ -d ${imagepath} ] ; then
             # the build (erroneously) removes read permissions from some jars
@@ -1378,7 +1300,6 @@ function packagejdk() {
     staticname=%{staticlibsportablename -- "$nameSuffix"}
     staticarchive=${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
     debugarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.debuginfo"}
-    unstrippedarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.unstripped"}
     if [ "x$suffix" = "x" ] ; then
       docname=%{docportablename}
       docarchive=${packagesdir}/%{docportablearchive}
@@ -1387,14 +1308,6 @@ function packagejdk() {
     # These are from the source tree so no debug variants
     miscname=%{miscportablename}
     miscarchive=${packagesdir}/%{miscportablearchive}
-
-    if [ "x$suffix" = "x" ] ; then
-        # Keep the unstripped version for consumption by RHEL RPMs
-        mv %{jdkimage}.unstripped ${jdkname}
-        tar -cJf ${unstrippedarchive} ${jdkname}
-        genchecksum ${unstrippedarchive}
-        mv ${jdkname} %{jdkimage}.unstripped
-    fi
 
     # Rename directories for packaging
     mv %{jdkimage} ${jdkname}
@@ -1426,7 +1339,6 @@ function packagejdk() {
 
     tar -cJf ${jmodsarchive} --exclude='**.debuginfo' ${jdkname}/jmods
     genchecksum ${jmodsarchive}
-
     rm -rv ${jdkname}/jmods
 
     tar -cJf ${jdkarchive} --exclude='**.debuginfo' ${jdkname}
@@ -1472,10 +1384,14 @@ for suffix in %{build_loop} ; do
       # change --something to something
       debugbuild=`echo $suffix  | sed "s/-//g"`
   fi
-  # We build with internal debug symbols and do
-  # our own stripping for one version of the
-  # release build
-  debug_symbols=internal
+  # We build with 'external' debug symbols for the
+  # release build and build with 'internal' for
+  # slowdebug/fastdebug variants
+  if [ "x$suffix" = "x" ] ; then
+    debug_symbols=external
+  else
+    debug_symbols=internal
+  fi
 
   builddir=%{buildoutputdir -- ${suffix}}
   bootbuilddir=boot${builddir}
@@ -1505,19 +1421,14 @@ for suffix in %{build_loop} ; do
       installjdk ${bootbuilddir} ${bootinstalldir}
       buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
-      stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
       %{!?with_artifacts:rm -rf ${bootinstalldir}}
   else
       buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
-      stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
   fi
 
-  pushd ${installdir}/images/jdk/
-    ./bin/java --add-opens=jdk.jlink/jdk.tools.jlink.internal.runtimelink=ALL-UNNAMED %{SOURCE19} ./conf/runtimelink-sha-overrides.conf
-  popd
   packagejdk ${installdir} ${packagesdir} %{altjavaoutputdir}
 
 %if %{system_libs}
@@ -1714,7 +1625,6 @@ for suffix in %{build_loop} ; do
     jrearchive=${packagesdir}/%{jreportablearchive -- "$nameSuffix"}
     staticarchive=${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
     debugarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.debuginfo"}
-    unstrippedarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.unstripped"}
 
     mv ${jdkarchive} $RPM_BUILD_ROOT%{_jvmdir}/
     mv ${jdkarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
@@ -1731,8 +1641,6 @@ for suffix in %{build_loop} ; do
     if [ "x$suffix" = "x" ] ; then
         mv ${debugarchive} $RPM_BUILD_ROOT%{_jvmdir}/
         mv ${debugarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
-        mv ${unstrippedarchive} $RPM_BUILD_ROOT%{_jvmdir}/
-        mv ${unstrippedarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
     fi
 done
 
@@ -1779,10 +1687,6 @@ done
 %{_jvmdir}/%{staticlibsportablearchiveForFiles}
 %{_jvmdir}/%{staticlibsportablearchiveForFiles}.sha256sum
 %endif
-
-%files unstripped
-%{_jvmdir}/%{jdkportablearchive -- .unstripped}
-%{_jvmdir}/%{jdkportablearchive -- .unstripped}.sha256sum
 %endif
 
 %if %{include_debug_build}

@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.2.4
+Version:	4.2.6
 Release:	1%{?dist}
 Summary:	Simple document viewer
 
@@ -39,7 +39,6 @@ BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xapp) >= 1.4.0
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(webkit2gtk-4.1)
 BuildRequires:  python3-packaging
 BuildRequires:	texlive
 BuildRequires:	t1lib-devel
@@ -102,6 +101,7 @@ This package adds configuration to use %{name} as a thumbnailer.
  -Ddeprecated_warnings=false \
  -Ddjvu=true \
  -Ddvi=true \
+ -Depub=false \
  -Dt1lib=true \
  -Dpixbuf=true \
  -Dcomics=true \
@@ -169,6 +169,10 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Mon May 26 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.6-1
+- Update to 4.2.6
+- Disable epub support, it's broken
+
 * Mon Apr 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.4-1
 - Update to 4.2.4
 

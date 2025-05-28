@@ -20,6 +20,11 @@ Requires:       python3-authres
 BuildRequires:  systemd
 BuildRequires:  python3-devel
 
+BuildRequires:  systemd-rpm-macros
+%if 0%{?fedora} < 42 || 0%{?rhel}
+%{?sysusers_requires_compat}
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -77,6 +82,11 @@ EOF
 
 install -m0644 -D pypolicyd-spf.sysusers.conf %{buildroot}%{_sysusersdir}/pypolicyd-spf.conf
 
+
+%if 0%{?fedora} < 42 || 0%{?rhel}
+%pre
+%sysusers_create_compat pypolicyd-spf.sysusers.conf
+%endif
 
  
 %files

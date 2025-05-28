@@ -47,7 +47,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -277,6 +277,8 @@ sed -i Makefile.am \
 	-e '\@docs/reference/libfm/libfm-sections.txt@d'
 git commit -m "Remove files entry to be regenerated" -a || true
 
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 sh autogen.sh
 git commit -m "save modified files" -a || true
 
@@ -502,6 +504,9 @@ fi
 %endif
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0^20250316git3289abf5-2
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0^20250316git3289abf5-1
 - Update to the latest git
 

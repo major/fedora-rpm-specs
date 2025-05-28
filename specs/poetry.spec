@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        2.1.2
+Version:        2.1.3
 Release:        %autorelease
 
 # SPDX
@@ -25,6 +25,8 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # get_system_wheels_paths() from virtualenv.
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
+
+Patch:         https://github.com/python-poetry/poetry/pull/10397.patch
 
 BuildArch:      noarch
 

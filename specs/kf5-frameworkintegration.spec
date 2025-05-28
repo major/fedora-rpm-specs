@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: KDE Frameworks 5 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -108,6 +108,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.116.0-8
+- Rebuild (qt5)
+
 * Wed Jan 22 2025 Jan Grulich <jgrulich@redhat.com> - 5.116.0-7
 - Rebuild (qt5)
 

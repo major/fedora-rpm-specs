@@ -90,6 +90,7 @@ Recommends:     dmidecode
 Recommends:     udisks2
 Recommends:     xdg-utils
 Recommends:     iperf3
+Recommends:     vulkan-tools
 %endif
 
 %description
@@ -130,7 +131,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
-%license LICENSE
+%license LICENSE LICENSE.1 LICENSE.2
 %doc README.md
 %{_bindir}/hardinfo2
 %{_bindir}/hwinfo2_fetch_sysdata

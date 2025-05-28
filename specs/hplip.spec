@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -247,6 +247,9 @@ Patch73: hplip-format-qdatetime.patch
 # make sure we see prompts when installing plugin...
 # https://bugs.launchpad.net/hplip/+bug/2110101
 Patch75: hplip-plugin-stdout.patch
+# toolbox shows traceback when button 'close' is clicked on at first dialog
+# https://bugs.launchpad.net/hplip/+bug/2111722
+Patch76: hplip-gui-close-trace.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -609,6 +612,8 @@ done
 %patch -P 73 -p1 -b .format-qdatetime
 # https://bugs.launchpad.net/hplip/+bug/2110101
 %patch -P 75 -p1 -b .stdout
+# https://bugs.launchpad.net/hplip/+bug/2111722
+%patch -P 76 -p1 -b .gui-close-trace
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -980,6 +985,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon May 26 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-5
+- hp-toolbox shows traceback when closing and there is no HP device (fedora#2360501)
+
 * Mon May 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-4
 - plugin.conf now looks to use sha256 as well per email comms with HP, drop the revert
 

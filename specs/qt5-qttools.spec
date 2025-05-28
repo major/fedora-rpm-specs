@@ -12,8 +12,8 @@
 
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
-Version: 5.15.16
-Release: 4%{?dist}
+Version: 5.15.17
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -491,6 +491,9 @@ fi
 
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
+- 5.15.17
+
 * Fri May 02 2025 Than Ngo <than@redhat.com> - 5.15.16-4
 - Fix rhbz#2293758, Directory is missing in RPM database
 

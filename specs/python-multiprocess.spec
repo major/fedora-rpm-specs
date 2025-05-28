@@ -1,3 +1,6 @@
+%global commit 72b671415e19d4232a58f3b84d3449101693b007
+%global snapdate 20250509
+
 %global _description %{expand:
 multiprocess is a fork of multiprocessing, and is developed as part of
 pathos: https://github.com/uqfoundation/pathos
@@ -25,7 +28,7 @@ https://github.com/uqfoundation/multiprocess/issues, with a legacy list
 maintained at https://uqfoundation.github.io/project/pathos/query.}
 
 Name:           python-multiprocess
-Version:        0.70.18
+Version:        0.70.18^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Better multiprocessing and multithreading in python
 
@@ -39,7 +42,7 @@ Summary:        Better multiprocessing and multithreading in python
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/211
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/uqfoundation/multiprocess
-Source:         %{pypi_source multiprocess}
+Source:         %{url}/archive/%{commit}/multiprocess-%{commit}.tar.gz
 
 BuildArch:      noarch
 
@@ -66,7 +69,7 @@ Summary:        Documentation for %{name}
 This package provides documentation for %{name}.
 
 %prep
-%autosetup -n multiprocess-%{version} -p1
+%autosetup -n multiprocess-%{commit} -p1
 
 # Convert line endings
 find py%{python3_version}/{doc,examples}/ -type f \

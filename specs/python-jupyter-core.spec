@@ -3,7 +3,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-core
-Version:        5.7.2
+Version:        5.8.0
 Release:        %autorelease
 Summary:        The base package for Jupyter projects
 

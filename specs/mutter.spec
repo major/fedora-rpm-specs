@@ -18,7 +18,7 @@
 %endif
 
 Name:          mutter
-Version:       48.2
+Version:       48.3
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 

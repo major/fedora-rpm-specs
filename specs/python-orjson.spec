@@ -17,6 +17,9 @@ Summary:        Fast, correct Python JSON library
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
+# Support Python 3.14
+# Updates bundled/forked pyo3-build-config/pyo3-ffi to 0.25.0
+Patch:          https://github.com/ijl/orjson/pull/570.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -71,8 +74,8 @@ License:        %{shrink:
 #
 # Note that these crates are actually forked, not only bundled/vendored; see
 # https://github.com/ijl/orjson/issues/524#issuecomment-2424170405 for details.
-Provides:       bundled(crate(pyo3-build-config)) = 0.23.3
-Provides:       bundled(crate(pyo3-ffi)) = 0.23.3
+Provides:       bundled(crate(pyo3-build-config)) = 0.25.0
+Provides:       bundled(crate(pyo3-ffi)) = 0.25.0
 
 %description -n python3-orjson %{_description}
 

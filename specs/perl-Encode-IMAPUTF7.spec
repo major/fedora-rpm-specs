@@ -1,31 +1,27 @@
-%global remove_lf() for i in %*; do tr -d '\\r' < $i > $i. && touch $i $i. && mv -f $i. $i; done
+%global remove_lf() for i in %*; do tr -d '\\r' < $i > $i. && touch -r $i $i. && mv -f $i. $i; done
 
 Name:           perl-Encode-IMAPUTF7
-Version:        1.05
-Release:        28%{?dist}
+Version:        1.07
+Release:        29%{?dist}
 Summary:        Process the special UTF-7 variant required by IMAP
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Encode-IMAPUTF7
-Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMAKHOLM/Encode-IMAPUTF7-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Encode-IMAPUTF7-%{version}.tar.gz
 BuildArch:      noarch
-# Use Exporter for encode and decode which are used in import
-# error since perl 5.39.1 (CPAN RT#149091)
-Patch0:         Encode-IMAPUTF7-1.05-Use-Exporter-for-encode-decode.patch
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(base)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Encode::Encoding)
-BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(warnings)
 
@@ -50,11 +46,16 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
+%license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%_mandir/man3/*
+%dir %{perl_vendorlib}/Encode
+%{perl_vendorlib}/Encode/IMAPUTF7.pm
+%_mandir/man3/Encode::IMAPUTF7.*
 
 %changelog
+* Mon May 26 2025 Petr Pisar <ppisar@redhat.com> - 1.07-29
+- 1.07 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.15.16
-Release: 2%{?dist}
+Version: 5.15.17
+Release: 1%{?dist}
 
 License: GFDL-1.3-no-invariants-or-later
 Url:     http://www.qt.io
@@ -13,12 +13,13 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdoc
 ## branch: kde/5.15
-## git format-patch v5.15.16-lts-lgpl
-Patch1: 0001-Android-keep-only-mandatory-arguments-for-configure-.patch
-Patch2: 0002-Doc-update-some-packages-for-Linux.patch
-Patch3: 0003-Android-update-linux-package-dependencies.patch
-Patch4: 0004-Remove-unneeded-italic-decoration.patch
-Patch5: 0005-Linux-Fix-library-xcb-spelling-errors.patch
+## git format-patch v5.15.17-lts-lgpl
+Patch1:  0001-Android-keep-only-mandatory-arguments-for-configure-.patch
+Patch2:  0002-Android-update-linux-package-dependencies.patch
+Patch3:  0003-Remove-unneeded-italic-decoration.patch
+Patch4:  0004-Doc-update-some-packages-for-Linux.patch
+Patch5:  0005-Linux-Fix-library-xcb-spelling-errors.patch
+
 
 BuildArch: noarch
 %global _qt5_qmake %{_bindir}/qmake-qt5
@@ -60,6 +61,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
+- 5.15.17
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

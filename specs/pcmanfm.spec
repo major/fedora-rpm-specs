@@ -51,7 +51,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	2%{?dist}%{flagrel}
+Release:	3%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -166,12 +166,10 @@ cat %PATCH104 | git am
 cat %PATCH202 | git am
 
 %if 0%{?use_gitbare}
-# gettext 0.25 needs autopoint
-sed -i configure.ac \
-	-e '\@IT_PROG_INTLTOOL@i AM_GNU_GETTEXT_VERSION([0.19])'
-autopoint -f
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 # Patch0
-autoreconf -fi -I m4
+autoreconf -fi
 %endif
 
 # permission fix
@@ -244,6 +242,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-3
+- Use ACLOCAL_PATH environment instead of calling autopoint
+
 * Sat May 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-2
 - Call autopoint with gettext 0.25 (ref: bug 2366708)
 

@@ -37,7 +37,7 @@
 
 Name:			lxappearance
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Feature-rich GTK+ theme switcher for LXDE
 
 # SPDX confirmed
@@ -138,6 +138,8 @@ git add .
 git commit -m "base" -q
 %endif
 
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 sh autogen.sh
 
 
@@ -192,6 +194,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.4-2
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Tue Mar 25 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.4-1
 - 0.6.4
 

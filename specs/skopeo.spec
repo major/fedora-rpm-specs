@@ -22,6 +22,7 @@
 # Copr builds set a separate epoch for all environments
 %if %{defined fedora}
 %define conditional_epoch 1
+%define fakeroot 1
 %else
 %define conditional_epoch 2
 %endif
@@ -38,7 +39,7 @@ Epoch: %{conditional_epoch}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.18.0
+Version: 1.19.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -72,12 +73,14 @@ Requires: containers-common >= 4:1-21
 Command line utility to inspect images and repositories directly on Docker
 registries without the need to pull them
 
+# NOTE: The tests subpackage is only intended for testing and will not be supported
+# for end-users and/or customers.
 %package tests
 Summary: Tests for %{name}
 
 Requires: %{name} = %{epoch}:%{version}-%{release}
-%if %{defined fedora}
 Requires: bats
+%if %{defined fakeroot}
 Requires: fakeroot
 %endif
 Requires: gnupg
@@ -117,9 +120,9 @@ export CGO_CFLAGS="$CGO_CFLAGS -m64 -mtune=generic -fcf-protection=full"
 
 BASEBUILDTAGS="$(hack/libsubid_tag.sh)"
 %if %{defined build_with_btrfs}
-export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_tag.sh) $(hack/btrfs_installed_tag.sh)"
+export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh)"
 %else
-export BUILDTAGS="$BASEBUILDTAGS btrfs_noversion exclude_graphdriver_btrfs"
+export BUILDTAGS="$BASEBUILDTAGS exclude_graphdriver_btrfs"
 %endif
 
 %if %{defined fips}

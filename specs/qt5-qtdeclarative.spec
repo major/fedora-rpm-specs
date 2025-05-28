@@ -11,8 +11,8 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.16
-Release: 2%{?dist}
+Version: 5.15.17
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,7 +27,7 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.16-lts-lgpl
+## git format-patch v5.15.17-lts-lgpl
 Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
 Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
 Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
@@ -48,8 +48,7 @@ Patch17: 0017-Prevent-crash-when-destroying-asynchronous-Loader.patch
 Patch18: 0018-QQuickItem-Fix-effective-visibility-for-items-withou.patch
 Patch19: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
 Patch20: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
-Patch21: 0021-masm-Don-t-crash-on-failed-MADV_DONTNEED-on-Linux.patch
-Patch22: 0022-QtQml-Clean-up-QQmlData-ctor.patch
+Patch21: 0021-QtQml-Clean-up-QQmlData-ctor.patch
 
 ## upstreamable patches
 Patch100: %{name}-gcc11.patch
@@ -233,6 +232,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
+- 5.15.17
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

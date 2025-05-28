@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -151,6 +151,8 @@ sed -i.f43 pcmanfm/pcmanfm.conf.in \
 	-e '\@wallpaper=@s|default.png|default.jxl|'
 %endif
 
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 # Calling autotools must be done before executing
 # configure if needed
 autoreconf -fi
@@ -224,6 +226,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-2
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-1
 - 0.99.3
 

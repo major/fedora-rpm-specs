@@ -1,7 +1,7 @@
 Name:           libghemical
 Summary:        Libraries for the Ghemical chemistry package
 Version:        3.0.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 # SPDX confirmed
 License:        GPL-2.0-or-later
@@ -45,13 +45,10 @@ Libraries and header include files for developing programs based on %{name}.
 sed -i 's/blas/flexiblas/g' configure.ac
 sed -i 's/lapack/flexiblas/g' configure.ac
 
-# gettext 0.25 needs autopoint
-sed -i configure.ac \
-	-e '\@^IT_PROG_INTLTOOL@i AM_GNU_GETTEXT_VERSION([0.19])'
-
 %build
-autopoint -f
-autoreconf -ivf -I m4
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
+autoreconf -ivf
 
 %configure --enable-mopac7 --enable-mpqc --disable-static --disable-sctest
 %make_build
@@ -79,6 +76,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-28
+- Use ACLOCAL_PATH environment instead of calling autopoint
+
 * Sat May 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-27
 - Call autopoint with gettext 0.25 (ref: bug 2366708)
 

@@ -1,5 +1,5 @@
 Name:           ack
-Version:        3.7.0
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Grep-like text finder
 # SPDX migration
@@ -48,6 +48,7 @@ BuildRequires:  perl(Term::ANSIColor) >= 1.10
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::Harness) >= 2.5
 BuildRequires:  perl(Test::More) >= 0.98
+BuildRequires:  perl(YAML::PP)
 Requires:       perl(File::Basename) >= 1.00015
 Requires:       perl(Config)
 Requires:       perl(File::Next) >= 1.18
@@ -64,20 +65,20 @@ Ack is designed as a replacement for grep.
 %setup -q -n ack3-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
+
 make completion.bash
 make completion.zsh
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
+
 install -D -p -m 0644 completion.bash %{buildroot}%{bash_completions_dir}/ack
 install -D -p -m 0644 completion.zsh  %{buildroot}%{zsh_completions_dir}/_ack
 
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
+%{_fixperms} %{buildroot}/*
 
-%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test

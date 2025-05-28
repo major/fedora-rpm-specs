@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -134,6 +134,8 @@ d %{_localstatedir}/lib/%{name} 0755 %{tempfiles_user} %{tempfiles_user}
 EOF
 
 %build
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 %{?git_version:sh autogen.sh}
 %configure \
 	--enable-gtk3 \
@@ -241,6 +243,9 @@ exit 0
 
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-11
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Fri Mar 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-10
 - F42+: Add old style pre scriptlet for LXDM user creation so as to make it work
   when upgrading from F41

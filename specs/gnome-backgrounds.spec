@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        48.0
+Version:        48.2.1
 Release:        %autorelease
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
@@ -67,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/gnome-background-properties/morphogenesis.xml
 %{_datadir}/gnome-background-properties/neogeo.xml
 %{_datadir}/gnome-background-properties/pixels.xml
+%{_datadir}/gnome-background-properties/pride.xml
+%{_datadir}/gnome-background-properties/progress.xml
 %{_datadir}/gnome-background-properties/ring.xml
 %{_datadir}/gnome-background-properties/sheet.xml
 %{_datadir}/gnome-background-properties/swoosh.xml
@@ -96,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/neogeo-l.jxl
 %{_datadir}/backgrounds/gnome/pixels-d.jxl
 %{_datadir}/backgrounds/gnome/pixels-l.jxl
+%{_datadir}/backgrounds/gnome/pride-d.jxl
+%{_datadir}/backgrounds/gnome/pride-l.jxl
+%{_datadir}/backgrounds/gnome/progress-d.jxl
+%{_datadir}/backgrounds/gnome/progress-l.jxl
 %{_datadir}/backgrounds/gnome/ring-d.jxl
 %{_datadir}/backgrounds/gnome/ring-l.jxl
 %{_datadir}/backgrounds/gnome/sheet-d.jxl

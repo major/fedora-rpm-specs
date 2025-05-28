@@ -1,7 +1,7 @@
 Summary: GNU macro processor
 Name: m4
-Version: 1.4.19
-Release: 12%{?dist}
+Version: 1.4.20
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
@@ -31,24 +31,15 @@ Install m4 if you need a macro processor.
 chmod 644 COPYING
 
 %build
-# New m4 release requested:
-# https://lists.gnu.org/archive/html/m4-discuss/2025-02/msg00000.html
-export CFLAGS="${CFLAGS} -std=gnu17"
 %configure
 %make_build
 
 %install
-# New m4 release requested:
-# https://lists.gnu.org/archive/html/m4-discuss/2025-02/msg00000.html
-export CFLAGS="${CFLAGS} -std=gnu17"
 %make_install
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %find_lang %{name}
 
 %check
-# New m4 release requested:
-# https://lists.gnu.org/archive/html/m4-discuss/2025-02/msg00000.html
-export CFLAGS="${CFLAGS} -std=gnu17"
 make %{?_smp_mflags} check
 
 %files -f %{name}.lang
@@ -59,6 +50,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Mon May 12 2025 Frédéric Bérat <fberat@redhat.com> - 1.4.20-1
+- Update to m4-1.4.20 (#2365446)
+
 * Tue Feb 04 2025 Frédéric Bérat <fberat@redhat.com> - 1.4.19-12
 - Add -std=gnu17 to CFLAGS to fix FTBFS until new m4 release gets out (#2340807)
 

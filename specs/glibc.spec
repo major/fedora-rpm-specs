@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-306-gad966bc4ef
+%global glibcsrcdir glibc-2.41.9000-350-g4f4c4fcde7
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,7 +341,7 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-configure-disable-libsupport.patch
+Patch24: glibc-rh2368545.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2380,6 +2380,58 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon May 26 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-14
+- Remove glibc-configure-disable-libsupport.patch, solved with
+  upstream commit be61b9493d38032519e596f282f9695667402c8d
+  ("support: Use unwinder in links-dso-program-c only with libgcc_s").
+- Fix regression malloc initialization (#2368545)
+- Auto-sync with upstream branch master,
+  commit 4f4c4fcde76aedc1f5362a51d98ebb57a28fbce9:
+- Turn on -Wfree-labels by default if available
+- S390: Use cfi_val_offset instead of cfi_escape. 31bit part
+- libmvec: Add inputs for asinpi(f), acospi(f), atanpi(f) and atan2pi(f)
+- INSTALL: Regenerate with texinfo 7.2
+- Fix error reporting (false negatives) in SGID tests
+- manual: Use more inclusive language in comments.
+- Makerules: Use 'original' instead of 'master' in source.
+- gen-libm-test: Use 'original source' instead of 'master' in code.
+- nss_test1: Use 'parametrized template' instead of 'master' in comment.
+- linknamespace: Use 'ALLOWLIST' instead of 'WHITELIST' in code.
+- posix: Use more inclusive language in test data.
+- pylintrc: Remove obsolete ignore section and comments.
+- support: Pick group in support_capture_subprogram_self_sgid if UID == 0
+- ldbl-128: also disable lgammaf128_r builtin when building lgammal_r
+- elf: Fix subprocess status handling for tst-dlopen-sgid (bug 32987)
+- x86_64: Fix typo in ifunc-impl-list.c.
+- elf: Test case for bug 32976 (CVE-2025-4802)
+- support: Use const char * argument in support_capture_subprogram_self_sgid
+- AArch64: Fix typo in math-vector.h
+- Fix typos in ldbl-opt makefile
+- AArch64: Cleanup SVE config and defines
+- AArch64: Cleanup PAC and BTI
+- AArch64: Implement AdvSIMD and SVE atan2pi/f
+- AArch64: Implement AdvSIMD and SVE atanpi/f
+- AArch64: Implement AdvSIMD and SVE asinpi/f
+- AArch64: Implement AdvSIMD and SVE acospi/f
+- AArch64: Optimize inverse trig functions
+- Document CVE-2025-4802.
+- ctype: Fallback initialization of TLS using relocations (bug 19341, bug 32483)
+- Use proper extern declaration for _nl_C_LC_CTYPE_{class,toupper,tolower}
+- Optimize __libc_tsd_* thread variable access
+- Remove <libc-tsd.h>
+- manual: add sched_getcpu()
+- manual: Clarifications for listing directories
+- manual: add remaining CPU_* macros
+- powerpc: Remove check for -mabi=ibmlongdouble
+- aarch64: update tests for SME
+- aarch64: Disable ZA state of SME in setjmp and sigsetjmp
+- benchtest: malloc tcache hotpath benchtest
+- Implement C23 rootn.
+- malloc: Improve performance of __libc_calloc
+- S390: Use cfi_val_offset instead of cfi_escape.
+- powerpc64le: Remove configure check for objcopy >= 2.26.
+- Raise the minimum binutils version to 2.39
+
 * Tue May 13 2025 DJ Delorie <dj@redhat.com> - 2.41.9000-13
 - Auto-sync with upstream branch master,
   commit ad966bc4efd9e69cbbda2073121cc68f1deb9588.

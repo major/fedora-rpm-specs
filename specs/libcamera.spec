@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -29,8 +29,10 @@ BuildRequires: pkgconfig(gstreamer-video-1.0)
 BuildRequires: pkgconfig(gstreamer-allocators-1.0)
 BuildRequires: libatomic
 BuildRequires: libevent-devel
+BuildRequires: libjpeg-turbo-devel
 BuildRequires: libtiff-devel
 BuildRequires: libyaml-devel
+BuildRequires: libyuv-devel
 BuildRequires: lttng-ust-devel
 BuildRequires: pkgconfig(Qt6Core)
 BuildRequires: pkgconfig(Qt6Gui)
@@ -126,7 +128,11 @@ Python bindings for %{name}
 export CFLAGS="%{optflags} -Wno-deprecated-declarations"
 export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
-%meson -Dv4l2=true
+# Build and include the virtual and vimc pipelines. This also builds tests but
+# those do not get included in any packages.
+%meson -Dtest=true
+
+%meson -Dv4l2=enabled
 %meson_build
 
 # Stripping requires the re-signing of IPA libraries, manually
@@ -200,6 +206,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Sun May 25 2025 Robert Mader <robert.mader@posteo.de> - 0.5.0-2
+- Enable virtual and vimc pipelines
+- Update v4l2 build option to silence a deprecation warning
+
 * Mon Apr 07 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.0-1
 - Update to version 0.5.0
 - Switch to upstream tarballs.

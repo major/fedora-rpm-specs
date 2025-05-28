@@ -2,8 +2,8 @@
 
 Summary: Qt5 - NetworkAuth component
 Name:    qt5-%{qt_module}
-Version: 5.15.16
-Release: 2%{?dist}
+Version: 5.15.17
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -15,8 +15,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## repo: https://invent.kde.org/qt/qt/qtnetworkauth
 ## branch: kde/5.15
 ## git format-patch v5.15.16-lts-lgpl
-# CVE-2024-36048 qt6-qtnetworkauth: qtnetworkauth: badly seeded PRNG may result in guessable values
-Patch1:  0001-QAbstractOAuth-fix-data-race-and-poor-seeding-in-gen.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -88,6 +86,9 @@ popd
 
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
+- 5.15.17
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

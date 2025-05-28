@@ -1,7 +1,7 @@
 Name:			ghemical
 Summary:		Molecular mechanics and quantum mechanics front end for GNOME
 Version:		3.0.0
-Release:		27%{?dist}
+Release:		28%{?dist}
 
 # SPDX confirmed
 License:		GPL-2.0-or-later
@@ -61,6 +61,8 @@ currently available.
 
 %prep
 %autosetup -p1
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 autoreconf -ivf
 
 # fixup character set
@@ -115,6 +117,9 @@ desktop-file-install %{name}.desktop --dir=%{buildroot}%{_datadir}/applications
 
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-28
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

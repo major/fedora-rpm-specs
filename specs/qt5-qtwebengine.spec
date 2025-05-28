@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -577,6 +577,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-4
+- Rebuild (qt5)
+
 * Wed Feb 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-3
 - Switch to ld.bfd
 

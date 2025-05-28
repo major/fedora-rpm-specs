@@ -11,6 +11,8 @@ Patch:          https://github.com/Ultimaker/Uranium/pull/885.patch#/Uranium-5.3
 # Force test order to fix FTBFS with pytest 8 
 # From https://github.com/Ultimaker/Uranium/pull/941
 Patch:          Uranium-5.6.0-pytest8.patch
+# Fix for Python 3.14
+Patch:          https://github.com/Ultimaker/Uranium/pull/997.patch
 
 # Cmake bits taken from 4.13.1, before upstream went nuts with conan
 Source2:        mod_bundled_packages_json.py

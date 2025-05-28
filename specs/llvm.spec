@@ -344,6 +344,8 @@ Patch2108: 0001-sanitizer_common-Disable-termio-ioctls-on-PowerPC.patch
 
 # Fix release build test failure on LLVM 20.1.5.
 Patch2009: ff2e8f93f6090965e82d799af43f6dfef52baa66.patch
+# Fix macho-invalid.test failure on i686.
+Patch2010: 3f29acb51739a3e6bfb8cc623eb37cb734c98a63.patch
 
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)

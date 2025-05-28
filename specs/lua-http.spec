@@ -8,7 +8,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        HTTP library for Lua
 
 License:        MIT
@@ -18,6 +18,7 @@ BuildArch:      noarch
 
 Patch1:         0001-rst_closed.patch
 Patch2:         0002-throw_kill_connection.patch
+Patch3:         0003-handle-EOF-when-body_read_type-length.patch
 
 BuildRequires:  lua
 BuildRequires:  pandoc
@@ -69,6 +70,7 @@ Documentation for the HTTP library for Lua.
 %setup -q -n %{name}-%{version}
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 pushd doc
@@ -109,6 +111,9 @@ install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{luacompatpkgdir}
 %doc %{_pkgdocdir}/index.html
 
 %changelog
+* Mon May 26 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 0.3-17
+- Fix CVE-2023-4540 (rhbz#2237419)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

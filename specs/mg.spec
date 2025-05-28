@@ -1,6 +1,6 @@
 Name:          mg
-Version:       20240709
-Release:       4%{?dist}
+Version:       20250523
+Release:       1%{?dist}
 Summary:       Tiny Emacs-like editor
 License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/hboetes/mg
@@ -11,9 +11,9 @@ BuildRequires: ncurses-devel
 BuildRequires: libbsd-devel >= 0.7.0
 
 %description
-mg is a tiny, mostly public-domain Emacs-like editor included in the base 
-OpenBSD system. It is compatible with Emacs because there shouldn't be any 
-reason to learn more editor types than Emacs or vi.
+mg is a tiny public-domain Emacs-like editor included in the base OpenBSD
+system. It is compatible with Emacs because there shouldn't be any reason to
+learn more editor types than Emacs or vi.
 
 %prep
 %setup -q
@@ -31,6 +31,10 @@ rm -rf %{buildroot}
 %{_mandir}/man1/mg.1.*
 
 %changelog
+* Mon May 26 2025 Mark McKinstry <mmckinst@fedoraproject.org> - 20250523-1
+- Upgrade to 20250523 (#2368288)
+- Update description to reflect public domain status
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240709-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

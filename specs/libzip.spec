@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:    libzip
-Version: 1.11.3
+Version: 1.11.4
 Release: 1%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
@@ -113,9 +113,13 @@ sed -e '/clone-fs-/d' \
 %{_mandir}/man3/libzip*
 %{_mandir}/man3/zip*
 %{_mandir}/man3/ZIP*
+%{_mandir}/man5/zip*
 
 
 %changelog
+* Mon May 26 2025 Remi Collet <remi@remirepo.net> - 1.11.4-1
+- update to 1.11.4
+
 * Mon Jan 20 2025 Remi Collet <remi@remirepo.net> - 1.11.3-1
 - update to 1.11.3
 

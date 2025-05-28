@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch:          https://pagure.io/pungi/pull-request/1840.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -139,6 +140,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Mon May 26 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.2-2
+- Fix tests on Python 3.14
+
 * Tue May 06 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.2-1
 - Drop compatibility with Koji < 1.32 (lsedlar)
 - kiwibuild: Add support for use_buildroot_repo option (lsedlar)

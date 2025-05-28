@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           mlmmj
-Version:        1.4.7
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
 URL:            https://codeberg.org/mlmmj/mlmmj
@@ -123,6 +123,9 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Mon May 26 2025 Denis Fateyev <denis@fateyev.com> - 1.5.1-1
+- Update to 1.5.1 release
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.7-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

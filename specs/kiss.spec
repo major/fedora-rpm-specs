@@ -1,54 +1,81 @@
-%global commit0 22cf331deb82116fea63fd8e6529b1b30022e0ec
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date 20211207
+%global qt6_minver 6.6.0
+%global kf6_minver 6.5.0
+
+%global commit ade79620520979709869b72cb9c03fd942963398
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20250524
+
+%global orgname org.kde.initialsystemsetup
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
 %global _hardened_build 1
 
 Name:           kiss
-Version:        0~%{date}git%{shortcommit0}
-Release:        10%{?dist}
-Summary:        Initial setup for systems using Plasma
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+Version:        0.1.0~%{date}git%{shortcommit}
+Release:        1%{?dist}
+Summary:        Initial setup for systems using KDE Plasma
+License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/system/%{name}
-Source:         %{url}/-/archive/%{commit0}/kiss-%{commit0}.tar.bz2
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(KF5Config)
+Source:         %{url}/-/archive/%{commit}/kiss-%{shortcommit}.tar.bz2
+BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6Gui) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6Qml) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6QuickControls2) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6Svg) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6Widgets) >= %{qt6_minver}
+BuildRequires:  cmake(Qt6DBus) >= %{qt6_minver}
+BuildRequires:  cmake(KF6I18n) >= %{kf6_minver}
+BuildRequires:  cmake(KF6Package) >= %{kf6_minver}
+BuildRequires:  cmake(KF6CoreAddons) >= %{kf6_minver}
+BuildRequires:  cmake(KF6Config) >= %{kf6_minver}
+BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cracklib-devel
-BuildRequires:  extra-cmake-modules
+BuildRequires:  extra-cmake-modules >= %{kf6_minver}
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  libappstream-glib
+
+# Do not check .so files in an application-specific library directory
+%global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/initialsystemsetup/.*\\.so.*$
+
 
 %description
 %{summary}.
 
+
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup -n %{name}-%{commit}
+
 
 %build
-%{cmake_kf5}
-%{cmake_build}
+%cmake_kf6
+%cmake_build
+
 
 %install
-%{cmake_install}
+%cmake_install
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_scriptlets
-%post
-%systemd_post org.kde.initialsystemsetup.service
+rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
-%preun
-%systemd_preun org.kde.initialsystemsetup.service
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}.*.xml
+
 
 %files
-%{_kf5_bindir}/org.kde.initialsystemsetup
-%{_unitdir}/org.kde.initialsystemsetup.service
+%license LICENSES/*
+%{_kf6_bindir}/kde-initial-system-setup
+%{_kf6_qmldir}/org/kde/initialsystemsetup/
+%{_kf6_plugindir}/packagestructure/kde_initialsystemsetup.so
+%{_kf6_metainfodir}/%{orgname}.*.xml
+%{_kf6_datadir}/plasma/packages/org.kde.initialsystemsetup.*/
+
 
 %changelog
+* Mon May 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250524gitade7962-1
+- Rebase to new rewrite
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~20211207git22cf331-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

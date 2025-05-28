@@ -13,7 +13,7 @@ persistence to stress test it, or anonymize data taken from a production\
 service, Faker is for you.
 
 Name: python-%{srcname}
-Version: 35.0.0
+Version: 37.3.0
 Release: %autorelease
 Summary: Faker is a Python package that generates fake data for you
 License: MIT
@@ -28,6 +28,7 @@ BuildRequires: python3-freezegun
 BuildRequires: python3-validators
 BuildRequires: python3-pillow
 %endif
+BuildRequires: tzdata
 
 %description %_description
 
@@ -45,6 +46,10 @@ Summary: Documentation for %{name}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+
+# We don't ship the tzdata python module
+# but the system level one is enough
+sed -i '/install_requires=.*tzdata/d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires

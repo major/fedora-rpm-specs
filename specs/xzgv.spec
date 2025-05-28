@@ -2,7 +2,7 @@
 Summary:         Picture viewer
 Name:            xzgv
 Version:         0.9.2
-Release:         21%{?dist}
+Release:         22%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
 URL:             http://sourceforge.net/projects/xzgv/
@@ -17,8 +17,9 @@ BuildRequires:   libexif-devel
 BuildRequires:   libpng-devel
 BuildRequires:   make
 BuildRequires:   texinfo
-Requires:        xterm
+Requires:        gdk-pixbuf2-modules-extra
 Requires:        gnome-icon-theme
+Requires:        xterm
 %description 
 A picture viewer with a thumbnail-based file selector.  Many file
 formats are supported, and the thumbnails used are compatible with xv,
@@ -107,6 +108,9 @@ EOF
 %{_datadir}/pixmaps/xzgv.xpm
 
 %changelog
+* Mon May 26 2025 Terje Rosten <terjeros@gmail.com> - 0.9.2-22
+- Add req on gdk-pixbuf2-modules-extra rhbz#2367799
+
 * Sun Mar 09 2025 Terje Rosten <terjeros@gmail.com> - 0.9.2-21
 - Revert to C17
 

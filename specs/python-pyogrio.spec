@@ -44,7 +44,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x dev,test%{?!without_bootstrap:,geopandas}
+%pyproject_buildrequires -x dev,test%{!?with_bootstrap:,geopandas}
 
 %build
 %pyproject_wheel

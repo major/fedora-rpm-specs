@@ -9,8 +9,8 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.3.1
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -42,6 +42,7 @@ build_ignore:
 - .package_note-%{name}*
 - .pyproject-builddir
 - .gitignore
+- changelogs/fragments/.keep
 - tests
 EOF
 
@@ -65,6 +66,16 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Mon May 26 2025 Paul Howarth <paul@city-fan.org> - 1.4.0-1
+- Update to 1.4.0 (rhbz#2368572)
+  - virt: implement basic check mode functionality (GH#98)
+  - virt: implement the gathering of Dom UUIDs (GH#187)
+  - virt: implement the gathering of Dom interface names and MAC addresses
+    (GH#189)
+  - virt: implement the removal of volumes for a Dom as (GH#177)
+  - New module community.libvirt.virt_volume: manage libvirt volumes inside a
+    storage pool
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

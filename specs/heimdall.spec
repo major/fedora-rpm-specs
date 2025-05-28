@@ -1,5 +1,5 @@
 Name:           heimdall
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Flash firmware on to Samsung Galaxy S devices
 License:        MIT
@@ -97,6 +97,9 @@ EOF
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Mon May 26 2025 LuK1337 <priv.luk@gmail.com> - 2.2.2-1
+- Update to 2.2.2
+
 * Wed May 14 2025 LuK1337 <priv.luk@gmail.com> - 2.2.1-1
 - Update to 2.2.1
 

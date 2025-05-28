@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pathfinder_simd
+%global crate migrations_macros
 
-Name:           rust-pathfinder_simd
-Version:        0.5.5
+Name:           rust-migrations_macros
+Version:        2.2.0
 Release:        %autorelease
-Summary:        Simple SIMD library
+Summary:        Codegeneration macros for diesels embedded migrations
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pathfinder_simd
+URL:            https://crates.io/crates/migrations_macros
 Source:         %{crates_source}
-# * https://github.com/servo/pathfinder/issues/443
-Source2:        https://github.com/servo/pathfinder/raw/pathfinder_simd-v0.5.1/LICENSE-APACHE
-# * https://github.com/servo/pathfinder/issues/443
-Source3:        https://github.com/servo/pathfinder/raw/pathfinder_simd-v0.5.1/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple SIMD library.}
+Codegeneration macros for diesels embedded migrations.}
 
 %description %{_description}
 
@@ -50,22 +46,45 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pf-no-simd-devel
+%package     -n %{name}+mysql-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pf-no-simd-devel %{_description}
+%description -n %{name}+mysql-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pf-no-simd" feature of the "%{crate}" crate.
+use the "mysql" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pf-no-simd-devel
+%files       -n %{name}+mysql-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+postgres-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+postgres-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "postgres" feature of the "%{crate}" crate.
+
+%files       -n %{name}+postgres-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sqlite-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sqlite-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sqlite" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sqlite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -78,8 +97,8 @@ cp -pav %{SOURCE2} %{SOURCE3} .
 
 %if %{with check}
 %check
-# * this test fails with floating point accuracy issues
-%cargo_test -- -- --skip test_f32x4_basic_ops
+# * doctests can only be run in-tree
+%cargo_test -- --lib
 %endif
 
 %changelog

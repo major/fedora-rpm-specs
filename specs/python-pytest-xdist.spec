@@ -1,8 +1,8 @@
 %global pypi_name pytest_xdist
 
 Name:           python-pytest-xdist
-Version:        3.6.1
-Release:        5%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue May 27 2025 Scott Talbert <swt@techie.net> - 3.7.0-1
+- Update to new upstream release 3.7.0 (#2368655)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

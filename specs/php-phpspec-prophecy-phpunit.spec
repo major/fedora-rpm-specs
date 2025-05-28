@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-phpspec-prophecy-phpunit
 #
-# Copyright (c) 2020-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without       tests
 
-%global gh_commit    8819516c1b489ecee4c60db5f5432fac1ea8ac6f
+%global gh_commit    d3c28041d9390c9bca325a08c5b2993ac855bded
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy-phpunit
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Integrating the Prophecy mocking library in PHPUnit test cases
 
 License:        MIT
@@ -28,6 +28,8 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
 %if %{with tests}
 BuildRequires: (php-composer(phpspec/prophecy) >= 1.18  with php-composer(phpspec/prophecy) < 2)
+BuildRequires:  phpunit12 >= 12.0
+BuildRequires:  phpunit11 >= 11.0
 BuildRequires:  phpunit10 >= 10.1
 BuildRequires:  phpunit9 >= 9.1
 %endif
@@ -37,10 +39,10 @@ BuildRequires:  php-fedora-autoloader-devel
 # from composer.json, "requires": {
 #        "php": "^7.3 || ^8",
 #        "phpspec/prophecy": "^1.18",
-#        "phpunit/phpunit":"^9.1 || ^10.1 || ^11.0"
+#        "phpunit/phpunit":"^9.1 || ^10.1 || ^11.0 || ^12.0"
 Requires:       php(language) >= 7.3
 Requires:      (php-composer(phpspec/prophecy) >= 1.18  with php-composer(phpspec/prophecy) < 2)
-Requires:      (phpunit9 >= 9.1 or phpunit10 >= 10.1 or phpunit11 >= 11.0)
+Requires:      (phpunit9 >= 9.1 or phpunit10 >= 10.1 or phpunit11 >= 11.0 or phpunit12 >= 12.0)
 # From phpcompatinfo report for version 2.0.1
 #none
 # Autoloader
@@ -112,6 +114,13 @@ for cmd in php php82 php83 php84; do
       %{_bindir}/phpunit11 --no-coverage|| ret=1
   fi
 done
+for cmd in php php83 php84; do
+  if which %{_bindir}/phpunit12 && which $cmd; then
+	sed -e 's/@PHPUNIT@/PHPUnit12/' vendor/autoload.php.in > vendor/autoload.php
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+      %{_bindir}/phpunit11 --no-coverage|| ret=1
+  fi
+done
 exit $ret
 %else
 : Test suite disabled
@@ -126,6 +135,11 @@ exit $ret
 
 
 %changelog
+* Mon May 26 2025 Remi Collet <remi@remirepo.net> - 2.4.0-1
+- update to 2.4.0 (no change)
+- allow phpunit12
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

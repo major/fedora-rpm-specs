@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    1
+%define baserelease    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -150,6 +150,7 @@ BuildRequires:   bc
 BuildRequires:   desktop-file-utils
 BuildRequires:   gawk
 BuildRequires:   gettext
+BuildRequires:   gettext-devel
 BuildRequires:   libtool
 BuildRequires:   pam-devel > %{pam_ver}
 BuildRequires:   sed
@@ -587,6 +588,8 @@ sed -i configure.ac \
 %__git commit -m "Don't make configure fail with unrecognized option" -a
 
 touch config.rpath
+# Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 aclocal
 autoconf
 autoheader
@@ -1196,6 +1199,9 @@ exit 0
 %endif
 
 %changelog
+* Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.10.1-2
+- Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
+
 * Tue Apr 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.10.1-1
 - Update to 6.10.1
 

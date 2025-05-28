@@ -2,11 +2,10 @@
 %global with_docs 1
 
 Name:           %{upstream_name}
-Version:        29.1
-Release:        5%{?dist}
+Version:        29.2
+Release:        2%{?dist}
 Summary:        Full-stack software and hardware integration testing system
-# Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-BSD
+License:        GPL-2.0-or-later
 URL:            https://beaker-project.org/
 
 # To generate git snapshot, see beaker-snapshot.sh
@@ -119,6 +118,15 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Mon May 26 2025 Martin Styk <mart.styk@gmail.com> - 29.2-2
+- Drop BSD license reference from License tag
+  The file LabController/src/bkr/labcontroller/tback.py, originally from Django
+  and licensed under the 3-clause BSD license, was removed. This file is no longer
+  part of the LabController source tree.
+
+* Mon May 26 2025 Martin Styk <mart.styk@gmail.com> - 29.2-1
+- Release 29.2 (#2368611)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 29.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
