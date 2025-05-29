@@ -94,6 +94,33 @@
 %bcond_with polly
 %endif
 
+#region pgo
+%ifarch %{ix86}
+%bcond_with pgo
+%else
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
+%bcond_without pgo
+%else
+%bcond_with pgo
+%endif
+%endif
+
+%if %{with pgo} && (0%{undefined rhel} || 0%{with snapshot_build})
+%global run_pgo_perf_comparison 1
+%else
+%global run_pgo_perf_comparison %{nil}
+%endif
+
+# Sanity checks for PGO and bootstrapping
+#----------------------------------------
+%if %{with pgo}
+%ifarch %{ix86}
+%{error:Your architecture is not allowed for PGO because it is in this list: %{ix86}}
+%endif
+%endif
+#----------------------------------------
+#endregion pgo
+
 # Disable LTO on x86 and riscv in order to reduce memory consumption.
 %ifarch %ix86 riscv64
 %bcond_with lto_build
@@ -101,7 +128,25 @@
 %bcond_without lto_build
 %endif
 
-%if %{without lto_build}
+# For easier reasoning about the build configuration, print all build conditions
+%{echo:Build conditions:}
+%{echo:build_bolt        = %{with build_bolt}}
+%{echo:bundle_compat_lib = %{with bundle_compat_lib}}
+%{echo:check             = %{with check}}
+%{echo:compat_build      = %{with compat_build}}
+%{echo:gold              = %{with gold}}
+%{echo:libcxx            = %{with libcxx}}
+%{echo:lldb              = %{with lldb}}
+%{echo:lto_build         = %{with lto_build}}
+%{echo:mlir              = %{with mlir}}
+%{echo:pgo               = %{with pgo}}
+%{echo:polly             = %{with polly}}
+%{echo:python_lit        = %{with python_lit}}
+%{echo:snapshot_build    = %{with snapshot_build}}
+
+# For PGO Disable LTO for now because of LLVMgold.so not found error
+# Use LLVM_ENABLE_LTO:BOOL=ON flags to enable LTO instead
+%if 0%{without lto_build} || 0%{with pgo}
 %global _lto_cflags %nil
 %endif
 
@@ -150,6 +195,15 @@
 %global has_crtobjs 0
 %endif
 %endif
+
+# LLD uses "fast" as the algortithm for generating build-id
+# values while ld.bfd uses "sha1" by default. We need to get lld
+# to use the same algorithm or otherwise we end up with errors like thise one:
+#
+#   "build-id found in [...]/usr/lib64/llvm21/bin/llvm-debuginfod-find too small"
+#
+# NOTE: Originally this is only needed for PGO but it doesn't hurt to have it on all the time.
+%global build_ldflags %{?build_ldflags} -Wl,--build-id=sha1
 
 #region LLVM globals
 
@@ -261,13 +315,20 @@
 #region polly globals
 %global pkg_name_polly polly%{pkg_suffix}
 #endregion polly globals
+
+#region PGO globals
+%if 0%{run_pgo_perf_comparison}
+%global llvm_test_suite_dir %{_datadir}/llvm-test-suite
+%endif
+#endregion PGO globals
+
 #endregion globals
 
 #region packages
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -324,6 +385,10 @@ Source1000: version.spec.inc
 #region CLANG patches
 Patch101: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
+Patch2002: 20-131099.patch
+# Can be removed if https://github.com/llvm/llvm-project/pull/131099 lands in v21:
+Patch2102: 20-131099.patch
+#endregion CLANG patches
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
@@ -394,6 +459,27 @@ BuildRequires:	zlib-devel
 BuildRequires:	libzstd-devel
 BuildRequires:	libffi-devel
 BuildRequires:	ncurses-devel
+
+%if %{with pgo}
+BuildRequires:	lld
+BuildRequires:	compiler-rt
+
+%if 0%{run_pgo_perf_comparison}
+BuildRequires:	llvm-test-suite
+BuildRequires:	tcl-devel
+BuildRequires:	which
+# pandas and scipy are needed for running llvm-test-suite/utils/compare.py
+# For RHEL we have to install it from pip and for fedora we take the RPM package.
+%if 0%{?rhel}
+BuildRequires:	python3-pip
+%else
+BuildRequires:	python3-pandas
+BuildRequires:	python3-scipy
+%endif
+%endif
+
+%endif
+
 # This intentionally does not use python3_pkgversion. RHEL 8 does not have
 # python3.12-sphinx, and we are only using it as a binary anyway.
 BuildRequires:	python3-sphinx
@@ -1217,6 +1303,17 @@ export ASMFLAGS="%{build_cflags}"
 
 cd llvm
 
+# Remember old values to reset to
+OLD_PATH="$PATH"
+OLD_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+OLD_CWD="$PWD"
+
+%global builddir_instrumented $RPM_BUILD_DIR/instrumented-llvm
+%if 0%{run_pgo_perf_comparison}
+%global builddir_perf_pgo $RPM_BUILD_DIR/performance-of-pgoed-clang
+%global builddir_perf_system $RPM_BUILD_DIR/performance-of-system-clang
+%endif
+
 #region LLVM lit
 %if %{with python_lit}
 pushd utils/lit
@@ -1463,7 +1560,126 @@ if grep 'flags.*la57' /proc/cpuinfo; then
 fi
 #endregion cmake options
 
-%cmake -G Ninja %cmake_config_args $extra_cmake_args
+%if %{with pgo}
+#region Instrument LLVM
+%global __cmake_builddir %{builddir_instrumented}
+
+# For -Wno-backend-plugin see https://llvm.org/docs/HowToBuildWithPGO.html
+#%%global optflags_for_instrumented %(echo %{optflags} -Wno-backend-plugin)
+
+%global cmake_config_args_instrumented %{cmake_config_args} \\\
+  -DLLVM_ENABLE_PROJECTS:STRING="clang;lld" \\\
+  -DLLVM_ENABLE_RUNTIMES="compiler-rt" \\\
+  -DLLVM_TARGETS_TO_BUILD=Native \\\
+  -DCMAKE_BUILD_TYPE:STRING=Release \\\
+  -DCMAKE_INSTALL_PREFIX=%{builddir_instrumented} \\\
+  -DCLANG_INCLUDE_DOCS:BOOL=OFF  \\\
+  -DLLVM_BUILD_DOCS:BOOL=OFF  \\\
+  -DLLVM_BUILD_UTILS:BOOL=OFF  \\\
+  -DLLVM_ENABLE_DOXYGEN:BOOL=OFF  \\\
+  -DLLVM_ENABLE_SPHINX:BOOL=OFF  \\\
+  -DLLVM_INCLUDE_DOCS:BOOL=OFF  \\\
+  -DLLVM_INCLUDE_TESTS:BOOL=OFF  \\\
+  -DLLVM_INSTALL_UTILS:BOOL=OFF  \\\
+  -DCLANG_BUILD_EXAMPLES:BOOL=OFF \\\
+   \\\
+  -DLLVM_BUILD_INSTRUMENTED=IR \\\
+  -DLLVM_BUILD_RUNTIME=No \\\
+  -DLLVM_ENABLE_LTO:BOOL=Thin \\\
+  -DLLVM_USE_LINKER=lld
+
+# CLANG_INCLUDE_TESTS=ON is needed to make the target "generate-profdata" available
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DCLANG_INCLUDE_TESTS:BOOL=ON
+
+# LLVM_INCLUDE_UTILS=ON is needed because the tests enabled by CLANG_INCLUDE_TESTS=ON
+# require "FileCheck", "not", "count", etc.
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DLLVM_INCLUDE_UTILS:BOOL=ON
+
+# LLVM Profile Warning: Unable to track new values: Running out of static counters.
+# Consider using option -mllvm -vp-counters-per-site=<n> to allocate more value profile
+# counters at compile time.
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DLLVM_VP_COUNTERS_PER_SITE=8
+
+# TODO(kkleine): Should we see warnings like:
+# "function control flow change detected (hash mismatch)"
+# then read https://issues.chromium.org/issues/40633598 again.
+%cmake -G Ninja %{cmake_config_args_instrumented} $extra_cmake_args
+
+# Build all the tools we need in order to build generate-profdata and llvm-profdata
+%cmake_build --target libclang-cpp.so
+%cmake_build --target clang
+%cmake_build --target lld
+%cmake_build --target llvm-profdata
+%cmake_build --target llvm-ar
+%cmake_build --target llvm-ranlib
+%cmake_build --target llvm-cxxfilt
+#endregion Instrument LLVM
+
+#region Perf training
+# Without these exports the function count is ~160 and with them it is ~200,000.
+export LD_LIBRARY_PATH="%{builddir_instrumented}/%{_lib}:%{builddir_instrumented}/lib:$OLD_LD_LIBRARY_PATH"
+export PATH="%{builddir_instrumented}/bin:$OLD_PATH"
+
+%cmake_build --target generate-profdata
+
+# Use the newly compiled llvm-profdata to avoid profile version mismatches like:
+# "raw profile version mismatch: Profile uses raw profile format version = 10; expected version = 9"
+%global llvm_profdata_bin %{builddir_instrumented}/bin/llvm-profdata
+%global llvm_cxxfilt_bin %{builddir_instrumented}/bin/llvm-cxxfilt
+
+# Show top 10 functions in the profile
+%llvm_profdata_bin show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata | %llvm_cxxfilt_bin
+
+cp %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata $RPM_BUILD_DIR/result.profdata
+
+#endregion Perf training
+%endif
+
+#region Final stage
+
+#region reset paths and globals
+function reset_paths {
+	export PATH="$OLD_PATH"
+	export LD_LIBRARY_PATH="$OLD_LD_LIBRARY_PATH"
+}
+reset_paths
+
+cd $OLD_CWD
+%global _vpath_srcdir .
+%global __cmake_builddir %{_vpath_builddir}
+#endregion reset paths and globals
+
+%global extra_cmake_opts %{nil}
+
+%if %{with pgo}
+  %global extra_cmake_opts %{extra_cmake_opts} -DLLVM_PROFDATA_FILE=$RPM_BUILD_DIR/result.profdata
+  # There were a couple of errors that I ran into. One basically said:
+  #
+  #  Error: LLVM Profile Warning: Unable to track new values: Running out of
+  #  static counters. Consider using option -mllvm -vp-counters-per-site=<n> to
+  #  allocate more value profile counters at compile time.
+  #
+  # As a solution I’ve added the --vp-counters-per-site option but this resulted
+  # in a follow-up error:
+  #
+  #   Error: clang (LLVM option parsing): for the --vp-counters-per-site option:
+  #   may only occur zero or one times!
+  #
+  # The solution was to modify vp-counters-per-site option through
+  # LLVM_VP_COUNTERS_PER_SITE instead of adding it, hence the
+  # -DLLVM_VP_COUNTERS_PER_SITE=8.
+  %global extra_cmake_opts %{extra_cmake_opts} -DLLVM_VP_COUNTERS_PER_SITE=8
+%if 0%{with lto_build}
+  %global extra_cmake_opts %{extra_cmake_opts} -DLLVM_ENABLE_LTO:BOOL=Thin
+  %global extra_cmake_opts %{extra_cmake_opts} -DLLVM_ENABLE_FATLTO=ON
+%endif
+  %global extra_cmake_opts %{extra_cmake_opts} -DLLVM_USE_LINKER=lld
+%endif
+
+%cmake -G Ninja %{cmake_config_args} %{extra_cmake_opts} $extra_cmake_args
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
 # are no other compile jobs running.  This will help reduce OOM errors on the
@@ -1489,8 +1705,74 @@ fi
 #   /usr/lib64/libomptarget.devicertl.a
 #   /usr/lib64/libomptarget-amdgpu-*.bc
 #   /usr/lib64/libomptarget-nvptx-*.bc
-
 %cmake_build --target runtimes
+#endregion Final stage
+
+#region Performance comparison
+%if 0%{run_pgo_perf_comparison}
+
+function run_perf_test {
+	local build_dir=$1
+
+	cd %{llvm_test_suite_dir}
+	%__cmake -G Ninja \
+		-S "%{llvm_test_suite_dir}" \
+		-B "${build_dir}" \
+		-DCMAKE_GENERATOR=Ninja \
+		-DCMAKE_C_COMPILER=clang \
+		-DCMAKE_CXX_COMPILER=clang++ \
+		-DTEST_SUITE_BENCHMARKING_ONLY=ON \
+		-DTEST_SUITE_COLLECT_STATS=ON \
+		-DTEST_SUITE_USE_PERF=OFF \
+		-DTEST_SUITE_SUBDIRS=CTMark \
+		-DTEST_SUITE_RUN_BENCHMARKS=OFF \
+		-DTEST_SUITE_COLLECT_CODE_SIZE=OFF \
+		-C%{llvm_test_suite_dir}/cmake/caches/O3.cmake
+
+	# Build the test-suite
+	%__cmake --build "${build_dir}" -j1 --verbose
+
+	# Run the tests with lit:
+	%{builddir_instrumented}/bin/llvm-lit -v -o ${build_dir}/results.json ${build_dir} || true
+	cd $OLD_CWD
+}
+
+# Run performance test for system clang
+reset_paths
+run_perf_test %{builddir_perf_system}
+
+# Run performance test for PGOed clang
+reset_paths
+FINAL_BUILD_DIR=`pwd`/%{_vpath_builddir}
+export LD_LIBRARY_PATH="${FINAL_BUILD_DIR}/lib:${FINAL_BUILD_DIR}/lib64:${LD_LIBRARY_PATH}"
+export PATH="${FINAL_BUILD_DIR}/bin:${OLD_PATH}"
+run_perf_test %{builddir_perf_pgo}
+
+# Compare the performance of system and PGOed clang
+%if 0%{?rhel}
+python3 -m venv compare-env
+source ./compare-env/bin/activate
+pip install "pandas>=2.2.3"
+pip install "scipy>=1.13.1"
+MY_PYTHON_BIN=./compare-env/bin/python3
+%endif
+
+system_llvm_release=$(/usr/bin/clang --version | grep -Po '[0-9]+\.[0-9]+\.[0-9]' | head -n1)
+${MY_PYTHON_BIN} %{llvm_test_suite_dir}/utils/compare.py \
+    --metric compile_time \
+    --lhs-name ${system_llvm_release} \
+    --rhs-name pgo-%{version} \
+    %{builddir_perf_system}/results.json vs %{builddir_perf_pgo}/results.json > %{builddir_perf_pgo}/results-system-vs-pgo.txt || true
+
+echo "Result of Performance comparison between system and PGOed clang"
+cat %{builddir_perf_pgo}/results-system-vs-pgo.txt
+
+%if 0%{?rhel}
+# Deactivate virtual python environment created ealier
+deactivate
+%endif
+%endif
+#endregion Performance comparison
 
 #region compat lib
 cd ..
@@ -1612,6 +1894,14 @@ EOF
 
 # Add a symlink in bindir to clang-format-diff
 ln -s ../share/clang/clang-format-diff.py %{buildroot}%{install_bindir}/clang-format-diff
+
+# Install the PGO profile that was used to build this LLVM into the clang package
+%if 0%{with pgo}
+cp -v $RPM_BUILD_DIR/result.profdata %{buildroot}%{install_datadir}/llvm-pgo.profdata
+%if 0%{run_pgo_perf_comparison}
+cp -v %{builddir_perf_pgo}/results-system-vs-pgo.txt %{buildroot}%{install_datadir}/results-system-vs-pgo.txt
+%endif
+%endif
 
 # File in the macros file for other packages to use.  We are not doing this
 # in the compat package, because the version macros would # conflict with
@@ -2027,6 +2317,11 @@ export LIT_XFAIL="$LIT_XFAIL;openmp_examples/ompd_icvs.c"
 export LIT_XFAIL="$LIT_XFAIL;api_tests/test_ompd_get_curr_parallel_handle.c"
 export LIT_XFAIL="$LIT_XFAIL;api_tests/test_ompd_get_display_control_vars.c"
 export LIT_XFAIL="$LIT_XFAIL;api_tests/test_ompd_get_thread_handle.c"
+
+%if %{with pgo}
+# TODO(kkleine): I unset LIT_XFAIL here because the tests above unexpectedly passed since Aug 16th on fedora-40-x86_64
+unset LIT_XFAIL
+%endif
 
 # The following test is flaky and we'll filter it out
 test_list_filter_out+=("libomp :: ompt/teams/distribute_dispatch.c")
@@ -2654,6 +2949,14 @@ fi
 %endif
 %{expand_mans clang clang++}
 
+%if 0%{with pgo}
+%{expand_datas %{expand: llvm-pgo.profdata }}
+%if 0%{run_pgo_perf_comparison}
+%{expand_datas %{expand: results-system-vs-pgo.txt }}
+%endif
+%endif
+
+
 %files -n %{pkg_name_clang}-libs
 %license clang/LICENSE.TXT
 %{_prefix}/lib/clang/%{maj_ver}/include/*
@@ -3099,6 +3402,9 @@ fi
 
 #region changelog
 %changelog
+* Mon May 26 2025 Konrad Kleine <kkleine@redhat.com> - 20.1.5-2
+- Build with PGO
+
 * Thu May 22 2025 Nikita Popov <npopov@redhat.com> - 20.1.5-1
 - Update to LLVM 20.1.5
 

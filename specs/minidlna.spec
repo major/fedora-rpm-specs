@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -138,6 +138,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.3-12
+- Rebuilt for flac 1.5.0
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.3-11
 - Drop call to %sysusers_create_compat
 

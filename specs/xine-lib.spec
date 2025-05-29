@@ -26,7 +26,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        22%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        23%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -360,6 +360,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.13-23
+- Rebuilt for flac 1.5.0
+
 * Wed Mar 05 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-22
 - Add upstream patch to fix win32dll build with gcc15
 

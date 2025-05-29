@@ -3,16 +3,19 @@
 %global pname   osd2web
 %global rname   vdr-plugin-osd2web
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
-# version we want to build against
-%global vdr_version 2.6.9
+
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+%global vdr_version 2.7.5
+%elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
+%else
+%global vdr_version 2.6.9
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.3.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPL-2.0-or-later
 URL:            https://github.com/horchi/vdr-plugin-osd2web
@@ -78,6 +81,9 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-14
+- Rebuilt for new VDR API version 2.7.5
+
 * Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-13
 - Rebuilt for new VDR API version 2.7.4
 

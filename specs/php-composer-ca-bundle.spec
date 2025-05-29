@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    f65c239c970e7f072f067ab78646e9f0b2935175
+%global gh_commit    d665d22c417056996c59019579f1967dfe5c1e82
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.6
+Version:        1.5.7
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Tue May 27 2025 Remi Collet <remi@remirepo.net> - 1.5.7-1
+- update to 1.5.7 (no change)
+
 * Thu Mar  6 2025 Remi Collet <remi@remirepo.net> - 1.5.6-1
 - update to 1.5.6 (no change)
 

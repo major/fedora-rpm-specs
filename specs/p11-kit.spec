@@ -60,6 +60,17 @@ as a standard configuration setup for installing PKCS#11 modules in
 such a way that they're discoverable.
 
 
+%package client
+Summary:        Client module from %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-server < 0.25.5-8
+
+%description client
+The %{name}-client package contains a PKCS#11 module that enables
+accessing other PKCS#11 modules over a Unix domain socket.  Note that
+this feature is still experimental.
+
+
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -82,8 +93,9 @@ contains certificate anchors and blocklists.
 
 
 %package server
-Summary:        Server and client commands for %{name}
+Summary:        Server command for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-server < 0.25.5-8
 
 %description server
 The %{name}-server package contains command line tools that enable to
@@ -183,6 +195,7 @@ fi
 %dir %{_sysconfdir}/pkcs11/modules
 %dir %{_datadir}/p11-kit
 %dir %{_datadir}/p11-kit/modules
+%dir %{_libdir}/pkcs11
 %dir %{_libexecdir}/p11-kit
 %{_bindir}/p11-kit
 %{_libdir}/libp11-kit.so.*
@@ -193,6 +206,10 @@ fi
 %{_mandir}/man5/pkcs11.conf.5.gz
 %{_datadir}/bash-completion/completions/p11-kit
 
+%files client
+%{_libdir}/pkcs11/p11-kit-client.so
+%{_userunitdir}/p11-kit-client.service
+
 %files devel
 %{_includedir}/p11-kit-1/
 %{_libdir}/libp11-kit.so
@@ -201,7 +218,6 @@ fi
 
 %files trust
 %{_bindir}/trust
-%dir %{_libdir}/pkcs11
 %ghost %{_libdir}/libnssckbi.so
 %{_libdir}/pkcs11/p11-kit-trust.so
 %{_datadir}/p11-kit/modules/p11-kit-trust.module
@@ -209,8 +225,6 @@ fi
 %{_datadir}/bash-completion/completions/trust
 
 %files server
-%{_libdir}/pkcs11/p11-kit-client.so
-%{_userunitdir}/p11-kit-client.service
 %{_libexecdir}/p11-kit/p11-kit-server
 %{_userunitdir}/p11-kit-server.service
 %{_userunitdir}/p11-kit-server.socket

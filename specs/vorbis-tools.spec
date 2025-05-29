@@ -1,7 +1,7 @@
 Summary:	The Vorbis General Audio Compression Codec tools
 Name:		vorbis-tools
 Version:	1.4.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.4.3-2
+- Rebuilt for flac 1.5.0
+
 * Mon Apr 14 2025 Lukáš Zaoral <lzaoral@redhat.com> - 1:1.4.3-1
 - rebase to latest upstream release (rhbz#2359292)
 

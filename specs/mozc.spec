@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -254,6 +254,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue May 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-14
+- Adapt use-system-abseil-cpp patch for abseil-cpp 20250512
+- Rebuilt for abseil-cpp-20250512.0
+
 * Tue Feb 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-13
 - Adapt use-system-abseil-cpp patch for abseil-cpp 20250127
 

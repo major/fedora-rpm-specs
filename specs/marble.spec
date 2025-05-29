@@ -2,7 +2,7 @@ Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
 Version: 25.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
 URL:     http://edu.kde.org/marble/
@@ -263,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 1:25.04.1-2
+- rebuild for new gpsd
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.1-1
 - 25.04.1
 

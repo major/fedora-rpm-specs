@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.20
+Version: 43.21
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -502,6 +502,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 27 2025 Packit <hello@packit.dev> - 43.21-1
+- Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
+- docs: update release documentation (k.koukiou)
+
 * Tue May 20 2025 Packit <hello@packit.dev> - 43.20-1
 - Support home reuse on MBR partitioned disks (rvykydal)
 - pyanaconda: localization: adjust existing keyboard API to fetch all available

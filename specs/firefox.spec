@@ -193,14 +193,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        138.0.4
+Version:        139.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20250519.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20250527.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -256,7 +256,6 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
-Patch82:        firefox-mach-D1957628.diff
 
 # Test patches
 # Generate without context by
@@ -569,7 +568,6 @@ This package contains results of tests executed during build.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
-%patch -P82 -p1 -b .firefox-mach-D1957628
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
@@ -1201,9 +1199,7 @@ fi
 %dir %{mozappdir}
 %license %{mozappdir}/LICENSE
 %{mozappdir}/browser
-%{mozappdir}/browser/chrome
-%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-%{mozappdir}/distribution/distribution.ini
+%{mozappdir}/distribution
 # That's Windows only
 %ghost %{mozappdir}/browser/features/aushelper@mozilla.org.xpi
 %if %{without langpacks_subpkg}
@@ -1211,7 +1207,6 @@ fi
 %dir %{langpackdir}
 %endif
 %endif
-%{mozappdir}/browser/omni.ja
 %{mozappdir}/application.ini
 %{mozappdir}/pingsender
 %exclude %{mozappdir}/removed-files
@@ -1228,6 +1223,7 @@ fi
 %{_datadir}/icons/hicolor/symbolic/apps/firefox-symbolic.svg
 %if %{enable_mozilla_crashreporter}
 %{mozappdir}/crashreporter
+%{mozappdir}/crashhelper
 %endif
 %{mozappdir}/*.so
 %{mozappdir}/defaults/pref/channel-prefs.js
@@ -1236,7 +1232,7 @@ fi
 %{mozappdir}/omni.ja
 %{mozappdir}/platform.ini
 %{mozappdir}/gmp-clearkey
-%{mozappdir}/fonts/TwemojiMozilla.ttf
+%{mozappdir}/fonts
 %ifarch aarch64 riscv64
 %{mozappdir}/v4l2test
 %endif
@@ -1251,6 +1247,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue May 27 2025 Martin Stransky <stransky@redhat.com> - 139.0-1
+- Updated to 139.0
+
 * Mon May 19 2025 Martin Stransky <stransky@redhat.com> - 138.0.4-1
 - Updated to 138.0.4
 

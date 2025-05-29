@@ -30,6 +30,7 @@
 
 %bcond bundled_sqlite %{with bootstrap}
 %bcond bundled_cares %{with bootstrap}
+
 # LTO is currently broken on Node.js builds
 %define _lto_cflags %{nil}
 
@@ -52,8 +53,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 15
-%global nodejs_patch 1
+%global nodejs_minor 16
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -98,7 +99,7 @@
 %global ngtcp2_version 1.11.0
 
 # ICU - from tools/icu/current_ver.dep
-%global icu_major 76
+%global icu_major 77
 %global icu_minor 1
 %global icu_version %{icu_major}.%{icu_minor}
 
@@ -107,7 +108,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 6.0.3
+%global simdutf_version 6.4.2
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1

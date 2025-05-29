@@ -44,7 +44,7 @@
 
 Name:           zig
 Version:        0.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -71,11 +71,17 @@ Patch:          0003-increase-upper-bounds-of-main-zig-executable-to-9G.patch
 # every snippet of code in the documentation is tested to see if it works
 # while doing this zig incorrectly passes a relative path to the doctest tool
 # which is ran in a temporary directory making that path invalid
+# This patch was superseded by https://github.com/ziglang/zig/pull/23894 which
+# implements a proper fix, but for our use case this is good enough.
 # https://github.com/ziglang/zig/pull/23644
 Patch:          0004-build-pass-zig-lib-dir-as-directory-instead-of-as-st.patch
+# lld will try to resolve every libary of a shared object thats used for this we need
+# add specify the library directories, this patch adds them back.
+# This wasn't an issue with the cc binary present because zig will call it to figure
+# out more system paths.
+# https://github.com/ziglang/zig/pull/23850
+Patch:          0005-link.Elf-add-root-directory-of-libraries-to-linker-p.patch
 
-# Zig invokes the C compiler to figure out system info
-Requires:  gcc
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -244,6 +250,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Tue May 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-4
+- add patch to add library directories
+
 * Fri May 09 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-3
 - add gcc to runtime dependencies
 

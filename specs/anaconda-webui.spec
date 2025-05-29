@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        38
+Version:        39
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue May 27 2025 Packit <hello@packit.dev> - 39-1
+- components: storage: DiskEncryption: removed unused properties
+
 * Thu May 22 2025 Packit <hello@packit.dev> - 38-1
 - Fix gnome detection logic: use process inspection to detect GNOME instead of XDG_CURRENT_DESKTOP
 

@@ -28,7 +28,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2501
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automatic mesh generation tool
 ExcludeArch:    %{ix86}
 
@@ -420,6 +420,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Tue May 27 2025 Richard Shaw <hobbes1069@gmail.com> - 6.2.2501-2
+- Rebuild for opencascade 7.9.1.
+
 * Sun Mar 02 2025 Sandro Mani <manisandro@gmail.com> - 6.2.2501-1
 - Update to 6.2.2501
 

@@ -3,8 +3,8 @@
 %global         nvimfiles       %{_datadir}/nvim/runtime
 
 Name:           vim-%upstream_name
-Version:        3.3.0
-Release:        5%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -78,6 +78,9 @@ done
 
 
 %changelog
+* Fri May 23 2025 Martin Jackson <mhjacks@swbell.net> - 4.0.0-1
+- New upstream release 4.0.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

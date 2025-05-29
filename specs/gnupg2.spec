@@ -1,9 +1,11 @@
 %bcond_with bootstrap
 
+%global split_min_version 2.4.8-2
+
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -75,12 +77,13 @@ BuildRequires: swtpm
 Requires: libgcrypt >= 1.9.1
 Requires: libgpg-error >= 1.46
 
+Requires: gnupg2-dirmngr%{?_isa} = %{version}-%{release}
+Requires: gnupg2-gpgconf%{?_isa} = %{version}-%{release}
+Requires: gnupg2-gpg-agent%{?_isa} = %{version}-%{release}
+Requires: gnupg2-keyboxd%{?_isa} = %{version}-%{release}
+Requires: gnupg2-verify%{?_isa} = %{version}-%{release}
+
 Recommends: pinentry
-
-Recommends: gnupg2-smime
-
-# for USB smart card support
-Recommends: pcsc-lite-ccid
 
 # pgp-tools, perl-GnuPG-Interface requires 'gpg' (not sure why) -- Rex
 Provides: gpg = %{version}-%{release}
@@ -88,15 +91,13 @@ Provides: gpg = %{version}-%{release}
 Provides: gnupg = %{version}-%{release}
 Obsoletes: gnupg < 1.4.24
 
+# ensures upgrade path for existing installs
+Obsoletes: gnupg2 < %{split_min_version}
+
 Provides: dirmngr = %{version}-%{release}
 Obsoletes: dirmngr < 1.2.0-1
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
-
-%package smime
-Summary: CMS encryption and signing tool and smart card support for GnuPG
-Requires: gnupg2%{?_isa} = %{version}-%{release}
-
 
 %description
 GnuPG is GNU's tool for secure communication and data storage.  It can
@@ -110,10 +111,99 @@ S/MIME.  It has a different design philosophy that splits
 functionality up into several modules. The S/MIME and smartcard functionality
 is provided by the gnupg2-smime package.
 
+%package dirmngr
+Summary: GnuPG network certificate management service
+Requires: gnupg2-gpgconf%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+
+%description dirmngr
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the network certificate management service.
+
+%package g13
+Summary: GnuPG tool for managing encrypted file system containers
+Requires: gnupg2%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+Obsoletes: gnupg2 < %{split_min_version}
+
+%description g13
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the g13 tool managing encrypted file system containers.
+
+%package gpgconf
+Summary: GnuPG core configuration utilities
+Conflicts: gnupg2 < %{split_min_version}
+
+%description gpgconf
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the core configuration utilities.
+
+%package gpg-agent
+Summary: GnuPG cryptographic agent
+Requires: gnupg2-gpgconf%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+
+%description gpg-agent
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the cryptographic agent.
+
+%package keyboxd
+Summary: GnuPG public key material service
+Conflicts: gnupg2 < %{split_min_version}
+
+%description keyboxd
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the public key material service.
+
+%package scdaemon
+Summary: GnuPG SmartCard daemon
+Requires: gnupg2%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+Obsoletes: gnupg2 < %{split_min_version}
+# for USB smart card support
+Recommends: pcsc-lite-ccid
+
+%description scdaemon
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the SmartCard daemon.
+
+%package smime
+Summary: CMS encryption and signing tool and smart card support for GnuPG
+Requires: gnupg2%{?_isa} = %{version}-%{release}
+
 %description smime
 GnuPG is GNU's tool for secure communication and data storage. This
 package adds support for smart cards and S/MIME encryption and signing
-to the base GnuPG package
+to the base GnuPG package.
+
+%package utils
+Summary: GnuPG utilities
+Requires: gnupg2%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+Obsoletes: gnupg2 < %{split_min_version}
+
+%description utils
+GnuPG is GNU's tool for secure communication and data storage. This
+package includes additional utilities.
+
+%package verify
+Summary: GnuPG signature verification tool
+Conflicts: gnupg2 < %{split_min_version}
+
+%description verify
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the signature verification tool.
+
+%package wks
+Summary: GnuPG Web Key Service client and server
+Requires: gnupg2%{?_isa} = %{version}-%{release}
+Conflicts: gnupg2 < %{split_min_version}
+Obsoletes: gnupg2 < %{split_min_version}
+
+%description wks
+GnuPG is GNU's tool for secure communication and data storage. This
+package contains the GnuPG Web Key Service client and server.
+
 
 %prep
 %if ! %{with bootstrap}
@@ -206,50 +296,140 @@ mkdir -p $HOME/.gnupg
 make -k check
 
 
+%post dirmngr
+%systemd_user_post dirmngr.service
+
+%preun dirmngr
+%systemd_user_preun dirmngr.service
+
+%postun dirmngr
+%systemd_user_postun_with_restart dirmngr.service
+
+%post gpg-agent
+%systemd_user_post gpg-agent.service
+
+%preun gpg-agent
+%systemd_user_preun gpg-agent.service
+
+%postun gpg-agent
+%systemd_user_postun_with_restart gpg-agent.service
+
+%post keyboxd
+%systemd_user_post keyboxd.service
+
+%preun keyboxd
+%systemd_user_preun keyboxd.service
+
+%postun keyboxd
+%systemd_user_postun_with_restart keyboxd.service
+
+
 %files -f %{name}.lang
 %license COPYING
-#doc AUTHORS NEWS README THANKS TODO
-%{_pkgdocdir}
-%dir %{_sysconfdir}/gnupg
-%ghost %config(noreplace) %{_sysconfdir}/gnupg/gpgconf.conf
 %{_sysconfdir}/profile.d/gnupg2.sh
 %{_sysconfdir}/profile.d/gnupg2.csh
 ## docs say to install suid root, but fedora/rh security folk say not to
+%{_bindir}/gpg
 %{_bindir}/gpg2
-%{_bindir}/gpgv2
-%{_bindir}/gpg-card
-%{_bindir}/gpg-connect-agent
-%{_bindir}/gpg-agent
-%{_bindir}/gpg-wks-client
-%{_bindir}/gpgconf
-%{_bindir}/gpgparsemail
-%{_bindir}/gpgtar
-%{_bindir}/g13
+%{_infodir}/gnupg.info*
+%{_mandir}/man?/gpg.*
+%{_mandir}/man?/gpg2.*
+%{_mandir}/man?/gnupg.*
+%{_mandir}/man?/gnupg2.*
+%{_pkgdocdir}/
+%{_datadir}/gnupg/help*.txt
+
+%files dirmngr
+%license COPYING
 %{_bindir}/dirmngr
 %{_bindir}/dirmngr-client
-%{_bindir}/gpg
-%{_bindir}/gpgv
-%{_bindir}/gpgsplit
-%{_bindir}/watchgnupg
-%{_bindir}/gpg-wks-server
-%{_bindir}/gpg-mail-tube
-%{_sbindir}/addgnupghome
-%{_sbindir}/applygnupgdefaults
+%{_libexecdir}/dirmngr_ldap
+%{_userunitdir}/dirmngr.*
+%{_mandir}/man?/dirmngr.*
+%{_mandir}/man?/dirmngr-client.*
+%dir %{_datadir}/gnupg/
+%{_datadir}/gnupg/sks-keyservers.netCA.pem
+
+%files g13
+%{_bindir}/g13
 %{_sbindir}/g13-syshelp
-%{_datadir}/gnupg/
-%{_libexecdir}/*
-%{_infodir}/*.info*
-%{_mandir}/man?/*
-%{_userunitdir}/*
-%exclude %{_mandir}/man?/gpgsm*
+
+%files gpgconf
+%license COPYING
+%dir %{_sysconfdir}/gnupg
+%ghost %config(noreplace) %{_sysconfdir}/gnupg/gpgconf.conf
+%{_bindir}/gpgconf
+%{_bindir}/gpg-connect-agent
+%{_mandir}/man?/gpgconf*
+%{_mandir}/man?/gpg-connect-agent.*
+%dir %{_datadir}/gnupg
+%{_datadir}/gnupg/distsigkey.gpg
+
+%files gpg-agent
+%license COPYING
+%{_bindir}/gpg-agent
+%{_libexecdir}/gpg-check-pattern
+%{_libexecdir}/gpg-preset-passphrase
+%{_libexecdir}/gpg-protect-tool
+%{_libexecdir}/tpm2daemon
+%{_userunitdir}/gpg-agent.*
+%{_userunitdir}/gpg-agent-*.socket
+%{_mandir}/man?/gpg-agent.*
+%{_mandir}/man?/gpg-check-pattern.*
+%{_mandir}/man?/gpg-preset-passphrase.*
+
+%files keyboxd
+%license COPYING
+%{_libexecdir}/keyboxd
+%{_userunitdir}/keyboxd.*
+
+%files scdaemon
+%{_bindir}/gpg-card
+%{_libexecdir}/gpg-auth
+%{_libexecdir}/scdaemon
+%{_mandir}/man?/gpg-card.*
+%{_mandir}/man?/scdaemon.*
 
 %files smime
-%{_bindir}/gpgsm*
+%{_bindir}/gpgsm
+%{_mandir}/man?/gpgsm.*
+
+%files utils
+%{_bindir}/gpg-mail-tube
+%{_bindir}/gpgparsemail
+%{_bindir}/gpgsplit
+%{_bindir}/gpgtar
 %{_bindir}/kbxutil
-%{_mandir}/man?/gpgsm*
+%{_bindir}/watchgnupg
+%{_sbindir}/addgnupghome
+%{_sbindir}/applygnupgdefaults
+%{_libexecdir}/gpg-pair-tool
+%{_mandir}/man?/addgnupghome.*
+%{_mandir}/man?/applygnupgdefaults.*
+%{_mandir}/man?/gpg-mail-tube.*
+%{_mandir}/man?/gpgparsemail.*
+%{_mandir}/man?/gpgtar.*
+%{_mandir}/man?/watchgnupg.*
+
+%files verify
+%license COPYING
+%{_bindir}/gpgv
+%{_bindir}/gpgv2
+%{_mandir}/man?/gpgv.*
+%{_mandir}/man?/gpgv2.*
+
+%files wks
+%{_bindir}/gpg-wks-client
+%{_bindir}/gpg-wks-server
+%{_libexecdir}/gpg-wks-client
+%{_mandir}/man?/gpg-wks-client.*
+%{_mandir}/man?/gpg-wks-server.*
 
 
 %changelog
+* Wed May 21 2025 Fabio Valentini <decathorpe@gmail.com> - 2.4.8-2
+- Split tools from monolithic gnupg2 package into subpackages
+
 * Fri May 16 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.8-1
 - New upstream release 2.4.8
 - Remove problematic patch breaking Poppler

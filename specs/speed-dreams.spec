@@ -1,78 +1,71 @@
-# Set sf_release to 1 to use released sources on sourceforge
-%global sf_release 1
-%global svndate 20181104
+Name:           speed-dreams
+Version:        2.4.1
+Release:        1%{?dist}
+Epoch:          1
+Summary:        3D Open Racing Simulation
 
-# Versions are like 2.2.2-rc2-r6528. The first part (2.2.2 in this example)
-# goes into the Version: field, the rest (rc2-r6528 here) into %%src_release.
-%global src_release 8786
+# Speed Dreams source is under GPL-2.0-or-later by default
+# https://speed-dreams.net/en/about
+License: GPL-2.0-or-later AND LAL-1.3
+# Media content: Graphics, sounds, and other artistic works are licensed under LAL-1.3
 
-%global src_version %{version}-r%{src_release}
-%if 0%{?sf_release}
-%global repo_url http://downloads.sourceforge.net/project/%{name}/%{version}/
-%endif
+URL:            https://www.speed-dreams.net
+# ------------------------------------------------------------------------------
+# retrieve sources and create archive:
+# 
+# $ git clone --recursive https://forge.a-lec.org/speed-dreams/speed-dreams-code speed-dreams
+# $ cd speed-dreams
+# $ git checkout tags/v2.4.1
+# $ git submodule update --init --recursive
+# $ cd ..
+# $ mv speed-dreams speed-dreams-2.4.1
+# $ tar -cJf speed-dreams-2.4.1.tar.xz speed-dreams-2.4.1
+# ------------------------------------------------------------------------------
+Source0:        %{name}-%{version}.tar.xz
+# upstream patch to restore FindSOLID.cmake so that the FreeSOLID library can be found again.
+# https://forge.a-lec.org/speed-dreams/speed-dreams-code/pulls/173
+Patch0:         https://forge.a-lec.org/speed-dreams/speed-dreams-code/commit/9ae2b6cc83ce5cdaec58cb4d2aed2fb5ae60b7c8.patch
 
-Summary: The Open Racing Car Simulator
-Name:    speed-dreams
-Version: 2.3.0
-%if 0%{?sf_release}
-Release: 7%{?dist}
-%else
-Release: 0.19.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
-%endif
-Epoch:   1
-         # Contains LGPLv2 files also published under GPLv2+
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
-URL:     http://speed-dreams.org/
+ExcludeArch:    s390x
 
-         # When making a post release (%%sf_release is 0), build
-         # source using something like:
-         #    svnroot=https://svn.code.sf.net/p
-         #    svn co -r 6528 $svnroot/speed-dreams/code/trunk speed-dreams
-         #    cd speed-dreams
-         #    packaging/sources/build.sh trunk-r6542
-         # As of r6542, the download is ~8,8GB.
-Source0: %{?repo_url}%{name}-src-base-%{src_version}.tar.xz
-Source1: %{?repo_url}%{name}-src-wip-cars-and-tracks-%{src_version}.tar.xz
-Source2: %{?repo_url}%{name}-src-hq-cars-and-tracks-%{src_version}.tar.xz
-Source3: %{?repo_url}%{name}-src-more-hq-cars-and-tracks-%{src_version}.tar.xz
-Source4: %{?repo_url}%{name}-src-unmaintained-%{src_version}.tar.xz
-Source5: %{name}.desktop
-# Patch0:  fix_invalid_ascii_characters.patch
-Patch0:  speed-dreams-replace_curl_formadd.patch
-Patch1:  speed-dreams-header-fix.patch
-
-ExcludeArch:   s390x
-
-Provides:      %{name} = %{epoch}:%{version}-%{release}
-Requires:      %{name}-robots-base = %{epoch}:%{version}
-Requires:      opengl-games-utils
-BuildRequires: gcc
-BuildRequires: gcc-c++
-BuildRequires: cmake
-BuildRequires: chrpath
-BuildRequires: libcurl-devel
-BuildRequires: desktop-file-utils
-BuildRequires: enet-devel
-BuildRequires: expat-devel
-BuildRequires: freealut-devel
-BuildRequires: freeglut-devel
-BuildRequires: FreeSOLID-devel
-BuildRequires: libGL-devel
-BuildRequires: libjpeg-devel
-BuildRequires: libpng-devel
-BuildRequires: libXi-devel
-BuildRequires: libXmu-devel
-BuildRequires: libXrandr-devel
-BuildRequires: plib-devel
-BuildRequires: SDL2-devel
-BuildRequires: SDL2_mixer-devel
-BuildRequires: libogg-devel
-BuildRequires: libvorbis-devel
-BuildRequires: OpenSceneGraph-devel
+Provides:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-robots-base = %{epoch}:%{version}
+Requires:       opengl-games-utils
+Requires:       bitstream-vera-sans-fonts
+Requires:       dejavu-lgc-sans-fonts
+BuildRequires:  bitstream-vera-sans-fonts
+BuildRequires:  dejavu-lgc-sans-fonts
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  chrpath
+BuildRequires:  libcurl-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  enet-devel
+BuildRequires:  expat-devel
+BuildRequires:  freealut-devel
+BuildRequires:  freeglut-devel
+BuildRequires:  FreeSOLID-devel >= 2.1.2
+BuildRequires:  libGL-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  zlib-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libXi-devel
+BuildRequires:  libXmu-devel
+BuildRequires:  libXrandr-devel
+BuildRequires:  plib-devel
+BuildRequires:  SDL2-devel
+BuildRequires:  SDL2_mixer-devel
+BuildRequires:  libogg-devel
+BuildRequires:  libvorbis-devel
+BuildRequires:  OpenSceneGraph-devel
+BuildRequires:  cjson-devel
+BuildRequires:  minizip-devel
+BuildRequires:  rhash-devel
 
 # Dont provide or require internal libs. Using new rpm builtin filtering,
-# see http://www.rpm.org/wiki/PackagerDocs/DependencyGenerator
+# see https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/
 %global __requires_exclude                       liblearning.so
 %global __requires_exclude %{__requires_exclude}|libnetworking.so
 %global __requires_exclude %{__requires_exclude}|libraceengine.so
@@ -81,9 +74,9 @@ BuildRequires: OpenSceneGraph-devel
 %global __requires_exclude %{__requires_exclude}|libtgfclient.so
 %global __requires_exclude %{__requires_exclude}|libtgfdata.so
 %global __requires_exclude %{__requires_exclude}|libportability.so
+%global __requires_exclude %{__requires_exclude}|libcsnetworking.so
 
 %global __provides_exclude_from %{_libdir}/games/speed-dreams-2/.*\\.so
-
 
 %description
 Speed-Dreams is a 3D racing cars simulator using OpenGL. A Fork of TORCS.
@@ -101,18 +94,24 @@ This package contains additional tracks for the game.
 %package devel
 Summary:       The Open Racing Car Simulator development files
 Requires:      %{name}%{?_isa} =  %{epoch}:%{version}-%{release}
-
+            
 %description devel
 This package contains the development files for the game.
 
-
 %prep
-%setup -q -c -n %{name}-src-base-%{version}-%{release} -a1 -a2 -a3 -a4
-%patch 0 -p1
-%patch 1 -p1
+%autosetup -p1 -n %{name}-%{version}
 
 # delete unused header file on arm achitecture
 sed -i -e 's|#include "OsgReferenced.h"||g' src/modules/graphic/osggraph/Sky/OsgDome.h
+
+# remove obsolete encoding key from .desktop file
+sed -i '/^Encoding=/d' speed-dreams.desktop.in
+sed -i '/^Name=/c\Name=/Speed Dreams 2' speed-dreams.desktop.in
+sed -i '/^Icon=/c\Icon=/usr/share/games/speed-dreams-2/data/icons/icon.png' speed-dreams.desktop.in
+
+# unbundle freesolid
+rm -rf freesolid
+rm -rf src/tools/trackeditor
 
 # fixes spurious-executable-perm
 # https://sourceforge.net/p/speed-dreams/tickets/605/
@@ -120,28 +119,21 @@ find . -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hpp' | \
     xargs chmod 644
 
 %build
-%cmake  -DCMAKE_BUILD_TYPE:STRING=Release                     \
-        -DCMAKE_SKIP_RPATH:BOOL=OFF                           \
-        -DOPTION_DEBUG:STRING=ON                              \
-        -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"         \
-        -DSD_BINDIR:PATH=bin                                  \
-        -DOPTION_3RDPARTY_SOLID:BOOL=ON                       \
-        -DOPTION_TRACKEDITOR:BOOL=OFF                         \
-        -DOPTION_OFFICIAL_ONLY:BOOL=ON
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release              \
+       -DCMAKE_SKIP_RPATH:BOOL=OFF                    \
+       -DOPTION_DEBUG:STRING=ON                       \
+       -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"  \
+       -DSD_BINDIR:PATH=bin                           \
+       -DOPTION_3RDPARTY_SOLID:BOOL=ON                \
+       -DOPTION_TRACKEDITOR:BOOL=OFF                  \
+       -DOPTION_OFFICIAL_ONLY:BOOL=ON
 %cmake_build
 
 %install
-#make DESTDIR=%{buildroot} install >/dev/null
 %cmake_install
 find %{buildroot} -type f -name "*.cmake" -delete
 
-desktop-file-install \
-    --dir %{buildroot}%{_datadir}/applications \
-    %{SOURCE5}
-
-# Register as an application to be visible in the software center
-mkdir -p %{buildroot}%{_datadir}/appdata
-cp  packaging/appdata/%{name}-2.appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -Dm 0644 packaging/appdata/speed-dreams-2.appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 pushd %{buildroot}%{_libdir}/games/%{name}-2
     # Change rpath to refer only private lib dir.
@@ -151,19 +143,8 @@ pushd %{buildroot}%{_libdir}/games/%{name}-2
         chrpath --replace %{_libdir}/games/%{name}-2/lib $lib
     done
 
-    # https://sourceforge.net/p/speed-dreams/tickets/730/
-    cd drivers
-    for base in usr simplix dandroid; do
-        for lib in ${base}_*; do
-            cd $lib
-            cmp ../$base/$base.so *.so &&  ln -sf ../$base/$base.so *.so
-            cd ..
-        done
-    done
-
     # Check that %%{buildroot}%%{_libdir}/games/%%{name}-2/lib doesn't 
     # contain unfiltered libs.
-    cd ../lib
     excluded=$( echo '%{__requires_exclude}' | tr '|' ':' )
     for lib in *.so; do
         if [ "${excluded/${lib}/}" = "$excluded" ]; then
@@ -173,17 +154,45 @@ pushd %{buildroot}%{_libdir}/games/%{name}-2
     done
 popd
 
-# removed userman and faq documentation, because it's depreciated
-# Upstream has been informed http://sourceforge.net/p/speed-dreams/tickets/739
-rm -rf docs; mkdir docs
-cp -a  %{buildroot}%{_datadir}/games/%{name}-2/*.txt docs
-cp -a  %{buildroot}%{_datadir}/games/%{name}-2/*.xml docs
+# ERROR   0001: file '/usr/bin/speed-dreams-2' contains a standard runpath '/usr/lib64' in [/usr/lib64/games/speed-dreams-2/lib:/usr/lib64]
+# ERROR   0001: file '/usr/bin/sd2-accc' contains a standard runpath '/usr/lib64' in [/usr/lib64/games/speed-dreams-2/lib:/usr/lib64]
+# ERROR   0001: file '/usr/bin/sd2-nfs2ac' contains a standard runpath '/usr/lib64' in [/usr/lib64/games/speed-dreams-2/lib:/usr/lib64]
+# ERROR   0001: file '/usr/bin/sd2-nfsperf' contains a standard runpath '/usr/lib64' in [/usr/lib64/games/speed-dreams-2/lib:/usr/lib64]
+# ERROR   0001: file '/usr/bin/sd2-trackgen' contains a standard runpath '/usr/lib64' in [/usr/lib64/games/speed-dreams-2/lib:/usr/lib64]
+chrpath -r %{_libdir}/games/speed-dreams-2/lib %{buildroot}%{_bindir}/speed-dreams-2
+chrpath -r %{_libdir}/games/speed-dreams-2/lib %{buildroot}%{_bindir}/sd2-accc
+chrpath -r %{_libdir}/games/speed-dreams-2/lib %{buildroot}%{_bindir}/sd2-nfs2ac
+chrpath -r %{_libdir}/games/speed-dreams-2/lib %{buildroot}%{_bindir}/sd2-nfsperf
+chrpath -r %{_libdir}/games/speed-dreams-2/lib %{buildroot}%{_bindir}/sd2-trackgen
+
+# Remove obsolete or unnecessary files from the installation directory
+rm -f %{buildroot}%{_includedir}/3D/Makefile.am
+rm -f %{buildroot}%{_includedir}/SOLID/Makefile.am
+
+# Replace bundled fonts with symlink to system fonts
+ln -sf /usr/share/fonts/dejavu/DejaVuSans.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/DejaVuLGCSans.ttf
+ln -sf /usr/share/fonts/bitstream-vera/Vera.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/Vera.ttf
+ln -sf /usr/share/fonts/bitstream-vera/VeraBd.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/VeraBd.ttf
+ln -sf /usr/share/fonts/bitstream-vera/VeraBI.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/VeraBI.ttf
+ln -sf /usr/share/fonts/bitstream-vera/VeraMono.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/VeraMono.ttf
+ln -sf ../Vera.ttf \
+       %{buildroot}%{_datadir}/games/speed-dreams-2/data/fonts/vera/Vera.ttf
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
 # remove zero length files
 find %{buildroot} -size 0 -delete
 
 %files
-%doc docs/*.xml docs/*.txt
+%license LICENSE
+%doc README.md
 %{_mandir}/man6/*
 %{_bindir}/%{name}-2
 %{_bindir}/sd2-*
@@ -208,24 +217,8 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
-* Fri Jan 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.3.0-7
-- Add speed-dreams-replace_curl_formadd.patch to fix FTBFS #2341372
-- Add speed-dreams-header-fix.patch
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1:2.3.0-5
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Tue Jul 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.1-1
+- Update to 2.4.1
 
 * Tue Jul 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.3.0-1
 - Update to 2.3.0

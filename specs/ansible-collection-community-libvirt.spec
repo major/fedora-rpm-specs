@@ -72,7 +72,7 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
   - virt: implement the gathering of Dom UUIDs (GH#187)
   - virt: implement the gathering of Dom interface names and MAC addresses
     (GH#189)
-  - virt: implement the removal of volumes for a Dom as (GH#177)
+  - virt: implement the removal of volumes for a Dom (GH#177)
   - New module community.libvirt.virt_volume: manage libvirt volumes inside a
     storage pool
 

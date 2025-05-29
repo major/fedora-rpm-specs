@@ -4,7 +4,7 @@
 
 Name:		scummvm-tools
 Version:	2.9.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools for scummVM / S.C.U.M.M scripting language
 # All previous Lua versions are relicensed to MIT (https://www.lua.org/license.html)
 # Automatically converted from old format: GPLv3+ and LGPLv2+ and MIT - review is highly recommended.
@@ -67,6 +67,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.9.0-2
+- Rebuilt for flac 1.5.0
+
 * Sun Mar 02 2025 Christian Krause <chkr@fedoraproject.org> - 2.9.0-1
 - Update to latest upstream
 - Update License tag

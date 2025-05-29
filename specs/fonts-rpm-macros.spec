@@ -18,7 +18,7 @@ Version: 2.0.5
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   21%{?dist}
+Release:   22%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
 License:   GPL-3.0-or-later
@@ -28,6 +28,7 @@ Patch0:    %{name}-omit-foundry-in-family.patch
 Patch1:    %{name}-drop-yaml.patch
 Patch2:    %{name}-epoch-in-req.patch
 Patch3:    %{name}-fail-on-missing-files.patch
+Patch4:    %{name}-spec-template-license-update.patch
 
 Requires:  fonts-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:  fonts-filesystem  = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -110,6 +111,7 @@ done
 %endif
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %install
 install -m 0755 -d    %{buildroot}%{_fontbasedir} \
@@ -166,6 +168,10 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Tue May 27 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:2.0.5-22
+- Update license to use SPDX license expression in spec file templates
+  Resolves: rhbz#2253660
+
 * Mon Jan 20 2025 Akira TAGOH <tagoh@redhat.com> - 1:2.0.5-21
 - Do not fail as "fonts not found for appstream file" if fontappstreams is defined.
 

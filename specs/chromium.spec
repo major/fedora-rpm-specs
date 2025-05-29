@@ -213,8 +213,6 @@
 %endif
 %if 0%{?fedora}
 %global bundlecrc32c 0
-%endif
-%if 0%{?fedora} && 0%{?fedora} < 43
 %global bundlesimdutf 0
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 9
@@ -259,7 +257,7 @@
 %endif
 
 Name:	chromium
-Version: 136.0.7103.113
+Version: 137.0.7151.55
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -291,6 +289,11 @@ Patch91: chromium-108-system-opus.patch
 
 # patch for Failed NodeJS version check
 Patch92: chromium-136-checkversion-nodejs.patch
+
+# Fix FTBFS
+Patch93: chromium-137-pdfium-png_decoder-build-error.patch
+Patch94: chromium-137-simdutf-build-error.patch
+Patch95: chromium-137-simdutf-7.x-build-error.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
@@ -459,11 +462,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-# https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4636
-# https://chromium-review.googlesource.com/c/chromium/src/+/6421030
-Patch600: chromium-135-add-cfi-suppressions-for-pipewire-functions.patch
-# https://chromium-review.googlesource.com/c/chromium/src/+/6445471
-Patch601: chromium-135-gperf.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1012,6 +1010,13 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
+%patch -P93 -p1 -b .pdfium-png_decoder-build-error
+%if ! %{bundlesimdutf}
+%patch -P94 -p1 -b .simdutf-build-error
+%if 0%{?fedora} > 42
+%patch -P95 -p1 -b .simdutf-7.x-build-error
+%endif
+%endif
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
@@ -1041,12 +1046,11 @@ Qt6 UI for chromium.
 %patch -P306 -p1 -b .el8-ifunc-header
 %endif
 %patch -P307 -p1 -b .el8-atk-compiler-error
-%endif
-%if 0%{?rhel} == 8
 %patch -P308 -p1 -b .unsupport-clang-flags
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P310 -p1 -b .el8-clang18-build-error
 %patch -P311 -p1 -b .clang18-template
+%patch -P314 -p1 -b .rust-skrifa-build-error
 %ifarch x86_64
 %patch -P317 -p1 -b .xnnpack-clang18-crash-x86_64
 %endif
@@ -1058,10 +1062,6 @@ Qt6 UI for chromium.
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
-%endif
-
-%if 0%{?rhel} == 8
-%patch -P314 -p1 -b .rust-skrifa-build-error
 %endif
 
 %if 0%{?rhel}
@@ -1153,8 +1153,6 @@ Qt6 UI for chromium.
 %endif
 
 # Upstream patches
-%patch -P600 -p1 -b .add-cfi-suppressions-for-pipewire-functions
-%patch -P601 -p1 -b .gperf-3.2
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1202,7 +1200,11 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 
 # bz#2265957, add correct platform
 sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
- 
+
+%if ! %{bundlesimdutf}
+ln -sf %{_includedir}/simdutf.h third_party/simdutf/simdutf.h
+%endif
+
 %build
 
 %if ! %{system_nodejs}
@@ -1787,6 +1789,24 @@ fi
 %endif
 
 %changelog
+* Tue May 27 2025 Than Ngo <than@redhat.com> - 137.0.7151.55-1
+- Update to 137.0.7151.55
+  * CVE-2025-5063: Use after free in Compositing
+  * CVE-2025-5280: Out of bounds write in V8
+  * CVE-2025-5064: Inappropriate implementation in Background Fetch API
+  * CVE-2025-5065: Inappropriate implementation in FileSystemAccess API
+  * CVE-2025-5066: Inappropriate implementation in Messages
+  * CVE-2025-5281: Inappropriate implementation in BFCache
+  * CVE-2025-5283: Use after free in libvpx
+  * CVE-2025-5067: Inappropriate implementation in Tab Strip
+- Fix FTBFS caused by simdutf and pdfium-png_decoder
+- Remove chromium-135-gperf.patch and chromium-135-add-cfi-suppressions-for-pipewire-functions.patch, merged by upstream
+- Refresh ppc64le patches
+- Enable system simdutf for F43
+
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 136.0.7103.113-2
+- Rebuilt for flac 1.5.0
+
 * Wed May 14 2025 Than Ngo <than@redhat.com> - 136.0.7103.113-1
 - Update to 136.0.7103.113
   * CVE-2025-4664: Insufficient policy enforcement in Loader

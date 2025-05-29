@@ -2,17 +2,19 @@
 %global commit0 9967f1d6757a4f4855a6b07abf526258838dd5ac
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20241103
-# version we want to build against
-%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+%global vdr_version 2.7.5
+%elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
+%else
+%global vdr_version 2.6.9
 %endif
 
 Name:           vdr-live
 Version:        3.5.0
 # Release:        0.2.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
@@ -85,41 +87,11 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-2
+- Rebuilt for new VDR API version 2.7.5
+
 * Sat Apr 19 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-1
 - Update to 3.5.0
-
-* Sun Mar 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.2-1
-- Update to 3.4.2
-
-* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-3
-- Rebuilt for new VDR API version 2.7.4
-
-* Thu Feb 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-2
-- Rebuild
-
-* Tue Feb 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.1-1
-- Update to 3.4.1
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jan 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.0-1
-- Update to 3.4.0
-
-* Sun Dec 22 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.12-1
-- Update to 3.3.12
-
-* Wed Dec 11 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.11-1
-- Update to 3.3.11
-
-* Tue Nov 19 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.10-1
-- Update to 3.3.10
-
-* Tue Nov 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.9-1
-- Update to 3.3.9
-
-* Sun Nov 03 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.9-0.2.20241103git9967f1d
-- Update to 3.3.9-0.2.20241103git9967f1d
 
 * Sun Mar 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.4.2-1
 - Update to 3.4.2

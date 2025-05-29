@@ -1,5 +1,5 @@
 Name: argbash
-Version: 2.10.0
+Version: 2.11.0
 Release: %autorelease
 Summary: Bash argument parsing code generator
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,10 +15,7 @@ BuildRequires: make
 BuildRequires: bash
 BuildRequires: bash-completion
 BuildRequires: python%{python3_pkgversion}-docutils
-
-%if 0%{?fedora} >= 27
 BuildRequires: ShellCheck
-%endif
 
 Requires: autoconf
 Requires: bash
@@ -31,11 +28,6 @@ Recommends: bash-completion
 %endif
 
 # Submitted upstream: https://github.com/matejak/argbash/pull/177
-Patch: 0001-Disable-shellcheck-warnings.patch
-Patch: 0002-Fix-typos-in-README.md.patch
-Patch: 0003-Properly-quote-filepath-when-sourcing.patch
-Patch: 0004-Move-website-from-argbash.io-to-argbash.dev.patch
-Patch: 0005-Fixes-typos.patch
 
 
 %description

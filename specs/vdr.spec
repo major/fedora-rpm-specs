@@ -24,11 +24,11 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    6
+%global apiver    7
 
 Name:           vdr
-Version:        2.7.4
-Release:        3%{?dist}
+Version:        2.7.5
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -67,10 +67,11 @@ Patch3:         %{name}-1.7.21-plugin-missing.patch
 Patch4:         %{name}-2.4.0-paths.patch
 # http://vdrportal.de/board/thread.php?postid=343665#post343665
 Patch5:         12_osdbase-maxitems.patch
+Patch6:         %{name}-2.7.5-override-keyword.patch
+# https://www.vdr-portal.de/attachment/50864-0001-update-info-for-cutting-v2-patch-txt/
+Patch8:         0001-Update-info-for-cutting-v2.patch
 # https://www.vdr-portal.de/forum/thread/135091-installation-eines-vdr-plugins-nativ-auf-coreelec-boxen/?postID=1379567#post1379567
 Patch11:	MainMenuHooks-v1_0_4.diff.txt
-# Sent upstream 2016-06-17
-### Patch15:       %%{name}-1.7.37-fedora-pkgconfig.patch
 Patch15:        %{name}-2.7.4-fedora-pkgconfig.patch
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
@@ -194,6 +195,8 @@ sed \
     -e 's|__VIDEODIR__|%{videodir}|'   \
     %{PATCH4} | %{__patch} -p1
 %patch 5 -p1
+%patch 6 -p1
+%patch 8 -p1
 %patch 11 -p1
 %patch 15 -p1
 %patch 99 -p1
@@ -449,7 +452,6 @@ if [ "$(pkg-config vdr --variable=apiversion)" != "%{apiver}" ] ; then
 fi
 
 
-
 %post
 %systemd_post %{name}.service
 systemctl daemon-reload
@@ -554,6 +556,10 @@ systemctl daemon-reload
 
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.7.5-1
+- Update to 2.7.5
+- Add vdr-2.7.5-override-keyword.patch
+
 * Sun May 11 2025 Peter Bieringer <pb@bieringer.de> - 2.7.4-3
 - Re-add MainMenuHooks patch for 2.7.x
 

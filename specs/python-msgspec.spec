@@ -10,8 +10,8 @@ Release:        %autorelease
 License:        BSD-3-Clause
 URL:            https://jcristharif.com/msgspec/
 
-# Python 3.14: Call __annotate__ on type objects to get annotations
-Patch:          https://github.com/jcrist/msgspec/pull/810.patch
+# Python 3.14: Fix annotations support
+Patch:          https://github.com/jcrist/msgspec/pull/852.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(wheel)
@@ -36,6 +36,9 @@ JSON, MessagePack, YAML, and TOML.}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# Relax all getrefcount tests to allow lower numbers
+# Proposed as https://github.com/jcrist/msgspec/pull/854 but does not apply cleanly
+sed -Ei 's/sys\.getrefcount\(([^\)]+)\) == ([0-9]+)/sys.getrefcount(\1) <= \2/' tests/test_*.py
 
 %build
 %pyproject_wheel

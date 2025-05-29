@@ -1,7 +1,7 @@
 Summary:	Library for reading and writing sound files
 Name:		libsndfile
 Version:	1.2.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://libsndfile.github.io/libsndfile/
 Source0:        https://github.com/libsndfile/libsndfile/releases/download/%{version}/libsndfile-%{version}.tar.xz
@@ -161,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.2-9
+- Rebuilt for flac 1.5.0
+
 * Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.2.2-8
 - fix ftbfs
 

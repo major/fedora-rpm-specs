@@ -8,7 +8,7 @@
 
 Name:           kid3
 Version:        3.9.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Efficient KDE ID3 tag editor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -192,6 +192,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.9.5-5
+- Rebuilt for flac 1.5.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

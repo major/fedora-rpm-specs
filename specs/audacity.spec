@@ -13,7 +13,7 @@
 Name: audacity
 
 Version: 3.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -293,6 +293,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.1-3
+- Rebuilt for flac 1.5.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.2.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -151,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.5-2
+- Rebuilt for flac 1.5.0
+
 * Mon Apr 28 2025 Karel Volný <kvolny@redhat.com> 2.2.5-1
 - new version 2.2.5 (rhbz#2362325)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

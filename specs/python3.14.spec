@@ -14,7 +14,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b1
+%global prerel b2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -258,6 +258,7 @@ BuildRequires: gnupg2
 BuildRequires: libX11-devel
 BuildRequires: libffi-devel
 BuildRequires: libuuid-devel
+BuildRequires: libzstd-devel
 BuildRequires: make
 BuildRequires: mpdecimal-devel
 BuildRequires: ncurses-devel
@@ -1262,7 +1263,6 @@ CheckPython() {
   # see: https://github.com/python/cpython/issues/121719
   # test_interrupt and test_interrupt_no_handler
   # reported in https://github.com/python/cpython/issues/133651
-  # test_displays reported https://github.com/python/cpython/issues/133682
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1274,7 +1274,6 @@ CheckPython() {
     -i test_check_probes \
     -i test_interrupt \
     -i test_interrupt_no_handler \
-    -i test_displays \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1455,6 +1454,7 @@ CheckPython freethreading
 %{1}/_struct.%{2}.so\
 %{1}/_uuid.%{2}.so\
 %{1}/_zoneinfo.%{2}.so\
+%{1}/_zstd.%{2}.so\
 %{1}/array.%{2}.so\
 %{1}/binascii.%{2}.so\
 %{1}/cmath.%{2}.so\
@@ -1722,6 +1722,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon May 26 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~b2-1
+- Update to Python 3.14.0b2
+
 * Wed May 07 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~b1-1
 - Update to Python 3.14.0b1
 

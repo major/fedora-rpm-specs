@@ -9,6 +9,8 @@ License:          MIT
 URL:              https://pypi.python.org/pypi/cmd2
 Source0:          %{pypi_source}
 Patch0:           python-cmd2-2.5.11-disable-cov-tests.patch
+# Adapted from https://github.com/python-cmd2/cmd2/pull/1419
+Patch1:           Add-support-for-Python-3.14-and-remove-for-Python-3.8.patch
 BuildArch:        noarch
 
 %global _description\
@@ -52,7 +54,7 @@ Requires:         /usr/bin/which
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %build
 %pyproject_wheel

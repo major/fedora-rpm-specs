@@ -10,6 +10,11 @@ Summary:        Python interface to the Redis key-value store
 License:        MIT
 URL:            https://github.com/redis/redis-py
 Source0:        https://github.com/redis/redis-py/archive/v%{version}/redis-py-%{version}.tar.gz
+
+# Python 3.14 fix
+# https://github.com/redis/redis-py/pull/3442
+Patch:          Avoid-the-multiprocessing-forkserver-method.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -72,7 +77,9 @@ rm tests/test_asyncio/test_timeseries.py
 %if %{with tests}
 %check
 valkey-server --enable-debug-command yes --daemonize yes
-%pytest -m 'not onlycluster and not redismod and not ssl'
+# test_command_with_quoted_key+test_command_with_escaped_data fails with valkey 8.1
+# https://github.com/valkey-io/valkey/issues/2035
+%pytest -m 'not onlycluster and not redismod and not ssl' -k 'not (test_command_with_quoted_key or test_command_with_escaped_data)'
 valkey-cli shutdown
 %endif
 

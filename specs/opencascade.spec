@@ -1,11 +1,11 @@
 %global major 7
-%global minor 8
+%global minor 9
 %global patch 1
 %global ver_under %{major}_%{minor}_%{patch}
 
 Name:           opencascade
-Version:        7.8.1
-Release:        5%{?dist}
+Version:        7.9.1
+Release:        1%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -21,10 +21,6 @@ Source5:        occ-64.png
 Source6:        occ-48.png
 
 Patch0:         occt-config.patch
-Patch1:         occt-invalid_conversion.patch
-# OCCT imports too many vtk components
-# https://github.com/Open-Cascade-SAS/OCCT/issues/387
-Patch2:         occt-vtk.patch
 
 
 # Utilities
@@ -230,7 +226,7 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %files foundation
-%doc README.txt
+%doc README.md
 %license LICENSE_LGPL_21.txt OCCT_LGPL_EXCEPTION.txt
 # Foundation
 %{_libdir}/libTKernel.so.*
@@ -333,6 +329,9 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %changelog
+* Sun May 25 2025 Richard Shaw <hobbes1069@gmail.com> - 7.9.1-1
+- Update to 7.9.1.
+
 * Tue Feb 25 2025 Orion Poplawski <orion@nwra.com> - 7.8.1-5
 - Add patck to fix build with vtk 9.3
 

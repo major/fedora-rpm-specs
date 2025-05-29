@@ -2,7 +2,7 @@
 
 Name:           getdata
 Version:        0.11.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library for reading and writing dirfile data
 
 License:        GPL-2.0-or-later
@@ -156,6 +156,9 @@ mv %{buildroot}/%{_includedir}/getdata.mod  %{buildroot}/%{_fmoddir}/
 %{_libdir}/getdata/libgetdatalzma-0.11.0.so
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.11.0-12
+- Rebuilt for flac 1.5.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

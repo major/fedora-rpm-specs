@@ -3,16 +3,19 @@
 %global commit  354f28b0112ba27f08f6509243b410899f74b6ed
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global gitdate 20180416
-# version we want to build against
-%global vdr_version 2.6.9
+
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+%global vdr_version 2.7.5
+%elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
+%else
+%global vdr_version 2.6.9
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.3.1
-Release:        37.%{gitdate}git%{shortcommit}%{?dist}
+Release:        38.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        VDR plugin for doing extra fixing of EPG data
 
 License:        GPL-2.0-or-later
@@ -60,6 +63,9 @@ install -Dpm 644 %{SOURCE1} \
 %defattr(-,root,root,-)
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-38.20180416git354f28b
+- Rebuilt for new VDR API version 2.7.5
+
 * Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-37.20180416git354f28b
 - Rebuilt for new VDR API version 2.7.4
 

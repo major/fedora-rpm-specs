@@ -43,7 +43,7 @@ Summary:            %{summary}
 
 
 %check
-%pytest -v
+%pytest -v -k "not test_idempotent_any_syntatically_valid_python"
 
 
 %files -n python%{python3_pkgversion}-mccabe -f %{pyproject_files}

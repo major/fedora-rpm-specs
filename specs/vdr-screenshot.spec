@@ -1,14 +1,17 @@
 %global pname   screenshot
-# version we want to build against
-%global vdr_version 2.6.9
+
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+%global vdr_version 2.7.5
+%elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
+%else
+%global vdr_version 2.6.9
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.0.16
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        VDR plugin: Takes screenshots
 License:        GPL-1.0-or-later
 URL:            https://github.com/jowi24/vdr-screenshot
@@ -58,6 +61,9 @@ cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/screenshot/
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.0.16-43
+- Rebuilt for new VDR API version 2.7.5
+
 * Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.0.16-42
 - Rebuilt for new VDR API version 2.7.4
 

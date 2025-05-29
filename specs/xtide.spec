@@ -2,7 +2,7 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20241229
 
-%define          baserelease 10
+%define          baserelease 11
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -365,6 +365,9 @@ exit 0
 %endif
 
 %changelog
+* Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 2.15.5-11
+- rebuild for new gpsd
+
 * Thu Feb 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-10
 - Only apply Systemd Sysusers.d usage for F-42+
 

@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.4.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -388,6 +388,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.2-3
+- Rebuilt for flac 1.5.0
+
 * Fri Apr 25 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.4.2-2
 - use newly approved SPDX license identifier: BSD-2-Clause-pkgconf-disclaimer
 

@@ -2,8 +2,8 @@
 
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
-Version: 2.7.2
-Release: 4%{?dist}
+Version: 2.7.3
+Release: 1%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -52,6 +52,7 @@ BuildRequires: gcc
 BuildRequires: gdbm-devel
 BuildRequires: krb5-devel
 BuildRequires: libdb-devel
+BuildRequires: libcanlock-devel
 BuildRequires: libxcrypt-devel
 BuildRequires: openssl
 BuildRequires: openssl-devel
@@ -63,6 +64,7 @@ BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: perl(GD)
 BuildRequires: perl(MIME::Parser)
 BuildRequires: perl(subs)
+BuildRequires: perl(Test::MinimumVersion)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Test::Pod)
 BuildRequires: python3-devel
@@ -138,7 +140,9 @@ gpgv2 --keyring %{S:3} %{S:1} %{S:0}
 # Create a sysusers.d config file
 cat >inn.sysusers.conf <<EOF
 g news 13
+g uucp 14
 u news 9 'News server user' /etc/news -
+u uucp 10 'Uucp user' /var/spool/uucp -
 EOF
 
 %build
@@ -151,6 +155,7 @@ EOF
   --bindir=%{_libexecdir}/news \
   --exec-prefix=%{_libexecdir}/news \
   --sysconfdir=%{_sysconfdir}/news \
+  --with-canlock \
   --with-db-dir=%{_sharedstatedir}/news \
   --with-http-dir=%{_sharedstatedir}/news/http \
   --with-libperl-dir=%{perl_vendorlib} \
@@ -296,21 +301,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make -C tests test
 %global inn_units innd-expire.service innd-nntpsend.service innd-rnews.service
 
 
-%pre
-getent group news >/dev/null || groupadd -g 13 -r news
-getent passwd news >/dev/null || \
-useradd -r -u 9 -g news -d /etc/news  \
--c "News server user" news
-getent group uucp >/dev/null || groupadd -g 14 -r uucp
-if ! getent passwd uucp >/dev/null ; then
-  if ! getent passwd 10 >/dev/null ; then
-     useradd -r -u 10 -g uucp -d /var/spool/uucp  -c "Uucp user" uucp
-  else
-     useradd -r -g uucp -d /var/spool/uucp  -c "Uucp user" uucp
-  fi
-fi
-exit 0
-
 %post
 su -m news -c '/usr/libexec/news/makedbz -i -o'
 
@@ -355,7 +345,6 @@ fi
 %dir %{_sysconfdir}/rsyslog.d
 %{_sysconfdir}/rsyslog.d/inn.conf
 %{_mandir}/man1/c*.1.gz
-%{_mandir}/man1/delayer.1.gz
 %{_mandir}/man1/f*.1.gz
 %{_mandir}/man1/g*.1.gz
 %{_mandir}/man1/inn*.1.gz
@@ -589,6 +578,11 @@ fi
 %{_sysusersdir}/inn.conf
 
 %changelog
+* Tue May 27 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.7.3-1
+- update to 2.7.3 (resolves rhbz#2368556)
+- enable canlock support
+- add missing test dependency
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.7.2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

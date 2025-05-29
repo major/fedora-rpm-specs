@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-hatch-vcs
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Hatch plugin for versioning with your preferred VCS
 

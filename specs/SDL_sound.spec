@@ -1,6 +1,6 @@
 Name:           SDL_sound
 Version:        1.0.3
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Library handling decoding of several popular sound file formats
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -105,6 +105,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.3-41
+- Rebuilt for flac 1.5.0
+
 * Mon Mar 24 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.0.3-40
 - Fix documentation for devel subpackage
 

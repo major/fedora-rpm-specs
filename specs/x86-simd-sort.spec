@@ -1,5 +1,5 @@
 Name:		x86-simd-sort
-Version:	4.0
+Version:	7.0
 Release:	%autorelease
 Summary:	C++ template library for high performance SIMD based sorting algorithms
 
@@ -44,7 +44,7 @@ applications that use %{name}.
 %files
 %license LICENSE.md
 %doc README.md
-%{_libdir}/libx86simdsortcpp.so.0
+%{_libdir}/libx86simdsortcpp.so.1
 
 %files devel
 %{_includedir}/x86simdsort.h

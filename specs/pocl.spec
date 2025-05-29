@@ -62,7 +62,7 @@ Requires: glibc-devel%{?_isa}
 
 %description
 Pocl's goal is to become an efficient open source (MIT-licensed) implementation
-of the OpenCL 1.2 (and soon OpenCL 2.0) standard.
+of the OpenCL 1.2 and OpenCL 3.0 standard.
 
 In addition to producing an easily portable open-source OpenCL implementation,
 another major goal of this project is improving performance portability of

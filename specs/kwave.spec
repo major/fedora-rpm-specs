@@ -4,7 +4,7 @@
 
 Name:           kwave
 Version: 25.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -108,6 +108,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_docdir}/HTML/*/%{name}
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 25.04.1-2
+- Rebuilt for flac 1.5.0
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

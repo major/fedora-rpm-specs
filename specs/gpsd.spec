@@ -14,8 +14,8 @@ Name:           gpsd-epel
 %else
 Name:           gpsd
 %endif
-Version:        3.25
-Release:        17%{?dist}
+Version:        3.26.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -34,8 +34,6 @@ Source11:       gpsd.sysconfig
 
 # Add old status names to gps.h for compatibility
 Patch1:         gpsd-apistatus.patch
-# Don't ignore unrecognized options in CFLAGS/LDFLAGS
-Patch2:         gpsd-sconsflags.patch
 
 BuildRequires:  gcc
 BuildRequires:  dbus-devel
@@ -313,7 +311,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 %if %{with_libs}
 %files -n %{pkgname}-libs
-%{_libdir}/libgps.so.30*
+%{_libdir}/libgps.so.31*
 
 %files -n %{pkgname}-devel
 %doc TODO HACKING
@@ -328,7 +326,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 %if %{with_qt}
 %files -n %{pkgname}-qt
-%{_libdir}/libQgpsmm.so.30*
+%{_libdir}/libQgpsmm.so.31*
 
 %files -n %{pkgname}-qt-devel
 %{_libdir}/libQgpsmm.so
@@ -351,6 +349,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_bindir}/gpscsv
 %{_bindir}/gpsdebuginfo
 %{_bindir}/gpsdecode
+%{_bindir}/gpslogntp
 %{_bindir}/gpspipe
 %{_bindir}/gpsplot
 %{_bindir}/gpsprof
@@ -368,6 +367,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_mandir}/man1/gpscsv.1*
 %{_mandir}/man1/gpsdebuginfo.1*
 %{_mandir}/man1/gpsdecode.1*
+%{_mandir}/man1/gpslogntp.1*
 %{_mandir}/man1/gpspipe.1*
 %{_mandir}/man1/gpsplot.1*
 %{_mandir}/man1/gpsprof.1*
@@ -395,6 +395,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Mon May 19 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.26.1-1
+- update to 3.26.1
+
 * Tue May 06 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-17
 - bundle scons in eln and rhel source rpm
 

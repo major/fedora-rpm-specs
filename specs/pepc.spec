@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.5.26
+Version:	1.5.35
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -11,6 +11,7 @@ BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
+BuildRequires:	python3-tkinter
 Requires:	python3-pepc = %{version}-%{release}
 
 %description

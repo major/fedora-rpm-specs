@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -478,6 +478,9 @@ fi
 %endif
 
 %changelog
+* Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 20230429-22
+- rebuild for new gpsd
+
 * Wed Mar 05 2025 Sandro Mani <manisandro@gmail.com> - 20230429-21
 - Rebuild (geos)
 

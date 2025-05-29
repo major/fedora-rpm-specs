@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPL-2.0-or-later
@@ -149,6 +149,9 @@ others.
 
 
 %changelog
+* Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 1.7-11
+- rebuild for new gpsd
+
 * Tue Apr 08 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 1.7-10
 - Use the journal for stdout/stderr
 - Move audio levels example to README.fedora

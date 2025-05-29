@@ -8,7 +8,7 @@
 
 Name:		flac123
 Version:	2.1.1%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Command-line program for playing FLAC audio files
 
 License:	GPL-2.0-or-later
@@ -66,6 +66,9 @@ consistent, reliable interface to control playback.
 
 
 %changelog
+* Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.1.1-6
+- Rebuilt for flac 1.5.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

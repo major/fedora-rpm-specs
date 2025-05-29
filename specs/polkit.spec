@@ -4,11 +4,13 @@
 Summary: An authorization framework
 Name: polkit
 Version: 126
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
 Source1: polkit.sysusers
+
+Patch1: loglevel-info-backport.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -158,6 +160,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Tue May 27 2025 Jan Rybar <jrybar@redhat.com> - 126-4
+- backport of d6835b4, b2cfd85 - loglevel change on directory load failure
+- Resolves: bz#2365418
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 126-3
 - Drop call to %sysusers_create_compat
 

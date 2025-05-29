@@ -10,6 +10,11 @@ Source0:        https://files.pythonhosted.org/packages/source/a/admesh/admesh-%
 # https://github.com/admesh/python-admesh/issues/15
 Source1:        %{url}/raw/v%{version}/test/utils.py
 
+# Drop pytest-runner and "setup.py test" support
+# https://github.com/admesh/python-admesh/pull/17
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          %{url}/pull/17.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 ExcludeArch:    %{ix86}
@@ -20,7 +25,6 @@ BuildRequires:  gcc
 BuildRequires:  admesh-devel >= 0.98
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
 
 %description
 This module provides bindings for the ADMesh library.
@@ -37,11 +41,11 @@ format and partially repair them if necessary.
 
 
 %prep
-%setup -q -n admesh-%{version}
+%autosetup -n admesh-%{version} -p1
 cp %{SOURCE1} test/
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

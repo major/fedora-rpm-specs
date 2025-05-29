@@ -1,15 +1,18 @@
 %global pname   extrecmenung
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
-# version we want to build against
-%global vdr_version 2.6.9
+
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+%global vdr_version 2.7.5
+%elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
+%else
+%global vdr_version 2.6.9
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
@@ -51,6 +54,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.0.14-2
+- Rebuilt for new VDR API version 2.7.5
+
 * Wed May 14 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.0.14-1
 - Update 2.0.14
 
