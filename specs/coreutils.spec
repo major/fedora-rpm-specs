@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -36,6 +36,10 @@ Patch104: coreutils-df-direct.patch
 # https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=8a356b77717a2e4f735ec06e326880ca1f61aadb
 # https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=955360a66c99bdd9ac3688519a8b521b06958fd3
 Patch105: coreutils-9.6-cp-improve-nfsv4-acl-support.patch
+
+# sort: fix buffer under-read (CVE-2025-5278)
+# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=8c9602e3a145e9596dc1a63c6ed67865814b6633
+Patch106: coreutils-CVE-2025-5278.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -283,6 +287,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Wed May 28 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.7-3
+- sort: fix buffer under-read (CVE-2025-5278)
+
 * Mon May 19 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.7-2
 - cp/mv: do not fail when copying of trivial NFSv4 ACLs fails (rhbz#2363149)
 

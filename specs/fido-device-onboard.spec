@@ -3,7 +3,7 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.5.4
+Version:        0.5.5
 Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
@@ -312,6 +312,26 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Wed May 28 2025 Packit <hello@packit.dev> - 0.5.5-1
+## What's Changed
+ * chore: bump openssl from 0.10.70 to 0.10.72 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/758
+ * fix: replace default.target with initrd.target by @lbrabec in https://github.com/fdo-rs/fido-device-onboard-rs/pull/762
+ * ci(mergify): upgrade configuration to current format by @mergify in https://github.com/fdo-rs/fido-device-onboard-rs/pull/766
+ * chore: bump tokio from 1.36.0 to 1.45.1 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/769
+ * chore: bump actions/upload-artifact from 3 to 4 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/593
+ * chore: bump actions/checkout from 3 to 4 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/551
+ * chore: bump regex from 1.10.3 to 1.11.1 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/752
+ * chore: bump tss-esapi crate to 7.6 by @nullr0ute in https://github.com/fdo-rs/fido-device-onboard-rs/pull/772
+ * chore: fix the container deps by @nullr0ute in https://github.com/fdo-rs/fido-device-onboard-rs/pull/775
+ * chore: bump for 0.5.5 release by @pcdubs in https://github.com/fdo-rs/fido-device-onboard-rs/pull/771
+
+## New Contributors
+ * @lbrabec made their first contribution in https://github.com/fdo-rs/fido-device-onboard-rs/pull/762
+ * @mergify made their first contribution in https://github.com/fdo-rs/fido-device-onboard-rs/pull/766
+
+ **Full Changelog**: https://github.com/fdo-rs/fido-device-onboard-rs/compare/v0.5.4...v0.5.5
+- Resolves: rhbz#2369025
+
 * Fri Mar 28 2025 Packit <hello@packit.dev> - 0.5.4-1
 ## What's Changed
  * packit: drop centos propose downstream and jobs by @runcom in https://github.com/fdo-rs/fido-device-onboard-rs/pull/743

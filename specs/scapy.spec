@@ -34,12 +34,8 @@ requests and replies, and much more.}
 %bcond_with        python2
 %endif
 
-# By default build the documentation only on Fedora due to cc-by-nc-sa license
-%if 0%{?fedora}
-%bcond_without     doc
-%else
+# By default do not build documentation because of not allowed cc-by-nc-sa license
 %bcond_with        doc
-%endif
 
 
 

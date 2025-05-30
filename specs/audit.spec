@@ -1,11 +1,11 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.0.3
-Release: 2%{?dist}
+Version: 4.0.4
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
-Source0: https://github.com/linux-audit/audit-userspace/releases/tag/v%{version}.tar.gz
+Source0: audit-userspace-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
 BuildRequires: make gcc
 BuildRequires: autoconf automake libtool
@@ -108,7 +108,7 @@ sed -i 's/ ids / /' audisp/plugins/Makefile.in
            --with-python3=yes \
            --enable-gssapi-krb5=yes --with-arm --with-aarch64 --with-riscv \
            --with-libcap-ng=yes --without-golang --enable-zos-remote \
-           --enable-experimental --with-io_uring
+           --with-io_uring --enable-experimental --with-nftables
 
 make CFLAGS="%{optflags}" %{?_smp_mflags}
 
@@ -229,6 +229,7 @@ fi
 %attr(644,root,root) %{_mandir}/man8/aulastlog.8.gz
 %attr(644,root,root) %{_mandir}/man8/ausyscall.8.gz
 %attr(644,root,root) %{_mandir}/man5/auditd.conf.5.gz
+%attr(644,root,root) %{_mandir}/man5/auditd.cron.5.gz
 %attr(644,root,root) %{_mandir}/man5/auditd-plugins.5.gz
 %attr(755,root,root) %{_sbindir}/auditd
 %attr(755,root,root) %{_sbindir}/ausearch
@@ -296,6 +297,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Wed May 28 2025 Steve Grubb <sgrubb@redhat.com> 4.0.4-1
+- New upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

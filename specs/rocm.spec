@@ -4,7 +4,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -14,37 +14,52 @@ BuildArch: noarch
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
 
+
 Requires: amdsmi >= %{rocm_release}
 Requires: hipblas >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: hipblaslt >= %{rocm_release}
+%endif
 Requires: hipcc
 Requires: hipfft >= %{rocm_release}
 Requires: hiprand >= %{rocm_release}
 Requires: hipsolver >= %{rocm_release}
 Requires: hipsparse >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: miopen >= %{rocm_release}
 Requires: mivisionx >= %{rocm_release}
 Requires: rccl >= %{rocm_release}
 Requires: rocal >= %{rocm_release}
 Requires: rocalution >= %{rocm_release}
+%endif
 Requires: rocblas >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocdecode >= %{rocm_release}
+%endif
 Requires: rocfft >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocjpeg >= %{rocm_release}
+%endif
 Requires: rocm-clang
+%if ! 0%{?rhel}
 Requires: rocm-clinfo >= %{rocm_release}
 Requires: rocm-core >= %{rocm_release}
+%endif
 Requires: rocm-hip >= %{rocm_release}
 Requires: rocminfo >= %{rocm_release}
 Requires: rocm-omp >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: rocm-rpp >= %{rocm_release}
+%endif
 Requires: rocm-runtime >= %{rocm_release}
 Requires: rocm-smi >= %{rocm_release}
 Requires: rocrand >= %{rocm_release}
 Requires: rocsolver >= %{rocm_release}
 Requires: rocsparse >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: roctracer >= %{rocm_release}
+%endif
 
 %description
 This is a meta package for all of the ROCm packages.
@@ -55,43 +70,59 @@ Requires: amdsmi-devel >= %{rocm_release}
 Requires: half-devel
 Requires: hipblas-common-devel >= %{rocm_release}
 Requires: hipblas-devel >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: hipblaslt-devel >= %{rocm_release}
 Requires: hipify >= %{rocm_release}
+%endif
 Requires: hipcub-devel >= %{rocm_release}
 Requires: hipfft-devel >= %{rocm_release}
 Requires: hiprand-devel >= %{rocm_release}
 Requires: hipsolver-devel >= %{rocm_release}
 Requires: hipsparse-devel >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: miopen-devel >= %{rocm_release}
 Requires: mivisionx-devel >= %{rocm_release}
 Requires: python3-tensile-devel >= %{rocm_release}
 Requires: rccl-devel >= %{rocm_release}
 Requires: rocal-devel >= %{rocm_release}
 Requires: rocalution-devel >= %{rocm_release}
+%endif
 Requires: rocblas-devel >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocdecode-devel >= %{rocm_release}
+%endif
 Requires: rocfft-devel >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocjpeg-devel >= %{rocm_release}
+%endif
 Requires: rocm-clang-devel
 Requires: rocm-cmake >= %{rocm_release}
 Requires: rocm-compilersupport-macros
+%if ! 0%{?rhel}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
+%endif
 Requires: rocm-hip-devel >= %{rocm_release}
 Requires: rocm-omp-static >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocm-opencl-devel >= %{rocm_release}
+%endif
 Requires: rocm-rpm-macros >= %{rocm_release}
 Requires: rocm-rpm-macros-modules >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocm-rpp-devel >= %{rocm_release}
+%endif
 Requires: rocm-runtime-devel >= %{rocm_release}
 Requires: rocm-smi-devel >= %{rocm_release}
 Requires: rocprim-devel >= %{rocm_release}
 Requires: rocrand-devel >= %{rocm_release}
 Requires: rocsolver-devel >= %{rocm_release}
 Requires: rocsparse-devel >= %{rocm_release}
+%if ! 0%{?rhel}
 Requires: rocthrust-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
 Requires: rocwmma-devel >= %{rocm_release}
+%endif
 
 %description devel
 This is a meta package for all of the ROCm devel packages.
@@ -121,6 +152,12 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed May 28 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
+- hipify is not part of the set we intend to build for EL for now
+
+* Tue May 27 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-2
+- Don't require yet-unpackaged deps in EL builds
+
 * Tue Apr 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
 - Update to 6.4.0
 - Use version requires to pull in newer packages

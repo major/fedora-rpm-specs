@@ -65,6 +65,9 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 
+# https://github.com/matplotlib/matplotlib/pull/29393
+Patch0004:      python3.14.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
@@ -145,25 +148,17 @@ Matplotlib tries to make easy things easy and hard things possible.
 You can generate plots, histograms, power spectra, bar charts,
 errorcharts, scatterplots, etc, with just a few lines of code.
 
-%package -n python3-matplotlib-data
-Summary:        Data used by python-matplotlib
-BuildArch:      noarch
-%if %{with bundled_fonts}
-Requires:       python3-matplotlib-data-fonts = %{version}-%{release}
-%endif
-Obsoletes:      python-matplotlib-data < 3
-
-%description -n python3-matplotlib-data
-%{summary}
-
 %if %{with bundled_fonts}
 %package -n python3-matplotlib-data-fonts
 Summary:        Fonts used by python-matplotlib
 # Carlogo, STIX and Computer Modern is OFL
 # DejaVu is Bitstream Vera and Public Domain
 License:        OFL-1.1 AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
-BuildArch:      noarch
-Requires:       python3-matplotlib-data = %{version}-%{release}
+%if %{without bundled_fonts}
+Requires:       stix-math-fonts
+%else
+Provides:       bundled(stix-math-fonts)
+%endif
 Obsoletes:      python-matplotlib-data-fonts < 3
 
 %description -n python3-matplotlib-data-fonts
@@ -179,7 +174,7 @@ BuildRequires:  python3dist(sphinx)
 Requires:       dejavu-sans-fonts
 Recommends:     texlive-dvipng
 Requires:       (texlive-dvipng if texlive-base)
-Requires:       python3-matplotlib-data = %{version}-%{release}
+Requires:       python3-matplotlib-data-fonts = %{version}-%{release}
 Requires:       python3dist(pycairo)
 Recommends:     python3-matplotlib-%{?backend_subpackage}%{!?backend_subpackage:tk}%{?_isa} = %{version}-%{release}
 %if %{with check}
@@ -189,11 +184,10 @@ BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pikepdf)
 %endif
-%if %{without bundled_fonts}
-Requires:       stix-math-fonts
-%else
-Provides:       bundled(stix-math-fonts)
-%endif
+# Remove in F45.
+Provides:       python3-matplotlib-data = %{version}-%{release}
+Obsoletes:      python3-matplotlib-data < 3.10.3-4
+Obsoletes:      python-matplotlib-data < 3
 
 %description -n python3-matplotlib
 Matplotlib is a Python 2D plotting library which produces publication
@@ -343,11 +337,8 @@ rm %{buildroot}%{python3_sitearch}/matplotlib/tests/tinypages/.gitignore
 rm %{buildroot}%{python3_sitearch}/matplotlib/tests/tinypages/_static/.gitignore
 
 # Move files to Fedora-specific locations.
-mkdir -p %{buildroot}%{_sysconfdir} %{buildroot}%{_datadir}/matplotlib
-mv %{buildroot}%{python3_sitearch}/matplotlib/mpl-data \
-   %{buildroot}%{_datadir}/matplotlib
 %if %{without bundled_fonts}
-rm -rf %{buildroot}%{_datadir}/matplotlib/mpl-data/fonts
+rm -rf %{buildroot}%{python3_sitearch}/matplotlib/mpl-data/fonts
 %endif
 
 
@@ -379,6 +370,9 @@ env MPLCONFIGDIR=$PWD \
 # Skip GTK3Cairo tests that are broken in virtual display.
 k="${k-}${k+ and }not (test_interactive_thread_safety and gtk3cairo)"
 k="${k-}${k+ and }not (test_interactive_timers and gtk3cairo)"
+# These two segfault, resp. timeout in Python 3.14 Copr test environment
+k="${k-}${k+ and }not test_interactive_thread_safety"
+k="${k-}${k+ and }not test_figuremanager_cleans_own_mainloop"
 # Run backend tests with Wayland.
 wlheadless-run -- env MPLCONFIGDIR=$PWD GDK_BACKEND=wayland QT_QPA_PLATFORM=wayland \
     %{pytest} -vra -n auto \
@@ -392,15 +386,9 @@ xwfb-run -- env MPLCONFIGDIR=$PWD \
 %endif
 
 
-%files -n python3-matplotlib-data
-%{_datadir}/matplotlib/mpl-data/
-%if %{with bundled_fonts}
-%exclude %{_datadir}/matplotlib/mpl-data/fonts/
-%endif
-
-%if %{with bundled_fonts}
 %files -n python3-matplotlib-data-fonts
-%{_datadir}/matplotlib/mpl-data/fonts/
+%if %{with bundled_fonts}
+%{python3_sitearch}/matplotlib/mpl-data/fonts/
 %endif
 
 %files -n python3-matplotlib-doc

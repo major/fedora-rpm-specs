@@ -13,6 +13,8 @@ Summary:        Create GNOME Shell extensions in seconds
 License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source:         %{url}/archive/%{commit}/argos-%{commit}.tar.gz#/argos-%{version}.tar.gz
+# use xdg-terminal-exec rather than hardcoding which terminal to use
+Patch:          https://patch-diff.githubusercontent.com/raw/p-e-w/argos/pull/170.patch#/argos-use-xdg-terminal-exec.diff
 
 BuildArch:      noarch
 
@@ -21,6 +23,8 @@ BuildRequires:  gnome-shell-rpm-generators
 %else
 Requires:       (gnome-shell >= 45.0 with gnome-shell < 49.0)
 %endif
+
+Requires:       xdg-terminal-exec
 
 %description
 Most GNOME Shell extensions do one thing: Add a button with a dropdown menu to

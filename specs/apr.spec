@@ -11,8 +11,8 @@
 
 Summary: Apache Portable Runtime library
 Name: apr
-Version: 1.7.5
-Release: 3%{?dist}
+Version: 1.7.6
+Release: 1%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -21,8 +21,6 @@ Release: 3%{?dist}
 # Zlib: strings/apr_strnatcmp.c, include/apr_strings.h
 # Caldera-no-preamble: strings/apr_snprintf.c
 License: Apache-2.0 AND (BSD-4-Clause-UC AND ISC AND Zlib AND Caldera-no-preamble)
-
-
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Source1: apr-wrapper.h
@@ -136,6 +134,9 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Wed May 28 2025 Joe Orton  <jorton@redhat.com> - 1.7.6-1
+- update to 1.7.6 (#2366842)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.7.5-3
 - Add explicit BR: libxcrypt-devel
 

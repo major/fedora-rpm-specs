@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -88,7 +88,7 @@ Requires: python3dist(psycopg) >= 3.2.1
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: (python3dist(sqlalchemy) >= 2 with python3dist(sqlalchemy) < 3)
 Requires: (python3dist(bcrypt) >= 4.2 with python3dist(bcrypt) < 4.3)
-Requires: (python3dist(cryptography) >= 44 with python3dist(cryptography) < 44.1)
+Requires: python3dist(cryptography) >= 44
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
@@ -106,7 +106,7 @@ Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-ap
 Requires: python3dist(google-auth-oauthlib) = 1.2.1
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
 Requires: (python3dist(werkzeug) >= 3.1 with python3dist(werkzeug) < 3.2)
-Requires: (python3dist(typer) >= 0.15 with python3dist(typer) < 0.16)
+Requires: python3dist(typer) >= 0.15
 Requires: python3dist(setuptools) >= 74
 Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) < 0.4)
 Requires: (python3dist(libgravatar) >= 1 with python3dist(libgravatar) < 1.1)
@@ -264,6 +264,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed May 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 9.3-3
+- Unpin cryptography; allow cryptography 0.45
+
+* Tue May 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 9.3-2
+- Unpin typer; allow typer 0.16
+
 * Thu May 08 2025 Sandro Mani <manisandro@gmail.com> - 9.3-1
 - Update to 9.3
 

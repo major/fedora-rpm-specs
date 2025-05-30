@@ -9,6 +9,12 @@ Summary:        Measures number of Terminal column cells of wide-character codes
 License:        MIT AND HPND-Markus-Kuhn
 URL:            https://github.com/jquast/wcwidth
 Source:         %{pypi_source wcwidth}
+
+# Don't use codecs.open on Python 3
+# Avoids: DeprecationWarnings: codecs.open() is deprecated. Use open() instead.
+# Fixes https://bugzilla.redhat.com/2368969
+Patch:          https://github.com/jquast/wcwidth/pull/141.patch
+
 BuildArch:      noarch
 
 %description
@@ -29,7 +35,7 @@ that expect to interpreted by a terminal emulator and wish to determine the
 printable width of a string on a Terminal.
 
 %prep
-%setup -q -n wcwidth-%{version}
+%autosetup -p1 -n wcwidth-%{version}
 # skip coverage checks
 sed -i -e 's|--cov[^[:space:]]*||g' tox.ini
 

@@ -1,13 +1,9 @@
-%if 0%{?fedora} >= 41
 %global libliftoff_minver 0.5.0
-%else
-%global libliftoff_minver 0.4.1
-%endif
 %global reshade_commit 696b14cd6006ae9ca174e6164450619ace043283
 %global reshade_shortcommit %(c=%{reshade_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.16.4
+Version:        3.16.11
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -29,9 +25,8 @@ Patch:          0001-cstdint.patch
 # We'll hold on rebases of gamescope if tags diverge in the future
 Patch:          Allow-to-use-system-wlroots.patch
 Patch:          Switch-wlroots-to-the-new-pc-filename.patch
-Patch:          Add-pixman-dependency.patch
-# https://github.com/ValveSoftware/gamescope/pull/1812:
-Patch:          Add-libudev-dependency.patch
+Patch:          Add-pixman-udev-deps.patch
+Patch:          Use-system-stb-glm.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.13.2
-Release:    10%{?dist}
+Release:    11%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -412,6 +412,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Thu May 29 2025 Richard Shaw <hobbes1069@gmail.com> - 4.13.2-11
+- Rebuild for opencascade 7.9.1.
+
 * Wed May 28 2025 Richard Shaw <hobbes1069@gmail.com> - 4.13.2-10
 - Rebuild for opencascade 7.9.1.
 

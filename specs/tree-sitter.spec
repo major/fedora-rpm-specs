@@ -1,7 +1,7 @@
 %global treesitter_so_version 0
 
 Name:           tree-sitter
-Version:        0.25.4
+Version:        0.25.5
 Release:        %autorelease
 Summary:        An incremental parsing system for programming tools
 

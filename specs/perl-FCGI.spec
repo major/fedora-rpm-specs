@@ -7,7 +7,7 @@ Summary:        FastCGI Perl bindings
 # needed to properly replace/obsolete fcgi-perl
 Epoch:          1
 Version:        0.82
-Release:        13%{?dist}
+Release:        14%{?dist}
 # eg/echo.pl:   "See the LICENSE file"
 # fastcgi.h:    "See the LICENSE file"
 # FCGI.pm:      "See the LICENSE file"
@@ -27,6 +27,14 @@ Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/FCGI-%{version}.
 # Fix CVE-2012-6687 in the bundled fcgi library, bug #1190294, CPAN RT#118405,
 # patch copied from Debian's libfcgi-perl.
 Patch0:         FCGI-0.78-CVE-2012-6687.patch
+# 1/2 Fix CVE-2025-40907 in the bundled fcgi library, bug #2366847,
+# <https://github.com/perl-catalyst/FCGI/issues/14>, copied from fcgi2 library
+# <https://github.com/FastCGI-Archives/fcgi2/issues/67>.
+Patch1:         FCGI-0.82-Update-fcgiapp.c.patch
+# 2/2 Fix CVE-2025-40907 in the bundled fcgi library, bug #2366847,
+# <https://github.com/perl-catalyst/FCGI/issues/14>, copied from fcgi2 library
+# <https://github.com/FastCGI-Archives/fcgi2/issues/67>.
+Patch2:         FCGI-0.82-Fix-size_t-overflow-in-Malloc-argument-in-ReadParams.patch
 URL:            https://metacpan.org/release/FCGI
 # bash for sh executed from Makefile.PL
 BuildRequires:  bash
@@ -129,6 +137,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 19 2025 Petr Pisar <ppisar@redhat.com> - 1:0.82-14
+- Fix CVE-2025-40907 (integer overflow when parsing FastCGI parameters)
+  (bug #2366847)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.82-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

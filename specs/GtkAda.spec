@@ -44,6 +44,8 @@ Patch:          GtkAda-2.24.2-format_security.patch
 Patch:          GtkAda-2.24.2-no_extern_inline.patch
 # Build with GPRbuild:
 Patch:          GtkAda-2.24.2-gprbuild.patch
+# Show the link commands:
+Patch:          GtkAda-2.24.2-unmask.patch
 BuildRequires:  gcc-gnat
 BuildRequires:  gprbuild
 BuildRequires:  gtk2-devel >= 2.21
@@ -183,8 +185,9 @@ recode ISO-8859-1..UTF-8 testgtk/opengl/lw.[hc]
 # LTO for now.  fld_incomplete_type_of, at tree.c:5371
 %define _lto_cflags %{nil}
 
+LDFLAGS="${LDFLAGS} -Wl,--no-warn-execstack"
 %{configure} --enable-build=Debuginfo --disable-subdirs --disable-static
-make src "GPRbuild_optflags=%{GPRbuild_optflags}"
+make src "GPRbuild_optflags=%{GPRbuild_flags}"
 
 # The documentation is not regenerated because that requires GPS and would
 # cause a dependency loop.

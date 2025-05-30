@@ -4,7 +4,7 @@
 %bcond doc %{undefined el10}
 
 Name:           python-%{modname}
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
@@ -47,7 +47,7 @@ Documentation and examples for %{name}.
 %pyproject_extras_subpkg -n python3-%{modname} async
 %generate_buildrequires
 # -t picks test.txt by default which contains too tight pins
-%pyproject_buildrequires -x async requirements/tests.in %{?with_doc:requirements/docs.in}
+%pyproject_buildrequires -x async -g tests %{?with_doc:-g docs}
 
 %prep
 %autosetup -n %{srcname}-%{version}

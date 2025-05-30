@@ -1,14 +1,12 @@
-%global module_name pycodestyle
-
-Name:           python-%{module_name}
+Name:           python-pycodestyle
 # WARNING: When updating pycodestyle, check not to break flake8!
 Version:        2.12.1
 Release:        %autorelease
 Summary:        Python style guide checker
 License:        MIT
-URL:            https://pypi.python.org/pypi/%{module_name}
+URL:            https://pypi.python.org/pypi/pycodestyle
 # pypi source missing docs - https://github.com/PyCQA/pycodestyle/issues/1231
-Source0:        https://github.com/PyCQA/pycodestyle/archive/%{version}/%{module_name}-%{version}.tar.gz
+Source0:        https://github.com/PyCQA/pycodestyle/archive/%{version}/pycodestyle-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -21,11 +19,9 @@ editor.
 
 %package -n python%{python3_pkgversion}-pycodestyle
 Summary:    Python style guide checker
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{module_name}}
 Conflicts:      python-pycodestyle < %{version}-%{release}
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 BuildRequires:  python%{python3_pkgversion}-pytest
@@ -41,41 +37,44 @@ This is a version for Python %{python3_pkgversion}.
 
 
 %prep
-%autosetup -n %{module_name}-%{version} -p1
+%autosetup -n pycodestyle-%{version} -p1
 
 # Remove #! from pycodestyle.py
 sed --in-place "s:#!\s*/usr.*::" pycodestyle.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 make -C docs man SPHINXBUILD=sphinx-build-%{python3_version}
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pycodestyle
 mv %{buildroot}%{_bindir}/pycodestyle %{buildroot}%{_bindir}/pycodestyle-%{python3_version}
 ln -s ./pycodestyle-%{python3_version} %{buildroot}%{_bindir}/pycodestyle-3
 ln -s ./pycodestyle-3 %{buildroot}%{_bindir}/pycodestyle
 
 
-install -D docs/_build/man/%{module_name}.1 %{buildroot}%{_mandir}/man1/%{module_name}.1
+install -D docs/_build/man/pycodestyle.1 %{buildroot}%{_mandir}/man1/pycodestyle.1
 
 
 %check
+%pyproject_check_import
 %pytest -v
 
 
-%files -n python%{python3_pkgversion}-pycodestyle
+%files -n python%{python3_pkgversion}-pycodestyle -f %{pyproject_files}
 %doc README.rst CHANGES.txt
-%license LICENSE
-%{_mandir}/man1/%{module_name}.1.gz
+%{_mandir}/man1/pycodestyle.1.gz
 %{_bindir}/pycodestyle
 %{_bindir}/pycodestyle-3
 %{_bindir}/pycodestyle-%{python3_version}
-%pycached %{python3_sitelib}/%{module_name}.py
-%{python3_sitelib}/%{module_name}-%{version}-*.egg-info/
 
 %changelog
 %autochangelog

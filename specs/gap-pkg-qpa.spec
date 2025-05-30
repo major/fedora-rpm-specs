@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/qpa
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.35
+Version:        1.36
 Release:        %autorelease
 Summary:        GAP package for quivers and path algebras
 

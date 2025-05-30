@@ -50,8 +50,8 @@ BuildRequires:  perl(Moo)
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(MooX::StrictConstructor)
 BuildRequires:  perl(Moose)
-BuildRequires:  perl(MooseX::Types)
-BuildRequires:  perl(MooseX::Types::Moose)
+BuildRequires:  perl(MooseX::Types) >= 0.51
+BuildRequires:  perl(MooseX::Types::Moose) >= 0.51
 BuildRequires:  perl(MooseX::Types::Path::Class)
 BuildRequires:  perl(PPI) >= 1.276
 BuildRequires:  perl(PPI::Document)

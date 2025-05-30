@@ -1,16 +1,6 @@
-%global forgeurl https://github.com/libkeepass/pykeepass
-# We package a post-release snapshot with fixes for issues in the 4.1.1
-# release:
-# - update changelog
-# - missing test database
-# - remove unsupported type annotation
-# - remove more type annotations
-%global version0 4.1.1
-%global commit0 409be2d416ef5da7697d05a9b8ad3a403bdabb99
-%forgemeta
 
 Name:           python-pykeepass
-Version:        %forgeversion
+Version:        4.1.1.post1
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -20,9 +10,9 @@ Summary:        Python library to interact with keepass databases
 # MIT:
 #   pykeepass/kdbx_parsing/twofish.py
 License:        GPL-3.0-only AND MIT
-URL:            %{forgeurl}
+URL:            https://github.com/libkeepass/pykeepass
 # The GitHub archive has tests; the PyPI sdist does not.
-Source:         %{forgesource}
+Source:         %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -x test
@@ -45,7 +35,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -n pykeepass-%{version} -p1
 
 # This is actually a documentation dependency:
 tomcli set pyproject.toml lists delitem project.optional-dependencies.test pdoc

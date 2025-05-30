@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xdg-terminal-exec
-Version:        0.12.2
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Proposed XDG Default Terminal Execution Spec implementation
 
@@ -12,7 +12,6 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gzip
 BuildRequires:  make
 BuildRequires:  scdoc
-BuildRequires:  sed
 %if %{with check}
 BuildRequires:  bats
 %endif
@@ -30,9 +29,6 @@ compatibility is maintained as best effort and is not guaranteed.
 
 %prep
 %autosetup -p1
-
-# Preserve timestamps on install
-sed -i 's/install -Dm/install -Dpm/g' Makefile
 
 %build
 %make_build

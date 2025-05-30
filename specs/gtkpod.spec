@@ -19,7 +19,7 @@ BuildRequires:  anjuta-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  flac-devel
 BuildRequires:  flex
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  intltool
 BuildRequires:  libgpod-devel >= 0.7.0
 BuildRequires:  libid3tag-devel
@@ -57,7 +57,6 @@ developing extensions for gtkpod.
 %patch -P 2 -p0
 
 %build
-autoreconf -if
 export CPPFLAGS="$CPPFLAGS -fcommon"
 %configure --disable-static
 make %{?_smp_mflags}

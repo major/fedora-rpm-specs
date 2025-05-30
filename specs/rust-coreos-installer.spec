@@ -5,14 +5,14 @@
 %global cargo_install_lib 0
 
 %global dracutlibdir %{_prefix}/lib/dracut
-%global dracutcommit 09e3518fb6c49e0a14bf99eca5b9ab1e0ce672e1
+%global dracutcommit 1a0a13fe12508367fffb49fc102dc50932da41ce
 %global dracutshortcommit %(c=%{dracutcommit}; echo ${c:0:7})
 
 %global crate coreos-installer
 
 Name:           rust-coreos-installer
 Version:        0.24.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -180,6 +180,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Tue May 27 2025 Paul Whalen <pwhalen@fedoraproject.org> - 0.24.0-2
+- Bump dracut version to 1a0a13f to fix iot-simplified-provisioner
+
 * Wed Apr 16 2025 Packit <hello@packit.dev> - 0.24.0-1
 - New upstream release
 

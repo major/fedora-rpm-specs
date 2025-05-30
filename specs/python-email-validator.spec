@@ -59,6 +59,11 @@ Summary:        %{summary}
 %prep
 %autosetup -n python-email-validator-%{version} -p1
 
+# Removes test where IPv4 address is embeded into IPv6 address.
+# Parsing of this type of IPv6 seems to be broken in Python.
+# https://github.com/python/cpython/issues/128840#issuecomment-2914324533
+sed -i "/IPv6:1111:2222:3333:4444:5555:6666:255.255.255.255/d" tests/test_syntax.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 

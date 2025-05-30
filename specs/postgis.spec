@@ -6,6 +6,12 @@
 %{!?runselftest:%global runselftest 1}
 %{!?llvmjit:%global llvmjit 0}
 
+%if 0%{?rhel}
+%global pkgname postgresql16-postgis
+%else
+%global pkgname postgis
+%endif
+
 %global        majorversion 3.5
 %global        soversion 3
 %global        prevmajorversion 2.5
@@ -15,7 +21,7 @@
 
 %global        __provides_exclude_from %{_libdir}/pgsql
 
-Name:          postgis
+Name:          %{pkgname}
 Version:       3.5.2
 Release:       2%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL

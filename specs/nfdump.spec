@@ -1,7 +1,7 @@
 
 Name:		nfdump
-Version:	1.7.5
-Release:	2%{?dist}
+Version:	1.7.6
+Release:	1%{?dist}
 Summary:	NetFlow collecting and processing tools
 
 License:	BSD-3-Clause AND GPL-2.0-or-later
@@ -76,6 +76,7 @@ rm -f %{buildroot}%{_libdir}/*.la
 %files
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
+%doc src/libnffile/conf/nfdump.conf.dist
 %{_bindir}/*
 %{_mandir}/man1/*.1*
 
@@ -85,6 +86,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Wed May 28 2025 Denis Fateyev <denis@fateyev.com> - 1.7.6-1
+- Update to version 1.7.6
+- Add sample config file
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

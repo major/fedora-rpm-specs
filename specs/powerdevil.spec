@@ -1,6 +1,10 @@
+# https://github.com/systemd/systemd/issues/33167
+# This workaround can be removedif f41 updates to systemd 257
+%bcond systemd_cap_workaround %[0%{?fedora} == 41]
+
 Name:    powerdevil
 Version: 6.3.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -8,6 +12,8 @@ URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
+# Revert https://invent.kde.org/plasma/powerdevil/-/commit/7860551aeaeed400fb8db9f2535bfa493ce06e53
+Patch0:  revert-systemd-ambient-caps.patch
 
 # Plasma Dependencies
 BuildRequires:  plasma-workspace-devel
@@ -82,7 +88,10 @@ of a daemon (a KDED module) and a KCModule for its configuration.
 
 
 %prep
-%autosetup -p1
+%setup
+%if %{with systemd_cap_workaround}
+%patch -P0 -p1
+%endif
 
 
 %build
@@ -115,7 +124,7 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_libexecdir}/kauth/discretegpuhelper
 %{_kf6_libexecdir}/kauth/chargethresholdhelper
 %{_sysconfdir}/xdg/autostart/powerdevil.desktop
-%{_libexecdir}/org_kde_powerdevil
+%{?with_systemd_cap_workaround:%caps(cap_wake_alarm=ep)} %{_libexecdir}/org_kde_powerdevil
 %{_kf6_libdir}/libpowerdevilcore.so.*
 %{_kf6_qtplugindir}/powerdevil/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
@@ -156,6 +165,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 
 
 %changelog
+* Wed May 28 2025 Alessandro Astone <ales.astone@gmail.com> - 6.3.90-2
+- Add workaround for systemd 255/256 bug
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

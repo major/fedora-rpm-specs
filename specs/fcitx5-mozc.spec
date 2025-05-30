@@ -23,6 +23,7 @@
 
 
 # main source 
+%global version0  2.30.5618.102
 %global forgeurl0 https://github.com/fcitx/mozc
 %global commit0   c0ed34eaa1f39d2106554f4811969ebea04c1f0f
 
@@ -49,15 +50,30 @@
 %global tag4      20240722.0
 %endif
 
-%forgemeta -a
+# Work around https://bugzilla.redhat.com/show_bug.cgi?id=2359090 by only
+# handling the first source, by defining necessary macros for the additional
+# sources manually, and by overriding the distprefix0 macro to avoid duplicate
+# snapshot info in the Version and Release fields.
+%global distprefix0 %{nil}
+%forgemeta -z0
+%global archivename1 japanese-usage-dictionary-%{commit1}
+%global forgesource1 %{forgeurl1}/archive/%{commit1}/%{archivename1}.tar.gz
+%global archivename2 protobuf-%(echo %{tag2} | sed -r 's/^v//')
+%global forgesource2 %{forgeurl2}/archive/%{tag2}/%{archivename2}.tar.gz
+%if %{with run_test}
+%global archivename3 %(echo %{tag3} | sed -r 's/^v//').tar.gz
+%global forgesource3 %{forgeurl3}/archive/%{tag3}/%{archivename3}.tar.gz
+%endif
+%global archivename4 abseil-cpp-%{tag4}
+%global forgesource4 %{forgeurl4}/archive/%{tag4}/%{archivename4}.tar.gz
 
 Name:           fcitx5-mozc
 # keep version consistent with mozc version 
 # that fcitx5-mozc is based on
-Version:        2.30.5618.102
 # upstream don't tag release, build git snapshot here
 # git snapshot should have snapshot date will be taken care
 # of by forgemeta after importing to dist-git
+Version:        %{forgeversion}
 Release:        %autorelease
 Summary:        A wrapper of mozc for fcitx5
 License:        BSD and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL%{?with_bundle_abslcpp: and ASL-2.0}

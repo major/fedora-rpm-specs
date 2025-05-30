@@ -26,27 +26,23 @@ BuildRequires:  python3-devel
 %if %{with tests}
 %if ! 0%{?rhel}
 BuildRequires:  dash
-BuildRequires:  devscripts-checkbashisms
 %endif
+BuildRequires:  devscripts-checkbashisms
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-en-US
 BuildRequires:  python3dist(pytest)
-%if ! 0%{?rhel}
 BuildRequires:  python3dist(pytest-xdist)
-%endif
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 %endif
 %if ! 0%{?rhel}
 Requires:       dash
-Requires:       devscripts-checkbashisms
 %endif
+Requires:       devscripts-checkbashisms
 Requires:       rpm-build
 Requires:       /usr/bin/appstream-util
 Requires:       /usr/bin/desktop-file-validate
-%if 0%{?fedora}
 Requires:       rpmlint-fedora-license-data
-%endif
 
 %description
 rpmlint is a tool for checking common errors in RPM packages. Binary
@@ -66,8 +62,7 @@ sed -i -e '/ErlangCheck/d' rpmlint/configdefaults.toml test/test_lint.py
 %endif
 
 # Don't lint the code or measure coverage in %%check
-# On RHEL, also avoid xdist by disabling parallelism
-sed -i -e '/^ *--cov=rpmlint$/d' %{?rhel:-e '/^ *-n auto$/d'} pytest.ini
+sed -i -e '/^ *--cov=rpmlint$/d' pytest.ini
 
 # Avoid warnings about pytest.mark.no_cover marker
 sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
@@ -83,9 +78,7 @@ sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
 %pyproject_save_files %{name}
 
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/rpmlint/
-%if 0%{?fedora}
 cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg/rpmlint/
-%endif
 
 %check
 %if %{with tests}
@@ -95,9 +88,7 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %files -f %{pyproject_files}
 %doc README.md
 %dir %{_sysconfdir}/xdg/rpmlint
-%if 0%{?fedora}
 %config(noreplace) %{_sysconfdir}/xdg/rpmlint/*.toml
-%endif
 %{_bindir}/rpmdiff
 %{_bindir}/rpmlint
 

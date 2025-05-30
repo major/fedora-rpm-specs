@@ -5,7 +5,7 @@
 
 Name:           polyml
 Version:        5.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -79,7 +79,7 @@ autoreconf -fi .
 # is bad news for people running SELinux.  The execstack flag is not really
 # needed, so we go through the contortions below to keep it off.
 %configure --enable-shared --disable-static \
-%ifarch x86_64 aarch64
+%ifarch %{x86_64} %{arm64}
   --enable-compact32bit \
 %endif
   CPPFLAGS="-D_GNU_SOURCE" \
@@ -91,9 +91,15 @@ autoreconf -fi .
 chrpath -d .libs/poly
 chrpath -d .libs/polyimport
 
-# Change polyc to avoid adding an rpath, and also don't link to extra libraries
-# unnecessarily.
-sed -i 's/-Wl,-rpath,\${LIBDIR} //;s/-lffi //;s/-lgmp //' polyc
+# Change polyc:
+# - avoid adding an rpath
+# - don't link to extra libraries unnecessarily
+# - build with extension_cflags instead of build_cflags
+extflags=$(sed 's/[[:space:]]*$//' <<< '%{extension_cflags}')
+sed -e 's/-Wl,-rpath,\${LIBDIR} //'\
+    -e 's/-lffi //;s/-lgmp //' \
+    -e "s/^\(CFLAGS=\).*/\1\"-O2 -pipe -fno-strict-aliasing $extflags\"/" \
+    -i polyc
 
 %install
 %make_install
@@ -123,6 +129,9 @@ make check
 %{_libdir}/libpolyml.so.14*
 
 %changelog
+* Wed May 28 2025 Jerry James  <loganjerry@gmail.com> - 5.9.1-7
+- Strip problematic flags out of polyc
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

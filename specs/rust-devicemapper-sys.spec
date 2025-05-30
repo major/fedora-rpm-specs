@@ -5,7 +5,7 @@
 %global crate devicemapper-sys
 
 Name:           rust-devicemapper-sys
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Low level bindings for devicemapper
 
@@ -46,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+disable_cargo_metadata-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+disable_cargo_metadata-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "disable_cargo_metadata" feature of the "%{crate}" crate.
+
+%files       -n %{name}+disable_cargo_metadata-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

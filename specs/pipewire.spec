@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -425,6 +425,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description config-upmix
 This package contains the configuration files to support upmixing.
 
+%package config-raop
+Summary:        PipeWire configuration enabling the raop module
+License:        MIT
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description config-raop
+This package contains the configuration file to enable the RAOP module.
 
 %prep
 %autosetup -p1 %{?snapdate:-n %{name}-%{gitcommit}}
@@ -512,6 +520,9 @@ ln -s ../pipewire.conf.avail/20-upmix.conf \
 ln -s ../client.conf.avail/20-upmix.conf \
 		%{buildroot}%{_datadir}/pipewire/client.conf.d/20-upmix.conf
 
+# raop config
+ln -s ../pipewire.conf.avail/50-raop.conf \
+		%{buildroot}%{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %find_lang %{name}
 
@@ -885,7 +896,13 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire-pulse.conf.d/20-upmix.conf
 %endif
 
+%files config-raop
+%{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
+
 %changelog
+* Thu May 22 2025 Christian Glombek <lorbus@fedoraproject.org> - 1.4.3-2
+- Add config-raop package with config enabling module-raop
+
 * Thu May 22 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.3-1
 - Update version to 1.4.3
 

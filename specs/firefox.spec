@@ -44,9 +44,13 @@ ExcludeArch: i686
 
 # wasi_sdk 25 is not compatible with llvm 18
 %if 0%{?fedora} <= 40
-%bcond wasi_sdk 0
+  %bcond wasi_sdk 0
 %else
-%bcond wasi_sdk 1
+  %ifarch s390x
+    %bcond wasi_sdk 0
+  %else
+    %bcond wasi_sdk 1
+  %endif
 %endif
 
 %bcond build_with_clang 0

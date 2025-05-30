@@ -1,6 +1,10 @@
 # Run tests in check section
 %bcond_without check
 
+%ifarch ppc64le
+%global exp "-tags=exp.linuxppc64le"
+%endif
+
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
 Version:                1.24.2
@@ -12,8 +16,8 @@ easy to invoke and easy to use. Chances are if you're using a debugger, things
 aren't going your way. With that in mind, Delve should stay out of your way as 
 much as possible.}
 
-# Currently Delve only supports x86_64 and aarch64
-%global golang_arches x86_64 aarch64
+# Currently Delve only supports x86_64, aarch64, and ppc64le
+%global golang_arches x86_64 aarch64 ppc64le
 
 %gometa
 
@@ -72,11 +76,10 @@ tar c -C vendor/ . | tar x -C %{gobuilddir}/src
 
 %build
 echo "=== Start build ==="
-%gobuild -o %{gobuilddir}/bin/dlv %{goipath}/cmd/dlv
+%gobuild %{?exp} -o %{gobuilddir}/bin/dlv %{goipath}/cmd/dlv
 echo "=== End build ==="
 
 %install
-%gopkginstall
 install -m 0755 -vd %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
@@ -85,13 +88,19 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 export GO111MODULE=off
 export GOPATH=%{buildroot}/%{gopath}:%{gobuilddir}:%{gopath}
 delvepath=%{buildroot}/%{gopath}/src/%{goipath}
+mkdir -p $delvepath
+mkdir -p $delvepath/pkg/dwarf/line
+mkdir -p $delvepath/pkg/proc/internal
 cp -r _fixtures $delvepath
+cp -r pkg/dwarf $delvepath/pkg/
 cp -r pkg/dwarf/line/_testdata $delvepath/pkg/dwarf/line
 cp -r pkg/proc/internal/ebpf $delvepath/pkg/proc/internal/
 
 pushd $delvepath
 echo "=== Start tests ==="
-%gotest $(go list ./... | awk '!/(cmd|scripts)/ {print $1}')
+for d in $(go list %{?exp} ./... | grep -v cmd | grep -v scripts); do
+    go test %{?exp} ${d} -skip TestGuessSubstitutePath
+done
 echo "=== End tests ==="
 rm -rf $delvepath
 popd

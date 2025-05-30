@@ -457,6 +457,15 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 # FIXME Fix shebangs
 find %{buildroot} -name '*.py' -exec sed -i 's|^#!python$|#!/usr/bin/python3|g' {} \;
 
+%if %{without python3}
+# completions and manpages for python scripts regardless of BUILD_PYTHON_BINDINGS
+for p in gdal2tiles gdal2xyz gdal_calc gdal_edit gdal_fillnodata gdal_merge gdal_pansharpen \
+         gdal_polygonize gdal_proximity gdal_retile gdal_sieve gdalchksum gdalcompare \
+         gdalident gdalimport gdalmove ogr_layer_algebra ogrmerge pct2rgb rgb2pct ; do
+    rm -f %{buildroot}%{_datadir}/bash-completion/completions/${p}.py
+    rm -f %{buildroot}%{_mandir}/man1/${p}.1*
+done
+%endif
 
 %if %{with mingw}
 %mingw_debug_install_post
@@ -550,7 +559,6 @@ find %{buildroot} -name '*.py' -exec sed -i 's|^#!python$|#!/usr/bin/python3|g' 
 %{_mandir}/man1/ogr2ogr.1.*
 %{_mandir}/man1/ogrinfo.1.*
 %{_mandir}/man1/ogrlineref.1.*
-%{_mandir}/man1/ogrmerge.1.*
 %{_mandir}/man1/ogrtindex.1.*
 %{_mandir}/man1/sozip.1.*
 
