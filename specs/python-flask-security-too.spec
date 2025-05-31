@@ -2,8 +2,8 @@
 
 
 Name:           python-%{pkg_name}
-Version:        5.5.2
-Release:        3%{?dist}
+Version:        5.6.2
+Release:        1%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -14,15 +14,13 @@ Source0:        %{pypi_source flask_security_too}
 Patch0:         python-flask-security-too_testdeps.patch
 # Use phonenumbers instead of phonenumberslite
 Patch1:         python-flask-security-too_phonenumbers.patch
-# Don't fail on warnings in tests
-Patch2:         python-flask-security-too_ignorewarnings.patch
 # FIXME Temporarily drop sqlalchemy-utils dependency and bundle required functions
-Patch3:         python-flask-security-too_no-sqla-utils.patch
+# (fedora package requires flask-sqlalchemy-1.x which conflicts with required flask-sqlalchemy-3.x)
+Patch2:         python-flask-security-too_no-sqla-utils.patch
 # Relax flask-sqlalchemy version requirement
-Patch4:         python-flask-security-too_flask-sqla.patch
-# Flask 3.1 support
-# https://github.com/pallets-eco/flask-security/pull/1040
-Patch5:         1040.patch
+Patch3:         python-flask-security-too_flask-sqla.patch
+# libpass is not packaged
+Patch4:         python-flask-security-too_no-libpass.patch
 
 BuildRequires:  python3-devel
 
@@ -43,7 +41,7 @@ Flask-Security quickly adds security features to your Flask application.
 
 %prep
 %autosetup -p1 -n flask_security_too-%{version}
-ln -s pyproject-too.toml pyproject.toml
+ln -sf pyproject-too.toml pyproject.toml
 
 
 %generate_buildrequires
@@ -71,6 +69,9 @@ ln -s pyproject-too.toml pyproject.toml
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 5.6.2-1
+- Update to 5.6.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

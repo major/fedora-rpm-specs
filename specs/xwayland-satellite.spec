@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xwayland-satellite
-Version:        0.5.1
+Version:        0.6
 Release:        %autorelease
 Summary:        Rootless Xwayland integration for Wayland compositors
 

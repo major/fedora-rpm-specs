@@ -1,4 +1,4 @@
-%global	majorver	3.13.4
+%global	majorver	3.13.5
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
@@ -18,7 +18,7 @@ Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
 
 # SPDX confirmed
 License:	MIT
-URL:		http://github.com/rspec/rspec-expectations
+URL:		https://rspec.info
 Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
@@ -114,6 +114,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Thu May 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-1
+- 3.13.5
+
 * Thu May 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.4-1
 - 3.13.4
 

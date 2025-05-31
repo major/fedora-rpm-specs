@@ -5,11 +5,11 @@
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		2
+%global	baserelease		3
 
 %global	gem_name		mechanize
 
-%global	gem_instdir	%{gem_dir}/gems/%{gem_name}-%{version}%{?preminorver}
+%global	gem_instdir()	%{gem_dir}/gems/%{gem_name}-%{version}%{?preminorver}
 
 Summary:	A handy web browsing ruby object
 Name:		rubygem-%{gem_name}
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Fri May 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.0-3
+- Fix unexpanded macro warning
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

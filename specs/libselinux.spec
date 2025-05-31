@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
@@ -20,6 +20,8 @@ Url: https://github.com/SELinuxProject/selinux/wiki
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
+Patch0002: 0002-libselinux-prioritize-local-literal-fcontext-definit.patch
+Patch0003: 0003-libselinux-Revert-part-of-previous-patch.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel

@@ -14,9 +14,9 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20250204
-%global gitrev 785011ff892f91b1fedd8ba7812ff3203bc17b1a
-%global gcc_version 15.0.1
+%global DATE 20250521
+%global gitrev b9def1721b12cae307c1a1ebc49030fce6531dfa
+%global gcc_version 15.1.1
 %global gcc_major 15
 
 Name:           mingw-gcc
@@ -987,6 +987,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Fri May 16 2025 Sandro Mani <manisandro@gmail.com> - 15.1.1-1
+- Update to 15.1.1 (20250521)
+
 * Sun Feb 16 2025 Sandro Mani <manisandro@gmail.com> - 15.0.1-1
 - Update to 15.0.1 (20250204)
 

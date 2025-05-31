@@ -1,20 +1,17 @@
-%global gitdate         20240205
-%global gittag          4cd2bd1357107cf0c83661fdda66c94987de4608
+%global gitdate         20250513
+%global gittag          de139564927563afef383174fd3cf8c93ee18ab3
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
 %global user            Macaulay2
 
 Name:           mathicgb
 Version:        1.0
-Release:        41.%{gitdate}.git%{shorttag}%{?dist}
+Release:        42.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/Macaulay2/mathicgb
 VCS:            git:%{url}.git
 Source:         %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
-
-# Upstream wants to download gtest and compile it in; we don't
-Patch:          %{name}-gtest.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -47,16 +44,13 @@ Summary:        Mathicgb libraries
 Library interface to mathicgb.
 
 %prep
-%autosetup -p0 -n %{user}-%{name}-%{shorttag}
+%autosetup -n %{user}-%{name}-%{shorttag}
 
 %conf
 # Fix end-of-line encoding
 sed -i.orig 's/\r//' doc/description.txt
 touch -r doc/description.txt.orig doc/description.txt
 rm -f doc/description.txt.orig
-
-# Remove spurious executable bit
-chmod a-x src/test/gtestInclude.cpp
 
 # Upstream doesn't generate the configure script
 autoreconf -fi
@@ -78,9 +72,6 @@ sed -i 's|g++$|& -Wl,--as-needed|' Makefile
 %install
 %make_install
 
-# We don't want the libtool archive
-rm -f %{buildroot}%{_libdir}/lib%{name}.la
-
 %check
 export LD_LIBRARY_PATH=$PWD/.libs
 make check
@@ -100,6 +91,10 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Tue May 27 2025 Jerry James <loganjerry@gmail.com> - 1.0-42.20250513.gitde13956
+- Update to latest upstream snapshot
+- Drop upstreamed gtest patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-41.20240205.git4cd2bd1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

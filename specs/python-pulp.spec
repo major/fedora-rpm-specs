@@ -1,26 +1,15 @@
 # test are enabled by default
 %bcond tests 1
 
-# let tests run on all arches
-%global debug_package %{nil}
-
-%global _description %{expand:
-PuLP is an LP modeler written in Python. PuLP can generate MPS or LP
-files and call GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK, XPRESS,
-CHOCO, MIPCL, SCIP to solve linear problems.}
-
 Name:           python-pulp
-Version:        3.1.1
+Version:        3.2.1
 Release:        %autorelease
-Summary:        A python Linear Programming API
-
-%global forgeurl https://github.com/coin-or/pulp
-%global tag %{version}
-%forgemeta
+Summary:        Linear and mixed integer programming modeler
 
 License:        BSD-1-Clause
 URL:            https://coin-or.github.io/pulp/
-Source:         %forgesource
+%global forgeurl https://github.com/coin-or/pulp
+Source:         %{forgeurl}/archive/%{version}/pulp-%{version}.tar.gz
 
 # Do not install bundled cbc; downstream-only, as upstream obviously wants to
 # keep bundling.
@@ -35,13 +24,34 @@ Patch:          0002-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
 # A temporary downstream workaround for
 # https://github.com/coin-or/pulp/issues/832.
 Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
+# Test examples only if they are found; fixes #844
+# https://github.com/coin-or/pulp/pull/845
+#
+# Fixes:
+#
+# Running pulptest requires examples
+# https://github.com/coin-or/pulp/issues/844
+Patch:          %{forgeurl}/pull/845.patch
+
+BuildSystem:            pyproject
+BuildOption(install):   -L pulp
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  python3-devel
+# let tests run on all arches
+%global debug_package %{nil}
+
+%global _description %{expand:
+PuLP is an linear and mixed integer programming modeler written in Python.
+
+With PuLP, it is simple to create MILP optimisation problems and solve them
+with the latest open-source (or proprietary) solvers. PuLP can generate MPS or
+LP files and call solvers such as GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK,
+XPRESS, CHOCO, MIPCL, HiGHS, SCIP/FSCIP.}
 
 %description %_description
+
 
 %package -n python3-pulp
 Summary:        %{summary}
@@ -80,6 +90,10 @@ Recommends:     scip
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
 # - COINMP_DLL (previously packaged as coin-or-CoinMP, but orphaned and retired
 #   for Fedora 42)
+# - CUOPT (https://www.nvidia.com/en-us/ai-data-science/products/cuopt/):
+#   currently in the process of being open-sourced,
+#   https://blogs.nvidia.com/blog/cuopt-open-source/?ncid=no-ncid, but may
+#   still have non-free dependencies (CUDA SDK?)
 # - CYLP (https://github.com/coin-or/CyLP, would be coin-or-CyLP if packaged)
 # - FSCIP_CMD (https://ug.zib.de/index.php): According to the link, this is now
 #   part of SCIP, but it is not remotely clear how we could build an fscip
@@ -113,9 +127,8 @@ Recommends:     scip
 
 %description -n python3-pulp %_description
 
-%prep
-%forgeautosetup -p1
 
+%prep -a
 # remove bundled/precompiled cbc
 rm -rf pulp/solverdir/cbc
 # remove bundled/precompiled libraries/executables: currently, CoinMP.dll
@@ -123,32 +136,27 @@ find pulp/solverdir -type f \
     \( -name '*.dll' -o -name '*.so' -o -executable \) \
     -print -delete
 
-%py3_shebang_fix .
-# Remove shebang from non-executable library file. Upstream may have intended
-# this to be run directly during development, but it will be installed without
-# the execute permission bit set, so the shebang is useless.
-sed -r -i '1{/^#!/d}' pulp/pulp.py
-
 # Increase test verbosity
 sed -r \
     -e 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' \
     -i pulp/tests/run_tests.py
 
-%generate_buildrequires
-%pyproject_buildrequires
 
-%build
-%pyproject_wheel
+%install -a
+# Remove shebang from non-executable library file. Upstream may have intended
+# this to be run directly during development, but it is installed without the
+# execute permission bit set, so the shebang is useless.
+sed -r -i '1{/^#!/d}' '%{buildroot}%{python3_sitelib}/pulp/pulp.py'
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebangs
+%py3_shebang_fix '%{buildroot}%{python3_sitelib}/pulp'
 
-%install
-%pyproject_install
-%pyproject_save_files -L pulp
 
-%check
-# Using pulptest binary to test the package
+%check -a
 %if %{with tests}
+# Using pulptest binary to test the package
 %{py3_test_envvars} pulptest
 %endif
+
 
 %files -n python3-pulp -f %{pyproject_files}
 %license LICENSE
@@ -156,6 +164,7 @@ sed -r \
 %doc HISTORY
 %doc README.rst
 %{_bindir}/pulptest
+
 
 %changelog
 %autochangelog

@@ -22,8 +22,8 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          %{pkgname}
-Version:       3.5.2
-Release:       2%{?dist}
+Version:       3.5.3
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 # Automatically converted from old format: GPL-2.0-or-later - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -467,6 +467,9 @@ fi
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 3.5.3-1
+- Update to 3.5.3
+
 * Fri Feb 07 2025 Sandro Mani <manisandro@gmail.com> - 3.5.2-2
 - Rebuild (SFCGAL)
 

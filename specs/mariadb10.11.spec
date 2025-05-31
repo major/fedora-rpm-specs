@@ -203,6 +203,8 @@ Source72:         mariadb-server-galera.te
 # https://github.com/dciabrin/wsrep_sst_rsync_tunnel/blob/master/wsrep_sst_rsync_tunnel
 Source73:         wsrep_sst_rsync_tunnel
 
+#   Patch1: Disable creation of INFO_SRC and INFO_BIN files
+Patch1:           %{majorname}-info-files.patch
 #   Patch4: Use the correct log file pathname for Red Hat installations
 Patch4:           %{majorname}-logrotate.patch
 #   Patch7: add to the CMake file all files where we want macros to be expanded
@@ -853,6 +855,7 @@ rm -r storage/rocksdb/
 %endif
 
 
+%patch -P1 -p2
 %patch -P4 -p1
 %patch -P7 -p1
 %patch -P9 -p1
@@ -996,6 +999,7 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DCONC_WITH_SSL=%{?with_clibrary:ON}%{!?with_clibrary:NO} \
          -DWITH_SSL=system \
          -DWITH_ZLIB=system \
+         -DWITH_INFO_FILES=OFF \
          -DWITH_LIBFMT=%{?with_bundled_fmt:bundled}%{!?with_bundled_fmt:system} \
          -DPLUGIN_PROVIDER_LZ4=%{?with_lz4:DYNAMIC}%{!?with_lz4:NO} \
          -DWITH_ROCKSDB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
@@ -1058,12 +1062,6 @@ install -p -m 0755 %{_vpath_builddir}/scripts/mysql_config_multilib %{buildroot}
 ln -s mysql_config.1 %{buildroot}%{_mandir}/man1/mysql_config-%{__isa_bits}.1
 fi
 
-# install INFO_SRC, INFO_BIN into libdir (upstream thinks these are doc files,
-# but that's pretty wacko --- see also %%{majorname}-file-contents.patch)
-install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{majorname}/
-install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{majorname}/
-rm -r %{buildroot}%{_docdir}/%{majorname}/MariaDB-server-%{version}
-
 # Logfile creation
 mkdir -p %{buildroot}%{logfiledir}
 chmod 0750 %{buildroot}%{logfiledir}
@@ -1092,9 +1090,6 @@ mv %{buildroot}%{_sysconfdir}/my.cnf.d/server.cnf %{buildroot}%{_sysconfdir}/my.
 rm %{buildroot}%{_libexecdir}/rcmysql
 # Remove upstream Systemd service files
 rm -r %{buildroot}%{_datadir}/%{majorname}/systemd
-# Our downstream Systemd service file have set aliases to the "mysql" names in the [Install] section.
-# They can be enabled / disabled by "systemctl enable / diable <service_name>"
-rm %{buildroot}%{_unitdir}/{mysql,mysqld}.service
 
 # install systemd unit files and scripts for handling server startup
 install -D -p -m 644 %{_vpath_builddir}/scripts/mysql.service %{buildroot}%{_unitdir}/%{daemon_name}.service
@@ -1588,7 +1583,6 @@ fi
 %{_mandir}/man1/mysql.server.1*
 %{_mandir}/man8/{mysqld,mariadbd}.8*
 
-%{_libdir}/%{majorname}/INFO_{SRC,BIN}
 %if %{without common}
 %dir %{_datadir}/%{majorname}
 %endif
@@ -1651,6 +1645,7 @@ fi
 # More on socket activation or extra port service at
 # https://mariadb.com/kb/en/systemd/
 %{_unitdir}/%{daemon_name}.service
+%{_unitdir}/mysql{,d}.service
 %{_unitdir}/%{daemon_name}@.service
 %{_unitdir}/%{daemon_name}.socket
 %{_unitdir}/%{daemon_name}@.socket

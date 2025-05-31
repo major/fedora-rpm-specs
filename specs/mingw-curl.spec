@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-curl
-Version:        8.13.0
+Version:        8.14.0
 Release:        1%{?dist}
 Summary:        MinGW Windows port of curl and libcurl
 
@@ -151,6 +151,10 @@ rm -r %{buildroot}%{mingw64_mandir}/man{1,3}
 rm -rf %{buildroot}%{mingw32_datadir}/aclocal
 rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
+# sh wrapper not useful on windows
+rm -f %{buildroot}%{mingw32_bindir}/wcurl
+rm -f %{buildroot}%{mingw64_bindir}/wcurl
+
 
 # Win32
 %files -n mingw32-curl
@@ -182,6 +186,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 8.14.0-1
+- Update to 8.14.0
+
 * Wed Apr 02 2025 Sandro Mani <manisandro@gmail.com> - 8.13.0-1
 - Update to 8.13.0
 

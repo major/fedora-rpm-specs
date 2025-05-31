@@ -9,11 +9,13 @@
 
 Name:           python-beautifulsoup4
 Version:        4.13.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
+# https://git.launchpad.net/beautifulsoup/commit/?id=a7a9aea4b07392566db735e031bdce678a9d524a
+Patch1:         skip_tests_not_compatible_with_new_pythons.patch
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
 Patch11:        beautifulsoup4-4.13-disable-soupsieve.patch
 
@@ -64,6 +66,7 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 
 %prep
 %autosetup -p1 -N -n beautifulsoup4-%{version}
+%autopatch -p1 -M 10
 %if %{without soupsieve}
 %autopatch -p1 -m 10
 %endif
@@ -93,6 +96,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Tue May 27 2025 Lumír Balhar <lbalhar@redhat.com> - 4.13.4-2
+- Skip tests not compatible with Python 3.14 (rhbz#2368745)
+
 * Wed Apr 23 2025 Terje Rosten <terjeros@gmail.com> - 4.13.4-1
 - 4.13.4
 

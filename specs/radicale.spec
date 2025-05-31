@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.5.4
-%define radicale_release  1
+%define radicale_release  2
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -71,6 +71,7 @@ BuildRequires:    python3-devel
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-pip
 BuildRequires:    python3-wheel
+BuildRequires:    pyproject-rpm-macros
 BuildRequires:    systemd
 BuildRequires:    checkpolicy
 BuildRequires:    selinux-policy-devel
@@ -527,6 +528,9 @@ fi
 
 
 %changelog
+* Wed May 28 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.4-2
+- BuildRequires: pyproject-rpm-macros
+
 * Sun May 25 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.4-1
 - Update to 3.5.4
 

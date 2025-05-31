@@ -1,8 +1,14 @@
 %define po_package gnome-session-48
 
-%if 0%{?fedora}
+%if 0%{?fedora} || (0%{?rhel} >= 10)
 %else
 %global with_session_selector 1
+%endif
+
+%if 0%{?fedora} && 0%{?fedora} < 43
+%bcond x11 1
+%else
+%bcond x11 0
 %endif
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -24,6 +30,13 @@ Patch:          0001-check-accelerated-gles-Use-eglGetPlatformDisplay-EXT.patch
 # For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
 # This should go upstream once systemd has a generic interface for this
 Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
+Patch:          https://gitlab.gnome.org/GNOME/gnome-session/-/commit/8a67a74249c1b98ba710c7cc97baefe1c00cbc7a.patch#/gnome-session-fix-have_x11-assignment.patch
+# always install xwayland targets, based on
+# https://gitlab.gnome.org/GNOME/gnome-session/-/commit/b272354df34d2437fa90ce09f4e153ee229e731e
+Patch:          gnome-session-always-install-xwayland-targets.patch
+# skip meson_post_install unless have_x11, based on
+# https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/140
+Patch:          gnome-session-skip-meson_post_install-unless-have_x11.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -73,6 +86,7 @@ ExcludeArch:    %{ix86}
 gnome-session manages a GNOME desktop or GDM login session. It starts up
 the other core GNOME components and handles logout and saving the session.
 
+%if %{with x11}
 %package xsession
 Summary: Desktop file for gnome-session
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -83,12 +97,16 @@ Provides: deprecated()
 
 %description xsession
 Desktop file to add GNOME to display manager session menu.
+%endif
 
 %package wayland-session
 Summary: Desktop file for wayland based gnome session
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: xorg-x11-server-Xwayland%{?_isa} >= 1.20.99.1
 Requires: gnome-shell
+%if %{without x11}
+Obsoletes: gnome-session-xsession < %{version}-%{release}
+%endif
 
 %description wayland-session
 Desktop file to add GNOME on wayland to display manager session menu.
@@ -101,18 +119,27 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %if 0%{?with_session_selector}
     -Dsession_selector=true \
 %endif
+%if %{without x11}
+    -Dx11=false \
+%endif
   %{nil}
 %meson_build
 
 %install
 %meson_install
 
+%if %{without x11}
+rm %{buildroot}%{_datadir}/xsessions/gnome.desktop
+%endif
+
 %find_lang %{po_package}
 
 %ldconfig_scriptlets
 
+%if %{with x11}
 %files xsession
 %{_datadir}/xsessions/*
+%endif
 
 %files wayland-session
 %{_datadir}/wayland-sessions/*
@@ -122,9 +149,11 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %license COPYING
 %{_bindir}/gnome-session*
 %{_libexecdir}/gnome-session-binary
+%if %{with x11}
 %{_libexecdir}/gnome-session-check-accelerated
 %{_libexecdir}/gnome-session-check-accelerated-gl-helper
 %{_libexecdir}/gnome-session-check-accelerated-gles-helper
+%endif
 %{_libexecdir}/gnome-session-ctl
 %{_libexecdir}/gnome-session-failed
 %{_mandir}/man1/gnome-session*1.*

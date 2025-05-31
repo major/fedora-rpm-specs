@@ -8,7 +8,7 @@
 %global supported_arches x86_64
 
 Name:           rust-sev
-Version:        4.0.0
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Library for AMD SEV
 
@@ -16,7 +16,8 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/sev
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Mark rdrand dep optional like is done upstream
+# * Relax bitfield and dirs dependencies to what's packaged in Fedora
+# * Drop the vendored feature from the openssl dependency
 Patch:          sev-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

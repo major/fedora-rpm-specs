@@ -1,5 +1,5 @@
 Name:           python3-mypy
-Version:        1.15.0
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
@@ -80,6 +80,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Thu May 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.16.0-1
+- 1.16.0
+
 * Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.15.0-1
 - 1.15.0
 

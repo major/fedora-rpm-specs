@@ -5,13 +5,10 @@
 # confidence that everything works correctly in an environment that only has
 # the main system Python.
 #
-# For the time being, these are still disabled since many of them still want
-# network access, even when features like pypi and crates-io are removed from
-# the default features. We should discuss this with upstream and consider
-# offering a PR to conditionalize the affected tests. See
-# https://src.fedoraproject.org/rpms/uv/pull-request/18#comment-229365 and
-# https://github.com/astral-sh/uv/issues/8970#issuecomment-2466794088.
-%bcond it 0
+# EPEL10 does not have alternative versions of Python, so we cannot run most of
+# the integration tests there, and manually selecting those we can run would be
+# far too tedious.
+%bcond it %{undefined el10}
 
 Name:           uv
 Version:        0.7.8
@@ -198,6 +195,10 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
+# Conditionalize more tests that require PyPI
+# https://github.com/astral-sh/uv/pull/13699
+Patch:          %{url}/pull/13699.patch
+
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
 
@@ -229,7 +230,10 @@ BuildRequires:  tomcli
 BuildRequires:  python3-devel
 %if %{with check} && %{with it}
 # See trove classifiers in pyproject.toml for supported Pythons.
+%if %{defined fc41}
+# https://fedoraproject.org/wiki/Changes/RetirePython3.8
 BuildRequires:  /usr/bin/python3.8
+%endif
 BuildRequires:  /usr/bin/python3.9
 BuildRequires:  /usr/bin/python3.10
 BuildRequires:  /usr/bin/python3.11
@@ -536,6 +540,7 @@ mods="${mods-}${mods+|}build_backend"
 mods="${mods-}${mods+|}pip_(check|list|show|tree|uninstall)"
 mods="${mods-}${mods+|}python_(dir|find|install|list|pin)"
 mods="${mods-}${mods+|}venv"
+mods="${mods-}${mods+|}version"
 mods="${mods-}${mods+|}workspace"
 comment='Downstream-only: skip, needs specific Python interpreter versions'
 sed -r -i "s@mod (${mods});@// ${comment}\n#[cfg(any())]\n&@" \
@@ -648,44 +653,26 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_empty_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_no_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 
+%if %{without it}
 # These tests require specific Python interpreter versions, which upstream
-# normally downloads, precompiled, into the build area; they might also require
-# network access.
+# normally downloads, precompiled, into the build area.
 # -p uv --test it:
 skip="${skip-} --skip version::self_version"
 skip="${skip-} --skip version::self_version_json"
 skip="${skip-} --skip version::self_version_short"
-skip="${skip-} --skip version::version_bump_minor"
-skip="${skip-} --skip version::version_bump_patch"
-skip="${skip-} --skip version::version_bump_patch_short"
-skip="${skip-} --skip version::version_get"
-skip="${skip-} --skip version::version_get_dynamic"
-skip="${skip-} --skip version::version_get_fallback_missing_strict"
-skip="${skip-} --skip version::version_get_fallback_missing_strict_preview"
-skip="${skip-} --skip version::version_get_fallback_unmanaged"
-skip="${skip-} --skip version::version_get_fallback_unmanaged_json"
-skip="${skip-} --skip version::version_get_fallback_unmanaged_short"
-skip="${skip-} --skip version::version_get_fallback_unmanaged_strict"
-skip="${skip-} --skip version::version_get_json"
-skip="${skip-} --skip version::version_get_short"
-skip="${skip-} --skip version::version_get_workspace"
-skip="${skip-} --skip version::version_major_complex_mess"
-skip="${skip-} --skip version::version_major_dev"
-skip="${skip-} --skip version::version_major_dry"
-skip="${skip-} --skip version::version_major_post"
-skip="${skip-} --skip version::version_major_uncompleted"
-skip="${skip-} --skip version::version_major_version"
-skip="${skip-} --skip version::version_minor_uncompleted"
-skip="${skip-} --skip version::version_missing_bump"
-skip="${skip-} --skip version::version_patch_uncompleted"
-skip="${skip-} --skip version::version_set_dry"
-skip="${skip-} --skip version::version_set_dynamic"
-skip="${skip-} --skip version::version_set_evil_constraints"
-skip="${skip-} --skip version::version_set_invalid"
-skip="${skip-} --skip version::version_set_value"
-skip="${skip-} --skip version::version_set_value_short"
-skip="${skip-} --skip version::version_set_workspace"
+%else
+%ifnarch %{x86_64} %{arm64}
+# On other architectures, the list of available downloads differs, e.g. pypy
+# and graalpy downloads may be missing.
+skip="${skip-} --skip python_list::python_list_downloads"
+%endif
+%endif
 # -p uv-client --test it:
+# This requires specific Python interpreter versions (so it would be grouped
+# with the conditionalized integration tests above), but it also requires
+# network access to PyPI, so it must be skipped either way until it can be
+# appropriately conditionalized upstream; see
+# https://github.com/astral-sh/uv/pull/13699#issuecomment-2916115588.
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 
 %if %[ %{defined fc41} || %{defined fc40} || %{defined el10} || %{defined el9} ]
@@ -695,17 +682,6 @@ skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
 skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
 %endif
-
-# Trivial differences in --help output formatting (whitespace)
-skip="${skip-} --skip help::help"
-skip="${skip-} --skip help::help_flag"
-skip="${skip-} --skip help::help_flag_subcommand"
-skip="${skip-} --skip help::help_flag_subsubcommand"
-skip="${skip-} --skip help::help_short_flag"
-skip="${skip-} --skip help::help_subcommand"
-skip="${skip-} --skip help::help_subsubcommand"
-skip="${skip-} --skip help::help_with_global_option"
-skip="${skip-} --skip help::help_with_no_pager"
 
 # TODO: What’s going wrong here? It doesn’t seem serious…
 # thread 'middleware::tests::test_tracing_url' panicked at

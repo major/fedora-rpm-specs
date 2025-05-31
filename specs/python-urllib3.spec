@@ -85,6 +85,10 @@ Recommends:     python3-urllib3+socks
 %autosetup -n urllib3-%{version}
 %setup -q -n urllib3-%{version} -T -D -b 1
 
+# Unpin hatch-vcs version
+# See https://github.com/urllib3/urllib3/issues/3612
+sed -i 's/hatch-vcs==/hatch-vcs>=/' pyproject.toml
+
 # Make sure that the RECENT_DATE value doesn't get too far behind what the current date is.
 # RECENT_DATE must not be older that 2 years from the build time, or else test_recent_date
 # (from test/test_connection.py) would fail. However, it shouldn't be to close to the build time either,

@@ -154,6 +154,10 @@ Source2:        get_assets
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
 
+# chore: Allow PuLP 3.2
+# https://github.com/snakemake/snakemake/pull/3609
+Patch:          %{forgeurl}/pull/3609.patch
+
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
 BuildOption(generate_buildrequires): -x reports,messaging

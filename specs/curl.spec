@@ -6,7 +6,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.14.0~rc1
+Version: 8.14.0
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -15,6 +15,9 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# Fix 8.14.0 regression: https://github.com/curl/curl/issues/17473
+Patch001: 0001-curl-8.14.0-multi-fix-add_handle-resizing.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -407,6 +410,12 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed May 28 2025 Jan Macku <jamacku@redhat.com> - 8.14.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2025-5025 - No QUIC certificate pinning with wolfSSL
+    CVE-2025-4947 - QUIC certificate check skip with wolfSSL
+- fix regression: curl_multi_add_handle() returning OOM when using more than 400 handles
+
 * Fri May 02 2025 Jan Macku <jamacku@redhat.com> - 8.14.0~rc1-1
 - new upstream release candidate
 - new utility: wcurl which lets you download URLs without having to remember any parameters

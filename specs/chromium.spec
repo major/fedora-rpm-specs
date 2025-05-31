@@ -432,6 +432,9 @@ Patch415: add-ppc64-pthread-stack-size.patch
 # Fix build error on el10
 Patch416: fix-ppc64-rust_png-build-error.patch
 
+Patch417: 0001-add-xnn-ppc64el-support.patch
+Patch418: 0002-regenerate-xnn-buildgn.patch
+
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
 Patch500: flatpak-Add-initial-sandbox-support.patch
@@ -1120,6 +1123,8 @@ Qt6 UI for chromium.
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
 %patch -P416 -p1 -b .ppc64-rust_png-build-error
+%patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
+%patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %endif
 
 %if 0%{?flatpak}

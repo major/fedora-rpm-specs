@@ -3,7 +3,7 @@
 
 Name:           opendbx
 Version:        1.4.6
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -24,7 +24,10 @@ BuildRequires:  gcc
 %if 0%{?fedora}
 BuildRequires:  sqlite2-devel
 %endif
-BuildRequires:  mariadb-connector-c-devel, libpq-devel, sqlite-devel, firebird-devel, readline-devel
+BuildRequires:  mariadb-connector-c-devel, libpq-devel, sqlite-devel, readline-devel
+%if 0%{?fedora} || 0%{?rhel} < 10
+BuildRequires:  firebird-devel
+%endif
 BuildRequires:  freetds-devel, ncurses-devel
 BuildRequires:  doxygen, docbook2X, gettext
 BuildRequires:  automake, gettext-devel, libtool
@@ -79,12 +82,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    sqlite
 Allows odbx_init with "sqlite3" as the backend parameter.
 
+%if 0%{?fedora} || 0%{?rhel} < 10
 %package        firebird
 Summary:        Firebird backend - provides firebird support in %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    firebird
 Allows odbx_init with "firebird" as the backend parameter.
+%endif
 
 %package        mssql
 Summary:        MSSQL backend - provides mssql support in %{name}
@@ -120,9 +125,17 @@ autoreconf -iv
 export CXXFLAGS="-std=c++14 -Wno-error=incompatible-pointer-types -Wno-error=int-conversion %optflags"
 export CFLAGS="-Wno-error=incompatible-pointer-types -Wno-error=int-conversion %optflags"
 %if 0%{?fedora}
-%configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
+%configure --with-backends="mysql pgsql sqlite sqlite3 \
+%if 0%{?fedora} || 0%{?rhel} < 10
+firebird \
+%endif
+mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
 %else
-%configure --with-backends="mysql pgsql sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
+%configure --with-backends="mysql pgsql sqlite3 \
+%if 0%{?fedora} || 0%{?rhel} < 10
+firebird \
+%endif
+mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
 %endif
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -169,9 +182,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/opendbx/*sqlite3backend.so
 %{_libdir}/opendbx/*sqlite3backend.so.*
 
+%if 0%{?fedora} || 0%{?rhel} < 10
 %files firebird
 %{_libdir}/opendbx/*firebird*.so
 %{_libdir}/opendbx/*firebird*.so.*
+%endif
 
 %files mssql
 %{_libdir}/opendbx/*mssql*.so
@@ -186,6 +201,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Thu May 29 2025 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-40
+- Don't build firebird package for el10
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

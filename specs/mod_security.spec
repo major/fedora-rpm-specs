@@ -6,11 +6,13 @@
 %{!?_httpd_moddir:    %{expand: %%global _httpd_moddir    %%{_libdir}/httpd/modules}}
 
 %bcond_without mlogc
+%bcond ssdeep %{undefined rhel}
+%bcond yajl %[0%{?rhel} < 10]
 
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
-Version: 2.9.8
-Release: 3%{?dist}
+Version: 2.9.9
+Release: 1%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
@@ -21,7 +23,6 @@ Patch1: modsecurity-2.9.3-apulibs.patch
 Patch2: mod_security-2.9.3-remote-rules-timeout.patch
 Patch3: mod_security-2.9.7-send_error_bucket.patch
 Patch4: mod_security-2.9.7-pipedlogs.patch
-Patch5: mod_security-2.9.8-warnings.patch
 
 Requires: httpd httpd-mmn = %{_httpd_mmn}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -37,14 +38,12 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(lua)
 BuildRequires: libxcrypt-devel
-
-# Workarround for EL6
-%if 0%{?el6}
-BuildRequires: yajl-devel
-%else
+%if %{with ssdeep}
+BuildRequires: ssdeep-devel
+%endif
+%if %{with yajl}
 BuildRequires: pkgconfig(yajl)
 %endif
-
 
 %description
 ModSecurity is an open source intrusion detection and prevention engine
@@ -66,6 +65,8 @@ This package contains the ModSecurity Audit Log Collector.
 
 %prep
 %autosetup -p1 -n modsecurity-v%{version} -S git
+
+: Building with YAJL=%{with yajl} ssdeep=%{with ssdeep}
 
 %build
 ./autogen.sh
@@ -147,6 +148,10 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Thu May 29 2025 Joe Orton  <jorton@redhat.com> - 2.9.9-1
+- update to 2.9.9 (#2367908)
+- add bconds for yajl, ssdeep dependencies
+
 * Wed May 21 2025 Joe Orton  <jorton@redhat.com> - 2.9.8-3
 - updated warning fixes, synced with upstream PR 3372
 

@@ -7,7 +7,7 @@ Version:       1.0^%{gitdate}.%{shortcommit}
 Release:       2%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
-URL:           https://apps.kde.org/plasma-camera/
+URL:           https://apps.kde.org/plasma.camera/
 
 Source0:       https://invent.kde.org/plasma-mobile/%{name}/-/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 

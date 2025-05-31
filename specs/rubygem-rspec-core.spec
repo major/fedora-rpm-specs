@@ -1,4 +1,4 @@
-%global	majorver	3.13.3
+%global	majorver	3.13.4
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
@@ -28,7 +28,7 @@ Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
 
 # SPDX confirmed
 License:	MIT
-URL:		http://github.com/rspec/rspec-core
+URL:		https://rspec.info
 Source0:	http://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
@@ -209,6 +209,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Thu May 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.4-1
+- 3.13.4
+
 * Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.3-1
 - 3.13.3
 

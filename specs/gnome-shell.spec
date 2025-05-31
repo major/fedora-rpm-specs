@@ -7,6 +7,12 @@
 %global portal_helper 1
 %endif
 
+%if 0%{?fedora} && 0%{?fedora} < 43
+%bcond x11 1
+%else
+%bcond x11 0
+%endif
+
 Name:           gnome-shell
 Version:        48.2
 Release:        %autorelease
@@ -254,7 +260,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_userunitdir}/org.gnome.Shell-disable-extensions.service
 %{_userunitdir}/org.gnome.Shell.target
 %{_userunitdir}/org.gnome.Shell@wayland.service
+%if %{with x11}
 %{_userunitdir}/org.gnome.Shell@x11.service
+%endif
 %{_libdir}/gnome-shell/
 %{_libexecdir}/gnome-shell-calendar-server
 %{_libexecdir}/gnome-shell-perf-helper

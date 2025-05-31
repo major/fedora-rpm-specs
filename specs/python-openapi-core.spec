@@ -15,7 +15,12 @@ Source:         %{pypi_source %{modname}}
 # Allow Starlette 0.45 and 0.46
 # https://github.com/python-openapi/openapi-core/pull/977
 # (Without changes to poetry.lock)
-Patch:          %{url}/pull/977/commits/6714b46bbc20933dad48d5907908166cde7fa0c0.patch
+# https://github.com/python-openapi/openapi-core/pull/977/commits/6714b46bbc20933dad48d5907908166cde7fa0c0.
+#
+# Allow Starlette 0.47
+# We can’t offer this upstream until a released version of FastAPI
+# officially supports Starlette 0.47.x.
+Patch:          openapi-core-0.19.5-starlette-0.47.patch
 
 # Downstream-only: remove werkzeug version pin
 #

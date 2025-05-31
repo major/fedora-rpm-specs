@@ -1,7 +1,7 @@
 %global apiver  0
 
 Name:           gtk-layer-shell
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Library to create components for Wayland using the Layer Shell
 
@@ -10,7 +10,7 @@ URL:            https://github.com/wmww/gtk-layer-shell
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  meson >= 0.45.1
+BuildRequires:  meson >= 0.54
 BuildRequires:  vala
 
 # https://github.com/wmww/gtk-layer-shell/blob/master/compatibility.md

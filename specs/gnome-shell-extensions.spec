@@ -5,10 +5,10 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
-%if 0%{?rhel}
-%global xsession 0
+%if 0%{?fedora} && 0%{?fedora} < 43
+%bcond x11 1
 %else
-%global xsession 1
+%bcond x11 0
 %endif
 
 Name:           gnome-shell-extensions
@@ -69,13 +69,16 @@ Requires:       %{pkg_prefix}-launch-new-instance = %{version}-%{release}
 Requires:       %{pkg_prefix}-places-menu = %{version}-%{release}
 Requires:       %{pkg_prefix}-window-list = %{version}-%{release}
 Requires:       nautilus
+%if %{with x11}
+Obsoletes:      gnome-classic-session-xsession < %{version}-%{release}
+%endif
 
 %description -n gnome-classic-session
 This package contains the required components for the GNOME Shell "classic"
 mode, which aims to provide a GNOME 2-like user interface.
 
 
-%if %{xsession}
+%if %{with x11}
 %package -n gnome-classic-session-xsession
 Summary:        GNOME "classic" mode session on X11
 License:        GPL-2.0-or-later
@@ -240,7 +243,7 @@ workspaces.
 
 %find_lang %{name}
 
-%if !%{xsession}
+%if !%{with x11}
 rm -rf %{buildroot}/%{_datadir}/xsessions
 %endif
 
@@ -257,7 +260,7 @@ rm -rf %{buildroot}/%{_datadir}/xsessions
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
 
 
-%if %{xsession}
+%if %{with x11}
 %files -n gnome-classic-session-xsession
 %{_datadir}/xsessions/gnome-classic.desktop
 %{_datadir}/xsessions/gnome-classic-xorg.desktop

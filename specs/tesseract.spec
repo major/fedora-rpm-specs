@@ -7,8 +7,8 @@
 %endif
 
 Name:          tesseract
-Version:       5.5.0
-Release:       5%{?dist}
+Version:       5.5.1
+Release:       1%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -277,6 +277,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 5.5.1-1
+- Update to 5.5.1
+
 * Mon Apr 21 2025 Alessandro Astone <ales.astone@gmail.com>
 - Split config files into common subpackage (rhbz#2350549).
 

@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.54
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,6 +57,7 @@ sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
 sed -i -r 's/psutil>=7.0.0/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=24.1.0,<25.0/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/aiohttp>=3.10.11,<3.11/aiohttp>=3.9.3/' requirements.txt
+sed -i -r 's/aiohttp-cors>=0.7.0,<0.8/aiohttp-cors>=0.7.0/' requirements.txt
 sed -i -r 's/Jinja2>=3.1.6,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/platformdirs>=2.4.0,<3/platformdirs>=2.4.0/' requirements.txt
@@ -146,6 +147,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Fri May 30 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-2
+- Relax aiohttp-cors requirement
+
 * Tue Apr 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-1
 - Update to 2.2.54
 

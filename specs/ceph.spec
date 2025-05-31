@@ -201,34 +201,34 @@ Group:		System/Filesystems
 %endif
 URL:		http://ceph.com/
 Source0:	https://download.ceph.com/tarballs/ceph-%{version}.tar.gz
-Patch0001:	0001-src-common-crc32c_intel_fast.patch
-Patch0003:	0003-src-common-bitstr.h.patch
-Patch0010:	0010-CET-Add-CET-marker-to-crc32c_intel_fast_zero_asm.s.patch
-Patch0011:	0011-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assembly-co.patch
-Patch0012:	0012-spdk-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assemb.patch
-Patch0016:	0016-src-tracing-patch
-Patch0017:	0017-gcc-12-omnibus.patch
-Patch0018:	0018-src-rgw-store-dbstore-CMakeLists.txt.patch
-Patch0024:	0024-gcc-13.patch
-Patch0029:	0029-src-rgw-rgw_amqp.cc.patch
-Patch0032:	0032-cmake-modules-BuildBoost.cmake.patch
-Patch0033:	0033-boost-asm.patch
-Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
-Patch0035:	0035-src-CMakeLists.txt.patch
-Patch0040:	0040-gcc-14.patch
-Patch0041:	0041-src-mgr-PyModule.cc.patch
-Patch0043:	0043_src_common_crc32c_ppc_asm.S.patch
-Patch0044:	0044_src_cpp_redis_CMakeLists.txt.patch
-Patch0045:	0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
-Patch0046:	0046-src-s3select-include-s3select_parquet_intrf.h.patch
-Patch0047:	0047-openssl-no-engine.patch
-Patch0048:	0048-src-mds-CMakeLists.txt.patch
-Patch0049:	0049-src-rocksdb-db-blob-blob_file_meta.h.patch
-Patch0050:	0050-src-rgw-driver-posix-zpp_bits.h.patch
-Patch0051:	0051-src-googletest-nosharedlibs.patch
-Patch0052:	0052-src-tracing.patch
-Patch0053:	0053-src-test-neorados-common_tests.h.patch
-Patch0054:	0054-cmake-4.patch
+Patch:		0001-src-common-crc32c_intel_fast.patch
+Patch:		0003-src-common-bitstr.h.patch
+Patch:		0010-CET-Add-CET-marker-to-crc32c_intel_fast_zero_asm.s.patch
+Patch:		0011-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assembly-co.patch
+Patch:		0012-spdk-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assemb.patch
+Patch:		0016-src-tracing-patch
+Patch:		0017-gcc-12-omnibus.patch
+Patch:		0018-src-rgw-store-dbstore-CMakeLists.txt.patch
+Patch:		0024-gcc-13.patch
+Patch:		0029-src-rgw-rgw_amqp.cc.patch
+Patch:		0032-cmake-modules-BuildBoost.cmake.patch
+Patch:		0033-boost-asm.patch
+Patch:		0034-src-pybind-rbd-rbd.pyx.patch
+Patch:		0035-src-CMakeLists.txt.patch
+Patch:		0040-gcc-14.patch
+Patch:		0041-src-mgr-PyModule.cc.patch
+Patch:		0043_src_common_crc32c_ppc_asm.S.patch
+Patch:		0044_src_cpp_redis_CMakeLists.txt.patch
+Patch:		0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
+Patch:		0046-src-s3select-include-s3select_parquet_intrf.h.patch
+Patch:		0047-openssl-no-engine.patch
+Patch:		0048-src-mds-CMakeLists.txt.patch
+Patch:		0049-src-rocksdb-db-blob-blob_file_meta.h.patch
+Patch:		0050-src-rgw-driver-posix-zpp_bits.h.patch
+Patch:		0051-src-googletest-nosharedlibs.patch
+Patch:		0052-src-tracing.patch
+Patch:		0053-src-test-neorados-common_tests.h.patch
+Patch:		0055-python314.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -2734,7 +2734,8 @@ exit 0
 
 %changelog
 * Mon Apr 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-5
-- ceph-19.2.2, build in side tag f43-build-side-110906
+- ceph-19.2.2, rhgz#2336913, ready for python-3.14
+- also AFAIK has correct SPDX license (and has had for some time)
 
 * Wed Apr 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically

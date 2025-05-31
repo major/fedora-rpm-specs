@@ -3,7 +3,7 @@
 %global pkgname libzip
 
 Name:           mingw-%{pkgname}
-Version:        1.11.3
+Version:        1.11.4
 Release:        1%{?dist}
 Summary:        C library for reading, creating, and modifying zip archives
 
@@ -107,6 +107,9 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 1.11.4-1
+- Update to 1.11.4
+
 * Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 1.11.3-1
 - Update to 1.11.3
 

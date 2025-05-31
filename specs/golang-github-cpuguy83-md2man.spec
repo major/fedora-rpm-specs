@@ -3,7 +3,7 @@
 
 # https://github.com/cpuguy83/go-md2man
 %global goipath         github.com/cpuguy83/go-md2man
-Version:                2.0.5
+Version:                2.0.7
 
 %gometa
 

@@ -204,8 +204,10 @@ BuildRequires: boost-devel
   %global bits_other (%{__isa_name}-64)
 %endif
 
-%ifarch ppc64 x86_64
-  %global bits_other (%{__isa_name}-32)
+%ifarch x86_64
+  %if 0%{?fedora:1} || 0%{?rhel} < 10
+    %global bits_other (%{__isa_name}-32)
+  %endif
 %endif
 
 BuildRequires: sharutils dejagnu
@@ -441,6 +443,17 @@ COMMON_GDB_CONFIGURE_FLAGS="\
 %endif
 "
 
+# The base set of targets that Fedora and RHEL support.  These are the
+# targets that every GDB build, regardless of host architecture,
+# supports debugging.  This means that these targets can be used as
+# remote debug targets.
+ENABLED_TARGETS="aarch64-linux-gnu,powerpc-linux-gnu,riscv64-linux-gnu,s390-linux-gnu,x86_64-redhat-linux-gnu"
+
+# Fedora, and older RHEL also have 32-bit ARM support.
+%if 0%{?fedora:1} || (0%{?rhel:1} && 0%{?rhel} < 10)
+ENABLED_TARGETS="$ENABLED_TARGETS,arm-linux-gnu"
+%endif
+
 # Identify the build directory with the version of gdb as well as the
 # architecture, to allow for mutliple versions to be installed and
 # built.
@@ -481,7 +494,7 @@ CXXFLAGS="$CXXFLAGS %{?_with_asan:-fsanitize=address}"
 %endif
         --with-auto-load-dir='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'      \
         --with-auto-load-safe-path='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'        \
-        --enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu,x86_64-redhat-linux-gnu     \
+        --enable-targets=${ENABLED_TARGETS}     \
         %{_target_platform}
 
 # Prepare gdb/config.h first.
@@ -544,7 +557,7 @@ $(: ppc64 host build crashes on ppc variant of libexpat.so )    \
 %endif
         --with-auto-load-dir='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'      \
         --with-auto-load-safe-path='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'        \
-        --enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu,x86_64-redhat-linux-gnu     \
+        --enable-targets=${ENABLED_TARGETS}     \
         %{_target_platform}
 
 if [ -z "%{!?_with_profile:no}" ]
@@ -923,6 +936,11 @@ fi
 # endif scl
 
 %changelog
+* Wed May 28 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove 32-bit ARM support for RHEL 10+.  This is not a RHEL
+  supported target, so lets drop this target.  Retain for older RHEL
+  versions, as well as Fedora.
+
 * Mon May 12 2025 Keith Seitz <keiths@redhat.com>
 - Remove gdb-rhbz1149205-catch-syscall-after-fork-test.patch
   in favor of upstream commit.

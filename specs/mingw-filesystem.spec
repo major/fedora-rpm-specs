@@ -9,7 +9,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           mingw-filesystem
-Version:        149
+Version:        150
 Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
@@ -378,6 +378,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 150-1
+- Re-add target bin dir to PATH
+
 * Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 149-1
 - Only add cross host tools bin dir to PATH
 

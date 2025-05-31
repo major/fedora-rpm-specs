@@ -1,19 +1,15 @@
 Name:          zsync
 Summary:       a file transfer program using the same algorithm as rsync over HTTP
-URL:           http://zsync.moria.org.uk/
+URL:           https://zsync.moria.org.uk/
 License:       Artistic-2.0 and Zlib and NTP and LicenseRef-Fedora-Public-Domain
                # Zlib: zlib/*
                # NTP: base64.c
                # PD: librcksum/*
-Version:       0.6.2
+Version:       0.6.3
 Release:       %autorelease
 
-Source0:       http://zsync.moria.org.uk/download/%{name}-%{version}.tar.bz2
-
-# https://sources.debian.org/data/main/z/zsync/0.6.2-7/debian/patches/fix-build-with-gcc-14.patch
-Patch1:        fix-build-with-gcc-14.patch
-# https://github.com/madler/zlib/commit/6a043145ca6e9c55184013841a67b2fef87e44c0 (modif'd to apply)
-Patch2:        remove-ub-in-zlib.patch
+Source0:       https://zsync.moria.org.uk/download/%{name}-%{version}.tar.bz2
+Patch0:        zsync-0.6.3-fix-tests.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -40,7 +36,6 @@ large scale file distribution.
 sed -i '/^doc_DATA/s/COPYING//' Makefile.am # avoid duplicating license file
 
 %build
-autoreconf -if
 %configure
 %make_build CFLAGS+="-Wno-old-style-definition -D_DEFAULT_SOURCE"
 # bundled zlib uses old-style function definition, ignore.

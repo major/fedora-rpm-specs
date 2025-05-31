@@ -2,15 +2,12 @@
 # Macaulay2's memory management scheme requires close cooperation with libgc,
 # and some of the supporting libraries must be compiled with special options to
 # accomplish this.  In particular, Macaulay2 needs:
-# - mathicgb configured --without-tbb
 # - mpfr configured with --disable-thread-safe
 # - flint linked with the GC-enabled mpfr
 # - factory (from Singular) configured with --disable-omalloc --enable-streamio
 #   and linked with the flint that is linked with the GC-enabled mpfr
 # Since the main Fedora packages are not built in this way, we are forced to
-# bundle these packages to avoid random GC-related crashes.  The packages
-# memtailor and mathic, which sit underneath mathicgb, must also be bundled or
-# we get random GC-related crashes for an as yet undiagnosed reason.
+# bundle these packages to avoid random GC-related crashes.
 #
 # We have to use the static versions of the libfplll and givaro libraries.
 # They have global objects whose constructors run before GC is initialized.
@@ -21,7 +18,7 @@
 # We have to bundle the linbox package.  It has global constructors that cause
 # the same problem as libfplll.
 
-%global emacscommit f0bb736dff7bbf30d143ecc68700ee747263a35d
+%global emacscommit 6d0db52505c524d02c2270059767644aea360fd0
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %(cut -b -7 <<< %{emacscommit})
 %global m2url       https://github.com/Macaulay2/M2
@@ -50,7 +47,7 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.24.11
+Version: 1.25.05
 Release: 1%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
@@ -64,7 +61,6 @@ Release: 1%{?dist}
 #   - Macaulay2/packages/QuillenSuslin.m2
 #   - Macaulay2/packages/Visualize.m2
 # GPL-2.0-or-later:
-#   - mathicgb (bundled)
 #   - Macaulay2/e/bibasis
 #   - Macaulay2/m2/computations.m2
 #   - Macaulay2/packages/AlgebraicSplines.m2
@@ -135,14 +131,11 @@ Release: 1%{?dist}
 # LGPL-2.0-or-later:
 #   - flint (bundled)
 #   - linbox (bundled)
-#   - mathic (bundled)
 # LGPL-3.0-or-later:
 #   - mpfr (bundled)
 # Apache-2.0:
 #   - Macaulay2/packages/OpenMath.m2
 #   - Macaulay2/packages/SCSCP.m2
-# BSD-3-Clause:
-#   - memtailor (bundled)
 # MIT:
 #   - Macaulay2/packages/Visualize/css
 #   - Macaulay2/packages/Visualize/js
@@ -160,7 +153,7 @@ Release: 1%{?dist}
 #   - Macaulay2/packages/NoetherNormalization.m2
 #   - Macaulay2/packages/RationalMaps.m2
 #   - Macaulay2/packages/SectionRing.m2
-License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT AND OFL-1.1-RFN AND LicenseRef-Fedora-Public-Domain
+License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND Apache-2.0 AND MIT AND OFL-1.1-RFN AND LicenseRef-Fedora-Public-Domain
 URL:     https://macaulay2.com/
 VCS:     git:%{m2url}.git
 %if 0%{?snap:1}
@@ -186,87 +179,57 @@ Provides:  bundled(normaliz) = %{normalizver}
 %endif
 
 # MPFR is bundled because it must be built with different threading options
-%global mpfrver 4.2.1
+%global mpfrver 4.2.2
 Source101: https://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.gz
 Provides:  bundled(mpfr) = %{mpfrver}
 
 # FLINT is bundled because it must be linked with the specially-built MPFR
-%global flintver 3.1.3
-Source102: https://flintlib.org/download/flint-%{flintver}.tar.gz
+%global flintver 3.2.2
+Source102: https://github.com/flintlib/flint/archive/v%{flintver}/flint-%{flintver}.tar.gz
 Provides:  bundled(flint) = %{flintver}
 
 # FACTORY is bundled because it must be built with special options
-%global factoryver 4.4.0
+%global factoryver 4.4.1
 Source103: https://www.singular.uni-kl.de/ftp/pub/Math/Factory/factory-%{factoryver}.tar.gz
 Provides:  bundled(factory) = %{factoryver}
 
-# MATHICGB is bundled because it must be built with different threading options
-%global mathicgbver 1.0
-%global mathicgbcommit 4cd2bd1357107cf0c83661fdda66c94987de4608
-Source104: https://github.com/Macaulay2/mathicgb/tarball/%{mathicgbcommit}/mathicgb-%{mathicgbver}.tar.gz
-Provides:  bundled(mathicgb) = %{mathicgbver}
-
-# GTEST is bundled because MATHICGB refuses to build otherwise
-%global gtestver 1.11.0
-Source105: https://github.com/google/googletest/archive/release-%{gtestver}/gtest-%{gtestver}.tar.gz
-
-# MEMTAILOR is bundled because it causes garbage collector crashes otherwise
-%global memtailorver 1.0
-%global memtailorcommit f785005b92a54463dbd5377ab80855a3d2a5f92d
-Source106: https://github.com/Macaulay2/memtailor/tarball/%{memtailorcommit}/memtailor-%{memtailorver}.tar.gz
-Provides:  bundled(memtailor) = %{memtailorver}
-
-# MATHIC is bundled because it causes garbage collector crashes otherwise
-%global mathicver 1.0
-%global mathiccommit 07e8df4ded6b586c0ce9eec0f9096690379749cb
-Source107: https://github.com/Macaulay2/mathic/tarball/%{mathiccommit}/mathic-%{mathicver}.tar.gz
-Provides:  bundled(mathic) = %{mathicver}
-
 # LINBOX is bundled because it introduces static global objects
 %global linboxver 1.7.0
-Source108: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}/linbox-%{linboxver}.tar.gz
+Source104: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}/linbox-%{linboxver}.tar.gz
 Provides:  bundled(linbox) = %{linboxver}
 
 ## PATCHES FOR BUNDLED code
 # This is a conglomeration of all current patches for the Fedora linbox package
 Source200: linbox-1.7.0.patch
-# Fix a header bug in flint
-Source201: flint-3.1.3.patch
 
 ## FAKE library tarballs that convince Macaulay2 to use the system versions
 Source300: frobby_v0.9.5.tar.gz
 Source301: cddlib-094m.tar.gz
-Source302: lapack-3.9.0.tgz
+# lapack
+Source302: v3.12.1.tar.gz
 Source303: 4ti2-1.6.10.tar.gz
-Source304: libfplll-5.2.0.tar.gz
+Source304: fplll-5.5.0.tar.gz
 Source305: gfan0.6.2.tar.gz
 Source306: givaro-4.2.0.tar.gz
-Source307: lrslib-071a.tar.gz
-Source308: TOPCOM-0.17.8.tar.gz
+Source307: lrslib-073.tar.gz
+Source308: TOPCOM-1.1.2.tar.gz
 Source309: cohomCalg-0.32.tar.gz
-Source310: glpk-4.59.tar.gz
+Source310: glpk-5.0.tar.gz
 Source311: Csdp-6.2.0.tgz
 Source312: mpsolve-3.2.1.tar.gz
 
 # let Fedora optflags override the defaults
-Patch0: %{name}-1.15-optflags.patch
+Patch: %{name}-1.25-optflags.patch
 # give the build a little more time and space than upstream permits
-Patch1: %{name}-1.16-ulimit.patch
-# drop 'tests' from default make target
-Patch2: %{name}-1.17-default_make_targets.patch
-# disable check for gftables
-Patch3: %{name}-1.18-no_gftables.patch
-# adapt to libfplll 5.2.1
-Patch4: %{name}-1.15-fplll.patch
+Patch: %{name}-1.16-ulimit.patch
+# drop checking of html links from default make target
+Patch: %{name}-1.25-default_make_targets.patch
 # do not override the debug level
-Patch5: %{name}-1.17-configure.patch
-# Fix "error: in conversion to html, unknown TeX control sequence(s): \rightarrow"
-Patch6: %{name}-1.16-rightarrow.patch
+Patch: %{name}-1.17-configure.patch
 # Fix LTO warnings about mismatched declarations and definitions
-Patch7: %{name}-1.18-lto.patch
-# Fix a build error due to mismatched options to codim
-# https://github.com/Macaulay2/M2/pull/3651
-Patch8: %{name}-1.24-codim-option.patch
+Patch: %{name}-1.18-lto.patch
+# Avoid use of the deprecated strstream C++ header
+Patch: %{name}-1.25-strstream.patch
 
 BuildRequires: 4ti2
 BuildRequires: appstream
@@ -275,6 +238,7 @@ BuildRequires: autoconf-archive
 BuildRequires: bison
 BuildRequires: boost-devel
 BuildRequires: chrpath
+BuildRequires: cmake
 BuildRequires: cohomCalg
 BuildRequires: csdp-tools
 BuildRequires: desktop-file-utils
@@ -303,6 +267,7 @@ BuildRequires: glpk-devel
 BuildRequires: iml-devel
 BuildRequires: info
 BuildRequires: libappstream-glib
+BuildRequires: libatomic
 BuildRequires: libfplll-static
 BuildRequires: libfrobby-devel
 BuildRequires: libgfan-devel
@@ -333,6 +298,9 @@ BuildRequires: pkgconfig(libnauty)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(m4ri)
 BuildRequires: pkgconfig(m4rie)
+BuildRequires: pkgconfig(mathic)
+BuildRequires: pkgconfig(mathicgb)
+BuildRequires: pkgconfig(memtailor)
 BuildRequires: pkgconfig(mpfi)
 BuildRequires: pkgconfig(ncurses)
 BuildRequires: pkgconfig(qd)
@@ -341,6 +309,7 @@ BuildRequires: pkgconfig(tbb)
 BuildRequires: pkgconfig(tinyxml2)
 BuildRequires: polymake
 BuildRequires: python3-devel
+BuildRequires: R
 BuildRequires: scip
 BuildRequires: texinfo
 BuildRequires: time
@@ -382,12 +351,11 @@ Provides:  Macaulay2-emacs = %{version}-%{release}
 
 Provides:  macaulay2 = %{version}-%{release}
 
-# Macaulay2 no longer builds successfully on 32-bit platforms
-# https://bugzilla.redhat.com/show_bug.cgi?id=1874318
-#
-# Macaulay2 started segfaulting during the build on ppc64le just prior to
-# F40 Beta Freeze.  Disable it for now until we can diagnose the problem.
-ExcludeArch: %{ix86} ppc64le
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# Macaulay2 takes more than 14 hours to build on ppc64le, more than twice as
+# long as the x86_64 build, and it is doubtful that anyone will ever use it on
+# that platform anyway.
+ExcludeArch: %{ix86} %{power64}
 
 # Do not advertise the bundled mpfr
 %global __provides_exclude libmpfr.so*
@@ -417,25 +385,20 @@ install -p -m755 %{SOURCE20} ./etags
 %if ! %system_normaliz
 install -p -m644 %{SOURCE100} BUILD/tarfiles/
 %endif
-install -p -m644 %{SOURCE101} %{SOURCE102} %{SOURCE103} %{SOURCE105} \
-    BUILD/tarfiles/
-install -p -m644 %{SOURCE108} BUILD/tarfiles/v%{linboxver}.tar.gz
+install -p -m644 %{SOURCE101} %{SOURCE102} %{SOURCE103} BUILD/tarfiles/
+install -p -m644 %{SOURCE104} BUILD/tarfiles/v%{linboxver}.tar.gz
 sed -i 's/\(VERSION = \).*/\1%{mpfrver}/' libraries/mpfr/Makefile.in
 sed -e 's/\(VERSION = \).*/\1%{linboxver}/' \
     -e 's,--with-gmp.*,--without-archnative GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
     -i libraries/linbox/Makefile.in
-tar -C submodules/mathicgb -xf %{SOURCE104} --strip-components=1
-tar -C submodules/memtailor -xf %{SOURCE106} --strip-components=1
-tar -C submodules/mathic -xf %{SOURCE107} --strip-components=1
 
 ## patches for bundled code
-sed -e 's,--with-blas,&=%{_includedir}/flexiblas --with-ntl,' \
-    -e 's/3\.0\.0/%{flintver}/' \
+sed -e 's,--disable-shared,& --disable-arch --with-blas-include=%{_includedir}/flexiblas --with-ntl-include=%{_includedir}/NTL,' \
+    -e 's/3\.2\.1/%{flintver}/' \
     -e 's/\(LICENSEFILES = \).*/\1COPYING COPYING.LESSER/' \
     -e 's/-pedantic-errors/& -fno-strict-aliasing/' \
+    -e "s,PRECONFIGURE.*,& \&\& sed -i 's/openblas/flexiblas/' configure," \
     -i libraries/flint/Makefile.in
-cp -p %{SOURCE201} libraries/flint/patch-%{flintver}
-sed -i 's/^# \(PATCHFILE\)/\1/' libraries/flint/Makefile.in
 cp -p %{SOURCE200} libraries/linbox/patch-%{linboxver}
 sed -i 's/^#\(PATCHFILE\)/\1/' libraries/linbox/Makefile.in
 
@@ -444,7 +407,6 @@ install -p -m644 %{SOURCE300} %{SOURCE301} %{SOURCE302} %{SOURCE303} \
   %{SOURCE304} %{SOURCE305} %{SOURCE306} %{SOURCE307} %{SOURCE308} \
   %{SOURCE309} %{SOURCE310} %{SOURCE311} %{SOURCE312} BUILD/tarfiles/
 sed -i '/PRECONFIGURE/d' libraries/{4ti2,cddlib,givaro,normaliz,topcom}/Makefile.in
-sed -i 's/VERSION = 4\.0\.4/VERSION = 5.2.0/;/PATCHFILE/d' libraries/fplll/Makefile.in
 sed -i '/PATCHFILE/d' libraries/{csdp,frobby,gfan,givaro,mpsolve,normaliz,topcom}/Makefile.in
 sed -i '/INSTALLCMD/,/stdinc/d' libraries/frobby/Makefile.in
 sed -i 's,install \(lib.*\.a\),ln -s %{_libdir}/\1,' libraries/lapack/Makefile.in
@@ -454,26 +416,8 @@ tar -C submodules/givaro --strip-components=1 -xzf %{SOURCE306}
 
 ## flint submodule
 tar -C submodules/flint --strip-components=1 -xzf %{SOURCE102}
-cd submodules/flint
-patch -p1 < %{SOURCE201}
-cd -
 
-## gtest submodule
-tar -C submodules/googletest --strip-components=1 -xzf %{SOURCE105}
-
-%patch -P0 -p1 -b .optflags
-%patch -P1 -p1 -b .ulimit
-%patch -P2 -p1 -b .default_make_targets
-%patch -P3 -p1 -b .no_gftables
-# factory-gftables symlink
-mkdir -p BUILD/%{_target_platform}/usr-dist/common/share/Macaulay2/Core
-ln -s %{_datadir}/factory \
-         BUILD/%{_target_platform}/usr-dist/common/share/Macaulay2/Core/factory
-%patch -P4 -p1 -b .fplll
-%patch -P5 -p1 -b .configure
-%patch -P6 -p1 -b .rightarrow
-%patch -P7 -p1 -b .lto
-%patch -P8 -p1 -b .codim
+%autopatch -p1
 
 
 %conf
@@ -510,6 +454,15 @@ sed -i '/^fetch: download-enabled/d' libraries/Makefile.library.in
 # Do not try to fetch sources with git
 sed -i 's/^\(fetch:\) update-submodule/\1/' libraries/Makefile.library.in
 
+# All examples should produce expected results on x86_64.  Other platforms
+# sometimes encounter problems; e.g., due to differences in rounding error of
+# floating point numbers.
+%ifnarch %{x86_64}
+sed -e '/^IgnoreExampleErrors/s/false/true/' \
+    -e '/^CheckDocumentation/s/true/false/' \
+    -i Macaulay2/packages/Makefile.in
+%endif
+
 # (re)generate configure
 autoreconf -fi .
 
@@ -532,12 +485,12 @@ LIBS="-lflexiblas" \
   --prefix=%{_prefix} \
   --enable-shared \
   --disable-strip \
-  --enable-fplll \
   --enable-linbox \
   --with-blas=flexiblas \
   --with-lapack=flexiblas \
+  --with-system-libs \
   --with-unbuilt-programs="cddplus nauty" \
-  --enable-build-libraries="mpfr flint factory lapack fplll givaro linbox gtest"
+  --enable-build-libraries="mpfr flint factory lapack fplll givaro linbox"
   # The list of libraries and submodules above should include only those that:
   # 1. We bundle (mpfr, flint, factory, and linbox)
   # 2. We sneakily substitute one library for another (lapack -> flexiblas)
@@ -609,9 +562,6 @@ cd -
 # info dir
 rm -fv %{buildroot}%{_infodir}/dir
 
-# Delete misinstalled memtailor, mathic, and mathicgb libraries
-rm -fr %{buildroot}/builddir
-
 
 %check
 # The test suite has grown to the point where it takes many hours to run.
@@ -640,6 +590,12 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu May 29 2025 Jerry James <loganjerry@gmail.com> - 1.25.05-1
+- Version 1.25.05
+- Drop upstreamed patches: no_gftables, fplll, codim-option, rightarrow
+- Add patch to avoid the deprecated strstream C++ header
+- Unbundle memtailor, mathic, and mathicgb
+
 * Thu Feb 20 2025 Jerry James <loganjerry@gmail.com> - 1.24.11-1
 - Version 1.24.11
 - Drop upstreamed vector overrun patch

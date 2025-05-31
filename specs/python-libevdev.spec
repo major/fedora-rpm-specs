@@ -1,6 +1,6 @@
 Name:		python-libevdev
-Version:	0.11
-Release:	11%{?dist}
+Version:	0.12
+Release:	1%{?dist}
 Summary:	Python bindings to the libevdev evdev device wrapper library
 
 # SPDX
@@ -47,6 +47,9 @@ devices and create uinput devices.
 %{python3_sitelib}/libevdev-%{version}-py*.egg-info
 
 %changelog
+* Thu May 29 2025 Peter Hutterer <peter.hutterer@redhat.com> - 0.12-1
+- python-libevdev 0.12
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

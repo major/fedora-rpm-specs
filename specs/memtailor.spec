@@ -1,21 +1,18 @@
 # There have been no releases, so we use a git snapshot
-%global gitdate         20230916
-%global gittag          f785005b92a54463dbd5377ab80855a3d2a5f92d
+%global gitdate         20250513
+%global gittag          07c84a6852212495182ec32c3bdb589579e342b5
 %global shorttag        %(cut -b -7 <<< %{gittag})
 %global user            Macaulay2
 
 Name:           memtailor
 Version:        1.0
-Release:        28.%{gitdate}.git%{shorttag}%{?dist}
+Release:        29.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
 License:        BSD-3-Clause
 URL:            https://github.com/Macaulay2/memtailor
 VCS:            git:%{url}.git
 Source:         %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
-
-# Upstream wants to download gtest and compile it in; we don't
-Patch:          %{name}-gtest.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -55,12 +52,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Files for developing applications that use memtailor.
 
 %prep
-%autosetup -p0 -n %{user}-%{name}-%{shorttag}
+%autosetup -n %{user}-%{name}-%{shorttag}
 
 %conf
-# Remove spurious executable bits
-chmod a-x src/test/*.cpp
-
 # Fix the URL in the pkgconfig file
 sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
 
@@ -85,9 +79,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %install
 %make_install
 
-# We don't want the libtool archive
-rm -f %{buildroot}%{_libdir}/lib%{name}.la
-
 %check
 LD_LIBRARY_PATH=$PWD/.libs make check
 
@@ -103,6 +94,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue May 27 2025 Jerry James <loganjerry@gmail.com> - 1.0-29.20250513.git07c84a6
+- Update to latest upstream snapshot
+- Drop upstreamed gtest patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28.20230916.gitf785005
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

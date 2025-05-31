@@ -2,12 +2,11 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.7   
+Version:    2.0   
 Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
-# Automatically converted from old format: BSD-3-Clause and Sleepycat and OpenSSL - review is highly recommended.
-License:    BSD-3-Clause and Sleepycat and OpenSSL     
+License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
@@ -32,17 +31,14 @@ Requires: bash
 Requires: python3
 Requires: python3-tkinter
 Requires: openssh-askpass
-Requires: fetchmail
+Requires: openssl
 Requires: coreutils
 Requires: rng-tools
-Requires: MTA 
 Requires: socat
 Requires: cryptsetup
 Requires: openssh
-Requires: nmap
 Requires: polkit
-Requires: postfix
-Requires: msmtp
+Requires: tar
 
 %description
 The Crypto Bone is a secure messaging system that makes sure a user's
@@ -73,6 +69,7 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 
 %install
 %make_install
+
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone-safewebdrop.png %{buildroot}%{_datadir}/icons/default
@@ -80,8 +77,7 @@ cp %{buildroot}%{cryptobonedir}/GUI/logo-cryptobone.png %{buildroot}%{_datadir}/
 cp %{buildroot}%{cryptobonedir}/GUI/logo-cryptobone-safewebdrop.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/question-mark.png %{buildroot}%{_datadir}/icons/default
-desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone-email.desktop
-desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone-safewebdrop.desktop
+desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone2.desktop
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.desktop
 
 %post
@@ -96,6 +92,12 @@ if [ $1 -eq 1 ] ; then
 fi
 /bin/touch --no-create %{_datadir}/icons/default &>/dev/null || :
 
+%pretrans
+# this is run before anything else is done
+# store the header if it exists already
+if [ -r %{cryptobonedir}/safewebdrop.header ] ; then
+     /usr/bin/cp %{cryptobonedir}/safewebdrop.header %{cryptobonedir}/header.backup
+fi
 
 %preun
 # this script is run before the package is removed
@@ -105,8 +107,8 @@ if [ $1 -eq 0 ] ; then
      systemctl disable cryptoboned
      systemctl stop cryptoboneexternd
      systemctl disable cryptoboneexternd
-     systemctl disable cryptobone-fetchmail.timer
-     systemctl stop cryptobone-fetchmail.timer
+     systemctl disable cryptobone-fetch.timer
+     systemctl stop cryptobone-fetch.timer
      umount %{cryptobonedir}/keys 2> /dev/null
      rm -f /etc/sudoers.d/cbcontrol
      if [ -f %{cryptobonedir}/bootswitch ] ; then
@@ -134,11 +136,18 @@ if [ $1 -eq 0 ] ; then
      /bin/touch --no-create %{_datadir}/icons/default &>/dev/null
      /usr/bin/gtk-update-icon-cache %{_datadir}/icons/default &>/dev/null  || :
      if [ -x /usr/sbin/semodule ]; then
-          semodule -d cryptobone
+          semodule -r cryptobone
      fi
 fi
 
+
 %posttrans
+# this is run after everything is done
+# restore the header
+if [ -r %{cryptobonedir}/header.backup ] ; then
+     /usr/bin/cp %{cryptobonedir}/header.backup %{cryptobonedir}/safewebdrop.header
+fi
+
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/default &>/dev/null || :
 if grep cryptobone /etc/passwd >/dev/null 2>/dev/null; then
      # update permissions on cryptobone's home directory and shell
@@ -151,11 +160,10 @@ fi
 %{_unitdir}/cryptoboned.service
 %{_unitdir}/cryptobone-dbinit.service
 %{_unitdir}/cryptoboneexternd.service
-%{_unitdir}/cryptobone-fetchmail.service
-%{_unitdir}/cryptobone-fetchmail.timer
+%{_unitdir}/cryptobone-fetch.service
+%{_unitdir}/cryptobone-fetch.timer
 %{_bindir}/activate-cryptobone
-%{_bindir}/cryptobone-email
-%{_bindir}/cryptobone-safewebdrop
+%{_bindir}/cryptobone2
 %{_bindir}/external-cryptobone
 %{_bindir}/external-cryptobone-admin
 
@@ -166,8 +174,7 @@ fi
 # might be changed. In particular, this is crucial for the keys subdirectory.
 %{cryptobonedir}
 
-%{_datadir}/applications/cryptobone-email.desktop
-%{_datadir}/applications/cryptobone-safewebdrop.desktop
+%{_datadir}/applications/cryptobone2.desktop
 %{_datadir}/applications/external-cryptobone-admin.desktop
 %{_datadir}/icons/default/cryptobone.png
 %{_datadir}/icons/default/logo-cryptobone.png
@@ -177,18 +184,20 @@ fi
 %{_datadir}/icons/default/question-mark.png
 
 %{_mandir}/man8/cryptoboned.8.gz
-%{_mandir}/man8/cryptobone.8.gz
+%{_mandir}/man8/cryptobone2.8.gz
 %{_mandir}/man8/activate-cryptobone.8.gz
 %{_mandir}/man8/external-cryptobone-admin.8.gz
 %{_mandir}/man8/external-cryptobone.8.gz
 %{_mandir}/man8/cbcontrol.8.gz
 
 %license   %{_datadir}/licenses/%{name}/COPYING
-%license   %{_datadir}/licenses/%{name}/COPYING-cryptlib
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu May 29 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-1
+- release of version 2.0
+
 * Mon Feb 17 2025 Ralf Senderek <innovation@senderek.ie> - 1.7-1
 - fixing bugs and selinux
 
@@ -214,7 +223,7 @@ fi
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Fri May 19 2023 Ralf Senderek <innovation@senderek.ie> - 1.6-2
-- minor bugfix 
+- minor bugfix
 
 * Fri May 12 2023 Ralf Senderek <innovation@senderek.ie> - 1.6-1
 - Add SafeWebdrop code 

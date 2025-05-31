@@ -10,6 +10,8 @@ Source:         %{pypi_source mkdocs_material_extensions}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
+%bcond tests 1
+
 %global _description %{expand:
 This package provides Markdown extension resources for MkDocs Material.}
 
@@ -24,7 +26,7 @@ Summary:        %{summary}
 %autosetup -p1 -n mkdocs_material_extensions-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:-t}
 
 %build
 %pyproject_wheel
@@ -34,7 +36,10 @@ Summary:        %{summary}
 %pyproject_save_files materialx
 
 %check
+%pyproject_check_import %{!?with_tests:-e materialx.emoji}
+%if %{with tests}
 %tox
+%endif
 
 %files -n python3-mkdocs-material-extensions -f %{pyproject_files}
 %doc README.md

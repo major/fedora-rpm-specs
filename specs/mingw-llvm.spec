@@ -13,7 +13,7 @@
 %global libver 20
 
 Name:          mingw-%{pkgname}
-Version:       20.1.3
+Version:       20.1.6
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 # Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
@@ -244,6 +244,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 20.1.6-1
+- Update to 20.1.6
+
 * Thu Apr 24 2025 Sandro Mani <manisandro@gmail.com> - 20.1.3-1
 - Update to 20.1.3
 

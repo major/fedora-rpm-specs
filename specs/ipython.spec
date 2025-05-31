@@ -47,7 +47,6 @@ BuildRequires:  python3-typing-extensions
 BuildRequires:  python3-Cython
 BuildRequires:  python3-matplotlib
 BuildRequires:  python3-matplotlib-inline
-BuildRequires:  python3-pymongo
 BuildRequires:  python3-tornado >= 4.0
 BuildRequires:  python3-zmq
 BuildRequires:  python3-nbformat

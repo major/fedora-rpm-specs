@@ -6,12 +6,15 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.8.2
-Release:       10%{?dist}
+Version:       2.9.0.post0
+Release:       1%{?dist}
 BuildArch:     noarch
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:       LicenseRef-Callaway-BSD
+# According to the LICENSE file:
+# - Apache-2.0 applies to all contributions after 2017-12-01, as well as
+#   all contributions that have been re-licensed.
+# - BSD-3-Clause applies to all code, even that also covered by Apache-2.0
+License:       (Apache-2.0 AND BSD-3-Clause) OR BSD-3-Clause
 URL:           https://github.com/dateutil/%{name}
 Source0:       %{pypi_source}
 
@@ -74,6 +77,9 @@ sed -i 's|{version}|%{version}|' setup.py
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 2.9.0.post0-1
+- Update to 2.9.0.post0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

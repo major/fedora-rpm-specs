@@ -1,6 +1,6 @@
 %global	gem_name	rspec-support
 
-%global	mainver	3.13.3
+%global	mainver	3.13.4
 %undefine	prever
 
 %global	baserelease	1
@@ -17,7 +17,7 @@ Release:	%{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}%{?dist}
 Summary:	Common functionality to Rspec series
 # SPDX confirmed
 License:	MIT
-URL:		https://github.com/rspec/rspec-support
+URL:		https://rspec.info
 Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
@@ -110,6 +110,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Thu May 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.4-1
+- 3.13.4
+
 * Thu May 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.3-1
 - 3.13.3
 

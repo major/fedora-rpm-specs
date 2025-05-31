@@ -1,5 +1,5 @@
 Name:           gcompris-qt
-Version:        25.0.12
+Version:        25.1
 Release:        1%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.gc
 
 
 %changelog
+* Thu May 22 2025 Andrea Musuruane <musuruan@gmail.com> - 25.1-1
+- Updated to new upstream release
+
 * Sun Mar 09 2025 Andrea Musuruane <musuruan@gmail.com> - 25.0.12-1
 - Updated to new upstream release
 

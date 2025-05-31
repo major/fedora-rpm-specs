@@ -3,6 +3,8 @@
 # The upstream tarball got renamed with an underscore
 # but the package name still has a dot in it.
 
+# Break circular dependency on python-zope-testrunner
+%bcond tests 1
 
 Name:           python-zope-testing
 Version:        5.1
@@ -36,7 +38,7 @@ sed -i 's/"setuptools <= .*"/"setuptools"/' pyproject.toml
 sed -i 's/setuptools <= .*/setuptools/' tox.ini
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:-t}
 
 %build
 %{py3_build}
@@ -47,7 +49,10 @@ sed -i 's/setuptools <= .*/setuptools/' tox.ini
 rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 
 %check
+%py3_check_import zope.testing
+%if %{with tests}
 %tox
+%endif
 
 %files -n python%{python3_pkgversion}-zope-testing
 %doc CHANGES.rst README.rst src/zope/testing/*.txt

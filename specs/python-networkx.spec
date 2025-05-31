@@ -12,13 +12,22 @@
 %global giturl  https://github.com/networkx/networkx
 
 Name:           python-networkx
-Version:        3.4.2
+Version:        3.5
 Release:        %autorelease
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/networkx-%{version}.tar.gz
+Source0:        %{giturl}/archive/networkx-%{version}.tar.gz
+# For intersphinx
+Source1:        https://numpy.org/neps/objects.inv#/objects-neps.inv
+Source2:        https://matplotlib.org/stable/objects.inv#/objects-matplotlib.inv
+Source3:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
+Source4:        https://pandas.pydata.org/pandas-docs/stable/objects.inv#/objects-pandas.inv
+Source5:        https://geopandas.org/en/stable/objects.inv#/objects-geopandas.inv
+Source6:        https://sphinx-gallery.github.io/stable/objects.inv#/objects-sphinx-gallery.inv
+Source7:        https://networkx.org/nx-guides/objects.inv#/objects-nx-guides.inv
+
 # Some examples cannot be executed, so expect them to fail.
 # Examples that require network access:
 # - football
@@ -111,6 +120,22 @@ Documentation for networkx
 
 %prep
 %autosetup -p1 -n networkx-networkx-%{version}
+
+# Use local objects.inv for intersphinx
+sed -e 's|\("https://numpy.org/neps/", \)None|\1"%{SOURCE1}"|' \
+    -e 's|\("https://matplotlib.org/stable/", \)None|\1"%{SOURCE2}"|' \
+    -e 's|\("https://docs.scipy.org/doc/scipy/", \)None|\1"%{SOURCE3}"|' \
+    -e 's|\("https://pandas.pydata.org/pandas-docs/stable/", \)None|\1"%{SOURCE4}"|' \
+    -e 's|\("https://geopandas.org/en/stable/", \)None|\1"%{SOURCE5}"|' \
+    -e 's|\("https://sphinx-gallery.github.io/stable/", \)None|\1"%{SOURCE6}"|' \
+    -e 's|\("https://networkx.org/nx-guides/", \)None|\1"%{SOURCE7}"|' \
+    -i doc/conf.py
+
+# Point to the local switcher instead of the inaccessible one on the web
+sed -i 's,https://networkx.org/documentation/latest/,,' doc/conf.py
+
+# Use a free font instead of a proprietary font
+sed -i 's/Helvetica/sans-serif/' examples/drawing/plot_chess_masters.py
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_doctest:-x doc,example,extra,test}

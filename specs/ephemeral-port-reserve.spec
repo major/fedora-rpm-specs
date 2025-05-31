@@ -1,11 +1,15 @@
 Name:           ephemeral-port-reserve
 Version:        1.1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.
 
 License:        MIT
 URL:            https://github.com/Yelp/%{name}/
 Source0:        https://github.com/Yelp/%{name}/archive/refs/tags/v%{version}.tar.gz
+
+# Fix a failing test on containers without systemd
+# Sent upstream: https://github.com/Yelp/ephemeral-port-reserve/pull/20
+Patch:          fix_test_fqdn.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -49,6 +53,10 @@ Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.}
 
 
 %changelog
+* Thu May 29 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.1.4-12
+- Fix test_fqdn failure
+Resolves: rhbz#2366471
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

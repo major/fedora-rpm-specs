@@ -10,6 +10,12 @@
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
 
+%if 0%{?fedora} && 0%{?fedora} < 43
+%bcond x11 1
+%else
+%bcond x11 0
+%endif
+
 Name:           gnome-kiosk
 Version:        48.0
 Release:        %{autorelease}
@@ -23,7 +29,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{na
 # https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/69
 Patch:          0001-doc-Specify-the-right-configuration-file-name.patch
 
+%if %{with x11}
 Provides:       firstboot(windowmanager) = %{name}
+%endif
 
 BuildRequires:  dconf
 BuildRequires:  desktop-file-utils
@@ -78,6 +86,11 @@ This package generates a shell script and the necessary scaffolding to start tha
 %install
 %meson_install
 
+%if !%{with x11}
+rm -rf %{buildroot}%{_datadir}/xsessions
+rm -f %{buildroot}%{_userunitdir}/org.gnome.Kiosk@x11.service
+%endif
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.SearchApp.desktop
@@ -91,15 +104,19 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/gnome-kiosk/gnomekiosk.dconf.compiled
 %{_userunitdir}/org.gnome.Kiosk.target
 %{_userunitdir}/org.gnome.Kiosk@wayland.service
+%if %{with x11}
 %{_userunitdir}/org.gnome.Kiosk@x11.service
+%endif
 
 %files -n gnome-kiosk-search-appliance
 %{_userunitdir}/gnome-session@org.gnome.Kiosk.SearchApp.target.d/session.conf
 %{_userunitdir}/org.gnome.Kiosk.SearchApp.service
 %{_datadir}/applications/org.gnome.Kiosk.SearchApp.desktop
 %{_datadir}/gnome-session/sessions/org.gnome.Kiosk.SearchApp.session
-%{_datadir}/xsessions/org.gnome.Kiosk.SearchApp.Session.desktop
 %{_datadir}/wayland-sessions/org.gnome.Kiosk.SearchApp.Session.desktop
+%if %{with x11}
+%{_datadir}/xsessions/org.gnome.Kiosk.SearchApp.Session.desktop
+%endif
 
 %files -n gnome-kiosk-script-session
 %{_bindir}/gnome-kiosk-script
@@ -108,7 +125,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/applications/org.gnome.Kiosk.Script.desktop
 %{_datadir}/gnome-session/sessions/gnome-kiosk-script.session
 %{_datadir}/wayland-sessions/gnome-kiosk-script-wayland.desktop
+%if %{with x11}
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
+%endif
 
 %changelog
 %autochangelog

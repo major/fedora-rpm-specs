@@ -1,4 +1,5 @@
 %global forgeurl https://github.com/squidfunk/mkdocs-material
+%bcond bootstrap 0
 
 Name:           mkdocs-material
 Version:        9.6.12
@@ -21,7 +22,9 @@ Recommends:     python3dist(mkdocs-material[recommended]) = %{version}-%{release
 %description
 This package provides a powerful documentation framework on top of MkDocs.
 
+%if %{without bootstrap}
 %pyproject_extras_subpkg -n %{name} git,imaging,recommended
+%endif
 
 %prep
 %autosetup -p1
@@ -30,7 +33,7 @@ This package provides a powerful documentation framework on top of MkDocs.
 sed -i 's/~=/>=/g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x git,imaging,recommended
+%pyproject_buildrequires %{!?with_bootstrap:-x git,imaging,recommended}
 
 %build
 %pyproject_wheel

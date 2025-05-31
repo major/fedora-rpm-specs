@@ -10,6 +10,11 @@ URL:            https://github.com/openapi-generators/openapi-python-client
 Source0:        %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
 
+# chore(deps): update dependency typer to >0.6,<0.17
+# https://github.com/openapi-generators/openapi-python-client/commit/13bf2e852c8cc68fff4b8c19abc2ae42bceff319
+# (Changes to pdm.lock are not included in this patch.)
+Patch:          openapi-python-client-0.24.3-typer-0.16.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling
 BuildRequires:  python3-mypy

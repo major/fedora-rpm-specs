@@ -23,6 +23,9 @@ Patch3:         platformio-no-linters.patch
 # Update deps (allow starlette versions through 0.46)
 # https://github.com/platformio/platformio-core/commit/145142ea6c1d97c92a62999d424c0dd712fbb9f5
 Patch4:         %{forgeurl}/commit/145142ea6c1d97c92a62999d424c0dd712fbb9f5.patch
+# Allow starlette versions through 0.47
+# https://github.com/platformio/platformio-core/pull/5172
+Patch5:         %{forgeurl}/pull/5172.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

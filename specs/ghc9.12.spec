@@ -433,7 +433,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 # Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
 # remove for ghc-9.10
-%if "%{_arch}" != "i686" || %{?fedora} < 43
+%if "%{_arch}" != "i686" || 0%{?fedora} < 43
 %patch -P6 -p1 -b .orig
 %endif
 
@@ -897,6 +897,7 @@ make test
 
 %changelog
 * Mon May 19 2025 Jens Petersen <petersen@redhat.com> - 9.12.2-7
+- enable debug_info for release builds
 - use 'release' flavor instead of 'perf'
 - bump boot compiler to ghc9.8
 - use new NCG for riscv64 (thanks to supersven)

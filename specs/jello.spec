@@ -1,5 +1,5 @@
 Name:           jello
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Query JSON at the command line with Python syntax
 
@@ -8,10 +8,6 @@ License:        MIT
 URL:            https://github.com/kellyjonbrazil/jello
 # GitHub archive contains tests; PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/jello-%{version}.tar.gz
-
-# Replace deprecated license_file with license_files in setup.cfg
-# https://github.com/kellyjonbrazil/jello/pull/68
-Patch:          %{url}/pull/68.patch
 
 BuildArch:      noarch
 

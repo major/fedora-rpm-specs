@@ -1,6 +1,6 @@
 Name:           hello
-Version:        2.12.1
-Release:        6%{?dist}
+Version:        2.12.2
+Release:        %autorelease
 Summary:        Prints a familiar, friendly greeting
 # All code is GPLv3+.
 # Parts of the documentation are under GFDL
@@ -57,71 +57,4 @@ make check
 
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul  4 2023 Jens Petersen <petersen@redhat.com> - 2.12.1-1
-- update to 2.12.1
-- SPDX migration of license tags
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Apr  1 2020 Jens Petersen <petersen@redhat.com> - 2.10-3
-- packaging fixes (#1810897)
-- use https urls
-- use make_build, make_install, buildroot, and license macros
-
-* Fri Mar  6 2020 Jens Petersen <petersen@redhat.com> - 2.10-2
-- add gpgverify of source
-
-* Thu Mar  5 2020 Jens Petersen <petersen@redhat.com> - 2.10-1
-- update to 2.10
-
-* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Wed Jan 12 2011 Conrad Meyer <konrad@tylerc.org> - 2.6-1
-- Bump to 2.6.
-
-* Sun Mar 28 2010 Conrad Meyer <konrad@tylerc.org> - 2.5-1
-- Bump version.
-
-* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
-
-* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
-
-* Wed Dec 17 2008 Conrad Meyer <konrad@tylerc.org> - 2.4-1
-- Initial package.
+%autochangelog

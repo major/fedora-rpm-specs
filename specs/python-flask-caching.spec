@@ -3,14 +3,30 @@
 %global srcname flask-caching
 
 Name:           python-%{srcname}
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Adds caching support to your Flask application
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/sh4nks/flask-caching
-Source0:        https://github.com/sh4nks/%{srcname}/archive/v.%{version}/%{srcname}-v.%{version}.tar.gz
+Source0:        https://github.com/sh4nks/%{srcname}/archive/v%{version}/%{srcname}-v%{version}.tar.gz
+
+# Update intersphinx_mapping for Sphinx 8 compatibility
+# https://github.com/pallets-eco/flask-caching/pull/599/commits/3c8df1714292549d2fe27fa4a03110657fd647a3
+#
+# Fixes:
+#
+# The intersphinx_mapping in docs/conf.py is incompatible with Sphinx 8
+# https://github.com/pallets-eco/flask-caching/issues/598
+#
+# python-flask-caching fails to build with sphinx 8.x: ERROR: Invalid value
+# `None` in intersphinx_mapping['https://docs.python.org/3/'].
+# https://bugzilla.redhat.com/show_bug.cgi?id=2329857
+#
+# python-flask-caching: FTBFS in Fedora rawhide/f42
+# https://bugzilla.redhat.com/show_bug.cgi?id=2341153
+Patch:          https://github.com/pallets-eco/flask-caching/pull/599/commits/3c8df1714292549d2fe27fa4a03110657fd647a3.patch
 
 BuildArch:      noarch
 
@@ -20,7 +36,6 @@ BuildRequires:  python3dist(cachelib)
 BuildRequires:  python3dist(flask)
 BuildRequires:  python3dist(pylibmc)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-runner)
 BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest-xprocess)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -46,16 +61,13 @@ Summary:        Flask-Caching documentation
 Documentation for Flask-Caching
 
 %prep
-%autosetup -n %{srcname}-v.%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 # Remove bundled egg-info
 rm -rf %{srcname}.egg-info
 
-# Patch out too tight cachilib upper pin
-sed -i 's/cachelib >= 0.9.0, < 0.10.0"/cachelib >= 0.9.0"/' setup.py
 
 %build
-
 %py3_build
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs html

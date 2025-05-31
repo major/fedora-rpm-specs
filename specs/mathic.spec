@@ -1,20 +1,17 @@
-%global gitdate         20230916
-%global gittag          07e8df4ded6b586c0ce9eec0f9096690379749cb
+%global gitdate         20250513
+%global gittag          7abf77e4ce493b3830c7f8cc09722bbd6c03818e
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
 %global user            Macaulay2
 
 Name:           mathic
 Version:        1.0
-Release:        31.%{gitdate}.git%{shorttag}%{?dist}
+Release:        32.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Data structures for Groebner basis computations
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/Macaulay2/mathic
 VCS:            git:%{url}.git
 Source:         %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
-
-# Upstream wants to download gtest and compile it in; we don't
-Patch:          %{name}-gtest.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -59,7 +56,7 @@ Mathic-based tools.  Currently this contains:
 - pqsim: priority queue simulation
 
 %prep
-%autosetup -p0 -n %{user}-%{name}-%{shorttag}
+%autosetup -n %{user}-%{name}-%{shorttag}
 
 %conf
 # Upstream doesn't generate the configure script
@@ -82,9 +79,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install
-
-# We don't want the libtool archive
-rm -f %{buildroot}%{_libdir}/lib%{name}.la
 
 # Install the tools
 mkdir -p %{buildroot}%{_bindir}
@@ -110,6 +104,10 @@ make check
 %{_bindir}/pqsim
 
 %changelog
+* Tue May 27 2025 Jerry James <loganjerry@gmail.com> - 1.0-32.20250513.git7abf77e
+- Update to latest upstream snapshot
+- Drop upstreamed gtest patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-31.20230916.git07e8df4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

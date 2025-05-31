@@ -1,7 +1,7 @@
 %global giturl  https://github.com/4ti2/4ti2
 
 Name:           4ti2
-Version:        1.6.10
+Version:        1.6.12
 Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
@@ -65,22 +65,10 @@ spaces.
 %autosetup
 
 %conf
-# Add a missing executable bit
-chmod a+x ltmain.sh
-
 # Fix encodings
 iconv -f ISO8859-1 -t UTF-8 NEWS > NEWS.utf8
 touch -r NEWS NEWS.utf8
 mv -f NEWS.utf8 NEWS
-
-# Update the C++ standard
-sed -i 's/c++0x/c++11/g' configure
-
-# Do not override Fedora compiler flags
-sed -e 's|-O3 -fomit-frame-pointer|%{build_cflags}|' \
-    -e 's/-march=\$arch -mcpu=\$arch -m\$arch//' \
-    -e 's/-mtune=\$arch//' \
-    -i configure
 
 %configure --enable-shared --disable-static
 
@@ -142,7 +130,7 @@ make check
 %{_libdir}/libzsolve*.so
 
 %files libs
-%doc NEWS README THANKS TODO
+%doc AUTHORS NEWS README.md THANKS
 %license COPYING
 %{_libdir}/lib4ti2*.so.0*
 %{_libdir}/libzsolve*.so.0*

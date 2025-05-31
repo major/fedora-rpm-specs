@@ -10,6 +10,8 @@ Summary:        High productivity build system
 License:        Apache-2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
+# Fix test_compiler_detection on RHEL where gcc does not include ObjC
+Patch:          https://github.com/mesonbuild/meson/pull/14661.patch
 
 BuildArch:      noarch
 
@@ -76,18 +78,26 @@ BuildRequires:  pkgconfig(glib-sharp-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  gtk-doc
 BuildRequires:  itstool
+%if %{undefined rhel}
 BuildRequires:  mercurial
 BuildRequires:  gcovr
+%endif
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  zlib-static
 BuildRequires:  python3dist(cython)
+%if %{undefined rhel}
 BuildRequires:  python3dist(fastjsonschema)
+%else
+BuildRequires:  python3dist(jsonschema)
+%endif
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  /usr/bin/pcap-config
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  llvm-devel
 BuildRequires:  cups-devel
+%if %{undefined rhel}
 BuildRequires:  /usr/bin/wx-config
+%endif
 BuildRequires:  /usr/bin/sdl2-config
 %endif
 
