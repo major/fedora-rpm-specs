@@ -1,11 +1,10 @@
 Summary: A utility which provides statistics based on the output of diff
 Name: diffstat
-Version: 1.67
+Version: 1.68
 Release: 2%{?dist}
-License: SMLNJ
+License: MIT-X11
 URL: https://invisible-island.net/diffstat
-Source0: https://invisible-mirror.net/archives/diffstat/%{name}-%{version}.tgz
-# Taken from diffstat.c.
+Source0: https://invisible-island.net/archives/diffstat/%{name}-%{version}.tgz
 Source1: COPYING
 
 BuildRequires: gcc
@@ -42,6 +41,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Mon May 26 2025 Thomas E. Dickey <dickey@invisible-island.net> - 1.68-1
+- Update to 1.68, which updates license as well as adding zstd support
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.67-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

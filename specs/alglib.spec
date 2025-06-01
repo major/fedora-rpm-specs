@@ -1,10 +1,10 @@
 Name:           alglib
 Version:        4.04.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A numerical analysis and data processing library
 
-# Automatically converted from old format: GPL-2.0-or-later - review is highly recommended.
-License:        GPL-2.0-or-later
+# Lib is GPLv2+, manual is BSD
+License:        GPL-2.0-or-later AND BSD
 URL:            http://www.alglib.net/
 Source0:        http://www.alglib.net/translator/re/%{name}-%{version}.cpp.gpl.tgz
 Source1:        CMakeLists.txt
@@ -13,7 +13,6 @@ Source2:        bsd.txt
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  make
 
 %description
 ALGLIB is a cross-platform numerical analysis and data processing library.
@@ -51,8 +50,7 @@ cp %{SOURCE1} .
 cp %{SOURCE2} .
 
 # Fix permissions and line endings
-chmod 644 gpl2.txt
-chmod 644 manual.cpp.html
+find -type f -exec chmod 0644 {} \;
 sed -i 's|\r||g' manual.cpp.html
 
 
@@ -63,19 +61,15 @@ sed -i 's|\r||g' manual.cpp.html
 
 %install
 %cmake_install
-ln -s libalglib-%{version}.so %{buildroot}%{_libdir}/libalglib.so
 
 
 %check
-pushd %{_vpath_builddir}
-LD_LIBRARY_PATH=$PWD ./test_c
-LD_LIBRARY_PATH=$PWD ./test_i
-popd
+%ctest
 
 
 %files
 %license gpl2.txt
-%{_libdir}/libalglib-4.04.0.so
+%{_libdir}/libalglib.so.4.04.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -87,6 +81,10 @@ popd
 
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 4.04.0-3
+- Allow to build with CMake 4.0
+- Use more modern CMake patterns
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.04.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

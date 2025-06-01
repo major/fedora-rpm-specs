@@ -1,20 +1,11 @@
 Name:           python-scipy-doctest
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Configurable, whitespace-insensitive, floating-point-aware doctest helpers
 
 License:        BSD-3-Clause
 URL:            https://github.com/scipy/scipy_doctest
 Source:         %{pypi_source scipy_doctest}
-
-# Undo the pin of scipy <= 1.4.1 after scipy 1.5.2 is out.
-# (This should have been 1.14.1 and 1.15.2, respectively.)
-# https://github.com/scipy/scipy_doctest/issues/184
-#
-# MAINT : stop upper capping scipy
-# https://github.com/scipy/scipy_doctest/pull/187
-# Rebased on v1.7.1.
-Patch:          scipy-doctest-1.7.1-scipy-1.15.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -x test

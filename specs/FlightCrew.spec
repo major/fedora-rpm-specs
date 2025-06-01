@@ -1,6 +1,6 @@
 Name:           FlightCrew
 Version:        0.9.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        EPUB validator
 License:        LGPL-3.0-or-later
 URL:            https://sigil-ebook.com/
@@ -72,6 +72,7 @@ chmod a-x src/utf8-cpp/utf8/*.h
 sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' src/FlightCrew-plugin/plugin.py
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DBUILD_SHARED_LIBS:BOOL=OFF -DSKIP_FC_GUI=1 -DNO_TEST_EXE=1
 %{cmake_build}
 
@@ -104,6 +105,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri May 16 2025 Cristian Le <git@lecris.dev> - 0.9.1-42
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

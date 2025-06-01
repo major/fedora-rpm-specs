@@ -1,5 +1,5 @@
 Name:    kinfocenter
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -108,6 +108,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

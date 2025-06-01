@@ -220,6 +220,9 @@ export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
 %else
         --jvm=no \
 %endif
+%ifarch %{power64} s390x
+        --no-c-musttail \
+%endif
         --bee=full \
         --customgc=%{?with_customgc:yes}%{!?with_customgc:no} \
         --customlibbacktrace=%{?with_customlbt:yes}%{!?with_customlbt:no} \

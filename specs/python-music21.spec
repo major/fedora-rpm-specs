@@ -1,5 +1,5 @@
 Name:           python-music21
-Version:        9.5.0
+Version:        9.7.0
 Release:        %autorelease
 Summary:        Toolkit for computational musicology
 
@@ -78,7 +78,7 @@ Obsoletes:      %{name}-doc < 6.7
 sed -i 's/numpy<2\.0\.0/numpy/' PKG-INFO pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

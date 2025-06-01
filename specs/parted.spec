@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.6
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -18,6 +18,10 @@ Patch0005: 0005-libparted-Fix-sun-disklabel-unhandled-exception.patch
 Patch0006: 0006-tests-Add-test-for-SUN-disklabel-handling.patch
 Patch0007: 0007-libparted-Fix-dvh-disklabel-unhandled-exception.patch
 Patch0008: 0008-tests-Add-test-for-dvh-with-a-bad-checksum.patch
+Patch0009: 0009-tests-probing-ext4-without-journal-should-still-indi.patch
+Patch0010: 0010-libparted-Do-not-detect-ext4-without-journal-as-ext2.patch
+Patch0011: 0011-nilfs2-Fixed-possible-sigsegv-in-case-of-corrupted-s.patch
+Patch0012: 0012-doc-Fix-some-groff-mandoc-linting-complaints.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -122,6 +126,12 @@ make check
 
 
 %changelog
+* Fri May 30 2025 Brian C. Lane <bcl@redhat.com> - 3.6-12
+- doc: Fix some groff/mandoc linting complaints (bcl)
+- nilfs2: Fixed possible sigsegv in case of corrupted superblock (abutenko)
+- libparted: Do not detect ext4 without journal as ext2 (pascal)
+- tests: probing ext4 without journal should still indicate ext4 (bcl)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

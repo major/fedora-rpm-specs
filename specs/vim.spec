@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1291
+%define patchlevel 1418
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -844,7 +844,6 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %endif
 
 %lang(af) %{_datadir}/%{name}/%{vimdir}/lang/af
-%lang(am) %{_datadir}/%{name}/%{vimdir}/lang/am
 %lang(ca) %{_datadir}/%{name}/%{vimdir}/lang/ca
 %lang(cs) %{_datadir}/%{name}/%{vimdir}/lang/cs
 %lang(cs.cp1250) %{_datadir}/%{name}/%{vimdir}/lang/cs.cp1250
@@ -857,6 +856,7 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %lang(fr) %{_datadir}/%{name}/%{vimdir}/lang/fr
 %lang(ga) %{_datadir}/%{name}/%{vimdir}/lang/ga
 %lang(hu) %{_datadir}/%{name}/%{vimdir}/lang/hu
+%lang(hy) %{_datadir}/%{name}/%{vimdir}/lang/hy
 %lang(it) %{_datadir}/%{name}/%{vimdir}/lang/it
 %lang(ja) %{_datadir}/%{name}/%{vimdir}/lang/ja
 %lang(ja.euc-jp) %{_datadir}/%{name}/%{vimdir}/lang/ja.euc-jp
@@ -1058,6 +1058,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 %changelog
+* Fri May 30 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1418-1
+- patchlevel 1418
+
 * Fri Apr 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1291-1
 - patchlevel 1291
 

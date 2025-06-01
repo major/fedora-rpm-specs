@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.3.5
 
 Name:           pmbootstrap
-Version:        3.2.0
+Version:        3.4.2
 Release:        %autorelease
 Summary:        A sophisticated chroot/build/flash tool to develop and install postmarketOS
 
@@ -55,7 +55,7 @@ rm -rf %{name}.egg-info
 %pyproject_save_files -l pmb
 
 %check
-pytest_args="not pkgrepo_pmaports"
+pytest_args="not pkgrepo_pmaports and not random_valid_deviceinfos"
 # the valid_chroots test fails on non x86_64
 # https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/issues/2500
 if [[ ! $(uname -m) = "x86_64" ]]; then pytest_args+=" and not valid_chroots"; fi

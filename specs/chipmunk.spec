@@ -1,7 +1,6 @@
-%global __cmake_in_source_build 1
 Name:           chipmunk
 Version:        7.0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Physics engine for 2D games
 
 License:        MIT
@@ -19,7 +18,6 @@ BuildRequires: libXext-devel
 BuildRequires: libXi-devel
 BuildRequires: libXmu-devel
 BuildRequires: libXrandr-devel
-BuildRequires: make
 
 %description
 Chipmunk is a 2D rigid body physics library distributed under the MIT license.
@@ -46,19 +44,21 @@ chipmunk library functions.  You'll also need to install the chipmunk package.
 %patch -P0 -p0
 
 %build
-%{cmake}
-%{__make} VERBOSE=1 %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
+# TODO: Remove LIB_INSTALL_DIR after https://github.com/slembcke/Chipmunk2D/pull/256 is in
+%cmake \
+  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+  -DBUILD_SHARED:BOOL=ON \
+  -DBUILD_STATIC:BOOL=OFF \
+  -DINSTALL_STATIC:BOOL=OFF
+%cmake_build
 
 %install
-%make_install
-
-%ldconfig_scriptlets
+%cmake_install
 
 %files
 %license LICENSE.txt
 %doc README.textile
 %{_libdir}/*.so.*
-%exclude %{_libdir}/*.a
 
 %files devel
 %doc doc/ demo/
@@ -67,6 +67,10 @@ chipmunk library functions.  You'll also need to install the chipmunk package.
 
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 7.0.3-17
+- Allow to build with ninja
+- Use standard CMake macros
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

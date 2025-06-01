@@ -1,6 +1,3 @@
-# Always build out-of-source
-%define __cmake_in_source_build 1
-
 # default dependencies
 %global hawkey_version 0.74.0
 %global libcomps_version 0.1.8
@@ -66,7 +63,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.23.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -205,21 +202,13 @@ Additional dependencies needed to perform transactions on booted bootc (bootable
 %prep
 %autosetup -p1
 
-mkdir build-py3
-
 %build
-
-pushd build-py3
-%cmake .. -DPYTHON_DESIRED:FILEPATH=%{__python3} -DDNF_VERSION=%{version}
-%make_build
-make doc-man
-popd
+%cmake -DPYTHON_DESIRED:FILEPATH=%{__python3} -DDNF_VERSION=%{version}
+%cmake_build
+%cmake_build -t doc-man
 
 %install
-
-pushd build-py3
-%make_install
-popd
+%cmake_install
 
 %find_lang %{name}
 mkdir -p %{buildroot}%{confdir}/vars
@@ -293,10 +282,7 @@ rm %{buildroot}%{_unitdir}/%{name}-makecache.timer
 %endif
 
 %check
-
-pushd build-py3
-ctest -VV
-popd
+%ctest -VV
 
 
 %if %{without dnf5_obsoletes_dnf}
@@ -435,6 +421,10 @@ popd
 # bootc subpackage does not include any files
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 4.23.0-2
+- Allow to build with ninja
+- Remove python2 build remenants
+
 * Fri Mar 07 2025 Evan Goode <egoode@redhat.com> - 4.23.0-1
 - Update to 4.23.0
 

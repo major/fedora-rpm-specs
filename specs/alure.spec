@@ -1,9 +1,6 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 Name:           alure
 Version:        1.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Audio Library Tools REloaded
 # ALURE code is LGPLv2+; note -devel subpackage has its own license tag
 License:        LGPL-2.1-or-later
@@ -41,7 +38,12 @@ developing applications that use %{name}.
 %patch -P3 -p1 -b .sndfile-cflags-fix
 
 %build
-%cmake -DBUILD_STATIC:BOOL=OFF
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake \
+  %if "%{?_lib}" == "lib64"
+    %{?_cmake_lib_suffix64} \
+  %endif
+  -DBUILD_STATIC:BOOL=OFF
 %cmake_build
 
 %install
@@ -65,6 +67,9 @@ rm -rf %{buildroot}%{_docdir}/alure/html
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 1.2-34
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

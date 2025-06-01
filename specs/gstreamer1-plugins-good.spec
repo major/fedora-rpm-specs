@@ -34,8 +34,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.26.1
-Release:        2%{?dist}
+Version:        1.26.2
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -373,6 +373,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Fri May 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.2-1
+- 1.26.2
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.26.1-2
 - Rebuilt for flac 1.5.0
 

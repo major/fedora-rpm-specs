@@ -4,7 +4,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -690,6 +690,9 @@ fi
 
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

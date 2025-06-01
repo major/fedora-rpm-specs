@@ -14,9 +14,11 @@ URL:            https://crates.io/crates/clap
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * exclude files that are only useful for upstream development
+# * drop atty dependency and replace with std::io::IsTerminal
 # * bump strsim dependency from 0.8 to 0.11
 # * bump version-sync dev-dependency from 0.8 to 0.9
 Patch:          clap-fix-metadata.diff
+Patch:          0001-Replace-atty-with-std-io-IsTerminal.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.10.1
+Version: 0.10.2
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -87,7 +87,7 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 
 %files
 %doc README.md
-%license LICENSE
+%license licenses/BSD-3-clause.txt
 %config(noreplace) %{_sysconfdir}/default/grout
 %config(noreplace) %{_sysconfdir}/grout.init
 %attr(644, root, root) %{_unitdir}/grout.service
@@ -100,7 +100,7 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 
 %files devel
 %doc README.md
-%license LICENSE
+%license licenses/BSD-3-clause.txt
 %{_includedir}/gr_*.h
 
 %changelog

@@ -6,7 +6,7 @@
 %endif
 
 Name:    plasma-%{base_name}
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
@@ -172,6 +172,9 @@ popd
 
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

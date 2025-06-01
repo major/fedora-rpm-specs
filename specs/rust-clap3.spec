@@ -14,9 +14,11 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/clap
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * drop atty dependency and replace with std::io::IsTerminal
 # * skip building unused test binaries
 # * update strsim to 0.11
 Patch:          clap-fix-metadata.diff
+Patch:          0001-Replace-atty-with-std-io-IsTerminal.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

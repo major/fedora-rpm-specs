@@ -1,5 +1,5 @@
 Name:           python-pytest-datadir
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Pytest plugin for test data directories and files
 License:        MIT
@@ -8,8 +8,10 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/pytest-datadir-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -t
+BuildOption(install):                -l pytest_datadir
 
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist docutils}
 
 %global _desc %{expand:
@@ -23,21 +25,14 @@ Summary:        %{summary}
 
 %description -n python3-pytest-datadir %_desc
 
-%prep
-%autosetup -n pytest-datadir-%{version}
-
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -t
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
+
+%build -a
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
-
-%install
-%pyproject_install
-%pyproject_save_files -l pytest_datadir
 
 %check
 %tox

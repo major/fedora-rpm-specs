@@ -22,8 +22,8 @@
 ##
 #
 Name:           soci
-Version:        4.1.0.rc4
-%global ups_ver 4.1.0-rc4
+Version:        4.1.2
+%global ups_ver 4.1.2
 Release:        %autorelease
 Summary:        The database access library for C++ programmers
 License:        BSL-1.0

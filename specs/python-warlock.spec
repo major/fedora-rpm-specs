@@ -1,8 +1,8 @@
 %global github_name warlock
 
 Name:           python-warlock
-Version:        2.0.1
-Release:        9%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Python object model built on top of JSON schema
 
 License:        Apache-2.0
@@ -49,6 +49,9 @@ cat pyproject.toml | grep -e json
 %license LICENSE
 
 %changelog
+* Fri May 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.0-1
+- 2.1.0
+
 * Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.1-9
 - Fix FTBFS
 

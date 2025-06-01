@@ -1,6 +1,6 @@
 
 Name:           sameboy
-Version:        1.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
@@ -10,12 +10,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/LIJI32/SameBoy/pull/681
 # 1.0 made some changes that install the mimetype to the wrong location
 Patch0:         0001-correct-mimetype-location-to-follow-the-shared-mime-.patch
-# https://github.com/LIJI32/SameBoy/pull/682
-# 1.0 made some changes that strips the build unconditionally
-Patch1:         0001-strip-thumbnailer-on-release-builds-don-t-strip-on-i.patch
-# https://github.com/LIJI32/SameBoy/pull/683
-# Needed to fix builds for GCC 15
-Patch2:         0001-add-missing-include-for-toupper-and-isxdigit.patch
 
 Requires:       hicolor-icon-theme
 BuildRequires:  gcc
@@ -89,6 +83,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/thumbnailers/sameboy.thumbnailer
 
 %changelog
+* Fri May 30 2025 Jan200101 <sentrycraft123@gmail.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Thu Jan 23 2025 Jan200101 <sentrycraft123@gmail.com> - 1.0-1
 - Update to 1.0
 

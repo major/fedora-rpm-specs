@@ -1,18 +1,21 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 
 License:        MIT
-BuildArch:      noarch
 URL:            https://pytest-regressions.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/pytest-regressions-%{version}.tar.gz
 
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -t -x num,image,dataframe
+BuildOption(install):                -l pytest_regressions
+
 BuildRequires:  make
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
 
@@ -22,12 +25,14 @@ and numeric tables by saving *expected* data in a *data directory*
 (courtesy of pytest-datadir) that can be used to verify that future runs
 produce the same data.}
 
-%description %_desc
+%description
+%_desc
 
 %package     -n python3-pytest-regressions
 Summary:        %{summary}
 
-%description -n python3-pytest-regressions %_desc
+%description -n python3-pytest-regressions
+%_desc
 
 %package        doc
 # The content is MIT.  Sphinx copies files into the output with these licenses:
@@ -56,31 +61,24 @@ Documentation for %{name}.
 
 %pyproject_extras_subpkg -n python3-pytest-regressions num,image,dataframe
 
-%prep
-%autosetup -n pytest-regressions-%{version}
-
+%conf
 # Do not attempt to use git to determine the version
 sed -e 's/\(version = \).*/\1"%{version}"/' \
     -e 's/\(release = \).*/\1"%{version}"/' \
     -i doc/conf.py
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -t -x num,image,dataframe
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
+%build -a
 # Build documentation
 PYTHONPATH=$PWD/build/lib make -C doc html
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 rst2html --no-datestamp README.rst README.html
 rm doc/_build/html/.buildinfo
-
-%install
-%pyproject_install
-%pyproject_save_files -l pytest_regressions
 
 %check
 # Adapt the expected ndarray type on s390x

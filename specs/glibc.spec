@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 14
+%global baserelease 15
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri May 30 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-15
+- malloc: Revert to the glibc-2.41.9000-6.fc43 version (#2368545)
+
 * Mon May 26 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-14
 - Remove glibc-configure-disable-libsupport.patch, solved with
   upstream commit be61b9493d38032519e596f282f9695667402c8d

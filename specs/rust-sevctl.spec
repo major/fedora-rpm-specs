@@ -3,9 +3,6 @@
 
 %global crate sevctl
 
-# compile and run tests only on supported architectures
-%global supported_arches x86_64
-
 Name:           rust-sevctl
 Version:        0.6.2
 Release:        %autorelease
@@ -18,6 +15,10 @@ Source:         %{crates_source}
 # * Drop vendored feature from openssl dependency
 # * Relax clap dependency
 Patch:          sevctl-fix-metadata.diff
+
+# SEV is an AMD x86_64 CPU feature so doesn't make sense to
+# try to build on other arches
+ExclusiveArch:  x86_64
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,9 +55,7 @@ License:        Apache-2.0 AND MIT
 %cargo_generate_buildrequires
 
 %build
-%ifarch %{supported_arches}
 %cargo_build
-%endif
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -64,10 +63,8 @@ License:        Apache-2.0 AND MIT
 %cargo_install
 
 %if %{with check}
-%ifarch %{supported_arches}
 %check
 %cargo_test
-%endif
 %endif
 
 %changelog

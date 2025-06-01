@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -264,6 +264,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Fri May 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.90-1
 - Update 6.3.90
 - Merge kwin-wayland subpackage into main package

@@ -1,54 +1,51 @@
-%?mingw_package_header
+%{?mingw_package_header}
 
 %global name1 sqlite
 
-%global realver 3440100
-%global rpmver 3.44.1
+%define realver %(echo %{version} | awk -F. '{printf "%d%02d%02d00", $1, $2, $3}')
 
 # bcond default logic is nicely backwards...
 %bcond_with tcl
 %global tclversion 8.6
 
 Name:           mingw-%{name1}
-Version:        3.47.2
-Release:        2%{?dist}
+Version:        3.49.2
+Release:        1%{?dist}
 Summary:        MinGW Windows port of sqlite embeddable SQL database engine
 
 License:        blessing
 URL:            http://www.sqlite.org/
-Source0:        http://www.sqlite.org/2023/%{name1}-src-%{realver}.zip
+Source0:        http://www.sqlite.org/2025/%{name1}-src-%{realver}.zip
 
 BuildArch:      noarch
 
-# Don't try to link against pthreads even if it is available
-Patch1001:      sqlite-dont-search-for-pthreads-on-non-unix.patch
-
-# Don't force build exe extension same as target exe extension
-Patch1002:      sqlite-mingw-crosscompile.patch
+# sqlite uses some home baked configure mechanism. Don't make unknown options fatal
+Patch0:         sqlite-unknown-option.patch
 
 BuildRequires:  make
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  gcc
+BuildRequires:  tcl
+
+BuildRequires:  mingw32-dlfcn
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-pdcurses
 BuildRequires:  mingw32-readline
 BuildRequires:  mingw32-termcap
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-dlfcn
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-pdcurses
 BuildRequires:  mingw64-readline
 BuildRequires:  mingw64-termcap
 
-# For the pthread patch
-BuildRequires:  autoconf automake libtool
-
-BuildRequires:  /usr/bin/tclsh
 
 %if %{with tcl}
-BuildRequires:  /usr/bin/tclsh
 BuildRequires:  mingw32-tcl
+BuildRequires:  mingw64-tcl
 %endif
 
 
@@ -130,12 +127,11 @@ are named to permit each to be installed on a single host
 This package contains static cross-compiled library
 
 
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
 %autosetup -p1 -n %{name1}-src-%{realver}
-autoreconf -i --force
 
 
 %build
@@ -144,16 +140,6 @@ export MINGW32_CFLAGS="%{mingw32_cflags} -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQL
 export MINGW64_CFLAGS="%{mingw64_cflags} -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_FTS3=3 -DSQLITE_ENABLE_RTREE=1 -fno-strict-aliasing"
 
 %mingw_configure %{!?with_tcl:--disable-tcl} --enable-all --enable-load-extension
-
-# -lc hack
-for i in build_win32 build_win64 ; do
-    pushd $i
-    sed -e s,build_libtool_need_lc=yes,build_libtool_need_lc=no, < libtool > libtool.x
-    mv libtool.x libtool
-    chmod a+x libtool
-    popd
-done
-
 %mingw_make_build
 
 
@@ -173,6 +159,10 @@ mv %{buildroot}%{_datadir}/tcl%{tclversion}/sqlite3/pkgIndex.tcl %{buildroot}%{m
 
 # Drop all .la files
 find %{buildroot} -name "*.la" -delete
+
+# Drop man pages
+rm -rf %{buildroot}%{mingw32_mandir}
+rm -rf %{buildroot}%{mingw64_mandir}
 
 
 # Win32
@@ -211,6 +201,15 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue May 13 2025 Sandro Mani <manisandro@gmail.com> - 3.49.2-1
+- Update to 3.49.2
+
+* Tue May 13 2025 Sandro Mani <manisandro@gmail.com> - 3.49.1-1
+- Update to 3.49.1
+
+* Sat Feb 08 2025 Sandro Mani <manisandro@gmail.com> - 3.49.0-1
+- Update to 3.49.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

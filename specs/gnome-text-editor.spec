@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	48.2
+Version:	48.3
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Fri May 30 2025 nmontero <nmontero@redhat.com> - 48.3-1
+- Update to 48.3
+
 * Mon Mar 31 2025 nmontero <nmontero@redhat.com> - 48.2-1
 - Update to 48.2
 

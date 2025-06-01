@@ -3,7 +3,7 @@
 Name: devhelp
 Epoch: 1
 Version: 43.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: API documentation browser
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,10 @@ into other applications such as IDEs.
 Summary: Library to embed Devhelp in other applications - Development files
 Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 
 %description devel
 Devhelp is an API documentation browser for the GNOME desktop.
@@ -103,6 +107,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Devhelp*
 %{_datadir}/gir-1.0/Devhelp-3.0.gir
 
 %changelog
+* Fri May 30 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:43.0-9
+- Ensure correct fonts are installed for HTML docs
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

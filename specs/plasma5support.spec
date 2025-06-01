@@ -1,7 +1,7 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
-Version: 6.3.90
-Release: 2%{?dist}
+Version: 6.3.91
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -102,6 +102,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 6.3.90-2
 - rebuild for new gpsd
 

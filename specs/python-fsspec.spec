@@ -26,10 +26,10 @@ BuildRequires:  python3dist(pytest-rerunfailures)
 BuildRequires:  python3dist(cloudpickle)
 %if %{without bootstrap}
 BuildRequires:  python3dist(zarr)
+BuildRequires:  python3dist(notebook)
 %endif
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(lz4)
-BuildRequires:  python3dist(notebook)
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(python-snappy)
 BuildRequires:  python3dist(zstandard)

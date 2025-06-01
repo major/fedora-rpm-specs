@@ -8,6 +8,12 @@ Summary:        An OpenAPI client for FASJSON
 License:        LGPL-3.0-or-later
 URL:            https://github.com/fedora-infra/fasjson-client
 Source:         %{pypi_source fasjson_client}
+# https://github.com/fedora-infra/fasjson-client/commit/9806fa5022502fae3f5e8d58599791b9f3d4e07e
+Patch:          0001-Update-dependency-bravado-to-v12-686.patch
+# https://github.com/fedora-infra/fasjson-client/pull/694
+Patch:          0002-Adjust-test_sign_bad_pkey-to-work-with-cryptography-45.patch
+# https://github.com/fedora-infra/fasjson-client/commit/0cd6106581d9cf85e790b3c9fa2842070c46113b
+Patch:          0003-Only-package-support-files-in-the-sdist.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

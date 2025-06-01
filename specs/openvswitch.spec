@@ -117,7 +117,6 @@ Requires: openssl iproute module-init-tools
 #Requires: kernel >= 3.15.0-0
 
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 Requires(post): /bin/sed
 Requires(post): %{_sbindir}/update-alternatives
@@ -427,7 +426,6 @@ done
 %endif
 
 %pre
-%sysusers_create_compat %{SOURCE1}
 [ -L %{_sbindir}/ovs-vswitchd ] || rm -f %{_sbindir}/ovs-vswitchd
 
 %post

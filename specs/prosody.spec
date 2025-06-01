@@ -5,13 +5,13 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           13.0.1
+Version:           13.0.2
 Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
 Source1:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz.asc
-Source2:           https://keys.openpgp.org/vks/v1/by-fingerprint/32A9EDDE3609931EB98CEAC315907E8E7BDD6BFE
+Source2:           https://keys.openpgp.org/vks/v1/by-fingerprint/3E52119EF853C59678DBBF6BADED9A77B67AD329
 Source3:           prosody.service
 Source4:           prosody.logrotate
 Source5:           prosody.tmpfilesd
@@ -203,6 +203,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Fri May 30 2025 Robert Scheck <robert@fedoraproject.org> 13.0.2-1
+- Upgrade to 13.0.2 (#2369268)
+
 * Sun Apr 06 2025 Robert Scheck <robert@fedoraproject.org> 13.0.1-1
 - Upgrade to 13.0.1 (#2352897 #c1)
 

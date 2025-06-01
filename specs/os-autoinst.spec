@@ -8,12 +8,6 @@
 %global no_fullstack 1
 %endif
 
-# This test fails intermittently on these arches, weird bug:
-# https://github.com/mudler/Mojo-IOLoop-ReadWriteProcess/issues/20
-%ifarch ppc64le s390x
-%global no_osutils 1
-%endif
-
 # os-autoinst has a bunch of annoyingly-badly-named private modules,
 # we do not want automatic provides or requires for these
 # ref https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering#Perl
@@ -30,9 +24,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  5
-%global github_commit   49afb509ef16be98aa94ecae795f89a604cc4064
+%global github_commit   a855b3a2ed70ef02ad6d125ee95be0fb1fe28c04
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250424
+%global github_date     20250522
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -156,10 +150,6 @@ This package contains Open vSwitch support for os-autoinst.
 rm -f t/99-full-stack.t
 %endif # no_fullstack
 
-%if 0%{?no_osutils}
-rm -f t/13-osutils.t
-%endif # no_osutils
-
 # exclude unnecessary author tests
 rm xt/00-tidy.t tools/tidyall
 # Remove test relying on a git working copy
@@ -196,6 +186,8 @@ export CI=1
 export OPENQA_TEST_TIMEOUT_SCALE_CI=20
 # We don't want fatal warnings during package building
 export PERL_TEST_WARNINGS_ONLY_REPORT_WARNINGS=1
+# the default is 4 seconds, ppc64le is often a bit slower
+export EXPECTED_ISOTOVIDEO_RUNTIME=8
 # Enable verbose test output as we can not store test artifacts within package
 # build environments in case of needing to investigate failures
 export PROVE_ARGS="--timer -v --nocolor"
@@ -267,6 +259,10 @@ fi
 %files devel
 
 %changelog
+* Thu May 22 2025 Adam Williamson <awilliam@redhat.com> - 5^20250522gita855b3a-1
+- Update to latest git
+- Drop a now-unneeded test workaround
+
 * Fri May 02 2025 Adam Williamson <awilliam@redhat.com> - 5^20250424git49afb50-1
 - Update to latest git
 - Drop merged patch

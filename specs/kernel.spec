@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc0.250529g90b83efa6701.6
+%define pkgrelease 0.rc0.250530gf66bc387efbe.7
 %define kversion 6
-%define tarfile_release 6.15-7774-g90b83efa6701
+%define tarfile_release 6.15-8486-gf66bc387efbe
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250529g90b83efa6701.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.250530gf66bc387efbe.7%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4272,10 +4272,16 @@ fi\
 #
 #
 %changelog
-* Thu May 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.90b83efa6701.6]
+* Fri May 30 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.16.0-0.rc0.250530gf66bc387efbe.7]
+- drivers/crypto: make PAES_S390 select CRYPTO_ENGINE (Jan Stancek)
+
+* Fri May 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.f66bc387efbe.7]
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - package the newly added cpupower.service (Thorsten Leemhuis)
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Fri May 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.f66bc387efbe.6]
+- Linux v6.16.0-0.rc0.f66bc387efbe
 
 * Thu May 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.90b83efa6701.5]
 - Fix up mismatches for RHEL s390 zfpcdump (Justin M. Forbes)

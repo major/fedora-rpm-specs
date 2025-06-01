@@ -1,5 +1,5 @@
 Name:           speed-dreams
-Version:        2.4.1
+Version:        2.4.2
 Release:        1%{?dist}
 Epoch:          1
 Summary:        3D Open Racing Simulation
@@ -15,16 +15,13 @@ URL:            https://www.speed-dreams.net
 # 
 # $ git clone --recursive https://forge.a-lec.org/speed-dreams/speed-dreams-code speed-dreams
 # $ cd speed-dreams
-# $ git checkout tags/v2.4.1
+# $ git checkout tags/v2.4.2
 # $ git submodule update --init --recursive
 # $ cd ..
-# $ mv speed-dreams speed-dreams-2.4.1
-# $ tar -cJf speed-dreams-2.4.1.tar.xz speed-dreams-2.4.1
+# $ mv speed-dreams speed-dreams-2.4.2
+# $ tar -cJf speed-dreams-2.4.2.tar.xz speed-dreams-2.4.2
 # ------------------------------------------------------------------------------
 Source0:        %{name}-%{version}.tar.xz
-# upstream patch to restore FindSOLID.cmake so that the FreeSOLID library can be found again.
-# https://forge.a-lec.org/speed-dreams/speed-dreams-code/pulls/173
-Patch0:         https://forge.a-lec.org/speed-dreams/speed-dreams-code/commit/9ae2b6cc83ce5cdaec58cb4d2aed2fb5ae60b7c8.patch
 
 ExcludeArch:    s390x
 
@@ -217,8 +214,13 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
-* Tue Jul 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.1-1
+* Fri May 30 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.2-1
+- Update to 2.4.2
+
+* Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.1-1
 - Update to 2.4.1
+- Add 9ae2b6cc83ce5cdaec58cb4d2aed2fb5ae60b7c8.patch to restore FindSOLID.cmake
+  so that the FreeSOLID library can be found again
 
 * Tue Jul 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.3.0-1
 - Update to 2.3.0

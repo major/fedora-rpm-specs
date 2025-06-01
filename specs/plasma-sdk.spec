@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -79,6 +79,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.themee
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.iconexplorer.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmaengineexplorer.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewer.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookandfeelexplorer.desktop
 
 %files -f plasmasdk6.lang
 %license LICENSES/*.txt
@@ -89,7 +90,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_bindir}/iconexplorer
 %{_bindir}/kqml
 %{_kf6_plugindir}/ktexteditor/iconexplorerplugin.so
-%{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.lookandfeelexplorer/
+%{_kf6_datadir}/applications/org.kde.plasma.lookandfeelexplorer.desktop
 %{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.themeexplorer
 %{_kf6_datadir}/plasma/shells/org.kde.plasma.plasmoidviewershell
 %{_kf6_datadir}/applications/org.kde.iconexplorer.desktop
@@ -102,7 +103,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_kf6_datadir}/zsh/site-functions/_kqml
 %{_kf6_metainfodir}/org.kde.plasma.themeexplorer.appdata.xml
 %{_kf6_metainfodir}/org.kde.plasma.iconexplorer.appdata.xml
-%{_kf6_metainfodir}/org.kde.plasma.lookandfeelexplorer.appdata.xml
 %{_kf6_metainfodir}/org.kde.plasma.plasmoidviewershell.appdata.xml
 %{_mandir}/man1/plasmaengineexplorer.1*
 %{_mandir}/man1/plasmoidviewer.1*
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
+- 6.3.91
+
 * Thu May 15 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.90-1
 - 6.3.90
 

@@ -203,8 +203,6 @@ Source72:         mariadb-server-galera.te
 # https://github.com/dciabrin/wsrep_sst_rsync_tunnel/blob/master/wsrep_sst_rsync_tunnel
 Source73:         wsrep_sst_rsync_tunnel
 
-#   Patch1: Disable creation of INFO_SRC and INFO_BIN files
-Patch1:           %{majorname}-info-files.patch
 #   Patch4: Use the correct log file pathname for Red Hat installations
 Patch4:           %{majorname}-logrotate.patch
 #   Patch7: add to the CMake file all files where we want macros to be expanded
@@ -838,12 +836,12 @@ rm -r storage/columnstore
 rm -r debian
 
 %if %{with bundled_fmt}
-mkdir -p redhat-linux-build/extra/libfmt/
-mv %{SOURCE1} redhat-linux-build/extra/libfmt/
+mkdir -p %{_vpath_builddir}/extra/libfmt/
+mv %{SOURCE1} %{_vpath_builddir}/extra/libfmt/
 %endif
 %if %{with bundled_pcre}
-mkdir -p redhat-linux-build/extra/pcre2/
-mv %{SOURCE4} redhat-linux-build/extra/pcre2/
+mkdir -p %{_vpath_builddir}/extra/pcre2/
+mv %{SOURCE4} %{_vpath_builddir}/extra/pcre2/
 %endif
 
 # Remove JAR files that upstream puts into tarball
@@ -855,7 +853,6 @@ rm -r storage/rocksdb/
 %endif
 
 
-%patch -P1 -p2
 %patch -P4 -p1
 %patch -P7 -p1
 %patch -P9 -p1
@@ -999,7 +996,6 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DCONC_WITH_SSL=%{?with_clibrary:ON}%{!?with_clibrary:NO} \
          -DWITH_SSL=system \
          -DWITH_ZLIB=system \
-         -DWITH_INFO_FILES=OFF \
          -DWITH_LIBFMT=%{?with_bundled_fmt:bundled}%{!?with_bundled_fmt:system} \
          -DPLUGIN_PROVIDER_LZ4=%{?with_lz4:DYNAMIC}%{!?with_lz4:NO} \
          -DWITH_ROCKSDB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \

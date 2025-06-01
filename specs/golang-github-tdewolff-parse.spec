@@ -4,7 +4,7 @@
 
 # https://github.com/tdewolff/parse
 %global goipath         github.com/tdewolff/parse
-Version:                2.7.19
+Version:                2.8.1
 
 %gometa
 
@@ -23,6 +23,7 @@ Summary:        Go parsers for web formats
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+Patch:          https://github.com/tdewolff/parse/commit/106dd22069714d551b474155d3e8bbf589914af3.patch
 
 %description %{common_description}
 

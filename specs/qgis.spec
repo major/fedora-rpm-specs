@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.42.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -204,7 +204,7 @@ desktop-file-edit \
 
 # Install MIME type definitions
 install -d %{buildroot}%{_datadir}/mime/packages
-install -pm0644 %{SOURCE5} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
+install -pm0644 rpm/sources/qgis-mime.xml %{buildroot}%{_datadir}/mime/packages/%{name}.xml
 
 install -pd %{buildroot}%{_datadir}/pixmaps
 install -pm0644 images/icons/%{name}-icon-512x512.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
@@ -303,6 +303,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri May 30 2025 Sandro Mani <manisandro@gmail.com> - 3.42.3-2
+- Fix incorrectly installed mime definitions
+
 * Fri May 16 2025 Sandro Mani <manisandro@gmail.com> - 3.42.3-1
 - Update to 3.42.3
 

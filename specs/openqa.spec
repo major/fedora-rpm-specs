@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   10b1e43840bddcc9839be91ebb46fb422effe601
+%global github_commit   6deeb26bf64c56797d2037f78869618db0d5405d
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250430
+%global github_date     20250522
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -33,6 +33,7 @@
 %global openqa_extra_services openqa-gru.service openqa-websockets.service openqa-scheduler.service openqa-enqueue-audit-event-cleanup.service openqa-enqueue-audit-event-cleanup.timer openqa-enqueue-asset-cleanup.service openqa-enqueue-git-auto-update.service openqa-enqueue-asset-cleanup.timer openqa-enqueue-result-cleanup.service openqa-enqueue-result-cleanup.timer openqa-enqueue-bug-cleanup.service openqa-enqueue-bug-cleanup.timer openqa-enqueue-git-auto-update.timer openqa-enqueue-needle-ref-cleanup.service openqa-enqueue-needle-ref-cleanup.timer
 %global openqa_services %{openqa_main_service} %{openqa_extra_services}
 %global openqa_worker_services openqa-worker.target openqa-slirpvde.service openqa-vde_switch.service openqa-worker-cacheservice.service openqa-worker-cacheservice-minion.service
+%global openqa_localdb_services openqa-setup-db.service openqa-dump-db.service openqa-dump-db.timer
 
 %if %{undefined tmpfiles_create}
 %global tmpfiles_create() \
@@ -106,7 +107,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -130,34 +131,17 @@ Source3:        FedoraMessaging.pm
 # tests for the fedora-messaging publishing plugin
 Source4:        23-fedora-messaging.t
 # sysusers config files. note these are shipped in the upstream tarball
-# but we cannot use the files from the tarball for %pre scriptlet
-# generation, so we duplicate them as source files for that purpose;
-# this is an ugly hack that should be removed if it becomes possible
+# but we need to change the groups so we have our own versions here
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
 
-# https://github.com/os-autoinst/openQA/pull/6335
-# Fix redirect_uri generation in the oauth2 plugin
-Patch:          0001-oauth2-use-openQA-base_url-to-create-redirect-URI-if.patch
-
-# https://github.com/os-autoinst/openQA/pull/6414
-# Various fixes for git operation configuration
-Patch:          0001-Avoid-git-clone-update-operations-unless-scm-is-set-.patch
-Patch:          0002-Respect-scm-config-setting-in-_get_needles_ref_and_u.patch
-Patch:          0003-Add-git_auto_commit-setting-to-control-commit-of-edi.patch
-Patch:          0004-enqueue_git_update_all-don-t-check-git_auto_clone.patch
-Patch:          0005-Disentangle-git_auto_clone-and-git_auto_update.patch
-
-# https://github.com/os-autoinst/openQA/pull/6446
-# various fixes for template dumping/loading
-Patch:          0001-load-templates-fix-loading-of-job-templates.patch
-Patch:          0002-load-templates-job-groups-simplify-don-t-error-on-gr.patch
-Patch:          0003-t-load-templates-check-harder-for-what-gets-loaded.patch
-Patch:          0004-dump-templates-dump-job-groups-as-they-exist-fix-gro.patch
-
-# https://github.com/os-autoinst/openQA/pull/6455
-# fix --clean with YAML templates
-Patch:          0001-load-templates-with-clean-empty-job-group-YAML-templ.patch
+# https://github.com/os-autoinst/openQA/pull/6472
+# Tweaks to the git behavior and config for it, includes disabling
+# auto-update by default (it causes havoc on our instances)
+Patch:          0001-Disentangle-git_auto_clone-and-git_auto_update.patch
+Patch:          0002-Tweak-git-config-access-in-_git_clone_all.patch
+Patch:          0003-Re-add-git_auto_commit-and-improved-docs-for-the-git.patch
+Patch:          0004-Disable-git_auto_update-by-default.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -196,14 +180,14 @@ Obsoletes:      openqa < 4.3-7
 # The NPM bundled dependency generator does not work as the modules
 # seem to be stripped down to the minimum openQA needs - package.json
 # is stripped out. So we have to list these manually
-Provides:       bundled(nodejs-ace-builds) = 1.40.1
+Provides:       bundled(nodejs-ace-builds) = 1.41.0
 Provides:       bundled(nodejs-anser) = 2.3.2
-Provides:       bundled(nodejs-bootstrap) = 5.3.5
+Provides:       bundled(nodejs-bootstrap) = 5.3.6
 Provides:       bundled(nodejs-chosen-js) = 1.8.7
 Provides:       bundled(nodejs-d3) = 7.9.0
 Provides:       bundled(nodejs-dagre-d3) = 0.6.4
 Provides:       bundled(nodejs-datatables.net) = 2.3.0
-Provides:       bundled(nodejs-datatables.net-bs5) = 2.3.0
+Provides:       bundled(nodejs-datatables.net-bs5) = 2.3.1
 Provides:       bundled(nodejs-fork-awesome) = 1.2.0
 Provides:       bundled(nodejs-jquery) = 3.7.1
 Provides:       bundled(nodejs-jquery-ujs) = 1.2.3
@@ -469,11 +453,6 @@ grep -rl %{_bindir}/env . | while read file; do
     sed -e 's,%{_bindir}/env perl,%{_bindir}/perl,' -i $file
 done
 
-mkdir %{buildroot}%{_localstatedir}/lib/openqa/pool/1
-mkdir %{buildroot}%{_localstatedir}/lib/openqa/cache
-mkdir %{buildroot}%{_localstatedir}/lib/openqa/webui
-mkdir %{buildroot}%{_localstatedir}/lib/openqa/webui/cache
-
 # We don't do AppArmor
 rm -rf %{buildroot}%{_sysconfdir}/apparmor.d
 # these scripts are very SUSE-specific
@@ -567,13 +546,13 @@ fi
 %systemd_postun_with_restart %{openqa_worker_services}
 
 %post local-db
-%systemd_post openqa-setup-db.service
+%systemd_post %{openqa_localdb_services}
 
 %preun local-db
-%systemd_preun openqa-setup-db.service
+%systemd_preun %{openqa_localdb_services}
 
 %postun local-db
-%systemd_postun_with_restart openqa-setup-db.service
+%systemd_postun_with_restart %{openqa_localdb_services}
 
 %files
 %doc README.asciidoc
@@ -789,6 +768,8 @@ fi
 
 %files local-db
 %{_unitdir}/openqa-setup-db.service
+%{_unitdir}/openqa-dump-db.service
+%{_unitdir}/openqa-dump-db.timer
 %{_unitdir}/openqa-gru.service.requires/postgresql.service
 %{_unitdir}/openqa-scheduler.service.requires/postgresql.service
 %{_unitdir}/openqa-websockets.service.requires/postgresql.service
@@ -796,6 +777,7 @@ fi
 %{_datadir}/openqa/script/dump-db
 %{_bindir}/openqa-setup-db
 %{_bindir}/openqa-dump-db
+%dir %attr(0755,postgres,root) %{_localstatedir}/lib/openqa/backup
 
 %files single-instance
 
@@ -822,6 +804,14 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu May 22 2025 Adam Williamson <awilliam@redhat.com> - 5^20250522git6deeb26-1
+- Update to latest upstream git
+- Drop merged patches
+- Backport new git config fixes (PR #6472)
+
+* Fri May 16 2025 Adam Williamson <awilliam@redhat.com> - 5^20250430git10b1e43-4
+- Update bundled dependency metadata
+
 * Wed May 14 2025 Adam Williamson <awilliam@redhat.com> - 5^20250430git10b1e43-3
 - Backport PR #6455 to fix --clean with YAML templates
 - Update #6446 patches

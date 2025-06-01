@@ -11,6 +11,9 @@ License:        Apache-2.0
 URL:            https://pypi.org/project/s3transfer/
 Source0:        %{pypi_source}
 
+# Submitted upstream: https://github.com/boto/s3transfer/pull/347
+Patch:          Avoid-the-multiprocessing-forkserver-method.patch
+
 BuildArch:      noarch
 
 %description %{_description}

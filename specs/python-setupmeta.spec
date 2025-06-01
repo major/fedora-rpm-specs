@@ -6,17 +6,13 @@ This package aims to simplify that and bring some DRY principle to python
 packaging.}
 
 Name:           python-setupmeta
-Version:        3.6.1
+Version:        3.8.0
 Release:        %{autorelease}
 Summary:        Simplify your setup.py
 
 License:        MIT
 URL:            https://pypi.org/pypi/setupmeta
 Source:         %{pypi_source setupmeta}
-
-# Allow for interpreters not named "python" in test_run_program
-# https://github.com/codrsquad/setupmeta/pull/88
-Patch:          https://github.com/codrsquad/setupmeta/pull/88.patch
 
 BuildArch:      noarch
 

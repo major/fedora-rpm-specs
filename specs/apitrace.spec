@@ -7,7 +7,7 @@
 
 Name:           apitrace
 Version:        12.0
-Release:        3%{?commit:.git%{shortcommit}}%{?dist}
+Release:        4%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -40,10 +40,11 @@ BuildRequires:  gtest-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libdwarf-devel
 BuildRequires:  libpng-devel
-BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  snappy-devel
+# For libbacktrace tests
+BuildRequires:  python3
 
 Requires:       %{name}-libs%{_isa} = %{version}-%{release}
 # scripts/snapdiff.py
@@ -96,6 +97,9 @@ mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
 
 
 %build
+# TODO: Remove this in next version
+# https://github.com/apitrace/apitrace/commit/fd643354337000c4d1b4497e1ac2fec381202d40
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DENABLE_STATIC_SNAPPY=OFF
 %cmake_build
 
@@ -118,14 +122,7 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 
 
 %check
-# If run through ctest, libbacktrace_btest will fail with
-#     ERROR: descriptor 3 still open after tests complete
-# This is due to https://gitlab.kitware.com/cmake/cmake/-/issues/18863
-# So, run the test outside of ctest
-pushd %{_vpath_builddir}
-ctest --output-on-failure -E libbacktrace_btest
-./btest
-popd
+%ctest
 
 
 %files
@@ -146,6 +143,10 @@ popd
 
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 12.0-4
+- Allow to build with CMake 4.0
+- Remove the ctest workaround
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

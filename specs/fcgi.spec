@@ -1,6 +1,6 @@
 Name:           fcgi
 Version:        2.4.0
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        FastCGI development kit
 
 License:        OML
@@ -12,6 +12,8 @@ Patch2:         fcgi-2.4.0-gcc44_fixes.patch
 # CVE-2012-6687
 Patch3:         fcgi-2.4.0-poll.patch
 Patch4:         fcgi-configure-exit.patch
+# CVE-2025-23016
+Patch5:         fcgi-integer-overflow.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -79,6 +81,9 @@ rm -f -- doc/*.3
 %doc doc/
 
 %changelog
+* Fri May 30 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.4.0-52
+- Fix CVE-2025-23016
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
