@@ -1,12 +1,13 @@
 Name:    kwrited
 Summary: KDE Write Daemon
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -44,6 +45,9 @@ Conflicts:      kde-workspace < 5.0.0-1
 %{_kf6_datadir}/knotifications6/kwrited.notifyrc
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

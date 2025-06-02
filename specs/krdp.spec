@@ -4,11 +4,12 @@
 Name:           krdp
 Summary:        Desktop sharing using RDP
 Version:        6.3.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
 Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source1:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
 
 
 BuildRequires:  cmake
@@ -105,6 +106,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

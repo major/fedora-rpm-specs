@@ -8,8 +8,7 @@ Release:       9%{?dist}
 Summary:       MinGW Windows spell checker and morphological analyzer library
 
 URL:           http://hunspell.github.io/
-# Automatically converted from old format: LGPLv2+ or GPLv2+ or MPLv1.1 - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+ OR GPL-2.0-or-later OR LicenseRef-Callaway-MPLv1.1
+License:       LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
 Source0:       https://github.com/hunspell/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildArch:     noarch

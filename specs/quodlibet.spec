@@ -1,6 +1,6 @@
 Name:		quodlibet
-Version:	4.6.0
-Release:	8%{?dist}
+Version:	4.7.1
+Release:	1%{?dist}
 Summary:	A music management program
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,22 +10,6 @@ Source0:	https://github.com/quodlibet/quodlibet/releases/download/release-%{vers
 Source1:	https://github.com/quodlibet/quodlibet/releases/download/release-%{version}/quodlibet-%{version}.tar.gz.sig
 Source2:	https://keys.openpgp.org/vks/v1/by-fingerprint/E0AA0F031DBD80FFBA57B06D5A62D0CAB6264964
 Source3:	README.fedora
-
-# https://github.com/quodlibet/quodlibet/pull/4361
-Patch0:		0001-make-flake8-happy.patch
-
-# https://github.com/quodlibet/quodlibet/pull/4358
-Patch1:		0001-Fix-startup-on-Python-3.12.patch
-Patch2:		0002-Fix-SoundCloud-browser-tests.patch
-
-# https://github.com/quodlibet/quodlibet/pull/4363
-Patch3:		0001-Add-missing-network-mark-to-test_click_add_station.patch
-
-# https://github.com/quodlibet/quodlibet/pull/4563
-Patch4:		0001-Squeezebox-plugins-Migrate-to-raw-socket-connection.patch
-
-# https://github.com/quodlibet/quodlibet/pull/4566
-Patch5:		0001-tests-Filter-out-unsupported-file-formats-properly.patch
 
 BuildArch:	noarch
 
@@ -127,7 +111,7 @@ desktop-file-install \
 
 
 %check
-%pytest -m "not network and not quality"
+%pytest -m "not network"
 
 
 %files
@@ -137,8 +121,8 @@ desktop-file-install \
 %{_datadir}/bash-completion/completions/quodlibet
 %{_datadir}/gnome-shell/search-providers/io.github.quodlibet.QuodLibet-search-provider.ini
 %{_datadir}/icons/hicolor/*x*/apps/io.github.quodlibet.QuodLibet.png
-%{_datadir}/appdata/io.github.quodlibet.QuodLibet.appdata.xml
 %{_datadir}/dbus-1/services/net.sacredchao.QuodLibet.service
+%{_datadir}/metainfo/io.github.quodlibet.QuodLibet.appdata.xml
 %{_mandir}/man1/quodlibet.1*
 
 
@@ -153,7 +137,7 @@ desktop-file-install \
 %{_mandir}/man1/operon.1*
 %{_datadir}/icons/hicolor/*x*/apps/io.github.quodlibet.ExFalso.png
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
-%{_datadir}/appdata/io.github.quodlibet.ExFalso.appdata.xml
+%{_datadir}/metainfo/io.github.quodlibet.ExFalso.appdata.xml
 
 %{python3_sitelib}/quodlibet-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/quodlibet
@@ -164,6 +148,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat May 31 2025 LuK1337 <priv.luk@gmail.com> - 4.7.1-1
+- Update to 4.7.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

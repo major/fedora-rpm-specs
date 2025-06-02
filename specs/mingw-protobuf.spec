@@ -8,8 +8,7 @@ Release:       9%{?dist}
 Summary:       MinGW Windows protobuf library
 
 BuildArch:     noarch
-# Automatically converted from old format: BSD - review is highly recommended.
-License:       LicenseRef-Callaway-BSD
+License:       BSD-3-Clause
 URL:           https://github.com/protocolbuffers/protobuf
 Source0:       https://github.com/protocolbuffers/protobuf/archive/v%{version}/%{pkgname}-%{version}-all.tar.gz
 

@@ -16,12 +16,11 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.16
+Version:        5.15.17
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtSvg component
 
-# Automatically converted from old format: GPLv3 with exceptions or LGPLv2 with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv3-with-exceptions OR LGPL-2.0-or-later WITH FLTK-exception
+License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            http://qt.io/
 
 %if 0%{?commit:1}
@@ -131,6 +130,9 @@ mkdir .git
 
 
 %changelog
+* Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-1
+- Update to 5.15.17
+
 * Tue Jan 21 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
 - Update to 5.15.16
 

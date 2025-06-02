@@ -5,8 +5,7 @@ Version:        2.24.33
 Release:        15%{?dist}
 Summary:        MinGW Windows Gtk2 library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gtk.org
 Source0:        http://download.gnome.org/sources/gtk+/2.24/gtk+-%{version}.tar.xz
 BuildArch:      noarch

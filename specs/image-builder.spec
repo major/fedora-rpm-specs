@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        19
+Version:        20
 
 %gometa
 
@@ -49,18 +49,18 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.12.9
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.7
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = 3.0.3
 Provides: bundled(golang(github.com/containerd/errdefs)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/errdefs/pkg)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = 0.16.3
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = 2.2.3
-Provides: bundled(golang(github.com/containers/common)) = 0.62.0
-Provides: bundled(golang(github.com/containers/image/v5)) = 5.34.0
+Provides: bundled(golang(github.com/containers/common)) = 0.62.3
+Provides: bundled(golang(github.com/containers/image/v5)) = 5.34.3
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
-Provides: bundled(golang(github.com/containers/storage)) = 1.57.1
+Provides: bundled(golang(github.com/containers/storage)) = 1.57.2
 Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
 Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = ba74d44
 Provides: bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.3.6
@@ -120,11 +120,11 @@ Provides: bundled(golang(github.com/modern-go/concurrent)) = bacd9c7
 Provides: bundled(golang(github.com/modern-go/reflect2)) = 1.0.2
 Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
-Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0
+Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.5.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.135.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.149.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -233,6 +233,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri May 30 2025 Packit <hello@packit.dev> - 20-1
+Changes with 20
+----------------
+  * deps: update (#219)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2025-05-30
+
+
 * Wed May 14 2025 Packit <hello@packit.dev> - 19-1
 Changes with 19
 ----------------

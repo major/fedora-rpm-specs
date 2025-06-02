@@ -3,12 +3,13 @@
 Name:    plasma-print-manager
 Summary: Printer management for KDE
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
 
 ## upstream patches
 
@@ -113,6 +114,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

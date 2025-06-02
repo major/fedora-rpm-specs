@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.10.4
+Version:        2.10.5
 %forgemeta
 Release:        %autorelease
 Summary:        Extra types for Pydantic

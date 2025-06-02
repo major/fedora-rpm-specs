@@ -60,6 +60,9 @@ Source2:        webkitgtk-keys.gpg
 # https://bugs.webkit.org/show_bug.cgi?id=293816
 Patch:          gtk3-build.patch
 
+# https://bugs.webkit.org/show_bug.cgi?id=293853
+Patch:          build.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang

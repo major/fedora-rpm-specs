@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -13,7 +13,8 @@ URL:     https://userbase.kde.org/KWin
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
 
@@ -225,6 +226,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jun 01 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.91-1
+- 6.3.91 (6.4 Beta 2)
+- Add signature file
+- Use https:// URLs
+
 * Sun May 18 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.90-1
 - 6.3.90 (6.4 Beta 1)
 - kwin-x11 is now its own tarball, adapt packaging accordingly

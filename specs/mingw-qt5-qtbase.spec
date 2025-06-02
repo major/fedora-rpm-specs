@@ -24,7 +24,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.16
+Version:        5.15.17
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
@@ -100,10 +100,13 @@ Patch18:        qt5-qtbase-link-openssl.patch
 # Fix missing qtsan_impl include
 Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 
+# Fix linking against static harfbuzz
+Patch20:        qtbase-fix-linking-against-static-harfbuzz.patch
+
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
 # git diff v5.15.15-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Source100: kde-5.15-rollup-20250109.patch.gz
+Source100: kde-5.15-rollup-20250526.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -815,6 +818,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-1
+- Update to 5.15.17
+
 * Mon Jan 20 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
 - Update to 5.15.6
 

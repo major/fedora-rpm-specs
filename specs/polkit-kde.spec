@@ -3,12 +3,13 @@
 Name:    polkit-kde
 Summary: PolicyKit integration for KDE Desktop
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later AND CC0-1.0
 URL:     https://invent.kde.org/plasma/%{base_name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
 
 
 ## upstreamable patches
@@ -71,6 +72,9 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

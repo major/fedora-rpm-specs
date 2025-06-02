@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.101.0
+Version: 1.101.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -95,7 +95,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.6.0
 
 %global rolename2 selinux
-%deftag 2 1.8.2
+%deftag 2 1.8.3
 
 %global rolename3 timesync
 %deftag 3 1.10.1
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Sat May  31 2025 Packit <hello@packit.dev> - 1.101.1-1
+- Update to upstream version 1.101.1
+
 * Wed May  21 2025 Packit <hello@packit.dev> - 1.101.0-1
 - Update to upstream version 1.101.0
 

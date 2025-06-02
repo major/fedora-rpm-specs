@@ -14,8 +14,7 @@ Version:        1.3.0
 Release:        51%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/libkml/libkml
 Source0:        https://github.com/libkml/libkml/archive/%{version}/libkml-%{version}.tar.gz
 # TODO: Port to minizip-2.x, meanwhile bundle version 1.3.0

@@ -70,7 +70,6 @@ developing and administrating applications that use %{name}.
 
 %package        servers
 Summary:        OmniORB naming service
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -79,7 +78,6 @@ The %{name}-servers package contains omniNames naming server.
 
 %package        utils
 Summary:        Development files for %{name}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 

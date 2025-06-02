@@ -24,6 +24,12 @@
 %ifarch s390x
 %undefine with_ghc_prof
 %endif
+%if %{defined el10}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2369537 (ppc64le)
+%ifarch s390x ppc64le
+%undefine with_ghc_prof
+%endif
+%endif
 
 %global ghc_major 9.12
 %global ghc_patchlevel 2

@@ -19,7 +19,6 @@ ExcludeArch:    i686
 # See https://doc.qt.io/qbs/attributions.html
 # -docs and -examples have a separate license tag
 #               (    Qbs library and tools   )     (                  Shared functionality                  )     (               tests                )
-# Automatically converted from old format: LGPL-3.0-only AND GPL-2.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1 AND LGPL-3.0-only AND GPL-3.0-only WITH QT-GPL-exception-1.0 - review is highly recommended.
 License:        LGPL-3.0-only AND GPL-2.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1 AND LGPL-3.0-only AND GPL-3.0-only WITH QT-GPL-exception-1.0
 URL:            https://wiki.qt.io/qbs
 %if 0%{?commit:1}

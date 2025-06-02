@@ -24,7 +24,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.16
+Version:        5.15.17
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtDeclarative component
 
@@ -42,7 +42,7 @@ Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_relea
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.16-lts-lgpl
+## git format-patch v5.15.17-lts-lgpl
 Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
 Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
 Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
@@ -63,8 +63,7 @@ Patch17: 0017-Prevent-crash-when-destroying-asynchronous-Loader.patch
 Patch18: 0018-QQuickItem-Fix-effective-visibility-for-items-withou.patch
 Patch19: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
 Patch20: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
-Patch21: 0021-masm-Don-t-crash-on-failed-MADV_DONTNEED-on-Linux.patch
-Patch22: 0022-QtQml-Clean-up-QQmlData-ctor.patch
+Patch21: 0021-QtQml-Clean-up-QQmlData-ctor.patch
 
 ## upstreamable patches
 Patch100: qt5-qtdeclarative-gcc11.patch
@@ -782,6 +781,9 @@ rm -f %{buildroot}%{_prefix}/%{mingw64_target}/lib/pkgconfig/Qt5QmlDevTools.pc
 
 
 %changelog
+* Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-1
+- Update to 5.15.17
+
 * Tue Jan 21 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
 - Update to 5.15.16
 

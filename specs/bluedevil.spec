@@ -1,13 +1,13 @@
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
 
-#Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-Source0: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
 
 
 BuildRequires:  extra-cmake-modules
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

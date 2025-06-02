@@ -2,7 +2,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -15,6 +15,7 @@ URL:     https://www.kde.org/applications/graphics/spectacle/
 %global stable stable
 %endif
 Source0: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
 
@@ -126,6 +127,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.91-1
 - 6.3.91
 

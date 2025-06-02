@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.0.10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Iconv implementation using Win32 API
 
 BuildArch:     noarch
@@ -64,7 +64,7 @@ sed -i 's|\r||' readme.txt ChangeLog
 
 
 %build
-%mingw_cmake
+%mingw_cmake -DDISABLE_LOCALE_CHARSET=ON
 %mingw_make_build
 
 
@@ -99,6 +99,9 @@ rm -f %{buildroot}%{mingw64_includedir}/localcharset.h
 
 
 %changelog
+* Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 0.0.10-2
+- Pass DISABLE_LOCALE_CHARSET=ON
+
 * Sat May 03 2025 Sandro Mani <manisandro@gmail.com> - 0.0.10-1
 - Update to 0.0.10
 

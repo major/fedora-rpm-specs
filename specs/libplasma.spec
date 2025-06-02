@@ -1,6 +1,6 @@
 Name:    libplasma
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -8,6 +8,7 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 URL:     https://invent.kde.org/plasma/plasma-framework
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
 
 
 BuildRequires:  extra-cmake-modules
@@ -130,6 +131,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

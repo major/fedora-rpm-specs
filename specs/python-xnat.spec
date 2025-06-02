@@ -1,9 +1,11 @@
 # Tests requiring network are skipped (mostly dependent on docker)
-# So, let's run all tests by default.
+# Tests requiring connection to https://xnat.bmia.nl can be run locally
+# by passing `--enable-network` to fedpkg or mock. They will be skipped
+# when connection to server is unavailable.
 %bcond tests 1
 
 Name:           python-xnat
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
 
@@ -26,9 +28,10 @@ BuildRequires:  python3-devel
 BuildRequires:  git-core
 BuildRequires:  help2man
 %if %{with tests}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-mock
-BuildRequires:  python3-requests-mock
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
+BuildRequires:  python3dist(requests-mock)
+BuildRequires:  python3dist(xnat4tests)
 %endif
 
 %global desc %{expand: \
@@ -91,10 +94,7 @@ done
 
 %check
 %if %{with tests}
-# Docker tests are skipped automatically if docker is not available.
-# To make it explicit of what is being skipped, I added it anyway.
-# Funtional tests require xnat4tests.
-%pytest -v -m 'not docker_test and not functional_test'
+%pytest -r fEs --run-functional
 %else
 %pyproject_check_import
 %endif

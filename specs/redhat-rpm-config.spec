@@ -42,7 +42,6 @@ Source102: macros.mono-srpm
 Source103: macros.nodejs-srpm
 Source104: macros.ldc-srpm
 Source105: macros.valgrind-srpm
-Source106: macros.java-srpm
 Source107: macros.gap-srpm
 Source108: macros.dotnet-srpm
 Source109: macros.hare-srpm
@@ -95,6 +94,7 @@ Requires: fonts-srpm-macros
 # ↓ Provides macros.forge and forge.lua originally shipped by us
 Requires: forge-srpm-macros
 Requires: go-srpm-macros
+Requires: java-srpm-macros
 # ↓ Provides kmod.attr originally shipped by us
 Requires: kernel-srpm-macros >= 1.0-12
 Requires: lua-srpm-macros

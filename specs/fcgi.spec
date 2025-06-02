@@ -1,25 +1,25 @@
 Name:           fcgi
-Version:        2.4.0
-Release:        52%{?dist}
+Version:        2.4.6
+Release:        1%{?dist}
 Summary:        FastCGI development kit
 
 License:        OML
-URL:            http://www.fastcgi.com/#TheDevKit
-Source0:        http://fastcgi.com/dist/fcgi-%{version}.tar.gz
+URL:            https://github.com/FastCGI-Archives/%{name}2
+Source0:        %{url}/archive/%{version}/%{name}2-%{version}.tar.gz
 
-Patch1:         fcgi-2.4.0-autotools.patch
-Patch2:         fcgi-2.4.0-gcc44_fixes.patch
-# CVE-2012-6687
-Patch3:         fcgi-2.4.0-poll.patch
-Patch4:         fcgi-configure-exit.patch
-# CVE-2025-23016
-Patch5:         fcgi-integer-overflow.patch
-
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  libtool
+BuildRequires:  make
 BuildRequires:  sed
-BuildRequires:  coreutils
-BuildRequires: make
+
+# The new author calls the project fcgi2, even though the changes to the original code are merely maintenance and bug fixes
+# To avoid confusion, add a Provides here so it can be installed by the new name, fcgi2, as well as the old
+Provides:       %{name}2 = %{version}-%{release}
 
 %description
 FastCGI is a language independent, scalable, open extension to CGI that
@@ -34,53 +34,61 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p 1
+%autosetup -p 1 -n %{name}2-%{version}
+
+# Delete files and folders we don't need
+rm -rf Win32
+find \( -name .git -or -name .gitignore \) -delete
 
 # remove DOS End Of Line Encoding
 sed -i 's/\r//' doc/fastcgi-prog-guide/ch2c.htm
 
-# fix file permissions
-chmod a-x include/fcgios.h libfcgi/os_unix.c LICENSE.TERMS doc/fastcgi-prog-guide/*
+# There are several files in the tarball that shouldn't have the executable bit set
+find . -type f ! \( -name 'configure' -or -name '*.sh' -or -name 'distrib' \) -executable -print -exec chmod -x '{}' \;
 
 %build
-%configure
-# fix bz1987468
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+autoreconf --force --install
 
-%make_build -j1
+%configure --disable-static
+
+%make_build
 
 %install
 %make_install
 
-rm %{buildroot}%{_libdir}/libfcgi{++,}.{l,}a
+# make sure all static libraries are deleted
+find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
-install -p -m 0644 -D doc/cgi-fcgi.1 %{buildroot}%{_mandir}/man1/cgi-fcgi.1
+# Now that the manpages have been installed into their proper place, remove them from the docs subfolder
+rm -f doc/*.{1,3}
+#rm -f -- doc/*.1
+#rm -f -- doc/*.3
 
-for manpage in doc/*.3
-do
-install -p -m 0644 -D $manpage %{buildroot}%{_mandir}/man3/$(basename $manpage)
-done
-
-rm -f -- doc/*.1
-rm -f -- doc/*.3
+%check
+# nothing to do, no tests are available
 
 %files
+%license LICENSE
+%doc README.md README.supervise
 %{_bindir}/cgi-fcgi
 %{_libdir}/libfcgi.so.*
 %{_libdir}/libfcgi++.so.*
-%{_mandir}/man1/*
-%license LICENSE.TERMS
-%doc LICENSE.TERMS
+%{_mandir}/man1/cgi-fcgi.1*
 
 %files devel
+%doc doc/
 %{_includedir}/*
+%{_libdir}/pkgconfig/fcgi.pc
+%{_libdir}/pkgconfig/fcgi++.pc
 %{_libdir}/libfcgi.so
 %{_libdir}/libfcgi++.so
-%{_mandir}/man3/*
-%doc doc/
+%{_mandir}/man3/FCGI*.3*
 
 %changelog
+* Sat May 31 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.4.6-1
+- 2.4.6 release
+- Upstream project moved to github with new author
+
 * Fri May 30 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.4.0-52
 - Fix CVE-2025-23016
 

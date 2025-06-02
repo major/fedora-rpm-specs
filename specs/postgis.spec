@@ -25,7 +25,6 @@ Name:          %{pkgname}
 Version:       3.5.3
 Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
-# Automatically converted from old format: GPL-2.0-or-later - review is highly recommended.
 License:       GPL-2.0-or-later
 
 URL:           https://www.postgis.net

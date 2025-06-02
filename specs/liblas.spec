@@ -6,8 +6,7 @@ Version:        1.8.2
 Release:        0.22%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
-# Automatically converted from old format: BSD and Boost - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND BSL-1.0
+License:        BSD-3-Clause AND BSL-1.0
 URL:            https://www.liblas.org
 %if 0%{?commit:1}
 Source0:        https://github.com/libLAS/libLAS/archive/%{commit}/libLAS-%{shortcommit}.tar.gz

@@ -5,8 +5,8 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.19.0
-Release:        2%{?dist}
+Version:        2.21.0
+Release:        1%{?dist}
 Summary:        Asynchronous SSH for Python
 
 # Automatically converted from old format: EPL-2.0 or GPLv2+ - review is highly recommended.
@@ -48,6 +48,11 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+# XXX remove again when python3-cryptography dependency spec
+#     of python3-fido2 is fixed in rawhide
+#     cf. https://bugzilla.redhat.com/show_bug.cgi?id=2368966
+sed -i '/fido2/d' pyproject.toml tox.ini
+
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -71,6 +76,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sat May 31 2025 Georg Sauthoff <mail@gms.tf> - 2.21.0-1
+- Update to latest upstream version (fixes fedora#2346174, fixes fedora#2325445)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

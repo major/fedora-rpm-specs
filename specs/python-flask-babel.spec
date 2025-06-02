@@ -10,8 +10,7 @@ Name:           python-%{pkg_name}
 Version:        4.0.0
 Release:        7%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
 Source0:        https://github.com/python-babel/flask-babel/archive/v%{version}/%{pkg_name}-%{version}.tar.gz
 BuildArch:      noarch

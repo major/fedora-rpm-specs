@@ -68,6 +68,9 @@ Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 # https://github.com/matplotlib/matplotlib/pull/29393
 Patch0004:      python3.14.patch
 
+# https://github.com/matplotlib/matplotlib/pull/30096
+Patch0005:      https://github.com/matplotlib/matplotlib/pull/30101.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en

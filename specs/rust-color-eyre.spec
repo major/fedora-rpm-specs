@@ -5,7 +5,7 @@
 %global crate color-eyre
 
 Name:           rust-color-eyre
-Version:        0.6.3
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Error report handler for panics and eyre::Reports
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 Patch:          color-eyre-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * bump ansi-parser dev-dependency from 0.8 to 0.9
-# * drop obsolete backtrace/gimli-symbolize dependency
 Patch:          color-eyre-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -8,12 +8,13 @@
 
 Name:    plasma-breeze
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{base_name}.git
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
 
 # Misc
 BuildRequires:  extra-cmake-modules
@@ -167,6 +168,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

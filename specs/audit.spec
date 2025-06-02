@@ -2,11 +2,12 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
+Patch1: audit-4.0.5-delete.patch
 BuildRequires: make gcc
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 5.0
@@ -98,6 +99,7 @@ The audit rules package contains the rules and utilities to load audit rules.
 %prep
 %setup -q -n %{name}-userspace-%{version}
 cp %{SOURCE1} .
+%patch -P1 -p1
 
 %build
 autoreconf -fv --install
@@ -297,6 +299,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Sat May 31 2025 Steve Grubb <sgrubb@redhat.com> 4.0.4-2
+- Fix missing delete commang in auditctl
+
 * Wed May 28 2025 Steve Grubb <sgrubb@redhat.com> 4.0.4-1
 - New upstream release
 

@@ -3,8 +3,7 @@ Version:        4.04.0
 Release:        3%{?dist}
 Summary:        A numerical analysis and data processing library
 
-# Lib is GPLv2+, manual is BSD
-License:        GPL-2.0-or-later AND BSD
+License:        GPL-2.0-or-later
 URL:            http://www.alglib.net/
 Source0:        http://www.alglib.net/translator/re/%{name}-%{version}.cpp.gpl.tgz
 Source1:        CMakeLists.txt
@@ -37,7 +36,7 @@ developing applications that use %{name}.
 %package        doc
 Summary:        API documentation for %{name}
 # Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD
 BuildArch:      noarch
 
 %description    doc

@@ -13,8 +13,8 @@ Source:         %pypi_source %{srcname}
 # https://github.com/zarr-developers/zarr-python/issues/1819
 # fix tests with recent fsspec
 Patch:          0001-Adapt-storage-tests-for-changes-in-fsspec-1819-1679.patch
-# Allow the numcodecs version that we patched to fix a bug.
-Patch:          0002-Allow-numcodecs-0.14.patch
+# Allow the latest numcodecs version.
+Patch:          0002-Fix-compatibility-with-latest-numcodecs.patch
 
 BuildArch:      noarch
 

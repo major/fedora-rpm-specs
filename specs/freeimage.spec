@@ -12,8 +12,7 @@ Summary:        Multi-format image decoder library
 # freeimage is tripple-licensed, see
 # http://freeimage.sourceforge.net/license.html
 # https://lists.fedoraproject.org/pipermail/legal/2013-October/002271.html
-# Automatically converted from old format: GPLv2 or GPLv3 or MPLv1.0 - review is highly recommended.
-License:        GPL-2.0-only OR GPL-3.0-only OR LicenseRef-Callaway-MPLv1.0
+License:        GPL-2.0-only OR GPL-3.0-only OR MPL-1.0
 URL:            http://freeimage.sourceforge.net/
 %if 0%{?svn_rev:1}
 # Visit https://sourceforge.net/p/freeimage/svn/%{svn_rev}/tarball?path=/FreeImage/trunk

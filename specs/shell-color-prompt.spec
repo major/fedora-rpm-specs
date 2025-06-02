@@ -1,14 +1,18 @@
 Name:           shell-color-prompt
-Version:        0.5
-Release:        3%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
 License:        GPL-2.0-or-later
 URL:            https://src.fedoraproject.org/rpms/shell-color-prompt
-Source0:        bash-color-prompt.sh
+Source0:        bash-color-prompt.sh.in
 Source1:        README.md
 Source2:        COPYING
+Source3:        Makefile
+Source4:        gen.m4
 BuildArch:      noarch
+BuildRequires:  m4
+BuildRequires:  make
 
 %description
 Default colored bash prompt.
@@ -22,11 +26,13 @@ Default colored bash prompt.
 
 %prep
 %setup -c -T
-cp %{SOURCE0} %{SOURCE1} %{SOURCE2} .
+cp %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 
 %build
-%{nil}
+make
+sed -i -e "s/@BASHCOLORVERSION@/%{version}/" bash-color-prompt.sh
+
 
 %install
 %global profiledir %{_sysconfdir}/profile.d
@@ -41,6 +47,22 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 
 
 %changelog
+* Sat May 31 2025 Jens Petersen <petersen@redhat.com> - 0.6.1-1
+- more consistent separators no longer use PROMPT_HIGHLIGHT
+  (prevents separator being bold by default on GNOME)
+- only ANSI reset again after $ prompt if PROMPT_END
+- improve the optional git handling
+
+* Fri May 30 2025 Jens Petersen <petersen@redhat.com> - 0.6-1
+- add prompt_default_setup() and prompt_default_setup_checked()
+- new: prompt_separator(), prompt_separator_color(), prompt_host_os(),
+  prompt_no_userhost(), prompt_container_host(), prompt_git_color()
+- new envvars: PROMPT_CONTAINER, PROMPT_GIT_BRANCH, PROMPT_GIT_COLOR
+- coloring is now inherited from the left:
+  PROMPT_HIGHLIGHT -> PROMPT_COLOR -> (PROMPT_SEPARATOR_COLOR) ->
+  PROMPT_DIR_COLOR -> (PROMPT_SEPARATOR_COLOR) -> PROMPT_GIT_COLOR
+- PS1 is now generated with m4 expansion
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.16
+Version:        5.15.17
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtScript component
 
@@ -137,6 +137,9 @@ mkdir .git
 
 
 %changelog
+* Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-1
+- Update to 5.15.17
+
 * Tue Jan 21 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
 - Update to 5.15.16
 

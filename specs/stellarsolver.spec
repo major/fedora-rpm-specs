@@ -1,8 +1,8 @@
 %global major_soversion 2
-%global minor_soversion 6
+%global minor_soversion 7
 
 Name:           stellarsolver
-Version:        2.6
+Version:        2.7
 Release:        %autorelease
 Summary:        The Cross Platform Sextractor and Internal Astrometric Solver
 License:        BSD-3-Clause and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later and LGPL-3.0-or-later and MIT
@@ -37,6 +37,8 @@ License:        BSD-3-Clause and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-
 URL:            https://github.com/rlancaste/%{name}/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Fix build with QT 6.9.0
+Patch:          e8d809b183d1f752cd683e1dcad02678cac552f0.patch
 
 # Buildtime tools
 BuildRequires:  cmake
@@ -81,7 +83,7 @@ developing applications that use %{name}.
 
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 
 %build
@@ -113,12 +115,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/com.github.rlancaste.
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/*.so.%{major_soversion}
-%{_libdir}/*.so.%{major_soversion}.%{minor_soversion}
+%{_libdir}/libstellarsolver6.so.%{major_soversion}
+%{_libdir}/libstellarsolver6.so.%{major_soversion}.%{minor_soversion}
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/libstellarsolver
+%{_libdir}/libstellarsolver6.so
 %{_libdir}/cmake/StellarSolver/
 %{_libdir}/pkgconfig/stellarsolver.pc
 

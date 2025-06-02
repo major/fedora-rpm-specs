@@ -3,12 +3,13 @@
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
 
 BuildRequires: desktop-file-utils
 
@@ -90,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/systemsettings.deskto
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

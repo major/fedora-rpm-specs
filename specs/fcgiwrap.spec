@@ -22,6 +22,10 @@ Patch1:         %{name}-1.1.0-declare_cgi_error_noreturn.patch
 # https://github.com/gnosek/fcgiwrap/pull/44
 Patch2:         %{name}-1.1.0-fix_kill_param_sequence.patch
 
+# Per i686 leaf package policy 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  autoconf

@@ -9,8 +9,7 @@ Name:		iaxclient
 Version:	%{mainver}
 Release:	0.52.%{betaver}%{?dist}
 Summary:	Library for creating telephony solutions that interoperate with Asterisk
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		http://iaxclient.wiki.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/iaxclient/%{name}-%{version}%{betaver}.tar.gz
 Source1:	tkiaxphone.desktop
@@ -104,8 +103,7 @@ developing applications that use %{name}.
 %package -n tcl-iaxclient
 Summary:	Tcl interface to iax2 client lib
 Version:	%{tclver}
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause-No-Nuclear-License
 Requires:	tcl(abi) = 8.6
 Requires:	%{name} = %{mainver}-%{release}
 
@@ -115,8 +113,7 @@ Tcl extensions to iaxclient libraries.
 %package -n tkiaxphone
 Summary:	Tk IAX Phone Client
 Version:	%{mainver}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+License:	LGPL-2.0-or-later
 Requires:	tcl(abi) = 8.6
 Requires:	%{name} = %{mainver}-%{release}
 
@@ -126,8 +123,7 @@ Tk IAX Phone Client.
 %package -n wxiax
 Summary:	wx IAX Phone Client
 Version:	%{mainver}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+
+License:	LGPL-2.0-or-later
 Requires:	%{name} = %{mainver}-%{release}
 
 %description -n wxiax

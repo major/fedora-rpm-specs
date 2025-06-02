@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.3.90
+Version: 6.3.91
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -14,6 +14,7 @@ URL:     https://invent.kde.org/plasma/plasma-workspace
 %global stable stable
 %endif
 Source0: https://download.kde.org/%{stable}/plasma/%{plasma_version}/plasma-workspace-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable}/plasma/%{plasma_version}/plasma-workspace-%{version}.tar.xz.sig
 
 ## upstreamable Patches
 
@@ -217,6 +218,10 @@ sed -i \
 
 
 %changelog
+* Sun Jun 01 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.91-1
+- 6.3.91 (6.4 Beta 2)
+- Add signature file
+
 * Sun May 18 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.90-1
 - 6.3.90 (6.4 Beta 1)
 - Relax versioned dependency on plasma-workspace to >=

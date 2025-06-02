@@ -3,14 +3,14 @@
 %global pkgname fcgi
 
 Name:           mingw-%{pkgname}
-Version:        2.4.2
-Release:        16%{?dist}
+Version:        2.4.6
+Release:        1%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
 License:        OML
 URL:            https://fastcgi-archives.github.io/
-Source0:        https://github.com/FastCGI-Archives/fcgi2/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/FastCGI-Archives/fcgi2/archive/%{version}/%{pkgname}-%{version}.tar.gz
 # Fix multiple initializations from incompatible pointer types
 Patch0:         fcgi-incompat-pointer-types.patch
 
@@ -65,9 +65,13 @@ autoreconf -ifv
 # Delete *.la files
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
+# Drop manpages
+rm -rf %{buildroot}%{mingw32_mandir}
+rm -rf %{buildroot}%{mingw64_mandir}
+
 
 %files -n mingw32-%{pkgname}
-%license LICENSE.TERMS
+%license LICENSE
 %{mingw32_bindir}/cgi-fcgi.exe
 %{mingw32_bindir}/libfcgi-0.dll
 %{mingw32_bindir}/libfcgi++-0.dll
@@ -78,7 +82,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{mingw32_includedir}/*
 
 %files -n mingw64-%{pkgname}
-%license LICENSE.TERMS
+%license LICENSE
 %{mingw64_bindir}/cgi-fcgi.exe
 %{mingw64_bindir}/libfcgi-0.dll
 %{mingw64_bindir}/libfcgi++-0.dll
@@ -90,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 2.4.6-1
+- Update to 2.4.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global appname io.elementary.notifications
 
 Name:           elementary-notifications
-Version:        8.0.0
+Version:        8.1.0
 Release:        %autorelease
 Summary:        GTK Notifications Server
 License:        GPL-3.0-or-later

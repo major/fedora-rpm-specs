@@ -1,6 +1,6 @@
 Name: libfc14audiodecoder
-Version: 1.0.4
-Release: 2%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 
 Summary: C wrapper library for Future Composer audio decoding
 License: GPL-2.0-or-later
@@ -43,7 +43,7 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 %files
 %license COPYING
-%doc README
+%doc README.md images
 %{_libdir}/%{name}.so.*
 
 %files devel
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Sun Jun 01 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.5-1
+- update to 1.0.5
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

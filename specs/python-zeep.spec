@@ -5,13 +5,17 @@ provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
 Version:        4.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A fast and modern Python SOAP client
 
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 URL:            https://github.com/mvantellingen/python-zeep
 Source0:        %pypi_source
+# XXX remove again when https://github.com/mvantellingen/python-zeep/issues/1446
+#     is fixed
+# imported from https://github.com/mvantellingen/python-zeep/pull/1447
+Patch0:         pr1447-httpx-proxies.patch
 
 BuildArch:      noarch
 # Since python-aiohttp excludes s390x we have to exclude it, as well
@@ -71,6 +75,9 @@ PYTHONPATH=src %{__python3} -m pytest tests -v -k 'not (SHA1 or test_sign_pw or 
 
 
 %changelog
+* Sat May 31 2025 Georg Sauthoff <mail@gms.tf> - 4.3.1-3
+- Fix compatibility with newer httpx versions (fixes fedora#2368530)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

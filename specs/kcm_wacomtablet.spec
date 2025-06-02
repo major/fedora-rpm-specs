@@ -1,12 +1,13 @@
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/system/wacomtablet
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/wacomtablet-%{version}.tar.xz
+Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/wacomtablet-%{version}.tar.xz.sig
 
 ## upstream patches
 
@@ -85,6 +86,9 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 

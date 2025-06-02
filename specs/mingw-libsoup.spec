@@ -8,8 +8,7 @@ Version:	2.74.3
 Release:	12%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2
+License:	LGPL-2.0-only
 URL:		https://wiki.gnome.org/Projects/libsoup
 Source0:	https://download.gnome.org/sources/libsoup/%{release_version}/libsoup-%{version}.tar.xz
 # Fix initialization from incompatible pointer type

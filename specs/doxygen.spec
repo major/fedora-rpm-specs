@@ -1,21 +1,23 @@
 %if 0%{?fedora}
 %global xapian_core_support ON
 %global build_wizard ON
+%global system_spdlog ON
+%global system_fmt ON
 %else
 %global xapian_core_support OFF
 %global build_wizard OFF
+%global system_spdlog OFF
+%global system_fmt OFF
 %endif
 %global build_search %{xapian_core_support}
 %global clang_support ON
 %global system_sqlite3 ON
-%global system_spdlog ON
-%global system_fmt ON
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.14.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -341,6 +343,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Wed May 28 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.14.0-2
+- Use bundled spdlog on RHEL, redux
+
 * Sun May 25 2025 Than Ngo <than@redhat.com> - 2:1.14.0-1
 - Fix rhbz#2368381, update to 1.14.0
 

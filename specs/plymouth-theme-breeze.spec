@@ -2,7 +2,7 @@
 
 Name:    plymouth-theme-breeze
 Version: 6.3.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Breeze theme for Plymouth
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -10,6 +10,7 @@ License: GPL-3.0-only
 URL:     https://invent.kde.org/plasma/%{base_name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz.sig
 
 Source10: plymouth-theme-breeze.conf
 
@@ -51,6 +52,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
+- Add signature file
+
 * Fri May 30 2025 Steve Cossette <farchord@gmail.com> - 6.3.91-1
 - 6.3.91
 
