@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.11.0~rc2
+Version:        2.11.0~rc3
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 

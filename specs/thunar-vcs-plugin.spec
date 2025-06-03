@@ -1,19 +1,19 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=529465
 
-%global minor_version 0.2
-%global thunar_version 1.8.0
+%global minor_version 0.4
+%global thunar_version 4.20.0
 
 Name:           thunar-vcs-plugin
-Version:        0.2.0
+Version:        0.4.0
 Release:        35%{?dist}
 Summary:        Version Contol System plugin for the Thunar filemanager
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/thunar-plugins/%{name}
-Source0:        http://archive.xfce.org/src/thunar-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/thunar-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  Thunar-devel >= %{thunar_version}
 BuildRequires:  subversion-devel >= 1.5
@@ -21,7 +21,8 @@ BuildRequires:  apr-devel >= 0.9.7
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  uuid-devel
 BuildRequires:  libuuid-devel
-BuildRequires:  gettext, intltool
+BuildRequires:  meson
+BuildRequires:  libxfce4ui-devel
 
 Requires:       Thunar >= %{thunar_version}
 Requires:       subversion
@@ -46,19 +47,11 @@ This project was formerly known as Thunar SVN Plugin.
 %setup -q
 
 %build
-%configure --disable-static --enable-subversion --enable-git
-# remove rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
+%meson
+%meson_build
 
 %install
-
-%make_install
-
-# remove libtool archive
-rm $RPM_BUILD_ROOT%{_libdir}/thunarx-*/%{name}.la
+%meson_install
 
 %find_lang %{name}
 
@@ -67,7 +60,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/thunarx-*/%{name}.la
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS NEWS
 %{_libdir}/thunarx-*/%{name}.so
 %{_libexecdir}/tvp-svn-helper
 %{_libexecdir}/tvp-git-helper

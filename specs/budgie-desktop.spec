@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -63,7 +63,6 @@ Requires:       gnome-keyring-pam
 Requires:       hicolor-icon-theme
 Requires:       network-manager-applet
 Requires:       xdotool
-Requires:       materia-gtk-theme
 Requires:       papirus-icon-theme
 Requires:       switcheroo-control
 Requires:       zenity
@@ -185,6 +184,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Jun 01 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.2-7
+- Removed Materia as a dependency of Budgie Desktop
+- Fixes #2359050
+
 * Fri Mar 14 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 10.9.2-6
 - Added patches from upstream to fix a couple issues
 

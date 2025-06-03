@@ -1,8 +1,8 @@
-%global git_commit 8a93dd27de503b0a3ace36d961a10c9ea4adee8b
+%global git_commit c216787f5e355478733a05fa5f0fce93fa9a7126
 
 Summary:	Pythonic Smart Contract Language for the EVM
 Name:		vyper
-Version:	0.4.1
+Version:	0.4.2
 Release:	%autorelease
 BuildArch:	noarch
 License:	Apache-2.0
@@ -12,13 +12,6 @@ Patch:		vyper-0001-Use-Cryptodomex.patch
 Patch:		vyper-0002-Ease-version-requirements.patch
 Patch:		vyper-0003-Remove-unnecessary-shebang.patch
 Patch:		vyper-0004-Relax-lark-dependency.patch
-# Backport of https://github.com/vyperlang/vyper/pull/4592
-Patch:		vyper-0005-Relax-asttokens-dependency.patch
-# https://github.com/vyperlang/vyper/pull/4644
-Patch:		vyper-0006-fix-codegen-fix-removal-of-side-effects-in-concat.patch
-Patch:		vyper-0007-add-concat-side-effect-elimination-test.patch
-# https://github.com/vyperlang/vyper/pull/4645
-Patch:		vyper-0008-fix-codegen-disallow-slice-with-length-0-for-ad-hoc-.patch
 BuildRequires:	git
 BuildRequires:	python3-cached_property
 BuildRequires:	python3-eth-abi

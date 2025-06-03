@@ -1,11 +1,11 @@
 # Review: https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=173658
 
 %global _hardened_build 1
-%global minorversion 1.2
+%global minorversion 1.3
 %global xfceversion 4.18
 
 Name:           xfce4-cpugraph-plugin
-Version:        1.2.11
+Version:        1.3.0
 Release:        %autorelease
 Summary:        CPU monitor for the Xfce panel
 
@@ -13,13 +13,13 @@ Summary:        CPU monitor for the Xfce panel
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-cpugraph-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel
 BuildRequires:  xfce4-panel-devel
-BuildRequires:  gettext
+BuildRequires:  meson
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description
@@ -33,27 +33,24 @@ colors and the size of the plugin are customizable.
 
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
-# remove la file
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+%meson_install
 
 # make sure debuginfo is generated properly
 chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 %find_lang %{name}
 
-
 %check
-make check
+%meson_test
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS
+%doc AUTHORS NEWS
 %license COPYING
 %{_libdir}/xfce4/panel/plugins/*.so
 %{_datadir}/xfce4/panel/plugins/*.desktop

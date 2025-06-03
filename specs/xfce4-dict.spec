@@ -4,7 +4,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-dict
-Version:        0.8.8
+Version:        0.8.9
 Release:        %autorelease
 Summary:        A Dictionary Client for the Xfce desktop environment
 Summary(de):    Ein Wörterbuch-Client für die Xfce Desktop-Umgebung
@@ -12,16 +12,15 @@ Summary(de):    Ein Wörterbuch-Client für die Xfce Desktop-Umgebung
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/applications/%{name}
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/apps/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 #VCS:           git:git://git.xfce.org/apps/xfce4-dict
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
 Requires:       enchant, xdg-utils
 
 
@@ -49,11 +48,11 @@ for the Xfce panel.
 
 
 %build
-%configure --disable-static
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 # remove la file
 find %{buildroot} -name '*.la' -exec rm -f {} ';'

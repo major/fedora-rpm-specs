@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,6 +72,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -355,9 +356,10 @@ fi
 
 %build
 #autoreconf -f -i -v
-#make -C ui/gtk3 maintainer-clean-generic
-#make -C tools maintainer-clean-generic
+#make -C bindings/vala maintainer-clean-generic
 #make -C src/compose maintainer-clean-generic
+#make -C tools maintainer-clean-generic
+#make -C ui/gtk3 maintainer-clean-generic
 %configure \
     --disable-static \
 %if %{with gtk2}
@@ -384,6 +386,8 @@ fi
     --enable-install-tests \
     %{nil}
 # for 1385349-segv-bus-proxy.patch
+make -C bindings/vala maintainer-clean-generic
+make -C tools maintainer-clean-generic
 make -C ui/gtk3 maintainer-clean-generic
 
 %make_build
@@ -637,6 +641,14 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sun Jun 01 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-2
+- Fix Exit and Restart menu items in Wayland input-method V2
+- Update Plasma setup message
+- Implement IBusMessage
+- Improve BEPO compose sequence visuals
+- Do not load en-US compose table by default
+- Fix some memory leaks
+
 * Tue Apr 08 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-1
 - Bump to 1.5.32
 

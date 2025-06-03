@@ -7,13 +7,16 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python interface to DBus notifications
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://bitbucket.org/takluyver/pynotify2
 Source0:        https://files.pythonhosted.org/packages/source/n/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+
+# Submitted: https://bitbucket.org/takluyver/pynotify2/pull-requests/1
+Patch0001:      0001-doc-Fix-intersphinx-mapping-for-Sphinx-8.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -47,7 +50,7 @@ Summary:        notify2 documentation
 Documentation for notify2
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %build
 %py3_build
@@ -70,6 +73,10 @@ rm -rf html/.{doctrees,buildinfo}
 %license docs/license.rst LICENSE
 
 %changelog
+* Sun Jun 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.1-25
+- Adapt for Sphinx 8 to fix FTBFS (#2329864)
+- Use correct SPDX identifier for license
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

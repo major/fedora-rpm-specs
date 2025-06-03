@@ -1,11 +1,11 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=173105
 %global _hardened_build 1
 
-%global minorversion 1.1
-%global xfceversion 4.16
+%global minorversion 1.2
+%global xfceversion 4.20
 
 Name:           xfce4-battery-plugin
-Version:        1.1.6
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Battery monitor for the Xfce panel
 
@@ -13,14 +13,13 @@ Summary:        Battery monitor for the Xfce panel
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-battery-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description
@@ -31,12 +30,12 @@ A battery monitor plugin for the Xfce panel, compatible with APM and ACPI.
 %autosetup
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 # remove la file
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
@@ -49,7 +48,7 @@ chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS COPYING.LIB ChangeLog README.md
+%doc AUTHORS COPYING.LIB README.md
 %{_libdir}/xfce4/panel/plugins/*.so
 %{_datadir}/xfce4/panel/plugins/*.desktop
 %{_datadir}/icons/hicolor/*/*/*

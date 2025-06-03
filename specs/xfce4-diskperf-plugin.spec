@@ -1,11 +1,11 @@
 # Review: https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=173660
 
 %global _hardened_build 1
-%global minorversion 2.7
+%global minorversion 2.8
 %global xfceversion 4.16
 
 Name:           xfce4-diskperf-plugin
-Version:        2.7.1
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Disk performance plugin for the Xfce panel
 
@@ -13,14 +13,13 @@ Summary:        Disk performance plugin for the Xfce panel
 License:        LicenseRef-Callaway-BSD
 URL:            http://goodies.xfce.org/panel-plugins/{%name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-diskperf-plugin
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description
@@ -31,21 +30,18 @@ second) based on data provided by the kernel.
 %autosetup
 
 %build
-%configure --disable-static
-%make_build
-
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
-# remove la file
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %find_lang %{name}
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS
+%doc AUTHORS NEWS
 %license COPYING
 %{_libdir}/xfce4/panel/plugins/*.so
 %{_datadir}/xfce4/panel/plugins/*.desktop

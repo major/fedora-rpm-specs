@@ -1,3 +1,5 @@
+%bcond tests 0
+
 Name:           shell-color-prompt
 Version:        0.6.1
 Release:        1%{?dist}
@@ -10,9 +12,15 @@ Source1:        README.md
 Source2:        COPYING
 Source3:        Makefile
 Source4:        gen.m4
+Source10:       test.bats
 BuildArch:      noarch
 BuildRequires:  m4
 BuildRequires:  make
+%if %{with tests}
+BuildRequires:  bats
+BuildRequires:  git-core
+BuildRequires:  hostname
+%endif
 
 %description
 Default colored bash prompt.
@@ -38,6 +46,15 @@ sed -i -e "s/@BASHCOLORVERSION@/%{version}/" bash-color-prompt.sh
 %global profiledir %{_sysconfdir}/profile.d
 
 install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
+
+
+%check
+%if %{with tests}
+mkdir -p tests
+cd tests
+cp  %{SOURCE10} .
+BASH_COLOR_PROMPT_DIR=%{buildroot}%{profiledir} bats --timing --gather-test-outputs-in logs .
+%endif
 
 
 %files -n bash-color-prompt

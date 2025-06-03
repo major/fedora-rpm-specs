@@ -42,6 +42,12 @@ Summary:       Development files for Project Trellis
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      %{name}-data = %{version}-%{release}
 
+# pytrellis.so is an extension module which only works with a given Python version
+# be explicit about it
+%if "%{?python3_version}" != ""
+Requires:      python(abi) = %{python3_version}
+%endif
+
 %description devel
 Development files to build packages using Project Trellis
 

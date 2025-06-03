@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -15,9 +15,8 @@ Source3:        slim-dynwm
 Source4:        slim-fedora.txt
 # logrotate entry (see bz#573743)
 Source5:        slim.logrotate.d
-Source6:        slim-tmpfiles.conf
-Source7:        slim.service
-patch0:	        slim-1.4.0-fedora.patch  
+Source6:        slim.service
+patch0:         slim-1.4.0-fedora.patch
 patch1:         slim-1.4.0-selinux.patch
 
 ## Keyring copied on 2023-02-26 from: xfontsel.gpg
@@ -38,6 +37,8 @@ BuildRequires:  perl-generators
 BuildRequires:  pkgconfig gettext libselinux-devel pam-devel cmake
 BuildRequires:  scrot xterm freeglut-devel libXrandr-devel
 BuildRequires:  cmake
+BuildRequires:  ImageMagick
+BuildRequires:  f%{?fedora}-backgrounds-base
 
 Requires:       scrot xterm /sbin/shutdown
 Requires:       %{_sysconfdir}/pam.d
@@ -84,16 +85,18 @@ install -p -m755 %{SOURCE3} %{buildroot}%{_bindir}/%{name}-dynwm
 chmod 0644 %{buildroot}%{_sysconfdir}/%{name}.conf
 install -d -m755 %{buildroot}%{_sysconfdir}/pam.d
 install -p -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
-mkdir -p %{buildroot}%{_localstatedir}/run/%{name}
+mkdir -p %{buildroot}%{_runstatedir}/%{name}
 rm -f %{buildroot}%{_datadir}/%{name}/themes/default/background.jpg
-ln -s ../../../backgrounds/f%{?fedora}/default/f%{?fedora}-01-day.png %{buildroot}%{_datadir}/%{name}/themes/default/background.png
+#ln -s ../../../backgrounds/f%{?fedora}/default/f%{?fedora}-01-day.png
+magick %{_datadir}/backgrounds/f%{?fedora}/default/f%{?fedora}-01-day.jxl %{buildroot}%{_datadir}/%{name}/themes/default/background.jpg
 # install logrotate entry
 install -m0644 -D %{SOURCE5} %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 
-install -p -D %{SOURCE6} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
+mkdir -p %{buildroot}%{_sysconfdir}/tmpfiles.d
+echo "d %{_runstatedir}/%{name}" >%{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 
 mkdir -p %{buildroot}%{_unitdir}
-install -m 644 %{SOURCE7} %{buildroot}%{_unitdir}/%{name}.service
+install -m 644 %{SOURCE6} %{buildroot}%{_unitdir}/%{name}.service
 
 # Fix lib dir according to bits of system
 mkdir -p %{buildroot}/%{_libdir}/
@@ -118,7 +121,7 @@ mkdir -p %{buildroot}/%{_libdir}/
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/%{name}
-%ghost %dir %{_localstatedir}/run/%{name}
+%ghost %dir %{_runstatedir}/%{name}
 %{_bindir}/%{name}*
 %{_bindir}/update_slim_wmlist
 %{_mandir}/man1/%{name}*.1*
@@ -129,6 +132,10 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Sun Jun 01 2025 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-11
+- replaced the linking file with magick to convert the .jxl files now used by Fedora for backgrounds.
+- consequently, brought in BuildRequires for ImageMagick and f%{?fedora}-backgrounds-base
+- incorporated Todd Zullinger's patch to drop /var/run/ in favor of __runstatedir__ and dropped slim-tmpfiles.conf
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

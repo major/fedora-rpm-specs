@@ -43,8 +43,10 @@ BuildRequires: boost-devel
 BuildRequires: gcc-c++
 # %%configure --with-openssl
 BuildRequires: openssl-devel
+%if 0%{?fedora}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2300868#c4
 BuildRequires: openssl-devel-engine
+%endif
 # %%configure --with-pgsql
 %if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: libpq-devel

@@ -1,6 +1,6 @@
 %global upstreamname rocm-examples
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -25,7 +25,7 @@
 
 Name:           rocm-examples
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -133,6 +133,9 @@ sed -i -e 's@add_subdirectory(module_api)@message("no module_api")@'    HIP-Basi
 %{_bindir}/*
 
 %changelog
+* Sun Jun 1 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-1
+- Update to 6.4.1
+
 * Fri May 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Disable building tutorial on sle 15.6
 

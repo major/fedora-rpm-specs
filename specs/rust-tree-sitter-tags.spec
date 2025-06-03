@@ -6,7 +6,7 @@
 %global crate tree-sitter-tags
 
 Name:           rust-tree-sitter-tags
-Version:        0.25.3
+Version:        0.25.5
 Release:        %autorelease
 Summary:        Library for extracting tag information
 

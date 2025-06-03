@@ -5,7 +5,7 @@
 %global crate tree-sitter-generate
 
 Name:           rust-tree-sitter-generate
-Version:        0.25.3
+Version:        0.25.5
 Release:        %autorelease
 Summary:        Library for generating C source code from a tree-sitter grammar
 
@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/tree-sitter-generate
 Source:         %{crates_source}
 # * Upstream license file - tree-sitter/tree-sitter#1520
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          tree-sitter-generate-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,18 +1,18 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=173657
 
 %global _hardened_build 1
-%global minorversion 1.6
+%global minorversion 1.7
 %global xfceversion 4.16
 
 Name:           xfce4-clipman-plugin
-Version:        1.6.7
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Clipboard manager plugin for the Xfce panel
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
-Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -22,8 +22,7 @@ BuildRequires:  exo-devel >= 0.6.0
 BuildRequires:  xfconf-devel >= %{xfceversion}
 BuildRequires:  xorg-x11-proto-devel >= 7.0.0
 BuildRequires:  libXtst-devel >= 1.0.0
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  qrencode-devel
 Requires:       xfce4-panel >= %{xfceversion}
@@ -32,18 +31,16 @@ Requires:       xfce4-panel >= %{xfceversion}
 This is a simple cliboard history for Xfce panel. It includes a "Clear 
 clipboard" option, and a drag-and-drop paste feature.
 
-
 %prep
 %autosetup
 
-
 %build
-%configure --disable-static --enable-unique --enable-libqrencode
-%make_build
-
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
+
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %find_lang %{name}
 

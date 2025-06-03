@@ -48,7 +48,8 @@ Summary: %summary
 
 %if %{with tests}
 %check
-%pytest test -k "not test_molecule"
+# We don't want to depend on enrich
+%pytest test -k "not test_molecule" --ignore test/test_rich.py
 %endif
 
 

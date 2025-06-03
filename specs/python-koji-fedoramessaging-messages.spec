@@ -1,12 +1,11 @@
 %global forgeurl https://github.com/fedora-infra/koji-fedoramessaging-messages
-%global commit 2220a1e39d7ab0fcb48fc0fbd9ff614b6e81bf80
+Version:        1.2.6
 %forgemeta
 
 %global srcname koji-fedoramessaging-messages
 %global modname koji_fedoramessaging_messages
 
 Name:           python-koji-fedoramessaging-messages
-Version:        1.2.5
 Release:        %autorelease
 Summary:        A schema package for koji-fedoramessaging
 

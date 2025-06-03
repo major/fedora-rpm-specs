@@ -6,14 +6,14 @@
 %global xfceversion 4.16
 
 Name:           xfce4-screenshooter
-Version:        1.11.1
+Version:        1.11.2
 Release:        %autorelease
 Summary:        Screenshot utility for the Xfce desktop
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/applications/%{name}
-Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -23,10 +23,10 @@ BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 BuildRequires:  libsoup-devel >= 2.26.0
 BuildRequires:  libXext-devel >= 1.0.0
 BuildRequires:  libXfixes-devel >= 4.0.0
-BuildRequires:  gettext
-BuildRequires:  intltool
+BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+BuildRequires:  wayland-protocols-devel
 
 %description
 The Xfce Screenshooter utility allows you to capture the entire screen, the 
@@ -52,12 +52,12 @@ panel.
 echo "NotShowIn=KDE;GNOME;" >> src/xfce4-screenshooter.desktop.in.in
 
 %build
-%configure --disable-static
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 # remove la file
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
@@ -72,14 +72,12 @@ desktop-file-install \
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog NEWS TODO
+%doc AUTHORS NEWS TODO
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/org.xfce*screenshooter*
 %{_datadir}/metainfo/xfce4-screenshooter.appdata.xml
-%{_libexecdir}/xfce4/screenshooter/scripts/*
-%{_mandir}/man1/*.1.*
 
 
 %files plugin

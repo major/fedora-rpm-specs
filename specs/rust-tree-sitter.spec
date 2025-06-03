@@ -6,7 +6,7 @@
 %global crate tree-sitter
 
 Name:           rust-tree-sitter
-Version:        0.25.3
+Version:        0.25.5
 Release:        %autorelease
 Summary:        Rust bindings to the Tree-sitter parsing library
 
@@ -21,12 +21,11 @@ Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICEN
 # * Fixup license for bundled ICU
 # * Drop 'wasmtime' features
 # * Make 'bindgen' required
-# * Downgrade 'bindgen' to the version available in Fedora
 Patch:          tree-sitter-fix-metadata.diff
 # * Always generate bindings with bindgen
 Patch2:         tree-sitter-build-bindings-unconditionally.patch
-# * Fix build with bindgen < 0.71
-Patch3:         tree-sitter-relax-bindgen-dependency.patch
+# * Fix rust-version detection in build.rs
+Patch3:         tree-sitter-bindgen-rust-version.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

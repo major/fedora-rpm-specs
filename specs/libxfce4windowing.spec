@@ -12,8 +12,8 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.20.2
-Release:        2%{?dist}
+Version:        4.20.3
+Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jun 01 2025 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.20.3-1
+- Update to v4.20.3
+
 * Sat Apr 12 2025 Kevin Fenzi <kevin@scrye.com> - 4.20.2-2
 - Add a Requires on gdk-pixbuf2-modules-extra. Fixes rhbz#2359089
 

@@ -44,7 +44,8 @@ Summary:        %{summary}
 
 
 %check
-%pytest
+# For now ignore DeprecationWarnings coming from python-pytest-asyncio 0.26
+%pytest -W ignore::DeprecationWarning
 
 
 %files -n python3-jupyter-events -f %{pyproject_files}
