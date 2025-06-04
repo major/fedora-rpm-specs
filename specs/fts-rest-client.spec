@@ -1,6 +1,6 @@
 Name:           fts-rest-client
 Version:        3.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        Apache-2.0
@@ -42,6 +42,9 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 %{_bindir}/fts-rest-*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.14.0-2
+- Rebuilt for Python 3.14
+
 * Mon May 19 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.14.0-1
 - New upstream release 3.14.0
 

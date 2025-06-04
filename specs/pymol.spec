@@ -2,13 +2,14 @@ Name: pymol
 Summary: PyMOL Molecular Graphics System
 Version: 3.1.0
 Release: %autorelease
+Obsoletes: pymol < 0:3.1.0-5
 
 # Which files use following license:
-# BSD-2-Clause AND BSD-3-Clause: main license of open source PyMOL and some plugins
+# BSD: main license of open source PyMOL and some plugins
 # MIT: modules/pymol_web/examples/sample13/jquery.js
 # Bitstream Vera: layer1/FontTTF.h
 # OFL: layer1/FontTTF2.h
-License: MIT-0 AND BSD-2-Clause AND BSD-3-Clause AND Bitstream-Vera AND OFL-1.1
+License: License: MIT-0 AND BSD-2-Clause AND BSD-3-Clause AND Bitstream-Vera AND OFL-1.1
 URL: http://www.pymol.org
 Source0: https://github.com/schrodinger/pymol-open-source/archive/v%{version}/%{name}-open-source-%{version}.tar.gz
 Source1: %{name}.png
@@ -97,10 +98,8 @@ echo "#!/bin/sh" > pymol
 echo "export PYMOL_PATH=%{python3_sitearch}/%{name}" >> %{name}
 echo "exec %{__python3} %{python3_sitearch}/%{name}/__init__.py \"\$@\"" >> %{name}
 
-# icon2.svg is wanted outside pymol_path directory
-mkdir -p %{buildroot}%{python3_sitearch}/%{name}/data/pymol/icons
-touch %{buildroot}%{python3_sitearch}/%{name}/data/pymol/icons/icon2.svg
-ln -sfr %{python3_sitearch}/%{name}/pymol_path/data/pymol/icons/icon2.svg %{buildroot}%{python3_sitearch}/%{name}/data/pymol/icons/icon2.svg
+# rhbz#2369728
+ln -sfr %{python3_sitearch}/%{name}/pymol_path/data %{buildroot}%{python3_sitearch}/%{name}/data
 #
 
 mkdir -p %{buildroot}%{_bindir}
@@ -123,7 +122,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/pixmaps/%{name}.png
-%{python3_sitearch}/%{name}/data/pymol/icons/
+# This is a symlink
+%{python3_sitearch}/%{name}/data
 
 %files -n pymol+tests
 %{python3_sitearch}/%{name}/testing/

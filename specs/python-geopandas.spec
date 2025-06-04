@@ -6,7 +6,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 
@@ -35,14 +35,14 @@ BuildRequires:  python3-devel
 
 %if %{without bootstrap}
 BuildRequires:  python3dist(fsspec)
-BuildRequires:  python3dist(fiona)
+BuildRequires:  python3dist(fiona) >= 1.8.21
 BuildRequires:  python3dist(geopy)
-BuildRequires:  python3dist(mapclassify)
-BuildRequires:  python3dist(matplotlib) >= 3.5
+BuildRequires:  python3dist(mapclassify) >= 2.5
+BuildRequires:  python3dist(matplotlib) >= 3.7
 BuildRequires:  python3dist(psycopg) >= 3.1
 BuildRequires:  python3dist(pyarrow) >= 8
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(sqlalchemy) >= 1.3
+BuildRequires:  python3dist(sqlalchemy) >= 2
 BuildRequires:  python3dist(xyzservices)
 # See:
 # Depend on pandas[test] for testing

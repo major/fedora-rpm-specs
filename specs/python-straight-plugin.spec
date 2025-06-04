@@ -1,6 +1,6 @@
 Name:           python-straight-plugin
 Version:        1.5.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Python plugin loader
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -69,6 +69,9 @@ the plugins in it for some particular purpose or intent.
 %{python3_sitelib}/straight*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.0-31
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

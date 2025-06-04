@@ -8,7 +8,7 @@ Version:       1.18.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       6%{?dist}
+Release:       7%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -96,6 +96,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.18.0-7
+- Rebuilt for Python 3.14
+
 * Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.18.0-6
 - Adjust file patterns for the sbin merge
 

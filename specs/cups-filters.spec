@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -119,7 +119,8 @@ queues.
 ./autogen.sh
 
 %configure --enable-driverless \
-           --enable-universal-cups-filter \
+           --enable-individual-cups-filters \
+           --disable-universal-cups-filter \
            --disable-mutool \
            --disable-rpath \
            --disable-silent-rules \
@@ -139,7 +140,6 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.p
 # we may use symlink to universal filter, but LSB is about guaranteed compatibility set
 # among distibutions, so rather have the strict foomatic-rip filter...
 ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
-#ln -sf %{_cups_serverbin}/filter/universal %{buildroot}%{_bindir}/foomatic-rip
 
 %if %{with cups_ppdc}
 mkdir -p %{buildroot}%{_datadir}/cups/ppdc
@@ -167,6 +167,14 @@ make check
 if [ $1 -gt 1 ]
 then
   rm -f /var/cache/cups/ppds.dat || :
+
+  # since we moved to individual filters, we have to restart cups
+  # to load new conversion tables if it is running
+  # remove by F43 EOL
+  if systemctl is-active cups &> /dev/null
+  then
+    systemctl restart cups || :
+  fi
 fi
 
 
@@ -204,12 +212,12 @@ fi
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttops
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttotext
-%attr(0755,root,root) %{_cups_serverbin}/filter/universal
 %{_datadir}/cups/drv/cupsfilters.drv
 %{_datadir}/cups/mime/cupsfilters.types
 %{_datadir}/cups/mime/cupsfilters.convs
-%{_datadir}/cups/mime/cupsfilters-universal-postscript.convs
-%{_datadir}/cups/mime/cupsfilters-universal.convs
+%{_datadir}/cups/mime/cupsfilters-ghostscript.convs
+%{_datadir}/cups/mime/cupsfilters-individual.convs
+%{_datadir}/cups/mime/cupsfilters-poppler.convs
 %{_datadir}/ppd/cupsfilters
 %if %{with cups_ppdc}
 # escp.h and pcl.h are required during runtime, because
@@ -236,6 +244,12 @@ fi
 
 
 %changelog
+* Mon Jun 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-5
+- individual filters have to explicitly enabled
+
+* Mon Jun 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-4
+- disable universal filter for now - some 3rd party drivers did not work with it
+
 * Tue Mar 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-3
 - textonly driver was missing (fedora#2351389)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.148
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
 License:        LicenseRef-Callaway-BSD
@@ -43,6 +43,9 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 9.2.148-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.148-1
 - Remove -t (closes rhbz#2354093)
 - Update to latest upstream release (closes rhbz#2346301)

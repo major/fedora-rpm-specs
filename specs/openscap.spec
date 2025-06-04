@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -323,6 +323,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:1.4.2-3
+- Rebuilt for Python 3.14
+
 * Wed Apr 23 2025 Evgeny Kolesnikov <ekolesni@redhat.com> - 1:1.4.2-2
 - Add patch #2227 (inherit environment when executing remediations)
 

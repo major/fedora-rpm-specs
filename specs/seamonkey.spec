@@ -34,8 +34,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.20
-Release:        4%{?dist}
+Version:        2.53.21
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -51,7 +51,6 @@ Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
 Source7:	seamonkey.metainfo.xml
 
-Patch2:		seamonkey-2.53.20-mozilla-1894423.patch
 Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
 Patch4:		seamonkey-2.53.18-mozilla-1862601.patch
 Patch5:		firefox-35-rhbz-1173156.patch
@@ -85,7 +84,6 @@ Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
 Patch43:	seamonkey-2.53.20-mozilla-1502802.patch
-Patch44:	seamonkey-2.53.20-mozilla-1940204.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -183,7 +181,6 @@ cd mozilla
 
 cp %{SOURCE3} GNUmakefile
 
-%patch 2 -p1 -b .1894423
 %patch 3 -p1 -b .1516803
 %{?with_system_icu:%patch 4 -p1 -b .1862601}
 %patch 5 -p2 -b .1173156
@@ -218,7 +215,6 @@ cp %{SOURCE3} GNUmakefile
 %patch 40 -p0 -b .slowscript
 %patch 42 -p1 -b .postmessage-event
 %patch 43 -p1 -b .1502802
-%patch 44 -p1 -b .1940204
 
 %patch 60 -p1 -b .ua-update
 %patch 61 -p1 -b .ua-update-preload
@@ -345,7 +341,7 @@ pref("calendar.useragent.extra", "", locked);
 
 /* Completely mimic to Firefox for compatibility with this World nowadays...  */
 pref("general.useragent.compatMode.strict-firefox", true);
-pref("general.useragent.compatMode.version", "91.0");
+pref("general.useragent.compatMode.version", "128.0");
 
 pref("network.http.sendOriginHeader", 1);
 
@@ -507,6 +503,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Mon Jun  2 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.21-1
+- update to 2.53.21
+
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 2.53.20-4
 - Rebuilt for aom 3.11.0
 

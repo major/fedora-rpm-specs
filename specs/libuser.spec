@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.64
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -131,6 +131,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.64-15
+- Rebuilt for Python 3.14
+
 * Wed Apr 02 2025 Michal Hlavinka <mhlavink@redhat.com> - 0.64-14
 - create temporary edit files at symlink target location (pr#73)
 

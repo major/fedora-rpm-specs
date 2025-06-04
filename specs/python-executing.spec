@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # Running the tests requires ipython which requires python-stack-data which
 # introduces a circular dependency back on python-executing
 %bcond bootstrap 0
@@ -6,7 +7,7 @@
 
 Name:           python-executing
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -67,6 +68,9 @@ export EXECUTING_SLOW_TESTS=1
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-3
+- Bootstrap for Python 3.14
+
 * Sun Jan 26 2025 Romain Geissler <romain.geissler@amadeus.com>
 - Allow to build without tests in bootstrap mode.
 

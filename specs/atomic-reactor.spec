@@ -5,7 +5,7 @@
 
 Name:           %{project}
 Version:        4.19.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Improved builder for Docker images
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -120,6 +120,9 @@ cp -a docs/manpage/atomic-reactor.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.19.1-3
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

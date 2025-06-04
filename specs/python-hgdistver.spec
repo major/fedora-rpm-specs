@@ -4,7 +4,7 @@
 
 Name:           python-hgdistver
 Version:        0.25
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -48,6 +48,9 @@ and using the distance to it as .post marker.
 %{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.25-32
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

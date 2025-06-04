@@ -8,13 +8,15 @@ check on style.}
 Name:           pyflakes
 # WARNING: When updating pyflakes, check not to break flake8!
 Version:        3.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A simple program which checks Python source files for errors
 
 License:        MIT
 URL:            https://github.com/PyCQA/pyflakes
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        http://cdn.debian.net/debian/pool/main/p/pyflakes/pyflakes_2.5.0-1.debian.tar.xz
+# Support Python 3.14
+Patch:          https://github.com/PyCQA/pyflakes/pull/842.patch
 
 BuildArch:      noarch
 
@@ -68,6 +70,9 @@ ln -s pyflakes-3.1 %{buildroot}%{_mandir}/man1/pyflakes.1
 %exclude %{python3_sitelib}/pyflakes/test
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.0-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.31
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A command line application framework
 
 License:        MIT
@@ -68,6 +68,9 @@ update_scripts "%{buildroot}/%{python3_sitelib}/%{pypi_name}"
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.31-29
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.31-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

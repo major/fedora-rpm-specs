@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apipie bindings for Python
 
 License:        MIT
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.1-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 04 2025 Packit <hello@packit.dev> - 0.7.1-1
 - New release 0.7.1
 

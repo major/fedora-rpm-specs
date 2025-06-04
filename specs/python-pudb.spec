@@ -2,7 +2,7 @@
 
 Name:          python-pudb
 Version:       2025.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
 URL:           https://github.com/inducer/pudb
@@ -54,6 +54,9 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 %{_bindir}/pudb
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2025.1-2
+- Rebuilt for Python 3.14
+
 * Wed May 07 2025 Lumír Balhar <lbalhar@redhat.com> - 2025.1-1
 - Update to 2025.1 (rhbz#2364599)
 

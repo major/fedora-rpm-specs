@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extension for colcon to process packages in parallel
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -62,6 +62,9 @@ An extension for colcon-core to process packages in parallel.
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.0-6
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

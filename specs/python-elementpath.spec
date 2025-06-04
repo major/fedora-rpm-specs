@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
 Version:        4.8.0

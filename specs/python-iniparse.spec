@@ -3,7 +3,7 @@
 
 Name:           python-iniparse
 Version:        0.5.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Accessing and Modifying INI files
 
 # From LICENSE:
@@ -14,6 +14,9 @@ Summary:        Accessing and Modifying INI files
 License:        MIT AND Python-2.0.1
 URL:            https://github.com/candlepin/python-iniparse
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Python 3.14 support: Avoid the multiprocessing forkserver method
+Patch:          https://github.com/candlepin/python-iniparse/pull/38.patch
 
 BuildArch: noarch
 
@@ -58,6 +61,12 @@ rm -vfr %{buildroot}%{_docdir}/*
 %doc README.md Changelog html/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.1-3
+- Rebuilt for Python 3.14
+
+* Wed May 28 2025 Miro Hrončok <mhroncok@redhat.com> - 0.5.1-2
+- Fix build with Python 3.14
+
 * Mon Jan 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.1-1
 - Update to 0.5.1
 

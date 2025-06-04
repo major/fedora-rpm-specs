@@ -1,7 +1,7 @@
 Name:           libxslt
 Summary:        Library providing the Gnome XSLT engine
 Version:        1.1.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
@@ -131,6 +131,9 @@ rm -vrf %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.43-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.1.43-1
 - 1.1.43
 

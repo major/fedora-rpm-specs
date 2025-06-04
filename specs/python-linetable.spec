@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parse and generate co_linetable attributes in code objects
 License:        MIT
 URL:            https://github.com/amol-/linetable
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.3-9
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

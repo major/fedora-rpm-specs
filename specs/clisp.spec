@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  c3ec11bab87cfdbeba01523ed88ac2a16b22304d
-%global date    20241228
+%global commit  f66220939ea7d36fd085384afa4a0ec44597d499
+%global date    20250504
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -24,7 +24,7 @@ Version:	2.49.95
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		http://www.clisp.org/
 VCS:		git:%{forgeurl}.git
 Source0:	%{forgesource}
@@ -49,20 +49,17 @@ Patch4:		%{name}-iconv-close.patch
 # Fix a memory leak in encoding.d
 # https://gitlab.com/gnu-clisp/clisp/-/merge_requests/11
 Patch5:		%{name}-encoding-leak.patch
-# Fix undefined behavior in rehash_symtab
-# https://gitlab.com/gnu-clisp/clisp/-/merge_requests/12
-Patch6:		%{name}-undefined-behavior.patch
 # Fix undefined behavior in SORT
-Patch7:		%{name}-undefined-behavior-sort.patch
+Patch6:		%{name}-undefined-behavior-sort.patch
 # Fix undefined behavior in interpret_bytecode_
-Patch8:		%{name}-undefined-behavior-eval.patch
+Patch7:		%{name}-undefined-behavior-eval.patch
 # Fix undefined behavior in pr_array
-Patch9:		%{name}-undefined-behavior-io.patch
+Patch8:		%{name}-undefined-behavior-io.patch
 # Fix misaligned memory accesses on ppc64le
-Patch10:	%{name}-ppc64le-alignment.patch
+Patch9:		%{name}-ppc64le-alignment.patch
 # Fix some mismatched readline function declarations
 # https://gitlab.com/gnu-clisp/clisp/-/merge_requests/13
-Patch11:	%{name}-readline.patch
+Patch10:	%{name}-readline.patch
 
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
@@ -463,6 +460,10 @@ make -C build base-mod-check
 
 
 %changelog
+* Mon Jun 02 2025 Jerry James  <loganjerry@gmail.com> - 2.49.95-4
+- Update to latest git snapshot
+- Drop one upstreamed patch to fix undefined behavior
+
 * Fri Feb 14 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-3
 - Add patches to fix more undefined behavior
 - Fix misaligned memory accesses on ppc64le

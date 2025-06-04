@@ -1,6 +1,6 @@
 Name:           rapid-photo-downloader
 Version:        0.9.33
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Images downloader for external devices
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -85,6 +85,9 @@ desktop-file-install                                        \
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.33-15
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

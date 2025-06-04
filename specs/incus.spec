@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.12
+Version:        6.13
 
 %gometa
 
@@ -57,9 +57,6 @@ Source203:      %{swaggerui_source_baseurl}/swagger-ui.css#/swagger-ui-%{swagger
 # Patches upstream or proposed upstream
 
 # Downstream only patches
-## Fix format string issues with Go 1.24
-Patch1001:      incus-6.12-Fix-build-with-Go-1.24.patch
-
 ## Allow offline builds
 Patch1002:      incus-0.2-doc-Remove-downloads-from-sphinx-build.patch
 
@@ -459,6 +456,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Fri May 30 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.13-1
+- Updated to incus-6.13
+
 * Mon May 05 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 6.12-1
 - Update to incus-6.12
 

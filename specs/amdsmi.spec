@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -126,6 +126,9 @@ fi
 if [ -f %{buildroot}/usr/share/doc/amd_smi/README.md ]; then
     rm %{buildroot}/usr/share/doc/amd_smi/README.md
 fi
+if [ -f %{buildroot}/usr/share/doc/amd_smi/copyright ]; then
+    rm %{buildroot}/usr/share/doc/amd_smi/copyright
+fi
 if [ -f %{buildroot}%{_datadir}/_version.py ]; then
     rm %{buildroot}%{_datadir}/_version.py
 fi
@@ -160,7 +163,6 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %{_bindir}/amd-smi
 %{_libexecdir}/amdsmi_cli
 %{python3_sitelib}/amdsmi
-%exclude %{_docdir}/amd_smi/copyright
 
 %files devel
 %dir %{_includedir}/amd_smi
@@ -177,6 +179,12 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %endif
 
 %changelog
+* Mon Jun 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
+- handle movement of copyright file on suse
+
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.4.1-2
+- Rebuilt for Python 3.14
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

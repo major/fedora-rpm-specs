@@ -1,6 +1,6 @@
 Name:		python-pyownet
 Version:	0.10.0.post1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Pure python client library for accessing OWFS via owserver protocol
 
 License:	LGPL-3.0-or-later
@@ -51,6 +51,9 @@ Summary:	Pure python client library for accessing OWFS via owserver protocol
 %{python3_sitelib}/pyownet-%{version}.dist-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.10.0.post1-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0.post1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

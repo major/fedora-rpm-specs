@@ -2,7 +2,7 @@
 
 Name:           autojump
 Version:        22.5.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 
 Summary:        A fast way to navigate your filesystem from the command line
 
@@ -91,6 +91,9 @@ mv %{buildroot}%{_bindir}/%{name}_*.py %{buildroot}%{python3_sitelib}/
 %config(noreplace) %{_datadir}/%{name}/%{name}.fish
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 22.5.3-20
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.5.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

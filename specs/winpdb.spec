@@ -1,6 +1,6 @@
 Name:		winpdb
 Version:	2.0.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	An advanced python debugger
 License:	GPL-2.0-or-later
 URL:		https://pypi.org/project/winpdb-reborn
@@ -64,6 +64,9 @@ chmod +x $RPM_BUILD_ROOT%{python3_sitelib}/rpdb2.py $RPM_BUILD_ROOT%{python3_sit
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.0.1-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Tom Callaway <spot@fedoraproject.org> - 2.0.0.1-1
 - update to 2.0.0.1 + latest commits
 - apply fix for removed imp.load_source()

@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -144,6 +144,9 @@ cd py/
 %{_unitdir}/nftables.service
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:1.1.3-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Phil Sutter <psutter@redhat.com> - 1:1.1.3-1
 - New version 1.1.3
 - Upstream changed GPG key, cache new pubkey

@@ -1,6 +1,6 @@
 %define service go_modules
 Name:           obs-service-%{service}
-Version:        0.6.8
+Version:        0.6.9
 Release:        %autorelease
 Summary:        An OBS source service: Download, verify and vendor Go module dependencies
 License:        GPL-2.0-or-later

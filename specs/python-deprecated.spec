@@ -1,6 +1,6 @@
 Name:           python-deprecated
 Version:        1.2.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/laurent-laporte-pro/deprecated
@@ -41,6 +41,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.18-2
+- Rebuilt for Python 3.14
+
 * Mon Feb 10 2025 Matej Focko <mfocko@fedoraproject.org> - 1.2.18-1
 - Update to version 1.2.18
 

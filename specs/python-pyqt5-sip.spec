@@ -5,7 +5,7 @@
 
 Name:           python-pyqt5-sip
 Version:        12.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %doc README
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 12.17.0-3
+- Rebuilt for Python 3.14
+
 * Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 12.17.0-1
 - Fix compatibility with the latest setuptools
 

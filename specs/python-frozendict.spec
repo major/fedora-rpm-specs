@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An immutable dictionary
 
 License:        MIT
@@ -46,6 +46,9 @@ export FROZENDICT_PURE_PY=1
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.6-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

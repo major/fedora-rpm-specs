@@ -20,7 +20,7 @@ It addresses the differences listed in Trollius and Tulip: \
 
 Name:           python-%{pypi_name}
 Version:        1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -102,6 +102,9 @@ cp %{SOURCE1} LICENSE
 %{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

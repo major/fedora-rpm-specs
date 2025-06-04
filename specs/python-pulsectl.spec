@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        24.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python high-level interface and ctypes-based bindings for PulseAudio
 
 License:        MIT
@@ -50,6 +50,9 @@ samples to play, player-like client).
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 24.12.0-2
+- Rebuilt for Python 3.14
+
 * Thu May 22 2025 Paul W. Frields <pfrields@scarlett> - 24.12.0-1
 - Update to version 24.12.0
 

@@ -1,6 +1,6 @@
 Name:		python-pycdio
 Version:	2.1.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A Python interface to the CD Input and Control library
 
 License:	GPL-3.0-or-later
@@ -56,6 +56,9 @@ chmod 755 %{buildroot}/%{python3_sitearch}/*.so
 %{python3_sitearch}/_pyiso9660.cpython-*linux-gnu.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.1-4
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

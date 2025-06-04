@@ -2,7 +2,7 @@
 
 Name:           pypolicyd-spf
 Version:        3.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -117,6 +117,9 @@ install -m0644 -D pypolicyd-spf.sysusers.conf %{buildroot}%{_sysusersdir}/pypoli
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.0-4
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.0-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

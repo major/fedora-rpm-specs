@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.5.17.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        D3 (XStatic packaging standard)
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/d3/d3.js
 %{_jsdir}/d3
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.5.17.0-29
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.17.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

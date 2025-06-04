@@ -6,7 +6,7 @@ enhancements.
 
 Name:           python-%{pkgname}
 Version:        2.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Theme based on the theme of https://docs.python.org/3/
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ Provides:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.0-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

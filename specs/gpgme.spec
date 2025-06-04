@@ -12,7 +12,7 @@
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        1.24.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -329,6 +329,9 @@ popd
 %{python3_sitearch}/gpg/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.24.3-2
+- Rebuilt for Python 3.14
+
 * Tue May 20 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.3-1
 - updated to 1.24.3 (#2367321)
 

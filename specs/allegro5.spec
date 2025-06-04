@@ -1,9 +1,6 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 Name:		allegro5
 Version:	5.2.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A game programming library
 License:	zlib
 URL:		http://liballeg.org/
@@ -146,6 +143,9 @@ addon.
 
 
 %build
+# TODO: Remove in the next version
+# https://github.com/liballeg/allegro5/pull/1632
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DWANT_DOCS=OFF
 %cmake_build
 
@@ -284,6 +284,9 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 5.2.7-13
+- Allow to build with CMake 4.0
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.7-12
 - Rebuilt for flac 1.5.0
 

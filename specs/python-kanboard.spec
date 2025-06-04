@@ -1,6 +1,6 @@
 Name:           python-kanboard
 Version:        1.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client library for Kanboard API
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.7-2
+- Rebuilt for Python 3.14
+
 * Sat May 24 2025 Alois Mahdal <n9042e84@vornet.cz> - 1.1.7-1
 - Update to 1.1.7 (close RHBZ#2367032)
 

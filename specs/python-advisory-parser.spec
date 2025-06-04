@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Security flaw parser for upstream security advisories
 
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/advisory_parser-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.10-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

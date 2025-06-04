@@ -6,7 +6,7 @@
 
 Name:           python-%{modulename}
 Version:        4.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Invoke py.test as distutils command with dependency resolution
 
 License:        MIT
@@ -68,6 +68,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/ptr.*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.0-28
+- Rebuilt for Python 3.14
+
 * Thu Feb 13 2025 Michel Lind <salimma@fedoraproject.org> - 4.0-27
 - Link to approved Change Proposal for deprecating python-pytest-runner
 - Also mark python3-pytest-runner subpackage as deprecated

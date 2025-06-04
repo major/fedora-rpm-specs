@@ -1,6 +1,6 @@
 Name:           python-testresources
 Version:        2.0.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Testresources, a pyunit extension for managing expensive test resources
 # mostly Apache-2.0 or BSD-3-Clause
 # testresources/tests/TestUtil.py is GPL-2.0-or-later
@@ -51,6 +51,9 @@ sed -i 's/failIf/assertFalse/' testresources/tests/test_resourced_test_case.py
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.1-20
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

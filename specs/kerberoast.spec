@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.1.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Kerberos security toolkit for Python
 
 License:        MIT
@@ -46,6 +46,9 @@ sed -i -e '/^#!\//, 1d' kerberoast/kerberoast.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.4-16
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

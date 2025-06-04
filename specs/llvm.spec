@@ -2298,6 +2298,7 @@ export LIT_XFAIL="$LIT_XFAIL;api_tests/test_ompd_get_thread_handle.c"
 unset LIT_XFAIL
 %endif
 
+%if %{maj_ver} < 21
 # The following test is flaky and we'll filter it out
 test_list_filter_out+=("libomp :: ompt/teams/distribute_dispatch.c")
 test_list_filter_out+=("libomp :: affinity/kmp-abs-hw-subset.c")
@@ -2316,17 +2317,20 @@ test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_one_int.c")
 # Issue upstream: https://github.com/llvm/llvm-project/issues/127796
 test_list_filter_out+=("libarcher :: races/task-two.c")
 test_list_filter_out+=("libarcher :: races/lock-nested-unrelated.c")
+%endif
 
 %ifarch s390x
 test_list_filter_out+=("libomp :: flush/omp_flush.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_for_schedule_guided.c")
 %endif
 
+%if %{maj_ver} < 21
 %ifarch aarch64 s390x
 # The following test has been failing intermittently on aarch64 and s390x.
 # Re-enable it after https://github.com/llvm/llvm-project/issues/117773
 # gets fixed.
 test_list_filter_out+=("libarcher :: races/taskwait-depend.c")
+%endif
 %endif
 
 # The following tests seem pass on ppc64le and x86_64 and aarch64 only:
@@ -2428,6 +2432,20 @@ export LIT_XFAIL="$LIT_XFAIL;offloading/thread_state_2.c"
 %endif
 
 adjust_lit_filter_out test_list_filter_out
+
+%if %{maj_ver} >= 21
+# This allows openmp tests to be re-run 4 times. Once they pass
+# after being re-run, they are marked as FLAKYPASS.
+# See https://github.com/llvm/llvm-project/pull/141851 for the
+# --max-retries-per-test option.
+# We don't know if 4 is the right number to use here we just
+# need to start with some number.
+# Once https://github.com/llvm/llvm-project/pull/142413 landed
+# we can add --show-attempts-count in order to see the exact
+# number of attempts the tests needed to pass. And then we can
+# adapt this number.
+export LIT_OPTS="$LIT_OPTS --max-retries-per-test=4"
+%endif
 
 %if 0%{?rhel}
 # libomp tests are often very slow on s390x brew builders

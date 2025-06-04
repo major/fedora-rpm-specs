@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 1.0.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Progress bar for Jupyter Notebook and console 
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -44,6 +44,9 @@ BuildRequires:  python3-pytest
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.0-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

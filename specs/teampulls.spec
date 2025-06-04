@@ -1,6 +1,6 @@
 Name:           teampulls
 Version:        0.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        CLI tool that lists pull requests from GitHub
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -38,6 +38,9 @@ install -Dpm 0644 teampulls.toml %{buildroot}%{_sysconfdir}/teampulls.toml
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.2-19
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

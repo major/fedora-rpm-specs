@@ -1,6 +1,6 @@
 Name:           jsonnet
 Version:        0.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -189,6 +189,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.21.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 9 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0
 - Build 0.21.0
 

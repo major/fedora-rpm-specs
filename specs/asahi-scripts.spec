@@ -130,6 +130,7 @@ grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 %{_unitdir}/macsmc-battery-charge-control-end-threshold.path
 %{_unitdir}/macsmc-battery-charge-control-end-threshold.service
 %{_udevrulesdir}/93-macsmc-battery-charge-control.rules
+%ghost %config(noreplace) %{_sysconfdir}/udev/macsmc-battery.conf
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        3.9.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A shared storage lock manager
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -157,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.9.5-4
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.9.5-3
 - Drop %%pre scriptlets to create users and groups
 

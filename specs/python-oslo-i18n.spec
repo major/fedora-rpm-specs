@@ -10,7 +10,7 @@
 
 %global pypi_name oslo.i18n
 %global pkg_name oslo-i18n
-%global with_doc 1
+%global with_doc 0
 
 %global common_desc \
 The oslo.i18n library contain utilities for working with internationalization \
@@ -19,7 +19,7 @@ or library.
 
 Name:           python-oslo-i18n
 Version:        6.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack i18n library
 License:        Apache-2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -142,6 +142,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.4.0-3
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

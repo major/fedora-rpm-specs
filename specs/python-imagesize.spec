@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -66,6 +66,9 @@ py.test-3 -k 'not test_get_filelike'
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.4.1-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 %bcond_with all_tests
 
 Name:           python-libcst
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
@@ -26,6 +26,9 @@ URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          libcst-fix-metadata.diff
+# pyyaml-ft is not yet packaged for Fedora
+# we can do with the old good, non-freethreaded one
+Patch:          One-pyyaml-to-rule-them-all.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

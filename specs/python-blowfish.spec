@@ -5,7 +5,7 @@
 
 Name:               python-blowfish
 Version:            0.6.1
-Release:            30%{?dist}
+Release:            31%{?dist}
 Summary:            %{sum}
 
 License:            GPL-3.0-or-later
@@ -49,6 +49,9 @@ Summary:            %{sum}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.1-31
+- Rebuilt for Python 3.14
+
 * Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.6.1-30
 - Drop BR -t
 

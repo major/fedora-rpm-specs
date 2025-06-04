@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
@@ -119,6 +119,9 @@ mv $RPM_BUILD_ROOT/%{_prefix}/%{name}/* $RPM_BUILD_ROOT%{python3_sitearch}
 %{python3_sitearch}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2:5.0.3-9
+- Rebuilt for Python 3.14
+
 * Tue Mar 18 2025 Cristian Le <git@lecris.dev> - 2:5.0.3-8
 - Rebuild after dropping scikit-build dependency
 

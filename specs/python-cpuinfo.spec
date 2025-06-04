@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        9.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -77,6 +77,9 @@ sed -i -e '/^#!\//, 1d' cpuinfo/cpuinfo.py
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 9.0.0-12
+- Rebuilt for Python 3.14
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

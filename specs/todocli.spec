@@ -6,7 +6,7 @@
 
 Name:           todocli
 Version:        0.1
-Release:        33.%{date}git%{shortcommit}%{?dist}
+Release:        34.%{date}git%{shortcommit}%{?dist}
 Summary:        Command line To Do application
 
 License:        MIT
@@ -46,6 +46,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1-34.20151115git219db73
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33.20151115git219db73
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

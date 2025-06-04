@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 50%{?dist}
+Release: 51%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1240,6 +1240,9 @@ make check
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.12.0-51
+- Rebuilt for Python 3.14
+
 * Tue May 27 2025 Remi Collet <remi@fedoraproject.org> - 5.12.0-50
 - rebuild for new gpsd
 

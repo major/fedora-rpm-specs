@@ -1,3 +1,5 @@
+%global _without_tests 1
+%global _without_man 1
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests here
 # to prevent pulling many unwanted packages in.

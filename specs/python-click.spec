@@ -2,7 +2,7 @@
 
 Name:           python-click
 Version:        8.1.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.1.7-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

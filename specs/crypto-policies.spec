@@ -1,5 +1,5 @@
-%global git_date 20250402
-%global git_commit 86c0178416fe7998bbf553a3e713a9c4b7205757
+%global git_date 20250602
+%global git_commit 9a48d0619e0827402d2c3b62fa1c641da1e43dc5
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -283,6 +283,12 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Mon Jun 02 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250602-1.git9a48d06
+- NO-PQ, cryptopolicies: add experimental value suppression
+- openssl: fix mistakes in integrity-only cipher definitions
+- FIPS: enable hybrid ML-KEM (TLS only) and pure ML-DSA
+- openssl, policies: implement group_key_share option
+
 * Thu Apr 17 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250402-2.git86c0178
 - Remove a build dependency on oqsprovider now when we require openssl 3.5
 

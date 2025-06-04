@@ -7,7 +7,7 @@
 
 Name:             python-%{srcname}
 Version:          0.24.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          A libudev binding
 
 License:          LGPL-2.1-or-later
@@ -107,6 +107,9 @@ rm -rf pyudev.egg-info
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.24.3-6
+- Rebuilt for Python 3.14
+
 * Thu Feb 13 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.24.3-5
 - Dropped Qt RPM subpackages on RHEL > 9
 

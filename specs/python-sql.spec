@@ -4,7 +4,7 @@
 
 Name:           python-%{module_name}
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.6.0-2
+- Rebuilt for Python 3.14
+
 * Sat May 03 2025 Dan Horák <dan[at]danny.cz> - 1.6.0-1
 - updated to 1.6.0 (rhbz#2363817)
 

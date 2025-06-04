@@ -16,7 +16,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        FTP transport adapter for python-requests
 
 License:        Apache-2.0
@@ -116,6 +116,9 @@ rm -rf requests_ftp.egg-info
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.1-37
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

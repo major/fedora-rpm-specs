@@ -14,7 +14,7 @@
 
 Name:           lttng-ust
 Version:        2.13.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
 Summary:        LTTng Userspace Tracer library
@@ -136,6 +136,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.13.9-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 15 2025 Michael Jeanson <mjeanson@efficios.com> - 2.13.9-1
 - New upstream release
 

@@ -1,7 +1,7 @@
 %global srcname prometheus_client
 
 Name:           python-%{srcname}
-Version:        0.22.0
+Version:        0.22.1
 Release:        %autorelease
 Summary:        Python client for Prometheus
 

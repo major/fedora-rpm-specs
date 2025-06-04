@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
 # The entire source code is LGPL-3.0+ except cvss/cvss4.py which is BSD-2-Clause
@@ -103,6 +103,9 @@ Python 3 version.
 %{_bindir}/cvss_calculator
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3-2
+- Rebuilt for Python 3.14
+
 * Fri Jan 31 2025 Viliam Krizan <vkrizan@redhat.com> - 3.3-1
 - Update to version 3.3 with CVSSv4 support
 - CVSSv4 part is licensed under BSD-2-Clause

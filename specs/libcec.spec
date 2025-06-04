@@ -1,6 +1,6 @@
 Name:          libcec
 Version:       7.0.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
@@ -112,6 +112,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{python3_sitearch}/cec/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 7.0.0-3
+- Rebuilt for Python 3.14
+
 * Mon May 12 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 7.0.0-2
 - exclide i686 arch per fedora leaf package policy
 

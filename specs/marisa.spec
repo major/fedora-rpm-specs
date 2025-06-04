@@ -8,7 +8,7 @@
 
 Name:          marisa
 Version:       0.2.6
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -225,6 +225,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.6-14
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

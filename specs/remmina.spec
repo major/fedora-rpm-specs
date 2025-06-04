@@ -2,7 +2,7 @@
 
 Name: remmina
 Version: 1.4.40
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -353,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.4.40-6
+- Rebuilt for Python 3.14
+
 * Mon Apr 14 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.40-1
 - Update to 1.4.40 rhbz#2358278
 

@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc2
 
 
@@ -421,6 +421,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.5.99^20250502gitd41b3c2-2.rc2
+- Rebuilt for Python 3.14
+
 * Sun May 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250502gitd41b3c2-1.rc2
 - Update to the latest git (20250502gitd41b3c2)
 

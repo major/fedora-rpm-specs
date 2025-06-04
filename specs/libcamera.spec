@@ -1,6 +1,6 @@
 Name:    libcamera
-Version: 0.5.0
-Release: 2%{?dist}
+Version: 0.5.1
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -206,6 +206,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Mon Jun 02 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.1-1
+- Update to version 0.5.1
+
 * Sun May 25 2025 Robert Mader <robert.mader@posteo.de> - 0.5.0-2
 - Enable virtual and vimc pipelines
 - Update v4l2 build option to silence a deprecation warning

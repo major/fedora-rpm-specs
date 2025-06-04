@@ -9,7 +9,7 @@ fields are supported.
 
 Name:           python-%{pypi_name}
 Version:        0.99.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ sed -i "s|\r||g" dbf/README.md
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.99.3-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

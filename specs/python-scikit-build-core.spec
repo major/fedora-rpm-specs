@@ -41,6 +41,10 @@ Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 %autosetup -n scikit_build_core-%{version}
 # Rename the bundled license so that it can be installed together
 cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject-metadata
+# Avoid cattrs test dependency -- some tests are skipped for that
+# cattrs is not yet availbale for Python 3.14
+# https://bugzilla.redhat.com/2343916
+sed -i '/cattrs/d' pyproject.toml
 
 
 %generate_buildrequires
@@ -59,7 +63,8 @@ cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject
 %check
 %pyproject_check_import
 %pytest \
-    -m "not network"
+    -m "not network" \
+    --ignore tests/test_fileapi.py -k "not cattrs"
 
 
 %files -n python3-scikit-build-core -f %{pyproject_files}

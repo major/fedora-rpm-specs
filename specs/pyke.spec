@@ -1,7 +1,7 @@
 Name:			pyke
 Summary:		Knowledge-based inference engine
 Version:		1.1.1
-Release:		50%{?dist}
+Release:		51%{?dist}
 License:		MIT
 URL:			http://pyke.sourceforge.net/
 Source0:		http://download.sourceforge.net/%{name}/%{name}3-%{version}.zip
@@ -64,6 +64,9 @@ rm -rf doc/source/
 %doc examples/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.1-51
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

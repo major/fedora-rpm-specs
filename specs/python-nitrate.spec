@@ -1,6 +1,6 @@
 Name: python-nitrate
 Version: 1.9.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 Summary: Python API for the Nitrate test case management system
 License: LGPL-2.1-only
@@ -127,6 +127,9 @@ install -pm 644 docs/*.1.gz %{buildroot}%{_mandir}/man1
 %license LICENSE
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.9.0-6
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Petr Šplíchal <psplicha@redhat.com> - 1.9.0-5
 - Update the license to the right SPDX format
 

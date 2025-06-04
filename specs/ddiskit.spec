@@ -11,7 +11,7 @@ Version:        3.6
 
 %forgemeta
 
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
 License:        GPL-3.0-only
@@ -68,6 +68,9 @@ find %{buildroot} -size 0 -delete
 %config(noreplace) /etc/ddiskit.config
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.6-30
+- Rebuilt for Python 3.14
+
 * Thu Feb 06 2025 Eugene Syromiatnikov <esyr@redhat.com> - 3.6-29
 - Update to the latest version.
 

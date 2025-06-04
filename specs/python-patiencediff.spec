@@ -1,7 +1,7 @@
 %global pypi_name patiencediff
 Name:           python-patiencediff
 Version:        0.2.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python implementation of the patiencediff algorithm
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %{_bindir}/patiencediff
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.15-4
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

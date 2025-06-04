@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python wrapper for the Frontier Silicon API
 
 License:        Apache-2.0
@@ -38,6 +38,9 @@ Asynchronous Python implementation of the Frontier Silicon API.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.8-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

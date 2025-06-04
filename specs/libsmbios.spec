@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPL-2.0-or-later or OSL-2.1
@@ -192,6 +192,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.3-18
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.3-17
 - Drop build logs from package payload and make python subpackage noarch
 

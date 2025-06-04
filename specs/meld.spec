@@ -1,6 +1,6 @@
 Name:           meld
 Version:        3.23.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{python3_sitelib}/meld/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.23.0-2
+- Rebuilt for Python 3.14
+
 * Sun Mar 23 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 3.23.0-1
 - New upstream release 3.23.0 (RHBZ#2354309)
 

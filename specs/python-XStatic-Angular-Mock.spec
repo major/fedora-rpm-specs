@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.1.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Angular-Mock (XStatic packaging standard)
 
 License:        MIT
@@ -88,6 +88,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_mock/angular-mock.js
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.1.1-35
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

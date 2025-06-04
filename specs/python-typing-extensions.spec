@@ -1,11 +1,16 @@
 Name:      python-typing-extensions
 Version:   4.14.0~rc1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source:    %{pypi_source typing_extensions}
+
+# Backport evaluate_forward_ref() changes
+# Fixes test_invalid_special_forms with Python 3.14.0b2+
+# From https://github.com/python/typing_extensions/commit/fcf5265b30, sans CHANGELOG.md changes
+Patch:     fcf5265b30.patch
 
 BuildArch: noarch
 
@@ -41,7 +46,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-4.14.0rc1
+%autosetup -p1 -n typing_extensions-4.14.0rc1
 
 
 %generate_buildrequires
@@ -70,6 +75,9 @@ cd src
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.14.0~rc1-2
+- Rebuilt for Python 3.14
+
 * Sun May 25 2025 Jonny Heggheim <hegjon@gmail.com> - 4.14.0~rc1-1
 - Updated to version 4.14.0rc1
 

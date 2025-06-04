@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
 # Automatically converted from old format: MIT and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -79,6 +79,9 @@ rm -rf %{buildroot}%{python3_sitelib}/py/_vendored_packages/*.{dist,egg}-info
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.11.0-15
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

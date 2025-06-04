@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.6.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zstd Bindings for Python
 
 # original zstd bits are GPL-2.0-or-later OR BSD-2-Clause
@@ -63,6 +63,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.6.7-2
+- Rebuilt for Python 3.14
+
 * Mon Apr 07 2025 Michel Lind <salimma@fedoraproject.org> - 1.5.6.7-1
 - Update to 1.5.6.7; Fixes: RHBZ#2339003
 

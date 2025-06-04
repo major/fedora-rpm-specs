@@ -2,12 +2,14 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test asyncio code more easily
 
 License:        MIT
 URL:            https://github.com/kwarunek/aiounittest
 Source:         %{pypi_source aiounittest}
+# Support Python 3.14
+Patch:          https://github.com/kwarunek/aiounittest/pull/29.patch
 
 BuildArch:      noarch
 
@@ -54,6 +56,9 @@ when writing tests of asynchronous code (:code:asyncio). You can test:
 %doc README.rst
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.14
+
 * Fri Mar 21 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.5.0-1
 - Update to version 1.5.0
 - Port to pyproject macros

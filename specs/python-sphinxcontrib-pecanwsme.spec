@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extension to Sphinx for documenting APIs built with Pecan and WSME
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -49,6 +49,9 @@ built with the Pecan WSGI object-dispatching web framework and WSME
 %{python3_sitelib}/*-nspkg.pth
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11.0-2
+- Rebuilt for Python 3.14
+
 * Thu Mar 13 2025 Joel Capitao <cjapitao@redhat.com> - 0.11.0-1
 - Update to 0.11.0
 

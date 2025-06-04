@@ -16,7 +16,7 @@ Initiative (NIfTI).}
 
 Name:           python-%{srcname}
 Version:        1.0.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python bindings for Gifti
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -87,6 +87,9 @@ install -D -m 0644 %{srcname}.py -t %{buildroot}/%{python2_sitelib}/
 %{python3_sitelib}/__pycache__/%{srcname}.cpython-3*.pyc
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.4-25
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

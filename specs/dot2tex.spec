@@ -1,6 +1,6 @@
 Name:           dot2tex
 Version:        2.11.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A Graphviz to LaTeX converter
 License:        MIT
 URL:            http://www.fauskes.net/code/dot2tex/
@@ -38,6 +38,9 @@ find docs examples -name "*.tex" -o -name "*.dot" | xargs sed -i -e 's|\r||'
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.11.3-24
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

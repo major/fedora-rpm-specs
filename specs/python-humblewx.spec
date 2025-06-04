@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 License:        GPL-3.0-or-later
@@ -40,6 +40,9 @@ Library that simplifies creating user interfaces with wxPython.
 %{python3_sitelib}/%{srcname}*/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.2-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

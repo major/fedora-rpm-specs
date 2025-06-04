@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.4.27
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        File type identification using libmagic
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_magic-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.27-12
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.27-11
 - Update file/libmagic dependency
 

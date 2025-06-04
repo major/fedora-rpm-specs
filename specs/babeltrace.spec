@@ -1,6 +1,6 @@
 Name:           babeltrace
 Version:        1.5.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
@@ -117,6 +117,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.11-11
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

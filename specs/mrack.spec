@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.23.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,6 +185,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.23.4-2
+- Rebuilt for Python 3.14
+
 * Wed May 28 2025 David Pascual Hernandez <davherna@redhat.com> - 1.23.4-1
 - 75d8c3b chore: Enable epel-10 builds in Packit (David Pascual)
 - 4a98123 fix: Support pass fetch_url to task (David Pascual)

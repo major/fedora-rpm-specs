@@ -1,8 +1,10 @@
+%global _without_docs 1
+%global _without_tests 1
 %global srcname sortedcontainers
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Pure Python sorted container types
 
 License:        Apache-2.0
@@ -95,6 +97,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.0-20
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

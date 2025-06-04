@@ -17,7 +17,7 @@ douteuse est erronée, le correcteur ne signalera rien.}
 
 Name:           grammalecte
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        French grammar checker
 Summary(fr):    Correcteur grammatical dédié à la langue française
 
@@ -152,6 +152,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2-1
 - Update to 2.2
 

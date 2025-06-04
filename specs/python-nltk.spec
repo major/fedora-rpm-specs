@@ -2,7 +2,7 @@
 Name:           python-nltk
 Epoch:          1
 Version:        3.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Natural Language Toolkit
 
 # The entire source code is ASL 2.0 except nltk/stem/porter.py is
@@ -73,6 +73,9 @@ done
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:3.9.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 11 2025 Romain Geissler <romain.geissler@amadeus.com> - 1:3.9.1-1
 - Update to 3.9.1 (#2303929)
 

@@ -3,7 +3,7 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.4.2
+Version: 1.5.1
 Release: %autorelease
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
@@ -12,18 +12,8 @@ URL: https://joblib.readthedocs.io
 Source0: %{pypi_source}
 
 Patch: joblib-unbundle-cloudpickle.patch
-
-# Downstream only: Don't count DeprecationWarnings in test_main_thread_renamed_no_warning
-# Upstream issue: https://github.com/joblib/joblib/issues/1478
-Patch: joblib-dont-count-DeprecationWarnings.patch
-
-# Numpy 2.x patch fixing failing doctest.
-# https://github.com/joblib/joblib/pull/1632
-Patch: https://github.com/joblib/joblib/pull/1632.patch
-
-# Python 3.14 support, rebased
-# https://github.com/joblib/joblib/pull/1688
-Patch: 1688.patch
+# Support Python 3.14
+Patch: Use-inspect.iscoroutinefunction-instead-of-asyncio-o.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -53,7 +43,7 @@ BuildRequires:  %{py3_dist threadpoolctl}
 Recommends: %{py3_dist numpy}
 Recommends: %{py3_dist lz4}
 Recommends: %{py3_dist psutil} 
-Provides: bundled(python3dist(loky)) = 3.4.1
+Provides: bundled(python3dist(loky)) = 3.5.5
 
 %description -n python3-%{srcname} %_description
 

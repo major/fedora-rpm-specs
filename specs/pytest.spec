@@ -1,3 +1,6 @@
+%global _without_docs 1
+%global _without_tests 1
+%global _without_timeout 1
 Name:           pytest
 Version:        8.3.5
 Release:        %autorelease

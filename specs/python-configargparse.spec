@@ -2,7 +2,7 @@
 
 Name:           python-configargparse
 Version:        1.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python module with support for argparse, config files, and env variables
 
 License:        MIT
@@ -62,6 +62,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -k "not Test
 %{python3_sitelib}/__pycache__/configargparse*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

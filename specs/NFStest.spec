@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: NFS Testing Tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,6 +52,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2-11
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

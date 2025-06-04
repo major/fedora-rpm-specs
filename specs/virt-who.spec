@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.26
-Release:        %{release_number}%{?dist}.5
+Release:        %{release_number}%{?dist}.6
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -164,6 +164,9 @@ fi
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.31.26-1.6
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Miro Hrončok <mhroncok@redhat.com> - 1.31.26-1.5
 - Drop unused runtime requirement on python3-setuptools
 

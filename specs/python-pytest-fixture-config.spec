@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -47,6 +47,9 @@ Allows you to skip tests when their required config variables aren't set.
 %doc README.md CHANGES.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.8.0-4
+- Rebuilt for Python 3.14
+
 * Sat Mar 22 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.0-3
 - Drop unneeded -t to pyproject_buildrequires. Fixes rhbz#2354119
 

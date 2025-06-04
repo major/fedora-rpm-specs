@@ -23,6 +23,11 @@ License: BSD-3-Clause AND CC-BY-2.0 AND MIT AND BSD-2-Clause AND PSF-2.0
 URL: http://scikit-learn.org/
 Source0: %{pypi_source scikit_learn}
 
+# Don't leak cache_directory from test_check_memory
+# This created a cache_directory in %%{python3_sitearch} during %%check
+# Since joblib 1.5.0, the directory would no longer be empty and it would fail the build
+Patch: https://github.com/scikit-learn/scikit-learn/pull/31453.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: python3-devel
@@ -116,6 +121,8 @@ pushd %{buildroot}%{python3_sitearch}
 %endif
   --deselect "sklearn/utils/tests/test_validation.py::test_check_is_fitted_with_attributes[list]" \
   --deselect "sklearn/utils/tests/test_validation.py::test_check_is_fitted" \
+  --deselect "sklearn/cluster/tests/test_optics.py::test_warn_if_metric_bool_data_no_bool" \
+  --deselect "sklearn/datasets/tests/test_openml.py::test_open_openml_url_retry_on_network_error" \
 %ifarch ppc64le
   --deselect "sklearn/tests/test_calibration.py::test_calibrated_classifier_cv_zeros_sample_weights_equivalence[True-isotonic]" \
 %endif

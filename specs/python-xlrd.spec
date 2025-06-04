@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.1-22
+- Rebuilt for Python 3.14
+
 * Wed Feb 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.1-21
 - This package has no test available, just import this module to test.
 

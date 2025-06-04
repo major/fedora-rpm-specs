@@ -95,7 +95,10 @@ done
 
 %if %{without bootstrap}
 %check
-%pytest -m "not network"
+# test_isolated_env_install_discards_requirements_not_needed_by_env fails with python3.14
+# upstream issue: https://github.com/python-poetry/poetry/issues/10306
+%pytest -m "not network" \
+        -k "not test_isolated_env_install_discards_requirements_not_needed_by_env"
 %endif
 
 

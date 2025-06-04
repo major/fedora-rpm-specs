@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}_2
 Version:        3.4.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python implementation of Markdown
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ sed -i -e '/unittest/d' tests/test_syntax/extensions/test_md_in_html.py
 %{_bindir}/markdown_py
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.4.4-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

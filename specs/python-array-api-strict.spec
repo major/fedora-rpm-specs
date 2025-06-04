@@ -8,6 +8,10 @@ License:        BSD-3-Clause
 URL:            https://github.com/data-apis/array-api-strict
 Source:         %{pypi_source array_api_strict}
 
+# Fix test_iter with Python 3.14.0b1
+# Rebased from https://github.com/data-apis/array-api-strict/pull/154 (merged)
+Patch:          Fix-test_iter-with-Python-3.14-beta-1.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -36,7 +40,7 @@ Summary:        %{summary}
 %description -n python3-array-api-strict %{_description}
 
 %prep
-%autosetup -n array_api_strict-%{version}
+%autosetup -p1 -n array_api_strict-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

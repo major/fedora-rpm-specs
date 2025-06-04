@@ -18,7 +18,7 @@ Summary: Dependency injection, the Python way
 License: Apache-2.0
 
 Version: 5.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pypi_name}
 Source0: %pypi_source
@@ -67,6 +67,9 @@ BuildArch: noarch
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.2.1-6
+- Rebuilt for Python 3.14
+
 * Thu Feb 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.2.1-5
 - Replace spurious/obsolete BuildRequires on python-pytest-runner
 

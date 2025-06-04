@@ -1,6 +1,6 @@
 Name:		congruity
 Version:	21
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Applications to program Logitech Harmony universal remote controls
 
 # Code is GPLv3+, icons are the other two licenses
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mhgui.desktop
 %{_mandir}/*/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 21-11
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

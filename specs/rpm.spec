@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.90
 #global snapver rc1
-%global baserelease 5
+%global baserelease 6
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -617,6 +617,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.99.90-6
+- Rebuilt for Python 3.14
+
 * Mon May 12 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.90-5
 - Upstream fixes for #2360342 and #2362996
 

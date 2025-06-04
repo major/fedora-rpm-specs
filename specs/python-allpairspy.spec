@@ -1,6 +1,6 @@
 Name:          python-allpairspy
 Version:       2.5.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Pairwise test combinations generator
 
 License:       MIT
@@ -49,6 +49,9 @@ rm -rf allpairspy.egg-info
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.5.1-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 11 2025 Jonny Heggheim <hegjon@gmail.com> - 2.5.1-1
 - Updated to version 2.5.1
 

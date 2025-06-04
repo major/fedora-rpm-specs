@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.46
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -50,6 +50,12 @@ Patch4: file-5.46-fix-tests-rpm-magic.patch
 
 # upstream: https://github.com/file/file/commit/b874d520c592ecd55ebcae0d662dc6e54f5c5414
 Patch5: file-5.47-magic-entries.patch
+
+# upstream commit: https://github.com/file/file/commit/6bc6cf03ad4ad136088260e22f30c6d191c161a3
+Patch6: file-5.47-buffer-overrun-1.patch
+
+# upstream commit: https://github.com/file/file/commit/83aab94724a226c04bf8b85c9ceb2be91dca8dd5
+Patch7: file-5.47-buffer-overrun-2.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -232,6 +238,12 @@ make -C tests check
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.46-3
+- Rebuilt for Python 3.14
+
+* Thu May 29 2025 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-2
+- Fix buffer overrun when parsing large PT_INTERP segments in ELF files
+
 * Mon Feb 03 2025 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-1
 - New upstream release
 

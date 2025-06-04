@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A package containing multiple implementations of Ordered Set
 License:        MIT
 URL:            https://github.com/seperman/orderly-set
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/orderly_set-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.4.1-2
+- Rebuilt for Python 3.14
+
 * Wed May 07 2025 Romain Geissler <romain.geissler@amadeus.com> - 5.4.1-1
 - Update to upstream version 5.4.1.
 

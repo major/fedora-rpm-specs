@@ -9,7 +9,7 @@ Goals:
 
 Name:           python-strict-rfc3339
 Version:        0.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Strict, simple, lightweight RFC3339 functions
 
 License:        GPL-3.0-only
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

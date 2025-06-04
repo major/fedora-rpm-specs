@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -351,6 +351,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-1
 - Update to version 3.3.1
 - Drop patches accepted upstream or previously backported

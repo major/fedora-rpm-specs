@@ -1,6 +1,6 @@
 Name:           python-hatch-jupyter-builder
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hatch plugin to help build Jupyter packages
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/hatch-jupyter-builder/
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.1-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 25 2025 Lumír Balhar <lbalhar@redhat.com> - 0.9.1-1
 - Update to 0.9.1
 

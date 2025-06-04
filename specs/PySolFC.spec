@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        3.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -90,6 +90,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.0-6
+- Rebuilt for Python 3.14
+
 * Fri Mar 07 2025 Shlomi Fish <shlomif@shlomifish.org> 3.2.0-5
 - Revert to use tcl 8 / tk 8 given that is what PySolFC loads in practice.
 - rhbz#2344906

@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # Break a circular build dependency with python-pydantic
 %bcond bootstrap 0
 

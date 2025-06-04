@@ -7,7 +7,7 @@
 
 Name:           python-blessings
 Version:        1.7
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Thin, practical wrapper around terminal coloring, styling, and positioning
 License:        MIT
 URL:            https://github.com/erikrose/blessings
@@ -62,6 +62,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7-28
+- Rebuilt for Python 3.14
+
 * Wed Mar 19 2025 Michel Lind <salimma@fedoraproject.org> - 1.7-27
 - Disable nose tests on Fedora >= 43
 - Resolves: RHBZ#2349839

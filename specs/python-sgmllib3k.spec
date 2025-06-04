@@ -4,7 +4,7 @@
 
 Name:           python-sgmllib3k
 Version:        1.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        python3 copy of sgmllib
 License:        PSF-2.0
 URL:            http://hg.hardcoded.net/sgmllib
@@ -52,6 +52,9 @@ eventually think about finding another module to use.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.0-18
+- Rebuilt for Python 3.14
+
 * Sun Feb 23 2025 Kevin Fenzi <kevin@scrye.com> - 1.0.0-17
 - Fixed license
 

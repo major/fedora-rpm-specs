@@ -2,7 +2,7 @@ Name:           tiled
 Summary:        Tiled Map Editor
 
 Version:        1.11.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -286,6 +286,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.11.2-4
+- Rebuilt for Python 3.14
+
 * Fri May 02 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.2-3
 - Add a patch to workaround Qt 6.9 rendering bug (rhbz#2363661)
 

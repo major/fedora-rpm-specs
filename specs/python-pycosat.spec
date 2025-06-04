@@ -8,7 +8,7 @@ itself.
 
 Name:           python-%{srcname}
 Version:        0.6.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -55,6 +55,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -vv
 %{python3_sitearch}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.6-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

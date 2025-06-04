@@ -1,6 +1,6 @@
 Name:           omniORBpy
 Version:        4.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CORBA ORB for Python
 
 License:        LGPL-2.0-or-later
@@ -93,6 +93,9 @@ find %{buildroot}%{python3_sitelib} -type d -exec chmod 755 {} \;
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.3.3-2
+- Rebuilt for Python 3.14
+
 * Wed Apr 02 2025 Sandro Mani <manisandro@gmail.com> - 4.3.3-1
 - Update to 4.3.3
 

@@ -1,7 +1,7 @@
 Name:           gumbo-parser
 Epoch:          1
 Version:        0.12.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A HTML5 parser
 
 License:        Apache-2.0
@@ -114,6 +114,9 @@ install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:0.12.1-4
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

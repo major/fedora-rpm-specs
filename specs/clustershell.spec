@@ -25,7 +25,7 @@
 
 Name:           clustershell
 Version:        1.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -234,6 +234,9 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.9.3-2
+- Rebuilt for Python 3.14
+
 * Fri Jan 24 2025 Stephane Thiell <sthiell@stanford.edu> 1.9.3-1
 - update to 1.9.3
 

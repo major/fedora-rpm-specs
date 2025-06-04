@@ -1,6 +1,6 @@
 Name:           python-pylero
 Version:        0.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python SDK for Polarion
 
 License:        MIT
@@ -82,6 +82,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.1-2
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Wayne Sun <gsun@redhat.com> 0.1.1-1
 - Update to 0.1.1
 

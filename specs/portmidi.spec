@@ -12,7 +12,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        60%{?dist}
+Release:        61%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -223,6 +223,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 217-61
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Michael J Gruber <mjg@fedoraproject.org> - 217-60
 - fix FTBFS with newer gcc
 

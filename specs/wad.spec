@@ -1,6 +1,6 @@
 Name:           wad
 Version:        0.4.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tool for detecting technologies used by web applications
 
 # wad is GPLv3, wappalyzer source is MIT
@@ -44,6 +44,9 @@ mv wad/etc/README.md wad/etc/README-wappalyzer.md
 %{python3_sitelib}/%{name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.6-18
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

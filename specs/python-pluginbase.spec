@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Support library for building plugins systems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ popd
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

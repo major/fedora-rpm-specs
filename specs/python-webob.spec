@@ -9,7 +9,7 @@ environment.
 Name:           python-webob
 Summary:        WSGI request and response object
 Version:        1.8.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 URL:            https://webob.org
 Source:         %{pypi_source webob}
@@ -72,6 +72,9 @@ rm docs/_static/.empty
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.8.9-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

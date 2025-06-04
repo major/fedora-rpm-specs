@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
@@ -48,6 +48,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{pypi_version}"
 %doc README.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.0-2
+- Rebuilt for Python 3.14
+
 * Sun Mar 16 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.3.0-1
 - Update to upstream version 1.3.0
 

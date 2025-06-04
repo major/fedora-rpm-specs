@@ -28,7 +28,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 Name:           argparse-manpage
 Version:        4.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -188,6 +188,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.6-6
+- Rebuilt for Python 3.14
+
 * Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 4.6-5
 - Fix build with newer setuptools
 

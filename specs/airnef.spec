@@ -11,7 +11,7 @@
 
 Name:           airnef
 Version:        1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Wireless download from your Nikon/Canon Camera
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -95,6 +95,9 @@ install -m 755 wrapper %buildroot%_bindir/airnefcmd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1-31
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

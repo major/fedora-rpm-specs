@@ -34,6 +34,8 @@ Patch:          0004-sphinx-extlinks.patch
 # (sans file moves to make the patch smaller and easier to inspect)
 # Several modules converted by hand.
 Patch:          0005-remove-nose.patch
+# Fix for Python 3.10+ - needed for Python 3.14
+Patch:          https://github.com/behave/behave/commit/6456f34326727558.patch
 
 
 BuildArch:      noarch

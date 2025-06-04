@@ -1,6 +1,6 @@
 %global srcname pysnooper
 Name:           python-pysnooper
-Version:        1.2.2
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Poor man's debugger for Python
 

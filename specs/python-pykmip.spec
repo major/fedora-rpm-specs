@@ -11,7 +11,7 @@
 
 Name:           python-%{sname}
 Version:        0.8.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python implementation of the Key Management Interoperability Protocol
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -128,6 +128,9 @@ Structured InformationStandards`_ (OASIS).
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.0-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

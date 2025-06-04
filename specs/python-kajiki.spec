@@ -2,7 +2,7 @@
 
 Name:               python-kajiki
 Version:            1.0.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Really fast well-formed xml templates
 
 License:            MIT
@@ -62,6 +62,9 @@ speed! Don't delay! Pick up your copy of Kajiki today!
 %{_bindir}/kajiki
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.2-2
+- Rebuilt for Python 3.14
+
 * Mon May 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.0.2-1
 - Update to upstream
 - Migrate to pyproject

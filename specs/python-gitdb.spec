@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Git Object Database
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ export GITDB_TEST_GIT_REPO_BASE=testrepo/.git
 %doc AUTHORS
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.0.11-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

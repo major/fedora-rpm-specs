@@ -6,7 +6,7 @@
 
 Name:           koji-osbuild
 Version:        12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Koji integration for osbuild composer
 
 %forgemeta
@@ -160,6 +160,9 @@ Integration tests for koji-osbuild. To be run on a dedicated system.
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 12-3
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

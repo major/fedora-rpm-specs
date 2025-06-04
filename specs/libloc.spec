@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.18
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
@@ -317,6 +317,9 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.18-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 11 2025 Petr Pisar <ppisar@redhat.com> - 0.9.18-1
 - 0.9.18 bump
 

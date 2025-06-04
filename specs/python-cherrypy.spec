@@ -1,3 +1,4 @@
+%global _without_tests 1
 %{?python_enable_dependency_generator}
 
 %if 0%{?el8}
@@ -10,7 +11,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -92,6 +93,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 18.10.0-5
+- Bootstrap for Python 3.14
+
 * Sun Jan 19 2025 Dan Radez <dradez@redhat.com> - 18.10.0-4
 - removing coverage
 

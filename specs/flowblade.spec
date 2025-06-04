@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.14.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
 Version:        2.20
-Release:        1%{?dist}
+Release:        3%{?dist}
 %endif
 License:        GPL-3.0-only
 Summary:        Multitrack non-linear video editor for Linux
@@ -74,6 +74,9 @@ sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|g' flowblade-trunk/Flowbla
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade/translations.py
 
+# flowblade is not a native Wayland application and needs to run using XWayland
+sed -i -e 's|env GDK_BACKEND=x11 flowblade %f|env GDK_BACKEND=x11 SDL_VIDEODRIVER=x11 flowblade %f|' flowblade-trunk/installdata/io.github.jliljebl.Flowblade.desktop
+
 %build 
 cd flowblade-trunk
 %py3_build
@@ -118,6 +121,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.20-3
+- Rebuilt for Python 3.14
+
+* Mon Jun 02 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.20-2
+- Run application using XWayland
+
 * Tue Mar 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.20-1
 - Update to 2.20
 

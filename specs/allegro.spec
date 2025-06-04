@@ -1,9 +1,6 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 Name:           allegro
 Version:        4.4.3.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 Summary:        A game programming library
 Summary(es):    Una libreria de programacion de juegos
@@ -38,7 +35,7 @@ Patch14:        allegro-4.4.3-dat2c-buffer-overflow.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  texinfo cmake3
+BuildRequires:  texinfo cmake
 BuildRequires:  xorg-x11-proto-devel libX11-devel libXpm-devel libXcursor-devel
 BuildRequires:  libXxf86vm-devel libXxf86dga-devel libGL-devel libGLU-devel
 BuildRequires:  alsa-lib-devel jack-audio-connection-kit-devel
@@ -232,9 +229,10 @@ developing applications that use logg.
 %autosetup -p1
 
 %build
-%cmake3 -DOpenGL_GL_PREFERENCE:STRING=LEGACY -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake -DOpenGL_GL_PREFERENCE:STRING=LEGACY -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DDOCDIR:STRING=%{_pkgdocdir} -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
-%cmake3_build
+%cmake_build
 
 pushd %{_vpath_builddir}
 # Converting text documentation to UTF-8 encoding.
@@ -248,7 +246,7 @@ done
 popd
 
 %install
-%cmake3_install
+%cmake_install
 
 pushd %{_vpath_builddir}
 # installation of these is broken, because they use a cmake GLOB, but
@@ -388,6 +386,9 @@ install -pm 644 addons/jpgalleg/readme.txt \
 
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 4.4.3.1-16
+- Allow to build with CMake 4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

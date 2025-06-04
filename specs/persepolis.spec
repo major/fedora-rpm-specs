@@ -1,6 +1,6 @@
 Name:           persepolis
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A powerful graphical download manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.1.1-2
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 5.1.1-1
 - New bugfix upstream release: 5.1.1
 

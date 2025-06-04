@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPL-2.0-or-later
@@ -116,6 +116,9 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8-4
+- Rebuilt for Python 3.14
+
 * Wed Mar 26 2025 Marc Dequènes (Duck) <duck@redhat.com> - 3.8-3
 - Work around hardcoded binary install path for bin+sbin merge.
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2

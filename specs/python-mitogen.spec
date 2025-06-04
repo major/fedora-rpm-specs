@@ -9,7 +9,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.3.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distributed self-replicating programs in Python
 
 License:        LicenseRef-Callaway-BSD
@@ -70,6 +70,9 @@ rm -r mitogen/compat ansible_mitogen/compat
 %{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.22-2
+- Rebuilt for Python 3.14
+
 * Fri Feb 14 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.22-1
 - Update to latest upstream release (closes rhbz#2336106)
 

@@ -1,8 +1,10 @@
+%global _without_asyncio_tests 1
+%global _without_docs 1
 %global srcname jinja2
 
 Name:           python-jinja2
 Version:        3.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose template engine
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/jinja/
@@ -91,6 +93,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.6-2
+- Bootstrap for Python 3.14
+
 * Sun Mar  9 2025 Thomas Moschny <thomas.moschny@gmx.de> - 3.1.6-1
 - Update to 3.1.6.
 

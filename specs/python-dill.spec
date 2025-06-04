@@ -10,6 +10,9 @@ License: BSD-3-Clause
 URL: https://github.com/uqfoundation/dill
 Source: %{pypi_source dill}
 
+# Pickle _contextvars.Context objects, for threads in Python 3.14+
+Patch: https://github.com/uqfoundation/dill/pull/717.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-devel
@@ -54,7 +57,7 @@ Summary:  %{summary}
 
 
 %prep
-%autosetup -n dill-%{version}
+%autosetup -p1 -n dill-%{version}
 
 
 %generate_buildrequires

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.14.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Best way to have Django DRY forms
 License:        MIT
 URL:            https://github.com/django-crispy-forms/django-crispy-forms
@@ -51,6 +51,9 @@ so it plays nice with any other form application.
 %{python3_sitelib}/django_crispy_forms-*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.14.0-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

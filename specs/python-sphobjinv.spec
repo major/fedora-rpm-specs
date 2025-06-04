@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx objects.inv inspection/manipulation tool
 
 License:        MIT
@@ -47,6 +47,9 @@ sphobjinv comes in.
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.1.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

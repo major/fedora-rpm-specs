@@ -2,7 +2,7 @@
 
 Name:           hashid
 Version:        3.1.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Tool to identify different types of hashes
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ install -Dp -m 0644 doc/man/%{name}.7 %{buildroot}%{_mandir}/man7/%{name}.7
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.4-24
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-%global with_python3_tests 1
+%global with_python3_tests 0
 %endif
 
 %global pypi_name   PySocks
@@ -8,7 +8,7 @@
 
 Name:               python-%{modname}
 Version:            1.7.1
-Release:            26%{?dist}
+Release:            27%{?dist}
 Summary:            %{sum}
 
 License:            BSD-3-Clause
@@ -115,6 +115,9 @@ rm -rfv test/bin
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7.1-27
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Open source Church presentation and lyrics projection application
 Name: OpenLP
 Version: 3.1.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://get.openlp.org/%{version}/OpenLP-%{version}.tar.gz
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -96,6 +96,9 @@ cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.6-4
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.6-3
 - Remove the pytest-runner dependency
 

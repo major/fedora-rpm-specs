@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.3.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -362,6 +362,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.0-6
+- Rebuilt for Python 3.14
+
 * Fri Apr 18 2025 Eric Garver <eric@garver.life> - 2.3.0-5
 - remove patch specific to workstation variant (RHBZ#2359679)
 

@@ -6,7 +6,7 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Io is a small, prototype-based programming language
 License:        BSD-3-Clause
 URL:            https://iolanguage.org
@@ -278,6 +278,9 @@ done
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 20170906-23
+- Rebuilt for Python 3.14
+
 * Thu May 22 2025 Cristian Le <git@lecris.dev> - 20170906-22
 - Allow to build with CMake 4.0
 

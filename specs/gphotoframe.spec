@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	34
+%global	baserelease	35
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -313,6 +313,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.2-35.hg2084299dffb6
+- Rebuilt for Python 3.14
+
 * Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 2.0.2-34.hg2084299dffb6
 - Fix build with newer setuptools
 

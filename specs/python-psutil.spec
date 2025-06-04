@@ -1,9 +1,10 @@
+%global _without_xdist 1
 # pytest-xdist is not included in RHEL, and on Fedora it depends on psutil
 %bcond xdist %[%{defined fedora} && %{undefined bootstrap}]
 
 Name:           python-psutil
 Version:        6.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
@@ -126,6 +127,9 @@ APPVEYOR=1 %{pytest} %{?with_xdist:-n auto} -k "not emulate_energy_full_0 and no
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.1.1-4
+- Bootstrap for Python 3.14
+
 * Mon May 26 2025 Andrea Bolognani <abologna@redhat.com> - 6.1.1-3
 - Skip test_emulate_multi_cpu on riscv64 too
 

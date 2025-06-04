@@ -7,7 +7,7 @@
 
 Name:           debconf
 Version:        1.5.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Debian configuration management system
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -272,6 +272,9 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.91-2
+- Rebuilt for Python 3.14
+
 * Mon Mar 10 2025 Packit <hello@packit.dev> - 1.5.91-1
 - Update to version 1.5.91
 - Resolves: rhbz#2350745

@@ -30,13 +30,9 @@ Patch:          0001-check-accelerated-gles-Use-eglGetPlatformDisplay-EXT.patch
 # For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
 # This should go upstream once systemd has a generic interface for this
 Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
-Patch:          https://gitlab.gnome.org/GNOME/gnome-session/-/commit/8a67a74249c1b98ba710c7cc97baefe1c00cbc7a.patch#/gnome-session-fix-have_x11-assignment.patch
 # always install xwayland targets, based on
 # https://gitlab.gnome.org/GNOME/gnome-session/-/commit/b272354df34d2437fa90ce09f4e153ee229e731e
 Patch:          gnome-session-always-install-xwayland-targets.patch
-# skip meson_post_install unless have_x11, based on
-# https://gitlab.gnome.org/GNOME/gnome-session/-/merge_requests/140
-Patch:          gnome-session-skip-meson_post_install-unless-have_x11.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc

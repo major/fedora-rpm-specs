@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.15.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python multi-engine PCAP analyse kit
 
 License:        MPL-2.0
@@ -45,6 +45,9 @@ chmod -x LICENSE
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.15.5-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

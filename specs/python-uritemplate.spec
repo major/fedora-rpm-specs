@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        4.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple python library to deal with URI Templates (RFC 6570)
 
 License:        BSD-3-Clause OR Apache-2.0
@@ -53,6 +53,9 @@ Python 3 version.
 %doc HISTORY.rst README.rst
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.1.1-14
+- Rebuilt for Python 3.14
+
 * Fri Jan 24 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 4.1.1-13
 - SPDX license review
 

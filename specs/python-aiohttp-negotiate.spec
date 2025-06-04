@@ -3,7 +3,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Add-on for Python aiohttp library to support Negotiate authentication
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -82,6 +82,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11-28
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

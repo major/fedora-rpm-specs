@@ -4,7 +4,7 @@ Version:        2.0.0
 %global prerel  rc8
 %global uver    %{version}%{?prerel}
 %global tag     %{name}-%{uver}
-Release:        0.36.%{prerel}%{?dist}
+Release:        0.37.%{prerel}%{?dist}
 
 Summary:        RepRap printer interface and tools
 # Only AppData is FSFAP
@@ -202,6 +202,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:2.0.0-0.37.rc8
+- Rebuilt for Python 3.14
+
 * Mon May 05 2025 Miro Hrončok <mhroncok@redhat.com> - 1:2.0.0-0.36.rc8
 - Fix a crash on Python 3.13
 

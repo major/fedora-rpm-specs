@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8.3-2
+- Rebuilt for Python 3.14
+
 * Mon Feb 03 2025 Christian Krause <chkr@fedoraproject.org> - 3.8.3-1
 - Update to 3.8.3 (#2302441)
 

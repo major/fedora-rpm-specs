@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	5
+%define	release	6
 
 Name:           %{name}
 Version:        %{version}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.0-6
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

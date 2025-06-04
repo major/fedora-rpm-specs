@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        %{short_version}~git.4.%{shortcommit}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Specific tools for Azure SDK for Python testing
 License:        MIT and Apache-2.0
 URL:            https://github.com/Azure/azure-sdk-for-python/
@@ -72,6 +72,9 @@ rm -f %{buildroot}/%{_bindir}/{auto_codegen,auto_package,generate_package,genera
 %{python3_sitelib}/testutils
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.0~git.4.67d46b9-13
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0~git.4.67d46b9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

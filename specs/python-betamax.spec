@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        VCR imitation for python-requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.0-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

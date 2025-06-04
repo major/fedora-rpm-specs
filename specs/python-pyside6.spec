@@ -24,7 +24,14 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 #Source1:	https://download.qt.io/official_releases/qt/%{majmin}/%{qt6ver}/submodules/%{qt_module}-everywhere-src-%{qt6ver}.tar.xz
 
 #https://bugreports.qt.io/browse/PYSIDE-2491
-Patch0:         147389_fix-build.patch
+Patch:          147389_fix-build.patch
+
+## Python 3.14 build failures
+# https://bugzilla.redhat.com/2325444
+# https://codereview.qt-project.org/c/pyside/pyside-setup/+/647510 (revision 1)
+Patch:          ec06c75.patch
+# https://codereview.qt-project.org/c/pyside/pyside-setup/+/647576 (revision 1)
+Patch:          8d7b4f0.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build

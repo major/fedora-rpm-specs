@@ -5,15 +5,13 @@
 %endif
 
 Name:    bluez
-Version: 5.82
+Version: 5.83
 Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-
-Patch1:  bluez-5.81-fixes.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -299,6 +297,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_mandir}/man5/org.bluez.*.5.*
 %{_mandir}/man7/hci.7.*
 %{_mandir}/man7/l2cap.7.*
+%{_mandir}/man7/mgmt.7.*
 %{_mandir}/man7/rfcomm.7.*
 %{_mandir}/man7/sco.7.*
 %{_libdir}/libbluetooth.so
@@ -334,6 +333,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Jun 02 2025 Bastien Nocera <bnocera@redhat.com> - 5.83-1
+- Update to 5.83
+
 * Wed Apr 02 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.82-1
 - Update to 5.82
 

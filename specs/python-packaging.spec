@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global pypi_name packaging
 
 # Specify --with bootstrap to build in bootstrap mode

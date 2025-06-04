@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
 License:        BSD-3-Clause
@@ -69,6 +69,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.21-19
+- Rebuilt for Python 3.14
+
 * Mon Mar 24 2025 Scott K Logan <logans@cottsay.net> - 0.21-18
 - Switch test execution from Nosetest to Pytest (rhbz#2349845)
 - Review SPDX Licensing

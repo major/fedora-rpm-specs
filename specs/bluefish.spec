@@ -1,6 +1,6 @@
 %global pkgver 2.2.17
 #global prerel rc1
-%global baserelease 1
+%global baserelease 2
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -158,6 +158,9 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.17-2
+- Rebuilt for Python 3.14
+
 * Tue Apr  1 2025 Paul Howarth <paul@city-fan.org> - 2.2.17-1
 - Update to 2.2.17 (rhbz#2356356)
   - Bluefish 2.2.17 is a maintenance release that has only code clean-up fixes

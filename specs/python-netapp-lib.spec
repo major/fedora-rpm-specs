@@ -12,7 +12,7 @@ Library to allow Ansible deployments to interact with NetApp storage systems}
 
 Name:           python-%{srcname}
 Version:        2021.6.25
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        NetApp library for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -54,6 +54,9 @@ rm -rf %{eggname}.egg-info
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2021.6.25-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2021.6.25-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

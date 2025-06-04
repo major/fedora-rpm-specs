@@ -1,10 +1,11 @@
+%global _without_tests 1
 %global pypi_name pymssql
 %global _description %{expand:A simple database interface for Python that builds on top of FreeTDS to provide
 a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
@@ -70,6 +71,9 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.2-2
+- Bootstrap for Python 3.14
+
 * Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.3.2-1
 - Update to 2.3.2
 

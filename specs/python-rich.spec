@@ -9,6 +9,11 @@ Summary:        Render rich text and beautiful formatting in the terminal
 License:        MIT
 URL:            https://github.com/Textualize/rich
 Source0:        %{url}/archive/v%{version}/rich-%{version}.tar.gz
+# Support pygments 2.19+
+Patch:          https://github.com/Textualize/rich/pull/3604.patch
+Patch:          https://github.com/Textualize/rich/pull/3608.patch
+# Support Python 3.14
+Patch:          https://github.com/Textualize/rich/pull/3622.patch
 
 BuildArch:      noarch
 
@@ -52,8 +57,9 @@ code, tracebacks, and more — out of the box.
 %check
 # add below to make sure initial build will catch runtime import errors
 %pyproject_check_import
-
-%pytest -vv -k 'not test_attrs_broken_310'
+# test_assemble_meta fails with Python 3.14
+# https://github.com/Textualize/rich/issues/3740
+%pytest -vv -k 'not test_attrs_broken_310 and not test_assemble_meta'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

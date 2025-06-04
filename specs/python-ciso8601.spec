@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast ISO8601 date time parser
 
 License:        MIT
@@ -49,6 +49,9 @@ than other Python libraries.
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.2-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2.3.2-1
 - Update to latest upstream release (closes rhbz#2331146)
 

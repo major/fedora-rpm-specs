@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        43.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -183,6 +183,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 43.4-2
+- Rebuilt for Python 3.14
+
 * Tue May 06 2025 Brian C. Lane <bcl@redhat.com> 43.4-1
 - runtime-postinstall: Remove root password (bcl@redhat.com)
   Resolves: rhbz#2364082

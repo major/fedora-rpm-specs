@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.5.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Magic-Search (XStatic packaging standard)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -65,6 +65,9 @@ mv %{buildroot}/%{python3_sitelib}/xstatic/pkg/magic_search/data/magic_search.* 
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.5.1-31
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

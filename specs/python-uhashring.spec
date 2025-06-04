@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        2.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python module uhashring
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ sed -i 's/ *"flake8",//g' pyproject.toml
 %license LICENSE
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3-10
+- Rebuilt for Python 3.14
+
 * Fri Mar 28 2025 Alfredo Moralejo <amoralej@redhat.com> - 2.3-9
 - Remove references to tox config during build
 

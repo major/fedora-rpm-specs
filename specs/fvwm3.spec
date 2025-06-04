@@ -1,5 +1,5 @@
 Name:		fvwm3
-Version:	1.1.2
+Version:	1.1.3
 Release:	%autorelease
 Summary:	Highly configurable multiple virtual desktop window manager
 # ./fvwm/screen.h "NTP License (legal disclaimer)",
@@ -11,21 +11,13 @@ URL:		https://www.fvwm.org/
 Source0:	https://github.com/fvwmorg/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 # Fedora-specific
-Patch1:		%{name}-0001-Use-mimeopen-instead-of-EDITOR.patch
-# Fedora-specific
-Patch2:		%{name}-0002-Skip-install-data-hook-for-default-configs.patch
-# Submitted upstream as https://github.com/fvwmorg/fvwm/pull/100 and https://github.com/fvwmorg/fvwm3/pull/1132
-Patch3:		%{name}-0003-Fixes-for-C99-compatibility.patch
-# Upstream deprecated autotools support. https://github.com/fvwmorg/fvwm3/pull/1131
-Patch4:		%{name}-0004-Replace-deprecated-AM_CONFIG_HEADER-with-AC_CONFIG_H.patch
-Patch5:		%{name}-0005-Install-locale-into-standard-directory.patch
+Patch:		%{name}-0001-Use-mimeopen-instead-of-EDITOR.patch
 BuildRequires:	asciidoctor
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	fribidi-devel
 BuildRequires:	gcc
 BuildRequires:	gettext
+BuildRequires:	golang
 BuildRequires:	libX11-devel
 BuildRequires:	libXcursor-devel
 BuildRequires:	libXext-devel
@@ -36,7 +28,9 @@ BuildRequires:	libXt-devel
 BuildRequires:	libevent-devel
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg2-devel
+BuildRequires:	libxkbcommon-devel
 BuildRequires:	make
+BuildRequires:	meson
 BuildRequires:	perl-generators
 BuildRequires:	readline-devel
 BuildRequires:	xorg-x11-xtrans-devel
@@ -54,16 +48,13 @@ desktop.
 
 %prep
 %autosetup -p1
-rm -rf ./bin/FvwmPrompt/vendor/
 
 %build
-aclocal --force
-autoreconf -ivf
-%configure --enable-mandoc
-%make_build
+%meson -Dmandoc=true
+%meson_build
 
 %install
-%make_install
+%meson_install
 %find_lang %{name}
 
 # xsession

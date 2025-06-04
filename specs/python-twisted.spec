@@ -18,6 +18,8 @@ Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 Patch0:         python-twisted-24.11.0-disable-tests.patch
 # https://github.com/twisted/twisted/pull/12442
 Patch1:         fix-HelperTests-test_refuteCryptedPassword-on-EPEL10.patch
+# Temporary hack until https://github.com/twisted/twisted/issues/12430 is done
+Patch2:         Skip-tests-failing-with-Python-3.14.patch
 
 BuildArch:      noarch
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Pythonic DBus library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.0-30
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@ A Python implementation of RFC 3986 including validation and authority parsing.}
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Validating URI References per RFC 3986
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -46,6 +46,9 @@ BuildRequires:  %{py3_dist pytest}
 %doc README.rst
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.0-2
+- Rebuilt for Python 3.14
+
 * Thu Feb 13 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.0.0-1
 - Update to version 2.0.0
 

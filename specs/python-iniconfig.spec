@@ -1,3 +1,4 @@
+%global _without_tests 1
 Name:               python-iniconfig
 Version:            1.1.1
 Release:            %autorelease

@@ -10,7 +10,7 @@
 %global pretty_name MEAutility
 
 Name:           python-%{pypi_name}
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Package for multi-electrode array (MEA) handling and stimulation
 

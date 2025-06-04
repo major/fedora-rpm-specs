@@ -4,7 +4,7 @@
 
 Name:           python-editor
 Version:        1.0.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Programmatically open an editor, capture the result
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ chmod a+x $RPM_BUILD_ROOT%{python3_sitelib}/editor.py
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.4-23
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

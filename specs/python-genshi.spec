@@ -1,6 +1,6 @@
 Name:           python-genshi
 Version:        0.7.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.9-6
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

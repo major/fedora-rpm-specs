@@ -5,15 +5,11 @@
 %bcond msgspec 1
 %bcond orjson 1
 
-# Beginning with Fedora 42, we no longer bother with building Sphinx-generated
-# PDF documentation.
-%bcond doc_pdf %{defined fc41}
-
-%global commit ae806749f02502be1a8c073fd81050c04aa56c96
-%global snapdate 20241004
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate YYYYMMDD
 
 Name:           python-cattrs
-Version:        24.1.2%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
+Version:        25.1.0%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        Python library for structuring and unstructuring data
 
@@ -35,57 +31,7 @@ Source:         %{url}/archive/%{commit}/cattrs-%{commit}.tar.gz
 %global debug_package %{nil}
 
 BuildRequires:  python3-devel
-
-# There is no obvious, straightforward way to generate dependencies from
-# [tool.pdm.dev-dependencies] in pyproject.toml, so we maintain them here
-# manually.
-
-# test = [
-#    "hypothesis>=6.79.4",
-BuildRequires:  %{py3_dist hypothesis} >= 6.79.4
-#    "pytest>=7.4.0",
-BuildRequires:  %{py3_dist pytest} >= 7.4
-#    "pytest-benchmark>=4.0.0",
-# We choose not to run benchmarks with the tests.
-# BuildRequires:  %%{py3_dist pytest-benchmark} >= 4.0.0
-#    "immutables>=0.20",
-BuildRequires:  %{py3_dist immutables} >= 0.20
-#    "typing-extensions>=4.7.1",
-BuildRequires:  %{py3_dist typing-extensions} >= 4.7.1
-#    "coverage>=7.4.0",
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-# BuildRequires:  %%{py3_dist coverage} >= 7.4.0
-#    "pytest-xdist>=3.4.0",
-BuildRequires:  %{py3_dist pytest-xdist} >= 3.4
-#]
-
-%if %{with doc_pdf}
-# docs = [
-#     "sphinx>=5.3.0",
-BuildRequires:  %{py3_dist sphinx} >= 5.3
-#     "furo>=2024.1.29",
-# furo is useful to build HTML docs, but not needed to build the PDF
-# BuildRequires:  %%{py3_dist furo} >= 2024.1.29
-#     "sphinx-copybutton>=0.5.2",
-# Loosened until https://bugzilla.redhat.com/show_bug.cgi?id=2186733 is fixed.
-BuildRequires:  %{py3_dist sphinx-copybutton} >= 0.5.1
-#     "myst-parser>=1.0.0",
-BuildRequires:  %{py3_dist myst-parser} >= 1
-#     "pendulum>=2.1.2",
-BuildRequires:  %{py3_dist pendulum} >= 2.1.2
-#     "sphinx-autobuild",
-# sphinx-autobuild is useful for developers, but not needed to build the docs
-# BuildRequires:  %%{py3_dist sphinx-autobuild}
-#     "typing-extensions>=4.8.0",
-BuildRequires:  %{py3_dist typing-extensions} >= 4.8
-# ]
-
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-BuildRequires:  /usr/bin/xindy
-BuildRequires:  tex-xetex-bin
-%endif
+BuildRequires:  tomcli
 
 %global msgspec_enabled 0
 %if %{with msgspec}
@@ -109,26 +55,10 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 Obsoletes:      python3-cattrs+bson < 23.2.3-1
-%if %{defined fedora} && %{without doc_pdf}
+# Removed for Fedora 42; we can drop the Obsoletes after Fedora 44.
 Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
-%endif
 
 %description -n python3-cattrs %_description
-
-
-%if %{with doc_pdf}
-%package        doc
-Summary:        Documentation for python-cattrs
-
-# If the msgspec extra (which is unavailable on s390x and i686) is enabled,
-# then the -doc subpackage becomes arch-dependent, because the presence of
-# msgspec affects the contents of the documentation.
-%if %{without msgspec}
-BuildArch:      noarch
-%endif
-
-%description    doc %{_description}
-%endif
 
 
 # Most extras metapackages are noarch:
@@ -155,19 +85,16 @@ BuildArch:      noarch
 %prep
 %autosetup -n cattrs-%{?!commit:%{version}}%{?commit:%{commit}}
 
-# Don’t run benchmarks when testing (we don’t depend on pytest-benchmark)
+# Don’t run benchmarks when testing
+tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
+    'pytest-benchmark\b.*'
 sed -r -i 's/ --benchmark[^[:blank:]"]*//g' pyproject.toml
-
-# The version-finding code in docs/conf.py relies on a real installed
-# “distribution” with metadata, which we don’t have at the time the
-# documentation is built.
-sed -r -i 's/^(version = ).*/\1 "%{srcversion}"/' docs/conf.py
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem 'dependency-groups.test' \
+    'coverage\b.*'
 
 # Remove bundled fonts to show they are not packaged:
 rm -rv docs/_static/fonts/
-
-# Since pdflatex cannot handle Unicode inputs in general:
-echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 
 %generate_buildrequires
@@ -191,19 +118,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
 %if %{msgspec_enabled}
     -x msgspec \
 %endif
-    %{nil}}
+    -g test}
 
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
 %pyproject_wheel
-
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex \
-    SPHINXBUILD=sphinx-build \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -212,8 +132,9 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %check
-%if %{without bson}
-# These unconditionally import bson, so they error during test collection
+%if %{without bson} || %{without cbor2}
+# These unconditionally import bson and cbor2, so they error during test
+# collection
 ignore="${ignore-} --ignore=tests/test_preconf.py"
 ignore="${ignore-} --ignore=tests/preconf/test_pyyaml.py"
 %endif
@@ -223,26 +144,90 @@ ignore="${ignore-} --ignore=tests/preconf/test_pyyaml.py"
 ignore="${ignore-} --ignore=tests/preconf/test_msgspec_cpython.py"
 %endif
 
-# https://github.com/python-attrs/cattrs/issues/547#issuecomment-2397173866
-k="${k-}${k+ and }not test_simple_roundtrip_defaults"
+%if v"0%{?python3_version}" >= v"3.14"
+# https://github.com/python-attrs/cattrs/issues/626
+#
+# With 3.14.0b2:
+#
+# FAILED tests/strategies/test_include_subclasses.py::test_structure_as_union
+# FAILED tests/strategies/test_include_subclasses.py::test_structuring_unstructuring_unknown_subclass
+# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-grandchild-only]
+# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-parent-only]
+# FAILED tests/strategies/test_include_subclasses.py::test_parents_with_generics[True]
+# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-child1-only]
+# FAILED tests/strategies/test_include_subclasses.py::test_parents_with_generics[False]
+# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-child2-only]
+# FAILED tests/test_generics.py::test_deep_copy - assert list[~T | None] == lis...
+# FAILED tests/test_generics.py::test_structure_nested_generics_with_cols[True-int-result0]
+# FAILED tests/test_generics.py::test_structure_nested_generics_with_cols[False-int-result0]
+# FAILED tests/test_preconf.py::test_bson
+# FAILED tests/test_gen_dict.py::test_type_names_with_quotes - cattrs.errors.St...
+# FAILED tests/test_self.py::test_self_roundtrip[True] - AssertionError: assert...
+# FAILED tests/test_self.py::test_self_roundtrip[False] - AssertionError: asser...
+# FAILED tests/test_self.py::test_self_roundtrip_dataclass[True] - AssertionErr...
+# FAILED tests/test_self.py::test_self_roundtrip_dataclass[False] - AssertionEr...
+# FAILED tests/test_self.py::test_self_roundtrip_typeddict[True] - cattrs.error...
+# FAILED tests/test_self.py::test_self_roundtrip_typeddict[False] - cattrs.erro...
+# FAILED tests/test_self.py::test_self_roundtrip_namedtuple[True] - AssertionEr...
+# FAILED tests/test_self.py::test_self_roundtrip_namedtuple[False] - AssertionE...
+# FAILED tests/test_self.py::test_subclass_roundtrip[True] - AssertionError: as...
+# FAILED tests/test_self.py::test_subclass_roundtrip[False] - AssertionError: a...
+# FAILED tests/test_self.py::test_subclass_roundtrip_dataclass[True] - Assertio...
+# FAILED tests/test_self.py::test_subclass_roundtrip_dataclass[False] - Asserti...
+# FAILED tests/test_self.py::test_nested_roundtrip[True] - AssertionError: asse...
+# FAILED tests/test_self.py::test_nested_roundtrip[False] - AssertionError: ass...
+# FAILED tests/test_structure.py::test_structuring_unsupported - AssertionError...
+# FAILED tests/test_preconf.py::test_bson_converter
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-grandchild-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-container]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-child]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-parent-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-parent]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-container]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-grandchild]
+# ERROR tests/strategies/test_include_subclasses.py::test_circular_reference[with-subclasses]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-parent-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-child1-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-child]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-parent]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-child1-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-grandchild]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-child2-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-child]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-parent]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-child2-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-grandchild]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-child]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-grandchild-only]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-container]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-parent]
+# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-grandchild]
+# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-container]
+k="${k-}${k+ and }not test_bson"
+k="${k-}${k+ and }not test_bson_converter"
+k="${k-}${k+ and }not test_circular_reference"
+k="${k-}${k+ and }not test_deep_copy"
+k="${k-}${k+ and }not test_include_subclasses"
+k="${k-}${k+ and }not test_nested_roundtrip"
+k="${k-}${k+ and }not test_self_roundtrip"
+k="${k-}${k+ and }not test_self_roundtrip_dataclass"
+k="${k-}${k+ and }not test_self_roundtrip_namedtuple"
+k="${k-}${k+ and }not test_self_roundtrip_typeddict"
+k="${k-}${k+ and }not test_structure_nested_generics_with_cols"
+k="${k-}${k+ and }not test_structuring_unsupported"
+k="${k-}${k+ and }not test_structuring_with_inheritance"
+k="${k-}${k+ and }not test_subclass_roundtrip"
+k="${k-}${k+ and }not test_subclass_roundtrip_dataclass"
+k="${k-}${k+ and }not test_type_names_with_quotes"
+k="${k-}${k+ and }not test_unstructuring_with_inheritance"
+%endif
 
 %pytest --ignore-glob='bench/*' ${ignore-} -k "${k-}" -n auto
 
 
 %files -n python3-cattrs -f %{pyproject_files}
-%if %{without doc_pdf}
 %doc HISTORY.md
 %doc README.md
-%endif
-
-
-%if %{with doc_pdf}
-%files doc
-%license LICENSE
-%doc HISTORY.md
-%doc README.md
-%doc docs/_build/latex/cattrs.pdf
-%endif
 
 
 %changelog

@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # There is a bootstrap loop between libpysal and networkx when tests/docs are
 # enabled
 %bcond bootstrap 0

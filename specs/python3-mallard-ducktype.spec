@@ -2,7 +2,7 @@
 
 Name:    python3-mallard-ducktype
 Version: 1.0.2
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Parse Ducktype files and convert them to Mallard
 
 License: MIT
@@ -45,6 +45,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.2-23
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

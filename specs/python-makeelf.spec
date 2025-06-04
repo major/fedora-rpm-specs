@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        ELF reader-writer library
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ sed -i "s|\r||g" README.txt
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.2-19
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

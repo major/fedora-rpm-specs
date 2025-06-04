@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.35
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Asynchronous SMB protocol implementation
 
 License:        MIT
@@ -51,6 +51,9 @@ commons/connection/target.py,crypto/pure/RC4/RC4.py}
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.35-15
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.35-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

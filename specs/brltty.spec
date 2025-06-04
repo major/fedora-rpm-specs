@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -681,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.7-11
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.7-10
 - Drop call to %sysusers_create_compat
 

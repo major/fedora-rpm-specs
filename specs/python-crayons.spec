@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python module for writing colored text to terminal
 
 License:        MIT
@@ -41,6 +41,9 @@ This module provides a simple and elegant wrapper for colorama.
 %{python3_sitelib}/__pycache__/%{pypi_name}.*.py*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.0-16
+- Rebuilt for Python 3.14
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

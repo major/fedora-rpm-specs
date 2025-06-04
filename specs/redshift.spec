@@ -1,6 +1,6 @@
 Name:    redshift
 Version: 1.12
-Release: 25%{dist}
+Release: 26%{dist}
 Summary: Adjusts the color temperature of your screen according to time of day
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/redshift-gtk.desktop
 %{_userunitdir}/%{name}-gtk.service
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.12-26
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

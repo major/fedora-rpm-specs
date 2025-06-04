@@ -83,7 +83,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-%{pytest} -ra
+# Skipped tests assert refcounting which has changed in Python 3.14
+# Reported: https://github.com/pikepdf/pikepdf/issues/655
+%{pytest} -ra -k "not test_copy_foreign_refcount and not test_stream_refcount and not test_evil_page_deletion"
 %endif
 
 

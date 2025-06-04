@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -507,6 +507,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.8.3-3
+- Rebuilt for Python 3.14
+
 * Wed May 21 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.3-2
 - rename rhino to nutdrv_rhino to prevent file conflict (rhbz#2367057)
 

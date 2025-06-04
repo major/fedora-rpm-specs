@@ -47,7 +47,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.05.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -119,8 +119,7 @@ BuildRequires:    make
 #Patch000: example000.patch
 # put pdf2dsc back for gv
 Patch001: 0001-Reinstate-pdf2dsc.patch
-# CVE-2025-48708 ghostscript: Ghostscript Argument Sanitization Vulnerability (fedora#2368149, fedora#2368134)
-Patch002: 0001-Argument-sanitisation-handle-as-per.patch
+
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -257,7 +256,7 @@ git add --all --force .
 git commit --all --amend --no-edit > /dev/null
 
 %if %{with pdf2dsc}
-%autopatch -p1 1
+%patch -p1 1
 %endif
 # ---------------
 
@@ -484,6 +483,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Jun 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-3
+- use 'patch' and remove unused patch
+
 * Tue May 27 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-2
 - CVE-2025-48708 ghostscript: Ghostscript Argument Sanitization Vulnerability (fedora#2368149, fedora#2368134)
 

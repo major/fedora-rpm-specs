@@ -281,6 +281,12 @@ Patch2:         gimp-2.99.19-no-phone-home-default.patch
 # use external help browser directly if help browser plug-in is not built
 Patch3:         gimp-2.99.19-external-help-browser.patch
 
+# Upstreamed patches:
+
+# Fix Python crashing if 32bit typelibs are present
+# https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306
+Patch10:        https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306.patch
+
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -352,6 +358,8 @@ EOF
 %patch 1 -p1 -b .cm-system-monitor-profile-by-default
 %patch 2 -p1 -b .no-phone-home-default
 %patch 3 -p1 -b .external-help-browser
+
+%patch 10 -p1 -b .accommodate-lib64-multiarch
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files

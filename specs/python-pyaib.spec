@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Python Framework for writing IRC Bots using gevent
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -50,6 +50,9 @@ sed -e "\|#!/usr/bin/env python|d" -i %{pypi_name}/*.py %{pypi_name}/*/*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0-18
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

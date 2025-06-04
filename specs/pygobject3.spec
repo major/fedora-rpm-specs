@@ -79,6 +79,9 @@ This package contains files required to embed PyGObject
 
 %check
 export TEST_GTK_VERSION=3.0
+# The refcounting tests fail with Python 3.14
+# Reported: https://gitlab.gnome.org/GNOME/pygobject/-/issues/694
+export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
 %{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5}
 
 

@@ -1,14 +1,13 @@
 Name:           budgie-desktop-defaults
-Version:        0.5.1
-Release:        7%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
 License:        CC-BY-SA-4.0
-URL:            https://github.com/BuddiesOfBudgie/fedora-budgie-desktop-defaults
+URL:            https://forge.moderndesktop.dev/BuddiesOfBudgie/fedora-budgie-desktop-defaults
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
-Patch0:         0001-fix-renamed-firefox-desktop-file-in-Fedora-40.patch
 
 BuildArch:      noarch
 BuildRequires:  gcc
@@ -16,8 +15,8 @@ BuildRequires:  gnupg2
 BuildRequires:  meson
 Requires:       budgie-desktop
 Requires:       desktop-backgrounds-budgie
-Requires:       materia-gtk-theme
 Requires:       papirus-icon-theme
+Requires:       pocillo-gtk-theme
 
 %description
 Budgie Desktop Defaults for Fedora.
@@ -40,6 +39,10 @@ Budgie Desktop Defaults for Fedora.
 %{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Sun Jun 01 2025 Joshua Strobl <me@joshuastrobl.com> - 0.5.2-1
+- Update to 0.5.2, swap from Materia to Pocillo GTK theme
+- Fixes BZ#2359051
+
 * Thu Jan 16 2025 Joshua Strobl <me@joshuastrobl.com> - 0.5.1-7
 - Remove budgie-backgrounds and slick-greeter as required packages, keep it to being part of comp instead
 

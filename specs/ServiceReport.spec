@@ -1,6 +1,6 @@
 Name: ServiceReport
 Version: 2.2.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A tool to validate and repair First Failure Data Capture (FFDC) configuration
 
 License: GPL-2.0-or-later
@@ -45,6 +45,9 @@ the incorrect configuration
 %{python3_sitelib}/ServiceReport*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.4-5
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

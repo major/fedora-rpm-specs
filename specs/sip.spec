@@ -47,7 +47,7 @@
 Summary: SIP - Python/C++ Bindings Generator
 Name: sip
 Version: 4.19.25
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 # Automatically converted from old format: GPLv2 or GPLv3 and (GPLv3+ with exceptions) - review is highly recommended.
@@ -481,6 +481,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.19.25-15
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.25-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

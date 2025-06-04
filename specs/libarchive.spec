@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           libarchive
-Version:        3.7.7
-Release:        4%{?dist}
+Version:        3.8.1
+Release:        1%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -43,10 +43,6 @@ BuildRequires: make
 # loaded, which breaks the RIPEMD-160 test. This patch disables the RIPEMD-160
 # support explicitly.
 Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
-# Upstream commit: https://github.com/libarchive/libarchive/commit/82912103214506316bd9990d73f33d743d55f570
-# Fixes the CVE-2024-57970
-Patch0002: 0002-Handle-truncation-in-the-middle-of-a-GNU-long-linkna.patch
-Patch0003: 0003-fix-CVE-2025-1632-and-CVE-2025-25724-2532.patch
 
 %description
 Libarchive is a programming library that can create and read several different
@@ -245,6 +241,12 @@ run_testsuite
 
 
 %changelog
+* Mon Jun 02 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.8.1-1
+- Rebase to version 3.8.1
+
+* Tue Mar 25 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.9-1
+- Rebase to version 3.7.9
+
 * Mon Mar 10 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.7-4
 - Fix for CVE-2025-25724
 - Fix for CVE-2025-1632

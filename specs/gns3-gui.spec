@@ -5,7 +5,7 @@
 
 Name:           gns3-gui
 Version:        2.2.54
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.54-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-1
 - Update to 2.2.54
 

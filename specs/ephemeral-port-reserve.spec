@@ -1,6 +1,6 @@
 Name:           ephemeral-port-reserve
 Version:        1.1.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.
 
 License:        MIT
@@ -53,6 +53,9 @@ Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.4-13
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.1.4-12
 - Fix test_fqdn failure
 Resolves: rhbz#2366471

@@ -4,7 +4,7 @@
 
 Name:          vim-jedi
 Version:       0.11.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       The Jedi vim plugin
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -57,6 +57,9 @@ install -m 644 pythonx/*.py %buildroot/%python3_sitelib
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11.2-7
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

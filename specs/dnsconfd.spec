@@ -2,7 +2,7 @@
 %global selinuxtype targeted
 
 Name:           dnsconfd
-Version:        1.7.2
+Version:        1.7.3
 Release:        1%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
@@ -17,6 +17,9 @@ BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-pip
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
+%if %{defined fedora} && 0%{?fedora} < 42 || %{defined rhel} && 0%{?rhel} < 11
+%{?sysusers_requires_compat}
+%endif
 
 Requires:  (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:  python3-gobject-base
@@ -181,6 +184,14 @@ fi
 
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
+
+%if %{defined fedora} && 0%{?fedora} < 42 || %{defined rhel} && 0%{?rhel} < 11
+%pre
+%sysusers_create_compat %{SOURCE1}
+
+%pre unbound
+%sysusers_create_compat %{SOURCE1}
+%endif
 
 %post
 %systemd_post %{name}.service

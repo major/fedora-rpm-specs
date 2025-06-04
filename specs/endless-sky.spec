@@ -1,5 +1,5 @@
 Name:		endless-sky
-Version:	0.10.12
+Version:	0.10.13
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
@@ -31,6 +31,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  catch-devel
 BuildRequires:  libasan
 BuildRequires:  libubsan
+BuildRequires:  minizip-ng-compat-devel
 
 %description
 Explore other star systems. Earn money by trading, carrying passengers, or
@@ -96,6 +97,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Jun 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.13-1
+- 0.10.13
+
 * Sun Feb 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.12-1
 - 0.10.12
 

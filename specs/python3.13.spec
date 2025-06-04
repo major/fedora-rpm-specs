@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -1750,6 +1750,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.13.3-4
+- Rebuilt as non-main Python on Fedora 43
+
 * Tue May 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.3-3
 - Drop requirement on python-wheel-wheel with setuptools >= 71
 

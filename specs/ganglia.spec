@@ -14,7 +14,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            58%{?dist}
+Release:            59%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                http://ganglia.sourceforge.net/
@@ -477,6 +477,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.7.2-59
+- Rebuilt for Python 3.14
+
 * Sat Apr 05 2025 Terje Rosten <terjeros@gmail.com> - 3.7.2-58
 - Follow PHP quote rules
 

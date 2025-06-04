@@ -45,8 +45,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.9.0
-Release: 2%{?dist}
+Version: 6.9.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -96,7 +96,6 @@ Patch56: qtbase-mysql.patch
 Patch58: qtbase-libglvnd.patch
 
 # upstream patches
-Patch100: qtbase-fix-possible-crash-in-fontconfig-database.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -429,7 +428,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.9.0
+Version: 6.9.1
 EOF
 
 # rpm macros
@@ -501,6 +500,9 @@ rm -r %{buildroot}%{_qt6_headerdir}/QtExamplesAssetDownloader
 rm %{buildroot}%{_qt6_descriptionsdir}/ExamplesAssetDownloaderPrivate.json
 rm %{buildroot}%{_qt6_libdir}/libQt6ExamplesAssetDownloader.*
 rm %{buildroot}%{_qt6_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_*_metatypes.json
+
+# These shouldn't be probably installed
+rm -r %{buildroot}%{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/*.patch
 
 # This is only for Apple platforms and has a python2 dep
 rm -r %{buildroot}%{_qt6_mkspecsdir}/features/uikit
@@ -926,6 +928,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Mon Apr 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-2
 - Fix possible crash in FontConfig database
 

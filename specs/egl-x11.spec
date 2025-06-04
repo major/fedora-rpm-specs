@@ -4,7 +4,7 @@
 %global tag %{version}
 
 Name:           egl-x11
-Version:        1.0.1%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.0.2%{!?tag:~%{date}git%{shortcommit0}}
 Release:        %autorelease
 Summary:        NVIDIA XLib and XCB EGL Platform Library
 License:        Apache-2.0
@@ -60,9 +60,9 @@ rm -fv %{buildroot}%{_libdir}/*.so
 %license LICENSE
 %doc README.md
 %{_libdir}/libnvidia-egl-xcb.so.1
-%{_libdir}/libnvidia-egl-xcb.so.1.0.1
+%{_libdir}/libnvidia-egl-xcb.so.%{version}
 %{_libdir}/libnvidia-egl-xlib.so.1
-%{_libdir}/libnvidia-egl-xlib.so.1.0.1
+%{_libdir}/libnvidia-egl-xlib.so.%{version}
 %{_datadir}/egl/egl_external_platform.d/20_nvidia_xcb.json
 %{_datadir}/egl/egl_external_platform.d/20_nvidia_xlib.json
 

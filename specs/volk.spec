@@ -1,6 +1,6 @@
 Name:          volk
 Version:       3.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       LGPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
@@ -111,6 +111,9 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.0-3
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.2.0-2
 - Fixed license tag
   Resolves: rhbz#2346827

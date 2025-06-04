@@ -41,7 +41,7 @@ BuildRequires:  gl2ps-devel
 BuildRequires:  libogg-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libuuid-devel
-BuildRequires:  mesa-libOSMesa-devel
+BuildRequires:  mesa-libGL-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  poppler-devel

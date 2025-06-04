@@ -1,6 +1,6 @@
 Name:           libbatch
 Version:        2.4.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Generic batch management library
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.5-16
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

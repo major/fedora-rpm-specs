@@ -39,7 +39,7 @@ URL: https://easyrpg.org
 # but those are used only for Emscripten builds.
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND (Unlicense OR MIT-0) AND (MIT AND CC0-1.0) AND BSD-3-Clause AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
-Version: 0.8.1
+Version: 0.8.1.1
 Release: 1%{?dist}
 
 %global repo_owner EasyRPG
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Mon Jun 02 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8.1.1-1
+- Update to v0.8.1.1
+
 * Mon Apr 07 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8.1-1
 - Update to v0.8.1
 - Drop Patch1 (unbundle picojson - replaced with nlohmann_json upstream)

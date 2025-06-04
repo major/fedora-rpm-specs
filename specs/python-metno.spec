@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.8.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library to communicate with the met.no API
 
 License:        MIT
@@ -42,6 +42,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.1-16
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

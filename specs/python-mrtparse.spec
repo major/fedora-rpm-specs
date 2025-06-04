@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MRT format data parser
 
 License:        Apache-2.0
@@ -66,5 +66,8 @@ done
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 11 2025 Aurelien Bompard <abompard@fedoraproject.org> - 2.2.0-1
 - Initial package.

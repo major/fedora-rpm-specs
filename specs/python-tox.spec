@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %bcond bootstrap 0
 # Many tests are enabled by default, unless bootstrapping
 %bcond tests %{without bootstrap}

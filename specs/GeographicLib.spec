@@ -1,6 +1,6 @@
 
 %global nativever 2.5
-%global baserelease 1
+%global baserelease 2
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -254,6 +254,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.5-2
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Sandro Mani <manisandro@gmail.com> - 2.5-1
 - Update to 2.5
 

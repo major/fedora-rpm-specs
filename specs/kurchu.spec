@@ -25,7 +25,7 @@ Requires:       tree
 
 
 %prep
-%autosetup -p1
+%autosetup -S git_am
 
 
 %generate_buildrequires

@@ -3,7 +3,7 @@ Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
 Version: 1.25.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ TZ="America/Los_Angeles" ./runtests.sh
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.25.5-2
+- Rebuilt for Python 3.14
+
 * Sat May 10 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.25.5-1
 - Update to v1.25.5
 - Drop Patch0 (Python 3.14 compatibility) - issue fixed upstream

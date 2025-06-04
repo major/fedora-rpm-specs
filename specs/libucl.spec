@@ -1,6 +1,6 @@
 Name:           libucl
 Version:        0.8.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Universal configuration library parser
 
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
@@ -98,6 +98,9 @@ rm %{buildroot}%{_libdir}/%{name}.la
 %{python3_sitearch}/ucl*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.2-10
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

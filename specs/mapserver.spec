@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -337,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.4.0-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 8.4.0-1
 - Update to 8.4.0
 

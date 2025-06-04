@@ -1,5 +1,7 @@
 %bcond blender 1
 %bcond skimage 1
+# To be dropped for Fedora 43: https://github.com/trimesh/openctm/issues/5
+%bcond openctm %[ %{defined fc41} || %{defined fc42} ]
 
 # Not yet packaged: https://pypi.org/project/pymeshlab/
 # Enables some additional integration tests.
@@ -217,24 +219,28 @@ EOF
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
-tomcli set pyproject.toml lists delitem --type regex --no-first \
+tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.easy' '(embreex|manifold3d|xatlas)\b.*'
 %ifarch s390x
 # The python-cascadio package is currently ExcludeArch: s390x
 # python-cascadio: Tests for cascadio fail on s390x, wrong endianness
 # https://bugzilla.redhat.com/show_bug.cgi?id=2298452
-tomcli set pyproject.toml lists delitem --type regex --no-first \
+tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.recommend' \
     '(cascadio)\b.*'
 %endif
 #   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
 #           (Currently commented out upstream)
-tomcli set pyproject.toml lists delitem --type regex --no-first \
+tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.recommend' '(xatlas|pyglet)\b.*'
 %if %{without skimage}
-tomcli set pyproject.toml lists delitem --type regex --no-first \
+tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.recommend' 'scikit-image\b.*'
+%endif
+%if %{without openctm}
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.recommend' 'openctm\b.*'
 %endif
 
 

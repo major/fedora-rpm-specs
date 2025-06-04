@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.19.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -951,6 +951,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.19.2-5
+- Rebuilt for Python 3.14
+
 * Mon May 12 2025 Michael Young <m.a.young@durham.ac.uk> - 4.19.2-4
 - x86: Indirect Target Selection [XSA-469, CVE-2024-28956]
 

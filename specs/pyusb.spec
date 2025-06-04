@@ -1,6 +1,6 @@
 Name: pyusb
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Python bindings for libusb
 License: BSD-3-Clause
 URL: https://github.com/pyusb/pyusb/
@@ -46,6 +46,9 @@ cd tests
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

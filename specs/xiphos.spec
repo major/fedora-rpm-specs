@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           xiphos
-Version:        4.3.1
+Version:        4.3.2
 Release:        1%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -94,6 +94,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Mon Jun 02 2025 Aaron Rainbolt <arraybolt3@gmail.com> - 4.3.2-1
+- New upstream version 4.3.2
+
 * Sun Mar 23 2025 Greg Hellings <greg.hellings@gmail.com> - 4.3.1-1
 - New upstream version 4.3.1 which already has editor fixed
 - Updated dependencies

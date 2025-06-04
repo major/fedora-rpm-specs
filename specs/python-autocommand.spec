@@ -15,6 +15,9 @@ Source0:        %{pypi_source %{projname}}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2259644
 Patch:          %{url}/pull/33.patch#/001-setuptools-fix.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2327972
+Patch:          %{url}/pull/40.patch#/002-python3.14-fix.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -35,7 +38,7 @@ Summary:        %{summary}
 %description -n python3-%{projname} %_description
 
 %prep
-%autosetup -n %{projname}-%{version}
+%autosetup -p1 -n %{projname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

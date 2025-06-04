@@ -4,7 +4,7 @@
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz.asc
@@ -157,4 +157,7 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8-2
+- Rebuilt for Python 3.14
+
 %autochangelog

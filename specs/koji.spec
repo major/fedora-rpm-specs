@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -351,6 +351,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.35.3-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 18 2025 Kevin Fenzi <kevin@scrye.com> - 1.35.2-1
 - Update to 1.35.2. Fixes rhbz#2346249
 - Fix FTBFS. Fixed rhbz#2340700

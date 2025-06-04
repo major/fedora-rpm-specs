@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global modname zope.testing
 
 # The upstream tarball got renamed with an underscore
@@ -8,7 +9,7 @@
 
 Name:           python-zope-testing
 Version:        5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPL-2.1
 URL:            https://pypi.io/project/%{modname}
@@ -63,6 +64,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.1-3
+- Bootstrap for Python 3.14
+
 * Thu Apr 03 2025 Lumír Balhar <lbalhar@redhat.com> - 5.1-2
 - Allow building with newer setuptools
 

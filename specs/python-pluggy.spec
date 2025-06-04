@@ -1,9 +1,10 @@
+%global _without_tests 1
 # Turn the tests off when bootstrapping Python, because pytest requires pluggy
 %bcond tests 1
 
 Name:           python-pluggy
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 # SPDX
@@ -59,6 +60,9 @@ Summary:  %summary
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.0-3
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

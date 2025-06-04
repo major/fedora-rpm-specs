@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Yet another Python color library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0-16
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

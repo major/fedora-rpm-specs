@@ -6,7 +6,7 @@
 
 Name:           otf2
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -136,6 +136,9 @@ make check
 %{_datadir}/%{name}/python
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.1-2
+- Rebuilt for Python 3.14
+
 * Tue Apr  1 2025 Dave Love <loveshack@fedoraproject.org> - 3.1.1-1
 - Update to 3.1.1
 - Remove el7-isms

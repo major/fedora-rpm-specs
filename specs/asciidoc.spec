@@ -1,6 +1,6 @@
 Name:           asciidoc
 Version:        10.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Text based document generation
 
 License:        GPL-2.0-or-later
@@ -101,6 +101,9 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 10.2.0-13
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

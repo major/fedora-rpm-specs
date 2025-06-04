@@ -1,6 +1,6 @@
 Name:		pythia8
 Version:	8.3.14
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
@@ -164,6 +164,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.3.14-2
+- Rebuilt for Python 3.14
+
 * Thu Apr 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.14-1
 - Update to version 8.3.14
 

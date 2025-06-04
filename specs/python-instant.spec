@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2016.1.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Python module for instant inlining of C and C++ code
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ chmod 0644 test/*
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2016.1.0-32
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

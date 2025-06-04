@@ -18,6 +18,11 @@ License:        Apache-2.0
 URL:            https://www.tornadoweb.org
 Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# Adapted from https://github.com/tornadoweb/tornado/pull/3461
+Patch:          Get-rid-of-asyncio-DeprecationWarnings-with-Python-3.patch
+# Skip test failing with Python 3.14
+Patch:          https://github.com/tornadoweb/tornado/pull/3445.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 

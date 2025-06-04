@@ -1,6 +1,6 @@
 Name:           pyscard
 Version:        2.0.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A framework for building smart card aware applications in Python
 
 
@@ -57,6 +57,9 @@ chmod 755 %{buildroot}%{python3_sitearch}/smartcard/scard/*.so
 %{python3_sitearch}/%{name}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.5-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

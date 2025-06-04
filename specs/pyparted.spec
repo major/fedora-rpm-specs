@@ -2,7 +2,7 @@ Summary:       Python module for GNU parted
 Name:          pyparted
 Epoch:         1
 Version:       3.13.0
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/dcantrell/pyparted
 
@@ -55,6 +55,9 @@ make test
 %{python3_sitearch}/%{name}-%{version}-*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:3.13.0-9
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.13.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -10,7 +10,7 @@ brute force search of several...
 
 Name:           python-%{pypi_name}
 Version:        0.8.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bindings for the scrypt key derivation function library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ sed -i '1d' scrypt/scrypt.py
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.27-2
+- Rebuilt for Python 3.14
+
 * Thu May 08 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.27-1
 - Updated to version 0.8.27
 

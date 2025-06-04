@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A tiny python visitor implementation
 
 License:        MIT
@@ -42,6 +42,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.3-31
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

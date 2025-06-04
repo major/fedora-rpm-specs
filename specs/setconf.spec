@@ -1,6 +1,6 @@
 Name:           setconf
 Version:        0.7.7 
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Utility for changing settings in configuration text files 
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -46,6 +46,9 @@ cd testcases/ && ./py3_test.sh
 %{_bindir}/%{name}
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.7-18
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

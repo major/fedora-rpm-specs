@@ -17,7 +17,7 @@
 Summary: Tools for building live CDs
 Name: livecd-tools
 Version: 31.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 %if 0%{?fedora}
 Epoch: 1
 %endif
@@ -227,6 +227,9 @@ rm -rfv %{buildroot}%{_mandir}/man8/livecd-iso-to-*
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:31.0-13
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:31.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

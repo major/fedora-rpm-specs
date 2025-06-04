@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for mypy (separated out from mypy/extensions)
 
 License:        MIT
@@ -46,6 +46,9 @@ rm -vrf *.egg-info/
 %doc README.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-1
 - 1.1.0
 

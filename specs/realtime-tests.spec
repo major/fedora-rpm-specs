@@ -1,7 +1,7 @@
 Name: realtime-tests
 Summary: Programs that test various rt-features
 Version: 2.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL: https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 Source0: https://www.kernel.org/pub/linux/utils/rt-tests/rt-tests-%{version}.tar.xz
@@ -81,6 +81,9 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 %{_mandir}/man8/determine_maximum_mpps.8.*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.8-3
+- Rebuilt for Python 3.14
+
 * Thu Mar 27 2025 John Kacur <jkacur@redhat.com> - 2.8-2
 - Rebuild with glibc detection from Yaakov Selkowitz
 

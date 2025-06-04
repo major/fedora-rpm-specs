@@ -6,7 +6,7 @@ conventions.}
 
 Name:		python-protego
 Version:	0.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -50,6 +50,9 @@ BuildRequires:	python3-pytest
 %{python3_sitelib}/Protego-*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.0-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Eduardo Echeverria  <echevemaster@gmail.com> - 0.4.0-1
 - Update to 0.4.0
 

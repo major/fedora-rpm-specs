@@ -9,7 +9,7 @@
 
 # https://github.com/fsnotify/fsnotify
 %global goipath         github.com/fsnotify/fsnotify
-Version:                1.8.0
+Version:                1.9.0
 
 %gometa -L -f
 

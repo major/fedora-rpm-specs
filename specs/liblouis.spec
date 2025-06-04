@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.33.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -190,6 +190,9 @@ cd -
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.33.0-3
+- Rebuilt for Python 3.14
+
 * Fri May 23 2025 Martin Gieseking <martin.gieseking@uos.de> - 3.33.0-2
 - Updated URL of upstream website.
 

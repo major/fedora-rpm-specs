@@ -86,7 +86,7 @@
 
 Name:        libblockdev
 Version:     3.3.0
-Release:     3%{?dist}
+Release:     4%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -961,6 +961,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3.0-4
+- Rebuilt for Python 3.14
+
 * Thu Mar 20 2025 Tomas Bzatek <tbzatek@redhat.com> - 3.3.0-3
 - smart: Use libatasmart drive self-assessment as an overall status
 

@@ -2,7 +2,7 @@
 
 Name:       python-cssmin
 Version:    0.2.0
-Release:    37%{?dist}
+Release:    38%{?dist}
 Summary:    A Python port of the YUI CSS compression algorithm
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ cd src && \
 %{_bindir}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.0-38
+- Rebuilt for Python 3.14
+
 * Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.2.0-37
 - Fix description for python3-cssmin
 

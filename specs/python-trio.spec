@@ -46,6 +46,10 @@ Source:         %pypi_source trio
 # https://bugzilla.redhat.com/show_bug.cgi?id=2345516
 Patch:          %{url}/pull/3211/commits/02b338ebab972ffe16bca14bdd5823db9ab61631.patch
 
+# Switch from PurePath#as_uri to PurePath#joinpath for our test that PurePath methods get inherited
+# Restore trio.Path#as_uri
+Patch:          %{url}/pull/3249.patch
+
 BuildArch:      noarch
 
 

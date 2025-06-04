@@ -7,7 +7,7 @@ License:       LicenseRef-Callaway-BSD
 URL:           https://github.com/viraptor/arpy
 
 Version:       2.3.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:     noarch
@@ -57,6 +57,9 @@ This package allows using arpy in Python 3 applications.
 %doc README.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.0-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

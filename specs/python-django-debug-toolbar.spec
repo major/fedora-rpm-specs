@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Configurable set of panels that display various debug information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -62,6 +62,9 @@ rm -vr *.egg-info/
 %{python3_sitelib}/django_debug_toolbar-*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.1-16
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

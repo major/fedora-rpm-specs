@@ -7,7 +7,7 @@ Zeal, and Dash.
 
 Name:           python-%{shortname}
 Version:        0.3.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Create a SQLite3 database from a Doxygen tag file
 
 License:        GPL-3.0-or-later
@@ -79,6 +79,9 @@ chmod +x %{buildroot}%{python3_sitelib}/%{shortname}/doxytag2zealdb.py
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.1-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

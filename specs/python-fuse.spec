@@ -3,7 +3,7 @@
 Name:    python-fuse
 # TODO rename to python-fusepy
 Version: 3.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Python module that provides a simple interface to FUSE and MacFUSE
 License: ISC
 URL: https://github.com/fusepy/fusepy
@@ -44,6 +44,9 @@ It's just one file and is implemented using ctypes.
 %{python3_sitelib}/__pycache__
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.1-2
+- Rebuilt for Python 3.14
+
 * Wed Jan 29 2025 Juan Orti Alcaine <jortialc@redhat.com> - 3.0.1-1
 - Update to new upstream repository
 - Update to version 3.0.1

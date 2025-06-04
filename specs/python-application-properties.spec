@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.2-4
+- Rebuilt for Python 3.14
+
 * Fri Apr 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.2-3
 - Additional review fixes.
 

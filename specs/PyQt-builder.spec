@@ -2,7 +2,7 @@
 
 Name:           PyQt-builder
 Version:        1.18.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ sed -r -i '/\/pyqtbuild\/bundle\/dlls/d' %{pyproject_files}
 %{_bindir}/pyqt-qt-wheel
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.18.1-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 19 2025 Scott Talbert <swt@techie.net> - 1.18.1-1
 - Update to new upstream release 1.18.1 (#2347432)
 

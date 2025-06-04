@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -985,6 +985,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.25.2-6
+- Rebuilt for Python 3.14
+
 * Mon May 26 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-5
 - hp-toolbox shows traceback when closing and there is no HP device (fedora#2360501)
 

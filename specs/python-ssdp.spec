@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for Simple Service Discovery Protocol (SSDP)
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  python3dist(pbr)
 %{_bindir}/ssdp
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.0-8
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.3.0-7
 - Remove -t (closes rhbz#2354125)
 - Remove tests as they are not shipped anymore

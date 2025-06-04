@@ -53,7 +53,10 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_save_files %{modname}
 
 %check
-%pytest -v
+# future_test.py implicitly creates event loops - this has been removed from Python 3.14
+# Reported upstream and deselected for now:
+# https://github.com/hamcrest/PyHamcrest/issues/265
+%pytest -v --deselect tests/hamcrest_unit_test/core/future_test.py
 
 %files -n python3-%{modname} -f %{pyproject_files}
 

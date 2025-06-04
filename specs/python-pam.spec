@@ -1,6 +1,6 @@
 Name:           python-pam
 Version:        2.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pure Python interface to the Pluggable Authentication Modules system on Linux
 License:        MIT
 URL:            https://github.com/FirefighterBlu3/python-pam
@@ -39,6 +39,9 @@ authenticate a given username / password against the PAM system on Linux.
 %{python3_sitelib}/python_pam-%{version}*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.2-12
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

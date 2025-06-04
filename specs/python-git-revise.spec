@@ -16,7 +16,7 @@ avoids unnecessarily invalidating builds.
 
 Name:           python-%{shortname}
 Version:        0.7.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Efficiently update, split, and rearrange git commits
 
 License:        MIT
@@ -86,6 +86,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.0-12
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

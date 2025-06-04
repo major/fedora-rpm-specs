@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global srcname setuptools
 
 # used when bootstrapping new Python versions

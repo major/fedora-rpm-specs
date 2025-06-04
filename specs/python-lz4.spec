@@ -10,6 +10,8 @@ License:        LicenseRef-Callaway-BSD
 Source:         https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
 # Reduce setuptools_scm dep to >= 6
 Patch:          python-lz4-deps.patch
+# Support Python 3.14
+Patch:          https://github.com/python-lz4/python-lz4/pull/303.patch
 
 BuildRequires:  lz4-devel
 BuildRequires:  python3-devel

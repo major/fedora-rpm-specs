@@ -8,12 +8,13 @@ the openpyxl project but is now a standalone module.
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://foss.heptapod.net/openpyxl/et_xmlfile/-/archive/2.0.0/et_xmlfile-2.0.0.tar.gz
+Patch:          Differentiate-assertion-based-on-Python-version.patch
 
 BuildArch:      noarch
 
@@ -35,7 +36,7 @@ Requires:       %py3_dist lxml
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 
 %build
@@ -57,6 +58,9 @@ Requires:       %py3_dist lxml
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.0-2
+- Rebuilt for Python 3.14
+
 * Wed Feb 12 2025 Julien Enselme <jujens@jujens.eu> - 2.0.0-1
 - Update to 2.0.0 (#2321825)
 

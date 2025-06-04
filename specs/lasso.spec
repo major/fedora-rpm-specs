@@ -59,7 +59,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
 Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -283,6 +283,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.8.2-18
+- Rebuilt for Python 3.14
+
 * Wed May 14 2025 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-17
 - Add patch to fix python binding tests with python 3.14 (RHBZ#2365819)
 

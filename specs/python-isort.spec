@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            6.0.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.0.1-2
+- Rebuilt for Python 3.14
+
 * Thu Feb 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.1-1
 - 6.0.1
 

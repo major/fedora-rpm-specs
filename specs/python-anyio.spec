@@ -28,6 +28,16 @@ Patch:          0001-Fixed-test-failures-caused-by-Python-3.14.0a5.patch
 # Cherry-picked to 4.8.0.
 # Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2357902
 Patch:          0002-Fixed-Path-tests-on-Python-3.14.0a6.patch
+# Fixed Path.copy() and Path.copy_info failing on Python 3.14.0a7
+# https://github.com/agronholm/anyio/commit/e0e2531de14c54eed895c92b4c8e87b44f47634b
+# Cherry-picked to 4.8.0.
+# Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2367992
+Patch:          0003-Fixed-Path.copy-and-Path.copy_info-failing-on-Python-3.14.0a7.patch
+# Adjust to _interpqueues API changes in Python 3.14.0b2+
+# https://github.com/agronholm/anyio/pull/927
+# Cherry-picked to 4.8.0.
+Patch:          0004-Adjust-to-_interpqueues-API-changes-in-Python-3.14.0b2.patch
+
 
 BuildArch:      noarch
 

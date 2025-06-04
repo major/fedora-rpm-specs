@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        1.1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Convert reStructuredText to plain text
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.0-26
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

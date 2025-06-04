@@ -1,6 +1,6 @@
 Name:           py-spidev
 Version:        3.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A python library for manipulating SPI via spidev
 License:        MIT
 URL:            https://github.com/doceme/py-spidev/
@@ -37,6 +37,9 @@ space via the spidev linux kernel driver.
 %{python3_sitearch}/spidev*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.4-21
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

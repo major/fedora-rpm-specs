@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.6.0-10
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.10
+%global upstream_version     1.6.11
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Mon Jun  2 2025 Remi Collet <remi@remirepo.net> - 1.6.11-1
+- update to 1.6.11
+
 * Sun Feb  9 2025 Remi Collet <remi@remirepo.net> - 1.6.10-1
 - update to 1.6.10
 - always use composer-generators

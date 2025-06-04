@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python client for interacting with a *hole instance
 
 License:        MIT
@@ -47,6 +47,9 @@ This module is consuming the details provided by the endpoint /api.php only.
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.0-2
+- Rebuilt for Python 3.14
+
 * Sun May 18 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.0-1
 - Update to latest upstream release (closes rhbz#2355733)
 

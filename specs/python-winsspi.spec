@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Windows SSPI library in Python
 
 License:        MIT
@@ -41,6 +41,9 @@ sed -i "s|\r||g" README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.11-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

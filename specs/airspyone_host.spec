@@ -6,7 +6,7 @@
 
 Name:           airspyone_host
 Version:        1.0.10
-Release:        11%{?git_suffix}%{?dist}
+Release:        12%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
 # following is LGPL-2.1-or-later
@@ -24,6 +24,9 @@ URL:            http://airspy.com/
 Source:         https://github.com/airspy/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/airspy/airspyone_host/pull/98
 Patch:          airspyone_host-1.0.10-c23-fix.patch
+# CMake 4.0 and GNUInstallDirs support
+# Cherry-picked from https://github.com/airspy/airspyone_host/pull/100
+Patch:          100.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -88,6 +91,10 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/52-airspy.rules %{buildroot}%{_udevru
 %{_libdir}/libairspy.so
 
 %changelog
+* Fri May 30 2025 Cristian Le <git@lecris.dev> - 1.0.10-12
+- Allow to build with CMake 4.0
+- Use GNUInstallDirs
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

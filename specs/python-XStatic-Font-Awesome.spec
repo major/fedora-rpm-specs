@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.2.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Font-Awesome (XStatic packaging standard)
 
 # The license is "same as Font-Awesome", which is OFL-1.1-RFN
@@ -71,6 +71,9 @@ ln -s %{_datadir}/fontawesome %{buildroot}%{python3_sitelib}/xstatic/pkg/font_aw
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.2.1.1-10
+- Rebuilt for Python 3.14
+
 * Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 6.2.1.1-9
 - Fix compatibility with the latest setuptools
 

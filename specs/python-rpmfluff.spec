@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPL-2.0-or-later
@@ -53,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.6-2
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Jan Hutar <jhutar@redhat.com> - 0.6.6-1
 - New upstream version with fixed debuginfo test
 

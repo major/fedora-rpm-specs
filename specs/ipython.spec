@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.36.0
+Version:        8.37.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 

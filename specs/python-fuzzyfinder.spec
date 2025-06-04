@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Fuzzy Finder implemented in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-3 -v
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0-27
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

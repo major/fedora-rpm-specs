@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Mail notification daemon
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-20
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.21
-Release: 1%{?dist}
+Version: 43.22
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,6 +12,11 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
+# https://github.com/rhinstaller/anaconda/pull/6437
+# Drop a gnome-kiosk option that isn't present when mutter is built
+# without X11 support
+Patch: 0001-Don-t-pass-no-x11-to-gnome-kiosk.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -110,6 +115,7 @@ Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
 Requires: python3-xkbregistry
+Requires: flatpak
 Requires: flatpak-libs
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
@@ -502,6 +508,45 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 02 2025 Adam Williamson <awilliam@redhat.com> - 43.22-2
+- Backport PR #6437 to fix for mutter with X11 disabled
+
+* Mon Jun 02 2025 Packit <hello@packit.dev> - 43.22-1
+- flatpak: Add constants for Flatpak (jkonecny)
+- flatpak: Change log level for source processing (jkonecny)
+- flatpak: Improve log for setting refs for install (jkonecny)
+- flatpak: Improve documentation (jkonecny)
+- flatpak: `NoSourceError` to `SourceSetupError` (jkonecny)
+- Update FSF address for new Flatpak module sources (jkonecny)
+- Add release notes for Flatpak preinstall.d support (jkonecny)
+- Fix imports in flatpak payload (jkonecny)
+- When installing Flatpaks from a local repository, disable download (otaylor)
+- Add additional logging to Flatpak code (jkonecny)
+- Fix directory where flatpak blobs are stored (jkonecny)
+- Add FlatpakManager tests (jkonecny)
+- Improve FlatpakManager testing (jkonecny)
+- Add tests for Flatpak source.py (jkonecny)
+- Add tests for Flatpak payload utils (jkonecny)
+- payload/rpm-ostree: Include program output in exception (walters)
+- Don't pass --sm-disable to gnome-kiosk (awilliam)
+- Revert "Allow to use an existing unlocked LUKS in one special case
+  (#1772902)" (k.koukiou)
+- Extract flatpak.source utils to a separate module (jkonecny)
+- Add Flatpak tests for the Flatpak module (jkonecny)
+- Do not allow any sources for Flatpak payload (jkonecny)
+- Support payload with no default source (jkonecny)
+- Add new API for Flatpak to CalculateSizeWithTask (jkonecny)
+- Add side_payload to PayloadBase object (jkonecny)
+- Add more logs for easier Flatpak module debugging (jkonecny)
+- Call calculate_size of the Flatpak manager (jkonecny)
+- Improve logging of the Flatpak module (jkonecny)
+- Support Flatpak preinstallation as part of a DNF install (otaylor)
+- anaconda.spec: Add Flatpak client to Requires (otaylor)
+- Extract pick_download_location(), calculate_required_space() utilities
+  (otaylor)
+- Extract get_downloader_for_repo_configuration() utility function (otaylor)
+- Add release note for home reuse on MBR partitionied disks (rvykydal)
+
 * Tue May 27 2025 Packit <hello@packit.dev> - 43.21-1
 - Revert "s390x - enable raid1 as a stage2 device" (jkonecny)
 - docs: update release documentation (k.koukiou)

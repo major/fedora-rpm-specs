@@ -2,7 +2,7 @@
 
 Name:           python-django-ajax-selects
 Version:        2.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Enables editing of ForeignKey, ManyToMany and simple text fields
 
 # Automatically converted from old format: MIT or GPL+ - review is highly recommended.
@@ -54,6 +54,9 @@ Obsoletes:      python-django-ajax-selects < 1.3.4-14
 %{python3_sitelib}/django_ajax_selects-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-12
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

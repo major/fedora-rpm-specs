@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A rate limiting filter for the Python logging system
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

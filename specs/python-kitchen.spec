@@ -1,6 +1,6 @@
 Name:           python-kitchen
 Version:        1.2.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Small, useful pieces of code to make python coding easier
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -93,6 +93,9 @@ rm -rf html/.buildinfo
 %endif
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.6-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

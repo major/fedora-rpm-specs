@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	11
+%global	baserelease	12
 
 %undefine        _changelog_trimtime
 
@@ -359,6 +359,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.10.16-12
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-11
 - Support C23 strict prototype
 

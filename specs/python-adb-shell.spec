@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation for ADB shell and file sync
 
 License:        Apache-2.0
@@ -41,6 +41,9 @@ sed -i -e 's/pycryptodome/pycryptodomex/g' setup.py
 %{python3_sitelib}/adb_shell-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.4-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

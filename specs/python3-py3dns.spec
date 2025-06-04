@@ -3,7 +3,7 @@
 
 Name:               python3-py3dns
 Version:            4.0.0
-Release:            8%{?dist}
+Release:            9%{?dist}
 Summary:            Python3 DNS library
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -62,6 +62,9 @@ done
 %{python3_sitelib}/%{distname}-%{version}*
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.0.0-9
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

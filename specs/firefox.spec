@@ -89,6 +89,9 @@ ExcludeArch: i686
 %global system_jpeg       1
 %global system_pixman     1
 %global system_webp       1
+%global system_drm        1
+%global system_gbm        1
+%global system_pipewire   1
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
 %if 0%{?rhel}
@@ -198,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        139.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -342,7 +345,17 @@ BuildRequires:  clang-libs
 BuildRequires:  lld
 %endif
 
+%if %{?system_drm}
+BuildRequires:  libdrm-devel
+%endif
+
+%if %{?system_gbm}
+BuildRequires:  mesa-libgbm-devel
+%endif
+
+%if %{?system_pipewire}
 BuildRequires:  pipewire-devel
+%endif
 
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen
@@ -695,6 +708,24 @@ echo "ac_add_options --without-system-libvpx" >> .mozconfig
 echo "ac_add_options --with-system-webp" >> .mozconfig
 %else
 echo "ac_add_options --without-system-webp" >> .mozconfig
+%endif
+
+%if %{?system_drm}
+echo "ac_add_options --with-system-libdrm" >> .mozconfig
+%else
+echo "ac_add_options --without-system-libdrm" >> .mozconfig
+%endif
+
+%if %{?system_gbm}
+echo "ac_add_options --with-system-gbm" >> .mozconfig
+%else
+echo "ac_add_options --without-system-gbm" >> .mozconfig
+%endif
+
+%if %{?system_pipewire}
+echo "ac_add_options --with-system-pipewire" >> .mozconfig
+%else
+echo "ac_add_options --without-system-pipewire" >> .mozconfig
 %endif
 
 %ifarch s390x
@@ -1251,6 +1282,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri May 30 2025 Jan Grulich <jgrulich@redhat.com> - 139.0-2
+- Use system libraries for drm/gbm/pipewire
+
 * Tue May 27 2025 Martin Stransky <stransky@redhat.com> - 139.0-1
 - Updated to 139.0
 

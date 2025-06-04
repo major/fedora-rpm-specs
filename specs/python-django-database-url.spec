@@ -2,7 +2,7 @@
 
 Name:           python-django-database-url
 Version:        0.5.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Use Database URLs in your Django Application
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -49,6 +49,9 @@ DATABASE_URL environment variable to configure your Django application.
 %{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.0-26
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

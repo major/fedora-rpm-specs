@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.0-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

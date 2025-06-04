@@ -13,7 +13,7 @@
 
 Name:           apk-tools
 Version:        %{basever}%{?prerel:~%{prerel}}%{?snapdate:^git%{snapdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
@@ -161,6 +161,9 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.0~rc4^git20250324.3abcd40-2
+- Rebuilt for Python 3.14
+
 * Sat Mar 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc4^git20250324.3abcd40-1
 - Update to post-release git snapshot on 3.0.0~rc4
 

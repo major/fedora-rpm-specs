@@ -1,6 +1,6 @@
 Name:           python-pytest-param-files
 Version:        0.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create pytest parametrize decorators from external files
 
 # SPDX
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.0-4
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

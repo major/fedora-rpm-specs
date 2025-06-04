@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.2.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Configuration with YAML files
 
 License:        LGPL-3.0-or-later
@@ -48,6 +48,9 @@ sed -i 's/\r$//' README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.3-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

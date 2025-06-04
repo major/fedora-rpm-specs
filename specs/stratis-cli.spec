@@ -1,6 +1,6 @@
 Name:           stratis-cli
 Version:        3.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
 License:        Apache-2.0
@@ -75,6 +75,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8.0-2
+- Rebuilt for Python 3.14
+
 * Thu Mar 13 2025 Chung Chung <cchung@redhat.com> - 3.8.0-1
 - Update to 3.8.0
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Asyncio version of the standard multiprocessing module
 
 License:        MIT
@@ -45,6 +45,9 @@ coroutines at once, limited only by the workload and number of cores available.
 %doc README.md
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.1-4
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.1-3
 - Remove -t (closes rhbz#2354092)
 

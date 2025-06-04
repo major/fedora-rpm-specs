@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Font Querying tool for Fedora
 License:        MIT
 URL:            https://github.com/fedora-i18n/fontquery
@@ -83,6 +83,9 @@ This package contains the image build tools for %{srcname}.
 %{_bindir}/fontquery-build
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.23-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 18 2025 Akira TAGOH <tagoh@redhat.com> - 1.23-1
 - New upstream release.
 

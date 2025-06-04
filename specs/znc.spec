@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.9.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -231,6 +231,9 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.9.1-8
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.1-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

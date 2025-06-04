@@ -1,6 +1,6 @@
 Name:		python-libevdev
 Version:	0.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python bindings to the libevdev evdev device wrapper library
 
 # SPDX
@@ -47,6 +47,9 @@ devices and create uinput devices.
 %{python3_sitelib}/libevdev-%{version}-py*.egg-info
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.12-2
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Peter Hutterer <peter.hutterer@redhat.com> - 0.12-1
 - python-libevdev 0.12
 

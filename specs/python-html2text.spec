@@ -7,7 +7,7 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 Name:           python-%{upname}
 Version:        2025.4.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{common_sum}
 
 License:        GPL-3.0-or-later
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2025.4.15-2
+- Rebuilt for Python 3.14
+
 * Wed May 21 2025 David Kaufmann <astra@ionic.at> - 2025.4.15-1
 - Update to 2025.4.15
 

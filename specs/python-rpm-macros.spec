@@ -55,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 
 BuildArch:      noarch
 
@@ -167,6 +167,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Wed May 28 2025 Karolina Surma <ksurma@redhat.com> - 3.14-1
+- Update main Python to 3.14
+
 * Mon Feb 10 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13-5
 - Add brp script to modify .dist-info/INSTALLER file
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ rm %{pypi_name}/_py2.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.15-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 26 2025 Umut Demir <umutd3401@posteo.com> - 3.1.15-1
 - Update to 3.1.15 (rhbz#2018761)
 - Use pyproject macros

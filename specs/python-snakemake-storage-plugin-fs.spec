@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-fs
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Snakemake storage plugin that reads and writes from a local filesystem
 

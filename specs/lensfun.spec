@@ -6,7 +6,7 @@
 Name:    lensfun
 Version: 0.3.4
 Summary: Library to rectify defects introduced by photographic lenses
-Release: 4%{?dist}
+Release: 6%{?dist}
 
 License: LGPLv3 and CC-BY-SA
 URL: https://lensfun.github.io/
@@ -109,7 +109,7 @@ sed -i.shbang \
   -DBUILD_DOC:BOOL=ON \
   -DBUILD_TESTS:BOOL=%{?tests:ON}%{!?tests:OFF} \
   -DCMAKE_BUILD_TYPE:STRING=Release \
-  -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
+  -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir}/devel-docs \
   %{?!python3:-DINSTALL_HELPER_SCRIPTS:BOOL=OFF}
 
 %cmake_build
@@ -150,7 +150,6 @@ rm -fv %{buildroot}%{_bindir}/g-lensfun-update-data \
        %{buildroot}%{_mandir}/man1/g-lensfun-update-data.* \
        %{buildroot}%{_docdir}/%{name}/doxygen.svg
 
-
 %check
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
@@ -169,14 +168,7 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %dir /var/lib/lensfun-updates/
 
 %files devel
-%{_pkgdocdir}/*.html
-%{_pkgdocdir}/*.png
-%{_pkgdocdir}/*.css
-%{_pkgdocdir}/*.js
-# seems like we install no SVGs on EPEL <= 9
-%if 0%{?fedora} || 0%{?rhel} > 9
-%{_pkgdocdir}/*.svg
-%endif
+%doc %{_pkgdocdir}/devel-docs
 %{_includedir}/lensfun/
 %{_libdir}/liblensfun.so
 %{_libdir}/pkgconfig/lensfun.pc
@@ -199,6 +191,12 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.4-6
+- Rebuilt for Python 3.14
+
+* Mon Jun 02 2025 Nils Philippsen <nils@tiptoe.de> - 0.3.4-5
+- Ship development documentation in subdirectory and mark as %%doc
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
