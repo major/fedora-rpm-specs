@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -96,6 +96,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %{python3_sitearch}/%{modname}-%{version}-*.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.45.6-2
+- Rebuilt for Python 3.14
+
 * Mon Apr 07 2025 Jacek Migacz <jmigacz@redhat.com> - 7.45.6-1
 - Update to 7.45.6 (#2350521)
 

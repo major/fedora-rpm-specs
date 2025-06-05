@@ -6,25 +6,24 @@
 
 Summary:      Virtual MIDI keyboard
 Name:         vkeybd
-Version:      0.1.18d
-Release:      30%{?dist}
+Version:      0.1.18f
+Release:      1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:      GPL-2.0-or-later
-URL:          http://www.alsa-project.org/~iwai/alsa.html
-Source0:      http://www.alsa-project.org/~iwai/vkeybd-0.1.18d.tar.bz2
+URL:          https://github.com/tiwai/%{name}
+Source0:      https://github.com/tiwai/%{name}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:      vkeybd.png
 Source2:      vkeybd.desktop
-Patch3:       vkeybd-no-OSS.patch
-Patch4:	      vkeybd-tcl8.6.patch
+Patch0:       vkeybd-makefile.patch
 
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: tk-devel >= 1:8.6, tk-devel < 1:8.7
+BuildRequires: gcc
+BuildRequires: tk-devel >= 1:9.0
 BuildRequires: lash-devel
 
 BuildRequires: desktop-file-utils
 
-Requires: tk >= 1:8.6, tk > 1:8.6, lash
+Requires: tk >= 1:9.0
 Requires: hicolor-icon-theme
 
 %description
@@ -33,29 +32,27 @@ It's a simple fake of a MIDI keyboard on X-windows system.
 Enjoy a music with your mouse and "computer" keyboard :-)
 
 %prep
-%setup -q -n vkeybd
-%patch -P3 -p0
-%patch -P4 -p0
+%autosetup -p1
 sed -i -e 's|-Wall -O|$(RPM_OPT_FLAGS)|' Makefile
 
 %build
-make %{?_smp_mflags} USE_LADCCA=1 TCL_VERSION=8.6 PREFIX=%{_prefix}
+%make_build USE_AWE=0 TCL_VERSION=9.0 PREFIX=%{_prefix}
 
 %install
-make USE_LADCCA=1 PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT install
-make USE_LADCCA=1 PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT install-man
-chmod 644 $RPM_BUILD_ROOT/%{_mandir}/man1/*
-chmod 755 $RPM_BUILD_ROOT/%{_datadir}/vkeybd/vkeybd.tcl
+%make_install USE_AWE=0 PREFIX=%{_prefix}
+%make_install USE_AWE=0 PREFIX=%{_prefix} install-man
+chmod 644 %{buildroot}/%{_mandir}/man1/*
+chmod 755 %{buildroot}/%{_datadir}/vkeybd/vkeybd.tcl
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps
-install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps/vkeybd.png
+mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/64x64/apps
+install -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/icons/hicolor/64x64/apps/vkeybd.png
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
+mkdir -p %{buildroot}/%{_datadir}/applications
 desktop-file-install \
 %if 0%{?with_desktop_vendor_tag}
   --vendor fedora            \
 %endif
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  --dir %{buildroot}/%{_datadir}/applications \
   --add-category X-Fedora                       \
   %{SOURCE2}
 
@@ -69,6 +66,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/64x64/apps/vkeybd.png
 
 %changelog
+* Tue Jun 03 2025 Guido Aulisi <guido.aulisi@gmail.com> - 0.1.18f-1
+- Update to 0.1.18f
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18d-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate ironrdp-cliprdr-native
 
 Name:           rust-ironrdp-cliprdr-native
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Native CLIPRDR static channel backend implementations for IronRDP
 

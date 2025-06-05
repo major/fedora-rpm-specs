@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bindings for libssh C library
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 04 2025 Federico Pellegrin <fede@evolware.org> - 1.1.1-1
 - Bump to 1.1.1
 

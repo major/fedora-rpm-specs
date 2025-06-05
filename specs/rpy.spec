@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -82,6 +82,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.5.16-7
+- Rebuilt for Python 3.14
+
 * Sat Apr 19 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.16-6
 - Remove BR libzstd-devel, provided by R-core-devel now
 

@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -128,6 +128,9 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.2-12
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

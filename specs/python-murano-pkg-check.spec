@@ -14,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Murano package validator tool
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -205,6 +205,9 @@ PYTHON=python3 %{__python3} setup.py test
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.0-38
+- Rebuilt for Python 3.14
+
 * Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.3.0-37
 - Fix descriptions for python2 and python3 subpackages
 

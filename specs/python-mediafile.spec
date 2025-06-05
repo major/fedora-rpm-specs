@@ -1,7 +1,7 @@
 %global shortname mediafile
 Name:           python-mediafile
 Version:        0.12.0
-Release:        7%{dist}
+Release:        8%{dist}
 Summary:        Elegant audio file tagging in Python
 
 License:        MIT
@@ -60,6 +60,9 @@ rm test/rsrc/only-magic-bytes.jpg
 %doc README.rst
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.12.0-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

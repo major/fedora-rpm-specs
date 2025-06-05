@@ -11,7 +11,7 @@ misspelled words.
 
 Name:           python-%{pypi_name}
 Version:        7.3.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -122,6 +122,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.3.3-13
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -206,6 +206,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.1-2
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.1-1
 - Update to version 0.5.1
 

@@ -3,7 +3,7 @@
 
 Name:           weasyprint
 Version:        65.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 65.1-2
+- Rebuilt for Python 3.14
+
 * Mon Apr 14 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 65.1-1
 - update to 65.1
 

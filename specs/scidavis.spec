@@ -5,7 +5,7 @@
 
 Name:           scidavis
 Version:        2.9.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Application for Scientific Data Analysis and Visualization
 
 License:        GPL-3.0-or-later
@@ -138,6 +138,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.9.0-17
+- Rebuilt for Python 3.14
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 2.9.0-16
 - Rebuild with gsl 2.8
 

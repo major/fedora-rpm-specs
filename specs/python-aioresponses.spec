@@ -5,7 +5,7 @@ easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
 Version:        0.7.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.7.8-2
+- Rebuilt for Python 3.14
+
 * Sun May 11 2025 Georg Sauthoff <mail@gms.tf> - 0.7.8-1
 - bump version (fixes fedora#2338886)
 

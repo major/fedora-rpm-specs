@@ -26,7 +26,7 @@ and Python features.
 
 Name:		python-%{src_name}
 Version:	3.2.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -192,6 +192,9 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.2.9-2
+- Rebuilt for Python 3.14
+
 * Tue May 13 2025 Packit <hello@packit.dev> - 3.2.9-1
 - Update to version 3.2.9
 - Resolves: rhbz#2363122

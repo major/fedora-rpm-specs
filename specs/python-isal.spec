@@ -1,6 +1,6 @@
 Name:		python-isal
 Version:	1.7.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Faster zlib and gzip compatible (de)compression using the ISA-L library
 #		src/isal/crc32_combine.h is Zlib
 License:	PSF-2.0 AND Zlib
@@ -78,5 +78,8 @@ export PYTHONPATH=deps
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.2-2
+- Rebuilt for Python 3.14
+
 * Sat Mar 15 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.7.2-1
 - Initial Fedora package

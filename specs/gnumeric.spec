@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.57
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Spreadsheet program for GNOME
 License:          GPL-2.0-only AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2+
 URL:              http://www.gnumeric.org
@@ -145,6 +145,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:1.12.57-4
+- Rebuilt for Python 3.14
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:1.12.57-3
 - Add explicit BR: libxcrypt-devel
 

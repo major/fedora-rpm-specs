@@ -8,18 +8,13 @@
 %global pypi_name pyshacl
 
 Name:           python-pyshacl
-Version:        0.26.0
+Version:        0.30.1
 Release:        %autorelease
 Summary:        Python validator for SHACL
 
 License:        Apache-2.0
 URL:            https://github.com/RDFLib/pySHACL
 Source:         %{url}/archive/v%{version}/pyshacl-%{version}.tar.gz
-# Remove extra spec file for win32 cli
-Patch:          0001-Remove-win32-spec.patch
-# We relax the poetry-core dependency to 1.8.1 to build on F40
-# Drop when F40 is not supported anymore
-Patch:          0001-Relax-poetry-core-dependency.patch
 
 BuildArch:      noarch
 BuildRequires:  fdupes
@@ -47,6 +42,10 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n pySHACL-%{version}
 rm -rfv pyshacl/*.spec
+
+# python-rdflib doesn't ship the html modul so it's not required by pySHACL
+# https://github.com/RDFLib/pySHACL/commit/5e93bd42e2259c980599533dbbe4a8036487283c
+sed -i '/rdflib/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -t %{?with_http:-x http}
@@ -100,6 +99,7 @@ popd
 %license LICENSE.txt
 %doc CHANGELOG.md CONTRIBUTING.md CONTRIBUTORS.md  FEATURES.md README.md
 %{_bindir}/pyshacl
+%{_bindir}/pyshacl_rules
 %if %{with http}
 %{_bindir}/pyshacl_server
 %endif

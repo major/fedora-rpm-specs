@@ -35,7 +35,7 @@
 
 Name: python-avocado
 Version: 92.3
-Release: 4%{?gitrel}%{?dist}
+Release: 5%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -454,6 +454,9 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 92.3-5
+- Rebuilt for Python 3.14
+
 * Mon Jan 20 2025 Miro Hrončok <mhroncok@redhat.com> - 92.3-4
 - Loosen the PyYAML version requirement in python3-avocado-plugins-varianter-yaml-to-mux
 

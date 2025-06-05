@@ -4,7 +4,7 @@
 
 Name:           python-pyqt6-charts
 Version:        6.9.0
-Release:        1%{?snap:^%{snap}}%{?dist}
+Release:        2%{?snap:^%{snap}}%{?dist}
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqtchart/
@@ -88,4 +88,7 @@ grep %{buildroot} %{buildroot}%{python3_sitearch}/*.dist-info/* && exit 1 || tru
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.9.0-2
+- Rebuilt for Python 3.14
+
 %autochangelog

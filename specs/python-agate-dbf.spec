@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Adds read support for DBF files to agate
 
 License:        MIT
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.3-5
+- Rebuilt for Python 3.14
+
 * Thu Mar 06 2025 Julien Enselme <jujens@jujens.eu> - 0.2.3-4
 - Remove nose
 

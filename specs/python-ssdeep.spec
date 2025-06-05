@@ -12,7 +12,7 @@ Summary: Python wrapper for the ssdeep library
 License: LGPL-3.0-or-later
 
 Version: 3.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/DinoTools/python-ssdeep/
 # v3.4.1 is not available on PyPi, so we fetch from GitHub
@@ -90,6 +90,9 @@ install -m 644 docs/build/man/pythonssdeep.1 %{buildroot}%{_mandir}/man5/python3
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.4.1-3
+- Rebuilt for Python 3.14
+
 * Fri Feb 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.4.1-2
 - Remove pytest-runner from setup_requires
 

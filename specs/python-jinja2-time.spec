@@ -3,7 +3,7 @@
 
 Name:           python-jinja2-time
 Version:        0.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Jinja2 Extension for Dates and Times
 
 License:        MIT
@@ -52,6 +52,9 @@ Jinja2 Extension for Dates and Times.
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-29
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

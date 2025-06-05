@@ -1,6 +1,6 @@
 Name:           python-syrupy
 Version:        4.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest snapshot plugin
 
 License:        Apache-2.0
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.9.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Jonathan Wright <jonathan@almalinux.org> - 4.9.1-1
 - update to 4.9.1
 

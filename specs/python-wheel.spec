@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # Default: when bootstrapping -> disable tests
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}

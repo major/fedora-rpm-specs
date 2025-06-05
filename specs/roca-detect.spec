@@ -20,7 +20,7 @@
 Summary:	Key fingerprinting tools for CVE-2017-15361
 Name:		roca-detect
 Version:	1.2.12
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	MIT
 Url:		https://crocs.fi.muni.cz/public/papers/rsa_ccs17
 Source0:	https://github.com/crocs-muni/roca/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -139,6 +139,9 @@ export PYTHONPATH=pgpdump3-1.5.2
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.12-30
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

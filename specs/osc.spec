@@ -12,7 +12,7 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 1
+%global baserelease 2
 
 Name:           osc
 Summary:        Open Build Service Commander
@@ -161,6 +161,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.16.0-448.1.2
+- Rebuilt for Python 3.14
+
 * Tue May 20 2025 Dan Čermák <dan.cermak@posteo.net> - 1.16.0-448.1.1
 - New upstream release 1.16.0
 

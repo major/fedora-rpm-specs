@@ -6,6 +6,9 @@ License:        MIT
 URL:            https://github.com/mhthies/pulsectl-asyncio
 Source0:        %{pypi_source pulsectl_asyncio}
 
+# https://github.com/mhthies/pulsectl-asyncio/commit/c1e5587bcec8f976580e2291518497388eb88109
+Patch:          python-pulsectl-24.12.0.diff
+
 BuildArch:      noarch
 # BuildRequires:  /usr/bin/pulseaudio
 BuildRequires:  pulseaudio-libs

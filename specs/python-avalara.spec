@@ -3,7 +3,7 @@
 
 Name:           python-avalara
 Version:        25.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AvaTax Python SDK
 
 
@@ -53,4 +53,7 @@ Summary: %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.1.0-3
+- Rebuilt for Python 3.14
+
 %autochangelog

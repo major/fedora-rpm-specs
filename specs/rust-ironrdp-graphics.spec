@@ -6,7 +6,7 @@
 %global crate ironrdp-graphics
 
 Name:           rust-ironrdp-graphics
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        RDP image processing primitives
 

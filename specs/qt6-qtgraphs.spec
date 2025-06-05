@@ -9,7 +9,7 @@
 
 Summary: The Qt Graphs module enables you to visualize data in 3D
 Name:    qt6-%{qt_module}
-Version: 6.9.0
+Version: 6.9.1
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
@@ -125,6 +125,9 @@ popd
 %endif
 
 %changelog
+* Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

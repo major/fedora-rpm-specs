@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.3.0-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 5.3.0-1
 - update to 5.3.0
 

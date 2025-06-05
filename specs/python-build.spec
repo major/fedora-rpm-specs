@@ -1,4 +1,3 @@
-%global _without_uv 1
 # uv has many build dependencies, and will take some time to be available for
 # new EPEL major versions.
 %bcond uv %{undefined rhel}

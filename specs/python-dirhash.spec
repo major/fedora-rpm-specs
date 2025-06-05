@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module and CLI for hashing of file system directories
 
 License:        MIT
@@ -70,6 +70,9 @@ sed -i '1{s|^#!\(/usr\)\?/bin/\(env \)\?python\d\?$||}' src/dirhash/{cli.py,__in
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

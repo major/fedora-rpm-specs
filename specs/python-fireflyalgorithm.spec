@@ -6,7 +6,7 @@ Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
 Version:        0.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of Firefly Algorithm in Python
 
 # SPDX
@@ -60,6 +60,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CHANGELOG.md CITATION.cff
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.6-2
+- Rebuilt for Python 3.14
+
 * Tue Jan 21 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.6-1
 - Update to the latest upstream's release
 

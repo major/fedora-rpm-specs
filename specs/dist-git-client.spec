@@ -1,6 +1,6 @@
 Name:      dist-git-client
 Version:   1.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Get sources for RPM builds from DistGit repositories
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ PYTHON=python3 ./run_tests.sh -vv --no-coverage
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 04 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - more powerful parsing for ssh clone urls
 - nicer error output for not-matched origin.url hostnames

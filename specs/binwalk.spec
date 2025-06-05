@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -57,6 +57,9 @@ cd testing/tests
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.4-12
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

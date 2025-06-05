@@ -1,6 +1,6 @@
 Name:           obsctl
 Version:        0.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        GPL-2.0-or-later
 Summary:        Unified high level interface for common actions with the Open Build Service
 URL:            https://gitlab.com/datto/engineering/DevOps/obsctl
@@ -63,6 +63,9 @@ touch %{buildroot}%{_sysconfdir}/obsctl/obsauth.json
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.7.0-10
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

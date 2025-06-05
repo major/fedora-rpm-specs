@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.37.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A linter for YAML files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.37.1-2
+- Rebuilt for Python 3.14
+
 * Sun May 04 2025 Adrien Vergé <adrienverge@gmail.com> - 1.37.1-1
 - Update to latest upstream version
 

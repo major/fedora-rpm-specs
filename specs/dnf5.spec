@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1014,6 +1014,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.2.13.1-3
+- Rebuilt for Python 3.14
+
 * Tue May 13 2025 Marek Blaha <mblaha@redhat.com> - 5.2.13.1-2
 - Rebuilt for sdbus-cpp-2.1
 

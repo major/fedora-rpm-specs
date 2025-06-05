@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -276,6 +276,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.68-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 19 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-1
 - Restrict Git index version to what GitPython supports (otto.liljalaakso)
 - `set-pagure-token`: config - more restrictive permissions (git)

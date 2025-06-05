@@ -2,7 +2,7 @@
 %global package_dir_name pytest_lazy_fixtures
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
+Version:        1.1.4
 Release:        %autorelease
 Summary:        Library to use fixtures in @pytest.mark.parametrize
 
@@ -55,7 +55,10 @@ Summary: Library to use fixtures in @pytest.mark.parametrize
 %license LICENSE
 
 %changelog
-* Thu Jul 18 2024 Ian Wienand <iwienand@fedora19> - 1.1.0-%autorelease
+* Tue Jun 03 2025 Ian Wienand  <iwienand@redhat.com> - 1.1.4-%autorelease
+- Update to 1.1.4 (Closes: #2298529)
+
+* Thu Jul 18 2024 Ian Wienand <iwienand@redhat.com> - 1.1.0-%autorelease
 - Update to 1.1.0 (Closes: #2298529)
 
 * Tue May  7 2024 Ian Wienand <iwienand@redhat.com> - 1.0.7-1

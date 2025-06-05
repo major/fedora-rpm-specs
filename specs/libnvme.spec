@@ -4,7 +4,7 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -99,6 +99,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.13-2
+- Rebuilt for Python 3.14
+
 * Fri Apr 11 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.13-1
 - Upstream v1.13 release
 

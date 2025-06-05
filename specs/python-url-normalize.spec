@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 1.4.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Python URI normalizator
 
 License: MIT
@@ -69,6 +69,9 @@ rm tox.ini
 %doc README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.3-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

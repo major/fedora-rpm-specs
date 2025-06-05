@@ -1,6 +1,3 @@
-%global _without_tests 1
-%global _without_doc 1
-%global _without_extras 1
 Summary:        Python package with an object-oriented approach to text processing
 Name:           pyparsing
 Version:        3.1.2

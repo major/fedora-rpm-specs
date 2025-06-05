@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation of the JSON5 data format
 
 License:        Apache-2.0
@@ -69,6 +69,9 @@ Command-line tool for working with the JSON5 data format.
 %{_bindir}/pyjson5
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.12.0-3
+- Rebuilt for Python 3.14
+
 * Sat Apr 05 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.12.0-1
 - Update to upstream version 0.12.0 (closes rhbz#2329051)
 

@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.19.%{date}git%{shortcommit}%{?dist}
+Release: 0.20.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -106,6 +106,9 @@ fi
 %{_sysusersdir}/calypso.conf
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0-0.20.20190429git7317d88
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0-0.19.20190429git7317d88
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

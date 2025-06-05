@@ -1,6 +1,6 @@
 Name:           perl-Text-Kakasi
 Version:        2.04
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Kakasi library module for perl
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Tue Jun  3 2025 Akira TAGOH <tagoh@redhat.com> - 2.04-60
+- Bump a release to fix FTBFS.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate ironrdp-blocking
 
 Name:           rust-ironrdp-blocking
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Blocking I/O abstraction wrapping the IronRDP state machines conveniently
 

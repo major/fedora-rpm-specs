@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.18.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to handle URLs
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ sed -r -e 's/(-.*cov.*$)/#\1/g' -i pytest.ini
 %doc CHANGES.rst README.rst
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.18.3-2
+- Rebuilt for Python 3.14
+
 * Fri Feb 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.18.3-1
 - Update to 1.18.3
 

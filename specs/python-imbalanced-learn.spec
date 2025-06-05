@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-imbalanced-learn
 Version:        0.13.0
@@ -16,9 +16,14 @@ License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
 
+# MAINT fix compatibility with scikit-learn 1.7
+# https://github.com/scikit-learn-contrib/imbalanced-learn/pull/1137
+Patch:          %{forgeurl}/pull/1137.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # tests
 BuildRequires:  python3dist(pytest)
@@ -53,6 +58,11 @@ rm -vrf doc/sphinxext/
 # release and it's not packaged for Fedora.
 # https://github.com/scikit-learn-contrib/imbalanced-learn/commit/e511ddbf44f819f3777a2689eb7a87e77bf2a0e5
 sed -i '/sklearn-compat/d' pyproject.toml
+
+# Erroring on these warnings is too strict for downstream packaging.
+tomcli set pyproject.toml lists delitem \
+    tool.pytest.ini_options.filterwarnings \
+    'error::(Deprecation|Future)Warning'
 
 
 %generate_buildrequires

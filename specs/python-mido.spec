@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A Python library for working with MIDI messages and ports
 
 License:        MIT
@@ -58,6 +58,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.9-23
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

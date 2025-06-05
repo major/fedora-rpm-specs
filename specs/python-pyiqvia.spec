@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2023.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python API for IQVIA data
 
 License:        MIT
@@ -39,6 +39,9 @@ A Python API for IQVIA data.
 %doc README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2023.12.0-4
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2023.12.0-3
 - Remove -t (closes rhbz#2354117)
 

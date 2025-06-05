@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.9.0
-Release: 3%{?dist}
+Version: 6.9.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,7 +25,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-Patch0:  qtwayland-client-reset-mframecallbacktimedout-when-showing-window.patch
 
 # Upstreamable patches
 
@@ -217,6 +216,9 @@ popd
 %endif
 
 %changelog
+* Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Tue Apr 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-3
 - Backport upstream fix broken popups
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Needed for Python bootstrap
 %bcond_without tests
 

@@ -2,7 +2,7 @@
 
 Name:           git-up
 Version:        2.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -53,6 +53,9 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.0-11
+- Rebuilt for Python 3.14
+
 * Fri Jan 31 2025 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-10
 - Fix build with pytest 8
 - Fixes: rhbz#2272982

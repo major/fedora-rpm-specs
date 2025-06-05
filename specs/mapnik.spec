@@ -1,17 +1,22 @@
+%global vectortiledate 20250505
+%global vectortilecommit 5a0cfbb6b909ae945f4a9e40777772a2b1c8fe9b
 %global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
-%global visualcommit 86a0fdeb310df51276a1626aa46f6182f3f0b521
+%global visualcommit db003ccfe204725035e89e543e54cef764b1e3bb
+
+%global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.0.7
+Version:   4.1.0
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
 URL:       http://mapnik.org/
 Source0:   https://github.com/mapnik/mapnik/releases/download/v%{version}/mapnik-v%{version}.tar.bz2
-Source1:   https://github.com/mapnik/test-data/archive/%{testcommit}/test-data-%{testcommit}.tar.gz
-Source2:   https://github.com/mapnik/test-data-visual/archive/%{visualcommit}/test-data-visual-%{visualcommit}.tar.gz
-Source3:   mapnik-data.license
-Source4:   viewer.desktop
+Source1:   https://github.com/mapnik/mapnik-vector-tile/archive/%{vectortilecommit}/mapnik-vector-tile-%{vectortilecommit}.tar.gz
+Source2:   https://github.com/mapnik/test-data/archive/%{testcommit}/test-data-%{testcommit}.tar.gz
+Source3:   https://github.com/mapnik/test-data-visual/archive/%{visualcommit}/test-data-visual-%{visualcommit}.tar.gz
+Source4:   mapnik-data.license
+Source5:   viewer.desktop
 # Build against the system version of sparsehash
 Patch:     mapnik-system-sparsehash.patch
 # Build against the system version of catch
@@ -30,7 +35,7 @@ Requires: proj
 BuildRequires: libpq-devel pkgconfig
 BuildRequires: gdal-devel proj-devel
 BuildRequires: cmake make desktop-file-utils gcc-c++
-BuildRequires: qt5-qtbase-devel
+BuildRequires: qt6-qtbase-devel
 BuildRequires: libxml2-devel boost-devel libicu-devel
 BuildRequires: libtiff-devel libjpeg-devel libpng-devel libwebp-devel
 BuildRequires: cairo-devel freetype-devel harfbuzz-devel
@@ -43,6 +48,10 @@ BuildRequires: mapbox-variant-devel mapbox-variant-static
 BuildRequires: catch2-devel
 BuildRequires: dejavu-sans-fonts
 BuildRequires: postgresql-test-rpm-macros postgis
+
+# Bundled version is git snapshot of forked npm module
+# used just for it's source code
+Provides: bundled(mapnik-vector-tile) = 3.0.1^%{vectortiledate}git%{vectortileshortcommit}
 
 # Bundled version has many local patches and upstream is essentially dead
 Provides: bundled(agg) = 2.4
@@ -132,9 +141,11 @@ spatial visualization library.
 
 
 %prep
-%setup -q -n mapnik-v%{version} -a 1 -a 2
+%setup -q -n mapnik-v%{version} -a 1 -a 2 -a 3
 %autopatch -p 1
-cp -p %{SOURCE3} demo/data
+rm -rf deps/mapbox/mapnik-vector-tile
+mv mapnik-vector-tile-%{vectortilecommit} deps/mapbox/mapnik-vector-tile
+cp -p %{SOURCE4} demo/data
 rm -rf test/data test/data-visual
 mv test-data-%{testcommit} test/data
 mv test-data-visual-%{visualcommit} test/data-visual
@@ -159,7 +170,7 @@ rm -rf deps/mapnik/sparsehash deps/mapbox/geometry deps/mapbox/polylabel deps/ma
 %install
 %cmake_install
 rm -rf %{buildroot}/%{_bindir}/viewer.ini %{buildroot}/%{_datadir}/fonts
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE5}
 
 
 %check

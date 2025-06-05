@@ -3,7 +3,7 @@
 
 Name:           zfp
 Version:        1.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for compressed numerical arrays with high throughput R/W random access
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -105,6 +105,9 @@ export LDFLAGS="$LDFLAGS -L$PWD/%{_vpath_builddir}/%{_lib}/"
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.1-7
+- Rebuilt for Python 3.14
+
 * Tue Jan 21 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-6
 - Add Python subpackage
 

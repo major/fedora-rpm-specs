@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -177,6 +177,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2024.0.0-5
+- Rebuilt for Python 3.14
+
 * Mon Apr 14 2025 Andreas Schneider <asn@redhat.com> - 2024.0.0-4
 - Use libepoxy instead of GLEW
 

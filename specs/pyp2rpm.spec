@@ -1,6 +1,6 @@
 Name:           pyp2rpm
 Version:        3.3.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Convert Python packages to RPM SPECFILES
 
 License:        MIT
@@ -68,6 +68,9 @@ PYTHONPATH="." py.test-3 -vv -m "not webtest" -k "not TestMetadataExtractor"
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.3.10-8
+- Rebuilt for Python 3.14
+
 * Thu Feb 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.10-7
 - Remove pytest-runner dependency
 

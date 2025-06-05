@@ -8,7 +8,7 @@
 Name:           moose
 Version:        3.1.5
 %global codename chamcham
-Release:        27%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
+Release:        28%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
 Summary:        Multiscale Neuroscience and Systems Biology Simulator
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -152,6 +152,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c \
 %doc README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.1.5-28
+- Rebuilt for Python 3.14
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.1.5-27
 - Rebuild with gsl 2.8
 

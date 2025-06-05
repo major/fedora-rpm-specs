@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _without_tests 1
 # when bootstrapping, we cannot yet use sphinx and pytest
 # on RHEL, we don't need to build the documentation
 %bcond docs %{undefined rhel}

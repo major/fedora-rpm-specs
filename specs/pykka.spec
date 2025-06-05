@@ -2,7 +2,7 @@
 
 Name:             pykka
 Version:          4.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
 License:          Apache-2.0
@@ -76,6 +76,9 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.2.0-2
+- Rebuilt for Python 3.14
+
 * Mon Feb 17 2025 Tobias Girstmair <t-fedora@girst.at> - 4.2.0-1
 - Update to latest release
 

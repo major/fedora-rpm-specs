@@ -3,7 +3,7 @@
 
 Name:           %{upstream_name}
 Version:        29.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPL-2.0-or-later
 URL:            https://beaker-project.org/
@@ -118,6 +118,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 29.2-3
+- Rebuilt for Python 3.14
+
 * Mon May 26 2025 Martin Styk <mart.styk@gmail.com> - 29.2-2
 - Drop BSD license reference from License tag
   The file LabController/src/bkr/labcontroller/tback.py, originally from Django

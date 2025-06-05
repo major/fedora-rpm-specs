@@ -2,7 +2,7 @@
 
 Name:           python-blinker
 Version:        1.9.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
@@ -42,13 +42,21 @@ mv requirements/tests.in requirements/tests.txt
 %pyproject_save_files %{mod_name}
 
 %check
-%tox
+# Ignore DeprecationWarnings for now: they come from Python 3.14
+# and leak through python-pytest-asyncio to other packages
+%tox -- -- -W ignore::DeprecationWarning
 
 %files -n python3-blinker -f %{pyproject_files}
 %doc CHANGES.rst LICENSE.txt README.md
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.0-4
+- Rebuilt for Python 3.14
+
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

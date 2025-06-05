@@ -5,7 +5,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
 Version:        2025.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -106,6 +106,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2025.0.2-5
+- Rebuilt for Python 3.14
+
 * Fri Mar 07 2025 Brad Bell <bradbell at seanet dot com> - 2025.0.2-4
 - patch for bug fix in check_input_files.py.
 

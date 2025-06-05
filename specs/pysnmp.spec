@@ -1,6 +1,6 @@
 Name:           pysnmp
 Version:        7.1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        An SNMP engine written in Python
 
@@ -54,6 +54,9 @@ networking.
 %license LICENSE.rst
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.1.16-2
+- Rebuilt for Python 3.14
+
 * Wed Jan 22 2025 Federico Pellegrin <fede@evolware.org> - 7.1.16-1
 - Bump to 7.1.16, previous versions were not working with Python 3.12 (so Fedora >=40)
 

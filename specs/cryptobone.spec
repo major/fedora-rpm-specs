@@ -3,10 +3,10 @@
 
 Name:       cryptobone
 Version:    2.0   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
-License:    BSD and Sleepycat and OpenSSL     
+License:    BSD-3-Clause and Sleepycat and OpenSSL
 URL:        https://crypto-bone.com      
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
@@ -195,6 +195,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Tue Jun 03 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-2
+- revert BSD to BSD-3-Clause in License:
+
 * Thu May 29 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-1
 - release of version 2.0
 

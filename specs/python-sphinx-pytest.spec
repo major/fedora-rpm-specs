@@ -1,6 +1,6 @@
 Name:           python-sphinx-pytest
 Version:        0.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Helpful pytest fixtures for sphinx extensions
 
 # SPDX
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

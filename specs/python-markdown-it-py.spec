@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Python port of markdown-it
 
 # SPDX
@@ -65,6 +65,12 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-10
+- Rebuilt for Python 3.14
+
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-9
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           pygobject3
 Version:        3.51.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
@@ -105,6 +105,9 @@ export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.51.0-2
+- Rebuilt for Python 3.14
+
 * Thu Feb 06 2025 nmontero <nmontero@redhat.com> - 3.51.0-1
 - Update to 3.51.0
 

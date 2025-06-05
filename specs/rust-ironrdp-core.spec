@@ -5,7 +5,7 @@
 %global crate ironrdp-core
 
 Name:           rust-ironrdp-core
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        IronRDP common traits and types
 

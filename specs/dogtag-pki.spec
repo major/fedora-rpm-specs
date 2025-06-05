@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -2007,6 +2007,9 @@ fi
 
 ################################################################################
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 11.6.0-0.3.alpha1.2
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.6.0-0.3.alpha1.1
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

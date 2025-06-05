@@ -19,13 +19,15 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
 
 URL:            https://github.com/ROCm/%{name}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+Patch0:         0001-Add-macros-for-128-bit-atomic-loads-stores-on-gfx950.patch
 
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
@@ -45,7 +47,12 @@ BuildRequires:  python3dist(marshalparser)
 %endif
 
 %if %{with check} || %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
+BuildRequires:  rocminfo
 %endif
 
 %description
@@ -75,9 +82,16 @@ tests for the rocPRIM package
 %endif
 
 %prep
-%setup -q -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
+
+%if %{with check}
+# Building all the gpu's does not make sense
+# Build only the first one, this only works well with rpmbuild.
+gpu=`rocm_agent_enumerator | head -n 1`
+%endif
+
 %cmake \
 	-DCMAKE_CXX_COMPILER=hipcc \
 	-DCMAKE_C_COMPILER=hipcc \
@@ -87,6 +101,9 @@ tests for the rocPRIM package
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
 %if %{with check} || %{with test}
     -DBUILD_TEST=ON \
+%endif
+%if %{with check}
+    -DAMDGPU_TARGETS=${gpu} \
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_INSTALL_LIBDIR=share \
@@ -128,6 +145,13 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Tue Jun 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- change to autosetup
+
+* Mon Jun 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Improve testing on suse
+- Add macros for gfx950
+
 * Mon May 5 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-2
 - create test subpackage and add --with test flag
 - move during-build checks to %check section

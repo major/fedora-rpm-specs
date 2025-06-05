@@ -3,7 +3,7 @@
 
 Name:           nicotine+
 Version:        3.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/ip2location.py and pynicotine/external/tinytag.py are
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.3.7-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.7-1
 - Update to 3.3.7
 

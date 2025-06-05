@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # Work around a circular dependency on snakemake.
 %bcond bootstrap 0
 

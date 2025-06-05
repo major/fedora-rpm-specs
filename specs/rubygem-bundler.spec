@@ -14,10 +14,19 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library and utilities to manage a Ruby application's gem dependencies
-# Ruby or BSD: lib/bundler/vendor/{securerandom,uri,fileutils}
-License: MIT AND (Ruby or BSD)
+# BSD-2-Clause OR Ruby:
+#   lib/bundler/vendor/fileutils
+#   lib/bundler/vendor/tsort
+#   lib/bundler/vendor/uri
+# MIT:
+#   lib/bundler/vendor/connection_pool
+#   lib/bundler/vendor/net-http-persistent
+#   lib/bundler/vendor/pub_brub
+#   lib/bundler/vendor/thor
+#   lib/rubygems/resolver/molinillo
+License: MIT AND (Ruby OR BSD-2-Clause)
 URL: https://bundler.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rubygems/rubygems/ && cd rubygems
@@ -251,6 +260,9 @@ RUBYOPT=-I%{_builddir}/rubygems GEM_PATH=%{gem_dir} BUNDLER_GEM_DEFAULT_DIR=%{ge
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jun 03 2025 Vít Ondruch <vondruch@redhat.com> - 2.6.9-2
+- Use proper SPDX identifiers.
+
 * Fri Apr 11 2025 Vít Ondruch <vondruch@redhat.com> - 2.6.9-1
 - Update to Bundler 2.6.9.
   Resolves: rhbz#2143547

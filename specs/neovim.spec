@@ -45,7 +45,7 @@
 %endif
 
 Name:           neovim
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT
@@ -213,7 +213,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 
 %dir %{_datadir}/nvim/runtime
 %{_datadir}/nvim/runtime/*.vim
-%{_datadir}/nvim/runtime/filetype.lua
+%{_datadir}/nvim/runtime/*.lua
 %{_datadir}/nvim/runtime/neovim.ico
 
 %dir %{_datadir}/nvim/runtime/autoload

@@ -1,6 +1,6 @@
 Name:    python-slip10
 Version: 1.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Reference implementation of SLIP-0039: Shamir’s Secret-Sharing for Mnemonic Codes
 
 # MIT: slip10/ripemd160.py
@@ -59,5 +59,8 @@ cp -v %{SOURCE1} .
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.1-2
+- Rebuilt for Python 3.14
+
 * Sat Apr 05 2025 Jonny Heggheim <hegjon@gmail.com> - 1.0.1-1
 - Inital packaging

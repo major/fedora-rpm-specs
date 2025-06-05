@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
 Version:        1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7-2
+- Rebuilt for Python 3.14
+
 * Fri Mar 07 2025 Jakub Kadlcik <frostyx@email.cz> 1.7-1
 - Exclude archived releases (nforro@redhat.com)
 - Generate aliases for minor versions of EPEL (nforro@redhat.com)

@@ -2,7 +2,6 @@ Name:           perl-Filesys-Df
 Version:        0.92
 Release:        55%{?dist}
 Summary:        Perl extension for filesystem disk space information
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filesys-Df
 Source0:        https://cpan.metacpan.org/modules/by-module/Filesys/Filesys-Df-%{version}.tar.gz
@@ -69,8 +68,11 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Filesys
+%{perl_vendorarch}/auto/Filesys/Df
+%dir %{perl_vendorarch}/Filesys
+%{perl_vendorarch}/Filesys/Df.pm
+%{_mandir}/man3/Filesys::Df.*
 
 %files tests
 %{_libexecdir}/%{name}

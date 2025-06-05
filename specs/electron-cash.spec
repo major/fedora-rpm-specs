@@ -1,6 +1,6 @@
 Name:           electron-cash
 Version:        4.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -116,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.4.2-5
+- Rebuilt for Python 3.14
+
 * Wed Mar 05 2025 Jonny Heggheim <hegjon@gmail.com> - 4.4.2-4
 - Recommends libsecp256k1-abc instead of require libsecp256k1
 

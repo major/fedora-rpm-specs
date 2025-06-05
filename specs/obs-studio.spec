@@ -34,7 +34,7 @@
 
 Name:           obs-studio
 Version:        31.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -365,6 +365,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 31.0.3-3
+- Rebuilt for Python 3.14
+
 * Wed Apr 23 2025 David Abdurachmanov <davidlt@rivosinc.com> - 31.0.3-2
 - Disable LuaJIT on riscv64 (not supported)
 

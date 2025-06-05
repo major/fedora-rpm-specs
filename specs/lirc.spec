@@ -9,7 +9,7 @@
 
 Name:           lirc
 Version:        0.10.0
-Release:        48%{?tag:.}%{?tag}%{?dist}
+Release:        49%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -423,6 +423,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.10.0-49
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.0-48
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

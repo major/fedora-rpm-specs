@@ -5,7 +5,7 @@
 
 Name:		%{srcname}
 Version:	6.0.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.0.1-7
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		manafirewall
 Version:	0.0.3
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	ManaTools FirewallD configuration tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.0.3-14
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

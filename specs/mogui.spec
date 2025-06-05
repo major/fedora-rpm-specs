@@ -1,7 +1,7 @@
 %global srcname modules-gui
 Name:           mogui
 Version:        0.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Graphical User Interface for Environment Modules
 
 # icon files are licensed under CC-BY-SA-3.0 terms
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.2-7
+- Rebuilt for Python 3.14
+
 * Sat Feb 15 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 0.2.2-6
 - Remove pyproject_buildrequires "-t" option as no Tox config is present
 

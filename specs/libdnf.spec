@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -304,6 +304,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.74.0-2
+- Rebuilt for Python 3.14
+
 * Thu Mar 06 2025 Evan Goode <egoode@redhat.com> - 0.74.0-1
 - Update to 0.74.0
 - Update ko.po

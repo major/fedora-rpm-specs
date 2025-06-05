@@ -7,7 +7,7 @@
 
 Name:           python-requests-mock
 Version:        1.12.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mock out responses from the requests package
 License:        Apache-2.0
 URL:            https://requests-mock.readthedocs.io/
@@ -66,6 +66,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.12.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

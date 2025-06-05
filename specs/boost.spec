@@ -46,7 +46,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.83.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1319,6 +1319,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.83.0-13
+- Rebuilt for Python 3.14
+
 * Sun Jan 26 2025 Wolfgang Stöggl <c72578@yahoo.de> - 1.83.0-12
 - Add boost-1.83-fix-no-member-named_that_error.patch
 

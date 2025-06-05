@@ -5,7 +5,7 @@
 %global crate ironrdp-input
 
 Name:           rust-ironrdp-input
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Utilities to manage and build RDP input packets
 

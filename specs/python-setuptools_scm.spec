@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond tests 1
 
 Name:           python-setuptools_scm

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        HashiCorp Vault API client for Python
 
 License:        Apache-2.0
@@ -45,6 +45,9 @@ find hvac -type f ! -executable -name '*.py' -print -exec sed -r -i -e '1{\@^#!/
 %doc README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-8
+- Rebuilt for Python 3.14
+
 * Fri Apr 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-7
 - Do not spuriously attempt to generate BuildRequires from tox
   (fix RHBZ#2354110)

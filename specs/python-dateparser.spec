@@ -15,7 +15,7 @@
 
 Name:           python-dateparser
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -212,6 +212,9 @@ k="${k-}${k+ and }not search_dates"
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-3
+- Rebuilt for Python 3.14
+
 * Tue May 27 2025 Lumír Balhar <lbalhar@redhat.com> - 1.2.1-2
 - Fix compatibility with Python 3.14 beta 1 (rhbz#2367245)
 

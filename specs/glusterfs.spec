@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.1
-Release:          9%{?prereltag:%{prereltag}}%{?dist}
+Release:          10%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.22
+Release:          0.@PACKAGE_RELEASE@%{?dist}.23
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1638,6 +1638,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 11.1-10
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.1-9
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

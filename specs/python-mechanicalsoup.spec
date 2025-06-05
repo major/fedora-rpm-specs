@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library for automating interaction with websites
 
 License:        MIT
@@ -57,6 +57,9 @@ sed -i -e 's/--flake8//g' setup.cfg
 %{python3_sitelib}/MechanicalSoup-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.0-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

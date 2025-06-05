@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Higher level Python Zookeeper client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ rm -fr %{buildroot}%{python3_sitelib}/%{pypi_name}/tests/
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.8.0-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

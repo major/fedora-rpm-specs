@@ -3,7 +3,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -142,6 +142,9 @@ export FLEXIBLAS=netlib
 %doc examples/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.2-11
+- Rebuilt for Python 3.14
+
 * Fri May 23 2025 Jerry James  <loganjerry@gmail.com> - 1.3.2-10
 - Add patch to fix refcount bug
 

@@ -1,14 +1,5 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute. Since the .rst sources are
-# complete (nothing like sphinx.ext.autodoc is used) and rather readable,
-# however, we package them directly to reduce the build-time dependencies and
-# produce a smaller package.
-%bcond doc_pdf 0
-
-%global commit 0a8b2c56331a31d7f7096faaa1c1c26467b51c15
-%global snapdate 20250414
+%global commit fde4d3457d7c1e6f7d09afeae5afd2218fbb2cae
+%global snapdate 20250603
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
@@ -25,13 +16,6 @@ Source1:        upgrade_pythoncapi.py.1
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
-
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
 
 # As a header-only library package (with an additional command-line tool
 # subpackage), the base package is arched so that it is compiled and tested on
@@ -96,11 +80,6 @@ pushd tests >/dev/null
 %pyproject_wheel
 popd >/dev/null
 
-%if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
-%endif
-
 
 %install
 install -t '%{buildroot}%{_includedir}' -D -p -m 0644 pythoncapi_compat.h
@@ -131,14 +110,8 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 # This primarily documents the script rather than the header.
 %doc README.rst
-%if %{with doc_pdf}
-# This is a source for the PDF documentation, but is useful as a standalone
-# documentation file as well.
-%doc docs/changelog.rst
-%doc docs/build/latex/pythoncapi_compat.pdf
-%else
+
 %doc docs/*.rst
-%endif
 
 
 %changelog

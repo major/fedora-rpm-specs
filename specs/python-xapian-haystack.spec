@@ -2,7 +2,7 @@
 
 Name:           python-xapian-haystack
 Version:        3.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Xapian backend for Haystack
 
 License:        GPL-2.0-only
@@ -42,6 +42,9 @@ Requires:       python3-xapian >= 1.4
 %{python3_sitelib}/xapian_haystack-%{version}.dist-info/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.1.0-7
+- Rebuilt for Python 3.14
+
 * Wed Jan 22 2025 Michal Konecny <mkonecny@redhat.com> - 3.1.0-6
 - Fix the missing auto generated dependencies
 

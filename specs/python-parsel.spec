@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library to extract data from HTML and XML using XPath and CSS selectors
 
 License:        BSD-3-Clause
@@ -48,6 +48,9 @@ sed -e '/psutil/ s/==/>=/' -i tests/requirements.txt
 %doc README.rst NEWS
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.10.0-4
+- Rebuilt for Python 3.14
+
 * Wed Apr 02 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.10.0-3
 - Switch to SPDX license notation
 - Enable tests

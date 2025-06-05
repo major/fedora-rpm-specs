@@ -1,6 +1,6 @@
 Name:           python-hatch-fancy-pypi-readme
 Version:        25.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hatch plugin for writing fancy PyPI readmes
 
 License:        MIT
@@ -55,6 +55,9 @@ sed -i 's/ \"pytest-icdiff\", \"coverage\[toml\]\", //g' pyproject.toml
 %{_bindir}/hatch-fancy-pypi-readme
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.1.0-2
+- Rebuilt for Python 3.14
+
 * Mon May 12 2025 Parag Nemade <pnemade AT redhat DOT com> - 25.1.0-1
 - Update to 25.1.0 version (#2363257)
 - Upstream does not provide now AUTHORS.md file

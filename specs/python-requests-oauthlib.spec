@@ -6,7 +6,7 @@
 
 Name:               python-requests-oauthlib
 Version:            1.3.1
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            OAuthlib authentication support for Requests.
 
 License:            ISC
@@ -67,6 +67,9 @@ rm -rf %{distname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.1-12
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

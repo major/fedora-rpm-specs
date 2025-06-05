@@ -5,7 +5,7 @@
 %global crate ironrdp-svc
 
 Name:           rust-ironrdp-svc
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        IronRDP traits to implement RDP static virtual channels
 

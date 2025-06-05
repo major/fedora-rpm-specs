@@ -1,6 +1,6 @@
 Name:           python-eccodes
 Version:        2.39.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -105,6 +105,9 @@ rm -rf %sphinx_doc_path/.doctrees
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.39.2-2
+- Rebuilt for Python 3.14
+
 * Sat Feb 08 2025 Jos de Kloe <josdekloe@gmail.com> 2.39.2-1
 - move to upstream release 2.39.2
 

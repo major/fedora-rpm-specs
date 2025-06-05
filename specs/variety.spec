@@ -9,10 +9,10 @@
 Name:           variety
 %if 0%{?usesnapshot}
 Version:        0.8.6
-Release:        0.11%{?snapshottag}%{?dist}
+Release:        0.12%{?snapshottag}%{?dist}
 %else
 Version:        0.8.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8.13-2
+- Rebuilt for Python 3.14
+
 * Wed Feb 26 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.8.13-1
 - Update to 0.8.13
 

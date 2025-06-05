@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
-Version: 6.9.0
+Version: 6.9.1
 Release: 1%{?dist}
 
 %global examples 1
@@ -119,6 +119,7 @@ popd
 %{_qt6_libdir}/libQt63DQuickAnimation.so.6*
 %{_qt6_libdir}/libQt63DQuickExtras.so.6*
 %{_qt6_libdir}/libQt63DQuickInput.so.6*
+%{_qt6_libdir}/libQt63DQuickLogic.so.6*
 %{_qt6_libdir}/libQt63DQuickRender.so.6*
 %{_qt6_libdir}/libQt63DQuickScene2D.so.6*
 %{_qt6_libdir}/libQt63DQuickScene3D.so.6*
@@ -149,6 +150,8 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt63DQuickExtrasPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickInput
 %dir %{_qt6_libdir}/cmake/Qt63DQuickInputPrivate/
+%dir %{_qt6_libdir}/cmake/Qt63DQuickLogic/
+%dir %{_qt6_libdir}/cmake/Qt63DQuickLogicPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickPrivate/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickRender/
 %dir %{_qt6_libdir}/cmake/Qt63DQuickRenderPrivate/
@@ -168,6 +171,7 @@ popd
 %{_qt6_includedir}/Qt3DQuickAnimation
 %{_qt6_includedir}/Qt3DQuickExtras
 %{_qt6_includedir}/Qt3DQuickInput/
+%{_qt6_includedir}/Qt3DQuickLogic
 %{_qt6_includedir}/Qt3DQuickRender/
 %{_qt6_includedir}/Qt3DQuickScene2D
 %{_qt6_includedir}/Qt3DQuickScene3D
@@ -190,6 +194,8 @@ popd
 %{_qt6_libdir}/cmake/Qt63DQuickExtrasPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickInput/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickInputPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickLogic/*.cmake
+%{_qt6_libdir}/cmake/Qt63DQuickLogicPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickRender/*.cmake
 %{_qt6_libdir}/cmake/Qt63DQuickRenderPrivate/*.cmake
@@ -219,6 +225,8 @@ popd
 %{_qt6_libdir}/libQt63DQuickExtras.so
 %{_qt6_libdir}/libQt63DQuickInput.prl
 %{_qt6_libdir}/libQt63DQuickInput.so
+%{_qt6_libdir}/libQt63DQuickLogic.prl
+%{_qt6_libdir}/libQt63DQuickLogic.so
 %{_qt6_libdir}/libQt63DQuickRender.prl
 %{_qt6_libdir}/libQt63DQuickRender.so
 %{_qt6_libdir}/libQt63DQuickScene2D.prl
@@ -238,6 +246,9 @@ popd
 
 
 %changelog
+* Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Wed Apr 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
 - 6.9.0
 

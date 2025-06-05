@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -132,6 +132,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 20230101-16
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

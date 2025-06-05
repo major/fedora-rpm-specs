@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.4.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -250,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:2.4.4-3
+- Rebuilt for Python 3.14
+
 * Fri Mar 21 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.4.4-2
 - Fix python3-gobject dependency (rhbz#2354051)
 

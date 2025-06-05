@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPL-3.0-only
@@ -160,6 +160,9 @@ make check
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.15.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.15.0-1
 - Update to latest release
 - Use docbook

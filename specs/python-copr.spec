@@ -8,7 +8,7 @@
 
 Name:       python-copr
 Version:    2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -223,6 +223,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
 - doc: remove a non existent parameter from docstring
 - drop six dependency

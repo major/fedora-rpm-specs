@@ -1,6 +1,6 @@
 Name:    python-shamir-mnemonic
 Version: 0.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Reference implementation of SLIP-0039: Shamir’s Secret-Sharing for Mnemonic Codes
 
 License: MIT
@@ -57,6 +57,9 @@ Summary: %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.0-2
+- Rebuilt for Python 3.14
+
 * Sat Apr 05 2025 Jonny Heggheim <hegjon@gmail.com> - 0.3.0-1
 - Updated to 0.3.0
 

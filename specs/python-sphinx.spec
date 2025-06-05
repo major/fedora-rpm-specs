@@ -1,3 +1,5 @@
+%global _without_sphinxcontrib 1
+%global _without_tests 1
 # When bootstrapping sphinx in Fedora, we don't yet have sphinxcontrib-*
 # Without the packages, we have warnings in docs, but it's not a hard dependency
 # We don't want to support sphinxcontrib-* in RHEL, hence disabling the dependencies

@@ -1,6 +1,6 @@
 Name:          libiio
 Version:       0.26
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Library for Industrial IO
 License:       LGPL-2.0-or-later
 URL:           https://analogdevicesinc.github.io/libiio/
@@ -108,6 +108,9 @@ find %{buildroot} -name '*.la' -delete
 %{python3_sitelib}/pylibiio*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.26-4
+- Rebuilt for Python 3.14
+
 * Tue Feb 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.26-3
 - Minor spec cleanups and fixes
 

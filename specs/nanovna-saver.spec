@@ -1,6 +1,6 @@
 Name:		nanovna-saver
 Version:	0.7.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -78,6 +78,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tools
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.7.3-3
+- Rebuilt for Python 3.14
+
 * Sat Mar 15 2025 Lumír Balhar <lbalhar@redhat.com> - 0.7.3-2
 - Fix compatibility with the latest setuptools
 

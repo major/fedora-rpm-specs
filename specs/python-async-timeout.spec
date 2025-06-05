@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global srcname async-timeout
 %global common_desc This is a deprecated package.\
 The functionality has been merged into asyncio.Timeout\
@@ -11,7 +10,7 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout
 
 Name:           python-%{srcname}
 Version:        5.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Deprecated, use asyncio.Timeout from the standard library instead
 
 License:        Apache-2.0
@@ -62,6 +61,9 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.0.1-4
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.0.1-3
 - Bootstrap for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -55,6 +55,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11-9
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Dick Marinus <dick@mrns.nl> - 0.11-8
 - Python 3.14 fixes
 

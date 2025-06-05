@@ -27,7 +27,7 @@
 
 Name:           rocthrust
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Thrust libary
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -63,7 +63,12 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
 %if %{with check}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
+BuildRequires:  rocminfo
 %endif
 
 # Only headers, cmake infra, noarch confuses libdir
@@ -92,6 +97,13 @@ The %{upstreamname} development package.
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
+
+%if %{with check}
+# Building all the gpu's does not make sense
+# Build only the first one, this only works well with rpmbuild.
+gpu=`rocm_agent_enumerator | head -n 1`
+%endif
+
 %cmake \
 	-DCMAKE_CXX_COMPILER=hipcc \
 	-DCMAKE_C_COMPILER=hipcc \
@@ -100,6 +112,9 @@ sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExpor
 	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DBUILD_TEST=%{build_test} \
+%if %{with check}
+    -DAMDGPU_TARGETS=${gpu} \
+%endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF
 %cmake_build
@@ -110,10 +125,6 @@ sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExpor
 if [ -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
 fi
-
-%if %{with check}
-rm %{buildroot}%{_bindir}/*
-%endif
 
 %check
 %if %{with check}
@@ -128,6 +139,9 @@ rm %{buildroot}%{_bindir}/*
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Tue Jun 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Improve testing on suse
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

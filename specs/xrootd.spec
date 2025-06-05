@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.8.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
@@ -654,6 +654,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:5.8.2-2
+- Rebuilt for Python 3.14
+
 * Sun May 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.2-1
 - Update to version 5.8.2
 - Use reserved uid and gid 194 for the xrootd user

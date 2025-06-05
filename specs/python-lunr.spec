@@ -1,6 +1,6 @@
 Name:           python-lunr
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python implementation of Lunr.js
 
 License:        MIT
@@ -68,6 +68,9 @@ implementation as possible.
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8.0-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 11 2025 Sandro Mani <manisandro@gmail.com> - 0.8.0-1
 - Update to 0.8.0
 

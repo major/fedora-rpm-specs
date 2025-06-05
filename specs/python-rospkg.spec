@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 License:        BSD-3-Clause
@@ -101,6 +101,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.6.0-2
+- Rebuilt for Python 3.14
+
 * Fri Jan 24 2025 Scott K Logan <logans@cottsay.net> - 1.6.0-1
 - Update to 1.6.0 (rhbz#2342035)
 - Drop spec file support for RHEL 7

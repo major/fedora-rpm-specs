@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.54
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -147,6 +147,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.54-3
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-2
 - Relax aiohttp-cors requirement
 

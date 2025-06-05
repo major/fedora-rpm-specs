@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.46
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -56,6 +56,9 @@ Patch6: file-5.47-buffer-overrun-1.patch
 
 # upstream commit: https://github.com/file/file/commit/83aab94724a226c04bf8b85c9ceb2be91dca8dd5
 Patch7: file-5.47-buffer-overrun-2.patch
+
+# upstream commit: https://github.com/file/file/commit/b3384a1fbfa1fee99986e5750ab8e700de4f24ad
+Patch8: file-5.47-stack-overrun.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -238,6 +241,9 @@ make -C tests check
 %endif
 
 %changelog
+* Tue Jun 03 2025 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-4
+- Fix stack overrun
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.46-3
 - Rebuilt for Python 3.14
 

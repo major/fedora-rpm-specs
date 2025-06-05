@@ -11,7 +11,7 @@
 
 Name:		bluechi
 Version:	1.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
 URL:		https://github.com/eclipse-bluechi/bluechi
@@ -353,6 +353,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.1-2
+- Rebuilt for Python 3.14
+
 * Wed May 28 2025 Packit <hello@packit.dev> - 1.0.1-1
 - Update to version 1.0.1
 

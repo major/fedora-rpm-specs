@@ -6,7 +6,7 @@ output to functions.}
 
 Name:           python-requre
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library that allows re/store output of various objects for testing
 
 License:        MIT
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.9.1-2
+- Rebuilt for Python 3.14
+
 * Fri Mar 21 2025 Packit <hello@packit.dev> - 0.9.1-1
 - Adjusted `requre-purge` to not replace GitHub tokens with dummy token that
   still looks like a legit one and also case-sensitiveness on the cookies from

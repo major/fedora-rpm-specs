@@ -25,7 +25,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -85,6 +85,9 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.5.1-2
+- Rebuilt for Python 3.14
+
 * Sun Feb 02 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.5.1-1
 - New upstream release
 - Temporarily disable tests to package for Fedora 42

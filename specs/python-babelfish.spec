@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Python library to work with countries and languages
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -57,6 +57,9 @@ can be extended to use custom converters and data.
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6.1-4
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.42.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -303,6 +303,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.42.3-3
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Sandro Mani <manisandro@gmail.com> - 3.42.3-2
 - Fix incorrectly installed mime definitions
 

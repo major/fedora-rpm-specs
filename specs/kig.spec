@@ -4,7 +4,7 @@
 Name:    kig
 Summary: Interactive Geometry 
 Version: 25.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/education/%{name}
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.04.1-2
+- Rebuilt for Python 3.14
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

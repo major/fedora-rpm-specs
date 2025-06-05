@@ -1,6 +1,6 @@
 Name:		kakasi
 Version:	2.3.6
-Release:	31%{?dist}
+Release:	33%{?dist}
 URL:		http://kakasi.namazu.org/
 License:	GPL-2.0-or-later
 BuildRequires:	autoconf automake libtool gettext-devel
@@ -47,7 +47,7 @@ Japanese character set filter.
 
 %prep
 %autosetup -p1
-autoreconf -f -i
+autoreconf -f -i -I%{_datadir}/gettext/m4
 
 %build
 %configure --disable-static
@@ -97,6 +97,10 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 
 
 %changelog
+* Tue Jun  3 2025 Akira TAGOH <tagoh@redhat.com> - 2.3.6-33
+- Fix a missing type definition caused FTBFS for other packages.
+  Resolves: rhbz#2354524
+
 * Tue Jan 28 2025 Akira TAGOH <tagoh@redhat.com> - 2.3.6-31
 - Fix FTBFS
   Resolves: rhbz#2340685

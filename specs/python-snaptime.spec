@@ -10,7 +10,7 @@ The snaptime package is about transforming timestamps simply.}
 
 Name:           python-%{pretty_name}
 Version:        0.2.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Transforming timestamps simply
 
 License:        MIT
@@ -61,6 +61,9 @@ k="${k-}${k+ and }not test_unit_error"
 %pycached %{python3_sitelib}/%{pretty_name}/__init__.py
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.4-20
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

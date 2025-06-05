@@ -14,6 +14,14 @@ Source:         %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
 # is ready or not.
 Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
 
+# Update dependency rich to v14
+# https://github.com/jrnl-org/jrnl/pull/1989
+#
+# We have modified the patch to include only changes to pyproject.toml,
+# omitting those to poetry.lock since they are unnecessary (for Fedora) and
+# likely to cause conflicts.
+Patch:          jrnl-4.2-rich-14.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   jrnl
 BuildOption(generate_buildrequires): -t

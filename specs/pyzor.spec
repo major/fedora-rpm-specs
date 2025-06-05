@@ -3,7 +3,7 @@
 
 Name:           pyzor
 Version:        1.0.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Collaborative spam filtering system
 License:        GPL-2.0-only
 %forgemeta
@@ -62,6 +62,9 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-42
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

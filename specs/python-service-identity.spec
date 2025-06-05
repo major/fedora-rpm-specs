@@ -1,3 +1,4 @@
+%global _without_docs 1
 %bcond tests 1
 %bcond docs %{undefined rhel}
 

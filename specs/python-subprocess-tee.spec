@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global forgeurl https://github.com/pycontribs/subprocess-tee
 
 %bcond_without tests

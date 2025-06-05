@@ -1,6 +1,6 @@
 Name:		fedora-third-party
 Version:	0.10
-Release:	11%{dist}
+Release:	12%{dist}
 Summary:	Tool for handling third-party RPM and Flatpak repositories in Fedora
 
 License:	MIT
@@ -90,6 +90,9 @@ fedora-third-party refresh || :
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.10-12
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

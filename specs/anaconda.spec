@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 43.22
-Release: 2%{?dist}
+Release: 3%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -508,6 +508,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 43.22-3
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Adam Williamson <awilliam@redhat.com> - 43.22-2
 - Backport PR #6437 to fix for mutter with X11 disabled
 

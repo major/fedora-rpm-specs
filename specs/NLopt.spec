@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.10.0
 %global tag        v%{version}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -300,6 +300,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.10.0-2
+- Rebuilt for Python 3.14
+
 * Thu Feb 06 2025 Björn Esser <besser82@fedoraproject.org> - 2.10.0-1
 - Update to latest release 2.10.0
   Fixes: rhbz#2343834

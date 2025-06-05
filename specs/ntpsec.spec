@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -201,6 +201,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.4-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.4-1
 - update to 1.2.4
 

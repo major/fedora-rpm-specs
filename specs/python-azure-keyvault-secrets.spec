@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Microsoft Azure Key Vault Secrets Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -50,6 +50,9 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.7.0-9
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

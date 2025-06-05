@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        5.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -199,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.4.3-2
+- Rebuilt for Python 3.14
+
 * Sat Mar 15 2025 Rich Mattes <richmattes@gmail.com> - 5.4.3-1
 - Update to release 5.4.3
 - Resolves: #2274012

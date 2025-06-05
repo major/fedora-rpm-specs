@@ -27,7 +27,7 @@ Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
 Version:        6.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
 License:        Apache-2.0
@@ -173,6 +173,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.1.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

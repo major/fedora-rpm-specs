@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3626,6 +3626,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.34.08-5
+- Rebuilt for Python 3.14
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 6.34.08-4
 - R-maint-sig mass rebuild
 

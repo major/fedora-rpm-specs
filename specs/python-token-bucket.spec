@@ -1,6 +1,6 @@
 Name:           python-token-bucket
 Version:        0.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A Token Bucket implementation
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.0-14
+- Rebuilt for Python 3.14
+
 * Tue Mar 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.0-13
 - Remove BuildRequires on pytest-runner
 

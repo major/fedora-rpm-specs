@@ -1,6 +1,6 @@
 Name:           python-pybtex
 Version:        0.24.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        BibTeX-compatible bibliography processor written in Python
 
 License:        MIT
@@ -138,6 +138,9 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.24.0-19
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

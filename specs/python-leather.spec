@@ -16,7 +16,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.0-5
+- Rebuilt for Python 3.14
+
 * Thu Mar 06 2025 Julien Enselme - 0.4.0-4
 - Remove dependency on nose
 

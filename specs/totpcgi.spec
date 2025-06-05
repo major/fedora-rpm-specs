@@ -10,7 +10,7 @@
 
 Name:       totpcgi
 Version:    0.6.0
-Release:    0.23.20190713git%{?dist}
+Release:    0.24.20190713git%{?dist}
 Summary:    A centralized totp solution based on google-authenticator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -213,6 +213,9 @@ fi
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6.0-0.24.20190713git
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.0-0.23.20190713git
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

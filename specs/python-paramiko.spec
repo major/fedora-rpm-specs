@@ -2,7 +2,7 @@
 
 Name:          python-%{srcname}
 Version:       3.5.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -92,6 +92,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.5.1-2
+- Rebuilt for Python 3.14
+
 * Tue Feb  4 2025 Paul Howarth <paul@city-fan.org> - 3.5.1-1
 - Update to 3.5.1 (rhbz#2343673)
   - Private key material is now explicitly 'unpadded' during decryption,

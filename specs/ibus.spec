@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -641,6 +641,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.32-3
+- Rebuilt for Python 3.14
+
 * Sun Jun 01 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-2
 - Fix Exit and Restart menu items in Wayland input-method V2
 - Update Plasma setup message

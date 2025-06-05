@@ -1,7 +1,9 @@
-Summary: ModSecurity Rules
+%{!?_httpd_confdir:    %{expand: %%global _httpd_confdir    %%{_sysconfdir}/httpd/conf.d}}
+
+Summary: ModSecurity Core Ruleset
 Name: mod_security_crs
-Version: 4.2.0
-Release: 3%{?dist}
+Version: 4.15.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL: https://coreruleset.org/
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
@@ -20,33 +22,58 @@ This package provides the base rules for mod_security.
 %build
 
 %install
+%{__install} -d %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/
+%{__install} -d %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules
+%{__install} -d %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/plugins
+%{__install} -d %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules
+%{__install} -d %{buildroot}%{_datarootdir}/mod_modsecurity_crs/plugins
 
-install -d %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/
-install -d %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules
-install -d %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules
+%{__mv} rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
+%{__mv} rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
 
-# To exclude rules (pre/post)
-mv rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
-mv rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+%{__install} -m0644 rules/*.conf %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules/
+%{__install} -m0644 rules/*.data %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules/
+%{__install} -m0644 plugins/* %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/plugins/
+%{__mv} crs-setup.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/crs-setup.conf
 
-install -m0644 rules/*.conf %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules/
-install -m0644 rules/*.data %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules/
-mv crs-setup.conf.example %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/crs-setup.conf
+%post
+if [ $1 == 1 ]; then
+     # activate base_rules
+     for f in `ls %{_datarootdir}/mod_modsecurity_crs/rules/` ; do 
+         %{__ln_s} %{_datarootdir}/mod_modsecurity_crs/rules/$f %{_sysconfdir}/httpd/modsecurity.d/activated_rules/$f; 
+     done
+     %{__sed} -i '/IncludeOptional modsecurity\.d\/\*\.conf/ a\    IncludeOptional modsecurity.d\/plugins\/*-config.conf\n    IncludeOptional modsecurity.d\/plugins\/*-before.conf' %{_httpd_confdir}/mod_security.conf
+     %{__sed} -i '/Include modsecurity\.d\/\*\.conf/a\    Include modsecurity.d/plugins/*-config.conf\n    Include modsecurity.d/plugins/*-before.conf' %{_httpd_confdir}/mod_security.conf
+     %{__sed} -i '/IncludeOptional modsecurity\.d\/local_rules\/\*\.conf/a\    IncludeOptional modsecurity.d\/plugins\/*-after.conf' %{_httpd_confdir}/mod_security.conf
+     %{__sed} -i '/Include modsecurity\.d\/local_rules\/\*\.conf/a\    Include modsecurity.d\/plugins\/*-after.conf' %{_httpd_confdir}/mod_security.conf
+fi
+exit 0
 
-# activate base_rules
-for f in `ls %{buildroot}%{_datarootdir}/mod_modsecurity_crs/rules/` ; do 
-    ln -s %{_datarootdir}/mod_modsecurity_crs/rules/$f %{buildroot}%{_sysconfdir}/httpd/modsecurity.d/activated_rules/$f; 
-done
-
+%preun
+if [ $1 == 0 ]; then
+     %{__sed} -i -E '/Include(Optional)? modsecurity\.d\/plugins/d' %{_httpd_confdir}/mod_security.conf
+     for f in `ls %{_datarootdir}/mod_modsecurity_crs/rules/` ; do 
+         %{__rm} %{_sysconfdir}/httpd/modsecurity.d/activated_rules/$f; 
+     done
+fi
+exit 0
 
 %files
 %license LICENSE
 %doc CHANGES.md README.md
+%{_datarootdir}/mod_modsecurity_crs
+%{_sysconfdir}/httpd/modsecurity.d/plugins
 %config(noreplace) %{_sysconfdir}/httpd/modsecurity.d/activated_rules/*
 %config(noreplace) %{_sysconfdir}/httpd/modsecurity.d/crs-setup.conf
-%{_datarootdir}/mod_modsecurity_crs
+%config(noreplace) %{_sysconfdir}/httpd/modsecurity.d/plugins/*
 
 %changelog
+* Tue Jun 03 2025 Daniel Demus <daniel-fedoauth@demus.dk> - 4.15.0-2
+- Prepare for plugins (see https://coreruleset.org/20220112/crs-plugin-mechanism/)
+
+* Tue Jun 03 2025 Luboš Uhliarik <luhliari@redhat.com> - 4.15.0-1
+- new version 4.15.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

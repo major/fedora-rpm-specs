@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        1.2.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Convert RPM specfiles to be SCL ready
 
 License:        MIT
@@ -55,6 +55,9 @@ install -D -m 644 spec2scl.1 %{buildroot}%{_mandir}/man1/spec2scl.1
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.2-21
+- Rebuilt for Python 3.14
+
 * Wed Mar 05 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.2-20
 - Drop pytest-runner and "setup.py test" support
 

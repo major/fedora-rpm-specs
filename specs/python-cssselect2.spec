@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CSS selectors for Python ElementTree
 License:        BSD-3-Clause
 URL:            https://doc.courtbouillon.org/cssselect2/stable/
@@ -57,6 +57,9 @@ sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" -e "s/, 'ruff'//" pyproject.toml
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8.0-3
+- Rebuilt for Python 3.14
+
 * Thu Mar 13 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 0.8.0-2
 - Drop ruff dependency
 

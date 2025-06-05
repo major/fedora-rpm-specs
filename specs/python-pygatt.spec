@@ -3,7 +3,7 @@
 
 Name:           python-pygatt
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python Module for Bluetooth LE Generic Attribute Profile
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ sed -i "/setup_requires/d" setup.py
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.0.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

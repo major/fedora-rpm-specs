@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -132,6 +132,9 @@ install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/
 %{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.1-17
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.1-16
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

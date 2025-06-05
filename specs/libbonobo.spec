@@ -6,7 +6,7 @@
 Summary: Bonobo component system
 Name: libbonobo
 Version: 2.32.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 URL: http://ftp.gnome.org
 Source0: http://download.gnome.org/sources/libbonobo/2.32/%{name}-%{version}.tar.bz2
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -26,6 +26,7 @@ BuildRequires: make
 Patch0: libbonobo-multishlib.patch
 Patch1: libbonobo-2.32.1-srcdir-macro.patch
 Patch2: 0001-Remove-use-of-G_DISABLE_DEPRECATED.patch
+Patch3: libbonobo-2.32.1-c23.patch
 
 %description
 Bonobo is a component system based on CORBA, used by the GNOME desktop.
@@ -53,6 +54,7 @@ use Bonobo.
 
 %patch -P1 -p0 -b .srcmacro
 %patch -P2 -p1
+%patch -P3 -p1 -b .c23
 
 autoreconf -i -f
 
@@ -113,6 +115,9 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/bonobo/servers
 %{_datadir}/gtk-doc/html/bonobo-activation
 
 %changelog
+* Mon Mar 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.32.1-31
+- Fix build with C23
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

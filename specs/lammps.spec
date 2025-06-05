@@ -25,7 +25,7 @@ Version:        20250204
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -376,6 +376,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 20250204-2
+- Rebuilt for Python 3.14
+
 * Sat Feb 15 2025 Richard Berger <richard.berger@outlook.com> - 20250204-1
 - Version bump to 20250204
 - Bump Kokkos requirement to 4.5.01

@@ -2,7 +2,7 @@
 
 Name:             python-%{pypi_name}
 Version:          2.5.11
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
@@ -72,6 +72,9 @@ Requires:         /usr/bin/which
 %doc CHANGELOG.md README.md docs
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.5.11-3
+- Rebuilt for Python 3.14
+
 * Sat Mar 29 2025 Miro Hrončok <mhroncok@redhat.com> - 2.5.11-2
 - Enable all tests
 

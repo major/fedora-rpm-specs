@@ -3,7 +3,7 @@
 
 Name:           gtts
 Version:        2.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create an mp3 file from spoken text via the Google TTS API
 
 License:        MIT
@@ -74,6 +74,9 @@ be spoken by tokenizing long sentences where the speech would naturally pause.
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.5.4-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.5.4-1
 - Update to 2.5.4 - lots of new translations
 

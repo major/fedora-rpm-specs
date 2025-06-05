@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Support for unittest subTest() and subtests fixture
 
 # SPDX
@@ -49,6 +49,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.13.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

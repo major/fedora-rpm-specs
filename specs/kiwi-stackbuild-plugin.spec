@@ -7,7 +7,7 @@ image root directory.
 
 Name:           kiwi-stackbuild-plugin
 Version:        1.0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/OSInside/kiwi-stackbuild-plugin
 Summary:        KIWI - Stack Build Plugin
 License:        GPL-3.0-or-later
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.11-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.0.11-1
 - Update to 1.0.11
 

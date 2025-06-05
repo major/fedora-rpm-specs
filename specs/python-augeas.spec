@@ -1,6 +1,6 @@
 Name:		python-augeas
 Version:	1.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python bindings to augeas
 License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
@@ -47,6 +47,9 @@ python3-augeas is a set of Python bindings around augeas.
 %{python3_sitearch}/python_augeas-*.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.0-2
+- Rebuilt for Python 3.14
+
 * Thu May 08 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.2.0-1
 - Rebased to 1.2.0
 

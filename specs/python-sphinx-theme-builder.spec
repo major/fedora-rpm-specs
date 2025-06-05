@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # This package serves both as a build backend and a tool for theme developers.
 # During the Python bootstrap we need the build functionality for python-furo.
 # cli extra, needed for the application usage, has got a long chain of
@@ -10,7 +11,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.18.%{prerel}%{?dist}
+Release:        0.19.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -87,6 +88,9 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.19.b2
+- Bootstrap for Python 3.14
+
 * Mon Jan 27 2025 Jerry James <loganjerry@gmail.com> - 0.2.0-0.18.b2
 - Python 3.14 compatibility fix (rhbz#2342318)
 

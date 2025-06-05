@@ -9,7 +9,7 @@
 
 Name:           subunit
 Version:        1.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -253,6 +253,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.4-6
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 1.4.4-5
 - Add patch to work around a test failure
 

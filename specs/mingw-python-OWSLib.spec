@@ -4,7 +4,7 @@
 
 Name:          mingw-python-OWSLib
 Summary:       MinGW Windows Python OWSLib library
-Version:       0.33.0
+Version:       0.34.0
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -56,15 +56,18 @@ MinGW Windows Python3 OWSLib library.
 %files -n mingw32-python3-%{mod_name}
 %license LICENSE
 %{mingw32_python3_sitearch}/%{mod_name}/
-%{mingw32_python3_sitearch}/OWSLib-%{version}.dist-info/
+%{mingw32_python3_sitearch}/%{mod_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/%{mod_name}/
-%{mingw64_python3_sitearch}/OWSLib-%{version}.dist-info/
+%{mingw64_python3_sitearch}/%{mod_name}-%{version}.dist-info/
 
 
 %changelog
+* Tue Jun 03 2025 Sandro Mani <manisandro@gmail.com> - 0.34.0-1
+- Update to 0.34.0
+
 * Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 0.33.0-1
 - Update to 0.33.0
 

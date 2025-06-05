@@ -3,7 +3,7 @@
 Name:           python-%{srcname}
 
 Version:        3.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Url:            https://github.com/openstack/ldappool
 Summary:        A connection pool for python-ldap
 # Automatically converted from old format: MPLv1.1 and GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ PYTHON=python3 stestr-3 run
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

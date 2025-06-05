@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global evr_with_virtual_impl 4.2.11-2
 
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} >= 10)

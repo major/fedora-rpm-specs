@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-math-dollar
 Version:        1.2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sphinx extension to enable LaTeX math with $$
 
 # MIT: All files with the following exception.
@@ -86,6 +86,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-13
+- Rebuilt for Python 3.14
+
 * Mon Apr 28 2025 Jerry James  <loganjerry@gmail.com> - 1.2.1-12
 - Declare the extension to be parallel-safe
 

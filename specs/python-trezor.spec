@@ -1,6 +1,6 @@
 Name:           python-trezor
 Version:        0.13.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for communicating with TREZOR Hardware Wallet
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -70,6 +70,9 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_d
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.13.10-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Jonny Heggheim <hegjon@gmail.com> - 0.13.10-1
 - Updated to version 0.13.10
 

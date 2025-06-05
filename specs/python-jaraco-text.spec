@@ -16,7 +16,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Module for text manipulation
 
 License:        MIT
@@ -106,6 +106,9 @@ install -pm 0644 jaraco/text/Lorem\ ipsum.txt \
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.0-4
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           python-%{package_name}
 Version:        0.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Use requests to talk HTTP via a UNIX domain socket
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ sed -i 's/unixsocket2/unixsocket/g' %{buildroot}%{python3_sitelib}/requests_unix
 %{python3_sitelib}/requests_unixsocket-%{version}.dist-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.0-10
+- Rebuilt for Python 3.14
+
 * Fri Apr 04 2025 Miro Hrončok <mhroncok@redhat.com> - 0.4.0-9
 - Don't try to generate build dependencies by tox, there is no tox configuration
 - Fixes: rhbz#2354121

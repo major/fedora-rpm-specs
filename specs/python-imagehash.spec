@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python perceptual image hashing module
 
 License:        LicenseRef-Callaway-BSD
@@ -61,6 +61,9 @@ rm -rf %{buildroot}/usr/images
 %{_bindir}/find_similar_images.py
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.3.2-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

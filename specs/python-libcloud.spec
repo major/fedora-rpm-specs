@@ -12,7 +12,7 @@ any of the services that it supports.}
 
 Name:           python-%{shortname}
 Version:        3.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A Python library to address multiple cloud provider APIs
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -75,6 +75,9 @@ chmod -x demos/gce_demo.py demos/compute_demo.py
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.6.0-13
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

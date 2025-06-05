@@ -15,7 +15,7 @@
 Name:           ansible-core
 Version:        2.18.4
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -261,6 +261,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.18.4-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Packit <hello@packit.dev> - 2.18.4-1
 - Update to version 2.18.4
 - Resolves: rhbz#2354908

@@ -1,5 +1,3 @@
-%global _without_soupsieve 1
-%global _without_tests 1
 # Ciruclar dependency with soupsieve which must be disabled at times
 %if 0%{?rhel} > 10
 %bcond soupsieve 0
@@ -11,7 +9,7 @@
 
 Name:           python-beautifulsoup4
 Version:        4.13.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -98,6 +96,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.13.4-4
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.13.4-3
 - Bootstrap for Python 3.14
 

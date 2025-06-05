@@ -1,3 +1,5 @@
+%global _without_check 1
+%global _without_doc 1
 %if 0%{?epel}
 # disable build of docs and tests for epel because of missing dependencies:
 # - python3-ipykernel

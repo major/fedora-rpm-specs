@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python interface to DBus notifications
 
 License:        BSD-2-Clause
@@ -73,6 +73,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license docs/license.rst LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.1-26
+- Rebuilt for Python 3.14
+
 * Sun Jun 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.1-25
 - Adapt for Sphinx 8 to fix FTBFS (#2329864)
 - Use correct SPDX identifier for license

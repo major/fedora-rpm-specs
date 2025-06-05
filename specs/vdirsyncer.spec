@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.19.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -150,6 +150,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.19.3-2
+- Rebuilt for Python 3.14
+
 * Wed May 21 2025 David Kaufmann <astra@ionic.at> - 0.19.3-1
 - Update to v0.19.3
 

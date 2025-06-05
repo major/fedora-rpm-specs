@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2733,6 +2733,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2:19.2.2-6
+- Rebuilt for Python 3.14
+
 * Mon Apr 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-5
 - ceph-19.2.2, rhgz#2336913, ready for python-3.14
 - also AFAIK has correct SPDX license (and has had for some time)

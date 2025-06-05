@@ -7,7 +7,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2022.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
@@ -182,6 +182,9 @@ ctest --output-on-failure --force-new-ctest-process
 %doc python/README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2022.0.0-4
+- Rebuilt for Python 3.14
+
 * Sun Jan 19 2025 Jerry James <loganjerry@gmail.com> - 2022.0.0-3
 - Add patch to fix linking tbbmalloc with GCC 15
 - Update %%giturl for the uxlfoundation change

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extract the top level domain from the URL given
 
 License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
@@ -76,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v --pyargs 
 %license LICENSE_GPL2.0.txt LICENSE_LGPL_2.1.txt LICENSE_MPL_1.1.txt
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.13-9
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

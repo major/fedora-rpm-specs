@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 Name:		autokey
 Version:	0.96.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Desktop automation utility
 
 
@@ -107,6 +107,9 @@ done
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.96.0-11
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Till Maas <opensource@till.name> - 0.96.0-10
 - Remove dependency on imghdr (https://bugzilla.redhat.com/show_bug.cgi?id=2329600)
 

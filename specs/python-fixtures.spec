@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # See bootstrapping instructions in python-testtools spec file.
 %bcond bootstrap 0
 

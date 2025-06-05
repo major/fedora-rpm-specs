@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -79,6 +79,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.0-5
+- Rebuilt for Python 3.14
+
 * Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.0-4
 - Fix build with gcc15 (#2341227)
 

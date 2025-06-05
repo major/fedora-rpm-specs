@@ -1,4 +1,4 @@
-%global baserelease 17
+%global baserelease 18
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -105,6 +105,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 8.0.0-18
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.0-17
 - Patch documentation build
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py \
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-10
+- Rebuilt for Python 3.14
+
 * Tue Jan 28 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-9
 - Disable tests that need network access (#2341206)
 

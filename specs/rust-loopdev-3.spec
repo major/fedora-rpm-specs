@@ -5,7 +5,7 @@
 %global crate loopdev-3
 
 Name:           rust-loopdev-3
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Setup and control loop devices
 

@@ -12,7 +12,7 @@
 
 Name:           ec2-hibinit-agent
 Version:        1.0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Hibernation setup utility for Amazon EC2
 
 License:        Apache-2.0
@@ -149,6 +149,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.9-7
+- Rebuilt for Python 3.14
+
 * Tue Mar 18 2025 Frank Liang <xiliang@redhat.com> - 1.0.9-6
 - Include upstream Patch to fix swapoff breaks hibernate process
 

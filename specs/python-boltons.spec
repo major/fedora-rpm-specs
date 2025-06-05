@@ -1,6 +1,6 @@
 Name:           python-boltons
 Version:        25.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Functionality that should be in the standard library
 
 License:        BSD-3-Clause
@@ -68,6 +68,9 @@ install -m644 docs/_build/man/boltons.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.0.0-2
+- Rebuilt for Python 3.14
+
 * Mon Feb 03 2025 Orion Poplawski <orion@nwra.com> - 25.0.0-1
 - Update to 25.0.0
 

@@ -1,6 +1,6 @@
 Name:          python-mnemonic
 Version:       0.20
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Implementation of Bitcoin BIP-0039
 
 License:       MIT
@@ -65,6 +65,9 @@ rm -rf mnemonic.egg-info
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.20-14
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.3
 Summary: Run COPR build tasks
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -303,6 +303,9 @@ EOF
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3-3
+- Rebuilt for Python 3.14
+
 * Thu Apr 10 2025 David Cantrell <dcantrell@redhat.com> 1.3-2
 - Rebuild
 

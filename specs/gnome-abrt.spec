@@ -11,7 +11,7 @@
 
 Name:       gnome-abrt
 Version:    1.4.3
-Release:    4%{?snapshot:.git%{shortcommit}}%{?dist}
+Release:    5%{?snapshot:.git%{shortcommit}}%{?dist}
 Epoch:      1
 Summary:    A utility for viewing problems that have occurred with the system
 
@@ -85,6 +85,9 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:1.4.3-5
+- Rebuilt for Python 3.14
+
 * Tue Apr 08 2025 Michal Srb <michal@redhat.com> - 1:1.4.3-4
 - Revert to 1.4.3 for now
 - Resolves: rhbz#2356257

@@ -5,7 +5,7 @@
 Summary: Application for remote coredump analysis
 Name: retrace-server
 Version: 1.24.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/retrace-server
 Source0: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -242,6 +242,9 @@ exit 0
 %{_sysusersdir}/retrace-server.conf
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.24.2-11
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.24.2-10
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

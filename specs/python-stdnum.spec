@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
 License:        LGPL-2.0-or-later
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1-2
+- Rebuilt for Python 3.14
+
 * Mon May 19 2025 Dan Horák <dan[at]danny.cz> - 2.1-1
 - updated to 2.1 (rhbz#2366977)
 

@@ -16,7 +16,7 @@ the lifetime of selected Python objects.
 
 Name: python-Pympler
 Version: 1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Measure, monitor and analyze the memory behavior of Python objects
 License: Apache-2.0 and BSD-3-Clause and MIT
 # bundled stuff
@@ -79,6 +79,9 @@ chmod -x pympler/asizeof.py
 %doc NOTICE README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1-5
+- Rebuilt for Python 3.14
+
 * Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 1.1-4
 - Use pyproject_save_files to fix compatibility with latest setuptools
 

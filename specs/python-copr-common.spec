@@ -2,7 +2,7 @@
 
 Name:       python-copr-common
 Version:    1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -63,6 +63,9 @@ version=%version %py3_install
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - lock the pulp-redirect.txt file
 

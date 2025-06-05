@@ -4,7 +4,7 @@
 
 Name:           python-cssselect
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parses CSS3 Selectors and translates them to XPath 1.0
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ Python 3 version.
 %doc README.rst CHANGES AUTHORS
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.0-2
+- Rebuilt for Python 3.14
+
 * Sat Mar 22 2025 Fedora Release Engineering <romain.geissler@amadeus.com> - 1.3.0-1
 - Update to version 1.3.0.
 

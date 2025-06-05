@@ -5,7 +5,7 @@
 
 Name:           libstoragemgmt
 Version:        1.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
@@ -466,6 +466,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.10.2-3
+- Rebuilt for Python 3.14
+
 * Wed Mar 05 2025 David Abdurachmanov <davidlt@rivosinc.com> - 1.10.2-2
 - Properly check valgrind arches
 

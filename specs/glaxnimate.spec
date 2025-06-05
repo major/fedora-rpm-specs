@@ -1,7 +1,7 @@
 Name:    glaxnimate
 Summary: A simple vector graphics animation program
 Version: 0.5.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT AND BSD-2-Clause AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 URL:     https://glaxnimate.mattbas.org/
@@ -75,5 +75,8 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.glaxnimat
 %{_kf6_metainfodir}/org.kde.glaxnimate.metainfo.xml
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.80-2
+- Rebuilt for Python 3.14
+
 * Sun Feb 16 2025 Steve Cossette <farchord@gmail.com> - 0.5.80-1
 - Initial Release

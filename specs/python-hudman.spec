@@ -11,7 +11,7 @@ Please read manpage for additional information.}
 
 Name: python-%{pypi_name}
 Version: 9.0.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 # Main code - GPL-3.0-or-later.
 # Icon - Apache-2.0.
@@ -66,6 +66,9 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 9.0.0-11
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

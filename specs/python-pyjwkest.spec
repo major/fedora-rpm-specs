@@ -1,6 +1,6 @@
 Name:           python-pyjwkest
 Version:        1.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python implementation of JWT, JWE, JWS and JWK
 
 # pyjwkest: Apache-2.0
@@ -53,6 +53,9 @@ sed -i 's/, "future"//' setup.py
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.2-8
+- Rebuilt for Python 3.14
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

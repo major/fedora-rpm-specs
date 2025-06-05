@@ -1,5 +1,5 @@
 Name:           bids-schema
-Version:        1.0.9
+Version:        1.0.10
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -47,7 +47,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit f21306744fd57bfd5c8e8e91d907fa8448f9eca5
+%global examples_commit 54355d2bbfec3fc126dd3cb80c3db9813505e3df
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #

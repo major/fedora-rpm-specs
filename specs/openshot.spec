@@ -5,7 +5,7 @@
 
 Name:           openshot
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and edit videos and movies
 License:        GPL-3.0-or-later and Apache-2.0 and MIT and CC-BY-SA-4.0
 URL:            http://www.openshot.org
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.3.0-2
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Sérgio Basto <sergio@serjux.com> - 3.3.0-1
 - Update openshot to 3.3.0
 

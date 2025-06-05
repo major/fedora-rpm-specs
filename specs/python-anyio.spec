@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -97,6 +97,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.8.0-4
+- Rebuilt for Python 3.14
+
 * Mon Apr 07 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.0-3
 - Patch for Python 3.14.0a6 test failures (fixes RHBZ#2357902)
 

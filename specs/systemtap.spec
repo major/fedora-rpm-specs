@@ -125,7 +125,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.3
-Release: 1%{?release_override}%{?dist}
+Release: 2%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1349,6 +1349,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.3-2
+- Rebuilt for Python 3.14
+
 * Fri May 02 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

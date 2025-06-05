@@ -1,4 +1,3 @@
-%global _without_tests 1
 # This package requires astropy which requires astropy-iers-data
 # The loop has to be broken for the bootstrap of a new Python in Fedora
 %bcond tests 1

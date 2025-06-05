@@ -11,7 +11,7 @@ single place.}
 
 Name:		python-itemloaders
 Version:	1.3.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Library that helps you collect data from HTML and XML sources.
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ BuildRequires:	python3-w3lib
 %{python3_sitelib}/itemloaders-*.egg-info
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.2-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

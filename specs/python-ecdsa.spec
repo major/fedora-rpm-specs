@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.19.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ECDSA cryptographic signature library
 
 License:        MIT
@@ -70,6 +70,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.19.0-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

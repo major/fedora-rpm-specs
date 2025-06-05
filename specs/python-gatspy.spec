@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -52,6 +52,9 @@ periodogram, the Supersmoother method, and others.
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3-34
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

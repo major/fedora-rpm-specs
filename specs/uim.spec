@@ -1,11 +1,11 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.9.5
+%global srcver	1.9.6
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.9.5
+Version:	1.9.6
 Release:	1%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
@@ -465,6 +465,10 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Tue Jun  3 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.6-1
+- New upstream release.
+  Resolves: rhbz#2366917
+
 * Tue May 13 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.5-1
 - New upstream release.
   Resolves: rhbz#2363935

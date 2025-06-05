@@ -5,7 +5,7 @@
 %global crate ironrdp-ainput
 
 Name:           rust-ironrdp-ainput
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        AInput dynamic channel implementation
 

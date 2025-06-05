@@ -1,5 +1,5 @@
 Name:           exec-maven-plugin
-Version:        3.4.1
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Exec Maven Plugin
 
@@ -42,11 +42,11 @@ find . -name *.jar -delete
 #Drop test part. sonatype-aerther not available
 %pom_remove_dep :mockito-core
 %pom_remove_dep :maven-plugin-testing-harness
-%pom_remove_dep :plexus-xml
 %pom_remove_dep :slf4j-simple
 
 %pom_remove_plugin :sisu-maven-plugin
 %pom_remove_plugin :maven-dependency-plugin
+%pom_remove_plugin :maven-toolchains-plugin
 
 rm -rf src/test/
 

@@ -4,7 +4,7 @@
 
 Name:           lollypop
 Version:        1.4.41
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music player for GNOME
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.41-2
+- Rebuilt for Python 3.14
+
 * Wed Feb 05 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.4.41-1
 - Update to 1.4.41
 

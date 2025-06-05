@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -259,6 +259,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:2.2.6-2
+- Rebuilt for Python 3.14
+
 * Mon May 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.6-1
 - 2.2.6
 

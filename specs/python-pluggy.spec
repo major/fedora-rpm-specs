@@ -1,10 +1,9 @@
-%global _without_tests 1
 # Turn the tests off when bootstrapping Python, because pytest requires pluggy
 %bcond tests 1
 
 Name:           python-pluggy
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 # SPDX
@@ -60,6 +59,9 @@ Summary:  %summary
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.0-4
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5.0-3
 - Bootstrap for Python 3.14
 

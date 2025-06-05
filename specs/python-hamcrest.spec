@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hamcrest matchers for Python
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1.0-2
+- Rebuilt for Python 3.14
+
 * wed Jan 22 2025 Sandro <devel@penguinpee.nl> - 2.1.0-1
 - Update to 2.1.0 (RHBZ#2245624)
 - Support NumPy 2.x

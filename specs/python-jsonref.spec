@@ -1,6 +1,6 @@
 Name:           python-jsonref
 Version:        1.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python library for automatic dereferencing of JSON Reference objects
 
 License:        MIT
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1.0-10
+- Rebuilt for Python 3.14
+
 * Tue May 06 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-9
 - Add upstream patch to switch from pdm-pep517 to pdm-backend
 

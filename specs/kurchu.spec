@@ -2,7 +2,7 @@
 
 Name:           kurchu
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assembles Fedora/CentOS resources to create artifact collections
 
 License:        GPL-2.0-or-later
@@ -56,5 +56,8 @@ scdoc < docs/%{name}.toml.5.scd > %{buildroot}%{_mandir}/man5/%{name}.toml.5
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.3-2
+- Rebuilt for Python 3.14
+
 * Tue May 06 2025 Neal Gompa <ngompa@velocitylimitless.com> - 0.4.3-1
 - Initial package

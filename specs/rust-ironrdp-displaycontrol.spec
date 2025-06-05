@@ -5,7 +5,7 @@
 %global crate ironrdp-displaycontrol
 
 Name:           rust-ironrdp-displaycontrol
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Display control dynamic channel extension implementation
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A wrapper around various text markups
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -82,6 +82,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

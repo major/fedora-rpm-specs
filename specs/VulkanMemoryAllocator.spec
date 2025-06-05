@@ -1,5 +1,5 @@
-%global         soversion 3.2
-%global         patchversion 1
+%global         soversion 3.3
+%global         patchversion 0
 
 Summary:        Easy to integrate Vulkan memory allocation library
 Name:           VulkanMemoryAllocator

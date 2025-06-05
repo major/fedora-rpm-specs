@@ -2,7 +2,7 @@
 
 Name:           python-gstreamer1
 Version:        1.26.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GStreamer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.26.2-2
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.2-1
 - 1.26.2
 

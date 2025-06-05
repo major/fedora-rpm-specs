@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     4
+%global         baserelease     5
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -443,6 +443,9 @@ install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11.0-5.20210228git4e459f1
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11.0-4.20210228git4e459f1
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

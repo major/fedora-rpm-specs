@@ -5,7 +5,7 @@ connections, logs, and much more.
 
 Name: nyx
 Version: 2.1.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Command-line monitor for Tor
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -57,6 +57,9 @@ install -D -m 0644 nyx.1 %{buildroot}%{_mandir}/man1/nyx.1
 %{_mandir}/man1/nyx.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1.0-24
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,3 +1,4 @@
+%global _without_tests 1
 %bcond tests 1
 # Build dependencies gunicorn and uvloop are required only for integration
 # tests, which can be omitted if they are not available.

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.14.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Twisted plugin for pytest
 
 License:        BSD-3-Clause
@@ -52,5 +52,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.14.3-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 08 2025 Aurelien Bompard <abompard@fedoraproject.org> - 1.14.3-1
 - Initial package.

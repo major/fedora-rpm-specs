@@ -1,4 +1,3 @@
-%global _without_python 1
 # rpmbuild parameters:
 # --with testsuite: Run the testsuite (biarch if possible).  Default is without.
 # --with buildisa: Use %%{?_isa} for BuildRequires
@@ -46,7 +45,7 @@ Version: 16.3
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -937,6 +936,24 @@ fi
 # endif scl
 
 %changelog
+* Tue Jun 03 2025 Andrew Burgess <aburgess@redhat.com>
+- Rename 'gdb-add-rpm-suggestion-script.patch' to
+  'gdb-rpm-suggestion-script.patch' and
+  'gdb-6.3-rh-testversion-20041202.patch' to
+  'gdb-test-show-version.patch'.  The new names better reflect the
+  patch contents.
+
+* Tue Jun 03 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-archer-next-over-throw-cxx-exec.patch, we now have
+  upstream commit d462550c91c.
+
+* Tue Jun 03 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-6.3-mapping-zero-inode-test.patch, we now have upstream
+  commit fcfd8a4f239.
+
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com>
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 16.3-2
 - Bootstrap for Python 3.14
 

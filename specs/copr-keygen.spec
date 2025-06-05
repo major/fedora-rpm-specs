@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -169,6 +169,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
 - add sysusers.d config file to allow rpm to create users/groups automatically
 

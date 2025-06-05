@@ -6,8 +6,7 @@ Name:           ngrep
 Version:        1.47^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Network layer grep tool
-# Automatically converted from old format: BSD with advertising - review is highly recommended.
-License:        LicenseRef-Callaway-BSD-with-advertising
+License:        ngrep
 URL:            https://github.com/jpr5/ngrep
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 # PR#27: Port to PCRE2 API and enable JIT compilation

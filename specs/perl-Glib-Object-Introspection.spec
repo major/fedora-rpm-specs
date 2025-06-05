@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 0.10.0
 BuildRequires:  pkgconfig(gmodule-2.0) >= 2.0.0
 BuildRequires:  pkgconfig(libffi) >= 3.0.0
-BuildRequires:  perl(Cairo::GObject)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Glib) >= 1.320
@@ -42,6 +41,7 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Optional tests
+BuildRequires:  perl(Cairo::GObject)
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0)
 Requires:       perl(Glib) >= 1.320

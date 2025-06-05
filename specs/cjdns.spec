@@ -72,7 +72,7 @@
 Name:           cjdns
 # major version is cjdns protocol version:
 Version:        21.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
 # cnacl is unused except when use_embedded is true
@@ -732,6 +732,9 @@ fi
 %{_bindir}/graphStats
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 21.1-21
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 21.1-20
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

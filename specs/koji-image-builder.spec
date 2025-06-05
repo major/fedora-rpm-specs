@@ -5,7 +5,7 @@ Version:        6
 %forgemeta
 
 Name:           koji-image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -84,6 +84,9 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %pycached %{python3_sitelib}/koji_cli_plugins/image_builder.py
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6-2
+- Rebuilt for Python 3.14
+
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
 

@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -529,6 +529,9 @@ fi
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.12.0-2
+- Rebuilt for Python 3.14
+
 * Mon Jan 27 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.0-1
 - Rebased pcs to the newest major version (see CHANGELOG.md)
   Resolves: rhbz#2341012

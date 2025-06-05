@@ -9,7 +9,7 @@ Python bindings for Caja
 
 Name:          python-caja
 Version:       1.26.0
-Release:       14%{?dist}
+Release:       15%{?dist}
 Epoch:         1
 Summary:       Python bindings for Caja
 
@@ -82,6 +82,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/python-caja/README
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:1.26.0-15
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.26.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

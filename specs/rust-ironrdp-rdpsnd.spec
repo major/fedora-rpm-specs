@@ -5,7 +5,7 @@
 %global crate ironrdp-rdpsnd
 
 Name:           rust-ironrdp-rdpsnd
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        RDPSND static channel for audio output implemented as described in MS-RDPEA
 

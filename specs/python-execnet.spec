@@ -1,3 +1,4 @@
+%global _without_optional_test_deps 1
 %global srcname execnet
 
 # Some of the BuildRequires are used in tests only when installed.
@@ -7,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -88,6 +89,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1.1-6
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

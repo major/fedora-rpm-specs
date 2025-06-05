@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond_without tests
 
 Name:           python-more-itertools

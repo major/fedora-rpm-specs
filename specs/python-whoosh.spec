@@ -5,7 +5,7 @@
 
 Name:           python-whoosh
 Version:        2.7.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Fast, pure-Python full text indexing, search, and spell checking library 
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -74,6 +74,9 @@ rm tests/test_automata.py
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.7.4-38
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 2.7.4-37
 - fix sphinx references
 - Resolves: rhbz#2341238

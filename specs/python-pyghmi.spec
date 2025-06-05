@@ -15,7 +15,7 @@ incorporate the pyghmi library into a Python application.
 Summary: %{common_summary}
 Name: python-%{sname}
 Version: %{?version:%{version}}%{!?version:1.5.69}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 Prefix: %{_prefix}
@@ -121,6 +121,9 @@ stestr run
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.69-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.69-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

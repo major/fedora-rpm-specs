@@ -5,7 +5,7 @@
 %global crate ironrdp-rdpdr
 
 Name:           rust-ironrdp-rdpdr
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        RDPDR channel implementation
 

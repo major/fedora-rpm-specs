@@ -1,6 +1,6 @@
 Name:           speed-dreams
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        3D Open Racing Simulation
 
@@ -116,14 +116,16 @@ find . -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hpp' | \
     xargs chmod 644
 
 %build
-%cmake -DCMAKE_BUILD_TYPE:STRING=Release              \
+%cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo       \
        -DCMAKE_SKIP_RPATH:BOOL=OFF                    \
        -DOPTION_DEBUG:STRING=ON                       \
        -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"  \
        -DSD_BINDIR:PATH=bin                           \
        -DOPTION_3RDPARTY_SOLID:BOOL=ON                \
        -DOPTION_TRACKEDITOR:BOOL=OFF                  \
-       -DOPTION_OFFICIAL_ONLY:BOOL=ON
+       -DOPTION_OFFICIAL_ONLY:BOOL=ON                 \
+       -DCMAKE_C_FLAGS="%{optflags}"                  \
+       -DCMAKE_CXX_FLAGS="%{optflags}"
 %cmake_build
 
 %install
@@ -214,6 +216,9 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
+* Tue Jun 03 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.2-2
+- Switch on more debug information
+
 * Fri May 30 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.4.2-1
 - Update to 2.4.2
 

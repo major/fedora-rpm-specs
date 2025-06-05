@@ -8,7 +8,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 License:        BSD-3-Clause
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
@@ -78,6 +78,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.0-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        6.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -159,6 +159,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.14-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 26 2025 Packit <hello@packit.dev> - 6.14-1
 - Update to version 6.14
 - Resolves: rhbz#2355205

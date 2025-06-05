@@ -1,4 +1,4 @@
-%global repo_bootstrap 0
+%global repo_bootstrap 1
 
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
@@ -23,7 +23,7 @@
 Name:       python-oslo-config
 Epoch:      2
 Version:    9.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    OpenStack common configuration library
 
 Group:      Development/Languages
@@ -151,6 +151,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2:9.6.0-3
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:9.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

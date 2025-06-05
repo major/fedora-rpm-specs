@@ -1,6 +1,6 @@
 Name:           pgcli
 Version:        4.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %{_mandir}/man1/pgcli.1*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.3.0-2
+- Rebuilt for Python 3.14
+
 * Sun Apr  6 2025 Dick Marinus <dick@mrns.nl> - 4.3.0-1
 - Update to 4.3.0 (close RHBZ#2354303)
 

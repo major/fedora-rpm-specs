@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        78%{?dist}
+Release:        79%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -788,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.15.0-79
+- Rebuilt for Python 3.14
+
 * Tue Feb 04 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-78
 - Explicitly require tcl/tk 8 (rhbz#2337726)
 

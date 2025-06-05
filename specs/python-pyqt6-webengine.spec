@@ -4,7 +4,7 @@
 
 Name:          python-pyqt6-webengine
 Version:       6.9.0
-Release:       0.1%{?snap:^%{snap}}%{?dist}
+Release:       0.2%{?snap:^%{snap}}%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
@@ -87,4 +87,7 @@ done
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.9.0-0.2
+- Rebuilt for Python 3.14
+
 %autochangelog

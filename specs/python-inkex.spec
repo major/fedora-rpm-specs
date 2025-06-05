@@ -9,7 +9,7 @@ Version:        1.4.0^%{commitdate}git%{shortcommit}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.0^20250307git89726a33-2
+- Rebuilt for Python 3.14
+
 * Thu Mar 13 2025 Benson Muite <fed500@fedoraproject.org> - 1.4.0^20250307git89726a33-1
 - Use a version so that python-svg2tikz builds
 

@@ -2,7 +2,7 @@
 
 Name:           mopidy
 Version:        4.0.0~a2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        Apache-2.0
@@ -124,6 +124,9 @@ install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a2-5
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.0~a2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

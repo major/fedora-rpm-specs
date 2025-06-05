@@ -15,7 +15,7 @@ changes or source code (for interpreted languages).
 
 Name:           dnf-plugin-diff
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %_summary
 
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ Provides:       dnf5-command(diff) = %version
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0-2
+- Rebuilt for Python 3.14
+
 * Sun Feb 09 2025 Pavel Raiskup <praiskup@redhat.com> - 2.0-1
 - new upstream release, with DNF5 support
   https://github.com/praiskup/dnf-plugin-diff/releases/tag/v2.0

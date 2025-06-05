@@ -3,7 +3,7 @@
 
 Name:           python-%{modulename}
 Version:        2.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A cached-property for decorating methods in Python classes
 License:        BSD-3-Clause
 URL:            https://github.com/pydanny/%{projectname}
@@ -50,6 +50,9 @@ is invalidated or expired.
 %doc AUTHORS.md HISTORY.md CONTRIBUTING.md README.md
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

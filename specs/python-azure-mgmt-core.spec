@@ -1,3 +1,4 @@
+%global _without_tests 1
 # EPEL9 does not have python-aiohttp packaged yet.
 %if 0%{?fedora}
 %bcond_without  tests

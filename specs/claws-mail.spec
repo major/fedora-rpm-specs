@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -652,6 +652,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.3.1-3
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-2
 - Run autopoint before autoreconf, since apparently autoreconf doesn't
   do it automatically, but that breaks badly with gettext 0.25.

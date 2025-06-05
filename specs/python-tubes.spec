@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Flow control and backpressure for event-driven applications
 
 License:        MIT
@@ -57,6 +57,9 @@ sed -e '/"characteristic",/d' -i setup.py
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.1-4
+- Rebuilt for Python 3.14
+
 * Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 0.2.1-3
 - Fix compatibility with the latest setuptools
 

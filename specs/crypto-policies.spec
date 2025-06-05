@@ -1,5 +1,5 @@
-%global git_date 20250602
-%global git_commit 9a48d0619e0827402d2c3b62fa1c641da1e43dc5
+%global git_date 20250603
+%global git_commit 3a584b3b6fac55a230d9acbfd6a4250c1990d1ad
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -283,6 +283,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Tue Jun 03 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250603-1.git3a584b3
+- Revert "openssl, policies: implement group_key_share option"
+
 * Mon Jun 02 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250602-1.git9a48d06
 - NO-PQ, cryptopolicies: add experimental value suppression
 - openssl: fix mistakes in integrity-only cipher definitions

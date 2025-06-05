@@ -1,3 +1,4 @@
+%global _without_pythran 1
 # without means enabled
 %bcond_with doc
 
@@ -38,7 +39,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.14.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -304,6 +305,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.14.1-4
+- Bootstrap for Python 3.14
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        11.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -308,6 +308,9 @@ popd
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 11.2.1-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 11.2.1-1
 - Update to 11.2.1
 

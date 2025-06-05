@@ -3,7 +3,7 @@
 
 Name:           python-%{project_name}
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.1-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.1-1
 - 2.3.1
 

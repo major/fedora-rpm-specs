@@ -1,7 +1,7 @@
 %global shortname django-ipware
 Name:          python-%{shortname}
 Version:       4.0.2
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       A Django application to retrieve client's IP address
 
 License:       MIT
@@ -42,6 +42,9 @@ A Django application to retrieve client's IP address.
 %{python3_sitelib}/django_ipware*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.2-12
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

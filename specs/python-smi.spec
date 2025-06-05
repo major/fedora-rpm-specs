@@ -2,7 +2,7 @@
 
 Name:           python-smi
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python implementation of SNMP/SMI MIB parsing and conversion library
 
 License:        LicenseRef-Callaway-BSD
@@ -55,6 +55,9 @@ Summary:        %{summary}
 %{_bindir}/mibdump
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.0-4
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.0-3
 - Remove -t (closes rhbz#2354124)
 

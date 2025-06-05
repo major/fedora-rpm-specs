@@ -1,9 +1,10 @@
+%global _without_tests 1
 %global srcname rq
 %bcond_without tests
 
 Name:           python-%{srcname}
 Version:        1.16.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -76,6 +77,9 @@ wait $REDIS_SERVER_PID
 %{_bindir}/rqworker
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.16.2-4
+- Bootstrap for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

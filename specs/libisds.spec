@@ -26,7 +26,6 @@ Summary:        Library for accessing the Czech Data Boxes
 # install-sh:       X11 AND LicenseRef-Fedora-Public-Domain
 # ltmain.sh:        GPL-2.0-or-later WITH Libtool-exception AND
 #                   GPL-3.0-or-later WITH Libtool-exception AND
-#                   TODO: <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/661>
 #                   GPL-3.0-or-later
 # m4/gettext.m4:    FSFULLR
 # m4/gpgme.m4:      FSFULLR
@@ -55,7 +54,7 @@ Summary:        Library for accessing the Czech Data Boxes
 # test/simline/Makefile.in: FSFULLR
 # test-driver:      GPL-2.0-or-later WITH Libtool-exception
 License:        LGPL-3.0-or-later AND GPL-3.0-or-later
-#SourceLicense:  %%{license} AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-2.0-or-later WITH Libtool-exception AND FSFULLR AND FSFUL AND X11 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive
+SourceLicense:  %{license} AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-2.0-or-later WITH Libtool-exception AND FSFULLR AND FSFUL AND X11 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive
 URL:            http://xpisar.wz.cz/%{name}/
 Source0:        %{url}dist/%{name}-%{version}.tar.xz
 Source1:        %{url}dist/%{name}-%{version}.tar.xz.asc

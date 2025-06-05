@@ -56,7 +56,7 @@ WeCom Bot, WhatsApp, Webex Teams, Workflows, WxPusher, XBMC}
 
 Name:           python-%{pypi_name}
 Version:        1.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -149,6 +149,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.3-2
+- Rebuilt for Python 3.14
+
 * Sun Mar 30 2025 Chris Caron <lead2gold@gmail.com> - 1.9.3
 - Updated to v1.9.3
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of web-related functions
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.1-2
+- Rebuilt for Python 3.14
+
 * Fri Mar 21 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.3.1-1
 - Update to upstream version 2.3.1
 

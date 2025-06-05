@@ -1,3 +1,4 @@
+%global _without_tests 1
 # Excluded extras/integrations
 # The lines below are in `code: comment` format, where `code` is used for
 # easier navigation in text editors and for linking.

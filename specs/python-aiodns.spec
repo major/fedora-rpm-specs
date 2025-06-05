@@ -4,7 +4,7 @@
 
 Name:           python-aiodns
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple DNS resolver for asyncio
 
 License:        MIT
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.4.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
 - 3.4.0
 

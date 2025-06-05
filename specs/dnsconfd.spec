@@ -3,7 +3,7 @@
 
 Name:           dnsconfd
 Version:        1.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
 URL:            https://github.com/InfrastructureServices/dnsconfd
@@ -242,6 +242,9 @@ fi
 %{_prefix}/lib/dracut/modules.d/99dnsconfd
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.3-2
+- Rebuilt for Python 3.14
+
 * Mon Mar 03 2025 Tomas Korbar <tkorbar@redhat.com> - 1.7.2-1
 - Rebase to 1.7.2
 - Resolves: rhbz#2340084

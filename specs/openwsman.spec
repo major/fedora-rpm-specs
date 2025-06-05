@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -416,6 +416,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.8.1-3
+- Rebuilt for Python 3.14
+
 * Thu Apr 10 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-2
 - Build winrs only when ruby binding is enabled
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library and framework for reverse engineering binary file formats
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,6 +72,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8.0-17
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           libgit2-glib
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Git library for GLib
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-2
+- Rebuilt for Python 3.14
+
 * Fri Mar 07 2025 nmontero <nmontero@redhat.com> - 1.2.1-1
 - Update to 1.2.1
 

@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.35.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -52,6 +52,9 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.35.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 23 2025 Packit <hello@packit.dev> - 0.35.0-1
 - modemmanager: Add operator code (thanks Guido Günther)
 - modemmanager: Allow to set CellBroadcast channel list (thanks Guido Günther)

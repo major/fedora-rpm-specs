@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        0.14.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python Slack API client
 
 License:        Apache-2.0
@@ -66,6 +66,9 @@ Documentation files for %{name}.
 %doc examples/
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.14.0-20
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

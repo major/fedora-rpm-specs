@@ -3,8 +3,8 @@
 %define fontconfig_version 2.2.95
 
 Name:           cairo
-Version:        1.18.2
-Release:        3%{?dist}
+Version:        1.18.4
+Release:        1%{?dist}
 Summary:        A 2D graphics library
 
 License:        LGPL-2.1-only OR MPL-1.1
@@ -12,11 +12,6 @@ URL:            https://cairographics.org
 Source:         https://cairographics.org/releases/%{name}-%{version}.tar.xz
 
 Patch:          cairo-multilib.patch
-# Fix printing PDFs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2330100
-# Backported from upstream
-# https://gitlab.freedesktop.org/cairo/cairo/-/merge_requests/595
-Patch:          595.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -29,6 +24,7 @@ BuildRequires:  pkgconfig(fontconfig) >= %{fontconfig_version}
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(lzo2)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xcb-render)
 BuildRequires:  pkgconfig(xrender)
@@ -160,6 +156,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Tue Jun 03 2025 Milan Crha <mcrha@redhat.com> - 1.18.4-1
+- Update to 1.18.4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

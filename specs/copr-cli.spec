@@ -10,7 +10,7 @@
 
 Name:       copr-cli
 Version:    2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -124,6 +124,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
 - add a workaround for recursive fedora-review file downloads
 - drop python-six dependency

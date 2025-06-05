@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.31.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
 URL:            https://github.com/astrorama/Alexandria
@@ -192,6 +192,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.31.4-2
+- Rebuilt for Python 3.14
+
 * Wed Apr 16 2025 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 2.31.4-1
 - Release 2.31.4
 

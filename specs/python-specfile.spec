@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.35.1-2
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Packit <hello@packit.dev> - 0.35.1-1
 - We have fixed a bug that caused changes to get lost when a spec file passed as a path was replaced or deleted. (#470)
 

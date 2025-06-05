@@ -123,7 +123,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	6.5
-Release:	3%{?dev:%{dev}}%{?dist}
+Release:	4%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -970,6 +970,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.5-4
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.5-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

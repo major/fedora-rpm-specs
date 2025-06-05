@@ -6,7 +6,7 @@
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
 Version:		1.15.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
@@ -22,6 +22,8 @@ BuildRequires:		make
 BuildRequires:		nasm
 %endif
 BuildRequires:		doxygen, perl(Getopt::Long)
+
+Patch1:                 0001-vpx_codec_enc_init_multi-fix-double-free-on-init-fai.patch
 
 %description
 libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications
@@ -47,6 +49,7 @@ and decoder.
 %prep
 %setup -q -n libvpx-%{version}
 %patch -P0 -p1 -b .fortify-source-on
+%patch -P1 -p1 -b .0001
 
 %build
 
@@ -202,6 +205,10 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Tue Jun 03 2025 Wim Taymans <wtaymans@redhat.com> - 1.15.0-3
+- Add patch for double free
+  Resolves: rhbz#2368931
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

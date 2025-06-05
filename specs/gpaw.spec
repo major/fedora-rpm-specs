@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		25.1.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -299,6 +299,9 @@ popd
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 25.1.0-3
+- Rebuilt for Python 3.14
+
 * Sat Mar 08 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 25.1.0-2
 - Rebuild for scalapack SONAME change.
 

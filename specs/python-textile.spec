@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Humane Web Text Generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.3-4
+- Rebuilt for Python 3.14
+
 * Sun Apr 20 2025 Thomas Moschny  <thomas.moschny@gmx.de> - 4.0.3-3
 - Remove erroneous tox option (rhbz#2354127).
 

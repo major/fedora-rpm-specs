@@ -1,12 +1,12 @@
 Name:           fts-rest-client
-Version:        3.14.0
-Release:        2%{?dist}
+Version:        3.14.1
+Release:        1%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        Apache-2.0
 URL:            https://fts.web.cern.ch/
-# git clone --depth=1 --branch v3.14.0 https://gitlab.cern.ch/fts/fts-rest-flask.git fts-rest-client-3.14.0
-# tar -C fts-rest-client-3.14.0/ -czf fts-rest-client-3.14.0.tar.gz src/cli src/fts3 LICENSE setup.py setup.cfg --transform "s|^|fts-rest-client-3.14.0/|" --show-transformed-names
+# git clone --depth=1 --branch v3.14.1 https://gitlab.cern.ch/fts/fts-rest-flask.git fts-rest-client-3.14.1
+# tar -C fts-rest-client-3.14.1/ -czf fts-rest-client-3.14.1.tar.gz src/cli src/fts3 LICENSE setup.py setup.cfg --transform "s|^|fts-rest-client-3.14.1/|" --show-transformed-names
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
@@ -42,6 +42,9 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 %{_bindir}/fts-rest-*
 
 %changelog
+* Tue Jun 03 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.14.1-1
+- New upstream release 3.14.1
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.14.0-2
 - Rebuilt for Python 3.14
 
