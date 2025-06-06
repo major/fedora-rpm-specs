@@ -1,7 +1,7 @@
 %global srcname robotframework
 
 Name:           python-%{srcname}
-Version:        7.2.2
+Version:        7.3
 Release:        2%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
@@ -13,12 +13,11 @@ Summary:        Generic automation framework for acceptance testing and RPA
 License:        Apache-2.0 and MIT
 URL:            https://github.com/robotframework/robotframework
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
-# Fix 3.14a6 compatibilities problems (from upstream)
-Patch0:         0001-Python_3.14_Union_compat.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-jsonschema
+BuildRequires:  python3-typing-extensions
 
 
 %global _description %{expand:
@@ -74,6 +73,12 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 7.3-2
+- Rebuilt for Python 3.14
+
+* Wed Jun 04 2025 Federico Pellegrin <fede@evolware.org> - 7.3-1
+- Upgrade to 7.3
+
 * Thu Mar 20 2025 Federico Pellegrin <fede@evolware.org> - 7.2.2-2
 - Fix Python 3.14a6 compatibility problems (resolves rhbz#2353194)
 

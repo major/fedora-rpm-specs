@@ -86,6 +86,9 @@ install -m0644 -D obs-signd.sysusers.conf %{buildroot}%{_sysusersdir}/obs-signd.
 %{_sysusersdir}/obs-signd.conf
 
 %changelog
+* Wed Jun 04 2025 Oleg Girko <ol@infoserver.lv> 2.6.1-4
+- Fix typo in patch again, it should be "--file-is-digest" not "--file-is-digests"
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

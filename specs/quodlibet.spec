@@ -1,6 +1,6 @@
 Name:		quodlibet
 Version:	4.7.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A music management program
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -148,6 +148,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.7.1-2
+- Rebuilt for Python 3.14
+
 * Sat May 31 2025 LuK1337 <priv.luk@gmail.com> - 4.7.1-1
 - Update to 4.7.1
 

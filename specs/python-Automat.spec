@@ -1,4 +1,3 @@
-%global _without_doc 1
 # Building python-pydoctor in EPEL requires too many dependencies
 # and doc is not actually required on EPEL side.
 %bcond doc %{undefined rhel}

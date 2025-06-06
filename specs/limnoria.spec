@@ -2,7 +2,7 @@
 
 Name:           limnoria
 Version:        20240531
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -116,6 +116,9 @@ export SOURCE_DATE_EPOCH
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 20240531-3
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240531-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 %if 0%{?rhel}
 %global prefix ipa
 %global productname IPA
@@ -18,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -156,6 +155,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.18-3
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.18-2
 - Bootstrap for Python 3.14
 

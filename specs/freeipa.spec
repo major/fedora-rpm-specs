@@ -198,7 +198,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        13%{?rc_version:.%rc_version}%{?dist}
+Release:        13%{?rc_version:.%rc_version}%{?dist}.1
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1893,6 +1893,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.12.2-13.1
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-13
 - Upgrade from OpenSSL Engine use to OpenSSL provider API
 

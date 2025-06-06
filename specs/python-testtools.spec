@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # To build this package in a new environment (i.e. a new EPEL branch), you'll
 # need to build in a particular order.  Duplicate numbered steps can happen at
 # the same time.

@@ -1,8 +1,13 @@
 %global use_x11_tests 1
+%if 0%{?rhel} && 0%{?rhel} < 10
+%global use_wayland_tests 0
+%else
+%global use_wayland_tests 1
+%endif
 
 Name:           perl-Gtk3
 Version:        0.038
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Perl interface to the 3.x series of the GTK+ toolkit
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk3
@@ -46,8 +51,18 @@ BuildRequires:  gdk-pixbuf2-modules-extra
 %endif
 %if %{use_x11_tests}
 # X11 tests:
+%if 0%{?rhel} >= 10
+BuildRequires:  mutter
+BuildRequires:  xwayland-run
+%else
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  font(:lang=en)
+%endif
+%endif
+%if %{use_wayland_tests}
+# Wayland tests:
+BuildRequires:  mutter
+BuildRequires:  xwayland-run
 %endif
 Requires:       gtk3
 Requires:       perl(Cairo::GObject) >= 1.000
@@ -73,8 +88,18 @@ Requires:       gdk-pixbuf2-modules-extra
 %endif
 %if %{use_x11_tests}
 # X11 tests:
+%if 0%{?rhel} >= 10
+Requires:       mutter
+Requires:       xwayland-run
+%else
 Requires:       xorg-x11-server-Xvfb
 Requires:       font(:lang=en)
+%endif
+%endif
+%if %{use_wayland_tests}
+# Wayland tests:
+Requires:       mutter
+Requires:       xwayland-run
 %endif
 
 %description tests
@@ -101,16 +126,38 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec %{?use_x11_tests:xvfb-run -d }prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+set -e
+cd %{_libexecdir}/%{name}
+%if %{use_x11_tests}
+%if 0%{?rhel} >= 10
+xwfb-run -c mutter prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+%else
+xvfb-run -d prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+%endif
+%else
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+%endif
+%if %{use_wayland_tests}
+wlheadless-run -c mutter -- prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+%endif
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 %if %{use_x11_tests}
+%if 0%{?rhel} >= 10
+    # Tests fail with default weston compositor
+    xwfb-run -c mutter make test
+%else
     xvfb-run -d make test
+%endif
 %else
     make test
+%endif
+%if %{use_wayland_tests}
+    # Tests fail with default weston compositor
+    wlheadless-run -c mutter -- make test
 %endif
 
 %files
@@ -123,6 +170,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 04 2025 Petr Pisar <ppisar@redhat.com> - 0.038-17
+- Run tests also against Wayland
+
 * Mon May 12 2025 Petr Pisar <ppisar@redhat.com> - 0.038-16
 - Correct a list of build dependencies
 

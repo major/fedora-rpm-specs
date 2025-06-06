@@ -1,4 +1,3 @@
-%global _without_optional_test_deps 1
 %global srcname execnet
 
 # Some of the BuildRequires are used in tests only when installed.
@@ -8,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -89,6 +88,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.1.1-7
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1.1-6
 - Bootstrap for Python 3.14
 

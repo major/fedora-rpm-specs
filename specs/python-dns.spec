@@ -13,7 +13,7 @@
 
 Name:           python-dns
 Version:        2.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -100,6 +100,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.7.0-4
+- Rebuilt for Python 3.14
+
 * Mon Apr 28 2025 Miro Hrončok <mhroncok@redhat.com> - 2.7.0-3
 - Obsolete python3-dnspython+... from python3-dns+...
 

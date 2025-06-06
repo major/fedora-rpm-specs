@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.73.0
+Version:                2.74.0
 
 %gometa -L -f
 

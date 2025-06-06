@@ -37,7 +37,7 @@ Version:        2.0.41
     mssql_pymssql \
     mssql_pyodbc \
     mysql \
-    mysql_connector \
+    %{!?with_py314quirk:mysql_connector} \
     %{?with_mypy:mypy} \
     postgresql \
     %{!?with_py314quirk:postgresql_pg8000} \
@@ -57,6 +57,10 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
+
+# unxfail one tests to fix build with Python 3.14.0b2+
+# from https://github.com/sqlalchemy/sqlalchemy/commit/be8ffcfa4d
+Patch:          python3.14.0b2.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

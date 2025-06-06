@@ -1,5 +1,3 @@
-%global _without_tests 1
-%global _with_bootstrap 1
 %global pypi_name pbr
 # Disable bootstrap
 %bcond bootstrap 0
@@ -10,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python Build Reasonableness
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -94,6 +92,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 6.1.1-3
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.1.1-2
 - Bootstrap for Python 3.14
 

@@ -1,10 +1,9 @@
-%global _without_tests 1
 %global pkgname repoze.sphinx.autointerface
 %global srcname %(tr . - <<< %{pkgname})
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD-3-Clause-Modification
@@ -61,6 +60,9 @@ zope-testrunner --test-path=$PWD/build/lib
 %{python3_sitelib}/repoze*
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.0.0-8
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-7
 - Bootstrap for Python 3.14
 

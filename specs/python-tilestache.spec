@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.51.14
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A stylish alternative for caching your map tiles
 
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ NO_DATABASE=1 OFFLINE_TESTS=1 %pytest \
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.51.14-21
+- Rebuilt for Python 3.14
+
 * Mon Mar 24 2025 Scott K Logan <logans@cottsay.net> - 1.51.14-20
 - Switch test execution from Nosetest to Pytest (rhbz#2349854)
 

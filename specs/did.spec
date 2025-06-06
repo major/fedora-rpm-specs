@@ -1,9 +1,8 @@
 Name: did
-Version: 0.21
-Release: 8%{?dist}
+Version: 0.22
+Release: 2%{?dist}
 
 Summary: What did you do last week, month, year?
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
 URL: https://github.com/psss/did
@@ -17,15 +16,17 @@ BuildRequires: python3-dateutil
 BuildRequires: python3-devel
 BuildRequires: python3-httplib2
 BuildRequires: python3-pytest
+BuildRequires: python3-pytest-xdist
 BuildRequires: python3-requests-gssapi
 BuildRequires: python3-setuptools
+BuildRequires: python3-nitrate
 Requires: python3-bugzilla
 Requires: python3-httplib2
 Requires: python3-nitrate
 Requires: python3-requests-gssapi
 Requires: python3-feedparser
+Requires: python3-tenacity
 
-%?python_enable_dependency_generator
 
 %description
 Comfortably gather status report data (e.g. list of committed
@@ -35,47 +36,80 @@ range. By default all available stats for this week are reported.
 %prep
 %autosetup -S git
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files did
 mkdir -p %{buildroot}%{_mandir}/man1
 install -pm 644 did.1.gz %{buildroot}%{_mandir}/man1
 
 %check
 export LANG=en_US.utf-8
-%{__python3} -m pytest -vv tests/test*.py -k 'not smoke'
+%pytest -vv tests/test*.py -k 'not smoke'
 
-%files
+%files -f %{pyproject_files}
 %{_mandir}/man1/*
 %{_bindir}/did
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*.egg-info/
 %doc README.rst examples
 %license LICENSE
 
 %changelog
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.21-8
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.22-2
 - Rebuilt for Python 3.14
 
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.21-6
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.21-4
-- Rebuilt for Python 3.13
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Tue Jun 03 2025 Petr Šplíchal <psplicha@redhat.com> - 0.22-1
+- Implement `transition` stats for the `jira` plugin (#352)
+- Fix issue with wrong `until` in GitHub search (#376)
+- List resolved jira by tester and contributor field
+- Fix `zammad` token bug, some minor adjustments
+- Better handling auth max retry in jira plugin
+- Handle JSON decode errors in pagure plugin
+- Reuse bodhi connection instead of opening new ones
+- Properly handle timeout in pagure plugin
+- Complete report even on plugin error
+- Better handling on server errors for pagure plugin
+- Better handling of wrong url in confluence plugin
+- Handle timeout fetching batches in jira plugin
+- Fixed Jira updated issues and support timeout
+- Collect stats in parallel
+- Add stats for updated jira tickets
+- Handle rate limiting in Jira plugin
+- Allow to filter out orgs in GitHub plugin
+- Properly collect comments in GitHub
+- Improve items plugin
+- Enable pagure closed PRs stats collection
+- Add hyperkitty support
+- Handle better the GitLab expired token case
+- Increased test coverage
+- Use pytest-xdist for parallelizing test execution
+- Add collection of comments for Pagure
+- Cover markdown format while testing Koji
+- Use tenacity handling retry connection to GitHub
+- Added stats for modified pages in Confluence
+- Allow to skip SSL verification in bugzilla plugin
+- Added markdown support to google plugin
+- Add token authentication to confluence plugin
+- Add markdown support to koji plugin
+- Fetch all created issues correctly in `pagure` (#379)
+- Use custom `user-agent` in the `public_inbox` plugin (#392)
+- Fix dockerfile executable path, add git to container (#354)
+- Support `user`, `org`, `repo` in the `github` plugin (#373)
+- Handle the GitHub rate limit in a better way (#374)
+- Create a Public Inbox Plugin
+- Implement `did last [monday..sunday]`
+- Correctly handle merge commits in verbose mode
+- Prevent duplicates in github issue stats
+- Retry connecting to GitLab API on error
+- Add a `Toolbelt Catalog` entry for `did`
+- Allow skipping events that are not reportable
+- Add a team report example using login aliases
+- Migrate to the `SPDX` identifier
 
 * Fri Nov 10 2023 Petr Šplíchal <psplicha@redhat.com> - 0.21-1
 - Pass plugin configuration to koji `ClientSession`

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # The documentation and tests need furo.  But to build furo at all, we need
 # this package.
 %bcond bootstrap 0
@@ -8,7 +7,7 @@
 
 Name:           python-sphinx-basic-ng
 Version:        1.0.0
-Release:        0.13.%{prerel}%{?dist}
+Release:        0.14.%{prerel}%{?dist}
 Summary:        Modernized skeleton for Sphinx themes
 
 License:        MIT
@@ -110,6 +109,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.0.0-0.14.beta2
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-0.13.beta2
 - Bootstrap for Python 3.14
 

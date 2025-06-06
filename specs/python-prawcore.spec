@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Low-level communication layer for PRAW 4+ library
 
 License:        LicenseRef-Callaway-BSD
@@ -55,6 +55,9 @@ Low-level communication layer for PRAW 4+ library.
 %license LICENSE.txt
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.4.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -66,7 +66,7 @@ install -D -p -m 0644 %{SOURCE2} Smake
 
 %build
 # Import and build system-wide Gnulib
-make -f Smake GNULIB=%{_datadir}/gnulib/lib GNULIB_TOOL=%{_bindir}/gnulib-tool
+make -f Smake GNULIB=/usr/share/gnulib/lib GNULIB_TOOL=/usr/bin/gnulib-tool
 
 autoreconf -ifv
 %configure CFLAGS="${CFLAGS:-%optflags} -fgnu89-inline" \

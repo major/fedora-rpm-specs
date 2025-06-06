@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:          toolbox
-Version:       0.1.1
+Version:       0.1.2
 
 %global goipath github.com/containers/%{name}
 
@@ -33,7 +33,7 @@ Version:       0.1.1
 %endif
 %endif
 
-Release:       3%{?dist}
+Release:       1%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -60,31 +60,13 @@ BuildRequires: shadow-utils-subid-devel >= 4.16.0
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 %if ! 0%{?rhel}
-BuildRequires: golang(github.com/HarryMichal/go-version) >= 1.0.1
-BuildRequires: golang-ipath(github.com/NVIDIA/go-nvlib) >= 0.6.1
-BuildRequires: golang-ipath(github.com/NVIDIA/go-nvml) >= 0.12.4.0
-BuildRequires: golang-ipath(github.com/NVIDIA/nvidia-container-toolkit) >= 1.16.2
-BuildRequires: golang(github.com/acobaugh/osrelease) >= 0.1.0
-BuildRequires: golang(github.com/briandowns/spinner) >= 1.18.0
-BuildRequires: golang(github.com/docker/go-units) >= 0.5.0
-BuildRequires: golang(github.com/fsnotify/fsnotify) >= 1.7.0
-BuildRequires: golang(github.com/go-logfmt/logfmt) >= 0.5.0
-BuildRequires: golang(github.com/godbus/dbus) >= 5.0.6
-BuildRequires: golang(github.com/google/renameio/v2) >= 2.0.0
-BuildRequires: golang(github.com/sirupsen/logrus) >= 1.9.3
-BuildRequires: golang(github.com/spf13/cobra) >= 1.3.0
-BuildRequires: golang(github.com/spf13/viper) >= 1.10.1
-BuildRequires: golang-ipath(golang.org/x/sys) >= 0.24.0
-BuildRequires: golang(golang.org/x/text) >= 0.3.8
-BuildRequires: golang-ipath(gopkg.in/yaml.v3) >= 3.0.1
-BuildRequires: golang-ipath(tags.cncf.io/container-device-interface) >= 0.8.0
 BuildRequires: pkgconfig(fish)
 # for tests
 # BuildRequires: codespell
-# BuildRequires: golang(github.com/stretchr/testify) >= 1.9.0
 # BuildRequires: ShellCheck
 %endif
 
+Recommends:    p11-kit-server
 Recommends:    skopeo
 %if ! 0%{?rhel}
 Recommends:    fuse-overlayfs
@@ -154,12 +136,10 @@ The %{name}-tests package contains system tests for %{name}.
 %endif
 %endif
 
-%gomkdir -s %{_builddir}/%{extractdir}/src %{?rhel:-k}
+%gomkdir -s %{_builddir}/%{extractdir}/src -k
 
 
 %build
-export %{gomodulesmode}
-export GOPATH=%{gobuilddir}:%{gopath}
 export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
 %meson \
@@ -192,7 +172,7 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 %files
 %doc CODE-OF-CONDUCT.md CONTRIBUTING.md GOALS.md NEWS README.md SECURITY.md
-%license COPYING %{?rhel:src/vendor/modules.txt}
+%license COPYING src/vendor/modules.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-*.1*
@@ -210,6 +190,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Jun 03 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.1.2-1
+- Update to 0.1.2
+
 * Wed Jan 22 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.1.1-3
 - Use RPM macros for shell completions and clean up directory ownership
 

@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.46
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -98,6 +98,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.46-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 19 2025 Ondřej Nosek <onosek@redhat.com> - 1.46-1
 - `request-repo`: add `--onboard-packit` argument (nforro)
 - Fork a package using anonymous auth - #574 (onosek)

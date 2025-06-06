@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %bcond bootstrap 0
 # Break a test-dependency loop between this package and python-trimesh.
 %bcond tests %{without bootstrap}

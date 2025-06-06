@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
@@ -65,6 +65,9 @@ rm tests/cluster/test_cluster.py
 %doc README.md
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 9.5.2-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

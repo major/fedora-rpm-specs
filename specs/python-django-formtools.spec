@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A set of high-level abstractions for Django forms
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -88,6 +88,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.2-18
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Javier Peña <jpena@redhat.com> - 2.2-17
 - Fix doc build with latest Sphinx (bz#2341143)
 

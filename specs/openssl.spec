@@ -26,10 +26,15 @@ print(string.sub(hash, 0, 16))
 
 %global _performance_build 1
 
+# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
+# ENGINE is deprecated but still (separately) available for Fedora.
+# It has been completely removed from RHEL 10 and later.
+%bcond engine %[!(0%{?rhel} >= 10)]
+
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -131,12 +136,16 @@ support cryptographic algorithms and protocols.
 Summary: Files for development of applications which will use OpenSSL
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
+%if %{without engine}
+Obsoletes: %{name}-devel-engine < %{epoch}:%{version}-%{release}
+%endif
 
 %description devel
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel
 package contains include files needed to develop applications which
 support various cryptographic algorithms and protocols.
 
+%if %{with engine}
 %package devel-engine
 Summary: Files for development of applications which will use OpenSSL and use deprecated ENGINE API.
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -148,6 +157,7 @@ Provides: deprecated()
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel-engine
 package contains include files needed to develop applications which
 use deprecated OpenSSL ENGINE functionality.
+%endif
 
 %package perl
 Summary: Perl scripts provided with OpenSSL
@@ -373,7 +383,7 @@ basearch=sparc64
 
 # Next step of gradual disablement of ENGINE.
 sed -i '/^\# ifndef OPENSSL_NO_STATIC_ENGINE/i\
-# if !__has_include(<openssl/engine.h>) && !defined(OPENSSL_NO_ENGINE)\
+# if %{?with_engine:!__has_include(<openssl/engine.h>) &&} !defined(OPENSSL_NO_ENGINE)\
 #  define OPENSSL_NO_ENGINE\
 # endif' $RPM_BUILD_ROOT/%{_prefix}/include/openssl/configuration.h
 
@@ -431,9 +441,11 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %{_libdir}/cmake/OpenSSL/OpenSSLConfigVersion.cmake
 
 
+%if %{with engine}
 %files devel-engine
 %{_prefix}/include/openssl/engine*.h
 %{_mandir}/man3/ENGINE*
+%endif
 
 %files perl
 %{_bindir}/c_rehash
@@ -450,6 +462,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Apr 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.5.0-4
+- Disable -devel-engine on RHEL 10+
+
 * Tue Apr 15 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-3
 - Rebase to OpenSSL 3.5 final release, sync patches with RHEL. Restoring POWER8 support
   Resolves: rhbz#2359082

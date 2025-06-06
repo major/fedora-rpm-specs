@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 4
-%global microversion 4
+%global microversion 5
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -900,6 +900,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Wed Jun 04 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.5-1
+- Update version to 1.4.5
+
 * Thu May 29 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.4-1
 - Update version to 1.4.4
 

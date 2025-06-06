@@ -6,7 +6,7 @@
 %bcond repacker 1
 
 Name:           fontmake
-Version:        3.10.0
+Version:        3.10.1
 Release:        %autorelease
 Summary:        Compile fonts from sources (UFO, Glyphs) to binary (OpenType, TrueType)
 
@@ -98,6 +98,10 @@ install -d '%{buildroot}%{_mandir}/man1'
 # is probably a brittle test that is sensitive to dependency versions rather
 # than a real problem.
 k="${k-}${k+ and }not test_main_designspace_v5_builds_STAT"
+
+# Regression with cattrs 25: test_main_build_from_custom_ufo_structure[json]
+# https://github.com/googlefonts/fontmake/issues/1147
+k="${k-}${k+ and }not test_main_build_from_custom_ufo_structure[json]"
 
 %if %{without autohint}
 k="${k-}${k+ and }not test_autohinting"

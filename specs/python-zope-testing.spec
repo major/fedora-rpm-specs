@@ -9,7 +9,7 @@
 
 Name:           python-zope-testing
 Version:        5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPL-2.1
 URL:            https://pypi.io/project/%{modname}
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 5.1-4
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.1-3
 - Bootstrap for Python 3.14
 

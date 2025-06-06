@@ -39,7 +39,7 @@ Provides:       logdetective
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x server
+%pyproject_buildrequires
 
 
 %build
@@ -55,7 +55,7 @@ rm %{buildroot}/%{python3_sitelib}/logdetective.1.asciidoc || :
 
 %check
 #server is broken for now
-%pyproject_check_import -e logdetective.server
+%pyproject_check_import -e logdetective.server*
 
 
 %files -n python3-logdetective -f %{pyproject_files}

@@ -77,7 +77,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -609,6 +609,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.11.0-4
+- Rebuilt for Python 3.14
+
 * Tue Mar 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.11.0-3
 - Use Qt6 in highgui and cvv
 

@@ -1,7 +1,7 @@
 %global origname nginx-module-modsecurity
 
 Name:           nginx-mod-modsecurity
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        ModSecurity v3 nginx connector
 
@@ -11,10 +11,6 @@ Source:         %{url}/archive/v%{version}/%{origname}-%{version}.tar.gz
 Source:         https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 Source:         https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/unicode.mapping
 Source:         nginx.conf.modsecurity
-# Upstream PR https://github.com/owasp-modsecurity/ModSecurity-nginx/pull/275
-# Required since https://koschei.fedoraproject.org/build/16411365
-Patch:          275.patch
-
 
 BuildRequires:  gcc
 BuildRequires:  libmodsecurity-devel

@@ -342,7 +342,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1334,16 +1334,16 @@ Group:   Development/Languages
 %description headless
 The %{origin_nice} %{featurever} runtime environment without audio and video support.
 
-%package debuginfo
-Summary: Debug information for package %{name}
+%package headless-debuginfo
+Summary: Debug information for package %{name}-headless
 Group: Development/Debug
 AutoReq: 0
 AutoProv: 1
-%description debuginfo
+%description headless-debuginfo
 This package provides debug information for package %{name}.
 Debug information is useful when developing applications that use this
 package or when debugging this package.
-%files debuginfo -f debugfiles.list
+%files headless-debuginfo -f debugfiles.list
 
 %package debugsource
 Summary: Debug sources for package %{name}

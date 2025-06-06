@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.18
-Release:        1%{?dist}
+Version:        7.19
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,17 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Wed Jun 04 2025 Kim Walisch <walki@fedoraproject.org> - 7.19-2
+- nth_prime_sieve.hpp: Add missing include guards
+- Update ChangeLog
+
+* Wed Jun 04 2025 Kim Walisch <walki@fedoraproject.org> - 7.19-1
+- nth_prime.cpp: Add 128-bit nth_prime function
+- nth_prime_sieve.hpp: New sieving algo for nth_prime(n)
+- primecount.h: Improved 128-bit C API using portable pc_int128_t struct
+- primecount.hpp: Improved 128-bit C++ API using portable pc_int128_t struct
+- libprimecount.md: Add new 128-bit C/CPI API functions
+
 * Sat May 17 2025 Kim Walisch <walki@fedoraproject.org> - 7.18-1
 - Add CMake find_package(primecount) support
 - libprimecount.md: Add CMake find_package(primecount) section

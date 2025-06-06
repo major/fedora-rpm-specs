@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A pytest fixture for testing flake8 plugins
 
 License:        MIT
@@ -54,6 +54,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.5.0-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

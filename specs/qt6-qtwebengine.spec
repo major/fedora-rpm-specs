@@ -81,8 +81,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.9.0
-Release: 2%{?dist}
+Version: 6.9.1
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -127,12 +127,11 @@ Patch50:  qtwebengine-fix-build.patch
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
 Patch80:  qtwebengine-fix-arm-build.patch
-Patch81:  qtwebengine-webrtc-fix-build-with-pipewire.patch
 
 ## Upstreamable patches:
 
 ## ppc64le port
-Patch200: qtwebengine-6.7-ppc64.patch
+Patch200: qtwebengine-6.9-ppc64.patch
 Patch201: qtwebengine-chromium-ppc64.patch
 # https://src.fedoraproject.org/rpms/chromium/c/c675db4ac0623d2d97344be0b3b2d9f1ac931446?branch=rawhide
 Patch202: chromium-130-size-assertions.patch
@@ -480,7 +479,6 @@ popd
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
-%patch -P81 -p1 -b .webrtc-fix-build-with-pipewire
 
 ## upstreamable patches
 
@@ -840,6 +838,9 @@ done
 %endif
 
 %changelog
+* Tue Jun 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Tue Apr 22 2025 Marie Loise Nolden <loise@kde.org> - 6.9.0-2
 - global define all optional system libs, enable XFA
 - cleanup spec

@@ -2,18 +2,27 @@
 # “typechecking linter.” However, we can optionally skip those tests.
 %bcond mypy 1
 
+# Tests fail on 3.14b1
+# https://github.com/agronholm/typeguard/issues/522
+#
+# Fixed by updating to a snapshot, plus typing-extensions must be at least
+# 4.14.0rc1.
+%global commit a3f6144fdd8524f5c1bae3f8031a009bc051dcc1
+%global snapdate 20250602
+
 Name:           python-typeguard
-Version:        4.4.2
+Version:        4.4.2^%{snapdate}git%{sub %{commit} 1 7}
+%global pyversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
-Source:         %{pypi_source typeguard}
+Source:         %{url}/archive/%{commit}/typeguard-%{commit}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires):  -x test
+BuildOption(generate_buildrequires):  -g test
 BuildOption(install):   -l typeguard
 
 BuildArch:      noarch
@@ -45,21 +54,19 @@ tomcli set pyproject.toml lists delitem \
     'tool.pytest.ini_options.filterwarnings' error
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem --type regex \
-    'project.optional-dependencies.test' 'coverage\b.*'
+tomcli set pyproject.toml lists delitem dependency-groups.test 'coverage\b.*'
 
 %if %{without mypy}
-tomcli set pyproject.toml lists delitem --type regex \
-    project.optional-dependencies.test 'mypy\b.*'
+tomcli set pyproject.toml lists delitem dependency-groups.test 'mypy\b.*'
 %endif
 
 
 %generate_buildrequires -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{pyversion}'
 
 
 %build -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{pyversion}'
 
 
 %check -a

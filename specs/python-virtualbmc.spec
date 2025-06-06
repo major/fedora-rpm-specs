@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -104,6 +104,9 @@ PYTHON=%{__python3} stestr run
 %doc doc/build/html
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.2.0-2
+- Rebuilt for Python 3.14
+
 * Sun Mar 30 2025 Juan Orti Alcaine <jortialc@redhat.com> - 3.2.0-1
 - Version 3.2.0 (RHBZ#2355036)
 

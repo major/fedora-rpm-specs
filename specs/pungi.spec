@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -140,6 +140,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.9.2-3
+- Rebuilt for Python 3.14
+
 * Mon May 26 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.2-2
 - Fix tests on Python 3.14
 

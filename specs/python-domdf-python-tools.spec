@@ -1,4 +1,3 @@
-%global _without_tests 1
 # BOOTSTRAPPING NOTE: The tests depend on python3-coincidence which in turn
 # depends on this package.
 %bcond tests 1
@@ -8,7 +7,7 @@
 Name:           python-domdf-python-tools
 Version:        3.9.0
 %forgemeta
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Helpful functions for Python
 
 # Primary license: MIT
@@ -101,6 +100,9 @@ and not test_repr_deep
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.9.0-4
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.9.0-3
 - Bootstrap for Python 3.14
 

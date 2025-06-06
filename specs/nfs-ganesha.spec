@@ -123,7 +123,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	6.5
-Release:	4%{?dev:%{dev}}%{?dist}
+Release:	5%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -132,7 +132,8 @@ Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 %global prometh_ver_short	48d09c45
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
-Patch0001:	0001-config_samples-log_rotate.patch
+Patch:		0001-config_samples-log_rotate.patch
+Patch:		0002-src-selinux-ganesha.te.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -970,6 +971,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Jun 4 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 6.5-5
+- logrotate rbhz#2367645, selinux mods 
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.5-4
 - Rebuilt for Python 3.14
 

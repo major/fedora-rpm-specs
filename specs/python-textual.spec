@@ -1,6 +1,6 @@
 Name:           python-textual
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -70,6 +70,9 @@ rm -rf tests/test_slug.py
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.0.0-2
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.0-1
 - update to 1.0.0 rhbz#2282650
 

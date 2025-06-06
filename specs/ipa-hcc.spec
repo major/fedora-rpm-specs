@@ -70,7 +70,7 @@
 
 Name:           %{package_name}
 Version:        0.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hybrid Cloud Console extension for IPA
 
 BuildArch:      noarch
@@ -596,6 +596,9 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/ipa-hcc.conf
 %endif
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.18-4
+- Rebuilt for Python 3.14
+
 * Fri Feb 7 2025 Fraser Tweedale <ftweedal@redhat.com> - 0.18-3
 - Fix build for unified sbin/bin
 

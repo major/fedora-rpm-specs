@@ -20,6 +20,13 @@ Patch:          %{url}/pull/327/commits/3a011974826b5997eb394755259995110cd46f88
 # Bump MSRV to 1.77 for notify 8.0.0
 Patch:          %{url}/pull/327/commits/9f7e00f866a31a35bce68d70e7bfccc7467366c5.patch
 
+# Update PyO3 to 0.25
+# https://github.com/samuelcolvin/watchfiles/pull/340
+#
+# We take only the commit changing Cargo.toml, not the one updating Cargo.lock.
+# (Rebased on top of notify 8.0.0 patches)
+Patch:          0001-Update-PyO3-to-0.25.patch
+
 # Downstream-only: allow a slightly older pytest to support EPEL10
 Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
 

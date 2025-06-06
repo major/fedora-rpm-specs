@@ -1,16 +1,15 @@
 %global forgeurl https://github.com/sonic-visualiser/sonic-visualiser
 
 Name:           sonic-visualiser
-Version:        5.0.1
+Version:        5.2.1
 Release:        %autorelease
 Summary:        A program for viewing and exploring audio data
 
 License:        GPL-2.0-or-later
 URL:            https://sonicvisualiser.org/
 Source:         %{forgeurl}/releases/download/sv_v%{version}/%{name}-%{version}.tar.gz
-# include headers for uint32_t and uint8_t
-# https://github.com/piper-audio/piper-vamp-cpp/pull/8
-Patch:          sonic-visualiser-gcc15-cstdint.diff
+# Fix build with GCC 15.1 and Qt 6.9
+Patch:          svcore-atomic-qt-fix.patch
 
 BuildRequires:  meson
 BuildRequires:  alsa-lib-devel

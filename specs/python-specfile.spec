@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.35.1
+%global base_version 0.36.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri May 30 2025 Packit <hello@packit.dev> - 0.36.0-1
+- We have fixed a bug that caused specfile to traceback when section names with conditional macro expansions containing spaces were present in the spec file. (#476)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.35.1-2
 - Rebuilt for Python 3.14
 

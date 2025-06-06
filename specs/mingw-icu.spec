@@ -6,7 +6,7 @@
 
 Name:           mingw-icu
 Version:        76.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
 License:        Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
@@ -17,10 +17,9 @@ Source0:        https://github.com/unicode-org/icu/releases/download/release-%{d
 # https://build.opensuse.org/package/show/windows:mingw:win32/mingw32-icu
 Patch0:         icu4c_mingwbuild.patch
 
-# Set standard to gnu++11 instead of c++11
-# Fixes: /usr/i686-w64-mingw32/sys-root/mingw/include/c++/limits:2100:30: error: unable to find numeric literal operator 'operator""Q'
-# (Numeric literals are a gcc extension)
-#Patch1:         icu-stdgnu11.patch
+# Backport fix for CVE-2025-5222
+# https://github.com/unicode-org/icu/commit/2c667e31cfd0b6bb1923627a932fd3453a5bac77
+Patch1:         CVE-2025-5222.patch
 
 BuildArch:      noarch
 
@@ -203,6 +202,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Wed Jun 04 2025 Sandro Mani <manisandro@gmail.com> - 76.1-3
+- Backport patch for CVE-2025-5222
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 76.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

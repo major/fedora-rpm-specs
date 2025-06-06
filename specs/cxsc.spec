@@ -2,7 +2,7 @@
 
 Name:           cxsc
 Version:        %(tr - . <<< %{upstreamver})
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        C++ library for Extended Scientific Computing
 
 %global majver  %(cut -d. -f1 <<< %{version})
@@ -26,6 +26,8 @@ Patch:          %{name}-uninit.patch
 Patch:          %{name}-neg-alloc.patch
 # Remove template IDs from constructors
 Patch:          %{name}-template-id.patch
+# Disambiguate the name "complex"
+Patch:          %{name}-complex.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -92,7 +94,7 @@ sed -i 's/\(RPATH[[:blank:]]*=\).*/\1/;' Makefile.in CToolbox/Makefile
 sed -i '/LINKERPATH=-Wl,-R/d' install_cxsc
 
 # Don't build with SSE2 support on platforms the script doesn't recognize
-%ifnarch %{ix86} x86_64
+%ifnarch %{x86_64}
 sed -i 's/ -mfpmath=sse -msse2//' install_cxsc.in
 %endif
 
@@ -108,13 +110,13 @@ if [ %{_libdir} != "%{_prefix}/lib" ]; then
 fi
 
 # Use an efficient representation for a_btyp on 64-bit systems
-if [ "%{__isa_bits}" = "64" ]; then
-  sed -ri 's/(#define SHORTABTYP) .*/\1 1/' src/rts/o_spec.h
-  sed -i 's/#if DEC_ALPHA_C+GNU_X86_64+CXSC_PPC64/#if 1/' src/rts/p88rts.h
-else
-  sed -ri 's/(#define SHORTABTYP) .*/\1 0/' src/rts/o_spec.h
-  sed -i 's/#if DEC_ALPHA_C+GNU_X86_64+CXSC_PPC64/#if 0/' src/rts/p88rts.h
-fi
+%if 0%{?__isa_bits} == 64
+sed -ri 's/(#define SHORTABTYP) .*/\1 1/' src/rts/o_spec.h
+sed -i 's/#if DEC_ALPHA_C+GNU_X86_64+CXSC_PPC64/#if 1/' src/rts/p88rts.h
+%else
+sed -ri 's/(#define SHORTABTYP) .*/\1 0/' src/rts/o_spec.h
+sed -i 's/#if DEC_ALPHA_C+GNU_X86_64+CXSC_PPC64/#if 0/' src/rts/p88rts.h
+%endif
 
 # Remove spurious executable bits
 chmod a-x src/fi_lib/*.{cpp,hpp}
@@ -132,16 +134,16 @@ done
 
 %build
 # FIXME: tests fail without -fno-inline.  Why?
-if [ "%{__isa_bits}" = "64" ]; then
-  use64=-DIS_64_BIT
-else
-  use64=
-fi
+%if 0%{?__isa_bits} == 64
+use64=-DIS_64_BIT
+%else
+use64=
+%endif
 printf "yes\n\
 gnu\n\
 no\n\
 yes\n\
-%ifarch x86_64
+%ifarch %{x86_64}
 %{build_cxxflags} -DCXSC_USE_BLAS -DCXSC_USE_LAPACK -DCXSC_USE_OPENMP -DCXSC_USE_FMA -DIS_64_BIT -fopenmp %{build_ldflags}\n\
 64\n\
 asm\n\
@@ -208,6 +210,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Wed Jun 04 2025 Jerry James  <loganjerry@gmail.com> - 2.5.4-30
+- Fix FTBFS due to ambiguous references to "complex"
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

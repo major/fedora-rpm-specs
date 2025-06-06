@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _with_bootstrap 1
 # Running the tests requires python3-zope-testrunner, which requires
 # python3-zope-interface, which requires this package.  Build in bootstrap
 # mode to avoid the circular dependency.
@@ -11,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -101,6 +99,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 5.0-8
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.0-7
 - Bootstrap for Python 3.14
 

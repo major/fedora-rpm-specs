@@ -46,7 +46,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 %if %{with tests}
 %check
-%pytest
+%pytest -W ignore::DeprecationWarning
 %endif
 
 %files -n python3-%{pypi_name}  -f %{pyproject_files}

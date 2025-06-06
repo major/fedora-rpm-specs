@@ -1039,12 +1039,13 @@ Qt6 UI for chromium.
 
 %patch -P312 -p1 -b .fstack-protector-strong
 
-%if 0%{?rhel} == 9
+%if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P315 -p1 -b .rust-libadler2
+%patch -P354 -p1 -b .split-threshold-for-reg-with-hint
 %endif
 %patch -P316 -p1 -b .clang-build-flags
 
-%if 0%{?fedora} < 42 || 0%{?rhel} < 10
+%if 0%{?fedora} && 0%{?fedora} < 42 || 0%{?rhel} && 0%{?rhel} < 10
 %patch -P317 -p1 -b .clang++-unsupported-argument
 %endif
 
@@ -1054,10 +1055,6 @@ Qt6 UI for chromium.
 
 %ifarch aarch64 && 0%{?fedora} > 40
 %patch -P353 -p1 -b .duplicate-case-value
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} < 10 || 0%{?fedora} && 0%{?fedora} < 40
-%patch -P354 -p1 -b .split-threshold-for-reg-with-hint
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size

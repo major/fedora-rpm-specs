@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.22
+%global general_version %{pybasever}.23
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -302,8 +302,7 @@ Source11: idle3.appdata.xml
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
-# Fixup distutils/unixccompiler.py to remove standard library path from rpath
-# Was Patch0 in ivazquez' python3000 specfile
+# Fixup distutils/unixccompiler.py to remove standard library path from rpath Was Patch0 in ivazquez' python3000 specfile
 Patch1: 00001-rpath.patch
 
 # 00111 # 93b40d73360053ca68b0aeec33b6a8ca167e33e2
@@ -1855,6 +1854,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.23-1
+- Update to 3.9.23
+
 * Wed Apr 23 2025 Miro Hrončok <mhroncok@redhat.com> - 3.9.22-2
 - Add RPM Provides for python3.9-libs, python3.9-devel, python3.9-idle, python3.9-tkinter, python3.9-test
 

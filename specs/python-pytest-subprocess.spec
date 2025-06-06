@@ -1,11 +1,14 @@
 Name:           python-pytest-subprocess
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        A plugin to fake subprocess for pytest
 
 License:        MIT
 URL:            https://github.com/aklajnert/pytest-subprocess
 Source0:        %{url}/archive/%{version}/pytest-subprocess-%{version}.tar.gz
+
+# Fix compatibilty with Py 3.14
+Patch:          https://github.com/aklajnert/pytest-subprocess/commit/be30d9a94ba45afb600717e3fcd95b8b2ff2c60e.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

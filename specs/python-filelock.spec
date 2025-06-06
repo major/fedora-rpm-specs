@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _without_tests 1
 %global srcname filelock
 
 %if 0%{?fedora}

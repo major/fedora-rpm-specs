@@ -1,6 +1,6 @@
 Name:           libeatmydata
-Version:        130
-Release:        13%{?dist}
+Version:        131
+Release:        1%{?dist}
 Group:          Development/Tools
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -11,7 +11,6 @@ Source1:        https://www.flamingspork.com/projects/libeatmydata/%{name}-%{ver
 Source2:        https://flamingspork.com/stewart.gpg
 # Man page to be included upstream soon...
 Source3:        https://salsa.debian.org/debian/libeatmydata/-/raw/048c4ea3/debian/eatmydata.1
-Patch0:         libeatmydata-sync-file-range.patch
 
 URL:            https://www.flamingspork.com/projects/libeatmydata/
 %if !(0%{?rhel} && 0%{?rhel} < 8)
@@ -69,6 +68,9 @@ find %{buildroot} -name "*.la" -type f -delete
 %{_libdir}/*.so
 
 %changelog
+* Wed Jun 4 2025 Stewart Smith <stewart@flamingspork.com> - 131-1
+- New upstream release
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 130-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -111,7 +113,7 @@ find %{buildroot} -name "*.la" -type f -delete
 * Fri Jul 26 2013 Jaroslav Kortus <jkortus@redhat.com> - 82-1
 - Version 82, bug fix release
 - spec file changed to meet fedora packaging guidelines
-* Fri May 18 2013 Stewart Smith <stewart@flamingspork.com> - 79
+* Sat May 18 2013 Stewart Smith <stewart@flamingspork.com> - 79
 - Version 79, bug fix release
 * Fri Mar 08 2013 Alexey Bychko <alexey.bychko@percona.com> - 0.1
 - Version 0.1, initial package for RPM-based systems

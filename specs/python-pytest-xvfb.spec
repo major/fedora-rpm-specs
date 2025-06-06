@@ -1,6 +1,6 @@
 Name:           python-pytest-xvfb
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pytest plugin to run Xvfb for tests
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 %doc CHANGELOG.rst README.rst
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.1.1-2
+- Rebuilt for Python 3.14
+
 * Wed Mar 19 2025 Scott Talbert <swt@techie.net> - 3.1.1-1
 - Update to new upstream release 3.1.1 (#2351643)
 

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 Name:          openssl-pkcs11-sign-provider
-Version:       1.0.1
+Version:       1.0.2
 Release:       %autorelease
 Summary:       A PKCS#11 provider for OpenSSL 3.0 (private key operations only)
 License:       Apache-2.0

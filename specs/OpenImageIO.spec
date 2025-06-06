@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.5.16.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -208,6 +208,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1:2.5.16.0-8
+- Rebuilt for Python 3.14
+
 * Mon Apr 07 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:2.5.16.0-7
 - Rebuilt for openvdb 12
 

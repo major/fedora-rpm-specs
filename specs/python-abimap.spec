@@ -2,7 +2,7 @@
 
 Name:           python-%{module_name}
 Version:        0.3.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        MIT
 Summary:        A helper for library maintainers to use symbol versioning
 Url:            https://github.com/ansasaki/abimap
@@ -17,6 +17,10 @@ Patch1:         python-abimap-0.3.1-remove-docs-napoleon.patch
 Patch2:         python-abimap-0.3.1-remove-docs-rtd-theme.patch
 # Use natural sorting to sort releases
 Patch3:         python-abimap-0.3.2-use-natural-sort.patch
+# Minimal patch to remove pytest-runner from setup_requires
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+# https://github.com/ansasaki/abimap/issues/87
+Patch4:         python-abimap-0.3.2-no-pytest-runner.patch
 
 BuildArch:      noarch
 BuildRequires: make
@@ -24,7 +28,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 # Required for testing
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-runner
 BuildRequires:  python%{python3_pkgversion}-pytest-cov
 # Not available yet, will be required once it is available in Fedora
 # BuildRequires:  %%{py3_dist pytest-console-scripts}
@@ -116,6 +119,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD/tests \
 %doc html
 
 %changelog
+* Wed Jun 04 2025 Anderson Toshiyuki Sasaki <ansasaki@redhat.com> - 0.3.2-24
+- Remove the dependency on pytest-runner by Benjamin A. Beasley <code@musicinmybrain.net>
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.2-23
 - Rebuilt for Python 3.14
 

@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.32.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -281,6 +281,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 7.32.0-2
+- Rebuilt for Python 3.14
+
 * Mon May 12 2025 Martin Gansser <martinkg@fedoraproject.org> - 7.32.0-1
 - Update to version 7.32.0
 - Resolves: rhbz#2364964

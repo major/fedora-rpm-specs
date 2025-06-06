@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -130,6 +130,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - add sysusers.d config file to allow rpm to create users/groups automatically
 - remove redundant byte compile lines, these dirs are empty already

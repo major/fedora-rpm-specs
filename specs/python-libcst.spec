@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %bcond_with bootstrap
 
 %if 0%{?rhel}

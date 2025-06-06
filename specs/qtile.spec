@@ -1,6 +1,6 @@
 Name: qtile
 Version: 0.29.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A pure-Python tiling window manager
 Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.gz
 
@@ -148,6 +148,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.29.0-5
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

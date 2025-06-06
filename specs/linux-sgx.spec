@@ -1544,7 +1544,7 @@ ln -s libsgx_qe3_logic.so.1 %{buildroot}%{_libdir}/libsgx_qe3_logic.so
 %config(noreplace) %{_sysconfdir}/qgs.conf
 %{_sysusersdir}/qgs.conf
 %attr(0700,qgs,qgs) %dir %{_sharedstatedir}/qgs
-%attr(0700,qgs,qgs) %dir %{_rundir}/tdx-qgs
+%ghost %attr(0755,qgs,qgs) %dir %{_rundir}/tdx-qgs
 
 
 %files -n tdx-attest-libs

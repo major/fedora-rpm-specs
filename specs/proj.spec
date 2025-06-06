@@ -4,11 +4,11 @@
 %bcond_with mingw
 %endif
 
-%global data_version 1.21
+%global data_version 1.22
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.6.0
-Release:        2%{?dist}
+Version:        9.6.1
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -16,8 +16,6 @@ URL:            https://proj.org
 Source0:        https://download.osgeo.org/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://download.osgeo.org/%{name}/%{name}-data-%{data_version}.tar.gz
 
-# Fix missing include
-Patch0:         proj_build.patch
 
 BuildRequires:  cmake
 BuildRequires:  curl-devel
@@ -366,6 +364,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 
 %changelog
+* Wed Jun 04 2025 Sandro Mani <manisandro@gmail.com> - 9.6.1-1
+- Update to 9.6.1
+
 * Fri May 02 2025 Sandro Mani <manisandro@gmail.com> - 9.6.0-2
 - Remove unnecessary bash-completion requires (#2363242)
 

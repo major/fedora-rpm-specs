@@ -1,3 +1,4 @@
+%global _without_tests 1
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %undefine _py3_shebang_s

@@ -2,7 +2,7 @@
 
 Name:           python-warlock
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python object model built on top of JSON schema
 
 License:        Apache-2.0
@@ -49,6 +49,9 @@ cat pyproject.toml | grep -e json
 %license LICENSE
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.1.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.0-1
 - 2.1.0
 

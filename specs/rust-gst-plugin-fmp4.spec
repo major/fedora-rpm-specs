@@ -5,7 +5,7 @@
 %global crate gst-plugin-fmp4
 
 Name:           rust-gst-plugin-fmp4
-Version:        0.13.5
+Version:        0.13.6
 Release:        %autorelease
 Summary:        GStreamer Fragmented MP4 Plugin
 

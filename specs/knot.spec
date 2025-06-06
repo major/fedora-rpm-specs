@@ -2,12 +2,19 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}}
 
 %define GPG_CHECK 1
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 9
+# use modern %pyproject_* macros on distros which support them
+%define PYPROJECT 1
+%else
+# use older %py3_* macros on older/other distros
+%define PYPROJECT 0
+%endif
 %define BASE_VERSION %(echo "%{version}" | sed 's/^\\([^.]\\+\\.[^.]\\+\\).*/\\1/')
 %define repodir %{_builddir}/%{name}-%{version}
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.4.6
+Version:	3.4.7
 Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
@@ -39,6 +46,9 @@ BuildRequires:	pkgconfig(libmnl)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(systemd)
+%if 0%{?fedora} || 0%{?rhel}
+BuildRequires:	softhsm
+%endif
 # dnstap dependencies
 BuildRequires:	pkgconfig(libfstrm)
 BuildRequires:	pkgconfig(libprotobuf-c)
@@ -46,6 +56,15 @@ BuildRequires:	pkgconfig(libprotobuf-c)
 BuildRequires:	pkgconfig(libmaxminddb)
 # XDP dependencies
 BuildRequires:	pkgconfig(libbpf)
+# Python modules (python3-libknot, knot-exporter) dependencies
+BuildRequires:  python3-devel
+%if 0%{?PYPROJECT}
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pip
+BuildRequires:  python3-hatchling
+%else
+BuildRequires:  python3-setuptools
+%endif
 
 # Distro-dependent dependencies
 %if 0%{?suse_version}
@@ -129,6 +148,23 @@ Requires:	%{name} = %{version}-%{release}
 %description module-geoip
 The package contains geoip Knot DNS module for geography-based responses.
 
+%package exporter
+Summary:	Prometheus exporter for Knot DNS
+BuildArch:	noarch
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+
+%description exporter
+The package provides Python Prometheus exporter for Knot DNS.
+
+%package -n python3-libknot
+Summary:	Python bindings for libknot
+BuildArch:	noarch
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+%{?python_provide:%python_provide python3-libknot}
+
+%description -n python3-libknot
+The package provides Python bindings for the libknot shared library.
+
 %package doc
 Summary:	Documentation for the Knot DNS server
 BuildArch:	noarch
@@ -179,8 +215,42 @@ CFLAGS="%{optflags} -DNDEBUG -Wno-unused"
 make %{?_smp_mflags}
 make html
 
+# build python3-libknot
+pushd python/libknot
+%if %{PYPROJECT}
+%pyproject_wheel
+%else
+%py3_build
+%endif
+popd
+# build knot-exporter
+pushd python/knot_exporter
+%if %{PYPROJECT}
+%pyproject_wheel
+%else
+%py3_build
+%endif
+popd
+
 %install
 make install DESTDIR=%{buildroot}
+
+# install python3-libknot
+pushd python/libknot
+%if %{PYPROJECT}
+%pyproject_install
+%else
+%py3_install
+%endif
+popd
+# install knot-exporter
+pushd python/knot_exporter
+%if %{PYPROJECT}
+%pyproject_install
+%else
+%py3_install
+%endif
+popd
 
 # install documentation
 install -d -m 0755 %{buildroot}%{_pkgdocdir}/samples
@@ -302,6 +372,15 @@ V=1 make check
 %files module-geoip
 %{_libdir}/knot/modules-*/geoip.so
 
+%files exporter
+%{_bindir}/knot-exporter
+%{python3_sitelib}/knot_exporter
+%{python3_sitelib}/knot_exporter-*-info
+
+%files -n python3-libknot
+%{python3_sitelib}/libknot
+%{python3_sitelib}/libknot-*-info
+
 %files libs
 %license COPYING
 %doc NEWS
@@ -328,6 +407,10 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Jun 04 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.7-1
+- Update to 3.4.7
+- Add new knot-exporter and python3-libknot packages
+
 * Thu Apr 10 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.6-1
 - Update to 3.4.6
 

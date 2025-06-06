@@ -39,7 +39,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.63.0
+Version: 0.63.1
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch

@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global modname zope.exceptions
 %global giturl  https://github.com/zopefoundation/zope.exceptions
 
@@ -9,7 +8,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    5.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
@@ -57,6 +56,9 @@ general purpose that they don't belong in Zope application-specific packages.
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 5.1-4
+- Rebuilt for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.1-3
 - Bootstrap for Python 3.14
 

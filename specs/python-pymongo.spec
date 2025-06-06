@@ -5,7 +5,7 @@
 
 Name:           python-pymongo
 Version:        4.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -182,6 +182,9 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.9.1-4
+- Rebuilt for Python 3.14
+
 * Thu Feb 06 2025 Orion Poplawski <orion@nwra.com> - 4.9.1-3
 - Use pytest for tests
 - Drop snappy extra on i686

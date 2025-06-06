@@ -19,7 +19,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -330,6 +330,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %config(noreplace) %{_sysusersdir}/mock.conf
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 6.2-2
+- Rebuilt for Python 3.14
+
 * Thu May 22 2025 Pavel Raiskup <praiskup@redhat.com> 6.2-1
 - disable copying ca-trust dirs with Azure Linux 3 (reubeno@users.noreply.github.com)
 - bail clearly when image pull fails (awilliam@redhat.com)

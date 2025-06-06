@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Adds SQL read/write support to agate
 
 License:        MIT
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.7.2-5
+- Rebuilt for Python 3.14
+
 * Thu Mar 06 2025 Julien Enselme <jujens@jujens.eu> - 0.7.2-4
 - Remove nose
 

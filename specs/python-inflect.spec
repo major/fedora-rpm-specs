@@ -1,7 +1,7 @@
 %global srcname inflect
 Name:           python-%{srcname}
 Version:        7.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Correctly generate plurals, singular nouns, ordinals and indefinite articles
 
 License:        MIT
@@ -60,6 +60,9 @@ rm -rf inflect.egg-info
 %doc NEWS.rst README.rst SECURITY.md
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 7.5.0-2
+- Rebuilt for Python 3.14
+
 * Thu Feb  6 2025 David Shea <reallylongword@gmail.com> - 7.5.0-1
 - Update to 7.5.0
 

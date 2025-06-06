@@ -1,6 +1,6 @@
 Name:             python-flake8
 Version:          6.1.0
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Python code checking using pyflakes, pycodestyle, and mccabe
 
 License:          MIT
@@ -83,6 +83,9 @@ ln -s flake8 %{buildroot}%{_bindir}/python3-flake8
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 6.1.0-6
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

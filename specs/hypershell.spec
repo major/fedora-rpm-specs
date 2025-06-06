@@ -1,6 +1,6 @@
 Name:           hypershell
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for processing shell commands over a distributed, asynchronous queue
 
 License:        Apache-2.0
@@ -60,5 +60,8 @@ install -pDm 0644 share/man/man1/hyper-shell.1 %{buildroot}%{_mandir}/man1/hyper
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.7.0-2
+- Rebuilt for Python 3.14
+
 * Wed May 28 2025 Jonathan Wright <jonathan@almalinux.org> - 2.7.0-1
 - initial package build rhbz#2332450

@@ -1,13 +1,13 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-%global gittag v1.7.2
+%global gittag v1.7.5
 #%%global commit 5c8e8ee43ccea13d69b232abd741b653c40c331c
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20230904
 
 Name:           libahp-gt
-Version:        1.7.2
+Version:        1.7.5
 Release:        %autorelease
 Summary:        Driver library for the AHP GT Controllers
 License:        MIT

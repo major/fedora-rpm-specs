@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.4
-Release: 37%{?dist}
+Release: 38%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
@@ -39,6 +39,14 @@ Patch55: 0001-Fix-CVE-2023-43788-Out-of-bounds-read-in-XpmCreateXp.patch
 # CVE-2023-43789
 Patch56: 0001-Fix-CVE-2023-43789-Out-of-bounds-read-on-XPM-with-co.patch
 Patch57: motif-c99-bug1599.patch
+# https://sourceforge.net/p/motif/code/merge-requests/9/
+Patch58: 0001-build-Check-for-Xinerama-availability.patch
+Patch59: 0002-Xm-Display-Add-optional-Xinerama-support.patch
+Patch60: 0003-Xm-MenuShell-Use-Xinerama-to-place-menus.patch
+Patch61: 0004-Xm-DropDown-Use-Xinerama-for-placement.patch
+Patch62: 0005-Xm-RCMenu-Use-Xinerama-for-placement.patch
+Patch63: 0006-Xm-Tooltip-Use-Xinerama-for-placement.patch
+Patch64: 0007-Xm-ComboBox-Use-Xinerama-for-placement.patch
 
 Conflicts: lesstif <= 0.92.32-6
 
@@ -87,6 +95,13 @@ This package contains the static Motif libraries.
 %patch -P55 -p1
 %patch -P56 -p1
 %patch -P 57 -p1
+%patch -P 58 -p1 -b .xinerama
+%patch -P 59 -p1 -b .xinerama
+%patch -P 60 -p1 -b .xinerama
+%patch -P 61 -p1 -b .xinerama
+%patch -P 62 -p1 -b .xinerama
+%patch -P 63 -p1 -b .xinerama
+%patch -P 64 -p1 -b .xinerama
 
 %build
 export CFLAGS="$CFLAGS -std=gnu17"
@@ -137,6 +152,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Mon Jun  2 2025 Olivier Fourdan <ofourdan@redhat.com> - 2.3.4-38
+- Add Xinerama support from https://sourceforge.net/p/motif/code/merge-requests/9/
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

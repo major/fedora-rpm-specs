@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/asottile/tokenize-rt
-Version:        6.1.0
+Version:        6.2.0
 %forgemeta
 
 Name:           python-tokenize-rt

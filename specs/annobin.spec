@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.95
+Version: 12.96
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jun 04 2025 Nick Clifton  <nickc@redhat.com> - 12.96-1
+- Annocheck: Fix bugs in debug rpm location code.  Add more glibc exceptions.  (RHEL-95216)
+
 * Thu May 15 2025 Nick Clifton  <nickc@redhat.com> - 12.95-1
 - Annocheck: Improve performance with multiple debug info files and multiple files to scan.  (#2366180)
 

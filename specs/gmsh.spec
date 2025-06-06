@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.13.2
-Release:    11%{?dist}
+Release:    12%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -51,7 +51,6 @@ Patch7:     gmsh_uint64.patch
 # https://gitlab.onelab.info/gmsh/gmsh/-/issues?show=eyJpaWQiOiIzMjc2IiwiZnVsbF9wYXRoIjoiZ21zaC9nbXNoIiwiaWQiOjQ0MTB9
 Patch8:     gmsh-gcc15.patch
 
-BuildRequires: alglib-devel
 BuildRequires: ann-devel
 %if %{with flexiblas}
 BuildRequires:  flexiblas-devel
@@ -412,6 +411,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.13.2-12
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Richard Shaw <hobbes1069@gmail.com> - 4.13.2-11
 - Rebuild for opencascade 7.9.1.
 

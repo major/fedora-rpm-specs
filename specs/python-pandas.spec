@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # We need to break some cycles with optional dependencies for bootstrapping;
 # given that a conditional is needed, we take the opportunity to omit as many
 # optional dependencies as possible for bootstrapping.
@@ -14,7 +13,7 @@
 
 Name:           python-pandas
 Version:        2.2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -700,6 +699,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2.2.3-5
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.3-4
 - Bootstrap for Python 3.14
 
