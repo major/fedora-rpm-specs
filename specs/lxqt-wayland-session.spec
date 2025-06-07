@@ -4,8 +4,8 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.1.1
-Release:        13%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -20,7 +20,6 @@ Patch2:         0003-configuration-changes-for-default-niri-session.patch
 Patch3:         0004-configuration-adds-miriway-session.patch
 Patch4:         0005-configuration-changes-for-default-river-session.patch
 Patch5:         0006-configuration-changes-for-default-sway-session.patch
-Patch6:         0007-allow-setting-of-default-session.patch
 BuildArch:      noarch
 
 BuildRequires:  cmake
@@ -57,6 +56,8 @@ actually supported compositors.
 %{_datadir}/wayland-sessions/lxqt-wayland.desktop
 %{_datadir}/lxqt/wayland/firstrun/autostart
 %{_datadir}/lxqt/wallpapers/origami-dark-labwc.png
+%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/startlxqtwayland.1.gz
 
 
 %dnl ------------------------------------------------------------------
@@ -253,8 +254,11 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.2.0-1
+- 0.2.0
+
 * Fri Mar 28 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-13
-- Add LABWC_CONFIG_DIR env variable to labwc session 
+- Add LABWC_CONFIG_DIR env variable to labwc session
 
 * Thu Mar 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-12
 - Refresh miriway session patch with latest version of upstream submission

@@ -1,8 +1,8 @@
 %bcond tests 1
 
 Name:           python-webtest
-Version:        3.0.4
-Release:        2%{?dist}
+Version:        3.0.6
+Release:        1%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 
 
 %changelog
+* Thu Jun 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.6-1
+- Update to upstream.
+
 * Wed Feb 05 2025 Carl George <carlwgeorge@fedoraproject.org> - 3.0.4-2
 - Port to pyproject macros
 

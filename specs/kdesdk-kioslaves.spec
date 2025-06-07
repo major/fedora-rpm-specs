@@ -2,7 +2,7 @@
 %global base_name kdesdk-kio
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 25.04.1
+Version: 25.04.2
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

@@ -34,7 +34,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -93,6 +93,17 @@ Patch0047: 0047-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
 Patch0048: 0048-Current-Rebase-status.patch
 Patch0049: 0049-FIPS-KDF-key-lenght-errors.patch
 Patch0050: 0050-FIPS-fix-disallowed-digests-tests.patch
+Patch0051: 0051-Make-openssl-speed-run-in-FIPS-mode.patch
+Patch0052: 0052-Backport-upstream-27483-for-PKCS11-needs.patch
+Patch0053: 0053-Red-Hat-9-FIPS-indicator-defines.patch
+Patch0054: 0054-crypto-disable-OSSL_PARAM_REAL-on-UEFI.patch
+Patch0055: 0055-hashfunc-add-stddef.h-include.patch
+Patch0056: 0056-rio-add-RIO_POLL_METHOD_NONE.patch
+Patch0057: 0057-apps-x509.c-Fix-the-addreject-option-adding-trust-in.patch
+%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
+Patch0058: 0058-Allow-hybrid-MLKEM-in-FIPS-mode.patch
+%endif
+
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -462,6 +473,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jun 05 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-5
+- Sync patches from RHEL
+
 * Thu Apr 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.5.0-4
 - Disable -devel-engine on RHEL 10+
 

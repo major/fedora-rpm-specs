@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python API data from openuv.io
 
 License:        MIT
@@ -43,6 +43,9 @@ sed -i -e '/asynctest/d' pyproject.toml
 %doc AUTHORS.md README.md
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 2.0.0-16
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -99,10 +99,6 @@ install -d '%{buildroot}%{_mandir}/man1'
 # than a real problem.
 k="${k-}${k+ and }not test_main_designspace_v5_builds_STAT"
 
-# Regression with cattrs 25: test_main_build_from_custom_ufo_structure[json]
-# https://github.com/googlefonts/fontmake/issues/1147
-k="${k-}${k+ and }not test_main_build_from_custom_ufo_structure[json]"
-
 %if %{without autohint}
 k="${k-}${k+ and }not test_autohinting"
 %endif

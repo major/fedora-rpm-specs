@@ -1,6 +1,6 @@
 Name:           pcmanfm-qt
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -106,6 +106,9 @@ done
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Thu Jun 05 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+
 * Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-2
 - Fix setting to background in LXQt sessions
 - Clean up spec formatting and changelog

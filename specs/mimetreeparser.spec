@@ -1,5 +1,5 @@
 Name:    mimetreeparser
-Version: 25.04.1
+Version: 25.04.2
 Release: 1%{?dist}
 Summary: Parser for MIME trees
 
@@ -75,6 +75,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

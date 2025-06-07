@@ -2,13 +2,9 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.2
+Version:        19.2.1
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
-
-# Disable arch due to several test failures of
-# CTestGameWorld and Sql/* in %check
-ExcludeArch: s390x
 
 #
 # CC-BY-SA
@@ -181,6 +177,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jun 04 2025 Packit <hello@packit.dev> - 19.2.1-1
+- Update to version 19.2.1
+- Resolves: rhbz#2370349
+- Re-enable s390x again after the fix of upstream issue #10218
+
 * Mon May 12 2025 Packit <hello@packit.dev> - 19.2-1
 - Update to version 19.2
 - Resolves: rhbz#2363940

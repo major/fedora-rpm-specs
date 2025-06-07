@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
-Version:      2.1.1
-Release:      6%{?dist}
+Version:      2.2.0
+Release:      1%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -135,6 +135,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Thu Jun 05 2025 Shawn W, Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+ 
 * Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-6
 - Ensure the Wayland session is installed
 

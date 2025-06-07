@@ -2,7 +2,7 @@
 %global sys_name nwg_panel
 
 Name:       nwg-panel
-Version:    0.10.3
+Version:    0.10.5
 %forgemeta
 Release:    %autorelease
 Summary:    GTK3-based panel for sway and Hyprland Wayland compositors

@@ -39,7 +39,7 @@ the purposes of CI/CD tasks.
 Name:       %srcname
 Summary:    %sum - client tooling
 Version:    5.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -374,6 +374,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 5.9-2
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Pavel Raiskup <praiskup@redhat.com> - 5.9-1
 - New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.9
 

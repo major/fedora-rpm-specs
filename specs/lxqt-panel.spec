@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.1.4
-Release:       3%{?dist}
+Version:       2.2.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -127,6 +127,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Sat May 17 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.1-1
+- 2.2.1
+
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+
 * Fri Jan 24 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.1.4-3
 - Add patch to handle unknown compositors
 

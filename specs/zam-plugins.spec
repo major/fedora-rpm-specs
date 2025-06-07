@@ -1,84 +1,109 @@
-%global gittag 4.4
-%global dpf DPF
-
-# Disable lto
-%define _lto_cflags %{nil}
-
 # DPF git submodule
-%global commit1 f60444f27480383005d488d82c834529fa1440f6
-%global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
+%global dpf_commit f60444f27480383005d488d82c834529fa1440f6
+%global dpf_shortcommit %(c=%{dpf_commit}; echo ${c:0:7})
+%global dpf_date 20250517
 
 # pugl git submodule
-%global commit2 d4d964f129b4bf999c53ba40381bd1095fafb649
-%global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
+%global pugl_commit d4d964f129b4bf999c53ba40381bd1095fafb649
+%global pugl_shortcommit %(c=%{pugl_commit}; echo ${c:0:7})
+%global pugl_date 20250208
 
 Name:           zam-plugins
-Version:        %{gittag}
-Release:        1%{?dist}
-Summary:        A collection of LV2/LADSPA/JACK audio plugins
+Version:        4.4
+Release:        %autorelease
+Summary:        A collection of audio plugins for LV2, LADSPA, JACK, CLAP, VST3
 
 # Automatically converted from old format: GPLv2+ and ISC - review is highly recommended.
 License:        GPL-2.0-or-later AND ISC
 URL:            http://www.zamaudio.com/
-Source0:        https://github.com/zamaudio/%{name}/archive/%{gittag}/%{name}-%{version}.tar.gz
-Source1:        https://github.com/DISTRHO/DPF/archive/%{commit1}/%{dpf}-%{shortcommit1}.tar.gz
-Source2:        https://github.com/DISTRHO/pugl/archive/%{commit2}/pugl-%{shortcommit2}.tar.gz
+Source0:        https://github.com/zamaudio/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/DISTRHO/DPF/archive/%{dpf_commit}/DPF-%{dpf_shortcommit}.tar.gz
+Source2:        https://github.com/DISTRHO/pugl/archive/%{pugl_commit}/pugl-%{pugl_shortcommit}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  make
-BuildRequires:  jack-audio-connection-kit-devel
-BuildRequires:  libX11-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  liblo-devel
-BuildRequires:  lv2-devel >= 1.8.1
 BuildRequires:  ladspa-devel
-BuildRequires:  fftw-devel >= 3.3.5
-BuildRequires:  libsamplerate-devel
+BuildRequires:  make
+BuildRequires:  pkgconfig(jack)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(liblo)
+BuildRequires:  pkgconfig(lv2) >= 1.8.1
+BuildRequires:  pkgconfig(fftw3f) >= 3.3.5
+BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  zita-convolver-devel >= 4.0.0
 
+Provides:       bundled(dpf) = 0~git%{dpf_date}.%{dpf_shortcommit}
+Provides:       bundled(pugl) = 0~git%{pugl_date}.%{pugl_shortcommit}
+
 %package -n lv2-zam-plugins
-Summary:        A collection of LV2/LADSPA/JACK audio plugins. LV2 version
-Requires:       lv2 >= 1.8.1
+Summary:        A collection of LV2 audio plugins
 
 %package -n ladspa-zam-plugins
-Summary:        A collection of LV2/LADSPA/JACK audio plugins. LADSPA version
-Requires:       ladspa
+Summary:        A collection of LADSPA audio plugins
+
+%package -n clap-zam-plugins
+Summary:        A collection of CLAP audio plugins
+
+%package -n vst3-zam-plugins
+Summary:        A collection of VST3 audio plugins
 
 %description
-zam-plugins is a collection of LV2/LADSPA/VST/JACK audio plugins
+This is a collection of LV2/LADSPA/VST/JACK audio plugins
 for sound processing developed in-house at ZamAudio.
+
+This package contains the standalone JACK programs.
 
 %description -n lv2-zam-plugins
-zam-plugins is a collection of LV2/LADSPA/VST/JACK audio plugins
-for sound processing developed in-house at ZamAudio.
-This is the LV2 version.
+This is a collection of LV2 audio plugins for sound processing developed
+in-house at ZamAudio.
 
 %description -n ladspa-zam-plugins
-zam-plugins is a collection of LV2/LADSPA/VST/JACK audio plugins
-for sound processing developed in-house at ZamAudio.
-This is the LADSPA version.
+This is a collection of LADSPA audio plugins for sound processing
+developed in-house at ZamAudio.
+
+%description -n clap-zam-plugins
+This is a collection of CLAP audio plugins for sound processing
+developed in-house at ZamAudio.
+
+%description -n vst3-zam-plugins
+This is a collection of VST3 audio plugins for sound processing
+developed in-house at ZamAudio.
 
 %prep
 %setup -q -a 1
 %setup -q -T -D -a 2
+
 # Move submodule DPF to main source directory
 rmdir dpf
-mv %{dpf}-%{commit1} dpf
+mv DPF-%{dpf_commit} dpf
+
 # Move submodule pugl to main source directory
 rmdir dpf/dgl/src/pugl-upstream
-mv pugl-%{commit2} dpf/dgl/src/pugl-upstream
+mv pugl-%{pugl_commit} dpf/dgl/src/pugl-upstream
+
+# Remove bundled zita-convolver, we want to use the packaged copy
+rm -rf lib/zita-convolver*
 
 %build
 %set_build_flags
-%make_build VERBOSE=true PREFIX=%{_prefix} LIBDIR=%{_lib} USE_SYSTEM_LIBS=1 SKIP_STRIPPING=true
+
+%global common_make_flags \\\
+    VERBOSE=true \\\
+    PREFIX="%{_prefix}" \\\
+    LIBDIR="%{_lib}" \\\
+    SKIP_STRIPPING=true \\\
+    HAVE_ZITA_CONVOLVER=true
+
+%make_build %common_make_flags
 
 %install
-%make_install VERBOSE=true PREFIX=%{_prefix} LIBDIR=%{_lib} USE_SYSTEM_LIBS=1
-# We don't need VST and for the moment CLAP
-rm -rf %{buildroot}%{_libdir}/vst %{buildroot}%{_libdir}/vst3 %{buildroot}%{_libdir}/clap
-# Remove executable bit from .ttl files
-chmod -x %{buildroot}%{_libdir}/lv2/*.lv2/*.ttl
+%make_install %common_make_flags
+
+# We don't need VST but the Makefiles make it hard to skip building
+rm -rf %{buildroot}%{_libdir}/vst
+
+chmod +x %{buildroot}%{_libdir}/*/{,*/}/*.so
 
 %files
 %{_bindir}/*
@@ -86,94 +111,28 @@ chmod -x %{buildroot}%{_libdir}/lv2/*.lv2/*.ttl
 %doc README.md
 
 %files -n lv2-zam-plugins
+%dir %{_libdir}/lv2
 %{_libdir}/lv2/*
 %license COPYING
 %doc README.md
 
 %files -n ladspa-zam-plugins
+%dir %{_libdir}/ladspa
 %{_libdir}/ladspa/*
 %license COPYING
 %doc README.md
 
+%files -n clap-zam-plugins
+%dir %{_libdir}/clap
+%{_libdir}/clap/*
+%license COPYING
+%doc README.md
+
+%files -n vst3-zam-plugins
+%dir %{_libdir}/vst3
+%{_libdir}/vst3/*
+%license COPYING
+%doc README.md
+
 %changelog
-* Tue Jun 03 2025 Guido Aulisi <guido.aulisi@gmail.com> - 4.4-1
-- Version 4.4
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Oct 05 2024 Guido Aulisi <guido.aulisi@inps.it> - 4.3-1
-- Version 4.3
-
-* Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 4.2-4
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 20 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.2-1
-- Version 4.2
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 21 11:03:20 CET 2020 Guido Aulisi <guido.aulisi@gmail.com> - 3.14-1
-- Version 3.14
-- Add BR make
-
-* Wed Aug 05 2020 Guido Aulisi <guido.aulisi@gmail.com> - 3.13-2
-- Fix FTBFS on f33
-- Disable lto
-- Some spec cleanup
-
-* Fri Jul 31 2020 Guido Aulisi <guido.aulisi@gmail.com> - 3.13-1
-- Version 3.13
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Dec 20 2019 Guido Aulisi <guido.aulisi@gmail.com> - 3.12-1
-- Version 3.12
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jun 13 2019 Guido Aulisi <guido.aulisi@gmail.com> - 3.11-1
-- Version 3.11
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue May 15 2018 Guido Aulisi <guido.aulisi@gmail.com> - 3.10-3
-- Escape macros in changelog
-
-* Sun May 13 2018 Guido Aulisi <guido.aulisi@gmail.com> - 3.10-2
-- Use set_build_flags macro
-- Document Patch0
-
-* Wed May 9 2018 Guido Aulisi <guido.aulisi@gmail.com> - 3.10-1
-- Version 3.10
+%autochangelog

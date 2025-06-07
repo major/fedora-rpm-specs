@@ -1,7 +1,7 @@
-%global version_l10n 1.5.2070
+%global version_l10n 1.5.2073
 
 Name:           psi-plus
-Version:        1.5.2072
+Version:        1.5.2081
 Release:        %autorelease
 Epoch:          1
 
@@ -22,18 +22,19 @@ Source1:        https://github.com/%{name}/%{name}-l10n/archive/%{version_l10n}/
 ExcludeArch: %{ix86}
 %endif
 
-BuildRequires:  cmake(Qca-qt5)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5XmlPatterns)
+BuildRequires:  cmake(Qca-qt6)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
 
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -63,8 +64,8 @@ Requires:       %{name}-common = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-plugins%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 Requires:       hicolor-icon-theme
-Requires:       qca-qt5-gnupg%{?_isa}
-Requires:       qca-qt5-ossl%{?_isa}
+Requires:       qca-qt6-gnupg%{?_isa}
+Requires:       qca-qt6-ossl%{?_isa}
 
 Provides:       bundled(http-parser) = 2.9.4
 Provides:       bundled(iris) = 0~git
@@ -84,7 +85,6 @@ that slow your computer down. The Jabber protocol provides gateways to other
 protocols as AIM, ICQ, MSN and Yahoo!.
 
 %package common
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Common assets for %{name}
 BuildArch:      noarch
@@ -99,9 +99,7 @@ This package contains architecture-agnostic common assets (language packs,
 icons, themes, skins, etc.) for %{name}.
 
 %package plugins
-# GPLv2+ is used for the most plugins.
-# BSD - screenshot plugin.
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later
 Summary:        Additional plugins for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -141,6 +139,7 @@ rm -rf iris/src/jdns
     -DUSE_ENCHANT:BOOL=OFF \
     -DUSE_HUNSPELL:BOOL=ON \
     -DUSE_KEYCHAIN:BOOL=ON \
+    -DUSE_QT6:BOOL=ON \
     -DUSE_X11:BOOL=ON \
     -DUSE_XSS:BOOL=ON
 %cmake_build

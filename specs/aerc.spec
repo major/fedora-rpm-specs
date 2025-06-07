@@ -29,6 +29,9 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
+Patch0:         open-only-use-part-basename-for-temp-file.patch
+Patch1:         open-fix-opening-text-html-messages.patch
+
 BuildRequires:  desktop-file-utils
 # wrap and colorize filters are written in C
 BuildRequires:  gcc

@@ -1,14 +1,8 @@
 %bcond blender 1
 %bcond skimage 1
-# To be dropped for Fedora 43: https://github.com/trimesh/openctm/issues/5
-%bcond openctm %[ %{defined fc41} || %{defined fc42} ]
-
-# Not yet packaged: https://pypi.org/project/pymeshlab/
-# Enables some additional integration tests.
-%bcond pymeshlab 0
 
 Name:           python-trimesh
-Version:        4.6.10
+Version:        4.6.11
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -44,30 +38,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
-
-# Test dependencies from the test and test_more extras; we list these manually
-# because so many are unavailable or are unwanted under
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-# and would have to be patched out – it is easier to list what we *do* want.
-#
-# test extra:
-#   pytest-cov: linters/coverage/etc.
-BuildRequires:  %{py3_dist pytest}
-#   pyinstrument: not packaged; see “stub” workaround in %%prep
-#   ruff: linters/coverage/etc.
-#
-# test_more extra:
-#   coveralls: linters/coverage/etc.
-#   pyright: linters/coverage/etc.
-BuildRequires:  %{py3_dist ezdxf}
-#   pytest-beartype: linters/coverage/etc.
-BuildRequires:  %{py3_dist matplotlib}
-%if %{with pymeshlab}
-BuildRequires:  %{py3_dist pymeshlab}
-%endif
-#   triangle: nonfree license
-BuildRequires:  %{py3_dist ipython}
-#   marimo: not packaged
 
 # Run tests in parallel:
 BuildRequires:  %{py3_dist pytest-xdist}
@@ -153,8 +123,8 @@ Recommends:     /usr/bin/openscad
 %description -n python3-trimesh %{_description}
 
 
-# We skip packaging the “deprecated” extra in F40 to avoid having to Obsolete
-# it in F41, where the version of gmsh is too new.
+# We skip packaging the “deprecated” extra, in part because it would require an
+# old version of gmsh. We therefore cannot package the “all” extra, either.
 %pyproject_extras_subpkg -n python3-trimesh -a easy
 # Note that the "recommend" extra does have an arch-dependent dependency.
 %pyproject_extras_subpkg -n python3-trimesh recommend
@@ -211,42 +181,59 @@ Profiling output would be here if pyinstrument were available.
 EOF
 
 # Patch out unavailable dependencies from extras:
-#
+
+# easy extra:
 #   embreex: not packaged, https://github.com/mikedh/embreeX; this would
 #            require version 2.x of embree, which was once available in a
 #            compat package (https://src.fedoraproject.org/rpms/embree2) but
 #            was retired; the current version was 4.x.
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.easy' '(embreex|manifold3d)\b.*'
+
+# recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
 tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.easy' '(embreex|manifold3d|xatlas)\b.*'
+    'project.optional-dependencies.recommend' 'pyglet\b.*'
+%if %{without skimage}
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.recommend' 'scikit-image\b.*'
+%endif
 %ifarch s390x
 # The python-cascadio package is currently ExcludeArch: s390x
 # python-cascadio: Tests for cascadio fail on s390x, wrong endianness
 # https://bugzilla.redhat.com/show_bug.cgi?id=2298452
 tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' \
-    '(cascadio)\b.*'
+    'project.optional-dependencies.recommend' 'cascadio\b.*'
 %endif
+
+# test extra:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#   pytest-cov: linters/coverage/etc.
+#   pyinstrument: not packaged; see “stub” workaround in %%prep
+#   ruff: linters/coverage/etc.
+tomcli set pyproject.toml lists delitem \
+    'project.optional-dependencies.test' '(pytest-cov|pyinstrument|ruff)\b.*'
+
+# test_more extra:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#   coveralls: linters/coverage/etc.
+#   pyright: linters/coverage/etc.
 #   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
-#           (Currently commented out upstream)
+#   pytest-beartype: linters/coverage/etc.
+#   pymeshlab: not yet packaged
+#   triangle: nonfree license
+#   marimo: not yet packaged
 tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' '(xatlas|pyglet)\b.*'
-%if %{without skimage}
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' 'scikit-image\b.*'
-%endif
-%if %{without openctm}
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' 'openctm\b.*'
-%endif
+    'project.optional-dependencies.test_more' \
+    '(coveralls|pyright|xatlas|pytest-beartype|pymeshlab|triangle|marimo)\b.*'
 
 
 %generate_buildrequires
 # With v4, [all] = [easy,recommend,test,test_more,deprecated].
-%pyproject_buildrequires -x easy,recommend
+%pyproject_buildrequires -x easy,recommend,test,test_more
 
 
 %build

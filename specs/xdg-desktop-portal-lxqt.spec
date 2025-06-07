@@ -1,6 +1,6 @@
 Name:          xdg-desktop-portal-lxqt
-Version:       1.1.0
-Release:       3%{?dist}
+Version:       1.2.0
+Release:       1%{?dist}
 Summary:       A backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt
 License:       LGPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -46,6 +46,9 @@ Requires:      libfm-qt-qt6
 %{_libexecdir}/xdg-desktop-portal-lxqt
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.2.0-1
+- 1.2.0
+
 * Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 1.1.0-3
 - Rebuild (qt6)
 

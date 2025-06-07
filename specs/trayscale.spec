@@ -9,7 +9,7 @@
 
 # https://github.com/DeedleFake/trayscale
 %global goipath         github.com/DeedleFake/trayscale
-Version:                0.14.1
+Version:                0.18.0
 
 %if 0%{?rhel}
 %gometa
@@ -24,7 +24,7 @@ An unofficial GUI wrapper around the Tailscale CLI client.}
 %global godocs          README.md
 
 Name:           trayscale
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An unofficial GUI wrapper around the Tailscale CLI client
 
 # main source code is MIT
@@ -192,6 +192,7 @@ rm -rf vendor/
 
 
 %build
+export LDFLAGS="-X 'github.com/DeedleFake/trayscale/version=%{version}'"
 %gobuild -o trayscale ./cmd/trayscale
 
 
@@ -229,6 +230,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 
 
 %changelog
+* Thu Jun 05 2025 Jonathan Wright <jonathan@almalinux.org> - 0.18.0-1
+- update to 0.18.0 rhbz#2345463
+
+* Fri Feb 21 2025 Jonathan Wright <jonathan@almalinux.org> - 0.14.1-3
+- Fix version output on About page
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

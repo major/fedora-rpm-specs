@@ -1,6 +1,6 @@
 %global major 6
 %global minor 0
-%global patchlevel 1
+%global patchlevel 3
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
@@ -19,17 +19,18 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 5%{?dist}
+Release: 1%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 Patch1: gnuplot-4.2.0-fonts.patch
-Patch4: gnuplot-4.6.4-singlethread.patch
+# Fix out of tree parallel builds
+# https://sourceforge.net/p/gnuplot/gnuplot-main/merge-requests/32/
+Patch2: gnuplot-make.patch
 Patch5: gnuplot-5.0.0-lua_checkint.patch
 Patch7: gnuplot-5.2.2-doc.patch
-Patch9: gnuplot-config.patch
 
 Requires: %{name}-common = %{version}-%{release}
 Requires: dejavu-sans-fonts
@@ -138,10 +139,9 @@ plotting tool.
 %prep
 %setup -q
 %patch -P1 -p1 -b .font
-%patch -P4 -p1 -b .isinglethread
+%patch -P2 -p1 -b .make
 %patch -P5 -p1 -b .checkint
 %patch -P7 -p1 -b .doc
-%patch -P9 -p1 -b .config
 sed -i -e 's:"/usr/lib/X11/app-defaults":"%{x11_app_defaults_dir}":' src/gplt_x11.c
 chmod 644 src/getcolor.h
 chmod 644 demo/html/webify.pl
@@ -313,6 +313,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Wed Jun 04 2025 Orion Poplawski <orion@nwra.com> - 6.0.3-1
+- Update to 6.0.3 (rhbz#2321514)
+
 * Wed Mar 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.1-5
 - Fix build with GCC 15 (fedora#2340249)
 

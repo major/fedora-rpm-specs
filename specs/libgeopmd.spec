@@ -35,6 +35,7 @@ BuildRequires:	liburing-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	systemd-devel
 BuildRequires:	zlib-ng-compat-devel
+Requires:	abseil-cpp
 
 %description
 %{desc}

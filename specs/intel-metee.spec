@@ -1,9 +1,9 @@
 %global upstream_name metee
 
 Name:		intel-metee
-Version:	3.2.4
+Version:	5.0.0
 Release:	%autorelease
-Summary:	Intel ME TEE Library
+Summary:	Cross-platform access library for Intel CSME HECI interface
 
 # Most of the source code is Apache-2.0, with the following exceptions:
 # src/linux/include/linux/mei.h: (GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause
@@ -13,39 +13,43 @@ License:	Apache-2.0 AND BSD-3-Clause AND ((GPL-2.0-only WITH Linux-syscall-note)
 URL:		https://github.com/intel/metee
 Source0:	%url/archive/%{version}/%{upstream_name}-%{version}.tar.gz
 
-# https://github.com/intel/metee/pull/5
-Patch0:		disable_html_timestamp.patch
-
-BuildRequires:	cmake >= 3.1
-BuildRequires:	gcc-c++
-BuildRequires:	doxygen
+BuildRequires:  cmake
+BuildRequires:  gcc gcc-c++
+BuildRequires:  doxygen
 
 # Upstream only supports x86_64
 ExclusiveArch:	x86_64
 
 %description
 Cross-platform access library for Intel CSME HECI interface.
+ME TEE Library is a C library to access CSE/CSME/GSC firmware via an mei
+interface.
 
-%package devel
+%package	devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description devel
+%description	devel
 The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
+ME TEE Library is a C library to access CSE/CSME/GSC firmware via a mei
+interface.
 
-%package doc
+%package	doc
 Summary:	Documentation files for %{name}
 BuildArch:	noarch
-
-%description doc
+%description	doc
 The %{name}-doc package contains documentation files for %{name}.
+ME TEE Library is a C library to access CSE/CSME/GSC firmware via a mei
+interface.
 
 %prep
 %autosetup -p1 -n %{upstream_name}-%{version}
 
 %build
-%cmake
+%cmake \
+   -DCMAKE_BUILD_TYPE=Release \
+   -DBUILD_SHARED_LIBS=ON \
+   -DBUILD_DOCS=YES
 %cmake_build
 
 %install
@@ -59,13 +63,12 @@ The %{name}-doc package contains documentation files for %{name}.
 %files devel
 %{_includedir}/%{upstream_name}.h
 %{_libdir}/lib%{upstream_name}.so
-%{_mandir}/man3/_TEEHANDLE.3.gz
-%{_mandir}/man3/%{upstream_name}.h.3.gz
-%{_mandir}/man3/teeDriverVersion_t.3.gz
+%{_mandir}/man3/*
 
 %files doc
 %license COPYING
 %{_docdir}/%{upstream_name}
+
 
 %changelog
 %autochangelog

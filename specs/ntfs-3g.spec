@@ -8,13 +8,21 @@
 Name:           ntfs-3g
 Epoch:          2
 Version:        2022.10.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Linux NTFS userspace driver
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.tuxera.com/company/open-source/
 Source0:        http://tuxera.com/opensource/%{name}_ntfsprogs-%{version}%{?subver}.tgz
 Patch0:         ntfs-3g_ntfsprogs-2011.10.9-RC-ntfsck-unsupported-return-0.patch
+# Upstream seems mostly gone, but there are some patches merged after 2022.10.3
+Patch1:		https://github.com/tuxera/ntfs-3g/commit/e73d481a76a5814076ff78a1c3a70e9b7da7c0e9.patch
+Patch2:		https://github.com/tuxera/ntfs-3g/commit/01b9bddc0c2165baa46abe7562550ef4e8c2752b.patch
+Patch3:		https://github.com/tuxera/ntfs-3g/commit/241ddb38605b6b298174e6f1019e8e2502a45558.patch
+Patch4:		https://github.com/tuxera/ntfs-3g/commit/1565b01e215c74e5c5f83f3ecde1ed682637dc5a.patch
+Patch5:		https://github.com/tuxera/ntfs-3g/commit/233658e5a1599e40bbd8211e64bb98a12751b1ea.patch
+Patch6:		https://github.com/tuxera/ntfs-3g/commit/75dcdc2cf37478fad6c0e3427403d198b554951d.patch
+
 BuildRequires:  make
 # ntfs-3g BuildRequires
 BuildRequires:  gnutls-devel
@@ -192,6 +200,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Thu Jun  5 2025 Tom Callaway <spot@fedoraproject.org> - 2:2022.10.3-9
+- apply upstream fixes committed after 2022.10.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2022.10.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

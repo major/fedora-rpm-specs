@@ -4,8 +4,8 @@
 # since git does not support tilde in tag name. On the other side, Fedora and
 # RHEL requires tilde as a separator to correctly order builds.
 # For example: 2.10.0-beta1 vs 2.10.0~beta1
-%global upstream_version 2.10.2
-%global downstream_version %(echo "2.10.2" | sed 's/-/~/g')
+%global upstream_version 2.11.0
+%global downstream_version %(echo "2.11.0" | sed 's/-/~/g')
 
 # define SSSD user
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -45,10 +45,10 @@
 %global build_passkey 0
 %endif
 
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
-%global build_ssh_known_hosts_proxy 0
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 10
+%global build_idp 1
 %else
-%global build_ssh_known_hosts_proxy 1
+%global build_idp 0
 %endif
 
 # we don't want to provide private python extension libs
@@ -60,11 +60,11 @@
 %global ldb_modulesdir %(pkg-config --variable=modulesdir ldb)
 %global ldb_version 1.2.0
 
-%global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
+%global samba_package_version %(rpm -q samba-devel --queryformat %{version})
 
 Name: sssd
 Version: %{downstream_version}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -72,7 +72,6 @@ Source0: %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: sssd.sysusers
 
 ### Patches ###
-Patch0001: 0001-configure-Require-valgrind-devel-when-valgrind-is-en.patch
 
 ### Dependencies ###
 
@@ -609,7 +608,6 @@ autoreconf -ivf
     --with-conf-service-user-support \
     --with-files-provider \
     --with-extended-enumeration-support \
-    --with-ssh-known-hosts-proxy \
     --with-allow-remote-domain-local-groups \
 %endif
 %if %{build_subid}
@@ -621,8 +619,8 @@ autoreconf -ivf
 %if %{build_passkey}
     --with-passkey \
 %endif
-%if %{build_ssh_known_hosts_proxy}
-    --with-ssh-known-hosts-proxy \
+%if ! %{build_idp}
+    --with-id-provider-idp=no \
 %endif
     %{nil}
 
@@ -867,9 +865,6 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 %{_datadir}/sssd/cfg_rules.ini
 %{_mandir}/man1/sss_ssh_authorizedkeys.1*
 %{_mandir}/man1/sss_ssh_knownhosts.1*
-%if %{build_ssh_known_hosts_proxy}
-%{_mandir}/man1/sss_ssh_knownhostsproxy.1*
-%endif
 %{_mandir}/man5/sssd.conf.5*
 %if 0%{?rhel} == 9
 %{_mandir}/man5/sssd-files.5*
@@ -911,14 +906,14 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 %attr(775,%{sssd_user},%{sssd_user}) %dir %{pubconfpath}/krb5.include.d
 %attr(0750,root,%{sssd_user}) %caps(cap_dac_read_search=p) %{_libexecdir}/%{servicename}/ldap_child
 %attr(0750,root,%{sssd_user}) %caps(cap_dac_read_search,cap_setuid,cap_setgid=p) %{_libexecdir}/%{servicename}/krb5_child
+%config(noreplace) %{_sysconfdir}/krb5.conf.d/enable_sssd_conf_dir
+%dir %{_datadir}/sssd/krb5-snippets
+%{_datadir}/sssd/krb5-snippets/enable_sssd_conf_dir
 
 %files krb5 -f sssd_krb5.lang
 %license COPYING
 %{_libdir}/%{name}/libsss_krb5.so
 %{_mandir}/man5/sssd-krb5.5*
-%config(noreplace) %{_sysconfdir}/krb5.conf.d/enable_sssd_conf_dir
-%dir %{_datadir}/sssd/krb5-snippets
-%{_datadir}/sssd/krb5-snippets/enable_sssd_conf_dir
 
 %files common-pac
 %license COPYING
@@ -1090,6 +1085,10 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 %{_mandir}/man8/sssd-kcm.8*
 
 %files idp
+%if %{build_idp}
+%{_libdir}/%{name}/libsss_idp.so
+%{_mandir}/man5/sssd-idp.5*
+%endif
 %{_libexecdir}/%{servicename}/oidc_child
 %{_libdir}/%{name}/modules/sssd_krb5_idp_plugin.so
 %{_datadir}/sssd/krb5-snippets/sssd_enable_idp
@@ -1108,7 +1107,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 
 %if %{use_sssd_user}
 %pre common
-! getent passwd sssd >/dev/null || usermod sssd -d /run/sssd >/dev/null || true
+! getent passwd sssd >/dev/null || usermod sssd -d /run/sssd >/dev/null 2>&1 || true
 %if %{use_sysusers}
 %sysusers_create_compat %{SOURCE1}
 %else
@@ -1129,6 +1128,7 @@ getent passwd sssd >/dev/null || useradd -r -g sssd -d /run/sssd -s /sbin/nologi
 %__rm -f %{mcpath}/group
 %__rm -f %{mcpath}/initgroups
 %__rm -f %{mcpath}/sid
+%__rm -f %{pubconfpath}/known_hosts
 %__chown -f -R root:%{sssd_user} %{_sysconfdir}/sssd || true
 %__chmod -f -R g+r %{_sysconfdir}/sssd || true
 %__chown -f %{sssd_user}:%{sssd_user} %{dbpath}/* || true
@@ -1196,6 +1196,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Jun 05 2025 Pavel Březina <pbrezina@redhat.com> - 2.11.0-1
+- Rebase to SSSD 2.11.0
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.10.2-4
 - Rebuilt for Python 3.14
 

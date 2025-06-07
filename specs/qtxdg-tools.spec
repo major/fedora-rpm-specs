@@ -1,7 +1,7 @@
 Name:    qtxdg-tools
 Summary: User tools for libqtxdg
-Version: 4.1.0
-Release: 3%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -30,6 +30,9 @@ BuildRequires: gcc-c++
 %{_datadir}/cmake/qtxdg-tools/
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 4.2.0-1
+- 4.2.0
+
 * Wed Jan 22 2025 Steve Cossette <farchord@gmail.com> - 4.1.0-3
 - Rebuild for Qt update
 

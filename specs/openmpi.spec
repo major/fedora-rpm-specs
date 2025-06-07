@@ -54,10 +54,10 @@
 %bcond_without pmix
 
 # Run autogen - needed for some patches
-%bcond autogen 1
+%bcond autogen 0
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.6
+Version:        5.0.8
 Release:        %autorelease
 Summary:        Open Message Passing Interface
 # Automatically converted from old format: BSD and MIT and Romio - review is highly recommended.
@@ -72,8 +72,7 @@ Source2:        openmpi.pth.py2
 Source3:        openmpi.pth.py3
 Source4:        macros.openmpi
 
-# Fix JAVA_HOME search
-Patch:          https://github.com/open-mpi/ompi/pull/13117.patch
+Patch0:         https://github.com/open-mpi/ompi/pull/13281.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -330,10 +329,6 @@ install -pDm0644 %{SOURCE3} %{buildroot}/%{python3_sitearch}/openmpi.pth
 
 %check
 fail=1
-# Failing on s390x - https://github.com/open-mpi/ompi/issues/10988
-%ifarch s390x
-fail=0
-%endif
 make check || ( cat test/*/test-suite.log && exit $fail )
 
 %files

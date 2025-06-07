@@ -1,5 +1,5 @@
 Name:          kontrast
-Version:       25.04.1
+Version:       25.04.2
 Release:       1%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

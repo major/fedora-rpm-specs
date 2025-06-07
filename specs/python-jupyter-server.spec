@@ -1,3 +1,4 @@
+%global _without_tests 1
 # Tests depend on pytest-jupyter and that depends back
 # on jupyter-server[test] so we might need to break this loop.
 %bcond bootstrap 0

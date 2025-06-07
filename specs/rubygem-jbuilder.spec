@@ -2,8 +2,8 @@
 %global gem_name jbuilder
 
 Name: rubygem-%{gem_name}
-Version: 2.11.5
-Release: 8%{?dist}
+Version: 2.13.0
+Release: 1%{?dist}
 Summary: Create JSON structures via a Builder-style DSL
 License: MIT
 URL: https://github.com/rails/jbuilder
@@ -64,16 +64,21 @@ popd
 
 %files doc
 %doc %{gem_docdir}
+%{gem_instdir}/Appraisals
 %doc %{gem_instdir}/CONTRIBUTING.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
-%{gem_instdir}/%{gem_name}.gemspec
+%{gem_instdir}/bin
+%{gem_instdir}/jbuilder.gemspec
 %{gem_instdir}/test
 %{gem_instdir}/gemfiles
-%{gem_instdir}/Appraisals
 
 %changelog
+* Thu Jun 05 2025 Vít Ondruch <vondruch@redhat.com> - 2.13.0-1
+- Update Jbuilder 2.13.0.
+  Resolves: rhbz#2277659
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

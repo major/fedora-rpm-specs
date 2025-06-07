@@ -1,3 +1,4 @@
+%global _without_check 1
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)

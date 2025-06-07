@@ -1,6 +1,6 @@
 Name:           massif-visualizer
 Summary:        Visualizer for Massif heap memory profiler data files
-Version:        25.04.1
+Version:        25.04.2
 Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://apps.kde.org/massif_visualizer/
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python library for Flo by Moen Smart Water Detectors
 
 License:        MIT
@@ -47,6 +47,9 @@ An asyncio-friendly Python library for Flo Smart Water Detectors.
 %doc AUTHORS.md README.md
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.4.2-17
+- Rebuilt for Python 3.14
+
 * Tue Apr 01 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.4.2-16
 - Disable failing test (closes rhbz#2341124)
 

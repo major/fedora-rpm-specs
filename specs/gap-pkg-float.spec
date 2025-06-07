@@ -14,6 +14,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds
 Patch:          %{name}-atexit.patch
+# Disambiguate the name "complex"
+Patch:          %{name}-complex.patch
 
 BuildRequires:  cxsc-devel
 BuildRequires:  gap-devel

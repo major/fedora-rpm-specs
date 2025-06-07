@@ -38,12 +38,19 @@ authorized as soon as they are connected.  A command line tool, called
 boltctl, can be used to control the daemon and perform all the above
 mentioned tasks.
 
+%package tests
+Summary: Test files for bolt
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description tests
+Test files for bolt
+
 %prep
 %autosetup -p1
 
 %build
 sed -i "s/WatchdogSec=3min/#WatchdogSec=3min/g" data/bolt.service.in
-%meson -Ddb-name=boltd
+%meson -Ddb-name=boltd -Dinstall-tests=true
 %meson_build
 
 %check
@@ -76,6 +83,9 @@ sed -i "s/WatchdogSec=3min/#WatchdogSec=3min/g" data/bolt.service.in
 %{_mandir}/man1/boltctl.1*
 %{_mandir}/man8/boltd.8*
 %ghost %dir %{_localstatedir}/lib/boltd
+
+%files tests
+%{_libexecdir}/installed-tests/bolt
 
 %changelog
 %autochangelog

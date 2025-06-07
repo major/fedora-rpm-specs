@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.12
+%global general_version %{pybasever}.13
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -330,21 +330,6 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # allows us to properly apply CFLAGS exported by the build system
 # even when cross-compiling.
 Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
-
-# 00458 # ee47b2530c18d1e0b414f5a0738ddce28e7510f4
-# test_ssl: Don't stop ThreadedEchoServer on OSError in ConnectionHandler
-#
-# If `read()` in the ConnectionHandler thread raises `OSError` (except `ConnectionError`),
-# the ConnectionHandler shuts down the entire ThreadedEchoServer,
-# preventing further connections.
-# It also does that for `EPROTOTYPE` in `wrap_conn`.
-#
-# Make sure that the context manager *is* used, and remove the `server.stop()`
-# calls from ConnectionHandler.
-#
-# Backported from 3.12+:
-# https://github.com/python/cpython/pull/126503
-Patch458: 00458-test_ssl-don-t-stop-threadedechoserver-on-oserror-in-connectionhandler.patch
 
 # 00462 # c9db492d8924b2d1a0991e36f3c2b4f9c2ec8942
 # Fix PySSL_SetError handling SSL_ERROR_SYSCALL
@@ -1674,6 +1659,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.13-1
+- Update to 3.11.13
+
 * Tue May 13 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.12-3
 - Fix PySSL_SetError handling SSL_ERROR_SYSCALL
 - This fixes random flakiness of test_ssl on stressed machines

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        332
+Version:        333
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -68,7 +68,7 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.27.1
+Provides: bundled(npm(@babel/runtime)) = 7.27.4
 Provides: bundled(npm(@emotion/is-prop-valid)) = 0.7.3
 Provides: bundled(npm(@emotion/memoize)) = 0.7.1
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
@@ -153,6 +153,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jun 04 2025 Packit <hello@packit.dev> - 333-1
+- Virtual network interfaces can now select source mode
+- Bug fixes and translation updates
+
 * Wed May 21 2025 Packit <hello@packit.dev> - 332-1
 - The "shareable" attribute of disks is no longer modified by Cockpit
 - Bug fixes and translation updates

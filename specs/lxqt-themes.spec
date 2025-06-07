@@ -1,6 +1,6 @@
 Name:           lxqt-themes
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        LXQt standard themes
 
 License:        LGPL-2.0-or-later
@@ -74,7 +74,7 @@ Requires: fedora-logos
 %doc AUTHORS CHANGELOG README.md
 %{_datadir}/lxqt/graphics
 %dir %{_datadir}/lxqt/themes
-%{_datadir}/lxqt/themes/{ambiance,dark,frost,kde-plasma,light,system,Clearlooks,Leech,kvantum,silver,Arch-Colors,KDE-Plasma,Valendas}
+%{_datadir}/lxqt/themes/{ambiance,dark,frost,kde-plasma,light,system,Clearlooks,Leech,kvantum,silver,Arch-Colors,KDE-Plasma,Valendas,graphite}
 %{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_datadir}/lxqt/palettes
 %{_datadir}/lxqt/wallpapers
@@ -85,6 +85,9 @@ Requires: fedora-logos
 #%%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

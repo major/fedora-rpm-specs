@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -77,6 +77,9 @@ sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
 
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 4.5.0-2
+- Rebuilt for Python 3.14
+
 * Tue Apr 29 2025 Harald Jensas <hjensas@redhat.com> - 4.5.0-1
 - Update to 4.5.0 (fixes #2296411)
 

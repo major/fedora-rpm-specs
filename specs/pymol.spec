@@ -2,14 +2,13 @@ Name: pymol
 Summary: PyMOL Molecular Graphics System
 Version: 3.1.0
 Release: %autorelease
-Obsoletes: pymol < 0:3.1.0-5
 
 # Which files use following license:
 # BSD: main license of open source PyMOL and some plugins
 # MIT: modules/pymol_web/examples/sample13/jquery.js
 # Bitstream Vera: layer1/FontTTF.h
 # OFL: layer1/FontTTF2.h
-License: License: MIT-0 AND BSD-2-Clause AND BSD-3-Clause AND Bitstream-Vera AND OFL-1.1
+License: MIT-0 AND BSD-2-Clause AND BSD-3-Clause AND Bitstream-Vera AND OFL-1.1
 URL: http://www.pymol.org
 Source0: https://github.com/schrodinger/pymol-open-source/archive/v%{version}/%{name}-open-source-%{version}.tar.gz
 Source1: %{name}.png
@@ -23,6 +22,7 @@ Patch3: %{name}-mmtf.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+BuildRequires: fdupes
 BuildRequires: freetype-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -99,7 +99,9 @@ echo "export PYMOL_PATH=%{python3_sitearch}/%{name}" >> %{name}
 echo "exec %{__python3} %{python3_sitearch}/%{name}/__init__.py \"\$@\"" >> %{name}
 
 # rhbz#2369728
-ln -sfr %{python3_sitearch}/%{name}/pymol_path/data %{buildroot}%{python3_sitearch}/%{name}/data
+cp -av %{buildroot}%{python3_sitearch}/%{name}/pymol_path/data %{buildroot}%{python3_sitearch}/%{name}/data
+# Remove duplicated files
+%fdupes -s %{buildroot}%{python3_sitearch}/%{name}
 #
 
 mkdir -p %{buildroot}%{_bindir}

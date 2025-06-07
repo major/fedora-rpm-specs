@@ -1,5 +1,5 @@
 Name:    libkcompactdisc 
-Version: 25.04.1
+Version: 25.04.2
 Release: 1%{?dist}
 Summary: A KDE compact disc library
 
@@ -72,6 +72,9 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

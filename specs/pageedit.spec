@@ -1,5 +1,5 @@
 Name:           pageedit
-Version:        2.4.0
+Version:        2.5.0
 Release:        1%{?dist}
 Summary:        ePub visual XHTML editor
 
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jun 04 2025 Dan Horák <dan[at]danny.cz> - 2.5.0-1
+- updated to 2.5.0 (rhbz#2370260)
+
 * Thu May 22 2025 Dan Horák <dan[at]danny.cz> - 2.4.0-1
 - updated to 2.4.0
 - switched to Qt6

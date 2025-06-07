@@ -1,5 +1,5 @@
 Name:           kio-admin
-Version:        25.04.1
+Version:        25.04.2
 Release:        1%{?dist}
 Summary:        Manage files as administrator using the admin:// KIO protocol
 License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and FSFAP
@@ -56,6 +56,9 @@ operations in root-scope.
 %{_kf6_datadir}/polkit-1/actions/org.kde.kio.admin.policy
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

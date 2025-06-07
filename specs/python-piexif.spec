@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pure Python library to simplify exif manipulations with python
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's|unittest.makeSuite|unittest.defaultTestLoader.loadTestsFromTestCase|' 
 %doc README.rst
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 1.1.3-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

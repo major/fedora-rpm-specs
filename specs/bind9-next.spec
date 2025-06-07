@@ -55,7 +55,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.21.3
+Version:  9.21.8
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -93,6 +93,9 @@ Source49: named-chroot.files
 Patch1: bind-9.16-redhat_doc.patch
 # Downstream only. TODO: find a cause and remove this workaround
 Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
+# avoid often fails on i386, unsupported upstream
+Patch4: bind-9.21-unittest-qpdb-i386.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -128,6 +131,9 @@ BuildRequires:  openssl-devel-engine
 BuildRequires:  libcmocka-devel
 # Ensure we have lscpu
 BuildRequires:  util-linux
+# Catch failing unittests coredumps
+BuildRequires:  gdb
+BuildRequires:  xz
 %endif
 %if %{with UNITTEST} || %{with SYSTEMTEST}
 BuildRequires:  softhsm
@@ -139,6 +145,7 @@ BuildRequires:  perl(English)
 BuildRequires:  python3-pytest
 # manual configuration requires this tool
 BuildRequires:  iproute
+BuildRequires:  python3-jinja2
 %if %{with SUDO}
 BuildRequires:  libcap sudo
 %endif
@@ -353,6 +360,13 @@ configure.ac
 sed -e 's/-W\s//' -i Makefile.docs
 %endif
 
+%if %{with UNITTEST}
+if grep 'Intel(R) Xeon(R) CPU E5-2670 v3' /proc/cpuinfo; then
+  echo "Detected builder troubling unit tests, skiping some"
+  # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
+  sed -i -e 's/\sqpdb_test//' tests/dns/Makefile.am
+fi
+%endif
 autoreconf --force --install
 
 mkdir build
@@ -422,6 +436,7 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
   pushd build
   CPUS=$(lscpu -p=cpu,core | grep -v '^#' | wc -l)
   THREADS="$CPUS"
+  COREPATTERN="$(cat /proc/sys/kernel/core_pattern)"
 %if %{without UNITTEST_ALL}
   export CI=true
 %endif
@@ -430,12 +445,24 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
     THREADS=16
     ulimit -n 8092 || : # Requires on some machines with many cores
   fi
+  echo "core.%%P" > /proc/sys/kernel/core_pattern || :
   e=0
   %make_build unit -j${THREADS} || e=$?
   # Display details of failure
   cat tests/*/test-suite.log
+
+  echo "$COREPATTERN" > /proc/sys/kernel/core_pattern || :
   if [ "$e" -ne 0 ]; then
     echo "ERROR: this build of BIND failed 'make unit'. Aborting."
+    for CORE in $(find -name 'core.*'); do
+      echo "# Found core: $CORE"
+      gdb --batch -ex 'bt full' -c "$CORE"
+      echo
+      xz -k "$CORE"
+      echo "# core base64 begin: $CORE"
+      base64 "$CORE.xz"
+      echo "# core base64 end: $CORE"
+    done
     exit $e;
   fi;
   [ "$CPUS" -gt 16 ] && ulimit -n $ORIGFILES || :

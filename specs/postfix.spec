@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.10.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -84,7 +84,7 @@ Source6: postfix.sysusers
 
 # Sources 50-99 are upstream [patch] contributions
 
-%define pflogsumm_ver 1.1.5
+%define pflogsumm_ver 1.1.6
 
 # Postfix Log Entry Summarizer: http://jimsun.linxnet.com/postfix_contrib.html
 Source53: http://jimsun.linxnet.com/downloads/pflogsumm-%{pflogsumm_ver}.tar.gz
@@ -96,17 +96,14 @@ Source101: postfix-pam.conf
 
 # Patches
 
-Patch1: postfix-3.8.0-config.patch
+Patch1: postfix-3.10.2-config.patch
 Patch2: postfix-3.9.0-files.patch
 Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
 Patch4: postfix-3.8.0-large-fs.patch
-Patch9: pflogsumm-1.1.5-datecalc.patch
-# rhbz#1384871, sent upstream
-Patch10: pflogsumm-1.1.5-ipv6-warnings-fix.patch
-Patch11: postfix-3.4.4-chroot-example-fix.patch
 # rhbz#1931403, sent upstream
-Patch13: pflogsumm-1.1.5-syslog-name-underscore-fix.patch
+Patch9: pflogsumm-1.1.6-syslog-name-underscore-fix.patch
+Patch11: postfix-3.4.4-chroot-example-fix.patch
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 Patch14: postfix-3.9.0-openssl-no-engine.patch
 
@@ -274,12 +271,10 @@ src/global/mail_params.h
 %if %{with pflogsumm}
 gzip -dc %{SOURCE53} | tar xf -
 pushd pflogsumm-%{pflogsumm_ver}
-%patch -P9 -p1 -b .datecalc
-%patch -P10 -p1 -b .ipv6-warnings-fix
+%patch -P9 -p1 -b .pflogsumm-1.1.6-syslog-name-underscore-fix
 popd
 %endif
 %patch -P11 -p1 -b .chroot-example-fix
-%patch -P13 -p1 -b .pflogsumm-1.1.5-syslog-name-underscore-fix
 %patch -P14 -p1 -b .openssl-no-engine
 
 # Backport 3.8-20221006 fix for uname -r detection
@@ -474,7 +469,7 @@ find $RPM_BUILD_ROOT%{postfix_doc_dir} -type d | xargs chmod 755
 %if %{with pflogsumm}
 install -c -m 644 pflogsumm-%{pflogsumm_ver}/pflogsumm-faq.txt $RPM_BUILD_ROOT%{postfix_doc_dir}/pflogsumm-faq.txt
 install -c -m 644 pflogsumm-%{pflogsumm_ver}/pflogsumm.1 $RPM_BUILD_ROOT%{_mandir}/man1/pflogsumm.1
-install -c pflogsumm-%{pflogsumm_ver}/pflogsumm.pl $RPM_BUILD_ROOT%{postfix_command_dir}/pflogsumm
+install -c pflogsumm-%{pflogsumm_ver}/pflogsumm $RPM_BUILD_ROOT%{postfix_command_dir}/pflogsumm
 %endif
 
 # install qshape
@@ -854,6 +849,10 @@ fi
 %endif
 
 %changelog
+* Thu Jun  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.2-3
+- Updated pflogsumm to 1.1.6
+  Resolves: rhbz#2368396
+
 * Thu May 08 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:3.10.2-2
 - Make sure the /usr/sbin/sendmail symlink is created on unmerged systems
   Resolves: rhbz#2360491

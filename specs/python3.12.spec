@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.10
+%global general_version %{pybasever}.11
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -1723,6 +1723,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.11-1
+- Update to 3.12.11
+
 * Fri May 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.10-4
 - Fix PySSL_SetError handling SSL_ERROR_SYSCALL
 - This fixes random flakiness of test_ssl on stressed machines

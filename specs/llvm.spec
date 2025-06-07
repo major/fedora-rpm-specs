@@ -2294,20 +2294,22 @@ export LIT_XFAIL="$LIT_XFAIL;api_tests/test_ompd_get_thread_handle.c"
 unset LIT_XFAIL
 %endif
 
-%if %{maj_ver} < 21
 # The following test is flaky and we'll filter it out
-test_list_filter_out+=("libomp :: ompt/teams/distribute_dispatch.c")
 test_list_filter_out+=("libomp :: affinity/kmp-abs-hw-subset.c")
-test_list_filter_out+=("libomp :: parallel/bug63197.c")
-test_list_filter_out+=("libomp :: tasking/issue-69733.c")
-test_list_filter_out+=("libarcher :: races/task-taskgroup-unrelated.c")
-test_list_filter_out+=("libarcher :: races/task-taskwait-nested.c")
+test_list_filter_out+=("libomp :: ompt/teams/distribute_dispatch.c")
 
 # These tests fail more often than not, but not always.
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_GELTGT_int.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_GTGEGT_int.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_LTLEGE_int.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_one_int.c")
+
+%if %{maj_ver} < 21
+# The following test is flaky and we'll filter it out
+test_list_filter_out+=("libomp :: parallel/bug63197.c")
+test_list_filter_out+=("libomp :: tasking/issue-69733.c")
+test_list_filter_out+=("libarcher :: races/task-taskgroup-unrelated.c")
+test_list_filter_out+=("libarcher :: races/task-taskwait-nested.c")
 
 # The following tests have been failing intermittently.
 # Issue upstream: https://github.com/llvm/llvm-project/issues/127796
@@ -2437,9 +2439,8 @@ adjust_lit_filter_out test_list_filter_out
 # We don't know if 4 is the right number to use here we just
 # need to start with some number.
 # Once https://github.com/llvm/llvm-project/pull/142413 landed
-# we can add --show-attempts-count in order to see the exact
-# number of attempts the tests needed to pass. And then we can
-# adapt this number.
+# we can see the exact number of attempts the tests needed
+# to pass. And then we can adapt this number.
 export LIT_OPTS="$LIT_OPTS --max-retries-per-test=4"
 %endif
 

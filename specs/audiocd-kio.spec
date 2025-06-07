@@ -1,7 +1,7 @@
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 25.04.1
-Release: 2%{?dist}
+Version: 25.04.2
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -136,6 +136,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 25.04.1-2
 - Rebuilt for flac 1.5.0
 

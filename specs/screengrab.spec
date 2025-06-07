@@ -1,6 +1,6 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
-Version:        2.9.0
+Version:        3.0.0
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
@@ -10,18 +10,22 @@ BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-BuildRequires:  cmake(Qt6Network)
-BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(LayerShellQt)
+BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(qt6xdg)
 
 BuildRequires:  cmake(KF6WindowSystem)
 
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libpng16)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-shape)
 BuildRequires:  pkgconfig(xcb-xfixes)
-BuildRequires:  pkgconfig(glib-2.0)
 
 BuildRequires:  perl
 
@@ -61,6 +65,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Sat May 17 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 3.0.0-1
+- 3.0.0
+
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.10.0-1
+- 2.10.0
+
 * Wed Dec 18 2024 Steve Cossette <farchord@gmail.com> - 2.9.0-1
 - Revival; bump to 2.9.0
 

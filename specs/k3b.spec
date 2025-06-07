@@ -4,8 +4,8 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 25.04.1
-Release: 2%{?dist}
+Version: 25.04.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/multimedia/k3b
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.2-1
+- 25.04.2
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:25.04.1-2
 - Rebuilt for flac 1.5.0
 

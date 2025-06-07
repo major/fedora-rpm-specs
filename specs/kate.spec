@@ -6,7 +6,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 25.04.1
+Version: 25.04.2
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -180,6 +180,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

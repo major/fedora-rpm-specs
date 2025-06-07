@@ -1,6 +1,6 @@
 Name:		qtermwidget
-Version:	2.1.0
-Release:	2%{?dist}
+Version:	2.2.0
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 Summary:	Qt6 terminal widget
 URL:		https://github.com/lxqt/%{name}/
@@ -83,6 +83,9 @@ EOF
 %dir %{_datadir}/qtermwidget6/translations
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

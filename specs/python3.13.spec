@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.3
+%global general_version %{pybasever}.4
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -57,30 +57,32 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 25.0.1
+%global pip_version 25.1.1
 %global setuptools_version 67.6.1
 %global wheel_version 0.43.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14.1
-Provides: bundled(python3dist(certifi)) = 2024.8.30
+Provides: bundled(python3dist(cachecontrol)) = 0.14.2
+Provides: bundled(python3dist(certifi)) = 2025.1.31
+Provides: bundled(python3dist(dependency-groups)) = 1.3.1
 Provides: bundled(python3dist(distlib)) = 0.3.9
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.10
 Provides: bundled(python3dist(msgpack)) = 1.1
-Provides: bundled(python3dist(packaging)) = 24.2
-Provides: bundled(python3dist(platformdirs)) = 4.3.6
-Provides: bundled(python3dist(pygments)) = 2.18
+Provides: bundled(python3dist(packaging)) = 25
+Provides: bundled(python3dist(platformdirs)) = 4.3.7
+Provides: bundled(python3dist(pygments)) = 2.19.1
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
 Provides: bundled(python3dist(requests)) = 2.32.3
-Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.9.4
+Provides: bundled(python3dist(resolvelib)) = 1.1
+Provides: bundled(python3dist(rich)) = 14
 Provides: bundled(python3dist(setuptools)) = 70.3
 Provides: bundled(python3dist(tomli)) = 2.2.1
-Provides: bundled(python3dist(truststore)) = 0.10
-Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(tomli-w)) = 1.2
+Provides: bundled(python3dist(truststore)) = 0.10.1
+Provides: bundled(python3dist(typing-extensions)) = 4.13.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
@@ -280,11 +282,6 @@ BuildRequires: gcc-c++
 BuildRequires: gdb
 BuildRequires: glibc-all-langpacks
 BuildRequires: tzdata
-
-# Perf support is only available on x86_64 and aarch64 right now
-%ifarch x86_64 aarch64
-BuildRequires: perf
-%endif
 %endif
 
 %if %{with jit}
@@ -363,29 +360,7 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00454 # 1d5d7e9ce724fbbd89645d637303d12731c2a622
-# Invoke regen-token rst with rstfile as an argument
-#
-# Proposed upstream: https://github.com/python/cpython/pull/132304
-Patch454: 00454-invoke-regen-token-rst-with-rstfile-as-an-argument.patch
-
-# 00456 # 8f50cf7170e39c02d52cb5f99d647eeefad2f685
-# Find the correct group name in test_group_no_follow_symlinks
-#
-# Proposed upstream: https://github.com/python/cpython/pull/132357
-Patch456: 00456-find-the-correct-group-name-in-test_group_no_follow_symlinks.patch
-
-# 00459 # 9cf6fed17de184d2e17ace2b5063e782e7e186ba
-# Apply Intel Control-flow Technology for x86-64
-#
-# Required for mitigation against return-oriented programming (ROP) and Call or Jump Oriented Programming (COP/JOP) attacks
-#
-# Proposed upstream: https://github.com/python/cpython/pull/128606
-#
-# See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
-Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
-
-# 00460 # f876c748b89770cfee4148c3dd3acbc3dd527eb6
+# 00460 # c0bff2b6359f503d3fc72bdba9f07a25519a4cdd
 # gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
 #
 # (actual changes in .whl files removed to make this patch smaller)
@@ -1750,6 +1725,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.4-1
+- Update to 3.13.4
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.13.3-4
 - Rebuilt as non-main Python on Fedora 43
 

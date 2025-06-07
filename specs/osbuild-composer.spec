@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        141
+Version:        142
 
 %gometa
 
@@ -697,6 +697,17 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed May 28 2025 Packit <hello@packit.dev> - 142-1
+Changes with 142
+----------------
+  * Update snapshots to 20250515 (#4724)
+    * Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * templates/packer: set wanted-by to cloud-init.target (#4723)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal, Ondřej Budai
+
+— Somewhere on the Internet, 2025-05-28
+
+
 * Wed May 14 2025 Packit <hello@packit.dev> - 141-1
 Changes with 141
 ----------------

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        65
+Version:        68
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,43 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed May 28 2025 Packit <hello@packit.dev> - 68-1
+Changes with 68
+----------------
+  * API: update api (#3245)
+    * Author: Lucas Garfield, Reviewers: Nobody
+  * Add el10 releases (#3238)
+    * Author: Sanne Raymaekers, Reviewers: Lucas Garfield
+  * LandingPage: Add Users to `NewAlert` (#3237)
+    * Author: Klara Simickova, Reviewers: Simon Steinbeiß
+  * Satellite: Add instructions for obtaining certificate + token expiration info (#3224)
+    * Author: Anna Vítová, Reviewers: Klara Simickova
+  * Update Konflux references (#3250)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * Wizard: Fix vertical height bug (#3234)
+    * Author: Lucas Garfield, Reviewers: Klara Simickova, Simon Steinbeiß
+  * Wizard: encode satellite cmd properly (#3221)
+    * Author: Lukáš Zapletal, Reviewers: Anna Vítová
+  * Wizard: fix blueprints showing incorrect template versions (#3271)
+    * Author: Bryttanie, Reviewers: Klara Simickova
+  * Wizard: fix token not having expiration fails (#3244)
+    * Author: Anna Vítová, Reviewers: Klara Simickova
+  * build(deps-dev): bump @babel/preset-env from 7.27.1 to 7.27.2 (#3241)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build: add testing proxy to playwright CI (#3257)
+    * Author: Dominik Vágner, Reviewers: Klara Simickova
+  * devDeps: Manually bump @currents/playwright to 1.13.2 (HMS-8600) (#3260)
+    * Author: Klara Simickova, Reviewers: Tomáš Koscielniak
+  * src: Fix user groups validation on import (HMS-6279) (#3215)
+    * Author: Klara Simickova, Reviewers: Anna Vítová
+  * support fedora 42 (HMS-6153) (#3205)
+    * Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  * tsconfig: Specify `include` (HMS-8601) (#3209)
+    * Author: Klara Simickova, Reviewers: Anna Vítová
+
+— Somewhere on the Internet, 2025-05-28
+
 
 * Wed Apr 16 2025 Packit <hello@packit.dev> - 65-1
 Changes with 65

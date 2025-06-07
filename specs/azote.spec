@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.15.0
+Version:   1.16.0
 Release:   %autorelease
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs

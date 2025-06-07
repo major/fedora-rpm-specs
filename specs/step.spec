@@ -1,6 +1,6 @@
 Name:    step
 Summary: Interactive Physics Simulator 
-Version: 25.04.1
+Version: 25.04.2
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -62,7 +62,7 @@ rm -fv %{buildroot}%{_kf6_datadir}/locale/*/LC_SCRIPTS/step/*.js
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 

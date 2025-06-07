@@ -1,10 +1,11 @@
+%global _without_tests 1
 # Don't have sphinx-sitemaps for now...
 %bcond_with docs
 %bcond_without tests
 
 Name:           python-deepdiff
 Version:        8.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -113,6 +114,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 8.5.0-2
+- Bootstrap for Python 3.14
+
 * Sat May 10 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.5.0-1
 - Update to 8.5.0 (rhbz#2365409).
 

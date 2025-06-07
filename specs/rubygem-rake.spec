@@ -1,12 +1,12 @@
 # Generated from rake-0.7.3.gem by gem2rpm -*- rpm-spec -*-
-%global	majorver	13.2.1
+%global	majorver	13.3.0
 #%%global	preminorver	.beta.5
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
 %global	gem_name	rake
 
-%global	baserelease	202
+%global	baserelease	100
 
 Summary:	Rake is a Make-like program implemented in Ruby
 Name:		rubygem-%{gem_name}
@@ -120,6 +120,9 @@ popd
 %doc %{gem_instdir}/*.rdoc
 
 %changelog
+* Thu Jun 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 13.3.0-100
+- 13.3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.2.1-202
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

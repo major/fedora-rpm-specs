@@ -1,5 +1,5 @@
 Name:           novelwriter
-Version:        2.6.3
+Version:        2.7
 Release:        %autorelease
 Summary:        Plain text editor designed for writing novels
 
@@ -7,8 +7,6 @@ Summary:        Plain text editor designed for writing novels
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0 
 URL:            https://novelwriter.io/
 Source:         https://github.com/vkbo/novelwriter/archive/v%{version}/novelwriter-%{version}.tar.gz
-# https://github.com/vkbo/novelWriter/issues/907
-Patch:          doctheme.patch
 
 BuildArch:      noarch
 BuildRequires:  adobe-source-sans-pro-fonts
@@ -20,8 +18,8 @@ BuildRequires:  hunspell-devel
 BuildRequires:  libreoffice
 BuildRequires:  python3-enchant
 BuildRequires:  python3-zlib-ng
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  python3-devel
 
 BuildRequires: libappstream-glib
@@ -34,9 +32,10 @@ BuildRequires:  python3dist(pytest-xvfb)
 # Documentation requirements
 BuildRequires:  python3dist(docutils)
 BuildRequires:  python3dist(sphinx)
-# Use lv_2 instead instead of book-theme
-BuildRequires:  python3-sphinx_lv2_theme
-BuildRequires:  python3dist(sphinx-intl)
+# Generate DocBook for internal documentation
+BuildRequires:  python3-sphinx-design
+BuildRequires:  python3-sphinx-copybutton
+BuildRequires:  texinfo
 # Needed for directory ownership
 Requires:       hicolor-icon-theme
 
@@ -59,22 +58,15 @@ Summary: Documentation for novelWriter
 BuildArch:  noarch
 
 %description doc
-Documentation for novelWriter in HTML format.  The sphinx-_lv2_theme is used
-because it does not contain javascript.  The original theme used is
-sphinx-book-theme.
+Documentation for novelWriter in docbook format. 
 
 %prep
 %autosetup -n novelWriter-%{version} -p1
 # https://github.com/vkbo/novelWriter/issues/2276
 sed -i 's/self.spellLanguage = "en"/self.spellLanguage = "en_US"/g' novelwriter/config.py
 sed -i 's/spellcheck = en/spellcheck = en_US/g' tests/reference/baseConfig_novelwriter.conf
-# Use Fedora specific variant for qt5
-sed -i 's/"lrelease"/"lrelease-qt5"/g' pkgutils.py
-# Remove pregenerated pdf files
-rm docs/source/fileformatspec15.pdf
-rm novelwriter/assets/manual_fr_FR.pdf
-# Ensure zip files are compressed
-sed -i 's/dstSample, "w"/dstSample, mode="w", compression=zipfile.ZIP_DEFLATED, compresslevel=9/g' pkgutils.py
+# Use Fedora specific variant for qt6
+sed -i 's/"lrelease"/"lrelease-qt6"/g' utils/assets.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -86,14 +78,10 @@ sed -i 's/dstSample, "w"/dstSample, mode="w", compression=zipfile.ZIP_DEFLATED, 
 %python3 pkgutils.py sample
 # Build documentation
 pushd docs
-sphinx-build source html -b html
-# Convert file format specification to html
-soffice --convert-to odt --outdir . FileFormatSpec-1.5.fodt
-soffice --convert-to html --outdir html FileFormatSpec-1.5.odt
-
-# remove build uneeded artifacts
-rm -rf html/.buildinfo
-rm -rf html/.doctrees
+sphinx-build source texinfo -b texinfo
+pushd texinfo
+makeinfo --docbook novelwriter.texi
+popd
 popd
 # Build package
 %pyproject_wheel
@@ -108,6 +96,13 @@ mkdir -p %{buildroot}%{_metainfodir}/
 install -m644 setup/novelwriter.appdata.xml %{buildroot}%{_metainfodir}/
 mkdir -p %{buildroot}%{_datadir}/icons
 cp -r -p setup/data/hicolor %{buildroot}%{_datadir}/icons/
+install -pDm0644 docs/texinfo/novelwriter.xml \
+  %{buildroot}%{_datadir}/help/en/novelwriter/novelwriter.xml
+for file in docs/texinfo/novelwriter-figures/*.*
+do
+  install -pDm0644 $file \
+  %{buildroot}%{_datadir}/help/en/novelwriter/novelwriter-figures/$(basename $file)
+done
 
 %find_lang nw --with-qt
 
@@ -150,7 +145,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/novelwriter.ap
 
 %files doc
 %license LICENSE.md
-%doc docs/html
+%dir  %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/novelwriter
 
 %changelog
 %autochangelog

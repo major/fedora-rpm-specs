@@ -9,7 +9,7 @@
 
 # https://github.com/tailscale/tailscale
 %global goipath         github.com/tailscale/tailscale
-Version:                1.78.3
+Version:                1.84.1
 
 %if 0%{?rhel}
 %gometa
@@ -39,7 +39,9 @@ Requires:          iptables
 # BSD-3-Clause
 Provides:       bundled(golang(filippo.io/mkcert)) = v1.4.4
 # Apache-2.0
-Provides:       bundled(golang(fyne.io/systray)) = v1.11.0
+Provides:       bundled(golang(fyne.io/systray)) = v1.11.1~0.20250317195939~bcf6eed85e7a
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/Kodeworks/golang-image-ico)) = v0.0.0~20141118225523~73f0f4cfade9
 # Apache-2.0
 Provides:       bundled(golang(github.com/akutz/memconn)) = v0.1.0
 # BSD-3-Clause
@@ -51,13 +53,13 @@ Provides:       bundled(golang(github.com/anmitsu/go-shlex)) = v0.0.0~2020051411
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/atotto/clipboard)) = v0.1.4
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2)) = v1.24.1
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2)) = v1.36.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = v1.26.5
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = v1.29.5
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = v1.11.64
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = v1.17.58
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = v1.33.0
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = v1.75.3
 # Apache-2.0
 Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssm)) = v1.44.7
 # MPL-2.0
@@ -68,14 +70,12 @@ Provides:       bundled(golang(github.com/cilium/ebpf)) = v0.15.0
 Provides:       bundled(golang(github.com/coder/websocket)) = v1.8.12
 # Apache-2.0
 Provides:       bundled(golang(github.com/coreos/go-iptables)) = v0.7.1~0.20240112124308~65c67c9f46e6
-#
+# Apache-2.0
 Provides:       bundled(golang(github.com/coreos/go-systemd)) = v0.0.0~20191104093116~d3cd4ed1dbcf
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/creachadair/taskgroup)) = v0.13.2
 # MIT
 Provides:       bundled(golang(github.com/creack/pty)) = v1.1.23
-# MIT
-Provides:       bundled(golang(github.com/dave/courtney)) = v0.4.0
-# MIT
-Provides:       bundled(golang(github.com/dave/patsy)) = v0.0.0~20210517141501~957256f50cba
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/dblohm7/wingoes)) = v0.0.0~20240119213807~a09d6be7affa
 # Apache-2.0
@@ -95,18 +95,20 @@ Provides:       bundled(golang(github.com/fogleman/gg)) = v1.3.0
 # MIT
 Provides:       bundled(golang(github.com/frankban/quicktest)) = v1.14.6
 # MIT
-Provides:       bundled(golang(github.com/fxamacker/cbor/v2)) = v2.6.0
+Provides:       bundled(golang(github.com/fxamacker/cbor/v2)) = v2.7.0
 # MIT
-Provides:       bundled(golang(github.com/gaissmai/bart)) = v0.11.1
-#
-Provides:       bundled(golang(github.com/go-json-experiment/json)) = v0.0.0~20231102232822~2e55bd4e08b0
+Provides:       bundled(golang(github.com/gaissmai/bart)) = v0.18.0
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/go-json-experiment/json)) = v0.0.0~20250223041408~d3c622f1b874
 # Apache-2.0
 Provides:       bundled(golang(github.com/go-logr/zapr)) = v1.3.0
 # MIT
 Provides:       bundled(golang(github.com/go-ole/go-ole)) = v1.3.0
+# 
+Provides:       bundled(golang(github.com/go4org/plan9netshell)) = v0.0.0~20250324183649~788daa080737
 # BSD-2-Clause
 Provides:       bundled(golang(github.com/godbus/dbus/v5)) = v5.1.1~0.20230522191255~76236955d466
-#
+# Apache-2.0
 Provides:       bundled(golang(github.com/golang/groupcache)) = v0.0.0~20210331224755~41bb18bfe9da
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/snappy)) = v0.0.4
@@ -116,6 +118,8 @@ Provides:       bundled(golang(github.com/golangci/golangci-lint)) = v1.57.1
 Provides:       bundled(golang(github.com/google/go-cmp)) = v0.6.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/google/go-containerregistry)) = v0.20.2
+# Apache-2.0
+Provides:       bundled(golang(github.com/google/go-tpm)) = v0.9.4
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/google/gopacket)) = v1.1.19
 # Apache-2.0
@@ -124,18 +128,20 @@ Provides:       bundled(golang(github.com/google/nftables)) = v0.2.1~0.202404140
 Provides:       bundled(golang(github.com/google/uuid)) = v1.6.0
 # MIT
 Provides:       bundled(golang(github.com/goreleaser/nfpm/v2)) = v2.33.1
+# MIT
+Provides:       bundled(golang(github.com/hashicorp/go-hclog)) = v1.6.2
+# MPL-2.0
+Provides:       bundled(golang(github.com/hashicorp/raft)) = v1.7.2
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/hdevalence/ed25519consensus)) = v0.2.0
 # MIT
-Provides:       bundled(golang(github.com/illarion/gonotify/v2)) = v2.0.3
+Provides:       bundled(golang(github.com/illarion/gonotify/v3)) = v3.0.2
 # Apache-2.0
-Provides:       bundled(golang(github.com/inetaf/tcpproxy)) = v0.0.0~20240214030015~3ce58045626c
+Provides:       bundled(golang(github.com/inetaf/tcpproxy)) = v0.0.0~20250203165043~ded522cbd03f
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/insomniacslk/dhcp)) = v0.0.0~20231206064809~8c70d406f6d2
 # MIT
 Provides:       bundled(golang(github.com/jellydator/ttlcache/v3)) = v3.1.0
-# MIT
-Provides:       bundled(golang(github.com/josharian/native)) = v1.1.1~0.20230202152459~5c7d0dd6ab86
 # MIT
 Provides:       bundled(golang(github.com/jsimonetti/rtnetlink)) = v1.4.0
 # MIT
@@ -151,7 +157,7 @@ Provides:       bundled(golang(github.com/mattn/go-isatty)) = v0.0.20
 # MIT
 Provides:       bundled(golang(github.com/mdlayher/genetlink)) = v1.3.2
 # MIT
-Provides:       bundled(golang(github.com/mdlayher/netlink)) = v1.7.2
+Provides:       bundled(golang(github.com/mdlayher/netlink)) = v1.7.3~0.20250113171957~fbb4dce95f42
 # MIT
 Provides:       bundled(golang(github.com/mdlayher/sdnotify)) = v1.0.0
 # BSD-3-Clause
@@ -169,8 +175,8 @@ Provides:       bundled(golang(github.com/prometheus-community/pro-bing)) = v0.4
 # Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/client_golang)) = v1.19.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/common)) = v0.48.0
-#
+Provides:       bundled(golang(github.com/prometheus/common)) = v0.55.0
+# Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/prometheus)) = v0.49.2~0.20240125131847~c3b8ef1694ff
 # Apache-2.0
 Provides:       bundled(golang(github.com/safchain/ethtool)) = v0.3.0
@@ -181,28 +187,30 @@ Provides:       bundled(golang(github.com/studio-b12/gowebdav)) = v0.9.0
 # MIT
 Provides:       bundled(golang(github.com/tailscale/certstore)) = v0.1.1~0.20231202035212~d3fa0460f47e
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/tailscale/depaware)) = v0.0.0~20210622194025~720c4b409502
+Provides:       bundled(golang(github.com/tailscale/depaware)) = v0.0.0~20250112153213~b748de04d81b
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/goexpect)) = v0.0.0~20210902213824~6e8c725cea41
-#
-Provides:       bundled(golang(github.com/tailscale/golang-x-crypto)) = v0.0.0~20240604161659~3fde5e568aa4
+# 
+Provides:       bundled(golang(github.com/tailscale/golang-x-crypto)) = v0.0.0~20250404221719~a5573b049869
 # BSD-2-Clause
 Provides:       bundled(golang(github.com/tailscale/goupnp)) = v1.0.1~0.20210804011211~c64d0f06ea05
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/hujson)) = v0.0.0~20221223112325~20486734a56a
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/tailscale/mkctr)) = v0.0.0~20241111153353~1a38f6676f10
+Provides:       bundled(golang(github.com/tailscale/mkctr)) = v0.0.0~20250228050937~c75ea1476830
 # Apache-2.0
 Provides:       bundled(golang(github.com/tailscale/netlink)) = v1.1.1~0.20240822203006~4d49adab4de7
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/tailscale/peercred)) = v0.0.0~20240214030740~b535050b2aa4
+Provides:       bundled(golang(github.com/tailscale/peercred)) = v0.0.0~20250107143737~35a0c7bd7edc
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/tailscale/web-client-prebuilt)) = v0.0.0~20240226180453~5db17b287bf1
+Provides:       bundled(golang(github.com/tailscale/setec)) = v0.0.0~20250205144240~8898a29c3fbb
+# BSD-3-Clause
+Provides:       bundled(golang(github.com/tailscale/web-client-prebuilt)) = v0.0.0~20250124233751~d4cd19a26976
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/tailscale/wf)) = v0.0.0~20240214030419~6fbb0a674ee6
-#
-Provides:       bundled(golang(github.com/tailscale/wireguard-go)) = v0.0.0~20241113014420~4e883d38c8d3
-#
+# MIT
+Provides:       bundled(golang(github.com/tailscale/wireguard-go)) = v0.0.0~20250304000100~91a0587fb251
+# 
 Provides:       bundled(golang(github.com/tailscale/xnet)) = v0.0.0~20240729143630~8497ac4dab2e
 # 0BSD
 Provides:       bundled(golang(github.com/tc-hib/winres)) = v0.2.1
@@ -211,35 +219,35 @@ Provides:       bundled(golang(github.com/tcnksm/go-httpstat)) = v0.2.0
 # MIT
 Provides:       bundled(golang(github.com/toqueteos/webbrowser)) = v1.2.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/u-root/u-root)) = v0.12.0
+Provides:       bundled(golang(github.com/u-root/u-root)) = v0.14.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/vishvananda/netns)) = v0.0.4
 # MIT
 Provides:       bundled(golang(go.uber.org/zap)) = v1.27.0
 # Apache-2.0
-Provides:       bundled(golang(go4.org/mem)) = v0.0.0~20220726221520~4f986261bf13
+Provides:       bundled(golang(go4.org/mem)) = v0.0.0~20240501181205~ae6ca9944745
 # BSD-3-Clause
 Provides:       bundled(golang(go4.org/netipx)) = v0.0.0~20231129151722~fdeea329fbba
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = v0.25.0
+Provides:       bundled(golang(golang.org/x/crypto)) = v0.37.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/exp)) = v0.0.0~20240119083558~1b970713d09a
+Provides:       bundled(golang(golang.org/x/exp)) = v0.0.0~20250210185358~939b2ce775ac
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/mod)) = v0.19.0
+Provides:       bundled(golang(golang.org/x/mod)) = v0.23.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = v0.27.0
+Provides:       bundled(golang(golang.org/x/net)) = v0.36.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/oauth2)) = v0.16.0
+Provides:       bundled(golang(golang.org/x/oauth2)) = v0.26.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sync)) = v0.9.0
+Provides:       bundled(golang(golang.org/x/sync)) = v0.13.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = v0.27.0
+Provides:       bundled(golang(golang.org/x/sys)) = v0.32.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/term)) = v0.22.0
+Provides:       bundled(golang(golang.org/x/term)) = v0.31.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/time)) = v0.5.0
+Provides:       bundled(golang(golang.org/x/time)) = v0.10.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/tools)) = v0.23.0
+Provides:       bundled(golang(golang.org/x/tools)) = v0.30.0
 # MIT
 Provides:       bundled(golang(golang.zx2c4.com/wintun)) = v0.0.0~20230126152724~0fa3db229ce2
 # MIT
@@ -247,25 +255,27 @@ Provides:       bundled(golang(golang.zx2c4.com/wireguard/windows)) = v0.5.3
 # Apache-2.0
 Provides:       bundled(golang(gopkg.in/square/go-jose.v2)) = v2.6.0
 # Apache-2.0 OR MIT
-Provides:       bundled(golang(gvisor.dev/gvisor)) = v0.0.0~20240722211153~64c016c92987
+Provides:       bundled(golang(gvisor.dev/gvisor)) = v0.0.0~20250205023644~9414b50a5633
 # MIT OR BSD-3-Clause
 Provides:       bundled(golang(honnef.co/go/tools)) = v0.5.1
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/api)) = v0.30.3
+Provides:       bundled(golang(k8s.io/api)) = v0.32.0
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/apimachinery)) = v0.30.3
+Provides:       bundled(golang(k8s.io/apimachinery)) = v0.32.0
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/apiserver)) = v0.30.3
+Provides:       bundled(golang(k8s.io/apiserver)) = v0.32.0
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/client-go)) = v0.30.3
+Provides:       bundled(golang(k8s.io/client-go)) = v0.32.0
 # Apache-2.0
-Provides:       bundled(golang(sigs.k8s.io/controller-runtime)) = v0.18.4
+Provides:       bundled(golang(sigs.k8s.io/controller-runtime)) = v0.19.4
 # Apache-2.0
-Provides:       bundled(golang(sigs.k8s.io/controller-tools)) = v0.15.1~0.20240618033008~7824932b0cab
+Provides:       bundled(golang(sigs.k8s.io/controller-tools)) = v0.17.0
 # MIT OR BSD-3-Clause OR Apache-2.0
 Provides:       bundled(golang(sigs.k8s.io/yaml)) = v1.4.0
-#
+# 
 Provides:       bundled(golang(software.sslmate.com/src/go-pkcs12)) = v0.4.0
+# MIT
+Provides:       bundled(golang(9fans.net/go)) = v0.0.8~0.20250307142834~96bdba94b63f
 # MIT
 Provides:       bundled(golang(github.com/4meepo/tagalign)) = v1.3.3
 # MIT
@@ -282,8 +292,8 @@ Provides:       bundled(golang(github.com/OpenPeeDeeP/depguard/v2)) = v2.2.0
 Provides:       bundled(golang(github.com/alecthomas/go-check-sumtype)) = v0.1.4
 # MIT
 Provides:       bundled(golang(github.com/alexkohler/nakedret/v2)) = v2.0.4
-# BSD-3-Clause
-Provides:       bundled(golang(github.com/bits-and-blooms/bitset)) = v1.13.0
+# MIT
+Provides:       bundled(golang(github.com/armon/go-metrics)) = v0.4.1
 # MIT
 Provides:       bundled(golang(github.com/bombsimon/wsl/v4)) = v4.2.1
 # MIT
@@ -295,11 +305,7 @@ Provides:       bundled(golang(github.com/ccojocar/zxcvbn-go)) = v1.0.2
 # MIT
 Provides:       bundled(golang(github.com/ckaznocha/intrange)) = v0.1.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/cyphar/filepath-securejoin)) = v0.2.4
-# MIT
-Provides:       bundled(golang(github.com/dave/astrid)) = v0.0.0~20170323122508~8c2895878b14
-# MIT
-Provides:       bundled(golang(github.com/dave/brenda)) = v1.1.0
+Provides:       bundled(golang(github.com/cyphar/filepath-securejoin)) = v0.3.6
 # Apache-2.0
 Provides:       bundled(golang(github.com/docker/go-connections)) = v0.5.0
 # Apache-2.0
@@ -310,22 +316,28 @@ Provides:       bundled(golang(github.com/felixge/httpsnoop)) = v1.0.4
 Provides:       bundled(golang(github.com/ghostiam/protogetter)) = v0.3.5
 # Apache-2.0
 Provides:       bundled(golang(github.com/go-logr/stdr)) = v1.2.2
-#
+# MIT
 Provides:       bundled(golang(github.com/go-viper/mapstructure/v2)) = v2.0.0~alpha.1
 # MIT
-Provides:       bundled(golang(github.com/gobuffalo/flect)) = v1.0.2
+Provides:       bundled(golang(github.com/gobuffalo/flect)) = v1.0.3
 # MIT
 Provides:       bundled(golang(github.com/goccy/go-yaml)) = v1.12.0
-#
+# 
 Provides:       bundled(golang(github.com/golang/freetype)) = v0.0.0~20170609003504~e2365dfdc4a0
 # GPL-3.0
 Provides:       bundled(golang(github.com/golangci/plugin-module-register)) = v0.1.1
-#
-Provides:       bundled(golang(github.com/google/gnostic-models)) = v0.6.9~0.20230804172637~c7be7c783f49
 # Apache-2.0
-Provides:       bundled(golang(github.com/google/pprof)) = v0.0.0~20240409012703~83162a5b38cd
+Provides:       bundled(golang(github.com/google/gnostic-models)) = v0.6.9~0.20230804172637~c7be7c783f49
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/gorilla/securecookie)) = v1.1.2
+# MPL-2.0
+Provides:       bundled(golang(github.com/hashicorp/go-immutable-radix)) = v1.3.1
+# MIT
+Provides:       bundled(golang(github.com/hashicorp/go-metrics)) = v0.5.4
+# MIT
+Provides:       bundled(golang(github.com/hashicorp/go-msgpack/v2)) = v2.1.2
+# MPL-2.0
+Provides:       bundled(golang(github.com/hashicorp/golang-lru)) = v0.6.0
 # MIT
 Provides:       bundled(golang(github.com/jjti/go-spancheck)) = v0.5.3
 # MIT
@@ -345,17 +357,21 @@ Provides:       bundled(golang(go-simpler.org/musttag)) = v0.9.0
 # MPL-2.0
 Provides:       bundled(golang(go-simpler.org/sloglint)) = v0.5.0
 # Apache-2.0
-Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.57.0
+Provides:       bundled(golang(go.opentelemetry.io/auto/sdk)) = v1.1.0
 # Apache-2.0
-Provides:       bundled(golang(go.opentelemetry.io/otel)) = v1.32.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.58.0
 # Apache-2.0
-Provides:       bundled(golang(go.opentelemetry.io/otel/metric)) = v1.32.0
+Provides:       bundled(golang(go.opentelemetry.io/otel)) = v1.33.0
 # Apache-2.0
-Provides:       bundled(golang(go.opentelemetry.io/otel/trace)) = v1.32.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/metric)) = v1.33.0
+# Apache-2.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/trace)) = v1.33.0
 # MIT
 Provides:       bundled(golang(go.uber.org/automaxprocs)) = v1.5.3
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/xerrors)) = v0.0.0~20240716161551~93cc26a95ae9
+# BSD-3-Clause
+Provides:       bundled(golang(gopkg.in/evanphx/json-patch.v4)) = v4.12.0
 # MIT
 Provides:       bundled(golang(4d63.com/gocheckcompilerdirectives)) = v1.2.1
 # MIT
@@ -385,7 +401,7 @@ Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = v3.2.1
 # MIT
 Provides:       bundled(golang(github.com/Masterminds/sprig/v3)) = v3.2.3
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/ProtonMail/go-crypto)) = v1.0.0
+Provides:       bundled(golang(github.com/ProtonMail/go-crypto)) = v1.1.3
 # MIT
 Provides:       bundled(golang(github.com/alexkohler/prealloc)) = v1.0.0
 # MIT
@@ -395,35 +411,35 @@ Provides:       bundled(golang(github.com/ashanbrown/forbidigo)) = v1.6.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/ashanbrown/makezero)) = v1.1.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = v1.4.10
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = v1.6.8
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = v1.16.16
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = v1.17.58
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = v1.14.11
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = v1.16.27
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = v1.2.10
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = v1.3.31
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = v2.5.10
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = v2.6.31
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = v1.7.2
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = v1.8.2
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = v1.0.25
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = v1.3.31
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = v1.10.4
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = v1.12.2
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = v1.1.28
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = v1.5.5
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = v1.10.10
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = v1.12.12
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = v1.14.2
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = v1.18.12
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = v1.18.7
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = v1.24.14
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = v1.21.7
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = v1.28.13
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = v1.26.7
+Provides:       bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = v1.33.13
 # Apache-2.0
-Provides:       bundled(golang(github.com/aws/smithy-go)) = v1.19.0
+Provides:       bundled(golang(github.com/aws/smithy-go)) = v1.22.2
 # MIT
 Provides:       bundled(golang(github.com/beorn7/perks)) = v1.0.1
 # MIT
@@ -441,7 +457,7 @@ Provides:       bundled(golang(github.com/butuzov/ireturn)) = v0.3.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/cavaliergopher/cpio)) = v1.0.1
 # MIT
-Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = v2.2.0
+Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = v2.3.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/charithe/durationcheck)) = v0.0.10
 # MIT
@@ -449,7 +465,7 @@ Provides:       bundled(golang(github.com/chavacava/garif)) = v0.1.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/cloudflare/circl)) = v1.3.7
 # Apache-2.0
-Provides:       bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = v0.15.1
+Provides:       bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = v0.16.3
 # MIT
 Provides:       bundled(golang(github.com/curioswitch/go-reassign)) = v0.2.0
 # BSD-3-Clause
@@ -459,11 +475,11 @@ Provides:       bundled(golang(github.com/davecgh/go-spew)) = v1.1.2~0.201808301
 # GPL-3.0
 Provides:       bundled(golang(github.com/denis-tingaikin/go-header)) = v0.5.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/docker/cli)) = v27.3.1+incompatible
+Provides:       bundled(golang(github.com/docker/cli)) = v27.4.1+incompatible
 # Apache-2.0
 Provides:       bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 # Apache-2.0
-Provides:       bundled(golang(github.com/docker/docker)) = v27.3.1+incompatible
+Provides:       bundled(golang(github.com/docker/docker)) = v27.4.1+incompatible
 # MIT
 Provides:       bundled(golang(github.com/docker/docker-credential-helpers)) = v0.8.2
 # MIT
@@ -473,11 +489,9 @@ Provides:       bundled(golang(github.com/emirpasic/gods)) = v1.18.1
 # MIT
 Provides:       bundled(golang(github.com/ettle/strcase)) = v0.2.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/evanphx/json-patch)) = v5.6.0+incompatible
-# BSD-3-Clause
 Provides:       bundled(golang(github.com/evanphx/json-patch/v5)) = v5.9.0
 # MIT
-Provides:       bundled(golang(github.com/fatih/color)) = v1.17.0
+Provides:       bundled(golang(github.com/fatih/color)) = v1.18.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/fatih/structtag)) = v1.2.0
 # GPL-3.0
@@ -491,17 +505,17 @@ Provides:       bundled(golang(github.com/go-critic/go-critic)) = v0.11.2
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/go-git/gcfg)) = v1.5.1~0.20230307220236~3a3c6141e376
 # Apache-2.0
-Provides:       bundled(golang(github.com/go-git/go-billy/v5)) = v5.5.0
+Provides:       bundled(golang(github.com/go-git/go-billy/v5)) = v5.6.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/go-git/go-git/v5)) = v5.11.0
+Provides:       bundled(golang(github.com/go-git/go-git/v5)) = v5.13.1
 # Apache-2.0
 Provides:       bundled(golang(github.com/go-logr/logr)) = v1.4.2
 # Apache-2.0
-Provides:       bundled(golang(github.com/go-openapi/jsonpointer)) = v0.20.2
+Provides:       bundled(golang(github.com/go-openapi/jsonpointer)) = v0.21.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/go-openapi/jsonreference)) = v0.20.4
 # Apache-2.0
-Provides:       bundled(golang(github.com/go-openapi/swag)) = v0.22.7
+Provides:       bundled(golang(github.com/go-openapi/swag)) = v0.23.0
 # MIT
 Provides:       bundled(golang(github.com/go-toolsmith/astcast)) = v1.1.0
 # MIT
@@ -528,7 +542,7 @@ Provides:       bundled(golang(github.com/gogo/protobuf)) = v1.3.2
 Provides:       bundled(golang(github.com/golang/protobuf)) = v1.5.4
 # MIT
 Provides:       bundled(golang(github.com/golangci/dupl)) = v0.0.0~20180902072040~3e9179ac440a
-#
+# 
 Provides:       bundled(golang(github.com/golangci/gofmt)) = v0.0.0~20231018234816~f50ced29576e
 # MIT
 Provides:       bundled(golang(github.com/golangci/misspell)) = v0.4.1
@@ -551,7 +565,7 @@ Provides:       bundled(golang(github.com/goreleaser/chglog)) = v0.5.0
 # MIT
 Provides:       bundled(golang(github.com/goreleaser/fileglob)) = v1.3.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/gorilla/csrf)) = v1.7.2
+Provides:       bundled(golang(github.com/gorilla/csrf)) = v1.7.3
 # MIT
 Provides:       bundled(golang(github.com/gostaticanalysis/analysisutil)) = v0.7.1
 # MIT
@@ -624,7 +638,7 @@ Provides:       bundled(golang(github.com/mailru/easyjson)) = v0.7.7
 Provides:       bundled(golang(github.com/maratori/testableexamples)) = v1.0.0
 # MIT
 Provides:       bundled(golang(github.com/maratori/testpackage)) = v1.1.1
-#
+# MIT
 Provides:       bundled(golang(github.com/matoous/godox)) = v0.0.0~20230222163458~006bad1f9d26
 # MIT
 Provides:       bundled(golang(github.com/mattn/go-runewidth)) = v0.0.14
@@ -670,16 +684,16 @@ Provides:       bundled(golang(github.com/pelletier/go-toml/v2)) = v2.2.0
 Provides:       bundled(golang(github.com/pierrec/lz4/v4)) = v4.1.21
 # Apache-2.0
 Provides:       bundled(golang(github.com/pjbgf/sha1cd)) = v0.3.0
-#
+# BSD-3-Clause
 Provides:       bundled(golang(github.com/pkg/diff)) = v0.0.0~20210226163009~20ebb0f2a09e
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/pmezard/go-difflib)) = v1.0.1~0.20181226105442~5d4384ee4fb2
 # MIT
 Provides:       bundled(golang(github.com/polyfloyd/go-errorlint)) = v1.4.8
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/client_model)) = v0.5.0
+Provides:       bundled(golang(github.com/prometheus/client_model)) = v0.6.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/procfs)) = v0.12.0
+Provides:       bundled(golang(github.com/prometheus/procfs)) = v0.15.1
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/quasilyte/go-ruleguard)) = v0.4.2
 # BSD-3-Clause
@@ -691,7 +705,7 @@ Provides:       bundled(golang(github.com/quasilyte/stdinfo)) = v0.0.0~202201141
 # MIT
 Provides:       bundled(golang(github.com/rivo/uniseg)) = v0.4.4
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/rogpeppe/go-internal)) = v1.12.0
+Provides:       bundled(golang(github.com/rogpeppe/go-internal)) = v1.13.1
 # MIT
 Provides:       bundled(golang(github.com/ryancurrah/gomodguard)) = v1.3.1
 # MIT
@@ -705,7 +719,7 @@ Provides:       bundled(golang(github.com/sashamelentyev/usestdlibvars)) = v1.25
 # Apache-2.0
 Provides:       bundled(golang(github.com/securego/gosec/v2)) = v2.19.0
 # MIT OR Apache-2.0
-Provides:       bundled(golang(github.com/sergi/go-diff)) = v1.3.1
+Provides:       bundled(golang(github.com/sergi/go-diff)) = v1.3.2~0.20230802210424~5b0b94c5c0d3
 # MIT
 Provides:       bundled(golang(github.com/shazow/go-diff)) = v0.0.0~20160112020656~b6b7b6733b8c
 # MIT
@@ -717,7 +731,7 @@ Provides:       bundled(golang(github.com/sivchari/containedctx)) = v1.0.3
 # MIT
 Provides:       bundled(golang(github.com/sivchari/tenv)) = v1.7.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/skeema/knownhosts)) = v1.2.1
+Provides:       bundled(golang(github.com/skeema/knownhosts)) = v1.3.0
 # MIT
 Provides:       bundled(golang(github.com/sonatard/noctx)) = v0.0.2
 # MIT
@@ -741,7 +755,7 @@ Provides:       bundled(golang(github.com/stbenjam/no-sprintf-host-port)) = v0.1
 # MIT
 Provides:       bundled(golang(github.com/stretchr/objx)) = v0.5.2
 # MIT
-Provides:       bundled(golang(github.com/stretchr/testify)) = v1.9.0
+Provides:       bundled(golang(github.com/stretchr/testify)) = v1.10.0
 # MIT
 Provides:       bundled(golang(github.com/subosito/gotenv)) = v1.4.2
 # MIT
@@ -761,7 +775,7 @@ Provides:       bundled(golang(github.com/tomarrell/wrapcheck/v2)) = v2.8.3
 # MIT
 Provides:       bundled(golang(github.com/tommy-muehle/go-mnd/v2)) = v2.5.1
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/u-root/uio)) = v0.0.0~20240118234441~a3c409a6018e
+Provides:       bundled(golang(github.com/u-root/uio)) = v0.0.0~20240224005618~d2acac8f3701
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/ulikunitz/xz)) = v0.5.11
 # MIT
@@ -789,15 +803,13 @@ Provides:       bundled(golang(go.uber.org/multierr)) = v1.11.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/exp/typeparams)) = v0.0.0~20240314144324~c7f7c6466f7f
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/image)) = v0.18.0
+Provides:       bundled(golang(golang.org/x/image)) = v0.24.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = v0.16.0
+Provides:       bundled(golang(golang.org/x/text)) = v0.24.0
 # Apache-2.0
 Provides:       bundled(golang(gomodules.xyz/jsonpatch/v2)) = v2.4.0
-# Apache-2.0
-Provides:       bundled(golang(google.golang.org/appengine)) = v1.6.8
 # BSD-3-Clause
-Provides:       bundled(golang(google.golang.org/protobuf)) = v1.33.0
+Provides:       bundled(golang(google.golang.org/protobuf)) = v1.35.1
 # BSD-3-Clause
 Provides:       bundled(golang(gopkg.in/inf.v0)) = v0.9.1
 # Apache-2.0
@@ -811,21 +823,22 @@ Provides:       bundled(golang(gopkg.in/yaml.v3)) = v3.0.1
 # BSD-2-Clause-Views OR BSD-3-Clause
 Provides:       bundled(golang(howett.net/plist)) = v1.0.0
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/apiextensions-apiserver)) = v0.30.3
+Provides:       bundled(golang(k8s.io/apiextensions-apiserver)) = v0.32.0
 # Apache-2.0
 Provides:       bundled(golang(k8s.io/klog/v2)) = v2.130.1
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/kube-openapi)) = v0.0.0~20240228011516~70dd3763d340
+Provides:       bundled(golang(k8s.io/kube-openapi)) = v0.0.0~20241105132330~32ad38e42d3f
 # Apache-2.0
-Provides:       bundled(golang(k8s.io/utils)) = v0.0.0~20240711033017~18e509b52bc8
+Provides:       bundled(golang(k8s.io/utils)) = v0.0.0~20241104100929~3ea5e8cea738
 # BSD-3-Clause
 Provides:       bundled(golang(mvdan.cc/gofumpt)) = v0.6.0
 # BSD-3-Clause
 Provides:       bundled(golang(mvdan.cc/unparam)) = v0.0.0~20240104100049~c549a3470d14
 # Apache-2.0 OR BSD-3-Clause
-Provides:       bundled(golang(sigs.k8s.io/json)) = v0.0.0~20221116044647~bc3834ca7abd
+Provides:       bundled(golang(sigs.k8s.io/json)) = v0.0.0~20241010143419~9aa6b5e7a4b3
 # Apache-2.0
-Provides:       bundled(golang(sigs.k8s.io/structured-merge-diff/v4)) = v4.4.1
+Provides:       bundled(golang(sigs.k8s.io/structured-merge-diff/v4)) = v4.4.2
+
 
 %description %{common_description}
 
@@ -902,6 +915,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Thu Jun 05 2025 Jonathan Wright <jonathan@almalinux.org> - 1.84.1-1
+- update to 1.84.1 rhbz#2343107
+
 * Thu Jan 16 2025 Jonathan Wright <jonathan@almalinux.org> - 1.78.3-1
 - update to 1.78.3 rhbz#2330707
 

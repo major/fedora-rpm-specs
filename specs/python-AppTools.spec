@@ -5,7 +5,7 @@ Name:    python-AppTools
 Version: 5.3.0
 %forgemeta
 
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Enthought Tool Suite Application Tools
 # Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
@@ -102,6 +102,9 @@ popd
 
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 5.3.0-6
+- Rebuilt for Python 3.14
+
 * Thu May 08 2025 Orion Poplawski <orion@nwra.com> - 5.3.0-5
 - Use pyproject macros and add extras
 

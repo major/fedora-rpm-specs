@@ -6,7 +6,7 @@
 %endif
 
 Name:           jna
-Version:        5.15.0
+Version:        5.17.0
 Release:        %autorelease
 Summary:        Pure Java access to native libraries
 # Most of code is dual-licensed under either LGPL 2.1+ only or Apache
@@ -16,7 +16,7 @@ License:        Apache-2.0 OR LGPL-2.1-or-later
 
 URL:            https://github.com/java-native-access/jna/
 # ./generate-tarball.sh
-Source0:        %{name}-%{version}-clean.tar.xz
+Source0:        %{name}-%{version}.tar.zst
 Source1:        package-list
 Source2:        generate-tarball.sh
 
@@ -59,6 +59,9 @@ BuildRequires:  hamcrest
 BuildRequires:  reflections
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 5.15.0-4
+
 %description
 JNA provides Java programs easy access to native shared libraries
 (DLLs on Windows) without writing anything but Java code. JNA's
@@ -66,13 +69,6 @@ design aims to provide native access in a natural way with a
 minimum of effort. No boilerplate or generated code is required.
 While some attention is paid to performance, correctness and ease
 of use take priority.
-
-%package        javadoc
-Summary:        Javadocs for %{name}
-BuildArch:      noarch
-
-%description    javadoc
-This package contains the javadocs for %{name}.
 
 %package        contrib
 Summary:        Contrib for %{name}
@@ -92,10 +88,12 @@ sed -i 's|@LIBDIR@|%{_libdir}/%{name}|' src/com/sun/jna/Native.java
 
 # TEMPLATE has to be changed to %%version in the pom files
 # in order to generate correct provides
-sed -i 's/TEMPLATE/%{version}/' pom-jna-jpms.xml \
-				pom-jna-platform.xml \
-				pom-jna.xml \
-				pom-jna-platform-jpms.xml
+sed -i 's/TEMPLATE/%{version}/' \
+ pom-jna-jpms.xml \
+ pom-jna-platform.xml \
+ pom-jna.xml \
+ pom-jna-platform-jpms.xml \
+;
 
 # clean LICENSE.txt
 sed -i 's/\r//' LICENSE
@@ -142,15 +140,12 @@ install -m 755 build/native*/libjnidispatch*.so %{buildroot}%{_libdir}/%{name}/
 %mvn_artifact pom-jna.xml build/jna-min.jar
 %mvn_artifact pom-jna-platform.xml contrib/platform/dist/jna-platform.jar
 
-%mvn_install -J doc/javadoc
+%mvn_install
 
 %files -f .mfiles
 %doc OTHERS README.md CHANGES.md TODO
 %license LICENSE LGPL2.1 AL2.0
 %{_libdir}/%{name}
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE LGPL2.1 AL2.0
 
 %files contrib -f .mfiles-contrib
 

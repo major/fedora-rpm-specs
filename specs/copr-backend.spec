@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    2.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -241,6 +241,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 2.4-2
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Pavel Raiskup <praiskup@redhat.com> 2.4-1
 - pulp - speed-up the rpm upload to PULP by David Kliban
 

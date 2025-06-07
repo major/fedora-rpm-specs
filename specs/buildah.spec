@@ -32,7 +32,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.40.0
+Version: 1.40.1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -137,6 +137,7 @@ export BUILDTAGS+=" libtrust_openssl"
 %gobuild -o bin/copy ./tests/copy
 %gobuild -o bin/tutorial ./tests/tutorial
 %gobuild -o bin/inet ./tests/inet
+%gobuild -o bin/dumpspec ./tests/dumpspec
 %{__make} docs
 
 %install
@@ -148,6 +149,7 @@ cp bin/imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 cp bin/copy    %{buildroot}/%{_bindir}/%{name}-copy
 cp bin/tutorial %{buildroot}/%{_bindir}/%{name}-tutorial
 cp bin/inet     %{buildroot}/%{_bindir}/%{name}-inet
+cp bin/dumpspec %{buildroot}/%{_bindir}/%{name}-dumpspec
 
 rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 
@@ -172,6 +174,7 @@ rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 %{_bindir}/%{name}-copy
 %{_bindir}/%{name}-tutorial
 %{_bindir}/%{name}-inet
+%{_bindir}/%{name}-dumpspec
 %{_datadir}/%{name}/test
 
 %changelog

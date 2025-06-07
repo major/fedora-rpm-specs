@@ -1,8 +1,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 25.04.1
-Release: 2%{?dist}
+Version: 25.04.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -13,8 +13,7 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 # Doesn't build on i686 as-of 25.03.80
 ExcludeArch: %{ix86}
 
-## upstream patches (lookaside cache)
-Patch01: https://invent.kde.org/network/kdeconnect-kde/-/commit/756a2348089c26b886cc0ba7fdb69cf48fe883c8.patch
+## upstream patches
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -45,6 +44,7 @@ BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6QQC2DesktopStyle)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6ItemModels)
 
 BuildRequires:  cmake(Qt6Bluetooth)
 BuildRequires:  cmake(Qt6DBus)
@@ -195,6 +195,9 @@ done
 
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Tue May 27 2025 Vinícius Daros <viniciush.dev@gmail.com> - 25.04.1-2
 - Added patch to change qtbus to qtdbus-qt6 in the sample commands
 

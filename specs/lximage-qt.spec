@@ -1,5 +1,5 @@
 Name:           lximage-qt
-Version:        2.1.1
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        The image viewer and screenshot tool for LXQt
 License:        GPL-2.0-or-later
@@ -66,6 +66,9 @@ done
 %dir %{_datadir}/lximage-qt/translations
 
 %changelog
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
+- 2.2.0
+
 * Thu Jan 30 2025 Steve Cossette <farchord@gmail.com> - 2.1.1-1
 - 2.1.1
 

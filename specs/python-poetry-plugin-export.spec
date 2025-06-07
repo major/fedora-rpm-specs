@@ -4,7 +4,7 @@
 
 Name:           python-poetry-plugin-export
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 # SPDX
@@ -73,6 +73,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 1.9.0-2
+- Rebuilt for Python 3.14
+
 * Mon Mar 03 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.9.0-1
 - Update to 1.9.0
 - Fixes: rhbz#2337225

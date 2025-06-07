@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:           angelfish
-Version:        25.04.1
+Version:        25.04.2
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
+- 25.04.2
+
 * Wed May 14 2025 Steve Cossette <farchord@gmail.com> - 25.04.1-1
 - 25.04.1
 
