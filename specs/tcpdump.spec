@@ -1,10 +1,10 @@
-%define tcpslice_dir tcpslice-1.7
+%define tcpslice_dir tcpslice-1.8
 
 Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 BuildRequires: make
@@ -15,6 +15,7 @@ Source0: http://www.tcpdump.org/release/tcpdump-%{version}.tar.xz
 Source1: ftp://ftp.ee.lbl.gov/%{tcpslice_dir}.tar.gz
 Source2: http://www.tcpdump.org/release/tcpdump-%{version}.tar.xz.sig
 Source3: tcpdump-sysusers.conf
+Source4: http://www.tcpdump.org/release/%{tcpslice_dir}.tar.gz
 
 Patch0002:      0002-Use-getnameinfo-instead-of-gethostbyaddr.patch
 Patch0003:      0003-Drop-root-priviledges-before-opening-first-savefile-.patch
@@ -88,6 +89,9 @@ sed -i 's/\(\.TH[a-zA-Z ]*\)[1-9]\(.*\)/\18\2/' \
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Thu Jun 05 2025 Michal Ruprich <mruprich@redhat.com> - 14:4.99.5-5
+- Updating tcpslice to version 1.8
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 14:4.99.5-4
 - Drop call to %sysusers_create_compat
 

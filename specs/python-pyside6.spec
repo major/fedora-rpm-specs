@@ -6,11 +6,11 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.9.0
+%global qt6ver 6.9.1
 
 Name:           python-%{pypi_name}
-Version:        6.9.0
-Release:        2%{?dist}
+Version:        6.9.1
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -372,6 +372,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Fri Jun 06 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
+- 6.9.1
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.9.0-2
 - Rebuilt for Python 3.14
 

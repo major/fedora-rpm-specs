@@ -5,7 +5,7 @@
 %global crate http-content-range
 
 Name:           rust-http-content-range
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        HTTP Content Range response header parser
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

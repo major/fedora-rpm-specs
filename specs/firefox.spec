@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        139.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1282,6 +1282,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Jun 6 2025 Martin Stransky <stransky@redhat.com> - 139.0-3
+- Updated desktop file translation (rhbz#2362155)
+
 * Fri May 30 2025 Jan Grulich <jgrulich@redhat.com> - 139.0-2
 - Use system libraries for drm/gbm/pipewire
 

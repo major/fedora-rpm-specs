@@ -195,8 +195,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
-* Tue Jun 03 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-2
+* Fri Jun 06 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-2
 - revert BSD to BSD-3-Clause in License:
+- update external firewall script
 
 * Thu May 29 2025 Ralf Senderek <innovation@senderek.ie> - 2.0-1
 - release of version 2.0

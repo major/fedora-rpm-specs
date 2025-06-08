@@ -4,7 +4,7 @@
 
 Name:           %{pkgname}
 Version:        0.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{desc}
 
 License:        GPL-3.0-or-later
@@ -36,6 +36,9 @@ BuildRequires:  python3-devel
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.1.3-5
+- Rebuilt for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

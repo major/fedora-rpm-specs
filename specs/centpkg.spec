@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -78,6 +78,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.10.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 16 2025 Troy Dawson <tdawson@redhat.com> - 0.10.0-1
 - Make lookaside cache work with SIG dist-git using "modern" layout (nforro)
 - Avoid superfluous quotes in request-gated-side-tag help (churchyard)

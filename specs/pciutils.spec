@@ -1,6 +1,6 @@
 Name:		pciutils
 Version:	3.13.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	PCI bus related utilities
 License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -53,21 +53,24 @@ devices connected to the PCI bus.
 %autosetup -p1
 
 %build
-%make_build SHARED="no" ZLIB="no" LIBKMOD=yes STRIP="" OPT="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" PREFIX="/usr" LIBDIR="%{_libdir}" IDSDIR="/usr/share/hwdata" PCI_IDS="pci.ids"
+%global common_opts ZLIB="no" LIBKMOD=yes STRIP="" OPT="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" PREFIX="%{_prefix}" LIBDIR="%{_libdir}" IDSDIR="/usr/share/hwdata" PCI_IDS="pci.ids"
+ 
+%make_build SHARED="no" %{common_opts}
 mv lib/libpci.a lib/libpci.a.toinstall
 
 make clean
 
-%make_build SHARED="yes" ZLIB="no" LIBKMOD=yes STRIP="" OPT="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" PREFIX="/usr" LIBDIR="%{_libdir}" IDSDIR="/usr/share/hwdata" PCI_IDS="pci.ids"
+%make_build SHARED="yes" %{common_opts}
 
 %install
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_mandir}/man{7,8},%{_libdir},%{_libdir}/pkgconfig,%{_includedir}/pci}
 
+install -p pcilmr $RPM_BUILD_ROOT%{_bindir}
 install -p lspci setpci update-pciids $RPM_BUILD_ROOT%{_sbindir}
 %if "%{_sbindir}" != "%{_bindir}"
 ln -sr $RPM_BUILD_ROOT%{_sbindir}/lspci $RPM_BUILD_ROOT%{_bindir}/lspci
 %endif
-install -p -m 644 lspci.8 setpci.8 update-pciids.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install -p -m 644 lspci.8 pcilmr.8 setpci.8 update-pciids.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install -p -m 644 pcilib.7 $RPM_BUILD_ROOT%{_mandir}/man7
 install -p lib/libpci.so.* $RPM_BUILD_ROOT%{_libdir}/
 ln -s $(basename $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libpci.so
@@ -90,6 +93,7 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 %files
 %doc README ChangeLog pciutils.lsm
 %{_bindir}/lspci
+%{_bindir}/pcilmr
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/lspci
 %endif
@@ -111,6 +115,10 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 %{_mandir}/man7/*
 
 %changelog
+* Thu Jun 05 2025 Michel Lind <salimma@fedoraproject.org> - 3.13.0-8
+- Cleanup: de-duplicate common build options and use %%{_prefix} macro
+- Also install pcilmr
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

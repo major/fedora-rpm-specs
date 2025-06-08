@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 5
+%global baserelease 6
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -93,6 +93,10 @@ Patch0031: 0031-Support-PKCS11-EC-client-certs-in-PKINIT.patch
 Patch0032: 0032-Improve-PKCS11-error-reporting-in-PKINIT.patch
 Patch0033: 0033-Set-missing-mask-flags-for-kdb5_util-operations.patch
 Patch0034: 0034-Prevent-overflow-when-calculating-ulog-block-size.patch
+Patch0035: 0035-Don-t-issue-session-keys-with-deprecated-enctypes.patch
+Patch0036: 0036-downstream-Remove-3des-support-cumulative-1.patch
+Patch0037: 0037-Add-PKINIT-paChecksum2-from-MS-PKCA-v20230920.patch
+Patch0038: 0038-downstream-Do-not-block-HMAC-MD4-5-in-FIPS-mode.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision
 URL: https://web.mit.edu/kerberos/www/
@@ -527,14 +531,16 @@ install -pdm 755 $RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}
 pushd src
 cp -p --parents -t "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/" \
     $(find . -type f -exec file -i "{}" + \
-          | sed -ne 's|^\./\([^:]\+\): \+text/.\+$|\1|p' | grep -Ev '~$')
+          | sed -n \
+                -e 's|^\./\([^:]\+\): \+text/.\+$|\1|p' \
+                -e 's|^\./\([^:]\+\): \+application/x-pem-file.\+$|\1|p' \
+                -e 's|^\./\([^:]\+\): \+application/json.\+$|\1|p' \
+          | grep -Ev '~$')
 popd
 
 # Copy binary test files
 install -pm 644 src/tests/pkinit-certs/*.p12 \
     "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/tests/pkinit-certs/"
-install -pm 644 src/tests/au_dict.json \
-    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/tests/"
 
 # Unset executable bit if no shebang in script
 for f in $(find "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/" -type f -executable)
@@ -736,6 +742,14 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Wed Jun 04 2025 Julien Rische <jrische@redhat.com> - 1.21.3-6
+- Do not block HMAC-MD4/5 in FIPS mode
+  Resolves: rhbz#2370259
+- PKINIT: implement paChecksum2 from MS-PKCA v20230920
+  Resolves: rhbz#2357215
+- Disallow RC4 HMAC-MD5 session keys by default (CVE-2025-3576)
+  Resolves: rhbz#2359705
+
 * Wed Jan 29 2025 Julien Rische <jrische@redhat.com> - 1.21.3-5
 - Prevent overflow when calculating ulog block size (CVE-2025-24528)
   Resolves: rhbz#2342798

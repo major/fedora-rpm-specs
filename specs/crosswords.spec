@@ -5,7 +5,7 @@
 %global ipuz_soversion 0.5
 
 Name:           crosswords
-Version:        0.3.14
+Version:        0.3.15
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
@@ -17,10 +17,6 @@ Summary:        Solve crossword puzzles
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0 AND LicenseRef-Fedora-UltraPermissive AND MIT
 URL:            https://gitlab.gnome.org/jrb/crosswords
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Remove pytest-runner from requirements.txt
-# https://gitlab.gnome.org/jrb/crosswords/-/merge_requests/204
-Patch:          %{url}/-/merge_requests/204.patch
 
 # Big endian systems are not supported
 # https://jrb.pages.gitlab.gnome.org/crosswords/devel-docs/PACKAGING.html

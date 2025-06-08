@@ -7,11 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 8ec134109eb136432a29bdf5a14f8b1fd4e46208
+%global git_hash 754c6d728686c5d115bd97c628d53733776dd711
 %global selinuxtype targeted
+%global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20250512.g8ec1341
+Version:	0^20250606.g754c6d7
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -33,15 +34,17 @@ for network namespaces: traffic is forwarded using a tap interface inside the
 namespace, without the need to create further interfaces on the host, hence not
 requiring any capabilities or privileges.
 
-%package    selinux
-BuildArch:  noarch
-Summary:    SELinux support for passt and pasta
-Requires:   %{name} = %{version}-%{release}
-Requires:   selinux-policy
-Requires(post): %{name}
-Requires(post): policycoreutils
-Requires(preun): %{name}
-Requires(preun): policycoreutils
+%package		selinux
+BuildArch:		noarch
+Summary:		SELinux support for passt and pasta
+Requires:		selinux-policy-%{selinuxtype}
+Requires(post):		selinux-policy-%{selinuxtype}
+Requires(post):		policycoreutils
+Requires(post):		libselinux-utils
+Requires(preun):	policycoreutils
+BuildRequires:		selinux-policy-devel
+BuildRequires:		pkgconfig(systemd)
+Recommends:		selinux-policy-%{selinuxtype} >= %{selinux_policy_version}
 
 %description selinux
 This package adds SELinux enforcement to passt(1), pasta(1), passt-repair(1).
@@ -89,19 +92,21 @@ popd
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-	%selinux_modules_uninstall -s %{selinuxtype} passt
-	%selinux_modules_uninstall -s %{selinuxtype} pasta
-	%selinux_modules_uninstall -s %{selinuxtype} passt-repair
+	%selinux_modules_uninstall -s %{selinuxtype} passt pasta passt-repair
 fi
 
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
+# %selinux_relabel_post calls fixfiles(8) with the previous file_contexts file
+# (see selabel_file(5)) in order to restore only the file contexts which
+# actually changed. However, as file_contexts doesn't support %{USERID}
+# substitutions, this will not work for specific file contexts that pasta needs
+# to have under /run/user. Restore those explicitly.
+restorecon -R /run/user
 
 %files
 %license LICENSES/{GPL-2.0-or-later.txt,BSD-3-Clause.txt}
@@ -130,6 +135,12 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Fri Jun  6 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250606.g754c6d7-1
+- Depend on SELinux tools and policy version, drop circular dependency
+- Call %%selinux_modules_* macros only once
+- Separately restore context for /run/user in %%posttrans selinux
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_05_12.8ec1341..2025_06_06.754c6d7
+
 * Mon May 12 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250512.g8ec1341-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_05_07.eea8a76..2025_05_12.8ec1341
 

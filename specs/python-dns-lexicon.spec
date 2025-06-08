@@ -20,7 +20,7 @@ Version:            %{forgeversion}
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -227,6 +227,9 @@ ln -s lexicon-%{python3_version} lexicon-3
 # }}}
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 3.21.1-2
+- Rebuilt for Python 3.14
+
 * Mon Apr 28 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.21.1-1
 - update to 3.21.1
 

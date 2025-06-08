@@ -402,7 +402,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        6
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -458,10 +458,12 @@
 %define jdkportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.jdk;g" | sed "s;openjdkportable;el;g")
 %define jdkportablesourcesnameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.sources;g" | sed "s;openjdkportable;el;g" | sed "s;.%{_arch};.noarch;g")
 %define staticlibsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.static-libs;g" | sed "s;openjdkportable;el;g")
+%define jmodsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.jmods;g" | sed "s;openjdkportable;el;g")
 %define jreportablearchive()  %{expand:%{jreportablenameimpl -- %%{1}}.tar.xz}
 %define jdkportablearchive()  %{expand:%{jdkportablenameimpl -- %%{1}}.tar.xz}
 %define jdkportablesourcesarchive()  %{expand:%{jdkportablesourcesnameimpl -- %%{1}}.tar.xz}
 %define staticlibsportablearchive()  %{expand:%{staticlibsportablenameimpl -- %%{1}}.tar.xz}
+%define jmodsportablearchive()  %{expand:%{jmodsportablenameimpl -- %%{1}}.tar.xz}
 %define jreportablename()     %{expand:%{jreportablenameimpl -- %%{1}}}
 %define jdkportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
 %define jdkportablesourcesname()     %{expand:%{jdkportablesourcesnameimpl -- %%{1}}}
@@ -479,6 +481,7 @@
 %define jdkportablearchiveForFiles()  %(echo %{jdkportablearchive -- ""})
 %define jdkportablesourcesarchiveForFiles()  %(echo %{jdkportablesourcesarchive -- ""})
 %define staticlibsportablearchiveForFiles()  %(echo %{staticlibsportablearchive -- ""})
+%define jmodsportablearchiveForFiles()  %(echo %{jmodsportablearchive -- ""})
 
 #################################################################
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
@@ -546,9 +549,6 @@ ExcludeArch: %{ix86}
 }
 
 %define java_static_libs_rpo() %{expand:
-}
-
-%define java_unstripped_rpo() %{expand:
 }
 
 %define java_docs_rpo() %{expand:
@@ -690,8 +690,8 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 # OpenJDK patches in need of upstreaming
 #
 #############################################
-
-# Currently empty
+# Fix rawhide build failure with GCC 15
+Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
 
 #############################################
 #
@@ -913,17 +913,6 @@ The %{origin_nice} %{featurever} libraries for static linking - portable edition
 %endif
 
 %if %{include_normal_build}
-%package unstripped
-Summary: The %{origin_nice} %{featurever} runtime environment.
-
-%{java_unstripped_rpo %{nil}}
-
-%description unstripped
-The %{origin_nice} %{featurever} runtime environment.
-
-%endif
-
-%if %{include_normal_build}
 %package docs
 Summary: %{origin_nice} %{featurever} API documentation
 
@@ -1004,6 +993,8 @@ sh %{SOURCE12} %{top_level_dir_name}
 pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
+# Patches in need of upstreaming
+%patch -P1100 -p1
 popd # openjdk
 
 
@@ -1130,6 +1121,7 @@ function buildjdk() {
     --with-boot-jdk=${buildjdk} \
     --with-debug-level=${debuglevel} \
     --with-native-debug-symbols="${debug_symbols}" \
+    --disable-absolute-paths-in-output \
     --disable-sysconf-nss \
     --enable-unlimited-crypto \
     --with-zlib=%{link_type} \
@@ -1164,92 +1156,11 @@ function buildjdk() {
     popd
 }
 
-function stripjdk() {
-    local outputdir=${1}
-    local jdkimagepath=images/%{jdkimage}
-    local jreimagepath=images/%{jreimage}
-    local jmodimagepath=images/jmods
-    local modulefile=lib/modules
-    local supportdir=${outputdir}/support
-    local modulebuildpath=${outputdir}/jdk/modules
-    local jdkoutdir=${outputdir}/${jdkimagepath}
-    local jreoutdir=${outputdir}/${jreimagepath}
-
-    if [ "x$suffix" = "x" ] ; then
-        # Keep the unstripped version for consumption by RHEL RPMs
-        cp -a ${jdkoutdir}{,.unstripped}
-
-        # Strip the files
-        for file in $(find ${jdkoutdir} ${jreoutdir} ${supportdir} ${modulebuildpath} -type f) ; do
-            if file ${file} | cut -d ':' -f 2 | grep -q 'ELF'; then
-                noextfile=${file/.so/};
-                objcopy --only-keep-debug ${file} ${noextfile}.debuginfo;
-                objcopy --add-gnu-debuglink=${noextfile}.debuginfo ${file};
-                strip -g ${file};
-            fi
-        done
-
-        # Rebuild jmod files against the stripped binaries
-        if [ ! -d ${supportdir} ] ; then
-            echo "Support directory missing.";
-            exit 15
-        fi
-        # Build the java.base jmod a third time to fix the hashes of dependent jmods
-        for cmd in $(find ${supportdir}/${jmodimagepath} -name '*.jmod_exec.cmdline') \
-                   ${supportdir}/${jmodimagepath}/*java.base*exec.cmdline ; do
-            pre=${cmd/_exec/_pre};
-            post=${cmd/_exec/_post};
-            jmod=$(echo ${cmd}|sed 's#.*_create_##'|sed 's#_exec.cmdline##')
-            echo "Rebuilding ${jmod} against stripped binaries...";
-            if [ -e ${pre} ] ; then
-                echo -e "Executing ${pre}...\n$(cat ${pre})";
-                cat ${pre} | sh -s ;
-            fi
-            echo "Executing ${cmd}...$(cat ${cmd})";
-            cat ${cmd} | sh -s ;
-            if [ -e ${post} ] ; then
-                echo -e "Executing ${post}...\n$(cat ${post})";
-                cat ${post} | sh -s ;
-            fi
-        done
-
-        # Rebuild the image with the stripped modules
-        for image in ${jdkimagepath} ${jreimagepath} ; do
-            outdir=${outputdir}/${image};
-            jlink=${supportdir}/${image}/_jlink*_exec.cmdline;
-            # Backup the existing image as it contains
-            # files not generated by jlink
-            mv ${outdir}{,.bak};
-            # Regenerate the image using the command
-            # generated using the initial build
-            echo -e "Executing ${jlink}...\n$(cat ${jlink})";
-            cat ${jlink} | sh -s;
-            # Move the new jmods and module file from the new
-            # image to the old one
-            if [ -e ${outdir}.bak/jmods ] ; then
-                rm -rf ${outdir}.bak/jmods;
-                mv ${outdir}/jmods ${outdir}.bak;
-            fi
-            rm -f ${outdir}.bak/${modulefile};
-            mv ${outdir}/${modulefile} ${outdir}.bak/$(dirname ${modulefile});
-            # Restore the original image
-            rm -rf ${outdir};
-            mv ${outdir}{.bak,};
-            # Update the CDS archives
-            for cmd in ${supportdir}/${image}/*_gen_cds*_exec.cmdline ; do
-                echo -e "Executing ${cmd}...\n$(cat ${cmd})";
-                cat ${cmd} | sh -s;
-            done
-        done
-    fi
-}
-
 function installjdk() {
     local outputdir=${1}
     local installdir=${2}
     local jdkimagepath=${installdir}/images/%{jdkimage}
     local jreimagepath=${installdir}/images/%{jreimage}
-    local unstripped=${jdkimagepath}.unstripped
 
     echo "Installing build from ${outputdir} to ${installdir}..."
     mkdir -p ${installdir}
@@ -1278,7 +1189,7 @@ function installjdk() {
         fi;
     done
 
-    for imagepath in ${jdkimagepath} ${jreimagepath} ${unstripped}; do
+    for imagepath in ${jdkimagepath} ${jreimagepath}; do
 
         if [ -d ${imagepath} ] ; then
             # the build (erroneously) removes read permissions from some jars
@@ -1370,12 +1281,12 @@ function packagejdk() {
 
     jdkname=%{jdkportablename -- "$nameSuffix"}
     jdkarchive=${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}
+    jmodsarchive=${packagesdir}/%{jmodsportablearchive -- "$nameSuffix"}
     jrename=%{jreportablename -- "$nameSuffix"}
     jrearchive=${packagesdir}/%{jreportablearchive -- "$nameSuffix"}
     staticname=%{staticlibsportablename -- "$nameSuffix"}
     staticarchive=${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
     debugarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.debuginfo"}
-    unstrippedarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.unstripped"}
     if [ "x$suffix" = "x" ] ; then
       docname=%{docportablename}
       docarchive=${packagesdir}/%{docportablearchive}
@@ -1384,14 +1295,6 @@ function packagejdk() {
     # These are from the source tree so no debug variants
     miscname=%{miscportablename}
     miscarchive=${packagesdir}/%{miscportablearchive}
-
-    if [ "x$suffix" = "x" ] ; then
-        # Keep the unstripped version for consumption by RHEL RPMs
-        mv %{jdkimage}.unstripped ${jdkname}
-        tar -cJf ${unstrippedarchive} ${jdkname}
-        genchecksum ${unstrippedarchive}
-        mv ${jdkname} %{jdkimage}.unstripped
-    fi
 
     # Rename directories for packaging
     mv %{jdkimage} ${jdkname}
@@ -1420,6 +1323,10 @@ function packagejdk() {
         tar -cJf ${miscarchive} ${miscname}
         genchecksum ${miscarchive}
     fi
+
+    tar -cJf ${jmodsarchive} --exclude='**.debuginfo' ${jdkname}/jmods
+    genchecksum ${jmodsarchive}
+    rm -rv ${jdkname}/jmods
 
     tar -cJf ${jdkarchive} --exclude='**.debuginfo' ${jdkname}
     genchecksum ${jdkarchive}
@@ -1464,10 +1371,14 @@ for suffix in %{build_loop} ; do
       # change --something to something
       debugbuild=`echo $suffix  | sed "s/-//g"`
   fi
-  # We build with internal debug symbols and do
-  # our own stripping for one version of the
-  # release build
-  debug_symbols=internal
+  # We build with 'external' debug symbols for the
+  # release build and build with 'internal' for
+  # slowdebug/fastdebug variants
+  if [ "x$suffix" = "x" ] ; then
+    debug_symbols=external
+  else
+    debug_symbols=internal
+  fi
 
   builddir=%{buildoutputdir -- ${suffix}}
   bootbuilddir=boot${builddir}
@@ -1497,15 +1408,14 @@ for suffix in %{build_loop} ; do
       installjdk ${bootbuilddir} ${bootinstalldir}
       buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
-      stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
       %{!?with_artifacts:rm -rf ${bootinstalldir}}
   else
       buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
-      stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
   fi
+
   packagejdk ${installdir} ${packagesdir} %{altjavaoutputdir}
 
 %if %{system_libs}
@@ -1668,14 +1578,14 @@ grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
 $JAVA_HOME/bin/jar -tf $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
 
 # Check class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.lang.Object | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LocalVariableTable
 
 # Check generated class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LocalVariableTable
 
 # build cycles check
 done
@@ -1698,13 +1608,15 @@ for suffix in %{build_loop} ; do
 
     # These definitions should match those in installjdk
     jdkarchive=${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}
+    jmodsarchive=${packagesdir}/%{jmodsportablearchive -- "$nameSuffix"}
     jrearchive=${packagesdir}/%{jreportablearchive -- "$nameSuffix"}
     staticarchive=${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
     debugarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.debuginfo"}
-    unstrippedarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.unstripped"}
 
     mv ${jdkarchive} $RPM_BUILD_ROOT%{_jvmdir}/
     mv ${jdkarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+    mv ${jmodsarchive} $RPM_BUILD_ROOT%{_jvmdir}/
+    mv ${jmodsarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
     mv ${jrearchive} $RPM_BUILD_ROOT%{_jvmdir}/
     mv ${jrearchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
 
@@ -1716,8 +1628,6 @@ for suffix in %{build_loop} ; do
     if [ "x$suffix" = "x" ] ; then
         mv ${debugarchive} $RPM_BUILD_ROOT%{_jvmdir}/
         mv ${debugarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
-        mv ${unstrippedarchive} $RPM_BUILD_ROOT%{_jvmdir}/
-        mv ${unstrippedarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
     fi
 done
 
@@ -1754,6 +1664,8 @@ done
 %{_jvmdir}/%{jdkportablearchive -- .debuginfo}
 %{_jvmdir}/%{jdkportablearchiveForFiles}.sha256sum
 %{_jvmdir}/%{jdkportablearchive -- .debuginfo}.sha256sum
+%{_jvmdir}/%{jmodsportablearchiveForFiles}
+%{_jvmdir}/%{jmodsportablearchiveForFiles}.sha256sum
 %endif
 
 %if %{include_normal_build}
@@ -1762,10 +1674,6 @@ done
 %{_jvmdir}/%{staticlibsportablearchiveForFiles}
 %{_jvmdir}/%{staticlibsportablearchiveForFiles}.sha256sum
 %endif
-
-%files unstripped
-%{_jvmdir}/%{jdkportablearchive -- .unstripped}
-%{_jvmdir}/%{jdkportablearchive -- .unstripped}.sha256sum
 %endif
 
 %if %{include_debug_build}
@@ -1776,6 +1684,8 @@ done
 %files devel-slowdebug
 %{_jvmdir}/%{jdkportablearchive -- .slowdebug}
 %{_jvmdir}/%{jdkportablearchive -- .slowdebug}.sha256sum
+%{_jvmdir}/%{jmodsportablearchive -- .slowdebug}
+%{_jvmdir}/%{jmodsportablearchive -- .slowdebug}.sha256sum
 
 %if %{include_staticlibs}
 %files static-libs-slowdebug
@@ -1792,6 +1702,8 @@ done
 %files devel-fastdebug
 %{_jvmdir}/%{jdkportablearchive -- .fastdebug}
 %{_jvmdir}/%{jdkportablearchive -- .fastdebug}.sha256sum
+%{_jvmdir}/%{jmodsportablearchive -- .fastdebug}
+%{_jvmdir}/%{jmodsportablearchive -- .fastdebug}.sha256sum
 
 %if %{include_staticlibs}
 %files static-libs-fastdebug

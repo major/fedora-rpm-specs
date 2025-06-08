@@ -1,6 +1,6 @@
 Name:           perl-Gtk3-SimpleList
 Version:        0.21
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple interface to Gtk3's complex MVC list widget
 # lib/Gtk3/SimpleList.pm:   LGPL-2.1-or-later
 # README:                   LGPL-2.1-or-later OR Artistic-2.0
@@ -66,13 +66,17 @@ make test
 %files
 %license COPYING
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Gtk3
+%{perl_vendorlib}/Gtk3/SimpleList.pm
+%{_mandir}/man3/Gtk3::SimpleList.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 06 2025 Petr Pisar <ppisar@redhat.com> - 0.21-17
+- Modernize a spec file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        149
+Version:        151
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        149
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -329,6 +329,21 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Jun 04 2025 Packit <hello@packit.dev> - 151-1
+Changes with 151
+----------------
+  * Update images dependency ref to latest (#2101)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou
+  * sources: add tiny unit test for inline source fechting (#2102)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages/tar: allow chosen compression (HMS-8573, HMS-6116) (#2098)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Michael Vogt, Tomáš Hozza
+  * test: simplify git clone command (#2099)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+
+— Somewhere on the Internet, 2025-06-04
+
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 149-2
 - Rebuilt for Python 3.14
 

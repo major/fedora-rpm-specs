@@ -1,6 +1,6 @@
 Name:           python-sphinx-theme-alabaster
 Version:        0.7.16
-Release:        %autorelease
+Release:        %autorelease -b 3
 Summary:        Configurable sidebar-enabled Sphinx theme
 
 License:        BSD-3-Clause

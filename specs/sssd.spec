@@ -64,7 +64,7 @@
 
 Name: sssd
 Version: %{downstream_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -1196,6 +1196,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2.11.0-2
+- Rebuilt for Python 3.14
+
 * Thu Jun 05 2025 Pavel Březina <pbrezina@redhat.com> - 2.11.0-1
 - Rebase to SSSD 2.11.0
 

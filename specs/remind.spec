@@ -1,5 +1,5 @@
 Name:           remind
-Version:        05.03.07
+Version:        05.04.00
 Release:        1%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
@@ -15,10 +15,6 @@ Source:         %url/download/%{name}-%{version}.tar.gz.sig
 Source:         685A5A5E511D30E2.gpg
 # stolen from Debian
 Patch:          use-system-libjsonparser.diff
-
-
-# temporary
-Patch:          0001-Do-not-use-obsolete-tail-2-syntax.-Instead-use-tail-.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -141,6 +137,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Wed Jun  4 2025 Dick Marinus <dick@mrns.nl> - 05.04.00-1
+- v05.04.00
+
 * Fri May 23 2025 Dick Marinus <dick@mrns.nl> - 05.03.07-1
 - v05.03.07
 

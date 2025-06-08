@@ -1,5 +1,5 @@
 # For git snapshots, set to 0 to use release instead:
-%global usesnapshot 1
+%global usesnapshot 0
 %if 0%{?usesnapshot}
 %global commit0 66c21b2b4750b2bb354887454a9977296d2d844e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -11,8 +11,8 @@ Name:       shutter
 Version:    0.99.6
 Release:    0.3%{?snapshottag}%{?dist}
 %else
-Version:    0.99.5
-Release:    3%{?dist}
+Version:    0.99.6
+Release:    1%{?dist}
 %endif
 
 Summary:    GTK+3-based screenshot application written in Perl
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Fri Jun 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.99.6-1
+- Update to 0.99.6-1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.6-0.3.git66c21b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

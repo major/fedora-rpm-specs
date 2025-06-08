@@ -360,13 +360,6 @@ configure.ac
 sed -e 's/-W\s//' -i Makefile.docs
 %endif
 
-%if %{with UNITTEST}
-if grep 'Intel(R) Xeon(R) CPU E5-2670 v3' /proc/cpuinfo; then
-  echo "Detected builder troubling unit tests, skiping some"
-  # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
-  sed -i -e 's/\sqpdb_test//' tests/dns/Makefile.am
-fi
-%endif
 autoreconf --force --install
 
 mkdir build
@@ -443,6 +436,8 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
   if [ "$CPUS" -gt 16 ]; then
     ORIGFILES=$(ulimit -n)
     THREADS=16
+    # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
+    export ISC_TASK_WORKERS="$THREADS"
     ulimit -n 8092 || : # Requires on some machines with many cores
   fi
   echo "core.%%P" > /proc/sys/kernel/core_pattern || :

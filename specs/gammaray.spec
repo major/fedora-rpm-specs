@@ -20,7 +20,7 @@
 
 Name:    gammaray
 Version: 3.1.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A tool for examining internals of Qt applications
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -320,6 +320,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 
 %changelog
+* Fri Jun 06 2025 Jan Grulich <jgrulich@redhat.com> - 3.1.0-11
+- Rebuild (qt6)
+
 * Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 3.1.0-10
 - Rebuild (qt5)
 

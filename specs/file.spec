@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.46
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -241,6 +241,9 @@ make -C tests check
 %endif
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 5.46-5
+- Rebuilt for Python 3.14
+
 * Tue Jun 03 2025 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-4
 - Fix stack overrun
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{module_name}
 Version:        0.3.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        MIT
 Summary:        A helper for library maintainers to use symbol versioning
 Url:            https://github.com/ansasaki/abimap
@@ -119,6 +119,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD/tests \
 %doc html
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.3.2-25
+- Rebuilt for Python 3.14
+
 * Wed Jun 04 2025 Anderson Toshiyuki Sasaki <ansasaki@redhat.com> - 0.3.2-24
 - Remove the dependency on pytest-runner by Benjamin A. Beasley <code@musicinmybrain.net>
 

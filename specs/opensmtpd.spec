@@ -7,8 +7,8 @@
 
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
-Version:	7.6.0p1
-Release:	6%{?dist}
+Version:	7.7.0p0
+Release:	1%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -262,6 +262,9 @@ exit 0
 
 
 %changelog
+* Fri Jun 06 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-1
+- Update to 7.7.0p0 release
+
 * Sat May 10 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.6.0p1-6
 - Make sure the /usr/sbin/sendmail symlink is created on unmerged systems
 

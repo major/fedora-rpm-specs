@@ -3,7 +3,7 @@
 %global selinuxtype targeted
 
 Name:           mlmmj
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
@@ -123,6 +123,9 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Fri Jun 06 2025 Denis Fateyev <denis@fateyev.com> - 1.5.2-1
+- Update to 1.5.2 release
+
 * Mon May 26 2025 Denis Fateyev <denis@fateyev.com> - 1.5.1-1
 - Update to 1.5.1 release
 

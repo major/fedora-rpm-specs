@@ -1,17 +1,18 @@
 Name:           lxde-icon-theme
-Version:        0.5.1
-Release:        21%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        Default icon theme for LXDE
 
 # SPDX confirmed
 License:        LGPL-3.0-or-later
 URL:            http://lxde.org/
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/lxde-icon-theme-%{version}.tar.xz
+Source0:        https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Requires:       filesystem
 BuildArch:      noarch
 Provides:       nuoveXT2-icon-theme = 2.2
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  make
 
 %description
@@ -21,6 +22,7 @@ also the default icon-theme of LXDE, the Lightweight X11 Desktop Environment.
 
 %prep
 %setup -q
+sh autogen.sh
 
 %build
 %configure
@@ -29,18 +31,6 @@ also the default icon-theme of LXDE, the Lightweight X11 Desktop Environment.
 %install
 %make_install
 touch $RPM_BUILD_ROOT%{_datadir}/icons/nuoveXT2/icon-theme.cache
-
-%post
-touch --no-create %{_datadir}/icons/nuoveXT2 &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/nuoveXT2 &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/nuoveXT2 &>/dev/null || :
-fi
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/nuoveXT2 &>/dev/null || :
 
 %files
 %doc AUTHORS
@@ -52,6 +42,9 @@ gtk-update-icon-cache %{_datadir}/icons/nuoveXT2 &>/dev/null || :
 
 
 %changelog
+* Fri Jun 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.2-1
+- 0.5.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

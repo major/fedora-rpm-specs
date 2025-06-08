@@ -4,7 +4,7 @@
 
 Name:           almalinux-git-utils
 Version:        0.0.3^git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for working with the AlmaLinux Git server
 
 License:        GPL-3.0-or-later
@@ -49,5 +49,8 @@ BuildRequires:  python3dist(pytest)
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.0.3^git20240927.3a7c848-2
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Neal Gompa <ngompa@almalinux.org> - 0.0.3^git20240927.3a7c848-1
 - Initial package

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -605,6 +605,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Thu Jun 5 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-35
+- osdep/linux/getroot: Detect DDF container similar to IMSM
+
 * Wed May 28 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-34
 - Some fixes addressing memory freeing and dereferencing
 - Resolves: #2368939

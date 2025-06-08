@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond_without  tests
 
 %global         reponame    azure-sdk-for-python

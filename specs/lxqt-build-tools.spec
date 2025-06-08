@@ -1,17 +1,20 @@
 %global         project lxqt-build-tools
 Name:           lxqt-build-tools
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD-3-Clause
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{project}/releases/download/%{version}/%{project}-%{version}.tar.xz
 
+Patch0:         https://github.com/lxqt/lxqt-build-tools/commit/1dc654a8836cc69139342f454f09aadb3da7a1be.patch
+
 BuildArch:      noarch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  git-core
 BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  glib2-devel
 
@@ -22,7 +25,7 @@ Various packaging tools and scripts for LXQt applications.
 
 
 %prep
-%autosetup -n %{project}-%{version}
+%autosetup -n %{project}-%{version} -S git_am
 
 %build
 %cmake
@@ -39,7 +42,10 @@ Various packaging tools and scripts for LXQt applications.
 
 
 %changelog
-* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.1.0-1
+* Fri Jun 06 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-2
+- Rebuild to pick up upstream patch
+
+* Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
 - 2.2.0
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2

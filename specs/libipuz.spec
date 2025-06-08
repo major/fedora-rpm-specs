@@ -5,18 +5,19 @@
 %global soversion 0.5
 
 Name:           libipuz
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 
 License:        LGPL-2.1-or-later OR MIT
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-# rust: bump glib to 0.19.5
-Patch:          %{url}/-/commit/3b45d15c29da4f854e601b9b20e7da005e3792e6.patch
-Patch:          %{url}/-/commit/6f8231043fb64d3b25079d9b620a272bd073911f.patch
-# rust: bump glib to 0.20
-Patch:          %{url}/-/commit/27531ae2ec060f5739d246388fd89a6912246393.patch
+# write the https URL out when saving a barred or nonogram puzzle
+Patch:          %{url}/-/commit/6b58522f0d75bdd917b75b44a43f2068392e63e5.patch
+# Read both http://libipuz.org and https://libipuz.org for custom kinds
+Patch:          %{url}/-/commit/8d7365f7e0277e305289393f4daefb0fa10fadec.patch
+# Initialize autoptr to NULL
+Patch:          %{url}/-/commit/03293f290b0697d8449552f3b0d53869af13e8f5.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake

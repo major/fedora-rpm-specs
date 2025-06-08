@@ -53,6 +53,10 @@ Summary:        Documentation files for %{name}
 # urlmap.js is LGPL-2.1-or-later, generated html docs are (Apache-2.0 OR
 # GPL-3.0-or-later) and misc other files are MIT
 License:        LGPL-2.1-or-later AND (Apache-2.0 OR GPL-3.0-or-later) AND MIT
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 BuildArch:      noarch
 
 %description    doc

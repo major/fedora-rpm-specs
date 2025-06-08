@@ -1,3 +1,5 @@
+%global __provides_exclude_from ^%{_libdir}/psi-plus/plugins/.*$
+
 %global version_l10n 1.5.2073
 
 Name:           psi-plus
@@ -11,7 +13,7 @@ Epoch:          1
 # MIT - bundled http-parser and qhttp libraries.
 # Apache-2.0 - bundled libqite library.
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib AND MIT AND Apache-2.0
-Summary:        Jabber client based on Qt
+Summary:        XMPP client based on Qt
 URL:            https://%{name}.com
 
 Source0:        https://github.com/%{name}/%{name}-snapshots/archive/%{version}/%{name}-%{version}.tar.gz
@@ -74,15 +76,14 @@ Provides:       bundled(minizip) = 1.2.11
 Provides:       bundled(qhttp) = 2.0.0
 
 %description
-%{name} is the premiere Instant Messaging application designed for Microsoft
-Windows, Apple Mac OS X and GNU/Linux.
+%{name} is the premiere cross-platform Instant Messaging application.
 
-Built upon an open protocol named Jabber, %{name} is a fast and lightweight
-messaging client that utilises the best in open source technologies.
+Built upon an open protocol named XMPP, %{name} is a fast and lightweight
+messaging client that utilises the best of open source technologies.
 
 %{name} contains all the features necessary to chat, with no bloated extras
-that slow your computer down. The Jabber protocol provides gateways to other
-protocols as AIM, ICQ, MSN and Yahoo!.
+that slow your computer down. The XMPP protocol provides gateways to other
+protocols.
 
 %package common
 License:        GPL-2.0-or-later

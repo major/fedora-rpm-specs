@@ -312,7 +312,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -370,9 +370,7 @@ Source1000: version.spec.inc
 Patch101: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch2002: 20-131099.patch
-# Can be removed if https://github.com/llvm/llvm-project/pull/131099 lands in v21:
-Patch2102: 20-131099.patch
-#endregion CLANG patches
+Patch2004: 20-141890.patch
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
@@ -3392,6 +3390,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Jun 05 2025 Timm Bäder <tbaeder@redhat.com> - 20.1.6-7
+- Backport patch to fix rhbz#2363895
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 20.1.6-6
 - Rebuilt for Python 3.14
 

@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    2.40.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
 License:    Apache-2.0
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.egg-info
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1:2.40.3-2
+- Rebuilt for Python 3.14
+
 * Wed Jun 04 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.40.3-1
 - Update to 2.40.3 (#2359565)
 

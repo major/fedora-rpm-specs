@@ -3,7 +3,7 @@
 
 # https://github.com/BurntSushi/toml
 %global goipath         github.com/BurntSushi/toml
-Version:                1.4.0
+Version:                1.5.0
 
 %gometa -L -f
 
@@ -24,6 +24,10 @@ Summary:        TOML parser for Golang with reflection
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+
+Patch0:         0001-Encode-large-floats-as-exponent-syntax.patch
+Patch1:         0002-Ensure-constant-format-strings-in-wf-calls.patch
+Patch2:         0003-Ensure-constant-format-strings-in-runner.patch
 
 %description %{common_description}
 

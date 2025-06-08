@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 6.3.91
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -203,6 +203,14 @@ Supplements: ((%{name} and rpm-ostree) unless dnf)
 Plasma Discover backend for rpm-ostree support in %{name}.
 %endif
 
+%package kns
+Summary: Plasma Discover KNewStuff support
+Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libs = %{version}-%{release}
+Supplements: (%{name} and plasma-workspace%{?_isa})
+%description kns
+%{summary}.
+
 
 %prep
 %autosetup -n %{base_name}-%{version} -p1
@@ -274,7 +282,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %if 0%{?fwupd}
 %{_kf6_qtplugindir}/discover/fwupd-backend.so
 %endif
-%{_kf6_qtplugindir}/discover/kns-backend.so
 %dir %{_datadir}/libdiscover
 %dir %{_datadir}/libdiscover/categories
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_updates.so
@@ -315,8 +322,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover-notifier/rpm-ostree-notifier.so
 %endif
 
+%files kns
+%{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Fri Jun 06 2025 Flori Gee <renner03@protonmail.com> - 6.3.91-3
+- Split KNS backend into a sub-package
+
 * Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
 - Add signature file
 

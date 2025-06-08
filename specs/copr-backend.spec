@@ -9,7 +9,7 @@
 %global copr_common_version 0.25.1~~dev0
 
 Name:       copr-backend
-Version:    2.4
+Version:    2.5
 Release:    2%{?dist}
 Summary:    Backend for Copr
 
@@ -241,11 +241,17 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 2.4-2
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2.5-2
 - Rebuilt for Python 3.14
 
+* Fri Jun 06 2025 Jakub Kadlcik <frostyx@email.cz> 2.5-1
+- backend: add script to migrate pulp.json to Pulp labels
+- backend: add function to get pulp object based on its href
+- backend: pass build ID to upload_build_results
+- backend: more log "checkpoints" for build worker
+
 * Fri May 16 2025 Pavel Raiskup <praiskup@redhat.com> 2.4-1
-- pulp - speed-up the rpm upload to PULP by David Kliban
+- pulp - speed-up the rpm upload to PULP by Dennis Kliban
 
 * Wed Mar 26 2025 Pavel Raiskup <praiskup@redhat.com> 2.3-1
 - lighttpd-filesystem provides group(lighttpd) on F42+ only

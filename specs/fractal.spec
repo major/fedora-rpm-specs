@@ -6,7 +6,7 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        11
+Version:        11.1
 Release:        1%{?dist}
 Summary:        Matrix group messaging app
 
@@ -97,6 +97,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jun 05 2025 Michel Lind <salimma@fedoraproject.org> - 11.1-1
+- Update to 11.1
+- Fixes session verification
+
 * Thu May 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 11-1
 - 11
 

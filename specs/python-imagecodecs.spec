@@ -2,7 +2,7 @@
 
 Name:           python-imagecodecs
 Version:        2024.9.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image transformation, compression, and decompression codecs
 
 License:        BSD-3-Clause
@@ -281,6 +281,9 @@ TEST_OPTS=(
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2024.9.22-2
+- Rebuilt for Python 3.14
+
 * Wed Jan 22 2025 Sandro <devel@penguinpee.nl> - 2024.9.22-1
 - Update to 2024.9.22
 - Add support for NumPy 2.x

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc0.250604g5abc7438f1e9d.12
+%define pkgrelease 0.rc0.250605gec7714e494790.13
 %define kversion 6
-%define tarfile_release 6.15-11796-g5abc7438f1e9d
+%define tarfile_release 6.15-12141-gec7714e494790
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250604g5abc7438f1e9d.12%{?buildid}%{?dist}
+%define specrelease 0.rc0.250605gec7714e494790.13%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -3916,7 +3916,9 @@ fi\
 %files headers
 /usr/include/*
 %exclude %{_includedir}/cpufreq.h
+%if %{with_ynl}
 %exclude %{_includedir}/ynl
+%endif
 %endif
 
 %if %{with_cross_headers}
@@ -4272,14 +4274,20 @@ fi\
 #
 #
 %changelog
-* Thu Jun 05 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.16.0-0.rc0.250604g5abc7438f1e9d.12]
-- Linux v6.16.0-0.rc0.250604g5abc7438f1e9d
+* Fri Jun 06 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.16.0-0.rc0.250605gec7714e494790.13]
+- Linux v6.16.0-0.rc0.250605gec7714e494790
 
-* Wed Jun 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.5abc7438f1e9.12]
+* Thu Jun 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.ec7714e49479.13]
 - drivers/crypto: make PAES_S390 select CRYPTO_ENGINE (Jan Stancek)
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - package the newly added cpupower.service (Thorsten Leemhuis)
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Thu Jun 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.ec7714e49479.12]
+- redhat/configs: Enable CONFIG_PCIE_TPH (Ivan Vecera)
+- spec: fix spec warning for /usr/include/ynl (Jan Stancek)
+- redhat/configs: Move CONFIG_PPC_FTRACE_OUT_OF_LINE_NUM_RESERVE to powerpc (Viktor Malik)
+- Linux v6.16.0-0.rc0.ec7714e49479
 
 * Wed Jun 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.5abc7438f1e9.11]
 - Linux v6.16.0-0.rc0.5abc7438f1e9

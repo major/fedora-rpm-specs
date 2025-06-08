@@ -1,6 +1,6 @@
 Name:		retis
 Version:	1.5.2
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	Tracing packets in the Linux networking stack
 License:	GPL-2.0-only
 
@@ -69,4 +69,7 @@ rm -f %{buildroot}/libbpf.a
 %{_sysconfdir}/retis/profiles
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.5.2-1
+- Rebuilt for Python 3.14
+
 %autochangelog

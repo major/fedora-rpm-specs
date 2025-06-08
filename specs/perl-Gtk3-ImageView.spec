@@ -35,7 +35,14 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Try::Tiny)
+%if 0%{?rhel} >= 10
+BuildRequires:  mutter
+BuildRequires:  xwayland-run
+%global xvfbrunner xwfb-run -c mutter
+%else
 BuildRequires:  xorg-x11-server-Xvfb
+%global xvfbrunner xvfb-run -d
+%endif
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
@@ -55,7 +62,12 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Glib) >= 1.2100
+%if 0%{?rhel} >= 10
+Requires:       mutter
+Requires:       xwayland-run
+%else
 Requires:       xorg-x11-server-Xvfb
+%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -81,13 +93,13 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec xvfb-run -d prove -I . -j 1
+cd %{_libexecdir}/%{name} && exec %{xvfbrunner} prove -I . -j 1
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 # Not parallel-safe
-xvfb-run -d make test
+%{xvfbrunner} make test
 
 %files
 %license LICENSE

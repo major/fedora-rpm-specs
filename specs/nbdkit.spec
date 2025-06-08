@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.43.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1540,6 +1540,9 @@ fi
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.43.11-2
+- Rebuilt for Python 3.14
+
 * Thu Jun 05 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.11-1
 - New upstream development branch version 1.43.11
 

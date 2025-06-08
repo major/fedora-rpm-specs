@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.36.0-3
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Packit <hello@packit.dev> - 0.36.0-1
 - We have fixed a bug that caused specfile to traceback when section names with conditional macro expansions containing spaces were present in the spec file. (#476)
 

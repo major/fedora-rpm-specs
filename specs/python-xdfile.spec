@@ -1,7 +1,7 @@
 %global srcname xd
 %global pypi_name xdfile
-%global date 20240101
-%global commit 3349ddcf5f4503b243ab9629d8cdbed756cbff56
+%global date 20250519
+%global commit 31b2fec79773d62c67db9618ccb6ab1dad82a939
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}

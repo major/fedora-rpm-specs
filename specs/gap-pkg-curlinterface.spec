@@ -9,7 +9,7 @@
 %bcond tests 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Simple web access for GAP
 
@@ -19,6 +19,8 @@ ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/curlInterface/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+# Avoid a type warning from curl
+Patch:          %{name}-callback.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -49,7 +51,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
+%autosetup -n %{upname}-%{version} -p1
 
 %build
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules

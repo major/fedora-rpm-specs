@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlgmpidl
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -87,9 +87,7 @@ sed -i '/addprefix/s/OCAMLOPT/OCAMLC/g' Makefile
 %ifnarch %{ocaml_native_compiler}
   -no-native-plugins \
 %endif
-%ifnarch %{ocaml_native_profiling}
   -disable-profiling \
-%endif
   -prefix %{ocamldir}
 
 # Upstream Makefile is NOT safe to be called in parallel.
@@ -149,6 +147,9 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Fri Jun 06 2025 Jerry James  <loganjerry@gmail.com> - 1.3.0-14
+- Remove use of obsolete ocaml_native_profiling macro
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

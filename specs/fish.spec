@@ -1,4 +1,4 @@
-%global version_base 4.0.1
+%global version_base 4.0.2
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27
@@ -47,7 +47,6 @@ Patch0001:      0001-Remove-fish.desktop-file-as-it-was-only-needed-for-A.patch
 Patch0002:      0002-Remove-fish.desktop-harder.patch
 
 # Proposed upstream (501~1000)
-Patch0501:      https://github.com/fish-shell/fish-shell/pull/11173.patch
 # Proposed in a different form (with Cargo.lock changes) upstream: https://github.com/fish-shell/fish-shell/pull/11311
 Patch0502:      0502-Update-lru-to-0.13.0.patch
 

@@ -1,6 +1,6 @@
 Name:               python-Mastodon
 Version:            2.0.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -51,6 +51,9 @@ tomcli set pyproject.toml del tool.pytest.ini_options.addopts
 %doc README.rst
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2.0.1-3
+- Rebuilt for Python 3.14
+
 * Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.1-2
 - Use pytest instead of deprecated pytest-runner
 - Actually run the tests

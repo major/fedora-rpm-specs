@@ -16,6 +16,8 @@ Summary:        Specification for Pythonic file system interfaces
 License:        BSD-3-Clause
 URL:            https://github.com/fsspec/filesystem_spec
 Source:         %{url}/archive/%{tag}/%{srcname}-%{tag}.tar.gz
+# Submitted upstream: https://github.com/fsspec/filesystem_spec/pull/1857
+Patch:          Create-an-event-loop-if-it-doesn-t-exist.patch
 
 BuildArch:      noarch
 

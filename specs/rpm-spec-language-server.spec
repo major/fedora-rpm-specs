@@ -1,6 +1,6 @@
 Name:           rpm-spec-language-server
 Version:        0.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Language Server for RPM spec files
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ Supported LSP endpoints:
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.0.1-6
+- Rebuilt for Python 3.14
+
 * Mon Feb 03 2025 Miro Hrončok <mhroncok@redhat.com> - 0.0.1-5
 - Remove unused and duplicated BuildRequires
 

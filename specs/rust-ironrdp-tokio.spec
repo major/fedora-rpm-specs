@@ -5,7 +5,7 @@
 %global crate ironrdp-tokio
 
 Name:           rust-ironrdp-tokio
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Framed* traits implementation above Tokio’s traits
 
@@ -58,6 +58,30 @@ This package contains library source intended for building other packages which
 use the "reqwest" feature of the "%{crate}" crate.
 
 %files       -n %{name}+reqwest-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+reqwest-native-tls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+reqwest-native-tls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "reqwest-native-tls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+reqwest-native-tls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+reqwest-rustls-ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+reqwest-rustls-ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "reqwest-rustls-ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+reqwest-rustls-ring-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

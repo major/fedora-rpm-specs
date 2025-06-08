@@ -5,7 +5,7 @@
 
 Name:               python-%{modname}
 Version:            7.0.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -88,6 +88,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 7.0.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

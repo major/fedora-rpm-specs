@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 # Automatically converted from old format: MIT and CC0 and BSD - review is highly recommended.
@@ -103,6 +103,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 8.3.0-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.23.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.23.4-2
+- Rebuilt for Python 3.14
+
 * Thu Jun 05 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.4-1
 - New upstream development version 1.23.4
 
