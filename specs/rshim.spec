@@ -3,7 +3,7 @@
 #
 
 Name: rshim
-Version: 2.3.8
+Version: 2.4.2
 Release: %autorelease
 Summary: User-space driver for Mellanox BlueField SoC
 # Most code dual licensed: GPL-2.0 or BSD-3-Clause
@@ -11,6 +11,8 @@ Summary: User-space driver for Mellanox BlueField SoC
 License: (GPL-2.0-only OR BSD-3-Clause) AND MIT
 URL: https://github.com/mellanox/rshim-user-space
 Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{version}.tar.gz
+# https://github.com/Mellanox/rshim-user-space/pull/276
+Patch0: 0001-remove-wrong-use-of-struct-termio.patch
 
 BuildRequires: gcc, autoconf, automake, make
 BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse)
@@ -26,7 +28,7 @@ interface. It provides ways to push boot stream, debug the target or login
 via the virtual console or network interface.
 
 %prep
-%setup -q -n rshim-user-space-%{name}-%{version}
+%autosetup -p1 -n rshim-user-space-%{name}-%{version}
 
 %build
 ./bootstrap.sh

@@ -1,13 +1,14 @@
 %define _legacy_common_support 1
 
 Name:           duperemove
-Version:        0.14.1
-Release:        4%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExcludeArch:    %{ix86}
+BuildRequires:  pkgconfig(libbsd)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  libgcrypt-devel
@@ -55,8 +56,14 @@ rm -f %{buildroot}%{_mandir}/man8/show-shared-extents*.8*
 %{_bindir}/btrfs-extent-same
 %{_bindir}/duperemove
 %{_bindir}/hashstats
+%{_datadir}/zsh/site-functions/_duperemove
 
 %changelog
+* Sat Jun  7 2025 Jonathan Dieter <jonathan@dieter.ie> - 0.15.2-1
+- Update to version 0.15.2
+- Add missing requirement on libbsd
+- Add missing zsh completion file
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

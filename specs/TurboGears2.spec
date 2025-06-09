@@ -1,6 +1,6 @@
 Name:           TurboGears2
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
@@ -89,6 +89,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/tg/
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.5.0-2
+- Rebuilt for Python 3.14
+
 * Wed Feb 19 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-1
 - Update to upstream
 

@@ -4,7 +4,7 @@
 
 Name:           python-repoze-who
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 3.1.0-2
+- Rebuilt for Python 3.14
+
 * Mon Feb 24 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-1
 - Update to upstream.
 

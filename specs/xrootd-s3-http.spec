@@ -1,6 +1,6 @@
 Name:		xrootd-s3-http
-Version:	0.2.1
-Release:	2%{?dist}
+Version:	0.4.1
+Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -32,30 +32,33 @@ and HTTP backends through an XRootD server.
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DLIB_INSTALL_DIR:PATH=%{_libdir} \
        -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
        -DXROOTD_PLUGINS_EXTERNAL_GTEST:BOOL=ON \
-       -DBUILD_TESTING:BOOL=ON
+       -DBUILD_TESTING:BOOL=ON \
+       -DEXE_BIN:PATH=/bin/true \
+       -DGoWrk:PATH=/bin/true
 %cmake_build
 
 %check
 # Run only http tests. S3 tests require network and S3 client binaries.
-%if %{?rhel}%{!?rhel:0} == 9
-%ctest -- -R "HTTP|http"
-%else
-%ctest -R "HTTP|http"
-%endif
+%ctest -- -R "HTTP|http|FileSystemGlob"
 
 %install
 %cmake_install
 
 %files
 %{_libdir}/libXrdHTTPServer-5.so
+%{_libdir}/libXrdOssFilter-5.so
+%{_libdir}/libXrdOssHttp-5.so
+%{_libdir}/libXrdOssS3-5.so
 %{_libdir}/libXrdS3-5.so
 %doc README.md
 %license LICENSE
 
 %changelog
+* Sat Jun 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.1-1
+- Update to version 0.4.1
+
 * Sun Mar 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.2.1-2
 - Add -DLIB_INSTALL_DIR to cmake command
 

@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.4
+Version:        2.18.6
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        2%{?dist}
 Summary:        A radically simple IT automation system
@@ -31,6 +31,10 @@ Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uver
 # https://github.com/ansible/ansible/pull/84292.patch
 # https://bugzilla.redhat.com/2322751
 Patch:          0001-dnf5-apt-add-auto_install_module_deps-option-84292.patch
+# Initial support for Python 3.14
+# Downstream patch. See comments in patch file.
+# https://bugzilla.redhat.com/2366307
+Patch:          0002-Initial-support-for-Python-3.14.patch
 
 BuildArch:      noarch
 
@@ -261,6 +265,12 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Sat Jun 07 2025 Maxwell G <maxwell@gtmx.me> - 2.18.6-2
+- Add initial support for Python 3.14 (rhbz#2366307)
+
+* Sat Jun 07 2025 Maxwell G <maxwell@gtmx.me> - 2.18.6-1
+- Update to 2.18.6. Fixes rhbz#2354908.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.18.4-2
 - Rebuilt for Python 3.14
 

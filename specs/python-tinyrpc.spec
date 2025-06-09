@@ -3,7 +3,7 @@
 
 Name:       python-%{library}
 Version:    1.1.7
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A modular RPC library
 License:    MIT
 URL:        https://github.com/mbr/%{library}
@@ -107,6 +107,9 @@ mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{python3_sitelib}/%{library
 %{python3_sitelib}/%{module}/tests
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.1.7-3
+- Rebuilt for Python 3.14
+
 * Mon Feb 03 2025 Javier Peña <jpena@redhat.com> 1.1.7-2
 - Fix doc build (#2329893)
 - Fix minor typos

@@ -49,10 +49,7 @@ echo %{libiscsi_libdir} > $RPM_BUILD_ROOT/etc/ld.so.conf.d/%{name}-%{_arch}.conf
 rm $RPM_BUILD_ROOT/%{libiscsi_libdir}/libiscsi.a
 rm $RPM_BUILD_ROOT/%{libiscsi_libdir}/libiscsi.la
 
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%{?ldconfig_scriptlets}
 
 %files
 %license COPYING LICENCE-LGPL-2.1.txt

@@ -1,6 +1,6 @@
 Name:		cinch
 Version:	1.4.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A tool for provisioning Jenkins components for CI
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.4.0-23
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

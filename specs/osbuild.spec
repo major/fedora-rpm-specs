@@ -9,7 +9,7 @@ Version:        151
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -329,6 +329,9 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 151-2
+- Rebuilt for Python 3.14
+
 * Wed Jun 04 2025 Packit <hello@packit.dev> - 151-1
 Changes with 151
 ----------------

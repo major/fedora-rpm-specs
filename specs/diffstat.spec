@@ -1,8 +1,8 @@
 Summary: A utility which provides statistics based on the output of diff
 Name: diffstat
 Version: 1.68
-Release: 2%{?dist}
-License: MIT-X11
+Release: 3%{?dist}
+License: MIT
 URL: https://invisible-island.net/diffstat
 Source0: https://invisible-island.net/archives/diffstat/%{name}-%{version}.tgz
 Source1: COPYING
@@ -41,6 +41,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Sat Jun 07 2025 Than Ngo <than@redhat.com> - 1.68-3
+- SPDX license
+
 * Mon May 26 2025 Thomas E. Dickey <dickey@invisible-island.net> - 1.68-1
 - Update to 1.68, which updates license as well as adding zstd support
 

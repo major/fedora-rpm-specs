@@ -14,6 +14,10 @@ License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{srcurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+# Fix tests with Python 3.14, except RuntimeError from asyncio.get_event_loop
+# https://github.com/pika/pika/pull/1524
+Patch:          python3.14.patch
+
 BuildArch:      noarch
 
 # Python 3 requirements

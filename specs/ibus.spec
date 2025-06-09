@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -641,6 +641,14 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.5.32-5
+- Rebuilt for Python 3.14
+
+* Sat Jun 07 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-4
+- Update fr-bepo dead keys to update fr layouts only
+- Add engine/test-gnome.py
+- Add src/tests/ibus-keyval.c
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.32-3
 - Rebuilt for Python 3.14
 

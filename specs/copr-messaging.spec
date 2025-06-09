@@ -8,7 +8,7 @@ copr messages.
 
 Name:       copr-messaging
 Version:    1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.1-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - fix FTBFS caused by sphinx config
 - add missing @propery decorators

@@ -9,8 +9,8 @@
 # See also: https://bugzilla.redhat.com/show_bug.cgi?id=1087794
 
 Name:           ocaml-srpm-macros
-Version:        10
-Release:        4%{?dist}
+Version:        11
+Release:        1%{?dist}
 
 Summary:        OCaml architecture macros
 License:        GPL-2.0-or-later
@@ -43,6 +43,12 @@ install -p -m 0644 %{SOURCE0} $RPM_BUILD_ROOT%{rpmmacrodir}/macros.ocaml-srpm
 
 
 %changelog
+* Fri Jun 06 2025 Jerry James  <loganjerry@gmail.com> - 11-1
+- Add RPM declarative buildsystems
+- Remove obsolete ocaml_native_profiling macro
+- Remove unused odoc_package macro
+- Generalize architecture names
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

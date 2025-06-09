@@ -1,6 +1,9 @@
 # Build -pythonN subpackage
 %bcond_without python
 
+# See also:
+# https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 #
 Name:           opentrep
 Version:        0.07.18

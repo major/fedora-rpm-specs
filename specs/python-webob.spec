@@ -60,7 +60,8 @@ rm docs/_static/.empty
 
 %check
 %if %{with tests}
-%pytest
+# test_interrupted_request: https://github.com/Pylons/webob/issues/479
+%pytest -k "not test_interrupted_request"
 %else
 %pyproject_check_import
 %endif

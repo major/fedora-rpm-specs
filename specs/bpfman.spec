@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name:           bpfman
-Version:        0.5.4
+Version:        0.5.6
 Release:        %autorelease
 Summary:        EBPF Program Manager
 
@@ -50,7 +50,7 @@ Source0:        https://github.com/bpfman/bpfman/archive/refs/tags/v%{version}.t
 # remove "fiat-crypto-0.2.9/src/p434.rs" and references to it
 # removed forbidden Unicode code points (RTLO 0x202E) from idna-0.5.0 IdnaTestV2.txt
 # compress with "tar -Jcvf"
-Source1:        bpfman-%{version}-vendor.tar.xz
+Source1:        bpfman-%{version}-vendor.tar.gz
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}
@@ -63,6 +63,9 @@ BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(zlib)
 # dependency for the bundled cc crate
 BuildRequires:  gcc
+# dependency needed by aws-lc-sys crate build
+BuildRequires:  cmake
+BuildRequires:  clang-devel
 
 %global _description %{expand:
 bpfman operates as an eBPF manager, focusing on simplifying the deployment and

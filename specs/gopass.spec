@@ -27,6 +27,8 @@ BuildRequires:  git-core
 BuildRequires:  gnupg2
 Requires:       git-core
 Requires:       gnupg2
+Recommends:     (wl-clipboard if libwayland-client else xclip)
+Recommends:     (xclip if xorg-x11-server-Xorg else wl-clipboard)
 
 %description %{common_description}
 

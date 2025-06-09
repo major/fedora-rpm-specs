@@ -6,7 +6,7 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.5
+Version:        1.8.6
 Release:        %autorelease
 Summary:        Multilingual text library
 
@@ -120,6 +120,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_bindir}/m17n-dump
 %{_bindir}/m17n-edit
 %{_bindir}/m17n-view
+%{_bindir}/m17n-input-test
 %{_libdir}/m17n/1.0/libm17n-X.so
 %{_libdir}/m17n/1.0/libm17n-gd.so
 %{_libdir}/libm17n-gui.so.*

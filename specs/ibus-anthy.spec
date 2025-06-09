@@ -27,6 +27,7 @@ Source1:        https://github.com/ibus/%{name}/releases/download/%{version}/%{n
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel
@@ -108,7 +109,6 @@ fi
   --with-kasumi-exec=/usr/bin/kasumi-unicode \
 %endif
   --with-on-off-keys="'Zenkaku_Hankaku', 'Ctrl+space', 'Ctrl+J'" \
-  --with-python=python3 \
   --enable-installed-tests \
   --disable-static
 # make -C po update-gmo

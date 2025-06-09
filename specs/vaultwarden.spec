@@ -5,6 +5,9 @@
 # prevent library files from being installed
 %global cargo_install_lib 0
 
+# reduce debuginfo verbosity to work around OOM during linking stage
+%global rustflags_debuginfo 1
+
 Name:           vaultwarden
 Version:        1.33.2
 Release:        2%{?dist}

@@ -6,7 +6,7 @@ logging.config.dictConfig).
 
 Name: python-%{srcname}
 Version: 1.1.3
-Release: 23%{?dist}
+Release: 24%{?dist}
 BuildArch: noarch
 
 Summary: Pyramid plugin for YAML logging configuration
@@ -63,6 +63,9 @@ Summary: %{summary}
 
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.1.3-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name gql
 
 Name:           python-%{pypi_name}
-Version:        3.5.2
+Version:        3.5.3
 Release:        %autorelease
 Summary:        GraphQL client for Python
 
@@ -63,7 +63,6 @@ sed -i 's/"pytest-console-scripts==.*",/"pytest-console-scripts",/' setup.py
 sed -i 's/"pytest-cov==.*",/"pytest-cov",/' setup.py
 sed -i 's/"parse==.*",/"parse",/' setup.py
 sed -i 's/"vcrpy==.*",/"vcrpy",/' setup.py
-sed -i 's/"graphql-core>=3.2,<3.2.5"/"graphql-core>=3.2,<3.2.7"/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x test

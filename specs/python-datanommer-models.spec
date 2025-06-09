@@ -1,5 +1,5 @@
 Name:           python-datanommer-models
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        SQLAlchemy models for datanommer
 

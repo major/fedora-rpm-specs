@@ -2,7 +2,7 @@
 
 Name:           python-webtest
 Version:        3.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 3.0.6-2
+- Rebuilt for Python 3.14
+
 * Thu Jun 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.6-1
 - Update to upstream.
 

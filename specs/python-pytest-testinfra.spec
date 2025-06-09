@@ -1,6 +1,6 @@
 Name:           python-pytest-testinfra
 Version:        10.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unit testing for config-managed server state
 
 License:        Apache-2.0
@@ -59,4 +59,7 @@ sed -i '/types-paramiko/d' pyproject.toml
 %doc README.rst
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 10.2.2-2
+- Rebuilt for Python 3.14
+
 %autochangelog

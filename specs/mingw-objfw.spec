@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:          mingw-objfw
-Version:       1.3
+Version:       1.3.1
 Release:       1%{?dist}
 Summary:       MinGW port of ObjFW
 

@@ -2,7 +2,7 @@
 
 Name:           fedfind
 Version:        6.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPL-3.0-or-later
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 6.1.0-2
+- Rebuilt for Python 3.14
+
 * Fri Jun 06 2025 Adam Williamson <awilliam@redhat.com> - 6.1.0-1
 - New release 6.1.0 (ELN tweaks, built against Python 3.13 in Rawhide)
 

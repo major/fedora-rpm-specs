@@ -36,6 +36,10 @@
 %global use_system_harfbuzz 0
 %endif
 
+%if 0%{?rhel} && 0%{?rhel} == 10
+%global use_system_zlib 0
+%endif
+
 # ppc64le builds currently fail with V8/XFA enabled (qt 6.9.0)
 %ifarch ppc64le
 %global enable_pdf_v8 0

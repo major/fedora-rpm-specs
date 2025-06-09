@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -72,6 +72,9 @@ This package contains the basic form widgets build for python3.
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.2.6-24
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

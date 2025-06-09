@@ -2,7 +2,7 @@
 %global _vpath_srcdir src
 
 Name:           daggy
-Version:        2.2.0
+Version:        2.2.3
 Release:        %autorelease
 Summary:        Data Aggregation Utility and C/C++ developer library
 
@@ -57,6 +57,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:${LD_LIBRARY_PATH}
 
 %files devel
 %{_includedir}/DaggyCore
+%{_libdir}/cmake/DaggyCore
 
 %changelog
 %autochangelog

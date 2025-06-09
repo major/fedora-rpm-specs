@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 43.22
-Release: 3%{?dist}
+Release: 4%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -17,6 +17,10 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Drop a gnome-kiosk option that isn't present when mutter is built
 # without X11 support
 Patch: 0001-Don-t-pass-no-x11-to-gnome-kiosk.patch
+
+# Avoid buffer overflow with TIOCGWINSZ
+# Fixes https://bugzilla.redhat.com/2370944
+Patch: https://github.com/rhinstaller/anaconda/pull/6447.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -508,6 +512,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Sat Jun 07 2025 Miro Hrončok <mhroncok@redhat.com> - 43.22-4
+- Fix buffer overflow on Python 3.14
+- Fixes: hrbz#2370944
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 43.22-3
 - Rebuilt for Python 3.14
 
