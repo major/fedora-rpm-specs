@@ -1,5 +1,5 @@
 %bcond_without tests
-%bcond_without doc_html
+%bcond_with doc_html
 
 %global pypi_name NiaARMTS
 
@@ -14,7 +14,7 @@ association rule mining.
 }
 
 Name:           python-niaarmts
-Version:        0.1.7
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Nature-Inspired Algorithms for Time Series Numerical Association Rule Mining
 

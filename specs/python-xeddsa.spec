@@ -1,21 +1,22 @@
-# There is no %%build section
-%global debug_package %{nil}
-
-
 Name:           python-xeddsa
-Version:        1.0.3
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        4%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
-Source0:        https://github.com/Syndace/%{name}/archive/v%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          relax-setuptools.patch
 
+BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-cffi
-##BuildRequires:  python3-pynacl
 BuildRequires:  libxeddsa-devel
+BuildRequires:  libsodium-devel
+# docs
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-autodoc-typehints)
+BuildRequires:  texinfo
 
 %description
 This python library offers an open implementation of the XEdDSA
@@ -29,7 +30,6 @@ and X448 elliptic curve Diffie-Hellman functions.
 
 %package     -n python3-xeddsa
 Summary:        Python implementation of the XEdDSA signature scheme
-Requires:       libxeddsa
 
 %description -n python3-xeddsa
 This python library offers an open implementation of the XEdDSA
@@ -45,28 +45,49 @@ and X448 elliptic curve Diffie-Hellman functions.
 %autosetup -n %{name}-%{version}
 
 
-%build
-# Nothing to build
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+pushd docs/
+sphinx-build -b texinfo . texinfo
+pushd texinfo
+makeinfo --docbook xeddsa.texi
+popd # texinfo
+popd # docs
 
 %install
-%py3_install
-# Manual installation:
-mkdir -p %{buildroot}%{python3_sitearch}/xeddsa/
-cp -a xeddsa/* %{buildroot}%{python3_sitearch}/xeddsa/
+%pyproject_install
+%pyproject_save_files -l xeddsa
 
+# Install docbook docs
+install -pDm0644 docs/texinfo/xeddsa.xml \
+ %{buildroot}%{_datadir}/help/en/python-xeddsa/xeddsa.xml
 
-
-%files -n python3-xeddsa
-%license LICENSE
+%files -n python3-xeddsa  -f %{pyproject_files}
 %doc README.md
-# For arch-specific packages: sitearch
-%{python3_sitearch}/xeddsa/
-%{python3_sitearch}/XEdDSA-%{version}-py%{python3_version}.egg-info/
-
+%{python3_sitearch}/_libxeddsa.abi3.so
+%dir  %{_datadir}/help/en/
+%lang(en) %{_datadir}/help/en/python-xeddsa/
 
 
 %changelog
+* Sun Jun 08 2025 Python Maint <python-maint@redhat.com> - 1.1.0-4
+- Rebuilt for Python 3.14
+
+* Sun Jun 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.0-3
+- Remove unnecessary Requires
+
+* Sun Jun 08 2025 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.14
+
+* Sun Jun 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+- Use newer packaging macros
+- Build documentation
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.3-3
 - Rebuilt for Python 3.14
 

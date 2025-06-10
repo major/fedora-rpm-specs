@@ -1,11 +1,13 @@
 Name:		xrootd-s3-http
 Version:	0.4.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/102
+Patch0:		0001-Always-assign-partial-when-returning-true.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -29,6 +31,7 @@ and HTTP backends through an XRootD server.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -56,6 +59,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Sun Jun 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.1-2
+- Fix broken glob filter
+
 * Sat Jun 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.1-1
 - Update to version 0.4.1
 

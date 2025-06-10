@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit b9da5eadc78985ec6dff7e3a755ca7be42f9f4c2
+%global commit f728a2505313a928413af07720db7b261e8adcd4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -249,8 +249,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.29
-Release:        2%{?dist}
+Version:        2.0.30
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1962,6 +1962,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Sun Jun 08 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.30-1
+- Update to 2.0.30
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.29-2
 - Rebuilt for Python 3.14
 

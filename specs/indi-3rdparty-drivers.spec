@@ -29,7 +29,7 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.1.3
+%global indi_version 2.1.4
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
@@ -51,6 +51,9 @@ URL:            http://indilib.org
 # https://github.com/indilib/indi-3rdparty/archive/refs/tags/v%%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.zst
 Source1:        generate-drivers-tarball.sh
+
+# Backport patch to fix indi-shelyak build
+Patch:          db8106a9a03e0cfb700e02841d46f8b97b5513e0.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

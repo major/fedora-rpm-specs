@@ -17,7 +17,6 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %description
 This project aims to be the best, clearest QR Code generator library in
@@ -68,7 +67,6 @@ Development files and headers for high-quality QR Code generator library
 %package -n python3-qrcodegen
 Summary: High-quality QR Code generator library (Python version)
 BuildArch: noarch
-%{?python_provide:%python_provide python3-qrcodegen}
 
 %description -n python3-qrcodegen
 This project aims to be the best, clearest QR Code generator library in
@@ -84,6 +82,10 @@ comments.
 # Unpacking CMake build script and assets...
 tar -xf %{SOURCE1} %{cmakename}-%{version}-%{cmakesuffix}/cmake %{cmakename}-%{version}-%{cmakesuffix}/CMakeLists.txt --strip=1
 
+%generate_buildrequires
+pushd python >&2
+%pyproject_buildrequires
+
 %build
 # Building C and C++ versions...
 %cmake -G Ninja \
@@ -93,23 +95,23 @@ tar -xf %{SOURCE1} %{cmakename}-%{version}-%{cmakesuffix}/cmake %{cmakename}-%{v
 
 # Building Python version...
 pushd python
-%py3_build
+%pyproject_wheel
 popd
-
-%check
-%ctest
 
 %install
 # Installing C and C++ versions...
 %cmake_install
 
 # Installing Python version...
-pushd python
-%py3_install
-popd
+%pyproject_install
+%pyproject_save_files qrcodegen
 
 # Installing a legacy symlink for compatibility...
 ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
+
+%check
+%ctest
+%pyproject_check_import
 
 %files -n libqrcodegen
 %license Readme.markdown
@@ -131,11 +133,8 @@ ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
 %{_libdir}/libqrcodegencpp.so
 %{_libdir}/pkgconfig/qrcodegencpp.pc
 
-%files -n python3-qrcodegen
+%files -n python3-qrcodegen -f %{pyproject_files}
 %license Readme.markdown
-%{python3_sitelib}/qrcodegen.py
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/qrcodegen-*.egg-info/
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.8.0-13

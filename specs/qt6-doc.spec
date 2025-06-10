@@ -1,7 +1,7 @@
 Name:    qt6-doc
 Summary: Qt6 - Complete documentation
-Version: 6.9.0
-Release: 2%{?dist}
+Version: 6.9.1
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -59,6 +59,9 @@ tar xf %{SOURCE0} -C %{buildroot}
 %{_qt6_docdir}/*/*.tags
 
 %changelog
+* Sun Jun 08 2025 Marie Loise Nolden <loise@kde.org> - 6.9.1-1
+- 6.9.1
+
 * Wed Apr 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.9.0-2
 - Rebuilt
 

@@ -4,7 +4,7 @@ Name:    okteta
 Summary: Binary/hex editor
 Epoch:   1
 Version: 0.26.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -52,6 +52,8 @@ BuildRequires: pkgconfig(Qt5ScriptTools)
 BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5Xml)
+
+Requires: kio-extras-kf5
 
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -154,6 +156,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 
 
 %changelog
+* Sun Jun 08 2025 Steve Cossette <farchord@gmail.com> - 1:0.26.22-2
+- Added KIO extras as a runtime dependancy (KF5)
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 1:0.26.22-1
 - 0.26.22
 

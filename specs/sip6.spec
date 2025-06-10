@@ -2,7 +2,7 @@
 
 Name:           sip6
 Version:        6.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -52,6 +52,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Sun Jun 08 2025 Python Maint <python-maint@redhat.com> - 6.12.0-2
+- Rebuilt for Python 3.14
+
 * Sat Jun 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
 - 6.12.0
 

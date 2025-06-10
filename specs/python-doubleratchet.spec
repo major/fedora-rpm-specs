@@ -1,19 +1,22 @@
 Name:           python-doubleratchet
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation of the Double Ratchet algorithm
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
-Source0:        https://github.com/Syndace/%{name}/archive/v%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-cryptography
 # For tests
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pydantic
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+# For documentation
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-autodoc-typehints)
+BuildRequires:  texinfo
 
 %description
 This python library offers an implementation of the Double Ratchet
@@ -43,30 +46,43 @@ class.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
-
+%pyproject_wheel
+pushd docs
+sphinx-build -b texinfo . texinfo
+pushd texinfo
+makeinfo --docbook doubleratchet.texi
+popd
+popd
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files doubleratchet
+install -pDm0644 docs/texinfo/doubleratchet.xml \
+  %{buildroot}%{_datadir}/help/en/python-doubleratchet/doubleratchet.xml
 
 %check
+%pyproject_check_import
 %pytest
 
 
 
-%files -n python3-doubleratchet
+%files -n python3-doubleratchet -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-# For noarch packages: sitelib
-%{python3_sitelib}/doubleratchet/
-%{python3_sitelib}/DoubleRatchet-%{version}-py%{python3_version}.egg-info/
-
+%dir  %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/python-doubleratchet
 
 
 %changelog
+* Sun Jun 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.0-3
+- Use newer packaging macros
+- Build documentation
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

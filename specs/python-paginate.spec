@@ -1,7 +1,7 @@
 %global srcname paginate
 
 Name:           python-%{srcname}
-Version:        0.5.6
+Version:        0.5.7
 Release:        %autorelease
 Summary:        Divides large result sets into pages for easier browsing
 

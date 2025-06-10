@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        2.2.6
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -36,7 +36,7 @@ Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
 
 # https://github.com/numpy/numpy/pull/28748
-Patch:          Support-Python-3.14.patch
+#Patch:          Support-Python-3.14.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -222,6 +222,7 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %dir %{python3_sitearch}/%{name}
 %{python3_sitearch}/%{name}/*.py*
 %{python3_sitearch}/%{name}/char
+%{python3_sitearch}/%{name}/ctypeslib
 %{python3_sitearch}/%{name}/core
 %{python3_sitearch}/%{name}/doc
 %{python3_sitearch}/%{name}/fft
@@ -233,7 +234,6 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %{python3_sitearch}/%{name}/strings
 %{python3_sitearch}/%{name}/testing
 %{python3_sitearch}/%{name}/tests
-%{python3_sitearch}/%{name}/compat
 %{python3_sitearch}/%{name}/matrixlib
 %{python3_sitearch}/%{name}/polynomial
 %{python3_sitearch}/%{name}-*.dist-info
@@ -259,6 +259,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Sat Jun 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.3.0-1
+- 2.3.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1:2.2.6-2
 - Rebuilt for Python 3.14
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 43.22
-Release: 4%{?dist}
+Release: 5%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -21,6 +21,10 @@ Patch: 0001-Don-t-pass-no-x11-to-gnome-kiosk.patch
 # Avoid buffer overflow with TIOCGWINSZ
 # Fixes https://bugzilla.redhat.com/2370944
 Patch: https://github.com/rhinstaller/anaconda/pull/6447.patch
+
+# Avoid the multiprocessing forkserver method with dnf
+# Fixes "TypeError: cannot pickle 'SwigPyObject' object" on Python 3.14+
+Patch: https://github.com/rhinstaller/anaconda/pull/6449.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -512,6 +516,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Sun Jun 08 2025 Miro Hrončok <mhroncok@redhat.com> - 43.22-5
+- Fix "TypeError: cannot pickle 'SwigPyObject' object" on Python 3.14+
+
 * Sat Jun 07 2025 Miro Hrončok <mhroncok@redhat.com> - 43.22-4
 - Fix buffer overflow on Python 3.14
 - Fixes: hrbz#2370944

@@ -1,6 +1,7 @@
 %global framework kio
 
 %bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+%bcond_with bootstrap
 
 Name:    kf5-%{framework}
 Version: 5.116.0
@@ -76,7 +77,7 @@ BuildRequires:  cmake(Qt5Qml)
 BuildRequires:  switcheroo-control
 
 
-%if ! 0%{?bootstrap}
+%if %{without bootstrap}
 # really runtime dep, but will make cmake happier when building
 BuildRequires: kf5-kded-devel
 # (apparently?) requires org.kde.klauncher5 service provided by kf5-kinit -- rex

@@ -2,7 +2,7 @@
 
 Name:    kde-connect
 Version: 25.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -86,6 +86,8 @@ Requires:       kde-cli-tools
 # /usr/bin/kdeconnect-app
 Requires:       kf6-kirigami2%{?_isa}
 Requires:       kf6-kirigami2-addons
+# kde-connect app requires the qml definition to launch
+Requires:       qt6qml(org.kde.desktop)
 # Required for contact synchronization with kde connect
 Recommends:     kf6-kpeople
 
@@ -195,6 +197,9 @@ done
 
 
 %changelog
+* Sun Jun 08 2025 Dan Čermák <dan.cermak@posteo.net> - 25.04.2-2
+- Add missing Requires: qt6qml(org.kde.desktop)
+
 * Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
 - 25.04.2
 

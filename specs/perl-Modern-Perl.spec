@@ -1,6 +1,6 @@
 Name:           perl-Modern-Perl
-Version:        1.20241001
-Release:        2%{?dist}
+Version:        1.20250607
+Release:        1%{?dist}
 Summary:        Enable all of the features of Modern Perl with one command
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Modern-Perl
@@ -54,6 +54,11 @@ make test
 %{_mandir}/man3/odern::Perl.3*
 
 %changelog
+* Sun Jun  8 2025 Paul Howarth <paul@city-fan.org> - 1.20250607-1
+- Update to 1.20250607
+  - Update for 2025 year bundle
+  - Enhance documentation to discourage this module for v5.38 and newer
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20241001-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-slixmpp
 Version:        1.8.6
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
@@ -13,7 +13,6 @@ Source0:        https://codeberg.org/poezio/%{srcname}/archive/slix-%{version}.t
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  gcc
 BuildRequires:  libidn-devel
@@ -21,6 +20,7 @@ BuildRequires:  libidn-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-autodoc-typehints
 BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  texinfo
 # for tests
 #BuildRequires:  python3-nose
 #BuildRequires:  python3-aiohttp
@@ -38,11 +38,6 @@ remove all threads.
 
 %package -n python3-%{srcname}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
-Requires:       python3-pyasn1-modules
-Requires:       python3-aiodns
-Requires:       python3-aiohttp
-Requires:       python3-emoji
-Requires:       python3-defusedxml
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -64,35 +59,38 @@ of SleekXMPP. Goals is to only rewrite the core of the library (the low
 level socket handling, the timers, the events dispatching) in order to
 remove all threads.
 
-This package contains documentation in reST and HTML formats.
+This package contains documentation in docbook format.
 
 
 
 %prep
 %autosetup -n %{srcname}
-# The spinx theme "furo" is not packaged in Fedora yet. Using theme
-# from "Read The Doc" instead.
-sed -i "s|html_theme = 'furo'|html_theme = 'sphinx_rtd_theme'|" docs/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 # Build sphinx documentation
 pushd docs/
-make html
+sphinx-build -b texinfo . texinfo
+pushd texinfo
+ls
+makeinfo --docbook slixmpp.texi
+ls
+popd # texinfo
 popd # docs
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l slixmpp
 
-# Install html docs
-mkdir -p %{buildroot}%{_pkgdocdir}/
-cp -pr docs/_build/html %{buildroot}%{_pkgdocdir}/
-
-# Remove buildinfo sphinx documentation
-rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
+# Install docbook docs
+install -pDm0644 docs/texinfo/slixmpp.xml \
+ %{buildroot}%{_datadir}/help/en/python-slixmpp/slixmpp.xml
 
 # Fix non-standard modes (775)
 chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
@@ -100,24 +98,28 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
 
 %check
 # Most of the tests availables are failing: temporary disabled
+%pyproject_check_import -t
 
 
-
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CONTRIBUTING.rst README.rst
-# For arch-specific packages: sitearch
-%{python3_sitearch}/%{srcname}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitearch}/%{srcname}/
 
 
 %files -n python-%{srcname}-doc
 %doc examples/
-%{_pkgdocdir}/
+%dir  %{_datadir}/help/en/
+%lang(en) %{_datadir}/help/en/python-slixmpp/
 
 
 
 %changelog
+* Sun Jun 08 2025 Python Maint <python-maint@redhat.com> - 1.8.6-5
+- Rebuilt for Python 3.14
+
+* Sun Jun 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.8.6-4
+- Use newer packaging macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.8.6-3
 - Rebuilt for Python 3.14
 
