@@ -4,7 +4,7 @@
 %global somajor 0
 
 Name:           libeconf
-Version:        0.7.6
+Version:        0.7.9
 Release:        1%{?dist}
 Summary:        Enhanced config file parser library
 
@@ -82,6 +82,9 @@ configuration files from applications that use %{name}.
 %{_mandir}/man8/econftool.8*
 
 %changelog
+* Mon Jun  9 2025 Iker Pedrosa <ipedrosa@redhat.com> - 0.7.9-1
+- Rebase to 0.7.9
+
 * Mon Feb 10 2025 Iker Pedrosa <ipedrosa@redhat.com> - 0.7.6-1
 - Rebase to 0.7.6
 

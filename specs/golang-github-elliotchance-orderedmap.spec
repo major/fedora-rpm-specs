@@ -4,7 +4,7 @@
 
 # https://github.com/elliotchance/orderedmap
 %global goipath         github.com/elliotchance/orderedmap
-Version:                2.0.1
+Version:                3.1.0
 
 %gometa
 
@@ -16,7 +16,7 @@ Get, Delete and Len.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        An ordered map in Go with O(1) for Set, Get, Delete and Len
 
 License:        MIT
@@ -50,6 +50,10 @@ ExcludeArch:    s390x
 %gopkgfiles
 
 %changelog
+* Mon Jun 09 2025 Julien Rische <jrische@redhat.com> - 3.1.0-1
+- Rebase to version 3.1.0
+  Resolves: rhbz#2124117
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

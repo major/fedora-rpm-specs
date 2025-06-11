@@ -23,8 +23,8 @@
 
 Summary: Scanner access software
 Name: sane-backends
-Version: 1.3.1
-Release: 4%{?dist}
+Version: 1.4.0
+Release: 1%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -36,7 +36,8 @@ Release: 4%{?dist}
 # !DISABLED DURING CONFIGURE, thus not in License tag! backend/escl* - GPL-3.0-or-later
 License: GPL-2.0-or-later WITH SANE-exception AND GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND IJG AND MIT
 # GitLab Download URLs are amazing. But the source code link has different name and doesnt have generated autotools stuff
-Source0: https://gitlab.com/sane-project/backends/uploads/104f09c07d35519cc8e72e604f11643f/%{name}-%{version}.tar.gz
+Source0: https://gitlab.com/-/project/429008/uploads/843c156420e211859e974f78f64c3ea3/%{name}-%{version}.tar.gz
+URL: http://www.sane-project.org
 
 Source1: sane.png
 Source2: saned.socket
@@ -52,12 +53,7 @@ Patch0: sane-backends-1.0.25-udev.patch
 Patch1: sane-backends-1.0.23-soname.patch
 # Fedora-specific (for now): make installed sane-config multi-lib aware again
 Patch2: sane-backends-1.0.23-sane-config-multilib.patch
-# https://gitlab.com/sane-project/backends/-/merge_requests/862
-Patch3: backends-gcc15-bool-kw.patch
-# https://gitlab.com/sane-project/backends/-/merge_requests/871/diffs?commit_id=01a041c02cd7
-Patch4: 0001-pixma-Use-snprint-instead-of-sprintf-to-avoid-buffer.patch
 
-URL: http://www.sane-project.org
 
 # we need autoconf during build
 BuildRequires: autoconf
@@ -411,6 +407,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Mon Jun 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-1
+- 1.4.0 (fedora#2365574)
+
 * Tue May 06 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-4
 - fix crash in pixma (fedora#2358843)
 

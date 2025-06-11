@@ -61,7 +61,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -116,8 +116,13 @@ BuildRequires:  pkgconfig(bzip2)
 %endif
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gmock
+BuildRequires:  gtest
+%else
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
+%endif
 %endif
 
 %if %{with ninja}
@@ -249,13 +254,24 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 %cmake_build
 
 %if %{with test}
+%if 0%{?suse_version}
+%cmake_build tests
+%else
 %cmake_build -t tests
 %endif
+%endif
+
 
 %if %{with test}
 %if %{with check}
 %check
-%cmake_build -t test
+find . -name 'libMIOpen.so.1'
+%if 0%{?suse_version}
+export LD_LIBRARY_PATH=${PWD}/%{__builddir}/lib:$LD_LIBRARY_PATH
+%else
+export LD_LIBRARY_PATH=%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
+%endif
+%ctest
 %endif
 %endif
 
@@ -289,6 +305,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Improving testing on suse
+
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Cleanup module build
 

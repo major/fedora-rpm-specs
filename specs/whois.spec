@@ -8,7 +8,7 @@
 %global forgeurl https://github.com/rfc1036/whois
 
 Name:       whois       
-Version:    5.5.20
+Version:    5.6.2
 Release:    %autorelease
 Summary:    Improved WHOIS client
 License:    GPL-2.0-or-later

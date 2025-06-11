@@ -1,4 +1,4 @@
-%define abi_ver 2.1.0
+%define abi_ver 2.2.0
 %global desc %{expand: \
 The Global Extensible Open Power Manager (GEOPM) provides a framework to
 explore power and energy optimizations on platforms with heterogeneous mixes
@@ -9,7 +9,7 @@ optimize system hardware settings to achieve energy efficiency and/or
 performance objectives.}
 
 Name:		libgeopm
-Version:	3.1.0
+Version:	3.2.0
 Release:	%autorelease
 Summary:	C/C++ implementation of the GEOPM runtime service
 
@@ -17,7 +17,8 @@ License:	BSD-3-Clause
 URL:		https://geopm.github.io
 Source0:	https://github.com/geopm/geopm/archive/v%{version}/geopm-%{version}.tar.gz
 
-Patch0:		libgeopm-fedora.patch
+Patch0:		0003-Define-macro-to-set-defaults-used-by-init-function.patch
+Patch1:		libgeopm-fedora.patch
 
 ExclusiveArch:	x86_64
 
@@ -28,7 +29,7 @@ BuildRequires:	gmock-devel
 BuildRequires:	gtest-devel
 BuildRequires:	libtool
 BuildRequires:	elfutils-libelf-devel
-BuildRequires:	libgeopmd-devel
+BuildRequires:	libgeopmd-devel >= 3.2.0
 
 %description
 %{desc}
@@ -53,12 +54,6 @@ Requires:	python3dist(geopmpy)
 %prep
 %autosetup -p1 -n geopm-%{version}
 
-# gcc 15 include cstdint
-sed -i '/#include <vector>.*/a#include <cstdint>' libgeopm/include/geopm/Agent.hpp
-sed -i '/#include <array>.*/a#include <cstdint>' libgeopm/src/ProfileIOGroup.hpp
-sed -i '/#include <memory>.*/a#include <cstdint>' libgeopm/src/RecordFilter.hpp
-sed -i '/#include <regex>.*/a#include <iomanip>' libgeopmd/test/geopm_test.cpp
-
 pushd %{name}
 echo %{version} > VERSION
 autoreconf -vif
@@ -78,7 +73,8 @@ popd
 %install
 pushd %{name}
 %make_install
-rm -v %{buildroot}/%{_libdir}/libgeopm.a
+rm -v %{buildroot}/%{_libdir}/%{name}.a
+rm -v %{buildroot}/%{_libdir}/geopm/libgeopmiogroup_profile.a
 popd
 
 %check
@@ -91,11 +87,15 @@ popd
 %doc CONTRIBUTING.rst README.md
 %{_libdir}/%{name}.so.%{abi_ver}
 %{_libdir}/%{name}.so.2
+%dir %{_libdir}/geopm
+%{_libdir}/geopm/%{name}iogroup_profile.so.%{abi_ver}
+%{_libdir}/geopm/%{name}iogroup_profile.so.2
 
 %files devel
 %{_includedir}/geopm
 %{_includedir}/geopm_*
 %{_libdir}/%{name}.so
+%{_libdir}/geopm/%{name}iogroup_profile.so
 
 %files -n geopm-cli
 %{_sbindir}/geopmadmin

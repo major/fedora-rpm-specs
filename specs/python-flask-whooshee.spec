@@ -2,13 +2,12 @@
 
 Name:           python-flask-whooshee
 Version:        0.9.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Whoosh integration
 
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-copr/flask-whooshee
 Source0:        https://pypi.python.org/packages/source/f/%{mod_name}/%{mod_name}-%{version}.tar.gz
-# https://github.com/bkabrda/flask-whooshee/pull/19
 BuildArch:      noarch
 
 
@@ -20,7 +19,6 @@ Whoosh integration that allows to create and search custom indexes.
 %package -n python3-%{mod_name}
 Summary:        Whoosh integration
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-whoosh
 BuildRequires:  python3-flask
 BuildRequires:  python3-flask-sqlalchemy
@@ -37,28 +35,36 @@ Requires:       python3-flask
 
 Python 3 version.
 
+%generate_buildrequires
+%pyproject_buildrequires 
+
 %prep
 %autosetup -n %{mod_name}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %check
 %{__python3} -m pytest -vv test.py
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python3-%{mod_name}
 %doc LICENSE README.md
 %{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/*.egg-info
 %{python3_sitelib}/flask_whooshee.py
-
+%{python3_sitelib}/*.dist-info
 
 %changelog
+* Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 0.9.1-4
+- Rebuilt for Python 3.14
+
+* Mon Jun 09 2025 msuchy <msuchy@redhat.com> - 0.9.1-3
+- modernize python macros
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.9.1-2
 - Rebuilt for Python 3.14
 

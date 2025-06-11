@@ -105,7 +105,11 @@
 %endif
 %endif
 
-%if %{with pgo} && (0%{undefined rhel} || 0%{with snapshot_build})
+# We only want to run the performance comparison on snapshot builds.
+# centos-streams/RHEL do not have all the requirements. We tried to use pip,
+# but we've seen issues on some architectures. We're now restricting this
+# to Fedora.
+%if %{with pgo} && %{with snapshot_build} && %{defined fedora}
 %global run_pgo_perf_comparison 1
 %else
 %global run_pgo_perf_comparison %{nil}
@@ -432,6 +436,7 @@ BuildRequires:	ncurses-devel
 %if %{with pgo}
 BuildRequires:	lld
 BuildRequires:	compiler-rt
+BuildRequires:	llvm
 
 %if 0%{run_pgo_perf_comparison}
 BuildRequires:	llvm-test-suite

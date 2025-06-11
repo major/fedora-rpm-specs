@@ -6,8 +6,8 @@
 %endif
 
 Name:       python-%{srcname}
-Version:    1.5
-Release:    3%{?dist}
+Version:    1.6
+Release:    2%{?dist}
 Summary:    Dictionary with Jinja2 expansion
 
 License:    GPL-2.0-or-later
@@ -20,9 +20,16 @@ Source0:    %name-%version.tar.gz
 
 BuildArch: noarch
 
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+BuildRequires: python%{python3_pkgversion}-devel
+%else
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
+%endif
+
+BuildRequires: python%{python3_pkgversion}-setuptools
 Requires:      python%{python3_pkgversion}-jinja2
+
 
 %global _description\
 Dictionary where __getitem__() is run through Jinja2 template.
@@ -36,29 +43,50 @@ Summary: %{summary}
 %description -n python3-%{srcname} %_description
 
 
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %prep
 %setup -q
 
 
 %build
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+version="%version" %pyproject_wheel
+%else
 version="%version" %py3_build
+%endif
 
 %install
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+version=%version %pyproject_install
+%else
 version=%version %py3_install
-
+%endif
 
 %files -n python3-%{srcname}
 %license LICENSE
-%{python3_sitelib}/templated_dictionary-*.egg-info/
 %{python3_sitelib}/templated_dictionary/
-
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+%{python3_sitelib}/*.dist-info
+%else
+%{python3_sitelib}/templated_dictionary-*.egg-info/
+%endif
 
 %changelog
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5-3
+* Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 1.6-2
 - Rebuilt for Python 3.14
 
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Mon Jun 09 2025 Miroslav Suchý <msuchy@redhat.com> 1.6-1
+- remove license classifier from setup.py
+- modernize python macros
+- update license to SPDX in README
+- update license to SPDX in setup.py too
+
+* Mon Jun 09 2025 msuchy <msuchy@redhat.com> - 1.5-2
+- move to pyproject macros
 
 * Tue Sep 17 2024 Pavel Raiskup <praiskup@redhat.com> 1.5-1
 - The dictionary.copy() method should copy aliases

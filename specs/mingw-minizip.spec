@@ -3,7 +3,7 @@
 %global pkgname minizip
 
 Name:          mingw-%{pkgname}
-Version:       4.0.9
+Version:       4.0.10
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -88,6 +88,9 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 
 %changelog
+* Mon Jun 09 2025 Sandro Mani <manisandro@gmail.com> - 4.0.10-1
+- Update to 4.0.10
+
 * Fri Apr 18 2025 Sandro Mani <manisandro@gmail.com> - 4.0.9-1
 - Update to 4.0.9
 

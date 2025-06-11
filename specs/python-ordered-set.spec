@@ -12,7 +12,6 @@ Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 #tests
 BuildRequires:  python3-pytest
 
@@ -30,14 +29,17 @@ Summary:        %{summary}
 
 Python 3 version.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -45,11 +47,11 @@ Python 3 version.
 %files -n python3-%{srcname}
 %license MIT-LICENSE
 %doc README.md
-%{python3_sitelib}/%{dir_name}-*.egg-info/
 %dir %{python3_sitelib}/%{dir_name}
 %{python3_sitelib}/%{dir_name}/*.py
 %{python3_sitelib}/%{dir_name}/__pycache__
 %{python3_sitelib}/%{dir_name}/py.typed
+%{python3_sitelib}/*.dist-info
 
 %changelog
 %autochangelog

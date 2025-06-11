@@ -1,11 +1,11 @@
 Name:		pythia8
-Version:	8.3.14
-Release:	2%{?dist}
+Version:	8.3.15
+Release:	1%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8314.tgz
+Source0:	https://pythia.org/download/pythia83/pythia8315.tgz
 #		Link plugins to the shared library
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
@@ -76,7 +76,7 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8314
+%setup -q -n pythia8315
 %patch -P0 -p1
 
 # Remove DOS end-of-line
@@ -164,6 +164,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Mon Jun 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.15-1
+- Update to version 8.3.15
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.3.14-2
 - Rebuilt for Python 3.14
 

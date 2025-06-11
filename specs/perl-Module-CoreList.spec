@@ -1,7 +1,7 @@
 Name:           perl-Module-CoreList
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        5.20250421
+Version:        5.20250528
 Release:        1%{?dist}
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20250528-1
+- 5.20250528 bump (rhbz#2371158)
+
 * Tue Apr 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20250421-1
 - 5.20250421 bump (rhbz#2361330)
 

@@ -3,7 +3,7 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.3.3
+Version:       3.3.4
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -12,8 +12,6 @@ URL:           http://www.openexr.com/
 BuildArch:     noarch
 Source0:       https://github.com/AcademySoftwareFoundation/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
-# Backport fix for build failure on MinGW
-Patch0:        https://github.com/AcademySoftwareFoundation/openexr/commit/5a675d69d3dcac4b0dc680221fb05b7835f5788c.patch
 
 BuildRequires: cmake
 BuildRequires: make
@@ -167,6 +165,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Mon Jun 09 2025 Sandro Mani <manisandro@gmail.com> - 3.3.4-1
+- Update to 3.3.4
+
 * Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 3.3.3-1
 - Update to 3.3.3
 

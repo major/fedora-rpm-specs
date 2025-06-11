@@ -1,5 +1,5 @@
-%global commit fde4d3457d7c1e6f7d09afeae5afd2218fbb2cae
-%global snapdate 20250603
+%global commit ffae0ffa2a3f906fd471e2d672731205f7e5febd
+%global snapdate 20250609
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
@@ -8,8 +8,8 @@ Version:        0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 License:        0BSD
-URL:            https://github.com/python/%{name}
-Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+URL:            https://github.com/python/pythoncapi-compat
+Source0:        %{url}/archive/%{commit}/pythoncapi-compat-%{commit}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        upgrade_pythoncapi.py.1
 
@@ -35,7 +35,7 @@ of the pythoncapi_compat.h header file and the upgrade_pythoncapi.py script.}
 Summary:        %{summary}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
-Provides:       %{name}-static = %{version}-%{release}
+Provides:       pythoncapi-compat-static = %{version}-%{release}
 
 BuildArch:      noarch
 
@@ -55,7 +55,7 @@ This package provides the command-line tool upgrade_pythoncapi.py.
 
 
 %package doc
-Summary:        Documentation for %{name}
+Summary:        Documentation for pythoncapi-compat
 
 BuildArch:      noarch
 
@@ -63,7 +63,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n pythoncapi-compat-%{commit}
 # Compiling with -Werror makes sense for upstream CI, but is probably too
 # brittle for downstream builds.
 sed -r -i "s/^([[:blank:]]*)(['\"]-Werror)/\1# \2/" tests/setup.py

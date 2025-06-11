@@ -1,5 +1,5 @@
 Name:           kea
-Version:        2.6.2
+Version:        2.6.3
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -244,36 +244,32 @@ find %{buildroot} -type f -name "*.la" -delete -print
 rm %{buildroot}%{_mandir}/man8/kea-netconf.8
 %endif
 
+rm -f %{buildroot}%{_pkgdocdir}/COPYING
+rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
+
+# Create empty password file for the Kea Control Agent
+install -m 0640 /dev/null %{buildroot}%{_sysconfdir}/kea/kea-api-password
+
 # Install systemd units
 install -Dpm 0644 %{S:11} %{buildroot}%{_unitdir}/kea-dhcp4.service
 install -Dpm 0644 %{S:12} %{buildroot}%{_unitdir}/kea-dhcp6.service
 install -Dpm 0644 %{S:13} %{buildroot}%{_unitdir}/kea-dhcp-ddns.service
 install -Dpm 0644 %{S:14} %{buildroot}%{_unitdir}/kea-ctrl-agent.service
 
-# systemd-sysusers
-install -p -D -m 0644 %{S:16} %{buildroot}%{_sysusersdir}/kea.conf
-
 # Start empty lease databases
 mkdir -p %{buildroot}%{_sharedstatedir}/kea/
 touch %{buildroot}%{_sharedstatedir}/kea/kea-leases4.csv
 touch %{buildroot}%{_sharedstatedir}/kea/kea-leases6.csv
 
-rm -f %{buildroot}%{_pkgdocdir}/COPYING
-rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
-
-mkdir -p %{buildroot}/run
-install -dm 0755 %{buildroot}/run/kea/
-
+# Install systemd sysusers and tmpfiles configs
+install -Dpm 0644 %{S:16} %{buildroot}%{_sysusersdir}/kea.conf
 install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 
-# Create log dir /var/log/kea for logging, since kea user can't create log files in /var/log
-mkdir -p %{buildroot}%{_localstatedir}/log/kea
-sed -i -e 's|log\/|log\/kea\/|g' \
-    %{buildroot}%{_sysconfdir}/kea/kea-dhcp4.conf \
-    %{buildroot}%{_sysconfdir}/kea/kea-dhcp6.conf \
-    %{buildroot}%{_sysconfdir}/kea/kea-dhcp-ddns.conf \
-    %{buildroot}%{_sysconfdir}/kea/kea-ctrl-agent.conf
-#    %{buildroot}%{_sysconfdir}/kea/kea-netconf.conf  # TODO: no support for netconf/sysconf yet
+mkdir -p %{buildroot}%{_rundir}
+install -dm 0750 %{buildroot}%{_rundir}/kea/
+
+mkdir -p %{buildroot}%{_localstatedir}/log
+install -dm 0750 %{buildroot}%{_localstatedir}/log/kea/
 
 
 %post
@@ -281,14 +277,26 @@ sed -i -e 's|log\/|log\/kea\/|g' \
 # ownership&permissions won't get changed so fix them to prevent startup failures
 [ "`stat --format '%U:%G' %{_rundir}/kea/logger_lockfile 2>&1 | grep root:root`" = "root:root" ] \
     && chown kea:kea %{_rundir}/kea/logger_lockfile
-[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases4.csv 2>&1 | grep root:root`" = "root:root" ] \
-    && chown kea:kea %{_sharedstatedir}/kea/kea-leases4.csv && chmod 0640 %{_sharedstatedir}/kea/kea-leases4.csv
-[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases6.csv 2>&1 | grep root:root`" = "root:root" ] \
-    && chown kea:kea %{_sharedstatedir}/kea/kea-leases6.csv && chmod 0640 %{_sharedstatedir}/kea/kea-leases6.csv
+[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases4.csv* 2>&1 | grep root:root | head -1`" = "root:root" ] \
+    && chown kea:kea %{_sharedstatedir}/kea/kea-leases4.csv* && chmod 0640 %{_sharedstatedir}/kea/kea-leases4.csv*
+[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases6.csv* 2>&1 | grep root:root | head -1`" = "root:root" ] \
+    && chown kea:kea %{_sharedstatedir}/kea/kea-leases6.csv* && chmod 0640 %{_sharedstatedir}/kea/kea-leases6.csv*
 [ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-dhcp6-serverid 2>&1 | grep root:root`" = "root:root" ] \
     && chown kea:kea %{_sharedstatedir}/kea/kea-dhcp6-serverid
 [ "`stat --format '%U:%G' %{_sysconfdir}/kea/kea*.conf 2>&1 | grep root:root | head -1`" = "root:root" ] \
     && chown root:kea %{_sysconfdir}/kea/kea*.conf && chmod 0640 %{_sysconfdir}/kea/kea*.conf
+
+# Remove /tmp/ from socket-name for existing configurations to fix CVE-2025-32802
+for i in kea-ctrl-agent.conf keactrl.conf kea-dhcp4.conf kea-dhcp6.conf kea-dhcp-ddns.conf; do
+    if [ -n "`grep '\"socket-name\": \"/tmp/' %{_sysconfdir}/kea/$i`" ]; then
+        sed -i.CVE-2025-32802.bak 's#\("socket-name": "/tmp/\)\(.*\)#"socket-name": "\2#g' %{_sysconfdir}/kea/$i
+    fi
+done
+# Set a pseudo-random password for default config to secure fresh install and allow CA startup without user intervention
+if [[ ! -s %{_sysconfdir}/kea/kea-api-password && -n `grep '"password-file": "kea-api-password"' %{_sysconfdir}/kea/kea-ctrl-agent.conf` ]]; then
+    (umask 0027; head -c 32 /dev/urandom | base64 > %{_sysconfdir}/kea/kea-api-password)
+    chown root:kea %{_sysconfdir}/kea/kea-api-password
+fi
 %systemd_post kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service kea-ctrl-agent.service
 
 %preun
@@ -313,11 +321,14 @@ sed -i -e 's|log\/|log\/kea\/|g' \
 %{_sbindir}/keactrl
 %{_sbindir}/perfdhcp
 %{_unitdir}/kea*.service
-%dir %{_sysconfdir}/kea/
-%config(noreplace) %attr(0640,root,kea) %{_sysconfdir}/kea/kea*.conf
 %{_datarootdir}/kea
+%dir %attr(0750,root,kea) %{_sysconfdir}/kea/
+%config(noreplace) %attr(0640,root,kea) %{_sysconfdir}/kea/kea*.conf
+%ghost %config(noreplace,missingok) %attr(0640,root,kea) %verify(not md5 size mtime) %{_sysconfdir}/kea/kea-api-password
 %dir %attr(0750,kea,kea) %{_sharedstatedir}/kea
 %config(noreplace) %attr(0640,kea,kea) %{_sharedstatedir}/kea/kea-leases*.csv
+%dir %attr(0750,kea,kea) %{_rundir}/kea/
+%dir %attr(0750,kea,kea) %{_localstatedir}/log/kea
 %{python3_sitelib}/kea
 %{_mandir}/man8/kea-admin.8*
 %{_mandir}/man8/kea-ctrl-agent.8*
@@ -331,10 +342,8 @@ sed -i -e 's|log\/|log\/kea\/|g' \
 %{_mandir}/man8/kea-shell.8*
 %{_mandir}/man8/keactrl.8*
 %{_mandir}/man8/perfdhcp.8*
-%dir %attr(0755,kea,kea) %{_rundir}/kea/
 %{_tmpfilesdir}/kea.conf
 %{_sysusersdir}/kea.conf
-%dir %attr(0750,kea,kea) %{_localstatedir}/log/kea
 
 %files doc
 %dir %{_pkgdocdir}
@@ -358,31 +367,31 @@ sed -i -e 's|log\/|log\/kea\/|g' \
 
 %files libs
 %license COPYING
-# old: find `rpm --eval %%{_topdir}`/BUILDROOT/kea-*/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
-# f41: find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
-%{_libdir}/libkea-asiodns.so.48*
-%{_libdir}/libkea-asiolink.so.71*
+# older: find `rpm --eval %%{_topdir}`/BUILDROOT/kea-*/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
+# >=f41: find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
+%{_libdir}/libkea-asiodns.so.49*
+%{_libdir}/libkea-asiolink.so.72*
 %{_libdir}/libkea-cc.so.68*
-%{_libdir}/libkea-cfgclient.so.65*
+%{_libdir}/libkea-cfgclient.so.66*
 %{_libdir}/libkea-cryptolink.so.50*
-%{_libdir}/libkea-d2srv.so.46*
+%{_libdir}/libkea-d2srv.so.47*
 %{_libdir}/libkea-database.so.62*
-%{_libdir}/libkea-dhcp_ddns.so.56*
-%{_libdir}/libkea-dhcp++.so.91*
-%{_libdir}/libkea-dhcpsrv.so.110*
-%{_libdir}/libkea-dns++.so.56*
+%{_libdir}/libkea-dhcp_ddns.so.57*
+%{_libdir}/libkea-dhcp++.so.92*
+%{_libdir}/libkea-dhcpsrv.so.111*
+%{_libdir}/libkea-dns++.so.57*
 %{_libdir}/libkea-eval.so.69*
 %{_libdir}/libkea-exceptions.so.33*
-%{_libdir}/libkea-hooks.so.99*
-%{_libdir}/libkea-http.so.71*
+%{_libdir}/libkea-hooks.so.100*
+%{_libdir}/libkea-http.so.72*
 %{_libdir}/libkea-log.so.61*
 %{_libdir}/libkea-mysql.so.71*
 %{_libdir}/libkea-pgsql.so.71*
-%{_libdir}/libkea-process.so.73*
+%{_libdir}/libkea-process.so.74*
 %{_libdir}/libkea-stats.so.41*
-%{_libdir}/libkea-tcp.so.18*
+%{_libdir}/libkea-tcp.so.19*
 %{_libdir}/libkea-util-io.so.0*
-%{_libdir}/libkea-util.so.85*
+%{_libdir}/libkea-util.so.86*
 
 %files keama
 %license COPYING

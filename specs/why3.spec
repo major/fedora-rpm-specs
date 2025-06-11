@@ -7,7 +7,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 # release.
 
 Name:           why3
-Version:        1.8.0
+Version:        1.8.1
 Release:        %autorelease
 Summary:        Software verification platform
 
@@ -19,10 +19,6 @@ Source0:        https://why3.gitlabpages.inria.fr/releases/%{name}-%{version}.ta
 Source1:        fr.lri.%{name}.desktop
 # AppData file written by Jerry James
 Source2:        fr.lri.%{name}.metainfo.xml
-# Fix a link order issue
-Patch:          %{name}-link-order.patch
-# Fix an incompatible pointer issue with C23
-Patch:          %{name}-c23.patch
 
 BuildRequires:  coq
 BuildRequires:  emacs-nw
@@ -161,13 +157,9 @@ sed -e 's|-Wall|%{build_cflags} %{build_ldflags}|;s/ -O -g//' \
 sed -i.orig 's,(MY_PATH_TO_WHY3)/share/whyitp,%{_emacs_sitelispdir},' share/whyitp/README
 fixtimestamp share/whyitp/README
 
-# Fix a configure script typo
-sed -i 's/\$(OCAMLC/$(ocamlc/' configure
-
 %build
 %configure --enable-verbose-make --enable-bddinfer
-# Work around a Makefile bug in version 1.8.0
-ln -s why3.opt bin/why3
+
 # FIXME: Parallel make sometimes fails
 make
 # The documentation build is broken in the 1.8.0 release

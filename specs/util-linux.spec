@@ -1,9 +1,9 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.41
+Version: 2.40.4
 # -p -e rc1
-Release: %autorelease
+Release: %autorelease -b7
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -35,7 +35,6 @@ BuildRequires: %{pypkg}-devel
 BuildRequires: gcc
 BuildRequires: rubygem-asciidoctor
 BuildRequires: po4a
-BuildRequires: sqlite-devel
 %ifarch ppc64le
 BuildRequires: librtas-devel
 %endif
@@ -56,6 +55,9 @@ Source12: util-linux-su.pamd
 Source13: util-linux-su-l.pamd
 Source14: util-linux-runuser.pamd
 Source15: util-linux-runuser-l.pamd
+
+# temporary, will be in upstream >= v2.41
+Source16: util-linux-uuidd-sysusers.conf
 
 ### Obsoletes & Conflicts & Provides
 Conflicts: initscripts < 9.79-4
@@ -91,7 +93,6 @@ Requires: libblkid = %{version}-%{release}
 Requires: libmount = %{version}-%{release}
 Requires: libsmartcols = %{version}-%{release}
 Requires: libfdisk = %{version}-%{release}
-Requires: liblastlog2 = %{version}-%{release}
 Requires: util-linux-core = %{version}-%{release}
 
 %if "%{_sbindir}" == "%{_bindir}"
@@ -110,17 +111,8 @@ Patch0: login-lastlog-create.patch
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
 
-# Upstream patches (to be included in v2.41.1)
-Patch2: 0000-libmount-fix-no-canonicalize-regression.patch
-Patch3: 0001-lsns-fix-undefined-reference-to-add_namespace_for_ns.patch
-Patch4: 0002-lsns-enhance-compilation-without-USE_NS_GET_API.patch
-Patch5: 0003-lsfd-fix-the-description-for-PACKET.PROTOCOL-column.patch
-Patch6: 0004-lsfd-bug-fix-scan-the-protocol-field-of-proc-net-pac.patch
-Patch7: 0005-include-cctype-fix-string-comparison.patch
-Patch8: 0006-findmnt-fix-k-option-parsing-regression.patch
-Patch9: 0007-include-mount-api-utils-include-linux-unistd.h.patch
-Patch10: 0008-Do-not-use-strerror-on-shared-libraries.patch
-
+# Backport better support for erofs on ppc64le
+Patch2: 0001-blkid-allow-up-to-64k-erofs-block-sizes.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -220,25 +212,6 @@ Requires: pkgconfig
 
 %description -n libmount-devel
 This is the device mounting development library and headers,
-part of util-linux.
-
-
-%package -n liblastlog2
-Summary: lastlog database library and PAM module
-License: BSD-2-Clause
-
-%description -n liblastlog2
-This is the lastlog database library and PAM module, part of util-linux.
-
-
-%package -n liblastlog2-devel
-Summary: lastlog database library
-License: BSD-2-Clause
-Requires: liblastlog2%{?_isa} = %{version}-%{release}
-Requires: pkgconfig
-
-%description -n liblastlog2-devel
-This is the lastlog database development library and headers,
 part of util-linux.
 
 
@@ -362,6 +335,7 @@ export DAEMON_LDFLAGS="$SUID_LDFLAGS"
 	--disable-silent-rules \
 	--disable-bfs \
 	--disable-pg \
+	--disable-liblastlog2 \
 	--enable-chfn-chsh \
 	--enable-usrdir-path \
 	--enable-write \
@@ -403,6 +377,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/{pam.d,security/console.apps}
 # And a dirs uuidd needs that the makefiles don't create
 install -d %{buildroot}/run/uuidd
 install -d %{buildroot}/var/lib/libuuid
+
+install -m 644 -D %{SOURCE16} %{buildroot}%{_sysusersdir}/uuidd.conf
 
 # /etc/adjtime
 install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/adjtime
@@ -464,7 +440,7 @@ rm -f %{buildroot}/sbin/sfdisk \
 ln -sf ../proc/self/mounts %{buildroot}/etc/mtab
 
 # remove static libs
-rm -f %{buildroot}%{_libdir}/lib{uuid,blkid,mount,smartcols,fdisk,lastlog2}.a
+rm -f %{buildroot}%{_libdir}/lib{uuid,blkid,mount,smartcols,fdisk}.a
 
 # temporary remove to avoid conflicts with bash-completion pkg
 rm -f %{buildroot}%{compldir}/{mount,umount}
@@ -496,14 +472,6 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}/usr/bin/
 
 %post
 %systemd_post fstrim.{service,timer}
-
-### Enable after completing migration to lastlog2
-# %post -n liblastlog2
-# %systemd_post lastlog2-import.service
-#
-# %postun -n liblastlog2
-# %systemd_postun lastlog2-import.service
-###
 
 %preun
 %systemd_preun fstrim.{service,timer}
@@ -557,7 +525,6 @@ fi
 
 %{_unitdir}/fstrim.*
 
-%{_bindir}/bits
 %{_bindir}/cal
 %{_bindir}/chmem
 %{_bindir}/choom
@@ -565,7 +532,6 @@ fi
 %{_bindir}/colcrt
 %{_bindir}/colrm
 %{_bindir}/column
-%{_bindir}/coresched
 %{_bindir}/eject
 %{_bindir}/enosys
 %{_bindir}/exch
@@ -578,7 +544,6 @@ fi
 %{_bindir}/isosize
 %{_bindir}/last
 %{_bindir}/lastb
-%{_bindir}/lastlog2
 %{_bindir}/look
 %{_bindir}/lsblk
 %{_bindir}/lscpu
@@ -611,8 +576,6 @@ fi
 %{_bindir}/wdctl
 %{_bindir}/whereis
 %{_bindir}/write
-
-%{_mandir}/man1/bits.1*
 %{_mandir}/man1/cal.1*
 %{_mandir}/man1/chfn.1*
 %{_mandir}/man1/choom.1*
@@ -621,7 +584,6 @@ fi
 %{_mandir}/man1/colcrt.1*
 %{_mandir}/man1/colrm.1*
 %{_mandir}/man1/column.1*
-%{_mandir}/man1/coresched.1.*
 %{_mandir}/man1/eject.1*
 %{_mandir}/man1/enosys.1*
 %{_mandir}/man1/exch.1*
@@ -681,7 +643,6 @@ fi
 %{_mandir}/man8/fsfreeze.8*
 %{_mandir}/man8/fstrim.8*
 %{_mandir}/man8/isosize.8*
-%{_mandir}/man8/lastlog2.8*
 %{_mandir}/man8/ldattach.8*
 %{_mandir}/man8/lsblk.8*
 %{_mandir}/man8/lslocks.8*
@@ -760,7 +721,6 @@ fi
 %{compldir}/isosize
 %{compldir}/last
 %{compldir}/lastb
-%{compldir}/lastlog2
 %{compldir}/ldattach
 %{compldir}/look
 %{compldir}/lsblk
@@ -934,7 +894,7 @@ fi
 %dir %attr(2775, uuidd, uuidd) /run/uuidd
 %{compldir}/uuidd
 %{_tmpfilesdir}/uuidd-tmpfiles.conf
-%{_sysusersdir}/uuidd-sysusers.conf
+%{_sysusersdir}/uuidd.conf
 
 
 %files -n libfdisk
@@ -968,29 +928,6 @@ fi
 %{_libdir}/libmount.so
 %{_includedir}/libmount
 %{_libdir}/pkgconfig/mount.pc
-
-
-%files -n liblastlog2
-%license Documentation/licenses/COPYING.BSD-2-Clause
-%{_libdir}/liblastlog2.so.*
-%{_pam_moduledir}/pam_lastlog2.so
-%{_tmpfilesdir}/lastlog2-tmpfiles.conf
-%{_unitdir}/lastlog2*
-%{_mandir}/man8/pam_lastlog2.8*
-
-%files -n liblastlog2-devel
-%license Documentation/licenses/COPYING.BSD-2-Clause
-%{_libdir}/liblastlog2.so
-%{_includedir}/liblastlog2
-%{_libdir}/pkgconfig/lastlog2.pc
-%{_mandir}/man3/lastlog2.3.*
-%{_mandir}/man3/ll2_import_lastlog.3*
-%{_mandir}/man3/ll2_read_all.3*
-%{_mandir}/man3/ll2_read_entry.3*
-%{_mandir}/man3/ll2_remove_entry.3*
-%{_mandir}/man3/ll2_rename_user.3*
-%{_mandir}/man3/ll2_update_login_time.3*
-%{_mandir}/man3/ll2_write_entry.3*
 
 
 %files -n libblkid

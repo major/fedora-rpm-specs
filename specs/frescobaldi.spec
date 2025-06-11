@@ -1,8 +1,8 @@
 %{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        4.0.2
-Release:        2%{?dist}
+Version:        4.0.3
+Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -10,6 +10,7 @@ Summary:        Edit LilyPond sheet music with ease!
 License:        GPLv2+ and LGPL-2.0-or-later
 URL:            http://www.frescobaldi.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         pygame.patch
 
 BuildArch:      noarch
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -57,6 +58,8 @@ yet lightweight and easy to use. It features:
 %setup -q
 find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
+%patch -P0 -p0
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -96,6 +99,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Jun 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.3-1
+- 4.0.3
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.0.2-2
 - Rebuilt for Python 3.14
 

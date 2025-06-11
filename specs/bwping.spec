@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/oleg-derevenetz/bwping
-%global tag      RELEASE_2.5
+%global tag      RELEASE_2.6
 
 Name:           bwping
-Version:        2.5
-Release:        7%{?dist}
+Version:        2.6
+Release:        %autorelease
 
 Summary:        Measure bandwidth and response times using ICMP
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,23 +52,4 @@ make check
 %{_mandir}/man8/bwping*
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-6
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Aug 12 2022 Alessio <alciregi@fedoraproject.org> 2.5-1
-- Initial build
+%autochangelog

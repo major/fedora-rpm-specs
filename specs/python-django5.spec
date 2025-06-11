@@ -11,7 +11,7 @@
 %global major_ver 5
 
 Name:           python-django%{major_ver}
-Version:        5.1.8
+Version:        5.2.2
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 
@@ -24,16 +24,10 @@ Summary:        A high-level Python Web framework
 # gis/geos: BSD-3-Clause
 License:        BSD-3-Clause AND PSF-2.0 AND MIT AND OFL-1.1
 URL:            https://www.djangoproject.com/
-Source:         %{pypi_source Django}
+Source:         %{pypi_source django}
 Source:         %{name}.rpmlintrc
 
-Patch:          Django-allow-new-setuptools.diff
-# these tests would sometimes trigger the following exception
-# UnicodeEncodeError: 'utf-8' codec can't encode characters in position 12-13: surrogates not allowed
-Patch:          Django-skip-flaky-unicode-tests.diff
-
-# Python 3.14: Fixed copying BaseContext and its subclasses - super objects are copyable
-Patch:          https://github.com/django/django/commit/8d7b1423f89bcc.patch
+Patch:          django-allow-setuptools-ge-61.diff
 
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1
@@ -105,7 +99,7 @@ Conflicts:      python-django-impl
 %description -n %{pkgname} %_description
 
 %prep
-%autosetup -p1 -n Django-%{version}
+%autosetup -p1 -n django-%{version}
 
 # hard-code python3 in django-admin
 pushd django
@@ -171,7 +165,7 @@ sed -i '/.po$/d' %{pyproject_files}
     -e 'django.db.backends.postgresql*'}
 
 %if %{with tests}
-cd %{_builddir}/Django-%{version}
+cd %{_builddir}/django-%{version}
 export PYTHONPATH=$(pwd)
 cd tests
 

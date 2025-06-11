@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '_')
 
 Name:           sfwbar
-Version:        1.0~beta16
+Version:        1.0~beta16.1
 Release:        %autorelease
 Summary:        S* Floating Window Bar
 

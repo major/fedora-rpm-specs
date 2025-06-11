@@ -6,7 +6,7 @@
 
 Name:       compose-utils
 Version:    0.1.50
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -14,7 +14,6 @@ URL:        https://pagure.io/compose-utils
 Source0:    https://pagure.io/releases/compose-utils/%{name}-%{version}.tar.bz2
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-productmd >= 1.33
@@ -39,7 +38,6 @@ Requires:   python%{python3_pkgversion}-productmd >= 1.33
 Requires:   python%{python3_pkgversion}-kobo
 Requires:   python%{python3_pkgversion}-kobo-rpmlib >= 0.10.0
 Requires:   rsync
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
 %description -n python%{python3_pkgversion}-%{name}
 Python 3 libraries supporting tools for working with composes
@@ -49,16 +47,23 @@ Python 3 libraries supporting tools for working with composes
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
 
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 %pytest
 %endif
 
@@ -69,13 +74,15 @@ Python 3 libraries supporting tools for working with composes
 %{_bindir}/*
 %{_mandir}/man1/*
 
-%files -n python%{python3_pkgversion}-%{name}
-%license COPYING GPL
+%files -n python%{python3_pkgversion}-%{name} -f %{pyproject_files}
+%license GPL
 %doc AUTHORS README.rst
-%{python3_sitelib}/*
 
 
 %changelog
+* Mon Jun 09 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.1.50-10
+- Switch to pyproject_ macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.1.50-9
 - Rebuilt for Python 3.14
 

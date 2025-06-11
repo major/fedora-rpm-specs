@@ -3,11 +3,12 @@
 Summary:        Python module to extract EXIF information
 Name:           python-exif
 Version:        3.3.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ianare/exif-py
 Source0:        https://github.com/ianare/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Patch:          exif-py-3.3.1-toml.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -21,7 +22,7 @@ Summary:       Python 3 module to extract EXIF information
 %description -n python3-exif %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -44,6 +45,12 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{_bindir}/EXIF.py
 
 %changelog
+* Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 3.3.1-4
+- Rebuilt for Python 3.14
+
+* Mon Jun 09 2025 Terje Rosten <terjeros@gmail.com> - 3.3.1-3
+- Add toml patch
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3.1-2
 - Rebuilt for Python 3.14
 

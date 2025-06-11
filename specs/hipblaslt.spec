@@ -21,6 +21,10 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
+# Fortran is only used in testing
+# clang and gfortran fedora toolchain args do not mix
+%global build_fflags %{nil}
+
 # gfx90a: 10343 pass, 152 fail
 %bcond_with test
 # Disable rpatch checks for a local build
@@ -72,7 +76,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -98,7 +102,7 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-llvm-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-smi
+BuildRequires:  rocm-smi-devel
 BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
 
@@ -127,11 +131,11 @@ BuildRequires:  msgpack-devel
 %endif
 
 %if %{with test}
+BuildRequires:  blas-static
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
-BuildRequires:  blas-static
-BuildRequires:  hipcc-libomp-devel
+BuildRequires:  lapack-static
 %endif
 
 %if %{with ninja}
@@ -315,6 +319,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 9 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Fix fedora build dependencies
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

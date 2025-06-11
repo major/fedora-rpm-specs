@@ -7,7 +7,7 @@ Summary:        FastCGI Perl bindings
 # needed to properly replace/obsolete fcgi-perl
 Epoch:          1
 Version:        0.82
-Release:        14%{?dist}
+Release:        15%{?dist}
 # eg/echo.pl:   "See the LICENSE file"
 # fastcgi.h:    "See the LICENSE file"
 # FCGI.pm:      "See the LICENSE file"
@@ -80,7 +80,11 @@ Provides:       bundled(fcgi)
 %{?perl_default_filter}
 
 %description
-%{summary}.
+The perl-FCGI package provides a Perl module for writing FastCGI applications.
+FastCGI is a more efficient alternative to traditional CGI, as it keeps
+application processes persistent across multiple requests. This module allows
+Perl web applications to handle requests faster and with lower resource
+overhead, making it suitable for high-traffic environments.
 
 %package tests
 Summary:        Tests for %{name}
@@ -137,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 09 2025 Michal Josef Špaček <mspacek@redhat.com> - 1:0.82-15
+- Improve description of package
+
 * Mon May 19 2025 Petr Pisar <ppisar@redhat.com> - 1:0.82-14
 - Fix CVE-2025-40907 (integer overflow when parsing FastCGI parameters)
   (bug #2366847)

@@ -8,6 +8,9 @@ URL:            https://github.com/pdfarranger/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
+# https://github.com/pdfarranger/pdfarranger/issues/1238
+Patch:		freeze-py3134.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

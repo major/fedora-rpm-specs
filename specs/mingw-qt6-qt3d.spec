@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.0
+Version:        6.9.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt3d component
 
@@ -159,7 +159,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dcoreplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dextrasplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dinputplugin*
-%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dlogicplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3drenderplugin*
 %{mingw32_libdir}/cmake/Qt6/FindWrapQt3DAssimp.cmake
 %{mingw32_libdir}/pkgconfig/Qt63DAnimation.pc
@@ -333,7 +332,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dcoreplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dextrasplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dinputplugin*
-%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dlogicplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3drenderplugin*
 %{mingw64_libdir}/cmake/Qt6/FindWrapQt3DAssimp.cmake
 %{mingw64_libdir}/pkgconfig/Qt63DAnimation.pc
@@ -446,6 +444,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Mon Jun 09 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-1
+- Update to 6.9.1
+
 * Sun Apr 06 2025 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
 - Update to 6.9.0
 

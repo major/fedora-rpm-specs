@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -175,6 +175,14 @@ Patch0047: 0047-openssh-9.6p1-pam-rhost.patch
 Patch0048: 0048-openssh-9.9p1-separate-keysign.patch
 Patch0049: 0049-openssh-9.9p1-openssl-mlkem.patch
 # https://www.openwall.com/lists/oss-security/2025/02/22/1
+Patch0050: 0050-openssh-9.9p2-error_processing.patch
+# https://github.com/openssh/openssh-portable/pull/564
+Patch0051: 0051-Provide-better-error-for-non-supported-private-keys.patch
+# https://github.com/openssh/openssh-portable/pull/567
+Patch0052: 0052-Ignore-bad-hostkeys-in-known_hosts-file.patch
+# https://github.com/openssh/openssh-portable/pull/500
+Patch0053: 0053-support-authentication-indicators-in-GSSAPI.patch
+
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-coverity.patch
 
@@ -578,6 +586,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Jun 09 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-3
+- Apply patches forgot in previous respin
+
 * Mon May 19 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-2
 - Provide better diagnostics for non-supported private keys
   (https://github.com/openssh/openssh-portable/pull/564)

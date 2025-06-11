@@ -1,6 +1,6 @@
 Name:           gram_grep
 Summary:        Search text using a grammar, lexer, or straight regex
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 
 # Since dependencies lexertl17, parsertl17, and wildcardtl are header-only, we

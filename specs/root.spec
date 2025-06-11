@@ -20,8 +20,8 @@
 %global pandas 0
 %endif
 
-%if %{?rhel}%{!?rhel:0} == 10
-# R not yet available in EPEL 10
+%if "%{?dist}" == ".el10_0"
+# R not available in EPEL 10.0
 %global rrr 0
 %else
 %global rrr 1
@@ -37,9 +37,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.34.08
+Version:	6.36.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -64,7 +64,7 @@ Source7:	JupyROOT-on-EPEL
 Source8:	%{name}-get-src.sh
 #		Clad is a source-transformation automatic differentiation (AD)
 #		library for C++, implemented as a plugin for the Clang compiler
-Source9:	https://github.com/vgvassilev/clad/archive/v1.7/clad-1.7.tar.gz
+Source9:	https://github.com/vgvassilev/clad/archive/v1.9/clad-1.9.tar.gz
 #		Use system fonts
 Patch0:		%{name}-fontconfig.patch
 #		Reduce memory usage during linking on ARM and x86 by generating
@@ -78,10 +78,24 @@ Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
 Patch4:		%{name}-32bit-tests.patch
 #		Adjust test/stressGraphics.ref
-#		https://github.com/root-project/root/pull/17398
+#		https://github.com/root-project/root/pull/18989
 Patch5:		%{name}-Adjust-test-stressGraphics.ref.patch
 #		Revert test change that breaks the test
 Patch6:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
+#		Ignore warnings from uring IO
+#		https://github.com/root-project/root/pull/18994
+Patch7:		%{name}-Ignore-warnings-from-uring-IO.patch
+#		Preserve memory during parallel build
+#		https://github.com/root-project/root/pull/18991
+Patch8:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
+#		Fix Big Endian test failure
+#		https://github.com/root-project/root/pull/18992
+Patch9:		%{name}-Use-size_t-for-offset.patch
+#		Fix 32 bit test failure
+#		https://github.com/root-project/root/pull/18993
+Patch10:	%{name}-Fix-test-for-32-bit-architectures.patch
+#		Remove extra 0 in release number
+Patch11:	%{name}-Update-release-number.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -122,10 +136,6 @@ BuildRequires:	libxcrypt-devel
 BuildRequires:	python%{python3_pkgversion}-devel >= 3.7
 BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-numpy
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	qt5-qtwebengine-devel
-%endif
 %ifarch %{qt6_qtwebengine_arches}
 BuildRequires:	qt6-qtbase-devel
 BuildRequires:	qt6-qtwebengine-devel
@@ -321,6 +331,10 @@ Obsoletes:	%{name}-montecarlo-vmc < 6.26.00
 Obsoletes:	%{name}-doc < 6.26.00
 Obsoletes:	%{name}-io-gfal < 6.30.00
 Obsoletes:	%{name}-roofit-common < 6.30.00
+Obsoletes:	%{name}-gui-qt5webdisplay < 6.36.00
+Obsoletes:	%{name}-hist-draw < 6.36.00
+Obsoletes:	%{name}-histv7 < 6.36.00
+Obsoletes:	%{name}-html < 6.36.00
 
 %description core
 This package contains the core libraries used by ROOT: libCore, libNew,
@@ -821,16 +835,6 @@ Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 %description spectrum-painter
 This package contains a painter of spectra for ROOT.
 
-%package html
-Summary:	HTML documentation generator for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
-Requires:	graphviz
-
-%description html
-This package contains classes to automatically extract documentation
-from marked up sources.
-
 %package io
 Summary:	Input/output of ROOT objects
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1278,7 +1282,6 @@ Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
-Requires:	%{name}-minuit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit2%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-batchcompute%{?_isa} = %{version}-%{release}
 %if %{roofitmp}
@@ -1388,6 +1391,18 @@ suitable for adoption in different disciplines as well.
 
 This package contains the JSON interface to RooFit.
 
+%package roofit-codegen
+Summary:	Code generation support for RooFit
+License:	BSD-2-Clause
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist-factory%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
+
+%description roofit-codegen
+This package contains a library providing classes that implement
+code generation support for RooFit.
+
 %if %{roofitmp}
 %package roofit-multiprocess
 Summary:	Multi-process support for RooFit
@@ -1397,7 +1412,7 @@ Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-zmq%{?_isa} = %{version}-%{release}
 
 %description roofit-multiprocess
-This package contains a library providing classes that implements
+This package contains a library providing classes that implement
 mult-process support for RooFit.
 
 %package roofit-zmq
@@ -1432,14 +1447,11 @@ RooFit.
 %package hist-factory
 Summary:	RooFit PDFs from ROOT histograms
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io-xmlparser%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-roofit-jsoninterface%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roostats%{?_isa} = %{version}-%{release}
 
 %description hist-factory
@@ -1747,17 +1759,6 @@ Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
 %description gui-webdisplay
 This package contains a web display extension for ROOT.
 
-%ifarch %{qt5_qtwebengine_arches}
-%package gui-qt5webdisplay
-Summary:	Qt5 Web display
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
-
-%description gui-qt5webdisplay
-This package contains a Qt5 web display extension for ROOT.
-%endif
-
 %ifarch %{qt6_qtwebengine_arches}
 %package gui-qt6webdisplay
 Summary:	Qt6 Web display
@@ -1868,7 +1869,6 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpadv7%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-browsable%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
-Requires:	%{name}-hist-draw%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
 #		Package split (gui-browsable-v7 from gui-browsable)
@@ -1913,21 +1913,6 @@ Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 This package contains a library to show a pop-up dialog when fitting
 various kinds of data.
 
-%package histv7
-Summary:	Histogram library for ROOT (ROOT 7)
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-
-%description histv7
-This package contains a library for histogramming in ROOT 7.
-
-%package hist-draw
-Summary:	Histogram drawing (ROOT 7)
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf-gpadv7%{?_isa} = %{version}-%{release}
-
-%description hist-draw
-This package contains an histogram drawing extension for ROOT 7.
-
 %package tree-ntuple
 Summary:	Ntuple (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1958,6 +1943,11 @@ This package contains utility functions for ntuples.
 %patch -P4 -p1
 %patch -P5 -p1
 %patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -1994,11 +1984,14 @@ rm -rf js/[^f]* js/files/draw.htm js/files/online.htm
 rm etc/notebook/JsMVA/js/*.min.js
 rm etc/notebook/JsMVA/css/*.min.css
 
+# Remove executable permissions from source file
+chmod -x interpreter/CppInterOp/lib/Interpreter/CppInterOp.cpp
+
 # Additional documentation
 install -p -m 644 %{SOURCE7} bindings/jupyroot
 
 %build
-%if %{?fedora}%{!?fedora:0} == 40 || %{?rhel}%{!?rhel:0} == 10
+%if %{?rhel}%{!?rhel:0} == 10
 # This package triggers a fault in LLVM when LTO is enabled.  Until LLVM
 # is analyzed and fixed, disable LTO
 %define _lto_cflags %{nil}
@@ -2032,10 +2025,12 @@ done
        -Dbuiltin_fftw3:BOOL=OFF \
        -Dbuiltin_freetype:BOOL=OFF \
        -Dbuiltin_ftgl:BOOL=OFF \
+       -Dbuiltin_gif:BOOL=OFF \
        -Dbuiltin_gl2ps:BOOL=OFF \
        -Dbuiltin_glew:BOOL=OFF \
        -Dbuiltin_gsl:BOOL=OFF \
        -Dbuiltin_gtest:BOOL=OFF \
+       -Dbuiltin_jpeg:BOOL=OFF \
        -Dbuiltin_llvm:BOOL=ON \
        -Dbuiltin_lz4:BOOL=OFF \
        -Dbuiltin_lzma:BOOL=OFF \
@@ -2047,6 +2042,7 @@ done
        -Dbuiltin_openssl:BOOL=OFF \
        -Dbuiltin_openui5:BOOL=ON \
        -Dbuiltin_pcre:BOOL=OFF \
+       -Dbuiltin_png:BOOL=OFF \
        -Dbuiltin_tbb:BOOL=OFF \
        -Dbuiltin_unuran:BOOL=OFF \
        -Dbuiltin_vc:BOOL=OFF \
@@ -2063,11 +2059,12 @@ done
        -Darrow:BOOL=OFF \
 %endif
        -Dasimage:BOOL=ON \
+       -Dasimage_tiff:BOOL=ON \
        -Dccache:BOOL=OFF \
        -Ddistcc:BOOL=OFF \
        -Dcefweb:BOOL=OFF \
        -Dclad:BOOL=ON \
-       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-1.7 \
+       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-1.9 \
        -Dcocoa:BOOL=OFF \
        -Dcuda:BOOL=OFF \
        -Ddaos:BOOL=OFF \
@@ -2088,7 +2085,6 @@ done
        -Dgeom:BOOL=ON \
        -Dgeombuilder:BOOL=ON \
        -Dgviz:BOOL=ON \
-       -Dhtml:BOOL=ON \
        -Dhttp:BOOL=ON \
        -Dimt:BOOL=ON \
        -Dlibcxx:BOOL=OFF \
@@ -2104,11 +2100,6 @@ done
        -Dproof:BOOL=ON \
        -Dpyroot:BOOL=ON \
        -Dpythia8:BOOL=ON \
-%ifarch %{qt5_qtwebengine_arches}
-       -Dqt5web:BOOL=ON \
-%else
-       -Dqt5web:BOOL=OFF \
-%endif
 %ifarch %{qt6_qtwebengine_arches}
        -Dqt6web:BOOL=ON \
 %else
@@ -2277,8 +2268,10 @@ jupyter notebook "\$@"
 EOF
 
 # Avoid /usr/bin/env shebangs (and adapt cli to cmdLineUtils location)
-sed -e 's!/usr/bin/env bash!/bin/bash!' -i %{buildroot}%{_bindir}/root-config
-sed -e 's!/usr/bin/env /usr/bin/python.*!%{__python3}!' \
+sed -e 's!/usr/bin/env bash!/bin/bash!' \
+    -i %{buildroot}%{_bindir}/root-config \
+       %{buildroot}%{_bindir}/rootssh
+sed -e 's!/usr/bin/env python3!%{__python3}!' \
     -e '/import sys/d' \
     -e '/import cmdLineUtils/iimport sys' \
     -e '/import cmdLineUtils/isys.path.insert(0, "%{_datadir}/%{name}/cli")' \
@@ -2291,17 +2284,10 @@ sed -e 's!/usr/bin/env /usr/bin/python.*!%{__python3}!' \
        %{buildroot}%{_bindir}/rootprint \
        %{buildroot}%{_bindir}/rootrm \
        %{buildroot}%{_bindir}/rootslimtree
-sed -e 's!/usr/bin/env /usr/bin/python.*!%{__python3}!' \
+sed -e 's!/usr/bin/env python3!%{__python3}!' \
     -i %{buildroot}%{_bindir}/rootdrawtree
 sed -e 's!/usr/bin/env python!%{__python3}!' \
-    -i %{buildroot}%{_datadir}/%{name}/dictpch/makepch.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/histfactory/makeQuickModel.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/ApplicationClassificationKeras.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/ApplicationRegressionKeras.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/ClassificationKeras.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/GenerateModel.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/MulticlassKeras.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/RegressionKeras.py
+    -i %{buildroot}%{_datadir}/%{name}/dictpch/makepch.py
 sed -e 's!/usr/bin/python!%{__python3}!' \
     -i %{buildroot}%{_datadir}/%{name}/pdg_table_update.py
 
@@ -2313,6 +2299,11 @@ rm %{buildroot}%{_bindir}/setxrd*
 rm %{buildroot}%{_bindir}/thisroot*
 rm %{buildroot}%{_pkgdocdir}/INSTALL
 rm %{buildroot}%{_pkgdocdir}/README.CXXMODULES.md
+rm -rf %{buildroot}%{_includedir}/clang
+rm -rf %{buildroot}%{_includedir}/clang-c
+rm -rf %{buildroot}/usr/lib/cmake/CppInterOp
+rm %{buildroot}/usr/lib/libclangCppInterOp.a
+rm -rf %{buildroot}%{_datadir}/%{name}/html
 
 # Only used on Windows
 rm %{buildroot}%{_datadir}/%{name}/macros/fileopen.C
@@ -2395,54 +2386,47 @@ popd
 # - test-stressIOPlugins-*
 #   requires network access (by design since they test the remote file IO)
 #
-# - tutorial-dataframe-df101_h1Analysis
-# - tutorial-tree-run_h1analysis
-# - tutorial-multicore-imt001_parBranchProcessing
-# - tutorial-multicore-mp103_processSelector
-# - tutorial-multicore-mp104_processH1
-# - tutorial-multicore-mp105_processEntryList
+# - tutorial-analysis-dataframe-df101_h1Analysis
+# - tutorial-analysis-tree-run_h1analysis
+# - tutorial-legacy-multicore-mp104_processH1
 #   requires network access: http://root.cern.ch/files/h1/
 #
-# - tutorial-multicore-imt101_parTreeProcessing
+# - tutorial-io-tree-imt_parTreeProcessing
 #   requires input data: http://root.cern.ch/files/tp_process_imt.root (707 MB)
 #
-# - tutorial-dataframe-df###_SQlite*
+# - tutorial-analysis-dataframe-df###_SQlite*
 #   reads sqlite data over network:
 #   http://root.cern.ch/files/root_download_stats.sqlite
 #
-# - tutorial-dataframe-df033_Describe-py
-# - tutorial-dataframe-df102_NanoAODDimuonAnalysis(-py)?
+# - tutorial-analysis-dataframe-df033_Describe-py
+# - tutorial-analysis-dataframe-df102_NanoAODDimuonAnalysis(-py)?
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/opendata/cms/derived-data/
 #   AOD2NanoAODOutreachTool/Run2012BC_DoubleMuParked_Muons.root
 #
 # - gtest-tree-treeplayer-treeprocessormt-remotefiles
-# - tutorial-dataframe-df103_NanoAODHiggsAnalysis(-py)?
+# - tutorial-analysis-dataframe-df103_NanoAODHiggsAnalysis(-py)?
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/root-eos/cms_opendata_2012_nanoaod/
 #
-# - tutorial-dataframe-df104_HiggsToTwoPhotons-py
-# - tutorial-dataframe-df105_WBosonAnalysis-py
-# - tutorial-dataframe-df106_HiggsToFourLeptons(-py)
-# - tutorial-dataframe-df107_SingleTopAnalysis-py
-# - tutorial-rcanvas-df104-py
-# - tutorial-rcanvas-df105-py
+# - tutorial-analysis-dataframe-df104_HiggsToTwoPhotons-py
+# - tutorial-analysis-dataframe-df105_WBosonAnalysis-py
+# - tutorial-analysis-dataframe-df106_HiggsToFourLeptons(-py)
+# - tutorial-analysis-dataframe-df107_SingleTopAnalysis-py
+# - tutorial-experimental-rcanvas-df104-py
+# - tutorial-experimental-rcanvas-df105-py
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/opendata/atlas/OutreachDatasets/2020-01-22/
 #
-# - tutorial-v7-ntuple-ntpl003_lhcbOpenData
-#   reads input data over network
-#   http://root.cern.ch/files/LHCb/lhcb_B2HHH_MagnetUp.root (425 MB)
-#
-# - tutorial-v7-ntuple-ntpl004_dimuon
+# - tutorial-io-ntuple-ntpl004_dimuon
 #   reads input data over network
 #   http://root.cern.ch/files/NanoAOD_DoubleMuon_CMS2011OpenData.root (1.5 GB)
 #
-# - tutorial-v7-ntuple-ntpl008_import
+# - tutorial-io-ntuple-ntpl008_import
 #   reads input data over network
 #   http://root.cern.ch/files/HiggsTauTauReduced/GluGluToHToTauTau.root (20 MB)
 #
-# - tutorial-v7-ntuple-ntpl011_global_temperatures
+# - tutorial-io-ntuple-ntpl011_global_temperatures
 #   reads input data over network
 #   http://root.cern.ch/files/tutorials/GlobalLandTemperaturesByCity.csv
 #
@@ -2455,67 +2439,41 @@ popd
 #   root://eospublic.cern.ch/eos/root-eos/xrootd.test
 #
 # - gtest-net-netxng-TNetXNGFileTest
+# - tutorial-analysis-parallel-mp_processSelector
 #   reads input file over network
 #   root://eospublic.cern.ch/eos/root-eos/h1/dstarmb.root
 #
-# - gtest-tmva-tmva-rreader
-# - gtest-tmva-tmva-rstandardscaler
-# - tutorial-tmva-tmva003_RReader
-# - tutorial-tmva-tmva004_RStandardScaler
-#   reads input data over network
-#   http://root.cern.ch/files/tmva_class_example.root
-#
 # - tutorial-tmva-tmva103_Application
 #   reads input data over network
-#   http://root.cern/files/tmva101.root
-#
-# - tutorial-tmva-RBatchGenerator_NumPy-py
-#   reads input data over network
-#   http://root.cern/files/Higgs_data.root
-#
-# - test-import-numba
-# - tutorial-pyroot-pyroot004_NumbaDeclare-py
-# - pyunittests-pyroot-numbadeclare
-#   these tests require the numba python module which is not available
+#   root://eospublic.cern.ch/eos/root-eos/cms_opendata_2012_nanoaod/SMHiggsToZZTo4L.root
 #
 # - test-webgui-ping
 #   error: Cannot display window in native
 excluded="\
 test-stressIOPlugins|\
-tutorial-dataframe-df101_h1Analysis|\
-tutorial-tree-run_h1analysis|\
-tutorial-multicore-imt001_parBranchProcessing|\
-tutorial-multicore-mp103_processSelector|\
-tutorial-multicore-mp104_processH1|\
-tutorial-multicore-mp105_processEntryList|\
-tutorial-multicore-imt101_parTreeProcessing|\
-tutorial-dataframe-df..._SQlite|\
-tutorial-dataframe-df033_Describe-py|\
-tutorial-dataframe-df102_NanoAODDimuonAnalysis|\
+tutorial-analysis-dataframe-df101_h1Analysis|\
+tutorial-analysis-tree-run_h1analysis|\
+tutorial-legacy-multicore-mp104_processH1|\
+tutorial-io-tree-imt_parTreeProcessing|\
+tutorial-analysis-dataframe-df..._SQlite|\
+tutorial-analysis-dataframe-df033_Describe-py|\
+tutorial-analysis-dataframe-df102_NanoAODDimuonAnalysis|\
 gtest-tree-treeplayer-treeprocessormt-remotefiles|\
-tutorial-dataframe-df103_NanoAODHiggsAnalysis|\
-tutorial-dataframe-df104_HiggsToTwoPhotons-py|\
-tutorial-dataframe-df105_WBosonAnalysis-py|\
-tutorial-dataframe-df106_HiggsToFourLeptons|\
-tutorial-dataframe-df107_SingleTopAnalysis-py|\
-tutorial-rcanvas-df104-py|\
-tutorial-rcanvas-df105-py|\
-tutorial-v7-ntuple-ntpl003_lhcbOpenData|\
-tutorial-v7-ntuple-ntpl004_dimuon|\
-tutorial-v7-ntuple-ntpl008_import|\
-tutorial-v7-ntuple-ntpl011_global_temperatures|\
+tutorial-analysis-dataframe-df103_NanoAODHiggsAnalysis|\
+tutorial-analysis-dataframe-df104_HiggsToTwoPhotons-py|\
+tutorial-analysis-dataframe-df105_WBosonAnalysis-py|\
+tutorial-analysis-dataframe-df106_HiggsToFourLeptons|\
+tutorial-analysis-dataframe-df107_SingleTopAnalysis-py|\
+tutorial-experimental-rcanvas-df104-py|\
+tutorial-experimental-rcanvas-df105-py|\
+tutorial-io-ntuple-ntpl004_dimuon|\
+tutorial-io-ntuple-ntpl008_import|\
+tutorial-io-ntuple-ntpl011_global_temperatures|\
 gtest-net-davix-RRawFileDavix|\
 gtest-net-netxng-RRawFileNetXNG|\
 gtest-net-netxng-TNetXNGFileTest|\
-gtest-tmva-tmva-rreader|\
-gtest-tmva-tmva-rstandardscaler|\
-tutorial-tmva-tmva003_RReader|\
-tutorial-tmva-tmva004_RStandardScaler|\
+tutorial-analysis-parallel-mp_processSelector|\
 tutorial-tmva-tmva103_Application|\
-tutorial-tmva-RBatchGenerator_NumPy-py|\
-test-import-numba|\
-tutorial-pyroot-pyroot004_NumbaDeclare-py|\
-pyunittests-pyroot-numbadeclare|\
 test-webgui-ping"
 
 # gtest-roofit-roofit-vectorisedPDFs-testLandau:
@@ -2532,61 +2490,50 @@ test-webgui-ping"
 # test-stressgraphics-firefox-skip3d:
 # requires firefox...
 #
-# tutorial-webcanv-fonts_ttf.cxx:
+# tutorial-visualisation-webcanv-fonts_ttf.cxx:
 # Requires web graphics
-#
-# tutorial-roofit-rf617_simulation_based_inference_multidimensional-py:
-# from sklearn.neural_network import MLPClassifier
-#
-# tutorial-roofit-rf618_mixture_models-py:
-# import xgboost as xgb
 excluded="${excluded}|\
 gtest-roofit-roofit-vectorisedPDFs-testLandau|\
 gtest-tree-treeplayer-ttreeindex-clone|\
 gtest-tree-treeplayer-treetreeplayertestUnit|\
 test-stressgraphics-firefox-skip3d|\
-tutorial-webcanv-fonts_ttf.cxx|\
-tutorial-roofit-rf617_simulation_based_inference_multidimensional-py|\
-tutorial-roofit-rf618_mixture_models-py"
-
-# Test using tensorflow and torch
-# Disabled for Python >= 3.12, but must be excluded for Python < 3.12
-excluded="${excluded}|\
-pyunittests-bindings-pyroot-pythonizations-batchgen|\
-test-import-tensorflow|\
-test-import-torch"
-
-%if ! %{pandas}
-# - test-import-pandas
-# - tutorial-dataframe-df026_AsNumpyArrays-py
-# - tutorial-dataframe-df035_RDFFromPandas-py
-# - tutorial-roofit-rf409_NumPyPandasToRooFit-py
-#   Requires the pandas python module not (yet) available in RHEL/EPEL 9
-excluded="${excluded}|\
-test-import-pandas|\
-tutorial-dataframe-df026_AsNumpyArrays-py|\
-tutorial-dataframe-df035_RDFFromPandas-py|\
-tutorial-roofit-rf409_NumPyPandasToRooFit-py"
-%endif
+tutorial-visualisation-webcanv-fonts_ttf.cxx"
 
 %ifarch %{ix86}
 # - gtest-tree-dataframe-dataframe-concurrency
 #   "There's already an active task arena."
+#
+# - gtest-hist-hist-TFormulaGradientTests|\
+#   out of memory
+#
+# - pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views
+#   ValueError: buffer is smaller than requested size
 excluded="${excluded}|\
-gtest-tree-dataframe-dataframe-concurrency"
+gtest-tree-dataframe-dataframe-concurrency|\
+gtest-hist-hist-TFormulaGradientTests|\
+pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views"
 %endif
 
 %ifarch %{power64}
-# - tutorial-roostats-IntervalExamples-py
+# - tutorial-roofit-roostats-IntervalExamples-py
 #   *** Break *** segmentation violation
 excluded="${excluded}|\
-tutorial-roostats-IntervalExamples-py"
+tutorial-roofit-roostats-IntervalExamples-py"
 
 %if %{?fedora}%{!?fedora:0} >= 42
-# - gtest-tree-ntuple-v7-ntuple-evolution
+# - gtest-tree-ntuple-ntuple-emulated
+# - gtest-tree-ntuple-ntuple-evolution
 #   waitpid() failed
 excluded="${excluded}|\
-gtest-tree-ntuple-v7-ntuple-evolution"
+gtest-tree-ntuple-ntuple-emulated|\
+gtest-tree-ntuple-ntuple-evolution"
+%endif
+
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
+# tutorial-roofit-roostats-StandardBayesianMCMCDemo-py
+# - ZeroDivisionError: float division by zero
+excluded="${excluded}|\
+tutorial-roofit-roostats-StandardBayesianMCMCDemo-py"
 %endif
 %endif
 
@@ -2602,48 +2549,46 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - gtest-tmva-sofie-TestCustomModelsFromONNX
 # - gtest-tree-dataframe-dataframe-unified-constructor
 #
-# - gtest-tree-dataframe-datasource-ntuple
-# - gtest-tree-ntuple-v7-ntuple-basics
-# - gtest-tree-ntuple-v7-ntuple-bulk
-# - gtest-tree-ntuple-v7-ntuple-cast
-# - gtest-tree-ntuple-v7-ntuple-compat
-# - gtest-tree-ntuple-v7-ntuple-extended
-# - gtest-tree-ntuple-v7-ntuple-friends
-# - gtest-tree-ntuple-v7-ntuple-index
-# - gtest-tree-ntuple-v7-ntuple-merger
-# - gtest-tree-ntuple-v7-ntuple-model
-# - gtest-tree-ntuple-v7-ntuple-modelext
-# - gtest-tree-ntuple-v7-ntuple-multi-column
-# - gtest-tree-ntuple-v7-ntuple-packing
-# - gtest-tree-ntuple-v7-ntuple-parallel-writer
-# - gtest-tree-ntuple-v7-ntuple-processor
-# - gtest-tree-ntuple-v7-ntuple-project
-# - gtest-tree-ntuple-v7-ntuple-show
-# - gtest-tree-ntuple-v7-ntuple-storage
-# - gtest-tree-ntuple-v7-ntuple-storage-daos
-# - gtest-tree-ntuple-v7-ntuple-types
-# - gtest-tree-ntuple-v7-ntuple-view
-# - gtest-tree-ntuple-v7-rfield-class
-# - gtest-tree-ntuple-v7-rfield-streamer
-# - gtest-tree-ntuple-v7-rfield-variant
-# - gtest-tree-ntuple-v7-rfield-vector
+# - gtest-tree-ntuple-ntuple-basics
+# - gtest-tree-ntuple-ntuple-bulk
+# - gtest-tree-ntuple-ntuple-cast
+# - gtest-tree-ntuple-ntuple-compat
+# - gtest-tree-ntuple-ntuple-extended
+# - gtest-tree-ntuple-ntuple-join-table
+# - gtest-tree-ntuple-ntuple-largefile2
+# - gtest-tree-ntuple-ntuple-merger
+# - gtest-tree-ntuple-ntuple-model
+# - gtest-tree-ntuple-ntuple-modelext
+# - gtest-tree-ntuple-ntuple-multi-column
+# - gtest-tree-ntuple-ntuple-packing
+# - gtest-tree-ntuple-ntuple-parallel-writer
+# - gtest-tree-ntuple-ntuple-processor
+# - gtest-tree-ntuple-ntuple-processor-chain
+# - gtest-tree-ntuple-ntuple-processor-join
+# - gtest-tree-ntuple-ntuple-project
+# - gtest-tree-ntuple-ntuple-show
+# - gtest-tree-ntuple-ntuple-storage
+# - gtest-tree-ntuple-ntuple-storage-daos
+# - gtest-tree-ntuple-ntuple-types
+# - gtest-tree-ntuple-ntuple-view
+# - gtest-tree-ntuple-rfield-class
+# - gtest-tree-ntuple-rfield-streamer
+# - gtest-tree-ntuple-rfield-variant
+# - gtest-tree-ntuple-rfield-vector
 # - gtest-tree-ntupleutil-v7-ntuple-importer
 # - gtest-tree-ntupleutil-v7-ntuple-inspector
 #   https://github.com/root-project/root/issues/12426
 #
-# - pyunittests-bindings-experimental-distrdf-backend-distrdf-unit-backend-graph-caching
+# - pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector
-# - tutorial-dataframe-df006_ranges-py
-# - tutorial-fit-combinedFit-py
-# - tutorial-fit-NumericalMinimization-py
+# - tutorial-analysis-dataframe-df006_ranges-py
+# - tutorial-experimental-rcanvas-rbox-py
+# - tutorial-hist-hist007_TH1_liveupdate-py
 # - tutorial-math-exampleFunction-py
-# - tutorial-pyroot-hsum-py
-# - tutorial-rcanvas-rbox-py
+# - tutorial-math-fit-combinedFit-py
+# - tutorial-math-fit-NumericalMinimization-py
 #   https://github.com/root-project/root/issues/12429
-#
-# - tutorial-tree-drawsparse
-#   https://github.com/root-project/root/issues/12431
 #
 # - test-stresshistofit
 # - test-stresshistofit-interpreted
@@ -2652,60 +2597,84 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 excluded="${excluded}|\
 gtest-core-dictgen-dictgen-base|\
 gtest-tmva-sofie-TestCustomModelsFromONNX|\
+gtest-tree-dataframe-dataframe-snapshot-ntuple|\
 gtest-tree-dataframe-dataframe-unified-constructor|\
 gtest-tree-dataframe-datasource-ntuple|\
-gtest-tree-ntuple-v7-ntuple-basics|\
-gtest-tree-ntuple-v7-ntuple-bulk|\
-gtest-tree-ntuple-v7-ntuple-cast|\
-gtest-tree-ntuple-v7-ntuple-compat|\
-gtest-tree-ntuple-v7-ntuple-extended|\
-gtest-tree-ntuple-v7-ntuple-friends|\
-gtest-tree-ntuple-v7-ntuple-index|\
-gtest-tree-ntuple-v7-ntuple-merger|\
-gtest-tree-ntuple-v7-ntuple-model\$\$|\
-gtest-tree-ntuple-v7-ntuple-modelext|\
-gtest-tree-ntuple-v7-ntuple-multi-column|\
-gtest-tree-ntuple-v7-ntuple-packing|\
-gtest-tree-ntuple-v7-ntuple-parallel-writer|\
-gtest-tree-ntuple-v7-ntuple-processor|\
-gtest-tree-ntuple-v7-ntuple-project|\
-gtest-tree-ntuple-v7-ntuple-show|\
-gtest-tree-ntuple-v7-ntuple-storage\$\$|\
-gtest-tree-ntuple-v7-ntuple-storage-daos|\
-gtest-tree-ntuple-v7-ntuple-types|\
-gtest-tree-ntuple-v7-ntuple-view|\
-gtest-tree-ntuple-v7-rfield-class|\
-gtest-tree-ntuple-v7-rfield-streamer|\
-gtest-tree-ntuple-v7-rfield-variant|\
-gtest-tree-ntuple-v7-rfield-vector|\
+gtest-tree-ntuple-ntuple-basics|\
+gtest-tree-ntuple-ntuple-bulk|\
+gtest-tree-ntuple-ntuple-cast|\
+gtest-tree-ntuple-ntuple-compat|\
+gtest-tree-ntuple-ntuple-extended|\
+gtest-tree-ntuple-ntuple-join-table|\
+gtest-tree-ntuple-ntuple-largefile2|\
+gtest-tree-ntuple-ntuple-merger|\
+gtest-tree-ntuple-ntuple-model\$\$|\
+gtest-tree-ntuple-ntuple-modelext|\
+gtest-tree-ntuple-ntuple-multi-column|\
+gtest-tree-ntuple-ntuple-packing|\
+gtest-tree-ntuple-ntuple-parallel-writer|\
+gtest-tree-ntuple-ntuple-processor\$\$|\
+gtest-tree-ntuple-ntuple-processor-chain|\
+gtest-tree-ntuple-ntuple-processor-join|\
+gtest-tree-ntuple-ntuple-project|\
+gtest-tree-ntuple-ntuple-show|\
+gtest-tree-ntuple-ntuple-storage\$\$|\
+gtest-tree-ntuple-ntuple-storage-daos|\
+gtest-tree-ntuple-ntuple-types|\
+gtest-tree-ntuple-ntuple-view|\
+gtest-tree-ntuple-rfield-class|\
+gtest-tree-ntuple-rfield-streamer|\
+gtest-tree-ntuple-rfield-variant|\
+gtest-tree-ntuple-rfield-vector|\
 gtest-tree-ntupleutil-v7-ntuple-importer|\
 gtest-tree-ntupleutil-v7-ntuple-inspector|\
-pyunittests-bindings-experimental-distrdf-backend-distrdf-unit-backend-graph-caching|\
+pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector|\
-tutorial-dataframe-df006_ranges-py|\
-tutorial-fit-combinedFit-py|\
-tutorial-fit-NumericalMinimization-py|\
+tutorial-analysis-dataframe-df006_ranges-py|\
+tutorial-experimental-rcanvas-rbox-py|\
+tutorial-hist-hist007_TH1_liveupdate-py|\
 tutorial-math-exampleFunction-py|\
-tutorial-pyroot-hsum-py|\
-tutorial-rcanvas-rbox-py|\
-tutorial-tree-drawsparse|\
+tutorial-math-fit-combinedFit-py|\
+tutorial-math-fit-NumericalMinimization-py|\
 test-stresshistofit\$\$|\
 test-stresshistofit-interpreted|\
 test-stresshistogram\$\$|\
 test-stresshistogram-interpreted"
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
 # Fails with gcc 14 on aarch64, ppc64le and s390x (on EPEL 10 also x86_64)
 # https://github.com/root-project/root/issues/14446
 # - gtest-math-matrix-testMatrixTSparse
+%if %{?fedora}%{!?fedora:0} >= 40
+%ifarch aarch64 %{power64} s390x
+excluded="${excluded}|\
+gtest-math-matrix-testMatrixTSparse"
+%endif
+%endif
+%if %{?rhel}%{!?rhel:0} >= 10
 excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
 %endif
 
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
+# - https://github.com/root-project/root/issues/18995
+excluded="${excluded}|\
+gtest-tree-tree-testTTreeRegressions"
+%endif
+
+%if %{?fedora}%{!?fedora:0} >= 43
+# Failures due to reference counting changes in Python 3.14
+# - https://github.com/root-project/root/issues/18988
+# - https://docs.python.org/3.14/whatsnew/3.14.html
+excluded="${excluded}|\
+pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rdataframe-makenumpy|\
+pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rvec-asrvec"
+%endif
+
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
+# InterpreterTest.Evaluate fails on s390x
 # TClingDataMemberInfo.Offset fails on s390x
 # https://github.com/root-project/root/issues/14512
 GTEST_FILTER=-\
@@ -2713,6 +2682,7 @@ GTEST_FILTER=-\
 RNTuple.StdAtomic:\
 %endif
 %ifarch s390x
+InterpreterTest.Evaluate:\
 TClingDataMemberInfo.Offset:\
 %endif
 RCsvDS.Remote:\
@@ -3103,11 +3073,6 @@ fi
 %{_libdir}/%{name}/libSpectrumPainter.*
 %{_libdir}/%{name}/libSpectrumPainter_rdict.pcm
 
-%files html -f includelist-html
-%{_libdir}/%{name}/libHtml.*
-%{_libdir}/%{name}/libHtml_rdict.pcm
-%{_datadir}/%{name}/html
-
 %files io -f includelist-io-io
 %{_libdir}/%{name}/libRIO.*
 %{_datadir}/%{name}/plugins/TArchiveFile/P010_TZIPFile.C
@@ -3195,8 +3160,6 @@ fi
 %{_libdir}/%{name}/libMinuit2_rdict.pcm
 %dir %{_includedir}/%{name}/Minuit2
 %{_datadir}/%{name}/plugins/ROOT@@Math@@Minimizer/P010_Minuit2Minimizer.C
-%{_datadir}/%{name}/plugins/TVirtualFitter/P030_TFitterMinuit.C
-%{_datadir}/%{name}/plugins/TVirtualFitter/P040_TFitterFumili.C
 
 %files mlp -f includelist-math-mlp
 %{_libdir}/%{name}/libMLP.*
@@ -3364,13 +3327,15 @@ fi
 %{_libdir}/%{name}/libRooFitHS3.*
 %{_libdir}/%{name}/libRooFitHS3_rdict.pcm
 %dir %{_includedir}/%{name}/RooFitHS3
-%{_datadir}/%{name}/RooFitHS3_wsexportkeys.json
-%{_datadir}/%{name}/RooFitHS3_wsfactoryexpressions.json
 
 %files roofit-jsoninterface -f includelist-roofit-jsoninterface
 %{_libdir}/%{name}/libRooFitJSONInterface.*
 %{_libdir}/%{name}/libRooFitJSONInterface_rdict.pcm
 %dir %{_includedir}/%{name}/RooFit
+
+%files roofit-codegen -f includelist-roofit-codegen
+%{_libdir}/%{name}/libRooFitCodegen.*
+%{_libdir}/%{name}/libRooFitCodegen_rdict.pcm
 
 %if %{roofitmp}
 %files roofit-multiprocess -f includelist-roofit-multiprocess
@@ -3538,11 +3503,6 @@ fi
 %{_datadir}/%{name}/runfirefox.sh
 %{_datadir}/%{name}/ui5
 
-%ifarch %{qt5_qtwebengine_arches}
-%files gui-qt5webdisplay
-%{_libdir}/%{name}/libROOTQt5WebDisplay.*
-%endif
-
 %ifarch %{qt6_qtwebengine_arches}
 %files gui-qt6webdisplay
 %{_libdir}/%{name}/libROOTQt6WebDisplay.*
@@ -3590,7 +3550,6 @@ fi
 %{_libdir}/%{name}/libROOTEve_rdict.pcm
 
 %files gui-browsable-v7
-%{_libdir}/%{name}/libROOTHistDrawProvider.*
 %{_libdir}/%{name}/libROOTLeafDraw7Provider.*
 %{_libdir}/%{name}/libROOTNTupleBrowseProvider.*
 %{_libdir}/%{name}/libROOTNTupleDraw6Provider.*
@@ -3607,14 +3566,6 @@ fi
 %{_libdir}/%{name}/libROOTFitPanelv7.*
 %{_libdir}/%{name}/libROOTFitPanelv7_rdict.pcm
 
-%files histv7 -f includelist-hist-histv7
-%{_libdir}/%{name}/libROOTHist.*
-%{_libdir}/%{name}/libROOTHist_rdict.pcm
-
-%files hist-draw -f includelist-hist-histdrawv7
-%{_libdir}/%{name}/libROOTHistDraw.*
-%{_libdir}/%{name}/libROOTHistDraw_rdict.pcm
-
 %files tree-ntuple -f includelist-tree-ntuple
 %{_libdir}/%{name}/libROOTNTuple.*
 %{_libdir}/%{name}/libROOTNTuple_rdict.pcm
@@ -3626,6 +3577,12 @@ fi
 %endif
 
 %changelog
+* Sat Jun 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.00-1
+- Update to 6.36.00
+- Enable the R interface for EPEL 10.1
+- Removed subpackages: root-gui-qt5webdisplay, -hist-draw, -histv7 and -html
+- New subpackage: root-roofit-codegen
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.34.08-5
 - Rebuilt for Python 3.14
 

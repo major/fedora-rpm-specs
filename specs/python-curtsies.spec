@@ -1,11 +1,10 @@
 Summary:       Curses-like terminal wrapper, with colored strings
 Name:          python-curtsies
-Version:       0.4.2
-Release:       10%{?dist}
+Version:       0.4.3
+Release:       2%{?dist}
 License:       MIT
 URL:           https://github.com/bpython/curtsies
 Source0:       https://files.pythonhosted.org/packages/source/c/curtsies/curtsies-%{version}.tar.gz
-Patch:         curtsies-0.4.2-py314.patch
 BuildArch:     noarch
 BuildRequires: python3-blessed
 BuildRequires: python3-blessings
@@ -33,22 +32,30 @@ Requires:       python3-cwcwidth
 %prep
 %autosetup -p1 -n curtsies-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files -l curtsies
 
 %check
 %pytest
 
-%files -n python3-curtsies
+%files -n python3-curtsies -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/curtsies
-%{python3_sitelib}/curtsies-*-py*.egg-info
 
 %changelog
+* Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 0.4.3-2
+- Rebuilt for Python 3.14
+
+* Mon Jun 09 2025 Terje Rosten <terjeros@gmail.com> - 0.4.3-1
+- 0.4.3
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.2-10
 - Rebuilt for Python 3.14
 

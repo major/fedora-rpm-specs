@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -167,10 +167,14 @@ make check
 if [ $1 -gt 1 ]
 then
   rm -f /var/cache/cups/ppds.dat || :
+fi
 
+%posttrans
+if [ $1 -gt 1 ]
+then
   # since we moved to individual filters, we have to restart cups
   # to load new conversion tables if it is running
-  # remove by F43 EOL
+  # remove by F43 EOL and C11S release
   if systemctl is-active cups &> /dev/null
   then
     systemctl restart cups || :
@@ -244,6 +248,9 @@ fi
 
 
 %changelog
+* Mon Jun 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-6
+- CUPS restart has to happen after universal filter is gone for good (in posttrans) (fedora#2370978)
+
 * Mon Jun 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-5
 - individual filters have to explicitly enabled
 

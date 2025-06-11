@@ -5,7 +5,7 @@
 
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
-Version:        1.18.1
+Version:        1.18.2
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -72,17 +72,20 @@ rm -rf pyqtbuild/bundle/dlls/
 %{mingw32_bindir}/pyqt-bundle
 %{mingw32_bindir}/pyqt-qt-wheel
 %{mingw32_python3_sitearch}/pyqtbuild/
-%{mingw32_python3_sitearch}/PyQt_builder-%{version}.dist-info/
+%{mingw32_python3_sitearch}/pyqt_builder-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pkg_name}
 %license LICENSE
 %{mingw64_bindir}/pyqt-bundle
 %{mingw64_bindir}/pyqt-qt-wheel
 %{mingw64_python3_sitearch}/pyqtbuild/
-%{mingw64_python3_sitearch}/PyQt_builder-%{version}.dist-info/
+%{mingw64_python3_sitearch}/pyqt_builder-%{version}.dist-info/
 
 
 %changelog
+* Mon Jun 09 2025 Sandro Mani <manisandro@gmail.com> - 1.18.2-1
+- Update to 1.18.2
+
 * Wed Feb 26 2025 Sandro Mani <manisandro@gmail.com> - 1.18.1-1
 - Update to 1.18.1
 

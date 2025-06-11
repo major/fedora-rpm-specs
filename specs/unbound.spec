@@ -36,7 +36,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.22.0
+Version: 1.23.0
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -448,7 +448,7 @@ popd
 %ghost %attr(0640,root,unbound) %{_sysconfdir}/%{name}/unbound_control.pem
 %ghost %attr(0640,root,unbound) %{_sysconfdir}/%{name}/unbound_control.key
 %ghost %attr(0640,root,unbound) %{_sysconfdir}/%{name}/unbound_server.pem
-%ghost %attr(0640,root,unbound) %{_sysconfdir}/%{name}/unbound_server.key
+%ghost %attr(0600,root,unbound) %{_sysconfdir}/%{name}/unbound_server.key
 %{_sbindir}/unbound
 %{_sbindir}/unbound-checkconf
 %{_sbindir}/unbound-control

@@ -2,15 +2,15 @@ Name:           targetd
 License:        GPL-3.0-only
 Summary:        Service to make storage remotely configurable
 Version:        0.10.4
-Release:        5%{?dist}
+Release:        7%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
 BuildArch:      noarch
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel python3-gobject-base python3-blockdev libblockdev-lvm
 Requires:       python3-PyYAML python3-setproctitle python3-rtslib target-restore
-Requires:       nfs-utils, btrfs-progs, python3-blockdev, libblockdev-lvm
+Requires:       nfs-utils, btrfs-progs, python3-blockdev, libblockdev-lvm 
 
 %description
 targetd turns the machine into a remotely-configurable storage appliance.
@@ -21,8 +21,11 @@ those volumes over iSCSI.
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
 mkdir -p %{buildroot}%{_mandir}/man8/
@@ -33,7 +36,11 @@ install -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/targetd.service
 install -m 644 targetd.yaml %{buildroot}%{_sysconfdir}/target/targetd.yaml
 install -m 644 targetd.8 %{buildroot}%{_mandir}/man8/
 install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
-%py3_install
+%pyproject_install
+%pyproject_save_files -l targetd
+
+%check
+%pyproject_check_import
 
 %post
 %systemd_post targetd.service
@@ -44,18 +51,21 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %postun
 %systemd_postun_with_restart targetd.service
 
-%files
+%files -f %{pyproject_files}
 %{_bindir}/targetd
 %{_unitdir}/targetd.service
-%{python3_sitelib}/targetd/
-%{python3_sitelib}/*.egg-info
-%license LICENSE
 %doc README.md API.md client
 %{_mandir}/man8/targetd.8*
 %{_mandir}/man5/targetd.yaml.5*
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 0.10.4-7
+- Rebuilt for Python 3.14
+
+* Mon Jun 09 2025 Tony Asleson <tasleson@redhat.com> - 0.10.4-6
+- Use pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.10.4-5
 - Rebuilt for Python 3.14
 

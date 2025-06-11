@@ -1,15 +1,9 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 # The tests are stored in a separate repository, which is normally accessed
 # as a git submodule.
-%global tests_commit d91029bdf1e3e0307714afe0d2cde7ba6fd208ab
+%global tests_commit 895b3a65d0d823dbd0acf2bc402376381995d1b1
 
 Name:           python-editorconfig
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        EditorConfig File Locator and Interpreter for Python
 
@@ -28,15 +22,10 @@ BuildOption(install):   -l editorconfig
 
 BuildArch:      noarch
 
+BuildRequires:  tomcli
+
 # For tests:
 BuildRequires:  cmake
-
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-%if %{with doc_pdf}
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
 
 %global common_description %{expand:
 EditorConfig Python Core provides the same functionality as the EditorConfig C
@@ -47,6 +36,9 @@ Core.}
 
 %package     -n python3-editorconfig
 Summary:        %{summary}
+
+# Dropped without replacement for F43+; we can remove the Obsoletes in F45.
+Obsoletes:      python-editorconfig-doc < 0.17.1-2
 
 %description -n python3-editorconfig %{common_description}
 
@@ -63,14 +55,16 @@ rm -vrf tests
 %setup -q -n editorconfig-core-py-%{version} -T -D -b 1
 mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
+# Remove overly-strict setuptools minimum version bound. Each new release
+# requires an extremely current setuptools because the version bound is
+# automatically bumped by renovate automation; the bound  does not necessarily
+# reflect the actual minimum version that will work correctly.
+tomcli set pyproject.toml lists replace build-system.requires \
+    'setuptools>.*' 'setuptools'
+
 
 %build -a
-%make_build -C docs text SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
-
+# This prepares for testing.
 %cmake -DPYTHON_EXECUTABLE='%{python3}'
 
 
@@ -88,15 +82,6 @@ export %{py3_test_envvars}
 
 %files -n python3-editorconfig -f %{pyproject_files}
 %doc README.rst
-
-
-%files doc
-%license COPYING LICENSE.BSD LICENSE.PSF
-%doc README.rst
-%doc docs/_build/text/
-%if %{with doc_pdf}
-%doc docs/_build/latex/EditorConfigPythonCore.pdf
-%endif
 
 
 %changelog

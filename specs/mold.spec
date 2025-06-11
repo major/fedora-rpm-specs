@@ -6,7 +6,7 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.40.0
+Version:        2.40.1
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -58,8 +58,8 @@ BuildRequires:  libstdc++-static
 BuildRequires:  llvm
 BuildRequires:  perl-interpreter
 
-Requires(post): %{_sbindir}/alternatives
-Requires(postun): %{_sbindir}/alternatives
+Requires(post): alternatives
+Requires(postun): alternatives
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.
@@ -89,12 +89,12 @@ rm -r third-party/tbb
 
 %post
 if [ "$1" = 1 ]; then
-  %{_sbindir}/alternatives --install %{_bindir}/ld ld %{_bindir}/ld.mold 1
+  update-alternatives --install %{_bindir}/ld ld %{_bindir}/ld.mold 1
 fi
 
 %postun
 if [ "$1" = 0 ]; then
-  %{_sbindir}/alternatives --remove ld %{_bindir}/ld.mold
+  update-alternatives --remove ld %{_bindir}/ld.mold
 fi
 
 %check

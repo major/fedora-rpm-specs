@@ -1,5 +1,5 @@
 Name:           perl-Dist-Zilla-Plugin-ReadmeFromPod
-Version:        0.39
+Version:        0.40
 Release:        1%{?dist}
 Summary:        Automatically convert POD to a README for Dist::Zilla
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -12,21 +12,19 @@ BuildRequires:  glibc-common
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.10.1
+BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 # Dist::Zilla::File::InMemory not used at tests
-BuildRequires:  perl(Dist::Zilla::Role::AfterBuild)
-BuildRequires:  perl(Dist::Zilla::Role::AfterRelease)
 # Dist::Zilla::Role::FilePruner version from Dist::Zilla in META
 BuildRequires:  perl(Dist::Zilla::Role::FilePruner) >= 6.000
+BuildRequires:  perl(Dist::Zilla::Role::InstallTool) >= 5
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Moose)
-BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(Path::Tiny) >= 0.004
 BuildRequires:  perl(Pod::Readme) >= 1.2.0
 # Tests:
@@ -36,10 +34,9 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Dist::Zilla::File::InMemory)
-Requires:       perl(Dist::Zilla::Role::AfterBuild)
-Requires:       perl(Dist::Zilla::Role::AfterRelease)
 # Dist::Zilla::Role::FilePruner version from Dist::Zilla in META
 Requires:       perl(Dist::Zilla::Role::FilePruner) >= 6.000
+Requires:       perl(Dist::Zilla::Role::InstallTool) >= 5
 Requires:       perl(Pod::Readme) >= 1.2.0
 # Module names passed to Module::Load::load() via Pod::Readme::new() from %%FORMAT
 Recommends:     perl(Pod::Markdown)
@@ -115,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 09 2025 Petr Pisar <ppisar@redhat.com> - 0.40-1
+- 0.40 bump
+
 * Mon Apr 28 2025 Petr Pisar <ppisar@redhat.com> - 0.39-1
 - 0.39 bump
 
