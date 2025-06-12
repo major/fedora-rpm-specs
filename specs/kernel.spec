@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc0.250605gec7714e494790.13
+%define pkgrelease 0.rc1.17
 %define kversion 6
-%define tarfile_release 6.15-12141-gec7714e494790
+%define tarfile_release 6.16-rc1
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250605gec7714e494790.13%{?buildid}%{?dist}
+%define specrelease 0.rc1.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -708,7 +708,7 @@ Name: %{package_name}
 License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND 0BSD AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0) AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC0-1.0 AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later OR BSD-3-Clause) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.1-no-invariants-or-later) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-or-later) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-3-Clause) AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MIT OR Apache-2.0) AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
 URL: https://www.kernel.org/
 Version: %{specrpmversion}
-Release: %{pkg_release}.1
+Release: %{pkg_release}
 # DO NOT CHANGE THE 'ExclusiveArch' LINE TO TEMPORARILY EXCLUDE AN ARCHITECTURE BUILD.
 # SET %%nobuildarches (ABOVE) INSTEAD
 %if 0%{?fedora}
@@ -2082,9 +2082,9 @@ done
 
 %{log_msg "Set process_configs.sh $OPTS"}
 cp %{SOURCE81} .
-OPTS=""
-%if %{with_configchecks}
-	OPTS="$OPTS -w -n -c"
+OPTS="-w -n -c"
+%if !%{with_configchecks}
+	OPTS="$OPTS -i"
 %endif
 %if %{with clang_lto}
 for opt in %{clang_make_opts}; do
@@ -3223,7 +3223,7 @@ pushd tools/testing/selftests
 %endif
 
 %{log_msg "main selftests compile"}
-%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net/bonding iommu cachestat pid_namespace rlimits" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net/bonding iommu cachestat pid_namespace rlimits timens pidfd" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
 
 %ifarch %{klptestarches}
 	# kernel livepatching selftest test_modules will build against
@@ -3624,6 +3624,18 @@ pushd tools/testing/selftests/pid_namespace
 find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
 find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
 find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
+popd
+# install timens selftests
+pushd tools/testing/selftests/timens
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
+popd
+# install pidfd selftests
+pushd tools/testing/selftests/pidfd
+find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
+find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
+find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
 popd
 %endif
 
@@ -4274,17 +4286,27 @@ fi\
 #
 #
 %changelog
-* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 6.16.0-0.rc0.250605gec7714e494790.13.1
-- Rebuilt for Python 3.14
-
-* Fri Jun 06 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.16.0-0.rc0.250605gec7714e494790.13]
-- Linux v6.16.0-0.rc0.250605gec7714e494790
-
-* Thu Jun 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.ec7714e49479.13]
-- drivers/crypto: make PAES_S390 select CRYPTO_ENGINE (Jan Stancek)
+* Mon Jun 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.17]
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
-- package the newly added cpupower.service (Thorsten Leemhuis)
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Mon Jun 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.16]
+- redhat: enable test_kmod, test_module and install kmod selftests (Herton R. Krzesinski)
+- package the newly added cpupower.service (Thorsten Leemhuis)
+- process_configs: always print errors (Thorsten Leemhuis)
+- Linux v6.16.0-0.rc1
+
+* Sun Jun 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.8630c59e9936.15]
+- Linux v6.16.0-0.rc0.8630c59e9936
+
+* Sat Jun 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.bdc7f8c5adad.14]
+- redhat/configs: disable RZ/V2N in automotive (Eric Chanudet)
+- redhat/configs: Move RZ/G3E config to automotive (Eric Chanudet)
+- redhat: add more namespace selftests to kernel-modules-internal package (Joel Savitz) [RHEL-94503]
+- Linux v6.16.0-0.rc0.bdc7f8c5adad
+
+* Fri Jun 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.e271ed52b344.13]
+- Linux v6.16.0-0.rc0.e271ed52b344
 
 * Thu Jun 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.ec7714e49479.12]
 - redhat/configs: Enable CONFIG_PCIE_TPH (Ivan Vecera)

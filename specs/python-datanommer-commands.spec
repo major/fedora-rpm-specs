@@ -1,5 +1,5 @@
 Name:           python-datanommer-commands
-Version:        1.4.1
+Version:        1.4.3
 Release:        1%{?dist}
 Summary:        Console commands for datanommer
 

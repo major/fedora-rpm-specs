@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.36
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -135,6 +135,12 @@ Patch29: bind-9.20-nsupdate-tls-doc.patch
 Patch30: bind-9.20-nsupdate-tls-test.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2123076
 Patch31: bind-9.18-pkcs11-provider.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/10562
+# https://gitlab.isc.org/isc-projects/bind9/-/issues/5357
+# downstream patch fixing bind-dyndb-ldap causing issue
+Patch32: bind-9.21-resume-qmin-cname.patch
+# downstream only, extra check for above change, RHEL-30407
+Patch33: bind-9.18-query-fname-relative.patch
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -922,6 +928,10 @@ fi;
 %endif
 
 %changelog
+* Tue Jun 10 2025 'Petr Mensik' <<pemensik@redhat.com>> - 32:9.18.36-2
+- Prevent name.c:670 attributes assertion failed
+- Add extra checks for relative names
+
 * Fri Apr 25 2025 Petr Mensik <pemensik@redhat.com> - 32:9.18.36-1
 - Update to 9.18.36 (rhbz#2346607)
 

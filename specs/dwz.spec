@@ -1,7 +1,7 @@
 Summary: DWARF optimization and duplicate removal tool
 Name: dwz
-Version: 0.15
-Release: 9%{?dist}
+Version: 0.16
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND LGPL-2.0-or-later
 URL: https://sourceware.org/dwz/
 Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
@@ -10,7 +10,6 @@ BuildRequires: gcc, gcc-c++, gdb, elfutils-libelf-devel, dejagnu
 BuildRequires: make elfutils xxhash-devel xxhash-static
 
 # Patches
-Patch1: dwz-0.15-index9.patch
 
 %description
 The dwz package contains a program that attempts to optimize DWARF
@@ -33,7 +32,7 @@ rm -rf %{buildroot}
 %make_install prefix=%{_prefix} mandir=%{_mandir} bindir=%{_bindir}
 
 %check
-CFLAGS="" LDFLAGS="" make check
+CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check
 
 %files
 %license COPYING COPYING3 COPYING.RUNTIME
@@ -41,6 +40,11 @@ CFLAGS="" LDFLAGS="" make check
 %{_mandir}/man1/dwz.1*
 
 %changelog
+* Tue Jun 10 2025 Mark Wielaard <mjw@fedoraproject.org> - 0.16-1
+- Update to upstream dwz 0.16
+- Drop dwz-0.15-index9.patch
+- Add srcdir=$(pwd) for make check
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -21,7 +21,6 @@ BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(libnemo-extension) >= 6.4.0
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  gnome-common
 BuildRequires:  intltool
@@ -166,14 +165,38 @@ and decryption of OpenPGP files using GnuPG.
 
 %prep
 %autosetup -p1
+# use relative paths in data_files to support wheel-based installation
+# TODO send upstream
+sed -Ei '/^ *data_files *= *\[/,/^ *\]/ { s@/usr/@@ }' */setup.py
+
+%generate_buildrequires
+pushd nemo-audio-tab >&2
+%pyproject_buildrequires
+popd >&2
+
+pushd nemo-pastebin >&2
+%pyproject_buildrequires
+popd >&2
+
+pushd nemo-terminal >&2
+%pyproject_buildrequires
+popd >&2
+
+pushd nemo-emblems >&2
+%pyproject_buildrequires
+popd >&2
+
+pushd nemo-compare >&2
+%pyproject_buildrequires
+popd >&2
 
 %build
 pushd nemo-audio-tab
-%py3_build
+%pyproject_wheel
 popd
 
 pushd nemo-pastebin
-%py3_build
+%pyproject_wheel
 popd
 
 pushd nemo-fileroller
@@ -187,7 +210,7 @@ pushd nemo-python
 popd
 
 pushd nemo-terminal
-%py3_build
+%pyproject_wheel
 popd
 
 pushd nemo-preview
@@ -196,7 +219,7 @@ pushd nemo-preview
 popd
 
 pushd nemo-emblems
-%py3_build
+%pyproject_wheel
 popd
 
 pushd nemo-image-converter
@@ -205,7 +228,7 @@ pushd nemo-image-converter
 popd
 
 pushd nemo-compare
-%py3_build
+%pyproject_wheel
 popd
 
 pushd nemo-seahorse
@@ -214,13 +237,7 @@ pushd nemo-seahorse
 popd 
 
 %install
-pushd nemo-audio-tab
-%py3_install
-popd
-
-pushd nemo-pastebin
-%py3_install
-popd
+%pyproject_install
 
 pushd nemo-fileroller
 %meson_install
@@ -230,29 +247,19 @@ pushd nemo-python
 %meson_install
 popd
 
-pushd nemo-terminal
-%py3_install
-popd
-
 pushd nemo-preview
 %meson_install
-popd
-
-pushd nemo-emblems
-%py3_install
 popd
 
 pushd nemo-image-converter
 %meson_install
 popd
 
-pushd nemo-compare
-%py3_install
-popd
-
 pushd nemo-seahorse
 %meson_install
 popd 
+
+%py_byte_compile %{python3} %{buildroot}%{_datadir}/nemo*
 
 rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 
@@ -260,7 +267,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
 %{_datadir}/nemo-audio-tab/nemo-audio-tab.glade
-%{python3_sitelib}/nemo_audio_tab-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/nemo_audio_tab-%{version}.dist-info/
 
 
 %files -n nemo-pastebin
@@ -269,7 +276,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-pastebin/COPYING
 %{_bindir}/nemo-pastebin-configurator
 %{_datadir}/nemo-python/extensions/nemo-pastebin.py
-%{python3_sitelib}/nemo_pastebin-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/nemo_pastebin-%{version}.dist-info/
 %{_datadir}/glib-2.0/schemas/nemo-pastebin.gschema.xml
 %{_datadir}/nemo-pastebin/
 %{_datadir}/icons/hicolor/*/apps/nemo-pastebin.*
@@ -297,7 +304,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_datadir}/nemo-python/extensions/nemo_terminal.py
 %{_datadir}/nemo-terminal/
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
-%{python3_sitelib}/nemo_terminal-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/nemo_terminal-%{version}.dist-info/
 
 %files -n nemo-preview
 %doc nemo-preview/README
@@ -311,7 +318,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-emblems
 %license nemo-emblems/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-emblems.py
-%{python3_sitelib}/nemo_emblems-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/nemo_emblems-%{version}.dist-info/
 
 %files -n nemo-image-converter
 %doc nemo-image-converter/README
@@ -322,9 +329,8 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-compare
 %{_bindir}/nemo-compare-preferences
 %{_datadir}/nemo-python/extensions/nemo-compare.py
-%{_datadir}/nemo-compare/nemo-compare-preferences.py
-%{_datadir}/nemo-compare/utils.py*
-%{python3_sitelib}/nemo_compare-%{version}-py%{python3_version}.egg-info/
+%{_datadir}/nemo-compare/
+%{python3_sitelib}/nemo_compare-%{version}.dist-info/
 
 %files -n nemo-seahorse
 %doc nemo-seahorse/{AUTHORS,COPYING,README,NEWS,ChangeLog}

@@ -3,7 +3,7 @@
 
 # https://github.com/a8m/envsubst
 %global goipath         github.com/a8m/envsubst
-Version:                1.3.0
+Version:                1.4.3
 
 %gometa
 
@@ -14,7 +14,7 @@ Go package for substituting environment variables.}
 %global godocs          _example README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Environment variables substitution for Go
 
 License:        MIT
@@ -54,6 +54,10 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Tue Jun 10 2025 Julien Rische <jrische@redhat.com> - 1.4.3-1
+- Rebase to v1.4.3
+  Resolves: rhbz#2168107
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

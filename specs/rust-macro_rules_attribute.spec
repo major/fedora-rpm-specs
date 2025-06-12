@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate picky-krb
+%global crate macro_rules_attribute
 
-Name:           rust-picky-krb
-Version:        0.10.0
+Name:           rust-macro_rules_attribute
+Version:        0.2.2
 Release:        %autorelease
-Summary:        Encode/decode Kerberos ASN.1 DER structs
+Summary:        Use declarative macros in attribute or derive position
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/picky-krb
+License:        Apache-2.0 OR MIT OR Zlib
+URL:            https://crates.io/crates/macro_rules_attribute
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Encode/decode Kerberos ASN.1 DER structs.}
+Use declarative macros in attribute or derive position.}
 
 %description %{_description}
 
@@ -32,7 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-ZLIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -46,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+better-docs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+better-docs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "better-docs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+better-docs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+verbose-expansions-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+verbose-expansions-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "verbose-expansions" feature of the "%{crate}" crate.
+
+%files       -n %{name}+verbose-expansions-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

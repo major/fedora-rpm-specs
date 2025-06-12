@@ -2,7 +2,7 @@ Name:           perl-Mozilla-CA
 # You do not need to back-port a new version for updating a list of the
 # certificates. They are taken from ca-certificates package instead
 # per bug #738383.
-Version:        20250202
+Version:        20250602
 Release:        1%{?dist}
 Summary:        Mozilla's CA certificate bundle in PEM format
 # README:                       MPL-2.0
@@ -13,7 +13,7 @@ License:        MPL-2.0
 URL:            https://metacpan.org/release/Mozilla-CA
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABH/Mozilla-CA-%{version}.tar.gz
 # Use a CA bundle from ca-certificates package, bug #738383
-Patch0:         Mozilla-CA-20250202-Redirect-to-ca-certificates-bundle.patch
+Patch0:         Mozilla-CA-20250602-Redirect-to-ca-certificates-bundle.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 10 2025 Michal Josef Špaček <mspacek@redhat.com> - 20250602-1
+- 20250602 bump
+
 * Mon Feb 03 2025 Michal Josef Špaček <mspacek@redhat.com> - 20250202-1
 - 20250202 bump
 

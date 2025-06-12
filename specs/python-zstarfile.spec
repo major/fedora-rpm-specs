@@ -4,7 +4,7 @@
 
 Name:           python-zstarfile
 Version:        0.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tarfile extension with additional compression algorithms and PEP 706 by default
 
 
@@ -14,6 +14,10 @@ URL:            https://sr.ht/~gotmax23/zstarfile
 Source0:        %{furl}/refs/download/v%{version}/zstarfile-%{version}.tar.gz
 Source1:        %{furl}/refs/download/v%{version}/zstarfile-%{version}.tar.gz.asc
 Source2:        https://meta.sr.ht/~gotmax23.pgp
+
+# Test Python 3.13 and add basic support for 3.14 and drop 3.8
+# https://git.sr.ht/~gotmax23/zstarfile/commit/be51fe5010c76177547954c4fc7ef6a24b3d4f30
+Patch:          0001-Test-Python-3.13-and-add-basic-support-for-3.14-and-.patch
 
 BuildArch:      noarch
 
@@ -63,6 +67,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-zstarfile all lz4 zstandard
 
 %changelog
+* Tue Jun 10 2025 Maxwell G <maxwell@gtmx.me> - 0.2.0-6
+- Fix build with Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-5
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 # git ls-remote git://github.com/g0orx/linhpsdr.git
-%global git_commit 742658a9068392349ca1efc9d698dcaae541dda6
-%global git_date 20210710
+%global git_commit 87a629072b8375ee7ce586f4cd30ac0cb352593a
+%global git_date 20250610
 
 # git describe --abbrev=0 --tags
 %global version_tag Beta
@@ -15,7 +15,7 @@
 
 Name:		linhpsdr
 Version:	0
-Release:	0.15.%{git_suffix}%{?dist}
+Release:	0.16.%{git_suffix}%{?dist}
 Summary:	An HPSDR application for Linux
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -34,8 +34,7 @@ BuildRequires:	wdsp-devel
 BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 # https://github.com/g0orx/linhpsdr/pull/107
-Patch0:		linhpsdr-0-distro-makefile.patch
-Patch1: linhpsdr-c99.patch
+Patch:		linhpsdr-0-distro-makefile.patch
 
 %description
 An HPSDR (High Performance Software Defined Radio) application for controlling
@@ -76,6 +75,10 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/io.github.g0orx.LinHPSD
 %doc documentation/*.pdf
 
 %changelog
+* Tue Jun 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.16.20250610git87a62907
+- New snapshot
+  Resolves: rhbz#2340773
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15.20210710git742658a9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

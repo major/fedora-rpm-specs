@@ -1,7 +1,3 @@
-## FIXME FIXME FIXME
-%define debug_package %{nil}
-## FIXME FIXME FIXME
-
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
 # http://rpm.org/user_doc/conditional_builds.html
@@ -34,14 +30,20 @@
 %global include_staticlibs 0
 %endif
 
+# Disable automatic debuginfo/debugsource package.
+# We create them manually ourselves for the release build.
+# fastdebug/slowdebug have symbols in the binaries themselves.
+%define debug_package %{nil}
+# Don't strip any debug info symbols (in fastdebug/slowdebug builds).
+# Keep the symbols internal, like the binaries in JMODs have
+%define __brp_strip %{nil}
+# The add-determinism build root helper might cause some jar files
+# to change, breaking the run-time image link (for jrt-fs.jar). Disable
+# the jar processor.
+%define add_determinism_options --handler=-jar
+
 #placeholder - used in regexes, otherwise for no use in portables
 %global freetype_lib |libfreetype[.]so.*
-
-# The -g flag says to use strip -g instead of full strip on DSOs or EXEs.
-# This fixes detailed NMT and other tools which need minimal debug info.
-# See: https://bugzilla.redhat.com/show_bug.cgi?id=1520879
-%global _find_debuginfo_opts -g
-
 
 # note: parametrized macros are order-sensitive (unlike not-parametrized) even with normal macros
 # also necessary when passing it as parameter to other macros. If not macro, then it is considered a switch
@@ -201,9 +203,6 @@
 %global static_libs_target %{nil}
 %endif
 
-# RPM JDK builds keep the debug symbols internal, to be later stripped by RPM
-%global debug_symbols internal
-
 # VM variant being built
 %ifarch %{zero_arches}
 %global vm_variant zero
@@ -342,8 +341,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        13
-%global rpmrelease      1
+%global buildver        26
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -495,11 +494,11 @@ alternatives --install %{_bindir}/java java %{jrebindir -- %{?1}}/java %{priorit
   --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/keytool keytool %{jrebindir -- %{?1}}/keytool \\
   --slave %{_bindir}/rmiregistry rmiregistry %{jrebindir -- %{?1}}/rmiregistry \\
-  --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1%{man_comp}
+  --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1 \\
+  --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1 \\
+  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1 \\
+  --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1 \\
+  --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 alternatives --install %{_jvmdir}/jre-%{origin} jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/jre-%{javaver} jre_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/jre-%{javaver}-%{origin} jre_%{javaver}_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
@@ -596,25 +595,25 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_bindir}/jstatd jstatd %{sdkbindir -- %{?1}}/jstatd \\
   --slave %{_bindir}/jwebserver jwebserver %{sdkbindir -- %{?1}}/jwebserver \\
   --slave %{_bindir}/serialver serialver %{sdkbindir -- %{?1}}/serialver \\
-  --slave %{_mandir}/man1/jar.1%{man_comp} jar.1%{man_comp} %{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jarsigner.1%{man_comp} jarsigner.1%{man_comp} %{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstatd.1%{man_comp} jstatd.1%{man_comp} %{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/serialver.1%{man_comp} serialver.1%{man_comp} %{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1%{man_comp}
+  --slave %{_mandir}/man1/jar.1%{man_comp} jar.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jar.1 \\
+  --slave %{_mandir}/man1/jarsigner.1%{man_comp} jarsigner.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jarsigner.1 \\
+  --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javac.1 \\
+  --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javadoc.1 \\
+  --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javap.1 \\
+  --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jconsole.1 \\
+  --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdb.1 \\
+  --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeps.1 \\
+  --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jinfo.1 \\
+  --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmap.1 \\
+  --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1 \\
+  --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1 \\
+  --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1 \\
+  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1 \\
+  --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1 \\
+  --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1 \\
+  --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jwebserver.1 \\
+  --slave %{_mandir}/man1/jstatd.1%{man_comp} jstatd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstatd.1 \\
+  --slave %{_mandir}/man1/serialver.1%{man_comp} serialver.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/serialver.1
 alternatives --install %{_jvmdir}/java-%{origin} java_sdk_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/java-%{javaver} java_sdk_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 }
@@ -784,11 +783,11 @@ fi
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/default.jfc
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/profile.jfc
-%{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/*.so
 %ifarch %{share_arches}
@@ -869,7 +868,7 @@ fi
 %ifarch %{sa_arches}
 %ifnarch %{zero_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jhsdb
-%{_mandir}/man1/jhsdb-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jhsdb.1
 %endif
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jinfo
@@ -892,31 +891,31 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/tapset
 %endif
 %{_datadir}/applications/*jconsole%{?1}.desktop
-%{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jfr-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jlink-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jmod-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jshell-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jar.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jarsigner.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javac.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javadoc.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javap.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jconsole.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdb.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeprscan.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeps.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jfr.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jinfo.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jlink.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmap.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmod.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jshell.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstatd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jwebserver.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/serialver.1
 
 %if %{with_systemtap}
 %dir %{tapsetroot}
@@ -1234,7 +1233,7 @@ BuildRequires: %{portable_name}-misc >= %{portable_version}
 BuildRequires: %{portable_name}-docs >= %{portable_version}
 
 %if %{include_normal_build}
-BuildRequires: %{portable_name}-unstripped >= %{portable_version}
+BuildRequires: %{portable_name}-devel >= %{portable_version}
 %if %{include_staticlibs}
 BuildRequires: %{portable_name}-static-libs >= %{portable_version}
 %endif
@@ -1334,6 +1333,27 @@ Group:   Development/Languages
 
 %description headless
 The %{origin_nice} %{featurever} runtime environment without audio and video support.
+
+%package headless-debuginfo
+Summary: Debug information for package %{name}-headless
+Group: Development/Debug
+AutoReq: 0
+AutoProv: 1
+%description headless-debuginfo
+This package provides debug information for package %{name}.
+Debug information is useful when developing applications that use this
+package or when debugging this package.
+%files headless-debuginfo -f debugfiles.list
+
+%package debugsource
+Summary: Debug sources for package %{name}
+Group: Development/Debug
+AutoReqProv: 0
+%description debugsource
+This package provides debug sources for package %{name}.
+Debug sources are useful when developing applications that use this
+package or when debugging this package.
+%files debugsource -f debugsourcefiles.list
 %endif
 
 %if %{include_debug_build}
@@ -1636,19 +1656,24 @@ tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.misc.%{_arch}.t
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.docs.%{_arch}.tar.xz
 
 %if %{include_normal_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.unstripped.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jmods.%{_arch}.tar.xz
+# Extract debuginfo as well
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.debuginfo.jdk.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
@@ -1736,17 +1761,6 @@ pushd build
   cp -r ../$misc_image/%{generated_sources_name}/jdk%{featurever}.build* .
 popd
 doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
-# in addition the builddir must match the builddir of the portables, including release
-# be aware, even os may be different, especially with buildonce, repack everywhere
-# so deducting it from installed deps
-portablenvr=`echo ${misc_image} | sed "s/portable.*.misc.//"`
-portablebuilddir=/builddir/build/BUILD
-  # Fix build paths in ELF files so it looks like we built them
-  for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
-      if file ${file} | grep -q 'ELF'; then
-          %{debugedit} -b "${portablebuilddir}/${portablenvr}" -d "$(pwd)" -n "${file}"
-      fi
-  done
 
 %install
 function installjdk() {
@@ -1790,12 +1804,12 @@ function installjdk() {
 # by the RPM installation stage
 function debugcheckjdk() {
     local imagepath=${1}
+    local debug_suffix=${2}
 
     if [ -d ${imagepath} ] ; then
 
-        so_suffix="so"
         # Check debug symbols are present and can identify code
-        find "${imagepath}" -iname "*.$so_suffix" -print0 | while read -d $'\0' lib
+        find "${imagepath}" -iname "*.$debug_suffix" -print0 | while read -d $'\0' lib
         do
             if [ -f "$lib" ] ; then
                 echo "Testing $lib for debug symbols"
@@ -1903,8 +1917,13 @@ for suffix in %{build_loop} ; do
     done
     # Check debug symbols were built into the dynamic libraries
     if [ $jdkjre == jdk ] ; then
+      if [ "x$suffix" = "x" ] ; then
+        debugsuffix="debuginfo"
+      else
+        debugsuffix="so"
+      fi
       #jdk only?
-      debugcheckjdk ${top_dir_abs_main_build_path}
+      debugcheckjdk ${top_dir_abs_main_build_path} $debugsuffix
     fi
     # Print release information
     cat ${top_dir_abs_main_build_path}/release
@@ -1966,19 +1985,6 @@ pushd ${jdk_image}
   done
 %endif
 
-
-  # Install man pages
-  install -d -m 755 $RPM_BUILD_ROOT%{_mandir}/man1
-  for manpage in man/man1/*
-  do
-    # Convert man pages to UTF8 encoding
-    iconv -f ISO_8859-1 -t UTF8 $manpage -o $manpage.tmp
-    mv -f $manpage.tmp $manpage
-    install -m 644 -p $manpage $RPM_BUILD_ROOT%{_mandir}/man1/$(basename $manpage .1)-%{uniquesuffix -- $suffix}.1
-  done
-  # Remove man pages from jdk image
-  rm -rf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/man
-
 popd
 
 # Install static libs artefacts
@@ -2036,6 +2042,25 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 6
 
 # end, dual install
 done
+
+# Produce the debugsourcefiles.list manually from sources
+%{__mkdir} -p $RPM_BUILD_ROOT/usr/src/debug
+cp -a ${src_image} $RPM_BUILD_ROOT/usr/src/debug/%{name}-%{version}-%{release}
+pushd $RPM_BUILD_ROOT/usr
+find src/debug -mindepth 1 -maxdepth 1 | sed 's,^,/usr/,' >> %{_builddir}/%{compatiblename}/debugsourcefiles.list
+popd
+
+# Produce the debugfiles.list and debuginfo tree manually from existing debuginfo
+%{__mkdir} -p $RPM_BUILD_ROOT/usr/lib/debug/%{_jvmdir}/%{sdkdir -- %{normal_suffix}}/lib/server
+%{__mkdir} -p $RPM_BUILD_ROOT/usr/lib/debug/%{_jvmdir}/%{sdkdir -- %{normal_suffix}}/bin
+pushd $RPM_BUILD_ROOT
+for f in $(find usr/lib/jvm/%{sdkdir -- %{normal_suffix}} -name \*.debuginfo); do
+  %{__mv} $f "$RPM_BUILD_ROOT/usr/lib/debug/$(dirname $f)/$(basename $f)"
+done
+popd
+pushd $RPM_BUILD_ROOT/usr/lib/debug/usr/lib/jvm
+find %{compatiblename} -name \*.debuginfo | sed 's,^,/usr/lib/debug%{_jvmdir}/,' >> %{_builddir}/%{compatiblename}/debugfiles.list
+popd
 
 %check
 

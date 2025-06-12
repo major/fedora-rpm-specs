@@ -19,6 +19,8 @@ License:        MIT
 URL:            https://github.com/jaraco/%{projname}
 Source0:        %{pypi_source %{projname}}
 
+Patch1:         %{url}/pull/236.patch#/001-fix-for-py314.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -39,7 +41,7 @@ Summary:        %{summary}
 %description -n python3-%{projname} %_description
 
 %prep
-%autosetup -n %{projname}-%{version}
+%autosetup -p1 -n %{projname}-%{version}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -E -i '/\t"pytest-/d' pyproject.toml

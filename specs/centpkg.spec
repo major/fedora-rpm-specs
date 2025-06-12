@@ -5,12 +5,15 @@
 
 Name:           centpkg
 Version:        0.10.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
 BuildArch:      noarch
+
+# https://git.centos.org/centos/centpkg/pull-request/125
+Patch: 0001-Use-the-authenticated-session-for-PP-API.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -78,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 0.10.0-4
+- Rebuilt for Python 3.14
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.10.0-2
 - Rebuilt for Python 3.14
 

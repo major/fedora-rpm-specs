@@ -1,5 +1,5 @@
 Name:          whichfont
-Version:       2.2.0
+Version:       2.3.0
 Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
@@ -34,6 +34,11 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 11 2025 Sudip Shil <sshil@redhat.com> - 2.3.0-1
+- Improve input handling for -f option and Update test cases in to cover new scenarios and edge cases.
+- now tests.sh can capture segmentation fault and save in test_error txt file
+- Created github workflow action tests.yml in github - if test fails then it is usefull for CI and automation.
+
 * Thu May 08 2025 Sudip Shil <sshil@redhat.com> - 2.2.0-1
 - Modified input_char to handle multiple words as a single input string, allowing space-separated characters.
 - :: as the delimiter for Fontconfig parameters.

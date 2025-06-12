@@ -1,8 +1,8 @@
-%global commit 5226b33a7ef274f31765b602c4af45e368ea42d4
-%global commit_short 5226b33a
+%global commit c45a36964364caee746faac30719f6b2948d5195
+%global commit_short c45a3696
 
 Name:           rkward
-Version:        0.8.1~pre^1.git%{commit_short}
+Version:        0.8.2~pre^1.git%{commit_short}
 Release:        1%{?dist}
 Summary:        Graphical frontend for R language
 
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Tue Jun 10 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.2~pre^1.gitc45a3696-1
+- Update to prerelease version (rhbz#2371311)
+
 * Mon Apr 21 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.1~pre^1.git5226b33a-1
 - Update to prerelease version (rhbz#2361422)
 

@@ -5,7 +5,7 @@
 %global crate ironrdp-server
 
 Name:           rust-ironrdp-server
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Extendable skeleton for implementing custom RDP servers
 

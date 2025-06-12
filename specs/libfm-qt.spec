@@ -61,8 +61,8 @@ This package provides translations for the libfm-qt package.
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt6.so.15
-%{_libdir}/libfm-qt6.so.15.*
+%{_libdir}/libfm-qt6.so.16
+%{_libdir}/libfm-qt6.so.16.*
 %{_datadir}/libfm-qt6
 
 %files devel

@@ -7,7 +7,7 @@
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
-%global libo_prerelease .alpha1
+%global libo_prerelease .beta1
 # Should contain any suffix of release tarball name, e.g., -buildfix1.
 %global libo_buildfix %{nil}
 %global libo_python python3

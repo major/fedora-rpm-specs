@@ -1212,10 +1212,10 @@ License: LGPL-3.0-or-later
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
 Requires: libtevent%{?_isa} >= %{tevent_version}
+Requires: samba-common-libs = %{samba_depver}
 # /endif without includelibs
 %endif
 
-Provides: bundled(libreplace) = %{samba_depver}
 Obsoletes: libldb < 0:2.10
 Provides: libldb = 0:2.10
 Provides: libldb = %{samba_depver}
@@ -1439,6 +1439,7 @@ install -d -m 0755 %{buildroot}/var/lib/samba/sysvol
 install -d -m 0755 %{buildroot}/var/lib/samba/usershares
 install -d -m 0755 %{buildroot}/var/lib/samba/winbindd_privileged
 install -d -m 0755 %{buildroot}/var/log/samba/old
+install -d -m 0755 %{buildroot}/run/ctdb
 install -d -m 0755 %{buildroot}/run/samba
 install -d -m 0755 %{buildroot}/run/winbindd
 install -d -m 0755 %{buildroot}/%{_libdir}/samba
@@ -1996,7 +1997,6 @@ fi
 %{_libdir}/samba/libposix-eadb-private-samba.so
 %{_libdir}/samba/libprinter-driver-private-samba.so
 %{_libdir}/samba/libprinting-migrate-private-samba.so
-%{_libdir}/samba/libreplace-private-samba.so
 %{_libdir}/samba/libregistry-private-samba.so
 %{_libdir}/samba/libsamba-cluster-support-private-samba.so
 %{_libdir}/samba/libsamba-debug-private-samba.so
@@ -2079,6 +2079,7 @@ fi
 %files common-libs
 # common libraries
 %{_libdir}/samba/libcmdline-private-samba.so
+%{_libdir}/samba/libreplace-private-samba.so
 
 %dir %{_libdir}/samba/ldb
 

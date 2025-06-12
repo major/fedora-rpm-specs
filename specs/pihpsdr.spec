@@ -1,5 +1,5 @@
-%global git_commit 7ad62180e8073f7c243195a0ff8632bdfbdf3742
-%global git_date 20241105
+%global git_commit c3ff82b00fad81eea1622faf2d36f55710231ad3
+%global git_date 20250610
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
@@ -19,7 +19,7 @@
 
 Name:		pihpsdr
 Version:	2.0.8~rc1^%{git_suffix}
-Release:	7%{?dist}
+Release:	1%{?dist}
 Summary:	Raspberry Pi standalone code for HPSDR
 License:	GPL-2.0-or-later
 URL:		https://github.com/g0orx/%{name}
@@ -42,13 +42,13 @@ BuildRequires:	libi2c-devel
 BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 # https://github.com/g0orx/pihpsdr/pull/143
-Patch0:		pihpsdr-2.0.8-distro-makefile.patch
+Patch:		pihpsdr-2.0.8-distro-makefile.patch
 # https://github.com/g0orx/pihpsdr/issues/154
-Patch1:		pihpsdr-2.0.8-compile-fix.patch
+Patch:		pihpsdr-2.0.8-compile-fix.patch
 # https://github.com/g0orx/pihpsdr/pull/197
-Patch2:		pihpsdr-2.0.8-wdsp-in-home-dir.patch
+Patch:		pihpsdr-2.0.8-wdsp-in-home-dir.patch
 # https://github.com/g0orx/pihpsdr/pull/198
-Patch3:		pihpsdr-2.0.8-icon-system-path.patch
+Patch:		pihpsdr-2.0.8-icon-system-path.patch
 
 %description
 The pihpsdr (Pi High Performance Software Defined Radio) is a port of PowerSDR
@@ -103,6 +103,10 @@ install -Dm 0644 %{SOURCE2} \
 %doc documentation/{MIDI-manual,piHPSDR-Controller-Users-Guide}.pdf
 
 %changelog
+* Tue Jun 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.8~rc1^20250610gitc3ff82b0-1
+- New snapshot
+  Resolves: rhbz#2341074
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8~rc1^20241105git7ad62180-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

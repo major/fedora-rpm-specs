@@ -92,7 +92,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -144,10 +144,8 @@ The rocRAND library is implemented in the HIP programming language and
 optimized for AMD's latest discrete GPUs. It is designed to run on top of AMD's
 Radeon Open Compute ROCm runtime, but it also works on CUDA enabled GPUs.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The rocRAND development package
@@ -293,6 +291,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Remove suse check for using ldconfig
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

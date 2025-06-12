@@ -1,6 +1,6 @@
 Name:		netsniff-ng
 Version:	0.6.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Packet sniffing beast
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -24,6 +24,8 @@ BuildRequires:	zlib-devel
 BuildRequires:	libpcap-devel
 BuildRequires:	libnet-devel
 BuildRequires:	libsodium-devel
+# https://github.com/netsniff-ng/netsniff-ng/pull/253
+Patch:		netsniff-ng-0.6.9-gcc-15-fix.patch
 
 %description
 netsniff-ng is a high performance Linux network sniffer for packet inspection.
@@ -55,7 +57,7 @@ make %{?_smp_mflags} ETCDIR=%{_sysconfdir} Q= STRIP=: \
   CFLAGS="%{optflags} -fPIC -fcommon" LDFLAGS="%{?__global_ldflags}"
 
 %install
-make install PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} DESTDIR="%{buildroot}"
+make install PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} SBINDIR=%{_sbindir} DESTDIR="%{buildroot}"
 
 %files
 %doc AUTHORS COPYING README
@@ -65,6 +67,10 @@ make install PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} DESTDIR="%{buildroot}"
 %{_mandir}/man8/*
 
 %changelog
+* Tue Jun 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.9-3
+- Fixed FTBFS with gcc-15
+  Resolves: rhbz#2340924
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

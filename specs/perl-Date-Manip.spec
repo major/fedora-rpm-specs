@@ -1,5 +1,5 @@
 Name:           perl-Date-Manip
-Version:        6.97
+Version:        6.98
 Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 6.98-1
+- 6.98 bump (rhbz#2371153)
+
 * Sun Mar 02 2025 Packit <hello@packit.dev> - 6.97-1
 - Update to version 6.97
 - Resolves: rhbz#2349298

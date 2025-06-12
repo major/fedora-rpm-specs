@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Simple mime type detection using magic numbers, file names, and extensions
 # * Portions of Marcel are adapted from the [mimemagic] gem, released under
 #   the terms of the MIT License.
@@ -19,6 +19,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1: %{gem_name}-%{version}-test.tar.gz
 # From https://github.com/rails/marcel/commit/12fc8daae656ccb09441c4a3c376b5de3af05172
 Patch0: marcel-12fc8da-minitest-5_19-compat.patch
+# Fix test compatibility with Rack 3+
+Patch1: rubygem-marcel-1.0.5-Limit-Rack-Lint-InputWrapper-test-to-Rack-2.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.2
@@ -41,6 +43,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -a 1
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -78,6 +81,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jun 10 2025 Vít Ondruch <vondruch@redhat.com> - 1.0.2-12
+- Fix test compatibility with Rack 3+
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

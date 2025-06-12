@@ -4,8 +4,8 @@
 
 
 Name:           mariadb-connector-odbc
-Version:        3.2.4
-Release:        2%{?with_debug:.debug}%{?dist}
+Version:        3.2.6
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
@@ -13,9 +13,10 @@ Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
 
 Patch1: gcc-15.patch
+Patch2: upstream_125389a471ba12a244029801786cc459cf930e65.patch
 
 BuildRequires:  cmake unixODBC-devel gcc-c++
-BuildRequires:  mariadb-connector-c-devel >= 3.4.3
+BuildRequires:  mariadb-connector-c-devel >= 3.4.5
 
 %description
 MariaDB Connector/ODBC is a standardized, LGPL licensed database driver using
@@ -23,11 +24,19 @@ the industry standard Open Database Connectivity (ODBC) API. It supports ODBC
 Standard 3.5, can be used as a drop-in replacement for MySQL Connector/ODBC,
 and it supports both Unicode and ANSI modes.
 
+%package        devel
+Summary:        Development files for the %{name}
+Requires:       %{name} = %{version}-%{release}
+
+%description    devel
+Header files for %{name} that make developing projects with
+this connector easier.
 
 
 %prep
 %setup -q -n %{name}-%{version}-src
 %patch -P1 -p1
+%patch -P2 -p1
 
 sed -i -e "s|/usr/include/mariadb|$(pkg-config --variable=includedir libmariadb)|" CMakeLists.txt
 
@@ -73,11 +82,17 @@ FCFLAGS="$FCFLAGS   -O0 -g"; export FCFLAGS
 # Example configuration file for UnixODBC
 %{_pkgdocdir}/maodbc.ini
 
+%files    devel
+%dir %{_includedir}/mariadb/
+%{_includedir}/mariadb/sqlmariadb.h
+
 # Pkgconfig
 %{_libdir}/pkgconfig/libmaodbc.pc
 
-
 %changelog
+* Tue Jun 3 2025 Pavol Sloboda <psloboda@redhat.com> - 3.2.6-1
+- Rebase to 3.2.6
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

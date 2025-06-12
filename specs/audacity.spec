@@ -12,8 +12,8 @@
 
 Name: audacity
 
-Version: 3.7.1
-Release: 3%{?dist}
+Version: 3.7.4
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -293,6 +293,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Tue Jun 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.7.4-1
+- 3.7.4
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.1-3
 - Rebuilt for flac 1.5.0
 

@@ -61,16 +61,16 @@
 # There is a circular dependency with rocm-runtime
 # https://github.com/ROCm/llvm-project/issues/269
 # Turn this on when there isn't a rocm-runtime to use
-%if 0%{?rhel}
-%bcond_without bootstrap
-%else
+%if 0%{?fedora}
 %bcond_with bootstrap
+%else
+%bcond_without bootstrap
 %endif
 
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        9.rocm%{rocm_version}%{?dist}
+Release:        10.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -278,16 +278,12 @@ Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
 %package -n rocm-llvm
 Summary:       The ROCm LLVM
 Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
-%if 0%{?suse_version}
-Requires:      ( rocm-runtime-devel if distribution-release )
-%else
 %if %{without bootstrap}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2362780
 #  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
 #  Failed to 'dlopen' libhsa-runtime64.so
 # Leave off the version so bootstrapping doesn't have to happen every release.
 Requires:      rocm-runtime-devel
-%endif
 %endif
 
 %description -n rocm-llvm
@@ -1258,6 +1254,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Mon Jun 9 2025 Tom Rix <Tom.Rix@amd.com> - 19-10.rocm6.4.1
+- Reverse the rocm-runtime bootstrap logic
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 19-9.rocm6.4.1:
 - Update to 6.4.1
 

@@ -9,7 +9,7 @@
 
 Name:           omniORB
 Version:        4.3.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -240,6 +240,12 @@ fi
 
 
 %changelog
+* Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 4.3.3-4
+- Rebuilt for Python 3.14
+
+* Tue Jun 10 2025 Sandro Mani <manisandro@gmail.com> - 4.3.3-3
+- Remove unnecessary postrotate script from logrotate configuration
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.3.3-2
 - Rebuilt for Python 3.14
 

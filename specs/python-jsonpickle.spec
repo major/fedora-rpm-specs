@@ -3,7 +3,7 @@ Name:           python-jsonpickle
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
 Version:        4.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
@@ -35,6 +35,7 @@ Summary:        A module that allows any object to be serialized into JSON
 sed -r -i 's/[[:blank:]]--cov[^[:blank:]]*//g' pytest.ini
 
 sed -i /bson/d pyproject.toml
+sed -i /pymongo/d pyproject.toml
 sed -i /histogram/d pyproject.toml
 sed -i /black\ /d pyproject.toml
 sed -i /pytest-checkdocs\ /d pyproject.toml
@@ -74,6 +75,9 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Tue Jun 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.2-2
+- Patch out pymongo test dependency (to match bson)
+
 * Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
 - 4.0.2
 

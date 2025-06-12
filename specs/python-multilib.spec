@@ -1,12 +1,6 @@
-%if 0%{?fedora} >= 31 || 0%{?rhel} > 8
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Name:       python-multilib
-Version:    1.2
-Release:    31%{?dist}
+Version:    1.3
+Release:    2%{?dist}
 Summary:    A module for determining if a package is multilib or not
 License:    GPL-2.0-only
 URL:        https://pagure.io/releng/python-multilib
@@ -28,31 +22,10 @@ Summary:        Configuration files for %{name}
 %description conf
 This package provides the configuration files for %{name}.
 
-%if 0%{?with_python2}
-%package -n python2-multilib
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-multilib}
-BuildRequires:  python2-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-six
-Requires:       python2-six
-%else
-BuildRequires:  python-setuptools
-BuildRequires:  python-six
-Requires:       python-six
-%endif
-Requires:       python2
-Requires:       %{name}-conf = %{version}-%{release}
-
-%description -n python2-multilib %{_description}
-%endif
 
 %package -n python%{python3_pkgversion}-multilib
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-multilib}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-six
 Requires:       python%{python3_pkgversion}-six
 Requires:       python%{python3_pkgversion}
@@ -64,19 +37,20 @@ Requires:       %{name}-conf = %{version}-%{release}
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-%py3_build
+%pyproject_wheel
 
 %install
-%if 0%{?with_python2}
-%py2_install
-%endif
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
+%{__install} -D -m 0644 etc/multilib.conf %{buildroot}%{_sysconfdir}/multilib.conf
 
 %check
+%pyproject_check_import
+
 # testing requires complete composes available locally, which no buildsystem
 # would ever want included in a build root
 #{__python2} setup.py test
@@ -85,20 +59,22 @@ Requires:       %{name}-conf = %{version}-%{release}
 %files conf
 %config(noreplace) %{_sysconfdir}/multilib.conf
 
-%if 0%{?with_python2}
-%files -n python2-multilib
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/*
-%endif
 
-%files -n python%{python3_pkgversion}-multilib
-%license LICENSE
+%files -n python%{python3_pkgversion}-multilib -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/*
 
 
 %changelog
+* Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 1.3-2
+- Rebuilt for Python 3.14
+
+* Tue Jun 10 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.3-1
+- Bump to latest version. No functional changed, only packaging updates.
+
+* Mon Jun 09 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.2-32
+- Drop python2 compatibility
+- Switch to pyproject_ macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2-31
 - Rebuilt for Python 3.14
 

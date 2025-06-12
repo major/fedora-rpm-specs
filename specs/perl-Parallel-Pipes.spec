@@ -1,6 +1,6 @@
 Name:           perl-Parallel-Pipes
-Version:        0.200
-Release:        6%{?dist}
+Version:        0.201
+Release:        1%{?dist}
 Summary:        Parallel processing using pipes for communication and synchronization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Pipes
@@ -10,15 +10,15 @@ BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Module::Build::Tiny) >= 0.034
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(Module::Build::Tiny)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(Storable)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.98
@@ -59,7 +59,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -76,6 +76,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.201-1
+- 0.201 bump (rhbz#2371163)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.200-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

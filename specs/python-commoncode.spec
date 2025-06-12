@@ -55,6 +55,7 @@ sed -i \
     -e 's|Beautifulsoup4\[chardet\]|Beautifulsoup4|' \
     -e '/doc8/d' \
     -e '/sphinx-rtd-dark-mode/d' \
+    -e '/sphinx-autobuild/d' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 
@@ -78,8 +79,9 @@ export LC_ALL=C.UTF-8
 %if 0%{?fedora} < 40
 %pytest
 %else
-# https://github.com/nexB/commoncode/issues/56
-%pytest -k "not test_safe_path_posix_style_chinese_char"
+# https://github.com/aboutcode-org/commoncode/issues/56
+# https://github.com/aboutcode-org/commoncode/issues/88
+%pytest -k "not test_safe_path_posix_style_chinese_char and not test_get_type"
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

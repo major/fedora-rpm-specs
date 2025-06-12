@@ -1,6 +1,6 @@
 Name:           libtpms
-Version:        0.10.0
-Release:        4%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
 License:        BSD-3-Clause AND LicenseRef-TCGL
 
@@ -9,10 +9,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc#/%{name}-%{version}.tar.gz.asc
 # https://github.com/stefanberger.gpg
 Source2:        gpgkey-B818B9CADF9089C2D5CEC66B75AD65802A0B4211.asc
-
-Patch0001:      0001-tpm2-Add-padding-to-OBJECT-for-32bit-targets.patch
-Patch0002:      0001-tpm2-Add-asserts-to-silence-compiler-warning-due-to-.patch
-Patch0003:      0001-tpm2-Fix-bugs-in-RuntimeProfileDedupStrItems.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -67,6 +63,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Tue Jun 10 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.1-1
+- Upgrade to libtpms 0.10.1 fixing CVE-2025-49133
+
 * Thu May 08 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-4
 - Apply fix to string deduplication function
 

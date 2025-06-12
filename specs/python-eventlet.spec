@@ -2,19 +2,14 @@
 %global _description %{expand:
 Eventlet is a networking library written in Python. It achieves high
 scalability by using non-blocking io while at the same time retaining
-high programmer usability by using coroutines to make the non-blocking
+high programmer usability by using co-routines to make the non-blocking
 io operations appear blocking at the source code level.}
 
-# RHEL9 doesn't have nose, and it won't be added to EPEL9 because it's
-# abandoned upstream (and deprecated in Fedora).
-# https://bugzilla.redhat.com/show_bug.cgi?id=2041068
-%if %{undefined el9}
-%bcond_without  tests
-%endif
+%bcond_without tests
 
 Name:           python-%{srcname}
-Version:        0.36.1
-Release:        3%{?dist}
+Version:        0.40.0
+Release:        1%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
@@ -52,16 +47,15 @@ sed -i '/ *pip install -e.*/d' tox.ini
 %pyproject_install
 %pyproject_save_files %{srcname}
 
-PYTHONPATH="%{buildroot}/%{python3_sitelib}"
 %tox -e docs
 
 %check
 %if %{with tests}
-# Disable setting up dns (we have no /etc/resolv.conf in mock
+# Disable setting up dns (we have no /etc/resolv.conf in mock)
 export EVENTLET_NO_GREENDNS=yes
-%tox -e %{default_toxenv} -- -- -k 'not test_clear and not test_noraise_dns_tcp and not test_raise_dns_tcp and not test_dns_methods_are_green and not test_fork_after_monkey_patch'
+%tox -e %{default_toxenv} -- -- -k 'not test_clear and not test_noraise_dns_tcp and not test_raise_dns_tcp and not test_dns_methods_are_green and not test_fork_after_monkey_patch and not test_send_timeout'
 %else
-%pyproject_check_import -t
+%pyproject_check_import -e eventlet.green.* -e eventlet.hubs.pyevent -e eventlet.support.* -e eventlet.zipkin.*
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -72,6 +66,9 @@ export EVENTLET_NO_GREENDNS=yes
 %doc doc/build/html
 
 %changelog
+* Fri May 16 2025 Peter Stensmyr <peter.stensmyr@aiven.io> - 0.40.0-1
+- Update to 0.40.0
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -16,6 +16,7 @@ VCS:            https://github.com/nexB/scancode-toolkit
 Source:         %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch:          0001-tests-fix-pytest-traceback.patch
+Patch:          0002-Replace-pkginfo2-with-pkginfo.patch
 
 # scancode has dependencies that are not compatible with ix86
 ExcludeArch:    %{ix86}
