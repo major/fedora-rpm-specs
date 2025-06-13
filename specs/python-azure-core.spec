@@ -1,16 +1,17 @@
-%bcond_without  tests
+%bcond_with     tests
 
 %global         reponame    azure-sdk-for-python
 %global         srcname     azure-core
+%global         tarball_name     azure_core
 
 Name:           python-%{srcname}
-Version:        1.30.2
+Version:        1.34.0
 Release:        %autorelease
 Summary:        Azure Core shared client library for Python
 
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 Epoch:          2
 
@@ -45,7 +46,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-%{srcname} aio
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires
@@ -62,12 +63,15 @@ Summary:        %{summary}
 
 
 %check
-%pyproject_check_import
+# Requires the unpackaged opentelemetry-api extra
+%pyproject_check_import -e azure.core.tracing.opentelemetry
 
 %if %{with tests}
 # azure-core has a flask-based testing server that must be available to run tests.
 # Disabling async/streaming tests since they require network connectivity to various
 # APIs on Azure's site.
+#
+# The tests also rely on opentelemetry which isn't packaged.
 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{buildroot}%{python3_sitearch}:tests/testserver_tests/coretestserver/ \
     %pytest \
         --ignore=tests/async_tests \

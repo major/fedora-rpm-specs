@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global real_name pyquery
 
 %if 0%{?rhel}

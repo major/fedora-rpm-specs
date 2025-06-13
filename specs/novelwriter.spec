@@ -1,10 +1,10 @@
 Name:           novelwriter
-Version:        2.7
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Plain text editor designed for writing novels
 
-# Code is GPL-3.0-or-later, icons are CC-BY-SA-4.0
-License:        GPL-3.0-or-later AND CC-BY-SA-4.0 
+# Code is GPL-3.0-or-later, icons are CC-BY-SA-4.0 and Apache-2.0 and MIT
+License:        GPL-3.0-or-later AND CC-BY-SA-4.0 AND Apache-2.0 AND MIT
 URL:            https://novelwriter.io/
 Source:         https://github.com/vkbo/novelwriter/archive/v%{version}/novelwriter-%{version}.tar.gz
 

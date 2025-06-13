@@ -1,3 +1,10 @@
+# aarch64 for 128.11.1 fails to link gkrust on f42, f43 (rawhide), but not on f41. Temporarily exclude. See
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=133829091 (f42)
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=133829053 (f43)
+%if 0%{?fedora} == 42 || 0%{?fedora} == 43
+ExcludeArch: aarch64
+%endif
+
 # ppc64le started to fail permanently, apparently OOM,
 # first f42 https://koji.fedoraproject.org/koji/taskinfo?taskID=124917502
 # then f40 https://koji.fedoraproject.org/koji/taskinfo?taskID=125295645
@@ -87,13 +94,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        128.11.0
+Version:        128.11.1
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250526.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250611.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -761,6 +768,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Wed Jun 11 2025 Eike Rathke <erack@redhat.com> - 128.11.1-1
+- Update to 128.11.1
+
 * Mon May 26 2025 Eike Rathke <erack@redhat.com> - 128.11.0-1
 - Update to 128.11.0
 

@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  fd8665394
+%global commit  364c83a51
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -128,7 +128,7 @@ rm -fr %{buildroot}%{python3_sitearch}/{bin,include,lib64}
 
 # Instead of linking with and installing a private copy of the library,
 # fix up the installed python tree to use the installed library
-cd src
+cd highs
 g++ %{build_cxxflags} -fPIC -shared -I . -I ../%{_vpath_builddir} \
   -I %{_includedir}/python%{python3_version} highs_bindings.cpp \
   -o %{buildroot}%{python3_sitearch}/highspy/_core%{python3_ext_suffix} \

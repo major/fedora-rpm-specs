@@ -1,5 +1,5 @@
 Name:           dola-gleaner
-Version:        0^20250415.072425.git.ecef81e
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Maven 4 extension for extracting build dependencies
 License:        Apache-2.0
@@ -7,7 +7,7 @@ URL:            https://github.com/mizdebsk/dola-gleaner
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         dola-gleaner-snapshot-20250415.072425-ecef81e.tar.zst
+Source:         https://github.com/mizdebsk/dola-gleaner/releases/download/%{version}/dola-gleaner-%{version}.tar.zst
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)

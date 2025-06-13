@@ -7,8 +7,8 @@
 %bcond awscrt 0
 
 Name:           python-boto3
-Version:        1.38.33
-Release:        2%{?dist}
+Version:        1.38.34
+Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ hardlink -c '%{buildroot}%{python3_sitelib}/boto3'
 %license LICENSE
 
 %changelog
+* Wed Jun 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.38.34-1
+- 1.38.34
+
 * Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 1.38.33-2
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,5 @@
 %global _hardened_build 1
-%global clknetsim_ver d60afc
-%global prerelease -pre1
+%global clknetsim_ver 83cf9c
 %bcond_without debug
 %bcond_without nts
 
@@ -10,7 +9,7 @@
 
 Name:           chrony
 Version:        4.7
-Release:        0.2.pre1%{?dist}
+Release:        1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -66,7 +65,7 @@ service to other computers in the network.
 # review changes in packaged configuration files and scripts
 md5sum -c <<-EOF | (! grep -v 'OK$')
         5530d6e60f84b76c27495485d2510bac  examples/chrony-wait.service
-        826354a2d467d6147e412d43bfe07484  examples/chrony.conf.example2
+        3f2ddca6065c3e8f4565d7422739795a  examples/chrony.conf.example2
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
@@ -210,6 +209,9 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jun 11 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-1
+- update to 4.7
+
 * Thu May 22 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-0.2.pre1
 - add workaround for broken build on aarch64
 

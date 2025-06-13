@@ -21,6 +21,11 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(extractcode-7z-system-provided)
 BuildRequires:  python3dist(extractcode-libarchive-system-provided)
 BuildRequires:  python3dist(typecode-libmagic-system-provided)
+BuildRequires:  p7zip-plugins
+%if 0%{?fedora} >= 43
+# The tests only work with p7zip-plugins from the p7zip package
+BuildConflicts: 7zip
+%endif
 
 %global common_description %{expand:
 A mostly universal file extraction library and CLI tool to extract almost any
@@ -80,7 +85,24 @@ rm -rf html/.{doctrees,buildinfo}
 %check
 # TestExtractVmImage needs access to kernel
 # Then https://github.com/nexB/extractcode/issues/53
-%pytest -k 'not TestExtractVmImage and not test_get_extractor_qcow2 and not test_extract_rar_with_trailing_data and not test_extractcode_command_can_take_an_empty_directory and not test_extractcode_command_does_extract_verbose and not test_extractcode_command_always_shows_something_if_not_using_a_tty_verbose_or_not and not test_extractcode_command_works_with_relative_paths and not test_extractcode_command_works_with_relative_paths_verbose and not test_usage_and_help_return_a_correct_script_name_on_all_platforms and not test_extractcode_command_can_extract_archive_with_unicode_names_verbose and not test_extractcode_command_can_extract_archive_with_unicode_names and not test_extractcode_command_can_extract_shallow and not test_extractcode_command_can_ignore and not test_extractcode_command_does_not_crash_with_replace_originals_and_corrupted_archives and not test_extractcode_command_can_extract_nuget'
+%pytest -k %{shescape:%{shrink:
+        not estExtractVmImage
+    and not test_get_extractor_qcow2
+    and not test_extract_rar_with_trailing_data
+    and not test_extractcode_command_can_take_an_empty_directory
+    and not test_extractcode_command_does_extract_verbose
+    and not test_extractcode_command_always_shows_something_if_not_using_a_tty_verbose_or_not
+    and not test_extractcode_command_works_with_relative_paths
+    and not test_extractcode_command_works_with_relative_paths_verbose
+    and not test_usage_and_help_return_a_correct_script_name_on_all_platforms
+    and not test_extractcode_command_can_extract_archive_with_unicode_names_verbose
+    and not test_extractcode_command_can_extract_archive_with_unicode_names
+    and not test_extractcode_command_can_extract_shallow
+    and not test_extractcode_command_can_ignore
+    and not test_extractcode_command_does_not_crash_with_replace_originals_and_corrupted_archives
+    and not test_extractcode_command_can_extract_nuget
+    and not test_get_extractors_2
+}}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst README.rst

@@ -1,6 +1,6 @@
 Name: 		perl-File-Find-Rule
-Version: 	0.34
-Release: 	30%{?dist}
+Version: 	0.35
+Release: 	1%{?dist}
 Summary: 	Perl module implementing an alternative interface to File::Find
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Find-Rule
@@ -11,12 +11,20 @@ BuildArch: 	noarch
 BuildRequires:	%{__make}
 BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires: 	perl(lib)
 BuildRequires: 	perl(Number::Compare)
-BuildRequires: 	perl(Text::Glob)
+BuildRequires: 	perl(strict)
 BuildRequires:  perl(Test::More) >= 0.07
+BuildRequires: 	perl(Text::Glob)
+BuildRequires: 	perl(vars)
+BuildRequires: 	perl(warnings)
+# Optional tests
+BuildRequires: 	perl(Test::Differences)
 
 
 %description
@@ -40,11 +48,15 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %files
 %doc Changes
 %{_bindir}/findrule
-%{_mandir}/man1/*
+%{_mandir}/man1/findrule*
 %{perl_vendorlib}/File
-%{_mandir}/man3/*
+%{_mandir}/man3/File::Find::Rule*
 
 %changelog
+* Wed Jun 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-1
+- 0.35 bump (rhbz#2371137) - fix CVE-2011-10007
+- Updated BRs
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

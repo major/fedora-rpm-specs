@@ -16,6 +16,11 @@ Source1:        gram_grep.1
 # *not* contribute to the binary RPMs.
 Source2:        main-0.9.0.cpp
 
+# utf iterator interface change
+# https://github.com/BenHanson/gram_grep/commit/3ec3967026f6d74d34fd46af2ec8918f447a3522
+# Fixes compatibility with lexertl17 1.2.x.
+Patch:          %{url}/commit/3ec3967026f6d74d34fd46af2ec8918f447a3522.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

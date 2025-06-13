@@ -1,5 +1,5 @@
 Name:           python-owl_rl
-Version:        7.1.2
+Version:        7.1.3
 Release:        %autorelease
 Summary:        A simple implementation of the OWL2 RL Profile
 

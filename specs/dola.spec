@@ -1,5 +1,5 @@
 Name:           dola
-Version:        0^20250521.183244.git.7d6a2aa
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Declarative system for Java RPM packaging
 License:        Apache-2.0
@@ -7,7 +7,7 @@ URL:            https://github.com/mizdebsk/dola
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         dola-snapshot-20250521.183244-7d6a2aa.tar.zst
+Source:         https://github.com/mizdebsk/dola/releases/download/%{version}/dola-%{version}.tar.zst
 
 BuildRequires:  lujavrite
 BuildRequires:  maven-local
@@ -16,8 +16,8 @@ BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-3)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.easymock:easymock)
-BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-api:5.0.0-SNAPSHOT)
-BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-core:5.0.0-SNAPSHOT)
+BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-api:5.0.0)
+BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-core:5.0.0)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.ow2.asm:asm)
 

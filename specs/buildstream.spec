@@ -5,12 +5,12 @@ URL:           https://buildstream.build/
 
 ExcludeArch:   %{ix86}
 
-Version:       2.4.1
+Version:       2.5.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 
 BuildRequires: gcc
-BuildRequires: python3-devel >= 3.8
+BuildRequires: python3-devel >= 3.9
 
 Requires:      buildbox
 Requires:      fuse3

@@ -1,14 +1,13 @@
 %{!?python3_includedir: %global python3_includedir %(%{__python3} -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")}
 Name:       python-igraph
-Version:    0.11.8
+Version:    0.11.9
 %global igraph_version 0.9
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPL-2.0-or-later
 URL:        https://github.com/igraph/python-igraph
 Source0:    https://github.com/igraph/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:     setuptools.patch
 
 BuildRequires:  igraph-devel >= %{igraph_version}
 BuildRequires:  gcc-c++
@@ -85,6 +84,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Wed Jun 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.11.9-1
+- 0.11.9
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.11.8-3
 - Rebuilt for Python 3.14
 

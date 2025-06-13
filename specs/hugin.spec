@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -39,7 +39,13 @@ src/hugin_script_interface/*.py \
 src/hugin_script_interface/plugins/*.py
 
 %build
-%cmake -DBUILD_HSI=1 -DUSE_GDKBACKEND_X11=ON -DBUILD_WITH_EPOXY=ON
+%cmake \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64} \
+%endif
+  -DBUILD_HSI=1 \
+  -DUSE_GDKBACKEND_X11=ON \
+  -DBUILD_WITH_EPOXY=ON
 %cmake_build
 
 %install
@@ -177,6 +183,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Wed Jun 11 2025 Cristian Le <git@lecris.dev> - 2024.0.0-6
+- Explicitly set LIB_SUFFIX
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2024.0.0-5
 - Rebuilt for Python 3.14
 

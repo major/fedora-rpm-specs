@@ -128,7 +128,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -218,10 +218,8 @@ rocBLAS is the AMD library for Basic Linear Algebra Subprograms
 (BLAS) on the ROCm platform. It is implemented in the HIP
 programming language and optimized for AMD GPUs.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -407,6 +405,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif # gfx950
 
 %changelog
+* Wed Jun 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
+- Remove suse check for using ldconfig
+
 * Sun May 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-7
 - Add experimental gfx950
 

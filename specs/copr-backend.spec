@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    2.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -241,6 +241,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Wed Jun 11 2025 msuchy <msuchy@redhat.com> - 2.5-3
+- rebuilt
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2.5-2
 - Rebuilt for Python 3.14
 

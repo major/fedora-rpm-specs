@@ -1,6 +1,6 @@
 Name:		libzpc
-Version:	1.3.1
-Release:	6%{?dist}
+Version:	1.4.0
+Release:	%autorelease
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
 License:	MIT
@@ -75,49 +75,4 @@ developing applications that use %{name}.
 
 
 %changelog
-* Tue Mar 25 2025 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.3.1
-- bug fixes
-
-* Tue Mar 04 2025 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.3.0
-- Support for UV retrievable secrets
-- Handle CCA cipher key token with Encrypted V0 payload
-- bug fixes
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 12 2024 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.2.0
-- Support for get/set intermediate iv for CBC and XTS
-- Support for internal iv for GCM
-- Exploit KBLOB2PROTK3 ioctl for clear AES and EC keys
-- Fix AES EP11 version 6 key support for generate and import_clear
-
-* Wed Sep 20 2023 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.1.1
-- Exploit PKEY_KBLOB2PROTK2 for AES EP11 version 6 keys
-  
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Feb 02 2023 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.1.0
-- Support for ECC keys and ECDSA signatures.
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jun 22 2022 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.0.1
-- Updated spec file for rpm build and changed location
-  of pkgconfig file to libdir.
-
-* Mon Feb 21 2022 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.0.0
-- Initial version based on libzpc provided by Patrick Steuer,
-  <steuer@linux.vnet.ibm.com>
-
+%autochangelog

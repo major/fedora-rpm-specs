@@ -1,5 +1,5 @@
 Name:           dola-transformer
-Version:        0^20250515.102327.git.e03f39a
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Maven 4 extension for dynamic POM transformation
 License:        Apache-2.0
@@ -7,7 +7,7 @@ URL:            https://github.com/mizdebsk/dola-transformer
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         dola-transformer-snapshot-20250515.102327-e03f39a.tar.zst
+Source:         https://github.com/mizdebsk/dola-transformer/releases/download/%{version}/dola-transformer-%{version}.tar.zst
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)

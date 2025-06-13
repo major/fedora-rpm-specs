@@ -3,7 +3,7 @@ Name:           python-jsonpickle
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
 Version:        4.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 4.0.2-3
+- Rebuilt for Python 3.14
+
 * Tue Jun 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.2-2
 - Patch out pymongo test dependency (to match bson)
 

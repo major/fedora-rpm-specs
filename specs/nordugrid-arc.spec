@@ -1,6 +1,6 @@
 %global with_xrootd %{!?_without_xrootd:1}%{?_without_xrootd:0}
 
-%global with_pylint %{!?_without_pylint:1}%{?_without_pylint:0}
+%global with_pylint 0
 
 %global with_s3 1
 
@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.0.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -34,6 +34,8 @@ Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/
 Patch0:		0001-Update-the-VOMS-attribute-certificate-signing-hash-a.patch
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1892
 Patch1:		0001-Fix-shell-syntax-errors-reported-by-lintian.patch
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1926
+Patch2:		0001-ValueError-action-store_true-is-not-valid-for-positi.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -551,6 +553,7 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 autoreconf -v -f -i
@@ -1133,6 +1136,10 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Wed Jun 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-4
+- Disable pylint
+- Fix a python argument parsing issue in arcctl
+
 * Wed Apr 30 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.0-3
 - Update the VOMS attribute certificate signing hash algorithm
 - Re-enable the VOMSUtilTest on Fedora 43 (after above fix)

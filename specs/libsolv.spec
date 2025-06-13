@@ -27,7 +27,7 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.32
+Version:        0.7.33
 Release:        %autorelease
 Summary:        Package dependency solver
 
@@ -257,9 +257,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
   %solv_tool archrepo2solv
 %endif
 %if %{with apk_repo}
-%dnl no man page
-%dnl  %solv_tool apk2solv
-  %{_bindir}/apk2solv
+  %solv_tool apk2solv
 %endif
 %if %{with helix_repo}
   %solv_tool helix2solv

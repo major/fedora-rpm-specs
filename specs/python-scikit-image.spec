@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.25.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -16,6 +16,10 @@ Source0: https://github.com/scikit-image/scikit-image/archive/v%{version}/%{srcn
 # Select extra test data - you can build the package locally and then run:
 # tar cJvf scikit-image-data.tar.xz -C scikit-image-0.21.0/scikit-image/0.21.0 .
 Source1: scikit-image-data-20250220.tar.xz
+
+# In tests, adapt a couple of expected messages for Python 3.14
+# https://github.com/scikit-image/scikit-image/pull/7808
+Patch: https://github.com/scikit-image/scikit-image/pull/7808.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -126,6 +130,9 @@ popd
 
 
 %changelog
+* Wed Jun 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.25.2-3
+- Small patch to tests for Python 3.14 (fix RHBZ#2368531, fix RHBZ#2372116)
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.25.2-2
 - Rebuilt for Python 3.14
 

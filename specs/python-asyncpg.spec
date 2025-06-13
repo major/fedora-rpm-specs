@@ -1,5 +1,7 @@
 # Run tests with uvloop?
-%bcond uvloop 1
+# F43FailsToInstall: python3-uvloop
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372190
+%bcond uvloop 0
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
@@ -75,8 +77,14 @@ find asyncpg -type f -name '*.c' ! -name 'recordobj.c' -print -delete
 tomcli set pyproject.toml lists delitem --no-first --type regex \
     'project.optional-dependencies.test' '(flake8|mypy)\b.*'
 
+# Do not upper-bound the Python interpreter version for the uvloop test
+# dependency. First, a missing uvloop breaks the test if we do not adjust the
+# uvloop bcond; second, we may have a working python3-uvloop packaged even if
+# there is no corresponding binary wheel on PyPI. We use sed since "tomcli set
+# ... lists replace ..." only supports a fixed replacement string.
+sed -r -i "s/('uvloop\\b.*);.*'/\\1'/" pyproject.toml
 %if %{without uvloop}
-tomcli set pyproject.toml lists delitem --no-first --type regex \
+tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.test' '(uvloop)\b.*'
 %endif
 

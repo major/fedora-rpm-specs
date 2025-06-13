@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        48.1
-Release:        2%{?dist}
+Version:        48.2
+Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Wed Jun 11 2025 Carlos Garnacho <carlosg@gnome.org> - 48.2-1
+- Update to 48.2
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 48.1-2
 - Rebuilt for Python 3.14
 

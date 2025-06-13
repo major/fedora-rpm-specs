@@ -69,8 +69,12 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.mkdn README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Tie
+%dir %{perl_vendorlib}/Tie/Handle
+%{perl_vendorlib}/Tie/Handle/Offset.pm
+%{perl_vendorlib}/Tie/Handle/SkipHeader.pm
+%{_mandir}/man3/Tie::Handle::Offset.*
+%{_mandir}/man3/Tie::Handle::SkipHeader.*
 
 %files tests
 %{_libexecdir}/%{name}

@@ -9,11 +9,14 @@ License:        BSD-3-Clause
 URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
 Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Fedora-specific.
 Patch:          0001-Loosen-up-build-requirements.patch
+# https://github.com/rasterio/rasterio/pull/3360
+Patch:          0002-TST-Fix-test-fixture-for-test_reproject_error_propag.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  gdal >= 3.1
-BuildRequires:  gdal-devel >= 3.1
+BuildRequires:  gdal >= 3.5
+BuildRequires:  gdal-devel >= 3.5
 
 %global _description \
 Rasterio reads and writes geospatial raster data. Geographic information \

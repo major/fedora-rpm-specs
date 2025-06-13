@@ -1,10 +1,8 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
 %bcond_with bootstrap
 
-%global commit 04ba5ead9be050430fac2ca1d4e88b8e91f7be02
-
 Name:           python-ruamel-yaml
-Version:        0.18.10
+Version:        0.18.14
 Release:        %autorelease
 Summary:        YAML 1.2 loader/dumper package for Python
 
@@ -12,7 +10,7 @@ Summary:        YAML 1.2 loader/dumper package for Python
 License:        MIT
 URL:            https://sourceforge.net/projects/ruamel-yaml
 # The PyPI sdist does not contain tests, so we use a snapshot from SourceForge
-Source:         https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml/code/ruamel-yaml-code-%{commit}.zip
+Source:         https://yaml.dev/ruamel-dl-tagged-releases/ruamel.yaml-%{version}.tar.xz
 
 BuildArch:      noarch
 
@@ -33,7 +31,7 @@ BuildRequires:  python3-pytest
 %description -n python3-ruamel-yaml %{_description}
 
 %prep
-%autosetup -n ruamel-yaml-code-%{commit}
+%autosetup -n ruamel.yaml-%{version}
 # Upstream upper-bounds the Python interpeter versions with which the C
 # implementation (ruamel.yaml.clib dependency) may be used. Patch this out.
 sed -r -i 's/( and python_version<"[^"]+")(.*ruamel\.yaml\.clib)/\2/' \

@@ -1,7 +1,7 @@
 Name:    qt6-doc
 Summary: Qt6 - Complete documentation
 Version: 6.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -54,11 +54,16 @@ tar xf %{SOURCE0} -C %{buildroot}
 %files html
 %{_qt6_docdir}/*/*
 %exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
 
 %files devel
 %{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Jun 10 2025 Marie Loise Nolden <loise@kde.org> - 6.9.1-2
+- add *.index files to devel
+
 * Sun Jun 08 2025 Marie Loise Nolden <loise@kde.org> - 6.9.1-1
 - 6.9.1
 

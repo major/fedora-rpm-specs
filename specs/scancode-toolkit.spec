@@ -52,6 +52,7 @@ sed -i \
     -e '/sphinx-rtd-dark-mode/d' \
     -e 's/Sphinx ==/Sphinx>=/' \
     -e 's|Beautifulsoup4\[chardet\]|Beautifulsoup4|' \
+    -e '/sphinx-autobuild/d' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 

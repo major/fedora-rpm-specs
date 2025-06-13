@@ -49,7 +49,7 @@
 %endif
 
 Name:           xpra
-Version:        5.0.10
+Version:        5.1
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
 # Automatically converted from old format: GPLv2+ and BSD and LGPLv3+ and MIT - review is highly recommended.
@@ -58,7 +58,6 @@ URL:            https://www.xpra.org/
 Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
-Patch1:         ignore_assert_pandoc.patch
 # Add compatibility with FFMPEG 7.0
 # https://github.com/Xpra-org/xpra/pull/4216
 Patch2:         0001-Add-compatibility-with-FFMPEG-7.0.patch
@@ -181,12 +180,9 @@ Xpra is usable over reasonably slow links and does its best to adapt to changing
 network bandwidth constraints.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -N -n %{name}-%{version}
 
-%patch -P1 -p1
-%if 0%{?fedora} >= 41
 %patch -P2 -p1
-%endif
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}

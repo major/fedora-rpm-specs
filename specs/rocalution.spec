@@ -1,5 +1,5 @@
 %if 0%{?suse_version}
-%global rocalution_name libalution1
+%global rocalution_name librocalution1
 %else
 %global rocalution_name rocalution
 %endif
@@ -49,7 +49,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -86,6 +86,11 @@ BuildRequires:  ninja
 %endif
 
 Provides:       rocalution = %{version}-%{release}
+
+%if 0%{?suse_version}
+# Got the name wrong
+Obsoletes:      libalution1 <= 6.4.1
+%endif
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -179,6 +184,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Fix suse name
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

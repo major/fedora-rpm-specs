@@ -2,8 +2,8 @@
 %define gitrev 8ff7213f39edc1b2b8b60d6b0cc5d5f14ca1928d
 
 Name:           pixman
-Version:        0.44.2
-Release:        2%{?dist}
+Version:        0.46.2
+Release:        1%{?dist}
 Summary:        Pixel manipulation library
 
 # SPDX
@@ -60,6 +60,12 @@ Pixel manipulation library for X and Cairo development package.
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Tue Jun 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.46.2-1
+- Update to 0.46.2
+
+* Sun Jun 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.46.0-1
+- Update to 0.46.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

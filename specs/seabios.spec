@@ -3,7 +3,7 @@
 %endif
 
 Name:           seabios
-Version:        1.16.3
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Open-source legacy BIOS implementation
 

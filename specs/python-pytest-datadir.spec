@@ -1,5 +1,5 @@
 Name:           python-pytest-datadir
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Pytest plugin for test data directories and files
 License:        MIT

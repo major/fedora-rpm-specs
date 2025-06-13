@@ -21,6 +21,11 @@ Patch1:         gnofract4d-c99.patch
 # remove entirely in python 3.13
 Patch2:         %{name}-pyeval-initthreads.patch
 
+# Preserve negative zero in string formatting
+# https://bugzilla.redhat.com/show_bug.cgi?id=2339539
+# https://github.com/fract4d/gnofract4d/issues/267
+Patch3:         %{name}-python314.patch
+
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

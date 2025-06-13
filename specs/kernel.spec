@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc1.17
+%define pkgrelease 0.rc1.250611gaef17cb3d3c4.19
 %define kversion 6
-%define tarfile_release 6.16-rc1
+%define tarfile_release 6.16-rc1-4-gaef17cb3d3c4
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.17%{?buildid}%{?dist}
+%define specrelease 0.rc1.250611gaef17cb3d3c4.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4286,9 +4286,19 @@ fi\
 #
 #
 %changelog
-* Mon Jun 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.17]
+* Wed Jun 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.aef17cb3d3c4.19]
+- redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Wed Jun 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.aef17cb3d3c4.18]
+- gitlab-ci: disable merge-rt-automotive (Scott Weaver)
+- redhat/configs: automotive: enable j784s4evm DSP remoteproc configs (Jared Kangas) [RHEL-95436]
+- Linux v6.16.0-0.rc1.aef17cb3d3c4
+
+* Tue Jun 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.f09079bd04a9.17]
+- redhat/configs: add LED kernel configs (Rupinderjit Singh)
+- Linux v6.16.0-0.rc1.f09079bd04a9
 
 * Mon Jun 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.16]
 - redhat: enable test_kmod, test_module and install kmod selftests (Herton R. Krzesinski)

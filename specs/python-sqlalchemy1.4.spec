@@ -27,6 +27,12 @@ License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
 
+# Fix tests on Python 3.14
+# https://github.com/sqlalchemy/sqlalchemy/pull/12666
+Patch:          0001-Remove-test-warning-in-python-3.13.patch
+Patch:          0001-use-asyncio.Runner-for-tests.patch
+Patch:          0002-Python-3.14-Skip-broken-test.patch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc

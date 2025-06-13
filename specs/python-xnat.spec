@@ -1,8 +1,10 @@
+# Tests require xnat4tests, which depends circularly on xnat
+%bcond bootstrap 0
 # Tests requiring network are skipped (mostly dependent on docker)
 # Tests requiring connection to https://xnat.bmia.nl can be run locally
 # by passing `--enable-network` to fedpkg or mock. They will be skipped
 # when connection to server is unavailable.
-%bcond tests 1
+%bcond tests %{without bootstrap}
 
 Name:           python-xnat
 Version:        0.7.2
@@ -16,10 +18,6 @@ Summary:        XNAT client that exposes XNAT objects/functions as python object
 License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
-# xnat4tests is not available in Fedora. It's currently not possible to
-# package it either, since it's licensed under CC0-1.0
-# https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
-Patch:          no_xnat4tests.patch
 
 BuildArch:      noarch
 

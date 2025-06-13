@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        7.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -116,6 +116,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 7.1.3-2
+- Rebuilt for Python 3.14
+
 * Tue Mar 18 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.1.3-1
 - Update to 7.1.3
 

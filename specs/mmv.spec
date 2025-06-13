@@ -36,7 +36,7 @@ make check
 
 %files
 %license COPYING
-%doc ChangeLog README README.md
+%doc ChangeLog README.md
 %{_bindir}/mmv
 %{_bindir}/mcp
 %{_bindir}/mln

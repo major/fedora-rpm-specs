@@ -1,4 +1,8 @@
 %bcond tests 1
+# Enable tests that require Pydantic?
+# Pydantic is not ready for Python 3.14:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372054
+%bcond pydantic_tests 0
 
 # for github etc. use the forgemacros
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/#_using_forges_hosted_revision_control
@@ -33,7 +37,7 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        3.1.3
+Version:        3.2.0
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 
@@ -73,6 +77,10 @@ BuildRequires:  mercurial
 sed -r -i 's/~=/>=/g' tox.ini
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*)(pytest-cov|.*--(.*-)?cov)/\1# \2/g' tox.ini
+sed -r -i 's/^([[:blank:]]*)(ignore:.*coverage)/\1# \2/g' tox.ini
+%if %{without pydantic_tests}
+sed -r -i 's/^([[:blank:]]*)(pydantic\b)/\1# \2/g' tox.ini
+%endif
 # Do not error on DeprecationWarning; this makes sense for upstream CI, but is
 # too strict for downstream builds.
 sed -r -i 's/^(filterwarnings = )error/\1default/' tox.ini
@@ -104,8 +112,13 @@ k="${k-}${k+ and }not test_editable_mode"
 # These require network access.
 k="${k-}${k+ and }not test_install_from_git_url"
 k="${k-}${k+ and }not test_install_from_zip_url"
+%if %{without pydantic_tests}
+ignore="${ignore-} --ignore=test/test_methods/test_hg.py"
+ignore="${ignore-} --ignore=test/test_methods/test_git.py"
+ignore="${ignore-} --ignore=test/test_end2end.py"
+%endif
 
-%pytest -k "${k-}"
+%pytest -k "${k-}" ${ignore-}
 %endif
 
 

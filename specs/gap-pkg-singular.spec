@@ -14,8 +14,7 @@ URL:            https://gap-packages.github.io/singular/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Support the bigint, bigintvec, and bigintmat types
-# Not quite ready for upstream: the bigintmat type can be converted from
-# Singular to GAP, but not the other way around.
+# https://github.com/gap-packages/singular/pull/16
 Patch:          %{name}-bigint.patch
 
 BuildRequires:  gap-devel

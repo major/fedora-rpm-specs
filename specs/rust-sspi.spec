@@ -5,7 +5,7 @@
 %global crate sspi
 
 Name:           rust-sspi
-Version:        0.15.10
+Version:        0.15.11
 Release:        %autorelease
 Summary:        Rust implementation of the Security Support Provider Interface
 

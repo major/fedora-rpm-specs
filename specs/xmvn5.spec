@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           xmvn5
-Version:        5.0.0~20250515.054327.git.9016d86
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Local Extensions for Apache Maven
 License:        Apache-2.0
@@ -9,7 +9,7 @@ URL:            https://fedora-java.github.io/xmvn/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         xmvn5-snapshot-20250515.054327-9016d86.tar.zst
+Source:         https://github.com/fedora-java/xmvn/releases/download/5.0.0/xmvn-5.0.0.tar.zst
 Source21:       toolchains-openjdk21.xml
 Source25:       toolchains-openjdk25.xml
 
@@ -152,13 +152,13 @@ xmvn -B -o -Dmaven.test.skip=true -P\!quality verify
 %mvn_artifact pom.xml
 %mvn_artifact xmvn-parent/pom.xml
 %mvn_artifact xmvn-tools/pom.xml
-%mvn_artifact xmvn-api/pom.xml xmvn-api/target/xmvn-api-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-core/pom.xml xmvn-core/target/xmvn-core-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-connector/pom.xml xmvn-connector/target/xmvn-connector-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-mojo/pom.xml xmvn-mojo/target/xmvn-mojo-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-tools/xmvn-resolve/pom.xml xmvn-tools/xmvn-resolve/target/xmvn-resolve-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-tools/xmvn-subst/pom.xml xmvn-tools/xmvn-subst/target/xmvn-subst-5.0.0-SNAPSHOT.jar
-%mvn_artifact xmvn-tools/xmvn-install/pom.xml xmvn-tools/xmvn-install/target/xmvn-install-5.0.0-SNAPSHOT.jar
+%mvn_artifact xmvn-api/pom.xml xmvn-api/target/xmvn-api-5.0.0.jar
+%mvn_artifact xmvn-core/pom.xml xmvn-core/target/xmvn-core-5.0.0.jar
+%mvn_artifact xmvn-connector/pom.xml xmvn-connector/target/xmvn-connector-5.0.0.jar
+%mvn_artifact xmvn-mojo/pom.xml xmvn-mojo/target/xmvn-mojo-5.0.0.jar
+%mvn_artifact xmvn-tools/xmvn-resolve/pom.xml xmvn-tools/xmvn-resolve/target/xmvn-resolve-5.0.0.jar
+%mvn_artifact xmvn-tools/xmvn-subst/pom.xml xmvn-tools/xmvn-subst/target/xmvn-subst-5.0.0.jar
+%mvn_artifact xmvn-tools/xmvn-install/pom.xml xmvn-tools/xmvn-install/target/xmvn-install-5.0.0.jar
 
 version=5.*
 tar --delay-directory-restore -xvf target/xmvn-*-bin.tar.gz
@@ -170,7 +170,7 @@ rm -Rf xmvn-${version}/lib/{installer,resolver,subst}/
 # Irrelevant Maven launcher scripts
 rm -f xmvn-${version}/bin/*
 
-%mvn_compat_version : 5.0.0-SNAPSHOT
+%mvn_compat_version : 5.0.0
 
 %install
 %mvn_install

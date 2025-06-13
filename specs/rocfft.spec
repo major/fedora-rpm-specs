@@ -98,7 +98,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -159,10 +159,8 @@ Patch0: 0001-cmake-use-gnu-installdirs.patch
 %description
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The rocFFT development package
@@ -320,6 +318,9 @@ fi
 %endif
 
 %changelog
+* Mon June 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
+- Remove suse check for using ldconfig
+
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
 - Fix gfx950 mock build
 

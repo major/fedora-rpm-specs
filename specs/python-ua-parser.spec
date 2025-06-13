@@ -4,7 +4,7 @@
 
 Name:           python-%{pkg_name}
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_pars
 
 
 %changelog
+* Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1.0.1-2
+- Rebuilt for Python 3.14
+
 * Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
 - Update to 1.0.1
 

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        68
+Version:        69
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,25 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Jun 11 2025 Packit <hello@packit.dev> - 69-1
+Changes with 69
+----------------
+  * Fix makefile (#3289)
+    * Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  * Remove elses after return (#3295)
+    * Author: Anna Vítová, Reviewers: Katarína Sieklová
+  * Wizard: fix filtering of Timezone (HMS-8631) (#3282)
+    * Author: Katarína Sieklová, Reviewers: Anna Vítová
+  * Wizard: switch tiles to cards (HMS-8623) (#3281)
+    * Author: Gianluca Zuccarelli, Reviewers: Anna Vítová
+  * build(deps): bump @sentry/webpack-plugin from 3.4.0 to 3.5.0 (#3278)
+    * Author: dependabot[bot], Reviewers: Anna Vítová
+  * src: PF6 migration (HMS-8570) (#3078)
+    * Author: Klara Simickova, Reviewers: Katarína Sieklová, Lucas Garfield
+
+— Somewhere on the Internet, 2025-06-11
+
 
 * Wed May 28 2025 Packit <hello@packit.dev> - 68-1
 Changes with 68

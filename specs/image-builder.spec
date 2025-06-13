@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        20
+Version:        21
 
 %gometa
 
@@ -233,6 +233,17 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Jun 11 2025 Packit <hello@packit.dev> - 21-1
+Changes with 21
+----------------
+  * image-builder: fix cross-arch uploading (#218)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * packit: rename epel9-next (#224)
+    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal
+
+— Somewhere on the Internet, 2025-06-11
+
+
 * Fri May 30 2025 Packit <hello@packit.dev> - 20-1
 Changes with 20
 ----------------

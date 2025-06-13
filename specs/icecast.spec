@@ -1,6 +1,6 @@
 Name:		icecast
 Version:	2.4.4
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	ShoutCast compatible streaming media server
 
 # admin/xspf.xsl:	GPL-2.0-or-later
@@ -142,6 +142,7 @@ cp -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}
+%dir %{_sysconfdir}/logrotate.d
 %{_sysconfdir}/logrotate.d/%{name}
 %{_sysusersdir}/icecast.conf
 %{_unitdir}/%{name}.service
@@ -153,6 +154,9 @@ cp -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
 
 
 %changelog
+* Wed Jun 11 2025 Petr Pisar <ppisar@redhat.com> - 2.4.4-24
+- Reload a daemon with systemd when rotating the logs (bug #2371574)
+
 * Mon Apr 07 2025 Petr Pisar <ppisar@redhat.com> - 2.4.4-23
 - Correct a license declaration
 

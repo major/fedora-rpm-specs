@@ -4,7 +4,7 @@
 %bcond_without perl_CryptX_enables_optional_test
 
 Name:           perl-CryptX
-Version:        0.086
+Version:        0.087
 Release:        1%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
@@ -154,6 +154,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 11 2025 Xavier Bachelot <xavier@bachelot.org> - 0.087-1
+- Update to 0.087 (RHBZ#2372355,RHBZ#2372356,RHBZ#2372357,RHBZ#2372358)
+  - Fix CVE-2025-40914
+
 * Sat May 03 2025 Xavier Bachelot <xavier@bachelot.org> - 0.086-1
 - Update to 0.086 (RHBZ#2363852, RHBZ#2354493)
 

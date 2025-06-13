@@ -2,11 +2,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 2.7-development
+%global source_directory 2.8-stable
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.7.17
+Version:       2.8.0
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -46,13 +46,13 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.55.12-1
+BuildRequires: libguestfs-devel >= 1:1.56.0-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion, bash-completion-devel
-BuildRequires: file-devel
+BuildRequires: file
 BuildRequires: gettext-devel
 BuildRequires: json-c-devel
-BuildRequires: libnbd-devel
+BuildRequires: libnbd-devel >= 1.14
 BuildRequires: libosinfo-devel
 BuildRequires: libvirt-daemon-kvm
 BuildRequires: libvirt-devel
@@ -315,6 +315,10 @@ done
 
 
 %changelog
+* Wed Jun 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.8.0-1
+- New upstream stable version 2.8.0
+- Finetune BRs to match upstream.
+
 * Tue Jun 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.17-1
 - New upstream development version 2.7.17
 

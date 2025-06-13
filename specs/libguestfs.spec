@@ -33,7 +33,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.55-development
+%global source_directory 1.56-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -44,8 +44,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.14
-Release:       2%{?dist}
+Version:       1.56.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -79,6 +79,9 @@ Source7:       libguestfs.keyring
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
 
+# Upstream patch, fixing ACPI.
+Patch:         0001-lib-Enable-ACPI-for-the-libvirt-backend.patch
+
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
 # Basic build requirements.
@@ -109,7 +112,6 @@ BuildRequires: gperf
 BuildRequires: rpm-devel
 BuildRequires: cpio
 BuildRequires: libconfig-devel
-BuildRequires: xz-devel
 %if !0%{?rhel}
 BuildRequires: zip
 BuildRequires: unzip
@@ -1068,6 +1070,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Jun 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.56.0-1
+- New upstream stable version 1.56.0
+- Remove BR xz-devel as it is not needed.
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1:1.55.14-2
 - Rebuilt for Python 3.14
 

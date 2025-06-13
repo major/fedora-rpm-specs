@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        142
+Version:        143
 
 %gometa
 
@@ -235,7 +235,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.6.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.144.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.148.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -697,6 +697,29 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jun 11 2025 Packit <hello@packit.dev> - 143-1
+Changes with 143
+----------------
+  * Add job delete support (#4717)
+    * Author: Brian C. Lane, Reviewers: Tomáš Hozza
+  * GH Action/create-tag: allow passing the version when run manually (#4668)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Improve OCI CI scripts (HMS-8591) (#4742)
+    * Author: Florian Schüller, Reviewers: Achilleas Koutsou, Brian C. Lane, Lukáš Zapletal
+  * Packer: update Fedora and RHEL images used for workers (#4733)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  * gitlab: enable OCI tests (#4741)
+    * Author: Achilleas Koutsou, Reviewers: Florian Schüller, Simon de Vlieger, Tomáš Hozza
+  * go.mod: update osbuild/images to v0.148.0 (#4732)
+    * Author: Achilleas Koutsou, Reviewers: Tomáš Hozza, Tomáš Koscielniak
+  * osbuild-store-dump: use `distrofactory` instead of importing fedora (#4738)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * tests/CI: Add runners for RHEL 9.7 and 10.1 (HMS-6278) (#4716)
+    * Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-06-11
+
+
 * Wed May 28 2025 Packit <hello@packit.dev> - 142-1
 Changes with 142
 ----------------

@@ -282,6 +282,8 @@ PermutateTest::test_permutate
 PlyTest::test_face_attributes
 PlyTest::test_uv_export
 PlyTest::test_vertex_attributes
+# https://github.com/mikedh/trimesh/issues/1351#issuecomment-2964820046
+VisualTest::test_data_model
 # Regressions in test_boolean.py with Blender 4.2.0
 # https://github.com/mikedh/trimesh/issues/2267
 # Fixed in trimesh 4.4.7, except on s390x:

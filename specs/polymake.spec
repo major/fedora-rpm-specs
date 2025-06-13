@@ -50,6 +50,8 @@ Patch:          %{name}-soplex.patch
 Patch:          %{name}-Singular-4.3.2.patch
 # Adapt to streamlined headers in GCC 15
 Patch:          %{name}-gcc-15.patch
+# Build the bundled sympol against system cddlib and lrslib
+Patch:          %{name}-sympol.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -103,7 +105,6 @@ BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(Singular)
 BuildRequires:  ppl-devel
 BuildRequires:  qhull
-BuildRequires:  sympol-devel
 BuildRequires:  TOPCOM
 BuildRequires:  vinci
 BuildRequires:  xhtml1-dtds
@@ -128,7 +129,6 @@ Requires:       perl(Term::ReadKey)
 Requires:       perl(Term::ReadLine::Gnu)
 Requires:       permlib-devel
 Requires:       ppl-devel%{?_isa}
-Requires:       sympol-devel%{?_isa}
 
 Recommends:     4ti2
 Recommends:     azove
@@ -155,6 +155,9 @@ Provides:       perl(Polymake::Namespaces)
 Provides:       perl(Polymake::file_utils.pl)
 Provides:       perl(Polymake::regex.pl)
 Provides:       perl(Polymake::utils.pl)
+
+# sympol upstream is dead, so use the (maintained) bundled version
+Provides:       bundled(sympol) = 0.1.9
 
 # Don't expose private perl interfaces
 %global __provides_exclude perl\\\(Geomview.*\\\)
@@ -213,11 +216,6 @@ fixtimestamp() {
   rm -f $1.orig
 }
 
-# Adapt to the Fedora version of sympol
-sed -i.orig 's|yal/||;s|symmetrygroupconstruction/||' \
-    bundled/sympol/apps/polytope/src/sympol_interface.cc
-fixtimestamp bundled/sympol/apps/polytope/src/sympol_interface.cc
-
 # Help polymake find the 4ti2 tools
 sed -i.orig '/global variables/i\$ENV{'PATH'} = \"\$ENV{PATH}:%{_libdir}/4ti2/bin\";\n' perl/polymake
 fixtimestamp perl/polymake
@@ -254,8 +252,7 @@ export Arch=%{_arch}
   --with-scip=%{_prefix} \
   --with-singular=%{_prefix} \
   --with-soplex=%{_prefix} \
-  --with-sympol-include=%{_includedir}/sympol/ \
-  --with-sympol-lib=%{_libdir} \
+  --with-sympol=bundled \
   %{?with_jreality:--with-java=%{java_home}}%{!?with_jreality:--without-java} \
   --without-javaview
 

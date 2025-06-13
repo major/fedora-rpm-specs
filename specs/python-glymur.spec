@@ -15,6 +15,10 @@ Source1:        jp2dump.1
 Source2:        jpeg2jp2.1
 Source3:        tiff2jp2.1
 
+# Adjust two test regexes for Python 3.14
+# https://github.com/quintusdias/glymur/pull/700
+Patch:          %{url}/pull/700.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l glymur
 

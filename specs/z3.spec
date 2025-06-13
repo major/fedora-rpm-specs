@@ -14,7 +14,7 @@
 %global giturl  https://github.com/Z3Prover/z3
 
 Name:           z3
-Version:        4.15.0
+Version:        4.15.1
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -56,11 +56,6 @@ uninterpreted functions, and quantifiers.
 
 %package libs
 Summary:        Library for applications that use z3 functionality
-
-# This can be removed when F40 reaches EOL
-%ifnarch %{java_arches}
-Obsoletes:      java-z3 < 4.8.17-5
-%endif
 
 %description libs
 Library for applications that use z3 functionality.

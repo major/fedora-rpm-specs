@@ -63,6 +63,9 @@ Patch:          gtk3-build.patch
 # https://bugs.webkit.org/show_bug.cgi?id=293853
 Patch:          build.patch
 
+# https://bugs.webkit.org/show_bug.cgi?id=294027
+Patch:          gtk3-scale-factor.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang

@@ -2,7 +2,7 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.5.5
+Version:        2.5.6
 Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -14,6 +14,7 @@ BuildRequires:  ldc
 BuildRequires:  libcurl-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  sqlite-devel
+BuildRequires:  dbus-devel
 BuildRequires:  systemd
 Requires(preun): systemd
 ExclusiveArch:  %{ldc_arches}
@@ -60,6 +61,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Wed Jun 11 2025 Zamir SUN <sztsian@gmail.com> - 2.5.6-1
+- Update to 2.5.6(#2370427)
+
 * Mon Mar 17 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.5.5-1
 - Update to 2.5.5 (#2352836)
 

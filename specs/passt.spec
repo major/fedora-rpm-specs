@@ -7,12 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 754c6d728686c5d115bd97c628d53733776dd711
+%global git_hash 0293c6f4a316baa561a9b43388906707f8cf7e81
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20250606.g754c6d7
+Version:	0^20250611.g0293c6f
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -38,7 +38,9 @@ requiring any capabilities or privileges.
 BuildArch:		noarch
 Summary:		SELinux support for passt and pasta
 Requires:		selinux-policy-%{selinuxtype}
+Requires:		container-selinux
 Requires(post):		selinux-policy-%{selinuxtype}
+Requires(post):		container-selinux
 Requires(post):		policycoreutils
 Requires(post):		libselinux-utils
 Requires(preun):	policycoreutils
@@ -105,8 +107,13 @@ fi
 # (see selabel_file(5)) in order to restore only the file contexts which
 # actually changed. However, as file_contexts doesn't support %{USERID}
 # substitutions, this will not work for specific file contexts that pasta needs
-# to have under /run/user. Restore those explicitly.
-restorecon -R /run/user
+# to have under /run/user.
+#
+# Restore those explicitly, hiding errors from restorecon(8): we can't pass a
+# path that's more specific than this, but at the same time /run/user often
+# contains FUSE mountpoints that can't be accessed as root, leading to
+# "Permission denied" messages, but not failures.
+restorecon -R /run/user 2>/dev/null
 
 %files
 %license LICENSES/{GPL-2.0-or-later.txt,BSD-3-Clause.txt}
@@ -135,6 +142,11 @@ restorecon -R /run/user
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Wed Jun 11 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250611.g0293c6f-1
+- Hide restorecon(8) errors in post-transaction scriptlet
+- Add container-selinux as dependency for passt-selinux
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_06_06.754c6d7..2025_06_11.0293c6f
+
 * Fri Jun  6 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250606.g754c6d7-1
 - Depend on SELinux tools and policy version, drop circular dependency
 - Call %%selinux_modules_* macros only once

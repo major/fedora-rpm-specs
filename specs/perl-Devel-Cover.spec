@@ -1,5 +1,5 @@
 Name:           perl-Devel-Cover
-Version:        1.49
+Version:        1.50
 Release:        1%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -129,6 +129,9 @@ make test
 %{_mandir}/man3/Devel::Cover*.3*
 
 %changelog
+* Wed Jun 11 2025 Paul Howarth <paul@city-fan.org> - 1.50-1
+- 1.50 bump
+
 * Mon May 19 2025 Paul Howarth <paul@city-fan.org> - 1.49-1
 - 1.49 bump (rhbz#2367222)
 

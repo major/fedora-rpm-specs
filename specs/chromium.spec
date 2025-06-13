@@ -168,6 +168,7 @@
 # openjpeg2, need to update to 2.5.x
 %global bundlelibopenjpeg2 1
 %global bundlelibtiff 1
+# libxml2, need to update to 2.14.x for bz#2368923
 %global bundlelibxml 1
 %global bundlepylibs 0
 %global bundlelibxslt 0
@@ -194,7 +195,6 @@
 %global bundlelibdrm 0
 %global bundleffmpegfree 0
 %global bundlefreetype 0
-%global bundlelibxml 0
 %if 0%{?fedora} > 41
 # require libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
 %global bundlelibtiff 0
@@ -245,7 +245,7 @@
 %endif
 
 Name:	chromium
-Version: 137.0.7151.68
+Version: 137.0.7151.103
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -794,78 +794,68 @@ ExclusiveArch: x86_64 aarch64
 %endif
 
 # Bundled bits (I'm sure I've missed some)
-Provides: bundled(angle) = 2422
 Provides: bundled(bintrees) = 1.0.1
 # This is a fork of openssl.
 Provides: bundled(boringssl)
-
 %if %{bundlebrotli}
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
 %if %{bundlesimdutf} 
 Provides: bundled(simdutf) = 6.4.0
 %endif
-Provides: bundled(bspatch)
-Provides: bundled(cacheinvalidation) = 20150720
-Provides: bundled(colorama) = 799604a104
-Provides: bundled(crashpad)
-Provides: bundled(dmg_fp)
-Provides: bundled(expat) = 2.2.0
-Provides: bundled(fdmlibm) = 5.3
+Provides: bundled(bspatch) = 465265d0d473d107b76e74d969199eaf2cdc8750
+Provides: bundled(colorama) = 0.4.6
+Provides: bundled(crashpad) = 8f131016b21d986c38ca4a0f091403dbb822d636
+Provides: bundled(expat) = 2.7.1
+Provides: bundled(fdmlibm) = c512d6173f33c6b8301d3fba9384edc9fc1f9e45
 
 # Don't get too excited. MPEG and other legally problematic stuff is stripped out.
 %if %{bundleffmpegfree}
-Provides: bundled(ffmpeg) = 6.0
+Provides: bundled(ffmpeg) = 7.1.git
 %endif
 
 %if %{bundlelibaom}
-Provides: bundled(libaom)
+Provides: bundled(libaom) = 3.12.1
 %endif
 
-Provides: bundled(fips181) = 2.2.3
-
 %if %{bundlefontconfig}
-Provides: bundled(fontconfig) = 2.12.6
+Provides: bundled(fontconfig) = 8cf0ce700a8abe0d97ace4bf7efc7f9534b729ba
 %endif
 
 %if %{bundlefreetype}
-Provides: bundled(freetype) = 2.11.0git
+Provides: bundled(freetype) = VER-2-13-3-230-ge07e56c7f
 %endif
-
-Provides: bundled(gperftools) = svn144
 
 %if %{bundleharfbuzz}
-Provides: bundled(harfbuzz) = 2.4.0
+Provides: bundled(harfbuzz) = 11.0.0-97
 %endif
 
-Provides: bundled(hunspell) = 1.6.0
-Provides: bundled(iccjpeg)
+Provides: bundled(hunspell) = 6d7d19f
 
 %if %{bundleicu}
-Provides: bundled(icu) = 58.1
+Provides: bundled(icu) = 74-2
 %endif
 
-Provides: bundled(kitchensink) = 1
-Provides: bundled(leveldb) = 1.20
-Provides: bundled(libaddressinput) = 0
+Provides: bundled(leveldb) = 1.23
+Provides: bundled(libaddressinput) = 2610f7b104
 
 %if %{bundlelibdrm}
-Provides: bundled(libdrm) = 2.4.85
+Provides: bundled(libdrm) = 2.4.122
 %endif
 
-Provides: bundled(libjingle) = 9564
+Provides: bundled(libjingle) = 5493b8a59deb16cf0481e24707a0ed72d19047dc
 
 %if %{bundlelibjpeg}
-Provides: bundled(libjpeg-turbo) = 1.4.90
+Provides: bundled(libjpeg-turbo) = 3.1.0
 %endif
 
-Provides: bundled(libphonenumber) = a4da30df63a097d67e3c429ead6790ad91d36cf4
+Provides: bundled(libphonenumber) = 140dfeb81b753388e8a672900fb7a971e9a0d362
 
 %if %{bundlelibpng}
-Provides: bundled(libpng) = 1.6.22
+Provides: bundled(libpng) = 1.6.43
 %endif
 
-Provides: bundled(libsrtp) = 2cbd85085037dc7bf2eda48d4cf62e2829056e2d
+Provides: bundled(libsrtp) = fd08747fa6800b321d53e15feb34da12dc697dee
 
 %if %{bundlelibusbx}
 Provides: bundled(libusbx) = 1.0.17
@@ -878,22 +868,17 @@ Provides: bundled(libwebp) = 0.6.0
 %endif
 
 %if %{bundlelibxml}
-# Well, it's actually newer than 2.9.4 and has code in it that has been reverted upstream... but eh.
-Provides: bundled(libxml) = 2.9.4
+Provides: bundled(libxml) = 2.14.2
 %endif
 
 %if %{bundlelibXNVCtrl}
 Provides: bundled(libXNVCtrl) = 302.17
 %endif
-Provides: bundled(libyuv) = 1651
-Provides: bundled(lzma) = 15.14
-Provides: bundled(libudis86) = 1.7.1
-Provides: bundled(mesa) = 9.0.3
-Provides: bundled(NSBezierPath) = 1.0
-Provides: bundled(mozc)
+Provides: bundled(libyuv) = 1909
+Provides: bundled(lzma) = 24.09
 
 %if %{bundleopus}
-Provides: bundled(opus) = 1.1.3
+Provides: bundled(opus) = 55513e81
 %endif
 
 Provides: bundled(ots) = 8d70cffebbfa58f67a5c3ed0e9bc84dccdbc5bc0
@@ -1767,6 +1752,13 @@ fi
 %endif
 
 %changelog
+* Wed Jun 11 2025 Than Ngo <than@redhat.com> - 137.0.7151.103-1
+- Update to 137.0.7151.103
+  * CVE-2025-5958: Use after free in Media
+  * CVE-2025-5959: Type Confusion in V8
+- Provide correct version for bundle librarires
+- Fix rhbz#2368923, Chromium crash
+
 * Tue Jun 03 2025 Than Ngo <than@redhat.com> - 137.0.7151.68-1
 - Update to 137.0.7151.68
   * CVE-2025-5419: Out of bounds read and write in V8

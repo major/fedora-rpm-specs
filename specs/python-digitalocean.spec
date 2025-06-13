@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ This is the Python 3 version of the package.
 %doc README.md
 
 %changelog
+* Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1.17.0-16
+- Rebuilt for Python 3.14
+
 * Thu Jan 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.17.0-15
 - use modern python packaging macros to get the tests running again
 

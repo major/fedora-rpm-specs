@@ -1,10 +1,13 @@
 Name:           python-black
-Version:        24.4.2
+Version:        25.1.0
 Release:        %autorelease
 Summary:        The uncompromising code formatter
 License:        MIT
 URL:            https://github.com/psf/black
 Source:         %{pypi_source black}
+
+# Fix f-string format test failure with Python 3.14 and 3.13.4+
+Patch:          https://github.com/psf/black/commit/5977532781.patch
 
 BuildArch:      noarch
 
@@ -19,8 +22,8 @@ BuildRequires:  python3-pytest
 # extra paranoid packagers can build this both with and without to run all tests
 %bcond jupyter  1
 
-# uvloop is sometimes not ready for new Python, e.g. https://bugzilla.redhat.com/2203920
-%bcond uvloop   1
+# uvloop not ready for Python 3.14: https://bugzilla.redhat.com/2326210
+%bcond uvloop   %[ 0%{?fedora} < 43 && 0%{?rhel} < 11 ]
 
 
 %global _description %{expand:
@@ -40,6 +43,12 @@ Recommends:     black+d = %{version}-%{release}
 # The [python2] extra was removed in 22.1.0
 # This can be safely removed in Fedora 39+
 Obsoletes:      black+python2 < 22.1.0
+
+%if %{without uvloop}
+# The [uvloop] extra was temporarily removed in 25.1.0
+# This can be safely removed once it is back or in Fedora 45+
+Obsoletes:      black+uvloop < 25.1.0
+%endif
 
 %description -n black %_description
 
