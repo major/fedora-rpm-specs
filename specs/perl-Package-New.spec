@@ -1,17 +1,20 @@
 Name:           perl-Package-New
-Version:        0.09
-Release:        16%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Simple base package from which to inherit
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Package-New
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRDVT/Package-New-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Test::Simple) >= 0.44
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(base)
 BuildRequires:  perl(Devel::Hide)
+BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Test::Simple) >= 0.44
+BuildRequires:  perl(warnings)
 
 %description
 The Package::New object provides a consistent object constructor for
@@ -21,25 +24,28 @@ objects.
 %setup -q -n Package-New-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w %{buildroot}/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc Changes README Todo
+%doc Changes README.md
 %license LICENSE
 %{perl_vendorlib}/Package/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Package::New*.3pm*
 
 %changelog
+* Wed Jun 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.10-1
+- 0.10 bump (rhbz#2335731)
+- Update license
+- Modernize spec file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

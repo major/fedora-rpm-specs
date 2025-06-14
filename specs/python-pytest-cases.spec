@@ -1,5 +1,5 @@
 Name:           python-pytest-cases
-Version:        3.8.6
+Version:        3.9.1
 Release:        %autorelease
 Summary:        Separate test code from test cases in pytest
 

@@ -1,6 +1,6 @@
 Name:           python-qcelemental
 Version:        0.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -72,6 +72,9 @@ rm -rf QCElemental.*-info
 %{python3_sitelib}/qcelemental-%{version}.dist-info
 
 %changelog
+* Thu Jun 12 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.29.0-2
+- rebuilt
+
 * Fri Mar 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.29.0-1
 - Update to 0.29.0. Drop the unused tox flag.
 

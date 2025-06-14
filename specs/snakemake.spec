@@ -31,17 +31,27 @@
 # Almost all of the conda tests require network access, but there are also
 # other failures that are not straightforward to understand.
 %bcond conda_tests 0
+# F43FailsToInstall: python3-google-cloud-storage
+# https://bugzilla.redhat.com/show_bug.cgi?id=2371928
+%bcond gcs_tests 0
 
-%global _description %{expand:
-The Snakemake workflow management system is a tool to create reproducible and
-scalable data analyses. Workflows are described via a human readable, Python
-based language. They can be seamlessly scaled to server, cluster, grid and
-cloud environments, without the need to modify the workflow definition.
-Finally, Snakemake workflows can entail a description of required software,
-which will be automatically deployed to any execution environment.}
+# Snapshot fixes test_config_ref failing with:
+#
+# jsonschema.exceptions._RefResolutionError: [Errno 2] No such file or
+# directory:
+# 'file:/tmp/pytest-of-mockbuild/pytest-0/test_config_ref0/schema/bar.schema.yaml'
+#
+# Specifically, we need:
+#
+# fix: DeprecationWarning when using snakemake.utils.validate
+# https://github.com/snakemake/snakemake/pull/3420
+# https://github.com/snakemake/snakemake/commit/cf724272eefcd9b30fb625d2e16380727bef9c3e
+%global commit 6dee2b55fbfff3bdad33cecdbeb8bd55ff4586bc
+%global snapdate 20250612
 
 Name:           snakemake
-Version:        9.5.1
+Version:        9.5.1^%{snapdate}git%{sub %{commit} 1 7}
+%global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -137,12 +147,12 @@ URL:            https://snakemake.readthedocs.io/en/stable/index.html
 # before uploading it to the lookaside cache, so doing so would not be
 # meaningfully easier than using the GitHub archive with an additional source
 # for the assets.
-Source0:        %{forgeurl}/archive/v%{version}/snakemake-%{version}.tar.gz
+Source0:        %{forgeurl}/archive/%{commit}/snakemake-%{commit}.tar.gz
 # The assets for HTML reports are normally downloaded in setup.py when creating
 # the sdist. We use a script, Source2, executed with no arguments (implicitly
 # relying on the spec file in the same directory) to download the assets,
 # modify them as necessary, and pack them into an additional source archive.
-Source1:        snakemake-%{version}-assets.tar.zst
+Source1:        snakemake-%{commit}-assets.tar.zst
 Source2:        get_assets
 
 # Downstream-only: adjust the asset metadata in the sources, including
@@ -154,15 +164,14 @@ Source2:        get_assets
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
 
-# chore: Allow PuLP 3.2
-# https://github.com/snakemake/snakemake/pull/3609
-Patch:          %{forgeurl}/pull/3609.patch
-
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
 BuildOption(generate_buildrequires): -x reports,messaging
 BuildOption(install):   -l snakemake
-BuildOption(check):     -e '*.tests*'
+BuildOption(check):     %{shrink:
+                        -e '*.tests*'
+                        %{?!with_gcs_tests:-e 'snakemake.executors.google_lifesciences_helper'}
+                        }
 
 BuildArch:      noarch
 
@@ -353,7 +362,9 @@ Obsoletes:      snakemake-doc < 8.2.1-2
 # For several tests (either apptainer or singularity-ce should work):
 BuildRequires:  (apptainer or singularity-ce)
 %if %{with conda_tests}
-# For tests/tests_using_conda.py
+# We need this for test_jupyter_notebook*, even if we are not running tests
+# that have conda in their names. When the conda_tests bcond is enabled, this
+# is also needed for tests/tests_using_conda.py.
 BuildRequires:  conda
 # For test_conda_pin_file, test_conda_named, test_conda_function
 BuildRequires:  ripgrep
@@ -382,8 +393,18 @@ BuildRequires:  %{py3_dist snakemake-storage-plugin-s3}
 %endif
 # For import-testing snakemake.gui
 BuildRequires:  %{py3_dist flask}
+%if %{with google_cloud_storage_tests}
 # For import-testing snakemake.executors.google_lifesciences_helper:
 BuildRequires:  %{py3_dist google-cloud-storage}
+%endif
+
+%global _description %{expand:
+The Snakemake workflow management system is a tool to create reproducible and
+scalable data analyses. Workflows are described via a human readable, Python
+based language. They can be seamlessly scaled to server, cluster, grid and
+cloud environments, without the need to modify the workflow definition.
+Finally, Snakemake workflows can entail a description of required software,
+which will be automatically deployed to any execution environment.}
 
 %description %_description
 
@@ -395,8 +416,8 @@ BuildRequires:  %{py3_dist google-cloud-storage}
 
 
 %prep
-%autosetup -n snakemake-%{version} -p1
-%setup -q -T -D -a 1 -c -n snakemake-%{version}
+%autosetup -n snakemake-%{commit} -p1
+%setup -q -T -D -a 1 -c -n snakemake-%{commit}
 
 # Copy and rename nano and vim extensions readmes for use in the main
 # documentation directory.
@@ -425,11 +446,11 @@ EOF
 
 
 %generate_buildrequires -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
 
 
 %build -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
 
 
 %install -a
@@ -504,6 +525,18 @@ k="${k-}${k+ and }not test_validate"
 k="${k-}${k+ and }not test_modules_peppy"
 k="${k-}${k+ and }not test_pep_pathlib"
 k="${k-}${k+ and }not test_peppy"
+
+%if %{without conda_tests}
+# All of these try to call conda info --json. We might experiment with making
+# conda an unconditional BuildRequires, or with enabling the conda_tests bcond
+# and filtering out the tests we cannot run, but we should wait for:
+#
+# F43FailsToInstall: python3-conda
+# https://bugzilla.redhat.com/show_bug.cgi?id=2371696
+k="${k-}${k+ and }not test_jupyter_notebook"
+k="${k-}${k+ and }not test_jupyter_notebook_nbconvert"
+k="${k-}${k+ and }not test_jupyter_notebook_draft"
+%endif
 
 # Flaky; so far, we have not attempted to understand or report this.
 #

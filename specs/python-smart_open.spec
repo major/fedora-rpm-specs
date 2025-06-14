@@ -1,4 +1,7 @@
 %bcond tests 1
+# F43FailsToInstall: python3-google-cloud-storage
+# https://bugzilla.redhat.com/show_bug.cgi?id=2371928
+%bcond gcs 0
 # Not packaged, and would have a tremendous number of dependencies.
 %bcond moto 0
 
@@ -13,7 +16,16 @@ URL:            https://github.com/piskvorky/smart_open
 Source:         %{url}/archive/v%{version}/smart_open-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -x all,azure,gcs,http,s3,ssh,webhdfs,zst
+BuildOption(generate_buildrequires): %{shrink:
+                                     %{?with_gcs:-x all}
+                                     -x azure
+                                     %{?with_gcs:-x gcs}
+                                     -x http
+                                     -x s3
+                                     -x ssh
+                                     -x webhdfs
+                                     -x zst
+                                     }
 BuildOption(install):   -l smart_open
 
 %if %{with tests}
@@ -79,11 +91,17 @@ Obsoletes:      python3-smart_open < 7.1.0-5
 %description -n python3-smart-open %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-smart-open all azure gcs http s3 ssh webhdfs zst
+%if %{with gcs}
+%pyproject_extras_subpkg -n python3-smart-open all gcs
+%endif
+%pyproject_extras_subpkg -n python3-smart-open azure http s3 ssh webhdfs zst
 
 
 %check -a
 %if %{with tests}
+%if %{without gcs}
+ignore="${ignore-} --ignore=smart_open/tests/test_gcs.py"
+%endif
 %if %{without moto}
 ignore="${ignore-} --ignore=smart_open/tests/test_s3_version.py"
 ignore="${ignore-} --ignore=smart_open/tests/test_s3.py"

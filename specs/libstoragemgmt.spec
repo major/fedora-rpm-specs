@@ -5,11 +5,12 @@
 
 Name:           libstoragemgmt
 Version:        1.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
 Source0:        https://github.com/libstorage/libstoragemgmt/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch1:         0001_systemd_ug.patch
 Requires:       python3-%{name}%{_isa}
 Requires:       ledmon-libs
 
@@ -213,9 +214,6 @@ fi
 
 %pre
 
-echo 'u libstoragemgmt - "daemon account for libstoragemgmt"' | \
-            systemd-sysusers --replace=/usr/lib/sysusers.d/libstoragemgmt.conf -
-
 %post
 /sbin/ldconfig
 # Create tmp socket folders.
@@ -333,6 +331,7 @@ fi
 %{_mandir}/man1/simc_lsmplugin.1*
 
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/%{name}.conf
 
 %ghost %dir %attr(0775, root, libstoragemgmt) /run/lsm/
 %ghost %dir %attr(0775, root, libstoragemgmt) /run/lsm/ipc
@@ -466,6 +465,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Wed Jun 11 2025 Tony Asleson <tasleson@redhat.com> - 1.10.2-4
+- Fix for https://bugzilla.redhat.com/show_bug.cgi?id=2371736
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.10.2-3
 - Rebuilt for Python 3.14
 

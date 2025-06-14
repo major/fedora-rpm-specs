@@ -48,7 +48,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.25.05
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -590,6 +590,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Wed Jun 11 2025 Jerry James  <loganjerry@gmail.com> - 1.25.05-3
+- Rebuild for normaliz 3.10.5
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.25.05-2
 - Rebuilt for Python 3.14
 

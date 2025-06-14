@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.9
+Version:        0.7.12
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -195,9 +195,19 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
-# Conditionalize more tests that require PyPI
-# https://github.com/astral-sh/uv/pull/13699
-Patch:          %{url}/pull/13699.patch
+# Unpin reqwest. Reverts “Downgrade reqwest and hyper-util,”
+# https://github.com/astral-sh/uv/pull/13835. The pin was due to
+# https://github.com/astral-sh/uv/issues/13831, and based on discussion in that
+# issue and in https://github.com/hyperium/hyper-util/pull/200, we can update
+# reqwest as long as we also update hyper-util to 0.1.14 or later.
+#
+# The issue that the pin worked around was only reported on MacOS, but we would
+# rather not assume that is the only place it occurs.
+#
+# This is downstream-only because it is extremely temporary: upstream is
+# tracking and testing the fix in hyper-util, and we can expect that the
+# version pin will be removed in the next release or two.
+Patch:          uv-0.7.12-unpin-reqwest.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
@@ -565,6 +575,20 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
+
+# goblin
+#   wanted: 0.10.0
+#   currently packaged: 0.9.3
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2368499
+tomcli set Cargo.toml str \
+    workspace.dependencies.goblin.version '>= 0.9.3, <0.11'
+
+# nix
+#   wanted: 0.30.0
+#   currently packaged: 0.29.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2362868
+tomcli set Cargo.toml str \
+    workspace.dependencies.nix.version '>= 0.29, <0.31'
 
 %cargo_prep
 

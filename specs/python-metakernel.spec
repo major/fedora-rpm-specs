@@ -22,6 +22,7 @@ Patch0:		0001-Test-compatibility-with-Python-3.13.patch
 BuildArch:	noarch
 BuildRequires:	make
 BuildRequires:	python3-devel >= 3.8
+BuildRequires:	pyproject-rpm-macros
 BuildRequires:	python3-pip
 BuildRequires:	python3dist(hatchling) >= 1.5
 BuildRequires:	python3dist(ipykernel) >= 5.5.6

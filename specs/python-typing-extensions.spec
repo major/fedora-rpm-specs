@@ -1,43 +1,33 @@
-Name:      python-typing-extensions
-Version:   4.14.0~rc1
-Release:   2%{?dist}
-Summary:   Python Typing Extensions
+Name:           python-typing-extensions
+Version:        4.14.0
+Release:        1%{?dist}
+Summary:        Backported and Experimental Type Hints for Python
 
-License:   PSF-2.0
-URL:       https://pypi.org/project/typing-extensions/
-Source:    %{pypi_source typing_extensions}
+License:        PSF-2.0
+URL:            https://pypi.org/project/typing-extensions/
+Source:         %{pypi_source typing_extensions}
 
-# Backport evaluate_forward_ref() changes
-# Fixes test_invalid_special_forms with Python 3.14.0b2+
-# From https://github.com/python/typing_extensions/commit/fcf5265b30, sans CHANGELOG.md changes
-Patch:     fcf5265b30.patch
+BuildArch:      noarch
 
-BuildArch: noarch
-
-BuildRequires: python3-devel
-BuildRequires: python3-test
-
+BuildRequires:  python3-devel
+BuildRequires:  python3-test
 
 %global _description %{expand:
 The typing_extensions module serves two related purposes:
 
-  Enable use of new type system features on older Python versions.
-  For example, typing.TypeGuard is new in Python 3.10, but typing_extensions
-  allows users on previous Python versions to use it too.
+- Enable use of new type system features on older Python versions. For example,
+  typing.TypeGuard is new in Python 3.10, but typing_extensions allows users on
+  previous Python versions to use it too.
 
-  Enable experimentation with new type system PEPs before they are accepted and
+- Enable experimentation with new type system PEPs before they are accepted and
   added to the typing module.
 
 typing_extensions is treated specially by static type checkers such as mypy and
 pyright. Objects defined in typing_extensions are treated the same way as
-equivalent forms in typing.
-
-typing_extensions uses Semantic Versioning. The major version will be
-incremented only for backwards-incompatible changes. Therefore, it's safe to
-depend on typing_extensions like this: typing_extensions >=x.y, <(x+1),
-where x.y is the first version that includes all features you need.}
+equivalent forms in typing.}
 
 %description %_description
+
 
 %package -n python3-typing-extensions
 Summary:       %{summary}
@@ -46,7 +36,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -p1 -n typing_extensions-4.14.0rc1
+%autosetup -p1 -n typing_extensions-%{version}
 
 
 %generate_buildrequires
@@ -59,22 +49,23 @@ Summary:       %{summary}
 
 %install
 %pyproject_install
-
-%pyproject_save_files typing_extensions
+%pyproject_save_files -l typing_extensions
 
 
 %check
 cd src
-%{python3} -m unittest discover
+%{py3_test_envvars} %{python3} -m unittest discover
 
 
 %files -n python3-typing-extensions -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 
 
 %changelog
+* Tue Jun 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.0-1
+- Updated to version 4.14.0 (close RHBZ#2369847)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.14.0~rc1-2
 - Rebuilt for Python 3.14
 

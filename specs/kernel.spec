@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc1.250611gaef17cb3d3c4.19
+%define pkgrelease 0.rc1.250612g2c4a1f3fe03e.20
 %define kversion 6
-%define tarfile_release 6.16-rc1-4-gaef17cb3d3c4
+%define tarfile_release 6.16-rc1-10-g2c4a1f3fe03e
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.250611gaef17cb3d3c4.19%{?buildid}%{?dist}
+%define specrelease 0.rc1.250612g2c4a1f3fe03e.20%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -1861,7 +1861,9 @@ Prebuilt 64k unified kernel image for virtual machines.
 Prebuilt 64k unified kernel image addons for virtual machines.
 %endif
 
+%ifnarch noarch %{nobuildarches}
 %kernel_modules_extra_matched_package
+%endif
 
 %define log_msg() \
 	{ set +x; } 2>/dev/null \
@@ -4279,17 +4281,26 @@ fi\
 %kernel_variant_files %{_use_vdso} %{with_debug} rt-64k-debug
 %endif
 
+%ifnarch noarch %{nobuildarches}
 %files modules-extra-matched
+%endif
 
 # plz don't put in a version string unless you're going to tag
 # and build.
 #
 #
 %changelog
-* Wed Jun 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.aef17cb3d3c4.19]
+* Thu Jun 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.2c4a1f3fe03e.20]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Thu Jun 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.2c4a1f3fe03e.19]
+- redhat/kernel.spec: drop modules-extra-matched for noarch (Jan Stancek)
+- redhat/configs: fedora: set some qcom clk, icc, and pinctrl drivers to built in (Brian Masney)
+- fedora: disable SND_OSSEMUL (Peter Robinson)
+- fedora: disable OSS sound for real HW (Peter Robinson)
+- Linux v6.16.0-0.rc1.2c4a1f3fe03e
 
 * Wed Jun 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.aef17cb3d3c4.18]
 - gitlab-ci: disable merge-rt-automotive (Scott Weaver)

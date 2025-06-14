@@ -7,14 +7,14 @@
 %endif
 
 Name:		perl-IO-Socket-SSL
-Version:	2.090
+Version:	2.091
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
 Patch0:		IO-Socket-SSL-2.089-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.090-use-system-default-SSL-version.patch
+Patch1:		IO-Socket-SSL-2.091-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.087-Test-client-performs-Post-Handshake-Authentication.patch
@@ -126,6 +126,14 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Thu Jun 12 2025 Paul Howarth <paul@city-fan.org> - 2.091-1
+- Update to 2.091
+  - Fix behavior on one-sided SSL shutdown; if the application continued to
+    read after half-closing the SSL connection, this could result in reading
+    encrypted data (i.e. close notify, SSL session tickets...)
+  - See documentation of stop_SSL for detailed description of handling
+    half-closed SSL connections
+
 * Tue Jun  3 2025 Paul Howarth <paul@city-fan.org> - 2.090-1
 - Update to 2.090
   - Fix OCSP live test after Let's Encrypt has disabled OCSP support (GH#169)

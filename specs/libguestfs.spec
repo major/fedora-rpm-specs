@@ -81,6 +81,7 @@ Source8:       copy-patches.sh
 
 # Upstream patch, fixing ACPI.
 Patch:         0001-lib-Enable-ACPI-for-the-libvirt-backend.patch
+Patch:         0002-lib-Make-libvirt-ACPI-feature-flag-conditional-on-x8.patch
 
 BuildRequires: autoconf, automake, libtool, gettext-devel
 

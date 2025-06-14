@@ -79,7 +79,6 @@ registries without the need to pull them
 Summary: Tests for %{name}
 
 Requires: %{name} = %{epoch}:%{version}-%{release}
-Requires: bats
 %if %{defined fakeroot}
 Requires: fakeroot
 %endif
@@ -91,6 +90,8 @@ Requires: crun
 Requires: httpd-tools
 Requires: openssl
 Requires: squashfs-tools
+# bats is not present on RHEL and ELN so it shouldn't be a strong dep
+Recommends: bats
 
 %description tests
 %{summary}
@@ -170,12 +171,4 @@ cp -pav systemtest/* %{buildroot}/%{_datadir}/%{name}/test/system/
 %{_datadir}/%{name}/test
 
 %changelog
-%if %{defined autochangelog}
 %autochangelog
-%else
-# NOTE: This changelog will be visible on CentOS 8 Stream builds
-# Other envs are capable of handling autochangelog
-* Tue Jun 13 2023 RH Container Bot <rhcontainerbot@fedoraproject.org>
-- Placeholder changelog for envs that are not autochangelog-ready.
-- Contact upstream if you need to report an issue with the build.
-%endif

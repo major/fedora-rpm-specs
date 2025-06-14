@@ -1,5 +1,5 @@
 Name:           virtiofsd
-Version:        1.13.0
+Version:        1.13.2
 Release:        %autorelease
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
@@ -30,6 +30,7 @@ Requires:       qemu-kvm-common
 %else
 Requires:       qemu-common
 %endif
+Requires:	shadow-utils
 Provides:       vhostuser-backend(fs)
 Conflicts:      qemu-virtiofsd
 %if 0%{?fedora} > 38

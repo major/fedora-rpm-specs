@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       0.7.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       OBD-II serial module for reading engine data
 License:       GPL-2.0-or-later
 URL:           https://github.com/brendan-w/%{name}
@@ -22,17 +22,9 @@ Works with ELM327 OBD-II adapters, and is fit for the Raspberry Pi.
 
 %package -n python3-%{srcname}
 Summary:       %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 %if %{with check}
-BuildRequires: python3-pint >= 0.16
 BuildRequires: python3-pytest
-BuildRequires: python3-pyserial >= 3
-%endif
-%if 0%{fedora} < 30
-Requires:      python3-pint >= 0.7
-Requires:      python3-pyserial >= 3
 %endif
 
 %description -n python3-%{srcname}
@@ -42,24 +34,33 @@ Python 3 version.
 
 %prep
 %autosetup
+%generate_buildrequires
+%if %{with check}
+%pyproject_buildrequires -x test
+%else
+%pyproject_buildrequires
+%endif
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files obd
 
 %if %{with check}
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-3 -v
+%pytest
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/obd-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/obd
 
 %changelog
+* Thu Jun 12 2025 Dominik Mierzejewski <rpm@greysector.net> - 0.7.2-7
+- switch to modern Python packaging macros
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

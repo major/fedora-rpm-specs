@@ -1,20 +1,19 @@
-%global pypi_version 25.4.1
-
 Name:           python-virt-firmware
-Version:        %{pypi_version}
+Version:        25.4.1
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPL-2.0-only
 URL:            https://pypi.org/project/virt-firmware/
-Source0:        virt_firmware-%{pypi_version}.tar.gz
+Source0:        virt_firmware-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(cryptography)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  make help2man
 BuildRequires:  systemd systemd-rpm-macros
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 Tools for ovmf / armvirt firmware volumes This is a small collection of tools
@@ -29,6 +28,8 @@ Provides:       virt-firmware
 Conflicts:      python3-virt-firmware-peutils < 23.9
 Obsoletes:      python3-virt-firmware-peutils < 23.9
 Requires:       virt-sb-certs
+Requires(post): %{_bindir}/update-alternatives
+Requires(postun): %{_bindir}/update-alternatives
 Recommends:     qemu-img
 Recommends:     dialog
 %description -n python3-virt-firmware
@@ -62,13 +63,13 @@ be used for a more finegrained secure boot configuration for virtual
 machines.
 
 %prep
-%autosetup -n virt_firmware-%{pypi_version}
+%autosetup -n virt_firmware-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 # manpages
 install -m 755 -d      %{buildroot}%{_mandir}/man1
 install -m 644 man/*.1 %{buildroot}%{_mandir}/man1
@@ -89,6 +90,23 @@ for dir in $dirs; do
     ln -vs ../../../../../../..%{_datadir}/virt-sb-certs/$dir \
        %{buildroot}%{python3_sitelib}/virt/firmware/certs/$dir
 done
+# uefi-boot-menu alternatives
+mv %{buildroot}%{_bindir}/uefi-boot-menu \
+   %{buildroot}%{_bindir}/uefi-boot-menu.python
+touch %{buildroot}%{_bindir}/uefi-boot-menu
+
+%post -n python3-virt-firmware
+if test ! -L %{_bindir}/uefi-boot-menu; then
+    rm -f %{_bindir}/uefi-boot-menu
+fi
+update-alternatives --install %{_bindir}/uefi-boot-menu \
+                    uefi-boot-menu %{_bindir}/uefi-boot-menu.python 10
+
+%postun -n python3-virt-firmware
+if [ $1 -eq 0 ] ; then
+    update-alternatives --remove uefi-boot-menu \
+                        %{_bindir}/uefi-boot-menu.python
+fi
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -107,7 +125,8 @@ done
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
 %{_bindir}/kernel-bootcfg
-%{_bindir}/uefi-boot-menu
+%ghost %{_bindir}/uefi-boot-menu
+%{_bindir}/uefi-boot-menu.python
 %{_bindir}/migrate-vars
 %{_bindir}/pe-dumpinfo
 %{_bindir}/pe-listsigs
@@ -120,7 +139,7 @@ done
 %dir %{python3_sitelib}/virt
 %{python3_sitelib}/virt/firmware
 %{python3_sitelib}/virt/peutils
-%{python3_sitelib}/virt_firmware-%{pypi_version}-py%{python3_version}.egg-info
+%{python3_sitelib}/virt_firmware-%{version}.dist-info
 
 %files -n python3-virt-firmware-tests
 %{_datadir}/%{name}/tests

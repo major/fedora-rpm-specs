@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # Work around a circular dependency on snakemake and on
 # python-snakemake-executor-plugin-cluster-generic.
 %bcond bootstrap 0

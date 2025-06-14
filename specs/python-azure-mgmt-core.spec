@@ -6,14 +6,15 @@
 %endif
 
 %global         srcname     azure-mgmt-core
+%global         tarball_name     azure_mgmt_core
 
 Name:           python-%{srcname}
-Version:        1.3.2
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Azure Management Core Library
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -45,7 +46,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

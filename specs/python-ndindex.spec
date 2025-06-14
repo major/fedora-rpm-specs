@@ -1,5 +1,5 @@
 Name:           python-ndindex
-Version:        1.9.2
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Python library for manipulating indices of ndarrays
 # Upstream specified license as MIT and this covers almost all source files.
@@ -9,9 +9,9 @@ URL:            https://quansight-labs.github.io/ndindex/
 Source:         https://github.com/quansight-labs/ndindex/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  gcc
+BuildRequires:  gcc-g++
 # For tests:
 BuildRequires:  python3-pytest
 BuildRequires:  python3-hypothesis
@@ -43,11 +43,16 @@ Requires:       python3-numpy
 # It wants to add coverage and flakes, which is not useful for us
 rm pytest.ini
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l ndindex
 
 %check
 OPTIONS=(
@@ -64,11 +69,9 @@ ln -s %{buildroot}%{python3_sitearch}/ndindex/*.so .
 popd
 %pytest -v "${OPTIONS[@]}"
 
-%files -n python3-ndindex
+%files -n python3-ndindex -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitearch}/ndindex/
-%{python3_sitearch}/ndindex-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

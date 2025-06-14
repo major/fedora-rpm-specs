@@ -151,7 +151,7 @@ The package contains geoip Knot DNS module for geography-based responses.
 %package exporter
 Summary:	Prometheus exporter for Knot DNS
 BuildArch:	noarch
-Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description exporter
 The package provides Python Prometheus exporter for Knot DNS.
@@ -159,7 +159,7 @@ The package provides Python Prometheus exporter for Knot DNS.
 %package -n python3-libknot
 Summary:	Python bindings for libknot
 BuildArch:	noarch
-Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 %{?python_provide:%python_provide python3-libknot}
 
 %description -n python3-libknot
@@ -407,7 +407,7 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
-* Wed Jun 04 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.7-1
+* Thu Jun 12 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.7-1
 - Update to 3.4.7
 - Add new knot-exporter and python3-libknot packages
 

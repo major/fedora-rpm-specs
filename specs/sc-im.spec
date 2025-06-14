@@ -1,11 +1,11 @@
-Name:           sc-im         
+Name:           sc-im
 Version:        0.8.5
 Release:        %autorelease
-Summary:        Spreadsheet Calculator Improvised, ncurses based vim-like spreadsheet calculator 
+Summary:        Spreadsheet Calculator Improvised, ncurses based vim-like spreadsheet calculator
 
-License:        BSD-4-Clause 
-URL:            https://github.com/andmarti1424/sc-im           
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz      
+License:        BSD-4-Clause
+URL:            https://github.com/andmarti1424/sc-im
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 
 BuildRequires:  gcc
@@ -32,11 +32,11 @@ Gosling and Mark Weiser, and mods were later added by Chuck Martin.
 %autosetup -p1 -n sc-im-%{version}
 
 %build
-# Modify the Makefile to comply with the FHS 
-%make_build -C src/
+# Modify the Makefile to comply with the FHS
+%make_build -C src/ prefix=%{_prefix}
 
 %install
-%make_install prefix=%{_prefix} -C src/
+%make_install -C src/ prefix=%{_prefix}
 
 #Currently the tests fail due to additional string "No such device or address" is attached to end result
 #Issue is under investigation, the problem seems to be with concating of the outputs in the test scripts

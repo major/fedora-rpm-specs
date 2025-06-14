@@ -52,14 +52,8 @@ Documentation for %{name}.
 # matplotlib causes some changes in test output; pyproject.toml says:
 #   Matplotlib outputs are sensitive to the matplotlib version
 sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
-sed \
-%if %{expr:v"%{python3_version}" >= v"3.14"}
-    -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/d49574f8a807324c77d378db39fb713662ba5b35cf819360aa37dd8ca5b14388/g' \
-    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/28c3fde0175a875900dec4ed6171445d0c112dcb18045b0822eee7d088734655/g' \
-%else
-    -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/6b2036253586d5fc9698aafec0292cfad0dd12c9f8fefb3f6be255409b89ed39/g' \
-    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/b99cf76118b984ae1e1a23821dd0793a98b20eb318387e0d64e45b6d7ce14a28/g' \
-%endif
+sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/b6f3b59b4d72036753669bee524ae6c5d9ce6ce98d04df412ac75916cc55e77e/g' \
+    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/79f662cf270a62ef0a2ed774bbb4eea8bc8701fbd0a79121fda9016aa2d3f034/g' \
     -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml

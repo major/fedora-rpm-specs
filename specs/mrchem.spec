@@ -1,6 +1,6 @@
 Name:           mrchem
 Version:        1.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPL-3.0-or-later
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -14,6 +14,10 @@ Patch1:         mrchem-1.0.2-pythonpath.patch
 Patch2:         mrchem-1.1.0-rpath.patch
 # Re-enable creation of shared library
 Patch3:         mrchem-1.1.2-object.patch
+# Patch out bundled pyparsing
+Patch4:         mrchem-1.1.4-pyparsing.patch
+# Namespace fix
+Patch5:         mrchem-1.1.4-ompnamespace.patch
 
 # mrcpp doesn't build on s390x which is not supported by upstream (BZ#2035671)
 ExcludeArch:    s390x
@@ -34,9 +38,13 @@ BuildRequires:  python3-devel
 BuildRequires:  xcfun-devel
 BuildRequires:  mrcpp-devel
 BuildRequires:  catch2-devel
+BuildRequires:  python3-pyparsing
 
 # Eigen3 is a header-only library; this is for dependency tracking
 BuildRequires:  eigen3-static
+
+# Due to removal of bundled library
+Requires:       python3-pyparsing
 
 %description
 MRChem is a numerical real-space code for molecular electronic
@@ -80,8 +88,12 @@ This package contains the data files for MRChem.
 %patch -P1 -p1 -b .pythonpath
 %patch -P2 -p1 -b .rpath
 %patch -P3 -p1 -b .object
+%patch -P4 -p1 -b .pyparsing
+%patch -P5 -p1 -b .ompnamespace
 # Remove bundled catch
 rm -rf external/catch/
+# Remove bundled pyparsing
+rm -rf python/mrchem/input_parser/plumbing/pyparsing/
 
 %build
 export CXXFLAGS="%{optflags} -I/usr/include/catch2"
@@ -122,6 +134,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Thu Jun 12 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.4-4
+- Drop the bundled pyparsing module which causes a FTBFS in rawhide.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.4-3
 - Rebuilt for Python 3.14
 

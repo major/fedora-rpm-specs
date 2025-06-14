@@ -1,3 +1,8 @@
+# Temporarily disable tests that require uvicorn
+# F43FailsToInstall: python3-uvicorn+standard, python3-uvicorn
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372189
+%bcond uvicorn 0
+
 Name:           python-socketio
 Version:        5.13.0
 Release:        %autorelease
@@ -43,8 +48,18 @@ Obsoletes:      python-socketio-doc < 5.11.2-4
 %pyproject_extras_subpkg -n python3-socketio client asyncio_client
 
 
+%prep -a
+%if %{without uvicorn}
+sed -r -i 's/^([[:blank:]]*)(uvicorn)\b/\1# \2/' tox.ini
+%endif
+
+
 %check -a
-%pytest
+%if %{without uvicorn}
+ignore="${ignore-} --ignore=tests/async/test_admin.py"
+%endif
+
+%pytest ${ignore-}
 
 
 %files -n python3-socketio -f %{pyproject_files}

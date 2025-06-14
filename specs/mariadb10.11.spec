@@ -61,6 +61,7 @@
 %bcond_without pam
 %endif
 %if 0%{?fedora}
+# MariaDB upstream packages this as a separate subpackage
 %bcond_without hashicorp
 %else
 %bcond_with hashicorp
@@ -498,6 +499,10 @@ member. MariaDB is a community developed fork originally from MySQL.
 %package          -n %{pkgname}-server
 Summary:          The MariaDB server and related files
 
+%if %{with hashicorp}
+BuildRequires:    curl-devel
+%endif
+
 Requires:         %{pkgname}%{?_isa} = %{sameevr}
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-errmsg = %{sameevr}
@@ -679,10 +684,11 @@ PAM authentication server-side plugin for MariaDB.
 
 
 %if %{with sphinx}
+# MariaDB upstream packages this inside the client sub-package
 %package          -n %{pkgname}-sphinx-engine
 Summary:          The Sphinx storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
-BuildRequires:    sphinx libsphinxclient libsphinxclient-devel
+BuildRequires:    sphinx libsphinxclient-devel
 Requires:         sphinx libsphinxclient
 
 %virtual_conflicts_and_provides sphinx-engine
@@ -1010,6 +1016,7 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DPLUGIN_SPHINX=%{?with_sphinx:DYNAMIC}%{!?with_sphinx:NO} \
          -DPLUGIN_CONNECT=%{?with_connect:DYNAMIC}%{!?with_connect:NO} \
          -DPLUGIN_S3=%{?with_s3:DYNAMIC}%{!?with_s3:NO} \
+         -DPLUGIN_AUTH_GSSAPI=%{?with_gssapi:DYNAMIC}%{!?with_gssapi:NO} \
          -DPLUGIN_AUTH_PAM=%{?with_pam:YES}%{!?with_pam:NO} \
          -DPLUGIN_AUTH_PAM_V1=%{?with_pam:DYNAMIC}%{!?with_pam:NO} \
          -DPLUGIN_COLUMNSTORE=NO \
@@ -1119,11 +1126,6 @@ ln -s ../../../../../bin/my_safe_process %{buildroot}%{_datadir}/mysql-test/lib/
 ln -s unstable-tests %{buildroot}%{_datadir}/mysql-test/rh-skipped-tests.list
 %endif
 
-
-# Client that uses libmysqld embedded server.
-# Pretty much like normal mysql command line client, but it doesn't require a running mariadb server.
-%{?with_embedded:rm %{buildroot}%{_bindir}/{mariadb-,mysql_}embedded}
-rm %{buildroot}%{_mandir}/man1/{mysql_,mariadb-}embedded.1*
 # Static libraries
 rm %{buildroot}%{_libdir}/*.a
 # This script creates the MySQL system tables and starts the server.
@@ -1203,6 +1205,7 @@ sed -i 's/^plugin-load-add/#plugin-load-add/' %{buildroot}%{_sysconfdir}/my.cnf.
 %if %{without embedded}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test_embedded,mysqltest_embedded}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedded}.1*
+rm %{buildroot}%{_mandir}/man1/{mariadb-,mysql_}embedded.1*
 %endif
 
 
@@ -1219,7 +1222,7 @@ unlink %{buildroot}%{_libdir}/libmariadb.so
 rm %{buildroot}%{_mandir}/man3/*
 # Client plugins
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/{dialog.so,mysql_clear_password.so,sha256_password.so}
-%if %{with gssapi}
+%if %{with gssapi} || %{with hashicorp}
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/auth_gssapi_client.so
 %endif
 %endif
@@ -1252,20 +1255,25 @@ unlink %{buildroot}%{_libdir}/libmysqlclient_r.so
 
 %if %{without client}
 rm %{buildroot}%{_bindir}/msql2mysql
+rm %{buildroot}%{_bindir}/my_print_defaults
+rm %{buildroot}%{_bindir}/replace
 rm %{buildroot}%{_bindir}/{mysql,mariadb}
-rm %{buildroot}%{_bindir}/mysql{access,admin,binlog,check,dump,_find_rows,import,_plugin,show,slap,_waitpid}
-rm %{buildroot}%{_bindir}/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,waitpid}
+rm %{buildroot}%{_bindir}/mysql{access,admin,binlog,check,_convert_table_format,dump,dumpslow,_find_rows,hotcopy,import,_plugin,_setpermission,show,slap,_tzinfo_to_sql,_waitpid}
+rm %{buildroot}%{_bindir}/mariadb-{access,admin,binlog,check,convert-table-format,dump,dumpslow,find-rows,hotcopy,import,plugin,setpermission,show,slap,tzinfo-to-sql,waitpid}
 
 rm %{buildroot}%{_mandir}/man1/msql2mysql.1*
+rm %{buildroot}%{_mandir}/man1/my_print_defaults.1*
+rm %{buildroot}%{_mandir}/man1/replace.1*
 rm %{buildroot}%{_mandir}/man1/{mysql,mariadb}.1*
-rm %{buildroot}%{_mandir}/man1/mysql{access,admin,binlog,check,dump,_find_rows,import,_plugin,show,slap,_waitpid}.1*
-rm %{buildroot}%{_mandir}/man1/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,waitpid}.1*
+rm %{buildroot}%{_mandir}/man1/mysql{access,admin,binlog,check,_convert_table_format,dump,dumpslow,_find_rows,hotcopy,import,_plugin,_setpermission,show,slap,_tzinfo_to_sql,_waitpid}.1*
+rm %{buildroot}%{_mandir}/man1/mariadb-{access,admin,binlog,check,convert-table-format,dump,dumpslow,find-rows,hotcopy,import,plugin,setpermission,show,slap,tzinfo-to-sql,waitpid}.1*
 
 rm %{buildroot}%{_sysconfdir}/my.cnf.d/mysql-clients.cnf
 %endif
 
 %if %{without common}
 rm -r %{buildroot}%{_datadir}/%{majorname}/charsets
+rm -r %{buildroot}%{_docdir}/%{majorname}
 %endif
 
 %if %{without errmsg}
@@ -1295,6 +1303,25 @@ rm %{buildroot}%{_bindir}/{mariadb-client-test,mariadb-test}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test,mysqltest,my_safe_process}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test,mariadb-test}.1*
 rm %{buildroot}%{_mandir}/man1/{mysql-test-run,mysql-stress-test}.pl.1*
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/adt_null.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/auth_0x0100.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/auth_test_plugin.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/debug_key_management.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/dialog_examples.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/example_key_management.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/func_test.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/ha_example.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/ha_test_sql_discovery.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/libdaemon_example.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/mypluglib.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/qa_auth_client.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/qa_auth_interface.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/qa_auth_server.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_sql_service.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_versioning.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_test.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/daemon_example.ini
 %endif
 
 %if %{without rocksdb}
@@ -1435,23 +1462,25 @@ fi
 
 %if %{with client}
 %files -n %{pkgname}
-%{_bindir}/msql2mysql
+%{_bindir}/{msql2mysql,replace}
 %{_bindir}/{mysql,mariadb}
-%{_bindir}/mysql{admin,binlog,check,dump,import,_plugin,show,slap,_waitpid}
-%{_bindir}/mariadb-{admin,binlog,check,dump,import,plugin,show,slap,waitpid}
+%{_bindir}/mysql{admin,binlog,check,dump,import,_plugin,show,slap,_tzinfo_to_sql,_waitpid}
+%{_bindir}/mariadb-{admin,binlog,check,dump,import,plugin,show,slap,tzinfo-to-sql,waitpid}
+%{_bindir}/my_print_defaults
 
-%{_mandir}/man1/msql2mysql.1*
+%{_mandir}/man1/{msql2mysql,replace}.1*
 %{_mandir}/man1/{mysql,mariadb}.1*
-%{_mandir}/man1/mysql{access,admin,binlog,check,dump,_find_rows,import,_plugin,show,slap,_waitpid}.1*
-%{_mandir}/man1/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,waitpid}.1*
+%{_mandir}/man1/mysql{access,admin,binlog,check,dump,_find_rows,import,_plugin,show,slap,_tzinfo_to_sql,_waitpid}.1*
+%{_mandir}/man1/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,tzinfo-to-sql,waitpid}.1*
+%{_mandir}/man1/my_print_defaults.1*
 
 %config(noreplace) %{_sysconfdir}/my.cnf.d/mysql-clients.cnf
 
 %files -n %{pkgname}-client-utils
-%{_bindir}/mysql{access,_find_rows}
-%{_bindir}/mariadb-{access,find-rows}
-%{_mandir}/man1/mysql{access,_find_rows}.1*
-%{_mandir}/man1/mariadb-{access,find-rows}.1*
+%{_bindir}/mysql{access,_convert_table_format,dumpslow,_find_rows,hotcopy,_setpermission}
+%{_bindir}/mariadb-{access,convert-table-format,dumpslow,find-rows,hotcopy,setpermission}
+%{_mandir}/man1/mysql{access,_convert_table_format,dumpslow,_find_rows,hotcopy,_setpermission}.1*
+%{_mandir}/man1/mariadb-{access,convert-table-format,dumpslow,find-rows,hotcopy,setpermission}.1*
 %endif
 
 %if %{with clibrary}
@@ -1538,20 +1567,18 @@ fi
 %{_mandir}/man1/mariadb-service-convert.1*
 %{_bindir}/mariadb-conv
 %{_mandir}/man1/mariadb-conv.1*
-%{_bindir}/my_print_defaults
-%{_mandir}/man1/my_print_defaults.1*
 
-%{_bindir}/mysql_{install_db,secure_installation,tzinfo_to_sql,upgrade}
-%{_mandir}/man1/mysql_{install_db,secure_installation,tzinfo_to_sql,upgrade}.1*
-%{_bindir}/mariadb-{install-db,secure-installation,tzinfo-to-sql,upgrade}
-%{_mandir}/man1/mariadb-{install-db,secure-installation,tzinfo-to-sql,upgrade}.1*
+%{_bindir}/mysql_{install_db,secure_installation,upgrade}
+%{_mandir}/man1/mysql_{install_db,secure_installation,upgrade}.1*
+%{_bindir}/mariadb-{install-db,secure-installation,upgrade}
+%{_mandir}/man1/mariadb-{install-db,secure-installation,upgrade}.1*
 %{_bindir}/{mysqld_,mariadbd-}safe
 %{_mandir}/man1/{mysqld_,mariadbd-}safe.1*
 %{_bindir}/{mysqld_safe_helper,mariadbd-safe-helper}
 %{_mandir}/man1/{mysqld_safe_helper,mariadbd-safe-helper}.1*
 
-%{_bindir}/{innochecksum,perror,replace,resolve_stack_dump,resolveip}
-%{_mandir}/man1/{innochecksum,perror,replace,resolve_stack_dump,resolveip}.1*
+%{_bindir}/{innochecksum,perror,resolve_stack_dump,resolveip}
+%{_mandir}/man1/{innochecksum,perror,resolve_stack_dump,resolveip}.1*
 
 %if %{with galera}
 # wsrep_sst_common should be moved to /usr/share/mariadb: https://jira.mariadb.org/browse/MDEV-14296
@@ -1586,23 +1613,31 @@ fi
 %dir %{_libdir}/%{majorname}
 %dir %{_libdir}/%{majorname}/plugin
 
-%{_libdir}/%{majorname}/plugin/*
-%{?with_oqgraph:%exclude %{_libdir}/%{majorname}/plugin/ha_oqgraph.so}
-%{?with_connect:%exclude %{_libdir}/%{majorname}/plugin/ha_connect.so}
-%{?with_cracklib:%exclude %{_libdir}/%{majorname}/plugin/cracklib_password_check.so}
-%{?with_rocksdb:%exclude %{_libdir}/%{majorname}/plugin/ha_rocksdb.so}
-%{?with_gssapi:%exclude %{_libdir}/%{majorname}/plugin/auth_gssapi.so}
-%{?with_sphinx:%exclude %{_libdir}/%{majorname}/plugin/ha_sphinx.so}
-%{?with_s3:%exclude %{_libdir}/%{majorname}/plugin/ha_s3.so}
-%if %{with clibrary}
-%exclude %{_libdir}/%{majorname}/plugin/dialog.so
-%exclude %{_libdir}/%{majorname}/plugin/mysql_clear_password.so
-%endif
-
-# PAM plugin; moved to a standalone sub-package
-%exclude %{_libdir}/%{majorname}/plugin/{auth_pam_v1.so,auth_pam.so}
-%exclude %dir %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir
-%exclude %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir/auth_pam_tool
+%{_libdir}/%{majorname}/plugin/auth_ed25519.so
+%{_libdir}/%{majorname}/plugin/disks.so
+%{_libdir}/%{majorname}/plugin/file_key_management.so
+%{_libdir}/%{majorname}/plugin/ha_archive.so
+%{_libdir}/%{majorname}/plugin/ha_blackhole.so
+%{_libdir}/%{majorname}/plugin/ha_federated.so
+%{_libdir}/%{majorname}/plugin/ha_federatedx.so
+%{_libdir}/%{majorname}/plugin/ha_spider.so
+%{_libdir}/%{majorname}/plugin/handlersocket.so
+%{?with_hashicorp:%{_libdir}/%{majorname}/plugin/hashicorp_key_management.so}
+%{_libdir}/%{majorname}/plugin/locales.so
+%{_libdir}/%{majorname}/plugin/metadata_lock_info.so
+%{_libdir}/%{majorname}/plugin/password_reuse_check.so
+%{?with_bzip2:%{_libdir}/%{majorname}/plugin/provider_bzip2.so}
+%{?with_lz4:%{_libdir}/%{majorname}/plugin/provider_lz4.so}
+%{?with_lzma:%{_libdir}/%{majorname}/plugin/provider_lzma.so}
+%{?with_lzo:%{_libdir}/%{majorname}/plugin/provider_lzo.so}
+%{?with_snappy:%{_libdir}/%{majorname}/plugin/provider_snappy.so}
+%{_libdir}/%{majorname}/plugin/query_cache_info.so
+%{_libdir}/%{majorname}/plugin/query_response_time.so
+%{_libdir}/%{majorname}/plugin/server_audit.so
+%{_libdir}/%{majorname}/plugin/simple_password_check.so
+%{_libdir}/%{majorname}/plugin/sql_errlog.so
+%{_libdir}/%{majorname}/plugin/type_mysql_json.so
+%{?with_galera:%{_libdir}/%{majorname}/plugin/wsrep_info.so}
 
 %{_datadir}/%{majorname}/mini-benchmark
 %{_datadir}/%{majorname}/fill_help_tables.sql
@@ -1621,6 +1656,7 @@ fi
 %dir %{_datadir}/%{majorname}-server/groonga-normalizer-mysql
 %{_datadir}/%{majorname}/mroonga/install.sql
 %{_datadir}/%{majorname}/mroonga/uninstall.sql
+%{_libdir}/%{majorname}/plugin/ha_mroonga.so
 %license %{_datadir}/%{majorname}/mroonga/COPYING
 %license %{_datadir}/%{majorname}/mroonga/AUTHORS
 %license %{_datadir}/%{majorname}-server/groonga-normalizer-mysql/lgpl-2.0.txt
@@ -1734,12 +1770,12 @@ fi
 
 %files -n %{pkgname}-server-utils
 # Perl utilities
-%{_bindir}/mysql{_convert_table_format,dumpslow,_fix_extensions,hotcopy,_setpermission}
-%{_bindir}/mariadb-{convert-table-format,dumpslow,fix-extensions,hotcopy,setpermission}
+%{_bindir}/mysql{_fix_extensions}
+%{_bindir}/mariadb-{fix-extensions}
 %{_bindir}/{mysqld_,mariadbd-}multi
 
-%{_mandir}/man1/mysql{_convert_table_format,dumpslow,_fix_extensions,hotcopy,_setpermission}.1*
-%{_mandir}/man1/mariadb-{convert-table-format,dumpslow,fix-extensions,hotcopy,setpermission}.1*
+%{_mandir}/man1/mysql{_fix_extensions}.1*
+%{_mandir}/man1/mariadb-{fix-extensions}.1*
 %{_mandir}/man1/{mysqld_,mariadbd-}multi.1*
 
 %if %{with devel}
@@ -1763,6 +1799,8 @@ fi
 %if %{with embedded}
 %files -n %{pkgname}-embedded
 %{_libdir}/libmariadbd.so.*
+%{_bindir}/{mariadb-,mysql_}embedded
+%{_mandir}/man1/{mysql_,mariadb-}embedded.1*
 
 %files -n %{pkgname}-embedded-devel
 %{_libdir}/libmysqld.so
@@ -1780,6 +1818,27 @@ fi
 %endif
 %{_bindir}/{mysql_client_test,mysqltest,mariadb-client-test,mariadb-test}
 %{_bindir}/my_safe_process
+%dir %{_libdir}/%{majorname}/plugin
+# shared objects required for testing
+%{_libdir}/%{majorname}/plugin/adt_null.so
+%{_libdir}/%{majorname}/plugin/auth_0x0100.so
+%{_libdir}/%{majorname}/plugin/auth_test_plugin.so
+%{_libdir}/%{majorname}/plugin/debug_key_management.so
+%{_libdir}/%{majorname}/plugin/dialog_examples.so
+%{_libdir}/%{majorname}/plugin/example_key_management.so
+%{_libdir}/%{majorname}/plugin/func_test.so
+%{_libdir}/%{majorname}/plugin/ha_example.so
+%{_libdir}/%{majorname}/plugin/ha_test_sql_discovery.so
+%{_libdir}/%{majorname}/plugin/libdaemon_example.so
+%{_libdir}/%{majorname}/plugin/mypluglib.so
+%{_libdir}/%{majorname}/plugin/qa_auth_client.so
+%{_libdir}/%{majorname}/plugin/qa_auth_interface.so
+%{_libdir}/%{majorname}/plugin/qa_auth_server.so
+%{_libdir}/%{majorname}/plugin/test_sql_service.so
+%{_libdir}/%{majorname}/plugin/test_versioning.so
+%{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
+%{_libdir}/%{majorname}/plugin/type_test.so
+%{_libdir}/%{majorname}/plugin/daemon_example.ini
 %attr(-,mysql,mysql) %{_datadir}/mysql-test
 %{_mandir}/man1/{mysql_client_test,mysqltest,mariadb-client-test,mariadb-test}.1*
 %{_mandir}/man1/my_safe_process.1*

@@ -62,9 +62,18 @@
 %global cmake_generator %{nil}
 %endif
 
+# export an llvm compilation database
+# Useful for input for other llvm tools
+%bcond_with export
+%if %{with export}
+%global build_compile_db ON
+%else
+%global build_compile_db OFF
+%endif
+
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -80,6 +89,8 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 # https://github.com/ROCm/rocSOLVER/pull/652
 Patch0:         0001-Add-llvm-style-compile-and-link-options.patch
 Patch1:         0001-rocsolver-offload-compress.patch
+# https://github.com/ROCm/rocSOLVER/pull/962
+Patch2:         0001-rocsolver-parallel-jobs.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -139,10 +150,8 @@ Provides:       rocsolver = %{version}-%{release}
 rocSOLVER is a work-in-progress implementation of a subset
 of LAPACK functionality on the ROCm platform.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary: Libraries and headers for %{name}
@@ -163,6 +172,38 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+
+# As of 6.4, there are 2 long running hip jobs
+# There are ~20 gpu targets
+# Most builders will have between 4 and 32 cores
+# Default to 2 cpu's per hip job
+# Increase to half of the systems maximum
+# Real cores, No hyperthreading
+HIP_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
+if [ ${HIP_JOBS}x = x ]; then
+    HIP_JOBS=1
+fi
+# Try again..
+if [ ${HIP_JOBS} = 1 ]; then
+    HIP_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${HIP_JOBS}x = x ]; then
+	HIP_JOBS=4
+    fi
+fi
+HIP_JOBS=`eval "expr ${HIP_JOBS} / 2"`
+
+# Take into account memmory usage per core, do not thrash real memory
+BUILD_MEM=16
+MEM_KB=0
+MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
+MEM_MB=`eval "expr ${MEM_KB} / 1024"`
+MEM_GB=`eval "expr ${MEM_MB} / 1024"`
+HIP_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
+if [ "$HIP_JOBS_MEM" -lt "$HIP_JOBS" ]; then
+    HIP_JOBS=$HIP_JOBS_MEM
+fi
+
+sed -i -e "s@-parallel-jobs=4@-parallel-jobs=${HIP_JOBS}@" library/src/CMakeLists.txt
 
 %build
 
@@ -207,6 +248,7 @@ fi
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -217,7 +259,8 @@ fi
     -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DROCSOLVER_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
-    -DROCSOLVER_PARALLEL_LINK_JOBS=${LINK_JOBS}
+    -DROCSOLVER_PARALLEL_LINK_JOBS=${LINK_JOBS} \
+    -DBUILD_PARALLEL_HIP_JOBS=ON
 
 %if %{with ninja}
 %cmake_build
@@ -252,6 +295,11 @@ fi
 %endif
 
 %changelog
+* Thu Jun 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Add hip jobs
+- Remove suse if check for ldconfig
+- Add export compilation database option
+
 * Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Cleanup module build
 

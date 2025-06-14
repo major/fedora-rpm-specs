@@ -1,8 +1,4 @@
-%if 0%{?fedora} >= 41
-%bcond_without  thumbnailer
-%else
-%bcond_with  thumbnailer
-%endif
+%bcond thumbnailer %[0%{?fedora} >= 41]
 
 # un-double the %% to uncomment
 #%%global gitcommit f692950aaf0e9dc3cf275b25bfcc0b1df9a96bb6
@@ -12,7 +8,7 @@ Summary: Image browser and viewer
 Name: geeqie
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-Version: 2.5
+Version: 2.6.1
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -47,6 +43,7 @@ BuildRequires: evince
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
 BuildRequires: gtk3-devel
+BuildRequires: cfitsio-devel
 BuildRequires: clutter-devel
 BuildRequires: djvulibre-devel
 BuildRequires: libchamplain-devel
@@ -59,6 +56,7 @@ BuildRequires: libjxl-devel
 BuildRequires: libtiff-devel
 BuildRequires: libheif-devel
 BuildRequires: libwebp-devel
+BuildRequires: openexr-devel
 BuildRequires: openjpeg2-devel
 BuildRequires: poppler-glib-devel
 BuildRequires: lua-devel
@@ -112,7 +110,7 @@ support for external editors, previewing images using thumbnails, and zoom.
 # guard against missing executables at (re)build-time,
 # these are needed by the plug-in scripts
 for f in exiftran exiv2 mogrify zenity ; do
-    type $f || exit -1
+    type $f || exit 1
 done
 
 export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-parameter"
@@ -134,7 +132,7 @@ cp -av %{_vpath_builddir}/doc/html %{buildroot}%{_pkgdocdir}/
 test -f %{buildroot}%{_pkgdocdir}/html/index.html
 
 # We want these _docdir files in GQ_HELPDIR.
-install -p -m 0644 COPYING NEWS README* TODO \
+install -p -m 0644 COPYING NEWS README* \
     %{buildroot}%{_pkgdocdir}
 
 ln -s NEWS %{buildroot}%{_pkgdocdir}/ChangeLog
@@ -160,6 +158,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/org.geeqie.Geeqie.desktop
+%{_datadir}/applications/org.geeqie.cache-maintenance.desktop
 %{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
 %{bash_completions_dir}/%{name}
 

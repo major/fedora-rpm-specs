@@ -7,7 +7,7 @@
 %global crate sigul-pesign-bridge
 
 Name:           rust-sigul-pesign-bridge
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Bridge pesign-client requests to a Sigul signing server
 

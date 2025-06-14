@@ -5,7 +5,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.2.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Implementation of the Sigul protocol
 
@@ -66,7 +66,10 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * Integration tests require the network
+%cargo_test -- --lib
+%cargo_test -- --doc
+%cargo_test -- --bins
 %endif
 
 %changelog

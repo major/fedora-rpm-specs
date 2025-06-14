@@ -1,5 +1,5 @@
 Name: fheroes2
-Version: 1.1.8
+Version: 1.1.9
 Release: %autorelease
 Summary: Free implementation of the popular game engine
 # ./src/thirdparty/libsmacker is under LGPL-2.1-or-later
@@ -89,6 +89,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/{anim,data,lang,maps}/
 %{_datadir}/%{name}/%{name}.autodlrc
 %{_datadir}/%{name}/files/data/resurrection.h2d
 %{_datadir}/%{name}/files/lang/*.mo
+%{_datadir}/%{name}/maps/7_deserts_English.fh2m
+%{_datadir}/%{name}/maps/7_deserts_French.fh2m
+%{_datadir}/%{name}/maps/Eruption_English.fh2m
+%{_datadir}/%{name}/maps/Eruption_French.fh2m
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_mandir}/man6/%{name}.6.*

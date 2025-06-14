@@ -24,6 +24,12 @@ Patch:          0002-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
 # A temporary downstream workaround for
 # https://github.com/coin-or/pulp/issues/832.
 Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
+# Expect SCIP_PY to report unbounded problems the same way as SCIP_CMD
+#
+# This seems to have changed from scip 9.2.0 to 9.2.2; we cannot usefully
+# report it upstream until PySCIPOpt releases binary PyPI wheels based on
+# scip 9.2.2 or later.
+Patch:          0004-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
 # Test examples only if they are found; fixes #844
 # https://github.com/coin-or/pulp/pull/845
 #
@@ -85,6 +91,9 @@ Recommends:     coin-or-HiGHS
 # - SCIP_CMD
 BuildRequires:  scip
 Recommends:     scip
+# - SCIP_PY
+BuildRequires:  %{py3_dist PySCIPOpt}
+Recommends:     %{py3_dist PySCIPOpt}
 
 # These alternative solvers appear to be free software, but are not packaged.
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
@@ -103,9 +112,6 @@ Recommends:     scip
 # - PYGLPK (https://github.com/bradfordboyle/pyglpk)
 # BuildRequires:  %%{py3_dist glpk}
 # Recommends:     %%{py3_dist glpk}
-# - SCIP_PY (https://github.com/scipopt/PySCIPOpt)
-# BuildRequires:  %%{py3_dist PySCIPOpt}
-# Recommends:     %%{py3_dist PySCIPOpt}
 # - YAPOSIB (https://github.com/coin-or/yaposib)
 # BuildRequires:  %%{py3_dist yaposib}
 # Recommends:     %%{py3_dist yaposib}

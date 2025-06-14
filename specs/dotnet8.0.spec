@@ -12,10 +12,10 @@
 # dotnet-host and netstandard-targeting-pack-2.1
 %global is_latest_dotnet 0
 
-%global host_version 8.0.16
-%global runtime_version 8.0.16
+%global host_version 8.0.17
+%global runtime_version 8.0.17
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 8.0.116
+%global sdk_version 8.0.117
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -779,6 +779,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Jun 10 2025 Omair Majid <omajid@redhat.com> - 8.0.117-1
+- Update to .NET SDK 8.0.117 and Runtime 8.0.17
+
 * Tue May 13 2025 Omair Majid <omajid@redhat.com> - 8.0.116-1
 - Update to .NET SDK 8.0.116 and Runtime 8.0.16
 

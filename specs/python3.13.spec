@@ -13,7 +13,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.4
+%global general_version %{pybasever}.5
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -58,8 +58,7 @@ License: Python-2.0.1
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
 %global pip_version 25.1.1
-%global setuptools_version 67.6.1
-%global wheel_version 0.43.0
+%global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
@@ -86,27 +85,25 @@ Provides: bundled(python3dist(typing-extensions)) = 4.13.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
-# vendor.txt files not in .whl
-#  $ %%{_rpmconfigdir}/pythonbundles.py \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/setuptools/_vendor/vendored.txt) \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/pkg_resources/_vendor/vendored.txt)
+# vendor.txt not in .whl
+# %%{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@')
 %global setuptools_bundled_provides %{expand:
-Provides: bundled(python3dist(importlib-metadata)) = 6
-Provides: bundled(python3dist(importlib-resources)) = 5.10.2
-Provides: bundled(python3dist(jaraco-text)) = 3.7
-Provides: bundled(python3dist(more-itertools)) = 8.8
-Provides: bundled(python3dist(ordered-set)) = 3.1.1
-Provides: bundled(python3dist(packaging)) = 23
-Provides: bundled(python3dist(platformdirs)) = 2.6.2
+Provides: bundled(python3dist(autocommand)) = 2.2.2
+Provides: bundled(python3dist(backports-tarfile)) = 1.2
+Provides: bundled(python3dist(importlib-metadata)) = 8
+Provides: bundled(python3dist(inflect)) = 7.3.1
+Provides: bundled(python3dist(jaraco-collections)) = 5.1
+Provides: bundled(python3dist(jaraco-context)) = 5.3
+Provides: bundled(python3dist(jaraco-functools)) = 4.0.1
+Provides: bundled(python3dist(jaraco-text)) = 3.12.1
+Provides: bundled(python3dist(more-itertools)) = 10.3
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.4
-Provides: bundled(python3dist(zipp)) = 3.7
-}
-# wheel
-#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
-%global wheel_bundled_provides %{expand:
-Provides: bundled(python3dist(packaging)) = 24
+Provides: bundled(python3dist(typeguard)) = 4.3
+Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(wheel)) = 0.45.1
+Provides: bundled(python3dist(zipp)) = 3.19.2
 }
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -360,17 +357,26 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00460 # c0bff2b6359f503d3fc72bdba9f07a25519a4cdd
-# gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
-#
-# (actual changes in .whl files removed to make this patch smaller)
-#
-# gh-127906: Add missing sys import to test_cppext
-Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
-
 # 00461 # 920175020b21c0aff5edcc4c28d688b5061f591c
 # Downstream only: Install wheel in test venvs when setuptools < 71
 Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
+
+# 00464 # 292acffec7a379cb6d1f3c47b9e5a2f170bbadb6
+# Enable PAC and BTI protections for aarch64
+#
+# Apply protection against ROP/JOP attacks for aarch64 on asm_trampoline.S
+#
+# The BTI flag must be applied in the assembler sources for this class
+# of attacks to be mitigated on newer aarch64 processors.
+#
+# Upstream PR: https://github.com/python/cpython/pull/130864/files
+#
+# The upstream patch is incomplete but only for the case where
+# frame pointers are not used on 3.13+.
+#
+# Since on Fedora we always compile with frame pointers the BTI/PAC
+# hardware protections can be enabled without losing Perf unwinding.
+Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
 # (New patches go here ^^^)
 #
@@ -638,8 +644,6 @@ Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-Provides: bundled(python3dist(wheel)) = %{wheel_version}
-%wheel_bundled_provides
 # License manually combined from Python + setuptools + wheel
 License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
@@ -706,9 +710,7 @@ Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-Provides: bundled(python3dist(wheel)) = %{wheel_version}
-%wheel_bundled_provides
-# License combined from Python libs + pip + setuptools + wheel
+# License combined from Python libs + pip + setuptools
 License: %{libs_license} AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
@@ -771,13 +773,12 @@ extension modules.
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
-  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@') --compare-with '%setuptools_bundled_provides'
 fi
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
-rm Lib/test/wheeldata/wheel-%{wheel_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1725,6 +1726,12 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Jun 12 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.5-1
+- Update to 3.13.5
+
+* Thu Jun 12 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.13.4-2
+- Enable PAC and BTI hardware protections for aarch64
+
 * Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.4-1
 - Update to 3.13.4
 

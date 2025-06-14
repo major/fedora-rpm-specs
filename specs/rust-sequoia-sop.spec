@@ -4,7 +4,7 @@
 %global crate sequoia-sop
 
 Name:           rust-sequoia-sop
-Version:        0.37.1
+Version:        0.37.2
 Release:        %autorelease
 Summary:        Implementation of the Stateless OpenPGP Interface using Sequoia
 
@@ -31,18 +31,17 @@ Summary:        %{summary}
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # BSL-1.0
 # GPL-2.0-or-later
 # LGPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
+# Zlib
 License:        %{shrink:
     GPL-2.0-or-later AND
     Apache-2.0 AND
@@ -51,13 +50,14 @@ License:        %{shrink:
     LGPL-2.0-or-later AND
     MIT AND
     MPL-2.0 AND
+    Unicode-3.0 AND
     Unicode-DFS-2016 AND
+    Zlib AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
+    (MIT OR Zlib OR Apache-2.0) AND
     (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown

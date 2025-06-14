@@ -1,5 +1,7 @@
+%bcond tests 0
+
 Name:		python-makefun
-Version:	1.15.6
+Version:	1.16.0
 Release:	%autorelease
 Summary:	Dynamically create python functions with a proper signature
 
@@ -42,6 +44,7 @@ sed -r -i "s/'pandoc', //" setup.py
 %install
 %pyproject_install
 
+%if %{with tests}
 %check
 # Tests require pytest-cases, which requires this package. Yay!
 
@@ -49,6 +52,7 @@ TESTOPTS=(
 )
 
 %pytest -v "${TESTOPTS[@]}"
+%endif
 
 %files -n python3-makefun
 %license LICENSE

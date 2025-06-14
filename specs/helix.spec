@@ -60,6 +60,10 @@ BuildRequires:  tomcli
 Requires:       git-core
 Requires:       gcc-c++
 
+# Clipboard integration
+Recommends:     xsel
+Recommends:     wl-clipboard
+
 # Added manually
 Provides:       bundled(tree-sitter-sql)
 Provides:       bundled(tree-sitter-v)

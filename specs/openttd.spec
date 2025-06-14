@@ -1,5 +1,5 @@
 # If we have a prerelease version we can define it here
-%global prever beta1
+%global prever beta2
 
 Name:           openttd
 Version:        15.0

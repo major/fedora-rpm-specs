@@ -36,8 +36,8 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2412.0
-Release: 3%{?dist}
+Version: 8.2506.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -69,8 +69,7 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: zlib-devel
 BuildRequires: libcap-ng-devel
 
-Patch0: disable-openssl-engine.patch
-Patch1: gnu23.patch
+Patch0: openssl-engines-disable.patch
 
 Recommends: logrotate
 Obsoletes: rsyslog-logrotate < 8.2310.0-2
@@ -383,7 +382,6 @@ mv build doc
 # set up rsyslog sources
 %setup -q -D
 %patch -P 0 -p1
-%patch -P 1 -p1
 
 %if %{with omamqp1}
 # Unpack qpid-proton
@@ -406,14 +404,13 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 	cd bld
 
 	# Need ENABLE_FUZZ_TESTING=NO to avoid a link failure
-	# Find python include dir and python library from
-	# https://stackoverflow.com/questions/24174394/cmake-is-not-able-to-find-python-libraries
+	# Modern approach for Python discovery in CMake
 	cmake .. \
 		-DBUILD_BINDINGS="" \
 		-DBUILD_STATIC_LIBS=YES \
 		-DENABLE_FUZZ_TESTING=NO \
-		-DPYTHON_INCLUDE_DIR=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")  \
-		-DPYTHON_LIBRARY=$(python3 -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))") \
+		-DPython_FIND_STRATEGY=LOCATION \
+		-DPython_ROOT_DIR=/usr \
 		-DCMAKE_AR="/usr/bin/gcc-ar" -DCMAKE_NM="/usr/bin/gcc-nm" -DCMAKE_RANLIB="/usr/bin/gcc-ranlib"
 	make -j8
 )
@@ -463,7 +460,7 @@ autoreconf -if
 	--enable-omrabbitmq \
 %endif
 %if %{with omamqp1}
-	--enable-omamqp1 PROTON_LIBS="%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_CFLAGS="-I%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/include" \
+	--enable-omamqp1 PROTON_PROACTOR_LIBS="%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_PROACTOR_CFLAGS="-I%{_builddir}/qpid-proton-%{qpid_proton_v}/c/include -I%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/include" PROTON_LIBS="%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_CFLAGS="-I%{_builddir}/qpid-proton-%{qpid_proton_v}/c/include -I%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/include" \
 %endif
 	--enable-elasticsearch \
 	--enable-generate-man-pages \
@@ -764,6 +761,10 @@ done
 
 
 %changelog
+* Thu Jun 12 2025 Attila Lakatos <alakatos@redhat.com> - 8.2506.0-1
+- Rebase to 8.2506.0
+  Resolves: rhbz#2347628
+
 * Tue Jan 21 2025 Attila Lakatos <alakatos@redhat.com> - 8.2412.0-3
 - Fix build problem by resolving -Wincompatible-pointer-types error
 
@@ -778,7 +779,7 @@ done
 
 * Fri Oct 04 2024 Attila Lakatos <alakatos@redhat.com> - 8.2408.0-2
 - Rebuild package
-  Resolves: rhzb#2316361
+  Resolves: rhbz#2316361
 
 * Wed Aug 21 2024 Attila Lakatos <alakatos@redhat.com> - 8.2408.0-1
 - Rebase to 8.2408.0

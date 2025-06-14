@@ -17,6 +17,8 @@ BuildArch:      noarch
 
 Source:         %{pypi_source}
 
+Patch:          0001-Fix-py3.14-test-failure-due-to-NotImplemented-change.patch
+
 BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with tests}
 BuildRequires:  python3dist(pytest)

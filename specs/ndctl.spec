@@ -1,5 +1,5 @@
 Name:		ndctl
-Version:	81
+Version:	82
 Release:	1%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPL-2.0-only AND LGPL-2.1-only AND CC0-1.0 AND MIT
@@ -240,6 +240,9 @@ fi
 
 
 %changelog
+* Thu Jun 12 2025 Alison Schofield <alison.schofield@intel.com> - 82-1
+- release v82
+
 * Tue Apr 01 2025 Alison Schofield <alison.schofield@intel.com> - 81-1
 - release v81
 

@@ -54,7 +54,7 @@ mv -i -v pytest_harvest/tests/conftest.py .
 # This one, python-makefun and python-pytest-cases require one another,
 # without specifying this, and thus without specifying minimial versions.
 # So let's just build the latest version of each and hope for the best.
-%{__python3} -m pytest -v || :
+%python3 -m pytest -v || :
 
 %files -n python3-pytest-harvest
 %license LICENSE

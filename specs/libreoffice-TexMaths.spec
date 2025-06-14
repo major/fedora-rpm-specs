@@ -1,11 +1,10 @@
 %global extname TexMaths
 
 Name:           libreoffice-%{extname}
-Version:        0.49
-Release:        15%{?dist}
+Version:        0.52.3
+Release:        1%{?dist}
 Summary:        A LaTex Equation Editor for LibreOffice
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://roland65.free.fr/texmaths/
 Source0:        http://downloads.sourceforge.net/texmaths/%{extname}-%{version}.oxt
@@ -67,6 +66,10 @@ rm $RPM_BUILD_ROOT%{loextdir}/{README,license.txt}
 
 
 %changelog
+* Thu Jun 12 2025 Ian McInerney <ian.s.mcinerney@ieee.org> - 0.52.3-1
+- Update to upstream 0.52.3 release (bz#2371170)
+- Verify SPDX license expression
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

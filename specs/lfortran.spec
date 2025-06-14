@@ -1,4 +1,4 @@
-Version:        0.52.0
+Version:        0.53.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -155,6 +155,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Wed Jun 11 2025 Packit <hello@packit.dev> - 0.53.0-1
+- Update to version 0.53.0
+- Resolves: rhbz#2372344
+
 * Mon May 05 2025 Packit <hello@packit.dev> - 0.52.0-1
 - Update to version 0.52.0
 - Resolves: rhbz#2364257

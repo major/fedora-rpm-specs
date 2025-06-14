@@ -1,39 +1,30 @@
-%{?python_enable_dependency_generator}
-
 Name:           pungi
-Version:        4.9.2
-Release:        3%{?dist}
+Version:        4.9.3
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch:          https://pagure.io/pungi/pull-request/1840.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-productmd >= 1.28
 BuildRequires:  python3-kobo-rpmlib
 BuildRequires:  createrepo_c
-BuildRequires:  python3-lxml
 BuildRequires:  python3-kickstart
 BuildRequires:  python3-rpm
 BuildRequires:  python3-dnf
 BuildRequires:  python3-multilib
 BuildRequires:  python3-six
 BuildRequires:  git-core
-BuildRequires:  python3-jsonschema
 BuildRequires:  python3-libcomps
-BuildRequires:  python3-kobo
 BuildRequires:  python3-koji
 BuildRequires:  lorax
 BuildRequires:  python3-PyYAML
 BuildRequires:  python3-libmodulemd >= 2.8.0
 BuildRequires:  python3-gobject
 BuildRequires:  python3-createrepo_c
-BuildRequires:  python3-dogpile-cache
 BuildRequires:  python3-parameterized
 BuildRequires:  python3-flufl-lock
 
@@ -56,7 +47,6 @@ Requires:       python3-libmodulemd >= 2.8.0
 Requires:       python3-gobject
 Requires:       python3-createrepo_c
 Requires:       python3-PyYAML
-Requires:       python3-productmd >= 1.43
 Requires:       python3-flufl-lock
 Requires:       xorriso
 
@@ -92,8 +82,11 @@ no guarantees about API stability.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 cd doc
 make epub     SPHINXBUILD=/usr/bin/sphinx-build-3
 make text     SPHINXBUILD=/usr/bin/sphinx-build-3
@@ -101,7 +94,7 @@ make man      SPHINXBUILD=/usr/bin/sphinx-build-3
 gzip _build/man/pungi.1
 
 %install
-%py3_install
+%pyproject_install
 %{__install} -d %{buildroot}/var/cache/pungi/createrepo_c
 %{__install} -d %{buildroot}%{_mandir}/man1
 %{__install} -m 0644 doc/_build/man/pungi.1.gz %{buildroot}%{_mandir}/man1
@@ -119,13 +112,13 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-make-ostree
 %{_mandir}/man1/pungi.1.gz
 %{_datadir}/pungi
-%{_localstatedir}/cache/pungi
+%dir %{_localstatedir}/cache/pungi
 %dir %attr(1777, root, root) %{_localstatedir}/cache/pungi/createrepo_c
 %{_tmpfilesdir}/pungi-clean-cache.conf
 
 %files -n python3-%{name}
 %{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}.dist-info
 
 %files utils
 %{python3_sitelib}/%{name}_utils
@@ -140,6 +133,14 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Jun 12 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.3-1
+- Recognize wsl2 images produced by koji (lsedlar)
+- Specify data_files with relative paths (lsedlar)
+- Crossreference `koji_cache` from the Koji cache page (ahills)
+- Add documentation for `koji_cache` configuration (ahills)
+- Record exceptions for top level OTel span (lsedlar)
+- Update spec to match current python packaging guidelines
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.9.2-3
 - Rebuilt for Python 3.14
 

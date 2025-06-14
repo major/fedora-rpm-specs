@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           kakoune
-Version:        2024.05.18
-Release:        3%{?dist}
+Version:        2025.06.03
+Release:        0%{?dist}
 Summary:        Code editor heavily inspired by Vim
 
 License:        Unlicense

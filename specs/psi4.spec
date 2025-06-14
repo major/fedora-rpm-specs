@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           psi4
 Epoch:          1
 Version:        1.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An ab initio quantum chemistry package
 # Automatically converted from old format: LGPLv3 and MIT - review is highly recommended.
 License:        LGPL-3.0-only AND LicenseRef-Callaway-MIT
@@ -188,6 +188,9 @@ ctest -L smoketests --output-on-failure
 %{_datadir}/psi4/
 
 %changelog
+* Thu Jun 12 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.9.1-7
+- rebuilt
+
 * Fri Jan 31 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.9.1-6
 - Fix FTBFS on rawhide.
 

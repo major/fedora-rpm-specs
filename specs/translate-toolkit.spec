@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.15.2
+Version:        3.15.3
 Release:        2%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -22,7 +22,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pip
 BuildRequires:	python3-setuptools_scm
 BuildRequires:  python3-wheel
-BuildRequires:	python3-uv
 BuildRequires:	pyproject-rpm-macros
 BuildRequires: 	python3-sphinx
 BuildRequires: 	python3-sphinx-copybutton
@@ -134,8 +133,15 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Wed Jun 11 2025 Sudip Shil <python-maint@redhat.com> - 3.15.3-2
+- update to 3.15.3 (rhbz#2371515)
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.15.2-2
 - Rebuilt for Python 3.14
+
+* Sun May 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.15.2-3
+- Remove spurious BuildRequires on python3-uv
+- pr-13-no-uv-dep
 
 * Tue Apr 29 2025 Sudip Shil <sshil@redhat.com> - 3.15.2-1
 - update to 3.15.2 (rhbz#2362276)
