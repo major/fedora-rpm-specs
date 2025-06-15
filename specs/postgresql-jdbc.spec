@@ -48,11 +48,12 @@
 
 Summary:        JDBC driver for PostgreSQL
 Name:           postgresql-jdbc
-Version:        42.7.5
+Version:        42.7.7
 Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
 Source0:        https://repo1.maven.org/maven2/org/postgresql/postgresql/%{version}/postgresql-%{version}-jdbc-src.tar.gz
+Source1:        postgresql_jdbc_tests_init.sh
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -66,8 +67,8 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(se.jiderhamn:classloader-leak-test-framework)
 
 %if %runselftest
-BuildRequires:  postgresql-contrib
-BuildRequires:  postgresql-test-rpm-macros
+BuildRequires:  postgresql17-contrib
+BuildRequires:  postgresql17-test-rpm-macros
 %endif
 
 # TODO Remove in Fedora 46
@@ -128,22 +129,8 @@ grep -l -r '^import uk\.org\.webcompere\.systemstubs' src/test | xargs rm -v
 
 # Include PostgreSQL testing methods and variables.
 %if %runselftest
-%postgresql_tests_init
-
-PGTESTS_LOCALE=C.UTF-8
-
-cat <<EOF > build.local.properties
-server=localhost
-port=$PGTESTS_PORT
-database=test
-username=test
-password=test
-privilegedUser=$PGTESTS_ADMIN
-privilegedPassword=$PGTESTS_ADMINPASS
-preparethreshold=5
-loglevel=0
-protocolVersion=0
-EOF
+. %{SOURCE1}
+setup_build_local_properties > build.local.properties
 
 # Start the local PG cluster.
 %postgresql_tests_start
@@ -158,17 +145,19 @@ xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
 
 %install
 %mvn_install
-install -m 644 -D tests-classpath %{buildroot}/%{_datadir}/%{name}-tests/classpath
-install -m 644 -D -t %{buildroot}/%{_datadir}/%{name}-tests build.properties ssltest.properties
-cp -r -t %{buildroot}/%{_datadir}/%{name}-tests certdir
+install -m 644 -D tests-classpath %{buildroot}%{_datadir}/%{name}-tests/classpath
+install -m 644 -D -t %{buildroot}%{_datadir}/%{name}-tests build.properties ssltest.properties
+cp -r -t %{buildroot}%{_datadir}/%{name}-tests certdir
+install -m 755 -D -t %{buildroot}%{_libexecdir}/%{name}-tests %{SOURCE1}
 
 %files -f .mfiles
 %license LICENSE
 %doc README.md
 
 %files tests -f .mfiles-tests
-%{_datadir}/%{name}-tests
 %license LICENSE
+%{_datadir}/%{name}-tests
+%{_libexecdir}/%{name}-tests
 
 %changelog
 %autochangelog

@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           dola-transformer
 Version:        1.0.0
 Release:        %autorelease
@@ -9,12 +11,16 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola-transformer/releases/download/%{version}/dola-transformer-%{version}.tar.zst
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven:maven-api-model:4.0.0-rc-3)
 BuildRequires:  mvn(org.apache.maven:maven-api-spi:4.0.0-rc-3)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+%endif
 
 %description
 Dola Transformer is an extension for Apache Maven 4 that enables

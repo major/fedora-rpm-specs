@@ -17,6 +17,9 @@ URL:            http://python-hyper.org/priority/
 VCS:            https://github.com/python-hyper/priority
 Source0:        %vcs/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# Update intersphinx_mapping for Sphinx 8 compatibility
+Patch:          %vcs/pull/149.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(hypothesis)

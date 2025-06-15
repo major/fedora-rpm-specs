@@ -16,17 +16,17 @@
 %global debug_package %{nil}
 %endif
 
-# edk2-stable202502
-%define GITDATE        20250221
-%define GITCOMMIT      fbe0805b2091
+# edk2-stable202505
+%define GITDATE        20250523
+%define GITCOMMIT      6951dfe7d59d
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT af45588a998c
+%define PLATFORMS_COMMIT b715b3c400ac
 
-%define OPENSSL_VER    3.0.7
-%define OPENSSL_COMMIT 0205b589887203b065154ddc8e8107c4ac8625a1
+%define OPENSSL_VER    3.5.0
+%define OPENSSL_COMMIT 63b528e6476ff36efcf2cda5c083f3f3d7cf9210
 
-%define DBXDATE        20250224
+%define DBXDATE        20250610
 
 # Undefine this to get *HUGE* (50MB+) verbose build logs
 %define silent --silent
@@ -35,9 +35,11 @@
 %if %{rhel} < 10
   %define rhelcfg rhel-9
   %define RHELCFG RHEL-9
+  %define qemuvars 0
 %else
   %define rhelcfg rhel-10
   %define RHELCFG RHEL-10
+  %define qemuvars 1
 %endif
 %define build_ovmf 0
 %define build_aarch64 0
@@ -54,6 +56,7 @@
 %define build_aarch64 1
 %define build_riscv64 1
 %define build_loongarch64 1
+%define qemuvars 1
 %endif
 
 %define cross %{defined fedora}
@@ -135,12 +138,12 @@ Patch0015: 0015-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 Patch0016: 0016-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0017: 0017-Revert-CryptoPkg-BaseCryptLib-add-next-parameter-to-.patch
-Patch0018: 0018-Revert-CryptoPkg-add-openssl-providers-fips-include-.patch
-Patch0019: 0019-Revert-openssl-add-more-stubs-for-openssl-3.2.x.patch
-Patch0020: 0020-Revert-openssl-adapt-stubs-to-openssl-3.2.x.patch
-Patch0021: 0021-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
-Patch0022: 0022-OvmfPkg-PlatformInitLib-fix-typo.patch
+Patch0017: 0017-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
+Patch0018: 0018-openssl-silence-unused-variable-warning.patch
+Patch0019: 0019-CryptoPkg-openssl-add-ossl_bio_print_labeled_buf-stu.patch
+Patch0020: 0020-CryptoPkg-CrtLib-add-strpbrk-implementation.patch
+Patch0021: 0021-CryptoPkg-CrtLib-explicitly-define-INT32-constants.patch
+Patch0022: 0022-CryptoPkg-openssl-disable-some-features-support.patch
 
 
 # needed by %prep
@@ -694,6 +697,9 @@ done
 %{_datadir}/qemu/firmware/51-edk2-ovmf-2m-raw-x64-nosb.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-amdsev.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-inteltdx.json
+%if %{qemuvars}
+%{_datadir}/%{name}/ovmf/OVMF.qemuvars.fd
+%endif
 %if %{defined fedora}
 %{_datadir}/%{name}/ovmf/MICROVM.fd
 %{_datadir}/qemu/firmware/50-edk2-ovmf-x64-microvm.json
@@ -720,6 +726,10 @@ done
 %{_datadir}/%{name}/aarch64/QEMU_EFI.fd
 %{_datadir}/%{name}/aarch64/QEMU_EFI.silent.fd
 %{_datadir}/%{name}/aarch64/QEMU_VARS.fd
+%if %{qemuvars}
+%{_datadir}/%{name}/aarch64/QEMU_EFI-qemuvars-pflash.*
+%{_datadir}/%{name}/aarch64/QEMU_EFI.qemuvars.fd
+%endif
 %if %{defined fedora}
 %{_datadir}/%{name}/aarch64/QEMU_EFI.kernel.fd
 %endif

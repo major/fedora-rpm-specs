@@ -24,7 +24,6 @@ SourceLicense:  %{shrink:
                 }
 URL:            https://ee.lbl.gov/
 
-
 Requires:       /usr/sbin/sendmail
 Requires:       python3
 
@@ -213,8 +212,6 @@ fi
 
 %post
 %systemd_post arpwatch.service
-
-
 
 
 %postun

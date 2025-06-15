@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           dola-gleaner
 Version:        1.0.0
 Release:        %autorelease
@@ -9,6 +11,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola-gleaner/releases/download/%{version}/dola-gleaner-%{version}.tar.zst
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(javax.inject:javax.inject)
@@ -21,6 +26,7 @@ BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-3)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api:4.0.0-rc-3)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+%endif
 
 %description
 Dola Gleaner is an extension for Apache Maven 4 that extracts build

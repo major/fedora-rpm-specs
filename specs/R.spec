@@ -31,11 +31,11 @@
 
 %global major_version 4
 %global minor_version 5
-%global patch_version 0
+%global patch_version 1
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -52,9 +52,8 @@ BuildRequires:  libtiff-devel
 BuildRequires:  cairo-devel
 BuildRequires:  pango-devel
 BuildRequires:  readline-devel
-# Until upstream adds support for tcl/tk 9
-BuildRequires:  tcl-devel < 1:9
-BuildRequires:  tk-devel < 1:9
+BuildRequires:  tcl-devel
+BuildRequires:  tk-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  libcurl-devel
@@ -152,12 +151,12 @@ Provides:       R(ABI) = %{bootstrap_abi}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
 %add_submodule  KernSmooth 2.23-26
-%add_submodule  lattice 0.22-6
+%add_submodule  lattice 0.22-7
 %add_submodule  MASS 7.3-65
 %add_submodule  Matrix 1.7-3
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
-%add_submodule  mgcv 1.9-1
+%add_submodule  mgcv 1.9-3
 %add_submodule  nlme 3.1-168
 %add_submodule  nnet 7.3-20
 %add_submodule  parallel %{version}
@@ -961,6 +960,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Jun 13 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.1-1
+- Update to 4.5.1
+
 * Wed Apr 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5.0-4
 - Fix flatpak build
 

@@ -1,4 +1,3 @@
-%global _without_tests 1
 # The tests BR httpx-socks, Requires python-socks.
 # The tests of python-socks BR tiny-proxy.
 # To break the loop when bootstrapping Python, we can disable the tests here.

@@ -287,6 +287,14 @@ Patch3:         gimp-2.99.19-external-help-browser.patch
 # https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306
 Patch10:        https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306.patch
 
+# Fix crash when opening text outline color dialog
+# https://gitlab.gnome.org/GNOME/gimp/-/issues/14047
+Patch11:        https://gitlab.gnome.org/GNOME/gimp/-/commit/1685c86af5d6253151d0056a9677ba469ea10164.patch
+
+# Fix crash with Script-Fu function not consuming all parameters
+# https://gitlab.gnome.org/GNOME/gimp/-/issues/14192
+Patch12:        https://gitlab.gnome.org/GNOME/gimp/-/commit/6192b79d891398d285a03fe52ffa609396274c51.patch
+
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -360,6 +368,8 @@ EOF
 %patch 3 -p1 -b .external-help-browser
 
 %patch 10 -p1 -b .accommodate-lib64-multiarch
+%patch 11 -p1 -b .text-outline-color-dialog-crash
+%patch 12 -p1 -b .scriptfu-fn-invocation-crash
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files

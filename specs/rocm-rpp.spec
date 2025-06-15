@@ -18,10 +18,11 @@
 %endif
 
 # Testing does not work well, it requires local hw.
+%bcond_with test
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -65,6 +66,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}
 
+%if %{with test}
+%package test
+Summary:        Tests for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description test
+%{summary}
+%endif
+
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
@@ -81,8 +91,10 @@ done
 # Remove search for HALF, ours is installed in the usual place
 sed -i -e '/HALF/d' CMakeLists.txt
 
+%if %{without test}
 # Some things that are not used
 sed -i -e '/COMPONENT test/d' CMakeLists.txt
+%endif
 
 %build
 
@@ -115,8 +127,17 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 %{_includedir}/rpp
 %{_libdir}/librpp.so
 
+%if %{with test}
+%files test
+%dir %{_datadir}/rpp
+%{_datadir}/rpp/*
+
+%endif
 
 %changelog
+* Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Add --with test
+
 * Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

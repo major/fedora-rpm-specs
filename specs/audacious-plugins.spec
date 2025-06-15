@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global tar_ver %{version}
 
@@ -56,6 +56,7 @@ BuildRequires: pkgconfig(libsidplayfp) >= 2.0
 %endif
 BuildRequires: pkgconfig(libmodplug)
 BuildRequires: pkgconfig(ogg) pkgconfig(vorbis) pkgconfig(vorbisenc) pkgconfig(vorbisfile)
+BuildRequires: pkgconfig(faad2)
 BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(fluidsynth)
 BuildRequires: pkgconfig(libcdio) pkgconfig(libcdio_cdda) pkgconfig(libcddb)
@@ -106,6 +107,9 @@ BuildRequires: pkgconfig(Qt5X11Extras)
 # plugin is Qt based
 BuildRequires: pkgconfig(ampache_browser_1)
 
+# added 2025-06-13
+Obsoletes: audacious-plugins-freeworld-aac < 4.4.2-4
+Provides:  audacious-plugins-freeworld-aac = %{version}-%{release}
 # added 2023-11-04
 Obsoletes: audacious-plugins-freeworld-mms < %{version}-%{release}
 Provides:  audacious-plugins-freeworld-mms = %{version}-%{release}
@@ -213,7 +217,6 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 %if %{with meson}
 %meson \
     -Dsndio=false \
-    -Daac=false \
     -Dfilewriter-mp3=true \
     -Dstreamtuner=true \
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -233,7 +236,6 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
     --enable-filewriter-mp3 \
     --enable-streamtuner \
     --disable-sndio \
-    --disable-aac  \
 %if 0%{?fedora} || 0%{?rhel} >= 9
     --enable-ffaudio \
 %else
@@ -309,6 +311,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/General/streamtuner.so
 %{_libdir}/audacious/General/qthotkey.so
 %dir %{_libdir}/audacious/Input/
+%{_libdir}/audacious/Input/aac-raw.so
 %{_libdir}/audacious/Input/cdaudio-ng.so
 %{_libdir}/audacious/Input/flacng.so
 %{_libdir}/audacious/Input/metronom.so
@@ -388,6 +391,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Fri Jun 13 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.4.2-4
+- Enabled AAC plugin
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.2-3
 - Rebuilt for flac 1.5.0
 

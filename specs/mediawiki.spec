@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.43.0
+Version: 1.43.1
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
@@ -99,10 +99,10 @@ Provides: bundled(php-wikimedia-ip-utils) = 5.0.0
 Provides: bundled(php-wikimedia-json-codec) = 3.0.3
 Provides: bundled(php-wikimedia-langconv) = 0.4.2
 Provides: bundled(php-wikimedia-less.php) = 5.1.2
-Provides: bundled(php-wikimedia-minify) = 2.8.0
+Provides: bundled(php-wikimedia-minify) = 2.9.0
 Provides: bundled(php-wikimedia-normalized-exception) = 2.0.0
 Provides: bundled(php-wikimedia-object-factory) = 5.0.1
-Provides: bundled(php-wikimedia-parsoid) = 0.20.1
+Provides: bundled(php-wikimedia-parsoid) = 0.20.2
 Provides: bundled(php-wikimedia-php-session-serializer) = 3.0.0
 Provides: bundled(php-wikimedia-purtle) = 2.0.0
 Provides: bundled(php-wikimedia-relpath) = 4.0.1
@@ -260,6 +260,9 @@ cd tests/phpunit
 
 
 %changelog
+* Thu Jun 12 2025 Michael Cronenworth <mike@cchtml.com> - 1.43.1-1
+- Update to 1.43.1
+
 * Thu Jan 16 2025 Michael Cronenworth <mike@cchtml.com> - 1.43.0-1
 - Update to 1.43.0
 

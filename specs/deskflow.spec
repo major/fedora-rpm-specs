@@ -2,7 +2,7 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.21.2
+Version:	1.22.0
 Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
@@ -60,7 +60,7 @@ keypress to switch focus to a different system.
 
 
 %build
-%cmake
+%cmake -DSKIP_BUILD_TESTS=1
 %cmake_build
 
 
@@ -69,12 +69,15 @@ keypress to switch focus to a different system.
 
 
 %check
+export QT_QPA_PLATFORM=minimal
 %ifarch s390x
 # XXX: Allow it to fail for now
 # Cf. https://github.com/deskflow/deskflow/issues/8203
-%{_vpath_builddir}/bin/unittests || :
+%{__ctest} --test-dir  "%{_vpath_builddir}/src/unittests" --output-on-failure --force-new-ctest-process %{?_smp_mflags} || :
+%{_vpath_builddir}/bin/legacytests || :
 %else
-%{_vpath_builddir}/bin/unittests
+%{__ctest} --test-dir  "%{_vpath_builddir}/src/unittests" --output-on-failure --force-new-ctest-process %{?_smp_mflags}
+%{_vpath_builddir}/bin/legacytests
 %endif
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
@@ -91,6 +94,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Fri Jun 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.22.0-1
+- Update to version 1.22.0
+- Resolves: rhbz#2369204
+
 * Sun Apr 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.21.2-1
 - Update to 1.21.2
 

@@ -82,30 +82,6 @@ use the "doc-cfg" feature of the "%{crate}" crate.
 %files       -n %{name}+doc-cfg-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ncurses-backend-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ncurses-backend-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ncurses-backend" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ncurses-backend-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pancurses-backend-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pancurses-backend-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pancurses-backend" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pancurses-backend-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+termion-backend-devel
 Summary:        %{summary}
 BuildArch:      noarch

@@ -1,12 +1,12 @@
 Name:           python-irodsclient
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        A python API for iRODS
 
 # SPDX
 License:        BSD-3-Clause
 URL:            https://github.com/irods/python-irodsclient
-Source0:        %{pypi_source python_irodsclient}
+Source0:        %{pypi_source python-irodsclient}
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        prc_write_irodsA.py.1
 

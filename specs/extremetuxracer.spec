@@ -8,8 +8,8 @@
 
 Summary: High speed arctic racing game
 Name: extremetuxracer
-Version: 0.8.2
-Release: 10%{?dist}
+Version: 0.8.4
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://extremetuxracer.sourceforge.net
 # This is really
@@ -67,7 +67,6 @@ This package consists of files used by other %{name} packages.
 %package papercuts-fonts
 Summary: PaperCuts 2.0 font
 BuildArch: noarch
-Requires: extremetuxracer-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description papercuts-fonts
 This package contains the PaperCuts 2.0 font which is used by Extreme Tux
@@ -104,10 +103,10 @@ make %{?_smp_mflags}
 %install
 %make_install
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/etr.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/net.sourceforge.extremetuxracer.desktop
 ln -snf opengl-game-wrapper.sh %{buildroot}%{_bindir}/etr-wrapper
 desktop-file-edit --set-key=Exec --set-value=etr-wrapper \
-    %{buildroot}%{_datadir}/applications/etr.desktop
+    %{buildroot}%{_datadir}/applications/net.sourceforge.extremetuxracer.desktop
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 mv %{buildroot}%{_datadir}/pixmaps/etr.png \
@@ -160,8 +159,8 @@ install -Dm 0644 -p %{SOURCE7} %{buildroot}%{_mandir}/de/man6/etr.6
 %{_bindir}/etr-wrapper
 %{_datadir}/etr
 %{_datadir}/appdata/etr.appdata.xml
-%{_datadir}/metainfo/etr.appdata.xml
-%{_datadir}/applications/etr.desktop
+%{_datadir}/metainfo/net.sourceforge.extremetuxracer.metainfo.xml
+%{_datadir}/applications/net.sourceforge.extremetuxracer.desktop
 %{_datadir}/icons/hicolor/*/apps/etr.*
 %{_mandir}/man6/etr.6*
 %lang(de) %{_mandir}/de/man6/etr.6*
@@ -173,6 +172,9 @@ install -Dm 0644 -p %{SOURCE7} %{buildroot}%{_mandir}/de/man6/etr.6
 
 
 %changelog
+* Fri Jun 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.4-1
+- 0.8.4, fix font requires.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

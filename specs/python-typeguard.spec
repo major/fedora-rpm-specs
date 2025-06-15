@@ -2,24 +2,15 @@
 # “typechecking linter.” However, we can optionally skip those tests.
 %bcond mypy 1
 
-# Tests fail on 3.14b1
-# https://github.com/agronholm/typeguard/issues/522
-#
-# Fixed by updating to a snapshot, plus typing-extensions must be at least
-# 4.14.0rc1.
-%global commit a3f6144fdd8524f5c1bae3f8031a009bc051dcc1
-%global snapdate 20250602
-
 Name:           python-typeguard
-Version:        4.4.2^%{snapdate}git%{sub %{commit} 1 7}
-%global pyversion %(echo '%{version}' | cut -d '^' -f 1)
+Version:        4.4.3
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
-Source:         %{url}/archive/%{commit}/typeguard-%{commit}.tar.gz
+Source:         %{url}/archive/%{version}/typeguard-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires):  -g test
@@ -62,11 +53,11 @@ tomcli set pyproject.toml lists delitem dependency-groups.test 'mypy\b.*'
 
 
 %generate_buildrequires -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{pyversion}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %build -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{pyversion}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a

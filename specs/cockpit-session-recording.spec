@@ -1,5 +1,5 @@
 Name: cockpit-session-recording
-Version: 19
+Version: 20
 Release: 1%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.1-or-later
@@ -26,12 +26,12 @@ Requires: cockpit-system
 Requires: tlog
 Requires: sssd-proxy
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.1.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
+Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(array-timsort)) = 1.0.3
@@ -42,7 +42,7 @@ Provides: bundled(npm(comment-json)) = 4.2.5
 Provides: bundled(npm(core-util-is)) = 1.0.3
 Provides: bundled(npm(esprima)) = 4.0.1
 Provides: bundled(npm(file-selector)) = 2.1.2
-Provides: bundled(npm(focus-trap)) = 7.6.2
+Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(has-own-prop)) = 2.0.0
 Provides: bundled(npm(ieee754)) = 1.2.1
 Provides: bundled(npm(ini)) = 5.0.0
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Jun 13 2025 Packit <hello@packit.dev> - 20-1
+- Build updates
+
 * Tue May 6 2025 Packit <hello@packit.dev> - 19-1
  * Update to PatternFly 6
 

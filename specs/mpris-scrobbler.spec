@@ -1,8 +1,8 @@
 %global forgeurl    https://github.com/mariusor/mpris-scrobbler
-%global commit      fba24daf1bb1b416b3dc69567aeb4ac162c68d35
+%global commit      38c9949021a7e612c269ed5d006261d842feb0eb
 
 Name:           mpris-scrobbler
-Version:        0.5.6
+Version:        0.5.7
 Release:        %autorelease
 Summary:        User daemon to submit currently playing song to LastFM, LibreFM, ListenBrainz
 License:        MIT
@@ -12,7 +12,6 @@ License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        %{name}.rpmlintrc
-Patch0:         rhbz2354388.patch
 
 BuildRequires:  gcc
 BuildRequires:  git

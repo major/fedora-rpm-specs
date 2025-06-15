@@ -1,5 +1,3 @@
-%global _without_extradeps 1
-%global _without_tests 1
 # When bootstrapping Python, we cannot test this yet
 # RHEL does not include the test dependencies and the dependencies for extras
 %bcond tests %{undefined rhel}

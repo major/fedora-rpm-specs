@@ -4,11 +4,11 @@ Name:           appeditor
 Summary:        Edit application menu
 Version:        1.1.5
 Release:        %autorelease
+
 # The entire source is GPL-3.0-only, except:
 #   - data/com.github.donadigo.appeditor.appdata.xml.in is CC0-1.0, which is
 #     allowed for content only
 License:        GPL-3.0-only AND CC0-1.0
-
 URL:            https://github.com/donadigo/appeditor
 Source:         %{url}/archive/%{version}/appeditor-%{version}.tar.gz
 

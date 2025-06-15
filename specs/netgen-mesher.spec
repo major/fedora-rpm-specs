@@ -27,8 +27,8 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2503
-Release:        2%{?dist}
+Version:        6.2.2504
+Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 ExcludeArch:    %{ix86}
 
@@ -420,6 +420,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri Jun 13 2025 Sandro Mani <manisandro@gmail.com> - 6.2.2504-1
+- Update to 6.2.2504
+
 * Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 6.2.2503-2
 - Rebuilt for Python 3.14
 

@@ -24,8 +24,10 @@ Version:        2.0.41
 %endif
 
 %if %{undefined rhel}
-# postgresql_pg8000, postgresql_asyncpg extras removed to unblock the Python 3.14 rebuild
-# TODO add them back once ready
+# mysql_connector extra removed to unblock the Python 3.14 rebuild
+# TODO add it back once ready
+# F43FailsToInstall: mysql-connector-python3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2371751
 %if v"0%{?python3_version}" >= v"3.14"
 %bcond py314quirk 1
 %else
@@ -40,8 +42,8 @@ Version:        2.0.41
     %{!?with_py314quirk:mysql_connector} \
     %{?with_mypy:mypy} \
     postgresql \
-    %{!?with_py314quirk:postgresql_pg8000} \
-    %{!?with_py314quirk:postgresql_asyncpg} \
+    postgresql_pg8000 \
+    postgresql_asyncpg \
     pymysql \
     aiomysql \
     aioodbc \

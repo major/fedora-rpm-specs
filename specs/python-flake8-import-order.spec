@@ -2,13 +2,13 @@
 %bcond_with pylama
 
 Name:           python-%{srcname}
-Version:        0.18.2
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Flake8 plugin for checking order of imports in Python code
 
 License:        LGPL-3.0-only
 URL:            https://github.com/PyCQA/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/f/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source flake8_import_order}
 Patch0:         flake8-import-order-0.9.2-nolama.patch
 
 BuildArch:      noarch
@@ -19,7 +19,6 @@ BuildArch:      noarch
 %package     -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-flake8
 BuildRequires:  python%{python3_pkgversion}-pycodestyle
@@ -32,23 +31,23 @@ Requires:       python%{python3_pkgversion}-asttokens
 %description -n python%{python3_pkgversion}-%{srcname}
 %{summary}.
 
-
 %prep
-%setup -q -n %{srcname}-%{version}
+%setup -q -n flake8_import_order-%{version}
 %if ! %{with pylama}
 %patch -P0 -p1
 rm tests/test_pylama_linter.py
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-
+%pyproject_save_files -l flake8_import_order
 %check
 %if ! %{with pylama}
 mv flake8_import_order/pylama_linter.py flake8_import_order/pylama_linter.NOT
@@ -57,12 +56,9 @@ mv flake8_import_order/pylama_linter.py flake8_import_order/pylama_linter.NOT
 %python3 setup.py develop --user
 %python3 -m pytest -v
 
-
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license COPYING
 %doc README.rst
-%{python3_sitelib}/*
-
 
 %changelog
 %autochangelog

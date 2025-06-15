@@ -143,7 +143,7 @@ Summary: The Linux kernel
 # Include RT files
 %global include_rt 1
 # Include Automotive files
-%global include_automotive 1
+%global include_automotive 0
 # Provide Patchlist.changelog file
 %global patchlist_changelog 1
 # Set released_kernel to 1 when the upstream source tarball contains a
@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc1.250612g2c4a1f3fe03e.20
+%define pkgrelease 0.rc1.250613g27605c8c0f69.21
 %define kversion 6
-%define tarfile_release 6.16-rc1-10-g2c4a1f3fe03e
+%define tarfile_release 6.16-rc1-101-g27605c8c0f69
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.250612g2c4a1f3fe03e.20%{?buildid}%{?dist}
+%define specrelease 0.rc1.250613g27605c8c0f69.21%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -908,7 +908,7 @@ BuildRequires: redhat-sb-certs >= 9.4-0.1
 Source0: linux-%{tarfile_release}.tar.xz
 
 Source1: Makefile.rhelver
-Source2: kernel.changelog
+Source2: %{package_name}.changelog
 
 Source10: redhatsecurebootca5.cer
 Source13: redhatsecureboot501.cer
@@ -961,11 +961,8 @@ Source22: filtermods.py
 %define modsign_cmd %{SOURCE21}
 
 %if 0%{?include_rhel}
-Source23: x509.genkey.rhel
-
 Source24: %{name}-aarch64-rhel.config
 Source25: %{name}-aarch64-debug-rhel.config
-
 Source27: %{name}-ppc64le-rhel.config
 Source28: %{name}-ppc64le-debug-rhel.config
 Source29: %{name}-s390x-rhel.config
@@ -973,14 +970,15 @@ Source30: %{name}-s390x-debug-rhel.config
 Source31: %{name}-s390x-zfcpdump-rhel.config
 Source32: %{name}-x86_64-rhel.config
 Source33: %{name}-x86_64-debug-rhel.config
-
-Source34: def_variants.yaml.rhel
-
-Source41: x509.genkey.centos
 # ARM64 64K page-size kernel config
 Source42: %{name}-aarch64-64k-rhel.config
 Source43: %{name}-aarch64-64k-debug-rhel.config
+%endif
 
+%if %{include_rhel} || %{include_automotive}
+Source23: x509.genkey.rhel
+Source34: def_variants.yaml.rhel
+Source41: x509.genkey.centos
 %endif
 
 %if 0%{?include_fedora}
@@ -1084,11 +1082,17 @@ Source487: %{name}-riscv64-rt-debug-fedora.config
 %endif
 
 %if %{include_automotive}
-# automotive config files
+%if %{with_automotiveonly}
+Source488: %{name}-aarch64-rhel.config
+Source489: %{name}-aarch64-debug-rhel.config
+Source490: %{name}-x86_64-rhel.config
+Source491: %{name}-x86_64-debug-rhel.config
+%else
 Source488: %{name}-aarch64-automotive-rhel.config
 Source489: %{name}-aarch64-automotive-debug-rhel.config
 Source490: %{name}-x86_64-automotive-rhel.config
 Source491: %{name}-x86_64-automotive-debug-rhel.config
+%endif
 %endif
 
 
@@ -1764,8 +1768,13 @@ on kernel bugs, as some of these options impact performance noticably.
 
 %if %{with_debug} && %{with_automotive}
 %define variant_summary The Linux Automotive kernel compiled with extra debugging enabled
+%if %{with_automotiveonly}
+%kernel_variant_package debug
+%description debug-core
+%else
 %kernel_variant_package automotive-debug
 %description automotive-debug-core
+%endif
 The kernel package contains the Linux kernel (vmlinuz), the core of any
 Linux operating system.  The kernel handles the basic functions
 of the operating system:  memory allocation, process allocation, device
@@ -1778,8 +1787,13 @@ on kernel bugs, as some of these options impact performance noticably.
 
 %if %{with_automotive_base}
 %define variant_summary The Linux kernel compiled with PREEMPT_RT enabled
+%if %{with_automotiveonly}
+%kernel_variant_package
+%description core
+%else
 %kernel_variant_package automotive
 %description automotive-core
+%endif
 This package includes a version of the Linux kernel compiled with the
 PREEMPT_RT real-time preemption support, targeted for Automotive platforms
 %endif
@@ -1880,6 +1894,13 @@ Prebuilt 64k unified kernel image addons for virtual machines.
 %if %{with_baseonly}
 %if !%{with_up}
 %{log_msg "Cannot build --with baseonly, up build is disabled"}
+exit 1
+%endif
+%endif
+
+%if %{with_automotive}
+%if 0%{?fedora}
+%{log_msg "Cannot build automotive with a fedora baseline, must be rhel/centos/eln"}
 exit 1
 %endif
 %endif
@@ -3019,7 +3040,11 @@ BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k-debug
 %endif
 
 %if %{with_automotive}
+%if %{with_automotiveonly}
+BuildKernel %make_target %kernel_image %{_use_vdso} debug
+%else
 BuildKernel %make_target %kernel_image %{_use_vdso} automotive-debug
+%endif
 %endif
 
 %if %{with_arm64_16k}
@@ -3056,7 +3081,11 @@ BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k
 %endif
 
 %if %{with_automotive_base}
+%if %{with_automotiveonly}
+BuildKernel %make_target %kernel_image %{_use_vdso}
+%else
 BuildKernel %make_target %kernel_image %{_use_vdso} automotive
+%endif
 %endif
 
 %if %{with_up_base}
@@ -3896,8 +3925,13 @@ fi\
 %endif
 
 %if %{with_automotive_base}
+%if %{with_automotiveonly}
+%kernel_variant_preun
+%kernel_variant_post
+%else
 %kernel_variant_preun -v automotive
 %kernel_variant_post -v automotive -r kernel
+%endif
 %endif
 
 %if %{with_realtime} && %{with_debug}
@@ -3918,8 +3952,13 @@ fi\
 %endif
 
 %if %{with_automotive} && %{with_debug}
+%if %{with_automotiveonly}
+%kernel_variant_preun -v debug
+%kernel_variant_post -v debug
+%else
 %kernel_variant_preun -v automotive-debug
 %kernel_variant_post -v automotive-debug
+%endif
 %endif
 
 ###
@@ -4244,9 +4283,17 @@ fi\
 %if %{with_realtime}
 %kernel_variant_files %{_use_vdso} %{with_debug} rt-debug
 %endif
+%if %{with_automotiveonly}
+%kernel_variant_files %{_use_vdso} %{with_automotive_base}
+%else
 %kernel_variant_files %{_use_vdso} %{with_automotive_base} automotive
+%endif
 %if %{with_automotive}
+%if %{with_automotiveonly}
+%kernel_variant_files %{_use_vdso} %{with_debug} debug
+%else
 %kernel_variant_files %{_use_vdso} %{with_debug} automotive-debug
+%endif
 %endif
 %if %{with_debug_meta}
 %files debug
@@ -4290,10 +4337,20 @@ fi\
 #
 #
 %changelog
-* Thu Jun 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.2c4a1f3fe03e.20]
+* Fri Jun 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.27605c8c0f69.21]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
 - cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Fri Jun 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.27605c8c0f69.20]
+- kernel.spec: fedora automotive build is not supported (Scott Weaver)
+- gitignore: kernel-automotive generated files (Scott Weaver)
+- gitlab-ci: use AUTOMOTIVE_BUILD with dist-srpm (Scott Weaver)
+- redhat/self-test: update for new automotive variables (Scott Weaver)
+- redhat/Makefile: introduce AUTOMOTIVE_BUILD (Scott Weaver)
+- kernel.spec: updates for automotive-only build (Scott Weaver)
+- fedora: Updates for the 6.16 merge window (Peter Robinson)
+- Linux v6.16.0-0.rc1.27605c8c0f69
 
 * Thu Jun 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.2c4a1f3fe03e.19]
 - redhat/kernel.spec: drop modules-extra-matched for noarch (Jan Stancek)

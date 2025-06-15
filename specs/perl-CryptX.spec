@@ -5,7 +5,7 @@
 
 Name:           perl-CryptX
 Version:        0.087
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -43,17 +43,15 @@ BuildRequires:  perl(Test::More)
 %if %{with perl_CryptX_enables_optional_test}
 # Optional tests:
 BuildRequires:  perl(File::Find)
-%if 0%{?fedora} || 0%{?rhel} >= 10
-BuildRequires:  perl(Math::BigFloat) >= 1.999827
-BuildRequires:  perl(Math::BigInt) >= 1.999827
-%endif
+BuildRequires:  perl(Math::BigFloat)
+BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::Complex)
 BuildRequires:  perl(Storable) >= 2.0
 BuildRequires:  perl(Test::Pod)
 %endif
 
-Provides:       bundled(libtomcrypt) = 1.18.2-1.20241014gitcbb01b37
-Provides:       bundled(libtommath) = 1.2.0-1.20180923git8b9f98ba
+Provides:       bundled(libtomcrypt) = 1.18.2-1.20250506gitd448df17
+Provides:       bundled(libtommath) = 1.2.0-1.20250611git839ae9ea
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Math::BigFloat|Math::BigInt|Storable)\\)$
@@ -74,10 +72,8 @@ Requires:       perl(JSON)
 %endif
 %if %{with perl_CryptX_enables_optional_test}
 Requires:       perl(File::Find)
-%if 0%{?fedora} || 0%{?rhel} >= 10
-Requires:       perl(Math::BigFloat) >= 1.999827
-Requires:       perl(Math::BigInt) >= 1.999827
-%endif
+Requires:       perl(Math::BigFloat)
+Requires:       perl(Math::BigInt)
 Requires:       perl(Math::Complex)
 Requires:       perl(Storable) >= 2.0
 %endif
@@ -154,6 +150,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 12 2025 Xavier Bachelot <xavier@bachelot.org> - 0.087-2
+- Use any version of Math::BigInt and Math::BigFloat
+- Fix bundled Provides:
+
 * Wed Jun 11 2025 Xavier Bachelot <xavier@bachelot.org> - 0.087-1
 - Update to 0.087 (RHBZ#2372355,RHBZ#2372356,RHBZ#2372357,RHBZ#2372358)
   - Fix CVE-2025-40914

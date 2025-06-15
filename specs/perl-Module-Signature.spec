@@ -2,8 +2,8 @@
 %global gnupghome %(mktemp --directory)
 
 Name:           perl-Module-Signature
-Version:        0.89
-Release:        2%{?dist}
+Version:        0.90
+Release:        1%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -11,10 +11,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Signat
 BuildArch:      noarch
 # Module build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(inc::Module::Install) >= 0.92
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Install::Can)
@@ -64,17 +64,18 @@ sed -i -e '/^inc\//d' MANIFEST
 
 %build
 export GNUPGHOME=%{gnupghome}
-perl Makefile.PL INSTALLDIRS=vendor --skipdeps </dev/null
-make %{?_smp_mflags}
+perl Makefile.PL --skipdeps INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
 export GNUPGHOME=%{gnupghome}
-make test
+# Don't try to run signature test because it needs access over network to keyserver,
+# even if we have the necessary keys already
+make test TEST_SIGNATURE=0
 
 %clean
 rm -rf %{buildroot} %{gnupghome}
@@ -87,6 +88,11 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Fri Jun 13 2025 Paul Howarth <paul@city-fan.org> - 0.90-1
+- Update to 0.90
+  - Fix fail on signature file with an unexpected empty line (CPAN RT#166901)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.89-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

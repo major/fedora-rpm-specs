@@ -11,6 +11,8 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://archive.apache.org/dist/commons/beanutils/source/commons-beanutils-%{version}-src.tar.gz
 
+Patch:          0001-Fix-CVE-2025-48734.patch
+
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else

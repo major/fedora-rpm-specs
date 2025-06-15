@@ -11,7 +11,7 @@
 %global awe_shortcommit %(c=%{awe_commit}; echo ${c:0:7})
 
 Name:           icewm
-Version:        3.7.3
+Version:        3.7.5
 %forgemeta
 Release:        %autorelease
 Summary:        Window manager designed for speed, usability, and consistency
@@ -22,11 +22,14 @@ Source0:        %{forgesource}
 Source1:        https://github.com/tim77/awesome-%{name}/archive/%{awe_commit}/awesome-%{name}.git%{awe_shortcommit}.tar.gz
 Source2:        README.Fedora.md
 
+# https://github.com/ice-wm/icewm/commit/5d530bae43e78e42d263ee742dddeee5b68348dc#diff-16f4d1fd81be9644d2565d1cde70ad40b1c73b2876e607219afae2dc755565a4L129
+Patch:          cmake-locale-install.patch
+
 %if %{with fallback_build_tool}
 BuildRequires:  automake
 BuildRequires:  autoconf
 %else
-BuildRequires:  cmake3 >= 3.2
+BuildRequires:  cmake3 >= 3.5
 %endif
 
 BuildRequires:  asciidoc

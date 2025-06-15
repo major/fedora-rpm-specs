@@ -3,9 +3,10 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.4.8
+Version:	3.5.1
 Release:	1%{?dist}
 Summary:	A portable foreign function interface library
+# No license change for 3.5.1
 # No license change for 3.4.8
 # No license change for 3.4.7
 # No license change for 3.4.6
@@ -131,7 +132,7 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %license LICENSE
 %doc README.md
 %{_libdir}/libffi.so.8
-%{_libdir}/libffi.so.8.1.4
+%{_libdir}/libffi.so.8.2.0
 
 %files devel
 %{_libdir}/pkgconfig/*.pc
@@ -141,6 +142,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Fri Jun 13 2025 DJ Delorie <dj@redhat.com> - 3.5.1-1
+- Rebase to libffi 3.5.1.
+
 * Wed May 07 2025 DJ Delorie <dj@redhat.com> - 3.4.8-1
 - Rebase to libffi 3.4.8.
 

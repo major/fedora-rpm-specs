@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           dola
 Version:        1.0.0
 Release:        %autorelease
@@ -9,6 +11,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola/releases/download/%{version}/dola-%{version}.tar.zst
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  lujavrite
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
@@ -20,6 +25,7 @@ BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-api:5.0.0)
 BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-core:5.0.0)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.ow2.asm:asm)
+%endif
 
 Requires:       java-21-openjdk-headless
 Requires:       lujavrite

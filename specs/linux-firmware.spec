@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250509
+Version:	20250613
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -21,7 +21,8 @@ BuildRequires:	python3
 BuildRequires:	rdfind
 %endif
 
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
+Requires:	((linux-firmware = %{version}-%{release}) if linux-firmware)
 Recommends:	amd-gpu-firmware
 Recommends:	amd-ucode-firmware
 Recommends:	atheros-firmware
@@ -49,14 +50,14 @@ This package contains the WHENCE license file which documents the vendor license
 %package -n amd-gpu-firmware
 Summary:	Firmware for AMD GPUs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n amd-gpu-firmware
 Firmware for AMD amdgpu and radeon GPUs.
 
 %package -n intel-gpu-firmware
 Summary:	Firmware for Intel GPUs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n intel-gpu-firmware
 Firmware for Intel GPUs including GuC (Graphics Microcontroller), HuC (HEVC/H.265
 Microcontroller) and DMC (Display Microcontroller) firmware for Skylake and later
@@ -65,7 +66,7 @@ platforms.
 %package -n nvidia-gpu-firmware
 Summary:	Firmware for NVIDIA GPUs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n nvidia-gpu-firmware
 Firmware for NVIDIA GPUs.
 
@@ -73,7 +74,7 @@ Firmware for NVIDIA GPUs.
 %package -n amd-ucode-firmware
 Summary:	Microcode updates for AMD CPUs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n amd-ucode-firmware
 Microcode updates for AMD CPUs, AMD SEV and AMD TEE.
 
@@ -81,21 +82,21 @@ Microcode updates for AMD CPUs, AMD SEV and AMD TEE.
 %package -n atheros-firmware
 Summary:	Firmware for Qualcomm Atheros WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n atheros-firmware
 Firmware for Qualcomm Atheros ath6k/ath9k/ath10k/ath11k WiFi adapters.
 
 %package -n brcmfmac-firmware
 Summary:	Firmware for Broadcom/Cypress brcmfmac WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n brcmfmac-firmware
 Firmware for Broadcom/Cypress brcmfmac WiFi/Bluetooth adapters.
 
 %package -n iwlegacy-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 3945(A)BG and 4965AGN adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n iwlegacy-firmware
 This package contains the firmware required by the iwlegacy driver
 for Linux. This includes the 3945(A)BG and 4965AGN WiFi NICs. Usage
@@ -105,7 +106,7 @@ inside the provided LICENSE file. Please read it carefully.
 %package -n iwlwifi-dvm-firmware
 Summary:	DVM Firmware for Intel(R) Wireless WiFi adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n iwlwifi-dvm-firmware
 This package contains the firmware required by the iwlwifi driver
 for Linux built with DVM firmware support (CONFIG_IWLDVM=y/m). Usage of
@@ -115,7 +116,7 @@ provided LICENSE file. Please read it carefully.
 %package -n iwlwifi-mvm-firmware
 Summary:	MVM Firmware for Intel(R) Wireless WiFi adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n iwlwifi-mvm-firmware
 This package contains the firmware required by the iwlwifi driver
 for Linux built with MVM firmware support (CONFIG_IWLMVM=y/m).  Usage of
@@ -125,7 +126,7 @@ provided LICENSE file. Please read it carefully.
 %package -n libertas-firmware
 Summary:	Firmware for Marvell Libertas SD/USB WiFi Network Adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n libertas-firmware
 Firmware for the Marvell Libertas series of WiFi Network Adapters
 Including the SD 8686/8787 and USB 8388/8388.
@@ -133,28 +134,28 @@ Including the SD 8686/8787 and USB 8388/8388.
 %package -n mt7xxx-firmware
 Summary:	Firmware for Mediatek 7600/7900 series WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n mt7xxx-firmware
 Firmware for Mediatek 7600/7900 series WiFi/Bluetooth adapters
 
 %package -n nxpwireless-firmware
 Summary:	Firmware for NXP WiFi/Bluetooth/UWB adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n nxpwireless-firmware
 Firmware for NXP WiFi/Bluetooth/UWB adapters.
 
 %package -n realtek-firmware
 Summary:	Firmware for Realtek WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n realtek-firmware
 Firmware for Realtek WiFi/Bluetooth adapters
 
 %package -n tiwilink-firmware
 Summary:	Firmware for Texas Instruments WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n tiwilink-firmware
 Firmware for Texas Instruments WiFi/Bluetooth adapters
 
@@ -162,35 +163,35 @@ Firmware for Texas Instruments WiFi/Bluetooth adapters
 %package -n liquidio-firmware
 Summary:	Firmware for Cavium LiquidIO Intelligent Server Adapter
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n liquidio-firmware
 Firmware for Cavium LiquidIO Intelligent Server Adapter
 
 %package -n mlxsw_spectrum-firmware
 Summary:	Firmware for Mellanox Spectrum 1/2/3 Switches
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n mlxsw_spectrum-firmware
 Firmware for Mellanox Spectrumi series 1/2/3 ethernet switches.
 
 %package -n mrvlprestera-firmware
 Summary:	Firmware for Marvell Prestera Switchdev/ASIC devices
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n mrvlprestera-firmware
 Firmware for Marvell Prestera Switchdev/ASIC devices
 
 %package -n netronome-firmware
 Summary:	Firmware for Netronome Smart NICs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n netronome-firmware
 Firmware for Netronome Smart NICs
 
 %package -n qed-firmware
 Summary:	Firmware for Marvell FastLinQ adapters family
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n qed-firmware
 Firmware for Marvell FastLinQ adapters family (QDE), this device
 supports RoCE (RDMA over Converged Ethernet), iSCSI, iWARP, FCoE
@@ -200,7 +201,7 @@ and ethernet including SRIOV, DCB etc.
 %package -n qcom-firmware
 Summary:	Firmware for Qualcomm SoCs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 Requires:	atheros-firmware = %{version}-%{release}
 %description -n qcom-firmware
 Firmware for various compoents in Qualcomm SoCs including Adreno
@@ -211,7 +212,7 @@ modem, Sensor DSPs.
 %package -n intel-vsc-firmware
 Summary:	Firmware files for Intel Visual Sensing Controller (IVSC)
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n intel-vsc-firmware
 Firmware files for Intel Visual Sensing Controller (IVSC) for
 Tiger Lake, Alder Lake and Raptor Lake SoCs and the IPU3/6 firmware.
@@ -220,14 +221,14 @@ Tiger Lake, Alder Lake and Raptor Lake SoCs and the IPU3/6 firmware.
 %package -n cirrus-audio-firmware
 Summary:	Firmware for Cirrus audio amplifiers and codecs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n cirrus-audio-firmware
 Firmware for Cirrus audio amplifiers and codecs
 
 %package -n intel-audio-firmware
 Summary:	Firmware for Intel audio DSP amplifiers and codecs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n intel-audio-firmware
 Firmware for Intel audio DSP amplifiers and codecs
 
@@ -235,7 +236,7 @@ Firmware for Intel audio DSP amplifiers and codecs
 %package -n dvb-firmware
 Summary:	Firmware for various DVB broadcast receivers
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
-Requires:	linux-firmware-whence
+Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n dvb-firmware
 Firmware for various DVB broadcast receivers. These include the
 Siano DTV devices, devices based on Conexant chipsets (cx18,
@@ -350,10 +351,65 @@ sed \
 	-i -e '/^tdmb/d' \
 	-i -e '/^ti-connectivity/d' \
 	-i -e '/^v4l-cx2/d' \
-	linux-firmware.files
+	linux-firmware.{files,dirs}
 sed -i -e 's!^!/usr/lib/firmware/!' linux-firmware.{files,dirs}
 sed -i -e 's/^/"/;s/$/"/' linux-firmware.files
 sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
+
+# temporary workaround for directory->symlink changes/migration
+%pretrans -n nvidia-gpu-firmware -p <lua>
+path = "/usr/lib/firmware/nvidia/ad103"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+path = "/usr/lib/firmware/nvidia/ad104"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+path = "/usr/lib/firmware/nvidia/ad106"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+path = "/usr/lib/firmware/nvidia/ad107"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
 
 
 %files -f linux-firmware.files
@@ -377,9 +433,13 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %files -n nvidia-gpu-firmware
 %license LICENCE.nvidia
 %dir %{_firmwarepath}/nvidia/
-%{_firmwarepath}/nvidia/a*/
-%{_firmwarepath}/nvidia/g*/
-%{_firmwarepath}/nvidia/tu*/
+%{_firmwarepath}/nvidia/a*
+%{_firmwarepath}/nvidia/g*
+%{_firmwarepath}/nvidia/tu*
+%ghost /usr/lib/firmware/nvidia/ad103
+%ghost /usr/lib/firmware/nvidia/ad104
+%ghost /usr/lib/firmware/nvidia/ad106
+%ghost /usr/lib/firmware/nvidia/ad107
 
 # Microcode updates
 %files -n amd-ucode-firmware
@@ -555,6 +615,55 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Fri Jun 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250613-1
+- Update to 20250613
+- Upgrade path for nvidia firmware changes (thanks Denys Vlasenko)
+- QCA: Update WCN785x btusb firmware to 2.0.0-00799-5
+- rtl_nic: update firmware of RTL8153A
+- qcom: sc8280xp: Updated power FW for X13s
+- update firmware for MT7986/MT7981/MT7916
+- cirrus: cs35l41: Add Firmware for ASUS NUC using CS35L41
+- Revert "iwlwifi: add Bz/gl FW for core96-76 release"
+- amdgpu: DMCUB updates for various ASICs
+- mediatek MT7922: update bluetooth firmware to 20250523103438
+- mediatek MT7921: update bluetooth firmware to 20250523111333
+- update firmware for MT7921/MT7922 WiFi device
+- xe: Update GUC to v70.45.2 for BMG, LNL
+- i915: Update GUC to v70.45.2 for DG2
+- xe: Update LNL GSC to v104.0.5.1429
+- amdgpu: DMCUB updates for various ASICs
+- qcom: add QUPv3 firmware for QCS8300 platform
+- Intel IPU7: Add firmware binary files
+- ice: update wireless_edge package to 1.3.23.0
+- ice: update comms package to 1.3.55.0
+- ice: update package to 1.3.43.0
+- Update firmware for Intel Pulsar/BlazarI/Quasar/Solar/Magnetar/BlazarU core
+- iwlwifi: add Bz/gl/ty/So/Ma/cc/Qu/QuZ FW for core96-76 release
+- iwlwifi: update firmwares for 8000 series
+- iwlwifi: update 7265D firmware
+- mediatek MT7925: update bluetooth firmware to 20250526153203
+- update firmware for MT7925 WiFi device
+- qcom: sc8280xp: FW blob updates for X13s
+- brcm: Add symlinks for Khadas VIM SDIO wifi config to AW-CM256SM.txt
+- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00284.1-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
+- cirrus: cs35l41: Fix firmware links for several ASUS laptops
+- cirrus: cs35l41: Add Firmware for various HP Agusta Laptops using CS35L41 HDA
+- Adjust QUPv3 driver name
+- cnm: Add Chips&Media wave633c firmware for NXP i.MX9
+- qcom: add QUPv3 firmware for QCM6490 platform
+- mediatek: Add mt8196 VCP firmware
+- cirrus: cs35l41: Add Firmware for various ACER Laptops using CS35L41 HDA
+- nvidia: add GSP-RM version 570.144 firmware images
+- amdgpu: DMCUB updates for various ASICs
+- powervr: add firmware for Imagination Technologies BXS-4-64 GPU
+- rtl_bt: Update RTL8822C BT USB and UART firmware to 0x7C20
+- brcmfmac: Add a couple of NanoPi devices
+- rtl_nic: add firmware rtl8127a-1
+- cnm: update chips&media wave521c firmware.
+- intel_vpu: Update NPU firmware
+- intel: avs: Update topology file for Digital Microphone Array
+- amdgpu: updates for dcn 3.20 and dcn 4.01 firmware to 0.1.10.0
+
 * Fri May 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250509-1
 - Update to 20250509
 - Amphion: Update vpu firmware

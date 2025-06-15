@@ -1,3 +1,8 @@
+# python-uvloop fails to build with Python 3.14: AttributeError: module
+# 'asyncio' has no attribute 'AbstractChildWatcher'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2326210
+%bcond uvloop 0
+
 Name:           python-hypercorn
 Version:        0.17.3
 Release:        %autorelease
@@ -18,7 +23,7 @@ Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
 Patch:          %{url}/pull/267.patch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t -x h3,trio,uvloop
+BuildOption(generate_buildrequires): -t -x h3,trio%{?with_uvloop:,uvloop}
 BuildOption(install):   -L hypercorn
 
 BuildArch:      noarch
@@ -43,7 +48,7 @@ Summary:        %{summary}
 %description -n python3-hypercorn %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-hypercorn h3 trio uvloop
+%pyproject_extras_subpkg -n python3-hypercorn h3 trio %{?with_uvloop:uvloop}
 
 
 %install -a

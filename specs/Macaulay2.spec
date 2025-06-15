@@ -48,7 +48,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.25.05
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -529,6 +529,10 @@ for fil in checkregularity chiro2circuits chiro2cocircuits cohomcalg csdp lrs \
   ln -s %{_bindir}/$fil $mbindir/$fil
 done
 
+# unbundle factory-gftables
+rm -fr %{buildroot}%{_datadir}/Macaulay2/Core/factory
+ln -s ../../factory %{buildroot}%{_datadir}/Macaulay2/Core
+
 # app img
 for sz in 64 72 96 128 192 256 512; do
   sz2=${sz}x${sz}
@@ -590,6 +594,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Fri Jun 13 2025 Jerry James  <loganjerry@gmail.com> - 1.25.05-4
+- Unbundle factory-gftables (bz 2372455)
+
 * Wed Jun 11 2025 Jerry James  <loganjerry@gmail.com> - 1.25.05-3
 - Rebuild for normaliz 3.10.5
 

@@ -2,7 +2,7 @@
 %bcond gevent 1
 
 Name:           python-zmq
-Version:        26.4.0
+Version:        27.0.0
 Release:        %autorelease
 Summary:        Python bindings for zeromq
 
@@ -44,11 +44,6 @@ SourceLicense:  %{shrink:
 URL:            https://zeromq.org/languages/python/
 %global forgeurl https://github.com/zeromq/pyzmq
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
-
-# Update GPL license notices for remote-only FSF
-# https://github.com/zeromq/pyzmq/pull/2099
-# We are comfortable patching this because the PR was merged upstream.
-Patch:          %{forgeurl}/pull/2099.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): test-requirements-filtered.txt
@@ -155,14 +150,6 @@ ln -s ../tests/ ../pytest.ini ./
 # happen when running tests against an editable install in a virtualenv as they
 # do. Adding the working directory to PYTHONPATH is a workaround.
 export PYTHONPATH="%{buildroot}%{python3_sitearch}:${PWD}"
-
-%if v"0%{?python3_version}" >= v"3.14"
-# BUG: Test regressions related to garbage collection on Python 3.14.0a7
-# https://github.com/zeromq/pyzmq/issues/2091
-k="${k-}${k+ and }not (TestFrame and test_above_30)"
-k="${k-}${k+ and }not (TestFrame and test_lifecycle1)"
-k="${k-}${k+ and }not (TestFrame and test_lifecycle2)"
-%endif
 
 %ifarch %{power64}
 # Several of the green/gevent tests fail with segmentation faults, so we

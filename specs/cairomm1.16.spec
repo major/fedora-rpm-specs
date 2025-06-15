@@ -6,15 +6,7 @@
 # building an autotools-generated tarball with meson, or vice versa.
 %bcond maintainer_mode 1
 
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We can enable the Doxygen PDF documentation as a substitute.
-#
-# We still generate the HTML documentation, but strip out all the JavaScript
-# that causes policy issues. This degrades it in the browser, but is sufficient
-# to keep the Devhelp documentation working.
+# Build Doxygen-generated documentation as a PDF? See notes in %%prep.
 %bcond doc_pdf 1
 
 Name:           cairomm%{apiver}
@@ -147,14 +139,22 @@ The API/ABI version series is %{apiver}.
     --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -n cairomm-%{version} -p1
-# We must remove the jQuery/jQueryUI bundle with precompiled/minified/bundled
-# JavaScript that is in untracked/docs/reference/html/jquery.js, since such
-# sources are banned in Fedora. (Note also that the bundled JavaScript had a
-# different license.) We also remove the tag file, which triggers a rebuild of
-# the documentation. While we are at it, we might as well rebuild the devhelp
-# XML too. Note that we will still install the HTML documentation, since the
-# devhelp XML requires it, but we will strip out the JavaScript, which will
-# degrade the documentation in a web browser.
+# Properly documenting the licenses of Doxygen HTML help is challenging due to
+# issues like a minified JavaScript bundle inserted by Doxygen itself. See
+# discussion at https://bugzilla.redhat.com/show_bug.cgi?id=2006555, as well as
+# https://pagure.io/fesco/issue/3177.
+#
+# We remove the jQuery/jQueryUI bundle with precompiled/minified/bundled
+# JavaScript that is in untracked/docs/reference/html/jquery.js to show that it
+# is not packaged. Shipping files like this is no longer strictly banned in
+# Fedora (https://pagure.io/fesco/issue/3177), but we continue to avoid it.
+#
+# We still generate the HTML documentation, but strip out all the JavaScript
+# that causes policy issues. This degrades it in the browser, but is sufficient
+# to keep the Devhelp documentation working.
+#
+# We also remove the tag file, which triggers a rebuild of the documentation.
+# While we are at it, we might as well rebuild the devhelp XML too.
 rm -rf untracked/docs/reference/html
 rm untracked/docs/reference/cairomm-%{apiver}.tag \
    untracked/docs/reference/cairomm-%{apiver}.devhelp2

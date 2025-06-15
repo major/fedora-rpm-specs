@@ -69,6 +69,9 @@
 %global _lto_cflags %{nil}
 %endif
 
+# FIXME: GCC says there's incompatible pointer casts going on in libavdevice...
+%global build_type_safety_c 2
+
 %global av_codec_soversion 61
 %global av_device_soversion 61
 %global av_filter_soversion 10
@@ -82,21 +85,17 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
-Source0:        ffmpeg%{?pkg_suffix}-%{version}.tar.xz
-Source2:        https://ffmpeg.org/releases/ffmpeg-%{version}.tar.xz.asc
+Source0:        https://ffmpeg.org/releases/ffmpeg-%{version}.tar.xz
+Source1:        https://ffmpeg.org/releases/ffmpeg-%{version}.tar.xz.asc
 # https://ffmpeg.org/ffmpeg-devel.asc
 # gpg2 --import --import-options import-export,import-minimal ffmpeg-devel.asc > ./ffmpeg.keyring
-Source3:        ffmpeg.keyring
-Source4:        ffmpeg_free_sources
+Source2:        ffmpeg.keyring
 Source20:       enable_decoders
 Source21:       enable_encoders
-# Scripts for generating tarballs
-Source90:       ffmpeg_update_free_sources.sh
-Source91:       ffmpeg_gen_free_tarball.sh
 
 # Fixes for reduced codec selection on free build
 Patch1:         ffmpeg-codec-choice.patch
@@ -532,7 +531,7 @@ This subpackage contains the headers for FFmpeg libswscale.
 
 %prep
 %if %{with upstream_tarball}
-%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 %autosetup -S git_am
@@ -859,6 +858,10 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Jun 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-4
+- Switch to regular upstream sources for package build
+- Enable more codecs
+
 * Sat Mar 22 2025 Songsong Zhang <U2FsdGVkX1@gmail.com> - 7.1.1-3
 - Add missing source files for riscv64
 

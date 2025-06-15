@@ -1,7 +1,12 @@
-%global treesitter_so_version 0
+%global tree_sitter_so_version 0
+
+# Keep these up-to-date with the values in lib/include/tree_sitter/api.h:
+%global tree_sitter_language_version 15
+%global tree_sitter_min_compatible_language_version 13
+
 
 Name:           tree-sitter
-Version:        0.25.5
+Version:        0.25.6
 Release:        %autorelease
 Summary:        An incremental parsing system for programming tools
 
@@ -28,6 +33,12 @@ edited. Tree-sitter aims to be:
 
 %package -n lib%{name}
 Summary:        Incremental parsing library for programming tools
+%{lua:
+  for i = rpm.expand('%tree_sitter_min_compatible_language_version'),
+          rpm.expand('%tree_sitter_language_version') do
+    print(string.format("Provides: tree-sitter(:LANGUAGE_VERSION) = %d\n", i))
+  end
+}
 
 %description -n lib%{name}
 Tree-sitter is a parser generator tool and an incremental parsing
@@ -62,12 +73,19 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 install -d %{buildroot}%{_datadir}/tree-sitter/queries
 
 
+%check
+grep -q '^#define TREE_SITTER_LANGUAGE_VERSION %tree_sitter_language_version' \
+     lib/include/tree_sitter/api.h
+grep -q '^#define TREE_SITTER_MIN_COMPATIBLE_LANGUAGE_VERSION %tree_sitter_min_compatible_language_version' \
+     lib/include/tree_sitter/api.h
+
+
 %files -n lib%{name}
 %license LICENSE
 %doc README.md
 %dir %{_datadir}/tree-sitter
 %dir %{_datadir}/tree-sitter/queries
-%{_libdir}/libtree-sitter.so.%{treesitter_so_version}*
+%{_libdir}/libtree-sitter.so.%{tree_sitter_so_version}*
 
 %files -n lib%{name}-devel
 %{_includedir}/tree_sitter

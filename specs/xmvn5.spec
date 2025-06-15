@@ -15,7 +15,6 @@ Source25:       toolchains-openjdk25.xml
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
-BuildRequires:  maven
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
@@ -42,9 +41,9 @@ BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  kojan-xml
+%endif
 # Maven home is used as template for XMvn home
 BuildRequires:  maven4
-%endif
 Requires:       %{name}-minimal = %{version}-%{release}
 Requires:       maven4
 

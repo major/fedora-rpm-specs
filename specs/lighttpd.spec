@@ -50,7 +50,7 @@
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
 Version: 1.4.79
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -80,18 +80,6 @@ BuildRequires: libxcrypt-devel
 %{?with_pcre2:BuildRequires: pcre2-devel}
 %{?with_nettle:BuildRequires: nettle-devel}
 %{?with_unwind:BuildRequires: libunwind-devel}
-
-# remove after f38
-Provides: %{name}-mod_authn_mysql%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-mod_authn_mysql <= 1.4.63-1
-
-# remove after f38
-Provides: %{name}-mod_mysql_vhost%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-mod_mysql_vhost <= 1.4.63-1
-
-# remove after f38
-Provides: %{name}-mod_geoip%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-mod_geoip <= 1.4.63-1
 
 %description
 lighttpd (pronounced /lighty/) is a secure, fast, compliant, and very flexible
@@ -600,6 +588,10 @@ install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.co
 %{_sysusersdir}/lighttpd.conf
 
 %changelog
+* Fri Jun 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.79-2
+- Use systemctl kill for logrotate, BZ 2372677.
+- Clean up old obs/provides
+
 * Fri Apr 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.79-1
 - 1.4.79
 - Switch to upstream unit file.

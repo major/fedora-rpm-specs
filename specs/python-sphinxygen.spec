@@ -1,6 +1,6 @@
 Name:           python-sphinxygen
 Version:        1.0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A script to read Doxygen XML output and emit ReST for Sphinx
 
 # All files under ISC, though some tests and
@@ -9,6 +9,10 @@ License:        ISC
 URL:            https://gitlab.com/drobilla/sphinxygen
 # Source from Pypi does not include all test files
 Source:        %{url}/-/archive/v%{version}/sphinxygen-v%{version}.tar.gz
+
+# Fix tests with doxygen version 1.14
+# https://gitlab.com/drobilla/sphinxygen/-/merge_requests/2
+Patch:          0001-Fix-tests-with-doxygen-1.14.patch
 
 BuildRequires:  sed
 BuildRequires:  python3-devel
@@ -71,6 +75,9 @@ install -Dpm 0644 doc/sphinxygen.1 -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/sphinxygen.1*
  
 %changelog
+* Fri Jun 13 2025 Nils Philippsen <nils@tiptoe.de> - 1.0.10-3
+- Fix tests with doxygen version 1.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.10-2
 - Rebuilt for Python 3.14
 

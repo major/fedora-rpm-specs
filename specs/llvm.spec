@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -1330,8 +1330,15 @@ popd
 	-DCLANG_INCLUDE_TESTS:BOOL=ON \\\
 	-DCLANG_PLUGIN_SUPPORT:BOOL=ON \\\
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \\\
-	-DLLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=../clang-tools-extra \\\
+	-DLLVM_EXTERNAL_CLANG_TOOLS_EXTRA_SOURCE_DIR=../clang-tools-extra
+
+%if %{with compat_build}
+%global cmake_config_args %{cmake_config_args} \\\
 	-DCLANG_RESOURCE_DIR=../../../lib/clang/%{maj_ver}
+%else
+%global cmake_config_args %{cmake_config_args} \\\
+	-DCLANG_RESOURCE_DIR=../lib/clang/%{maj_ver}
+%endif
 #endregion clang options
 
 #region compiler-rt options
@@ -1938,8 +1945,12 @@ rm -Rvf %{buildroot}%{install_datadir}/clang-doc
 # TODO: What are the Fedora guidelines for packaging bash autocomplete files?
 rm -vf %{buildroot}%{install_datadir}/clang/bash-autocomplete.sh
 
-# Create sub-directories in the clang resource directory that will be
-# populated by other packages
+%if %{without compat_build}
+# Move clang resource directory to default prefix.
+mkdir -p %{buildroot}%{_prefix}/lib/clang
+mv %{buildroot}%{install_prefix}/lib/clang/%{maj_ver} %{buildroot}%{_prefix}/lib/clang/%{maj_ver}
+%endif
+# Create any missing sub-directories in the clang resource directory.
 mkdir -p %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/{bin,include,lib,share}/
 
 # Add versioned resource directory macro
@@ -2025,7 +2036,7 @@ rmdir %{buildroot}%{install_prefix}/%{_lib}/python%{python3_version}
 
 # python: fix binary libraries location
 liblldb=$(basename $(readlink -e %{buildroot}%{install_libdir}/liblldb.so))
-ln -vsf "../../../llvm%{maj_ver}/lib/${liblldb}" %{buildroot}%{python3_sitearch}/lldb/_lldb.so
+ln -vsf "../../../${liblldb}" %{buildroot}%{python3_sitearch}/lldb/_lldb.so
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitearch}/lldb
 %endif
 %endif
@@ -2066,40 +2077,9 @@ popd
 rm -f %{buildroot}%{install_libdir}/libLLVMBOLT*.a
 #endregion BOLT installation
 
-# Create symlinks from the system install prefix to the llvm install prefix.
-# Do this at the end so it includes any files added by preceding steps.
-mkdir -p %{buildroot}%{_bindir}
-for f in %{buildroot}%{install_bindir}/*; do
-  filename=`basename $f`
-  if [[ "$filename" == "clang-%{maj_ver}" ]]; then
-    continue
-  fi
-  # Add symlink for binaries with version suffix.
-  ln -s ../../%{install_bindir}/$filename %{buildroot}/%{_bindir}/$filename-%{maj_ver}
-  # For non-compat builds, also add a symlink without version suffix.
-  %if %{without compat_build}
-    ln -s ../../%{install_bindir}/$filename %{buildroot}/%{_bindir}/$filename
-  %endif
-done
-
-# Move man pages to system install prefix.
-mkdir -p %{buildroot}%{_mandir}/man1
-for f in %{buildroot}%{install_mandir}/man1/*; do
-  filename=`basename $f`
-  filename=${filename%.1}
-  mv $f %{buildroot}%{_mandir}/man1/$filename-%{maj_ver}.1
-  %if %{without compat_build}
-    ln -s $filename-%{maj_ver}.1 %{buildroot}%{_mandir}/man1/$filename.1
-  %endif
-done
-rmdir %{buildroot}%{install_mandir}/man1
-rmdir %{buildroot}%{install_mandir}
-
-%if %{without compat_build}
-# We don't create directory symlinks, because RPM does not support
-# switching between a directory and a symlink, causing upgrade/downgrade issues.
-# Instead, recursively copy the directories while creating symlinks.
-copy_with_relative_symlinks() {
+# Move files from src to dest and replace the old files in src with relative
+# symlinks.
+move_and_replace_with_symlinks() {
     local src="$1"
     local dest="$2"
     mkdir -p "$dest"
@@ -2107,21 +2087,59 @@ copy_with_relative_symlinks() {
     # Change to source directory to simplify relative paths
     (cd "$src" && \
         find * -type d -exec mkdir -p "$dest/{}" \; && \
-        find * \( -type f -o -type l \) -exec ln -s --relative "$src/{}" "$dest/{}" \;)
+        find * \( -type f -o -type l \) -exec mv "$src/{}" "$dest/{}" \; \
+             -exec ln -s --relative "$dest/{}" "$src/{}" \;)
 }
 
-# Add symlinks for libraries.
-copy_with_relative_symlinks %{buildroot}%{install_libdir} %{buildroot}%{_libdir}
-copy_with_relative_symlinks %{buildroot}%{install_libexecdir} %{buildroot}%{_libexecdir}
-copy_with_relative_symlinks %{buildroot}%{install_includedir} %{buildroot}%{_includedir}
-copy_with_relative_symlinks %{buildroot}%{install_datadir} %{buildroot}%{_datadir}
-
-%if %{maj_ver} >= 21 && %{with offload}
-# Remove offload libaries since we only want to ship these in the configured
-# install prefix.
-rm -Rf %{buildroot}%{_libdir}/amdgcn-amd-amdhsa
-rm -Rf %{buildroot}%{_libdir}/nvptx64-nvidia-cuda
+%if %{without compat_build}
+# Move files from the llvm prefix to the system prefix and replace them with
+# symlinks. We do it this way around because symlinks between multilib packages
+# would conflict otherwise.
+move_and_replace_with_symlinks %{buildroot}%{install_bindir} %{buildroot}%{_bindir}
+move_and_replace_with_symlinks %{buildroot}%{install_libdir} %{buildroot}%{_libdir}
+move_and_replace_with_symlinks %{buildroot}%{install_libexecdir} %{buildroot}%{_libexecdir}
+move_and_replace_with_symlinks %{buildroot}%{install_includedir} %{buildroot}%{_includedir}
+move_and_replace_with_symlinks %{buildroot}%{install_datadir} %{buildroot}%{_datadir}
 %endif
+
+# Create versioned symlinks for binaries.
+# Do this at the end so it includes any files added by preceding steps.
+mkdir -p %{buildroot}%{_bindir}
+for f in %{buildroot}%{install_bindir}/*; do
+  filename=`basename $f`
+  if [[ "$filename" =~ ^(lit|ld|clang-%{maj_ver})$ ]]; then
+    continue
+  fi
+  %if %{with compat_build}
+    ln -s ../../%{install_bindir}/$filename %{buildroot}/%{_bindir}/$filename-%{maj_ver}
+  %else
+    # clang-NN is already created by the build system.
+    if [[ "$filename" == "clang" ]]; then
+      continue
+    fi
+    ln -s $filename %{buildroot}/%{_bindir}/$filename-%{maj_ver}
+  %endif
+done
+
+mkdir -p %{buildroot}%{_mandir}/man1
+for f in %{buildroot}%{install_mandir}/man1/*; do
+  filename=`basename $f`
+  filename=${filename%.1}
+  %if %{with compat_build}
+    # Move man pages to system install prefix.
+    mv $f %{buildroot}%{_mandir}/man1/$filename-%{maj_ver}.1
+  %else
+    # Create suffixed symlink.
+    ln -s $filename.1 %{buildroot}%{_mandir}/man1/$filename-%{maj_ver}.1
+  %endif
+done
+rm -rf %{buildroot}%{install_mandir}
+
+# As an exception, always keep llvm-config in the versioned prefix.
+# The llvm-config in the default prefix will be managed by alternatives.
+%if %{without compat_build}
+rm %{buildroot}%{install_bindir}/llvm-config
+mv %{buildroot}%{_bindir}/llvm-config %{buildroot}%{install_bindir}/llvm-config
 %endif
 
 # ghost presence for llvm-config, managed by alternatives.
@@ -2903,6 +2921,14 @@ fi
     llvm-isel-fuzzer
     llvm-opt-fuzzer
 }}
+%if %{maj_ver} >= 21
+%{expand_bins %{expand:
+    llvm-test-mustache-spec
+}}
+%{expand_mans %{expand:
+    llvm-test-mustache-spec
+}}
+%endif
 
 %files -n %{pkg_name_llvm}-googletest
 %license llvm/LICENSE.TXT
@@ -3156,10 +3182,12 @@ fi
     libomptarget-nvptx*.bc
 }}
 %else
-%{install_libdir}/amdgcn-amd-amdhsa/libompdevice.a
-%{install_libdir}/amdgcn-amd-amdhsa/libomptarget-amdgpu.bc
-%{install_libdir}/nvptx64-nvidia-cuda/libompdevice.a
-%{install_libdir}/nvptx64-nvidia-cuda/libomptarget-nvptx.bc
+%{expand_libs %{expand:
+    amdgcn-amd-amdhsa/libompdevice.a
+    amdgcn-amd-amdhsa/libomptarget-amdgpu.bc
+    nvptx64-nvidia-cuda/libompdevice.a
+    nvptx64-nvidia-cuda/libomptarget-nvptx.bc
+}}
 %endif
 
 %expand_includes offload
@@ -3395,6 +3423,10 @@ fi
 
 #region changelog
 %changelog
+* Tue Jun 10 2025 Nikita Popov <npopov@redhat.com> - 20.1.6-8
+- Invert symlink direction
+- Fix i686 multilib installation (rhbz#2365079)
+
 * Thu Jun 05 2025 Timm Bäder <tbaeder@redhat.com> - 20.1.6-7
 - Backport patch to fix rhbz#2363895
 

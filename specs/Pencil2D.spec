@@ -1,6 +1,5 @@
 Name:           Pencil2D
 Version:        0.7.0
-%global srcversion %(echo '%{version}' | tr '~' '-')
 Release:        %autorelease
 Summary:        Create traditional hand-drawn animation (cartoon)
 # For translations, check translations/*.ts.
@@ -113,8 +112,9 @@ SourceLicense:  %{shrink:
                 MIT AND
                 Unlicense
                 }
-URL:            https://github.com/pencil2d/pencil
-Source:         %{url}/archive/v%{srcversion}/pencil-%{srcversion}.tar.gz
+URL:            https://www.pencil2d.org
+%global forgeurl https://github.com/pencil2d/pencil
+Source:         %{forgeurl}/archive/v%{version}/pencil-%{version}.tar.gz
 
 # Ensure QDebug is included for all qDebug uses
 # https://github.com/pencil2d/pencil/pull/1912
@@ -122,7 +122,7 @@ Patch:          0001-Ensure-QDebug-is-included-for-all-qDebug-uses.patch
 # Use the latest GPLv2 license text
 # https://github.com/pencil2d/pencil/pull/1914
 # OK to patch license text downstream since the PR was merged upstream.
-Patch:          %{url}/pull/1914.patch
+Patch:          %{forgeurl}/pull/1914.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -327,7 +327,7 @@ Pencil2D是适用于Mac OS X，Windows和Linux的动画/绘图软件。它允许
 
 
 %prep
-%autosetup -n pencil-%{srcversion} -p1
+%autosetup -n pencil-%{version} -p1
 
 # Unbundle miniz
 rm -v core_lib/src/miniz.h core_lib/src/miniz.cpp

@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.12
+Version:        0.7.13
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -207,7 +207,7 @@ Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 # This is downstream-only because it is extremely temporary: upstream is
 # tracking and testing the fix in hyper-util, and we can expect that the
 # version pin will be removed in the next release or two.
-Patch:          uv-0.7.12-unpin-reqwest.patch
+Patch:          uv-0.7.13-unpin-reqwest.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch

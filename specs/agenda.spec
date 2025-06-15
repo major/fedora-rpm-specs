@@ -4,6 +4,7 @@ Name:           agenda
 Summary:        A simple, slick, speedy and no-nonsense task manager
 Version:        1.1.2
 Release:        %autorelease
+
 # The entire source is GPL-3.0-or-later, except:
 #   - data/Agenda.css is GPL-2.0-or-later; it is not installed directly, but is
 #     incorporated in the executable as a “resource”
@@ -15,7 +16,6 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 #
 #   - test/TestCase.vala is LGPL-2.0-or-later
 SourceLicense:  %{license} AND LGPL-2.0-or-later
-
 URL:            https://github.com/dahenson/agenda
 Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
 

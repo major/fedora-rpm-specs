@@ -1,15 +1,14 @@
 %global pypi_name cotyledon
 
 Name:           python-%{pypi_name}
-Version:        1.7.3
-Release:        26%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://cotyledon.readthedocs.io
 Source0:        %{pypi_source}
-Patch0:         remove-python-mock.patch
 BuildArch:      noarch
 
 %package -n python3-%{pypi_name}
@@ -60,6 +59,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Fri Jun 13 2025 Yatin Karel <ykarel@redhat.com> - 2.0.0-1
+- Update to 2.0.0 (Resolves rhbz#2343112)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.3-26
 - Rebuilt for Python 3.14
 

@@ -23,7 +23,7 @@ Patch2:         %{name}-pyeval-initthreads.patch
 
 # Preserve negative zero in string formatting
 # https://bugzilla.redhat.com/show_bug.cgi?id=2339539
-# https://github.com/fract4d/gnofract4d/issues/267
+# https://github.com/fract4d/gnofract4d/pull/266
 Patch3:         %{name}-python314.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -57,7 +57,7 @@ Mandelbrot and Julia sets and many more.  You don't need to do any math:
 you can explore a universe of images just using a mouse.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 # Fix the desktop file
 sed -e "s/Categories.*/Categories=Graphics;GTK;GNOME;Education;Science;Math;/" \

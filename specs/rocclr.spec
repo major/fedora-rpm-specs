@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -198,6 +198,10 @@ Summary:        ROCm HIP development package
 Requires:       rocm-hip%{?_isa} = %{version}-%{release}
 Requires:       rocm-comgr-devel
 Requires:       rocm-runtime-devel >= %{rocm_release}
+# For roc-obj-ls
+Requires:       binutils
+Requires:       gawk
+
 Provides:       hip-devel = %{version}-%{release}
 Obsoletes:      hip-devel < 6.0.0
 
@@ -383,6 +387,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Improve requires for rocm-hip-devel
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

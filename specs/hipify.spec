@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -17,6 +17,7 @@ License:        MIT
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:         0001-prepare-hipify-cmake-for-fedora.patch
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  perl
@@ -60,6 +61,10 @@ chmod a+x %{buildroot}%{_bindir}/*
 # Fix script shebang (Fedora doesn't allow using "env"):
 sed -i 's|\(/usr/bin/\)env perl|\1perl|' %{buildroot}%{_bindir}//hipify-perl
 
+# Fix
+# /usr/bin/hipify-clang: error while loading shared libraries: libclang-cpp.so.19.0git
+chrpath %{buildroot}%{_bindir}/hipify-clang -r %rocmllvm_libdir
+
 if [ -d %{buildroot}%{_includedir} ]; then
     rm -rf %{buildroot}%{_includedir}
 fi
@@ -76,6 +81,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Fix hipify-clang rpath
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

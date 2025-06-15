@@ -9,6 +9,7 @@ Summary:        Python dependency injection framework inspired by Guice
 License:        BSD-3-Clause
 URL:            https://github.com/alecthomas/injector
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Patch0:         sphinx.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel >= 3.10
@@ -48,7 +49,7 @@ BuildRequires:  python3dist(typing-extensions)
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p0
 
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
