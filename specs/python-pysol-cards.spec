@@ -2,8 +2,8 @@
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
-Version:        0.22.0
-Release:        2%{?dist}
+Version:        0.24.0
+Release:        1%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -46,6 +46,9 @@ sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jun 14 2025 Shlomi Fish <shlomif@shlomifish.org> 0.24.0-1
+- Update to 0.24.0 (#2362883)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.22.0-2
 - Rebuilt for Python 3.14
 

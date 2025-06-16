@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.5.4
-%define radicale_release  2
+%define radicale_release  3
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -36,7 +36,7 @@
 
 Name:           radicale
 Version:        %{radicale_version}
-Release:        %{radicale_release}%{?gittag}%{?dist}.1
+Release:        %{radicale_release}%{?gittag}%{?dist}
 Summary:        A simple CalDAV (calendar) and CardDAV (contact) server
 License:        GPL-3.0-or-later
 URL:            https://radicale.org
@@ -192,7 +192,7 @@ logwatch configuration for Radicale
 
 %package -n %{radicale_package_name}-InfCloud
 Summary:        InfCloud extension for Radicale internal WebUI
-License:        AGPL-3.0-only AND Apache-2.0
+License:        AGPL-3.0-only
 URL:            https://inf-it.com/open-source/clients/infcloud/
 BuildRequires:  unzip
 Requires:       ed
@@ -204,14 +204,15 @@ Infcloud extension for Radicale internal WebUI
 Bundled version: %{infcloud_version}
 
 
-%package -n %{radicale_package_name}-InfCloud-fonts
+%package -n %{radicale_package_name}-InfCloud-fontware
 Summary:        Fonts for InfCloud extension for Radicale internal WebUI
 License:        Apache-2.0
 URL:            https://inf-it.com/open-source/clients/infcloud/
 Requires:       %{radicale_package_name}-InfCloud = %{version}-%{release}
+Obsoletes:	%{radicale_package_name}-InfCloud-fonts
 
 
-%description -n %{radicale_package_name}-InfCloud-fonts
+%description -n %{radicale_package_name}-InfCloud-fontware
 Fonts for Infcloud extension for Radicale internal WebUI
 Bundled version: %{infcloud_version}
 
@@ -523,11 +524,14 @@ fi
 %exclude %{python3_sitelib}/%{name}/web/internal_data/infcloud/fonts
 
 
-%files -n %{radicale_package_name}-InfCloud-fonts
+%files -n %{radicale_package_name}-InfCloud-fontware
 %{python3_sitelib}/%{name}/web/internal_data/infcloud/fonts
 
 
 %changelog
+* Sat Jun 14 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-3
+- Rename InfCloud-fonts package to InfCloud-fontware (BZ#2372650)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.5.4-2.1
 - Rebuilt for Python 3.14
 

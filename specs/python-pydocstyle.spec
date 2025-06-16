@@ -10,6 +10,10 @@ License:    MIT
 URL:        https://github.com/PyCQA/pydocstyle/
 Source:     %{pypi_source %{pypi_name}}
 Patch:      https://github.com/PyCQA/pydocstyle/pull/656.patch
+# Fix python3.14 test failure
+# (D401: First line should be in imperative mood (perhaps 'Add', not 'Adding')
+# NOTE: Upstream has archived the repository and it is not possible to submit PRs anymore
+Patch:      pydocstyle-py3.14.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

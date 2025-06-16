@@ -1,7 +1,7 @@
 %global rdnn_name io.github.ebonjaeger.bluejay
 
 Name:           bluejay
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Bluetooth manager written in Qt
 
@@ -21,6 +21,7 @@ BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6UiTools)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(KF6BluezQt)
+BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6DBusAddons)
@@ -79,5 +80,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn_name}.m
 
 
 %changelog
+* Sat Jun 14 2025 Evan Maddock <maddock.evan@vivaldi.net> - 1.0.3-1
+- Update to version 1.0.3 (rhbz#2369903)
+
 * Sat Feb 08 2025 Evan Maddock <maddock.evan@vivaldi.net> - 1.0.2-1
 - Initial package

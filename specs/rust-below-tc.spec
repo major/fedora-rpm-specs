@@ -15,6 +15,9 @@ Source:         %{crates_source}
 # * include license file
 # * https://github.com/facebookincubator/below/pull/8242
 Source2:        https://raw.githubusercontent.com/facebookincubator/below/refs/tags/v0.9.0/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * bump netlink-packet-route from 0.19 to 0.22
+Patch:          below-tc-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

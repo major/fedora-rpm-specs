@@ -19,6 +19,10 @@ Patch0:         backport-716.patch
 # Part of       https://github.com/ReactiveX/RxPY/pull/722
 Patch1:         https://github.com/ReactiveX/RxPY/commit/9a6a5cddc907120ff521a2938415527bfd03e5ef.patch
 
+# Stop using asyncio.get_event_loop() which vanishes in 3.14
+# https://github.com/ReactiveX/RxPY/pull/728
+Patch2:         python314-new-event-loop.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -46,6 +50,7 @@ Summary: %{summary}
 tar -xf %{SOURCE1} RxPY-%{version}/tests --strip-components=1
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 
 %generate_buildrequires

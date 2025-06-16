@@ -10,6 +10,8 @@ Summary:        Stateful programmatic web browsing
 License:        LicenseRef-Callaway-BSD OR ZPL-2.1
 URL:            https://github.com/python-mechanize/
 Source0:        https://github.com/python-mechanize/mechanize/archive/v%{version}.tar.gz
+# Upstream already patch to fix cookie test with python 3.14
+Patch:          https://github.com/python-mechanize/mechanize/commit/0c1cd4b65697dee4e4192902c9a2965d94700502.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

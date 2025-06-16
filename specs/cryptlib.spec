@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -359,6 +359,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jun 14 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-8
+- update tests for gpg interoperability
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.4.8-7
 - Rebuilt for Python 3.14
 

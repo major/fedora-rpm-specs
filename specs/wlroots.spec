@@ -1,11 +1,12 @@
 # Version of the .so library
-%global abi_ver 0.18
+%global abi_ver 0.19
 # libliftoff does not bump soname on API changes
-%global liftoff_ver %[0%{?fedora} >= 41 ? "0.5.0" : "0.4.1" ]
+%global liftoff_ver 0.5.0
+%global tag     0.19.0
 
 Name:           wlroots
-Version:        0.18.2
-Release:        4%{?dist}
+Version:        0.19.0
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -25,8 +26,8 @@ Summary:        A modular Wayland compositor library
 # the underlying licenses.
 License:        MIT
 URL:            https://gitlab.freedesktop.org/wlroots/wlroots
-Source0:        %{url}/-/releases/%{version}/downloads/%{name}-%{version}.tar.gz
-Source1:        %{url}/-/releases/%{version}/downloads/%{name}-%{version}.tar.gz.sig
+Source0:        %{url}/-/releases/%{tag}/downloads/%{name}-%{tag}.tar.gz
+Source1:        %{url}/-/releases/%{tag}/downloads/%{name}-%{tag}.tar.gz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
@@ -40,13 +41,11 @@ Source3:        examples.meson.build
 # Fedora patches
 # Following patch is required for phoc.
 Patch:          Revert-layer-shell-error-on-0-dimension-without-anch.patch
-# Needed by phoc 0.45.0+, can be dropped in wlroots 0.18.3
-Patch:          https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4985.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
 BuildRequires:  gnupg2
-BuildRequires:  meson >= 0.59.0
+BuildRequires:  meson >= 1.3
 
 BuildRequires:  (pkgconfig(libdisplay-info) >= 0.1.1 with pkgconfig(libdisplay-info) < 0.3)
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
@@ -59,12 +58,12 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4.122
 BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(pixman-1) >= 0.42.0
+BuildRequires:  pkgconfig(pixman-1) >= 0.43.0
 BuildRequires:  pkgconfig(vulkan) >= 1.2.182
 BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.35
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
 BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(wayland-server) >= 1.23
+BuildRequires:  pkgconfig(wayland-server) >= 1.23.1
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-composite)
@@ -104,7 +103,7 @@ Development files for %{name}.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -N
+%autosetup -N -n %{name}-%{tag}
 # apply unconditional patches (0..99)
 %autopatch -p1 -M99
 # apply conditional patches (100..)
@@ -142,6 +141,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Fri May 16 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.0-1
+- Update to 0.19.0 (#2359256)
+
 * Sat Feb 15 2025 Sam Day <me@samcday.com> - 0.18.2-4
 - Add wlroots!4985 patch needed by phoc 0.45.0
 

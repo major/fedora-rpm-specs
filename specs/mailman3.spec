@@ -5,7 +5,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -209,6 +209,9 @@ done
 
 
 %changelog
+* Sat Jun 14 2025 Python Maint <python-maint@redhat.com> - 3.3.9-4
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.9-3
 - Drop call to %sysusers_create_compat
 

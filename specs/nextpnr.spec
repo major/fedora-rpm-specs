@@ -1,11 +1,11 @@
-%global commit d8988e16827a4830a052f0711f9c4828a62d77bf
+%global commit 5275c14ac0caa57bee13c1b04ece2ca645ac7e71
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20250313
+%global snapdate 20250610
 
 Name:		nextpnr
 Version:	1
-Release:	53.%{snapdate}git%{shortcommit}%{?dist}
+Release:	54.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
@@ -13,10 +13,6 @@ License:	ISC AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND (Licens
 URL:		https://github.com/YosysHQ/nextpnr
 Source0:	https://github.com/YosysHQ/nextpnr/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
-# Fedora-specific patch:
-# Remove reference to tests submodule, so we can continue avoiding
-# reliance on bringing in git submodules.
-Patch1:		0001-fedora-test-submodule-patch.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -92,6 +88,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Tue Jun 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-54.20250313git5275c14
+- update to newer snapshot
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1-53.20250313gitd8988e1
 - Rebuilt for Python 3.14
 

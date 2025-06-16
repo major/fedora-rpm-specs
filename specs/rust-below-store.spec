@@ -18,6 +18,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * enable no-vendor feature by default
 # * add zstd as a dependency as well for no-vendor
+# * bump memmap2 from 0.5.10 to 0.9.0
 Patch:          below-store-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

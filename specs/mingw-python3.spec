@@ -23,7 +23,7 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.12
+Version:       3.11.13
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -74,7 +74,7 @@ BuildRequires: automake autoconf libtool
 BuildRequires: autoconf-archive
 BuildRequires: python%{py_ver}-devel
 
-BuildRequires: mingw32-filesystem >= 102
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 # Needed for correct value of CXX in _sysconfigdata.py
 BuildRequires: mingw32-gcc-c++
@@ -87,7 +87,7 @@ BuildRequires: mingw32-sqlite
 BuildRequires: mingw32-tcl
 BuildRequires: mingw32-tk
 
-BuildRequires: mingw64-filesystem >= 102
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 # Needed for correct value of CXX in _sysconfigdata.py
 BuildRequires: mingw64-gcc-c++
@@ -111,6 +111,7 @@ Requires:      python%{py_ver}
 Requires:      python%{py_ver}-devel
 Requires:      python-rpm-macros
 Requires:      python3-rpm-generators
+Requires:      mingw32-dlfcn
 Provides:      mingw32(python(abi)) = %{py_ver}
 
 %description -n mingw32-%{pkgname}
@@ -147,6 +148,7 @@ Requires:      python%{py_ver}
 Requires:      python%{py_ver}-devel
 Requires:      python-rpm-macros
 Requires:      python3-rpm-generators
+Requires:      mingw64-dlfcn
 Provides:      mingw64(python(abi)) = %{py_ver}
 
 %description -n mingw64-%{pkgname}
@@ -352,6 +354,10 @@ rm %{buildroot}%{mingw64_bindir}/2to3
 rm -f %{buildroot}%{_bindir}/pip*
 rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
+# Ensure config scripts are executable
+chmod +x %{buildroot}%{mingw32_bindir}/python3-config
+chmod +x %{buildroot}%{mingw64_bindir}/python3-config
+
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
@@ -501,6 +507,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Sat Jun 14 2025 Sandro Mani <manisandro@gmail.com> - 3.11.13-1
+- Update to 3.11.13
+
 * Wed Apr 16 2025 Sandro Mani <manisandro@gmail.com> - 3.11.12-1
 - Update to 3.11.12
 

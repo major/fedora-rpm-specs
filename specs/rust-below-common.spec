@@ -12,6 +12,9 @@ Summary:        Common below code
 License:        Apache-2.0
 URL:            https://crates.io/crates/below-common
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump cursive dependency from 0.20 to 0.21
+Patch:          below-common-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

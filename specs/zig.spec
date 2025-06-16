@@ -43,8 +43,8 @@
 }
 
 Name:           zig
-Version:        0.14.0
-Release:        4%{?dist}
+Version:        0.14.1
+Release:        1%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -63,24 +63,17 @@ Patch:          0001-remove-native-lib-directories-from-rpath.patch
 # https://github.com/ziglang/zig/pull/22516
 Patch:          0002-std.Build-add-build-id-option.patch
 # Zig has a feature that allows the developer to specify max memory usage
-# during compilation, this allows the compiler to split up tasks efficiently-
+# during compilation, this allows the compiler to split up tasks efficiently.
 # Annoyingly if any singular step goes above this it will fail after completion
-# Upstream suggested simply bumping this limit to 9GB
-# https://github.com/ziglang/zig/pull/23638
-Patch:          0003-increase-upper-bounds-of-main-zig-executable-to-9G.patch
-# every snippet of code in the documentation is tested to see if it works
-# while doing this zig incorrectly passes a relative path to the doctest tool
-# which is ran in a temporary directory making that path invalid
-# This patch was superseded by https://github.com/ziglang/zig/pull/23894 which
-# implements a proper fix, but for our use case this is good enough.
-# https://github.com/ziglang/zig/pull/23644
-Patch:          0004-build-pass-zig-lib-dir-as-directory-instead-of-as-st.patch
-# lld will try to resolve every libary of a shared object thats used for this we need
-# add specify the library directories, this patch adds them back.
+# this patch has been merged upstream and turns the error into a warning
+# https://github.com/ziglang/zig/pull/23894
+Patch:          0003-std.Build-Demote-errors-for-exceeding-max_rss-to-war.patch
+# lld will try to resolve every dependency of a shared object that is used directly
+# but by default zig won't add any library directories, this patch adds them back. 
 # This wasn't an issue with the cc binary present because zig will call it to figure
 # out more system paths.
 # https://github.com/ziglang/zig/pull/23850
-Patch:          0005-link.Elf-add-root-directory-of-libraries-to-linker-p.patch
+Patch:          0004-link.Elf-add-root-directory-of-libraries-to-linker-p.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -96,7 +89,7 @@ BuildRequires:  help2man
 BuildRequires:  minisign
 
 %if %{without bootstrap}
-BuildRequires:  %{name} = %{version}
+BuildRequires:  (zig >= 0.14 with zig < 0.15)
 %endif
 
 %if %{with test}
@@ -250,6 +243,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Mon Jun 09 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.1-1
+- Update to 0.14.1
+
 * Tue May 27 2025 Jan200101 <sentrycraft123@gmail.com> - 0.14.0-4
 - add patch to add library directories
 

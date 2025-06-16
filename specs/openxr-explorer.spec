@@ -1,11 +1,11 @@
 %global forgeurl     https://github.com/maluoi/openxr-explorer
-%global commit       b645cfe12eb79f8ae8583c38db56ff350d07b255
-%global date         20250523
+%global commit       721a4a94ddac30c4f8bcb1d4d4c1cb9655d45712
+%global date         20250525
 %global cpm_version  0.32.2
 %forgemeta
 
 Name:           openxr-explorer
-Version:        1.6
+Version:        1.7
 Release:        %autorelease
 Summary:        Debug tool for OpenXR developers
 

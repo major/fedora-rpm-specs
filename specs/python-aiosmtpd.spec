@@ -19,6 +19,10 @@ Source0:        %{url}/archive/%{version}/%{pkgname}-%{version}.tar.gz
 # Proposed python3.13 test fix
 # See https://github.com/aio-libs/aiosmtpd/pull/473
 Patch0:         aiosmtpd-py313.patch
+# Fix build against python3.14
+# - Replace ByteString with bytearray
+# https://github.com/aio-libs/aiosmtpd/pull/556
+Patch1:         aiosmtpd-py3.14.patch
 
 BuildArch:      noarch
 

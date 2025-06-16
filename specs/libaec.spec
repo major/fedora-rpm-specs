@@ -1,8 +1,7 @@
 Name:           libaec
-Version:        1.1.3
-Release:        2%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        Adaptive Entropy Coding library
-# Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 Url:            https://gitlab.dkrz.de/k202009/libaec
 Source0:        https://gitlab.dkrz.de/k202009/libaec/-/archive/v%{version}/libaec-v%{version}.tar.gz
@@ -33,21 +32,17 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Devel files for libaec (Adaptive Entropy Coding library).
 
 %prep
-%setup -q -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
-%{cmake} -DBUILD_TESTING=ON
+%{cmake} -DBUILD_TESTING=ON -DBUILD_STATIC_LIBS=OFF
 %cmake_build
 
 %install
 %cmake_install
-rm %{buildroot}/%{_libdir}/lib*.a
-mv %{buildroot}/%{_prefix}/cmake %{buildroot}/%{_libdir}
 
 %check
 %ctest
-
-%ldconfig_scriptlets
 
 %files
 %doc README.md README.SZIP CHANGELOG.md
@@ -57,9 +52,13 @@ mv %{buildroot}/%{_prefix}/cmake %{buildroot}/%{_libdir}
 %files devel
 %{_includedir}/*.h
 %{_libdir}/lib*.so
-%{_libdir}/cmake/%{name}-*.cmake
+%{_libdir}/cmake/%{name}
 
 %changelog
+* Sat Jun 14 2025 Christoph Junghans <junghans@votca.org> - 1.1.4-1
+- Version bump to v1.1.4
+- Resolves: rhbz#2372454
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

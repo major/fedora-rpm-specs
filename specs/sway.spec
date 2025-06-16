@@ -1,7 +1,7 @@
-%global tag     1.10.1
+%global tag     1.11
 
 Name:           sway
-Version:        1.10.1
+Version:        1.11
 Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
@@ -24,7 +24,7 @@ Source102:      README.md
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
-BuildRequires:  meson >= 0.60.0
+BuildRequires:  meson >= 1.3
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(glesv2)
@@ -43,7 +43,7 @@ BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-server) >= 1.21.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
-BuildRequires:  pkgconfig(wlroots-0.18)
+BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-icccm)
 BuildRequires:  pkgconfig(xkbcommon) >= 1.5.0
@@ -180,6 +180,9 @@ install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 %{_datadir}/backgrounds/sway
 
 %changelog
+* Sun Jun 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.11-1
+- Update to 1.11 (#2361231)
+
 * Sun Jan 26 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.10.1-1
 - Update to 1.10.1 (#2342139)
 

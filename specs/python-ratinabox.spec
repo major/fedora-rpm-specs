@@ -1,7 +1,9 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
 
-%bcond torch 1
+# F43FailsToInstall: python3-torch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372164
+%bcond torch 0
 
 Name:           python-ratinabox
 Version:        1.15.3
@@ -62,7 +64,9 @@ Summary:        %{summary}
 
 BuildArch:      noarch
 
+%if %{with torch}
 Recommends:     (%{py3_dist torch} if (python3(x86-64) or python3(aarch-64)))
+%endif
 
 %description -n python3-ratinabox %{common_description}
 
