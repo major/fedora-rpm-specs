@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -100,10 +100,8 @@ algorithms and have been optimized for throughput and latency. For
 best performance, small operations can be either batched into
 larger operations or aggregated through the API.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Headers and libraries for %{name}
@@ -202,6 +200,9 @@ fi
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Remove suse check on ldconfig
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

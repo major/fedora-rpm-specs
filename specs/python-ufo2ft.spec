@@ -5,7 +5,7 @@ Version:        3.4.2
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -68,6 +68,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Sun Jun 15 2025 Python Maint <python-maint@redhat.com> - 3.4.2-3
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Benson Muite <fed500@fedoraproject.org> - 3.4.2-1
 - Upgrade to latest release
 

@@ -3,8 +3,8 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.3.0
-Release:    2%{?dist}
+Version:    2.3.1
+Release:    1%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -16,6 +16,9 @@ Source1:        %{name}-%{version}-testsuite.tar.gz
 Source2:        %{gem_name}-create-test-suite-tarball.sh
 # Make bundler runtime dependency optional
 Patch1:         rubygem-aruba-2.0.0-make-bundler-optional.patch
+# https://github.com/cucumber/aruba/commit/bd2aea600f7e989e4da734c3e823c3ce12ce629b
+# We still use diff-lcs 1.5, revert the above patch for now
+Patch2:         rubygem-aruba-2.3.1-diff-lcs-1_6-change.patch
 
 
 BuildRequires:  ruby(release)
@@ -59,6 +62,7 @@ done
 ln -sf ../lib
 popd
 %patch -P1 -p1
+%patch -P2 -p1 -R
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -160,6 +164,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sun Jun 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-1
+- 2.3.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

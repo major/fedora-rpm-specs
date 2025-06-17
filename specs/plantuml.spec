@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2025.2
+Version:        1.2025.3
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -7,6 +7,9 @@ Summary:        Program to generate UML diagram from a text description
 License:        LGPL-3.0-or-later
 URL:            http://plantuml.com/
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/plantuml/plantuml/pull/2239
+# https://github.com/plantuml/plantuml/pull/2241
+Source1:        https://raw.githubusercontent.com/plantuml/plantuml/refs/heads/master/build.xml
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -15,10 +18,11 @@ BuildRequires:  ant
 BuildRequires:  help2man
 BuildRequires:  javapackages-local
 
-Requires:       java >= 1.8.0
+Requires:       java
 # Explicit requires for javapackages-tools since plantuml script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
+Requires:       graphviz
 
 %description
 PlantUML is a program allowing to draw UML diagrams, using a simple
@@ -36,8 +40,7 @@ PlantUML supports the following diagram types
 
 %prep
 %autosetup
-# Don't set Class-Path when building jar
-sed --in-place '/<attribute name="Class-Path"/d' build.xml
+cp %{SOURCE1} build.xml
 
 
 %build

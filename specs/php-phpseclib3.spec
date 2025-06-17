@@ -5,7 +5,7 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.43
+Version:    3.0.44
 Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Sun Jun 15 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.44-1
+- Update to v3.0.44
+
 * Thu Mar 20 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.43-1
 - Update to v3.0.43
 

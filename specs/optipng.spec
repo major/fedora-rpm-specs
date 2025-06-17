@@ -1,6 +1,6 @@
 Name:           optipng
-Version:        0.7.8
-Release:        5%{?dist}
+Version:        7.9.1
+Release:        1%{?dist}
 Summary:        PNG optimizer and converter
 
 License:        zlib
@@ -30,6 +30,7 @@ rm -rf src/libpng src/zlib
 
 
 %build
+# TODO: switch to cmake
 %set_build_flags
 ./configure -prefix=%{_prefix} -mandir=%{_mandir} \
     -with-system-zlib -with-system-libpng
@@ -49,12 +50,15 @@ chmod -c 755 $RPM_BUILD_ROOT%{_bindir}/optipng
 %files
 %{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
-%doc AUTHORS.txt README.txt doc/*
+%doc AUTHORS.txt README.md doc/*
 %{_bindir}/optipng
 %{_mandir}/man1/optipng.1*
 
 
 %changelog
+* Sun Jun 15 2025 Peter Hanecak <hany@hany.sk> - 7.9.1-1
+- Update to 7.9.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

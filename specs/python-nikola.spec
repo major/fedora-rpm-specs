@@ -1,19 +1,32 @@
 %global pypi_name nikola
 
 Name:           python-%{pypi_name}
-Version:        8.3.0
-Release:        7%{?dist}
+Version:        8.3.3
+Release:        1%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 # Automatically converted from old format: MIT and CC0 and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND CC0-1.0 AND LicenseRef-Callaway-BSD
 URL:            https://getnikola.com/
 Source0:        https://github.com/getnikola/nikola/archive/v%{version}/nikola-%{version}.tar.gz
+# Disable coverage and also ksluv
+Patch:          nikola-8.3.3-no-linters-or-hsluv.patch
+# Already upstream patch fixing installing stuff in site-packages top level
+Patch:          https://github.com/getnikola/nikola/commit/46919f494553c818737dc822beafdcc3b34cdad5.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 # Sphinx required for documentation
 BuildRequires:  python3dist(sphinx)
+# Test requirements.
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(freezegun)
+BuildRequires:  python3dist(ruamel-yaml)
+BuildRequires:  python3dist(aiohttp)
+BuildRequires:  python3dist(watchdog)
+BuildRequires:  python3dist(phpserialize)
+BuildRequires:  python3dist(notebook)
+BuildRequires:  python3dist(toml)
 
 %global _description %{expand:
 Nikola is a static site and blog generator using Python. It generates sites
@@ -61,10 +74,9 @@ Requires:       python3-%{pypi_name} = %{version}-%{release}
 %prep
 %autosetup -p1 -n nikola-%{version}
 
-sed -i 's|hsluv.*||' requirements-extras.txt
 
 %generate_buildrequires
-%pyproject_buildrequires requirements.txt requirements-extras.txt requirements-tests.txt -r
+%pyproject_buildrequires
 
 
 %build
@@ -81,7 +93,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{pypi_name}
 
 %check
-%pytest
+%pytest -k 'not test_serves_root_dir'
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -103,6 +115,11 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jun 14 2025 Kevin Fenzi <kevin@scrye.com> - 8.3.3-1
+- Update to 8.3.3 (fixes rhbz#2277754 )
+- Fix FTBFS (fixes rhbz#2341174 )
+- Fix FTI (fixes rhbz#372002 )
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 8.3.0-7
 - Rebuilt for Python 3.14
 

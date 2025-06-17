@@ -1,7 +1,7 @@
 %global srcname calcephpy
 
 Name:           python-%{srcname}
-Version:        4.0.4
+Version:        4.0.5
 Release:        %autorelease
 Summary:        Astronomical library to access planetary ephemeris files
 
@@ -30,8 +30,6 @@ Summary:        %{summary}
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
 # For import smoke test
 BuildRequires:  python3dist(numpy)
 
@@ -45,13 +43,18 @@ BuildRequires:  python3dist(numpy)
 rm -r %{srcname}.egg-info
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 export CPPFLAGS="$CXXFLAGS"
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname} -l
 
 
 %check
@@ -59,10 +62,7 @@ export CPPFLAGS="$CXXFLAGS"
 %py3_check_import calcephpy
 
 
-%files -n       python3-%{srcname}
-%license COPYING_CECILL_V2.1.LIB COPYING_CECILL_B.LIB COPYING_CECILL_C.LIB
-%{python3_sitearch}/calcephpy*.so
-%{python3_sitearch}/calcephpy*.egg-info/
+%files -n python3-%{srcname} -f %{pyproject_files}
 
 
 %changelog

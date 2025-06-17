@@ -25,7 +25,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -96,10 +96,8 @@ ROC-tracer
   * roctxRangePush
   * roctxRangePop
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The %{name} development package
@@ -186,6 +184,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Remove suse check of ldconfig
+
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

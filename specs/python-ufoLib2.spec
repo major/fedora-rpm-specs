@@ -3,7 +3,7 @@
 
 Name:           python-ufoLib2
 Version:        0.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Sun Jun 15 2025 Python Maint <python-maint@redhat.com> - 0.17.1-2
+- Rebuilt for Python 3.14
+
 * Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.17.1-1
 - Update to 0.17.1 version (#2339116)
 

@@ -49,7 +49,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -109,10 +109,8 @@ Host
 * HIP: Designed for ROCm-compatible devices
 * MPI: Designed for multi-node clusters and multi-GPU setups
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary: Libraries and headers for %{name}
@@ -184,6 +182,9 @@ fi
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
+- Remove suse check for ldconfig
+
 * Wed Jun 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Fix suse name
 

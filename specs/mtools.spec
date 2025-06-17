@@ -1,6 +1,6 @@
 Summary: Programs for accessing MS-DOS disks without mounting the disks
 Name: mtools
-Version: 4.0.48
+Version: 4.0.49
 Release: %autorelease
 License: GPL-3.0-or-later
 Source0: ftp://ftp.gnu.org/gnu/mtools/mtools-%{version}.tar.gz

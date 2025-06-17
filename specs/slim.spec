@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -44,8 +44,6 @@ Requires:       scrot xterm /sbin/shutdown
 Requires:       %{_sysconfdir}/pam.d
 # we use 'include' in the pam file, so
 Requires:       pam >= 0.80
-# reuse the images
-Requires:       f%{?fedora}-backgrounds-base
 
 # for anaconda dnf
 Provides:       service(graphical-login)
@@ -132,6 +130,9 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Sun Jun 01 2025 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-12
+- dropped the requirement of f%{?fedora}=backgrounds-base
+- changed /var/run to /run in the selinux patch.
 * Sun Jun 01 2025 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-11
 - replaced the linking file with magick to convert the .jxl files now used by Fedora for backgrounds.
 - consequently, brought in BuildRequires for ImageMagick and f%{?fedora}-backgrounds-base

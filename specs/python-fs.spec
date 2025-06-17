@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 # https://spdx.org/licenses/MIT.html
@@ -54,10 +54,17 @@ Summary:        %{summary}
 
 %if %{with tests}
 %check
-# tests/test_ftpfs.py needs pyftpdlib (not packaged yet)
-# test_seek_current and test_seek_end are skipped due to regression in Python 3.12
-# upstream issue: https://github.com/python/cpython/issues/102956
-%{python3} -m pytest --ignore tests/test_ftpfs.py -k "not test_seek_current and not test_seek_end"
+# Almost all tests in tests/test_ftpfs.py need python3dist(pyftpdlib), which is
+# packaged, but this imports from pyftpdlib.tests, which is not packaged.
+ignore="${ignore-} --ignore=tests/test_ftpfs.py"
+
+# Regressions related to URL formation in Python 3.14
+# https://github.com/PyFilesystem/pyfilesystem2/issues/596
+k="${k-}${k+ and }not test_complex_geturl"
+# Matches test_geturl_for_fs but not test_geturl_for_fs_but_file_is_binaryio
+k="${k-}${k+ and }not (test_geturl_for_fs and not binary)"
+
+%pytest -k "${k-}" ${ignore-}
 %endif
 
 %files -n python3-%{srcname}
@@ -67,6 +74,11 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sat Jun 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.16-12
+- Remove obsolete test skip (regression was fixed in Python 3.12.1)
+- Report and skip regressions related to URL formation in Python 3.14;
+  fixes RHBZ#2336951
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.4.16-11
 - Rebuilt for Python 3.14
 

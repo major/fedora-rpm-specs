@@ -1,6 +1,6 @@
 Name:           veusz
-Version:        3.6.2
-Release:        9%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -10,15 +10,20 @@ Source0:        https://github.com/veusz/veusz/releases/download/veusz-%{version
 BuildRequires:  gcc gcc-c++
 BuildRequires:  python3 python3-devel python3-setuptools
 BuildRequires:  python3-numpy
-BuildRequires:  qt5-qtbase-devel qt5-qtsvg-devel
-BuildRequires:  python3-qt5 python3-qt5-devel
-BuildRequires:  python3-pyqt5-sip python3dist(sip)
+BuildRequires:  qt6-qtbase-devel qt6-qtsvg-devel
+BuildRequires:  python3-pyqt6 python3-pyqt6-devel
+BuildRequires:  python3-pyqt6-sip python3dist(sip)
 BuildRequires:  python3-h5py
 BuildRequires:  python3-tomli
 BuildRequires:  desktop-file-utils
 
-Requires:       python3dist(pyqt5-sip) >= 12.8, python3dist(pyqt5-sip) < 13
-Requires:       python3-numpy python3-qt5 /usr/bin/env
+Requires:       python3dist(pyqt6-sip) >= 13, python3dist(pyqt6-sip) < 14
+Requires:       python3-pyqt6 python3-pyqt6-sip
+Requires:       python3-numpy
+Requires:       qt6-qtsvg
+Requires:       /usr/bin/env
+Recommends:     python3-h5py python3-astropy ghostscript qt6-qtimageformats
+
 Provides:       python3-veusz
 
 # we don't want to provide private python extension libs
@@ -54,7 +59,7 @@ sed -i '/^#!/d' veusz/veusz_listen.py
 rm -rf %{buildroot}
 
 # veusz-resource-dir: put data files in location given
-%{__python3} setup.py install --skip-build --root %{buildroot} \
+%{python3} setup.py install --skip-build --root %{buildroot} \
     --veusz-resource-dir=%{buildroot}/%{_datadir}/veusz \
     --disable-install-examples
 
@@ -104,7 +109,7 @@ install -p Documents/man-page/veusz.1 -m 0644 \
 PYTHONPATH=%{buildroot}%{python3_sitearch} \
     VEUSZ_RESOURCE_DIR=%{buildroot}%{_datadir}/veusz \
     QT_QPA_PLATFORM=minimal \
-    %{__python3} tests/runselftest.py
+    %{python3} tests/runselftest.py
 
 %files
 %doc README.md AUTHORS COPYING
@@ -122,6 +127,10 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sun Jun 15 2025 Jeremy Sanders <jeremy@jeremysanders.net> - 4.1-1
+- Update to Veusz 4.1
+- Updates to Requires and Recommends
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.6.2-9
 - Rebuilt for Python 3.14
 

@@ -34,12 +34,6 @@ Patch:          python-psutil-skip-test-sensors-temperatures.patch
 #
 Patch:          python-psutil-sockets-are-not-paths.patch
 #
-# Skip test_all on i686
-# assert f.flags > 0 fails
-# TODO report upstream
-#
-Patch:          python-psutil-skip-test_all-i686.patch
-#
 # Fix tests when run with pytest-xdist
 # Reported upstream: https://github.com/giampaolo/psutil/pull/2587
 Patch:          0001-Ignore-environment-variables-set-by-pytest-xdist.patch

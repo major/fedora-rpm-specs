@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       0.7.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       OBD-II serial module for reading engine data
 License:       GPL-2.0-or-later
 URL:           https://github.com/brendan-w/%{name}
@@ -58,6 +58,9 @@ Python 3 version.
 %license LICENSE
 
 %changelog
+* Sun Jun 15 2025 Python Maint <python-maint@redhat.com> - 0.7.2-8
+- Rebuilt for Python 3.14
+
 * Thu Jun 12 2025 Dominik Mierzejewski <rpm@greysector.net> - 0.7.2-7
 - switch to modern Python packaging macros
 

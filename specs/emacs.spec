@@ -61,6 +61,10 @@ Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=76523
 Patch:         0001-Fix-compilation-errors-due-to-insufficient-compiler-.patch
 
+# Restores compatibility with recent Tree-sitter parsers.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=78754
+Patch:         0001-Support-new-tree-sitter-grammar-filename-format-bug-.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

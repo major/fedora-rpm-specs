@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -84,10 +84,8 @@ rocJPEG is a high performance JPEG decode SDK for AMD GPUs. Using
 the rocJPEG API, you can access the JPEG decoding features available
 on your GPU.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The development package for %{name}
@@ -176,6 +174,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Remove suse check on ldconfig
+
 * Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Fix link on suse
 

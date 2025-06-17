@@ -2,16 +2,16 @@
 %global alpha 0
 
 Name:           flrig
-Version:        2.0.05
-Release:        5%{?dist}
+Version:        2.0.07
+Release:        1%{?dist}
 Summary:        Transceiver control program
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only
 URL:            http://www.w1hkj.com/
 %if %{alpha}
-Source0:        http://www.w1hkj.com/alpha/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://www.w1hkj.org/alpha/%{name}/%{name}-%{version}.tar.gz
 %else
-Source0:        http://www.w1hkj.com/files/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://www.w1hkj.org/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      flrig.appdata.xml
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Jun 15 2025 Richard Shaw <hobbes1069@gmail.com> - 2.0.07-1
+- Update to 2.0.07.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.05-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

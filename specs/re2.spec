@@ -20,6 +20,16 @@ SourceLicense:  %{license} AND Apache-2.0
 URL:            https://github.com/google/re2
 Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
 
+# Allow building tests without benchmarks
+# https://github.com/google/re2/pull/545
+#
+# It turns out that upstream only accepts contributions by email discussion
+# followed by code review in Gerrit. I started that process with an email:
+#
+#   Making benchmarks optional when building and running tests
+#   https://groups.google.com/g/re2-dev/c/JXcU38P9krM
+Patch:          %{url}/pull/545.patch
+
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
@@ -27,7 +37,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake(absl)
 BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  cmake(GTest)
-BuildRequires:  cmake(benchmark)
 
 %if %{with python}
 # Python extension
@@ -113,6 +122,7 @@ cd python
 %conf
 %cmake \
     -DRE2_BUILD_TESTING:BOOL=ON \
+    -DRE2_BUILD_NO_BENCHMARKS:BOOL=ON \
     -DRE2_USE_ICU:BOOL=ON \
     -GNinja
 

@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -188,10 +188,8 @@ Requires:       hipcc
 HIP is a C++ Runtime API and Kernel Language that allows developers to create
 portable applications for AMD and NVIDIA GPUs from the same source code.
 
-%if 0%{?suse_version}
 %post -n rocm-hip -p /sbin/ldconfig
 %postun -n rocm-hip -p /sbin/ldconfig
-%endif
 
 %package -n rocm-hip-devel
 Summary:        ROCm HIP development package
@@ -387,6 +385,9 @@ fi
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
+- Remove suse check for using ldconfig
+
 * Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Improve requires for rocm-hip-devel
 

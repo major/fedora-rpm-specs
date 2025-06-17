@@ -6,7 +6,7 @@ License:        Apache-2.0
 URL:            https://github.com/spamhaus/spamassassin-dqs
 Source0:        https://github.com/spamhaus/spamassassin-dqs/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         spamassassin-dqs-1.5.1-loadplugin.patch
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
 Requires:       spamassassin >= 4.0.0
 %else
 Requires:       spamassassin >= 3.4.1, spamassassin < 4.0.0
@@ -14,7 +14,7 @@ Requires:       spamassassin >= 3.4.1, spamassassin < 4.0.0
 Recommends:     bind-utils
 BuildRequires:  perl-generators
 %if 0%{!?_without_tests:1}
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
 BuildRequires:  spamassassin >= 4.0.0
 %else
 BuildRequires:  spamassassin >= 3.4.1, spamassassin < 4.0.0
@@ -45,7 +45,7 @@ touch -c -r 3.4.1+/sh.pre{.loadplugin,}
 %build
 
 %install
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
 install -D -p -m 0644 4.0.0+/SH.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Mail/SpamAssassin/Plugin/SH.pm
 install -D -p -m 0644 4.0.0+/sh.pre $RPM_BUILD_ROOT%{_sysconfdir}/mail/spamassassin/sh.pre
 install -D -p -m 0644 4.0.0+/sh.cf $RPM_BUILD_ROOT%{_sysconfdir}/mail/spamassassin/sh.cf
@@ -72,7 +72,7 @@ grep -q -i fail tests/lint.log && { cat tests/lint.log; exit 1; } || :
 %files
 %license LICENSE
 %doc Changelog.md NOTICE README.md
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
 %doc 4.0.0+/sh_hbl.cf 4.0.0+/sh_hbl_scores.cf
 %else
 %doc 3.4.1+/sh_hbl.cf 3.4.1+/sh_hbl_scores.cf

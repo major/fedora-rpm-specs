@@ -86,10 +86,8 @@ ExclusiveArch:  x86_64
 rocDecode is a high-performance video decode SDK for AMD GPUs. Using the
 rocDecode API, you can access the video decoding features available on your GPU.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The rocDecode development package
@@ -157,6 +155,9 @@ fi
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Remove suse check for ldconfig
+
 * Wed Apr 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Fix link on suse
 

@@ -40,7 +40,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -91,10 +91,8 @@ application. hipBLAS exports an interface that does not require
 the client to change, regardless of the chosen backend. Currently,
 hipBLAS supports rocBLAS and cuBLAS as backends.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -169,6 +167,9 @@ fi
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Remove suse check of ldconfig
+
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
 - Update to 6.4.1
 

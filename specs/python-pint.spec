@@ -1,4 +1,7 @@
-%bcond xarray 1
+# There is a dependency cycle with xarray.
+# F43FailsToInstall: python3-xarray+io, python3-xarray
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372200
+%bcond xarray 0
 # Not yet packaged: python-uncertainties
 %bcond uncertainties 0
 # Requires babel <= 2.8; F42 has 2.16.0
@@ -7,8 +10,11 @@
 %bcond pandas 0
 # Not yet packaged: python-mip
 %bcond mip 0
-# may need to be disabled sometimes for bootstrapping
-%bcond dask 1
+# F43FailsToInstall: python3-dask+array, python3-dask+bag,
+# python3-dask+dataframe, python3-dask+delayed, python3-dask+distributed,
+# python3-dask
+# https://bugzilla.redhat.com/show_bug.cgi?id=2371852
+%bcond dask 0
 
 Name:           python-pint
 Version:        0.24.4

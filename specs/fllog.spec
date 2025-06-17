@@ -1,9 +1,8 @@
 Name:           fllog
-Version:        1.2.8
-Release:        6%{?dist}
+Version:        1.2.9
+Release:        1%{?dist}
 Summary:        Amateur Radio Log Program
 
-# Automatically converted from old format: GPLv3+ and GPLv2+ - review is highly recommended.
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
 URL:            http://w1hkj.com/fllog-help/index.html
 Source0:        http://downloads.sourceforge.net/fldigi/%{name}-%{version}.tar.gz
@@ -53,6 +52,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jun 15 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2.9-1
+- Update to 1.2.9.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

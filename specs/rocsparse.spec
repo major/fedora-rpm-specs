@@ -88,7 +88,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -154,10 +154,8 @@ ROCm runtime and toolchains. rocSPARSE is created using
 the HIP programming language and optimized for AMD's
 latest discrete GPUs.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -310,6 +308,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Remove suse check of ldconfig
+
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Add experimental gfx950
 
