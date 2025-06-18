@@ -1,5 +1,5 @@
 Name:       libtbox
-Version:    1.7.6
+Version:    1.7.7
 
 %global forgeurl https://github.com/tboox/tbox
 

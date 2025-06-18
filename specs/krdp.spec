@@ -3,8 +3,8 @@
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.3.91
-Release:        2%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -90,7 +90,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %doc README.md
 %{_kf6_bindir}/krdpserver
 %{_kf6_datadir}/applications/kcm_krdpserver.desktop
-%{_kf6_datadir}/applications/org.kde.krdp.desktop
+%{_kf6_datadir}/applications/org.kde.krdpserver.desktop
 %{_kf6_datadir}/qlogging-categories6/kcm_krdpserver.categories
 %{_kf6_datadir}/qlogging-categories6/krdp.categories
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_krdpserver.so
@@ -106,6 +106,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
+- 6.4.0
+
 * Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
 - Add signature file
 

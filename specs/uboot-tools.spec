@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc4
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,8 +9,8 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2025.04
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Version:  2025.07
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -33,17 +33,13 @@ Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 # Enable UEFI SetVariable for devices without backed storage
 Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Should be upstream but it's taking time
-Patch8:   Add-video-damage-tracking.patch
-# For HTTP boot installs
-Patch9:   Add-pmem-node-for-preserving-distro-ISO-s.patch
+#Patch8:   Add-video-damage-tracking.patch
 
 # Device improvments
 # Rockchips improvements
 Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
 # USB-PD improvements
 Patch11:  USB-PD-TCPM-improvements.patch
-# RPi fixes
-Patch12:  rpi-uart-clock-when-loading-kernel-with-non-boot-DT.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -270,6 +266,15 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sun Jun 15 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-0.3.rc4
+- Update to 2025.07 RC4
+
+* Tue May 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-0.2.rc2
+- Update to 2025.07 RC2
+
+* Thu May 01 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-0.1.rc1
+- Update to 2025.07 RC1
+
 * Sun Apr 20 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-2
 - Fix for RPi5 serial console
 

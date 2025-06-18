@@ -210,12 +210,12 @@
 %global install_prefix %{_libdir}/llvm%{maj_ver}
 %global install_bindir %{install_prefix}/bin
 %global install_includedir %{install_prefix}/include
-%global install_libdir %{install_prefix}/lib
+%global install_libdir %{install_prefix}/%{_lib}
 %global install_datadir %{install_prefix}/share
 %global install_mandir %{install_prefix}/share/man
 %global install_libexecdir %{install_prefix}/libexec
-%global build_libdir llvm/%{_vpath_builddir}/lib
-%global unprefixed_libdir lib
+%global build_libdir llvm/%{_vpath_builddir}/%{_lib}
+%global unprefixed_libdir %{_lib}
 
 %if 0%{?rhel}
 %global targets_to_build "X86;AMDGPU;PowerPC;NVPTX;SystemZ;AArch64;BPF;WebAssembly"
@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -1507,6 +1507,10 @@ popd
 	%global cmake_config_args %{cmake_config_args} -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG"
 %endif
 
+%if 0%{?__isa_bits} == 64
+	%global cmake_config_args %{cmake_config_args} -DLLVM_LIBDIR_SUFFIX=64
+%endif
+
 %if %{with gold}
 	%global cmake_config_args %{cmake_config_args} -DLLVM_BINUTILS_INCDIR=%{_includedir}
 %endif
@@ -1904,7 +1908,7 @@ install -p -m644 clang/bindings/python/clang/* %{buildroot}%{python3_sitelib}/cl
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/clang
 
 # install scanbuild-py to python sitelib.
-mv %{buildroot}%{install_libdir}/{libear,libscanbuild} %{buildroot}%{python3_sitelib}
+mv %{buildroot}%{install_prefix}/lib/{libear,libscanbuild} %{buildroot}%{python3_sitelib}
 # Cannot use {libear,libscanbuild} style expansion in py_byte_compile.
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/libear
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/libscanbuild
@@ -1918,7 +1922,7 @@ done
 %else
 
 # Not sure where to put these python modules for the compat build.
-rm -Rf %{buildroot}%{install_libdir}/{libear,libscanbuild}
+rm -Rf %{buildroot}%{install_prefix}/lib/{libear,libscanbuild}
 rm %{buildroot}%{install_bindir}/scan-build-py
 
 # Not sure where to put the emacs integration files for the compat build.
@@ -2330,7 +2334,6 @@ test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_one_int.c")
 test_list_filter_out+=("libomp :: parallel/bug63197.c")
 test_list_filter_out+=("libomp :: tasking/issue-69733.c")
 test_list_filter_out+=("libarcher :: races/task-taskgroup-unrelated.c")
-test_list_filter_out+=("libarcher :: races/task-taskwait-nested.c")
 
 # The following tests have been failing intermittently.
 # Issue upstream: https://github.com/llvm/llvm-project/issues/127796
@@ -2394,6 +2397,7 @@ export LIT_XFAIL="$LIT_XFAIL;races/task-dependency.c"
 export LIT_XFAIL="$LIT_XFAIL;races/task-taskgroup-unrelated.c"
 export LIT_XFAIL="$LIT_XFAIL;races/task-two.c"
 export LIT_XFAIL="$LIT_XFAIL;races/taskwait-depend.c"
+export LIT_XFAIL="$LIT_XFAIL;races/task-taskwait-nested.c"
 export LIT_XFAIL="$LIT_XFAIL;reduction/parallel-reduction-nowait.c"
 export LIT_XFAIL="$LIT_XFAIL;reduction/parallel-reduction.c"
 export LIT_XFAIL="$LIT_XFAIL;task/omp_task_depend_all.c"
@@ -3423,6 +3427,9 @@ fi
 
 #region changelog
 %changelog
+* Mon Jun 16 2025 Nikita Popov <npopov@redhat.com> - 20.1.6-9
+- Use libdir suffix in versioned prefix
+
 * Tue Jun 10 2025 Nikita Popov <npopov@redhat.com> - 20.1.6-8
 - Invert symlink direction
 - Fix i686 multilib installation (rhbz#2365079)

@@ -1,7 +1,7 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.8.6
+Version:       2.8.7
 Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
@@ -212,10 +212,8 @@ find %{buildroot} -name '*.la' -delete
 %{mingw32_includedir}/enchant-2/
 %dir %{mingw32_libdir}/enchant-2/
 %{mingw32_libdir}/enchant-2/enchant_hunspell.dll
-%{mingw32_libdir}/enchant-2/enchant_hunspell.dll.a
 %if !0%{?rhel}
 %{mingw32_libdir}/enchant-2/enchant_nuspell.dll
-%{mingw32_libdir}/enchant-2/enchant_nuspell.dll.a
 %endif
 %{mingw32_libdir}/libenchant-2.dll.a
 %{mingw32_libdir}/pkgconfig/enchant-2.pc
@@ -229,10 +227,8 @@ find %{buildroot} -name '*.la' -delete
 %{mingw64_includedir}/enchant-2/
 %dir %{mingw64_libdir}/enchant-2/
 %{mingw64_libdir}/enchant-2/enchant_hunspell.dll
-%{mingw64_libdir}/enchant-2/enchant_hunspell.dll.a
 %if !0%{?rhel}
 %{mingw64_libdir}/enchant-2/enchant_nuspell.dll
-%{mingw64_libdir}/enchant-2/enchant_nuspell.dll.a
 %endif
 %{mingw64_libdir}/libenchant-2.dll.a
 %{mingw64_libdir}/pkgconfig/enchant-2.pc
@@ -241,6 +237,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Jun 16 2025 Sandro Mani <manisandro@gmail.com> - 2.8.7-1
+- Update to 2.8.7
+
 * Sat May 31 2025 Sandro Mani <manisandro@gmail.com> - 2.8.6-1
 - Update to 2.8.6
 

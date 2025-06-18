@@ -1,6 +1,6 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
-%if 0%{?fedora} >= 40 
+%if 0%{?fedora} >= 40
   %ifarch %qt6_qtwebengine_arches
     %global use_qt6 1
     %define qtwebengine 1
@@ -28,7 +28,7 @@
 %endif
 
 Name:           fcitx5-chinese-addons
-Version:        5.1.8
+Version:        5.1.9
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -37,7 +37,6 @@ URL:            https://github.com/fcitx/fcitx5-chinese-addons
 Source:         https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst
 Source1:        https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
-Patch1:         0001-include-config.h-before-checking-macros.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  boost-devel
@@ -69,7 +68,7 @@ Requires:       fcitx5-data
 This provides pinyin and table input method
 support for fcitx5. Released under LGPL-2.1+.
 
-im/pinyin/emoji.txt is derived from Unicode 
+im/pinyin/emoji.txt is derived from Unicode
 CLDR with modification.
 
 %package data
@@ -107,7 +106,7 @@ devel files for fcitx5-chinese-addons
 %else
     -DUSE_WEBKIT=On
 %endif
-%cmake_build 
+%cmake_build
 
 %install
 %cmake_install
@@ -119,7 +118,7 @@ do
   origicon=$(readlink -f ${iconfile})
   rm -f ${iconfile}
   cp ${origicon} ${iconfile}
-done 
+done
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %find_lang %{name}
 
@@ -128,7 +127,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
-%doc README.md 
+%doc README.md
 %{_bindir}/scel2org5
 %{_libdir}/fcitx5/*.so
 %{_libdir}/fcitx5/qt%{qt_major_ver}/libpinyindictmanager.so

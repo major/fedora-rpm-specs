@@ -2,15 +2,18 @@ Name:    We10X-icon-theme
 Summary: Colorful icon theme inspired by Microsoft Windows 10 aesthetic
 License: GPL-3.0-only
 
-%global git_date    20230413
-%global git_commit  4c244fcd7302bc62e4a74a7f7300f0ed2293772f
-%global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
+%global git_date    20250614
+%global git_commit  8bc78dd6f60980efc322ea90f67950180afb5fe4
+%global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
-Version: 0
-Release: 33.%{git_date}git%{git_commit_short}%{?dist}
+Version: 0^%{git_date}git%{git_commit_short}
+Release: 1%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
+
+# Fix install script producing absolute symlinks
+Patch0: 0000-install-fix.patch
 
 BuildArch: noarch
 
@@ -92,10 +95,14 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 %{_datadir}/icons/We10X/devices@2x
 %{_datadir}/icons/We10X/emblems
 %{_datadir}/icons/We10X/emblems@2x
+%{_datadir}/icons/We10X/emotes
+%{_datadir}/icons/We10X/emotes@2x
 %{_datadir}/icons/We10X/mimes
 %{_datadir}/icons/We10X/mimes@2x
 %{_datadir}/icons/We10X/places
 %{_datadir}/icons/We10X/places@2x
+%{_datadir}/icons/We10X/preferences
+%{_datadir}/icons/We10X/preferences@2x
 %{_datadir}/icons/We10X/status
 %{_datadir}/icons/We10X/status@2x
 
@@ -117,15 +124,22 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 %{_datadir}/icons/We10X-dark/devices@2x
 %{_datadir}/icons/We10X-dark/emblems
 %{_datadir}/icons/We10X-dark/emblems@2x
+%{_datadir}/icons/We10X-dark/emotes
+%{_datadir}/icons/We10X-dark/emotes@2x
 %{_datadir}/icons/We10X-dark/mimes
 %{_datadir}/icons/We10X-dark/mimes@2x
 %{_datadir}/icons/We10X-dark/places
 %{_datadir}/icons/We10X-dark/places@2x
+%{_datadir}/icons/We10X-dark/preferences
+%{_datadir}/icons/We10X-dark/preferences@2x
 %{_datadir}/icons/We10X-dark/status
 %{_datadir}/icons/We10X-dark/status@2x
 
 
 %changelog
+* Mon Jun 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250614git8bc78dd-1
+- Update to latest git snapshot (2025-06-14)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-33.20230413git4c244fcd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

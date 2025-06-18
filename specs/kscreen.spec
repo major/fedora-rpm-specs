@@ -1,7 +1,7 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.3.91
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -71,6 +71,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf6_datadir}/kscreen/graz.png
 
 %changelog
+* Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.0-1
+- 6.4.0
+
 * Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.3.91-2
 - Add signature file
 

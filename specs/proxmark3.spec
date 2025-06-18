@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.20142
+Version:	4.20469
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -21,7 +21,7 @@ The Swiss Army Knife of RFID Research - RRG/Iceman repo
 %build
 export CFLAGS="%{optflags}"
 make %{?_smp_mflags} V=1 clean
-make %{?_smp_mflags} V=1 
+make %{?_smp_mflags} V=1
 rm -rf %{buildroot}/doc/datasheets/
 rm -rf %{buildroot}/doc/original_proxmark3/
 
@@ -51,6 +51,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+
+* Mon Jun 16 2025 Marlin Soose <marlin.soose@esque.ca> - 4.20469
+- Bumping package to v4.20469
 
 * Thu May 01 2025 Marlin Soose <marlin.soose@esque.ca> - 4.20142
 - Include lua scripting capabilities

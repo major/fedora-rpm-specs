@@ -1,7 +1,7 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
 Version: 2.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL:     https://github.com/linux-nvme/nvme-stas
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -17,12 +17,6 @@ BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 
 BuildRequires: python3-devel
-%if (0%{?rhel} == 0)
-BuildRequires: python3-pyflakes
-BuildRequires: python3-pylint
-BuildRequires: pylint
-%endif
-
 BuildRequires: python3-libnvme
 BuildRequires: python3-dasbus
 BuildRequires: python3-pyudev
@@ -95,6 +89,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Mon Jun 16 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.4.1-2
+- Remove build dependencies on pylint and pyflakes (#2368703)
+
 * Thu Apr 03 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.4.1-1
 - Upstream v2.4.1 release
 

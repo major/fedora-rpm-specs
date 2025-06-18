@@ -2,7 +2,7 @@ Summary:       Python module for GNU parted
 Name:          pyparted
 Epoch:         1
 Version:       3.13.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/dcantrell/pyparted
 
@@ -18,7 +18,6 @@ BuildRequires: pkgconfig
 BuildRequires: e2fsprogs
 BuildRequires: gnupg2
 BuildRequires: python3-devel
-BuildRequires: python3-six
 BuildRequires: python3-setuptools
 
 %description
@@ -55,6 +54,9 @@ make test
 %{python3_sitearch}/%{name}-%{version}-*.egg-info
 
 %changelog
+* Sun Jun 15 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.13.0-10
+- Drop unused six dependency
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1:3.13.0-9
 - Rebuilt for Python 3.14
 

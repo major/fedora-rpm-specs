@@ -1,8 +1,8 @@
 %global framework kjobwidgets
 
 Name:           kf6-%{framework}
-Version:        6.14.0
-Release:        2%{?dist}
+Version:        6.15.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License:        CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -54,6 +54,12 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -61,10 +67,15 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %build
 %cmake_kf6
 %cmake_build
-
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs 
+%cmake_build -t generate_qch
 
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs 
+
 %find_lang_kf6 kjobwidgets6_qt
 
 %files -f kjobwidgets6_qt.lang
@@ -73,20 +84,29 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_libdir}/libKF6JobWidgets.so.*
 
+%files -n python3-%{name}
+%{python3_sitearch}/KJobWidgets.cpython-%{python3_version_nodots}*.so
+
 %files devel
 %{_kf6_includedir}/KJobWidgets/
 %{_kf6_libdir}/libKF6JobWidgets.so
 %{_kf6_libdir}/cmake/KF6JobWidgets/
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
-%{_qt6_docdir}/*.tags
-
-%files -n python3-%{name}
-%{python3_sitearch}/KJobWidgets.cpython-%{python3_version_nodots}*.so
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
 
 %files doc
 %{_qt6_docdir}/*.qch
 
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.14.0-2
 - Rebuilt for Python 3.14
 

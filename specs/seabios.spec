@@ -68,6 +68,7 @@ that a typical x86 proprietary BIOS implements.
 %package bin
 Summary: Seabios for x86
 Buildarch: noarch
+Conflicts: libguestfs < 1:1.56.1
 
 
 %description bin
@@ -151,10 +152,12 @@ install -m 0644 binaries/vgabios*.bin $RPM_BUILD_ROOT%{_datadir}/seavgabios
 
 
 %files bin
+%doc COPYING COPYING.LESSER README
 %dir %{_datadir}/seabios/
 %{_datadir}/seabios/bios*.bin
 
 %files -n seavgabios-bin
+%doc COPYING COPYING.LESSER README
 %dir %{_datadir}/seavgabios/
 %{_datadir}/seavgabios/vgabios*.bin
 

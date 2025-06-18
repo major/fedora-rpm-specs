@@ -1,13 +1,17 @@
 %global __provides_exclude_from ^%{_libdir}/gala/.*\\.so$
 
+%global commit      42ab42a5b8d0b58bce027404b5cdeeda590362ae
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global gitdate     20250610
+
 Name:           gala
-Version:        8.1.0
+Version:        8.2.3^%{gitdate}.git%{shortcommit}
 Release:        %autorelease
 Summary:        Gala window manager
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 URL:            https://github.com/elementary/gala
-Source:         %{url}/archive/%{version}/gala-%{version}.tar.gz
+Source:         %{url}/archive/%{commit}/gala-%{shortcommit}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -17,19 +21,18 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala >= 0.46
 BuildRequires:  wayland-devel
 
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 42
+BuildRequires:  pkgconfig(libmutter-16)
+BuildRequires:  pkgconfig(mutter-clutter-16)
+BuildRequires:  pkgconfig(mutter-cogl-16)
+BuildRequires:  pkgconfig(mutter-mtk-16)
+%endif
+%if 0%{?fedora} == 41
 BuildRequires:  pkgconfig(libmutter-15)
 BuildRequires:  pkgconfig(mutter-clutter-15)
 BuildRequires:  pkgconfig(mutter-cogl-15)
 BuildRequires:  pkgconfig(mutter-cogl-pango-15)
 BuildRequires:  pkgconfig(mutter-mtk-15)
-%endif
-%if 0%{?fedora} == 40
-BuildRequires:  pkgconfig(libmutter-14)
-BuildRequires:  pkgconfig(mutter-clutter-14)
-BuildRequires:  pkgconfig(mutter-cogl-14)
-BuildRequires:  pkgconfig(mutter-cogl-pango-14)
-BuildRequires:  pkgconfig(mutter-mtk-14)
 %endif
 
 BuildRequires:  pkgconfig(atk-bridge-2.0)
@@ -48,6 +51,7 @@ BuildRequires:  pkgconfig(libcanberra)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(xext)
 
 # gala's multitasking view is activated via dbus
 Requires:       dbus
@@ -100,7 +104,7 @@ This package contains the development headers.
 
 
 %prep
-%autosetup -n gala-%{version} -p1
+%autosetup -n gala-%{commit} -p1
 
 
 %build

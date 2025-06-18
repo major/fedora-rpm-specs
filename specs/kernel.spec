@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc1.250613g27605c8c0f69.21
+%define pkgrelease 0.rc2.24
 %define kversion 6
-%define tarfile_release 6.16-rc1-101-g27605c8c0f69
+%define tarfile_release 6.16-rc2
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.250613g27605c8c0f69.21%{?buildid}%{?dist}
+%define specrelease 0.rc2.24%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4337,10 +4337,19 @@ fi\
 #
 #
 %changelog
-* Fri Jun 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.27605c8c0f69.21]
+* Mon Jun 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.24]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
-- cpupower: split unitdir from libdir in Makefile (Francesco Poli (wintermute))
 - powerpc: Fix struct termio related ioctl macros (Madhavan Srinivasan)
+
+* Mon Jun 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.23]
+- Linux v6.16.0-0.rc2
+
+* Sun Jun 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.8c6bc74c7f89.22]
+- Linux v6.16.0-0.rc1.8c6bc74c7f89
+
+* Sat Jun 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.4774cfe3543a.21]
+- redhat/configs: enable IWLMLD for rhel (Jose Ignacio Tornos Martinez)
+- Linux v6.16.0-0.rc1.4774cfe3543a
 
 * Fri Jun 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.27605c8c0f69.20]
 - kernel.spec: fedora automotive build is not supported (Scott Weaver)

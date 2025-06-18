@@ -2,12 +2,23 @@
 %global         _gobject_introspection  1.31.1
 
 # Only have extras package on fedora
+%bcond aom %{defined fedora}
 %bcond extras %{defined fedora}
 %bcond opencv %{defined fedora}
 %bcond openh264 %{defined fedora}
 %bcond svtav1 %{defined fedora}
 # requires new webrtc-audio-processing-1
 %bcond webrtcdsp %[ %{defined fedora} || 0%{?rhel} >= 10 ]
+# The 1394 stack is not built on s390x
+# libldac is not built on s390x, see rhbz#1677491
+%ifnarch s390x
+%bcond dc1394 %{defined fedora}
+%bcond ldac %{defined fedora}
+%endif
+# VPL runtimes (intel-mediasdk/intel-vpl-gpu-rt) are x86_64 only
+%ifarch x86_64
+%bcond qsv %{defined fedora}
+%endif
 
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
@@ -15,7 +26,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -24,14 +35,10 @@ URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
 # cd gst-plugins-bad; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
-# modified with gst-p-bad-cleanup.sh from SOURCE1
+Source0:        gst-plugins-bad-%{version}.tar.xz
 %else
-# The source is:
-# https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-%{version}.tar.xz
-# modified with gst-p-bad-cleanup.sh from SOURCE1
+Source:         https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-%{version}.tar.xz
 %endif
-Source0:        gst-plugins-bad-free-%{version}.tar.xz
-Source1:        gst-p-bad-cleanup.sh
 
 # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5622
 Patch0:          openh264-add-license-file.patch
@@ -52,103 +59,96 @@ BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
 
 BuildRequires:  bzip2-devel
 BuildRequires:  exempi-devel
-BuildRequires:  fdk-aac-free-devel
-BuildRequires:  gsm-devel
-BuildRequires:  jasper-devel
-BuildRequires:  lcms2-devel
-BuildRequires:  libdvdnav-devel
-BuildRequires:  libexif-devel
-BuildRequires:  librsvg2-devel
-BuildRequires:  libsndfile-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  mesa-libGLES-devel
-BuildRequires:  mesa-libGLU-devel
-BuildRequires:  openssl-devel
-BuildRequires:  orc-devel
-BuildRequires:  soundtouch-devel
-BuildRequires:  wavpack-devel
-BuildRequires:  opus-devel
-BuildRequires:  wayland-devel
-BuildRequires:  wayland-protocols-devel
-BuildRequires:  gnutls-devel
-BuildRequires:  libsrtp-devel
-BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(libusb-1.0)
-BuildRequires:  gtk3-devel >= 3.4
-BuildRequires:  bluez-libs-devel >= 5.0
-BuildRequires:  libwebp-devel
-BuildRequires:  mesa-libEGL-devel
-BuildRequires:  vulkan-devel
-#BuildRequires:  mesa-vulkan-devel
 BuildRequires:  glslc
-BuildRequires:  libdrm-devel
-BuildRequires:  libva-devel
-%if %{with svtav1}
-BuildRequires:  svt-av1-devel
+BuildRequires:  gsm-devel
+BuildRequires:  pkgconfig(bluez) >= 5.0
+BuildRequires:  pkgconfig(dvdnav)
+BuildRequires:  pkgconfig(dvdread)
+BuildRequires:  pkgconfig(fdk-aac)
+BuildRequires:  pkgconfig(gtk+-wayland-3.0)
+BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(lc3)
+BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(libdrm)
+BuildRequires:  pkgconfig(libexif)
+BuildRequires:  pkgconfig(libopenjp2)
+BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(libsrtp2)
+BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(libva)
+BuildRequires:  pkgconfig(libva-drm)
+BuildRequires:  pkgconfig(libva-x11)
+BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(libwebpmux)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(opus)
+BuildRequires:  pkgconfig(orc-0.4)
+BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(soundtouch)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(vulkan)
+%if %{with aom}
+BuildRequires:  pkgconfig(aom)
 %endif
-BuildRequires:  liblc3-devel
-BuildRequires:  json-glib-devel
+%if %{with dc1394}
+BuildRequires:  pkgconfig(libdc1394-2)
+%endif
+%if %{with ldac}
+BuildRequires:  pkgconfig(ldacBT-enc)
+%endif
+%if %{with opencv}
+BuildRequires:  pkgconfig(opencv4)
+%endif
 %if %{with openh264}
 BuildRequires:  pkgconfig(openh264)
+%endif
+%if %{with svtav1}
+BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
 %if %{with webrtcdsp}
 BuildRequires:  pkgconfig(webrtc-audio-processing-1)
 %endif
-
 %if %{with extras}
-BuildRequires:  ladspa-devel
-BuildRequires:  libmicrodns-devel
-BuildRequires:  liblrdf-devel
-BuildRequires:  srt-devel
-BuildRequires:  zvbi-devel
-BuildRequires:  libopenmpt-devel
-BuildRequires:  libaom-devel
-BuildRequires:  libbs2b-devel >= 3.1.0
-## Plugins not ported
-#BuildRequires:  dirac-devel
-#BuildRequires:  gmyth-devel >= 0.4
-BuildRequires:  fluidsynth-devel
-BuildRequires:  libass-devel
-BuildRequires:  libchromaprint-devel
-## Plugin not ported
-#BuildRequires:  libcdaudio-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  libssh2-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  game-music-emu-devel
-BuildRequires:  libmodplug-devel
-BuildRequires:  libmpcdec-devel
-## Plugins not ported
-#BuildRequires:  libmusicbrainz-devel
-#BuildRequires:  libtimidity-devel
-BuildRequires:  openal-soft-devel
-%if %{with opencv}
-BuildRequires:  opencv-devel
-%endif
-BuildRequires:  openjpeg2-devel
-BuildRequires:  pkgconfig(spandsp) >= 0.0.6
-## Plugins not ported
-#BuildRequires:  SDL-devel
-BuildRequires:  lilv-devel
-BuildRequires:  wildmidi-devel
-BuildRequires:  zbar-devel
-BuildRequires:  OpenEXR-devel
-BuildRequires:  libnice-devel
-# libldac is not built on x390x, see rhbz#1677491
-%ifnarch s390x
-BuildRequires:  pkgconfig(ldacBT-enc)
-%endif
-BuildRequires:  qrencode-devel
-BuildRequires:  vo-amrwbenc-devel
-BuildRequires:  libavtp-devel
-BuildRequires:  libdca-devel
+BuildRequires:  faad2-devel
 BuildRequires:  flite-devel
+BuildRequires:  game-music-emu-devel
+BuildRequires:  ladspa-devel
+BuildRequires:  libmpcdec-devel
+BuildRequires:  pkgconfig(avtp)
+BuildRequires:  pkgconfig(fluidsynth)
+BuildRequires:  pkgconfig(libass)
+BuildRequires:  pkgconfig(libbs2b)
+BuildRequires:  pkgconfig(libchromaprint)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libdca)
+BuildRequires:  pkgconfig(libmodplug)
+BuildRequires:  pkgconfig(libopenmpt)
+BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(libssh2)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(lilv-0)
+BuildRequires:  pkgconfig(lrdf)
+BuildRequires:  pkgconfig(microdns)
+BuildRequires:  pkgconfig(nice)
+BuildRequires:  pkgconfig(openal)
+BuildRequires:  pkgconfig(OpenEXR)
+BuildRequires:  pkgconfig(spandsp) >= 0.0.6
+BuildRequires:  pkgconfig(srt)
+BuildRequires:  pkgconfig(vo-amrwbenc)
+BuildRequires:  pkgconfig(wildmidi)
+BuildRequires:  pkgconfig(zbar)
+BuildRequires:  pkgconfig(zvbi-0.2)
+BuildRequires:  pkgconfig(zxing)
 %endif
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-# dtsdec, dvbsuboverlay, siren used to be shipped in -freeworld
-Conflicts: gstreamer1-plugins-bad-freeworld < 1.22.7-2
+# dvdspu, faad used to be shipped in -freeworld
+Conflicts: gstreamer1-plugins-bad-freeworld < 1:1.26.2-2
+# Plugins get moved around from time to time
+Conflicts: %{name}-extras < %{version}-%{release}
 
 %description
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -175,6 +175,7 @@ extra "bad" plugins for sources (mythtv), sinks (fbdev) and
 effects (pitch) which are not used very much and require additional
 libraries to be installed.
 
+
 %package zbar
 Summary:         GStreamer "bad" plugins zbar plugin
 Requires:        %{name}%{?_isa} = %{version}-%{release}
@@ -188,6 +189,7 @@ or the code is not of good enough quality.
 
 This package (%{name}-zbar) contains the zbar
 plugin which allows decode bar codes.
+
 
 %package fluidsynth
 Summary:         GStreamer "bad" plugins fluidsynth plugin
@@ -203,6 +205,22 @@ or the code is not of good enough quality.
 
 This package (%{name}-fluidsynth) contains the fluidsynth
 plugin which allows playback of midi files.
+
+
+%package lv2
+Summary:         GStreamer "bad" plugins LV2 plugin
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+Conflicts:       %{name}-extras < 1.26.2-2
+
+%description lv2
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+
+gstreamer-plugins-bad contains plug-ins that aren't tested well enough,
+or the code is not of good enough quality.
+
+This package (%{name}-lv2) contains the lv2 plugin which allows using
+LV2 audio plugins (which need to be installed separately).
 
 
 %package wildmidi
@@ -270,11 +288,6 @@ Summary:        Development files for the GStreamer media framework "bad" plug-i
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gstreamer1-plugins-base-devel
 
-# Drop after f36
-Provides: gst-transcoder-devel = 1.16.0-4
-Obsoletes: gst-transcoder-devel < 1.16.0-4
-
-
 %description devel
 GStreamer is a streaming media framework, based on graphs of elements which
 operate on media data.
@@ -285,63 +298,109 @@ aren't tested well enough, or the code is not of good enough quality.
 
 %prep
 %autosetup -n gst-plugins-bad-%{version} -p3
-sed -i -e 's@'\''dvdspu'\'',@@g' gst/meson.build
 
 %build
 %meson \
     -D package-name="Fedora GStreamer-plugins-bad package" \
     -D package-origin="http://download.fedoraproject.org" \
+    -D gpl=enabled \
+    -D doc=disabled \
     -D tests=disabled \
-    %{!?with_extras:-D fbdev=disabled -D decklink=disabled } \
-    %{!?with_extras:-D assrender=disabled -D bs2b=disabled } \
-    %{!?with_extras:-D chromaprint=disabled -D d3dvideosink=disabled } \
-    %{!?with_extras:-D directsound=disabled -D dts=disabled } \
-    %{!?with_extras:-D fluidsynth=disabled -D openexr=disabled } \
-    %{!?with_extras:-D curl=disabled -D curl-ssh2=disabled } \
-    %{!?with_extras:-D ttml=disabled } \
-    %{!?with_extras:-D modplug=disabled } \
-    %{!?with_extras:-D openal=disabled } \
-    %{!?with_opencv:-D opencv=disabled } \
-    %{!?with_openh264:-D openh264=disabled } \
-    %{!?with_svtav1:-D svtav1=disabled } \
-    %{!?with_extras:-D openjpeg=disabled } \
-    %{!?with_extras:-D wildmidi=disabled -D zbar=disabled } \
-    %{!?with_extras:-D gme=disabled -D lv2=disabled } \
-    %{!?with_extras:-D webrtc=disabled -D aom=disabled } \
-    %{!?with_extras:-D teletext=disabled -D srt=disabled } \
-    %{!?with_extras:-D openmpt=disabled -D microdns=disabled } \
-    %{!?with_extras:-D ladspa=disabled } \
-    %{!?with_extras:-D avtp=disabled -D dts=disabled } \
-    %{!?with_extras:-D flite=disabled } \
-    -D doc=disabled -D magicleap=disabled -D msdk=disabled \
-    -D faac=disabled -D faad=disabled \
-    -D mpeg2enc=disabled -D mplex=disabled \
-    -D neon=disabled -D rtmp=disabled \
-    -D sbc=disabled \
-    %{!?with_extras:-D spandsp=disabled } \
-    %{!?with_extras:-D voamrwbenc=disabled } \
-    -D x265=disabled \
-    -D dvdspu=disabled \
-    -D opensles=disabled -D tinyalsa=disabled \
-    -D wasapi=disabled -D wasapi2=disabled \
-    -D dc1394=disabled -D directfb=disabled -D iqa=disabled \
-    -D libde265=disabled -D openni2=disabled \
-    %{!?with_extras:-D musepack=disabled } \
-    -D svthevcenc=disabled -D voaacenc=disabled \
-    -D zxing=disabled -D wpe=disabled -D x11=disabled \
-%ifarch s390x
-    -D ldac=disabled 		 		\
-%else
-    %{!?with_extras:-D ldac=disabled } 		\
+%if %{without aom}
+    -D aom=disabled \
 %endif
-    %{!?with_extras:-D qroverlay=disabled } 		\
-    -D gs=disabled -D isac=disabled \
-    -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
-    -D amfcodec=disabled -D directshow=disabled -D qsv=disabled \
-    %{!?with_webrtcdsp:-D webrtcdsp=disabled } \
-    -D aja=disabled -D qt6d3d11=disabled -D cuda-nvmm=disabled \
-    -D androidmedia=disabled -D lcevcdecoder=disabled -D lcevcencoder=disabled \
-    -D nvcomp=disabled -D nvdswrapper=disabled -D svtjpegxs=disabled
+%if %{without dc1394}
+    -D dc1394=disabled \
+%endif
+%if %{without ldac}
+    -D ldac=disabled \
+%endif
+%if %{without opencv}
+    -D opencv=disabled \
+%endif
+%if %{without openh264}
+    -D openh264=disabled \
+%endif
+%if %{without svtav1}
+    -D svtav1=disabled \
+%endif
+%if %{without qsv}
+    -D qsv=disabled \
+%endif
+%if %{without webrtcdsp}
+    -D webrtcdsp=disabled \
+%endif
+%if %{without extras}
+    -D assrender=disabled \
+    -D avtp=disabled \
+    -D bs2b=disabled \
+    -D chromaprint=disabled \
+    -D curl=disabled -D curl-ssh2=disabled \
+    -D d3dvideosink=disabled \
+    -D decklink=disabled \
+    -D directsound=disabled \
+    -D dts=disabled \
+    -D faad=disabled \
+    -D fbdev=disabled \
+    -D flite=disabled \
+    -D fluidsynth=disabled \
+    -D gme=disabled \
+    -D ladspa=disabled \
+    -D ldac=disabled \
+    -D lv2=disabled \
+    -D microdns=disabled \
+    -D modplug=disabled \
+    -D musepack=disabled \
+    -D openal=disabled \
+    -D openexr=disabled \
+    -D openmpt=disabled \
+    -D qroverlay=disabled \
+    -D spandsp=disabled \
+    -D srt=disabled \
+    -D teletext=disabled \
+    -D ttml=disabled \
+    -D voamrwbenc=disabled \
+    -D webrtc=disabled \
+    -D wildmidi=disabled \
+    -D zbar=disabled \
+    -D zxing=disabled \
+%endif
+    -D aja=disabled \
+    -D androidmedia=disabled \
+    -D amfcodec=disabled \
+    -D cuda-nvmm=disabled \
+    -D directfb=disabled \
+    -D directshow=disabled \
+    -D faac=disabled \
+    -D gs=disabled \
+    -D iqa=disabled \
+    -D isac=disabled \
+    -D lcevcdecoder=disabled \
+    -D lcevcencoder=disabled \
+    -D libde265=disabled \
+    -D magicleap=disabled \
+    -D mpeg2enc=disabled \
+    -D mplex=disabled \
+    -D msdk=disabled \
+    -D neon=disabled \
+    -D nvcomp=disabled \
+    -D nvdswrapper=disabled \
+    -D onnx=disabled \
+    -D openaptx=disabled \
+    -D openni2=disabled \
+    -D opensles=disabled \
+    -D qt6d3d11=disabled \
+    -D rtmp=disabled \
+    -D sbc=disabled \
+    -D svthevcenc=disabled \
+    -D svtjpegxs=disabled \
+    -D tinyalsa=disabled \
+    -D voaacenc=disabled \
+    -D wasapi=disabled -D wasapi2=disabled \
+    -D wpe=disabled \
+    -D x11=disabled \
+    -D x265=disabled \
+    %{nil}
 
 %meson_build
 
@@ -473,7 +532,6 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstadpcmdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstadpcmenc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaiff.so
-%{_libdir}/gstreamer-%{majorminor}/libgstanalyticsoverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstasfmux.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiobuffersplit.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiofxbad.so
@@ -487,12 +545,10 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstcodectimestamper.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcoloreffects.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdash.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdvdspu.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvbsubenc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvbsuboverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfaceoverlay.so
-%if %{with extras}
-%{_libdir}/gstreamer-%{majorminor}/libgstfbdevsink.so
-%endif
 %{_libdir}/gstreamer-%{majorminor}/libgstfestival.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfieldanalysis.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfreeverb.so
@@ -520,15 +576,13 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstpnm.so
 %{_libdir}/gstreamer-%{majorminor}/libgstproxy.so
 %{_libdir}/gstreamer-%{majorminor}/libgstremovesilence.so
-%{_libdir}/gstreamer-%{majorminor}/libgstresindvd.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrfbsrc.so
-%{_libdir}/gstreamer-%{majorminor}/libgstrsvg.so
+%{_libdir}/gstreamer-%{majorminor}/libgstrist.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtmp2.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtpmanagerbad.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtponvif.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsdpelem.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsegmentclip.so
-%{_libdir}/gstreamer-%{majorminor}/libgstshm.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsiren.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsmooth.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsmoothstreaming.so
@@ -538,29 +592,37 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgsttensordecoders.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttimecode.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttranscode.so
-%{_libdir}/gstreamer-%{majorminor}/libgstuvch264.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideofiltersbad.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideoframe_audiolevel.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideoparsersbad.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideosignal.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvmnc.so
 %{_libdir}/gstreamer-%{majorminor}/libgsty4mdec.so
-%{_libdir}/gstreamer-%{majorminor}/libgstcodec2json.so
 %{_libdir}/gstreamer-%{majorminor}/libgstinsertbin.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstunixfd.so
-%{_libdir}/gstreamer-%{majorminor}/libgstuvcgadget.so
 
 # System (Linux) specific plugins
+%{_libdir}/gstreamer-%{majorminor}/libgstbluez.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvb.so
+%if %{with extras}
+%{_libdir}/gstreamer-%{majorminor}/libgstfbdevsink.so
+%endif
+%if %{with qsv}
+%{_libdir}/gstreamer-%{majorminor}/libgstqsv.so
+%endif
+%{_libdir}/gstreamer-%{majorminor}/libgstshm.so
+%{_libdir}/gstreamer-%{majorminor}/libgstuvcgadget.so
+%{_libdir}/gstreamer-%{majorminor}/libgstuvch264.so
 %{_libdir}/gstreamer-%{majorminor}/libgstv4l2codecs.so
 
 # Plugins with external dependencies
 
 %{_libdir}/gstreamer-%{majorminor}/libgstaes.so
-%{_libdir}/gstreamer-%{majorminor}/libgstbluez.so
+%{_libdir}/gstreamer-%{majorminor}/libgstanalyticsoverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstbz2.so
 %{_libdir}/gstreamer-%{majorminor}/libgstclosedcaption.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcodec2json.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcolormanagement.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdtls.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfdkaac.so
@@ -570,8 +632,10 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstkms.so
 %{_libdir}/gstreamer-%{majorminor}/libgstlc3.so
 %{_libdir}/gstreamer-%{majorminor}/libgstnvcodec.so
+%{_libdir}/gstreamer-%{majorminor}/libgstopenjpeg.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopusparse.so
-%{_libdir}/gstreamer-%{majorminor}/libgstrist.so
+%{_libdir}/gstreamer-%{majorminor}/libgstresindvd.so
+%{_libdir}/gstreamer-%{majorminor}/libgstrsvg.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsctp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsndfile.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsoundtouch.so
@@ -580,16 +644,21 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstvulkan.so
 %{_libdir}/gstreamer-%{majorminor}/libgstwaylandsink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstwebp.so
+%if %{with aom}
+%{_libdir}/gstreamer-%{majorminor}/libgstaom.so
+%endif
+%if %{with svtav1}
+%{_libdir}/gstreamer-%{majorminor}/libgstsvtav1.so
+%endif
 %if %{with webrtcdsp}
 %{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
 %endif
 %if %{with extras}
-%{_libdir}/gstreamer-%{majorminor}/libgstwebrtc.so
-%{_libdir}/gstreamer-%{majorminor}/libgstlv2.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcurl.so
+%{_libdir}/gstreamer-%{majorminor}/libgstfaad.so
+%{_libdir}/gstreamer-%{majorminor}/libgstopenal.so
 %{_libdir}/gstreamer-%{majorminor}/libgstttmlsubs.so
-%endif
-%if %{with svtav1}
-%{_libdir}/gstreamer-%{majorminor}/libgstsvtav1.so
+%{_libdir}/gstreamer-%{majorminor}/libgstwebrtc.so
 %endif
 
 #debugging plugin
@@ -602,32 +671,36 @@ EOF
 %{_datadir}/gstreamer-%{majorminor}/presets/GstVoAmrwbEnc.prs
 
 # Plugins with external dependencies
-%{_libdir}/gstreamer-%{majorminor}/libgstaom.so
 %{_libdir}/gstreamer-%{majorminor}/libgstassrender.so
 %{_libdir}/gstreamer-%{majorminor}/libgstavtp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstbs2b.so
 %{_libdir}/gstreamer-%{majorminor}/libgstchromaprint.so
-%{_libdir}/gstreamer-%{majorminor}/libgstcurl.so
+%if %{with dc1394}
+%{_libdir}/gstreamer-%{majorminor}/libgstdc1394.so
+%endif
 %{_libdir}/gstreamer-%{majorminor}/libgstdecklink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdtsdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstflite.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgme.so
 %{_libdir}/gstreamer-%{majorminor}/libgstladspa.so
-%ifnarch s390x
+%if %{with ldac}
 %{_libdir}/gstreamer-%{majorminor}/libgstldac.so
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstmicrodns.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmodplug.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmusepack.so
-%{_libdir}/gstreamer-%{majorminor}/libgstopenal.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenexr.so
-%{_libdir}/gstreamer-%{majorminor}/libgstopenjpeg.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenmpt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstqroverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstspandsp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsrt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstteletext.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvoamrwbenc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstzxing.so
+
+%files lv2
+# Plugins with external dependencies
+%{_libdir}/gstreamer-%{majorminor}/libgstlv2.so
 
 %files zbar
 # Plugins with external dependencies
@@ -737,7 +810,6 @@ EOF
 %{_libdir}/libgstisoff-%{majorminor}.so
 %{_libdir}/libgstmpegts-%{majorminor}.so
 %{_libdir}/libgstmse-%{majorminor}.so
-#{_libdir}/libgstopencv-%{majorminor}.so
 %{_libdir}/libgstplay-%{majorminor}.so
 %{_libdir}/libgstplayer-%{majorminor}.so
 %{_libdir}/libgstphotography-%{majorminor}.so
@@ -762,7 +834,6 @@ EOF
 %{_includedir}/gstreamer-%{majorminor}/gst/isoff/
 %{_includedir}/gstreamer-%{majorminor}/gst/mpegts
 %{_includedir}/gstreamer-%{majorminor}/gst/mse/
-#{_includedir}/gstreamer-%{majorminor}/gst/opencv
 %{_includedir}/gstreamer-%{majorminor}/gst/play
 %{_includedir}/gstreamer-%{majorminor}/gst/player
 %{_includedir}/gstreamer-%{majorminor}/gst/sctp
@@ -798,6 +869,12 @@ EOF
 
 
 %changelog
+* Sun Jun 15 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.2-2
+- Move aom, curl, openal, openjpeg to main package
+- Move lv2 to separate subpackage (rhbz#1731750)
+- Enable dvdspu, faad, qsv (x86_64 only)
+- Enable dc1394 and zxing in extras subpackage
+
 * Fri May 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.2-1
 - 1.26.2
 

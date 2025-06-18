@@ -15,12 +15,14 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}.tar.gz
 
 Patch0: totemsrp-Check-size-of-orf_token-msg.patch
+Patch1: exec-Add-support-for-env-STATE_DIRECTORY.patch
+Patch2: init-Use-LogsDirectory-in-systemd-unit-file.patch
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -197,8 +199,10 @@ fi
 %{_initrddir}/corosync
 %{_initrddir}/corosync-notifyd
 %endif
+%if %{without systemd}
 %dir %{_localstatedir}/lib/corosync
 %dir %{_localstatedir}/log/cluster
+%endif
 %{_mandir}/man7/corosync_overview.7*
 %{_mandir}/man8/corosync.8*
 %{_mandir}/man8/corosync-blackbox.8*
@@ -289,6 +293,10 @@ network splits)
 %endif
 
 %changelog
+* Mon Jun 16 2025 Jan Friesse <jfriesse@redhat.com> - 3.1.9-4
+- exec: Add support for env STATE_DIRECTORY
+- init: Use LogsDirectory in systemd unit file
+
 * Wed Mar 26 2025 Jan Friesse <jfriesse@redhat.com> - 3.1.9-3
 - totemsrp: Check size of orf_token msg
   (fixes CVE-2025-30472)

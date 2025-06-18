@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%define package_version 10.11.11
+%define package_version 10.11.13
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.11.11
+%global last_tested_version 10.11.13
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -31,8 +31,15 @@
 %bcond_without client
 %bcond_without common
 %bcond_without errmsg
-%bcond_without galera
 %bcond_without backup
+
+# Package 'galera' (which is a run-time requirement for 'mariadb-server-galera') is no longer built for i686 architecture in Fedora
+%ifarch %{ix86}
+%bcond_with galera
+%else
+%bcond_without galera
+%endif
+
 %if !0%{?flatpak}
 %bcond_without test
 %endif
@@ -105,13 +112,14 @@
 %endif
 
 
+%global selinuxtype targeted
 
 # MariaDB 10.0 and later requires pcre >= 10.34, otherwise we need to use
 # the bundled library, since the package cannot be build with older version
 #   https://mariadb.com/kb/en/pcre/
-%bcond bundled_pcre 1
+%bcond bundled_pcre 0
 %if %{with bundled_pcre}
-%global pcre_bundled_version 10.44
+%global pcre_bundled_version 10.45
 %endif
 
 # To avoid issues with a breaking change in FMT library, bundle it on systems where FMT wasn't fixed yet
@@ -198,7 +206,7 @@ Source71:         LICENSE.clustercheck
 
 # Upstream said: "Generally MariaDB has more allows to allow for xtradb sst mechanism".
 # https://jira.mariadb.org/browse/MDEV-12646
-Source72:         mariadb-server-galera.te
+Source72:         mariadb-server-galera.cil
 
 # Script to support encrypted rsync transfers when SST is required between nodes.
 # https://github.com/dciabrin/wsrep_sst_rsync_tunnel/blob/master/wsrep_sst_rsync_tunnel
@@ -214,8 +222,6 @@ Patch9:           %{majorname}-ownsetup.patch
 Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
-#   Bundling of the PCRE 10.44 library until upstream resolves issues with the 10.45 version
-Patch15:          %{majorname}-pcre.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -469,23 +475,21 @@ MariaDB packages.
 
 %if %{with galera}
 %package          -n %{pkgname}-server-galera
-BuildArch:        noarch
 Summary:          The configuration files and scripts for galera replication
 Requires:         %{pkgname}-common = %{sameevr}
-Requires:         %{pkgname}-server = %{sameevr}
+Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 Requires:         galera >= 26.4.3
-BuildRequires:    selinux-policy-devel
-Requires(post):   (libselinux-utils if selinux-policy-targeted)
-Requires(post):   (policycoreutils if selinux-policy-targeted)
-Requires(post):   (policycoreutils-python-utils if selinux-policy-targeted)
+BuildRequires:    selinux-policy-%{selinuxtype}
+Requires:         selinux-policy-%{selinuxtype}
+Requires(post):   (libselinux-utils if selinux-policy-%{selinuxtype})
+Requires(post):   (policycoreutils if selinux-policy-%{selinuxtype})
+Requires(post):   (policycoreutils-python-utils if selinux-policy-%{selinuxtype})
 # wsrep requirements
 Requires:         lsof
 # Default wsrep_sst_method
 Requires:         rsync
 
-# Only conflicts, provides would add %%{_isa} provides for noarch,
-# which is not wanted
-%conflict_with_other_streams galera
+%virtual_conflicts_and_provides server-galera
 
 %description      -n %{pkgname}-server-galera
 MariaDB is a multi-user, multi-threaded SQL database server. It is a
@@ -534,7 +538,7 @@ Requires:         %{_sysconfdir}/my.cnf.d
 # For cases, where we want to fix a SELinux issues in MariaDB sooner than patched selinux-policy-targeted package is released
 %if %{with require_mysql_selinux}
 # The *-selinux package should only be required on SELinux enabled systems. Therefore the following rich dependency syntax should be used:
-Requires:         (mysql-selinux >= 1.0.10 if selinux-policy-targeted)
+Requires:         (mysql-selinux >= 1.0.10 if selinux-policy-%{selinuxtype})
 # This ensures that the *-selinux package and all its dependencies are not pulled into containers and other systems that do not use SELinux.
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Adding_dependency_to_the_spec_file_of_corresponding_package
 %endif
@@ -620,6 +624,15 @@ For InnoDB, "hot online" backups are possible.
 %package          -n %{pkgname}-rocksdb-engine
 Summary:          The RocksDB storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
+# The version of rocksdb provided is not specified because the mariadb
+# upstream provides it as a submodule, which is linked in their github
+# https://github.com/MariaDB/server/ inside storage/rocksdb
+# the commits linked here don't match the releases made by the rocksdb
+# upstream: https://github.com/facebook/rocksdb/
+# therefore the release specified here would be rough at best.
+# A rough release can also be found inside the source tarball
+# inside the storage/rocksdb/rocksdb/include/rocksdb/version.h file
+# but it does not match the real release every time
 Provides:         bundled(rocksdb)
 
 %virtual_conflicts_and_provides rocksdb-engine
@@ -637,9 +650,9 @@ BuildRequires:    cracklib-dicts cracklib-devel
 Requires:         cracklib-dicts
 
 BuildRequires:    selinux-policy-devel
-Requires(post):   (libselinux-utils if selinux-policy-targeted)
-Requires(post):   (policycoreutils if selinux-policy-targeted)
-Requires(post):   (policycoreutils-python-utils if selinux-policy-targeted)
+Requires(post):   (libselinux-utils if selinux-policy-%{selinuxtype})
+Requires(post):   (policycoreutils if selinux-policy-%{selinuxtype})
+Requires(post):   (policycoreutils-python-utils if selinux-policy-%{selinuxtype})
 
 %virtual_conflicts_and_provides cracklib-password-check
 
@@ -868,10 +881,6 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 
-%if %{with bundled_pcre}
-%patch -P15 -p1
-%endif
-
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
 
@@ -899,8 +908,7 @@ EOF
 
 %if %{with galera}
 # prepare selinux policy
-mkdir selinux
-sed 's/mariadb-server-galera/%{majorname}-server-galera/' %{SOURCE72} > selinux/%{majorname}-server-galera.te
+sed 's/mariadb-server-galera/%{majorname}-server-galera/' %{SOURCE72} > %{majorname}-server-galera.cil
 %endif
 
 
@@ -918,7 +926,7 @@ fi
 pcre_system_version=`pkgconf /usr/%{_lib}/pkgconfig/libpcre2-*.pc --modversion 2>/dev/null | head -n 1`
 
 if [ "$pcre_system_version" != "$pcre_version" ] ; then
-  echo -e "\n Warning: Error: Bundled PCRE version is not correct. \n\tSystem version number: $pcre_system_version \n\tUpstream version number: $pcre_version\n"
+  echo -e "\n Warning: Error: System version of PCRE differs from the version used by the MariaDB upstream. \n\tSystem version number: $pcre_system_version \n\tUpstream version number: $pcre_version\n"
 fi
 %endif
 
@@ -1037,13 +1045,6 @@ cmake -B %{_vpath_builddir} -N -LAH
 
 %cmake_build
 
-# build selinux policy
-%if %{with galera}
-pushd selinux
-make -f /usr/share/selinux/devel/Makefile %{majorname}-server-galera.pp
-%endif
-
-
 
 %install
 %cmake_install
@@ -1113,8 +1114,8 @@ install -m0644 -D support-files/%{name}.sysusers.conf %{buildroot}%{_sysusersdir
 
 # Install additional cracklib selinux policy
 %if %{with cracklib}
-mkdir -p %{buildroot}%{_datadir}/selinux/packages/targeted/
-mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
+mkdir -p %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/
+mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-plugin-cracklib-password-check.pp
 rm %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.te
 %endif
 
@@ -1176,7 +1177,7 @@ sed -i -r 's|^wsrep_provider=none|wsrep_provider=%{_libdir}/galera/libgalera_smm
 install -p -m 0644 %{_vpath_builddir}/support-files/wsrep.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cnf
 
 # install additional galera selinux policy
-install -p -m 644 -D selinux/%{majorname}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
+install -p -m 644 -D %{majorname}-server-galera.cil %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-server-galera.cil
 
 # Fix Galera Replication config file
 #   The replication requires cluster address upon startup (which is end-user specific).
@@ -1420,7 +1421,7 @@ rm %{buildroot}%{_mandir}/man1/aria_s3_copy.1*
 
 %if %{with galera}
 %post -n %{pkgname}-server-galera
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-server-galera.cil
 
 # Allow ports needed for the replication:
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1437,7 +1438,7 @@ fi
 
 %postun -n %{pkgname}-server-galera
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{majorname}-server-galera
+    %selinux_modules_uninstall -s %{selinuxtype} %{majorname}-server-galera
 
     # Delete port labeling when the package is removed
     # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1450,11 +1451,11 @@ fi
 
 %if %{with cracklib}
 %post -n %{pkgname}-cracklib-password-check
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-plugin-cracklib-password-check.pp
 
 %postun -n %{pkgname}-cracklib-password-check
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{majorname}-plugin-cracklib-password-check
+    %selinux_modules_uninstall -s %{selinuxtype} %{majorname}-plugin-cracklib-password-check
 fi
 %endif
 
@@ -1501,6 +1502,7 @@ fi
 %if %{with common}
 %files -n %{pkgname}-common
 %doc %{_docdir}/%{majorname}
+%exclude %{_docdir}/%{majorname}/MariaDB-server-%{version}/README-wsrep
 %dir %{_datadir}/%{majorname}
 %{_datadir}/%{majorname}/charsets
 %if %{with clibrary}
@@ -1548,11 +1550,13 @@ fi
 %{_bindir}/clustercheck
 %{_bindir}/galera_new_cluster
 %{_bindir}/galera_recovery
+%{_libdir}/%{majorname}/plugin/wsrep_info.so
 %{_mandir}/man1/galera_new_cluster.1*
 %{_mandir}/man1/galera_recovery.1*
 %config(noreplace) %{_sysconfdir}/my.cnf.d/galera.cnf
 %attr(0640,root,root) %ghost %config(noreplace) %{_sysconfdir}/sysconfig/clustercheck
-%{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{majorname}-server-galera
+%{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-server-galera.cil
 %endif
 
 %files -n %{pkgname}-server
@@ -1637,7 +1641,6 @@ fi
 %{_libdir}/%{majorname}/plugin/simple_password_check.so
 %{_libdir}/%{majorname}/plugin/sql_errlog.so
 %{_libdir}/%{majorname}/plugin/type_mysql_json.so
-%{?with_galera:%{_libdir}/%{majorname}/plugin/wsrep_info.so}
 
 %{_datadir}/%{majorname}/mini-benchmark
 %{_datadir}/%{majorname}/fill_help_tables.sql
@@ -1705,7 +1708,8 @@ fi
 %files -n %{pkgname}-cracklib-password-check
 %config(noreplace) %{_sysconfdir}/my.cnf.d/cracklib_password_check.cnf
 %{_libdir}/%{majorname}/plugin/cracklib_password_check.so
-%{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
+%{_datadir}/selinux/packages/%{selinuxtype}/%{majorname}-plugin-cracklib-password-check.pp
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{majorname}-plugin-cracklib-password-check
 %endif
 
 %if %{with backup}
@@ -1847,6 +1851,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 06 2025 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.13-1
+- Rebase to 10.11.13
+
 * Wed May 07 2025 Michal Schorm <mschorm@redhat.com> - 3:10.11.11-8
 - Bump release for package rebuild
 - Partial revert of the removal of the tmpfiles.d

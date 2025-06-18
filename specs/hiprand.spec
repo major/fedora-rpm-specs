@@ -41,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -82,10 +82,8 @@ into the backend and results back to the application. hipRAND exports an
 interface that does not require the client to change, regardless of the chosen
 backend. Currently, hipRAND supports either rocRAND or cuRAND.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        The hipRAND development package
@@ -176,6 +174,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Remove suse check of ldconfig
+
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Cleanup module build
 

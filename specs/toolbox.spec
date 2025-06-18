@@ -17,10 +17,10 @@ Version:       0.1.2
 %endif
 %endif
 
-%global toolbx_go 1.20
+%global toolbx_go 1.21
 
 %if 0%{?fedora}
-%global toolbx_go 1.22.7
+%global toolbx_go 1.23.9
 %endif
 
 %if 0%{?rhel}
@@ -29,7 +29,7 @@ Version:       0.1.2
 %elif 0%{?rhel} == 10
 %global toolbx_go 1.22.5
 %elif 0%{?rhel} > 10
-%global toolbx_go 1.23.1
+%global toolbx_go 1.24.3
 %endif
 %endif
 
@@ -73,11 +73,9 @@ Recommends:    fuse-overlayfs
 %endif
 
 Requires:      containers-common
+Requires:      flatpak-session-helper
 Requires:      podman >= 1.6.4
 Requires:      shadow-utils-subid%{?_isa} >= 4.16.0
-%if ! 0%{?rhel}
-Requires:      flatpak-session-helper
-%endif
 
 
 %description

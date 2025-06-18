@@ -1,5 +1,5 @@
 Name:		perltidy
-Version:	20250311
+Version:	20250616
 Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
@@ -12,7 +12,7 @@ BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -72,12 +72,11 @@ sed -i -e '/^examples\/pt\.bat/d' MANIFEST
 find examples/ lib/ -type f -perm /a+x -exec chmod -c -x {} \;
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -92,6 +91,10 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Mon Jun 16 2025 Paul Howarth <paul@city-fan.org> - 20250616-1
+- Update to 20250616 (see CHANGES.md for details)
+- Use %%{make_build} and %%{make_install}
+
 * Wed Mar 12 2025 Paul Howarth <paul@city-fan.org> - 20250311-1
 - Update to 20250311 (see CHANGES.md for details) (rhbz#2351446)
 

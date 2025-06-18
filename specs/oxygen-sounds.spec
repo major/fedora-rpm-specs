@@ -1,6 +1,6 @@
 Name:           oxygen-sounds
-Version:        6.3.91
-Release:        2%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
 License:        LGPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0 AND BSD-2-Clause
@@ -41,6 +41,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
+- 6.4.0
+
 * Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
 - Add signature file
 

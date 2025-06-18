@@ -82,7 +82,7 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %ansible_collection_install
 
 %files -f %{ansible_collection_filelist}
-%license COPYING LICENSES .reuse/dep5 *.license
+%license COPYING LICENSES REUSE.toml *.license
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog

@@ -76,7 +76,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -294,10 +294,8 @@ if [ -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 fi
 
-%if 0%{?suse_version}
 %post  -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %files
 %dir %{_libdir}/cmake/hipblaslt/
@@ -319,7 +317,10 @@ fi
 %endif
 
 %changelog
-* Mon Jun 9 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+* Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
+- Remove suse check of ldconfig
+
+* Mon Jun 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Fix fedora build dependencies
 
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1

@@ -13,7 +13,8 @@
 %bcond_with toolchain_gcc
 
 Name:           zpaqfranz
-Version:        62.2
+Epoch:          1
+Version:        61.4
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -67,7 +68,7 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-61.1-Unbundle-curl.h-and-fix-curl-DSO-name.patch
+Patch0:         zpaqfranz-61.4-Unbundle-curl.h-and-fix-curl-DSO-name.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -152,6 +153,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Mon Jun 16 2025 Petr Pisar <ppisar@redhat.com> - 1:61.4-1
+- 61.4 bump (upstream mistyped previous 61.2 version as 62.2)
+
 * Thu Apr 03 2025 Petr Pisar <ppisar@redhat.com> - 62.2-1
 - 62.2 bump
 

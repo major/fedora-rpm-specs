@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -63,6 +63,10 @@ sed -i 's|/var/NTP|%{_localstatedir}/log/ntpstats|' \
 
 # Disable failing test
 sed -i 's|c cprogram test|c cprogram|' libaes_siv/wscript
+
+# Use systemctl kill in logrotate postrotate script
+sed -i 's|killall -HUP ntpd$|systemctl kill --signal=HUP --kill-whom=main ntpd.service 2>/dev/null \|\| true|' \
+        etc/logrotate-config.ntpd
 
 # Make sure we use the system waf instead of the one bundled with ntpsec
 rm -f waf
@@ -201,6 +205,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Mon Jun 16 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.4-3
+- use systemctl kill in logrotate postrotate script (#2372534)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.4-2
 - Rebuilt for Python 3.14
 

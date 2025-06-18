@@ -1,4 +1,3 @@
-%global _without_inline_snapshot_tests 1
 # Copyright (C) 2023 Maxwell G <maxwell@gtmx.me>
 # Copyright (C) Fedora Project Authors
 # SPDX-License-Identifier: MIT

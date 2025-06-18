@@ -1,5 +1,5 @@
 # There's a dependency loop with psi4 which needs to be broken for new Python bootstrap
-%bcond tests 1
+%bcond tests 0
 
 Name:           python-qcengine
 Version:        0.30.0

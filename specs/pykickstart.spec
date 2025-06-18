@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.64
-Release:   2%{?dist}
+Version:   3.65
+Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -75,6 +75,12 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Mon Jun 16 2025 Brian C. Lane <bcl@redhat.com> - 3.65-1
+- workflows: Add python 3.14 to the test matrix (bcl)
+- Add support for RDP (jkonecny)
+- Deprecate VNC (jkonecny)
+- docs: Fix chapter numbering after adding certificate (bcl)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.64-2
 - Rebuilt for Python 3.14
 

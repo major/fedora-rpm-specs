@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.15.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -287,6 +287,9 @@ popd
 %endif
 
 %changelog
+* Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.15.3-2
+- Bump EVR
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.14.1-5
 - Rebuilt for Python 3.14
 

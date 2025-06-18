@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.12.15
+Version:        0.12.20
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 Patch:          reqwest-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop macOS-specific features
-# * drop unused support for brotli
 # * drop unused support for HTTP/3
 Patch:          reqwest-fix-metadata.diff
 
@@ -101,6 +100,18 @@ This package contains library source intended for building other packages which
 use the "blocking" feature of the "%{crate}" crate.
 
 %files       -n %{name}+blocking-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+brotli-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+brotli-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "brotli" feature of the "%{crate}" crate.
+
+%files       -n %{name}+brotli-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+charset-devel
@@ -379,6 +390,18 @@ use the "stream" feature of the "%{crate}" crate.
 %files       -n %{name}+stream-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+system-proxy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+system-proxy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "system-proxy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+system-proxy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+trust-dns-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -406,8 +429,6 @@ use the "zstd" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop tests that depend on the dropped brotli support
-rm tests/brotli.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

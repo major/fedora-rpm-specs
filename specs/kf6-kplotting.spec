@@ -3,7 +3,7 @@
 %global framework kplotting
 
 Name:           kf6-%{framework}
-Version:        6.14.0
+Version:        6.15.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon for plotting
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -47,15 +47,26 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
 %build
 %{cmake_kf6}
 %cmake_build
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs
+%cmake_build -t generate_qch
 
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs
 
 %files
 %doc README.md
@@ -67,12 +78,21 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKF6Plotting.so
 %{_kf6_libdir}/cmake/KF6Plotting/
 %{_kf6_qtplugindir}/designer/kplotting6widgets.so
-%{_qt6_docdir}/*.tags
- 
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
+
 %files doc
 %{_qt6_docdir}/*.qch
 
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

@@ -4,7 +4,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -26,7 +26,6 @@ Requires: rocfft >= %{rocm_release}
 Requires: rocm-clang
 Requires: rocm-hip >= %{rocm_release}
 Requires: rocminfo >= %{rocm_release}
-Requires: rocm-omp >= %{rocm_release}
 Requires: rocm-runtime >= %{rocm_release}
 Requires: rocm-smi >= %{rocm_release}
 Requires: rocrand >= %{rocm_release}
@@ -44,8 +43,20 @@ Requires: rocdecode >= %{rocm_release}
 Requires: rocjpeg >= %{rocm_release}
 Requires: rocm-clinfo >= %{rocm_release}
 Requires: rocm-core >= %{rocm_release}
+Requires: rocm-omp >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: rocm-rpp >= %{rocm_release}
+Requires: roctracer >= %{rocm_release}
+%endif
+
+%if 0%{?suse_version}
+Requires: hipblaslt >= %{rocm_release}
+Requires: miopen >= %{rocm_release}
+Requires: rccl >= %{rocm_release}
+Requires: rocalution >= %{rocm_release}
+Requires: rocm-clinfo >= %{rocm_release}
+Requires: rocm-core >= %{rocm_release}
+Requires: rocm-opencl >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
 %endif
 
@@ -70,7 +81,6 @@ Requires: rocm-clang-devel
 Requires: rocm-cmake >= %{rocm_release}
 Requires: rocm-compilersupport-macros
 Requires: rocm-hip-devel >= %{rocm_release}
-Requires: rocm-omp-static >= %{rocm_release}
 Requires: rocm-rpm-macros >= %{rocm_release}
 Requires: rocm-rpm-macros-modules >= %{rocm_release}
 Requires: rocm-runtime-devel >= %{rocm_release}
@@ -93,11 +103,22 @@ Requires: rocdecode-devel >= %{rocm_release}
 Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
+Requires: rocm-omp-static >= %{rocm_release}
 Requires: rocm-opencl-devel >= %{rocm_release}
 Requires: rocm-rpp-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
 Requires: rocwmma-devel >= %{rocm_release}
+%endif
+
+%if 0%{?suse_version}
+Requires: hipblaslt-devel >= %{rocm_release}
+Requires: miopen-devel >= %{rocm_release}
+Requires: rccl-devel >= %{rocm_release}
+Requires: rocalution-devel >= %{rocm_release}
+Requires: rocm-core-devel >= %{rocm_release}
+Requires: rocm-opencl-devel >= %{rocm_release}
+Requires: roctracer-devel >= %{rocm_release}
 %endif
 
 %description devel
@@ -128,6 +149,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+- Add a suse version
+
 * Wed Jun 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-1
 - Simplify RHEL changes
 

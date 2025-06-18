@@ -1,5 +1,5 @@
 # This package has a dependency loop with psi4 which has to be broken to bootstrap new Python in Fedora
-%bcond tests 1
+%bcond tests 0
 
 Name:           python-optking
 Version:        0.3.0
@@ -66,8 +66,8 @@ rm -rf optking.*-info
 %doc README.rst
 
 %changelog
-* Thu Jun 12 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-7
-- rebuilt
+* Mon Jun 16 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-7
+- Bootstrap for Python 3.14
 
 * Fri Mar 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-6
 - Drop unused tox flag.

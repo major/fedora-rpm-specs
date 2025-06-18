@@ -13,7 +13,7 @@
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.22.0
+Version:        1.23.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -56,6 +56,9 @@ Source:         commons-logging.tar.zst
 Source:         commons-parent-pom.tar.zst
 Source:         cup.tar.zst
 Source:         disruptor.tar.zst
+Source:         dola-gleaner.tar.zst
+Source:         dola-transformer.tar.zst
+Source:         dola.tar.zst
 Source:         easymock.tar.zst
 Source:         extra-enforcer-rules.tar.zst
 Source:         felix-parent-pom.tar.zst
@@ -160,7 +163,6 @@ Source:         univocity-parsers.tar.zst
 Source:         velocity-engine.tar.zst
 Source:         woodstox.tar.zst
 Source:         xmlunit.tar.zst
-Source:         xmvn-generator.tar.zst
 Source:         xmvn.tar.zst
 Source:         xz-java.tar.zst
 
@@ -213,10 +215,18 @@ JAVA_HOME=%{javaHomePath} ./mbi.sh dist \
   -launchersPath=%{launchersPath} \
   -licensesPath=%{_licensedir}/%{name} \
 
-install -D -p -m 644 downstream/xmvn-generator/src/main/lua/xmvn-generator.lua %{buildroot}%{_rpmluadir}/%{name}-generator.lua
-install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngen %{buildroot}%{_rpmmacrodir}/macros.jpbgen
-install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngenhook %{buildroot}%{_sysconfdir}/rpm/macros.jpbgenhook
-install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/jpbgen.attr
+install -D -p -m 644 downstream/dola/dola-bsx/src/main/lua/dola-bsx.lua %{buildroot}%{_rpmluadir}/%{name}-dola-bsx.lua
+install -D -p -m 644 downstream/dola/dola-dbs/src/main/lua/dola-dbs.lua %{buildroot}%{_rpmluadir}/%{name}-dola-dbs.lua
+install -D -p -m 644 downstream/dola/dola-generator/src/main/lua/dola-generator.lua %{buildroot}%{_rpmluadir}/%{name}-dola-generator.lua
+install -D -p -m 644 downstream/dola/dola-bsx/src/main/rpm/macros.dola-bsx %{buildroot}%{_rpmmacrodir}/macros.jpb-dola-bsx
+install -D -p -m 644 downstream/dola/dola-dbs/src/main/rpm/macros.dola-dbs %{buildroot}%{_rpmmacrodir}/macros.zzz-jpb-dola-dbs
+install -D -p -m 644 downstream/dola/dola-generator/src/main/rpm/macros.dola-generator %{buildroot}%{_rpmmacrodir}/macros.jpb-dola-generator
+install -D -p -m 644 downstream/dola/dola-generator/src/main/rpm/macros.dola-generator-etc %{buildroot}%{_sysconfdir}/rpm/macros.jpb-dola-generator-etc
+install -D -p -m 644 downstream/dola/dola-generator/src/main/rpm/dolagen.attr %{buildroot}%{_fileattrsdir}/jpbdolagen.attr
+install -D -p -m 644 downstream/dola/dola-bsx/src/main/conf/dola-bsx.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/00-dola-bsx.conf
+install -D -p -m 644 downstream/dola/dola-dbs/src/main/conf/dola-dbs.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/04-dola-dbs.conf
+install -D -p -m 644 downstream/dola/dola-generator/src/main/conf/dola-generator.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/03-dola-generator.conf
+install -D -p -m 644 downstream/dola/dola-rpm-api/src/main/conf/dola-rpm-api.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/02-dola-rpm-api.conf
 
 echo '
 %%__xmvngen_debug 1
@@ -228,10 +238,6 @@ echo '
 %%jpb_env PATH=/usr/libexec/javapackages-bootstrap:%{javaHomePath}/bin:$PATH
 %%java_home %{javaHomePath}
 ' >%{buildroot}%{_rpmmacrodir}/macros.jpbgen
-
-sed -i s/xmvn-generator/%{name}-generator/ %{buildroot}%{_sysconfdir}/rpm/macros.jpbgenhook
-sed -i s/xmvn-generator/%{name}-generator/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
-sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 
 # Dynamically generate bundled Provides
 ./downstream.sh bundled-provides >bundled-provides.txt
@@ -248,6 +254,7 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %{_rpmmacrodir}/*
 %{_fileattrsdir}/*
 %{_sysconfdir}/rpm/*
+%{_javaconfdir}/%{name}
 
 %license %{_licensedir}/%{name}
 %doc README.md

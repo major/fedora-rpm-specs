@@ -1,7 +1,7 @@
 %bcond_without  dafsa
 
 Name:           publicsuffix-list
-Version:        20250116
+Version:        20250616
 Release:        %autorelease
 Summary:        Cross-vendor public domain suffix database
 

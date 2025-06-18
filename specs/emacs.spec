@@ -12,7 +12,7 @@ Version:       30.1
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
-%if %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.(%d+)')))} == 0
+%if %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.%d+%.(%d+)')) or 0)} >= 90
 Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz
 Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz.sig
 %else
@@ -255,9 +255,7 @@ support, for running on a terminal only.
 
 %package -n emacsclient
 Summary:       Remotely control GNU Emacs
-
-# This is a moving target whilst Fedora 40 is still receivng updates:
-Conflicts:     emacs-common < %{epoch}:%{version}-%{release}
+Conflicts:     emacs-common < 1:29.4-12
 
 %description -n emacsclient
 %desc

@@ -40,7 +40,7 @@
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -94,10 +94,8 @@ interface that does not require the client to change, regardless
 of the chosen backend. Currently, hipSOLVER supports rocSOLVER
 and cuSOLVER as backends.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -166,6 +164,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Remove suse check of ldconfig
+
 * Wed May 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Cleanup module build
 

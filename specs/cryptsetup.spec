@@ -1,7 +1,7 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.7.5
-Release: 2%{?dist}
+Version: 2.8.0~rc1
+Release: 1%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
 BuildRequires: autoconf, automake, libtool, gettext-devel,
@@ -16,7 +16,7 @@ Obsoletes: %{name}-reencrypt <= %{version}
 Provides: %{name}-reencrypt = %{version}
 
 %global upstream_version %{version_no_tilde}
-Source0: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-%{upstream_version}.tar.xz
+Source0: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.8/cryptsetup-%{upstream_version}.tar.xz
 
 %description
 The cryptsetup package contains a utility for setting up
@@ -104,19 +104,22 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_libdir}/pkgconfig/libcryptsetup.pc
 
 %files libs -f cryptsetup.lang
-%license COPYING COPYING.LGPL
+%license COPYING docs/licenses/COPYING.LGPL-2.1-or-later-WITH-cryptsetup-OpenSSL-exception
 %{_libdir}/libcryptsetup.so.*
 %dir %{_libdir}/%{name}/
 %{_tmpfilesdir}/cryptsetup.conf
 %ghost %attr(700, -, -) %dir /run/cryptsetup
 
 %files ssh-token
-%license COPYING COPYING.LGPL
+%license COPYING docs/licenses/COPYING.LGPL-2.1-or-later-WITH-cryptsetup-OpenSSL-exception
 %{_libdir}/%{name}/libcryptsetup-token-ssh.so
 %{_mandir}/man8/cryptsetup-ssh.8.gz
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Mon Jun 16 2025 Milan Broz <gmazyland@gmail.com> - 2.8.0~rc1-1
+- Update to cryptsetup 2.8.0-rc1.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

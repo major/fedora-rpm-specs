@@ -198,7 +198,15 @@ install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{nam
 
 %dir %{_libdir}/mariadb
 %dir %{_libdir}/mariadb/plugin
-%{_libdir}/mariadb/plugin/*
+%{_libdir}/mariadb/plugin/auth_gssapi_client.so
+%{_libdir}/mariadb/plugin/caching_sha2_password.so
+%{_libdir}/mariadb/plugin/client_ed25519.so
+%{_libdir}/mariadb/plugin/dialog.so
+%{_libdir}/mariadb/plugin/mysql_clear_password.so
+%{_libdir}/mariadb/plugin/parsec.so
+%{_libdir}/mariadb/plugin/remote_io.so
+%{_libdir}/mariadb/plugin/sha256_password.so
+%{_libdir}/mariadb/plugin/zstd.so
 
 %doc README
 %license COPYING.LIB

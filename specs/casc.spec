@@ -1,10 +1,3 @@
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 Name:           casc
 Summary:        Colored Abstract Simplicial Complex (CASC) Library
 Version:        1.0.5
@@ -62,12 +55,6 @@ BuildRequires:  cmake
 # The make backend would work just as well; Ninja is our choice
 BuildRequires:  ninja-build
 
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-%endif
-
 # For tests:
 BuildRequires:  cmake(gtest)
 
@@ -102,30 +89,8 @@ Provides:       casc-static = %{version}-%{release}
 %description devel %{common_description}
 
 
-%package doc
-Summary:        Documentation and examples for the casc library
-
-BuildArch:      noarch
-
-%description doc
-%{summary}.
-
-
 %prep
 %autosetup -p1
-
-%if %{with doc_pdf}
-# We enable the Doxygen PDF documentation as a substitute. We must enable
-# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
-# already be set as we like them. We also disable GENERATE_HTML, since we will
-# not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    doc/Doxyfile.in
-%endif
 
 
 %conf
@@ -134,11 +99,6 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 
 %build
 %cmake_build
-%if %{with doc_pdf}
-%cmake_build --target docs
-%make_build -C %{_vpath_builddir}/latex
-cp -p %{_vpath_builddir}/latex/refman.pdf %{_vpath_builddir}/casc.pdf
-%endif
 
 
 %install
@@ -152,15 +112,6 @@ cp -p %{_vpath_builddir}/latex/refman.pdf %{_vpath_builddir}/casc.pdf
 %files devel
 %license COPYING.md
 %{_includedir}/casc/
-
-
-%files doc
-%license COPYING.md
-%doc README.md
-%if %{with doc_pdf}
-%doc %{_vpath_builddir}/casc.pdf
-%endif
-%doc examples/
 
 
 %changelog

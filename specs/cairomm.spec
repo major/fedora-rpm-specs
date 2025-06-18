@@ -6,9 +6,6 @@
 # building an autotools-generated tarball with meson, or vice versa.
 %bcond maintainer_mode 1
 
-# Build Doxygen-generated documentation as a PDF? See notes in %%prep.
-%bcond doc_pdf 1
-
 Name:           cairomm
 Summary:        C++ API for the cairo graphics library
 Version:        1.14.5
@@ -105,10 +102,6 @@ BuildRequires:  graphviz
 # xsltproc
 BuildRequires:  libxslt
 BuildRequires:  pkgconfig(mm-common-libstdc++)
-%if %{with doc_pdf}
-BuildRequires:  doxygen-latex
-BuildRequires:  make
-%endif
 
 # For tests:
 BuildRequires:  boost-devel
@@ -143,9 +136,20 @@ The API/ABI version series is %{apiver}.
 %package        doc
 Summary:        Documentation for cairomm
 
+# We unbundle Doxygen-inserted JavaScript assets from the HTML documentation
+# as much as possible, as prescribed in
+# https://src.fedoraproject.org/rpms/doxygen/blob/f42/f/README.rpm-packaging.
+#
+# Some files originating in Doxygen are still bundled or are generated from
+# templates specifically for this package; where these have explicitly
+# documented licenses, they are MIT.
+License:        %{license} AND MIT
+
 BuildArch:      noarch
 
 Provides:       cairomm%{apiver}-doc = %{version}-%{release}
+
+%{?doxygen_js_requires}
 
 %description    doc
 Documentation for cairomm can be viewed through the devhelp documentation
@@ -162,36 +166,11 @@ The API/ABI version series is %{apiver}.
 # Fix stray executable bit:
 chmod -v a-x NEWS
 
-# Properly documenting the licenses of Doxygen HTML help is challenging due to
-# issues like a minified JavaScript bundle inserted by Doxygen itself. See
-# discussion at https://bugzilla.redhat.com/show_bug.cgi?id=2006555, as well as
-# https://pagure.io/fesco/issue/3177.
-#
-# We remove the jQuery/jQueryUI bundle with precompiled/minified/bundled
-# JavaScript that is in untracked/docs/reference/html/jquery.js to show that it
-# is not packaged. Shipping files like this is no longer strictly banned in
-# Fedora (https://pagure.io/fesco/issue/3177), but we continue to avoid it.
-#
-# We still generate the HTML documentation, but strip out all the JavaScript
-# that causes policy issues. This degrades it in the browser, but is sufficient
-# to keep the Devhelp documentation working.
-#
-# We also remove the tag file, which triggers a rebuild of the documentation.
+# Remove the tag file, which triggers a rebuild of the documentation.
 # While we are at it, we might as well rebuild the devhelp XML too.
 rm -rf untracked/docs/reference/html
 rm untracked/docs/reference/cairomm-%{apiver}.tag \
    untracked/docs/reference/cairomm-%{apiver}.devhelp2
-%if %{with doc_pdf}
-# We enable the Doxygen PDF documentation as a substitute. We must
-# enable GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and
-# should already be set as we like them.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    docs/reference/Doxyfile.in
-%endif
 
 
 %conf
@@ -207,10 +186,6 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 %build
 %meson_build
 
-%if %{with doc_pdf}
-%make_build -C '%{_vpath_builddir}/docs/reference/latex'
-%endif
-
 
 %install
 %meson_install
@@ -219,14 +194,7 @@ install -t %{buildroot}%{_docdir}/cairomm-%{apiver} -m 0644 -p \
     ChangeLog NEWS README.md
 cp -rp examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
 
-# Strip out bundled and/or pre-minified JavaScript; this degrades the browser
-# experience, but the HTML is still usable for devhelp.
-find '%{buildroot}%{_docdir}/cairomm-%{apiver}/reference/html' \
-    -type f \( -name '*.js' -o -name '*.js.*' \) -print -delete
-%if %{with doc_pdf}
-install '%{_vpath_builddir}/docs/reference/latex/refman.pdf' -p -m 0644 \
-    '%{buildroot}%{_docdir}/cairomm-%{apiver}/reference/cairomm-%{apiver}.pdf'
-%endif
+%{doxygen_unbundle_buildroot}
 
 
 %check

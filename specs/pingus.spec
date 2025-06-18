@@ -1,6 +1,6 @@
 Name:           pingus
 Version:        0.7.6
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Guide the penguins safely home before they drop of the cliff
 License:        GPL-2.0-or-later
 URL:            http://pingus.seul.org/
@@ -54,9 +54,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE1}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps
 install -p -m 644 %{SOURCE2} \
-  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
+  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps
 
 # Register as an application to be visible in the software center
 #
@@ -105,11 +105,14 @@ EOF
 %{_datadir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_mandir}/man6/%{name}.6*
 
 
 %changelog
+* Mon Jun 16 2025 Daniel Rusek <mail@asciiwolf.com> - 0.7.6-51
+- Add better quality desktop icon
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

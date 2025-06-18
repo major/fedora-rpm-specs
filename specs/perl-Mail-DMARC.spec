@@ -2,8 +2,8 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20250203
-Release:        2%{?dist}
+Version:        1.20250610
+Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -30,7 +30,7 @@ URL:            https://metacpan.org/dist/Mail-DMARC
 # is non-free CC-BY-NC-3.0.
 Source0:        Mail-DMARC-%{version}_repackaged.tar.gz
 Source1:        repackage.sh
-# Do not add ./lib to INC, proposed upstream,
+# Do not add ./lib to INC, in upstream after 1.20250610,
 # <https://github.com/msimerson/mail-dmarc/issues/258>
 Patch0:         Mail-DMARC-1.20250203-Do-not-add-.-lib-to-INC-in-the-scripts.patch
 BuildArch:      noarch
@@ -255,6 +255,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 16 2025 Petr Pisar <ppisar@redhat.com> - 1.20250610-1
+- 1.20250610 bump
+
 * Tue May 27 2025 Petr Pisar <ppisar@redhat.com> - 1.20250203-2
 - Require dependecnies for optional test in perl-Mail-DMARC-tests
 

@@ -1,8 +1,8 @@
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        6.14.0
-Release:        2%{?dist}
+Version:        6.15.0
+Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -53,15 +53,27 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
 %autosetup -n %{framework}-%{version}
 
 %build
 %cmake_kf6
 %cmake_build
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs 
+%cmake_build -t generate_qch
 
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs 
+
 %find_lang_kf6 kstatusnotifieritem6_qt
 
 %files -f kstatusnotifieritem6_qt.lang
@@ -77,12 +89,21 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_includedir}/KStatusNotifierItem
 %{_kf6_libdir}/cmake/KF6StatusNotifierItem
 %{_kf6_libdir}/libKF6StatusNotifierItem.so
-%{_qt6_docdir}/*.tags
- 
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
+
 %files doc
 %{_qt6_docdir}/*.qch
 
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.14.0-2
 - Rebuilt for Python 3.14
 

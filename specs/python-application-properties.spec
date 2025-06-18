@@ -1,8 +1,8 @@
 %global pypi_name application-properties
 
 Name:           python-%{pypi_name}
-Version:        0.8.2
-Release:        4%{?dist}
+Version:        0.8.3
+Release:        1%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
@@ -15,6 +15,8 @@ BuildRequires:  python3dist(pyyaml) >= 5.4.1
 BuildRequires:  python3dist(tomli) >= 2.0.1
 BuildRequires:  python3dist(typing-extensions) >= 4.5
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-cov)
 
 %description
 The application_properties package was born out of necessity.
@@ -61,6 +63,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-1
+- 0.8.3
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.2-4
 - Rebuilt for Python 3.14
 

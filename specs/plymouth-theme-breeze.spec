@@ -1,8 +1,8 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 6.3.91
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -52,6 +52,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
+- 6.4.0
+
 * Sat May 31 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.91-2
 - Add signature file
 

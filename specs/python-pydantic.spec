@@ -82,7 +82,7 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 %pyproject_wheel
 
 
-# Docs are in MarkDown, and should be added when mkdocs is packaged.
+# Docs are in MarkDown, and should be added since mkdocs is now available in Fedora.
 
 %install
 %pyproject_install

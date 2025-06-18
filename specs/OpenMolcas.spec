@@ -1,8 +1,8 @@
 # git commit appears in the directory name of the tarball...
-%global commit bd63d2168b911f0dc2f7ea00013cb2b37bf41d95
+%global commit 805c93ebfa2cd5fa185ca03cf965580ebdfeb352
 
 Name:           OpenMolcas
-Version:        25.02
+Version:        25.06
 Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -14,6 +14,10 @@ Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{nam
 Patch0:         OpenMolcas-23.06-fedora.patch
 # Read python modules from system directory
 Patch1:         OpenMolcas-19.11-pymodule.patch
+# Patch out python3 incompatibility
+Patch2:         OpenMolcas-25.06-python3.patch
+# Disable trampoline code that causes FTBFS in Fedora rawhide (f34)
+Patch3:         https://gitlab.com/Molcas/OpenMolcas/-/merge_requests/803.patch
 
 # OpenMolcas is only supported on 64-bit architectures
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
@@ -63,6 +67,8 @@ therefore not included in OpenMolcas.
 %setup -q -n %{name}-v%{version}-%{commit}
 %patch -P0 -p1 -b .fedora
 %patch -P1 -p1 -b .pymodule
+%patch -P2 -p1 -b .python3
+%patch -P3 -p1 -b .intprocarg
 
 # Name of OpenBLAS library to use is
 %if 0%{?fedora} >= 33
@@ -96,8 +102,8 @@ done
 export CC=gcc
 export FC=gfortran
 
-export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC"
-export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules"
+export CFLAGS="%{optflags} -fopenmp -std=gnu99 -fPIC -Wtrampolines"
+export FFLAGS="%{optflags} -cpp -fopenmp -fdefault-integer-8 -fPIC -I%{_libdir}/gfortran/modules -Wtrampolines"
 
 # GCC10 compatibility
 %if 0%{?fedora} > 31
@@ -141,6 +147,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Mon Jun 16 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 25.06-1
+- Update to 25.06.
+
 * Sat Feb 15 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 25.02-1
 - Update to 25.02.
 

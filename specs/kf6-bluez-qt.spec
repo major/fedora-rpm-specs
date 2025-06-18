@@ -2,7 +2,7 @@
  
 Name:           kf6-%{framework}
 Summary:        A Qt wrapper for Bluez
-Version:        6.14.0
+Version:        6.15.0
 Release:        1%{?dist}
  
 License:        CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
@@ -11,7 +11,7 @@ URL:            https://invent.kde.org/frameworks/%{framework}
 %global versiondir %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
- 
+
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
@@ -42,17 +42,27 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
-%autosetup -n %{framework}-%{version}
- 
+%autosetup -n %{framework}-%{version} -p1
  
 %build
  %{cmake_kf6} \
   -DUDEV_RULES_INSTALL_DIR:PATH="%{_udevrulesdir}"
 %cmake_build
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs
+%cmake_build -t generate_qch
  
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs
 
 %files
 %doc README.md
@@ -66,12 +76,21 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKF6BluezQt.so
 %{_kf6_libdir}/cmake/KF6BluezQt/
 %{_kf6_libdir}/pkgconfig/KF6BluezQt.pc
-%{_qt6_docdir}/*.tags
- 
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
+
 %files doc
 %{_qt6_docdir}/*.qch
 
+%files html
+%{_qt6_docdir}/*/*	
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

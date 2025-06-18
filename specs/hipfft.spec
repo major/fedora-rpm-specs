@@ -40,7 +40,7 @@
 
 Name:           %{hipfft_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm FFT marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -88,10 +88,8 @@ change, regardless of the chosen backend. It sits between the
 application and the backend FFT library, marshalling inputs into
 the backend and results back to the application.
 
-%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
-%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -177,6 +175,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Remove suse check of ldconfig
+
 * Tue May 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Cleanup module build
 

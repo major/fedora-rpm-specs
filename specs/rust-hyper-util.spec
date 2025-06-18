@@ -5,7 +5,7 @@
 %global crate hyper-util
 
 Name:           rust-hyper-util
-Version:        0.1.12
+Version:        0.1.14
 Release:        %autorelease
 Summary:        Hyper utilities
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/hyper-util
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          hyper-util-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Allow pnet_datalink 0.34 until we can update it
-Patch:          hyper-util-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

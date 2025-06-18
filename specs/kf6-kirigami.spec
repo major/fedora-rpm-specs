@@ -1,8 +1,8 @@
 %global framework kirigami
 
 Name:           kf6-%{framework}
-Version:        6.14.1
-Release:        2%{?dist}
+Version:        6.15.0
+Release:        1%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -46,15 +46,27 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
 %cmake_build
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs 
+%cmake_build -t generate_qch
 
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs 
+
 %find_lang_kf6 libkirigami6_qt
 
 %files -f libkirigami6_qt.lang
@@ -62,7 +74,6 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %dir %{_kf6_qmldir}/org/
 %dir %{_kf6_qmldir}/org/kde/
 %license LICENSES/*.txt
-%license templates/kirigami6/LICENSES/*.txt
 %{_kf6_qmldir}/org/kde/kirigami
 %{_datadir}/qlogging-categories6/kirigami.categories
 %{_kf6_libdir}/libKirigami.so.6
@@ -81,6 +92,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKirigamiPrimitives.so.%{version}
 %{_kf6_libdir}/libKirigamiPrivate.so.6
 %{_kf6_libdir}/libKirigamiPrivate.so.%{version}
+%{_kf6_libdir}/libKirigamiPolyfill.so.6
+%{_kf6_libdir}/libKirigamiPolyfill.so.%{version}
+
 
 %files devel
 %dir %{_kf6_datadir}/kdevappwizard/
@@ -97,13 +111,23 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKirigamiPlatform.so
 %{_kf6_libdir}/libKirigamiPrimitives.so
 %{_kf6_libdir}/libKirigamiPrivate.so
-%{_qt6_docdir}/*.tags
-
+%{_kf6_libdir}/libKirigamiPolyfill.so
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
 
 %files doc
 %{_qt6_docdir}/*.qch
 
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Wed May 21 2025 Pavel Solovev <daron439@gmail.com> - 6.14.1-2
 - Remove unused dependency
 

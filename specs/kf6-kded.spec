@@ -1,7 +1,7 @@
 %global framework kded
 
 Name:    kf6-%{framework}
-Version: 6.14.0
+Version: 6.15.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
@@ -51,7 +51,8 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
-%find_lang kded6 --with-man --without-mo
+
+%find_lang kded6 --with-man
 # create/own this
 mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 
@@ -76,8 +77,10 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 %{_kf6_libdir}/cmake/KF6KDED/
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
-
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

@@ -119,8 +119,6 @@
 %global fontname            urw-base35
 %global fontconfig_prio     61
 %global urw_fonts_vers      3:2.4-25
-%global tmpdir              %{_localstatedir}/lib/rpm-state/urw-base35-fonts
-%global tmpfile             %{tmpdir}/cache-update-needed
 %global legacydir           %{_datadir}/X11/fonts/urw-fonts
 
 
@@ -128,49 +126,6 @@
 # documentation or license files. Instead of them being located in
 # 'urw-base35-fonts-common', they are located in 'urw-base35-fonts' folder.
 %global _docdir_fmt         %{name}
-
-
-# This will create an auxiliary file if it does not exist, to indicate that X11
-# Logical Font Description database and fontconfig cache needs to be updated.
-%global post_scriptlet()    \
-(                           \
-  if ! [[ -x %{tmpfile} ]]; then \
-    rm -rf   %{tmpdir}      \
-    mkdir -p %{tmpdir}      \
-                            \
-    touch    %{tmpfile}     \
-    chmod +x %{tmpfile}     \
-  fi                        \
-)
-
-
-# NOTE: At the moment, there's no equivalent of 'posttrans' macro for
-#       uninstallation, meaning we can only use the 'posttrans'.
-#
-#       Because of it , we have to use 'postun' instead. That means this
-#       scriptlet will be called for every font family subpackage being
-#       uninstalled...
-%global postun_scriptlet()  \
-(                           \
-  if [[ $1 -eq 0 ]]; then   \
-    # mkfontscale %{_fontdir} &> /dev/null || : \
-    # mkfontdir   %{_fontdir} &> /dev/null || : \
-    true || :               \
-  fi                        \
-)
-
-
-# The content of this scriptlet is only run once during install/update.
-%global posttrans_scriptlet() \
-(                             \
-  if [[ -x %{tmpfile} ]]; then \
-    # mkfontscale %{_fontdir}   \
-    # mkfontdir   %{_fontdir}   \
-    #                          \
-    true || :                 \
-    rm -rf %{tmpdir}          \
-  fi                          \
-)
 
 
 %global common_desc \
@@ -183,7 +138,7 @@ by (URW)++ company, and are mainly utilized by applications using Ghostscript.
 Name:             %{fontname}-fonts
 Summary:          Core Font Set containing 35 freely distributable fonts from (URW)++
 Version:          20200910
-Release:          24%{?dist}
+Release:          25%{?dist}
 
 # NOTE: (URW)++ holds the copyright, but Artifex Software has obtained rights to
 #       release these fonts under GNU Affero General Public License (version 3).
@@ -261,14 +216,19 @@ which is part of Level 2 Core Font Set.                                        \
                                                                                \
 %{common_desc}                                                                 \
                                                                                \
-%post -n %{fontname}-%{subpkg_name}-fonts                                      \
-%{post_scriptlet}                                                              \
-                                                                               \
+# Remove after C11S release and F43 EOL                                        \
 %postun -n %{fontname}-%{subpkg_name}-fonts                                    \
-%{postun_scriptlet}                                                            \
+if [ $1 -gt 0 ]                                                                \
+then                                                                           \
+  rm -rf /var/lib/rpm-state/urw-base35-fonts || :                              \
+fi                                                                             \
                                                                                \
+# Remove after C11S release and F43 EOL                                        \
 %posttrans -n %{fontname}-%{subpkg_name}-fonts                                 \
-%{posttrans_scriptlet}                                                         \
+if [ $1 -gt 1 ]                                                                \
+then                                                                           \
+  rm -rf /var/lib/rpm-state/urw-base35-fonts || :                              \
+fi                                                                             \
                                                                                \
 %files -n %{fontname}-%{subpkg_name}-fonts                                     \
 %{_fontdir}/%{ff_filename}*.t1                                                 \
@@ -408,10 +368,6 @@ mkfontdir   %{legacydir}
 mkfontscale %{legacydir}
 mkfontdir   %{legacydir}
 
-# NOTE: There's no reason to run 'post' and 'postun' scriptlets for the main
-#       metapackage or the *-common subpackage. Everything necessary is handled
-#       by any of the actual font family subpackages.
-
 # =============================================================================
 
 %files
@@ -423,12 +379,8 @@ mkfontdir   %{legacydir}
 %license LICENSE COPYING
 
 %dir %{_fontdir}
-#%ghost %verify (not md5 size mtime) %{_fontdir}/fonts.dir
-#%ghost %verify (not md5 size mtime) %{_fontdir}/fonts.scale
-
 %{_datadir}/fontconfig/conf.avail/%{fontconfig_prio}-urw-fallback-backwards.conf
 %{_sysconfdir}/fonts/conf.d/%{fontconfig_prio}-urw-fallback-backwards.conf
-#%%{_sysconfdir}/X11/fontpath.d/%%{name}
 
 # ---------------
 
@@ -451,6 +403,9 @@ mkfontdir   %{legacydir}
 # =============================================================================
 
 %changelog
+* Wed Jun 11 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 20200910-25
+- Drop noop scriptlets
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20200910-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -595,4 +550,3 @@ mkfontdir   %{legacydir}
 - update the fontconfig cache and X11 Logical Font Description database
   (during install/update/erase)
 - initial version of specfile created
-

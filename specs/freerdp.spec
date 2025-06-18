@@ -29,8 +29,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.12.0
-Release:        2%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -46,11 +46,6 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
-
-Patch:          locale-keyboard-fix-loading-from-file.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2344338
-Patch:          macro-fix-use-of-WINPR_DEPRECATED.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -96,8 +91,9 @@ BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
-%{?_with_sdl_client:BuildRequires:  pkgconfig(sdl2)}
-%{?_with_sdl_client:BuildRequires:  pkgconfig(SDL2_ttf)}
+%{?_with_sdl_client:BuildRequires:  cmake(SDL3)}
+%{?_with_sdl_client:BuildRequires:  cmake(SDL3_image)}
+%{?_with_sdl_client:BuildRequires:  cmake(SDL3_ttf)}
 %{?_with_soxr:BuildRequires:  pkgconfig(soxr)}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
@@ -195,6 +191,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_CHANNELS=ON \
     -DWITH_CLIENT=ON \
     -DWITH_CLIENT_SDL=%{?_with_sdl_client:ON}%{?!_with_sdl_client:OFF} \
+    -DWITH_SDL_IMAGE_DIALOGS=%{?_with_sdl_client:ON}%{?!_with_sdl_client:OFF} \
     -DWITH_DSP_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FDK_AAC=ON \
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
@@ -376,6 +373,11 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Mon Jun 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2:3.16.0-1
+- Update to 3.16.0
+- Drop upstreamed patches
+- Switch to SDL3 for sdl-freerdp
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 2:3.12.0-2
 - Rebuild for noopenh264 2.6.0
 

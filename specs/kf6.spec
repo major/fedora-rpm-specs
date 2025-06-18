@@ -2,7 +2,7 @@
 
 Name:    kf6
 # This version MUST remain in sync with KF6 versions!
-Version: 6.14.0
+Version: 6.15.0
 Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
@@ -31,6 +31,7 @@ Requires: gcc-c++
 # for docs generation
 Requires: doxygen
 Requires: qt6-doc-devel
+Requires: kde-qdoc-common
 Requires: cmake(Qt6ToolsTools)
 BuildArch: noarch
 %description rpm-macros

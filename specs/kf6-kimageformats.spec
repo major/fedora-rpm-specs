@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version:        6.14.0
-Release:        2%{?dist}
+Version:        6.15.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -46,6 +46,13 @@ such it is not required for the compilation of any other software, but
 may be a runtime requirement for Qt-based software to support certain
 image formats.
 
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -63,7 +70,13 @@ image formats.
 %license LICENSES/*.txt
 %{_kf6_qtplugindir}/imageformats/*.so
 
+%files devel
+%{_kf6_libdir}/cmake/KF6ImageFormats/
+
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Fri May 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.14.0-2
 - Soften EPS dependencies
 

@@ -1,7 +1,7 @@
 %define _hardened_build 1
 
 Name:           atop
-Version:        2.11.1
+Version:        2.12.0
 Release:        1%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
@@ -112,6 +112,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.12.0-1
+- 2.12.0
+
 * Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.11.1-1
 - 2.11.1
 

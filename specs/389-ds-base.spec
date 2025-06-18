@@ -512,6 +512,7 @@ Patch:            0001-Issue-6544-logconv.py-python3-magic-conflicts-with-p.patc
 Patch:            0002-Issue-6489-After-log-rotation-refresh-the-FD-pointer.patch
 Patch:            0003-Issue-6554-During-import-of-entries-without-nsUnique.patch
 Patch:            0004-Issue-6555-Potential-crash-when-deleting-a-replicate.patch
+Patch:            0005-Issue-6776-Enabling-audit-log-makes-slapd-coredump.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes

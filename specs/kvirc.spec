@@ -6,7 +6,7 @@
 
 Name:             kvirc
 Version:          5.2.6
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Free portable IRC client
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:          LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -15,6 +15,7 @@ URL:              https://www.kvirc.net/
 Source:           %{forgeurl}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch:            kvirc-5.0.0_enforce_system_crypto.patch
+Patch:            https://github.com/kvirc/KVIrc/commit/5882316f4ccd20a768ae296e1d7efcdfed45d0a3.patch
 
 BuildRequires:    enchant2-devel
 BuildRequires:    audiofile-devel
@@ -144,6 +145,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Tue Jun 17 2025 Alexey Kurov <nucleo@fedoraproject.org> - 5.2.6-4
+- fix compilation with Qt >= 6.9
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.2.6-3
 - Rebuilt for Python 3.14
 

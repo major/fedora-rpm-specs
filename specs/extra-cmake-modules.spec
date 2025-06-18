@@ -4,13 +4,12 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-%global docs 1
 %global tests 1
 %endif
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 6.14.0
+Version: 6.15.0
 Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -18,8 +17,6 @@ URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 BuildArch:      noarch
-
-## upstream patch
 
 ## upstreamable patches
 # do not unconditionally link in base/core libpoppler library
@@ -29,14 +26,13 @@ Patch2: extra-cmake-modules-5.39.0-poppler_overlinking.patch
 
 BuildRequires: kf6-rpm-macros
 BuildRequires: make
-%if 0%{?docs}
 # qcollectiongenerator
 BuildRequires: qt5-qttools-devel
 # sphinx-build
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinxcontrib-qthelp
 %global sphinx_build -DSphinx_BUILD_EXECUTABLE:PATH=%{_bindir}/sphinx-build-3
-%endif
+
 # Qt5Core is needed for tests to run properly (As-of 5.246.1).
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt6Core)
@@ -61,7 +57,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %cmake_kf6 \
   -DBUILD_MAN_DOCS:BOOL=OFF \
   -DBUILD_HTML_DOCS:BOOL=OFF \
-  -DBUILD_QTHELP_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
+  -DBUILD_QTHELP_DOCS:BOOL=ON \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
   %{?sphinx_build}
 %cmake_build
@@ -71,7 +67,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 # move to qt6 docdir so it shows up in Qt Creator by default
 mkdir %{buildroot}%{_qt6_docdir}
-mv %{buildroot}%{_kf6_docdir}/ECM/*.qch %{buildroot}%{_qt6_docdir}/*.qch
+mv %{buildroot}%{_kf6_docdir}/ECM/*.qch %{buildroot}%{_qt6_docdir}/
 
 %check
 %if 0%{?tests}
@@ -84,13 +80,14 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 %license LICENSES/*.txt
 %{_datadir}/ECM/
 
-%if 0%{?docs}
 %files doc
 %{_qt6_docdir}/*.qch
-%endif
 
 
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

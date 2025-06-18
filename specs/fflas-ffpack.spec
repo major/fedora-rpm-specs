@@ -1,10 +1,3 @@
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc 1
-
 # This package is arch-specific, because it computes properties of the system
 # (such as endianness) and stores them in generated header files. Hence, the
 # files DO vary by platform. However, there is no actual compiled code, so turn
@@ -83,15 +76,6 @@ BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  pkgconfig(givaro)
 BuildRequires:  gmp-devel
 
-%if %{with doc}
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-BuildRequires:  make
-BuildRequires:  tex(stmaryrd.sty)
-# Default font for graphviz/dot
-BuildRequires:  font(freesans)
-%endif
-
 # Although there are references to linbox-devel files in this package,
 # linbox-devel Requires fflas-ffpack-devel, not the other way around.
 
@@ -119,19 +103,6 @@ This package provides the header files for developing applications that use
 FFLAS-FFPACK.
 
 
-%if %{with doc}
-%package doc
-Summary:        API documentation for fflas-ffpack
-
-BuildArch:      noarch
-
-%description doc
-%{common_description}
-
-This package provides API documentation for fflas-ffpack.
-%endif
-
-
 %prep
 %autosetup -n fflas_ffpack-%{version} -p1
 # Skip test-echelon for now due to failures.
@@ -146,19 +117,6 @@ sed -i 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
 # SIMD routines below SSE4.1 in the library, so it is not worth worrying about.
 sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
 
-%if %{with doc}
-# We enable the Doxygen PDF documentation as a substitute. We must enable
-# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
-# already be set as we like them. We also disable GENERATE_HTML, since we will
-# not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    doc/Doxyfile doc/DoxyfileDev
-%endif
-
 
 %conf
 # Regenerate configure after monkeying with configure.ac
@@ -168,7 +126,6 @@ autoreconf --force --install --verbose
 # configure script detects USER LAPACK. Ideally, this would be reported
 # upstream, but it’s difficult to describe the problem precisely.
 %configure \
-  %{?with_doc:--enable-doc --docdir='%{_docdir}/fflas-ffpack'} \
   --disable-static \
   --enable-openmp \
   --without-archnative \
@@ -180,20 +137,9 @@ chmod -v a+x fflas-ffpack-config
 %build
 %make_build
 
-%if %{with doc}
-%make_build -C doc/latex
-mv -v doc/latex/refman.pdf doc/fflas-ffpack.pdf
-# Build the developer documentation, too.
-rm -rf doc/latex
-%make_build -C doc docs_dev
-%make_build -C doc/latex
-mv -v doc/latex/refman.pdf doc/fflas-ffpack-dev.pdf
-%endif
-
 
 %install
 %make_install
-rm -vrf '%{buildroot}%{_prefix}/docs'
 install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p '%{SOURCE1}'
 
 
@@ -205,9 +151,7 @@ export FLEXIBLAS=netlib
 
 %files devel
 %license COPYING COPYING.LESSER
-%if %{without doc}
 %doc AUTHORS ChangeLog README.md TODO
-%endif
 
 %{_bindir}/fflas-ffpack-config
 %{_mandir}/man1/fflas-ffpack-config.1*
@@ -215,15 +159,6 @@ export FLEXIBLAS=netlib
 %{_includedir}/fflas-ffpack/
 
 %{_libdir}/pkgconfig/fflas-ffpack.pc
-
-
-%if %{with doc}
-%files doc
-%license COPYING COPYING.LESSER
-%doc AUTHORS ChangeLog README.md TODO
-%doc doc/fflas-ffpack.pdf
-%doc doc/fflas-ffpack-dev.pdf
-%endif
 
 
 %changelog

@@ -2,7 +2,7 @@
 %global _hardened_build 1
 
 Name:           spnavcfg
-Version:        1.2
+Version:        1.3
 Release:        1%{?dist}
 Summary:        Spacenav daemon interactive configuration program
 
@@ -15,7 +15,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libspnav-devel
 BuildRequires:  libX11
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  desktop-file-utils
 
 Requires:       spacenavd
@@ -27,9 +27,6 @@ Spacenav daemon interactive configuration program.
 
 %prep
 %autosetup -p1
-sed -i "s/uic/uic-qt5/g" Makefile.in
-sed -i "s/moc/moc-qt5/g" Makefile.in
-sed -i "s/rcc/rcc-qt5/g" Makefile.in
 
 
 %build
@@ -60,6 +57,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Jun 16 2025 Richard Shaw <hobbes1069@gmail.com> - 1.3-1
+- Update to 1.3.
+- Move from Qt5 to Qt6.
+
 * Sun Mar 30 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2-1
 - Update to 1.2.
 

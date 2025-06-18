@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       285
+Version:       298
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPL-3.0-or-later
@@ -21,7 +21,6 @@ ExcludeArch:  %{ix86}
     cpio \
     llvm, llvm-devel \
     binutils \
-    binwalk \
     diffutils \
     html2text \
     gzip \
@@ -75,6 +74,7 @@ ExcludeArch:  %{ix86}
 # missing:
 # aapt
 # apktool
+# asar
 # js-beautify
 # /usr/bin/dumpxsb from xmlbeans-scripts, xmlbeans
 # docx2txt
@@ -117,6 +117,7 @@ BuildRequires: java-devel
 %endif
 
 Recommends:    %toolz
+Recommends:    binwalk
 
 %description
 diffoscope will try to get to the bottom of what makes files or directories

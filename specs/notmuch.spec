@@ -64,6 +64,7 @@ BuildRequires:  pkgconfig(sfsexp)
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-cffi
 BuildRequires:  python3-docutils
 BuildRequires:  python3-sphinx
 
@@ -74,7 +75,6 @@ BuildRequires:  python3-pytest
   %if 0%{?fedora}
 BuildRequires:  python3-pytest-shutil
   %endif
-BuildRequires:  python3-cffi
 # dtach not available on *EL, skip some tests there;
 # copr only: use mjg/dtach-epel
   %if 0%{?fedora} || %{without distrobuild}
@@ -84,10 +84,10 @@ BuildRequires:  gdb
   %if %{with sfsexp}
 BuildRequires:  git-core
   %endif
+%endif
 BuildRequires:  man
 BuildRequires:  openssl
 # You might also want to rebuild with valgrind-devel libasan libasan-static.
-%endif
 
 Requires(post): /sbin/install-info
 Requires(postun): /sbin/install-info
@@ -220,6 +220,7 @@ NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS%{!?with_emacs28: emacs-tree.23}"
 # notmuch new takes shortcuts, so enforce --full-scan there.
 NOTMUCH_SKIP_TESTS="$NOTMUCH_SKIP_TESTS" \
 NOTMUCH_TEST_SERIALIZE="yesplease" \
+NOTMUCH_TEST_TIMEOUT="10m" \
 make test V=1 %{?rhel:NOTMUCH_TEST_FULLSCAN=1}
 %endif
 

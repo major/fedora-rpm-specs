@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.26
-Release:        %{release_number}%{?dist}.6
+Release:        %{release_number}%{?dist}.7
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -56,7 +56,6 @@ Requires:       python3-cryptography
 Requires:       m2crypto
 %endif
 Requires:       %{python_ver}-requests
-Requires:       %{python_ver}-six
 # python-argparse is required for Python 2.6 on EL6
 %{?el6:Requires: python-argparse}
 Requires:       openssl
@@ -164,6 +163,9 @@ fi
 
 
 %changelog
+* Sun Jun 15 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.31.26-1.7
+- Drop unused six dependency
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.31.26-1.6
 - Rebuilt for Python 3.14
 

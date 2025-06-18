@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version: 6.14.0
+Version: 6.15.0
 Release: 1%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
@@ -37,16 +37,6 @@ BuildRequires: flex
 %description
 %{summary}.
 
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt6Network)
-Requires:       cmake(Qt6Widgets)
-
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
 %package        console
 Summary:        Analytics and administration tool for UserFeedback servers
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -60,6 +50,27 @@ Provides:       kuserfeedback-console%{?_isa} = %{version}-%{release}
 %description    console
 Analytics and administration tool for UserFeedback servers.
 
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(Qt6Network)
+Requires:       cmake(Qt6Widgets)
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
+%package        html
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+%description    html
+Developer Documentation files for %{name} in HTML format
 
 %prep
 %autosetup -p1 -n %{framework}-%{version}
@@ -71,10 +82,15 @@ Analytics and administration tool for UserFeedback servers.
    -DENABLE_CONSOLE=ON
 
 %cmake_build
+%cmake_build -t prepare_docs
+%cmake_build -t generate_docs 
+%cmake_build -t generate_qch
 
 
 %install
 %cmake_install
+%cmake_build -t install_html_docs
+%cmake_build -t install_qch_docs
 
 %find_lang userfeedbackconsole6 --with-qt
 %find_lang userfeedbackprovider6 --with-qt
@@ -94,6 +110,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 %{_kf6_qmldir}/org/kde/userfeedback/
 %{_kf6_datadir}/qlogging-categories6/org_kde_UserFeedback.categories
 
+%files console -f userfeedbackconsole6.lang
+%{_bindir}/UserFeedbackConsole
+%{_datadir}/applications/org.kde.kuserfeedback-console.desktop
+%{_kf6_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
 
 %files devel
 %{_kf6_includedir}/KUserFeedback/
@@ -103,15 +123,23 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 %{_libdir}/libKF6UserFeedbackWidgets.so
 %{_kf6_libdir}/cmake/KF6UserFeedback/
 %{_kf6_archdatadir}/mkspecs/modules/qt_KF6UserFeedback*.pri
+%{_qt6_docdir}/*/*.tags
+%{_qt6_docdir}/*/*.index
 
+%files doc
+%{_qt6_docdir}/*.qch
 
-%files console -f userfeedbackconsole6.lang
-%{_bindir}/UserFeedbackConsole
-%{_datadir}/applications/org.kde.kuserfeedback-console.desktop
-%{_kf6_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
+%files html
+%{_qt6_docdir}/*/*
+%exclude %{_qt6_docdir}/*/*.tags
+%exclude %{_qt6_docdir}/*/*.index
+
 
 
 %changelog
+* Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
+- 6.15.0
+
 * Sat May 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.14.0-1
 - 6.14.0
 

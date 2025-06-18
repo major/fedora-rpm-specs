@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.56.0
+Version:       1.56.1
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -78,10 +78,6 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
-
-# Upstream patch, fixing ACPI.
-Patch:         0001-lib-Enable-ACPI-for-the-libvirt-backend.patch
-Patch:         0002-lib-Make-libvirt-ACPI-feature-flag-conditional-on-x8.patch
 
 BuildRequires: autoconf, automake, libtool, gettext-devel
 
@@ -1071,6 +1067,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jun 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.56.1-1
+- New upstream stable version 1.56.1
+- Remove upstream ACPI / seabios fixes included in this version.
+
 * Wed Jun 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.56.0-1
 - New upstream stable version 1.56.0
 - Remove BR xz-devel as it is not needed.
