@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -404,6 +404,23 @@ Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.p
 # This resolves the issue of failing tests when a system is
 # stressed on OpenSSL 3.5.
 Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
+
+# 00464 # 1c713e02a26bf8865bb6421749d19d0766cac178
+# Enable PAC and BTI protections for aarch64
+#
+# Apply protection against ROP/JOP attacks for aarch64 on asm_trampoline.S
+#
+# The BTI flag must be applied in the assembler sources for this class
+# of attacks to be mitigated on newer aarch64 processors.
+#
+# Upstream PR: https://github.com/python/cpython/pull/130864/files
+#
+# The upstream patch is incomplete but only for the case where
+# frame pointers are not used on 3.13+.
+#
+# Since on Fedora we always compile with frame pointers the BTI/PAC
+# hardware protections can be enabled without losing Perf unwinding.
+Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
 # (New patches go here ^^^)
 #
@@ -1723,6 +1740,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jun 12 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.11-2
+- Enable PAC and BTI hardware protections for aarch64
+
 * Wed Jun 04 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.11-1
 - Update to 3.12.11
 

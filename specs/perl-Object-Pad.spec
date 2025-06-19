@@ -1,7 +1,11 @@
 # Enable debugging with Devel::MAT
 %bcond_with perl_Object_Pad_enables_Devel_MAT
 # Perform optional tests
+%if 0%{?rhel}
+%bcond_with perl_Object_Pad_enables_optional_test
+%else
 %bcond_without perl_Object_Pad_enables_optional_test
+%endif
 
 Name:           perl-Object-Pad
 Version:        0.820

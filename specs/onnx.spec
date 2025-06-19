@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -122,6 +122,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.17.0-5
+- Rebuilt for Python 3.14
+
 * Fri Mar 28 2025 Miro Hrončok <mhroncok@redhat.com> - 1.17.0-4
 - Don't needlessly try to generate test requirements by tox
 - Fixes: rhbz#2354087

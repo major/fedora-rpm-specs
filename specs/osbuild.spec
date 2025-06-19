@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        151
+Version:        152
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        151
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -40,8 +40,8 @@ Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:       python3-librepo
 
 # This is required for `osbuild`, for RHEL-10 and above
-# the stdlib toml package can be used instead
-%if 0%{?rhel} < 10
+# the stdlib tomllib module can be used instead
+%if 0%{?rhel} && 0%{?rhel} < 10
 Requires:       python3-tomli
 %endif
 
@@ -329,6 +329,43 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Tue Jun 17 2025 Packit <hello@packit.dev> - 152-1
+Changes with 152
+----------------
+  * Add the ability to exclude files and directories from squashfs and erofs images (#2106)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Always assert the correct architecture in test_curl_user_agent (#2118)
+    * Author: Karolina Surma, Reviewers: Brian C. Lane, Simon de Vlieger
+  * Avoid the multiprocessing forkserver method (#2115)
+    * Author: Karolina Surma, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update images dependency ref to latest (#2107)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update images dependency ref to latest (#2114)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update snapshots to 20250601 (#2100)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Update snapshots to 20250605 (#2105)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * compat: `ast.Str` -> `ast.Constant` (#2112)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  * compatibility: Fedora 43 is now using python 3.14 (#2108)
+    * Author: Brian C. Lane, Reviewers: Anna Vítová, Simon de Vlieger
+  * solver/dnf5: switch base exception type (#2120)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  * source/containers-storage: error message (#2121)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  * spec: Don't use tomli on Fedora, fix comment (#2117)
+    * Author: Miro Hrončok, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages/grub2: set template vars to empty strings when missing (HMS-8646) (#2104)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger
+  * stages/test: kickstart different messages (#2122)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  * stages/{containers,systemd}: skip validation of keys by configparser (#2111)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+
+— Somewhere on the Internet, 2025-06-17
+
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 151-2
 - Rebuilt for Python 3.14
 

@@ -1,20 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
-%if 0%{?fedora} >= 40
-%global use_qt6 1
-%else
-%global use_qt6 0
-%endif
-
-%if %{use_qt6}
-%define qt_major_ver 6
-%else
-%define qt_major_ver 5
-%endif
-
-
 Name:       fcitx5-skk
-Version:    5.1.6
+Version:    5.1.7
 Release:    %autorelease
 Summary:    Japanese SKK (Simple Kana Kanji) Engine for Fcitx5
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -34,8 +21,8 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(Fcitx5Core)
 BuildRequires:  pkgconfig(libskk)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(Qt%{qt_major_ver})
-BuildRequires:  pkgconfig(Qt%{qt_major_ver}Core)
+BuildRequires:  pkgconfig(Qt6)
+BuildRequires:  pkgconfig(Qt6Core)
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  /usr/bin/appstream-util
@@ -52,12 +39,7 @@ Japanese input method using libskk.
 %autosetup
 
 %build
-%cmake -DCMAKE_CXX_STANDARD=17 -GNinja \
-%if %{use_qt6}
-  -DUSE_QT6=On
-%else
-  -DUSE_QT6=Off
-%endif
+%cmake -DCMAKE_CXX_STANDARD=17 -GNinja
 %cmake_build
 
 %install
@@ -75,8 +57,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
 %license LICENSES/GPL-3.0-or-later.txt
-%doc README.md 
-%{_libdir}/fcitx5/qt%{qt_major_ver}/libfcitx5-skk-config.so
+%doc README.md
+%{_libdir}/fcitx5/qt6/libfcitx5-skk-config.so
 %{_libdir}/fcitx5/skk.so
 %{_datadir}/fcitx5/addon/skk.conf
 %{_datadir}/fcitx5/inputmethod/skk.conf

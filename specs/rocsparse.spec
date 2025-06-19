@@ -88,7 +88,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -248,8 +248,8 @@ if [ -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md ]; then
 fi
 
 %if %{with test}
-    mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
-    install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{_datadir}/%{name}/matrices
+mkdir -p %{buildroot}/%{_datadir}/rocsparse/matrices
+install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{_datadir}/rocsparse/matrices
 %endif
 
 %check
@@ -308,6 +308,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Jun 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
+- Fix install of matrices on suse
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
 - Remove suse check of ldconfig
 

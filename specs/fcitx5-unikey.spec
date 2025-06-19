@@ -1,19 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
-%if 0%{?fedora} >= 40
-%global use_qt6 1
-%else
-%global use_qt6 0
-%endif
-
-%if %{use_qt6}
-%define qt_major_ver 6
-%else
-%define qt_major_ver 5
-%endif
-
 Name:       fcitx5-unikey
-Version:    5.1.6
+Version:    5.1.7
 Release:    %autorelease
 Summary:    Unikey support for Fcitx5
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -29,8 +17,8 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  cmake(Fcitx5Core)
-BuildRequires:  cmake(Fcitx5Qt%{qt_major_ver}WidgetsAddons)
-BuildRequires:  cmake(qt%{qt_major_ver})
+BuildRequires:  cmake(Fcitx5Qt6WidgetsAddons)
+BuildRequires:  cmake(qt6)
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
@@ -44,12 +32,7 @@ Unikey (Vietnamese Input Method) engine support for Fcitx5.
 %autosetup
 
 %build
-%cmake -GNinja \
-%if %{use_qt6}
-  -DUSE_QT6=On
-%else
-  -DUSE_QT6=Off
-%endif
+%cmake -GNinja
 %cmake_build
 
 %install
@@ -60,10 +43,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
 %license LICENSES/GPL-2.0-or-later.txt LICENSES/LGPL-2.0-or-later.txt
-%doc README ChangeLog 
+%doc README ChangeLog
 %{_libdir}/fcitx5/libunikey.so
-%{_libdir}/fcitx5/qt%{qt_major_ver}/libfcitx5-unikey-macro-editor.so
-%{_libdir}/fcitx5/qt%{qt_major_ver}/libfcitx5-unikey-keymap-editor.so
+%{_libdir}/fcitx5/qt6/libfcitx5-unikey-macro-editor.so
+%{_libdir}/fcitx5/qt6/libfcitx5-unikey-keymap-editor.so
 %{_datadir}/fcitx5/addon/unikey.conf
 %{_datadir}/fcitx5/inputmethod/unikey.conf
 %{_datadir}/icons/hicolor/*/apps/fcitx-unikey.png

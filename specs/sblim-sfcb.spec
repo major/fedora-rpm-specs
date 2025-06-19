@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -41,6 +41,9 @@ Patch9: sblim-sfcb-1.4.9-fix-ppc-optimization-level.patch
 # Patch10: fixes docdir name and removes install of COPYING with license
 #   which is included through %%license
 Patch10: sblim-sfcb-1.4.9-docdir-license.patch
+# Patch11: adds configuration options to specify fallback SSL cert/key pair
+#   and disables default ECDH ephemeral key generation
+Patch11: sblim-sfcb-1.4.9-post-quantum.patch
 Provides: cim-server = 0
 Requires: cim-schema
 Requires: sblim-sfcCommon
@@ -82,6 +85,7 @@ Programming Interface (CMPI).
 %patch -P8 -p1 -b .fix-null-content-type-crash
 %patch -P9 -p1 -b .fix-ppc-optimization-level
 %patch -P10 -p1 -b .docdir-license
+%patch -P11 -p1 -b .post-quantum
 
 # Create a sysusers.d config file
 cat >sblim-sfcb.sysusers.conf <<EOF
@@ -141,6 +145,9 @@ install -m0644 -D sblim-sfcb.sysusers.conf %{buildroot}%{_sysusersdir}/sblim-sfc
 %{_sysusersdir}/sblim-sfcb.conf
 
 %changelog
+* Tue Jun 17 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-36
+- Update to better support post-quantum cryptography
+
 * Thu Mar 06 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-35
 - bin and sbin unification
 

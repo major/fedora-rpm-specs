@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       6%{?dist}
+Release:       7%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -103,6 +103,9 @@ install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcub
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jun 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.0~rc3^20240726gitcbda6c6c-7
+- Rebuilt for new python
+
 * Wed Mar  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.0~rc3^20240726gitcbda6c6c-6
 - Rebuilt for new gnuradio
 

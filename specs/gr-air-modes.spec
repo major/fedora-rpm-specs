@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.118.%{git_suffix}%{?dist}
+Release:          0.119.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 BuildRequires:    cmake
@@ -88,6 +88,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Tue Jun 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.119.20200807git9e2515a5
+- Rebuilt for new python
+
 * Wed Mar  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.118.20200807git9e2515a5
 - Rebuilt for new gnuradio
 

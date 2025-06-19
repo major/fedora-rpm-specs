@@ -12,7 +12,7 @@
 
 Name: criu
 Version: 4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -188,6 +188,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 4.1-4
+- Rebuilt for Python 3.14
+
 * Wed Apr 23 2025 David Abdurachmanov <davidlt@rivosinc.com> - 4.1-3
 - Enable for riscv64
 

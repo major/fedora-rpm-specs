@@ -2,7 +2,7 @@
 
 Name:		python-wtf-peewee
 Version:	3.0.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	WTForms integration for peewee models
 
 License:	MIT
@@ -52,6 +52,9 @@ sed -i '1d' runtests.py
 %license LICENSE
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 3.0.5-7
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

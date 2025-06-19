@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.3.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -146,6 +146,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.3.0-7
+- Rebuilt for Python 3.14
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-6
 - gstreamer1-plugins-bad-free rebuild
 

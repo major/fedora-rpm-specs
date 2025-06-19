@@ -9,7 +9,7 @@
 Name:    kf6-%{framework}
 Summary: Breeze icon theme library
 Version: 6.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
 # folder-edit-sign-encrypt.svg is LGPL-2.1-or-later
@@ -191,6 +191,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %endif
 
 %changelog
+* Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
+- 6.15 and plasma 3.4 compatibility rebuild
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
 - 6.15.0
 

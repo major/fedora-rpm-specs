@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -15,6 +15,10 @@ Patch1:         %{name}-2.3.0-secp192.patch
 Patch2:         %{name}-bsd.patch
 # https://github.com/tpm2-software/tpm2-pytss/pull/615
 Patch3:         %{name}-gcc15.patch
+# cryptograpy: add copy dunder for private keys
+# cryptography >= 45.0.0 requires the copy dunder for private key implementations.
+# https://github.com/tpm2-software/tpm2-pytss/commit/6ab4c74e6fb3da7cd38e97c1f8e92532312f8439
+Patch4:         %{name}-copy-dunder.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -79,6 +83,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jun 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.0-6
+- Patch for cryptography 45; fixes RHBZ#2372172
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.0-5
 - Rebuilt for Python 3.14
 

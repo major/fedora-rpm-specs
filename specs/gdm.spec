@@ -7,7 +7,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        48.0
+Version:        49~alpha.0
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
@@ -25,8 +25,6 @@ Source6:        gdm.sysusers
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch:          0001-data-add-system-dconf-databases-to-gdm-profile.patch
 Patch:          0001-Add-headless-session-files.patch
-
-Patch:          0001-gdm-settings-utils-rename-variable-to-fix-build-with.patch
 
 BuildRequires:  dconf
 BuildRequires:  desktop-file-utils

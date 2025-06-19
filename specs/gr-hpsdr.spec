@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       34%{?dist}
+Release:       35%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -74,6 +74,9 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jun 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-35
+- Rebuilt for new python
+
 * Wed Mar  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-34
 - Rebuilt for new gnuradio
 

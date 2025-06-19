@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           yelp-xsl
-Version:        42.1
-Release:        7%{?dist}
+Version:        42.4
+Release:        1%{?dist}
 Summary:        XSL stylesheets for the yelp help browser
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-3-Clause
@@ -10,11 +10,10 @@ URL:            https://download.gnome.org/sources/yelp-xsl
 Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
 BuildArch:      noarch
 
-Patch0:         yelp-xsl-CVE-2025-3155.patch
-
+BuildRequires:  meson
+BuildRequires:  gettext-devel
 BuildRequires:  gcc
 BuildRequires:  itstool
-BuildRequires:  make
 BuildRequires:  python3-libxml2
 BuildRequires:  /usr/bin/ducktype
 BuildRequires:  /usr/bin/xmllint
@@ -38,12 +37,12 @@ XSL stylesheets in yelp-xsl.
 
 
 %build
-%configure --enable-doc
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 
 %files
@@ -56,6 +55,9 @@ XSL stylesheets in yelp-xsl.
 
 
 %changelog
+* Tue Jun 17 2025 Carlos Garnacho <cgarnach@redhat.com> - 42.4-1
+- Update to 42.4
+
 * Thu May 15 2025 Jan Grulich <jgrulich@redhat.com> - 42.1-7
 - Fix CVE-2025-3155 - arbitrary file-read
 

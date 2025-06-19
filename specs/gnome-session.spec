@@ -1,5 +1,3 @@
-%define po_package gnome-session-48
-
 %if 0%{?fedora} || (0%{?rhel} >= 10)
 %else
 %global with_session_selector 1
@@ -11,36 +9,30 @@
 %bcond x11 0
 %endif
 
+%global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%define po_package gnome-session-%{major_version}
 
 Name:           gnome-session
-Version:        48.0
+Version:        49~alpha.0
 Release:        %autorelease
 Summary:        GNOME session manager
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-session
-Source:         https://download.gnome.org/sources/gnome-session/48/%{name}-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-session/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
-# Blacklist NV30: https://bugzilla.redhat.com/show_bug.cgi?id=745202
-Patch:          gnome-session-3.3.92-nv30.patch
-Patch:          gnome-session-3.6.2-swrast.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=772421
-Patch:          0001-check-accelerated-gles-Use-eglGetPlatformDisplay-EXT.patch
 # For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
 # This should go upstream once systemd has a generic interface for this
 Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
-# always install xwayland targets, based on
-# https://gitlab.gnome.org/GNOME/gnome-session/-/commit/b272354df34d2437fa90ce09f4e153ee229e731e
-Patch:          gnome-session-always-install-xwayland-targets.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glesv2)
-BuildRequires:  pkgconfig(gnome-desktop-3.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gnome-desktop-4)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(ice)
 BuildRequires:  pkgconfig(json-glib-1.0)
@@ -124,9 +116,7 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %install
 %meson_install
 
-%if %{without x11}
-rm %{buildroot}%{_datadir}/xsessions/gnome.desktop
-%endif
+rm %{buildroot}%{_datadir}/applications/gnome-mimeapps.list
 
 %find_lang %{po_package}
 
@@ -141,15 +131,10 @@ rm %{buildroot}%{_datadir}/xsessions/gnome.desktop
 %{_datadir}/wayland-sessions/*
 
 %files -f %{po_package}.lang
-%doc AUTHORS NEWS
+%doc NEWS
 %license COPYING
 %{_bindir}/gnome-session*
 %{_libexecdir}/gnome-session-binary
-%if %{with x11}
-%{_libexecdir}/gnome-session-check-accelerated
-%{_libexecdir}/gnome-session-check-accelerated-gl-helper
-%{_libexecdir}/gnome-session-check-accelerated-gles-helper
-%endif
 %{_libexecdir}/gnome-session-ctl
 %{_libexecdir}/gnome-session-failed
 %{_mandir}/man1/gnome-session*1.*
@@ -159,7 +144,8 @@ rm %{buildroot}%{_datadir}/xsessions/gnome.desktop
 %{_datadir}/doc/gnome-session/
 %{_datadir}/glib-2.0/schemas/org.gnome.SessionManager.gschema.xml
 %{_userunitdir}/gnome-session*
-%{_userunitdir}/gnome-launched-.scope.d/
+%{_userunitdir}/app-flatpak-.scope.d/override.conf
+%{_userunitdir}/app-gnome-.scope.d/override.conf
 
 %changelog
 %autochangelog

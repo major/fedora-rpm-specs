@@ -47,7 +47,7 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.4.1
+Version: 3.5.1
 Release: %autorelease
 
 # Nearly all of openvswitch is Apache-2.0.  The bugtool is LGPLv2+, and the
@@ -68,8 +68,6 @@ Source1: openvswitch.sysusers
 # ovs-patches
 
 # OVS (including OVN) backports (0 - 300)
-
-Patch0: 0001-dpdk-Update-to-use-v24.11.1.patch
 
 BuildRequires: gcc gcc-c++ make
 BuildRequires: autoconf automake libtool
@@ -564,6 +562,7 @@ fi
 %config %{_datadir}/openvswitch/vtep.ovsschema
 %{_bindir}/ovs-appctl
 %{_bindir}/ovs-dpctl
+%{_bindir}/ovs-flowviz
 %{_bindir}/ovs-ofctl
 %{_bindir}/ovs-vsctl
 %{_bindir}/ovsdb-client
@@ -590,6 +589,7 @@ fi
 %{_mandir}/man8/ovs-appctl.8*
 %{_mandir}/man8/ovs-ctl.8*
 %{_mandir}/man8/ovs-dpctl.8*
+%{_mandir}/man8/ovs-flowviz.8*
 %{_mandir}/man8/ovs-kmod-ctl.8.*
 %{_mandir}/man8/ovs-ofctl.8*
 %{_mandir}/man8/ovs-pki.8*

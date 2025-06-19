@@ -3,7 +3,7 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.0.5
+Version:        10.0.6
 Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Tue Jun 17 2025 Jered Floyd <jered@redhat.com> 10.0.6-1
+- Update to upstream 10.0.6
+
 * Sun Apr 13 2025 Jered Floyd <jered@redhat.com> 10.0.5-1
 - Update to upstream 10.0.5
 - Resolves CVE-2024-53868

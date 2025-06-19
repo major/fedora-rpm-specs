@@ -18,10 +18,13 @@ Summary: Dependency injection, the Python way
 License: Apache-2.0
 
 Version: 5.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pypi_name}
 Source0: %pypi_source
+
+# Fix tests failing on Python 3.14
+Patch0: 0000-asyncio.patch
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
@@ -42,7 +45,7 @@ BuildArch: noarch
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -67,6 +70,9 @@ BuildArch: noarch
 
 
 %changelog
+* Tue Jun 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.2.1-7
+- Fix test failure under Python 3.14 (rhbz#2327978)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.2.1-6
 - Rebuilt for Python 3.14
 

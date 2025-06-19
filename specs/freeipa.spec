@@ -63,6 +63,11 @@
     %global modulename ipa
 %endif
 
+# Remove NIS support for f42+
+%if 0%{?fedora} <= 41
+    %global with_nis 1
+%endif
+
 %if 0%{?rhel}
 %global package_name ipa
 %global alt_name freeipa
@@ -85,7 +90,13 @@
 
 # Fix for TLS 1.3 PHA, RHBZ#1775158
 %global httpd_version 2.4.37-21
+
+# DNSSEC support with OpenSSL provider API in RHEL 10
+%if 0%{?rhel} < 10
 %global bind_version 9.11.20-6
+%else
+%global bind_version 9.18.33-3
+%endif
 
 # support for passkey
 %global sssd_version 2.9.0
@@ -119,7 +130,12 @@
 %global httpd_version 2.4.41-9
 
 # Support for Encrypted DNS and OpenSSL Provider API
+%if 0%{?fedora} < 42
+%global bind_version 32:9.18.33-1
+%else
+# BIND version with backport of DNSSEC support over OpenSSL provider API
 %global bind_version 32:9.18.35-2
+%endif
 
 # Don't use Fedora's Python dependency generator on Fedora 30/rawhide yet.
 # Some packages don't provide new dist aliases.
@@ -186,6 +202,7 @@
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
 %define IPA_VERSION 4.12.2
+%global TARBALL_IPA_VERSION 4.12.2
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
 %define AT_SIGN @
@@ -198,15 +215,15 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        13%{?rc_version:.%rc_version}%{?dist}.1
+Release:        14%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
 URL:            http://www.freeipa.org/
-Source0:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_version}.tar.gz
+Source0:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz
 # Only use detached signature for the distribution builds. If it is a developer build, skip it
 %if %{NON_DEVELOPER_BUILD}
-Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_version}.tar.gz.asc
+Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSION}%{?rc_version}.tar.gz.asc
 # https://www.freeipa.org/page/Verify_Release_Signature
 #
 # The following commands can be used to fetch the signing key via fingerprint
@@ -217,40 +234,12 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
 
-Patch0001:      ipa-post-4.12.2-updates.patch
-Patch0004:      freeipa-fix-ldap-otp-bind.patch
-Patch0002:      0001-freeipa-disable-nis.patch
-Patch0003:      freeipa-CVE-2024-11029.patch
-Patch0005:      freeipa-9734-oauth.patch
-Patch0006:      freeipa-9471-post.patch
-Patch0007:      freeipa-9725-certmonger-timeouts-0.patch
-Patch0008:      freeipa-9725-certmonger-timeouts.patch
-# Patches from c10s build that already merged upstream but no release has been done yet
-Patch0032:      0032-Use-OpenSSL-provider-with-BIND-for-Fedora-41-and-RHE.patch
-Patch0033:      freeipa-upgrade-DoT-configuration.patch
-Patch0059:      0059-Fix-pylint-issue-in-ipatests-i18n.py.patch
-Patch0060:      0060-ipatests-skip-test_ipahealthcheck_ds_configcheck-for.patch
-Patch0061:      0061-ipatests-restart-dirsrv-after-time-jumps.patch
-Patch0063:      0063-Migrate-Keycloak-tests-to-JDK-21-and-Keycloak-26.patch
-Patch0065:      0065-Add-DNS-over-TLS-support.patch
-Patch0066:      0066-ipatests-on-rhel10-do-not-install-firefox.patch
-Patch0067:      0067-Configure-the-pki-tomcatd-service-systemd-timeout.patch
-Patch0068:      0068-Align-startup_timeout-with-the-systemd-default-and-d.patch
-Patch0069:      0069-dns-only-disable-unbound-when-DoT-is-enabled.patch
-Patch0070:      0070-ipa-migrate-do-not-migrate-tombstone-entries-ignore-.patch
-Patch0071:      0071-Replace-fips-mode-setup.patch
-Patch0072:      0072-Skip-for-unpatched-freeipa-healthcheck.patch
-Patch0073:      0073-WebUI-fix-the-tooltip-for-Search-Size-limit.patch
-Patch0074:      0074-Leapp-upgrade-skip-systemctl-calls.patch
-Patch0075:      0075-Disable-raw-and-structured-together.patch
-Patch0076:      0076-config-mod-allow-disabling-subordinate-ID-integratio.patch
-Patch0077:      0077-update_dna_shared_config-do-not-fail-when-config-is-.patch
-Patch0078:      0078-baseuser-allow-uidNumber-and-gidNumber-of-32-bit-ran.patch
-Patch0079:      0079-ipatests-add-a-test-to-use-full-32-bit-ID-range-spac.patch
-Patch0080:      0080-idrange-use-minvalue-0-for-baserid-and-secondarybase.patch
-Patch0081:      0081-ipatests-Tests-to-check-data-in-journal-log.patch
-Patch0082:      0082-Disallow-removal-of-dogtag-and-ipa-dnskeysyncd-servi.patch
-Patch0083:      0083-Don-t-require-certificates-to-have-unique-ipaCertSub.patch
+Source3:        FreeIPA-eDNS-version3.jpg
+
+Patch0001:      freeipa-4-12-2-post-updates-1.patch
+Patch0002:      freeipa-4-12-2-post-updates-edns.patch
+# This one includes CVE-2025-4404 fixes as well
+Patch0003:      freeipa-4-12-2-post-updates-2.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -637,6 +626,9 @@ Requires: %{openssl_pkcs11_name} >= %{openssl_pkcs11_version}
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1825812
 # RHEL 8.3+ and Fedora 32+ have 2.1
 Requires: opendnssec >= 2.1.6-5
+%if 0%{?fedora} >= 42 || 0%{?rhel} > 9
+Recommends: %{name}-server-encrypted-dns
+%endif
 %{?systemd_requires}
 
 Provides: %{alt_name}-server-dns = %{version}
@@ -649,6 +641,17 @@ Obsoletes: %{name}-server <= 4.2.0
 %description server-dns
 IPA integrated DNS server with support for automatic DNSSEC signing.
 Integrated DNS server is BIND 9. OpenDNSSEC provides key management.
+
+
+%package server-encrypted-dns
+Summary: support for encrypted DNS in IPA integrated DNS server
+Requires: %{name}-client-encrypted-dns
+# Will need newer bind-dyndb-ldap to allow use of OpenSSL provider API
+Requires: bind-dyndb-ldap >= 11.11
+
+%description server-encrypted-dns
+Provides support for enabling DNS over TLS in the IPA integrated DNS
+server.
 
 
 %package server-trust-ad
@@ -731,6 +734,7 @@ Requires: libnfsidmap
 Requires: (nfs-utils or nfsv4-client-utils)
 Requires: sssd-tools >= %{sssd_version}
 Requires(post): policycoreutils
+Recommends: %{name}-client-encrypted-dns
 
 # https://pagure.io/freeipa/issue/8530
 Recommends: libsss_sudo
@@ -771,6 +775,14 @@ and integration with Active Directory based infrastructures (Trusts).
 If your network uses IPA for authentication, this package should be
 installed on every client machine.
 This package provides command-line tools for IPA administrators.
+
+%package client-encrypted-dns
+Summary: Enable encrypted DNS support for clients
+Requires: unbound
+
+%description client-encrypted-dns
+This package enables support for installing clients with encrypted DNS
+via DNS over TLS.
 
 %package client-samba
 Summary: Tools to configure Samba on IPA client
@@ -898,6 +910,7 @@ Requires: python3-jwcrypto >= 0.4.2
 Requires: python3-libipa_hbac
 Requires: python3-netaddr >= %{python_netaddr_version}
 Requires: python3-ifaddr
+Requires: python3-packaging
 Requires: python3-pyasn1 >= 0.3.2-2
 Requires: python3-pyasn1-modules >= 0.3.2-2
 Requires: python3-pyusb
@@ -906,11 +919,6 @@ Requires: python3-requests
 Requires: python3-six
 Requires: python3-sss-murmur
 Requires: python3-yubico >= 1.3.2-7
-%if 0%{?rhel} && 0%{?rhel} == 8
-Requires: platform-python-setuptools
-%else
-Requires: python3-setuptools
-%endif
 %if 0%{?rhel}
 Requires: python3-urllib3 >= 1.24.2-3
 %else
@@ -1039,7 +1047,7 @@ Custom SELinux policy module for Thales Luna HSMs
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
-%autosetup -n freeipa-%{version}%{?rc_version} -N -p1
+%autosetup -n freeipa-%{TARBALL_IPA_VERSION}%{?rc_version} -N -p1
 
 # To allow proper application patches to the stripped po files, strip originals
 pushd po
@@ -1050,6 +1058,11 @@ done
 popd
 
 %autopatch -p1
+
+# patch utility does not support GIT binary format, we have to copy manually
+# until there is an upstream release with the jpg in it
+mkdir -p doc/designs/edns
+cp %{SOURCE3} doc/designs/edns/FreeIPA-eDNS-version3.jpg
 
 %build
 # PATH is workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1005235
@@ -1176,6 +1189,17 @@ mkdir -p %{buildroot}%{_sysconfdir}/cron.d
 # ONLY_CLIENT
 %endif
 
+%if ! %{with nis}
+%if ! %{ONLY_CLIENT}
+rm %{buildroot}/%{_sbindir}/ipa-nis-manage
+rm %{buildroot}/%{_mandir}/man1/ipa-nis-manage.1*
+rm %{buildroot}%{python3_sitelib}/ipaserver/install/plugins/update_nis.py
+rm %{buildroot}%{_usr}/share/ipa/nis.uldif
+rm %{buildroot}%{_usr}/share/ipa/nis-update.uldif
+rm %{buildroot}%{_usr}/share/ipa/updates/50-nis.update
+%endif
+%endif
+
 %if ! %{ONLY_CLIENT}
 
 %post server
@@ -1226,8 +1250,11 @@ if [ $1 = 0 ]; then
 # NOTE: systemd specific section
     /bin/systemctl --quiet stop ipa.service || :
     /bin/systemctl --quiet disable ipa.service || :
-    /bin/systemctl reload-or-try-restart dbus
-    /bin/systemctl reload-or-try-restart oddjobd
+    # Skip systemctl calls when leapp upgrade is in progress
+    if [ -z "$LEAPP_IPU_IN_PROGRESS" ] ; then
+        /bin/systemctl reload-or-try-restart dbus
+        /bin/systemctl reload-or-try-restart oddjobd
+    fi
 # END
 fi
 
@@ -1291,8 +1318,11 @@ fi
 %preun server-trust-ad
 if [ $1 -eq 0 ]; then
     %{_sbindir}/update-alternatives --remove winbind_krb5_locator.so /dev/null
-    /bin/systemctl reload-or-try-restart dbus
-    /bin/systemctl reload-or-try-restart oddjobd
+    # Skip systemctl calls when leapp upgrade is in progress
+    if [ -z "$LEAPP_IPU_IN_PROGRESS" ] ; then
+        /bin/systemctl reload-or-try-restart dbus
+        /bin/systemctl reload-or-try-restart oddjobd
+    fi
 fi
 
 # ONLY_CLIENT
@@ -1517,6 +1547,9 @@ fi
 %{_sbindir}/ipa-ldap-updater
 %{_sbindir}/ipa-otptoken-import
 %{_sbindir}/ipa-compat-manage
+%if %{with nis}
+%{_sbindir}/ipa-nis-manage
+%endif
 %{_sbindir}/ipa-managed-entries
 %{_sbindir}/ipactl
 %{_sbindir}/ipa-advise
@@ -1592,6 +1625,9 @@ fi
 %{_mandir}/man1/ipa-ca-install.1*
 %{_mandir}/man1/ipa-kra-install.1*
 %{_mandir}/man1/ipa-compat-manage.1*
+%if %{with nis}
+%{_mandir}/man1/ipa-nis-manage.1*
+%endif
 %{_mandir}/man1/ipa-managed-entries.1*
 %{_mandir}/man1/ipa-ldap-updater.1*
 %{_mandir}/man8/ipactl.8*
@@ -1720,9 +1756,14 @@ fi
 %{_libexecdir}/ipa/ipa-ods-exporter
 %{_sbindir}/ipa-dns-install
 %{_mandir}/man1/ipa-dns-install.1*
+%{_usr}/share/ipa/ipa-dnssec.conf
 %attr(644,root,root) %{_unitdir}/ipa-dnskeysyncd.service
 %attr(644,root,root) %{_unitdir}/ipa-ods-exporter.socket
 %attr(644,root,root) %{_unitdir}/ipa-ods-exporter.service
+
+%files server-encrypted-dns
+%doc README.md Contributors.txt
+%license COPYING
 
 %files server-trust-ad
 %doc README.md Contributors.txt
@@ -1782,6 +1823,10 @@ fi
 %attr(644,root,root) %{_unitdir}/ipa-epn.timer
 %attr(600,root,root) %config(noreplace) %{_sysconfdir}/ipa/epn.conf
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/ipa/epn/expire_msg.template
+
+%files client-encrypted-dns
+%doc README.md Contributors.txt
+%license COPYING
 
 %files -n python3-ipaclient
 %doc README.md Contributors.txt
@@ -1893,6 +1938,11 @@ fi
 %endif
 
 %changelog
+* Tue Jun 17 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-14
+- CVE-2025-4404
+- Include encrypted DNS support subpackages
+- various fixes from ipa-4-12 branch upstream
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.12.2-13.1
 - Rebuilt for Python 3.14
 

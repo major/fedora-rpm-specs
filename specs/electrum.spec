@@ -1,6 +1,6 @@
 Name:           electrum
 Version:        4.5.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
@@ -99,6 +99,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 4.5.8-5
+- Rebuilt for Python 3.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

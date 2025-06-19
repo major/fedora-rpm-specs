@@ -3,7 +3,7 @@
 Name:    kf6-%{framework}
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
 Version: 6.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -81,16 +81,10 @@ Developer Documentation files for %{name} in HTML format
    -DENABLE_DOCS:BOOL=OFF \
    -DENABLE_CONSOLE=ON
 
-%cmake_build
-%cmake_build -t prepare_docs
-%cmake_build -t generate_docs 
-%cmake_build -t generate_qch
-
+%cmake_build_kf6
 
 %install
-%cmake_install
-%cmake_build -t install_html_docs
-%cmake_build -t install_qch_docs
+%cmake_install_kf6
 
 %find_lang userfeedbackconsole6 --with-qt
 %find_lang userfeedbackprovider6 --with-qt
@@ -137,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
+- 6.15 and plasma 3.4 compatibility rebuild
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
 - 6.15.0
 

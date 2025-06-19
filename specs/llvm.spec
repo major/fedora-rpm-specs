@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -2599,7 +2599,13 @@ cp %{_vpath_builddir}/.ninja_log %{buildroot}%{_datadir}
 %post -n %{pkg_name_llvm}-devel
 update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config %{__isa_bits}
 %if %{without compat_build}
-update-alternatives --install %{_bindir}/llvm-config llvm-config %{install_bindir}/llvm-config %{__isa_bits}
+# Prioritize newer LLVM versions over older and 64-bit over 32-bit.
+update-alternatives --install %{_bindir}/llvm-config llvm-config %{install_bindir}/llvm-config $((%{maj_ver}*100+%{__isa_bits}))
+
+# Remove old llvm-config-%{__isa_bits} alternative. This will only do something during the
+# first upgrade from a version that used it. In all other cases it will error, so suppress the
+# expected error message.
+update-alternatives --remove llvm-config %{_bindir}/llvm-config-%{__isa_bits} 2>/dev/null ||:
 
 # During the upgrade from LLVM 16 (F38) to LLVM 17 (F39), we found out the
 # main llvm-devel package was leaving entries in the alternatives system.
@@ -2617,14 +2623,14 @@ if [ $1 -eq 0 ]; then
   update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config
 fi
 %if %{without compat_build}
-# When upgrading between minor versions (i.e. from x.y.1 to x.y.2), we must
-# not remove the alternative.
-# However, during a major version upgrade (i.e. from 16.x.y to 17.z.w), the
-# alternative must be removed in order to give priority to a newly installed
-# compat package.
-if [[ $1 -eq 0
-      || "x$(%{_bindir}/llvm-config%{exec_suffix} --version | awk -F . '{ print $1 }')" != "x%{maj_ver}" ]]; then
-  update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+# There are a number of different cases here:
+# Uninstall: Remove alternatives.
+# Patch version upgrade: Keep alternatives.
+# Major version upgrade with installation of compat package: Keep alternatives for compat package.
+# Major version upgrade without installation of compat package: Remove alternatives. However, we
+# can't distinguish it from the previous case, so we conservatively leave it behind.
+if [ $1 -eq 0 ]; then
+  update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config
 fi
 %endif
 
@@ -3427,6 +3433,9 @@ fi
 
 #region changelog
 %changelog
+* Tue Jun 17 2025 Nikita Popov <npopov@redhat.com> - 20.1.6-10
+- Fix llvm-config alternatives handling (rhbz#2361779)
+
 * Mon Jun 16 2025 Nikita Popov <npopov@redhat.com> - 20.1.6-9
 - Use libdir suffix in versioned prefix
 

@@ -1,6 +1,6 @@
 Name:           coturn
-Version:        4.6.3
-Release:        2%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -10,17 +10,16 @@ Source1:        coturn.service
 Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
-
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
+BuildRequires:  libpq-devel
 BuildRequires:  make
-BuildRequires:  openssl-devel
+BuildRequires:  mariadb-connector-c-devel
+BuildRequires:  openssl-devel >= 1.1.1
 BuildRequires:  sqlite-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  libpq-devel
-BuildRequires:  mariadb-connector-c-devel
 Recommends:     perl-interpreter
 Recommends:     perl(DBI)
 Recommends:     perl(HTTP::Request::Common)
@@ -79,39 +78,33 @@ combination of them):
 - DNS-based load balancing
 - built-in ALTERNATE-SERVER mechanism.
 
-
-%package        utils
+%package utils
 Summary:        Coturn utils
 
-%description    utils
+%description utils
 This package contains the TURN client utils.
 
-
-%package        client-libs
+%package client-libs
 Summary:        TURN client static library
 
-%description    client-libs
+%description client-libs
 This package contains the TURN client static library.
 
-
-%package        client-devel
+%package client-devel
 Summary:        Coturn client development headers
 
-%description    client-devel
+%description client-devel
 This package contains the TURN client development headers.
-
 
 %prep
 %setup -q
-
-# NOTE: Use Fedora Default Ciphers
+# Use Fedora Default Ciphers
 sed -i \
     -e 's|#define DEFAULT_CIPHER_LIST "DEFAULT"|#define DEFAULT_CIPHER_LIST "PROFILE=SYSTEM"|g' \
     src/apps/relay/mainrelay.h
 sed -i \
     -e 's|*csuite = "ALL"; //"AES256-SHA" "DH"|*csuite = "PROFILE=SYSTEM"; // Fedora Defaults|g' \
     src/apps/uclient/mainuclient.c
-
 
 %build
 %configure \
@@ -123,7 +116,6 @@ sed -i \
     --turndbdir=%{_localstatedir}/lib/%{name} \
     --disable-rpath
 %make_build
-
 
 %install
 %make_install
@@ -140,12 +132,12 @@ sed -i \
     -e "s|^#*pkey=.*|#pkey=/etc/pki/coturn/private/turn_server_pkey.pem|g" \
     %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf.default
 touch -c -r examples/etc/turnserver.conf %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf.default
-mv %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf.default %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf
-# NOTE: Removing sqlite db, certs and keys
-rm %{buildroot}%{_localstatedir}/lib/%{name}/turndb
-rm %{buildroot}%{_docdir}/%{name}/etc/{cacert,turn_{client,server}_{cert,pkey}}.pem
-rm %{buildroot}%{_docdir}/%{name}/etc/coturn.service
+mv -f %{buildroot}%{_sysconfdir}/%{name}/turnserver.conf{.default,}
 
+# Remove generated SQLite database, certificate and key
+rm -f %{buildroot}%{_localstatedir}/lib/%{name}/turndb
+rm -f %{buildroot}%{_docdir}/%{name}/etc/{cacert,turn_{client,server}_{cert,pkey}}.pem
+rm -f %{buildroot}%{_docdir}/%{name}/etc/coturn.service
 
 %check
 make test
@@ -156,65 +148,54 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libmariadb.so
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 
-
 %pre
 %sysusers_create_compat %{SOURCE4}
-
 
 %post
 %systemd_post %{name}.service
 
-
 %preun
 %systemd_preun %{name}.service
 
-
 %postun
 %systemd_postun_with_restart %{name}.service
-
 
 %files
 %license LICENSE
 %{_bindir}/turnserver
 %{_bindir}/turnadmin
-%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/
 %{_datadir}/%{name}/*.redis
 %{_datadir}/%{name}/*.sql
 %{_datadir}/%{name}/*.sh
-%dir %{_docdir}/%{name}
+%dir %{_docdir}/%{name}/
 %{_docdir}/%{name}/README.*
 %exclude %{_docdir}/%{name}/README.turnutils
 %exclude %{_docdir}/%{name}/INSTALL
 %exclude %{_docdir}/%{name}/LICENSE
 %exclude %{_docdir}/%{name}/postinstall.txt
-%dir %{_docdir}/%{name}/etc
-%doc %{_docdir}/%{name}/etc/*
-%dir %{_docdir}/%{name}/scripts
-%dir %{_docdir}/%{name}/scripts/*
+%dir %{_docdir}/%{name}/etc/
+%doc %{_docdir}/%{name}/etc/turnserver.conf
+%dir %{_docdir}/%{name}/scripts/
+%dir %{_docdir}/%{name}/scripts/*/
 %{_docdir}/%{name}/scripts/*.sh
 %{_docdir}/%{name}/scripts/readme.txt
 %doc %{_docdir}/%{name}/scripts/*/*
-# NOTE: These schema files are installed twice. Excluding copies in docs.
-%exclude %doc %{_docdir}/%{name}/schema.mongo.sh
-%exclude %doc %{_docdir}/%{name}/schema.sql
-%exclude %doc %{_docdir}/%{name}/schema.stats.redis
-%exclude %doc %{_docdir}/%{name}/schema.userdb.redis
 %{_mandir}/man1/%{name}.1.*
 %{_mandir}/man1/turnserver.1.*
 %{_mandir}/man1/turnadmin.1.*
-%dir %attr(0750,root,%{name}) %{_sysconfdir}/%{name}
+%dir %attr(0750,root,%{name}) %{_sysconfdir}/%{name}/
 %config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/turnserver.conf
-%dir %{_sysconfdir}/pki/%{name}
-%dir %{_sysconfdir}/pki/%{name}/public
-%dir %attr(0750,root,%{name}) %{_sysconfdir}/pki/%{name}/private
+%dir %{_sysconfdir}/pki/%{name}/
+%dir %{_sysconfdir}/pki/%{name}/public/
+%dir %attr(0750,root,%{name}) %{_sysconfdir}/pki/%{name}/private/
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
 %{_sysusersdir}/%{name}.conf
-%dir %attr(0750,%{name},%{name}) %{_rundir}/%{name}
-%dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}
-%dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}
+%dir %attr(0750,%{name},%{name}) %{_rundir}/%{name}/
+%dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
+%dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-
 
 %files utils
 %license LICENSE
@@ -227,21 +208,23 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_mandir}/man1/turnutils.1.*
 %{_mandir}/man1/turnutils_*.1.*
 
-
 %files client-libs
 %license LICENSE
 %{_libdir}/libturnclient.a
 
-
 %files client-devel
 %license LICENSE
-%dir %{_includedir}/turn
+%dir %{_includedir}/turn/
 %{_includedir}/turn/*.h
-%dir %{_includedir}/turn/client
+%dir %{_includedir}/turn/client/
 %{_includedir}/turn/client/*
 
-
 %changelog
+* Tue Jun 17 2025 Robert Scheck <robert@fedoraproject.org> - 4.7.0-1
+- Upgrade to 4.7.0 (#2369521)
+- Use 'systemctl try-reload-or-restart' in logrotate postrotate
+  script (#2371578, thanks to Marcos Mello)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

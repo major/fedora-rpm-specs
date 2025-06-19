@@ -1,5 +1,9 @@
 # Perform optional tests
+%if 0%{?rhel}
+%bcond_with perl_XS_Parse_Sublike_enables_optional_tests
+%else
 %bcond_without perl_XS_Parse_Sublike_enables_optional_tests
+%endif
 
 # Break a build cycle with perl-Object-Pad
 %if %{with perl_XS_Parse_Sublike_enables_optional_tests} && !%{defined perl_bootstrap}

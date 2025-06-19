@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %bcond tests 1
 
 # When bootstrapping, we do not include the “grpc” extra in the BR’s. That adds

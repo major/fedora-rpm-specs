@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -62,15 +62,10 @@ Developer Documentation files for %{name} in HTML format
 
 %build
 %cmake_kf6
-%cmake_build
-%cmake_build -t prepare_docs
-%cmake_build -t generate_docs 
-%cmake_build -t generate_qch
+%cmake_build_kf6
 
 %install
-%cmake_install
-%cmake_build -t install_html_docs
-%cmake_build -t install_qch_docs 
+%cmake_install_kf6
 
 %find_lang %{name} --all-name --with-html
 # create/own parts plugin dir
@@ -102,6 +97,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
+- 6.15 and plasma 3.4 compatibility rebuild
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
 - 6.15.0
 

@@ -1,8 +1,5 @@
 %global debug_package %{nil}
 
-# rootfs macros
-%global rootfs_qm %{_prefix}/lib/qm/rootfs/
-
 # Define the feature flag: 1 to enable, 0 to disable
 # By default it's disabled: 0
 
@@ -41,7 +38,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.7.4
+Version: 0.7.5
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -158,6 +155,9 @@ fi
 %ghost %{_installscriptdir}/rootfs/*
 
 %changelog
+* Mon Jun 16 2025 Packit <hello@packit.dev> - 0.7.5-1
+- Update to version 0.7.5
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 0.7.4-1
 - Update to version 0.7.4
 

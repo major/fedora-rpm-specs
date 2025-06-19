@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-350-g4f4c4fcde7
+%global glibcsrcdir glibc-2.41.9000-428-gd1b27eeda3
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2380,6 +2380,87 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+- Replace glibc-rh2368545.patch with upstream fix under review.
+- Auto-sync with upstream branch master,
+  commit d1b27eeda3d92f33314e93537437cab11ddf4777:
+- malloc: Sort tests-exclude-largetcache in Makefile
+- ppc64le: Revert "powerpc: Optimized strcmp for power10" (CVE-2025-5702)
+- ppc64le: Revert "powerpc : Add optimized memchr for POWER10" (Bug 33059)
+- ppc64le: Revert "powerpc: Fix performance issues of strcmp power10" (CVE-2025-5702)
+- ppc64le: Revert "powerpc: Optimized strncmp for power10" (CVE-2025-5745)
+- malloc: add testing for large tcache support
+- malloc: add tcache support for large chunk caching
+- Always check lockf64 return value
+- elf: Add optimization barrier for __ehdr_start and _end
+- htl: move pthread_key_*, pthread_get/setspecific
+- elf: Remove the unused _etext declaration
+- io: Mark lockf() __wur [BZ #32800]
+- benchtests: Improve modf benchtest
+- benchtests: Add modff benchtest
+- riscv: Correct __riscv_hwprobe function prototype [BZ #32932]
+- resolv: Add test for getaddrinfo returning FQDN in ai_canonname
+- aarch64: fix typo in sysdeps/aarch64/Makefile
+- Advisory text for CVE-2025-5745
+- Advisory text for CVE-2025-5702
+- hurd: Make __getrandom_early_init call __mach_init
+- x86: Avoid GLRO(dl_x86_cpu_features)
+- manual: Add a comparative example of 'clock_nanosleep' use
+- AArch64: Fix builderror with GCC 12.1/12.2
+- Linux: Drop obsolete kernel support with `if_nameindex' and `if_nametoindex'
+- aarch64: add __ifunc_hwcap function to be used in ifunc resolvers
+- aarch64: add support for hwcap3,4
+- manual: Document futimens and utimensat
+- manual: Document unlinkat
+- manual: Document renameat
+- manual: Document mkdirat
+- manual: Document faccessat
+- manual: Expand Descriptor-Relative Access section
+- Makefile: Avoid $(objpfx)/ in makefiles
+- manual: Document error codes missing for 'inet_pton'
+- manual: Document error codes missing for 'if_nametoindex'
+- manual: Document error codes missing for 'if_indextoname'
+- posix: fix building regex when _LIBC isn't defined
+- localedata: Use the name North Macedonia.
+- malloc: Count tcache entries downwards
+- sparc: Fix argument passing to __libc_start_main (BZ 32981)
+- localedata: Refer to Eswatini instead of Swaziland.
+- sigaction: don't sign-extend sa_flags
+- stdio-common: Add nonnull attribute to stdio_ext.h functions.
+- elf: Fix UB on _dl_map_object_from_fd
+- argp: Fix shift bug
+- math: Remove i386 ilogb/ilogbf/llogb/llogbf
+- math: Optimize float ilogb/llogb
+- math: Remove UB and optimize double ilogbf
+- math: Optimize double ilogb/llogb
+- math: Remove UB and optimize double ilogb
+- manual: Correct return value description of 'clock_nanosleep'
+- nss: free dynarray buffer after parsing nsswitch.conf
+- manual: Document clock_nanosleep
+- manual: Fix invalid 'illegal' usage with 'nanosleep'
+- manual: Fix duplicate 'consult' erratum
+- localedata: Correct Persian collation rules description
+- stdio-common: Correct 'sscanf' test feature wrapper description
+- manual: Document error codes missing for 'inet_ntop'
+- manual: Document error codes missing for 'socket'
+- stdio-common: Consistently use 'num_digits_len' in 'vfscanf'
+- Update syscall lists for Linux 6.15
+- AArch64: Improve enabling of SVE for libmvec
+- AArch64: Improve codegen in SVE log1p
+- Use Linux 6.15 in build-many-glibcs.py
+- manual: mention PKEY_UNRESTRICTED macro in the manual
+- linux: use PKEY_UNRESTRICTED macro in tst-pkey
+- misc: add PKEY_UNRESTRICTED macro
+- generic: Add missing parameter name to __getrandom_early_init
+- hurd: Avoid -Wfree-labels warning in _hurd_intr_rpc_mach_msg
+- Update RISC-V relocations
+- malloc: Fix malloc init order
+- Move C warning flags from +gccwarn to +gccwarn-c
+- doc: Add missing space in documentation of __TIMESIZE
+- doc: Fix typos in documentation of _TIME_BITS
+- Fix comment typo in libc-symbols.h
+- Turn on -Wmissing-parameter-name by default if available
+- manual: Document getopt_long_only with single letter options (bug 32980)
+
 * Fri May 30 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-15
 - malloc: Revert to the glibc-2.41.9000-6.fc43 version (#2368545)
 

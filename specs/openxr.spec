@@ -61,7 +61,7 @@ Headers and development files for building applications using OpenXR XR API.
     -DCMAKE_CXX_STANDARD=17 \
     -DDYNAMIC_LOADER=ON \
     -DFILESYSTEM_USE_STD=ON \
-    -DGLSLANG_VALIDATOR=%{_bindir}/glslangValidator
+    -DGLSLANG_VALIDATOR=$(which glslangValidator)
 %cmake_build
 
 

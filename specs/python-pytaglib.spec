@@ -31,6 +31,9 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %description -n python3-%{srcname} %{_description}
 
 Python 3 version.
@@ -41,10 +44,10 @@ Python 3 version.
 sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -53,7 +56,7 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 %license LICENSE.txt
 %doc README.md CHANGELOG.md
 %{_bindir}/pyprinttags
-%{python3_sitearch}/%{srcname}-*.egg-info/
+%{python3_sitearch}/%{srcname}-*.dist-info/
 %{python3_sitearch}/taglib.*.so
 %{python3_sitearch}/pyprinttags.py
 %{python3_sitearch}/__pycache__/pyprinttags.*

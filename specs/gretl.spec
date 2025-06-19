@@ -1,5 +1,5 @@
 Name: gretl	
-Version: 2025a
+Version: 2025b
 Release: 1%{?dist}
 Summary: A tool for econometric analysis
 
@@ -150,6 +150,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Tue Jun 17 2025 Johannes Lips <hannes@fedoraproject.org> - 2025b-1
+- Update to 2025b
+
 * Thu Mar 20 2025 Johannes Lips <hannes@fedoraproject.org> - 2025a-1
 - Update to 2025a
 

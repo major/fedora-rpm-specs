@@ -42,6 +42,7 @@ BuildRequires:	pkgconfig(libxml-2.0)
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 %if !0%{?flatpak}
 Requires:	gvfs-goa
+Recommends:	evolution-ews-core
 %endif
 
 %description

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuickControls2 style for consistency between QWidget and QML apps 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KFQF-Accepted-GPL
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -52,6 +52,9 @@ between QWidget-based and QML-based apps.
 %{_kf6_plugindir}/kirigami/platform/org.kde.desktop.so
 
 %changelog
+* Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
+- 6.15 and plasma 3.4 compatibility rebuild
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
 - 6.15.0
 

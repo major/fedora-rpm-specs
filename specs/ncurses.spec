@@ -5,11 +5,11 @@
 %bcond_without compat_libs
 %bcond_without gpm
 %endif
-%global revision 20250125
+%global revision 20250614
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.5
-Release: 5.%{revision}%{?dist}
+Release: 6.%{revision}%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -240,7 +240,7 @@ echo "INPUT(-lncursesw)" > $RPM_BUILD_ROOT%{_libdir}/libcursesw.so
 echo "INPUT(-ltinfo)" > $RPM_BUILD_ROOT%{_libdir}/libtermcap.so
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/ncurses*5-config
-rm -f $RPM_BUILD_ROOT%{_libdir}/terminfo
+rm -f $RPM_BUILD_ROOT{%{_libdir},/usr/lib}/terminfo
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/*_g.pc
 
 xz NEWS
@@ -301,6 +301,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Jun 17 2025 Miroslav Lichvar <mlichvar@redhat.com> 6.5-6.20250614
+- update to 6.5-20250614 (CVE-2025-6141)
+
 * Tue Jan 28 2025 Miroslav Lichvar <mlichvar@redhat.com> 6.5-5.20250125
 - update to 6.5-20250125
 - force use of stdbool.h for compatibility with older standards (#2342514)

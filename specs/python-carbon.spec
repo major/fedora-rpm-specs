@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -223,6 +223,9 @@ install -m0644 -D python-carbon.sysusers.conf %{buildroot}%{_sysusersdir}/python
 
 
 %changelog
+* Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.1.10-13
+- Rebuilt for Python 3.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.10-12
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

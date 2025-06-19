@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -144,6 +144,12 @@ sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_vers
 # ENABLE_MSCCLPP=OFF
 sed -i -e 's@if (ENABLE_MSCCLPP AND NOT(${HOST_OS_ID} STREQUAL "ubuntu" OR ${HOST_OS_ID} STREQUAL "centos"))@if (ENABLE_MSCCLPP)@' CMakeLists.txt
 
+# Building --with test
+# .../test/common/TestBed.cpp:607:16: error: no member named 'setfill' in namespace 'std'
+#   607 |     ss << std::setfill(' ') << std::setw(20) << ncclFuncNames[funcType] << " ";
+# https://github.com/ROCm/rccl/issues/1749
+sed -i '/#include <map.*/a#include <iomanip>' test/common/TestBed.hpp
+
 %build
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
@@ -200,6 +206,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
+- Fix builds test subpackage
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Remove suse check on ldconfig
 

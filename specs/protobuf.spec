@@ -2,7 +2,13 @@
 %bcond_without python
 # Build -python subpackage with C++. This significantly improves performance
 # compared to the pure-Python implementation.
+%if v"0%{?python3_version}" >= v"3.14"
+# TypeError: Metaclasses with custom tp_new are not supported
+# https://bugzilla.redhat.com/show_bug.cgi?id=2343969
+%bcond_with python_cpp
+%else
 %bcond_without python_cpp
+%endif
 # Build -java subpackage
 %if %{defined rhel}
 %bcond_with java
@@ -19,7 +25,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        12%{?dist}
+Release:        14%{?dist}
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -86,6 +92,11 @@ Patch4:         protobuf-3.19.4-python3.11.patch
 # Backport upstream commit 9252b64ef3887e869999752010d553f068338a60:
 #   Automated rollback of commit 0ee34de
 Patch5:         protobuf-3.19.6-jre21.patch
+# Fix build with GCC 15 on s390x and i686
+# From https://bugzilla.redhat.com/show_bug.cgi?id=2343969#c16
+#  and https://github.com/protocolbuffers/protobuf/commit/47c1998e4e7f21175bc1e3840907d4219a11b25a
+#  and https://github.com/protocolbuffers/protobuf/commit/a2859cc2ce25711613002104022186c0c37d9f1f
+Patch6:         protobuf-3.19.6-gcc15.patch
 
 # A bundled copy of jsoncpp is included in the conformance tests, but the
 # result is not packaged, so we do not treat it as a formal bundled
@@ -291,6 +302,7 @@ descriptions in the Emacs editor.
 %patch 3 -p1 -b .jre17
 %patch 4 -p1 -b .python311
 %patch 5 -p1 -b .jre21
+%patch 6 -p1 -b .gcc15
 
 # Copy in the needed gtest/gmock implementations.
 %setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}
@@ -478,6 +490,13 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Jun 17 2025 Miro Hrončok <mhroncok@redhat.com> - 3.19.6-14
+- Build with recent GCC
+
+* Tue Jun 17 2025 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.19.6-13
+- Temporarily use GCC 14 to workaround FTBFS on i686 and s390x
+- Don’t build Python extension with C++ on Python 3.14+
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.19.6-12
 - Rebuilt for Python 3.14
 

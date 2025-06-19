@@ -1,30 +1,9 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
-%if 0%{?fedora} >= 40
-  %ifarch %qt6_qtwebengine_arches
-    %global use_qt6 1
-    %define qtwebengine 1
-  %else
-    %global use_qt6 0
-    %ifarch %qt5_qtwebengine_arches
-      %define qtwebengine 1
-    %else
-      %define qtwebengine 0
-    %endif
-  %endif
+%ifarch %qt6_qtwebengine_arches
+  %define qtwebengine 1
 %else
-  %global use_qt6 0
-  %ifarch %qt5_qtwebengine_arches
-    %define qtwebengine 1
-  %else
-    %define qtwebengine 0
-  %endif
-%endif
-
-%if %{use_qt6}
-%define qt_major_ver 6
-%else
-%define qt_major_ver 5
+  %define qtwebengine 0
 %endif
 
 Name:           fcitx5-chinese-addons
@@ -51,10 +30,9 @@ BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(fmt)
 %if %{qtwebengine}
-BuildRequires:  cmake(Qt%{qt_major_ver}WebEngineWidgets)
-%else
-BuildRequires:  cmake(Qt%{qt_major_ver}WebKitWidgets)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
 %endif
+BuildRequires:  cmake(Qt6)
 BuildRequires:  pkgconfig(opencc)
 BuildRequires:  pkgconfig(Fcitx5Core)
 BuildRequires:  pkgconfig(Fcitx5Module)
@@ -96,15 +74,10 @@ devel files for fcitx5-chinese-addons
 
 %build
 %cmake -GNinja \
-%if %{use_qt6}
-    -DUSE_QT6=On \
-%else
-    -DUSE_QT6=Off \
-%endif
 %if %{qtwebengine}
-    -DUSE_WEBKIT=Off
+    -DENABLE_BROWSER=On
 %else
-    -DUSE_WEBKIT=On
+    -DENABLE_BROWSER=Off
 %endif
 %cmake_build
 
@@ -130,8 +103,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc README.md
 %{_bindir}/scel2org5
 %{_libdir}/fcitx5/*.so
-%{_libdir}/fcitx5/qt%{qt_major_ver}/libpinyindictmanager.so
-%{_libdir}/fcitx5/qt%{qt_major_ver}/libcustomphraseeditor.so
+%{_libdir}/fcitx5/qt6/libpinyindictmanager.so
+%{_libdir}/fcitx5/qt6/libcustomphraseeditor.so
 
 %files data
 %dir %{_datadir}/fcitx5/pinyin

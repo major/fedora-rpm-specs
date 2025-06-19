@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		yubihsm-shell
-Version:	2.6.0
-Release:	3%{?dist}
+Version:	2.7.0
+Release:	1%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -11,12 +11,8 @@ URL:		https://github.com/Yubico/%{name}/
 Source0:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
 Source2:	gpgkey-9588EA0F.gpg
-# https://github.com/Yubico/yubihsm-shell/pull/430
-Patch1: yubihsm-shell-2.6.0-incompatible-pointer.patch
 # https://github.com/Yubico/yubihsm-shell/pull/411
 Patch2:	yubihsm-shell-2.5.0-pcsc-lite.patch
-# https://github.com/Yubico/yubihsm-shell/pull/450
-Patch3:	yubihsm-shell-gcc15.patch
 
 BuildRequires:	cmake
 BuildRequires:	cppcheck
@@ -118,6 +114,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Tue Jun 17 2025 Jakub Jelen <jjelen@redhat.com> - 2.7.0-1
+- New upstream release (#2372452)
+
 * Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.6.0-3
 - Fix gcc15 warnings (#2341598)
 

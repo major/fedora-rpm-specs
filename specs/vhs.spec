@@ -1,7 +1,7 @@
 %define goipath github.com/charmbracelet/vhs
 
 Name:           vhs
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Your CLI home video recorder
 URL:            https://github.com/charmbracelet/vhs
@@ -30,14 +30,17 @@ URL:            https://github.com/charmbracelet/vhs
 #   github.com/aymerick/douceur
 #   github.com/caarlos0/env/v11
 #   github.com/charmbracelet/bubbletea
+#   github.com/charmbracelet/colorprofile
 #   github.com/charmbracelet/glamour
 #   github.com/charmbracelet/keygen
 #   github.com/charmbracelet/lipgloss
 #   github.com/charmbracelet/log
 #   github.com/charmbracelet/wish
 #   github.com/charmbracelet/x/ansi
+#   github.com/charmbracelet/x/cellbuf
 #   github.com/charmbracelet/x/conpty
 #   github.com/charmbracelet/x/errors
+#   github.com/charmbracelet/x/exp/slice
 #   github.com/charmbracelet/x/term
 #   github.com/charmbracelet/x/termios
 #   github.com/creack/pty
@@ -60,6 +63,7 @@ URL:            https://github.com/charmbracelet/vhs
 #   github.com/muesli/roff
 #   github.com/muesli/termenv
 #   github.com/rivo/uniseg
+#   github.com/xo/terminfo
 #   github.com/ysmood/fetchup
 #   github.com/ysmood/goob
 #   github.com/ysmood/got
@@ -77,31 +81,31 @@ Source0:        %{url}/archive/v%{version}/vhs-%{version}.tar.gz
 Source1:        vhs-%{version}-vendor.tar.gz
 Source2:        create-vendor-tarball.sh
 
-# https://github.com/charmbracelet/vhs/commit/b41d47fa1d2e5847aa3c5fd0e5e2b284fd83f08c
-Patch:          0001-ci-fix-build-602.patch
-
 BuildRequires:  go-rpm-macros
 ExclusiveArch:  %{golang_arches_future}
-# https://github.com/charmbracelet/vhs/commit/41ce6be9acfdc4932479376b02aae7a45e1ab191
-BuildRequires:  golang >= 1.21
+# https://github.com/charmbracelet/vhs/blob/v0.10.0/go.mod#L3
+BuildRequires:  golang >= 1.24.1
 
-Provides:       bundled(golang(github.com/agnivade/levenshtein)) = 1.2.0
+Provides:       bundled(golang(github.com/agnivade/levenshtein)) = 1.2.1
 Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.14.0
 Provides:       bundled(golang(github.com/anmitsu/go-shlex)) = 38f4b40
 Provides:       bundled(golang(github.com/atotto/clipboard)) = 0.1.4
 Provides:       bundled(golang(github.com/aymanbagabas/go-osc52/v2)) = 2.0.1
 Provides:       bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides:       bundled(golang(github.com/caarlos0/env/v11)) = 11.3.1
-Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.2.4
-Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.8.0
-Provides:       bundled(golang(github.com/charmbracelet/keygen)) = 0.5.1
-Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = 1.0.0
-Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.0
-Provides:       bundled(golang(github.com/charmbracelet/ssh)) = 4fe22b0
-Provides:       bundled(golang(github.com/charmbracelet/wish)) = 1.4.4
-Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.4.5
+Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.3.4
+Provides:       bundled(golang(github.com/charmbracelet/colorprofile)) = f60798e
+Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.10.0
+Provides:       bundled(golang(github.com/charmbracelet/keygen)) = 0.5.3
+Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = 76690c6
+Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.1
+Provides:       bundled(golang(github.com/charmbracelet/ssh)) = 98fd5ae
+Provides:       bundled(golang(github.com/charmbracelet/wish)) = 1.4.7
+Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.8.0
+Provides:       bundled(golang(github.com/charmbracelet/x/cellbuf)) = 0.0.13
 Provides:       bundled(golang(github.com/charmbracelet/x/conpty)) = 0.1.0
 Provides:       bundled(golang(github.com/charmbracelet/x/errors)) = e8e43e1
+Provides:       bundled(golang(github.com/charmbracelet/x/exp/slice)) = 2fdc977
 Provides:       bundled(golang(github.com/charmbracelet/x/term)) = 0.2.1
 Provides:       bundled(golang(github.com/charmbracelet/x/termios)) = 0.1.0
 Provides:       bundled(golang(github.com/creack/pty)) = 1.1.24
@@ -126,24 +130,25 @@ Provides:       bundled(golang(github.com/muesli/mango-cobra)) = 1.2.0
 Provides:       bundled(golang(github.com/muesli/mango-pflag)) = 0.1.0
 Provides:       bundled(golang(github.com/muesli/reflow)) = 0.3.0
 Provides:       bundled(golang(github.com/muesli/roff)) = 0.1.0
-Provides:       bundled(golang(github.com/muesli/termenv)) = 98d742f
+Provides:       bundled(golang(github.com/muesli/termenv)) = 0.16.0
 Provides:       bundled(golang(github.com/rivo/uniseg)) = 0.4.7
-Provides:       bundled(golang(github.com/spf13/cobra)) = 1.8.1
-Provides:       bundled(golang(github.com/spf13/pflag)) = 1.0.5
+Provides:       bundled(golang(github.com/spf13/cobra)) = 1.9.1
+Provides:       bundled(golang(github.com/spf13/pflag)) = 1.0.6
+Provides:       bundled(golang(github.com/xo/terminfo)) = abceb7e
 Provides:       bundled(golang(github.com/ysmood/fetchup)) = 0.2.3
 Provides:       bundled(golang(github.com/ysmood/goob)) = 0.4.0
 Provides:       bundled(golang(github.com/ysmood/got)) = 0.40.0
 Provides:       bundled(golang(github.com/ysmood/gson)) = 0.7.3
 Provides:       bundled(golang(github.com/ysmood/leakless)) = 0.9.0
-Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.4
-Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.3
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.32.0
-Provides:       bundled(golang(golang.org/x/exp)) = 7918f67
-Provides:       bundled(golang(golang.org/x/net)) = 0.33.0
-Provides:       bundled(golang(golang.org/x/sync)) = 0.10.0
-Provides:       bundled(golang(golang.org/x/sys)) = 0.29.0
-Provides:       bundled(golang(golang.org/x/term)) = 0.28.0
-Provides:       bundled(golang(golang.org/x/text)) = 0.21.0
+Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.8
+Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.5
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.39.0
+Provides:       bundled(golang(golang.org/x/exp)) = 8a7402a
+Provides:       bundled(golang(golang.org/x/net)) = 0.39.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.15.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.33.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.32.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.26.0
 
 Requires:       ttyd
 Requires:       ffmpeg-free

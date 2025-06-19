@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.15.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with advanced configuration system
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -51,15 +51,10 @@ Developer Documentation files for %{name} in HTML format
 
 %build
 %cmake_kf6
-%cmake_build
-%cmake_build -t prepare_docs
-%cmake_build -t generate_docs 
-%cmake_build -t generate_qch
+%cmake_build_kf6
 
 %install
-%cmake_install
-%cmake_build -t install_html_docs
-%cmake_build -t install_qch_docs 
+%cmake_install_kf6
 
 %find_lang_kf6 kconfig6_qt
 
@@ -100,6 +95,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
+- 6.15 and plasma 3.4 compatibility rebuild
+
 * Sat Jun 07 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-1
 - 6.15.0
 

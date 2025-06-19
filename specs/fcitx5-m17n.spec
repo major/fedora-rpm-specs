@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-m17n
-Version:    5.1.3
+Version:    5.1.4
 Release:    %autorelease
 Summary:    m17n Wrapper for Fcitx5
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -27,8 +27,8 @@ Requires:       fcitx5-data
 Requires:       pkgconfig(m17n-db)
 
 %description
-M17N is a large collection of input method, which can cover 
-quite a lot languages in the world, including Latin, Arabic, 
+M17N is a large collection of input method, which can cover
+quite a lot languages in the world, including Latin, Arabic,
 etc.
 
 %prep
@@ -46,8 +46,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
-%doc README.md 
-%{_libdir}/fcitx5/m17n.so
+%doc README.md
+%{_libdir}/fcitx5/libm17n.so
 %{_datadir}/fcitx5/addon/m17n.conf
 %dir %{_datadir}/fcitx5/m17n
 %{_datadir}/fcitx5/m17n/default

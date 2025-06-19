@@ -446,10 +446,6 @@ Requires:         %{_sysconfdir}/my.cnf
 # which is not wanted
 %conflict_with_other_streams common
 
-%if %{without clibrary}
-Obsoletes: %{pkgname}-libs <= %{sameevr}
-%endif
-
 %description      -n %{pkgname}-common
 The package provides the essential shared files for any MariaDB program.
 You will need to install this package to use any other MariaDB package.
@@ -634,6 +630,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # inside the storage/rocksdb/rocksdb/include/rocksdb/version.h file
 # but it does not match the real release every time
 Provides:         bundled(rocksdb)
+Conflicts:        rocksdb-tools
 
 %virtual_conflicts_and_provides rocksdb-engine
 
@@ -1502,7 +1499,7 @@ fi
 %if %{with common}
 %files -n %{pkgname}-common
 %doc %{_docdir}/%{majorname}
-%exclude %{_docdir}/%{majorname}/MariaDB-server-%{version}/README-wsrep
+%{?with_galera:%exclude %{_docdir}/%{majorname}/MariaDB-server-%{version}/README-wsrep}
 %dir %{_datadir}/%{majorname}
 %{_datadir}/%{majorname}/charsets
 %if %{with clibrary}

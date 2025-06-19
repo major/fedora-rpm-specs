@@ -46,14 +46,9 @@
 
 # hipblaslt does not support our default set
 #
-# gfx1200,gfx1201 have building problems on 6.4.0
-# https://github.com/ROCm/hipBLASLt/issues/2060
-# uncomment and comment out the real list below to reproduce
-# %%global amdgpu_targets "gfx1201"
-#
 # build is timing out, remove some of the ISA targets
 # gfx942;gfx1102
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101"
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1200;gfx1201"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -76,7 +71,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -86,6 +81,9 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 Patch0:         0001-hipblaslt-find-toolchain.patch
 # https://github.com/ROCm/hipBLASLt/issues/1960
 Patch1:         0001-hipblaslt-handle-missing-joblib.patch
+# https://github.com/ROCm/hipBLASLt/issues/2060
+# https://github.com/AngryLoki/gentoo/blob/b211598514d2876dcbc75ae86d1dd24898f61cab/sci-libs/hipBLASLt/files/hipBLASLt-6.4.1-upstream-clang.patch
+Patch2:         hipBLASLt-6.4.1-upstream-clang.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -317,6 +315,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-4
+- Use Gentoo fix for gfx12*
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
 - Remove suse check of ldconfig
 
