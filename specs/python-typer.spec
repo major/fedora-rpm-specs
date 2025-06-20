@@ -79,13 +79,18 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-typer-slim = %{version}-%{release}
 
+# A file conflict existed between erlang-dialyzer and python3-typer-cli. It was
+# resolved by renaming erlang-dialyzer’s typer executable to erlang-typer:
+# https://src.fedoraproject.org/rpms/erlang/pull-request/6
+#
+# This change was made for Fedora 43, so we can remove the Conflicts for
+# previous versions after Fedora 45.
+#
 # File conflicts: /usr/bin/typer with erlang-dialyzer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2359557
 # File conflicts: /usr/bin/typer between erlang-dialyzer and python3-typer-cli
 # https://bugzilla.redhat.com/show_bug.cgi?id=2359567
-# A proper resolution for Fedora 43 and later is currently under active
-# discussion.
-Conflicts:      erlang-dialyzer
+Conflicts:      erlang-dialyzer < 26.2.5.13-2
 
 %description -n python3-typer-cli %{common_description}
 
@@ -124,7 +129,6 @@ export TIANGOLO_BUILD_PACKAGE='typer'
 %pyproject_wheel
 export TIANGOLO_BUILD_PACKAGE='typer-cli'
 %pyproject_wheel
-
 
 
 %install

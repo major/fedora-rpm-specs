@@ -30,6 +30,10 @@ License:        LicenseRef-Callaway-BSD
 URL:            %{gourl}
 Source0:        %{gosource}
 
+Patch0:         0001-Fix-code-formatting.patch
+Patch1:         0002-Improve-tests-for-modern-Go-versions.patch
+Patch2:         0003-Change-import-of-tester.patch
+
 %description
 %{common_description}
 
@@ -37,8 +41,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
-sed -i -r 's|"\.+/tester"|"github.com/ianbruene/go-difflib/difflib/tester"|g' \
-  difflib/difflib_test.go difflib/bytes/bytes_test.go
+%autopatch -p1
 
 %install
 %gopkginstall

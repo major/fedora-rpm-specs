@@ -1,7 +1,7 @@
-%bcond check 0
+%bcond check 1
 
 Name:           kaidan
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
 License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-2.0-or-later
@@ -61,6 +61,7 @@ Requires:       kf6-kirigami2-addons%{?_isa}
 Requires:       kf6-kquickcharts%{?_isa}
 Requires:       qt6-qtwebchannel%{?_isa}
 Requires:       qt6-qtwebengine%{?_isa}
+Requires:       qt6-qtlocation%{?_isa}
 Requires:       kquickimageeditor-qt6%{?_isa}
 Requires:       hicolor-icon-theme
 
@@ -80,7 +81,7 @@ and the Qt-based XMPP library QXmpp.
 %if %{with check}
     -DBUILD_TESTING=ON \
 %else
-    -DBUILD_TESTS=OFF \
+    -DBUILD_TESTING=OFF \
 %endif
 
 %cmake_build

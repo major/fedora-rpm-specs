@@ -13,8 +13,8 @@
 
 Summary: An extensible library which provides authentication for applications
 Name: pam
-Version: 1.7.0
-Release: 5%{?dist}
+Version: 1.7.1
+Release: 1%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -34,9 +34,6 @@ Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch1:  pam-1.7.0-redhat-modules.patch
 Patch2:  pam-1.5.3-unix-nomsg.patch
-Patch3:  pam-1.7.0-fop-optional.patch
-# https://github.com/linux-pam/linux-pam/commit/940747f88c16e029b69a74e80a2e94f65cb3e628
-Patch4:  pam-1.5.1-pam-access-resolve-ip.patch
 
 %{load:%{SOURCE3}}
 
@@ -134,17 +131,17 @@ cp %{SOURCE18} .
 
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .nomsg
-%patch -P 3 -p1 -b .fop
-%patch -P 4 -p1 -b .pam-access-resolve-ip
 
 %build
 %meson \
   -Daudit=enabled \
+  -Delogind=disabled \
 %if %{without nis}
   -Dnis=disabled \
 %endif
   -Dlogind=disabled \
   -Dopenssl=enabled \
+  -Dpam_lastlog=enabled \
   -Dpam_userdb=enabled \
   -Ddb=gdbm \
   -Dselinux=enabled
@@ -232,6 +229,7 @@ find %{buildroot}%{_pkgdocdir} -type f | xargs chmod 644
 for dir in modules/pam_* ; do
 if [ -d ${dir} ] ; then
   [ ${dir} = "modules/pam_lastlog" ] && continue
+  [ ${dir} = "modules/pam_lastlog" ] && continue
   [ ${dir} = "modules/pam_selinux" ] && continue
   [ ${dir} = "modules/pam_sepermit" ] && continue
   [ ${dir} = "modules/pam_tty_audit" ] && continue
@@ -284,6 +282,7 @@ done
 %{_pam_moduledir}/pam_group.so
 %{_pam_moduledir}/pam_issue.so
 %{_pam_moduledir}/pam_keyinit.so
+%{_pam_moduledir}/pam_lastlog.so
 %{_pam_moduledir}/pam_limits.so
 %{_pam_moduledir}/pam_listfile.so
 %{_pam_moduledir}/pam_localuser.so
@@ -366,10 +365,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
-* Tue Apr 22 2025 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.0-5
-* FSWC: Migrate to lastlog2
-  Link: <https://fedoraproject.org/wiki/Changes/Migrate_to_lastlog2>
-  Resolves: #2361594
+* Wed Jun 18 2025 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.1-1
+- Rebase to release 1.7.1
+- pam_access: fix group name match regression (#2367080)
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

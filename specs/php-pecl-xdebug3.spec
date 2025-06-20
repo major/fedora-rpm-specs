@@ -14,11 +14,11 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  f2121978d70a21aab8c91d38484caeee66f85525
+%global gh_commit  18384ea5c8c5df10afc7416ba096846d63c9a6c5
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.3
+%global upstream_version 3.4.4
 #global upstream_prever  beta1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -204,6 +204,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Wed Jun 18 2025 Remi Collet <remi@remirepo.net> - 3.4.4-1
+- update to 3.4.4
+
 * Wed May 14 2025 Remi Collet <remi@remirepo.net> - 3.4.3-1
 - update to 3.4.3
 

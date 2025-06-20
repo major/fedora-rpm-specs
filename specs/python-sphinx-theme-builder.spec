@@ -11,7 +11,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.19.%{prerel}%{?dist}
+Release:        0.20.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -88,6 +88,9 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.20.b2
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.19.b2
 - Bootstrap for Python 3.14
 

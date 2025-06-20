@@ -10,7 +10,7 @@
 %bcond_without tests
 
 
-%global gh_commit    491eef985e63f351eb997ba02cf76cdf749f2043
+%global gh_commit    64bf2aa3223e432245978f21f7ec6c572fa3ca8b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -24,7 +24,7 @@
 
 
 Name:           %{pk_project}
-Version:        11.0.0
+Version:        11.0.1
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
@@ -40,8 +40,8 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  phpunit12
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.0   with php-composer(phpunit/php-code-coverage) < 13)
+BuildRequires:  phpunit12 >= 12.1.6
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.3   with php-composer(phpunit/php-code-coverage) < 13)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0    with php-composer(phpunit/php-file-iterator) < 7)
 BuildRequires:  (php-composer(sebastian/cli-parser)      >= 4.0    with php-composer(sebastian/cli-parser)      < 5)
 BuildRequires:  (php-composer(sebastian/diff)            >= 7.0    with php-composer(sebastian/diff)            < 8)
@@ -51,15 +51,15 @@ BuildRequires:  php-pecl(Xdebug) >= 3
 
 # from composer.json
 #        "php": ">=8.3",
-#        "phpunit/phpunit": "^12.0",
-#        "phpunit/php-code-coverage": "^12.0",
+#        "phpunit/phpunit": "^12.1.6",
+#        "phpunit/php-code-coverage": "^12.3",
 #        "phpunit/php-file-iterator": "^6.0",
 #        "sebastian/cli-parser": "^4.0",
 #        "sebastian/diff": "^7.0",
 #        "sebastian/version": "^6.0"
 Requires:       php(language) >= 8.3
-Requires:       phpunit12
-Requires:       (php-composer(phpunit/php-code-coverage) >= 12.0   with php-composer(phpunit/php-code-coverage) < 13)
+Requires:       phpunit12 >= 12.1.6
+Requires:       (php-composer(phpunit/php-code-coverage) >= 12.3   with php-composer(phpunit/php-code-coverage) < 13)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0    with php-composer(phpunit/php-file-iterator) < 7)
 Requires:       (php-composer(sebastian/cli-parser)      >= 4.0    with php-composer(sebastian/cli-parser)      < 5)
 Requires:       (php-composer(sebastian/diff)            >= 7.0    with php-composer(sebastian/diff)            < 8)
@@ -144,6 +144,11 @@ exit $ret;
 
 
 %changelog
+* Wed Jun 18 2025 Remi Collet <remi@remirepo.net> - 11.0.1-1
+- update to 11.0.1 (no change)
+- raise dependency on phpunit/phpunit 12.1.6
+- raise dependency on phpunit/php-code-coverage 12.3
+
 * Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 11.0.0-1
 - update to 11.0.0
 - raise dependency on phpunit/phpunit 12.0

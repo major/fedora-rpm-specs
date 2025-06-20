@@ -5,7 +5,7 @@
 
 Name:       python-atomicwrites
 Version:    1.4.1
-Release:    12%{?git_tag}%{?dist}
+Release:    13%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -81,6 +81,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 1.4.1-13
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.4.1-12
 - Bootstrap for Python 3.14
 

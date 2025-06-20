@@ -31,9 +31,7 @@
 # Almost all of the conda tests require network access, but there are also
 # other failures that are not straightforward to understand.
 %bcond conda_tests 0
-# F43FailsToInstall: python3-google-cloud-storage
-# https://bugzilla.redhat.com/show_bug.cgi?id=2371928
-%bcond gcs_tests 0
+%bcond gcs_tests 1
 
 # Snapshot fixes test_config_ref failing with:
 #
@@ -393,7 +391,7 @@ BuildRequires:  %{py3_dist snakemake-storage-plugin-s3}
 %endif
 # For import-testing snakemake.gui
 BuildRequires:  %{py3_dist flask}
-%if %{with google_cloud_storage_tests}
+%if %{with gcs_tests}
 # For import-testing snakemake.executors.google_lifesciences_helper:
 BuildRequires:  %{py3_dist google-cloud-storage}
 %endif

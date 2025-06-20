@@ -1,41 +1,40 @@
-%global srcname hugo-academic-cli
+%global srcname academic-file-converter
 
 Name:           academic-admin
-Version:        0.8.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Admin tool for the Academic website builder
 
 License:        MIT
-URL:            https://github.com/wowchemy/%{srcname}
-Source0:        https://github.com/wowchemy/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch0:         academic-admin-0.8.1-dependencies.patch
+URL:            https://github.com/GetRD/%{srcname}
+Source:         https://github.com/GetRD/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Patch0:         academic-admin-0.11.2-dependencies.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-toml
-BuildRequires:  python3-requests
-BuildRequires:  python3-bibtexparser
 
-Provides:       %srcname
+%global _description %{expand:
+An admin tool for the Academic website builder.}
 
-%description
-An admin tool for the Academic website builder.
+%description %_description
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n academic-admin
 %doc README.md
 %license LICENSE.md
-%{python3_sitelib}/academic-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/academic/
+%{python3_sitelib}/academic-%{version}.dist-info/
 %{_bindir}/*
 
 %changelog

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc2.250617g9afe652958c3.25
+%define pkgrelease 0.rc2.250618g52da431bf03b.26
 %define kversion 6
-%define tarfile_release 6.16-rc2-24-g9afe652958c3
+%define tarfile_release 6.16-rc2-47-g52da431bf03b
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.250617g9afe652958c3.25%{?buildid}%{?dist}
+%define specrelease 0.rc2.250618g52da431bf03b.26%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4337,8 +4337,12 @@ fi\
 #
 #
 %changelog
-* Tue Jun 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.9afe652958c3.25]
+* Wed Jun 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.52da431bf03b.26]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Jun 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.52da431bf03b.25]
+- redhat/configs/common/generic: enable vgem module via CONFIG_DRM_VGEM (Alexander Kanavin)
+- Linux v6.16.0-0.rc2.52da431bf03b
 
 * Tue Jun 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.9afe652958c3.24]
 - Linux v6.16.0-0.rc2.9afe652958c3

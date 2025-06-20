@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        24.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -149,6 +149,9 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
 %doc README.*
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 24.9.0-4
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 24.9.0-3
 - Bootstrap for Python 3.14
 

@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -80,6 +80,9 @@ export CONDA_EXE
 
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 0.11.0-4
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.11.0-3
 - Bootstrap for Python 3.14
 

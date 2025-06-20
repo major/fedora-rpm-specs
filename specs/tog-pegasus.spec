@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        83%{?dist}
+Release:        84%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -115,6 +115,8 @@ Patch49:        tog-pegasus-2.14.1-bin-sbin-unify.patch
 # 50: use sscg to generate cert, openssl as fallback, obtain correct key length
 #  based upon crypto policy level
 Patch50:        pegasus-2.14.1-ssl-certs-gen-changes.patch
+# 51: add mechanism to load fall back certificate/key pair
+Patch51:        pegasus-2.14.1-post-quantum.patch
 
 BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -275,6 +277,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch -P48 -p1 -b .add-riscv64-support
 %patch -P49 -p1 -b .bin-sbin-unify
 %patch -P50 -p1 -b .ssl-certs-gen-changes
+%patch -P51 -p1 -b .post-quantum
 
 
 %build
@@ -571,6 +574,9 @@ fi
 
 
 %changelog
+* Wed Jun 18 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-84
+- Update to better support post-quantum cryptography
+
 * Tue May 13 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-83
 - Remove manual user/group creation entirely
   Related: #2363971

@@ -1,15 +1,14 @@
 Name: daemonize
 Version: 1.7.8
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Run a command as a Unix daemon
-
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause AND MIT AND FSFUL
 URL: http://www.clapper.org/software/daemonize/
-# $UPSTREAM no longer supplies hand made .tar.gz-Files for releases 
-# so a github tarball it is:
-# https://github.com/bmc/daemonize/tarball/release-1.7.8
-Source: daemonize-1.7.8.tar.gz
+Source: https://github.com/bmc/%{name}/archive/release-%{version}/%{name}-%{version}.tar.gz
+
+# Fix for getopt.c too many args errors in gcc-15
+# https://github.com/bmc/daemonize/commit/eaf4746d47e171e7b8655690eb1e91fc216f2866
+Patch0: 0001-fix-getopt.c-too-many-arguments-to-function-write-er.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -39,21 +38,26 @@ When you must run a daemon program that does not properly make itself into a
 true Unix daemon, you can use daemonize to force it to run as a true daemon.
 
 %prep
-%setup -q -n bmc-%{name}-18869a7
+%autosetup -p1 -n %{name}-release-%{version}
 
 %build
 %configure
 make %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} INSTALL="install -p" install
+make DESTDIR=%{buildroot} INSTALL="install -p" INSTALL_SBIN=%{_sbindir} install
 
 %files
-%doc CHANGELOG.md LICENSE.md README.md
+%license LICENSE.md
+%doc CHANGELOG.md README.md
 %{_sbindir}/daemonize
 %{_mandir}/man1/daemonize.1.gz
 
 %changelog
+* Wed Jun 18 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 1.7.8-12
+- Resolves RHBZ#2340026
+- Fixes getopt.c too many arguments errors
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

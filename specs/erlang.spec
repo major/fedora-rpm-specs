@@ -69,7 +69,7 @@
 
 Name:		erlang
 Version:	26.2.5.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -240,7 +240,7 @@ A byte code compiler for Erlang which produces highly compact code.
 %package crypto
 Summary: Cryptographical support
 BuildRequires: pkgconfig(openssl)
-%if 0%{fedora} > 40
+%if 0%{?fedora} > 40
 BuildRequires: openssl-devel-engine
 %endif
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
@@ -938,6 +938,19 @@ install -D -p -m 0644 %{SOURCE8} %{buildroot}%{_unitdir}/epmd@.socket
 
 %if %{__with_wxwidgets}
 echo "No need to fix additional scripts"
+# Fix file conflict w/ python3-typer-cli by renaming our typer to erlang-typer.
+# We only rename the symlink in %%{_bindir}, not its direct and indirect
+# targets in subdirectories of %%{_libdir}.
+#
+# File conflicts: /usr/bin/typer between erlang-dialyzer and python3-typer-cli
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359567
+mv %{buildroot}%{_bindir}/typer %{buildroot}%{_bindir}/erlang-typer
+%if %{with doc}
+mv %{buildroot}%{_mandir}/man1/typer.1 \
+    %{buildroot}%{_mandir}/man1/erlang-typer.1
+sed -r -i 's/^(\.TH[[:blank:]]+)?(typer)\b/\1erlang-\2/' \
+    %{buildroot}%{_mandir}/man1/erlang-typer.1
+%endif
 %else
 # FIXME workaround for broken Erlang install procedure
 echo "Removing scripts which won't work w/o wxWidgets anyway"
@@ -1043,14 +1056,14 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 %files dialyzer
 %{_bindir}/dialyzer
 # FIXME FIXME FIXME this must be installed properly!!!!!!
-%{_bindir}/typer
+%{_bindir}/erlang-typer
 %{_libdir}/erlang/bin/dialyzer
 %{_libdir}/erlang/bin/typer
 %{_libdir}/erlang/erts-*/bin/dialyzer
 %{_libdir}/erlang/erts-*/bin/typer
 %{_libdir}/erlang/lib/dialyzer-*/
 %if %{with doc}
-%{_mandir}/man1/typer.*
+%{_mandir}/man1/erlang-typer.*
 %{_mandir}/man3/dialyzer.*
 %endif
 %endif # __with_wxwidgets
@@ -1961,6 +1974,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Wed Jun 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 26.2.5.13-2
+- Rename typer (in /usr/bin) to erlang-typer; fixes RHBZ#2359567
+
 * Fri Mar 28 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.10-1
 - Ver. 26.2.5.10
 

@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b2
+%global prerel b3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -116,7 +116,7 @@ Provides: bundled(python3dist(zipp)) = 3.19.2
 # (the -debug subpackages)
 %bcond debug_build 1
 
-# Extra build without GIL, the freethreading PEP 703 provisional way
+# Extra build without GIL, the freethreading PEP 703 way
 # (the -freethreading subpackage)
 %bcond freethreading_build 1
 
@@ -280,11 +280,6 @@ BuildRequires: gcc-c++
 BuildRequires: gdb
 BuildRequires: glibc-all-langpacks
 BuildRequires: tzdata
-
-# Perf support is only available on x86_64 and aarch64 right now
-%ifarch x86_64 aarch64
-BuildRequires: perf
-%endif
 %endif
 
 %if %{with jit}
@@ -360,21 +355,28 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00459 # 9cf6fed17de184d2e17ace2b5063e782e7e186ba
-# Apply Intel Control-flow Technology for x86-64
-#
-# Required for mitigation against return-oriented programming (ROP) and Call or Jump Oriented Programming (COP/JOP) attacks
-#
-# Proposed upstream: https://github.com/python/cpython/pull/128606
-#
-# See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
-Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
-
 # 00461 # 920175020b21c0aff5edcc4c28d688b5061f591c
 # Downstream only: Install wheel in test venvs when setuptools < 71
 #
 # This can be removed when Fedora 41 goes EOL (or updates setuptools).
 Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
+
+# 00464 # 292acffec7a379cb6d1f3c47b9e5a2f170bbadb6
+# Enable PAC and BTI protections for aarch64
+#
+# Apply protection against ROP/JOP attacks for aarch64 on asm_trampoline.S
+#
+# The BTI flag must be applied in the assembler sources for this class
+# of attacks to be mitigated on newer aarch64 processors.
+#
+# Upstream PR: https://github.com/python/cpython/pull/130864/files
+#
+# The upstream patch is incomplete but only for the case where
+# frame pointers are not used on 3.13+.
+#
+# Since on Fedora we always compile with frame pointers the BTI/PAC
+# hardware protections can be enabled without losing Perf unwinding.
+Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
 # (New patches go here ^^^)
 #
@@ -689,7 +691,7 @@ The debug runtime additionally supports debug builds of C-API extensions
 %if %{with freethreading_build}
 # This deliberately does not use the %%{pkgname}- prefix,
 # we want to call this python3.X-threading even when built as a main Python.
-# At least until the PEP 703 build remains provisional.
+# This build of Python is not "the main freethreading Python", there's no such thing (yet?)
 %package -n python%{pybasever}-freethreading
 Summary: Free Threading (PEP 703) version of the Python runtime
 
@@ -715,7 +717,7 @@ Requires: tzdata
 Requires: expat >= 2.6
 
 %description -n python%{pybasever}-freethreading
-The provisional Free Threading (PEP 703) build of Python.
+The Free Threading (PEP 703) build of Python.
 
 CPython’s global interpreter lock (“GIL”) prevents multiple threads from
 executing Python code at the same time. The GIL is an obstacle to using
@@ -736,7 +738,7 @@ License: %{libs_license}
 Requires: python%{pybasever}-freethreading%{?_isa} = %{version}-%{release}
 
 %description -n python%{pybasever}-freethreading-debug
-The provisional Free Threading (PEP 703) build of Python. Debug build.
+The Free Threading (PEP 703) build of Python. Debug build.
 
 CPython’s global interpreter lock (“GIL”) prevents multiple threads from
 executing Python code at the same time. The GIL is an obstacle to using
@@ -1722,6 +1724,14 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jun 18 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.14.0~b3-2
+- Enable PAC and BTI hardware protections for aarch64
+
+* Tue Jun 17 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~b3-1
+- Update to Python 3.14.0b3
+- The .pyc magic number was bumped
+- python3.14-freethreading is no longer provisional
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.14.0~b2-3
 - Rebuilt for Python 3.14
 

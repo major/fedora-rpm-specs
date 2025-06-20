@@ -16,7 +16,7 @@
 
 Summary:    X.Org X11 X server
 Name:       xorg-x11-server
-Version:    21.1.16
+Version:    21.1.18
 Release:    1%{?dist}
 URL:        http://www.x.org
 # SPDX
@@ -415,6 +415,15 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Wed Jun 18 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.18-1
+- Update to xserver 21.1.18
+- Contains an additional fix for CVE-2025-49176
+
+* Tue Jun 17 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.17-1
+- Update to xserver 21.1.17
+- CVE fix for: CVE-2025-49175, CVE-2025-49176, CVE-2025-49177
+               CVE-2025-49178, CVE-2025-49179, CVE-2025-49180
+
 * Wed Feb 26 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.16-1
 - Update to xserver 21.1.16 (#2347558)
 - CVE fix for: CVE-2025-26594, CVE-2025-26595, CVE-2025-26596, CVE-2025-26597,

@@ -3,8 +3,8 @@
 %global develname lib%{name}-devel
 
 Name: freecell-solver
-Version: 6.12.0
-Release: 4%{?dist}
+Version: 6.14.0
+Release: 1%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
 URL: https://fc-solve.shlomifish.org/
@@ -62,7 +62,7 @@ BuildRequires: pkgconfig(librinutils) >= 0.2.0
 BuildRequires: python3-devel
 BuildRequires: python3-cffi
 BuildRequires: python3-freecell_solver
-BuildRequires: python3-pysol-cards
+BuildRequires: python3-pysol-cards >= 0.24
 BuildRequires: python3-random2
 BuildRequires: python3-rpm-macros
 BuildRequires: python3dist(six)
@@ -193,6 +193,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Wed Jun 18 2025 Shlomi Fish <shlomif@shlomifish.org> 6.14.0-1
+- New upstream version.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.12.0-4
 - Rebuilt for Python 3.14
 

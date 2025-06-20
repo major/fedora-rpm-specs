@@ -25,8 +25,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.4.2
-Release:    2%{?dist}
+Version:    1.4.3
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -50,9 +50,9 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-27526.cvd
+Source11:   daily-27673.cvd
 #http://database.clamav.net/bytecode.cvd
-Source12:   bytecode-335.cvd
+Source12:   bytecode-336.cvd
 #for update
 Source200:  freshclam-sleep
 Source201:  freshclam.sysconfig
@@ -665,6 +665,9 @@ done
 
 
 %changelog
+* Wed Jun 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.3-1
+- 1.4.3
+
 * Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.2-2
 - Add sysusers.d config files to allow rpm to create users/groups automatically
 

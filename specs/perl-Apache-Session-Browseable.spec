@@ -1,5 +1,5 @@
 Name:		perl-Apache-Session-Browseable
-Version:	1.3.16
+Version:	1.3.17
 Release:	1%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,7 +49,9 @@ BuildRequires:	perl(utf8)
 BuildRequires:	perl(warnings)
 # Optional Tests
 BuildRequires:	perl(DBD::mysql)
+BuildRequires:	perl(DBD::Pg)
 BuildRequires:	perl(DBD::SQLite) > 1.19
+BuildRequires:	perl(DBI)
 # Dependencies
 Requires:	perl(MIME::Base64)
 Requires:	perl(Redis)
@@ -87,6 +89,7 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Browseable::LDAP.3*
 %{_mandir}/man3/Apache::Session::Browseable::MySQL.3*
 %{_mandir}/man3/Apache::Session::Browseable::MySQLJSON.3*
+%{_mandir}/man3/Apache::Session::Browseable::Patroni.3*
 %{_mandir}/man3/Apache::Session::Browseable::PgHstore.3*
 %{_mandir}/man3/Apache::Session::Browseable::PgJSON.3*
 %{_mandir}/man3/Apache::Session::Browseable::Postgres.3*
@@ -100,6 +103,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Wed Jun 18 2025 Xavier Bachelot <xavier@bachelot.org> - 1.3.17-1
+- Update to 1.3.17
+  - Add Patroni support
+
 * Sun Apr 13 2025 Paul Howarth <paul@city-fan.org> - 1.3.16-1
 - Update to 1.3.16
   - Optimize deleteIfLowerThan for Redis

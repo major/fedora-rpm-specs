@@ -4,12 +4,13 @@
 %else
 %bcond_with docs
 %endif
-%global doc_version 8.1.0
+# See https://github.com/valkey-io/valkey-doc/tags
+%global doc_version 8.1.1
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 Name:              valkey
-Version:           8.1.1
+Version:           8.1.2
 Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
@@ -403,6 +404,10 @@ fi
 
 
 %changelog
+* Wed Jun 18 2025 Remi Collet <remi@fedoraproject.org> - 8.1.2-1
+- update to 8.1.2
+  fixes CVE-2025-27151
+
 * Thu Apr 24 2025 Remi Collet <remi@fedoraproject.org> - 8.1.1-1
 - update to 8.1.1
   fixes CVE-2025-21605

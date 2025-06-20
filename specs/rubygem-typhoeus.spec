@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Parallel HTTP library on top of libcurl multi
 License: MIT
 URL: https://github.com/typhoeus/typhoeus
@@ -13,6 +13,9 @@ Patch0: typhoeus-1.4.0-Fix-Ruby-3-0-compatibility.patch
 # Fix testsuite assertion with curl 8.9
 # https://github.com/typhoeus/typhoeus/pull/724/
 Patch1: typhoeus-1.4.0-support-curl-8_9-msg.patch
+# Fix Rack 3 compatibility
+# https://github.com/typhoeus/typhoeus/pull/731
+Patch2: rubygem-typhoeus-1.4.1-Fix-Rack-3-compatibility.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -23,6 +26,9 @@ BuildRequires: rubygem(redis)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(sinatra)
 BuildRequires: rubygem(webrick)
+# For Rack 3+ compatibility, where Rackup is split into separate rubygem-rackup
+# package.
+BuildRequires: %{_bindir}/rackup
 BuildArch: noarch
 
 %description
@@ -44,6 +50,7 @@ Documentation for %{name}.
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -92,6 +99,9 @@ popd
 %{gem_instdir}/typhoeus.gemspec
 
 %changelog
+* Wed Jun 18 2025 Vít Ondruch <vondruch@redhat.com> - 1.4.0-14
+- Fix Rack 3 compatibility
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

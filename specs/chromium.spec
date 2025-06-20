@@ -245,7 +245,7 @@
 %endif
 
 Name:	chromium
-Version: 137.0.7151.103
+Version: 137.0.7151.119
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1752,6 +1752,11 @@ fi
 %endif
 
 %changelog
+* Wed Jun 18 2025 Than Ngo <than@redhat.com> - 137.0.7151.119-1
+- Update to 137.0.7151.119
+  * CVE-2025-6191: Integer overflow in V8
+  * CVE-2025-6192: Use after free in Profiler
+
 * Wed Jun 11 2025 Than Ngo <than@redhat.com> - 137.0.7151.103-1
 - Update to 137.0.7151.103
   * CVE-2025-5958: Use after free in Media

@@ -1,15 +1,21 @@
 # note: PROJ_MIN_VERSION is defined in the setup.py file of pyproj
 # a compatibility matrix is also provided in docs/installation.rst
-%global minimal_needed_proj_version 9.2.0
+%global minimal_needed_proj_version 9.4.0
+
+# Several dependencies are not yet rebuilt for Python 3.14:
+%bcond xarray 0
 
 Name:           pyproj
-Version:        3.7.0
-Release:        3%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+
+# see: https://github.com/pyproj4/pyproj/issues/1501
+Patch1:         pyproj-proj-9.6.2.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -28,7 +34,9 @@ BuildRequires:  python3-pytest
 # https://bugzilla.redhat.com/show_bug.cgi?id=2263999 
 %ifnarch %{ix86}
 BuildRequires:  python3-pandas
+%if %{with xarray}
 BuildRequires:  python3-xarray
+%endif
 %endif
 BuildRequires:  python3-shapely
 
@@ -159,7 +167,7 @@ cd ..
 mkdir pyproj-test-folder
 cd pyproj-test-folder
 cp -r ../pyproj-%{version}/test .
-cp -r ../pyproj-%{version}/pytest.ini .
+cp ../pyproj-%{version}/pytest.ini .
 
 export PATH="%{buildroot}%{_bindir}:$PATH"
 export PYTHONPATH="%{buildroot}%{python3_sitearch}"
@@ -185,6 +193,12 @@ py.test-3 -m "not network and not pandas"
 
 
 %changelog
+* Wed Jun 18 2025 Jos de Kloe <josdekloe@gmail.com> 3.7.1
+- Update to 3.7.1; disable 4 tests due to a regression in proj 9.6.2
+
+* Tue Jun 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.7.0-4
+- Temporarily omit xarray tests to unblock Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.7.0-3
 - Rebuilt for Python 3.14
 

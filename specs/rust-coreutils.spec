@@ -11,10 +11,8 @@ Summary:        coreutils ~ GNU coreutils reimplementation in Rust
 License:        MIT
 URL:            https://crates.io/crates/coreutils
 Source:         %{crates_source}
-# * Wrapper to invoke coreutils multicall via individual libexec symlink
-Source1:        coreutils-wrapper.sh
 # * Script to list available coreutils commands
-Source2:        coreutils-ls-commands.sh
+Source1:        coreutils-ls-commands.sh
 # Manually created patch for downstream crate metadata changes
 # * drop uudoc, unneeded
 # * allow up to rstest 0.23
@@ -152,8 +150,6 @@ Obsoletes:      uu_yes < %{obsolete_uu_nvr}
 %doc README.md
 %{_bindir}/uutils-coreutils
 %{_bindir}/uu_*
-%dir %{_libexecdir}/uutils-coreutils
-%{_libexecdir}/uutils-coreutils/*
 %{_mandir}/man1/*
 %{bash_completions_dir}/*
 %{fish_completions_dir}/*
@@ -162,10 +158,8 @@ Obsoletes:      uu_yes < %{obsolete_uu_nvr}
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# coreutils-wrapper.sh script
-cp -p %{SOURCE1} .
 # coreutils-ls-commands.sh script
-cp -p %{SOURCE2} .
+cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -194,11 +188,8 @@ target/rpm/coreutils completion coreutils fish > data/completions/fish/uutils-co
 %install
 %cargo_install
 mv %{buildroot}/%{_bindir}/coreutils %{buildroot}/%{_bindir}/uutils-coreutils
-mkdir -p %{buildroot}%{_libexecdir}/uutils-coreutils/misc
-cp -p coreutils-wrapper.sh %{buildroot}%{_libexecdir}/uutils-coreutils/misc/
 for utility in $(./coreutils-ls-commands.sh target/rpm/coreutils); do
-  ln -sr %{buildroot}%{_bindir}/uutils-coreutils %{buildroot}%{_libexecdir}/uutils-coreutils/$utility
-  ln -sr %{buildroot}%{_libexecdir}/uutils-coreutils/misc/coreutils-wrapper.sh %{buildroot}%{_bindir}/uu_$utility
+  ln -sr %{buildroot}%{_bindir}/uutils-coreutils  %{buildroot}%{_bindir}/uu_$utility
 done
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p data/man/man1/* %{buildroot}%{_mandir}/man1/

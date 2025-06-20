@@ -1,4 +1,3 @@
-%global _without_tests 1
 Name:           python-decopatch
 Version:        1.4.10
 Release:        %autorelease
@@ -18,7 +17,7 @@ BuildRequires:	pyproject-rpm-macros
 # There is a build dependency loop when built with tests.
 # It involves pytest-cases, pytest-harvest, pytest-steps.
 # This bcons allows to bootstrap it.
-%bcond tests 0
+%bcond tests 1
 
 %global _description %{expand:
 Because of a tiny oddity in the python language, writing decorators without help

@@ -2,7 +2,7 @@
 %global pypi_name boutdata
 
 Name:           python-%{pypi_name}
-Version:        0.2.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Python package for collecting BOUT++ data
 
@@ -11,10 +11,10 @@ URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
 
-Patch:          0001-pytest-no-cov.patch
-Patch:          https://github.com/boutproject/boutdata/commit/2c4500ed56199a55e098d84c399c5a6b3f27544e.patch#./0002-no-gc-collect.patch
-Patch:          natsort-version.patch
-Patch:          fix-script-dir.patch
+# Fix for 3.14: allow pickling
+Patch:          https://github.com/boutproject/boutdata/pull/126.patch
+# Fix license format
+Patch:          https://github.com/boutproject/boutdata/pull/125.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -29,6 +29,9 @@ Python interface for reading bout++ data files.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
+
+Provides:       python3-boututils = %{version}-%{release}
+Obsoletes:      python3-boututils < %{version}-%{release}
 
 %description -n python3-%{pypi_name}
 Python interface for reading bout++ data files.
@@ -49,14 +52,16 @@ rm -rf %{pypi_name}.egg-info
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files %{pypi_name} boututils boutupgrader
 
 
 %check
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1997717
 export HDF5_USE_FILE_LOCKING=FALSE
 # Smoke test for squash
-PYTHONPATH=${RPM_BUILD_ROOT}/${PYTHON3_SITELIB}:${PYTHONPATH} ${RPM_BUILD_ROOT}/%{_bindir}/bout-squashoutput --help
+echo ${RPM_BUILD_ROOT}/%{python3_sitelib}:${PYTHONPATH}
+PYTHONPATH=${RPM_BUILD_ROOT}/%{python3_sitelib}:${PYTHONPATH} ${RPM_BUILD_ROOT}/%{_bindir}/bout-squashoutput --help
+PYTHONPATH=${RPM_BUILD_ROOT}/%{python3_sitelib}:${PYTHONPATH} ${RPM_BUILD_ROOT}/%{_bindir}/bout-upgrader --help
 # run unit tests
 %pytest
 
@@ -65,6 +70,7 @@ PYTHONPATH=${RPM_BUILD_ROOT}/${PYTHON3_SITELIB}:${PYTHONPATH} ${RPM_BUILD_ROOT}/
 %license LICENSE
 %doc README.md
 %{_bindir}/bout-squashoutput
+%{_bindir}/bout-upgrader
 
 
 %changelog

@@ -3,7 +3,7 @@
 %endif
 
 Name: sshguard
-Version: 2.4.3
+Version: 2.5.1
 Release: %autorelease
 # The entire source code is BSD-3-Clause
 # except src/parser/attack_parser.{h,c} is GPL-3.0-or-later

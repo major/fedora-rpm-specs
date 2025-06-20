@@ -1,7 +1,7 @@
 %define goipath github.com/charmbracelet/gum
 
 Name:           gum
-Version:        0.16.0
+Version:        0.16.1
 Release:        %autorelease
 Summary:        Tool for glamorous shell scripts
 URL:            https://github.com/charmbracelet/gum
@@ -25,13 +25,16 @@ URL:            https://github.com/charmbracelet/gum
 #   github.com/aymerick/douceur
 #   github.com/charmbracelet/bubbles
 #   github.com/charmbracelet/bubbletea
+#   github.com/charmbracelet/colorprofile
 #   github.com/charmbracelet/glamour
 #   github.com/charmbracelet/lipgloss
 #   github.com/charmbracelet/log
 #   github.com/charmbracelet/x/ansi
+#   github.com/charmbracelet/x/cellbuf
 #   github.com/charmbracelet/x/conpty
 #   github.com/charmbracelet/x/editor
 #   github.com/charmbracelet/x/errors
+#   github.com/charmbracelet/x/exp/slice
 #   github.com/charmbracelet/x/term
 #   github.com/charmbracelet/x/termios
 #   github.com/charmbracelet/x/xpty
@@ -52,6 +55,7 @@ URL:            https://github.com/charmbracelet/gum
 #   github.com/muesli/termenv
 #   github.com/rivo/uniseg
 #   github.com/sahilm/fuzzy
+#   github.com/xo/terminfo
 #   github.com/yuin/goldmark
 #   github.com/yuin/goldmark-emoji
 # MIT AND OFL-1.1:
@@ -69,20 +73,23 @@ BuildRequires:  golang >= 1.23
 
 Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = 3.3.1
 Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.14.0
-Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.8.1
+Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.11.0
 Provides:       bundled(golang(github.com/alecthomas/mango-kong)) = 0.1.0
 Provides:       bundled(golang(github.com/atotto/clipboard)) = 0.1.4
 Provides:       bundled(golang(github.com/aymanbagabas/go-osc52/v2)) = 2.0.1
 Provides:       bundled(golang(github.com/aymerick/douceur)) = 0.2.0
-Provides:       bundled(golang(github.com/charmbracelet/bubbles)) = 0.20.0
-Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.3.4
-Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.8.0
-Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = ecc1bd0
-Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.0
-Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.8.0
+Provides:       bundled(golang(github.com/charmbracelet/bubbles)) = 0.21.0
+Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.3.5
+Provides:       bundled(golang(github.com/charmbracelet/colorprofile)) = f60798e
+Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.10.0
+Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = 76690c6
+Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.2
+Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.9.2
+Provides:       bundled(golang(github.com/charmbracelet/x/cellbuf)) = 0.0.13
 Provides:       bundled(golang(github.com/charmbracelet/x/conpty)) = 0.1.0
 Provides:       bundled(golang(github.com/charmbracelet/x/editor)) = 0.1.0
 Provides:       bundled(golang(github.com/charmbracelet/x/errors)) = e8d8b6e
+Provides:       bundled(golang(github.com/charmbracelet/x/exp/slice)) = 2fdc977
 Provides:       bundled(golang(github.com/charmbracelet/x/term)) = 0.2.1
 Provides:       bundled(golang(github.com/charmbracelet/x/termios)) = 0.1.1
 Provides:       bundled(golang(github.com/charmbracelet/x/xpty)) = 0.1.2
@@ -105,14 +112,15 @@ Provides:       bundled(golang(github.com/muesli/roff)) = 0.1.0
 Provides:       bundled(golang(github.com/muesli/termenv)) = 0.16.0
 Provides:       bundled(golang(github.com/rivo/uniseg)) = 0.4.7
 Provides:       bundled(golang(github.com/sahilm/fuzzy)) = 0.1.1
-Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.4
-Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.4
+Provides:       bundled(golang(github.com/xo/terminfo)) = abceb7e
+Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.8
+Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.5
 Provides:       bundled(golang(golang.org/x/exp)) = 7f521ea
-Provides:       bundled(golang(golang.org/x/net)) = 0.33.0
-Provides:       bundled(golang(golang.org/x/sync)) = 0.12.0
-Provides:       bundled(golang(golang.org/x/sys)) = 0.30.0
-Provides:       bundled(golang(golang.org/x/term)) = 0.27.0
-Provides:       bundled(golang(golang.org/x/text)) = 0.23.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.40.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.14.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.33.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.32.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.25.0
 
 
 %description

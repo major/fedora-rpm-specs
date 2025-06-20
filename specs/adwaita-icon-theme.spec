@@ -3,8 +3,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        48.0
-Release:        2%{?dist}
+Version:        48.1
+Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
@@ -79,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Wed Jun 18 2025 Carlos Garnacho <cgarnach@redhat.com> - 48.1-1
+- Update to 48.1
+
 * Tue Mar 25 2025 Tomas Popela <tpopela@redhat.com> - 48.0-2
 - Only require the legacy icon theme on Fedora
 

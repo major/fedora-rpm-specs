@@ -8,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        10.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Human friendly output for text interfaces using Python
 
 License:        MIT
@@ -131,6 +131,9 @@ PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py
 
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 10.0-16
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 10.0-15
 - Bootstrap for Python 3.14
 

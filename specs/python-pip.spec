@@ -1,5 +1,3 @@
-%global _without_tests 1
-%global _without_man 1
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests here
 # to prevent pulling many unwanted packages in.
@@ -101,6 +99,10 @@ Patch:          dummy-certifi.patch
 # In Fedora, we use that in ensurepip and users cannot do anything about it,
 # this warning is juts moot. Also, the warning breaks CPython test suite.
 Patch:          nowarn-pip._internal.main.patch
+
+# Adjust path_to_url et al. to produce the same results on Python 3.14+
+# https://github.com/pypa/pip/pull/13423
+Patch:          python3.14-file-urls.patch
 
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself

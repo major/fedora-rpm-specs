@@ -1,6 +1,6 @@
 Name:    kinfocenter
 Version: 6.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Info Center
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -38,6 +38,7 @@ BuildRequires:  pciutils-devel
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+BuildRequires:  pkgconfig(libudev)
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
@@ -109,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 
 
 %changelog
+* Wed Jun 18 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-2
+- Fix for missing BR
+
 * Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
 - 6.4.0
 

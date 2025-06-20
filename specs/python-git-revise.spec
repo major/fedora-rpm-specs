@@ -16,13 +16,17 @@ avoids unnecessarily invalidating builds.
 
 Name:           python-%{shortname}
 Version:        0.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Efficiently update, split, and rearrange git commits
 
 License:        MIT
 URL:            https://github.com/mystor/git-revise
 Source0:        https://github.com/mystor/git-revise/archive/%{version}/%{shortname}-%{version}.tar.gz
 BuildArch:      noarch
+
+# Patch from upstream commit https://github.com/mystor/git-revise/commit/a7d02b009f79021b5c5add0a1767ffcace3e7904
+# This should be fixed in the next release
+Patch0: git-ref-log.patch
 
 BuildRequires:  python3-devel >= 3.8
 BuildRequires:  python3dist(setuptools)
@@ -60,7 +64,9 @@ This package contains the python modules for the git-revise program.
 
 
 %prep
-%autosetup -n %{shortname}-%{version}
+%setup -n %{shortname}-%{version}
+
+%patch -P 0 -p1
 
 %build
 %py3_build
@@ -86,6 +92,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 
 
 %changelog
+* Wed Jun 18 2025 Ian McInerney <ian.s.mcinerney@ieee.org> - 0.7.0-13
+- Add patch to fix reflog behavior in git 2.48 (rhbz #2341157)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.0-12
 - Rebuilt for Python 3.14
 

@@ -3,7 +3,7 @@
 %endif
 
 Name:       mock-core-configs
-Version:    42.3
+Version:    42.4
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.111
+Requires:   distribution-gpg-keys >= 1.113
 # specify minimal compatible version of mock
 Requires:   mock >= 6.1.test
 Requires:   mock-filesystem
@@ -58,7 +58,6 @@ cp -a etc/mock/eol/*cfg %{buildroot}%{_sysconfdir}/mock/eol
 cp -a etc/mock/eol/templates/*.tpl %{buildroot}%{_sysconfdir}/mock/eol/templates
 
 # generate files section with config - there is many of them
-echo "%defattr(0644, root, mock)" > %{name}.cfgs
 find %{buildroot}%{_sysconfdir}/mock -name "*.cfg" -o -name '*.tpl' \
     | grep -v chroot-aliases \
     | sed -e "s|^%{buildroot}|%%config(noreplace) |" >> %{name}.cfgs
@@ -153,6 +152,14 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Wed Jun 18 2025 Pavel Raiskup <praiskup@redhat.com> 42.4-1
+- fix sysusers packaging practice once more
+- configuration file owned by `root:root`
+- Rocky Linux 10 configs added (label@rockylinux.org)
+- missing config for AlmaLinux Kitten x86_64_v2 added (jhernandez@cloudlinux.com)
+- config for AlmaLinux Kitten 10 x86_64_v2 added (jonathan@almalinux.org)
+- AlmaLinux 10 configs added (jonathan@almalinux.org)
+
 * Thu May 22 2025 Pavel Raiskup <praiskup@redhat.com> 42.3-1
 - Fedora 40 EOL
 - Add RHEL 10 template and configs (carlwgeorge@gmail.com)

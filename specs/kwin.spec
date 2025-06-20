@@ -140,7 +140,12 @@ Provides:  %{name}-wayland%{?_isa} = %{version}-%{release}
 Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
 Provides:       %{name}-wayland-nvidia = %{version}-%{release}
 # Obsolete -x11 for Plasma 6
+%if 0%{?fedora}
 Obsoletes:      %{name}-x11 < 5.92.0
+%else
+Obsoletes:      %{name}-x11 < %{version}-%{release}
+Conflicts:      %{name}-x11 < %{version}-%{release}
+%endif
 %if ! 0%{?rhel} >= 10
 Requires:       (kwayland-integration%{?_isa} if kf5-kwindowsystem%{?_isa})
 %endif

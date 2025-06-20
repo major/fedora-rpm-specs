@@ -1,7 +1,5 @@
 %bcond tests 1
-# F43FailsToInstall: python3-google-cloud-storage
-# https://bugzilla.redhat.com/show_bug.cgi?id=2371928
-%bcond gcs 0
+%bcond gcs 1
 # Not packaged, and would have a tremendous number of dependencies.
 %bcond moto 0
 

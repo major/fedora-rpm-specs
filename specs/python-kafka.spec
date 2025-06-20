@@ -6,7 +6,7 @@
 %global with_doc 1
 
 Name:             python-%{mod_name}
-Version:          2.2.11
+Version:          2.2.12
 Release:          1%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
@@ -122,6 +122,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Thu Jun 19 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.2.12-1
+- update to 2.2.12
+
 * Sat Jun 14 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.2.11-1
 - update to 2.2.11 (rhbz#2370516)
 

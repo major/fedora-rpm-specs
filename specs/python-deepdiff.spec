@@ -5,7 +5,7 @@
 
 Name:           python-deepdiff
 Version:        8.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -114,6 +114,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 8.5.0-3
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 8.5.0-2
 - Bootstrap for Python 3.14
 

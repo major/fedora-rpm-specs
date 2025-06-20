@@ -237,8 +237,6 @@ License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND G
 
 # For CEF API dynamic spec generation
 BuildRequires: jq
-# For CEF wrapper build
-BuildRequires: cmake
 
 # Tag experimental (unversioned) ABI as the CEF version
 # Versioned ABI/API tags are generated in mkspec.sh

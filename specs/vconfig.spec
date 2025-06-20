@@ -1,11 +1,18 @@
 Name:       vconfig
 Version:    1.9
-Release:    39%{?dist}
+Release:    40%{?dist}
 Summary:    Linux 802.1q VLAN configuration utility
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+# candela_2.4.21.patch:             GPL-2.0-or-later
+# contrib/vlan_2.2-full.patch:      GPL-2.0-or-later
+# contrib/vlan_2.2-module.patch:    GPL-2.0-or-later
+# howto.html:       "part of the Linux HOWTO project", "see [...] GNU GPL 0.1.1"
+# macvlan_config.c: GPL-2.0-or-later
+# vconfig.c:        GPL-2.0-or-later
+# vlan_2.2.patch:   GPL-2.0-or-later
 License:    GPL-2.0-or-later
-URL:        http://www.candelatech.com/~greear/vlan.html
-Source:     http://www.candelatech.com/~greear/vlan/vlan.%{version}.tar.gz
+URL:        https://www.candelatech.com/~greear/vlan.html
+# The URL now returns a bogus file full of zeros
+Source:     https://www.candelatech.com/~greear/vlan/vlan.%{version}.tar.gz
 # Fix a security warning by compiler, bug #1037376
 Patch0:     %{name}-1.9-Pass-compilation-with-Werror-format-security.patch
 BuildRequires:  coreutils
@@ -35,6 +42,9 @@ install -D -m644 vconfig.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/vconfig.8
 %{_mandir}/man8/vconfig.8*
 
 %changelog
+* Wed Jun 18 2025 Petr Pisar <ppisar@redhat.com> - 1.9-40
+- Update URLs to use HTTPS
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

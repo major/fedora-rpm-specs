@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-nikic-php-parser5
 #
-# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -14,7 +14,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    447a020a1f875a434d62f2a401f53b82a396e494
+%global gh_commit    ae59794362fe85e051a58ad36b289443f57be7a9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -23,12 +23,12 @@
 %global ns_project   PhpParser
 %global major        5
 
-%global upstream_version 5.4.0
+%global upstream_version 5.5.0
 #global upstream_prever  rc1
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -122,16 +122,13 @@ cat << 'AUTOLOAD' | tee vendor/autoload.php
 AUTOLOAD
 
 : Upstream test suite
-# need investigations (autoloader ?)
-FILTER="--filter '^((?!(testAliases)).)*$'"
-
 ret=0
 for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
        -d auto_prepend_file=%{buildroot}/%{php_home}/%{ns_project}%{major}/autoload.php \
-      ${2:-%{_bindir}/phpunit9} $FILTER --verbose || ret=1
+      ${2:-%{_bindir}/phpunit9} --verbose || ret=1
   fi
 done
 exit $ret
@@ -149,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Wed Jun 18 2025 Remi Collet <remi@remirepo.net> - 5.5.0-1
+- update to 5.5.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

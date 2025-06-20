@@ -6,7 +6,7 @@
 
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.65.0
+Version: 1.66.0
 Release: 1%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
@@ -172,7 +172,6 @@ popd
 %{_bindir}/nghttp
 %{_bindir}/nghttpd
 %{_bindir}/nghttpx
-%{_datadir}/nghttp2
 %{_mandir}/man1/h2load.1*
 %{_mandir}/man1/nghttp.1*
 %{_mandir}/man1/nghttpd.1*
@@ -198,7 +197,6 @@ popd
 %{mingw32_libdir}/libnghttp2.dll.a
 %{mingw32_libdir}/pkgconfig/libnghttp2.pc
 %{mingw32_includedir}/nghttp2/
-%{mingw32_datadir}/nghttp2/
 
 %files -n mingw64-libnghttp2
 %license COPYING
@@ -207,11 +205,13 @@ popd
 %{mingw64_libdir}/libnghttp2.dll.a
 %{mingw64_libdir}/pkgconfig/libnghttp2.pc
 %{mingw64_includedir}/nghttp2/
-%{mingw64_datadir}/nghttp2/
 %endif
 
 
 %changelog
+* Tue Jun 17 2025 Jan Macku <jamacku@redhat.com> - 1.66.0-1
+- update to the latest upstream release
+
 * Mon Mar 03 2025 Jan Macku <jamacku@redhat.com> - 1.65.0-1
 - update to the latest upstream release
 

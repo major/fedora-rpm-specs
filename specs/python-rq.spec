@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.16.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -77,6 +77,9 @@ wait $REDIS_SERVER_PID
 %{_bindir}/rqworker
 
 %changelog
+* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 1.16.2-5
+- Bootstrap for Python 3.14.0b3 bytecode
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.16.2-4
 - Bootstrap for Python 3.14
 

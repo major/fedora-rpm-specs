@@ -6,17 +6,13 @@
 %bcond tests 0
 
 Name:           python-multiecho
-Version:        0.30
+Version:        0.31
 Release:        %autorelease
 Summary:        Combine multi-echoes from a multi-echo fMRI acquisition
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/Donders-Institute/multiecho
 Source:         %{url}/archive/%{version}/multiecho-%{version}.tar.gz
-
-# Minor setup fix
-# https://github.com/Donders-Institute/multiecho/commit/c9d355d012c4603700489d5a192abc1e8818cba9
-Patch:          %{url}/commit/c9d355d012c4603700489d5a192abc1e8818cba9.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l multiecho
