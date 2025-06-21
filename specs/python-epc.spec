@@ -8,7 +8,7 @@ Python GUI module to build widgets for Emacs.}
 
 Name:           python-%{srcname}
 Version:        0.0.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        EPC (RPC stack for Emacs Lisp) for Python
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ Requires:       %{py3_dist sexpdata}
 
 
 %changelog
+* Thu Jun 19 2025 Python Maint <python-maint@redhat.com> - 0.0.5-18
+- Rebuilt for Python 3.14
+
 * Tue Mar 18 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.0.5-17
 - Switch to new Python packaging guidelines
 - Drop BuildRequires on nose (RHBZ #2349842)

@@ -1,6 +1,6 @@
 Name:       megaglest
 Version:    3.13.0
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    Open Source 3d real time strategy game
 License:    GPL-3.0-or-later AND GPL-1.0-or-later
 Url:        http://megaglest.org/
@@ -116,6 +116,9 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jun 19 2025 Simone Caronni <negativo17@gmail.com> - 3.13.0-28
+- Rebuild for updated miniupnpc.
+
 * Wed Apr 16 2025 Simone Caronni <negativo17@gmail.com> - 3.13.0-27
 - Rebuild for updated miniupnpc.
 

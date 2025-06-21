@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # Loop between geopandas and pyogrio.
 %bcond bootstrap 0
 

@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        39
+Version:        40
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,12 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jun 19 2025 Packit <hello@packit.dev> - 40-1
+- storage: mount-point-assignment: display partitions on RAID disks in mount point assignment
+- storage: fix unselecting the only available disk
+- storage: handle better scenarios when disk selection is not valid
+- storage: home reuse: allow for Fedora along Windows on a single disk
+
 * Tue May 27 2025 Packit <hello@packit.dev> - 39-1
 - components: storage: DiskEncryption: removed unused properties
 

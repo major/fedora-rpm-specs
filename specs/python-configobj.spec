@@ -1,6 +1,6 @@
 Name:           python-configobj
 Version:        5.0.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD-3-Clause
 URL:            http://configobj.readthedocs.org/
@@ -8,7 +8,6 @@ Source0:        https://pypi.python.org/packages/source/c/configobj/configobj-%{
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-pytest
 %global _description \
 ConfigObj is a simple but powerful configuration file reader and writer: an ini\
@@ -19,7 +18,6 @@ straightforward programmers interface and a simple syntax for config files.
 %package     -n python%{python3_pkgversion}-configobj
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-configobj}
-Requires:       python%{python3_pkgversion}-six
 %description -n python%{python3_pkgversion}-configobj %_description
 
 %prep
@@ -45,6 +43,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.9-4
+- Drop unused six dependency
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.0.9-3
 - Rebuilt for Python 3.14
 

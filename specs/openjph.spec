@@ -1,8 +1,8 @@
 %global real_name OpenJPH
 
 Name:           openjph
-Version:        0.21.2
-Release:        2%{?dist}
+Version:        0.21.3
+Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
@@ -62,40 +62,4 @@ standard Part 15.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Mon Apr 28 2025 Simone Caronni <negativo17@gmail.com> - 0.21.2-2
-- Move LICENSE to main library package (#2362722).
-
-* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 0.21.2-1
-- Update to 0.21.2.
-- Package now builds on i386.
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Dec 12 2024 Simone Caronni <negativo17@gmail.com> - 0.18.2-1
-- Update to 0.18.2.
-
-* Mon Nov 11 2024 Simone Caronni <negativo17@gmail.com> - 0.18.0-1
-- Update to 0.18.0.
-
-* Mon Sep 16 2024 Simone Caronni <negativo17@gmail.com> - 0.16.0-1
-- Update to 0.16.0.
-
-* Wed Sep 04 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-6
-- Leave autodetection of hardware extensions as per developer's comment at
-  https://bugzilla.redhat.com/show_bug.cgi?id=2307795#c16
-
-* Wed Sep 04 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-5
-- Adjust SIMD selection again.
-
-* Fri Aug 30 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-4
-- Switch on SIMD and drop AVX for old processors.
-
-* Fri Aug 30 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-3
-- Fix instructions set typo.
-
-* Sun Aug 25 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-2
-- Do not build on i686 (#2307782).
-
-* Sat Aug 24 2024 Simone Caronni <negativo17@gmail.com> - 0.15.0-1
-- First build.
+%autochangelog

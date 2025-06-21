@@ -9,6 +9,7 @@
 %global libei_version 1.3.901
 %global mutter_api_version 16
 
+%global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 %if 0%{?fedora} && 0%{?fedora} < 43
@@ -18,14 +19,14 @@
 %endif
 
 Name:          mutter
-Version:       48.3
+Version:       49~alpha.0
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
-Source0:       http://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 Source1:       org.gnome.mutter.fedora.gschema.override
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
@@ -65,6 +66,7 @@ BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: sysprof-devel
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(xkeyboard-config)
+BuildRequires: pkgconfig(umockdev-1.0)
 BuildRequires: desktop-file-utils
 BuildRequires: cvt
 BuildRequires: python3-argcomplete
@@ -182,11 +184,16 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %license COPYING
 %doc NEWS
 %{_bindir}/mutter
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/*/*/*
+%{_datadir}/polkit-1/actions/org.gnome.mutter.*.policy
 %{_libdir}/lib*.so.*
 %{_libdir}/mutter-%{mutter_api_version}/
 %if %{with x11}
 %{_libexecdir}/mutter-restart-helper
 %endif
+%{_libexecdir}/mutter-backlight-helper
+%{_libexecdir}/mutter-devkit
 %{_libexecdir}/mutter-x11-frames
 %{_mandir}/man1/mutter.1*
 %{_bindir}/gdctl

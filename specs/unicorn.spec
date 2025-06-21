@@ -1,5 +1,5 @@
 Name:           unicorn
-Version:        2.1.1
+Version:        2.1.3
 Release:        %autorelease
 Summary:        Lightweight multi-platform, multi-architecture CPU emulator framework
 
@@ -11,6 +11,7 @@ Summary:        Lightweight multi-platform, multi-architecture CPU emulator fram
 License:        GPL-2.0-only AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://www.unicorn-engine.org/
 Source0:        https://github.com/unicorn-engine/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        COPYING
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -25,13 +26,11 @@ BuildRequires:  python3-setuptools
 # http://www.unicorn-engine.org/docs/beyond_qemu.html.
 Provides: bundled(qemu) = 2.2.1
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2223039
-# https://github.com/unicorn-engine/unicorn/issues/1840
-ExcludeArch:    s390x
-
-%description
+%global _description %{expand:
 Unicorn is a lightweight multi-platform, multi-architecture CPU emulator
-framework.
+framework.}
+
+%description %_description
 
 %package devel
 Summary:        Files needed to develop applications using unicorn
@@ -51,30 +50,35 @@ Requires:       python3-setuptools
 The unicorn-python3 package contains python3 bindings for unicorn.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1 -n %{name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+cp -p %SOURCE1 .
 
 %build
+pushd src
 %cmake
 %cmake_build
-
-pushd bindings/python
-%py3_build
 popd
+
+%pyproject_wheel
 
 %install
+pushd src
 %cmake_install
-
-pushd bindings/python
-%py3_install
 popd
 
+%pyproject_install
+
 rm $RPM_BUILD_ROOT%{_libdir}/libunicorn.a
+rm $RPM_BUILD_ROOT%{_libdir}/unicorn.o
 
 %check
-%ctest
 
 %files
-%doc AUTHORS.TXT ChangeLog CREDITS.TXT README.md
+%doc src/AUTHORS.TXT src/CREDITS.TXT src/README.md
 %license COPYING
 %{_libdir}/libunicorn.so.2
 
@@ -84,8 +88,8 @@ rm $RPM_BUILD_ROOT%{_libdir}/libunicorn.a
 %{_includedir}/unicorn/
 
 %files -n python3-unicorn
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{name}/
+%{python3_sitearch}/%{name}-%{version}.dist-info/
+%{python3_sitearch}/%{name}/
 
 %changelog
 %autochangelog

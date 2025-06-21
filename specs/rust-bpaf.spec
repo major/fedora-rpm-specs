@@ -5,7 +5,7 @@
 %global crate bpaf
 
 Name:           rust-bpaf
-Version:        0.9.19
+Version:        0.9.20
 Release:        %autorelease
 Summary:        Simple Command Line Argument Parser with parser combinators
 

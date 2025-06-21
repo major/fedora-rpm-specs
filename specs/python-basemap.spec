@@ -1,13 +1,12 @@
 %global debug_package %{nil}
 
 Name:           python-basemap
-Version:        1.4.1
-Release:        7%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
 Source0:        https://github.com/matplotlib/basemap/archive/v%{version}/basemap-%{version}.tar.gz
-Patch0:         requirements.patch
 
 BuildRequires:  gcc
 
@@ -50,22 +49,22 @@ projections (with continental and political boundaries).
 %build
 export GEOS_LIB="/usr/"
 
-pushd packages/basemap
+#pushd src
 %python3 setup.py config
 %py3_build
 chrpath --delete build/lib*/*.so
-popd
+#popd
 
-pushd packages/basemap_data
+pushd data/basemap_data
 %py3_build
 popd
 
 %install
-pushd packages/basemap
+#pushd src
 %py3_install
-popd
+#popd
 
-pushd packages/basemap_data
+pushd data/basemap_data
 %py3_install
 popd
 
@@ -75,24 +74,22 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
     %python3 -c 'from mpl_toolkits.basemap import Basemap'
 
 %files -n python-basemap-examples
-%doc examples/*
+%doc doc/examples/*
 
 %files -n python3-basemap
-%license packages/basemap_data/LICENSE.*
-%doc packages/basemap_data/README.md
+%license LICENSE.*
+%doc README.md
 %{python3_sitearch}/mpl_toolkits/basemap
 %{python3_sitearch}/basemap-%{version}-py%{python3_version}.egg-info
-%{python3_sitearch}/basemap-%{version}-py%{python3_version}-nspkg.pth
 %{python3_sitearch}/_geoslib.cpython-3*.so
 %{python3_sitelib}/mpl_toolkits/basemap_data
 # It seems that they forgot to bump the version in basemap_data
 %{python3_sitelib}/basemap_data-*-py%{python3_version}.egg-info
-%{python3_sitelib}/basemap_data-*-py%{python3_version}-nspkg.pth
 
 
 %changelog
-* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 1.4.1-7
-- Rebuilt for Python 3.14
+* Fri Jun 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-1
+- 2.0.0
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

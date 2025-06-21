@@ -1,6 +1,7 @@
 # aarch64 for 128.11.1 fails to link gkrust on f42, f43 (rawhide), but not on f41. Temporarily exclude. See
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=133829091 (f42)
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=133829053 (f43)
+# This appears to be https://github.com/rust-lang/rust/issues/141737 and should be fixed in LLVM 20.1.7.
 %if 0%{?fedora} == 42 || 0%{?fedora} == 43
 ExcludeArch: aarch64
 %endif

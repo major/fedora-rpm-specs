@@ -1,5 +1,10 @@
+# Break a circular dependency on pyproj introduced by running doctests.
+%bcond boostrap 0
+# Dependency python-scipy-doctest is not yet packaged.
+%bcond doctests %[ 0 && %{without boostrap} ]
+
 Name:           python-shapely
-Version:        2.0.7
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -16,6 +21,9 @@ BuildRequires:  gcc
 BuildRequires:  geos-devel
 
 BuildRequires:  python3-devel
+%if %{with doctests}
+BuildRequires:  %{py3_dist pyproj}
+%endif
 
 %global _description %{expand:
 Shapely is a package for creation, manipulation, and analysis of planar
@@ -31,24 +39,6 @@ more information!}
 
 %package -n python3-shapely
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
-
-# We first shipped Shapley 2.0 in Fedora 39, so the migration paths from F38
-# (which need to be present for three releases) can be dropped after F41.
-%if %{defined fc40} || %{defined fc41}
-# The [vectorized] extra has gone away in Shapely 2.0. We Provide the name of
-# the old vectorized extra metapackage since vectorized implementations are
-# always compiled in the base package, but we do not attempt to Provide
-# python3dist(shapely[vectorized]) etc.
-%py_provides python3-shapely+vectorized
-Obsoletes:      python3-shapely+vectorized < 2.0.0-1
-
-# We used to build PDF documentation in a separate subpackage. The PyPI sdist
-# lacks necessary files, like docs/conf.py, but the GitHub archive lacks the
-# proper released shapely/_version.py, so if we use it, we need to create a tag
-# in a local git repository to get the right version number in the dist-info
-# metadata. We find that the PDF documentation is not worth all that hassle!
-Obsoletes:      python-shapely-doc < 2.0.0-1
-%endif
 
 # The file src/kvec.h comes from klib
 # (https://github.com/attractivechaos/klib), which is intended to be used as a
@@ -70,6 +60,11 @@ find shapely -type f -name '*.c' -print -delete
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 tomcli set pyproject.toml lists delitem \
     project.optional-dependencies.test pytest-cov
+
+%if %{without doctest}
+tomcli set pyproject.toml lists delitem \
+    project.optional-dependencies.test scipy-doctest
+%endif
 
 
 %generate_buildrequires
@@ -93,6 +88,11 @@ cd empty
 ln -s ../shapely/tests/
 
 %pytest -v
+
+%if %{with doctests}
+%pytest --doctest-modules '%{buildroot}%{python3_sitearch}/shapely' \
+    --ignore='%{buildroot}%{python3_sitearch}/shapely/tests' -v
+%endif
 
 
 %files -n python3-shapely -f %{pyproject_files}

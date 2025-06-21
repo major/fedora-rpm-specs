@@ -25,11 +25,13 @@
 
 %ifarch %{ix86} x86_64
 %global with_crocus 1
-%global with_i915   1
 %global with_iris   1
 %global with_xa     1
 %global with_intel_clc 1
 %global intel_platform_vulkan %{?with_vulkan_hw:,intel,intel_hasvk}%{!?with_vulkan_hw:%{nil}}
+%if !0%{?rhel}
+%global with_i915   1
+%endif
 %endif
 %ifarch x86_64
 %if !0%{?with_vulkan_hw}
@@ -38,18 +40,18 @@
 %endif
 
 %ifarch aarch64 x86_64 %{ix86}
-%global with_kmsro     1
 %if !0%{?rhel}
-%global with_lima      1
-%global with_vc4       1
-%global with_etnaviv   1
-%global with_tegra     1
 %global with_asahi     1
 %global with_d3d12     1
+%global with_etnaviv   1
+%global with_lima      1
+%global with_tegra     1
+%global with_vc4       1
+%global with_v3d       1
 %endif
 %global with_freedreno 1
+%global with_kmsro     1
 %global with_panfrost  1
-%global with_v3d       1
 %global with_xa        1
 %if 0%{?with_asahi}
 %global asahi_platform_vulkan %{?with_vulkan_hw:,asahi}%{!?with_vulkan_hw:%{nil}}
@@ -60,6 +62,7 @@
 %if !0%{?rhel}
 %global with_libunwind 1
 %global with_lmsensors 1
+%global with_virtio    1
 %endif
 
 %ifarch %{valgrind_arches}
@@ -68,11 +71,11 @@
 %bcond_with valgrind
 %endif
 
-%global vulkan_drivers swrast,virtio%{?base_vulkan}%{?intel_platform_vulkan}%{?asahi_platform_vulkan}%{?extra_platform_vulkan}%{?with_nvk:,nouveau}
+%global vulkan_drivers swrast%{?base_vulkan}%{?intel_platform_vulkan}%{?asahi_platform_vulkan}%{?extra_platform_vulkan}%{?with_nvk:,nouveau}%{?with_virtio:,virtio}
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 25.1.3
+%global ver 25.1.4
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -85,9 +88,6 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
-
-# upstream revert to fix gtk4
-Patch40: 0001-Revert-hasvk-elk-stop-turning-load_push_constants-in.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
@@ -245,6 +245,7 @@ Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 Recommends:     %{name}-va-drivers%{?_isa}
 %endif
 Obsoletes:      %{name}-libglapi < 25.0.0~rc2-1
+Provides:       %{name}-libglapi >= 25.0.0~rc2-1
 
 %description dri-drivers
 %{summary}.
@@ -558,8 +559,10 @@ popd
 %endif
 %ifarch %{ix86} x86_64
 %{_libdir}/dri/crocus_dri.so
-%{_libdir}/dri/i915_dri.so
 %{_libdir}/dri/iris_dri.so
+%if 0%{?with_i915}
+%{_libdir}/dri/i915_dri.so
+%endif
 %endif
 %ifarch aarch64 x86_64 %{ix86}
 %if 0%{?with_asahi}
@@ -674,10 +677,12 @@ popd
 %files vulkan-drivers
 %{_libdir}/libvulkan_lvp.so
 %{_datadir}/vulkan/icd.d/lvp_icd.*.json
-%{_libdir}/libvulkan_virtio.so
-%{_datadir}/vulkan/icd.d/virtio_icd.*.json
 %{_libdir}/libVkLayer_MESA_device_select.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+%if 0%{?with_virtio}
+%{_libdir}/libvulkan_virtio.so
+%{_datadir}/vulkan/icd.d/virtio_icd.*.json
+%endif
 %if 0%{?with_vulkan_hw}
 %{_libdir}/libvulkan_radeon.so
 %{_datadir}/drirc.d/00-radv-defaults.conf

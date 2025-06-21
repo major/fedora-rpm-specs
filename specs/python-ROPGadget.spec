@@ -1,7 +1,7 @@
-%global srcname ROPGadget
+%global srcname ropgadget
 
-Name:           python-%{srcname}
-Version:        7.5
+Name:           python-ROPGadget
+Version:        7.6
 Release:        %autorelease
 Summary:        A tool to find ROP gadgets in program files
 
@@ -21,12 +21,12 @@ ROPGadget lets you search your gadgets on your binaries to facilitate
 your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on
 x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
 
-%package -n python3-%{srcname}
+%package -n python3-ROPGadget
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python3-ROPGadget}
 Requires:       %{py3_dist capstone}
 
-%description -n python3-%{srcname}
+%description -n python3-ROPGadget
 ROPGadget lets you search your gadgets on your binaries to facilitate
 your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on
 x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
@@ -51,10 +51,10 @@ for lib in $(find %{buildroot}%{python3_sitelib}/ropgadget/ -name "*.py"); do
   mv $lib.new $lib
 done
 
-%files -n python3-%{srcname}
+%files -n python3-ROPGadget
 %doc LICENSE_BSD.txt README.md
 %{python3_sitelib}/ropgadget
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/ROPGadget-%{version}-py%{python3_version}.egg-info
 %{_bindir}/*
 
 %changelog

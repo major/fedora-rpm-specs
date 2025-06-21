@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    9075a8efc66e11bc55c319062e147bdb06777267
+%global gh_commit    ddec29dfc128eba9c204389960f2063f3b7fa170
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-05-23
+%global gh_date      2025-06-18
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.3.0
+Version:        12.3.1
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -101,11 +101,9 @@ Requires:       php-composer(fedora/autoloader)
 # Composer
 Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 # Bundled assets in HTML template
-Provides:       bundled(js-bootstrap) = 4.3.1
-Provides:       bundled(js-d3)        = 3.5.17
-Provides:       bundled(js-jquery)    = 3.4.1
-Provides:       bundled(js-nvd3)      = 1.8.1
-Provides:       bundled(js-popper)
+Provides:       bundled(js-bootstrap) = 5.3.6
+Provides:       bundled(js-jquery)    = 3.7.1
+Provides:       bundled(js-billboard) = 3.15.1
 
 
 %description
@@ -189,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun 19 2025 Remi Collet <remi@remirepo.net> - 12.3.1-1
+- update to 12.3.1
+
 * Mon May 26 2025 Remi Collet <remi@remirepo.net> - 12.3.0-1
 - update to 12.3.0
 

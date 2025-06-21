@@ -1,12 +1,12 @@
 Name:       barman
-Version:    3.13.3
+Version:    3.14.1
 Release:    %autorelease
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPL-3.0-only
 URL:        http://www.pgbarman.org/
 BuildArch:  noarch
 
-Source0:    https://files.pythonhosted.org/packages/source/b/%{name}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/EnterpriseDB/barman/archive/release/%{version}/%{name}-release-%{version}.tar.gz
 Source1:    %{name}.cron
 Source2:    %{name}.logrotate
 
@@ -43,7 +43,7 @@ Summary:    Shared libraries for Barman
 Python libraries used by Barman.
 
 %prep
-%autosetup
+%autosetup -n %{name}-release-%{version}
 
 # Change shebang in all relevant executable files in this directory and all subdirectories
 find -type f -executable -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
@@ -129,6 +129,7 @@ install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 %{_mandir}/man1/%{name}-keep.1*
 %{_mandir}/man1/%{name}-list_backups.1*
 %{_mandir}/man1/%{name}-list-files.1*
+%{_mandir}/man1/%{name}-list-processes.1.gz
 %{_mandir}/man1/%{name}-list-servers.1*
 %{_mandir}/man1/%{name}-lock-directory-cleanup.1*
 %{_mandir}/man1/%{name}-put-wal.1*
@@ -144,6 +145,7 @@ install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
 %{_mandir}/man1/%{name}-sync-backup.1*
 %{_mandir}/man1/%{name}-sync-info.1*
 %{_mandir}/man1/%{name}-sync-wals.1*
+%{_mandir}/man1/%{name}-terminate-process.1.gz
 %{_mandir}/man1/%{name}-verify.1*
 %{_mandir}/man1/%{name}-verify-backup.1*
 %{_mandir}/man1/%{name}-wal-archive.1*

@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -150,8 +150,8 @@ Easy (SANE) modules.
 Summary: SANE backend drivers for scanners
 # pixma backend now requires libxml2
 BuildRequires: libxml2-devel
-# due move of camera backends
-Conflicts: %{name}-drivers-cameras < 1.1.1-4
+# due move of camera backends - remove after C11S release
+Conflicts: %{name}-drivers-cameras < 1.4.0-2
 Requires: sane-backends = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -160,8 +160,8 @@ This package contains backend drivers to access scanner hardware through SANE.
 
 %package drivers-cameras
 Summary: Scanner backend drivers for digital cameras
-# due move of camera backends
-Conflicts: %{name}-drivers-scanners < 1.1.1-4
+# due move of camera backends - remove after C11S release
+Conflicts: %{name}-drivers-scanners < 1.4.0-2
 Requires: sane-backends = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -267,6 +267,8 @@ touch so_scanner_list
 for backend in %scanner_backends_list
 do
   echo "%{_libdir}/sane/libsane-${backend}.so" >> so_scanner_list
+  echo "%{_libdir}/sane/libsane-${backend}.so.1" >> so_scanner_list
+  echo "%{_libdir}/sane/libsane-${backend}.so.1.*" >> so_scanner_list
 done
 
 touch so_camera_list
@@ -277,6 +279,8 @@ do
     continue
   fi
   echo "%{_libdir}/sane/libsane-${backend}.so" >> so_camera_list
+  echo "%{_libdir}/sane/libsane-${backend}.so.1" >> so_camera_list
+  echo "%{_libdir}/sane/libsane-${backend}.so.1.*" >> so_camera_list
 done
 
 touch config_list
@@ -367,35 +371,22 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_libdir}/libsane.so
 %{_libdir}/pkgconfig/sane-backends.pc
 
-%files drivers-scanners -f so_scanner_list
 # we need to specify all .so files for available backends because something like
 # #1761145 can happen - genesys did not compile because of lack gcc-c++ in buildroot
 # and configure printed only warning. So now we can figure out missing backend support
 # during build
-%{_libdir}/sane/*.so.1
-%{_libdir}/sane/*.so.1.*
-
-%exclude %{_libdir}/sane/*dc210.so*
-%exclude %{_libdir}/sane/*dc240.so*
-%exclude %{_libdir}/sane/*dc25.so*
-%exclude %{_libdir}/sane/*dmc.so*
-%exclude %{_libdir}/sane/*gphoto2.so*
-%exclude %{_libdir}/sane/*qcam.so*
-%exclude %{_libdir}/sane/*stv680.so*
-%exclude %{_libdir}/sane/*v4l.so*
+%files drivers-scanners -f so_scanner_list
 
 %files drivers-cameras -f so_camera_list
 # qcam is not on aarch64, ppc64le and s390x. SANE needs
 # ioperm, inb and outb functions or portaccess function
 # to support qcam backend. Those functions are only in
 # armv7hl (until F30), i686 and x86_64 architectures.
-# Because qcam is missing on some archs and releases,
-# I'll leave here a wildcard record
 %ifarch x86_64 i686
 %{_libdir}/sane/libsane-qcam.so
+%{_libdir}/sane/libsane-qcam.so.1
+%{_libdir}/sane/libsane-qcam.so.1.*
 %endif
-%{_libdir}/sane/*.so.1
-%{_libdir}/sane/*.so.1.*
 
 %files daemon
 %{_sbindir}/saned
@@ -407,6 +398,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Thu Jun 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-2
+- fix duplicated files in -cameras
+
 * Mon Jun 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-1
 - 1.4.0 (fedora#2365574)
 

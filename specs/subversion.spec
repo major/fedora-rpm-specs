@@ -63,6 +63,8 @@ Patch7: subversion-1.14.2-modsyms.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255746
 Patch8: subversion-1.14.3-zlib-ng.patch
 Patch9: subversion-1.14.5-progenv.patch
+# Fix tests with Python 3.14, https://github.com/apache/subversion/pull/30
+Patch10: subversion-1.14.5-python314.patch
 BuildRequires: make
 BuildRequires: libxcrypt-devel
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++

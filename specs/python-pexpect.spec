@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -94,7 +94,10 @@ export INPUTRC=$PWD/.inputrc
 %{python3} ./tools/display-sighandlers.py
 %{python3} ./tools/display-terminalinfo.py
 export CI=true
-%pytest
+# Gating downstream builds on particular benchmark results doesn’t make sense
+# across diverse hardware.
+ignore="${ignore-} --ignore=tests/test_performance.py"
+%pytest ${ignore-}
 %endif
 
 %files -n python3-%{modname}
@@ -104,6 +107,9 @@ export CI=true
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Thu Jun 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.9.0-11
+- Omit bencmark/perf. tests (fix RHBZ#2341180)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.9.0-10
 - Rebuilt for Python 3.14
 

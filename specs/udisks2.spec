@@ -25,10 +25,13 @@
 Name:    udisks2
 Summary: Disk Manager
 Version: 2.10.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2373301
+Patch0:  udisks-2.10.91-udiskslinuxfilesystemhelpers_nodev,nosuid.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -340,6 +343,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 19 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.10.90-3
+- Harden temporary private mounts (#2373301)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

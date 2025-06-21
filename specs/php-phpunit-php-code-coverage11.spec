@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    14d63fbcca18457e49c6f8bebaa91a87e8e188d7
+%global gh_commit    1a800a7446add2d79cc6b3c01c45381810367d76
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-02-25
+%global gh_date      2025-06-18
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -26,7 +26,7 @@
 %global ver_major    11
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        11.0.9
+Version:        11.0.10
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -105,11 +105,10 @@ Requires:       php-composer(fedora/autoloader)
 # Composer
 Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 # Bundled assets in HTML template
-Provides:       bundled(js-bootstrap) = 4.3.1
+Provides:       bundled(js-bootstrap) = 5.3.6
 Provides:       bundled(js-d3)        = 3.5.17
-Provides:       bundled(js-jquery)    = 3.4.1
+Provides:       bundled(js-jquery)    = 3.7.1
 Provides:       bundled(js-nvd3)      = 1.8.1
-Provides:       bundled(js-popper)
 
 
 %description
@@ -194,6 +193,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun 19 2025 Remi Collet <remi@remirepo.net> - 11.0.10-1
+- update to 11.0.10
+
 * Wed Feb 26 2025 Remi Collet <remi@remirepo.net> - 11.0.9-1
 - update to 11.0.9
 - raise dependency on nikic/php-parser 5.4.0

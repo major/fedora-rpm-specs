@@ -1,3 +1,7 @@
+# F43FailsToInstall: python3-plotly
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372034
+%bcond plotly 0
+
 # Add a BuildRequires on vtk merely for smoke-testing imports of VTK
 # integration modules? This does not enable additional tests.
 %bcond vtk_dep 0
@@ -32,14 +36,13 @@ Patch:          geomdl-5.3.1-unconditional-Cython.patch
 Patch:          %{forgeurl}/pull/163.patch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): requirements.txt
+BuildOption(generate_buildrequires): requirements-filtered.txt
 BuildOption(install):   -l geomdl
-%if %{without vtk_dep}
-# Need python3dist(vtk) for geomdl.visualization.vtk_helpers, but it is not
-# worth adding the BuildRequires just for an import check.
+%if %{without vtk_dep} || %{without plotly}
 BuildOption(check):     %{shrink:
-                        -e geomdl.visualization.vtk_helpers
-                        -e geomdl.visualization.VisVTK
+                        %{?!with_vtk_dep:-e geomdl.visualization.vtk_helpers}
+                        %{?!with_vtk_dep:-e geomdl.visualization.VisVTK}
+                        %{?!with_plotly:-e geomdl.visualization.VisPlotly}
                         }
 %endif
 
@@ -93,7 +96,13 @@ Obsoletes:      python-geomdl-doc < 5.3.1-34
 
 %prep -a
 # Allow newer versions in cases where exact versions are pinned.
-sed -r -i 's/==/>=/' requirements.txt
+sed -r \
+    -e 's/==/>=/' \
+%if %{without plotly}
+    -e 's/^plotly\b/# &/' \
+%endif
+    requirements.txt | tee requirements-filtered.txt
+
 
 
 %check -a

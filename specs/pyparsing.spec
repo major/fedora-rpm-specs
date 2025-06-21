@@ -7,6 +7,13 @@ Release:        %autorelease
 License:        MIT
 URL:            https://github.com/pyparsing/pyparsing
 Source0:        https://github.com/%{name}/%{name}/archive/%{name}_%{version}/%{name}-%{version}.tar.gz
+
+# Python 3.14: Remove return from a finally block
+# Fixes https://bugzilla.redhat.com/2373915
+# From https://github.com/pyparsing/pyparsing/commit/28ef77eb03
+# Unrelated changes removed
+Patch:          28ef77eb03.patch
+
 BuildArch:      noarch
 BuildRequires:  dos2unix
 

@@ -4,17 +4,18 @@
 %global	core_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250502
-%global	githash	d41b3c27f01cd78af76a264b7d39394456188d54
+%global	gitdate	20250616
+%global	githash	d333ad8195631073cd4550d4b359fe2581e6355b
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	1
 %global	alphatag		.rc2
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
+%global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
 
 %global	build_unstable	1
 
@@ -181,7 +182,7 @@ This package contains Python3 binding files for Cairo-Dock
 %package	-n cairo-dock-ruby
 Summary:	Ruby binding for Cairo-Dock
 Requires:	cairo-dock-core >= %{core_least_ver}
-Requires:	%{name}-common = %{version}-%{release}
+Requires:	%{name}-dbus = %{version}-%{release}
 Requires:	ruby(release)
 Requires:	rubygem(ruby-dbus)
 Requires:	rubygem(parseconfig)
@@ -386,9 +387,10 @@ popd
 %files	dbus
 %doc	documents-dbus/*
 %{_libdir}/cairo-dock/*Dbus*
-%{_datadir}/cairo-dock/plug-ins/Dbus/
-# The following is for cairo-dock-vala-devel
-%exclude	%{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
+%dir	%{dbus_datadir}
+%{dbus_datadir}/CDBashApplet.sh
+%{dbus_datadir}/Dbus.conf
+%{dbus_datadir}/icon.svg
 
 %files	xfce
 %{_libdir}/cairo-dock/*xfce*
@@ -403,13 +405,13 @@ popd
 %{_datadir}/cairo-dock/plug-ins/*weblet*
 
 %files	-n cairo-dock-python3
-%{python3_sitearch}/CairoDock.py*
-%{python3_sitearch}/CDApplet.py*
-%{python3_sitearch}/CDBashApplet.py*
-%{python3_sitearch}/__pycache__/
+%{dbus_datadir}/CairoDock.py*
+%{dbus_datadir}/CDApplet.py*
+%{dbus_datadir}/CDBashApplet.py*
+%{dbus_datadir}/__pycache__/
 
 %files	-n cairo-dock-ruby
-%{ruby_vendorlib}/CDApplet.rb
+%{dbus_datadir}/CDApplet.rb
 
 %files -n cairo-dock-vala
 %{_libdir}/libCDApplet.so.1*
@@ -421,6 +423,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Thu Jun 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250616gitd333ad8-1.rc2
+- Update to the latest git (20250616gitd333ad8)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.5.99^20250502gitd41b3c2-2.rc2
 - Rebuilt for Python 3.14
 

@@ -2,13 +2,13 @@
 
 Name:		nomacs
 Summary:	Lightweight image viewer
-Version:	3.21.0
-Release:	2%{?dist}
+Version:	3.21.1
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
-Source1:  https://github.com/novomesk/%{name}-plugins/archive/refs/tags/%{name}-plugins-3.21.0.tar.gz
+Source1:	https://github.com/novomesk/%{name}-plugins/archive/refs/tags/%{name}-plugins-%{version}.tar.gz
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -60,7 +60,7 @@ Some usefull plugins for nomacs:
 %setup -T -D -a 1 -n %{name}-%{version}
 %setup -T -D -a 1 -n %{name}-%{version}
 # plug them in
-mv nomacs-plugins-3.21.0/* ImageLounge/plugins/
+mv nomacs-plugins-%{version}/* ImageLounge/plugins/
 # Be sure
 rmdir {3rd-party/*,3rd-party}
 
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Sun May 18 2025 TI_Eugene <ti.eugene@gmail.com> 3.21.1-1
+- Version bump
+
 * Sat Apr 19 2025 TI_Eugene <ti.eugene@gmail.com> 3.21.0-2
 - Plugins
 

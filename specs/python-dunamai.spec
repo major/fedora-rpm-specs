@@ -1,3 +1,10 @@
+# Run breezy/bazaar integration tests?
+#
+# breezy dumps core with Python 3.14: Segmentation fault when invoking brz
+# whoami 'Your Name <name@example.com>'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2366194
+%bcond breezy 0
+
 %global _description %{expand:
 Dunamai is a Python 3.5+ library and command line tool for producing dynamic,
 standards-compliant version strings, derived from tags in your version control
@@ -31,7 +38,9 @@ BuildRequires:  /usr/bin/git
 BuildRequires:  /usr/bin/hg
 BuildRequires:  /usr/bin/darcs
 BuildRequires:  /usr/bin/svn
+%if %{with breezy}
 BuildRequires:  /usr/bin/bzr
+%endif
 BuildRequires:  /usr/bin/fossil
 BuildRequires:  help2man
 # pijul is not in Fedora yet
@@ -71,8 +80,10 @@ done
 # set up git
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
+%if %{with breezy}
 # set up bzr
-brz whoami "Your Name <name@example.com>"
+bzr whoami "Your Name <name@example.com>"
+%endif
 # set up darcs
 export DARCS_EMAIL="Yep something <name@example.com>"
 

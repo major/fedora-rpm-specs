@@ -10,7 +10,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3007.2
+Version: 3007.4
 Release: %autorelease
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
@@ -40,9 +40,8 @@ Source20: %{name}-run.fish
 Source21: %{name}-syndic.fish
 Source22: %{name}.sysusers
 
+# Fix local contextvars and requirements
 Patch0: contextvars.patch
-# Don't require rpm-vercmp, we can use python3-rpm
-Patch1: rpmvercmp.patch
 # Fix urlib changes in python >= 3.12.6
 # https://github.com/saltstack/salt/issues/66898
 Patch2: urllib.patch

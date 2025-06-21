@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.25.0
+Version:        0.25.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -21,8 +21,6 @@ Patch:          pyo3-fix-metadata.diff
 # * make unsafe subinterpreter support available via cfg flag:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
-# https://github.com/PyO3/pyo3/pull/5161
-Patch3:         0001-fix-FromPyObject-impl-for-uuid-Uuid-on-big-endian-ar.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -231,6 +229,18 @@ This package contains library source intended for building other packages which
 use the "chrono" feature of the "%{crate}" crate.
 
 %files       -n %{name}+chrono-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+chrono-local-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+chrono-local-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "chrono-local" feature of the "%{crate}" crate.
+
+%files       -n %{name}+chrono-local-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-tz-devel

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.22
-Release: 5%{?dist}
+Version: 43.24
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,19 +12,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-
-# https://github.com/rhinstaller/anaconda/pull/6437
-# Drop a gnome-kiosk option that isn't present when mutter is built
-# without X11 support
-Patch: 0001-Don-t-pass-no-x11-to-gnome-kiosk.patch
-
-# Avoid buffer overflow with TIOCGWINSZ
-# Fixes https://bugzilla.redhat.com/2370944
-Patch: https://github.com/rhinstaller/anaconda/pull/6447.patch
-
-# Avoid the multiprocessing forkserver method with dnf
-# Fixes "TypeError: cannot pickle 'SwigPyObject' object" on Python 3.14+
-Patch: https://github.com/rhinstaller/anaconda/pull/6449.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -516,6 +503,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 17 2025 Packit <hello@packit.dev> - 43.24-1
+- makeupdates: Bump Python version in site packages path to 3.14 (k.koukiou)
+- Add documentation for the unified feature (jkonecny)
+- Use os.get_terminal_size rather than ioctl magic (miro)
+- Avoid the multiprocessing forkserver method with dnf (miro)
+- anaconda: Remove manual start of `systemd --user` (k.koukiou)
+
 * Sun Jun 08 2025 Miro Hrončok <mhroncok@redhat.com> - 43.22-5
 - Fix "TypeError: cannot pickle 'SwigPyObject' object" on Python 3.14+
 

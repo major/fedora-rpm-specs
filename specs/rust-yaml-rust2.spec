@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate anstyle
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-anstyle
-Version:        1.0.11
+%global crate yaml-rust2
+
+Name:           rust-yaml-rust2
+Version:        0.10.3
 Release:        %autorelease
-Summary:        ANSI text styling
+Summary:        Fully YAML 1.2 compliant YAML parser
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/anstyle
+URL:            https://crates.io/crates/yaml-rust2
 Source:         %{crates_source}
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-ANSI text styling.}
+A fully YAML 1.2 compliant YAML parser.}
 
 %description %{_description}
 
@@ -30,8 +33,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/Apache-LICENSE
+%license %{crate_instdir}/MIT-LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,16 +51,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+debug_prints-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+debug_prints-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "debug_prints" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+debug_prints-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+encoding-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+encoding-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "encoding" feature of the "%{crate}" crate.
+
+%files       -n %{name}+encoding-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -70,6 +86,12 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_build
 
 %install
+# Remove extraneous files from being installed
+rm -rf appveyor.yml garden.yml justfile
+# Move the license files to top-level to avoid packaging hidden folders
+# https://github.com/Ethiraric/yaml-rust2/pull/61
+mv .licenses/* ./
+rmdir .licenses
 %cargo_install
 
 %if %{with check}

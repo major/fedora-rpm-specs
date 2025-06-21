@@ -286,7 +286,8 @@ make check LD_LIBRARY_PATH="`pwd`"
 
 %if %{with python3}
 pushd bindings/python
-%pytest -sv -k "not testcb and not test_cs_disasm_quick"
+export LIBCAPSTONE_PATH=%{buildroot}%{_libdir}
+%pytest -sv -k "not testcb and not test_cs_disasm_quick" --ignore 'tests/test_sh.py'
 popd
 %endif
 

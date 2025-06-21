@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.25.0
+Version:        0.25.1
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -18,8 +18,6 @@ Source:         %{crates_source}
 #   use pyo3-ffi without patching each and every one of them, hence we
 #   explicitly allow to skip version check when building RPMs.
 Patch2:         Allow-unsupported-Python-versions-in-RPM-builds.patch
-# * https://github.com/PyO3/pyo3/issues/5175#issuecomment-2939918138
-Patch3:         0001-Make-PyObjectObRefcnt.refcnt_and_flags-64-bit-only.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel >= 3.7

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.127.1
+Version:    1.132.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -18,16 +18,20 @@ Patch1:     0001-pyo3-Disable-abi3-feature.patch
 Patch2:     0002-Build-RustExtension-with-debug-symbols.patch
 # https://github.com/element-hq/synapse/pull/17878
 Patch3:     0003-Fix-twisted.protocols.amp.TooLong-test-failure.patch
+# https://github.com/element-hq/synapse/pull/18578
+Patch4:     0004-Update-PyO3-to-version-0.25.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
 Recommends:     %{name}+systemd
 Recommends:     %{name}+user-search
 
+BuildRequires:  jq
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  /usr/bin/openssl
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  tomcli
 
 %description
 Matrix is an ambitious new ecosystem for open federated Instant Messaging and
@@ -45,6 +49,12 @@ the ecosystem.
 
 # We don't support the built-in client so remove all the bundled JS.
 rm -rf synapse/static
+
+# We cannot respect upper bounds on the versions of Python build dependencies.
+echo "$(tomcli get pyproject.toml build-system.requires -F json |
+  jq '.[] |= sub("(,<=.*).*"; "") | .[]' -r)" |
+  xargs -r -x tomcli set pyproject.toml lists str build-system.requires
+
 
 %cargo_prep
 
@@ -98,10 +108,6 @@ if [ ! -z "$SKIPPED" ]; then
 fi
 
 %endif
-
-
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 
 %post

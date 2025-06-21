@@ -5,7 +5,7 @@ EarthPy makes it easier to plot and manipulate spatial data in Python.}
 
 Name:           python-earthpy
 Version:        0.9.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A package built to support working with spatial data
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ k="${k-}${k+ and }not test_warning_mutli_point_clip_function"
 %doc CODE_OF_CONDUCT.rst CONTRIBUTING.rst CONTRIBUTORS.rst
 
 %changelog
+* Thu Jun 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-15
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

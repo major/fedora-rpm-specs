@@ -1,3 +1,5 @@
+%global commit 256522a4ae2708ed90614c6ebc13d25b1826ecfb
+
 %global common_description %{expand:
 The Trio project's goal is to produce a production-quality, permissively
 licensed, async/await-native I/O library for Python.  Like all async libraries,
@@ -12,43 +14,12 @@ right.}
 
 
 Name:           python-trio
-Version:        0.29.0
+Version:        0.30.0^1.%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        A friendly Python library for async concurrency and I/O
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/python-trio/trio
-Source:         %pypi_source trio
-
-# Add xfail to test_ki_protection_doesnt_leave_cyclic_garbage on Python 3.14
-# https://github.com/python-trio/trio/pull/3211/commits/02b338ebab972ffe16bca14bdd5823db9ab61631
-#
-# From:
-#
-# Add xfail for issue 3209, and start testing Python 3.14
-# https://github.com/python-trio/trio/pull/3211
-#
-# See:
-#
-# Python 3.14: test_ki_protection_doesnt_leave_cyclic_garbage fails
-# https://github.com/python-trio/trio/issues/3209
-#
-# The root cause appears to be:
-#
-# [3.14] change in behaviour in gc.get_referrers(some_local)
-# https://github.com/python/cpython/issues/125603
-#
-# Fixes:
-#
-# python-trio fails to build with Python 3.14:
-# test_ki_protection_doesnt_leave_cyclic_garbage: Left contains one more item:
-# <coroutine object test_ki_protection_doesnt_leave_cyclic_garbage at
-# 0x7fbaa2f162c0>
-# https://bugzilla.redhat.com/show_bug.cgi?id=2345516
-Patch:          %{url}/pull/3211/commits/02b338ebab972ffe16bca14bdd5823db9ab61631.patch
-
-# Switch from PurePath#as_uri to PurePath#joinpath for our test that PurePath methods get inherited
-# Restore trio.Path#as_uri
-Patch:          %{url}/pull/3249.patch
+Source:         %{url}/archive/%{commit}/trio-%{commit}.tar.gz
 
 BuildArch:      noarch
 
@@ -66,7 +37,7 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -p 1 -n trio-%{version}
+%autosetup -p 1 -n trio-%{commit}
 
 
 %generate_buildrequires

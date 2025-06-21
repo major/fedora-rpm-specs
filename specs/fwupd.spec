@@ -47,7 +47,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.11
+Version:   2.0.12
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -283,6 +283,7 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %if 0%{?have_msr}
 /usr/lib/modules-load.d/fwupd-msr.conf
 %endif
+/usr/lib/modules-load.d/fwupd-i2c.conf
 %{_datadir}/dbus-1/system.d/org.freedesktop.fwupd.conf
 %{_datadir}/bash-completion/completions/fwupdmgr
 %{_datadir}/bash-completion/completions/fwupdtool

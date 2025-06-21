@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.40.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Capybara aims to simplify the process of integration testing Rack applications
 License: MIT
 URL: https://github.com/teamcapybara/capybara
@@ -10,6 +10,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/teamcapybara/capybara.git --no-checkout && cd capybara
 # git archive -v -o capybara-3.40.0-tests.tar.gz 3.40.0 features/
 Source1: %{gem_name}-%{version}-tests.tar.gz
+# Fix compatibility with Rack::Protection 4.1.0+
+# https://github.com/teamcapybara/capybara/pull/2812
+Patch0: rubygem-capybara-3.40.0-Disable-Rack-Protection-HostAuthorization-.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -45,6 +48,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+%patch 0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -92,6 +97,9 @@ cucumber
 %{gem_instdir}/spec
 
 %changelog
+* Thu Jun 19 2025 Vít Ondruch <vondruch@redhat.com> - 3.40.0-2
+- Fix compatibility with Rack::Protection 4.1.0+
+
 * Wed Mar 19 2025 Vít Ondruch <vondruch@redhat.com> - 3.40.0-1
 - Update to Capybara 3.40.0.
   Resolves: rhbz#2260593

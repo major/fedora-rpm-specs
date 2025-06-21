@@ -130,7 +130,6 @@ Requires:       python3-sphinx
 
 This package contains the ipython sphinx extension.
 
-%if %{with check}
 %package -n python3-ipython+test
 Summary:        Tests for %{name}
 Provides:       python3-ipython-tests = %{version}-%{release}
@@ -151,7 +150,7 @@ Requires:       tex(bm.sty)
 %description -n python3-ipython+test
 This package contains the tests of %{name}.
 You can check this way, if ipython works on your platform.
-%endif
+
 
 %if %{with doc}
 %package -n python3-ipython-doc
@@ -222,8 +221,6 @@ pushd %{buildroot}%{python3_sitelib}/IPython
 %pytest -k "not test_pinfo_docstring_dynamic and not test_decorator_skip_with_breakpoint"
 rm -rf .pytest_cache
 popd
-%else
-rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 %endif
 
 %files -n python3-ipython
@@ -256,11 +253,11 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 %files -n python3-ipython-sphinx
 %{python3_sitelib}/IPython/sphinxext/
 
-%if %{with check}
+
 %files -n python3-ipython+test
 %ghost %{python3_sitelib}/ipython-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/IPython/*/tests
-%endif
+
 
 %if %{with doc}
 %files -n python3-ipython-doc

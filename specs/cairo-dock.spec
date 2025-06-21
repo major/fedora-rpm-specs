@@ -4,8 +4,8 @@
 %global	plugin_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250309
-%global	githash	a77d61b70fb060d2dbd9b7615d90a77295b36600
+%global	gitdate	20250618
+%global	githash	89864a00fbf1db036d6609867def488915ba490d
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
@@ -151,6 +151,9 @@ sed -i CMakeLists.txt -e '\@set (VERSION @s|VERSION.*|VERSION "%{mainver}")|'
 # Don't set rpath
 sed -i CMakeLists.txt -e '\@APPEND.*CMAKE_INSTALL_RPATH@d'
 
+# Don't check / try systemd-notify on buildroot
+sed -i CMakeLists.txt -e '\@SYSTEMD_COMMAND@s|systemd-notify|true|'
+
 %build
 %set_build_flags
 
@@ -260,6 +263,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Thu Jun 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250618git89864a0-1.rc2
+- Update to the latest git (20250618git89864a0)
+
 * Thu Mar 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250309gita77d61b-1.rc2
 - Update to the latest git (20250309gita77d61b)
 

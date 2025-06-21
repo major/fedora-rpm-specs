@@ -8,7 +8,7 @@
 
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
-Version:    2.3.2
+Version:    2.3.3
 Release:    %autorelease
 License:    LicenseRef-Callaway-BSD
 URL:        http://miniupnp.free.fr/
@@ -84,7 +84,7 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %doc Changelog.txt README
 %{_bindir}/upnpc
 %{_bindir}/upnp-listdevices
-%{_libdir}/libminiupnpc.so.20
+%{_libdir}/libminiupnpc.so.21
 %{_libdir}/libminiupnpc.so.%{version}
 
 %files devel

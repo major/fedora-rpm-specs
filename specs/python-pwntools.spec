@@ -1,5 +1,5 @@
 Name:           python-pwntools
-Version:        4.13.1
+Version:        4.14.1
 Release:        2%{?dist}
 Summary:        A CTF framework and exploit development library
 URL:            https://github.com/Gallopsled/pwntools/
@@ -17,11 +17,6 @@ License:        MIT AND BSD-2-Clause AND GPL-2.0-or-later
 
 # Source0:      https://github.com/Gallopsled/%%{srcname}/archive/%%{srcname}-%%{version}.tar.gz
 Source0:        https://github.com/Gallopsled/%{srcname}/archive/refs/tags/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
-
-# Unicorn package currently doesn't build on s390x platform, but it is used ony for resolving plt.
-# Other functionality of pwntools should be still working
-Patch0:         0001-Weaken-unicorn-dependency.patch
-
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -53,20 +48,10 @@ BuildRequires:  python%{python3_pkgversion}-intervaltree
 BuildRequires:  python%{python3_pkgversion}-colored-traceback
 BuildRequires:  python%{python3_pkgversion}-ROPGadget
 BuildRequires:  python%{python3_pkgversion}-rpyc
-
-# Omiting the unicorn on purpose for now as it creates unwanted src.rpm build dependency on s390x for some reason
-# %%ifnarch s390x s390
-# BuildRequires:  python%%{python3_pkgversion}-unicorn
-# %%endif
+BuildRequires:  python%{python3_pkgversion}-unicorn
 %endif
 
 
-
-# Unicorn python3 module currently not available on s390x architecture F39/F40
-# limited functionality will be available
-#%%if ( 0%%{?fedora} && 0%%{?fedora} >= 39 )
-#%%global __requires_exclude ^python.*unicorn.*
-#%%endif
 
 # Some packages are missing in EPEL9/8
 # limited functionality will be available
@@ -84,12 +69,6 @@ intended to make exploit writing as simple as possible.
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 Requires:       binutils
-
-# As we have ignored the requirement of unicorn, lets at least recommend it
-# Recommends only supported on fedora and rhel8+
-# %%if (0%%{?fedora}) || ( 0%%{?rhel} && 0%%{?rhel} >= 8 )
-Recommends:      python%{python3_pkgversion}-unicorn
-# %%endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Pwntools is a CTF framework and exploit development library. Written
@@ -110,7 +89,6 @@ intended to make exploit writing as simple as possible.
 chmod -x docs/requirements.txt
 
 # Generate buildrequres is failing to generate viable deps:
-# - s390x due to missing (optional) python3 unicorn module
 # - epel due to missing python3 modules colored-traceback, intervaltree, rpyc, unicorn
 # generate_buildrequires
 # pyproject_buildrequires
@@ -178,6 +156,12 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Thu Jun 19 2025 W. Michael Petullo <mike@flyn.org> - 4.14.1-2
+- Restore unicorn as a hard requirement, since it builds again on s390x
+
+* Thu Jun 19 2025 W. Michael Petullo <mike@flyn.org> - 4.14.1-1
+- Update to 4.14.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

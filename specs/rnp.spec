@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for rnp
 #
-# Copyright (c) 2022-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2022-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -25,8 +25,8 @@
 
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
-Version:       0.17.1
-Release:       4%{?dist}
+Version:       0.18.0
+Release:       1%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -76,7 +76,7 @@ RNP is a set of OpenPGP (RFC4880) tools.
 %package -n %{libname}
 Summary:    Library for all OpenPGP functions
 %if %{without libsexpp}
-%global libsexpp_version 0.8.2
+%global libsexpp_version 0.9.0
 Provides:   bundled(libsexpp) = %{libsexpp_version}
 %endif
 
@@ -108,7 +108,7 @@ if ! grep -q 'sexpp>=%{libsexpp_version}' CMakeLists.txt; then
     exit 1
 fi
 %else
-pushd src/libsexp
+pushd src/libsexpp
 : retrieve LICENSE
 cp LICENSE.md ../../LICENSE-libsexp.md
 : check bundled version
@@ -188,6 +188,10 @@ FILTER="s2k_iteration_tuning|test_key_add_userid|test_ffi_security_profile|Encry
 
 
 %changelog
+* Mon Jun  2 2025 Remi Collet <remi@remirepo.net> - 0.18.0-1
+- update to 0.18.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
