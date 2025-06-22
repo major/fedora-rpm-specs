@@ -1,6 +1,6 @@
 Name:           python-flask-session
 Version:        0.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Server side session extension for Flask
 
 License:        BSD-3-Clause
@@ -40,7 +40,7 @@ Summary:        %{summary}
 %autosetup -p1 -n flask-session-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -64,6 +64,9 @@ kill %1
 %license LICENSE.rst
 
 %changelog
+* Fri Jun 20 2025 Pavel Raiskup <praiskup@redhat.com> - 0.5.0-8
+- don't buildrequire tox, we don't use it in %%check
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.0-7
 - Rebuilt for Python 3.14
 

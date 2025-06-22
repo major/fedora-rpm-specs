@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -250,6 +250,9 @@ Patch75: hplip-plugin-stdout.patch
 # toolbox shows traceback when button 'close' is clicked on at first dialog
 # https://bugs.launchpad.net/hplip/+bug/2111722
 Patch76: hplip-gui-close-trace.patch
+# Python 3.14 removed urlopener
+# https://bugs.launchpad.net/hplip/+bug/2115046
+Patch77: hplip-no-urlopener.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -614,6 +617,8 @@ done
 %patch -P 75 -p1 -b .stdout
 # https://bugs.launchpad.net/hplip/+bug/2111722
 %patch -P 76 -p1 -b .gui-close-trace
+# https://bugs.launchpad.net/hplip/+bug/2115046
+%patch -P 77 -p1 -b .no-urlopener
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -985,6 +990,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Jun 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.2-7
+- Python 3.14 removed URLopener
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.25.2-6
 - Rebuilt for Python 3.14
 

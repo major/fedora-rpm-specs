@@ -1,7 +1,7 @@
 Summary: A GNU archiving program
 Name: cpio
 Version: 2.15
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/cpio/
 Source0: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
@@ -106,6 +106,10 @@ make check || {
 %{_infodir}/*.info*
 
 %changelog
+* Fri Jun 06 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.15-5
+- exit with 1 when storing excessively large files in bin format
+  - fixes a regression introduced after the rebase to 2.13
+
 * Fri Jan 24 2025 Than Ngo <than@redhat.com> - 2.15-4
 - Fixed rhbz#2340003 - cpio: FTBFS in Fedora rawhide/f42
 

@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 19
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -336,8 +336,6 @@ rpm.define("__debug_install_post bash " .. wrapper
 # - See each individual patch file for origin and upstream status.
 # - For new patches follow template.patch format.
 ##############################################################################
-Patch4: glibc-fedora-linux-tcsetattr.patch
-Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
@@ -1650,11 +1648,15 @@ ln locale-archive locale-archive.real
 # each langpack ends up retaining a copy.  If we convert these to symbolic
 # links instead, we save ~350K each when they get installed that way.
 #
-# LC_MEASUREMENT and LC_PAPER also have several duplicates but we don't
-# bother with these because they are only ~30 bytes each.
+# To simplify testing, do this for LC_NAME and LC_NUMERIC as well,
+# although the savings are minimal.  (It is not clear what is smaller:
+# multiple short symbolic links, or one file hard linked into multiple
+# directories.)
 pushd %{glibc_sysroot}/usr/lib/locale
-for f in $(find %locale_rx -samefile C.utf8/LC_CTYPE); do
-  rm $f && ln -s '../C.utf8/LC_CTYPE' $f
+for k in CTYPE NAME NUMERIC; do
+  for f in $(find %locale_rx -samefile C.utf8/LC_$k); do
+    rm $f && ln -s ../C.utf8/LC_$k $f
+  done
 done
 popd
 
@@ -2380,6 +2382,16 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jun 20 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-19
+- Remove glibc-fedora-manual-dircategory.patch (#2252409)
+
+* Fri Jun 20 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-18
+- Remove glibc-fedora-linux-tcsetattr.patch (#2252406)
+
+* Thu Jun 19 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-17
+- langpacks: Use symlinks for LC_NAME, LC_NUMERIC files if possible (RHEL-97433)
+
+* Tue Jun 17 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-16
 - Replace glibc-rh2368545.patch with upstream fix under review.
 - Auto-sync with upstream branch master,
   commit d1b27eeda3d92f33314e93537437cab11ddf4777:

@@ -5,19 +5,16 @@
 %global crate dav1d-sys
 
 Name:           rust-dav1d-sys
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        FFI bindings to dav1d
 
 License:        MIT
 URL:            https://crates.io/crates/dav1d-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump system-deps build-dependency from 6.2 to 7
-Patch:          dav1d-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(dav1d) >= 1.3.0
+BuildRequires:  pkgconfig(dav1d) >= 1.5.0
 
 %global _description %{expand:
 FFI bindings to dav1d.}
@@ -27,7 +24,7 @@ FFI bindings to dav1d.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(dav1d) >= 1.3.0
+Requires:       pkgconfig(dav1d) >= 1.5.0
 
 %description    devel %{_description}
 

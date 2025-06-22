@@ -6,7 +6,7 @@
 %global crate image-webp
 
 Name:           rust-image-webp
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        WebP encoding and decoding in pure Rust
 

@@ -6,7 +6,7 @@
 %global crate petgraph
 
 Name:           rust-petgraph
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Graph data structure library
 
@@ -53,18 +53,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+all-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+all-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
-
-%files       -n %{name}+all-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+generate-devel

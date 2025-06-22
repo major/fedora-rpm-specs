@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Refer to any model with a URI: gid://app/class/id
 License: MIT
 URL: http://www.rubyonrails.org
@@ -16,6 +16,9 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 # Fix Ruby 3.4 compatibility.
 # https://github.com/rails/globalid/pull/192
 Patch0: rubygem-globalid-1.2.1-Keep-using-URI-RFC2396-parser.patch
+# Fix Rails 8 compatibility.
+# https://github.com/rails/globalid/pull/197/commits/f05f178f6960e85f6cdb6d6bf8c1812fd83af74a
+Patch1: rubygem-globalid-1.2.1-Fix-cache-format-for-Rails-8.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -43,6 +46,10 @@ Documentation for %{name}.
 
 %patch 0 -p1
 
+( cd %{builddir}
+%patch 1 -p1
+)
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -61,7 +68,10 @@ ln -s %{_builddir}/test test
 # Avoid Bundler dependency.
 sed -i "/bundler\/setup/ s/^/#/" ./test/helper.rb
 
-ruby -Ilib:test -e "Dir.glob './test/cases/*test.rb', &method(:require)"
+# Prevent `NameError: uninitialized constant ActionController::Base` by
+# explicit `-raction_controller`.
+# https://github.com/rails/rails/issues/55215
+ruby -Ilib:test -raction_controller -e "Dir.glob './test/cases/*test.rb', &method(:require)"
 popd
 %endif
 
@@ -78,6 +88,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jun 20 2025 Vít Ondruch <vondruch@redhat.com> - 1.2.1-3
+- Fix Rails 8 compatibility.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -30,8 +30,8 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.19.0
-Release:        4%{?dist}
+Version:        1.20.0
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -140,6 +140,10 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Fri Jun 20 2025 Ales Matej <amatej@redhat.com> - 1.20.0-1
+- Update to 1.20.0
+- Fix and update lr_download_metadata API to enable parallel downloading of repos
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.19.0-4
 - Rebuilt for Python 3.14
 

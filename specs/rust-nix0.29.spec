@@ -5,8 +5,8 @@
 
 %global crate nix
 
-Name:           rust-nix
-Version:        0.30.1
+Name:           rust-nix0.29
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Rust friendly bindings to *nix APIs
 
@@ -396,18 +396,6 @@ This package contains library source intended for building other packages which
 use the "socket" feature of the "%{crate}" crate.
 
 %files       -n %{name}+socket-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+syslog-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+syslog-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "syslog" feature of the "%{crate}" crate.
-
-%files       -n %{name}+syslog-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+term-devel

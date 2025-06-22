@@ -1,14 +1,14 @@
 %global appid com.github.johnfactotum.Foliate
-%global libadwaita_version 1.4
+%global libadwaita_version 1.7
 %global webkitgtk_version 2.40.1
 
 # Git submodules
 #   * foliate-js
-%global commit1 cc2882ff396d27ca4133af2e8f2978f19c21846e
+%global commit1 052123beafed921a9a2a45ef6330c235289a634e
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           foliate
-Version:        3.2.1
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 

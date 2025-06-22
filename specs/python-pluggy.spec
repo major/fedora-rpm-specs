@@ -2,8 +2,8 @@
 %bcond tests 1
 
 Name:           python-pluggy
-Version:        1.5.0
-Release:        4%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 # SPDX
@@ -59,6 +59,9 @@ Summary:  %summary
 
 
 %changelog
+* Fri Jun 20 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.6.0-1
+- Update to 1.6.0.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.0-4
 - Rebuilt for Python 3.14
 

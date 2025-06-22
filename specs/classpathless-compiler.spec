@@ -20,17 +20,14 @@ BuildRequires:  mvn(org.ow2.asm:asm-tree)
 Requires:       beust-jcommander
 Requires:       javapackages-tools
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.3-5
+
 %description
 Classpathless compiler (CPLC) is a compiler wrapper used for compiling java
 sources with customizable class providers. This tool works differently from the
 traditional java compiler in that it doesn't use provided classpath but instead
 pulls dependencies using an API.
-
-%package javadoc
-Summary: Javadoc for %{name}
-
-%description javadoc
-Javadoc for %{name}.
 
 %prep
 %setup -q -n classpathless-compiler-%{version}
@@ -48,7 +45,7 @@ Javadoc for %{name}.
 %pom_remove_plugin :spotbugs-maven-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -60,9 +57,6 @@ Javadoc for %{name}.
 
 %license LICENSE
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

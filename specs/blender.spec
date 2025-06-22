@@ -347,10 +347,19 @@ Provides RPM macros for creating third-party addon packages for Blender.
 rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 %py3_shebang_fix .
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
-    build_files/cmake/platform/platform_unix.cmake
+        build_files/cmake/platform/platform_unix.cmake
+
 # Fix proper detection of numpy path
 # https://projects.blender.org/blender/blender/issues/137635    
 sed -i "s|core/include|_core/include|" CMakeLists.txt
+
+# Handle python 3.14 support
+# https://bugzilla.redhat.com/show_bug.cgi?id=2373840
+# https://projects.blender.org/blender/blender/issues/140695
+%if 0%{?fedora} > 42
+sed -i "s|BINARY_SUBSCR|BINARY_SLICE|" \
+        source/blender/python/intern/bpy_driver.cc
+%endif
 
 %build
 %if %{with hip}

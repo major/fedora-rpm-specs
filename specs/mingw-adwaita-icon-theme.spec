@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-adwaita-icon-theme
-Version:        48.0
+Version:        48.1
 Release:        1%{?dist}
 Summary:        Adwaita icon theme for MingGW
 
@@ -79,6 +79,9 @@ the Adwaita icon theme.
 %ghost %{mingw64_datadir}/icons/Adwaita/icon-theme.cache
 
 %changelog
+* Fri Jun 20 2025 Sandro Mani <manisandro@gmail.com> - 48.1-1
+- Update to 48.1
+
 * Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 48.0-1
 - Update to 48.0
 

@@ -5,7 +5,7 @@
 %global goa_version 3.17.91
 
 Name:		grilo-plugins
-Version:	0.3.16
+Version:	0.3.17
 Release:	%autorelease
 Summary:	Plugins for the Grilo framework
 
@@ -13,7 +13,6 @@ Summary:	Plugins for the Grilo framework
 License:	LicenseRef-Callaway-LGPLv2+
 URL:		https://wiki.gnome.org/Projects/Grilo
 Source0:	https://download.gnome.org/sources/grilo-plugins/%{release_version}/grilo-plugins-%{version}.tar.xz
-Patch0:		disable-broken-plugins.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -32,7 +31,8 @@ BuildRequires:	libarchive-devel
 BuildRequires:	libmediaart-devel
 BuildRequires:	libsoup3-devel
 BuildRequires:	lua-devel
-BuildRequires:  pkgconfig(tracker-sparql-3.0)
+BuildRequires:	pkgconfig(tinysparql-3.0)
+BuildRequires:	localsearch
 BuildRequires:	rest-devel
 BuildRequires:	sqlite-devel
 BuildRequires:	totem-pl-parser-devel
@@ -92,7 +92,6 @@ This package contains plugins to get information from theses sources:
 %if 0%{?fedora}
     -Denable-podcasts=yes \
 %endif
-    -Denable-raitv=no \
     -Denable-tmdb=yes \
     -Denable-youtube=no \
     -Denable-tracker=no \

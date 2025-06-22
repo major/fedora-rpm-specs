@@ -1,7 +1,7 @@
 Name:           python-pytest-bdd
-Version:        7.3.0
+Version:        8.1.0
 Release:        %autorelease
-Summary:        BDD library for the py.test runner
+Summary:        BDD library for the pytest runner
 
 # SPDX
 License:        MIT
@@ -14,6 +14,10 @@ Source0:        %{forgeurl}/archive/%{version}/pytest-bdd-%{version}.tar.gz
 Source10:       pytest-bdd.1
 Source11:       pytest-bdd-generate.1
 Source12:       pytest-bdd-migrate.1
+
+# Less strict `gherkin-official` version requirement
+# https://github.com/pytest-dev/pytest-bdd/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47
+Patch:          %{forgeurl}/commit/8ce79eafa6ac40196bc6b613149f2a40b68a0a47.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -t
@@ -60,7 +64,11 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 
 
 %check -a
-%tox -- -- -n auto -v
+# test_step_outside_scenario_or_background_error fails with current
+# gherkin-official
+# https://github.com/pytest-dev/pytest-bdd/issues/779
+k="${k-}${k+ and }not test_step_outside_scenario_or_background_error"
+%tox -- -- -k "${k-}" -n auto -v
 
 
 %files -n python3-pytest-bdd -f %{pyproject_files}

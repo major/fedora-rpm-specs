@@ -1,5 +1,5 @@
 Name:          maeparser
-Version:       1.3.1
+Version:       1.3.3
 Release:       %autorelease
 Summary:       A parser for Schrodinger Maestro files
 License:       MIT

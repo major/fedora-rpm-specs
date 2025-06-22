@@ -5,7 +5,7 @@
 %global crate libc
 
 Name:           rust-libc
-Version:        0.2.172
+Version:        0.2.174
 Release:        %autorelease
 Summary:        Raw FFI bindings to platform libraries like libc
 

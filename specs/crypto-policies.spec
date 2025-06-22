@@ -1,5 +1,5 @@
-%global git_date 20250603
-%global git_commit 3a584b3b6fac55a230d9acbfd6a4250c1990d1ad
+%global git_date 20250620
+%global git_commit 9496ef7ee47499895cee097f111c94200e033729
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -64,7 +64,10 @@ defined in simple policy definition files.
 %autopatch -p1
 
 %build
-%make_build
+%make_build \
+  SEQUOIA_POLICY_CONFIG_CHECK_LOOSE=sequoia-policy-config-check \
+  SEQUOIA_POLICY_CONFIG_CHECK_STRICT=
+# remove these when Fedora sequoia-policy-config-check starts understanding PQC
 
 %install
 mkdir -p -m 755 %{buildroot}%{_datarootdir}/crypto-policies/
@@ -106,7 +109,10 @@ done
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/crypto-policies/python
 
 %check
-make test %{?_smp_mflags} SKIP_LINTING=1
+make test %{?_smp_mflags} SKIP_LINTING=1 \
+  SEQUOIA_POLICY_CONFIG_CHECK_LOOSE=sequoia-policy-config-check \
+  SEQUOIA_POLICY_CONFIG_CHECK_STRICT=
+# remove these when Fedora sequoia-policy-config-check starts understanding PQC
 
 # Migrate away from removed policies; each rule can be dropped 3 releases later
 %pretrans -p <lua>
@@ -283,6 +289,14 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Jun 20 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250620-1.git9496ef7
+- sequoia: Add PQC algorithms
+- sequoia: Do not include EdDSA in FIPS policy
+- sequoia: Generate AEAD policy
+- FIPS: deprioritize X25519-MLKEM768 over P256-MLKEM768 for openssl
+- openssl: send one PQ and one classic key_share; prioritize PQ groups
+- TEST-PQ: be more careful with the ordering
+
 * Tue Jun 03 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250603-1.git3a584b3
 - Revert "openssl, policies: implement group_key_share option"
 

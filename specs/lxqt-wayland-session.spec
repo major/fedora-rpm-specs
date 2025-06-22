@@ -1,11 +1,9 @@
-# niri isn't packaged in Fedora
-%bcond niri_session 0
 # we don't want to support hyprland
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -118,7 +116,6 @@ compositor with LXQt
 
 %dnl ------------------------------------------------------------------
 
-%if %{with niri_session}
 %package -n     lxqt-niri-session
 Summary:        Session files for LXQT-niri
 License:        GPL-3.0-or-later
@@ -133,7 +130,6 @@ for LXQt.
 %files -n lxqt-niri-session
 %license COPYING
 %{_datadir}/lxqt/wayland/lxqt-niri.kdl
-%endif
 
 %dnl ------------------------------------------------------------------
 
@@ -246,14 +242,12 @@ install -m0644 default-compositor-miriway %{buildroot}%{_datadir}/lxqt/wayland/d
 rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %endif
 
-%if ! %{with niri_session}
-# Drop niri session files
-rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
-%endif
-
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Jun 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-2
+- Restore niri support
+
 * Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.2.0-1
 - 0.2.0
 

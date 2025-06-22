@@ -14,7 +14,7 @@ drgn exposes the types and variables in a program for easy, expressive
 scripting in Python.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.31
+Version:        0.0.32
 Release:        %autorelease
 Summary:        Programmable debugger
 

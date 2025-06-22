@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
 Version:      2.2.0
-Release:      1%{?dist}
+Release:      2%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -13,8 +13,7 @@ Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{versi
 Patch0101:    0101-Add-miriway-entry-for-Wayland-window-managers.patch
 
 # Downstream only
-Patch1001:    1001-Drop-niri-entry-for-Wayland-window-managers.patch
-Patch1002:    1002-Drop-Hyprland-entry-for-Wayland-window-managers.patch
+Patch1001:    1001-Drop-Hyprland-entry-for-Wayland-window-managers.patch
 
 
 BuildRequires:  cmake
@@ -135,6 +134,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Fri Jun 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.2.0-2
+- Restore niri support
+
 * Thu Jun 05 2025 Shawn W, Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
 - 2.2.0
  

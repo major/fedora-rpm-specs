@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.42.3
-Release:        3%{?dist}
+Version:        3.44.0
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -23,6 +23,7 @@ Source5:        %{name}-server-README.fedora
 Patch0:         %{name}-serverprefix.patch
 # Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
 Patch1:         %{name}-yarn-offline.patch
+
 # Applied by prepare_vendor.sh
 # CVE-2024-55565.prebundle.patch
 
@@ -39,8 +40,9 @@ BuildRequires:  geos-devel
 BuildRequires:  grass-devel
 BuildRequires:  gsl-devel
 BuildRequires:  laszip-devel
-BuildRequires:  libspatialite-devel
 BuildRequires:  libdxfrw-devel
+BuildRequires:  libpq-devel
+BuildRequires:  libspatialite-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libzip-devel
 BuildRequires:  ninja-build
@@ -51,7 +53,6 @@ BuildRequires:  opencl-headers
 BuildRequires:  PDAL
 BuildRequires:  PDAL-devel
 BuildRequires:  poly2tri-devel
-BuildRequires:  postgresql-devel
 BuildRequires:  proj-devel
 BuildRequires:  protobuf-lite-devel
 BuildRequires:  python3-devel
@@ -174,10 +175,11 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
       -D QGIS_MANUAL_SUBDIR=/share/man \
       -D QGIS_CGIBIN_SUBDIR=%{_libexecdir}/%{name} \
       -D WITH_BINDINGS:BOOL=TRUE \
+      -D BINDINGS_GLOBAL_INSTALL:BOOL=TRUE \
       -D WITH_GRASS8:BOOL=TRUE \
       -D GRASS_PREFIX8=`pkg-config --variable=prefix grass` \
       -D WITH_CUSTOM_WIDGETS:BOOL=TRUE \
-      -D BINDINGS_GLOBAL_INSTALL:BOOL=TRUE \
+      -D BUILD_TESTING:BOOL=FALSE \
       -D ENABLE_TESTS:BOOL=FALSE \
       -D WITH_EPT:BOOL=TRUE \
       -D WITH_PDAL:BOOL=TRUE \
@@ -303,6 +305,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Jun 20 2025 Sandro Mani <manisandro@gmail.com> - 3.44.0-1
+- Update to 3.44.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.42.3-3
 - Rebuilt for Python 3.14
 

@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.18.1
+Version:        1.18.2
 Release:        1%{?dist}
 
 # Macro files
@@ -167,6 +167,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Mon May 19 2025 Maxwell G <maxwell@gtmx.me> - 1.18.2-1
+- Fix handling of config_settings in %%pyproject_buildrequires
+
 * Fri Mar 21 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.1-1
 - Fix reverted conditional in %%pyproject_buildrequires -t/-e Fedora version comparison
 

@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -136,6 +136,7 @@ sed -i -e 's:resDir + "/fonts/Roboto-Medium.ttf":"%{_datadir}/fonts/google-robot
        -DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
        -DOPT_BUILD_M17_DECODER=ON \
 	   -DUSE_INTERNAL_LIBCORRECT=OFF \
+	   -DOPT_BUILD_SOAPY_SOURCE=ON \
        -DBUILD_SHARED_LIBS=0
 
 %cmake_build
@@ -174,6 +175,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Sat Jun 21 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2.1-2
+- Add CMake option to build with SoapySDR.
+
 * Thu Mar 13 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2.1-1
 - Update to 1.2.1.
 

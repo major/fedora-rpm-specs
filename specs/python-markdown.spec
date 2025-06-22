@@ -2,7 +2,7 @@
 %global pkgname markdown
 
 Name:           python-%{pkgname}
-Version:        3.7
+Version:        3.8.2
 Release:        %autorelease
 Summary:        Markdown implementation in Python
 License:        BSD-3-Clause

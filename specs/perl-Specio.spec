@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Specio
-Version:	0.50
+Version:	0.51
 Release:	1%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,11 +25,14 @@ BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Clone)
+BuildRequires:	perl(Clone::Choose)
+BuildRequires:	perl(Clone::PP)
 BuildRequires:	perl(Devel::StackTrace)
 BuildRequires:	perl(Eval::Closure)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(List::Util) >= 1.33
+BuildRequires:	perl(Module::Implementation)
 BuildRequires:	perl(Module::Runtime)
 BuildRequires:	perl(MRO::Compat)
 BuildRequires:	perl(overload)
@@ -161,10 +164,16 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Fri Jun 20 2025 Paul Howarth <paul@city-fan.org> - 0.51-1
+- Update to 0.51
+  - Made it possible to force Specio to use only pure Perl dependencies, by
+    setting the SPECIO_IMPLEMENTATION environment variable to "PP" (GH#23)
+
 * Wed Feb 19 2025 Paul Howarth <paul@city-fan.org> - 0.50-1
 - Update to 0.50
   - Fixed a bug in the Int type that caused it to accept numbers like
     124512.000000000123, which when stringified, are stringified as integers
+    (GH#22)
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

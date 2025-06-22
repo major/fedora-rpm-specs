@@ -576,13 +576,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
-# nix
-#   wanted: 0.30.0
-#   currently packaged: 0.29.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2362868
-tomcli set Cargo.toml str \
-    workspace.dependencies.nix.version '>= 0.29, <0.31'
-
 %cargo_prep
 
 

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        152
+Version:        153
 
 %forgemeta
 
@@ -329,6 +329,17 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Fri Jun 20 2025 Packit <hello@packit.dev> - 153-1
+Changes with 153
+----------------
+  * GHA: enable the stale action to delete its saved state (#2126)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+  * stages/wsl-distribution: stage to write wsl config (HMS-8573) (#2125)
+    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-06-20
+
+
 * Tue Jun 17 2025 Packit <hello@packit.dev> - 152-1
 Changes with 152
 ----------------

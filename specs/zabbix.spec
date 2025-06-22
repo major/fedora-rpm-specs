@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.2.5
-Release:        2%{?dist}
+Version:        7.2.9
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Fri Jun 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:7.2.9-1
+- 7.2.9
+
 * Wed Apr 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:7.2.5-2
 - Add user/group provides to -server to fix FTI
 

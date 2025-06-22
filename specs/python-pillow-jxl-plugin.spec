@@ -21,6 +21,10 @@ Source:         %{pypi_source %{pypi_name}}
 # drop custom build system that is unnecessary and only breaks stuff
 Patch:          0001-Unconditionally-dynamically-link-libjxl.patch
 
+# (deps): Update pyo3 requirement from 0.24.0 to 0.25.1
+# https://github.com/Isotr0py/pillow-jpegxl-plugin/pull/107
+Patch:          %{url}/pull/107.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
 BuildRequires:  jpegxl-devel

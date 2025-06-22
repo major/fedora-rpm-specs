@@ -7,6 +7,15 @@ License:        BSD-3-Clause
 URL:            https://github.com/hgrecco/flexcache
 Source:         %{pypi_source flexcache}
 
+# Increase the value of FS_SLEEP in the tests (fix #4)
+# https://github.com/hgrecco/flexcache/pull/5
+#
+# Fixes:
+#
+# test_name_by_paths fails flakily on ppc64le and s390x
+# https://github.com/hgrecco/flexcache/issues/4
+Patch:          %{url}/pull/5.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l flexcache
 # We remove flexcache.testsuite manually in %%install.

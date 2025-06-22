@@ -40,6 +40,8 @@ Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
 # USB-PD improvements
 Patch11:  USB-PD-TCPM-improvements.patch
+# Rockchip DT rebase for fixes
+Patch12:  0001-Rebase-to-upstream-6.15.5-rockchip-DTs.patch
 
 BuildRequires:  bc
 BuildRequires:  bison

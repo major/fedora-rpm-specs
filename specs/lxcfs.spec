@@ -1,5 +1,5 @@
 Name:		  lxcfs
-Version:	  6.0.3
+Version:	  6.0.4
 Release:	  1%{?dist}
 Summary:	  FUSE based filesystem for LXC
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 
 %changelog
+* Fri Jun 20 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.4-1
+- Update to 6.0.4.
+
 * Sat Feb 15 2025 Sérgio Basto <sergio@serjux.com> - 6.0.3-1
 - Update lxcfs to 6.0.3
 

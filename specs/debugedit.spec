@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -51,6 +51,7 @@ Patch2: 0001-find-debuginfo-Fix-skip_mini-.gnu_debugdata-handling.patch
 patch3: 0001-find-debuginfo-Make-return-from-do_file-explicit.patch
 patch4: debugedit-5.1-binutils-tools-override.patch
 patch5: 0001-debugedit-Handle-unused-.debug_str_offsets-entries.patch
+patch6: 0001-Add-basic-find-debuginfo-script-tests.patch
 
 %description
 The debugedit project provides programs and scripts for creating
@@ -92,6 +93,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Fri Jun 20 2025 Mark Wielaard <mjw@fedoraproject.org> - 5.1-7
+- Add 0001-Add-basic-find-debuginfo-script-tests.patch
+
 * Tue Apr  8 2025 Mark Wielaard <mjw@fedoraproject.org> - 5.1-6
 - Add 0001-debugedit-Handle-unused-.debug_str_offsets-entries.patch
 

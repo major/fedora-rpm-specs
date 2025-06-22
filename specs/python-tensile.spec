@@ -19,7 +19,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -183,6 +183,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Fri Jun 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Rebuild for sidetag
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.4.0-2
 - Rebuilt for Python 3.14
 
