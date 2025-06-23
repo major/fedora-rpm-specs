@@ -49,7 +49,6 @@ BuildRequires:  cargo-rpm-macros >= 24
 # dev extra in pyproject.toml.
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-xdist}
 BuildRequires:  %{py3_dist hypothesis}
 %endif
 
@@ -152,7 +151,7 @@ k="${k-}${k+ and }not test_variants_decompress_into"
 # Failed: DID NOT RAISE <class 'cramjam.DecompressionError'>
 k="${k-}${k+ and }not test_variants_raise_exception[deflate]"
 
-%pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v -n auto
+%pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v
 %endif
 
 

@@ -10,7 +10,7 @@
 
 %global bundlejson 0
 
-%if %{?fedora}%{!?fedora:0}
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
 %ifarch %{ix86} %{arm}
 %global pandas 0
 %else
@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -96,6 +96,11 @@ Patch9:		%{name}-Use-size_t-for-offset.patch
 Patch10:	%{name}-Fix-test-for-32-bit-architectures.patch
 #		Remove extra 0 in release number
 Patch11:	%{name}-Update-release-number.patch
+#		https://github.com/root-project/root/issues/18988
+#		https://github.com/root-project/root/pull/19014
+#		https://github.com/root-project/root/pull/19107
+Patch12:	%{name}-Python-Update-reference-refcount-values-for-Python-3.patch
+Patch13:	%{name}-Python-Update-reference-refcount-values-for-Python-3x.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -248,14 +253,17 @@ Requires:	%{name}-core = %{version}-%{release}
 %description icons
 This package contains icons used by the ROOT GUI.
 
-%package fonts
+%package font-files
 Summary:	ROOT font collection
 BuildArch:	noarch
 #		STIX version 0.9 only
 License:	OFL-1.1
 Requires:	%{name}-core = %{version}-%{release}
+#		Package renamed
+Provides:	%{name}-fonts = %{version}-%{release}
+Obsoletes:	%{name}-fonts < 6.36.00-2
 
-%description fonts
+%description font-files
 This package contains fonts used by ROOT that are not available in Fedora.
 In particular it contains STIX version 0.9 that is used by TMathText.
 
@@ -270,7 +278,7 @@ This package contains the tutorial scripts and test suite for ROOT.
 %package core
 Summary:	ROOT core libraries
 License:	LGPL-2.1-or-later AND LGPL-2.0-or-later AND ISC AND MIT AND NCSA
-Requires:	%{name}-fonts = %{version}-%{release}
+Requires:	%{name}-font-files = %{version}-%{release}
 Requires:	%{name}-icons = %{version}-%{release}
 #		Dynamic dependencies
 Requires:	%{name}-cling%{?_isa} = %{version}-%{release}
@@ -293,6 +301,10 @@ Requires:	%{name}-physics%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 %if %{dataframe}
 Requires:	%{name}-tree-dataframe%{?_isa} = %{version}-%{release}
+%endif
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+%if %{root7}
+Requires:	%{name}-tree-ntuple-utils%{?_isa} = %{version}-%{release}
 %endif
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
 Requires:	%{name}-vecops%{?_isa} = %{version}-%{release}
@@ -417,8 +429,8 @@ Requires:	%{name}-core = %{version}-%{release}
 #		notebook package was merged with JupyROOT package
 Provides:	%{name}-notebook = %{version}-%{release}
 Obsoletes:	%{name}-notebook < 6.32.00
-Requires:	js-jsroot >= 7.8
-%if %{?fedora}%{!?fedora:0}
+Requires:	js-jsroot >= 7.9
+%if %{?fedora}%{!?fedora:0} || ( %{?rhel}%{!?rhel:0} >= 10 && "%{?dist}" != ".el10_0" )
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
 Requires:	jupyter-notebook
@@ -1143,7 +1155,7 @@ access to http based storage such as webdav and S3.
 Summary:	HTTP server extension for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	js-jsroot >= 7.8
+Requires:	js-jsroot >= 7.9
 #		Library split (net-httpsniff from net-http)
 Obsoletes:	%{name}-net-http < 6.14.00
 
@@ -1672,9 +1684,7 @@ Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-%if %{root7}
 Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
-%endif
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
 Requires:	%{name}-vecops%{?_isa} = %{version}-%{release}
 #		Library split (tree-dataframe and vecops from tree-player)
@@ -1826,6 +1836,14 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 %description geom-webviewer
 This package contains a library for viewing geometries in a web GUI.
 
+%package tree-ntuple
+Summary:	The new ROOT n-tuple class
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+
+%description tree-ntuple
+This package contains the new ROOT n-tuple class (RNTuple).
+
 %if %{root7}
 %package graf-gpadv7
 Summary:	Canvas and pad library for ROOT (ROOT 7)
@@ -1913,14 +1931,6 @@ Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 This package contains a library to show a pop-up dialog when fitting
 various kinds of data.
 
-%package tree-ntuple
-Summary:	Ntuple (ROOT 7)
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-
-%description tree-ntuple
-This package contains an ntuple extension for ROOT 7.
-
 %package tree-ntuple-utils
 Summary:	Ntuple utility library (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1948,6 +1958,8 @@ This package contains utility functions for ntuples.
 %patch -P9 -p1
 %patch -P10 -p1
 %patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2663,15 +2675,6 @@ excluded="${excluded}|\
 gtest-tree-tree-testTTreeRegressions"
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 43
-# Failures due to reference counting changes in Python 3.14
-# - https://github.com/root-project/root/issues/18988
-# - https://docs.python.org/3.14/whatsnew/3.14.html
-excluded="${excluded}|\
-pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rdataframe-makenumpy|\
-pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rvec-asrvec"
-%endif
-
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
 # InterpreterTest.Evaluate fails on s390x
@@ -2784,7 +2787,7 @@ fi
 %files icons
 %{_datadir}/%{name}/icons
 
-%files fonts
+%files font-files
 %{_datadir}/%{name}/fonts
 
 %files tutorial
@@ -3536,6 +3539,11 @@ fi
 %{_libdir}/%{name}/libROOTGeomViewer_rdict.pcm
 %{_datadir}/%{name}/plugins/TVirtualGeoPainter/P020_RGeoPainter.C
 
+%files tree-ntuple -f includelist-tree-ntuple
+%{_libdir}/%{name}/libROOTNTuple.*
+%{_libdir}/%{name}/libROOTNTuple_rdict.pcm
+%dir %{_includedir}/%{name}/ROOT/libdaos_mock
+
 %if %{root7}
 %files graf-gpadv7 -f includelist-graf2d-gpadv7
 %{_libdir}/%{name}/libROOTGpadv7.*
@@ -3566,17 +3574,20 @@ fi
 %{_libdir}/%{name}/libROOTFitPanelv7.*
 %{_libdir}/%{name}/libROOTFitPanelv7_rdict.pcm
 
-%files tree-ntuple -f includelist-tree-ntuple
-%{_libdir}/%{name}/libROOTNTuple.*
-%{_libdir}/%{name}/libROOTNTuple_rdict.pcm
-%dir %{_includedir}/%{name}/ROOT/libdaos_mock
-
 %files tree-ntuple-utils -f includelist-tree-ntupleutil
 %{_libdir}/%{name}/libROOTNTupleUtil.*
 %{_libdir}/%{name}/libROOTNTupleUtil_rdict.pcm
 %endif
 
 %changelog
+* Sat Jun 21 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.00-2
+- Add root-tree-ntuple and root-tree-ntuple-utils dependensies to root-core
+  (listed in root-config --libs)
+- Rename root-fonts package to root-font-files
+- Add optional test dependency python3-pandas now available in EPEL 10
+- Add dependency jupyter-notebook to root-jupyroot for EPEL 10.1 and later
+- Fix Python 3.14 refcount issues in tests
+
 * Sat Jun 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.00-1
 - Update to 6.36.00
 - Enable the R interface for EPEL 10.1

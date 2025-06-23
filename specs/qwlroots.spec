@@ -9,7 +9,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  wlroots-devel
+BuildRequires:  pkgconfig(wlroots-0.18)
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(wayland-protocols)

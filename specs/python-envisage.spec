@@ -3,7 +3,7 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        7.0.3
+Version:        7.0.4
 Release:        %autorelease
 Summary:        Extensible application framework
 

@@ -1,4 +1,9 @@
 %bcond tests 1
+# python-pymongo fails to build with Python 3.14: DeprecationWarning:
+# 'asyncio.iscoroutinefunction' and 'asyncio.get_event_loop_policy' is
+# deprecated and slated for removal in Python 3.16
+# https://bugzilla.redhat.com/show_bug.cgi?id=2356166
+%bcond pymongo 0
 # Dependencies for some extras are not (yet?) in EPEL10
 %bcond pendulum %{undefined el10}
 %bcond phonenumbers %{undefined el10}
@@ -27,14 +32,16 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytz}
 %endif
 
-%if %{with pendulum} && %{with phonenumbers} && %{with pycountry}
+%if %{with pendulum} && %{with phonenumbers} && %{with pycountry} && %{with pymongo}
 %global all_extra 1
 %else
+%if %{with pymongo}
 # This doesn’t have its own extra – it is only brought in through the “all”
 # extra – but it is still required for import-checking
 # pydantic_extra_types.mongo_object_id and for the test
 # tests/test_mongo_object_id.py, so we depend on it manually.
 BuildRequires:  %{py3_dist pymongo}
+%endif
 %endif
 
 %global _description %{expand:
@@ -89,6 +96,7 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
     %{?!with_pycountry:-e pydantic_extra_types.currency_code} \
     %{?!with_pycountry:-e pydantic_extra_types.language_code} \
     %{?!with_pycountry:-e pydantic_extra_types.script_code} \
+    %{?!with_pymongo:-e pydantic_extra_types.mongo_object_id} \
     %{nil}}
 
 %if %{with tests}
@@ -105,7 +113,10 @@ ignore="${ignore-} --ignore=tests/test_currency_code.py"
 ignore="${ignore-} --ignore=tests/test_language_codes.py"
 ignore="${ignore-} --ignore=tests/test_scripts.py"
 %endif
-%if %{without pendulum} || %{without phonenumbers} || %{without pycountry}
+%if %{without pymongo}
+ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
+%endif
+%if %{without pendulum} || %{without phonenumbers} || %{without pycountry} || %{without pymongo}
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 

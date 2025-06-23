@@ -38,9 +38,7 @@ License:        GPL-2.0-or-later
 URL:            http://gnudatalanguage.sourceforge.net/
 Source0:        https://github.com/gnudatalanguage/gdl/releases/download/v%{version}/gdl-v%{version}.tar.gz
 #Source0:        https://github.com/gnudatalanguage/gdl/releases/download/weekly-release/gdl-unstable-f29c1fa.tar.gz
-Source1:        gdl.csh
-Source2:        gdl.sh
-Source4:        xorg.conf
+Source1:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
@@ -199,18 +197,13 @@ mv $RPM_BUILD_ROOT%{_prefix}/lib/python*/site-packages/GDL.so \
 %endif
 popd
 
-# Install the profile file to set GDL_PATH
-install -d -m 0755 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-install -m 0644 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-install -m 0644 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-
 
 # EL8 s390x missing xorg-x11-drv-dummy
 %if ! ( 0%{?rhel} >= 8 && "%{_arch}" == "s390x" )
 %check
 export PLPLOT_LIB=$RPM_BUILD_ROOT%{_datadir}/gnudatalanguage
 cd build
-cp %SOURCE4 .
+cp %SOURCE1 .
 if [ -x /usr/libexec/Xorg ]; then
    Xorg=/usr/libexec/Xorg
 elif [ -x /usr/libexec/Xorg.bin ]; then
@@ -258,7 +251,6 @@ cat xorg.log
 %files
 %license COPYING
 %doc AUTHORS HACKING NEWS README
-%config(noreplace) %{_sysconfdir}/profile.d/gdl.*sh
 %{_bindir}/gdl
 %{_mandir}/man1/gdl.1*
 

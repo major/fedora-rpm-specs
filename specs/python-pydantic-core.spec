@@ -10,7 +10,7 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.33.2
+Version:        2.35.1
 Release:        %autorelease
 Summary:        Core validation logic for pydantic written in rust
 

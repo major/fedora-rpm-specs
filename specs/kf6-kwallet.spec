@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.15.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -51,6 +51,7 @@ KWallet is a secure and unified container for user passwords.
 %package        libs
 Summary:        KWallet framework libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       qca-qt6-ossl%{?_isa}
 %description    libs
 Provides API to access KWallet data from applications.
 
@@ -123,6 +124,10 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Jun 21 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-3
+- add Requires: qca-qt6-ossl to -libs
+  see RHBZ#2367944
+
 * Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
 - 6.15 and plasma 3.4 compatibility rebuild
 

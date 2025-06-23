@@ -2,7 +2,7 @@
 
 Summary:   A drop in replacement for xpyb, an XCB python binding
 Name:      python-xcffib
-Version:   1.6.2
+Version:   1.9.0
 Release:   %autorelease
 Source0:   %{pypi_source}
 License:   Apache-2.0

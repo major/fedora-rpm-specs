@@ -12,7 +12,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:           lxc
-Version:        6.0.3
+Version:        6.0.4
 Release:        1%{?dist}
 Summary:        Linux Resource Containers
 # Automatically converted from old format: LGPLv2+ and GPLv2 - review is highly recommended.
@@ -135,26 +135,26 @@ This package contains documentation for %{name}.
 
 %build
 %meson \
-	-D examples=true \
-	-D man=true \
-	-D tools=true \
-	-D commands=true \
-	-D capabilities=true \
-	-D openssl=true \
-	-D selinux=true \
+        -D examples=true \
+        -D man=true \
+        -D tools=true \
+        -D commands=true \
+        -D capabilities=true \
+        -D openssl=true \
+        -D selinux=true \
 %if 0%{?with_seccomp}
-	-D seccomp=true \
+        -D seccomp=true \
 %endif
-	-D memfd-rexec=true \
-	-D thread-safety=true \
-	-D dbus=true \
-	-D tests=false \
-	-D init-script=systemd \
-	-D systemd-unitdir=%{_unitdir} \
-	-D distrosysconfdir=sysconfig \
-	-D pam-cgroup=true \
-	-D runtime-path=%{_rundir} \
-	%{nil}
+        -D memfd-rexec=true \
+        -D thread-safety=true \
+        -D dbus=true \
+        -D tests=false \
+        -D init-script=systemd \
+        -D systemd-unitdir=%{_unitdir} \
+        -D distrosysconfdir=sysconfig \
+        -D pam-cgroup=true \
+        -D runtime-path=%{_rundir} \
+        %{nil}
 %meson_build
 
 cd doc/api/ && doxygen
@@ -277,6 +277,10 @@ cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 
 
 %changelog
+* Sat Jun 21 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.4-1
+- Update to 6.0.4.
+- Untabify spec file.
+
 * Sat Feb 15 2025 Sérgio Basto <sergio@serjux.com> - 6.0.3-1
 - Update lxc to 6.0.3 (#2333359)
 

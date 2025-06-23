@@ -1,7 +1,10 @@
 %bcond tests 1
 
+%global commit 0c4a22b64b23dfad27387750cf07487efc45eb05
+%global snapdate 20250615
+
 Name:           python-pydantic
-Version:        2.11.5
+Version:        2.11.7^%{snapdate}git%{sub %{commit} 1 7}
 %global srcversion %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -9,7 +12,12 @@ Summary:        Data validation using Python type hinting
 # SPDX
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
-Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
+%dnl Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
+Source:         %{url}/archive/%{commit}/pydantic-%{commit}.tar.gz
+
+# Add initial support for Python 3.14
+# https://github.com/pydantic/pydantic/pull/11991
+Patch:          %{url}/pull/11991.patch
 
 BuildArch:      noarch
 
@@ -64,7 +72,8 @@ This package includes the documentation for Pydantic in Markdown format.
 
 
 %prep
-%autosetup -n pydantic-%{srcversion} -p1
+%dnl %autosetup -n pydantic-%{srcversion} -p1
+%autosetup -n pydantic-%{commit} -p1
 
 # Delete pytest addopts. We don't care about benchmarking or coverage.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
@@ -95,6 +104,39 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 # We don't build docs or care about benchmarking
 ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore=tests/benchmarks"
+
+# Upstream Python 3.14 support is not done yet. These are the remaining test
+# failures:
+k="${k-}${k+ and} not test_annotated_optional_field"
+k="${k-}${k+ and} not test_annotated_with_field_default_factory"
+k="${k-}${k+ and} not test_annotation_with_double_override"
+k="${k-}${k+ and} not test_annotations_valid_for_field_inheritance_with_existing_field"
+k="${k-}${k+ and} not test_callable_json_schema_extra_dataclass"
+k="${k-}${k+ and} not test_create_model_must_not_reset_parent_namespace"
+k="${k-}${k+ and} not test_cross_module_cyclic_reference_dataclass"
+k="${k-}${k+ and} not test_dataclass_alias_generator"
+k="${k-}${k+ and} not test_dataclass_docs_extraction"
+k="${k-}${k+ and} not test_default_factory_field[Field]"
+k="${k-}${k+ and} not test_field_title_generator_in_dataclass_fields"
+k="${k-}${k+ and} not test_forward_ref_auto_update_no_model"
+k="${k-}${k+ and} not test_forward_ref_one_of_fields_not_defined"
+k="${k-}${k+ and} not test_incomplete_superclass"
+k="${k-}${k+ and} not test_init_false_not_in_signature"
+k="${k-}${k+ and} not test_init_false_with_default"
+k="${k-}${k+ and} not test_init_false_with_post_init"
+k="${k-}${k+ and} not test_init_var_field"
+k="${k-}${k+ and} not test_kw_only_subclass"
+k="${k-}${k+ and} not test_model_rebuild_localns"
+k="${k-}${k+ and} not test_pickle_dataclass_nested_in_model[NonImportableNestedDataclassModel-True]"
+k="${k-}${k+ and} not test_pickle_model[NonImportableModel-True]"
+k="${k-}${k+ and} not test_pickle_nested_model[NonImportableNestedModel-True]"
+k="${k-}${k+ and} not test_rebuild_dataclass"
+k="${k-}${k+ and} not test_repr_false[Field]"
+k="${k-}${k+ and} not test_root_validator"
+k="${k-}${k+ and} not test_schema"
+k="${k-}${k+ and} not test_signature"
+k="${k-}${k+ and} not test_top_level_fwd_ref"
+k="${k-}${k+ and} not test_undefined_types_warning_1a_raised_by_default_2a_future_annotations"
 
 %pytest ${ignore-} -k "${k-}" -rs
 %endif

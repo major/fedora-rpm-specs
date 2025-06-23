@@ -33,7 +33,7 @@ Summary:        A functional standard library for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            http://github.com/pytoolz/%{srcname}/
+URL:            https://github.com/pytoolz/%{srcname}/
 Source0:        https://github.com/pytoolz/toolz/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 

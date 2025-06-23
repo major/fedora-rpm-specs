@@ -43,7 +43,7 @@ Summary: %{summary}
 
 %check
 %if %{with check}
-%pytest
+%pytest -k "not test_no_circular_references"
 %else
 %pyproject_check_import -e '*.test*'
 %endif

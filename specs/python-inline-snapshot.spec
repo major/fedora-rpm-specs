@@ -5,11 +5,7 @@
 %bcond bootstrap 0
 # We may also need to disable Pydantic integration tests for a longer period,
 # e.g. while waiting for Pydantic to support a new Python version.
-#
-# F43FailsToInstall: python3-pydantic+email, python3-pydantic+timezone,
-# python3-pydantic
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372054
-%bcond pydantic_fti 1
+%bcond pydantic_fti 0
 %bcond pydantic_tests %[ %{without bootstrap} && %{without pydantic_fti} ]
 
 Name:           python-inline-snapshot

@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.0.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -199,6 +199,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Jun 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-10
+- Really rebuild for new miniupnpc
+
 * Thu Jun 19 2025 Simone Caronni <negativo17@gmail.com> - 4.0.6-9
 - Rebuild for updated miniupnpc.
 

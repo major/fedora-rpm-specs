@@ -76,6 +76,11 @@ rm -f profiles/*.additional-profiles
 %patch -P8 -p1 -b .no-pointless-env
 %patch -P9 -p1 -b .distutils-setuptools
 
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+# Unify /usr/bin and /usr/sbin
+sed -e "s/'sbin'/'bin'/" -i setup.py
+%endif
+
 %build
 %py3_build
 

@@ -29,8 +29,6 @@ Patch2:         mingw-fltk-cmake.patch
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
-# For MinGW builds
-BuildRequires:  fltk-fluid
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  texlive-latex
@@ -45,6 +43,8 @@ BuildRequires:  pkgconfig(xproto)
 BuildRequires:  pkgconfig(zlib)
 
 %if %{with mingw}
+# For MinGW builds
+BuildRequires:  fltk-fluid
 # MinGW
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc

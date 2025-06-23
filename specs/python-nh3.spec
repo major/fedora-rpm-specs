@@ -49,7 +49,7 @@ export RUSTFLAGS='%{build_rustflags}'
 %install
 %pyproject_install
 
-%pyproject_save_files nh3
+%pyproject_save_files -l nh3
 
 
 %check
@@ -57,7 +57,6 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %files -n python3-nh3 -f %{pyproject_files}
-%license LICENSE LICENSES.dependencies
 %doc README.md
 
 

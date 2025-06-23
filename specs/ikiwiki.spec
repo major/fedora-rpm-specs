@@ -1,14 +1,14 @@
 Name:           ikiwiki
-Version:        3.20200202.4
-Release:        6%{?dist}
+Version:        3.20250501
+Release:        1%{?dist}
 Summary:        A wiki compiler
 
 # ikiwiki is licensed under GPLv2+, the Python code in plugins/ under
 # BSD (2-clause)
 # SPDX
 License:        GPL-2.0-or-later AND BSD-2-Clause
-URL:            http://ikiwiki.info/
-Source0:        http://ftp.debian.org/debian/pool/main/i/%{name}/%{name}_%{version}.orig.tar.xz
+URL:            https://ikiwiki.info/
+Source0:        https://ftp.debian.org/debian/pool/main/i/%{name}/%{name}_%{version}.orig.tar.xz
 Patch0:         ikiwiki-libexecdir.patch
 # Correct t/git.t test
 Patch1:         ikiwiki-fakehome.patch
@@ -204,12 +204,24 @@ sed -e '1i#!%{__python3}' -i \
 find %{buildroot}%{perl_vendorlib}/IkiWiki -type f \
      -exec chmod -x {} \;
 
+# https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+%if 0%{?fedora} >= 42
+mv %{buildroot}%{_prefix}/sbin/ikiwiki-mass-rebuild \
+   %{buildroot}%{_sbindir}
+%endif
+
 
 %files -f %{name}.lang
-%{_bindir}/ikiwiki*
-%{_sbindir}/ikiwiki*
+%{_bindir}/ikiwiki
+%{_bindir}/ikiwiki-calendar
+%{_bindir}/ikiwiki-comment
+%{_bindir}/ikiwiki-makerepo
+%{_bindir}/ikiwiki-transition
+%{_bindir}/ikiwiki-update-wikilist
+%{_sbindir}/ikiwiki-mass-rebuild
 %{_mandir}/man1/ikiwiki*
 %{_mandir}/man8/ikiwiki*
+%{_mandir}/man3/IkiWiki*
 %{_datadir}/ikiwiki
 %dir %{_sysconfdir}/ikiwiki
 %config(noreplace) %{_sysconfdir}/ikiwiki/*
@@ -249,6 +261,10 @@ meta-wrapper in this package.
 
 
 %changelog
+* Sat Jun 21 2025 Thomas Moschny <thomas.moschny@gmx.de> - 3.20250501-1
+- Update to 3.20250501.
+- Fix FTBFS due to bin/sbin unification on F42 and later.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.20200202.4-6
 - Rebuilt for Python 3.14
 

@@ -34,6 +34,10 @@ A perl interface to the uulib library (a.k.a. uudeview/uuenview).
 %setup -q -n %{pkgname}-%{version}
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export RPM_OPT_FLAGS="$RPM_OPT_FLAGS -std=gnu17"
+%endif
+
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %make_build
 

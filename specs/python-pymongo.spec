@@ -4,14 +4,17 @@
 %global giturl  https://github.com/mongodb/mongo-python-driver
 
 Name:           python-pymongo
-Version:        4.9.1
-Release:        4%{?dist}
+Version:        4.13.1
+Release:        1%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
 URL:            https://pymongo.readthedocs.io/en/stable/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/pymongo-%{version}.tar.gz
+# Don't fail tests on python 3.14 deprecation warnings
+# Downstream patch
+Patch0:         pymongo-nonfatal-warnings.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -94,7 +97,7 @@ contains the python3 version of this module.
 
 
 %prep
-%setup -q -n mongo-python-driver-%{version}
+%autosetup -n mongo-python-driver-%{version} -p1
 
 # Permit use of pytest-asyncio 0.23
 sed -i '/pytest-asyncio/s/0\.24\.0/0.23.0/' requirements/test.txt
@@ -148,6 +151,21 @@ rm doc/_build/html/.buildinfo
   --deselect=test/test_srv_polling.py::TestSrvPolling::test_replace_one \
   --deselect=test/test_srv_polling.py::TestSrvPolling::test_srv_service_name \
   --deselect=test/test_srv_polling.py::TestSrvPolling::test_srv_waits_to_poll \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_10_all_dns_selected \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_11_all_dns_selected \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_12_new_dns_randomly_selected \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_addition \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_dns_failures \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_dns_record_lookup_empty \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_does_not_flipflop \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_recover_from_initially_empty_seedlist \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_recover_from_initially_erroring_seedlist \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_removal \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_replace_both_with_one \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_replace_both_with_two \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_replace_one \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_srv_service_name \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_srv_waits_to_poll \
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_custom_srvServiceName \
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_invalid_type_for_srvMaxHosts \
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_negative_integer_for_srvMaxHosts \
@@ -182,6 +200,12 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Sat Jun 14 2025 Sandro Mani <manisandro@gmail.com> - 4.13.1-1
+- Update to 4.13.1
+
+* Fri Jun 13 2025 Sandro Mani <manisandro@gmail.com> - 4.9.1-5
+- Add patch to fix build against python 3.14
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.9.1-4
 - Rebuilt for Python 3.14
 
