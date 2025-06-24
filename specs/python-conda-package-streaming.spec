@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global srcname conda-package-streaming
 %global pkgname conda_package_streaming
 
@@ -7,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -80,6 +79,9 @@ export CONDA_EXE
 
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 0.11.0-5
+- Rebuilt for Python 3.14
+
 * Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 0.11.0-4
 - Bootstrap for Python 3.14.0b3 bytecode
 

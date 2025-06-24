@@ -8,7 +8,7 @@
 
 Name:           fedrq
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
 # - code is GPL-2.0-or-later
@@ -114,6 +114,9 @@ FEDRQ_BACKEND=libdnf5 %{py3_test_envvars} \
 
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.14
+
 * Sat Mar 01 2025 Maxwell G <maxwell@gtmx.me> - 1.5.0-1
 - Update to 1.5.0.
 

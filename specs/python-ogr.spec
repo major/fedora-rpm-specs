@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.55.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 0.55.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 30 2025 Packit <hello@packit.dev> - 0.55.0-1
 - We have added support for Forgejo releases. (#927)
 - Resolves: rhbz#2369439

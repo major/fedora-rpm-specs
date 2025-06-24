@@ -6,7 +6,7 @@
 
 Name:           the_silver_searcher
 Version:        2.2.0^%{date}.%{shortcommit}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Super-fast text searching tool (ag)
 # The bundled copy of src/uthash.h is BSD-1-Clause, but we remove that in
 # %%prep so this package is only Apache-2.0.
@@ -20,12 +20,15 @@ Patch:          0001-update-zsh-completion-for-new-options.patch
 Patch:          0002-Install-shell-completion-files-to-correct-locations.patch
 # https://github.com/ggreer/the_silver_searcher/pull/1540
 Patch:          0003-bash-completion-port-to-v2-API.patch
+# https://packages.debian.org/source/sid/silversearcher-ag
+# http://deb.debian.org/debian/pool/main/s/silversearcher-ag/silversearcher-ag_2.2.0+git20200805-1.2.debian.tar.xz
+Patch:          enable_pcre2_support.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 BuildRequires:  uthash-devel
@@ -79,6 +82,9 @@ make test
 
 
 %changelog
+* Sun Jun 22 2025 Shlomi Fish <shlomif@shlomifish.org> - 2.2.0^2020704.5a1c8d8-13
+- Port to use pcre2. Add patch from GitHub / Debian.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0^2020704.5a1c8d8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

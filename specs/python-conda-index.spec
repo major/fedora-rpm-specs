@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # Circular test dependency on conda-build
 %bcond_with bootstrap
 

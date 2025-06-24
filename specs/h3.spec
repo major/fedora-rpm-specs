@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/uber/h3
-Version:        4.1.0
+Version:        4.3.0
 %forgemeta
 
 Name:           h3
@@ -8,9 +8,6 @@ Summary:        Hexagonal hierarchical geospatial indexing system
 License:        Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-
-# Use CMAKE_INSTALL_LIBDIR
-Patch0:         https://github.com/uber/h3/pull/819.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -43,7 +40,12 @@ The %{name}-devel package contains development files for %{name}.
 %cmake_install
 
 %check
+%ifarch s390x
+# https://github.com/uber/h3/issues/1019
+%ctest -E testPolygonToCellsReportedExperimental_test103
+%else
 %ctest
+%endif
 
 %files
 %license LICENSE

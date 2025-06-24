@@ -1,10 +1,10 @@
 %global zig_pixman_ver 0.3.0
 %global zig_wayland_ver 0.3.0
-%global zig_wlroots_ver 0.18.2
+%global zig_wlroots_ver 0.19.1
 %global zig_xkbcommon_ver 0.3.0
 
 Name:           river
-Version:        0.3.9
+Version:        0.3.10
 Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
@@ -43,7 +43,7 @@ BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wlroots-0.18)
+BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(xkbcommon)
 
 # Right now there is no established way of managing Zig dependencies systemwide

@@ -43,7 +43,7 @@ Documentation for crcmod
 %autosetup -n %{pypi_name}-%{pypi_version}
 # Use local intersphinx inventory
 sed -r \
-    -e 's|http://docs.python.org|%{_docdir}/python3-docs/html|' \
+    -e "s|{'http://docs.python.org/': None}|{'python': ('%{_docdir}/python3-docs/html', None)}" \
     -i docs/source/conf.py
 
 %build

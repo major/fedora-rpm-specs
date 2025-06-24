@@ -11,9 +11,10 @@
 %bcond gcp_secret_manager 0
 
 %global forgeurl https://github.com/pydantic/pydantic-settings
+%global tag %{version}
 
 Name:           python-pydantic-settings
-Version:        2.9.1
+Version:        2.10.0
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
@@ -21,6 +22,10 @@ Summary:        Settings management using pydantic
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
+
+# Adapt test_protected_namespace_defaults for dev. Pydantic
+# https://github.com/pydantic/pydantic-settings/pull/637
+Patch:          %{forgeurl}/pull/637.patch
 
 BuildArch:      noarch
 
@@ -79,16 +84,6 @@ tomcli set pyproject.toml lists delitem \
 %check
 %if %{with tests}
 ignore="${ignore-} --ignore=tests/test_docs.py"
-%if %{without azure_key_vault}
-ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
-%endif
-%if %{without aws_secrets_manager}
-ignore="${ignore-} --ignore tests/test_source_aws_secrets_manager.py"
-%endif
-%if %{without gcp_secret_manager}
-ignore="${ignore-} --ignore tests/test_source_gcp_secret_manager.py"
-%endif
-
 %pytest ${ignore-} -k "${k-}" -rs -v
 %endif
 

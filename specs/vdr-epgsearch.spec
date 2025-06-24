@@ -7,7 +7,7 @@
 
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 43
-%global vdr_version 2.7.5
+%global vdr_version 2.7.6
 %elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
 %else
@@ -16,7 +16,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.4.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
@@ -95,6 +95,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.3-6
+- Rebuilt for new VDR API version 2.7.6
+
 * Mon Jun 16 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.3-5
 - Add fix_dump_timer_programming.txt prevent dump when setting
 

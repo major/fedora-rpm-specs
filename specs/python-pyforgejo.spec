@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A client library for accessing the Forgejo API
 
 License:        MIT
@@ -47,6 +47,9 @@ A client library for accessing the Forgejo API
 %license LICENSE
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 2.0.4-2
+- Rebuilt for Python 3.14
+
 * Tue May 06 2025 Packit <hello@packit.dev> - 2.0.4-1
 - Update to version 2.0.4
 - Resolves: rhbz#2364430

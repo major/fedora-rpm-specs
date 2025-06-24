@@ -2,13 +2,12 @@
 
 Name:       perl-App-Asciio 
 Version:    1.90.02
-Release:    4%{?dist}
+Release:    5%{?dist}
 # see lib/App/Asciio.pm
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Asciio back-end libraries 
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/App-Asciio-%{cpan_version}.tar.gz 
-Url:        https://metacpan.org/release/App-Asciio
+Url:        https://metacpan.org/dist/App-Asciio
 BuildArch:  noarch
 
 # non-perl
@@ -61,13 +60,27 @@ Provides: perl(App::Asciio::Dialogs)     = %{version}
 Provides: perl(App::Asciio::Elements)    = %{version}
 Provides: perl(App::Asciio::GTK::Asciio::Dialogs)   = %{version}
 Provides: perl(App::Asciio::GTK::Asciio::Menues)    = %{version}
-Provides: perl(App::Asciio::GTK::Asciio::stripes::editable_arrow2)  = %{version}
-Provides: perl(App::Asciio::GTK::Asciio::stripes::editable_box2)    = %{version}
-Provides: perl(App::Asciio::GTK::Asciio::stripes::wirl_arrow)       = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::editable_arrow2)    = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::editable_box2)      = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::wirl_arrow)         = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::angled_arrow)       = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::editable_exec_box)  = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::ellipse)            = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::rhombus)            = %{version}
+Provides: perl(App::Asciio::GTK::Asciio::stripes::section_wirl_arrow) = %{version}
 Provides: perl(App::Asciio::Io)          = %{version}
 Provides: perl(App::Asciio::Menues)      = %{version}
 Provides: perl(App::Asciio::Options)     = %{version}
 Provides: perl(App::Asciio::Setup)       = %{version}
+Provides: perl(App::Asciio::Text::Asciio)          = %{version}
+Provides: perl(App::Asciio::Text::Asciio::Dialogs) = %{version}
+Provides: perl(App::Asciio::Text::Asciio::Menues)  = %{version}
+Provides: perl(App::Asciio::Text::Asciio::stripes::editable_arrow2)    = %{version}
+Provides: perl(App::Asciio::Text::Asciio::stripes::editable_box2)      = %{version}
+Provides: perl(App::Asciio::Text::Asciio::stripes::editable_exec_box)  = %{version}
+Provides: perl(App::Asciio::Text::Asciio::stripes::section_wirl_arrow) = %{version}
+Provides: perl(App::Asciio::Text::Asciio::stripes::wirl_arrow)         = %{version}
+
 Provides: perl(App::Asciio::Undo)        = %{version}
 
 %{?perl_default_filter}
@@ -84,7 +97,6 @@ This package contains the back-end libraries needed to implement asciio.  For
 the actual application itself, please install the 'asciio' package.
 
 %package -n asciio
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Draw ascii art quickly and easily!
 Requires:   %{name} = %{version}-%{release}
@@ -146,6 +158,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications asciio.desktop
 
 
 %changelog
+* Sun Jun 22 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.90.02-5
+- Add missing Provides
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

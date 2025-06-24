@@ -46,7 +46,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -463,6 +463,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Sun Jun 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.0-3
+- Fix RPM macros for Python 3.14
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

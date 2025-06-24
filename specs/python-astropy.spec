@@ -1,10 +1,9 @@
-%global _without_check 1
 %bcond_without check
 
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 7.0.1
+Version: 7.1.0
 Release: %autorelease
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
@@ -14,17 +13,19 @@ License: BSD-3-Clause AND CFITSIO AND Python-2.0.1 AND MIT
 URL: http://astropy.org
 Source: %{pypi_source %{srcname}}
 Source: astropy-README.dist
-# To build with gcc 14
-Patch: python-astropy-313tests.patch
 Patch: python-astropy-system-configobj.patch
 Patch: python-astropy-system-ply.patch
-
-# Backport upstream patch for Numpy >=2.2
-Patch: effccc8.patch
+# Add python 3.14 to tox.ini
+Patch: tox314.patch
+# Backported fix 
+# https://github.com/astropy/astropy/issues/18127
+Patch: fix-18125.patch
+# https://github.com/astropy/astropy/issues/18126
+Patch: fix-18126.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel
-BuildRequires: wcslib-devel >= 8.2.2
+BuildRequires: wcslib-devel >= 8.4
 BuildRequires: python3-devel
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -42,6 +43,9 @@ coordinate transformations.}
 
 %package -n python3-%{srcname}
 Summary: %{summary}
+BuildRequires: %{py3_dist tox}
+BuildRequires: %{py3_dist pytest}
+BuildRequires: %{py3_dist hypothesis}
 # Unbundled
 BuildRequires: %{py3_dist configobj}
 BuildRequires: %{py3_dist ply}
@@ -50,7 +54,7 @@ Requires: %{py3_dist ply}
 # Bundled
 Provides: bundled(cfitsio) = 4.5.0
 Provides: bundled(jquery) = 3.60
-Provides: bundled(wcslib) = 8.3
+Provides: bundled(wcslib) = 8.4
 
 # Drop doc subpackage, is empty 
 
@@ -80,7 +84,7 @@ sed -i 's/{list_dependencies_command}/python -m pip freeze --all/g' tox.ini
 export ASTROPY_USE_SYSTEM_ALL=1
 %generate_buildrequires
 %if %{with check}
-%pyproject_buildrequires -t -x test
+%pyproject_buildrequires -e %{toxenv}-test
 %else
 %pyproject_buildrequires 
 %endif
@@ -101,12 +105,9 @@ export CPATH="/usr/include/wcslib"
 
 %check
 %if %{with check}
-# some tests are broken with Numpy 2.x
-# see https://github.com/astropy/astropy/issues/17124
-# upstream commit effccc8 doesn't fix that entirely
 pytest_args=(
- --verbosity=0
  -k "not (test_coverage or test_basic_testing_completeness or test_all_included)"
+ --verbosity=0
 # Some doctest are failing because of different output in big/little endian
 %ifarch s390x
  --ignore ../../docs/io/fits/index.rst

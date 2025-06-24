@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.47.0
+Version:	0.48~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -59,6 +59,7 @@ BuildRequires:	/usr/bin/xauth
 BuildRequires:	dbus-daemon
 BuildRequires:	desktop-file-utils
 BuildRequires:	systemd-rpm-macros
+BuildRequires:	xmlstarlet
 
 Requires:	gnome-session
 Requires:	gnome-settings-daemon
@@ -171,6 +172,7 @@ SH
 %{_libdir}/phosh/plugins/wifi-hotspot-quick-setting.plugin
 %{_libdir}/phosh/plugins/pomodoro-quick-setting.plugin
 %{_libdir}/phosh/plugins/scaling-quick-setting.plugin
+%{_libdir}/phosh/plugins/media-players.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-caffeine-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-calendar.so
 %{_libdir}/phosh/plugins/libphosh-plugin-dark-mode-quick-setting.so
@@ -184,6 +186,7 @@ SH
 %{_libdir}/phosh/plugins/libphosh-plugin-wifi-hotspot-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-pomodoro-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-scaling-quick-setting.so
+%{_libdir}/phosh/plugins/libphosh-plugin-media-players.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-emergency-info.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-upcoming-events.so

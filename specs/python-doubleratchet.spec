@@ -1,6 +1,6 @@
 Name:           python-doubleratchet
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python implementation of the Double Ratchet algorithm
 
 License:        MIT
@@ -79,6 +79,9 @@ install -pDm0644 docs/texinfo/doubleratchet.xml \
 
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 1.1.0-4
+- Rebuilt for Python 3.14
+
 * Sun Jun 08 2025 Benson Muite <fed500@fedoraproject.org> - 1.1.0-3
 - Use newer packaging macros
 - Build documentation

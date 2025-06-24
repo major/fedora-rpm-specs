@@ -10,7 +10,7 @@ you to use it with other frameworks.
 
 Name:           python-%{srcname}
 Version:        7.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python implementation of SAML Version 2
 License:        Apache-2.0
 URL:            https://github.com/IdentityPython/%{srcname}
@@ -120,6 +120,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 7.4.2-8
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

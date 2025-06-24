@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3615,6 +3615,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 6.3.7-6
+- Rebuilt for Python 3.14
+
 * Tue May 13 2025 William Cohen <wcohen@redhat.com> - 6.3.7-5
 - Add selinux policy for new pcp_pmie_t failure (BZ 2363903)
 

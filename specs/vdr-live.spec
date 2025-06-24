@@ -4,7 +4,7 @@
 %global gitdate 20241103
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 43
-%global vdr_version 2.7.5
+%global vdr_version 2.7.6
 %elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
 %else
@@ -14,7 +14,7 @@
 Name:           vdr-live
 Version:        3.5.0
 # Release:        0.2.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
@@ -87,6 +87,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-3
+- Rebuilt for new VDR API version 2.7.6
+
 * Tue May 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 3.5.0-2
 - Rebuilt for new VDR API version 2.7.5
 

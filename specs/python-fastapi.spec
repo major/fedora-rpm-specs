@@ -5,7 +5,7 @@
 
 # Breaks a circular dependency on fastapi-cli by omitting it from fastapi’s
 # “standard” and “all” extras.
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 %bcond inline_snapshot %{undefined el10}
 %bcond orjson 1
@@ -13,8 +13,12 @@
 %bcond passlib %{undefined el10}
 # Not yet packaged: https://pypi.org/project/PyJWT/
 %bcond pyjwt 0
-%bcond sqlmodel %{without bootstrap}
-%bcond uvicorn 1
+# F43FailsToInstall: python3-sqlmodel, python3-sqlmodel-slim
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372150#c3
+%bcond sqlmodel %[ %{without bootstrap} && 0 ]
+# F43FailsToInstall: python3-uvicorn+standard, python3-uvicorn
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372189
+%bcond uvicorn 0
 
 # For translations, check docs/*/docs/index.md
 # Note that there are many other localized versions of the documentation

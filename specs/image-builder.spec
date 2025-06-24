@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 147
+%global min_osbuild_version 153
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        21
+Version:        22
 
 %gometa
 
@@ -124,7 +124,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.5.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.149.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.153.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -233,6 +233,17 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Sun Jun 22 2025 Packit <hello@packit.dev> - 22-1
+Changes with 22
+----------------
+  * GHA: add the common-stale-action (#225)
+    * Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  * chore: bump `images` (#228)
+    * Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+
+— Somewhere on the Internet, 2025-06-22
+
+
 * Wed Jun 11 2025 Packit <hello@packit.dev> - 21-1
 Changes with 21
 ----------------

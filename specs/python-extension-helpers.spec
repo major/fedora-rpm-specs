@@ -4,7 +4,7 @@
 %bcond_with doc
 
 Name:           python-extension-helpers
-Version:        1.2.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        A build time package to simplify C/Cython extensions
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        5.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -69,6 +69,9 @@ ln -sf pyproject-too.toml pyproject.toml
 
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 5.6.2-2
+- Rebuilt for Python 3.14
+
 * Thu May 29 2025 Sandro Mani <manisandro@gmail.com> - 5.6.2-1
 - Update to 5.6.2
 

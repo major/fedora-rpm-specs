@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-428-gd1b27eeda3
+%global glibcsrcdir glibc-2.41.9000-464-gb3b0d0308c
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 19
+%global baserelease 20
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -339,7 +339,6 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2368545.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2382,6 +2381,40 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Sun Jun 22 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-20
+- Remove glibc-rh2368545.patch, applied upstream.
+- Auto-sync with upstream branch master,
+  commit b3b0d0308c95d213f019b19c33abf1b06911f528:
+- i386: Update ___tls_get_addr to preserve vector registers
+- manual: Clarify renameat documentation
+- posix: Add nonnull attribute to glob_pattern_p.
+- math: Simplify and optimize modf implementation
+- math: Simplify and optimize modff implementation
+- AArch64: Improve codegen SVE log1p helper
+- AArch64: Optimise SVE FP64 Hyperbolics
+- AArch64: Optimize SVE exp functions
+- Fix termios related targets
+- malloc: Cleanup _mid_memalign
+- aarch64: simplify calls to __libc_arm_za_disable in assembly
+- aarch64: GCS: use internal struct in __alloc_gcs
+- powerpc: Remove assembler workarounds
+- malloc: Fix tests-malloc-largetcache tests
+- Add TCPI_OPT_USEC_TS from Linux 6.14 and TCPI_OPT_TFO_CHILD from 6.15 to netinet/tcp.h.
+- linux/termios: regression test for termios speed functions
+- include/array_length.h: add array_foreach[_const] macros
+- termios: unify the naming of the termios speed fields
+- termios: add new baud_t interface, defined to be explicitly numeric
+- manual: document all the termios Bxxx constants in the manual
+- termios: merge the termios baud definitions
+- hurd+generic/termios: make speed_t an unsigned int
+- termios: change the generic cfsetspeed() to support arbitrary speeds
+- hurd/termios: remove USE_OLD_TTY
+- linux: implement arbitrary and split speeds in termios
+- linux/termios/powerpc: deal with powerpc-unique ioctl emulation
+- linux/ioctls: use <linux/sockios.h> for sockios ioctls
+- io: replace local_isatty() with a proper function __isatty_nostatus()
+- termios: make __tcsetattr() the internal interface
+
 * Fri Jun 20 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-19
 - Remove glibc-fedora-manual-dircategory.patch (#2252409)
 

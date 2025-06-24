@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 1.8.0-2
+- Rebuilt for Python 3.14
+
 * Fri May 09 2025 Packit <hello@packit.dev> - 1.8.0-1
 - You can now validate a Packit config passed to the Packit CLI via a path, e.g., `packit config validate -c /tmp/my-custom-packit-config.yml`. (#2556)
 - The `--resultdir` argument in `build_in_mock` now defaults to the current directory (`"."`), preventing loss of build artifacts when not explicitly set. (#2567)
