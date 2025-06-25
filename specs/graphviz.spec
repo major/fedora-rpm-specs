@@ -96,8 +96,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		12.2.1
-Release:		9%{?dist}
+Version:		13.0.1
+Release:		2%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -113,9 +113,8 @@ BuildRequires:		ksh
 BuildRequires:		bison
 BuildRequires:		m4
 BuildRequires:		flex
-# Reported upstream: https://gitlab.com/graphviz/graphviz/-/issues/2668
-BuildRequires:		tk-devel < 1:9.0
-BuildRequires:		tcl-devel < 1:9.0
+BuildRequires:		tk-devel
+BuildRequires:		tcl-devel
 BuildRequires:		swig
 BuildRequires:		sed
 BuildRequires:		fontconfig-devel
@@ -711,6 +710,13 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Jun 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 13.0.1-2
+- Rebuilt with Tcl/Tk 9.0
+
+* Mon Jun 23 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 13.0.1-1
+- New version
+  Resolves: rhbz#2371017
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 12.2.1-9
 - Rebuilt for Python 3.14
 

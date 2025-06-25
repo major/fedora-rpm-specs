@@ -1,6 +1,6 @@
 Name:		pciutils
-Version:	3.13.0
-Release:	8%{?dist}
+Version:	3.14.0
+Release:	1%{?dist}
 Summary:	PCI bus related utilities
 License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -14,7 +14,6 @@ Patch1:		pciutils-2.2.1-idpath.patch
 
 #add support for directory with another pci.ids, rejected by upstream, rhbz#195327
 Patch2:		pciutils-dir-d.patch
-Patch3:		pciutils-3.13.0-fixleak.patch
 
 Requires:	hwdata
 Requires:	%{name}-libs = %{version}-%{release}
@@ -115,6 +114,9 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 %{_mandir}/man7/*
 
 %changelog
+* Mon Jun 23 2025 Michal Hlavinka <mhlavink@redhat.com> - 3.14.0-1
+- updated to 3.14.0 (#2374352)
+
 * Thu Jun 05 2025 Michel Lind <salimma@fedoraproject.org> - 3.13.0-8
 - Cleanup: de-duplicate common build options and use %%{_prefix} macro
 - Also install pcilmr

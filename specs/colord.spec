@@ -8,14 +8,11 @@
 
 Summary:   Color daemon
 Name:      colord
-Version:   1.4.7
+Version:   1.4.8
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
-Source1:   colord.sysusers
-
-Patch0:    0001-Fix-writing-to-the-database-with-ProtectSystem-stric.patch
 
 %if !0%{?rhel}
 BuildRequires:  pkgconfig(bash-completion)
@@ -112,6 +109,7 @@ Data files for installed tests.
 ulimit -Sv 2000000
 
 %meson \
+    -Dtests=false \
     -Dvapi=true \
     -Dinstalled_tests=true \
     -Dprint_profiles=false \
@@ -131,7 +129,6 @@ ulimit -Sv 2000000
 
 %install
 %meson_install
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/colord.conf
 
 # databases
 touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/mapping.db
@@ -163,6 +160,7 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager*.xml
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
 %{_datadir}/dbus-1/system-services/org.freedesktop.ColorManager.service
+%{_datadir}/metainfo/org.freedesktop.colord.metainfo.xml
 %{_mandir}/man1/*.1*
 %{_datadir}/colord
 %if !0%{?rhel}
@@ -174,7 +172,7 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 %{_libdir}/colord-plugins
 %ghost %attr(-,colord,colord) %{_localstatedir}/lib/colord/*.db
 %{_unitdir}/colord.service
-%{_sysusersdir}/colord.conf
+%{_sysusersdir}/colord-sysusers.conf
 
 # session helper
 %{_libexecdir}/colord-session
@@ -253,5 +251,5 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 %dir %{_datadir}/installed-tests/colord
 %{_datadir}/installed-tests/colord/*
 
-%changelog	
+%changelog
 %autochangelog

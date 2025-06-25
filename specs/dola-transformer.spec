@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           dola-transformer
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Maven 4 extension for dynamic POM transformation
 License:        Apache-2.0

@@ -4,19 +4,15 @@
 Summary: Circuit simulator
 Name:    qucs
 Version: 0.0.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-1.0-or-later
 URL:     http://qucs.sourceforge.net/
 Source0: https://github.com/Qucs/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Qucs/qucs/issues/1103
-Patch:   qucs-0.0.20-soname-fix.patch
-# https://github.com/Qucs/qucs/issues/1103
-Patch:   qucs-0.0.20-fix-libdir.patch
-# https://github.com/Qucs/qucs/issues/1103
-Patch:   qucs-0.0.20-install-headers.patch
 
 BuildRequires: make
-BuildRequires: cmake
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
 BuildRequires: gcc-c++
 BuildRequires: coreutils
 BuildRequires: desktop-file-utils
@@ -53,36 +49,23 @@ software aims to support all kinds of circuit simulation types,
 e.g. DC, AC, S-parameter and harmonic balance analysis.
 
 
-%package lib
-Summary:  Qucs library
-
-
-%description lib
-Qucs circuit simulator library
-
-
-%package devel
-Summary:  Qucs development headers
-Requires: %{name}-lib%{?_isa} = %{version}-%{release}
-
-
-%description devel
-Qucs circuit simulator development headers
-
-
 %prep
 %autosetup -p1
 
 
 %build
-%cmake -DENABLE_RPATH=OFF \
-  -DCMAKE_SKIP_RPATH=ON \
-  -DCMAKE_INSTALL_LIBDIR=%{_libdir}
-%cmake_build
+autoreconf -fi
+%configure --enable-debug=yes
+# remove rpath
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' ./libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' ./libtool
 
+# drop rpath from the LDFLAGS
+# parallel build not working
+%make_build -j1 qucsconv_LDFLAGS= qucsator_LDFLAGS=
 
 %install
-%cmake_install
+%make_install
 install -d %{buildroot}%{_datadir}/applications
 
 %if !%{with qucs_enables_freehdl}
@@ -105,16 +88,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/*/*/*
 
 
-%files lib
-%{_libdir}/libqucsschematic.so.*
-
-
-%files devel
-%{_includedir}/*
-%{_libdir}/libqucsschematic.so
-
-
 %changelog
+* Mon Jun 23 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.0.20-2
+- Switched to autotools build system (upstream preferred)
+- Dropped useless subpackages
+- Fixed requirement
+  Resolves: rhbz#2355068
+
 * Tue Mar 18 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.20-1
 - New version
   Resolves: rhbz#2341258

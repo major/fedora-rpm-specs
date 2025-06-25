@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
 # Main code is BSD
@@ -12,6 +12,9 @@ Summary:        Functionality for FIDO 2.0, including USB device communication
 License:        LicenseRef-Callaway-BSD AND Apache-2.0 AND MPL-2.0
 URL:            https://github.com/Yubico/python-fido2
 Source0:        https://github.com/Yubico/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fix build with cryptography 45+
+Patch0:         0001-cryptography-dep.patch
+
 BuildArch:      noarch
 
 %global _description\
@@ -69,6 +72,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Thu Jun 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.0-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

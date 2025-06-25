@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc2.250620g75f5f23f8787.28
+%define pkgrelease 0.rc3.31
 %define kversion 6
-%define tarfile_release 6.16-rc2-231-g75f5f23f8787
+%define tarfile_release 6.16-rc3
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.250620g75f5f23f8787.28%{?buildid}%{?dist}
+%define specrelease 0.rc3.31%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4337,11 +4337,18 @@ fi\
 #
 #
 %changelog
-* Fri Jun 20 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.16.0-0.rc2.250620g75f5f23f8787.28]
-- Fedora configs for 6.16 (Justin M. Forbes)
-
-* Fri Jun 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.75f5f23f8787.28]
+* Mon Jun 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.31]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Jun 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.30]
+- Linux v6.16.0-0.rc3
+
+* Sun Jun 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.739a6c93cc75.29]
+- Linux v6.16.0-0.rc2.739a6c93cc75
+
+* Sat Jun 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.3f75bfff44be.28]
+- Fedora configs for 6.16 (Justin M. Forbes)
+- Linux v6.16.0-0.rc2.3f75bfff44be
 
 * Fri Jun 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.75f5f23f8787.27]
 - aarch64: Switch TI_SCI_CLK and TI_SCI_PM_DOMAINS symbols to built-in (Peter Robinson)

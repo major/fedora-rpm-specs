@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    8080be387a5be380dda48c6f41cee4a13aadab3d
-%global gh_date      2025-05-02
+%global gh_commit    3637b3e50d32ab3a0d1a33b3b6177169ec3d95a3
+%global gh_date      2025-06-20
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.46
+%global upstream_version 10.5.47
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -265,6 +265,9 @@ exit $ret
 
 
 %changelog
+* Sat Jun 21 2025 Remi Collet <remi@remirepo.net> - 10.5.47-1
+- update to 10.5.47
+
 * Sun May  4 2025 Remi Collet <remi@remirepo.net> - 10.5.46-1
 - update to 10.5.46
 - raise dependency on myclabs/deep-copy 1.13.1

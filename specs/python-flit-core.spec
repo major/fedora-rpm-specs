@@ -19,12 +19,12 @@ URL:            https://flit.pypa.io/
 Source:         %{pypi_source flit_core}
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+BuildRequires:  python%{python3_pkgversion}-devel
 
 %if %{with tests}
-BuildRequires:  python3-pytest
+BuildRequires:  python%{python3_pkgversion}-pytest
 # Test deps that require flit-core to build:
-BuildRequires:  python3-testpath
+BuildRequires:  python%{python3_pkgversion}-testpath
 %endif
 
 %global _description %{expand:
@@ -35,9 +35,8 @@ at flit_core.buildapi.}
 %description %_description
 
 
-%package -n python3-flit-core
+%package -n python%{python3_pkgversion}-flit-core
 Summary:        %{summary}
-Conflicts:      python3-flit < 2.1.0-2
 
 # RPM generators are not yet available when we bootstrap
 %if %{with bootstrap}
@@ -46,7 +45,7 @@ Provides:       python%{python3_version}dist(flit-core) = %{version}
 Requires:       python(abi) = %{python3_version}
 %endif
 
-%description -n python3-flit-core %_description
+%description -n python%{python3_pkgversion}-flit-core %_description
 
 
 %prep
@@ -90,7 +89,7 @@ rm %{buildroot}%{python3_sitelib}/flit_core-%{version}.dist-info/RECORD
 %endif
 
 
-%files -n python3-flit-core
+%files -n python%{python3_pkgversion}-flit-core
 %doc README.rst
 %{python3_sitelib}/flit_core-*.dist-info/
 %license %{python3_sitelib}/flit_core-*.dist-info/licenses/LICENSE

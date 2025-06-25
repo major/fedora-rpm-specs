@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-%global commit0 22e564626297b4df0a40570ad81d6c05cc7c38bd
+%global commit0 b3e3051a088047d19fd4d49b1c3ac42fb8c3aaf8
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global fontname google-noto-emoji
@@ -24,8 +24,8 @@ BuildRequires:  cairo-devel
 %endif
 BuildRequires:  make
 
-Version: 20241008
-Release: 3%{?dist}
+Version: 20250623
+Release: 1%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google
@@ -96,6 +96,10 @@ cp -p fonts/Noto-COLRv1.ttf .
 
 
 %changelog
+* Mon Jun 23 2025 Bilal Bassam <belal2453@gmail.com> - 20250623-1
+- Update to v2.048
+- Update the flag of Syria
+
 * Wed Apr  9 2025 Peng Wu <pwu@redhat.com> - 20241008-3
 - Switch to use the COLRv1 font format
 

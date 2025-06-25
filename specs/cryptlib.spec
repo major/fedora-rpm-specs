@@ -5,11 +5,11 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
-URL:        https://www.cs.auckland.ac.nz/~pgut001/cryptlib      
+URL:        https://github.com/cryptlib/cryptlib      
 Source0:    https://senderek.ie/fedora/cl348_fedora.zip      
 Source1:    https://senderek.ie/fedora/cl348_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
@@ -359,6 +359,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jun 23 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-9
+- update source code URL and fix sanitize warning in clkeys and clsmime
+
 * Sat Jun 14 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-8
 - update tests for gpg interoperability
 

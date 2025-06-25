@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 4
-%global teeny_version 2
+%global teeny_version 4
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -27,7 +27,7 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 3.6.2
+%global rubygems_version 3.6.7
 %global rubygems_molinillo_version 0.8.0
 %global rubygems_net_http_version 0.6.0
 %global rubygems_net_protocol_version 0.2.2
@@ -36,21 +36,21 @@
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.3
 %global rubygems_tsort_version 0.2.0
-%global rubygems_uri_version 1.0.2
+%global rubygems_uri_version 1.0.3
 
 # Default gems.
-%global bundler_version 2.6.2
-%global bundler_connection_pool_version 2.4.1
+%global bundler_version 2.6.7
+%global bundler_connection_pool_version 2.5.0
 %global bundler_fileutils_version 1.7.3
 %global bundler_net_http_persistent_version 4.0.4
 %global bundler_pub_grub_version 0.5.0
 %global bundler_securerandom_version 0.4.1
 %global bundler_thor_version 1.3.2
 %global bundler_tsort_version 0.2.0
-%global bundler_uri_version 1.0.2
+%global bundler_uri_version 1.0.3
 
 %global benchmark_version 0.4.0
-%global cgi_version 0.4.1
+%global cgi_version 0.4.2
 %global date_version 3.4.1
 %global delegate_version 0.4.0
 %global did_you_mean_version 2.0.0
@@ -98,7 +98,7 @@
 %global tmpdir_version 0.3.1
 %global tsort_version 0.2.0
 %global un_version 0.3.0
-%global uri_version 1.0.2
+%global uri_version 1.0.3
 %global weakref_version 0.1.3
 %global win32ole_version 1.9.1
 %global win32_registry_version 0.1.0
@@ -121,7 +121,7 @@
 %global drb_version 2.2.1
 %global getoptlong_version 0.2.1
 %global net_ftp_version 0.3.8
-%global net_imap_version 0.5.6
+%global net_imap_version 0.5.8
 %global net_pop_version 0.1.2
 %global net_smtp_version 0.5.1
 %global nkf_version 0.2.0
@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 24%{?dist}
+Release: 25%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1879,6 +1879,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Wed Jun 11 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.4-25
+- Upgrade to Ruby 3.4.4.
+  Resolves: rhbz#2359563
+
 * Tue Apr 08 2025 Jun Aruga <jaruga@redhat.com> - 3.4.2-24
 - Fix the tests using SHA-1 Probabilistic Signature Scheme (PSS) parameters.
   Resolves: rhbz#2358256

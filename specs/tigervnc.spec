@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -407,6 +407,11 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Mon Jun 23 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-6
+- Rebuild (xorg-x11-server)
+  Fixes: CVE-2025-49175 / CVE-2025-49176 / CVE-2025-49177
+         CVE-2025-49178 / CVE-2025-49179 / CVE-2025-49180
+
 * Tue Apr 08 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-5
 - Fix inetd mode not working (rhbz#2357952)
 

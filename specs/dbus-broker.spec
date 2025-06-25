@@ -15,6 +15,7 @@ BuildRequires:        pkgconfig(libselinux)
 BuildRequires:        pkgconfig(libsystemd)
 BuildRequires:        pkgconfig(systemd)
 BuildRequires:        bindgen-cli
+BuildRequires:        clang
 BuildRequires:        gcc
 BuildRequires:        glibc-devel
 BuildRequires:        meson

@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    b478f34614f934e0291598d0c08cbaba9644bee5
+%global gh_commit    03d905327dccc0851c9a08d6a979dfc683826b6f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-03-07
+%global gh_date      2025-06-13
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,7 +24,7 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.1
+Version:        7.1.0
 Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
@@ -42,8 +42,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^12.0"
-BuildRequires:  phpunit12
+#        "phpunit/phpunit": "^12.2"
+BuildRequires:  phpunit12 >= 12.2
 BuildRequires:  (php-composer(%{pk_vendor}/diff)     >= 7.0   with php-composer(%{pk_vendor}/diff)     < 8)
 BuildRequires:  (php-composer(%{pk_vendor}/exporter) >= 7.0   with php-composer(%{pk_vendor}/exporter) < 8)
 %endif
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Sat Jun 21 2025 Remi Collet <remi@remirepo.net> - 7.1.0-1
+- update to 7.1.0
+
 * Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 7.0.1-1
 - update to 7.0.1
 

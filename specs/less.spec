@@ -1,6 +1,6 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 678
+Version: 679
 Release: 1%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jun 23 2025 Michal Hlavinka <mhlavink@redhat.com> - 679-1
+- updated to 679
+
 * Thu May 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 678-1
 - updated to 678 (#2367012)
 

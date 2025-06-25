@@ -1,6 +1,6 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.2.1
+Version:       2.2.2
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
@@ -34,6 +34,7 @@ BuildRequires:  pkgconfig(sysstat-qt6)
 BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6WaylandClientPrivate)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(KF6WindowSystem)
@@ -127,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Mon Jun 23 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.2-1
+- 2.2.2
+
 * Sat May 17 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.1-1
 - 2.2.1
 

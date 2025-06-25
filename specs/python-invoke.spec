@@ -7,7 +7,7 @@
 
 Name:           python-invoke
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Python task execution tool and library
 
 License:        BSD-2-Clause
@@ -15,6 +15,8 @@ URL:            https://www.pyinvoke.org/
 Source:         https://github.com/pyinvoke/invoke/archive/%{version}/invoke-%{version}.tar.gz
 
 Patch1:         0001-Fix-requirements.patch
+# https://github.com/pyinvoke/invoke/issues/1038
+Patch2:         %{name}-SystemError.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -69,6 +71,9 @@ ln -s invoke %{buildroot}%{_bindir}/invoke3
 
 
 %changelog
+* Sat Jun 21 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.2.0-9
+- Fix build with Python 3.14 (resolves rhbz#2365652)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-8
 - Rebuilt for Python 3.14
 

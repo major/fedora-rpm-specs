@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.45
+Version:        2.2.46
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -38,7 +38,7 @@ BuildRequires:  (crate(uuid/v4) >= 1.1 with crate(uuid/v4) < 2.0)
 BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 5.1 with crate(zbus/default) < 6.0)
 BuildRequires:  (crate(zvariant/default) >= 5.1 with crate(zvariant/default) < 6.0)
-BuildRequires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
+BuildRequires:  (crate(nix/default) >= 0.30 with crate(nix/default) < 0.31)
 BuildRequires:  (crate(toml/default) >= 0.8 with crate(toml/default) < 0.9)
 BuildRequires:  (crate(tokio/default) >= 1.3 with crate(tokio/default) < 2.0)
 BuildRequires:  (crate(tokio/net) >= 1.3 with crate(tokio/net) < 2.0)

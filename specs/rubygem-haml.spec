@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.2.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: An elegant, structured (X)HTML/XML templating engine
 License: MIT and WTFPL
 URL: http://haml.info/
@@ -83,6 +83,14 @@ sed -i '/[Ss]imple[Cc]ov/ s/^/#/g' test/test_helper.rb
 # Disable test_annotated_template_names that's not working (removed in next release)
 mv test/template_test.rb{,.disable}
 
+# Avoid `ActionView::Template::Error: unknown keyword: :has_strict_locals`
+# error in Rails 8, which intoduced this kwarg:
+# https://github.com/rails/rails/commit/bbe7d19e11d1cd6374c667c38428c0c783bed3b5
+# Just FTR, this file was dropped in more recent HAML:
+# https://github.com/haml/haml/commit/11bb81149f4b048fe9282ed9be0dd10bfbc710b2#diff-2acf37380293c4739141a2f05134fa30a6d8f2716e5574a9598265fbf86a0854
+sed -i '/def _run/ s/add_to_stack: true, &block/add_to_stack: true, has_strict_locals: false, \&block/' \
+  test/helpers_for_rails_test.rb
+
 # options_test.rb must be executed in isolation in order to prevent load
 # order issues.
 # https://github.com/haml/haml/issues/943
@@ -116,6 +124,9 @@ popd
 %exclude %{gem_instdir}/yard/default/.gitignore
 
 %changelog
+* Mon Jun 23 2025 Vít Ondruch <vondruch@redhat.com> - 5.2.2-12
+- Fix Ruby on Rails 8 compatibility.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

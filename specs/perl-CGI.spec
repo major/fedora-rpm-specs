@@ -1,6 +1,6 @@
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
-Version:        4.68
+Version:        4.69
 Release:        1%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 23 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.69-1
+- 4.69 bump (rhbz#2374269)
+
 * Mon Apr 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.68-1
 - 4.68 bump (rhbz#2356535)
 

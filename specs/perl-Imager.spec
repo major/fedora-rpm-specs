@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.027
+Version:        1.028
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,6 +30,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
@@ -68,7 +69,6 @@ BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 Requires:       pkgconfig
 Requires:       rgb
-Requires:       perl(Devel::CheckLib)
 # Unused Requires:       perl(File::Spec)
 Requires:       perl(warnings::register)
 Requires:       perl(XSLoader)
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Jun 23 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.028-1
+- 1.028 bump (rhbz#2374270)
+
 * Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.027-1
 - 1.027 bump (rhbz#2349241)
 

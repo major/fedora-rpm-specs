@@ -1,5 +1,5 @@
 Name:    lite-xl
-Version: 2.1.7
+Version: 2.1.8
 
 Release: %autorelease
 
@@ -9,15 +9,13 @@ Summary: A lightweight text editor written in Lua, adapted from lite
 License: MIT and OFL
 URL:     https://lite-xl.com/
 Source:  https://github.com/lite-xl/lite-xl/archive/refs/tags/v%{version}.tar.gz
-# https://github.com/lite-xl/lite-xl/issues/2014
-Patch:   000-stdlib.patch
 
 BuildRequires: gcc
 BuildRequires: meson
 BuildRequires: (pkgconfig(lua) >= 5.4 with pkgconfig(lua) < 5.5)
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(freetype2)
-BuildRequires: pkgconfig(sdl2)
+BuildRequires: pkgconfig(sdl3)
 BuildRequires: desktop-file-utils
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

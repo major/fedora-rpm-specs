@@ -75,7 +75,7 @@ documentation needed to develop application with %{name}.
 %pyproject_save_files -l igraph
 
 %check
-%pytest -v -k 'not test_labels'
+%pytest -v
 
 %files -n python3-igraph -f %{pyproject_files}
 %{_bindir}/igraph

@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        1.0.5
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the
@@ -9,29 +9,12 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/watchfiles
 Source:         %{pypi_source watchfiles}
 
-# Update notify dependency to 8.0.0, bumping MSRV to 1.77
-# https://github.com/samuelcolvin/watchfiles/pull/327
-#
-# (We take only the commits changing Cargo.toml, not the ones updating
-# Cargo.lock and the CI configuration.)
-#
-# Update notify to version 8.0.0
-Patch:          %{url}/pull/327/commits/3a011974826b5997eb394755259995110cd46f88.patch
-# Bump MSRV to 1.77 for notify 8.0.0
-Patch:          %{url}/pull/327/commits/9f7e00f866a31a35bce68d70e7bfccc7467366c5.patch
-
-# Update PyO3 to 0.25
-# https://github.com/samuelcolvin/watchfiles/pull/340
-#
-# We take only the commit changing Cargo.toml, not the one updating Cargo.lock.
-# (Rebased on top of notify 8.0.0 patches)
-Patch:          0001-Update-PyO3-to-0.25.patch
-
 # Downstream-only: allow a slightly older pytest to support EPEL10
 Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
 
 %global _description %{expand:
 Simple, modern and high performance file watching and code reload in python.
@@ -54,7 +37,6 @@ Summary:        %{summary}
 # Unlicense OR MIT
 License:        %{shrink:
                 MIT AND
-                Apache-2.0 AND
                 CC0-1.0 AND
                 ISC AND
                 (MIT OR Apache-2.0) AND
@@ -69,20 +51,16 @@ License:        %{shrink:
 %autosetup -n watchfiles-%{version} -p1
 
 # Remove unnecessary Python test requirements
-sed -e '/"coverage\b/d' \
-    -e '/"pytest-pretty\b/d' \
-    -e '/"pytest-timeout\b/d' \
-    -i pyproject.toml
-# Loosen the minimum maturin version for testing
-# https://bugzilla.redhat.com/show_bug.cgi?id=2329012
-sed -e 's/maturin>=1.8.1/maturin>=1.7.4/' -i pyproject.toml
+tomcli set pyproject.toml lists delitem \
+    'dependency-groups.dev' '^(coverage|pytest-(pretty|timeout)).*'
 
 # Remove pytest timeout config
-sed -e '/timeout =/d' -i pyproject.toml
+tomcli set pyproject.toml del 'tool.pytest.ini_options.timeout'
 
 # Remove "generate-import-lib" feature for pyo3; applicable only on Windows,
 # and not packaged.
-sed -e 's/\(pyo3.*\), "generate-import-lib"/\1/' -i Cargo.toml
+tomcli set Cargo.toml lists delitem 'dependencies.pyo3.features' \
+    'generate-import-lib'
 
 # Remove unused Cargo config that contains buildflags for Darwin
 rm .cargo/config.toml

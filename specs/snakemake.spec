@@ -33,22 +33,8 @@
 %bcond conda_tests 0
 %bcond gcs_tests 1
 
-# Snapshot fixes test_config_ref failing with:
-#
-# jsonschema.exceptions._RefResolutionError: [Errno 2] No such file or
-# directory:
-# 'file:/tmp/pytest-of-mockbuild/pytest-0/test_config_ref0/schema/bar.schema.yaml'
-#
-# Specifically, we need:
-#
-# fix: DeprecationWarning when using snakemake.utils.validate
-# https://github.com/snakemake/snakemake/pull/3420
-# https://github.com/snakemake/snakemake/commit/cf724272eefcd9b30fb625d2e16380727bef9c3e
-%global commit 6dee2b55fbfff3bdad33cecdbeb8bd55ff4586bc
-%global snapdate 20250612
-
 Name:           snakemake
-Version:        9.5.1^%{snapdate}git%{sub %{commit} 1 7}
+Version:        9.6.1
 %global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
@@ -145,12 +131,12 @@ URL:            https://snakemake.readthedocs.io/en/stable/index.html
 # before uploading it to the lookaside cache, so doing so would not be
 # meaningfully easier than using the GitHub archive with an additional source
 # for the assets.
-Source0:        %{forgeurl}/archive/%{commit}/snakemake-%{commit}.tar.gz
+Source0:        %{forgeurl}/archive/v%{version}/snakemake-%{version}.tar.gz
 # The assets for HTML reports are normally downloaded in setup.py when creating
 # the sdist. We use a script, Source2, executed with no arguments (implicitly
 # relying on the spec file in the same directory) to download the assets,
 # modify them as necessary, and pack them into an additional source archive.
-Source1:        snakemake-%{commit}-assets.tar.zst
+Source1:        snakemake-%{version}-assets.tar.zst
 Source2:        get_assets
 
 # Downstream-only: adjust the asset metadata in the sources, including
@@ -164,7 +150,7 @@ Patch:          snakemake-9.1.1-modified-assets.patch
 
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI
-BuildOption(generate_buildrequires): -x reports,messaging
+BuildOption(generate_buildrequires): -x reports
 BuildOption(install):   -l snakemake
 BuildOption(check):     %{shrink:
                         -e '*.tests*'
@@ -347,14 +333,12 @@ Provides:       bundled(npm(heroicons)) = 1.0.3
 # src/snakemake/assets/data/prop-types/prop-types.min.js
 Provides:       bundled(npm(prop-types)) = 15.7.2
 
-# These extras were removed upstream in Snakemake 8.0.0. Retain the Obsoletes
-# until F40 reaches EOL so we have a clean upgrade path.
-Obsoletes:      snakemake+azure < 8.1.0-1
-Obsoletes:      snakemake+google-cloud < 8.1.0-1
 # We no longer build Sphinx-generated PDF documentation. Beginning with 8.2.3,
 # this would require patching out sphinxawesome-theme from docs/conf.py. It’s
 # possible but tedious.
 Obsoletes:      snakemake-doc < 8.2.1-2
+# Removed in 9.6.0; keep the Obsoletes through Fedora 45.
+Obsoletes:      snakemake+messaging < 9.6.1-1
 
 %if %{with tests}
 # For several tests (either apptainer or singularity-ce should work):
@@ -410,12 +394,13 @@ which will be automatically deployed to any execution environment.}
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
 #   - python3-peppy
-%pyproject_extras_subpkg -n snakemake reports messaging
+# Therefore, also no metapakge for “all” extra
+%pyproject_extras_subpkg -n snakemake reports
 
 
 %prep
-%autosetup -n snakemake-%{commit} -p1
-%setup -q -T -D -a 1 -c -n snakemake-%{commit}
+%autosetup -n snakemake-%{version} -p1
+%setup -q -T -D -a 1 -c -n snakemake-%{version}
 
 # Copy and rename nano and vim extensions readmes for use in the main
 # documentation directory.
@@ -536,7 +521,7 @@ k="${k-}${k+ and }not test_jupyter_notebook_nbconvert"
 k="${k-}${k+ and }not test_jupyter_notebook_draft"
 %endif
 
-# Flaky; so far, we have not attempted to understand or report this.
+# Flaky; so far, we have not attempted to understand or report these.
 #
 # FAILED ../tests/tests.py::test_update_flag - AssertionError: wrong result
 # produced for file 'test.txt':
@@ -547,6 +532,10 @@ k="${k-}${k+ and }not test_jupyter_notebook_draft"
 # bar
 # -----------------
 k="${k-}${k+ and }not test_update_flag"
+# FAILED ../tests/tests.py::test_queue_input_dryrun -
+# snakemake_interface_common.exceptions.WorkflowError: At least one job did not
+# complete successfully.
+# (produces no other useful output)
 
 # Hangs on s390x; we have not attempted to understand or report this, although
 # it would be nice to do so. For simplicity, we just skip it on all

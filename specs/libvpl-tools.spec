@@ -1,6 +1,6 @@
 Name:           libvpl-tools
-Version:        1.3.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        %autorelease
 Summary:        Intel Video Processing Library (Intel VPL) Tools
 License:        MIT
 URL:            https://intel.github.io/libvpl
@@ -10,6 +10,7 @@ Source0:        https://github.com/intel/libvpl-tools/archive/v%{version}/%{name
 Patch0:         %{name}-use-system-gtest.patch
 # https://github.com/intel/libvpl-tools/pull/1
 Patch1:         %{name}-versioned-library.patch
+Patch2:         %{name}-gcc13.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -100,29 +101,4 @@ rm -rf ext/*
 %{_libdir}/libvpl_wayland.so.*
 
 %changelog
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 27 2024 Simone Caronni <negativo17@gmail.com> - 1.3.0-1
-- Update to 1.3.0.
-
-* Tue Sep 10 2024 Simone Caronni <negativo17@gmail.com> - 1.2.0-1
-- Update to 1.2.0.
-
-* Sun Aug 25 2024 Simone Caronni <negativo17@gmail.com> - 1.1.0-1
-- Update to 1.1.0.
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue May 28 2024 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.0-4
-- Devel and Libs subpackages added
-
-* Fri May 17 2024 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.0-3
-- Bundled googletest removed
-
-* Sat May 04 2024 Simone Caronni <negativo17@gmail.com> - 1.0.0-2
-- Require libvpl 2.11.0 for building.
-
-* Sat May 04 2024 Simone Caronni <negativo17@gmail.com> - 1.0.0-1
-- First build.
+%autochangelog

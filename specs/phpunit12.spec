@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    19e25c2da3f8071a683ee1e445b0e24bba25de61
-%global gh_date      2025-06-13
+%global gh_commit    60a8ea2d8b2f070000051b56778009e11576e7d1
+%global gh_date      2025-06-20
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    2
 
-%global upstream_version 12.2.2
+%global upstream_version 12.2.3
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -52,13 +52,13 @@ BuildRequires:  php(language) >= 8.3
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.3.0    with php-composer(phpunit/php-code-coverage) < 13)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.3.1    with php-composer(phpunit/php-code-coverage) < 13)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 4.0.0          with php-composer(sebastian/cli-parser) < 5)
-BuildRequires:  (php-composer(sebastian/comparator) >= 7.0.1          with php-composer(sebastian/comparator) < 8)
+BuildRequires:  (php-composer(sebastian/comparator) >= 7.1.0          with php-composer(sebastian/comparator) < 8)
 BuildRequires:  (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
 BuildRequires:  (php-composer(sebastian/environment) >= 8.0.2         with php-composer(sebastian/environment) < 9)
 BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.0            with php-composer(sebastian/exporter) < 8)
@@ -87,13 +87,13 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.13.1",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
-#        "phpunit/php-code-coverage": "^12.3.0",
+#        "phpunit/php-code-coverage": "^12.3.1",
 #        "phpunit/php-file-iterator": "^6.0.0",
 #        "phpunit/php-invoker": "^6.0.0",
 #        "phpunit/php-text-template": "^5.0.0",
 #        "phpunit/php-timer": "^8.0.0",
 #        "sebastian/cli-parser": "^4.0.0",
-#        "sebastian/comparator": "^7.0.1",
+#        "sebastian/comparator": "^7.1.0",
 #        "sebastian/diff": "^7.0.0",
 #        "sebastian/environment": "^8.0.2",
 #        "sebastian/exporter": "^7.0.0",
@@ -113,13 +113,13 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 12.3.0    with php-composer(phpunit/php-code-coverage) < 13)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 12.3.1    with php-composer(phpunit/php-code-coverage) < 13)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 Requires:       (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 Requires:       (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 Requires:       (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
 Requires:       (php-composer(sebastian/cli-parser) >= 4.0.0          with php-composer(sebastian/cli-parser) < 5)
-Requires:       (php-composer(sebastian/comparator) >= 7.0.1          with php-composer(sebastian/comparator) < 8)
+Requires:       (php-composer(sebastian/comparator) >= 7.1.0          with php-composer(sebastian/comparator) < 8)
 Requires:       (php-composer(sebastian/diff) >= 7.0.0                with php-composer(sebastian/diff) < 8)
 Requires:       (php-composer(sebastian/environment) >= 8.0.2         with php-composer(sebastian/environment) < 9)
 Requires:       (php-composer(sebastian/exporter) >= 7.0.0            with php-composer(sebastian/exporter) < 8)
@@ -283,6 +283,11 @@ exit $ret
 
 
 %changelog
+* Sat Jun 21 2025 Remi Collet <remi@remirepo.net> - 12.2.3-1
+- update to 12.2.3
+- raise dependency on phpunit/php-code-coverage 12.3.0
+- raise dependency on sebastian/comparator 7.1.0
+
 * Mon Jun 16 2025 Remi Collet <remi@remirepo.net> - 12.2.2-1
 - update to 12.2.2
 

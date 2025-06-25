@@ -14,7 +14,7 @@ Name: simde
 Version: %{simde_version}%{?rc_version:~rc%{rc_version}}
 # Align the release format with the packages setting Source0 by commit hash
 # such as podman.spec and moby-engine.spec.
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Implementations of SIMD instruction sets for non-native systems
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
@@ -36,6 +36,8 @@ Patch: https://github.com/simd-everywhere/simde/pull/1220/commits/a891834ff66c80
 Patch: https://github.com/simd-everywhere/simde/commit/f046ab773733f09edaadec30345b592dfe85368e.patch
 # Partial fix for https://github.com/simd-everywhere/simde/issues/1203
 Patch: https://github.com/simd-everywhere/simde/commit/a1ce45cf5dc2253a1f9c0590fe111ebd8d1613c0.patch
+# Avoid undefined behaviour in signed multiplication https://github.com/simd-everywhere/simde/issues/1295
+Patch: %{name}-clang20.patch
 # gcc and clang are used in the unit tests.
 BuildRequires: clang
 BuildRequires: gcc
@@ -133,7 +135,7 @@ MATRIX_DEFAULT_CLANG_RPM="include"
 MATRIX_i686_GCC_RPM="exclude"
 # https://github.com/simd-everywhere/simde/issues/1202
 MATRIX_i686_CLANG_RPM="exclude"
-# internal compiler error
+# https://github.com/llvm/llvm-project/issues/110753
 MATRIX_ppc64le_CLANG_RPM="exclude"
 # https://github.com/simd-everywhere/simde/issues/1203
 MATRIX_s390x_CLANG_RPM="exclude"
@@ -143,7 +145,7 @@ sed -i -e '/^# Configuration$/r config.txt' ci.sh
 # Print the difference on the debugging purpose.
 if diff -u .packit/ci.sh ci.sh; then
   exit 1
-elif "${?}" != 1; then
+elif [ "${?}" != 1 ]; then
   exit 2
 fi
 
@@ -170,6 +172,9 @@ export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 %{_includedir}/%{name}
 
 %changelog
+* Mon Jun 23 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.8.2-4
+- Avoid undefined behaviour with signed integer multiplication
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,11 +1,12 @@
-%define compdir %(pkg-config --variable=completionsdir bash-completion)
-%if "%{compdir}" == ""
-%define compdir "/etc/bash_completion.d"
+%define bash_completion_dir %{_datadir}/bash-completion/completions
+
+%if 0%{?rhel} == 8
+%define legacy_system 1
 %endif
 
 Name:           fedpkg
 Version:        1.46
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -14,8 +15,7 @@ URL:            https://pagure.io/fedpkg
 Source0:        https://pagure.io/releases/fedpkg/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-Patch1:         0001-Do-not-use-pytest-related-dependencies-temporarily.patch
-Patch2:         0002-Remove-pytest-coverage-execution.patch
+
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -30,9 +30,14 @@ Requires:       redhat-rpm-config
 BuildRequires:  python3-devel
 BuildRequires:  python3-rpkg >= 1.68-1
 BuildRequires:  python3-distro
+%if !%{defined legacy_system}
+BuildRequires:  python3-hatchling
+%endif
 # For testing
 BuildRequires:  python3-pytest
+%if %{defined legacy_system}
 BuildRequires:  python3-setuptools
+%endif
 BuildRequires:  python3-bugzilla
 BuildRequires:  python3-freezegun
 BuildRequires:  python3-bodhi-client
@@ -43,8 +48,11 @@ Requires:       python3-rpkg >= 1.68-1
 Requires:       python3-distro
 Requires:       python3-openidc-client >= 0.6.0
 Requires:       python3-bodhi-client
+%if %{defined legacy_system}
 Requires:       python3-setuptools
+%endif
 Recommends:     fedora-packager
+Recommends:     fedpkg-completion
 
 
 %description
@@ -57,47 +65,81 @@ Requires:       %{name} = %{version}-%{release}
 %description    -n fedpkg-stage
 Provides the fedpkg command for working with dist-git
 
+%package        -n fedpkg-completion
+Summary:        The command-line completion support for fedpkg based on python-argcomplete
+Requires:       %{name} = %{version}-%{release}
+
+%description    -n fedpkg-completion
+This subpackage provides the command-line completion for the fedpkg CLI
+via the python-argcomplete framework.
+
 %prep
 %autosetup -p1
 
-%build
-%py_build
-%{__python} doc/fedpkg_man_page.py > fedpkg.1
-
-
-%install
-%py_install
-%{__install} -d %{buildroot}%{_mandir}/man1
-%{__install} -p -m 0644 fedpkg.1 %{buildroot}%{_mandir}/man1
-%if 0%{?rhel} && 0%{?rhel} == 7
-# The completion file must be named similarly to the command.
-mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
+%if !%{defined legacy_system}
+%generate_buildrequires
+%pyproject_buildrequires
 %endif
 
+%build
+%if %{defined legacy_system}
+%py_build
+%else
+%pyproject_wheel
+%endif
+%{python3} doc/fedpkg_man_page.py > fedpkg.1
+
+%install
+%if %{defined legacy_system}
+%py_install
+%else
+%pyproject_install
+%pyproject_save_files -l %{name}
+%endif
+%{__install} -d %{buildroot}%{_mandir}/man1
+%{__install} -p -m 0644 fedpkg.1 %{buildroot}%{_mandir}/man1
+echo "register-python-argcomplete fedpkg" > fedpkg.bash
+%{__install} -d %{buildroot}%{bash_completion_dir}
+%{__install} -p -m 0644 fedpkg.bash %{buildroot}%{bash_completion_dir}
+%if !%{defined legacy_system}
+# config file /etc/rpkg/fedpkg.conf is extracted to %{buildroot}/usr/etc/... by pyproject_install
+%{__install} -d %{buildroot}%{_sysconfdir}
+mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
+%endif
 
 %check
+%if !%{defined legacy_system}
+%pyproject_check_import
+%endif
 %pytest
 
 
+%if %{defined legacy_system}
 %files
-%doc README.rst CHANGELOG.rst
-%license COPYING
-%config(noreplace) %{_sysconfdir}/rpkg/fedpkg.conf
-%(dirname %{compdir})
-%{_bindir}/%{name}
-%{_mandir}/*/*
 # For noarch packages: sitelib
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/%{name}-%{version}-py*.egg-info
-# zsh completion
-%{_datadir}/zsh/site-functions/_%{name}
+%else
+%files -f %{pyproject_files}
+%endif
+%license COPYING
+%doc README.rst CONTRIBUTING.md CHANGELOG.rst
+%config(noreplace) %{_sysconfdir}/rpkg/fedpkg.conf
+%{_bindir}/%{name}
+%{_mandir}/*/*
 
-%files  stage
+%files -n fedpkg-stage
 %{_bindir}/%{name}-stage
 %config(noreplace) %{_sysconfdir}/rpkg/fedpkg-stage.conf
 
+%files -n fedpkg-completion
+%config(noreplace) %{bash_completion_dir}/fedpkg.bash
+
 
 %changelog
+* Tue Jun 24 2025 Ondřej Nosek <onosek@redhat.com> - 1.46-3
+- Switch to %%pyproject_* macros
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.46-2
 - Rebuilt for Python 3.14
 

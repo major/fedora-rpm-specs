@@ -1,13 +1,13 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 13
-%global project_version_micro 1
+%global project_version_minor 14
+%global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -87,11 +87,6 @@ Provides:       dnf5-command(versionlock)
 
 %bcond_without comps
 %bcond_without modulemd
-%if 0%{?rhel}
-%bcond_with    zchunk
-%else
-%bcond_without zchunk
-%endif
 %bcond_without systemd
 
 %bcond_with    html
@@ -127,7 +122,7 @@ Provides:       dnf5-command(versionlock)
 # ========== versions of dependencies ==========
 
 %global libmodulemd_version 2.5.0
-%global librepo_version 1.18.0
+%global librepo_version 1.20.0
 %if %{with focus_new}
     %global libsolv_version 0.7.30
 %else
@@ -135,7 +130,6 @@ Provides:       dnf5-command(versionlock)
 %endif
 %global sqlite_version 3.35.0
 %global swig_version 4
-%global zchunk_version 0.9.11
 
 
 # ========== build requires ==========
@@ -178,10 +172,6 @@ BuildRequires:  pkgconfig(libcomps)
 
 %if %{with modulemd}
 BuildRequires:  pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
-%endif
-
-%if %{with zchunk}
-BuildRequires:  pkgconfig(zck) >= %{zchunk_version}
 %endif
 
 %if %{with systemd}
@@ -670,6 +660,9 @@ Summary:        Libdnf5 plugin for detecting and removing expired PGP keys
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       gnupg2
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+Requires:       rpm-libs%{?_isa} >= 5.99.90
+%endif
 
 %description -n libdnf5-plugin-expired-pgp-keys
 Libdnf5 plugin for detecting and removing expired PGP keys.
@@ -784,6 +777,22 @@ Package management service with a DBus interface.
 %{_mandir}/man8/dnf5daemon-server.8.*
 %{_mandir}/man8/dnf5daemon-dbus-api.8.*
 %endif
+
+
+# ========== dnf5daemon-server-polkit ==========
+
+%package -n dnf5daemon-server-polkit
+Summary:        Polkit rule to allow wheel group members install trusted packages
+License:        GPL-2.0-or-later
+Requires:       polkit
+BuildArch:      noarch
+
+%description -n dnf5daemon-server-polkit
+Polkit rule to allow active local wheel group members install packages from
+trusted repositories using dnf5daemon-server.
+
+%files -n dnf5daemon-server-polkit
+%{_datadir}/polkit-1/rules.d/org.rpm.dnf.v0.rules
 %endif
 
 
@@ -900,7 +909,6 @@ automatically and regularly from systemd timers, cron jobs or similar.
     \
     -DWITH_COMPS=%{?with_comps:ON}%{!?with_comps:OFF} \
     -DWITH_MODULEMD=%{?with_modulemd:ON}%{!?with_modulemd:OFF} \
-    -DWITH_ZCHUNK=%{?with_zchunk:ON}%{!?with_zchunk:OFF} \
     -DWITH_SYSTEMD=%{?with_systemd:ON}%{!?with_systemd:OFF} \
     \
     -DWITH_HTML=%{?with_html:ON}%{!?with_html:OFF} \
@@ -1014,6 +1022,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Fri Jun 20 2025 Packit <hello@packit.dev> - 5.2.14.0-1
+- Update to version 5.2.14.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.2.13.1-3
 - Rebuilt for Python 3.14
 

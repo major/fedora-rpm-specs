@@ -6,7 +6,7 @@
 
 Name:           v4l-utils
 Version:        1.30.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -51,9 +51,9 @@ Provides:       edid-decode = %{version}-%{release}
 Obsoletes:      edid-decode < 1
 
 %description
-v4l-utils is a collection of various video4linux (V4L) and DVB utilities. The
-main v4l-utils package contains cx18-ctl, ir-keytable, ivtv-ctl, v4l2-ctl and
-v4l2-sysfs-path.
+v4l-utils is a collection of various video4linux (V4L), RC core and DVB
+utilities. The main v4l-utils package contains cx18-ctl, ivtv-ctl, v4l2-ctl
+and v4l2-sysfs-path.
 
 
 %package -n     libv4l
@@ -155,6 +155,14 @@ Requires:       v4l-utils%{?_isa} = %{version}-%{release}
 Utilities and tools for DVB receivers.
 %endif
 
+%package	-n rc-tools
+Summary:	Utilities for RC core
+License:        GPL-2.0-or-later AND GPL-2.0-only
+Requires:       v4l-utils%{?_isa} = %{version}-%{release}
+
+%description	-n rc-tools
+Utilities for Infrared receivers and transmitters using RC core.
+
 
 %prep
 %autosetup -p1
@@ -191,15 +199,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 %files -f %{name}.lang
 %doc README.md
-%dir %{_sysconfdir}/rc_keymaps
-%config(noreplace) %{_sysconfdir}/rc_maps.cfg
-%{_udevrulesdir}/70-infrared.rules
-%{_udevrulesdir}/../rc_keymaps/*
 %{_bindir}/cec-ctl
 %{_bindir}/cec-follower
 %{_bindir}/edid-decode
-%{_bindir}/ir-ctl
-%{_bindir}/ir-keytable
 %{_bindir}/media-ctl
 %{_bindir}/rds-ctl
 %{_bindir}/v4l2-ctl
@@ -208,9 +210,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_mandir}/man1/cec-ctl*.1*
 %{_mandir}/man1/cec-follower*.1*
 %{_mandir}/man1/edid-decode*.1*
-%{_mandir}/man1/ir*.1*
 %{_mandir}/man1/v4l*.1*
-%{_mandir}/man5/rc_keymap*.5*
 %exclude %{_mandir}/man1/v4l2-compliance.1*
 
 %files devel-tools
@@ -270,10 +270,24 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_bindir}/dvb*
 %{_bindir}/ivtv-ctl
 %{_mandir}/man1/dvb*.1*
+
+%files -n rc-tools
+%dir %{_sysconfdir}/rc_keymaps
+%config(noreplace) %{_sysconfdir}/rc_maps.cfg
+%{_udevrulesdir}/70-infrared.rules
+%{_udevrulesdir}/../rc_keymaps/*
+%{_bindir}/ir-ctl
+%{_bindir}/ir-keytable
+%{_mandir}/man1/ir*.1*
+%{_mandir}/man5/rc_keymap*.5*
+
 %endif
 
 
 %changelog
+* Sat Jun 7 2025 Sean Young <sean@mes.org> - 1.30.1-3
+- Move rc-tools into separate package so they can be replaced with new tools in the future.
+
 * Fri May 02 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.30.1-2
 - Fix obsolete of edid-decode
 

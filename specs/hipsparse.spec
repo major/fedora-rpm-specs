@@ -42,12 +42,13 @@
 
 Name:           %{hipsparse_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Patch1:         0002-refactor-setting-matrices-download-dir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -132,6 +133,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
     -DBUILD_CLIENTS_SAMPLES=OFF \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+%if %{with test}
+    -DCMAKE_MATRICES_DIR=%{_builddir}/%{name}-test-matrices/ \
+%endif
     -DBUILD_FORTRAN_CLIENTS=OFF
 
 %cmake_build
@@ -151,6 +155,11 @@ if [ -f %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md
 fi
 
+%if %{with test}
+mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
+install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{name}/matrices
+%endif
+
 %files
 %license LICENSE.md
 %{_libdir}/libhipsparse.so.1{,.*}
@@ -168,9 +177,13 @@ fi
 %dir %{_datadir}/hipsparse
 %{_bindir}/hipsparse*
 %{_datadir}/hipsparse/test/*
+%{_datadir}/hipsparse/matrices/*
 %endif
 
 %changelog
+* Thu Jun 19 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-4
+- rework test subpackage to include test data in a predictable location
+
 * Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Remove suse check of ldconfig
 

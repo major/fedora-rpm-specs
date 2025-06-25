@@ -27,7 +27,7 @@ Summary:        Taskwarrior - a command-line TODO list manager
 # Zlib
 
 License:        %{shrink:
-    MIT
+    MIT AND
     (Apache-2.0 OR MIT) AND BSD-3-Clause AND
     (0BSD OR MIT OR Apache-2.0) AND
     Apache-2.0 AND

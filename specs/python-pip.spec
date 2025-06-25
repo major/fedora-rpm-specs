@@ -1,8 +1,7 @@
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests here
 # to prevent pulling many unwanted packages in.
-# We intentionally keep this enabled on EPEL.
-%bcond tests %[%{defined fedora} || %{defined epel}]
+%bcond tests %{defined fedora}
 # Whether to build the manual pages (useful for bootstrapping Sphinx)
 %bcond man 1
 
@@ -179,10 +178,9 @@ BuildRequires:  ca-certificates
 Requires:       ca-certificates
 
 # Virtual provides for the packages bundled by pip:
-%{bundled 3}
+%{bundled %{python3_pkgversion}}
 
 Provides:       pip = %{version}-%{release}
-Conflicts:      python-pip < %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 pip is a package management system used to install and manage software packages
@@ -196,7 +194,7 @@ Summary:        The pip wheel
 Requires:       ca-certificates
 
 # Virtual provides for the packages bundled by pip:
-%{bundled 3}
+%{bundled %{python3_pkgversion}}
 
 # This is only relevant for Pythons that are older than 3.12 and don't use their own bundled wheels
 # It is also only relevant when this wheel is shared across multiple Pythons
@@ -242,7 +240,7 @@ export PYTHONPATH=./src/
 %pyproject_wheel
 
 %if %{with man}
-sphinx-build --tag man -b man -d docs/build/doctrees/man -c docs/html docs/man docs/build/man
+sphinx-build -t man -b man -d docs/build/doctrees/man -c docs/html docs/man docs/build/man
 %endif
 
 
@@ -251,13 +249,28 @@ export PYTHONPATH=./src/
 %pyproject_install
 %pyproject_save_files -l pip
 
+# We'll install pip as pip3.X
+# Later we'll provide symbolic links, manpage links and bashcompletion fixes for alternative names
+%if "%{python3_pkgversion}" == "3"
+%global alternate_names pip-%{python3_version} pip-3 pip3 pip
+%else
+%global alternate_names pip-%{python3_version}
+%endif
+
+# Provide symlinks to executables
+mv %{buildroot}%{_bindir}/pip %{buildroot}%{_bindir}/pip%{python3_version}
+rm %{buildroot}%{_bindir}/pip3
+for pip in %{alternate_names}; do
+ln -s ./pip%{python3_version} %{buildroot}%{_bindir}/$pip
+done
+
 %if %{with man}
 pushd docs/build/man
 install -d %{buildroot}%{_mandir}/man1
 for MAN in *1; do
-install -pm0644 $MAN %{buildroot}%{_mandir}/man1/$MAN
-for pip in "pip3" "pip-3" "pip%{python3_version}" "pip-%{python3_version}"; do
-echo ".so $MAN" > %{buildroot}%{_mandir}/man1/${MAN/pip/$pip}
+install -pm0644 $MAN %{buildroot}%{_mandir}/man1/${MAN/pip/pip%{python3_version}}
+for pip in %{alternate_names}; do
+echo ".so ${MAN/pip/pip%{python3_version}}" > %{buildroot}%{_mandir}/man1/${MAN/pip/$pip}
 done
 done
 popd
@@ -265,19 +278,13 @@ popd
 
 mkdir -p %{buildroot}%{bash_completions_dir}
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
-    %{buildroot}%{_bindir}/pip completion --bash \
-    > %{buildroot}%{bash_completions_dir}/pip3
+    %{buildroot}%{_bindir}/pip%{python3_version} completion --bash \
+    > %{buildroot}%{bash_completions_dir}/pip%{python3_version}
 
-# Make bash completion apply to all the 5 symlinks we install
-sed -i -e "s/^\\(complete.*\\) pip\$/\\1 pip pip{,-}{3,%{python3_version}}/" \
-    -e s/_pip_completion/_pip3_completion/ \
-    %{buildroot}%{bash_completions_dir}/pip3
-
-
-# Provide symlinks to executables to comply with Fedora guidelines for Python
-ln -s ./pip%{python3_version} %{buildroot}%{_bindir}/pip-%{python3_version}
-ln -s ./pip-%{python3_version} %{buildroot}%{_bindir}/pip-3
-
+# Make bash completion apply to all alternate names symlinks we install
+sed -i -e "s/^\\(complete.*\\) pip%{python3_version}\$/\\1 pip%{python3_version} %{alternate_names}/" \
+    -e s/_pip_completion/_pip%{python3_version_nodots}_completion/ \
+    %{buildroot}%{bash_completions_dir}/pip%{python3_version}
 
 mkdir -p %{buildroot}%{python_wheel_dir}
 install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
@@ -292,9 +299,9 @@ grep "exe$" %{pyproject_files} && exit 1 || true
 grep "pem$" %{pyproject_files} && exit 1 || true
 
 # Verify we can at least run basic commands without crashing
-%{py3_test_envvars} %{buildroot}%{_bindir}/pip --help
-%{py3_test_envvars} %{buildroot}%{_bindir}/pip list
-%{py3_test_envvars} %{buildroot}%{_bindir}/pip show pip
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip%{python3_version} --help
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip%{python3_version} list
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip%{python3_version} show pip
 
 %if %{with tests}
 # Upstream tests
@@ -320,18 +327,22 @@ pytest_k="$pytest_k and not test_check_unsupported"
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %if %{with man}
-%{_mandir}/man1/pip.*
-%{_mandir}/man1/pip-*.*
-%{_mandir}/man1/pip3.*
-%{_mandir}/man1/pip3-*.*
+%if "%{python3_pkgversion}" == "3"
+%{_mandir}/man1/pip{,3,-3}.1.*
+%{_mandir}/man1/pip{,3,-3}-[^3]*.1.*
 %endif
+%{_mandir}/man1/pip{,-}%{python3_version}.1.*
+%{_mandir}/man1/pip{,-}%{python3_version}-*.1.*
+%endif
+%if "%{python3_pkgversion}" == "3"
 %{_bindir}/pip
 %{_bindir}/pip3
 %{_bindir}/pip-3
+%endif
 %{_bindir}/pip%{python3_version}
 %{_bindir}/pip-%{python3_version}
 %dir %{bash_completions_dir}
-%{bash_completions_dir}/pip3
+%{bash_completions_dir}/pip%{python3_version}
 
 
 %files -n %{python_wheel_pkg_prefix}-%{srcname}-wheel

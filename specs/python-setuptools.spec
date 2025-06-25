@@ -3,16 +3,10 @@
 # used when bootstrapping new Python versions
 %bcond bootstrap 0
 
-# Similar to what we have in pythonX.Y.spec files.
-# If enabled, provides unversioned executables and other stuff.
-# Disable it if you build this package in an alternative stack.
-%bcond main_python 1
-
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests and documentation here
 # to prevent pulling many unwanted packages in.
-# We intentionally keep this enabled on EPEL.
-%bcond tests %[%{without bootstrap} && (%{defined fedora} || %{defined epel})]
+%bcond tests %[%{without bootstrap} && %{defined fedora}]
 
 %global python_wheel_name %{srcname}-%{version}-py3-none-any.whl
 

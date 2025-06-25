@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name:           bpfman
-Version:        0.5.6
+Version:        0.5.4
 Release:        %autorelease
 Summary:        EBPF Program Manager
 
@@ -50,7 +50,8 @@ Source0:        https://github.com/bpfman/bpfman/archive/refs/tags/v%{version}.t
 # remove "fiat-crypto-0.2.9/src/p434.rs" and references to it
 # removed forbidden Unicode code points (RTLO 0x202E) from idna-0.5.0 IdnaTestV2.txt
 # compress with "tar -Jcvf"
-Source1:        bpfman-%{version}-vendor.tar.gz
+Source1:        bpfman-%{version}-vendor.tar.xz
+Patch0:         0001-bump-cargo-lock-for-idna-1-0-3.diff
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}

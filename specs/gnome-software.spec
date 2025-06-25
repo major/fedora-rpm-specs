@@ -48,6 +48,7 @@ BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gettext
+BuildRequires: git-core
 BuildRequires: gtk-doc
 BuildRequires: itstool
 BuildRequires: libxslt
@@ -153,7 +154,7 @@ This package includes the rpm-ostree backend.
 %endif
 
 %prep
-%autosetup -p1 -S gendiff -n %{name}-%{tarball_version}
+%autosetup -p1 -S git -n %{name}-%{tarball_version}
 
 %build
 %meson \

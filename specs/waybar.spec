@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.12.0
-Release:        2%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -29,7 +29,6 @@ BuildRequires:  scdoc
 BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  pkgconfig(catch2)
-BuildRequires:  pkgconfig(date)
 BuildRequires:  pkgconfig(dbusmenu-gtk3-0.4)
 BuildRequires:  pkgconfig(fmt) >= 8.1.1
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
@@ -39,6 +38,7 @@ BuildRequires:  pkgconfig(gtkmm-3.0)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(jsoncpp)
 BuildRequires:  pkgconfig(libevdev)
+BuildRequires:  pkgconfig(libgps)
 BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libmpdclient)
 BuildRequires:  pkgconfig(libnl-3.0)
@@ -97,6 +97,9 @@ Recommends:     font(fontawesome6brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Mon Jun 23 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.13.0-1
+- Update to 0.13.0 (rhbz#2374294)
+
 * Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 0.12.0-2
 - Rebuild (jsoncpp)
 

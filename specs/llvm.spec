@@ -98,7 +98,7 @@
 %ifarch %{ix86}
 %bcond_with pgo
 %else
-%if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 43 || (0%{?rhel} >= 9 && %{maj_ver} >= 21)
 %bcond_without pgo
 %else
 %bcond_with pgo
@@ -218,7 +218,7 @@
 %global unprefixed_libdir %{_lib}
 
 %if 0%{?rhel}
-%global targets_to_build "X86;AMDGPU;PowerPC;NVPTX;SystemZ;AArch64;BPF;WebAssembly"
+%global targets_to_build "X86;AMDGPU;PowerPC;NVPTX;SystemZ;AArch64;BPF;WebAssembly;RISCV"
 %global experimental_targets_to_build ""
 %else
 %global targets_to_build "all"
@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -2470,7 +2470,7 @@ export LIT_OPTS="$LIT_OPTS --max-retries-per-test=4"
 
 %if 0%{?rhel}
 # libomp tests are often very slow on s390x brew builders
-%ifnarch s390x
+%ifnarch s390x riscv64
 %cmake_build --target check-openmp
 %endif
 %else
@@ -3145,7 +3145,7 @@ fi
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtend.o
 %endif
 
-%ifnarch %{ix86} s390x
+%ifnarch %{ix86} s390x riscv64
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
 %endif
 
@@ -3432,6 +3432,10 @@ fi
 
 #region changelog
 %changelog
+* Fri Jun 20 2025 Kashyap Chamarthy <kchamart@redhat.com> - 20.1.7-2
+- Add riscv64 enablement bits; thanks: Songsong Zhang
+   (U2FsdGVkX1@gmail.com) and David Abdurachmanov (davidlt@rivosinc.com)
+
 * Thu Jun 19 2025 Nikita Popov <npopov@redhat.com> - 20.1.7-1
 - Update to LLVM 20.1.7
 

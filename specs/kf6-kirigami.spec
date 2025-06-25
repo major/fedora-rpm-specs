@@ -2,12 +2,18 @@
 
 Name:           kf6-%{framework}
 Version:        6.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
 Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
+
+# -- UPSTREAM --
+
+# Revert "Properly Align menubar when there is a sidebar
+# https://invent.kde.org/frameworks/kirigami/-/merge_requests/1837
+Source10:       1837.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -120,6 +126,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Tue Jun 24 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-3
+- Properly Align menubar when there is a sidebar drawer
+
 * Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
 - 6.15 and plasma 3.4 compatibility rebuild
 

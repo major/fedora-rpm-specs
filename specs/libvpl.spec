@@ -1,10 +1,10 @@
 %global mfx_major 2
-%global mfx_minor 14
+%global mfx_minor 15
 
 Name:           libvpl
 Epoch:          1
-Version:        2.14.0
-Release:        2%{?dist}
+Version:        2.15.0
+Release:        %autorelease
 Summary:        Intel Video Processing Library
 License:        MIT
 URL:            https://intel.github.io/libvpl/latest/index.html
@@ -96,94 +96,4 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.14.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 27 2024 Simone Caronni <negativo17@gmail.com> - 1:2.14.0-1
-- Update to 2.14.0.
-
-* Tue Sep 10 2024 Simone Caronni <negativo17@gmail.com> - 1:2.13.0-1
-- Update to 2.13.0.
-
-* Sun Aug 25 2024 Simone Caronni <negativo17@gmail.com> - 1:2.12.0-1
-- Update to 2.12.0.
-- Update GPU requirements.
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat May 04 2024 Simone Caronni <negativo17@gmail.com> - 1:2.11.0-1
-- Update to 2.11.0.
-
-* Wed Feb 21 2024 Simone Caronni <negativo17@gmail.com> - 1:2.10.2-1
-- Update to 2.10.2.
-
-* Tue Feb 13 2024 Simone Caronni <negativo17@gmail.com> - 1:2.10.1-2
-- Switch from Intel® to Intel in pkgconfig file.
-
-* Thu Jan 18 2024 Simone Caronni <negativo17@gmail.com> - 1:2.10.1-1
-- Rename to libvpl with new versioning scheme.
-
-* Thu Dec 14 2023 Simone Caronni <negativo17@gmail.com> - 2023.4.0-2
-- Drop patch, adjust file section.
-
-* Mon Dec 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2023.4.0-1
-- Update to 2023.4.0
-
-* Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 2023.3.1-1
-- Update to 2023.3.1.
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 2023.1.3-2
-- Rebuilt for libva
-
-* Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 2023.1.3-1
-- Update to 2023.1.3
-- Drop Python bindings (removed upstream)
-- Fix install path for config files (#2177912)
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 24 2022 Simone Caronni <negativo17@gmail.com> - 2022.2.2-1
-- Update to 2022.2.2.
-- Patch system_analyzer so it works without devel subpackage installed.
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Simone Caronni <negativo17@gmail.com> - 2022.1.5-1
-- Update to 2022.1.5.
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2022.1.3-2
-- Rebuilt for Python 3.11
-
-* Wed May 25 2022 Simone Caronni <negativo17@gmail.com> - 2022.1.3-1
-- Update to 2022.1.3.
-
-* Tue Apr 26 2022 Simone Caronni <negativo17@gmail.com> - 2022.1.1-1
-- Update to 2022.1.1.
-- Recommend implementations (at least one must be installed).
-
-* Sat Mar 19 2022 Simone Caronni <negativo17@gmail.com> - 2022.1.0-1
-- Update to 2022.1.0.
-
-* Sun Mar 13 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.6-1
-- Update to 2022.0.6.
-
-* Wed Mar 02 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.5-2
-- Rebuild for updated libva.
-
-* Wed Mar 02 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.5-1
-- Update to 2022.0.5.
-
-* Tue Feb 08 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.4-1
-- Update to 2022.0.4.
-
-* Mon Feb 07 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.0-2
-- Enable Python binding.
-
-* Sat Feb 05 2022 Simone Caronni <negativo17@gmail.com> - 2022.0.0-1
-- First build.
+%autochangelog

@@ -1,5 +1,5 @@
 Name:           mediawriter
-Version:        5.2.5
+Version:        5.2.6
 Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
 
 %changelog
+* Mon Jun 23 2025 Packit <hello@packit.dev> - 5.2.6-1
+- Update to version 5.2.6
+
 * Thu Apr 24 2025 Packit <hello@packit.dev> - 5.2.5-1
 - Update to version 5.2.5
 

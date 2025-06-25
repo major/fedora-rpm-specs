@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.103.0
+Version: 1.104.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -95,7 +95,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.6.0
 
 %global rolename2 selinux
-%deftag 2 1.9.0
+%deftag 2 1.10.0
 
 %global rolename3 timesync
 %deftag 3 1.10.1
@@ -122,16 +122,16 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 10 1.15.1
 
 %global rolename11 nbde_server
-%deftag 11 1.4.10
+%deftag 11 1.5.0
 
 %global rolename12 nbde_client
-%deftag 12 1.3.3
+%deftag 12 1.3.4
 
 %global rolename13 certificate
-%deftag 13 1.3.12
+%deftag 13 1.4.0
 
 %global rolename14 crypto_policies
-%deftag 14 1.4.2
+%deftag 14 1.5.0
 
 %global forgeorg15 https://github.com/willshersystems
 %global repo15 ansible-sshd
@@ -139,16 +139,16 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.27.0
 
 %global rolename16 ssh
-%deftag 16 1.5.3
+%deftag 16 1.6.0
 
 %global rolename17 ha_cluster
-%deftag 17 1.23.2
+%deftag 17 1.24.0
 
 %global rolename18 vpn
 %deftag 18 1.6.10
 
 %global rolename19 firewall
-%deftag 19 1.10.0
+%deftag 19 1.10.1
 
 %global rolename20 cockpit
 %deftag 20 1.6.1
@@ -166,7 +166,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 24 1.4.0
 
 %global rolename25 postgresql
-%deftag 25 1.4.0
+%deftag 25 1.4.1
 
 %global rolename26 systemd
 %deftag 26 1.3.3
@@ -187,7 +187,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 31 1.0.3
 
 %global rolename32 sudo
-%deftag 32 1.2.3
+%deftag 32 1.2.4
 
 %global rolename33 aide
 %deftag 33 1.2.0
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Jun  23 2025 Packit <hello@packit.dev> - 1.104.0-1
+- Update to upstream version 1.104.0
+
 * Sat Jun  21 2025 Packit <hello@packit.dev> - 1.103.0-1
 - Update to upstream version 1.103.0
 

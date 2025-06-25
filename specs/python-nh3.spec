@@ -6,8 +6,16 @@ License:        MIT
 URL:            https://github.com/messense/nh3
 Source:         %{pypi_source nh3}
 
-# This disable pyo3 feature requirement specific for windows
-Patch:          do_not_require_win_only_pyo3_extension.patch
+# Omit the generate-import-lib feature of the pyo3 dependency, since it is
+# specific to Windows, and we do not package it.
+#
+# Update pyo3 dependency from 0.23 to 0.25
+#
+# Bump pyo3 from 0.24.2 to 0.25.0
+# https://github.com/messense/nh3/pull/84
+# Bump pyo3 from 0.25.0 to 0.25.1
+# https://github.com/messense/nh3/pull/86
+Patch:          python-nh3-0.2.21-pyo3.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  python3-devel
@@ -22,8 +30,16 @@ Python binding to Ammonia HTML sanitizer Rust crate.}
 
 %package -n python3-nh3
 Summary:        %{summary}
-# Full license breakdown in LICENSES.dependencies
-License:        MIT AND Apache-2.0 AND (MIT OR Apache-2.0) AND (Zlib OR Apache-2.0 OR MIT)
+# Rust crates compiled into the executable contribute additional license terms.
+# Full license breakdown in LICENSES.dependencies. To obtain the following
+# list of licenses, build the package and note the output of
+# %%{cargo_license_summary}.
+#
+# Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unicode-3.0
+License:        %{license} AND (Apache-2.0 OR MIT) AND Unicode-3.0
 
 %description -n python3-nh3 %_description
 

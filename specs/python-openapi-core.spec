@@ -31,6 +31,7 @@ Patch:          0001-Downstream-only-remove-werkzeug-version-pin.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # Test dependencies; see [tool.poetry.dev-dependencies], but note that this
 # contains both test dependencies and unwanted linters etc., as well as some
@@ -73,6 +74,15 @@ sed -r -i \
     -e 's/(fastapi = \{version = ")\^/\1>=/' \
     -e 's/(fastapi = \{version = ".*),<[^"]+/\1/' \
     pyproject.toml
+# Erroring on DeprecationWarnings makes sense upstream, but is probably too
+# strict for distribution packaging.
+#
+# This specifically works around:
+#
+# DeprecationWarning: 'asyncio.get_event_loop_policy' is deprecated and slated
+# for removal in Python 3.16
+tomcli set pyproject.toml lists delitem \
+    tool.pytest.ini_options.filterwarnings error
 
 
 %generate_buildrequires
@@ -90,10 +100,15 @@ sed -r -i \
 
 
 %check
+# [Bug]: Regression in Python 3.14: TestImportModelCreate::test_dynamic_model
+# https://github.com/python-openapi/openapi-core/issues/1009
+k="${k-}${k+ and }not (TestImportModelCreate and test_dynamic_model)"
+
 %if %{without falcon}
 ignore="${ignore-} --ignore=tests/integration/contrib/falcon"
 %endif
-%pytest ${ignore-}
+
+%pytest ${ignore-} -k "${k-}"
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -11,7 +11,7 @@ URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel
 
 %global _description\
 A framework to implement simple but nice configuration-oriented\
@@ -21,24 +21,28 @@ command-line interfaces.
 
 %package -n python3-configshell
 Summary:        A framework to implement simple but nice CLIs
-Requires:       python3-pyparsing python3-urwid
-%{?python_provide:%python_provide python3-configshell}
 
 %description -n python3-configshell %_description
 
 %prep
-%setup -q -n %{oname}-%{version}
+%autosetup -n %{oname}-%{version}
 
-sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l 'configshell*'
 
-%files -n python3-configshell
-%{python3_sitelib}/configshell*
+%check
+%pyproject_check_import
+
+%files -n python3-configshell -f %{pyproject_files}
 %doc COPYING README.md
 
 %changelog

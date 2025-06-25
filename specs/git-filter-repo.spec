@@ -49,6 +49,10 @@ sed -Ei "s=#!/usr/bin/env python3=#!%{_bindir}/python3=" %{name} git_filter_repo
 # git htmldir
 sed -Ei 's,(a href=")(git),\1%{_docdir}/git/\2,g' Documentation/html/git-filter-repo.html
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2365637
+# TODO FIXME https://github.com/newren/git-filter-repo/issues/673
+rm -f t/t9394-filter-repo-sanity-checks-and-bigger-repo-setup.sh
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires

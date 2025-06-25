@@ -3,7 +3,7 @@
 
 Name:           vala
 Version:        0.56.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
@@ -201,6 +201,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Mon Jun 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.56.18-2
+- Rebuilt for graphviz-13.0
+
 * Tue Mar 04 2025 nmontero <nmontero@redhat.com> - 0.56.18-1
 - Update to 0.56.18
 
