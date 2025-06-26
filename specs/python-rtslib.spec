@@ -6,12 +6,11 @@
 Name:             python-rtslib
 License:          Apache-2.0
 Summary:          API for Linux kernel LIO SCSI target
-Version:          2.1.76
-Release:          11%{?dist}
+Version:          2.2.3
+Release:          1%{?dist}
 URL:              https://github.com/open-iscsi/%{oname}
 Source:           %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 Patch0:           0001-disable-xen_pvscsi.patch
-Patch1:           0002-rtslib-explicitely-import-kmod.error-and-kmod.Kmod.patch
 BuildArch:        noarch
 %if %{with apidocs}
 BuildRequires:    epydoc
@@ -40,14 +39,10 @@ multiprotocol kernel target.
 Summary:        API for Linux kernel LIO SCSI target
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+# Optional dependency, not declared in pyproject.toml
 BuildRequires:  python3-kmod
-BuildRequires:  python3-six
-BuildRequires:  python3-pyudev
 
 Requires:       python3-kmod
-Requires:       python3-six
-Requires:       python3-pyudev
 %if ! %{with apidocs}
 Obsoletes:      %{name}-doc < %{version}-%{release}
 %endif
@@ -73,9 +68,13 @@ on system restart.
 %patch -P0 -p1
 %patch -P1 -p1
 
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
 
 %if %{with apidocs}
 mkdir -p doc/html
@@ -83,8 +82,8 @@ epydoc --no-sourcecode --html -n rtslib -o doc/html rtslib/*.py
 %endif
 
 %install
-# remove py2 scripts if py3 enabled
-%py3_install
+%pyproject_install
+%pyproject_save_files -l 'rtslib*'
 
 mkdir -p %{buildroot}%{_mandir}/man8/
 mkdir -p %{buildroot}%{_mandir}/man5/
@@ -96,6 +95,9 @@ install -m 644 systemd/target.service %{buildroot}%{_unitdir}/target.service
 install -m 644 doc/targetctl.8 %{buildroot}%{_mandir}/man8/
 install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 
+%check
+%pyproject_check_import
+
 %post -n target-restore
 %systemd_post target.service
 
@@ -106,9 +108,7 @@ install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 %systemd_postun_with_restart target.service
 
 
-%files -n python3-rtslib
-%license COPYING
-%{python3_sitelib}/rtslib*
+%files -n python3-rtslib -f %{pyproject_files}
 %doc README.md doc/getting_started.md
 
 %files -n target-restore
@@ -128,6 +128,9 @@ install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 %endif
 
 %changelog
+* Fri Jun 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.2.3-1
+- Update to 2.2.3
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.76-11
 - Rebuilt for Python 3.14
 

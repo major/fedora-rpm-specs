@@ -576,6 +576,14 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
+# which
+#   wanted: 7.0.3
+#   currently packaged: 7.0.3, but planning to update to 8.0.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
+#   Updated upstream in uv 0.4.13.
+tomcli set Cargo.toml str workspace.dependencies.which.version \
+    '>=7.0.0, <9.0.0'
+
 %cargo_prep
 
 

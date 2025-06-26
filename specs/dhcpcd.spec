@@ -56,10 +56,8 @@ export BINMODE=755
 find %{buildroot} -name '*.la' -delete -print
 install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 install -D -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}@.service
+install -D -m 644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -d %{buildroot}%{_sharedstatedir}/%{_name}
-
-%pre
-%sysusers_create_compat %{SOURCE5}
 
 %post
 %systemd_post %{name}.service
@@ -86,6 +84,7 @@ install -d %{buildroot}%{_sharedstatedir}/%{_name}
 %{_mandir}/man8/%{name}-run-hooks.8.gz
 %{_mandir}/man8/%{name}.8.gz
 %{_sbindir}/%{name}
+%{_sysusersdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
 %defattr(0644,root,dhcpcd,0755)

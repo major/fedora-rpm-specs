@@ -12,7 +12,8 @@
 #
 # A good build order is:
 #
-#   1. BOOTSTRAP: python-snakemake-interface-executor-plugins,
+#   1. BOOTSTRAP: python-snakemake-interface-common
+#      python-snakemake-interface-executor-plugins,
 #      python-snakemake-interface-storage-plugins,
 #      python-snakemake-interface-report-plugins
 #   2. BOOTSTRAP: snakemake
@@ -34,7 +35,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.6.1
+Version:        9.6.2
 %global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses

@@ -40,6 +40,8 @@ Source: https://github.com/openucx/%{name}/releases/download/v%{version}/ucx-%{v
 # BUILD/CONFIG: Keep CFLAGS and CXXFLAGS separate
 # Fixes build for https://fedoraproject.org/wiki/Changes/PortingToModernC
 Patch0: https://github.com/openucx/%{name}/pull/9558.patch
+# TOOLS/PERF: Include omp.h outside of extern C declarations
+Patch1: https://github.com/openucx/%{name}/pull/10664.patch
 
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -109,6 +111,7 @@ Provides header files and examples for developing with UCX.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 # https://github.com/openucx/ucx/issues/10542
 # With ROCm 6.3+ libhsakmt is bundled with libhsa-runtime64
 # Remove this nonexistent library

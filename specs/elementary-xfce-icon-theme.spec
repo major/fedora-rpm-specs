@@ -1,6 +1,6 @@
 Name:           elementary-xfce-icon-theme
-Version:        0.20
-Release:        2%{?dist}
+Version:        0.21
+Release:        1%{?dist}
 Summary:        Icons for Xfce based on the elementary Project Icon Theme
  
 
@@ -26,11 +26,10 @@ and integrate them occasionally.
 
 %prep
 %setup -c -q %{name}/
-mkdir -p doc/elementary-xfce{,-dark}
+mkdir -p doc/elementary-xfce
 # fix for the wrong naming inside the tar.gz
 mv elementary-xfce-%{version}/{README.md,LICENSE,CONTRIBUTORS,AUTHORS} doc/elementary-xfce/
-# Create symbolic links for each theme variant
-ln -s ../elementary-xfce/{README.md,LICENSE,CONTRIBUTORS,AUTHORS} doc/elementary-xfce-dark/
+
 
 %build
 
@@ -38,51 +37,44 @@ ln -s ../elementary-xfce/{README.md,LICENSE,CONTRIBUTORS,AUTHORS} doc/elementary
 %install
 mkdir -p  %{buildroot}%{_datadir}/icons
 cp -a elementary-xfce-%version/elementary-xfce/  %{buildroot}%{_datadir}/icons
-cp -a elementary-xfce-%version/elementary-xfce-dark/  %{buildroot}%{_datadir}/icons
 
 chmod 0644  %{buildroot}%{_datadir}/icons/elementary-xfce/index.theme
-chmod 0644  %{buildroot}%{_datadir}/icons/elementary-xfce-dark/index.theme
-
-
-# Remove darker and darkest theme
-rm -rf %{buildroot}%{_datadir}/icons/elementary-xfce-darkest/
-rm -rf %{buildroot}%{_datadir}/icons/elementary-xfce-darker
 
 # Remove broken links
 rm -rf %{buildroot}%{_datadir}/icons/elementary-xfce/{README.md,LICENSE,CONTRIBUTORS,AUTHORS}
-rm -rf %{buildroot}%{_datadir}/icons/elementary-xfce-dark/{README.md,LICENSE,CONTRIBUTORS,AUTHORS}
+
 
 
 
 %post
 touch --no-create %{_datadir}/icons/elementary-xfce &>/dev/null ||:
-touch --no-create %{_datadir}/icons/elementary-xfce-dark &>/dev/null ||:
+
 
 
 
 %postun
 if [ $1 -eq 0 ] ; then
-         touch --no-create %{_datadir}/icons/elementary-xfce &>/dev/null
-         touch --no-create %{_datadir}/icons/elementary-xfce-dark &>/dev/null     
+         touch --no-create %{_datadir}/icons/elementary-xfce &>/dev/null   
          gtk-update-icon-cache -q %{_datadir}/icons/elementary-xfce &>/dev/null
-         gtk-update-icon-cache -q %{_datadir}/icons/elementary-xfce-dark
 &>/dev/null
 
 fi
 
 %posttrans
          gtk-update-icon-cache -q %{_datadir}/icons/elementary-xfce &>/dev/null
-         gtk-update-icon-cache -q %{_datadir}/icons/elementary-xfce-dark
-&>/dev/null
+
 
 
 %files
 %{_datadir}/icons/elementary-xfce/
-%{_datadir}/icons/elementary-xfce-dark/
 %doc doc/*
 
 
 %changelog
+* Tue Jun 24 2025 Johannes Lips <hannes@fedoraproject.org> - 0.21-1
+- update to latest upstream version 0.21
+- dark theme is dropped by upstream
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

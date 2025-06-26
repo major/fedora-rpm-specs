@@ -1,6 +1,6 @@
 Name:           libssh
-Version:        0.11.1
-Release:        4%{?dist}
+Version:        0.11.2
+Release:        1%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -10,9 +10,6 @@ Source1:        https://www.libssh.org/files/0.10/%{name}-%{version}.tar.xz.asc
 Source2:        https://www.libssh.org/files/0x03D5DF8CFDD3E8E7_libssh_libssh_org_gpgkey.asc#/%{name}.keyring
 Source3:        libssh_client.config
 Source4:        libssh_server.config
-# Don't use global openssl.cnf for PKCS#11 URI Tests
-# https://gitlab.com/libssh/libssh-mirror/-/merge_requests/543
-Patch1:         libssh-0.11.1-fix-provider-loading.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -141,6 +138,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Tue Jun 24 2025 Jakub Jelen <jjelen@redhat.com> - 0.11.2-1
+- New upstream release
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

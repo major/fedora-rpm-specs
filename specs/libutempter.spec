@@ -3,7 +3,7 @@
 Summary: A privileged helper for utmp/wtmp updates
 Name: libutempter
 Version: 1.2.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-2-Clause
 URL: ftp://ftp.altlinux.org/pub/people/ldv/utempter
 
@@ -31,6 +31,11 @@ utempter-based software.
 %prep
 %setup -q
 
+cat > %{name}.sysusers.conf <<_EOF
+g utmp 22
+g utempter 35
+_EOF
+
 %build
 make CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" \
     libdir="%{_libdir}" libexecdir="%{_libexecdir}"
@@ -40,11 +45,7 @@ make CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" \
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
-%pre
-groupadd -g 22 -r -f utmp || :
-groupadd -g 35 -r -f utempter || :
-
-%ldconfig_scriptlets
+install -D -m0644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %files
 %license COPYING
@@ -53,6 +54,7 @@ groupadd -g 35 -r -f utempter || :
 %{_libdir}/libutempter.so.1.*
 %dir %attr(755,root,utempter) %{_libexecdir}/utempter
 %attr(2711,root,utmp) %{_libexecdir}/utempter/utempter
+%{_sysusersdir}/%{name}.conf
 
 %files devel
 %{_includedir}/utempter.h
@@ -60,6 +62,9 @@ groupadd -g 35 -r -f utempter || :
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jun 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-18
+- Add sysusers.d config
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

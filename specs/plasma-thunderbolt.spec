@@ -2,7 +2,7 @@
 
 Name:    plasma-thunderbolt
 Summary: Plasma integration for controlling Thunderbolt devices
-Version: 6.4.0
+Version: 6.4.1
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_bolt.desktop
 %{_kf6_datadir}/applications/kcm_bolt.desktop
 
 %changelog
+* Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
+- 6.4.1
+
 * Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
 - 6.4.0
 

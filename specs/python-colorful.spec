@@ -5,6 +5,8 @@ Summary:        Terminal string styling done right
 License:        MIT
 URL:            https://github.com/timofurrer/colorful
 Source:         %{pypi_source colorful}
+# https://github.com/timofurrer/colorful/pull/56
+Patch:          0001-Read-version-from-ast.Constant-instead-of-ast.Str.patch
 BuildArch:      noarch
 
 

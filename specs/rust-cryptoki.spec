@@ -5,16 +5,16 @@
 %global crate cryptoki
 
 Name:           rust-cryptoki
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Rust-native wrapper around the PKCS #11 API
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/cryptoki
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Bump of libloading version
-Patch:          cryptoki-fix-metadata.diff
+# * Fix build on i686
+# * https://github.com/parallaxsecond/rust-cryptoki/pull/283
+Patch2:         rust-cryptoki-fix-i386.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
@@ -91,7 +91,7 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-export PKCS11_SOFTHSM2_MODULE=%{_libdir}/pkcs11/libsofthsm2.so
+export TEST_PKCS11_MODULE=%{_libdir}/pkcs11/libsofthsm2.so
 mkdir /tmp/tokens
 echo "directories.tokendir = /tmp/tokens" > /tmp/softhsm2.conf
 export SOFTHSM2_CONF=/tmp/softhsm2.conf

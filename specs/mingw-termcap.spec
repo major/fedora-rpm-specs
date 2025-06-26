@@ -102,7 +102,7 @@ autoconf
 
 %build
 %mingw_configure
-%mingw_make %{?_smp_mflags}
+%mingw_make %{?_smp_mflags} CFLAGS="$CFLAGS -std=gnu89"
 
 # Build a shared library.  No need for -fPIC on Windows.
 pushd build_win32

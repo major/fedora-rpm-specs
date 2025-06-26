@@ -11,9 +11,17 @@
 # Tests rely on MySQL version 5.6
 %global with_tests   %{?_with_tests:1}%{!?_with_tests:0}
 
+# The building of the mysqlxb C extension is
+# disabled at the moment as it requires protobuf
+# with version 4.25.3 or higher and we only have 
+# 3.19.6 in fedora at the moment, when protobuf is
+# rebased to a sufficient version this condition
+# should either be enabled or removed altogether
+%global with_mysqlxpb   0
+
 Name:           mysql-connector-python
-Version:        8.0.21
-Release:        17%{?dist}
+Version:        8.0.33
+Release:        1%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -22,16 +30,26 @@ URL:            http://dev.mysql.com/doc/connector-python/en/index.html
 # Upstream has a mirror redirector for downloads, so the URL is hard to
 # represent statically.  You can get the tarball by following a link from
 # http://dev.mysql.com/downloads/connector/python/
-Source0:        %{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}-src.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  python3-devel >= 3
 BuildRequires:  python3-setuptools
+BuildRequires:  gcc-c++
+# for building the extension modules
+BuildRequires:  mysql-devel
+# for building documentation
+BuildRequires:  python3-sphinx
+# for import check (runtime dependency)
+BuildRequires:  python3-protobuf
 %if %{with_tests}
 # for unittest
 BuildRequires:  mysql-server
 %endif
 
+%if %{with_mysqlxpb}
+BuildRequires:  protobuf-devel >= 4.25.3
+BuildRequires:  protobuf-compiler >= 4.25.3
+%endif
 
 %global _description\
 MySQL Connector/Python is implementing the MySQL Client/Server protocol\
@@ -56,19 +74,41 @@ Documentation: http://dev.mysql.com/doc/connector-python/en/index.html
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}-src
 chmod -x examples/*py
 
 %build
-# nothing to build
+export MYSQL_CAPI=%{_prefix}  # searches for bin/mysql_config in here, enables the extension module
+export LDFLAGS="$LDFLAGS -L%{_libdir}/mysql"
+
+%if %{with_mysqlxpb}
+export MYSQLXPB_PROTOBUF=%{_prefix}
+export MYSQLXPB_PROTOBUF_INCLUDE_DIR=%{_includedir}
+export MYSQLXPB_PROTOBUF_LIB_DIR=%{_libdir}
+export MYSQLXPB_PROTOC="%{_bindir}/protoc"
+%endif
+%py3_build
+
+#building the man pages
+cd docs/mysqlx
+%{__python3} conf.py
+make man BUILDDIR=%{_builddir}
 
 
 %install
-%{__python3} setup.py install --root %{buildroot}
+%py3_install
+# create the man dir
+mkdir -p %{buildroot}%{_mandir}/man1
+# install the man page into the man dir with
+# a more fitting name
+install -p -m 0644 %{_builddir}/man/mysqlxconnectorpythondevapireference.1 %{buildroot}%{_mandir}/man1/%{name}3.1
 
+# remove the source files the man page was generated from
+rm -r docs/mysqlx
 
 
 %check
+%py3_check_import mysql mysqlx
 %if %{with_tests}
 # known failed tests
 # bugs.BugOra14201459.test_error1426
@@ -85,10 +125,21 @@ chmod -x examples/*py
 %doc CHANGES.txt README* docs
 %doc examples
 %license LICENSE.txt
-%{python3_sitelib}/*
-
+# can't just use %%{python3_sitearch}/* as the packaging
+# guidelines dont' allow it
+%{python3_sitearch}/mysql/
+%{python3_sitearch}/mysqlx/
+%{python3_sitearch}/_mysql_connector%{python3_ext_suffix}
+%if %{with_mysqlxpb}
+%{python3_sitearch}/_mysqlxpb%{python3_ext_suffix}
+%endif
+%{python3_sitearch}/mysql_connector_python-%{version}-py%{python3_version}.egg-info/
+%{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Wed Jun 18 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.33-1
+- Rebase to 8.0.33
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.0.21-17
 - Rebuilt for Python 3.14
 

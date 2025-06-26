@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.42.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -15,6 +15,8 @@ Source0:        http://download.gnome.org/sources/gdk-pixbuf/%{release_version}/
 # If you want to rebuild this, do:
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gdk-pixbuf-query-loaders.exe | sed s@'Z:/usr/i686-w64-mingw32/sys-root/mingw'@'..'@ > gdk-pixbuf.loaders
 Source1:        gdk-pixbuf.loaders
+# Backport fix for CVE-2025-6199
+Patch0:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/c4986342b241cdc075259565f3fa7a7597d32a32.patch
 
 BuildArch:      noarch
 
@@ -135,6 +137,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Tue Jun 24 2025 Sandro Mani <manisandro@gmail.com> - 2.42.12-4
+- Backport fix for CVE-2025-6199
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

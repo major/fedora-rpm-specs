@@ -4,11 +4,14 @@
 # Disable tests by default since VMs can't run in containerized Fedora builds.
 %bcond check    0
 
+# The cpu-template-helper program only supports aarch64 and x86_64 CPUs.
+%bcond cth      %{lua:print(("ax"):find(rpm.expand("%{_target_cpu}"):sub(1,1)) or 0)}
+
 # The jailer's documentation says only musl targets are supported.
 %bcond jailer   %{lua:print(rpm.expand("%{?cargo_target}"):find("musl") or 0)}
 
 Name:           firecracker
-Version:        1.12.0
+Version:        1.12.1
 Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
@@ -58,12 +61,12 @@ sed -i -e 's,^\(micro_http\) = .*,\1 = { path = "../../forks/\1" },' src/*/Cargo
 %cargo_generate_buildrequires
 
 %build
-%cargo_build -- --package={cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler,snapshot-editor} %{?cargo_target:--target=%{cargo_target}}
+%cargo_build -- --package={%{?with_cth:cpu-template-helper,}firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler,snapshot-editor} %{?cargo_target:--target=%{cargo_target}}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 
 %install
-install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/rpm/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin,snapshot-editor}
+install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/rpm/{%{?with_cth:cpu-template-helper,}firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin,snapshot-editor}
 
 # Ship the built-in seccomp JSON as an example that can be edited and compiled.
 ln -fn resources/seccomp/%{cargo_target}.json seccomp-filter.json ||
@@ -76,12 +79,12 @@ done
 
 %if %{with check}
 %check
-%cargo_test -- %{!?with_jailer:--exclude=jailer} %{?cargo_target:--target=%{cargo_target}} --workspace
+%cargo_test -- %{!?with_cth:--exclude=cpu-template-helper} %{!?with_jailer:--exclude=jailer} %{?cargo_target:--target=%{cargo_target}} --workspace
 %endif
 
 
 %files
-%{_bindir}/cpu-template-helper
+%{?with_cth:%{_bindir}/cpu-template-helper}
 %{_bindir}/firecracker
 %{?with_jailer:%{_bindir}/jailer}
 %{_bindir}/rebase-snap
@@ -94,6 +97,9 @@ done
 
 
 %changelog
+* Tue Jun 24 2025 David Michael <fedora.dm0@gmail.com> - 1.12.1-1
+- Update to the 1.12.1 release.
+
 * Wed May 07 2025 David Michael <fedora.dm0@gmail.com> - 1.12.0-1
 - Update to the 1.12.0 release.
 

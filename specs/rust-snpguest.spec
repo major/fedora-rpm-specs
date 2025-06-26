@@ -4,7 +4,7 @@
 %global crate snpguest
 
 Name:           rust-snpguest
-Version:        0.8.2
+Version:        0.9.1
 Release:        %autorelease
 Summary:        AMD SEV-SNP guest utility tool
 
@@ -32,19 +32,18 @@ Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
-License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND (ISC AND MIT AND OpenSSL) AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
+License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0 AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

@@ -21,7 +21,7 @@
 # The result is that the build stalls.  To avoid all this, we only build docs
 # for aarch64, x86_64, and ppc64le.  If you really need docs for s390x, help me
 # figure out how to avoid the problem described above.
-%ifarch %{arm64} x86_64 %{power64}
+%ifarch %{arm64} %{x86_64} %{power64}
 %bcond docs 1
 %else
 %bcond docs 0
@@ -65,7 +65,6 @@ BuildRequires:	gfan
 BuildRequires:	gmp-devel
 BuildRequires:	graphviz
 BuildRequires:	libgfan-devel
-BuildRequires:	libnormaliz-devel
 BuildRequires:	libspasm-devel
 BuildRequires:	libtool
 BuildRequires:	lrcalc
@@ -127,6 +126,8 @@ Patch:		%{name}-doc-hang.patch
 # Fix an off-by-one error in polymake.lib that leads to failed examples
 # https://github.com/Singular/Singular/issues/1210
 Patch:		%{name}-polymake-lib.patch
+# Adapt to flint 3.3.x
+Patch:		%{name}-flint3.3.patch
 
 %description
 Singular is a computer algebra system for polynomial computations, with
@@ -227,6 +228,9 @@ sed -i 's@ -Wl,-rpath,\${CCLUSTER_HOME}/lib@@' m4/ccluster-check.m4
 
 # Make sure we do not use the bundled gfanlib
 rm -fr gfanlib
+
+# Work around a change in normaliz 3.10.5
+sed -i '/nmz_multiplicity/d' Singular/LIB/normaliz.lib
 
 # Regenerate configure due to patches
 autoreconf -fi

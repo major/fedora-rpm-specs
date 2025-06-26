@@ -7,7 +7,7 @@
 
 Name:    eric
 Summary: Python IDE
-Version: 25.3
+Version: 25.6.1
 Release: %autorelease
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -18,10 +18,10 @@ Source30: eric-32.png
 Source31: eric-48.png
 Source32: eric-64.png
 ## downstream patches
-# sane defaults: disable version check, qt5/qt6 configuration
+# sane defaults: disable version check, qt6 configuration
 Patch100: eric7-23.9-defaults.patch
-# build with Python 3.13
-#Patch101: eric7-24.6-python313.patch
+# build with Python 3.14
+Patch101: eric7-25.6.1-python314.patch
 
 BuildArch: noarch
 # webengine not available on all archs
@@ -44,6 +44,7 @@ BuildRequires: python3dist(parso)
 BuildRequires: python3dist(jedi)
 BuildRequires: python3dist(packaging)
 BuildRequires: python3dist(trove-classifiers)
+BuildRequires: python3dist(spdx-license-list)
 BuildRequires: python3dist(black)
 BuildRequires: python3dist(isort)
 BuildRequires: python3dist(coverage)
@@ -78,6 +79,7 @@ Requires: python3dist(parso)
 Requires: python3dist(jedi)
 Requires: python3dist(packaging)
 Requires: python3dist(trove-classifiers)
+Requires: python3dist(spdx-license-list)
 Requires: python3dist(black)
 Requires: python3dist(isort)
 Requires: python3dist(coverage)
@@ -95,6 +97,15 @@ Recommends: python3dist(pyenchant)
 Recommends: python3dist(wheel)
 Recommends: python3dist(fido2)
 Recommends: python3dist(pyusb)
+# External Tools
+Recommends: pyside6-tools
+Recommends: qt6-assistant
+Recommends: qt6-designer
+Recommends: qt6-doctools
+Recommends: qt6-linguist
+Recommends: git-core
+Recommends: mercurial
+Recommends: subversion
 # documentation
 Recommends: python3-docs
 Recommends: qt6-doc-html

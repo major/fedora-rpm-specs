@@ -3,7 +3,7 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Handles user special directories
 
 License:	GPL-2.0-or-later AND MIT
@@ -13,6 +13,8 @@ Source0:	https://user-dirs.freedesktop.org/releases/%{name}-%{version}.tar.gz
 # Backports from upstream
 Patch0001:	0001-Add-a-systemd-service-to-run-xdg-user-dirs-update.patch
 Patch0002:	0002-Install-systemd-service-file.patch
+# https://gitlab.freedesktop.org/xdg/xdg-user-dirs/-/merge_requests/16
+Patch0003:      0003-Fix-autopoint-invocation.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -37,7 +39,7 @@ homedirectory based on the defaults configured by the administrator.
 %autosetup -S git_am
 
 %conf
-autoreconf -fiv
+autoreconf -fiv -I ./m4
 %configure
 
 %build
@@ -80,6 +82,9 @@ rm -rf %{buildroot}%{_userunitdir}
 
 
 %changelog
+* Mon Jun 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.18-10
+- Fix build with gettext-0.25
+
 * Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-9
 - Do not install the systemd unit on <F42
 

@@ -1,6 +1,6 @@
 Name:           mopidy-mpd
 Version:        3.3.0^20241110git9c66c58
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ echo 'include src/mopidy_*/ext.conf' > MANIFEST.in
 %doc README.rst
 
 %changelog
+* Tue Jun 24 2025 Python Maint <python-maint@redhat.com> - 3.3.0^20241110git9c66c58-2
+- Rebuilt for Python 3.14
+
 * Tue Jan 21 2025 Tobias Girstmair <t-fedora@girst.at> - 3.3.0^20241110git9c66c58
 - Upgrade to latest snapshot, for compatibility with mopidy-4.0.0~a2 (RHBZ#2336892)
 

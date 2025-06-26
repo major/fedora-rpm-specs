@@ -170,6 +170,7 @@ Source300: test-runner.sh
 Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
+Patch: 0003-tools-make-nodedownload-module-compatible-with-Pytho.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs

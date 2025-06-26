@@ -47,7 +47,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.05.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -55,7 +55,7 @@ URL:              https://ghostscript.com/
 Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs%{version_short}/ghostscript-%{version}.tar.xz
 
 Requires:         libgs%{?_isa} = %{version}-%{release}
-Requires:         %{name}-tools-fonts = %{version}-%{release}
+Requires:         %{name}-tools-fontutils = %{version}-%{release}
 Requires:         %{name}-tools-printing = %{version}-%{release}
 
 Provides:         ghostscript-core = %{version}-%{release}
@@ -199,12 +199,13 @@ PDF files using Ghostscript and dvips.
 
 # ---------------
 
-%package tools-fonts
+%package tools-fontutils
 Summary:          Ghostscript's font utilities
 BuildArch:        noarch
+Obsoletes:        %{name}-tools-fonts < 10.05.1-4
 Requires:         %{name} = %{version}-%{release}
 
-%description tools-fonts
+%description tools-fontutils
 This package provides utilities which are useful when you are working with AFM,
 PFB or PFA files, mostly for conversion purposes.
 
@@ -445,7 +446,7 @@ done
 
 # ---------------
 
-%files tools-fonts
+%files tools-fontutils
 %{_bindir}/pf2afm
 %{_bindir}/pfbtopfa
 %{_bindir}/printafm
@@ -483,6 +484,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Jun 23 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-4
+- rename tools-fonts to tools-fontutils to comply with font guidelines (fedora#2372646)
+
 * Mon Jun 02 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-3
 - use 'patch' and remove unused patch
 

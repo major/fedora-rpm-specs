@@ -5,7 +5,7 @@
 %global crate wiremock
 
 Name:           rust-wiremock
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        HTTP mocking to test Rust applications
 
@@ -17,12 +17,7 @@ Source:         %{crates_source}
 # * Update deadpool to 0.12 and remove async-trait dependency:
 #   https://github.com/LukeMathWalker/wiremock-rs/pull/157
 # * Omit deprecated async-std dev-dependency
-# * Omit surf dev-dependency, which is not actively developed
-#   (https://github.com/http-rs/surf/issues/352), and which has enough
-#   dependencies of its own that it is not worth packaging solely to run more
-#   tests.
-# * Remove test modules for which *all* tests would require surf and/or
-#   async-std.
+# * Remove test modules for which *all* tests would require async-std.
 Patch:          wiremock-fix-metadata.diff
 # * This is the source-code change from “Update deadpool to 0.12,”
 #   https://github.com/LukeMathWalker/wiremock-rs/pull/157, to accompany the
@@ -81,8 +76,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * Nearly all doctests require surf and/or async-std; running those that don’t
-#   does not seem worth the extensive patching effort that would be required.
+# * Nearly all "doc" and "tests" tests require async-std; running the few
+#   exceptions does not seem worth the extensive patching effort that would be
+#   required.
 %cargo_test -- --lib
 %endif
 

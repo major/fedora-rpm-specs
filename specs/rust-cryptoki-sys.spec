@@ -5,7 +5,7 @@
 %global crate cryptoki-sys
 
 Name:           rust-cryptoki-sys
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        FFI wrapper around the PKCS #11 API
 

@@ -1,6 +1,6 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	6.14.0
+Version:	6.15.0
 Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
@@ -159,6 +159,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Tue Jun 24 2025 Pavel Reichl <preichl@redhat.com> - 6.15.0-1
+- Rebase to v6.15.0
+- Related: rhbz#2374614
+
 * Tue Apr 15 2025 Pavel Reichl <preichl@redhat.com> - 6.14.0-1
 - Update to the latest upstream version v6.14
 - Related: rhbz#2359550

@@ -24,6 +24,9 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 
+## Upstream patches
+Patch0: 0001-Add-missing-linking-CorePrivate.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: ninja-build

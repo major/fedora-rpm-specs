@@ -5,7 +5,7 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        9.8.1
+Version:        9.9.0
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
@@ -16,6 +16,7 @@ Source:         %pypi_source %{srcname}
 BuildRequires:  gcc-c++
 BuildRequires:  qpdf-devel >= 11.5.0
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 %if %{with tests}
 # Tests:
 BuildRequires:  poppler-utils
@@ -50,7 +51,15 @@ Documentation for pikepdf
 %autosetup -n %{srcname}-%{version} -p1
 
 # Drop coverage requirements
-sed -i -e '/coverage/d' -e '/pytest-cov/d' setup.cfg
+tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'coverage.*'
+tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'pytest-cov.*'
+
+%if 0%{?fedora} < 43
+# By dropping project.license, we can use older setuptools.
+tomcli set pyproject.toml del project.license
+tomcli set pyproject.toml str 'project.license.text' 'MPL-2.0'
+tomcli set pyproject.toml arrays replace 'build-system.requires' 'setuptools.*' 'setuptools >= 61'
+%endif
 
 %if %{with docs}
 # We don't build docs against the installed version, so force the version.
@@ -83,9 +92,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-# Skipped tests assert refcounting which has changed in Python 3.14
-# Reported: https://github.com/pikepdf/pikepdf/issues/655
-%{pytest} -ra -k "not test_copy_foreign_refcount and not test_stream_refcount and not test_evil_page_deletion"
+%{pytest} -ra
 %endif
 
 

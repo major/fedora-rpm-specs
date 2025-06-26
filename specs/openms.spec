@@ -13,7 +13,7 @@ ExclusiveArch: %{qt6_qtwebengine_arches}
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.3.0
+Version:   3.4.1
 Epoch:     2
 Release:   %autorelease
 # BSD-3-Clause is the main license
@@ -75,6 +75,8 @@ Patch0: %{name}-remove_testflag.patch
 
 Patch1: %{name}-3.2.0-bz2254779.patch
 Patch2: %{name}-3.2.0-fix_GCC15.patch
+Patch3: %{name}-bug7907.patch
+
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -189,6 +191,9 @@ HTML documentation of OpenMS.
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
 %patch -P 2 -p1 -b .backup
+%ifarch %{power64}
+%patch -P 3 -p1 -b .backup
+%endif
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml

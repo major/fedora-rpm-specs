@@ -201,7 +201,6 @@
 %endif
 %if 0%{?fedora}
 %global bundlecrc32c 0
-%global bundlesimdutf 0
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 9
 %global bundlelibopenjpeg2 0
@@ -245,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 137.0.7151.119
+Version: 138.0.7204.49
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -276,12 +275,7 @@ Patch90: chromium-121-system-libxml.patch
 Patch91: chromium-108-system-opus.patch
 
 # patch for Failed NodeJS version check
-Patch92: chromium-136-checkversion-nodejs.patch
-
-# Fix FTBFS
-Patch93: chromium-137-pdfium-png_decoder-build-error.patch
-Patch94: chromium-137-simdutf-build-error.patch
-Patch95: chromium-137-simdutf-7.x-build-error.patch
+Patch92: chromium-138-checkversion-nodejs.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
@@ -801,7 +795,7 @@ Provides: bundled(boringssl)
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
 %if %{bundlesimdutf} 
-Provides: bundled(simdutf) = 6.4.0
+Provides: bundled(simdutf) = 7.0.0
 %endif
 Provides: bundled(bspatch) = 465265d0d473d107b76e74d969199eaf2cdc8750
 Provides: bundled(colorama) = 0.4.6
@@ -981,13 +975,6 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
-%patch -P93 -p1 -b .pdfium-png_decoder-build-error
-%if ! %{bundlesimdutf}
-%patch -P94 -p1 -b .simdutf-build-error
-%if 0%{?fedora} > 42
-%patch -P95 -p1 -b .simdutf-7.x-build-error
-%endif
-%endif
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
@@ -1752,6 +1739,12 @@ fi
 %endif
 
 %changelog
+* Tue Jun 24 2025 Than Ngo <than@redhat.com> - 138.0.7204.49-1
+- Update to 138.0.7204.49
+  * CVE-2025-6555: Use after free in Animation
+  * CVE-2025-6556: Insufficient policy enforcement in Loader
+  * CVE-2025-6557: Insufficient data validation in DevTools
+
 * Wed Jun 18 2025 Than Ngo <than@redhat.com> - 137.0.7151.119-1
 - Update to 137.0.7151.119
   * CVE-2025-6191: Integer overflow in V8

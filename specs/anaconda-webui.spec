@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        40
+Version:        41
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -75,7 +75,6 @@ Anaconda installer Web interface
 
 %install
 %make_install PREFIX=/usr
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/extlinks.desktop
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/anaconda-gnome-control-center.desktop
@@ -98,7 +97,6 @@ exit 0
 %{_datadir}/cockpit/anaconda-webui/index.css.gz
 %{_datadir}/cockpit/anaconda-webui/index.css.map
 %{_datadir}/cockpit/anaconda-webui/manifest.json
-%{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
 %dir %{_datadir}/anaconda/firefox-theme
 %dir %{_datadir}/anaconda/firefox-theme/default
@@ -120,6 +118,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jun 24 2025 Packit <hello@packit.dev> - 41-1
+- components: error: redesign error reporting
+
 * Thu Jun 19 2025 Packit <hello@packit.dev> - 40-1
 - storage: mount-point-assignment: display partitions on RAID disks in mount point assignment
 - storage: fix unselecting the only available disk

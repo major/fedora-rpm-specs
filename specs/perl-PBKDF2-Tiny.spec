@@ -1,23 +1,24 @@
 Name:           perl-PBKDF2-Tiny
 Version:        0.005
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Minimalist PBKDF2 (RFC 2898) with HMAC-SHA1 or HMAC-SHA2
-# inc/MakeMaker.pm:     GPL+ or Artistic (derived from
+# inc/MakeMaker.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl (derived from
 #                       Package-Stash:inc/MMPackageStash.pm)
-# Makefile.PL:          GPL+ or Artistic (parse_args() derived from
-#                       ExtUtils-MakeMaker)
-# other files:          ASL 2.0
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
+# Makefile.PL:          GPL-1.0-or-later OR Artistic-1.0-Perl (parse_args()
+#                       derived from ExtUtils-MakeMaker)
+# other files:          Apache-2.0
 License:        Apache-2.0
+SourceLicense:  %{license} AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/PBKDF2-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/PBKDF2-Tiny-%{version}.tar.gz
 BuildArch:      noarch
 # The inc/MakeMaker.pm is not run
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
@@ -39,28 +40,58 @@ Requires:       perl(Digest::SHA)
 This module provides an RFC 2898 compliant PBKDF2 implementation using
 HMAC-SHA1 or HMAC-SHA2.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n PBKDF2-Tiny-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/PBKDF2
+%{perl_vendorlib}/PBKDF2/Tiny.pm
+%{_mandir}/man3/PBKDF2::Tiny.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 24 2025 Petr Pisar <ppisar@redhat.com> - 0.005-31
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 # SPDX-License-Identifqier: MIT
 %global forgeurl https://github.com/mitradranirban/font-uniol
 Version:   2.001
-Release:   1%{?dist}
+Release:   3%{?dist}
 %forgemeta
 URL: %{forgeurl}
 %global fontfamily    uniol
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      Licence
 %global fontdocs       README.md
 %global fontdocsex        %{fontlicenses}
@@ -42,6 +42,8 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Tue Jun 24 2025 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 2.001-3
+- update licence to be SPDX compliant 
 * Fri Jun 13 2025 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 2.001-2
 - updated Licence file details
 * Fri Jun 13 2025 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 2.001-1

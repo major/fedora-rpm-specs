@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc3.31
+%define pkgrelease 0.rc3.250624g78f4e737a53e.32
 %define kversion 6
-%define tarfile_release 6.16-rc3
+%define tarfile_release 6.16-rc3-42-g78f4e737a53e
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.31%{?buildid}%{?dist}
+%define specrelease 0.rc3.250624g78f4e737a53e.32%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4337,8 +4337,12 @@ fi\
 #
 #
 %changelog
-* Mon Jun 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.31]
+* Tue Jun 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.78f4e737a53e.32]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Jun 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.78f4e737a53e.31]
+- redhat/configs: enable fwctl for RHEL (Michal Schmidt) [RHEL-96987]
+- Linux v6.16.0-0.rc3.78f4e737a53e
 
 * Mon Jun 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.30]
 - Linux v6.16.0-0.rc3

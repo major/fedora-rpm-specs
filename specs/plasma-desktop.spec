@@ -5,8 +5,8 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 6.4.0
-Release: 2%{?dist}
+Version: 6.4.1
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -19,11 +19,6 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_
 Source20:       breeze-fedora-0.3.tar.gz
 
 ## upstream patches
-
-# 6.4: Fix an issue where user alignment choices would block an icon from being clickable
-# https://invent.kde.org/plasma/plasma-desktop/-/commit/f6c6e03a5fed3435ea47605e232af57140625440
-# Fixed in 6.4.1
-Patch0: f6c6e03a5fed3435ea47605e232af57140625440.patch
 
 ## downstream patches
 # default kickoff/kicker favorites: +kwrite +konsole
@@ -364,6 +359,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
+- 6.4.1
+
 * Sun Jun 22 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-2
 - Fix an issue with icons not being clickable when specific alignment is set
 

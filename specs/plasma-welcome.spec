@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        6.4.0
+Version:        6.4.1
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
+- 6.4.1
+
 * Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
 - 6.4.0
 

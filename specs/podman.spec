@@ -17,6 +17,9 @@
 
 %if %{defined copr_username}
 %define copr_build 1
+%if "%{copr_username}" == "rhcontainerbot" && "%{copr_projectname}" == "podman-next"
+%define next_build 1
+%endif
 %endif
 
 # Only RHEL and CentOS Stream rpms are built with fips-enabled go compiler
@@ -44,7 +47,7 @@
 %endif
 
 Name: podman
-%if %{defined copr_build}
+%if %{defined next_build}
 Epoch: 102
 %else
 Epoch: 5
@@ -55,7 +58,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.5.1
+Version: 5.5.2
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -241,7 +244,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="850db76dd78a0641eddb9ee19ee6f60d2c59bcfa"
+GIT_COMMIT="e7d8226745ba07a64b7176a7f128e4ef53225a0e"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first

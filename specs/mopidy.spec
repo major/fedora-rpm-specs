@@ -1,14 +1,15 @@
 %global homedir %{_sharedstatedir}/%{name}
 
 Name:           mopidy
-Version:        4.0.0~a2
-Release:        5%{?dist}
+Version:        4.0.0~a4
+Release:        1%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        Apache-2.0
 URL:            https://mopidy.com/
 Source0:        %{pypi_source}
 Source1:        mopidy.conf
+Patch0:         0001-add-workaround-for-gstreamer-1.25.0-to-1.26.2.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -53,7 +54,7 @@ Documentation for Mopidy, an extensible music server written in Python.
 
 
 %prep
-%autosetup -n %{name}-4.0.0a2 -p1
+%autosetup -n %{name}-4.0.0a4 -p1
 #HACK! revert to %%autosetup -n %%{name}-%%{version} -p1
 
 %generate_buildrequires
@@ -124,6 +125,9 @@ install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 
 %changelog
+* Tue Jun 24 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a4-1
+- Update to 4.0.0a4 for Python 3.14 compatibility (RHBZ#2367738) and fix gstreamer 1.26 compatibility
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a2-5
 - Rebuilt for Python 3.14
 

@@ -114,6 +114,7 @@ This package contains the tty version of the PIN entry dialog.
 
 
 %build
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 autoreconf -fiv
 %configure \
   --disable-rpath \

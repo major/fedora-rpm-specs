@@ -11,9 +11,13 @@
 # there is no debug package
 %global debug_package %{nil}
 
+# build test subpackage
+%bcond_with test
+
 # Option to test suite for testing on real HW:
 %bcond_with check
-%if %{with check}
+
+%if %{with check} || %{with test}
 %global build_test ON
 %else
 %global build_test OFF
@@ -26,7 +30,7 @@
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCm
@@ -43,7 +47,7 @@ BuildRequires:  rocprim-static
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
-%if %{with check}
+%if %{with check} || %{with test}
 %if 0%{?suse_version}
 BuildRequires:  gtest
 %else
@@ -69,6 +73,15 @@ Requires:       rocprim-devel
 
 %description devel
 The %{upstreamname} development package.
+
+%if %{with test}
+%package test
+Summary:        Self-tests for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description test
+Precompiled self-tests for %{name}
+%endif
 
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
@@ -120,7 +133,17 @@ fi
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 
+%if %{with test}
+%files test
+%dir %{_bindir}/hipcub
+%{_bindir}/test_*
+%{_bindir}/hipcub/*.cmake
+%endif
+
 %changelog
+* Tue Jun 24 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
+- add option to build test subpackage
+
 * Tue Jun 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Improve testing on suse
 

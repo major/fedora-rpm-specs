@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -545,6 +545,9 @@ cat >postgresql16.sysusers.conf <<EOF
 u postgres 26 'PostgreSQL Server' /var/lib/pgsql /bin/bash
 EOF
 
+cat > postgresql16.tmpfiles.conf <<EOF
+d /var/lib/pgsql 0700 postgres postgres -
+EOF
 
 %build
 # Avoid LTO on armv7hl as it runs out of memory
@@ -950,6 +953,7 @@ find_lang_bins pltcl.lst pltcl
 %endif
 
 install -m0644 -D postgresql16.sysusers.conf %{buildroot}%{_sysusersdir}/postgresql16.conf
+install -m0644 -D postgresql16.tmpfiles.conf %{buildroot}%{_tmpfilesdir}/postgresql16.conf
 
 
 %post -n %{pkgname}-server
@@ -1237,6 +1241,7 @@ make -C postgresql-setup-%{setup_version} check
 %config(noreplace) /etc/pam.d/postgresql
 %endif
 %{_sysusersdir}/postgresql16.conf
+%{_tmpfilesdir}/postgresql16.conf
 
 
 %files -n %{pkgname}-server-devel -f devel.lst
@@ -1334,6 +1339,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Jun 16 2025 Filip Janus <fjanus@redhat.com> - 16.9-3
+- Add tmpfiles.d configuration file definition
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 16.9-2
 - Rebuilt for Python 3.14
 

@@ -1,5 +1,5 @@
 Name:           oxygen-sounds
-Version:        6.4.0
+Version:        6.4.1
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
@@ -41,6 +41,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
+- 6.4.1
+
 * Mon Jun 16 2025 Steve Cossette <farchord@gmail.com> - 6.4.0-1
 - 6.4.0
 

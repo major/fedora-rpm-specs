@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flintlib/flint
 
 Name:           flint
-Version:        3.2.2
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 
@@ -16,6 +16,8 @@ License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND
 URL:            https://flintlib.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# Defeat upstream's attempt to optimize for the builder's CPU
+Patch:          %{name}-arch.patch
 
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
@@ -74,7 +76,7 @@ fixtimestamp() {
 ln -sf $PWD flint
 # sanitize references to external headers
 for fil in $(find src -name \*.c -o -name \*.h -o -name \*.in); do
-  sed -ri.orig 's/"((cblas|gc|gmp|math|mpfr|string)\.h)"/<\1>/' $fil
+  sed -ri.orig 's/"((gc|math|mpfr)\.h)"/<\1>/' $fil
   fixtimestamp $fil
 done
 # sanitize references to project headers
@@ -90,17 +92,17 @@ sed -i "s/'default'/'classic'/" doc/source/conf.py
 # Look for flexiblas
 sed -i 's/openblas/flexiblas/' configure
 
-
-%build
 # FLINT builds and passes all tests without this using GCC <= 14
 # Tests fail with incorrect answers using GCC >= 15.0
 CFLAGS='%{build_cflags} -fno-strict-aliasing'
 CXXFLAGS='%{build_cxxflags} -fno-strict-aliasing'
 %configure \
-  --disable-arch \
   --disable-static \
   --with-blas-include=%{_includedir}/flexiblas \
   --with-ntl-include=%{_includedir}/NTL
+
+
+%build
 %make_build
 
 # Build the documentation
@@ -120,7 +122,7 @@ make check
 %doc AUTHORS
 %doc README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libflint.so.20*
+%{_libdir}/libflint.so.21*
 
 
 %files devel

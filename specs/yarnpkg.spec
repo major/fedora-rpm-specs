@@ -8,11 +8,11 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20250604
+%global bundledate 20250624
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -28,6 +28,7 @@ Source1:        yarnpkg-tarball.sh
 # CVE-2024-48949.prebundle.patch
 # CVE-2024-37890.prebundle.patch
 # CVE-2024-12905.prebundle.patch
+# CVE-2025-6545_6547.prebundle.patch
 
 Patch0:         CVE-2023-26136.patch
 Patch1:         CVE-2022-37599.patch
@@ -92,6 +93,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Tue Jun 24 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-9
+- Add CVE-2025-6545_6547.prebundle.patch and regenerate bundle. Fixes CVE-2025-6545 and CVE-2025-6547.
+
 * Wed Jun 04 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-8
 - Refresh bundle tarball for CVE-2025-48387
 

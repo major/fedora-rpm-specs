@@ -31,7 +31,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.63
-Release: 2%{?dist}
+Release: 4%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -101,6 +101,7 @@ Patch29: httpd-2.4.43-logjournal.patch
 Patch30: httpd-2.4.53-separate-systemd-fns.patch
 Patch31: httpd-2.4.63-r1912477+.patch
 Patch32: httpd-2.4.54-selinux.patch
+Patch33: httpd-2.4.63-r1926064.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -847,6 +848,12 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Jun 24 2025 Joe Orton  <jorton@redhat.com> - 2.4.63-4
+- mod_dav: add dav_get_base_path() API
+
+* Mon Feb 10 2025 Joe Orton <jorton@redhat.com> - 2.4.63-3
+- sync default httpd.conf with upstream
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.4.63-2
 - Add explicit BR: libxcrypt-devel
 
