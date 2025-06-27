@@ -53,7 +53,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 16
+%global nodejs_minor 17
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
@@ -84,10 +84,10 @@
 %global c_ares_version 1.34.5
 
 # llhttp - from deps/llhttp/include/llhttp.h
-%global llhttp_version 9.2.1
+%global llhttp_version 9.3.0
 
 # libuv - from deps/uv/include/uv/version.h
-%global libuv_version 1.49.2
+%global libuv_version 1.51.0
 
 # nghttp2 - from deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
 %global nghttp2_version 1.64.0
@@ -138,7 +138,7 @@
 %global histogram_version 0.9.7
 
 # sqlite – from deps/sqlite/sqlite3.h
-%global sqlite_version 3.49.1
+%global sqlite_version 3.50.0
 
 
 Name: nodejs%{nodejs_pkg_major}

@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -51,6 +51,8 @@ browser program for viewing texinfo files.
 Summary: Tools for formatting Texinfo documentation files using TeX
 Requires: texinfo = %{version}-%{release}
 Requires: tex(tex) tex(epsf.tex)
+Requires: /usr/bin/cmp
+Requires: /usr/bin/diff
 Requires(post): %{_bindir}/texconfig-sys
 Requires(postun): %{_bindir}/texconfig-sys
 Provides: tex-texinfo
@@ -146,6 +148,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Wed Jun 25 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.2-4
+- Fix texi2dvi missing dependencies
+  Resolves: #2374602
+
 * Tue Jan 21 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.2-3
 - Changes related to bin and sbin unify
 

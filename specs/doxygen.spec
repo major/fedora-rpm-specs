@@ -17,7 +17,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.14.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -30,6 +30,8 @@ Source3: README.rpm-packaging
 Source4: doxygen-unbundler
 
 # upstream fixes
+# fix input buffer overflow
+Patch1: doxygen-input-buffer-overflow.patch
 
 BuildRequires: %{_bindir}/python3
 BuildRequires: perl-interpreter, perl-open
@@ -343,6 +345,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Wed Jun 25 2025 Than Ngo <than@redhat.com> - 2:1.14.0-3
+- Upstream fix for input buffer overflow
+
 * Wed May 28 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.14.0-2
 - Use bundled spdlog on RHEL, redux
 

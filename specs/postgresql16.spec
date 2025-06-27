@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -107,6 +107,7 @@ Summary: PostgreSQL client programs
 
 BuildRequires: make
 BuildRequires: lz4-devel
+BuildRequires: libzstd-devel
 BuildRequires: gcc
 BuildRequires: perl(ExtUtils::MakeMaker) glibc-devel bison flex gawk
 BuildRequires: perl(ExtUtils::Embed), perl-devel
@@ -626,6 +627,7 @@ common_configure_options='
 	--datadir=%_datadir/pgsql
 	--with-systemd
 	--with-lz4
+    --with-zstd
 %if %icu
 	--with-icu
 %endif
@@ -713,6 +715,7 @@ upgrade_configure ()
 		--prefix=%prev_prefix \
 		--disable-rpath \
 		--with-lz4 \
+        --with-zstd \
 %if %icu
 		--with-icu \
 %endif
@@ -1339,6 +1342,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Jun 25 2025 Filip Janus <fjanus@redhat.com> - 16.9-4
+- Enable zstd
+
 * Mon Jun 16 2025 Filip Janus <fjanus@redhat.com> - 16.9-3
 - Add tmpfiles.d configuration file definition
 

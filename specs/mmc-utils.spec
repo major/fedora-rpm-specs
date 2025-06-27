@@ -1,17 +1,19 @@
-%global commit e1281d4de9166b7254ba30bb58f9191fc2c9e7fb
-%global date 20240305
+%global commit d8a8358a7207bd81d0c38dca2cf27a48bf411341
+%global date 20250624
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Summary: Configure MMC storage devices from userspace
 Name: mmc-utils
-Version: 0~%{date}git%{shortcommit}
-Release: 4%{?dist}
+Version: 1.0
+Release: 1%{?dist}
 URL: https://docs.kernel.org/driver-api/mmc/mmc-tools.html
-Source0: https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/snapshot/mmc-utils-%{commit}.tar.gz
+Source0: https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/snapshot/mmc-utils-%{version}.tar.gz
 Patch0: https://sources.debian.org/data/main/m/mmc-utils/0%2Bgit20220624.d7b343fd-1/debian/patches/0001-Fix-typo.patch
 Patch1: https://sources.debian.org/data/main/m/mmc-utils/0%2Bgit20220624.d7b343fd-1/debian/patches/0002-man-mmc.1-Fix-warning-macro-not-defined.patch
 # remove -Werror from CFLAGS
 Patch2: %{name}-no-Werror.patch
+# fix warning: _FORTIFY_SOURCE requires compiling with optimization (-O)
+Patch3: %{name}-cflags-fortify-source.patch
 License: GPL-2.0-only AND BSD-3-Clause
 BuildRequires: gcc
 BuildRequires: make
@@ -47,10 +49,10 @@ The mmc-utils tools can do the following:
 * Print and parse SCR data.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 
 %build
-%make_build GIT_VERSION=%{shortcommit}
+%make_build C=0 GIT_VERSION=%{version}
 
 %install
 %make_install bindir=%{_bindir}
@@ -62,6 +64,11 @@ install -D -pm0644 -t %{buildroot}%{_mandir}/man1 man/mmc.1
 %{_mandir}/man1/mmc.1*
 
 %changelog
+* Wed Jun 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.0-1
+- update to 1.0 (resolves rhbz#2374624)
+- avoid BR: sparse
+- drop second -DFORTIFY_SOURCE from CFLAGS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~20240305gite1281d4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

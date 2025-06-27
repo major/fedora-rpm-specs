@@ -8,7 +8,7 @@
 %global supported_arches x86_64
 
 Name:           rust-sev
-Version:        6.1.0
+Version:        6.2.1
 Release:        %autorelease
 Summary:        Library for AMD SEV
 

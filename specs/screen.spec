@@ -3,8 +3,8 @@
 
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
-Version:        5.0.0
-Release:        4%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 BuildRequires: make
@@ -19,6 +19,7 @@ Source1:        screen.pam
 
 Patch1:         screen-5.0.0-screenrc.patch
 Patch2:         screen-5.0.0-suppress_remap.patch
+Patch3:         0001-Fix-unescaped-in-email-address.patch
 
 %description
 The screen utility allows you to have multiple logins on just one
@@ -117,6 +118,9 @@ install -m0644 -D screen.sysusers.conf %{buildroot}%{_sysusersdir}/screen.conf
 %{_sysusersdir}/screen.conf
 
 %changelog
+* Thu May 29 2025 Dick Marinus <dick@mrns.nl> - 5.0.1-1
+- New upstream release 5.0.1 (#2366507)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.0-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

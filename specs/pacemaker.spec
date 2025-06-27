@@ -40,11 +40,11 @@
 ## Upstream pacemaker version, and its package version (specversion
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 3.0.0
-%global specversion 5
+%global pcmkversion 3.0.1
+%global specversion 1.rc1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit d8340737c46ccb265bd82c5493b58e9c14ba67e5
+%global commit 9a5e54bae85847c4bb6ed7c7fb06103ebebbc64a
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_with pre_release
+%bcond_without pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -176,7 +176,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}.2
+Release:       %{pcmk_release}%{?dist}
 
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
@@ -191,8 +191,6 @@ Url:           https://www.clusterlabs.org/
 # You can use "spectool -s 0 pacemaker.spec" (rpmdevtools) to show final URL.
 Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{archive_github_url}
 Source1:       pacemaker.sysusers
-# upstream commits
-Patch0:        001-reset-error-warning-flags.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -255,7 +253,6 @@ BuildRequires: %{pkgname_glue_libs}-devel
 %endif
 
 %if %{with doc}
-BuildRequires: asciidoc
 BuildRequires: %{python_name}-sphinx
 %endif
 
@@ -480,7 +477,7 @@ popd
 %check
 make %{_smp_mflags} check
 { cts/cts-scheduler --run load-stopped-loop \
-  && cts/cts-cli \
+  && cts/cts-cli -V \
   && touch .CHECKED
 } 2>&1 | sed 's/[fF]ail/faiil/g'  # prevent false positives in rpmlint
 [ -f .CHECKED ] && rm -f -- .CHECKED
@@ -765,6 +762,12 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Wed Jun 25 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-1
+- Update for new upstream release tarball: Pacemaker-3.0.1-rc1,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.1-rc1
+- sync cts/cts-cli -V in check with upstream
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-5.2
 - Rebuilt for Python 3.14
 

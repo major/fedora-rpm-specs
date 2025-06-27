@@ -1,5 +1,5 @@
 Name:           python-license-expression
-Version:        30.4.1
+Version:        30.4.2
 Release:        %autorelease
 Summary:        Library to parse, compare, simplify and normalize license expressions
 

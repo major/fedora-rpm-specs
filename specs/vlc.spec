@@ -1,6 +1,5 @@
 # codecs which cannot be shipped in Fedora proper
 %bcond freeworld 0
-%bcond faad2 %{with freeworld}
 %bcond x264 %{with freeworld}
 %bcond x265 %{with freeworld}
 
@@ -17,9 +16,9 @@
 
 # some dependencies are not yet in EPEL 10
 %bcond daala %{undefined el10}
-%bcond lirc %{undefined el10}
-%bcond schro %{undefined el10}
-%bcond sdl %{undefined el10}
+%bcond lirc 1
+%bcond schro %[!(0%{?rhel} >= 10)]
+%bcond sdl %[!(0%{?rhel} >= 10)]
 
 %ifnarch s390x
 %bcond crystalhd %[0%{?fedora} || 0%{?rhel} < 9]
@@ -89,9 +88,7 @@ BuildRequires:	libappstream-glib
 
 BuildRequires:	a52dec-devel
 BuildRequires:	aalib-devel
-%if %{with faad2}
 BuildRequires:	faad2-devel
-%endif
 BuildRequires:	hostname
 BuildRequires:	kernel-headers
 %if %{with crystalhd}
@@ -645,7 +642,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-avformat					\
 	--enable-swscale					\
 	--enable-postproc					\
-	--enable-faad%{!?with_faad2:=no}			\
+	--enable-faad						\
 	--enable-aom						\
 	--enable-dav1d						\
 	--enable-vpx						\
@@ -938,6 +935,7 @@ make check
 %{vlc_plugindir}/codec/libddummy_plugin.so
 %{vlc_plugindir}/codec/libdvbsub_plugin.so
 %{vlc_plugindir}/codec/libedummy_plugin.so
+%{vlc_plugindir}/codec/libfaad_plugin.so
 %{vlc_plugindir}/codec/libfdkaac_plugin.so
 %{vlc_plugindir}/codec/libflac_plugin.so
 %{vlc_plugindir}/codec/libg711_plugin.so

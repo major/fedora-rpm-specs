@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        48.2
+Version:        48.6
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Wed Jun 25 2025 Carlos Garnacho <cgarnach@redhat.com> - 48.6-1
+- Update to 48.6
+
 * Wed Jun 11 2025 Carlos Garnacho <carlosg@gnome.org> - 48.2-1
 - Update to 48.2
 

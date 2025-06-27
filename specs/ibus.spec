@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -641,6 +641,12 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jun 26 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-6
+- #2267613 Append non-glyph characters at last order for partial annotations
+- Fix PageUp/PageDown buttons with hidding candidate popup
+- Add warning when specify --disable-appindicator configure option
+- Do not require gtk-doc when specify --disable-gtk-doc autogen option
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.5.32-5
 - Rebuilt for Python 3.14
 

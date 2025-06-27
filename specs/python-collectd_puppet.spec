@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/cernops/collectd-puppet
 
 Name:           python-%{module_name}
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Collectd plugin to monitor puppet agents
 %global tag %{version}

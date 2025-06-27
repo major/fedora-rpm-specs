@@ -4,8 +4,8 @@ pianobar is a free/open-source, console-based client for the personalized
 online radio Pandora.}
 
 Name:           pianobar
-Version:        2022.04.01
-Release:        12%{?dist}
+Version:        2024.12.21
+Release:        1%{?dist}
 Summary:        Console-based client for Pandora
 
 License:        MIT
@@ -14,8 +14,6 @@ Source:         %{url}/%{name}-%{version}.tar.bz2
 Source:         %{url}/%{name}-%{version}.tar.bz2.sha256
 Source:         %{url}/%{name}-%{version}.tar.bz2.asc
 Source:         %{baseurl}/08D8092A.gpg
-# Add compatibility with FFMPEG 7.0
-Patch:          https://github.com/PromyLOPh/pianobar/commit/8bf4c1bbaa6a533f34d74f83d72eecc0beb61d4f.patch
 
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -98,6 +96,10 @@ rm %{buildroot}%{_libdir}/libpiano.a
 %{_libdir}/libpiano.so.0{,.*}
 
 %changelog
+* Wed Jun 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 2024.12.21-1
+- Update to 2024.12.21 (resolves rhbz#2333646)
+- Drop obsolete patch
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.04.01-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

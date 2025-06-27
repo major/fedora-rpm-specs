@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 147
+%global min_osbuild_version 151
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        143
+Version:        144
 
 %gometa
 
@@ -124,13 +124,13 @@ Provides: bundled(golang(github.com/containerd/errdefs)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/errdefs/pkg)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = 0.16.3
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = 2.2.3
-Provides: bundled(golang(github.com/containers/common)) = 0.62.0
-Provides: bundled(golang(github.com/containers/image/v5)) = 5.34.0
+Provides: bundled(golang(github.com/containers/common)) = 0.62.3
+Provides: bundled(golang(github.com/containers/image/v5)) = 5.34.3
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
-Provides: bundled(golang(github.com/containers/storage)) = 1.57.1
+Provides: bundled(golang(github.com/containers/storage)) = 1.57.2
 Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
-Provides: bundled(golang(github.com/coreos/go-systemd)) = d3cd4ed
+Provides: bundled(golang(github.com/coreos/go-systemd/v22)) = 22.5.0
 Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = ba74d44
 Provides: bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.3.6
 Provides: bundled(golang(github.com/davecgh/go-spew)) = d8f796a
@@ -235,7 +235,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.6.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.148.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.151.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -358,8 +358,6 @@ export LDFLAGS="${LDFLAGS} -X 'github.com/osbuild/osbuild-composer/internal/comm
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-composer %{goipath}/cmd/osbuild-composer
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-worker %{goipath}/cmd/osbuild-worker
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-worker-executor %{goipath}/cmd/osbuild-worker-executor
-%gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-jobsite-manager %{goipath}/cmd/osbuild-jobsite-manager
-%gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-jobsite-builder %{goipath}/cmd/osbuild-jobsite-builder
 
 make man
 
@@ -392,8 +390,6 @@ install -m 0755 -vd                                                %{buildroot}%
 install -m 0755 -vp _bin/osbuild-composer                          %{buildroot}%{_libexecdir}/osbuild-composer/
 install -m 0755 -vp _bin/osbuild-worker                            %{buildroot}%{_libexecdir}/osbuild-composer/
 install -m 0755 -vp _bin/osbuild-worker-executor                   %{buildroot}%{_libexecdir}/osbuild-composer/
-install -m 0755 -vp _bin/osbuild-jobsite-manager                   %{buildroot}%{_libexecdir}/osbuild-composer/
-install -m 0755 -vp _bin/osbuild-jobsite-builder                   %{buildroot}%{_libexecdir}/osbuild-composer/
 
 # Only include repositories for the distribution and release
 install -m 0755 -vd                                                %{buildroot}%{_datadir}/osbuild-composer/repositories
@@ -599,8 +595,6 @@ The worker for osbuild-composer
 %files worker
 %{_libexecdir}/osbuild-composer/osbuild-worker
 %{_libexecdir}/osbuild-composer/osbuild-worker-executor
-%{_libexecdir}/osbuild-composer/osbuild-jobsite-manager
-%{_libexecdir}/osbuild-composer/osbuild-jobsite-builder
 %{_unitdir}/osbuild-worker@.service
 %{_unitdir}/osbuild-remote-worker@.service
 
@@ -697,6 +691,37 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jun 25 2025 Packit <hello@packit.dev> - 144-1
+Changes with 144
+----------------
+  * CI: disable know to be bad tests (#4754)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal, Ondřej Budai, Simon de Vlieger
+  * GHA: enable the stale action to delete its saved state (#4752)
+    * Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Sanne Raymaekers, Simon de Vlieger
+  * Schutzfile: Bump all osbuild hashes (#4748)
+    * Author: Simon Steinbeiß, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  * Schutzfile: add fedora-42 (#4749)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * Stop testing on Fedora 40 - Start testing on Fedora 42 (#4745)
+    * Author: Achilleas Koutsou, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+  * Update snapshots to 20250605 (#4743)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Brian C. Lane, Tomáš Hozza
+  * cloudapi: Disk customization tweaks (adding swap), validation fixes, and tests (#4740)
+    * Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  * cloudapi: add azure-cvm image type (#4755)
+    * Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  * deps: upgrade go-systemd from v1 to v22 (#4729)
+    * Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger, Tomáš Hozza
+  * go.mod: update osbuild/images to v0.151.0 (#4744)
+    * Author: Achilleas Koutsou, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+  * many: remove jobsite code (#4746)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Simon de Vlieger, Tomáš Hozza
+  * templates/packer: fix installing rpms from copr (#4753)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-06-25
+
+
 * Wed Jun 11 2025 Packit <hello@packit.dev> - 143-1
 Changes with 143
 ----------------

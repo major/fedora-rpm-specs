@@ -2,8 +2,8 @@
 %global with_python 1
 
 Name:          libgpiod
-Version:       2.2.1
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Version:       2.2.2
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -93,12 +93,14 @@ Files for development with %{name}.
 
 %prep
 %autosetup -p1
+%if 0%{?with_python}
 # python bindings build is set to use isolation. Remove this for distro build so it uses the
 # system installed dependencies instead of trying to use pip to install from the network
 sed -i 's/-m build/-m pip wheel --wheel-dir dist --no-build-isolation ./' bindings/python/Makefile*
 # Once the following commit is merged, replace the above line with the command below:
 # https://lore.kernel.org/linux-gpio/20250407181116.1070816-1-yselkowi@redhat.com/T/#u
 #sed -i 's/-m pip wheel/& --no-build-isolation/' bindings/python/Makefile*
+%endif
 
 %build
 %configure \
@@ -191,6 +193,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jun 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.2-1
+- Update to 2.2.2
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.1-4
 - Rebuilt for Python 3.14
 

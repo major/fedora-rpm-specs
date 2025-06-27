@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cython implementation of the toolz package
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} PYTHONDONTWRITEBYTECODE=1 py.test-%{p
 
 
 %changelog
+* Wed Jun 25 2025 Python Maint <python-maint@redhat.com> - 1.0.1-3
+- Rebuilt for Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

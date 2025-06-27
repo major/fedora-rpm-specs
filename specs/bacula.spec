@@ -5,15 +5,9 @@
 %global uid 133
 %global username bacula
 
-# RHEL 10 has only Qt 6.  EPEL 10 will have Qt 5 to start, but not
-# necessarily for its entire lifetime.
-%if !(0%{?rhel} >= 10 || 0%{?epel} >= 11)
-%bcond_without qt
-%endif
-
 Name:               bacula
-Version:            15.0.2
-Release:            5%{?dist}
+Version:            15.0.3
+Release:            %autorelease
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 # See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/277
@@ -83,9 +77,7 @@ BuildRequires:      openldap-devel
 BuildRequires:      openssl-devel
 BuildRequires:      perl-generators
 BuildRequires:      perl-interpreter
-%if %{with qt}
 BuildRequires:      qt5-qtbase-devel
-%endif
 BuildRequires:      readline-devel
 BuildRequires:      sed
 BuildRequires:      sqlite-devel
@@ -114,12 +106,6 @@ Bacula programs.
 
 %package libs-sql
 Summary:            Bacula SQL libraries
-Obsoletes:          bacula-libs-mysql <= 5.0.3
-Obsoletes:          bacula-libs-sqlite <= 5.0.3
-Obsoletes:          bacula-libs-postgresql <= 5.0.3
-Provides:           bacula-libs-mysql = %{version}-%{release}
-Provides:           bacula-libs-sqlite = %{version}-%{release}
-Provides:           bacula-libs-postgresql = %{version}-%{release}
 
 %description libs-sql
 Bacula is a set of programs that allow you to manage the backup, recovery, and
@@ -230,7 +216,6 @@ based on a client/server architecture.
 This package contains the command-line management console for the bacula backup
 system.
 
-%if %{with qt}
 %package console-bat
 Summary:            Bacula bat console
 Requires:           bacula-libs%{?_isa} = %{version}-%{release}
@@ -255,7 +240,6 @@ based on a client/server architecture.
 
 This package contains the Gnome and KDE compatible tray monitor to monitor your
 bacula server.
-%endif
 
 %package devel
 Summary:            Bacula development files
@@ -313,18 +297,14 @@ popd
 
 export CFLAGS="%{optflags} -I%{_includedir}/ncurses"
 export CXXFLAGS="%{optflags} -I%{_includedir}/ncurses"
-%if %{with qt}
 export PATH="$PATH:%{_qt5_bindir}"
-%endif
 
 %configure \
     --disable-conio \
     --disable-rpath \
     --docdir=%{_datadir}/bacula \
     --enable-antivirus-plugin \
-%if %{with qt}
     --enable-bat \
-%endif
     --enable-antivirus-plugin \
     --enable-batch-insert \
     --enable-build-dird \
@@ -386,7 +366,6 @@ rm -f %{buildroot}%{_libdir}/libbaccats.so
 # Remove placeholder
 rm -f %{buildroot}%{_libexecdir}/%{name}/baculabackupreport
 
-%if %{with qt}
 # Bat
 install -p -m 644 -D src/qt-console/images/bat_icon.png %{buildroot}%{_datadir}/pixmaps/bat_icon.png
 install -p -m 644 -D scripts/bat.desktop %{buildroot}%{_datadir}/applications/bat.desktop
@@ -396,9 +375,6 @@ install -p -m 644 -D manpages/bacula-tray-monitor.1 %{buildroot}%{_mandir}/man1/
 install -p -m 644 -D %{SOURCE19} %{buildroot}%{_datadir}/pixmaps/bacula-tray-monitor.png
 install -p -m 644 -D scripts/bacula-tray-monitor.desktop %{buildroot}%{_datadir}/applications/bacula-tray-monitor.desktop
 install -p -m 755 -D src/qt-console/tray-monitor/.libs/bacula-tray-monitor %{buildroot}%{_sbindir}/bacula-tray-monitor
-%else
-rm -f %{buildroot}%{_mandir}/man1/bat.1*
-%endif
 
 # Logrotate
 mkdir -p %{buildroot}%{_localstatedir}/log/bacula
@@ -649,7 +625,6 @@ fi
 %{_sbindir}/bconsole
 %{_sbindir}/bbconsjson
 
-%if %{with qt}
 %files console-bat
 %config(noreplace) %{_sysconfdir}/bacula/bat.conf %attr(640,root,root)
 %{_datadir}/applications/bat.desktop
@@ -665,7 +640,6 @@ fi
 %{_datadir}/pixmaps/bacula-tray-monitor.png
 %{_mandir}/man1/bacula-tray-monitor.1*
 %{_sbindir}/bacula-tray-monitor
-%endif
 
 %files devel
 %{_includedir}/bacula
@@ -679,137 +653,4 @@ fi
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 15.0.2-5
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 15.0.2-4
-- Add explicit BR: libxcrypt-devel
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 02 2024 Simone Caronni <negativo17@gmail.com> - 15.0.2-1
-- Update to 15.0.2.
-- Drop EL7 support.
-- Enable antivirus plugin for File Daemon.
-- Enable AWS and aligned driver for Storage Daemon
-- Enable TOTP support for Director.
-- Add ZSTD support.
-
-* Thu Feb 15 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-4
-- Adjust QT conditional.
-
-* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-3
-- Adjust build requirements and conditions to build on all supported EL/Fedora
-  releases.
-
-* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-2
-- Enable S3 support.
-
-* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-1
-- Update to 13.0.4.
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 13.0.3-3
-- Disable Qt components in RHEL builds
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu May 04 2023 Simone Caronni <negativo17@gmail.com> - 13.0.3-1
-- Update to 13.0.3.
-- Trim changelog.
-
-* Wed Mar 29 2023 Simone Caronni <negativo17@gmail.com> - 13.0.2-1
-- Update to 13.0.2.
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 13.0.1-5
-- Port configure script to C99
-
-* Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-4
-- Fix isworm script.
-
-* Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-3
-- Require sdparm in storage subpackage. It's required for WORM tapes.
-
-* Mon Nov 21 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-2
-- Add separate firewall rules for storage/director only.
-
-* Fri Aug 19 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-1
-- Update to 13.0.1.
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Simone Caronni <negativo17@gmail.com> - 13.0.0-1
-- Update to version 13.0.0.
-- Enable LDAP integration.
-
-* Sat Mar 26 2022 Simone Caronni <negativo17@gmail.com> - 11.0.6-2
-- Update/reorganize patches.
-
-* Fri Mar 25 2022 Simone Caronni <negativo17@gmail.com> - 11.0.6-1
-- Update to 11.0.6.
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 11.0.5-3
-- Rebuilt with OpenSSL 3.0.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 03 2021 Simone Caronni <negativo17@gmail.com> - 11.0.5-1
-- Update to 11.0.5.
-
-* Mon May 31 2021 Simone Caronni <negativo17@gmail.com> - 11.0.3-1
-- Update to 11.0.3.
-
-* Fri Apr 16 2021 Simone Caronni <negativo17@gmail.com> - 11.0.2-3
-- All scripts require sh, so use that also for the backup report.
-
-* Fri Apr 16 2021 Simone Caronni <negativo17@gmail.com> - 11.0.2-2
-- Remove dash build requirement.
-
-* Fri Apr 16 2021 Simone Caronni <negativo17@gmail.com> - 11.0.2-1
-- Update to 11.0.2.
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.0.1-2
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Thu Feb 11 2021 Simone Caronni <negativo17@gmail.com> - 11.0.1-1
-- Update to 11.0.1.
-
-* Mon Feb 08 2021 Pavel Raiskup <praiskup@redhat.com> - 11.0.0-5
-- rebuild for libpq ABI fix rhbz#1908268
-
-* Thu Jan 28 2021 Simone Caronni <negativo17@gmail.com> - 11.0.0-4
-- Remove leftover ImageMagick build requirement.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 15 2021 Simone Caronni <negativo17@gmail.com> - 11.0.0-2
-- Build CDP plugin components.
-
-* Tue Jan 12 2021 Simone Caronni <negativo17@gmail.com> - 11.0.0-1
-- Update to 11.0.0.
-- Enable Docker plugin.
-
-* Tue Jan 12 2021 Simone Caronni <negativo17@gmail.com> - 9.6.7-1
-- Update to 9.6.7.
-- Drop support for building on CentOS/RHEL 6 and upgrades from version 2.4.
-- Trim changelog.
+%autochangelog

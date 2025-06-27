@@ -1,9 +1,7 @@
-%bcond_with faad2
-
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     2.4.0
-Release:     7%{?dist}
+Release:     8%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -20,7 +18,8 @@ BuildRequires:  a52dec-devel
 BuildRequires:  librsvg2-devel >= 2.5.0
 BuildRequires:  libGLU-devel
 BuildRequires:  freetype-devel >= 2.1.4
-%{?with_faad2:BuildRequires:  faad2-devel}
+BuildRequires:  faad2-devel
+BuildRequires:  libcaca-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel >= 1.2.5
 BuildRequires:  libmad-devel
@@ -159,6 +158,7 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 %files libs
 %{_libdir}/libgpac.so.12{,.*}
 %dir %{_libdir}/gpac
+%{_libdir}/gpac/gm_caca_out.so
 %{_libdir}/gpac/gm_ft_font.so
 %{_libdir}/gpac/gm_jack.so
 %{_libdir}/gpac/gm_pulseaudio.so
@@ -180,6 +180,10 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Wed Jun 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-8
+- build with FAAD2 by default, now that it's in Fedora
+- build with libcaca
+
 * Sat May 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-7
 - switch JACK build dependency to the one providede by pipewire
 

@@ -8,6 +8,8 @@
 %bcond_with    ugni
 %bcond_with    xpmem
 %bcond_with    vfs
+%bcond_with    mad
+%bcond_without mlx5
 
 %ifarch x86_64
 %if 0%{?fedora} <= 42
@@ -20,8 +22,8 @@
 %endif
 
 Name: ucx
-Version: 1.17.0
-Release: 5%{?dist}
+Version: 1.18.1
+Release: 1%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -37,11 +39,8 @@ License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
 
 URL: http://www.openucx.org
 Source: https://github.com/openucx/%{name}/releases/download/v%{version}/ucx-%{version}.tar.gz
-# BUILD/CONFIG: Keep CFLAGS and CXXFLAGS separate
-# Fixes build for https://fedoraproject.org/wiki/Changes/PortingToModernC
-Patch0: https://github.com/openucx/%{name}/pull/9558.patch
 # TOOLS/PERF: Include omp.h outside of extern C declarations
-Patch1: https://github.com/openucx/%{name}/pull/10664.patch
+Patch0: https://github.com/openucx/%{name}/pull/10664.patch
 
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -69,6 +68,9 @@ BuildRequires: gdrcopy
 %if %{with ib}
 BuildRequires: libibverbs-devel
 %endif
+%if %{with mlx5}
+BuildRequires: rdma-core-devel
+%endif
 %if %{with knem}
 BuildRequires: knem
 %endif
@@ -85,6 +87,10 @@ BuildRequires: xpmem-devel
 %if %{with vfs}
 BuildRequires: fuse3-devel
 %endif
+%if %{with mad}
+BuildRequires: libibmad-devel libibumad-devel
+%endif
+
 
 %description
 UCX is an optimized communication framework for high-performance distributed
@@ -111,7 +117,6 @@ Provides header files and examples for developing with UCX.
 %prep
 %setup -q
 %patch -P0 -p1
-%patch -P1 -p1
 # https://github.com/openucx/ucx/issues/10542
 # With ROCm 6.3+ libhsakmt is bundled with libhsa-runtime64
 # Remove this nonexistent library
@@ -142,11 +147,13 @@ export CFLAGS="$CFLAGS -std=gnu17"
            %_with_arg cuda cuda \
            %_with_arg gdrcopy gdrcopy \
            %_with_arg ib verbs \
+           %_with_arg mlx5 mlx5 \
            %_with_arg knem knem \
            %_with_arg rdmacm rdmacm \
            %_with_arg xpmem xpmem \
            %_with_arg vfs fuse3 \
            %_with_arg ugni ugni \
+           %_with_arg mad mad \
            %{?configure_options}
 make %{?_smp_mflags} V=1
 
@@ -357,7 +364,39 @@ status, and more.
 %{_bindir}/ucx_vfs
 %endif
 
+%if %{with mlx5}
+%package ib-mlx5
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary: UCX IB MLX5 RDMA provider support
+Group: System Environment/Libraries
+
+%description ib-mlx5
+Provides support for DevX, Direct Verbs and DC transports for Infiniband
+devices.
+
+%files ib-mlx5
+%{_libdir}/ucx/libuct_ib_mlx5.so.*
+%endif
+
+%if %{with mad}
+%package mad
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary: UCX Infiniband MAD support
+Group: System Environment/Libraries
+
+%description mad
+Provide Infiniband MAD support for UCX. Enables running perftest using
+Infiniband datagrams for out-of-band communications.
+
+%files mad
+%{_libdir}/ucx/libucx_perftest_mad.so.*
+%endif
+
 %changelog
+* Wed Jun 25 2025 Kamal Heib <kheib@redhat.com> - 1.18.1-1
+- Update to version 1.18.1
+- Resolves: rhbz#2328935
+
 * Sun Mar 9 2025 Tom Rix <Tom.Rix@amd.com> - 1.17.0-5
 - ROCm is part of Fedora, so build it.
 

@@ -24,7 +24,10 @@ Patch:		pysafetensors.patch
 ExcludeArch:	%{ix86}
 # Right now, torch is exclusive to x86_64 and aarch64
 %ifarch x86_64 || arch aarch64
-%bcond_without torch
+# Temporarily disable torch extra because pytorch is not cmpatible with Python 3.14
+# F43FailsToInstall: python3-torch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372164
+%bcond_with torch
 %else
 %bcond_with torch
 %endif

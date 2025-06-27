@@ -31,10 +31,14 @@ Version:        1.0.0
 Release:        3%{?dist}
 Summary:        A functional standard library for Python
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# The project is released under the BSD-3-Clause license.
+# The _version.py file created by versioneer is licensed CC0-1.0; this will
+# change to Unlicense when versioneer is updated to a newer version.
+License:        BSD-3-Clause AND CC0-1.0
 URL:            https://github.com/pytoolz/%{srcname}/
 Source0:        https://github.com/pytoolz/toolz/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Add python 3.14 support
+Patch:          %{url}/pull/592.patch
 BuildArch:      noarch
 
 %description
@@ -44,9 +48,7 @@ BuildArch:      noarch
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        A functional standard library for Python %{python3_version}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 %{desc}
@@ -56,26 +58,34 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l toolz tlz
 
 
 %check
 # shakespeare test downloads a file
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v -k 'not test_shakespeare'
+%pytest -v -k 'not test_shakespeare'
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
-%{python3_sitelib}/%{srcname}*
-%{python3_sitelib}/tlz/
 
 
 %changelog
+* Wed Jun 25 2025 Jerry James  <loganjerry@gmail.com> - 1.0.0-3
+- Add upstream patch for python 3.14 compatibility
+- Update License field
+- Use modern python build macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.0-3
 - Rebuilt for Python 3.14
 

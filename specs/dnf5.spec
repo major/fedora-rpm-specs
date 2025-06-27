@@ -7,11 +7,12 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-dnfdaemon-Removed-incorrect-output-parameter-names.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1022,6 +1023,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Wed Jun 25 2025 Marek Blaha <mblaha@redhat.com> - 5.2.14.0-2
+- Remove incorrect dnfdaemon output parameter names (https://github.com/rpm-software-management/dnf5/issues/2317)
+
 * Fri Jun 20 2025 Packit <hello@packit.dev> - 5.2.14.0-1
 - Update to version 5.2.14.0
 

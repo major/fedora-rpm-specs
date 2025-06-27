@@ -86,8 +86,6 @@ ExcludeArch: %{ix86} %{arm}
 %global libvpx_version 1.8.2
 %endif
 
-%global disable_elfhack 1
-
 # Use clang?
 %bcond_without toolchain_clang
 
@@ -101,8 +99,8 @@ ExcludeArch: %{ix86} %{arm}
 %global __requires_exclude ^(%%(find %{buildroot}%{icecatappdir} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:    icecat
-Epoch:   2
-Version: 115.24.0
+Epoch:   3
+Version: 128.12.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -144,9 +142,7 @@ Source19: run-wayland-compositor
 
 # Build patches
 # Fixes installation of those addons which don't have ID on IceCat ("Cannot find id for addon" error).
-Patch1: %{name}-fix_addon_installation.patch
 Patch2: %{name}-commasplit.patch
-Patch5: rhbz-1219542-s390-build.patch
 
 # With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
 # https://github.com/rust-lang/rust-bindgen/pull/2319
@@ -158,9 +154,7 @@ Patch7:  rust-bindgen-2319-2339.patch
 Patch8:  mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100.patch 
 
 Patch40: build-aarch64-skia.patch
-Patch41: build-disable-elfhack.patch
 Patch44: build-arm-libopus.patch
-Patch54: mozilla-1669639.patch
 
 # Fedora specific patches
 Patch219: rhbz-1173156.patch
@@ -179,7 +173,6 @@ Patch403: icecat-python3.11-open-U.patch
 Patch404: icecat-python3.11-regex-inline-flags.patch
 Patch412: mozilla-1337988.patch
 Patch422: mozilla-1580174-webrtc-popup.patch
-Patch425: icecat-115.19.0-fix_mz1912663.patch
 # Patch for GCC-15
 Patch426: icecat-115.19.0-fix_mz1917964.patch
 
@@ -187,8 +180,6 @@ Patch426: icecat-115.19.0-fix_mz1917964.patch
 Patch423: mozilla-1512162.patch
 
 # PGO/LTO patches
-Patch600: %{name}-pgo.patch
-Patch602: mozilla-1516803.patch
 Patch603: %{name}-gcc-always-inline.patch
 
 BuildRequires: alsa-lib-devel
@@ -358,15 +349,7 @@ and translations langpack add-ons.
 # Copy license files
 tar -xf %{SOURCE5}
 
-%patch -P 1 -p 1 -b .fix_addon_installation
 %patch -P 2 -p 1 -b .commasplit
-%ifarch s390x
-%patch -P 5 -p 1 -b .rhbz-1219542-s390
-%endif
-
-%if 0%{?disable_elfhack}
-%patch -P 41 -p 1 -b .disable-elfhack
-%endif
 
 # Fedora patches
 %patch -P 219 -p 1 -b .rhbz-1173156
@@ -385,16 +368,7 @@ tar -xf %{SOURCE5}
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162
 %endif
-%patch -P 425 -p 1 -b .1912663
 %patch -P 426 -p 1 -b .1917964
-
-%patch -P 54 -p 1 -b .1669639
-
-# PGO patches
-%if 0%{?build_with_pgo}
-%patch -P 600 -p 1 -b .pgo
-%patch -P 602 -p 1 -b .1516803
-%endif
 %patch -P 603 -p1 -b .inline
 
 # Remove default configuration and copy the customized one
@@ -481,8 +455,9 @@ echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`"
 #echo "ac_add_options --with-clang-path=%%{_bindir}/clang%%{?llvm_suffix}" >> .mozconfig
 %endif
 
-%ifarch s390x
+%ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
+echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
 %if 0%{?build_with_pgo}

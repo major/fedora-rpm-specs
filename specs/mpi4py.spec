@@ -19,8 +19,8 @@
 %global FULLTESTS 0
 
 Name:           mpi4py
-Version:        4.0.3
-Release:        2%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Python bindings of the Message Passing Interface (MPI)
 
 License:        BSD-2-Clause
@@ -231,6 +231,9 @@ mv build mpich
 
 
 %changelog
+* Wed Jun 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
+- 4.1.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.3-2
 - Rebuilt for Python 3.14
 

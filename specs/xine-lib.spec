@@ -8,8 +8,6 @@
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
-# Not permitted in Fedora, ffmpeg covers this anyway
-%global _without_faad2 1
 %global _without_fame 1
 %endif
 
@@ -26,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        23%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        24%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -360,6 +358,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Jun 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.2.13-24
+- Enable FAAD2 support
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.13-23
 - Rebuilt for flac 1.5.0
 

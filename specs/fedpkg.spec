@@ -1,12 +1,15 @@
 %define bash_completion_dir %{_datadir}/bash-completion/completions
 
+# hatchling is not supported in Python 3.6 releases (epel8)
 %if 0%{?rhel} == 8
-%define legacy_system 1
+%global with_hatchling 0
+%else
+%global with_hatchling 1
 %endif
 
 Name:           fedpkg
 Version:        1.46
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -30,14 +33,14 @@ Requires:       redhat-rpm-config
 BuildRequires:  python3-devel
 BuildRequires:  python3-rpkg >= 1.68-1
 BuildRequires:  python3-distro
-%if !%{defined legacy_system}
+%if 0%{?with_hatchling}
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-hatchling
+%else
+BuildRequires:  python3-setuptools
 %endif
 # For testing
 BuildRequires:  python3-pytest
-%if %{defined legacy_system}
-BuildRequires:  python3-setuptools
-%endif
 BuildRequires:  python3-bugzilla
 BuildRequires:  python3-freezegun
 BuildRequires:  python3-bodhi-client
@@ -48,7 +51,7 @@ Requires:       python3-rpkg >= 1.68-1
 Requires:       python3-distro
 Requires:       python3-openidc-client >= 0.6.0
 Requires:       python3-bodhi-client
-%if %{defined legacy_system}
+%if !0%{?with_hatchling}
 Requires:       python3-setuptools
 %endif
 Recommends:     fedora-packager
@@ -76,51 +79,51 @@ via the python-argcomplete framework.
 %prep
 %autosetup -p1
 
-%if !%{defined legacy_system}
+%if 0%{?with_hatchling}
 %generate_buildrequires
 %pyproject_buildrequires
 %endif
 
 %build
-%if %{defined legacy_system}
-%py_build
-%else
+%if 0%{?with_hatchling}
 %pyproject_wheel
+%else
+%py_build
 %endif
 %{python3} doc/fedpkg_man_page.py > fedpkg.1
 
 %install
-%if %{defined legacy_system}
-%py_install
-%else
+%if 0%{?with_hatchling}
 %pyproject_install
 %pyproject_save_files -l %{name}
+%else
+%py_install
 %endif
 %{__install} -d %{buildroot}%{_mandir}/man1
 %{__install} -p -m 0644 fedpkg.1 %{buildroot}%{_mandir}/man1
 echo "register-python-argcomplete fedpkg" > fedpkg.bash
 %{__install} -d %{buildroot}%{bash_completion_dir}
 %{__install} -p -m 0644 fedpkg.bash %{buildroot}%{bash_completion_dir}
-%if !%{defined legacy_system}
+%if 0%{?with_hatchling}
 # config file /etc/rpkg/fedpkg.conf is extracted to %{buildroot}/usr/etc/... by pyproject_install
 %{__install} -d %{buildroot}%{_sysconfdir}
 mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 %endif
 
 %check
-%if !%{defined legacy_system}
+%if 0%{?with_hatchling}
 %pyproject_check_import
 %endif
 %pytest
 
 
-%if %{defined legacy_system}
+%if 0%{?with_hatchling}
+%files -f %{pyproject_files}
+%else
 %files
 # For noarch packages: sitelib
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/%{name}-%{version}-py*.egg-info
-%else
-%files -f %{pyproject_files}
 %endif
 %license COPYING
 %doc README.rst CONTRIBUTING.md CHANGELOG.rst
@@ -137,6 +140,9 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Tue Jun 24 2025 Ondřej Nosek <onosek@redhat.com> - 1.46-4
+- Unify the hatchling macros with rpkg
+
 * Tue Jun 24 2025 Ondřej Nosek <onosek@redhat.com> - 1.46-3
 - Switch to %%pyproject_* macros
 

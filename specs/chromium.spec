@@ -279,6 +279,7 @@ Patch92: chromium-138-checkversion-nodejs.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
+Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
 Patch130: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
@@ -326,8 +327,8 @@ Patch315: chromium-134-rust-libadler2.patch
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
 
-# Fix FTBFS, clang++: error: unknown argument: '-fextend-variable-liveness=none'
-Patch317: chromium-137-clang++-unknown-argument.patch
+# unknown warning option -Wno-nontrivial-memcall
+Patch317: chromium-138-clang++-unknown-argument.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -978,6 +979,7 @@ Qt6 UI for chromium.
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
+%patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
 %endif

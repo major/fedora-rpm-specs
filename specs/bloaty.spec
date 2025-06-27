@@ -29,7 +29,7 @@ Patch1:         bloaty-1.1-longlong.patch
 Patch2:         %{url}/pull/332.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{x86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  capstone-devel

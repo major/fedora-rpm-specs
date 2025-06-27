@@ -1,8 +1,8 @@
 %global modname semver
 
 Name:           python-%{modname}
-Version:        3.0.2
-Release:        4%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Python helper for Semantic Versioning
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %{_bindir}/pysemver
 
 %changelog
+* Thu Jun 12 2025 Jeremy Cline <jeremy@linux.microsoft.com> - 3.0.4-1
+- Update to v3.0.4 (close RHBZ#2338733)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.2-4
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@
 %global crate picky-krb
 
 Name:           rust-picky-krb
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Encode/decode Kerberos ASN.1 DER structs
 

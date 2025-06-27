@@ -1,5 +1,5 @@
 Name:          bolt
-Version:       0.9.9
+Version:       0.9.10
 Release:       %autorelease
 Summary:       Thunderbolt device manager
 License:       LGPL-2.1-or-later

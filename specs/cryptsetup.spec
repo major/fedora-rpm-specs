@@ -1,6 +1,6 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.8.0~rc1
+Version: 2.8.0
 Release: 1%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Tue Jun 24 2025 Ondrej Kozina <okozina@redhat.com> - 2.8.0-1
+- Update to cryptsetup 2.8.0.
+
 * Mon Jun 16 2025 Milan Broz <gmazyland@gmail.com> - 2.8.0~rc1-1
 - Update to cryptsetup 2.8.0-rc1.
 

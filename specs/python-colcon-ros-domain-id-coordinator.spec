@@ -1,8 +1,8 @@
 %global srcname colcon-ros-domain-id-coordinator
 
 Name:           python-%{srcname}
-Version:        0.2.1
-Release:        3%{?dist}
+Version:        0.2.4
+Release:        1%{?dist}
 Summary:        Extension for colcon to coordinate different DDS domain IDs
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Wed Jun 25 2025 Scott K Logan <logans@cottsay.net> - 0.2.4-1
+- Update to 0.2.4
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.1-3
 - Rebuilt for Python 3.14
 

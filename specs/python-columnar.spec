@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for printing data in a columnar format
 
 License:        MIT
@@ -60,6 +60,9 @@ EOF
 %doc README.md
 
 %changelog
+* Wed Jun 25 2025 Python Maint <python-maint@redhat.com> - 1.4.1-3
+- Rebuilt for Python 3.14
+
 * Mon May 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.1-2
 - Review fixes.
 

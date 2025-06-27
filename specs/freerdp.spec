@@ -47,6 +47,9 @@ URL:            http://www.freerdp.com/
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
 
+# Fix s390x builds
+Patch0:         https://github.com/FreeRDP/FreeRDP/commit/efbc9f7cbc887825dbd409ac1b3fa5f6003ad303.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
@@ -373,10 +376,11 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
-* Mon Jun 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2:3.16.0-1
+* Wed Jun 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 2:3.16.0-1
 - Update to 3.16.0
 - Drop upstreamed patches
 - Switch to SDL3 for sdl-freerdp
+- Backport fix for s390x
 
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 2:3.12.0-2
 - Rebuild for noopenh264 2.6.0

@@ -28,8 +28,6 @@ Provides:       virt-firmware
 Conflicts:      python3-virt-firmware-peutils < 23.9
 Obsoletes:      python3-virt-firmware-peutils < 23.9
 Requires:       virt-sb-certs
-Requires(post): %{_bindir}/update-alternatives
-Requires(postun): %{_bindir}/update-alternatives
 Recommends:     qemu-img
 Recommends:     dialog
 %description -n python3-virt-firmware
@@ -90,23 +88,6 @@ for dir in $dirs; do
     ln -vs ../../../../../../..%{_datadir}/virt-sb-certs/$dir \
        %{buildroot}%{python3_sitelib}/virt/firmware/certs/$dir
 done
-# uefi-boot-menu alternatives
-mv %{buildroot}%{_bindir}/uefi-boot-menu \
-   %{buildroot}%{_bindir}/uefi-boot-menu.python
-touch %{buildroot}%{_bindir}/uefi-boot-menu
-
-%post -n python3-virt-firmware
-if test ! -L %{_bindir}/uefi-boot-menu; then
-    rm -f %{_bindir}/uefi-boot-menu
-fi
-update-alternatives --install %{_bindir}/uefi-boot-menu \
-                    uefi-boot-menu %{_bindir}/uefi-boot-menu.python 10
-
-%postun -n python3-virt-firmware
-if [ $1 -eq 0 ] ; then
-    update-alternatives --remove uefi-boot-menu \
-                        %{_bindir}/uefi-boot-menu.python
-fi
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -125,8 +106,7 @@ fi
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
 %{_bindir}/kernel-bootcfg
-%ghost %{_bindir}/uefi-boot-menu
-%{_bindir}/uefi-boot-menu.python
+%{_bindir}/uefi-boot-menu
 %{_bindir}/migrate-vars
 %{_bindir}/pe-dumpinfo
 %{_bindir}/pe-listsigs

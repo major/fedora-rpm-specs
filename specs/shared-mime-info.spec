@@ -1,18 +1,18 @@
 Summary: Shared MIME information database
 Name: shared-mime-info
-Version: 2.3
+Version: 2.4
 Release: %autorelease
 License: GPL-2.0-or-later
 URL: http://freedesktop.org/Software/shared-mime-info
 Source0: https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/%{version}/shared-mime-info-%{version}.tar.bz2
 
 Source1: mimeapps.list
+# openat() with O_CREAT needs also mode
+Source2: 0003-xdgmime-openat-fourth-arg.patch
 
-%global xdgmime_commit 179296748e92bd91bf531656632a1056307fb7b7
+%global xdgmime_commit 4cc93f9381e0eddd2cac1e92c0f36b29dcd8c1ce
 # Tarball for https://gitlab.freedesktop.org/xdg/xdgmime/-/tree/%%{xdgmime_commit}
 Source6: https://gitlab.freedesktop.org/xdg/xdgmime/-/archive/%{xdgmime_commit}/xdgmime-%{xdgmime_commit}.tar.bz2
-# HACK in use of RPM_OPT_FLAGS into xdgmime build
-Source7: shared-mime-info-2.1-CFLAGS.patch
 
 # Work-around for https://bugs.freedesktop.org/show_bug.cgi?id=40354
 Patch0: 0001-Remove-sub-classing-from-OO.o-mime-types.patch
@@ -27,7 +27,6 @@ BuildRequires:  xmlto
 BuildRequires:  glib2-devel
 BuildRequires:  gettext
 BuildRequires:  itstool
-BuildRequires:  make
 BuildRequires:  meson
 BuildRequires:  git-core
 
@@ -47,10 +46,15 @@ and looking up the correct MIME type in a database.
 rmdir xdgmime
 tar xjf %SOURCE6
 mv xdgmime-%{xdgmime_commit}/ xdgmime/
-patch -p1 < %SOURCE7
+patch -p1 < %SOURCE2
 
 %build
-%make_build -C xdgmime
+
+pushd xdgmime
+%meson
+%meson_build
+popd
+
 # the updated mimedb is later owned as %%ghost to ensure proper file-ownership
 # it also asserts it is possible to build it
 %meson -Dupdate-mimedb=true

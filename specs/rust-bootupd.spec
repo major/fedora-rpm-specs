@@ -13,6 +13,8 @@ Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.tar.zstd
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
 ExcludeArch:    %{ix86}
 
+Patch0:         0001-install-attempt-to-use-an-already-mounted-ESP-at-the.patch
+
 BuildRequires: git
 # For now, see upstream
 BuildRequires: make

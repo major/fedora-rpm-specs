@@ -124,6 +124,7 @@ install -Dpm 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/0
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Atspi-2.0.typelib
 %{_libexecdir}/at-spi-bus-launcher
+%dir %{_datadir}/dbus-1/accessibility-services/
 %{_datadir}/dbus-1/accessibility-services/org.a11y.atspi.Registry.service
 %{_datadir}/dbus-1/services/org.a11y.Bus.service
 %{_userunitdir}/at-spi-dbus-bus.service

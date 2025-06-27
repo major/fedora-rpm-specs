@@ -14,7 +14,7 @@
 %global giturl  https://github.com/Z3Prover/z3
 
 Name:           z3
-Version:        4.15.1
+Version:        4.15.2
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -61,11 +61,11 @@ Summary:        Library for applications that use z3 functionality
 Library for applications that use z3 functionality.
 
 %package devel
-Summary:        Header files for build applications that use z3
+Summary:        Header files for building applications that use z3
 Requires:       z3-libs%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files for build applications that use z3.
+Header files for building applications that use z3.
 
 %package doc
 # The content is MIT.

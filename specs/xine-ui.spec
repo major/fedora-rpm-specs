@@ -1,14 +1,10 @@
-%if 0%{?el10}
-%global         _without_lirc  1
-%endif
-
 #global         snapshot    1
 #global         date        20250317
 #global         commit      7e63ae
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        12%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        13%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -242,6 +238,9 @@ cp -a fedoraskins/* %{buildroot}%{_datadir}/xine/skins/
 
 
 %changelog
+* Wed Jun 25 2025 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-13
+- Re-enable lirc for EL10
+
 * Tue Mar 18 2025 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-12
 - Add fix for GCC15 issue (RHBZ#2341570)
 

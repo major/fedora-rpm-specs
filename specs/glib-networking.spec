@@ -70,10 +70,10 @@ the functionality of the installed glib-networking package.
 %install
 %meson_install
 
+%find_lang %{name}
+
 %check
 %meson_test
-
-%find_lang %{name}
 
 %files -f %{name}.lang
 %license COPYING LICENSE_EXCEPTION

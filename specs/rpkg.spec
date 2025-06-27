@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -24,7 +24,8 @@ Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
 %endif
 
 # No support for setup.py since Python 3.12 (RHEL 10)
-%if 0%{?rhel} >= 10
+# hatchling is supported in >Python 3.6 releases (RHEL 8)
+%if 0%{?rhel} >= 9 || 0%{?fedora} >= 41
 %global with_hatchling 1
 %else
 %global with_hatchling 0
@@ -39,11 +40,11 @@ Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
 # requires.txt. But, rpkg has to work in all active Fedora and EPEL releases,
 # and there is only old rpm-python package in EL6 and 7, so just simply to
 # remove rpm-py-installer for now.
+%if !0%{?with_hatchling}
 Patch0:         remove-koji-and-rpm-py-installer-from-requires.patch
-Patch1:         0001-Do-not-use-pytest-related-dependencies-temporarily.patch
-Patch2:         0002-Remove-pytest-coverage-execution.patch
+%endif
 %if 0%{?with_python2}
-Patch3:         0003-Remove-Environment-Markers-syntax.patch
+Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
 
 
@@ -61,14 +62,14 @@ BuildRequires:  python2-devel
 # We br these things for man page generation due to imports
 BuildRequires:  rpmlint
 BuildRequires:  rpmdevtools
-BuildRequires:  python2-koji >= 1.21
+BuildRequires:  python2-koji
 BuildRequires:  python2-cccolutils
 BuildRequires:  PyYAML
 BuildRequires:  GitPython
 BuildRequires:  python-pycurl
 BuildRequires:  python-requests
 BuildRequires:  python-requests-gssapi
-BuildRequires:  python-six >= 1.9.0
+BuildRequires:  python-six
 BuildRequires:  python2-argcomplete
 BuildRequires:  python2-mock
 BuildRequires:  python2-nose
@@ -81,13 +82,13 @@ Requires:       rpmlint
 Requires:       rpmdevtools
 Requires:       python2-argcomplete
 Requires:       python2-cccolutils
-Requires:       python2-koji >= 1.21
+Requires:       python2-koji
 Requires:       PyYAML
-Requires:       GitPython >= 0.2.0
+Requires:       GitPython
 Requires:       python-pycurl
 Requires:       python-requests
 Requires:       python-requests-gssapi
-Requires:       python-six >= 1.9.0
+Requires:       python-six
 Requires:       rpm-python
 
 Requires:       %{name}-common = %{version}-%{release}
@@ -117,7 +118,7 @@ Obsoletes:      python2-rpkg < %{version}-%{release}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-GitPython
-BuildRequires:  python3-koji >= 1.24
+BuildRequires:  python3-koji
 %if 0%{?rhel}
 BuildRequires:  python3-gobject-base
 BuildRequires:  libmodulemd
@@ -129,7 +130,7 @@ BuildRequires:  python3-argcomplete
 BuildRequires:  python3-cccolutils
 BuildRequires:  python3-openidc-client
 BuildRequires:  python3-pycurl
-BuildRequires:  python3-six >= 1.9.0
+BuildRequires:  python3-six
 BuildRequires:  python3-requests
 BuildRequires:  python3-pytest
 BuildRequires:  python3-PyYAML
@@ -150,20 +151,20 @@ Requires:       rpmlint
 Requires:       rpmdevtools
 
 Requires:       python3-argcomplete
-Requires:       python3-GitPython >= 0.2.0
+Requires:       python3-GitPython
 Requires:       python3-cccolutils
-Requires:       python3-koji >= 1.24
+Requires:       python3-koji
 %if 0%{?rhel}
 Requires:       python3-gobject-base
 Requires:       libmodulemd
 Requires:       python3-requests-gssapi
 %else
 Requires:       python3-libmodulemd
-Requires:       python3-rpmautospec >= 0.3.8
+Requires:       python3-rpmautospec
 %endif
 Requires:       python3-rpm
 Requires:       python3-pycurl
-Requires:       python3-six >= 1.9.0
+Requires:       python3-six
 Requires:       python3-PyYAML
 
 Requires:       %{name}-common = %{version}-%{release}
@@ -212,6 +213,7 @@ Common files for python2-%{name} and python3-%{name}.
 %if 0%{?with_python3}
 %if 0%{?with_hatchling}
 %pyproject_install
+%pyproject_save_files -l pyrpkg
 %else
 %py3_install
 %endif
@@ -241,33 +243,32 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 %endif
 
 %if 0%{?with_python3}
+%if 0%{?with_hatchling}
+%pyproject_check_import
+%endif
 %pytest
 %endif
 
 
 %if 0%{?with_python2}
 %files -n python2-%{name}
-%doc README.rst CHANGELOG.rst
-%if 0%{?rhel} && 0%{?rhel} < 7
-%doc COPYING COPYING-koji LGPL
-%else
+%doc README.rst CONTRIBUTING.md CHANGELOG.rst
 %license COPYING COPYING-koji LGPL
-%endif
 # For noarch packages: sitelib
 %{python2_sitelib}/pyrpkg
 %{python2_sitelib}/%{name}-%{version}-py*.egg-info
 %endif
 
 %if 0%{?with_python3}
-%files -n python3-%{name}
-%doc README.rst CHANGELOG.rst
-%license COPYING COPYING-koji LGPL
-%{python3_sitelib}/pyrpkg
 %if 0%{?with_hatchling}
-%{python3_sitelib}/%{name}-%{version}.dist-info
+%files -n python3-%{name} -f %{pyproject_files}
 %else
+%files -n python3-%{name}
+%{python3_sitelib}/pyrpkg
 %{python3_sitelib}/%{name}-%{version}-py*.egg-info
 %endif
+%doc README.rst CONTRIBUTING.md CHANGELOG.rst
+%license COPYING COPYING-koji LGPL
 %endif
 
 %files common
@@ -276,6 +277,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Jun 24 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-3
+- Switch to %%pyproject_* macros for Fedora releases
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.68-2
 - Rebuilt for Python 3.14
 

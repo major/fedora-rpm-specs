@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
@@ -43,6 +43,7 @@ Patch0002: 0002-sepolicy-generate-Handle-more-reserved-port-types.patch
 Patch0003: 0003-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0004: 0004-Use-SHA-2-instead-of-SHA-1.patch
 Patch0005: 0005-python-sepolicy-Fix-spec-file-dependencies.patch
+Patch0006: 0006-sepolicy-use-multiprocessing-fork-method.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -449,7 +450,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8-2
-- Rebuilt for Python 3.14
-
 %autochangelog

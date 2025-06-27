@@ -5,7 +5,7 @@
 
 Name:           baobab
 Version:        48.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical directory tree analyzer
 
 # Sources are under GPL-2.0-or-later, help is under CC-BY-SA-3.0, Appdata is
@@ -13,6 +13,8 @@ Summary:        A graphical directory tree analyzer
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Baobab
 Source0:        https://download.gnome.org/sources/baobab/48/%{name}-%{tarball_version}.tar.xz
+
+Patch01:        0001-crash-with-remote-mounts.patch
 
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
@@ -66,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Wed Jun 25 2025 Milan Crha <mcrha@redhat.com> - 48.0-2
+- Add a patch for a crash after start with mounted remote locations
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

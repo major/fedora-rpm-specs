@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           dola
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Declarative system for Java RPM packaging
 License:        Apache-2.0

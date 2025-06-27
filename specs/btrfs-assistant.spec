@@ -1,5 +1,5 @@
 Name:           btrfs-assistant
-Version:        2.1.1
+Version:        2.2
 Release:        %autorelease
 Summary:        GUI management tool to make managing a Btrfs filesystem easier
 
@@ -45,7 +45,7 @@ The primary features it offers are:
     * Manage Snapper systemd units
 * A front-end for Btrfs Maintenance
     * Manage systemd units
-    * Easily manage configuration for defrag, balance and srub settings
+    * Easily manage configuration for defrag, balance and scrub settings
 
 
 %prep
