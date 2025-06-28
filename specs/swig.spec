@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -80,6 +80,8 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
+# https://github.com/swig/swig/pull/3159
+Patch0:  swig-python-Python-3.14-support.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -363,6 +365,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Wed Jun 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.3.1-2
+- Add Python 3.14 support
+
 * Wed Apr 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.3.1-1
 - 4.3.1 bump (rhbz#2360009)
 

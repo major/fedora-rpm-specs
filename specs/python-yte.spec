@@ -1,5 +1,5 @@
 Name:           python-yte
-Version:        1.8.1
+Version:        1.9.0
 Release:        %autorelease
 Summary:        YAML template engine with Python expressions
 
@@ -18,10 +18,10 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-# For tests, from [tool.poetry.dev-dependencies] in pyproject.toml, with
-# coverage/linters/etc. removed and version upper bounds removed:
-BuildRequires:  %{py3_dist pytest} >= 7.0
-BuildRequires:  %{py3_dist numpy} >= 1.0
+# For tests, from the “dev” dependency group, which has too many unwanted
+# linters etc. to use it for generating BuildRequires:
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist numpy} >= 2.0
 
 %global common_description %{expand:
 YTE is a template engine for YAML format that utilizes the YAML structure in
@@ -51,7 +51,7 @@ install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE1}'
 
 
 %check -a
-%pytest -v tests.py
+%pytest -v
 
 
 %files -n python3-yte -f %{pyproject_files}

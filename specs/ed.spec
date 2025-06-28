@@ -1,13 +1,13 @@
 Summary: The GNU line editor
 Name: ed
-Version: 1.21
+Version: 1.21.1
 Release: %autorelease
 
 # The entire source is GPLv2 except doc/ed.info and doc/ed.texi, which are GFDL
 License: GPL-2.0-only AND GFDL-1.3-no-invariants-or-later
 URL:     https://www.gnu.org/software/ed/
-Source0: https://download.savannah.gnu.org/releases/ed/%{name}-%{version}.tar.lz
-Source1: https://download.savannah.gnu.org/releases/ed/%{name}-%{version}.tar.lz.sig
+Source0: https://ftpmirror.gnu.org/ed/%{name}-%{version}.tar.lz
+Source1: https://ftpmirror.gnu.org/ed/%{name}-%{version}.tar.lz.sig
 Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8FE99503132D7742#./antoniodiazdiaz-keyring.asc
 
 BuildRequires: gcc

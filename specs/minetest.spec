@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.12.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -19,6 +19,7 @@ Source7:  http://www.gnu.org/licenses/lgpl-2.1.txt
 Source8:  default.conf
 #Source9:  https://github.com/minetest/irrlicht/archive/%%{irr_version}/%%{name}-%%{irr_version}.tar.gz
 Patch0:   metainfo.patch
+Patch1:   16198.patch
 
 %if 0%{?rhel}
 ExclusiveArch:  %{ix86} x86_64
@@ -223,6 +224,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Wed Jun 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12.0-2
+- Patch for sign bug.
+
 * Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12.0-1
 - 5.12.0
 

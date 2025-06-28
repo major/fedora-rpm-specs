@@ -11,7 +11,7 @@
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
 Version: 6.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,7 +25,8 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-
+# https://codereview.qt-project.org/c/qt/qtbase/+/656190 [Qt 6.10]
+Patch0:  qtwayland-add-pointer-warp-support.patch
 # Upstreamable patches
 
 # filter qml provides
@@ -216,6 +217,9 @@ popd
 %endif
 
 %changelog
+* Thu Jun 26 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-2
+- Add pointer warp support
+
 * Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
 - 6.9.1
 

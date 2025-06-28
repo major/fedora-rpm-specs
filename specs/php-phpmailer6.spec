@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_project}%{major}
 Version:        6.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
 License:        LGPL-2.1-only
@@ -59,7 +59,7 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "roave/security-advisories": "dev-latest",
 #        "squizlabs/php_codesniffer": "^3.7.2",
 #        "yoast/phpunit-polyfills": "^1.0.4"
-%global phpunit %{_bindir}/phpunit7
+%global phpunit %{_bindir}/phpunit9
 BuildRequires: (php-composer(yoast/phpunit-polyfills) >= 1.0.4 with php-composer(yoast/phpunit-polyfills) < 2)
 BuildRequires:  %{phpunit}
 BuildRequires:  %{_sbindir}/smtp-sink
@@ -209,6 +209,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 6.10.0-2
+- use phpunit9
+
 * Mon Apr 28 2025 Remi Collet <remi@remirepo.net> - 6.10.0-1
 - update to 6.10.0
 - re-license spec file to CECILL-2.1

@@ -3,8 +3,8 @@
 %global desc Simple exporter tool that helps migrate repository files, data assets and issue tickets from projects on Pagure to GitLab
 
 Name:           %{pkgname}
-Version:        0.1.3
-Release:        5%{?dist}
+Version:        0.1.4
+Release:        1%{?dist}
 Summary:        %{desc}
 
 License:        GPL-3.0-or-later
@@ -36,6 +36,9 @@ BuildRequires:  python3-devel
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jun 26 2025 Packit <hello@packit.dev> - 0.1.4-1
+- Update to version 0.1.4
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.1.3-5
 - Rebuilt for Python 3.14
 

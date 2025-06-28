@@ -38,7 +38,7 @@
 %endif
 
 %global        shortver              1.18
-%global        fullver               %{shortver}.2
+%global        fullver               %{shortver}.3
 
 %if 0%{?use_release} >= 1
 %global        fedoraver             %{fullver}
@@ -306,6 +306,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Thu Jun 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.18.3-1
+- 1.18.3
+
 * Mon Feb 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.18.2-1
 - 1.18.2
 

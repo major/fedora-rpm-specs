@@ -1,29 +1,24 @@
 %global neo_major 25
-%global neo_minor 05
-%global neo_build 32567.12
+%global neo_minor 22
+%global neo_build 33944.8
+
+%if 0%{?rhel}
+%global use_system_headers  0
+%else
+%global use_system_headers  1
+%endif
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
 Release: %autorelease
-Summary: Compute API support for Intel graphics
+Summary: Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL
 
-%if 0%{?rhel}
-%global patch_new_headers  0
-%else
-%global patch_new_headers  1
-%endif
-
+#LTO is controlled in compute-runtime itself, but temp disable it here
 %global _lto_cflags %{nil}
-%global optflags %{optflags} -Wno-error=maybe-uninitialized
 
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
-
-# Support opencl-headers-2024.10.24
-%if 0%{?patch_new_headers}
-Patch01: 0001-CL-Headers-2024.10.24.patch
-%endif
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -55,16 +50,19 @@ Requires: intel-level-zero = %{version}-%{release}
 Provides: bundled(drm-uapi-helper)
 
 %description
-The Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL Driver is an open source project
-providing compute API support (Level Zero, OpenCL) for Intel graphics hardware architectures (HD Graphics, Xe).
+The Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL
+Driver is an open-source project supporting computations for Intel graphics
+hardware architectures using oneAPI Level Zero and Open Computing Language
+(OpenCL) APIs.
 
 %package -n    intel-ocloc
 Summary:       Tool for managing Intel Compute GPU device binary format
 
 %description -n intel-ocloc
-ocloc is a tool for managing Intel Compute GPU device binary format (a format used by Intel Compute GPU runtime).
-It can be used for generation (as part of 'compile' command) as well as
-manipulation (decoding/modifying - as part of 'disasm'/'asm' commands) of such binary files.
+ocloc is a tool for managing Intel Compute GPU device binary format (a format
+used by Intel Compute GPU runtime). It can be used for generation (as part of
+'compile' command) as well as manipulation (decoding/modifying - as part of
+'disasm'/'asm' commands) of such binary files.
 
 %package -n    intel-ocloc-devel
 Summary:       Tool for managing Intel Compute GPU device binary format - Devel Files
@@ -94,17 +92,18 @@ Requires:      intel-gmmlib%{?_isa}
 Provides:      intel-level-zero-gpu%{?_isa}
 
 %description -n intel-level-zero
-Implementation for the Intel GPUs of the oneAPI L0 specification -  which provides direct-to-metal
-interfaces to offload accelerator devices. Its programming interface can be tailored to any device
-needs and can be adapted to support broader set of languages features such as function pointers,
-virtual functions, unified memory, and I/O capabilities..
+Runtime library providing the ability to use Intel GPUs with the oneAPI Level
+Zero programming interface. Level Zero is the primary low-level interface for
+language and runtime libraries. Level Zero offers fine-grain control over
+accelerators capabilities, delivering a simplified and low-latency interface to
+hardware, and efficiently exposing hardware capabilities to applications.
 
 %package -n    intel-level-zero-devel
 Summary:       oneAPI L0 support implementation for Intel GPUs - Devel Files
 Requires:      intel-level-zero%{?_isa} = %{version}-%{release}
 
 %description -n intel-level-zero-devel
-Devel files for developing against intel-level-zero (oneAPI L0 support implementation for Intel GPUs).
+Devel files for developing against intel-level-zero
 
 %prep
 %autosetup -p1 -n compute-runtime-%{version}
@@ -112,39 +111,40 @@ Devel files for developing against intel-level-zero (oneAPI L0 support implement
 # remove sse2neon completely as we're building just for x86(_64)
 rm -rv third_party/sse2neon
 
-# bundled CL headers are leaking into the build
-%if 0%{?patch_new_headers}
-rm -rv third_party/opencl_headers/CL
-ln -s /usr/include/CL/ third_party/opencl_headers/CL
-%endif
-
 %build
-# -DNEO_DISABLE_LD_GOLD=1 for https://bugzilla.redhat.com/show_bug.cgi?id=2043178 and https://bugzilla.redhat.com/show_bug.cgi?id=2043758
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DNEO_OCL_VERSION_MAJOR=%{neo_major} \
     -DNEO_OCL_VERSION_MINOR=%{neo_minor} \
     -DNEO_VERSION_BUILD=%{neo_build} \
     -DSKIP_UNIT_TESTS=1 \
-    -DNEO_DISABLE_LD_GOLD=1 \
+%if 0%{?use_system_headers}
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
-%if 0%{?patch_new_headers}
     -DKHRONOS_HEADERS_DIR="/usr/include/CL/" \
-%endif
     -DNEO_DRM_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_I915_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_XE_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
-    -DCL_TARGET_OPENCL_VERSION=300 \
+%endif
+    -DNEO_ENABLE_I915_PRELIM_DETECTION=TRUE \
+    -DNEO_ENABLE_XE_PRELIM_DETECTION=TRUE \
     -G Ninja
 
 %cmake_build
 
 %install
 %cmake_install
-# Symlink to provide ocloc
-pushd %{buildroot}%{_bindir}
-ln -s ocloc-* ocloc
-popd
+
+# Compute-runtime only creates a specific /usr/bin/ocloc-version binary, due to
+# the possibility of mutiple versions installed on the system. i.e. legacy pkg
+%post -n intel-ocloc
+update-alternatives --install /usr/bin/ocloc ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1 %{neo_major}%{neo_minor}%{neo_build}
+
+%preun -n intel-ocloc
+if [ $1 == "0" ]; then
+    # uninstall
+    update-alternatives --remove ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1
+fi
+
 
 %files
 
@@ -164,7 +164,6 @@ popd
 
 %files -n intel-ocloc
 %license LICENSE.md
-%{_bindir}/ocloc
 %{_bindir}/ocloc-*
 %{_libdir}/libocloc.so
 

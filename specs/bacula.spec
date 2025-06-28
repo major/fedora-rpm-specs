@@ -281,23 +281,15 @@ u bacula %uid 'Bacula Backup System' /var/spool/bacula -
 EOF
 
 %build
-# Set correct build options for libs3 if not on EL10+ or Fedora:
-%if 0%{?rhel} < 10
 %set_build_flags
-export CFLAGS="%{optflags} -fPIC"
-export CXXFLAGS="%{optflags} -fPIC"
-%endif
+export CFLAGS="%{optflags} -fPIC -Wno-error=attribute-warning -I%{_includedir}/ncurses"
+export CXXFLAGS="%{optflags} -fPIC -Wno-error=attribute-warning -I%{_includedir}/ncurses"
+export PATH="$PATH:%{_qt5_bindir}"
 
 pushd libs3-%{commit}
-
 patch -p1 -i %{SOURCE21}
 %make_build exported
-
 popd
-
-export CFLAGS="%{optflags} -I%{_includedir}/ncurses"
-export CXXFLAGS="%{optflags} -I%{_includedir}/ncurses"
-export PATH="$PATH:%{_qt5_bindir}"
 
 %configure \
     --disable-conio \

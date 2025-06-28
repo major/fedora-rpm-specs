@@ -10,6 +10,8 @@ Summary:        Compile and install Ruby
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/rbenv/ruby-build/pull/2543
+Patch:          2543.patch
 
 BuildRequires:  gawk
 BuildRequires:  grep
@@ -52,7 +54,7 @@ This package contains a plugin for rbenv that provides the "rbenv install"
 command.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %install
 PREFIX=%{buildroot}%{_prefix} ./install.sh

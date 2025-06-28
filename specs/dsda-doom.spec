@@ -24,7 +24,7 @@ Summary: Speedrun-oriented Doom source port
 # Check the discussion at: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/310
 License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
-Version: 0.29.0
+Version: 0.29.2
 Release: 1%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
@@ -38,12 +38,12 @@ BuildRequires: libzip-tools
 BuildRequires: make
 BuildRequires: rubygem-rspec
 
-BuildRequires: dumb-devel
 BuildRequires: portmidi-devel
 
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(fluidsynth)
 BuildRequires: pkgconfig(glu)
+BuildRequires: pkgconfig(libopenmpt)
 BuildRequires: pkgconfig(libpcre2-32)
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libzip)
@@ -122,6 +122,12 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Jun 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.2-1
+- Update to v0.29.2
+
+* Thu Jun 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.1-1
+- Update to v0.29.1
+
 * Wed Apr 09 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.0-1
 - Update to v0.29.0 (rhbz#2358523)
 - Add weak dependency on libxmp (rhbz#2333738)

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc3.250625g7595b66ae9de.33
+%define pkgrelease 0.rc3.250626gee88bddf7f2f.34
 %define kversion 6
-%define tarfile_release 6.16-rc3-44-g7595b66ae9de
+%define tarfile_release 6.16-rc3-72-gee88bddf7f2f
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.250625g7595b66ae9de.33%{?buildid}%{?dist}
+%define specrelease 0.rc3.250626gee88bddf7f2f.34%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4337,8 +4337,11 @@ fi\
 #
 #
 %changelog
-* Wed Jun 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.7595b66ae9de.33]
+* Thu Jun 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.ee88bddf7f2f.34]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Jun 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.ee88bddf7f2f.33]
+- Linux v6.16.0-0.rc3.ee88bddf7f2f
 
 * Wed Jun 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.7595b66ae9de.32]
 - redhat/configs: Move CONFIG_MITIGATION_ITS to common/generic/x86 (Waiman Long)

@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-sebastian-resource-operations2
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -24,7 +24,7 @@
 
 Name:           php-sebastian-resource-operations%{major}
 Version:        2.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Provides a list of PHP built-in functions that operate on resources, version %{major}
 
 License:        BSD-3-Clause
@@ -36,7 +36,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with_tests}
-BuildRequires:  phpunit7
+BuildRequires:  phpunit8
 %endif
 
 # from composer.json
@@ -75,10 +75,10 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %if %{with_tests}
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
-    %{_bindir}/phpunit7  --verbose tests || ret=1
+    %{_bindir}/phpunit8  --verbose tests || ret=1
   fi
 done
 exit $ret
@@ -96,6 +96,10 @@ exit $ret
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 2.0.3-4
+- use phpunit8
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

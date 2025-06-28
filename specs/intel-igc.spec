@@ -9,7 +9,7 @@
 %endif
 
 Name: intel-igc
-Version: 2.7.8
+Version: 2.12.5
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -37,6 +37,7 @@ BuildRequires: python3-mako
 BuildRequires: python3-pyyaml
 BuildRequires: zlib-devel
 BuildRequires: intel-opencl-clang-devel
+BuildRequires: libffi-devel
 BuildRequires: libunwind-devel
 %if %{?llvm_compat} == 15
 BuildRequires: spirv-llvm15.0-translator-devel

@@ -1,9 +1,9 @@
 
-%global commit 72538254527d23f48cef863c5ce3c3d804f94b8b
+%global commit f0adc9091989ceb3bec0dfbea7700a30748cadac
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm15.0-translator
-Version:        15.0.0
+Version:        15.0.13
 Release:        %autorelease
 Summary:        LLVM 15 to SPIRV Translator
 
@@ -22,8 +22,8 @@ BuildRequires:  spirv-tools-devel
 
 %description
 Khronos LLVM 15 to SPIRV Translator. This is a library
-to be used by Mesa for OpenCL support. It translate
-LLVM IR to Khronos SPIR-V. It also includes a
+that is used by Mesa and compute-runtime for OpenCL support.
+It translates LLVM IR to Khronos SPIR-V. It also includes a
 standalone tool used for building libclc.
 
 %package devel

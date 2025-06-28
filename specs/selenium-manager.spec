@@ -9,20 +9,20 @@ Summary:        Automated driver and browser management for Selenium
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# CDLA-Permissive-2.0
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
 
 
 # The code in directory /rust is under the Apache-2.0 licence.
@@ -30,10 +30,11 @@ Summary:        Automated driver and browser management for Selenium
 License:        %{shrink:
                 Apache-2.0 AND
                 BSD-3-Clause AND
+                CDLA-Permissive-2.0 AND
                 ISC AND
                 MIT AND
-                OpenSSL AND
                 MPL-2.0 AND
+                Unicode-3.0 AND
                 Unicode-DFS-2016 AND
                 (0BSD OR MIT OR Apache-2.0) AND
                 (Apache-2.0 OR BSL-1.0) AND

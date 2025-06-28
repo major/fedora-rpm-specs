@@ -10,7 +10,7 @@
 %bcond zstd     1
 
 Name:           erofs-utils
-Version:        1.8.8
+Version:        1.8.9
 Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
@@ -97,6 +97,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Jun 26 2025 David Michael <fedora.dm0@gmail.com> - 1.8.9-1
+- Update to the 1.8.9 release.
+
 * Wed Jun 25 2025 David Michael <fedora.dm0@gmail.com> - 1.8.8-1
 - Update to the 1.8.8 release.
 

@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -37,6 +37,8 @@ Source1:        makesrc.sh
 # php-symfony4 going to disapear, php-symfony5 not available, only used for tests
 %global symfony_version 7.2.0
 Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
+
+Patch0:         https://github.com/sebastianbergmann/diff/commit/98c299d8486b460efd667d0d64f1a32dd588971d.patch
 
 BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel
@@ -68,6 +70,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit} -a 2
+%patch -P0 -p1
 
 
 %build
@@ -108,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 7.0.0-3
+- add upstream patch for test suite with phpunit 12.2
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 7.0.0-2
 - enable test suite
 

@@ -3,7 +3,7 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    15%{?dist}
+Release:    16%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
 License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
@@ -31,6 +31,7 @@ Patch:      at-3.1.16-clear-nonjobs.patch
 Patch:      at-3.2.2-lock-locks.patch
 Patch:      at-3.1.23-document-n.patch
 Patch:      at-3.1.20-log-jobs.patch
+Patch:      at-3.2.5-past-date.patch
 
 BuildRequires: gcc
 BuildRequires: flex flex-static bison autoconf
@@ -166,6 +167,9 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Wed Jun 25 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-16
+- Fix past date handling with -t option
+
 * Mon May 05 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-15
 - Claim ownership of /usr/share/at
 - Resolves: rhbz#2283298

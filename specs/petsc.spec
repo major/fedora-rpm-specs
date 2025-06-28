@@ -12,7 +12,7 @@
 # MPI is failing in s390x with the message
 # Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
 %ifnarch s390x %{power64}
-%bcond_without pycheck
+%bcond_with pycheck
 # Testing libpetsc ?
 %bcond_without check
 %endif

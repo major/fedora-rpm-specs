@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -50,6 +50,7 @@ Patch3:		openwsman-2.6.2-openssl-1.1-fix.patch
 Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
 Patch6:		openwsman-2.7.2-gcc15-fix.patch
+Patch7:		openwsman-2.8.1-post-quantum.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -416,6 +417,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 17 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-6
+- Update to better support post-quantum cryptography
+
 * Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 2.8.1-5
 - Rebuilt for Python 3.14
 

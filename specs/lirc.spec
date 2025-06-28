@@ -8,8 +8,8 @@
 #define tag     devel
 
 Name:           lirc
-Version:        0.10.0
-Release:        49%{?tag:.}%{?tag}%{?dist}
+Version:        0.10.2
+Release:        1%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -23,12 +23,8 @@ Source0:        %{?released:%{repo}%{?tag:-}%{?tag}/}%{tarball}
 Source1:        README.fedora
 Source2:        99-remote-control-lirc.rules
 Patch1:         0001-build-install-media-lirc.h-BTS-872074.patch
-Patch2:         0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
-Patch3:         0003-plugins-devinput-fix-glob-no-match-error.patch
-Patch5:         0005-mode2-Fix-inconsistent-loglevel-debug-option-307.patch
-Patch6:         0006-python-pkg-Don-t-use-deprecated-time.clock-RHBZ-1718.patch
-Patch7:         0001-Replace-the-obsolete-get_event_loop-with-get_running.patch
-Patch8:         0007-database.py-Handle-new-PyYAML-interface.patch
+Patch2:         0002-Revert-build-Fix-missing-media-lirc.h-BTS-872074.patch
+Patch3:         0003-asyncio.get_event_loop-can-return-an-error-in-python.patch
 
 
 BuildRequires:  gcc-c++
@@ -272,7 +268,6 @@ chmod 755 $RPM_BUILD_ROOT%{_datadir}/lirc/contrib/irman2lirc
 find $RPM_BUILD_ROOT%{_libdir}/ -name \*.la -delete
 
 install -pm 755 contrib/irman2lirc $RPM_BUILD_ROOT%{_bindir}
-install -Dpm 644 doc/lirc.hwdb $RPM_BUILD_ROOT%{_datadir}/lirc/lirc.hwdb
 install -Dpm 644 contrib/60-lirc.rules \
     $RPM_BUILD_ROOT%{_udevrulesdir}/60-lirc.rules
 install -Dpm 644 %{SOURCE2} \
@@ -394,6 +389,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_mandir}/man8/lircmd.8*
 %{_mandir}/man8/lircrcd.8*
 %{_sysusersdir}/lirc.conf
+%exclude %{_bindir}/lirc-data2table
+%exclude %{_bindir}/lirc-postinstall
+%exclude %{_mandir}/man1/lirc-postinstall.1.gz
 
 %files libs
 %license COPYING COPYING.ciniparser COPYING.curl
@@ -423,6 +421,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Sun Jun 08 2025 Sean Young <sean@mess.org> - 0.10.2-1
+- New upstream version 0.10.2
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.10.0-49
 - Rebuilt for Python 3.14
 

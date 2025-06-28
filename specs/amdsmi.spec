@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -32,6 +32,8 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 %global esmi_ver 4.1.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
 Patch2:     0001-Include-cstdint-for-gcc-15.patch
+Patch3:     0002-option-use-system-gtest.patch
+Patch4:     0003-test-client-includes-for-gcc-15.patch
 
 ExclusiveArch: x86_64
 
@@ -40,6 +42,10 @@ BuildRequires: gcc-c++
 BuildRequires: kernel-devel
 BuildRequires: libdrm-devel
 BuildRequires: python3-devel
+
+%if %{with test}
+BuildRequires: gtest-devel
+%endif
 
 Requires:      python3dist(pyyaml)
 
@@ -62,6 +68,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libdrm-devel
 
 %description test
 %{summary}
@@ -94,6 +101,9 @@ sed -i -e 's@${CPACK_PACKAGING_INSTALL_PREFIX}/lib@${SHARE_INSTALL_PREFIX}/tests
 %cmake \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
     -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
+%if %{with test}
+    -DUSE_SYSTEM_GTEST=On \
+%endif
     -DBUILD_TESTS=%build_test
 
 %cmake_build
@@ -154,6 +164,12 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %postun -p /sbin/ldconfig
 %endif
 
+%if %{with test}
+# put the test files in a reasonable place
+mkdir %{buildroot}%{_datadir}/amdsmi
+mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
+%endif
+
 %files
 %doc README.md
 %license LICENSE
@@ -175,10 +191,14 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 
 %if %{with test}
 %files test
-%{_datadir}/tests
+%{_datadir}/amdsmi
+%{_datadir}/amdsmi/tests
 %endif
 
 %changelog
+* Wed Jun 18 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.1-4
+- update so that test subpackage builds cleanly in mock and runs outside of build environment
+
 * Mon Jun 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
 - handle movement of copyright file on suse
 

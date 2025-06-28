@@ -1,3 +1,35 @@
+# ======================
+# Bootstrap conditionals
+# ======================
+
+# When bootstrapping python3, we need to build python3-packaging.
+# but packaging BR python3-devel and that brings in python3-rpm-generators;
+# python3-rpm-generators needs python3-packaging, so we cannot have it yet.
+#
+# We also use the previous build of Python in "make regen-all".
+#
+# Procedure: https://fedoraproject.org/wiki/SIGs/Python/UpgradingPython
+#
+# Bootstrap enabled:
+# - disables regen-all with the same Python version
+# - disables dependency on python3-rpm-generators if we build with main_python
+# - disables rpmwheels, optimizations and tests by default
+%bcond bootstrap 0
+
+# Whether to use RPM build wheels from the python-{pip,setuptools,wheel}-wheel packages
+# Uses upstream bundled prebuilt wheels otherwise
+%bcond rpmwheels %{without bootstrap}
+
+# Expensive optimizations (mainly, profile-guided optimizations)
+# We don't have to switch it off for bootstrap, but it speeds up the first build,
+# so we opt to only run them during the "full" build
+%bcond optimizations %{without bootstrap}
+
+# Run the test suite in %%check
+# Technically, we can run the tests even during the bootstrap build, but since
+# we build Python 2x, it's better to just run it once with the "full" build
+%bcond tests %{without bootstrap}
+
 # ==================
 # Top-level metadata
 # ==================
@@ -17,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -36,22 +68,42 @@ License: Python-2.0.1
 # In ELN/RHEL/CentOS we want to allow building against alternative stacks, so the Provide is enabled.
 %bcond python_abi_provides_for_alt_pythons %{undefined fedora}
 
-# When bootstrapping python3, we need to build python3-packaging.
-# but packaging BR python3-devel and that brings in python3-rpm-generators;
-# python3-rpm-generators needs python3-packaging, so we cannot have it yet.
-#
-# We also use the previous build of Python in "make regen-all".
-#
-# Procedure: https://fedoraproject.org/wiki/SIGs/Python/UpgradingPython
-#
-#   IMPORTANT: When bootstrapping, it's very likely python-pip-wheel is
-#   not available. Turn off the rpmwheels bcond until
-#   python-pip is built with a wheel to get around the issue.
-%bcond bootstrap 0
+# Extra build for debugging the interpreter or C-API extensions
+# (the -debug subpackages)
+%bcond debug_build 1
 
-# Whether to use RPM build wheels from the python-{pip,setuptools,wheel}-wheel packages
-# Uses upstream bundled prebuilt wheels otherwise
-%bcond rpmwheels 1
+# Extra build without GIL, the freethreading PEP 703 provisional way
+# (the -freethreading subpackage)
+%bcond freethreading_build 1
+
+# PEP 744: JIT Compilation
+# Whether to build with the experimental JIT compiler
+# We can only have this on Fedora 40+, where clang 18+ is available
+# And only on certain architectures: https://peps.python.org/pep-0744/#support
+# The freethreading build (when enabled) does not support JIT yet
+%bcond jit %[(0%{?fedora} >= 40 || 0%{?rhel} >= 10) && ("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64")]
+%if %{with jit}
+# When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
+%global jit_flag --enable-experimental-jit=yes-off
+%endif
+
+# Main interpreter loop optimization
+%bcond computed_gotos 1
+
+# =====================
+# General global macros
+# =====================
+
+%if %{with main_python}
+%global pkgname python3
+%global exename python3
+%global python3_pkgversion 3
+%else
+%global pkgname python%{pybasever}
+%global exename python%{pybasever}
+%global python3_pkgversion %{pybasever}
+%endif
+
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
@@ -105,45 +157,6 @@ Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(wheel)) = 0.45.1
 Provides: bundled(python3dist(zipp)) = 3.19.2
 }
-
-# Expensive optimizations (mainly, profile-guided optimizations)
-%bcond optimizations 1
-
-# Run the test suite in %%check
-%bcond tests 1
-
-# Extra build for debugging the interpreter or C-API extensions
-# (the -debug subpackages)
-%bcond debug_build 1
-
-# Extra build without GIL, the freethreading PEP 703 provisional way
-# (the -freethreading subpackage)
-%bcond freethreading_build 1
-
-# PEP 744: JIT Compilation
-# Whether to build with the experimental JIT compiler
-# We can only have this on Fedora 40+, where clang 18+ is available
-# And only on certain architectures: https://peps.python.org/pep-0744/#support
-# The freethreading build (when enabled) does not support JIT yet
-%bcond jit %[(0%{?fedora} >= 40 || 0%{?rhel} >= 10) && ("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64")]
-%if %{with jit}
-# When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
-%global jit_flag --enable-experimental-jit=yes-off
-%endif
-
-# Main interpreter loop optimization
-%bcond computed_gotos 1
-
-# =====================
-# General global macros
-# =====================
-%if %{with main_python}
-%global pkgname python3
-%global exename python3
-%else
-%global pkgname python%{pybasever}
-%global exename python%{pybasever}
-%endif
 
 # ABIFLAGS, LDVERSION and SOABI are in the upstream configure.ac
 # See PEP 3149 for some background: http://www.python.org/dev/peps/pep-3149/
@@ -243,8 +256,7 @@ Obsoletes: python%{pybasever}%{?1:-%{1}}\
 BuildRequires: autoconf
 BuildRequires: bluez-libs-devel
 BuildRequires: bzip2-devel
-# See the runtime requirement in the -libs subpackage
-BuildRequires: expat-devel >= 2.6
+BuildRequires: expat-devel
 BuildRequires: findutils
 BuildRequires: gcc
 BuildRequires: gdbm-devel
@@ -377,6 +389,15 @@ Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.p
 # Since on Fedora we always compile with frame pointers the BTI/PAC
 # hardware protections can be enabled without losing Perf unwinding.
 Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
+
+# 00466 # e10760fb955ee33d2917f8a57bb4e24d71e5341c
+# Downstream only: Skip tests not working with older expat version
+#
+# We want to run these tests in Fedora and EPEL 10, but not in EPEL 9,
+# which has too old version of expat. We set the upper bound version
+# in the conditionalized skip to a release available in CentOS Stream 10,
+# which is tested as working.
+Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
 
 # (New patches go here ^^^)
 #
@@ -535,14 +556,6 @@ Recommends: (%{pkgname}-tkinter%{?_isa} = %{version}-%{release} if tk%{?_isa})
 
 # The zoneinfo module needs tzdata
 Requires: tzdata
-
-# The requirement on libexpat is generated, but we need to version it.
-# When built with expat >= 2.6, but installed with older expat, we get:
-#   ImportError: /usr/lib64/python3.X/lib-dynload/pyexpat.cpython-....so:
-#   undefined symbol: XML_SetReparseDeferralEnabled
-# This breaks many things, including python -m venv.
-# Other subpackages (like -debug) also need this, but they all depend on -libs.
-Requires: expat >= 2.6
 
 %description -n %{pkgname}-libs
 This package contains runtime libraries for use by Python:
@@ -720,7 +733,6 @@ License: %{libs_license} AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND IS
 Provides: bundled(libb2) = 0.98.1
 Provides: bundled(mimalloc) = 2.12
 Requires: tzdata
-Requires: expat >= 2.6
 
 %description -n python%{pybasever}-freethreading
 The provisional Free Threading (PEP 703) build of Python.
@@ -794,6 +806,8 @@ rm -r Modules/_decimal/libmpdec
 # (This is after patching, so that we can use patches directly from upstream)
 rm configure pyconfig.h.in
 
+# Lower the minimal required version of autoconf to enable build for EPEL 9
+sed -i "s/AC_PREREQ(\[2\.71\])/AC_PREREQ([2.69])/" configure.ac
 
 # ======================================================
 # Configuring and building the code:
@@ -1726,6 +1740,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jun 25 2025 Karolina Surma <ksurma@redhat.com> - 3.13.5-2
+- Conditionally skip tests not working with the older expat version
+
 * Thu Jun 12 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.5-1
 - Update to 3.13.5
 

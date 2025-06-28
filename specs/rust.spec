@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.87.0
+Version:        1.88.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -11,12 +11,12 @@ URL:            https://www.rust-lang.org
 %global rust_arches x86_64 i686 armv7hl aarch64 ppc64le s390x riscv64
 ExclusiveArch:  %{rust_arches}
 
-# To bootstrap from scratch, set the channel and date from src/stage0.json
-# e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
+# To bootstrap from scratch, set the channel and date from src/stage0
+# e.g. 1.88.0 wants rustc: 1.87.0-2025-05-15
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.86.0
-%global bootstrap_channel 1.86.0
-%global bootstrap_date 2025-04-03
+%global bootstrap_version 1.87.0
+%global bootstrap_channel 1.87.0
+%global bootstrap_date 2025-05-15
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -43,9 +43,10 @@ ExclusiveArch:  %{rust_arches}
 %bcond_with llvm_static
 
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
-# is insufficient.  Rust currently requires LLVM 18.0+.
-%global min_llvm_version 18.0.0
-%global bundled_llvm_version 20.1.1
+# is insufficient. Rust currently requires LLVM 19.0+.
+# See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
+%global min_llvm_version 19.0.0
+%global bundled_llvm_version 20.1.5
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -72,7 +73,7 @@ ExclusiveArch:  %{rust_arches}
 
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.48.0
+%global bundled_sqlite3_version 3.49.1
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -138,11 +139,11 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.87.0-unbundle-sqlite.patch
+Patch6:         rustc-1.88.0-unbundle-sqlite.patch
 
-# Split the absolute path of libclang_rt.profile.a when passed to profiler_builtns
-# Upstream PR: https://github.com/rust-lang/rust/pull/139677
-Patch7:         0001-Fix-profiler_builtins-build-script-to-handle-full-pa.patch
+# Ensure stack in two places that affect s390x
+# https://github.com/rust-lang/rust/pull/142047
+Patch7:         rust-pr142047.patch
 
 ### RHEL-specific patches below ###
 
@@ -153,7 +154,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.86.0-disable-libssh2.patch
+Patch100:       rustc-1.88.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -303,7 +304,7 @@ BuildRequires:  procps-ng
 # debuginfo-gdb tests need gdb
 BuildRequires:  gdb
 # Work around https://bugzilla.redhat.com/show_bug.cgi?id=2275274:
-# gdb currently prints a "Unable to load 'rpm' module.  Please install the python3-rpm package."
+# gdb currently prints a "Unable to load 'rpm' module. Please install the python3-rpm package."
 # message that breaks version detection.
 BuildRequires:  python3-rpm
 
@@ -317,7 +318,7 @@ Provides:       rustc%{?_isa} = %{version}-%{release}
 # Always require our exact standard library
 Requires:       %{name}-std-static%{?_isa} = %{version}-%{release}
 
-# The C compiler is needed at runtime just for linking.  Someday rustc might
+# The C compiler is needed at runtime just for linking. Someday rustc might
 # invoke the linker directly, and then we'll only need binutils.
 # https://github.com/rust-lang/rust/issues/11937
 Requires:       /usr/bin/cc
@@ -560,7 +561,7 @@ BuildRequires:  git-core
 # in sync since some feature development depends on them together.
 Requires:       %{name} = %{version}-%{release}
 
-# "cargo vendor" is a builtin command starting with 1.37.  The Obsoletes and
+# "cargo vendor" is a builtin command starting with 1.37. The Obsoletes and
 # Provides are mostly relevant to RHEL, but harmless to have on Fedora/etc. too
 Obsoletes:      cargo-vendor <= 0.1.23
 Provides:       cargo-vendor = %{version}-%{release}
@@ -626,7 +627,7 @@ BuildArch:      noarch
 Recommends:     %{name}-std-static = %{version}-%{release}
 
 %description src
-This package includes source files for the Rust standard library.  It may be
+This package includes source files for the Rust standard library. It may be
 useful as a reference for code completion tools in various editors.
 
 
@@ -690,7 +691,6 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %if %without bundled_sqlite3
 %patch -P6 -p1
 %endif
-
 %patch -P7 -p1
 
 %if %with disabled_libssh2
@@ -753,7 +753,7 @@ sed -i.ffi -e '$a #[link(name = "ffi")] extern "C" {}' \
 %endif
 
 # The configure macro will modify some autoconf-related files, which upsets
-# cargo when it tries to verify checksums in those files.  If we just truncate
+# cargo when it tries to verify checksums in those files. If we just truncate
 # that file list, cargo won't have anything to complain about.
 find vendor -name .cargo-checksum.json \
   -exec sed -i.uncheck -e 's/"files":{[^}]*}/"files":{ }/' '{}' '+'
@@ -798,7 +798,7 @@ end}
 
 # Some builders have relatively little memory for their CPU count.
 # At least 4GB per CPU is a good rule of thumb for building rustc.
-%if ! %defined constrain_build
+%if %undefined constrain_build
 %define constrain_build(m:) %{lua:
   for l in io.lines('/proc/meminfo') do
     if l:sub(1, 9) == "MemTotal:" then

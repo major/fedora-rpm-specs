@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-hicolor-icon-theme
-Version:        0.17
-Release:        13%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Basic requirement for icon themes in MingGW
 
 License:        GPL-2.0-or-later
@@ -10,9 +10,11 @@ URL:            http://icon-theme.freedesktop.org/releases/
 Source0:        http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-%{version}.tar.xz
 
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+
+BuildRequires:  meson
+
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 
 %description
 Contains the basic directories and files needed for icon theme support.
@@ -37,21 +39,16 @@ This is the MinGW version of this package.
 
 %prep
 %autosetup -p1 -n hicolor-icon-theme-%{version}
-
 # for some reason this file is executable in the tarball
 chmod 0644 COPYING
 
-
 %build
-# Configure and build once, not per target.
-%configure
-%make_build
+%mingw_meson
+%mingw_ninja
 
 
 %install
-# Install once per target, from a single build tree.
-%make_install datadir="%{mingw32_datadir}"
-%make_install datadir="%{mingw64_datadir}"
+%mingw_ninja_install
 
 touch %{buildroot}%{mingw32_datadir}/icons/hicolor/icon-theme.cache
 touch %{buildroot}%{mingw64_datadir}/icons/hicolor/icon-theme.cache
@@ -59,17 +56,24 @@ touch %{buildroot}%{mingw64_datadir}/icons/hicolor/icon-theme.cache
 
 %files -n mingw32-hicolor-icon-theme
 %license COPYING
-%doc README
+%doc README.md
 %{mingw32_datadir}/icons/hicolor
 %ghost %{mingw32_datadir}/icons/hicolor/icon-theme.cache
+%{mingw32_datadir}/pkgconfig/default-icon-theme.pc
+
 
 %files -n mingw64-hicolor-icon-theme
 %license COPYING
-%doc README
+%doc README.md
 %{mingw64_datadir}/icons/hicolor
 %ghost %{mingw64_datadir}/icons/hicolor/icon-theme.cache
+%{mingw64_datadir}/pkgconfig/default-icon-theme.pc
+
 
 %changelog
+* Thu Jun 26 2025 Sandro Mani <manisandro@gmail.com> - 0.18-1
+- Update to 0.18
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

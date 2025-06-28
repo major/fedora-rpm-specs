@@ -33,9 +33,9 @@
 %endif
 
 Name:           kokkos
-Version:        4.5.01
-%global         sover 4.5
-Release:        2%{?dist}
+Version:        4.6.00
+%global         sover 4.6
+Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -131,7 +131,7 @@ do
 	   -DCMAKE_CXX_FLAGS="%{rocm_cxxflags}" \
 	   -DCMAKE_CXX_STANDARD=17 \
 	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DCMAKE_INSTALL_INCLUDEDIR=$ROCM_INCLUDE/kokkos \
+	   -DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/rocm/${gpu}/include/kokkos \
 	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
 	   -DKokkos_ARCH_AMD_${ugpu}=ON \
 	   -DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
@@ -200,6 +200,9 @@ module purge
 
 
 %changelog
+* Fri Jun 20 2025 Richard Berger <richard.berger@outlook.com> - 4.6.00-1
+- Version bump to v4.6.00
+
 * Sat Feb 15 2025 Richard Berger <richard.berger@outlook.com> - 4.5.01-2
 - update license to Apache-2.0 WITH LLVM-exception
 

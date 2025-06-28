@@ -302,7 +302,9 @@ Source11: idle3.appdata.xml
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
-# Fixup distutils/unixccompiler.py to remove standard library path from rpath Was Patch0 in ivazquez' python3000 specfile
+# Fixup distutils/unixccompiler.py to remove standard library path from rpath
+#
+# Was Patch0 in ivazquez' python3000 specfile
 Patch1: 00001-rpath.patch
 
 # 00111 # 93b40d73360053ca68b0aeec33b6a8ca167e33e2

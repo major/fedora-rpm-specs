@@ -55,7 +55,12 @@ Summary:        %{summary}
 sed -i -e 's/requirements-dev.txt/requirements-dev-minimal.txt/g' tox.ini
 # drop linter requirements, see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -i -e '/flake8/d' -e '/tox-pip-extensions/d' requirements-dev-minimal.txt
+# monotonic is only used in a benchmark script, not in the tests
+sed -i \
+    -e '/flake8/d' \
+    -e '/tox-pip-extensions/d' \
+    -e '/monotonic/d' \
+    requirements-dev-minimal.txt
 %if %{without gibberish}
 sed -i -e '/gibberish-detector/d' requirements-dev-minimal.txt
 %endif

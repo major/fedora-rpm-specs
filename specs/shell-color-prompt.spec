@@ -1,7 +1,8 @@
+# testsuite currently git clones bats libraries
 %bcond tests 0
 
 Name:           shell-color-prompt
-Version:        0.6.1
+Version:        0.7
 Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
@@ -64,6 +65,14 @@ BASH_COLOR_PROMPT_DIR=%{buildroot}%{profiledir} bats --timing --gather-test-outp
 
 
 %changelog
+* Thu Jun 26 2025 Jens Petersen <petersen@redhat.com> - 0.7-1
+- enable bash-color-prompt for most terminals by default (#2352650)
+- respect NO_COLOR unless BASH_PROMPT_USE_COLOR is set (#2352650)
+- check also bash_color_prompt_disable and bash_color_prompt_force
+
+* Wed Jun 04 2025 Jens Petersen <petersen@redhat.com> - 0.6.2-1
+- add set_ansi() helper function for users
+
 * Sat May 31 2025 Jens Petersen <petersen@redhat.com> - 0.6.1-1
 - more consistent separators no longer use PROMPT_HIGHLIGHT
   (prevents separator being bold by default on GNOME)

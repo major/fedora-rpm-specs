@@ -5,7 +5,7 @@
 #%%global       prerelease RC1
 
 Name:           opensubdiv
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        High performance subdivision surface libraries
 
@@ -110,7 +110,7 @@ make test V=1
 %files
 %license LICENSE.txt
 %doc README.md
-%{_libdir}/*.so.%{version}
+%{_libdir}/*.so.3.*
 
 %files devel
 %doc NOTICE.txt README.md

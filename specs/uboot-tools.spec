@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.07
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -42,6 +42,12 @@ Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
 Patch11:  USB-PD-TCPM-improvements.patch
 # Rockchip DT rebase for fixes
 Patch12:  0001-Rebase-to-upstream-6.15.5-rockchip-DTs.patch
+
+# Add EFI_PARTITION_INFO_PROTOCOL support
+Patch13: disk-efi-Move-logic-to-get-a-GPT-entry-into-a-helper.patch
+Patch14: disk-efi-expose-the-part_get_gpt_pte-helper-function.patch
+Patch15: efi_loader-disk-add-EFI_PARTITION_INFO_PROTOCOL-supp.patch
+Patch16: efi_selftest-Add-basic-partition-info-check-to-block.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -268,6 +274,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Thu Jun 26 2025 Javier Martinez Canillas <javierm@redhat.com> - 1:2025.07-0.4.rc4
+- Add EFI_PARTITION_INFO_PROTOCOL support
+
 * Sun Jun 15 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-0.3.rc4
 - Update to 2025.07 RC4
 

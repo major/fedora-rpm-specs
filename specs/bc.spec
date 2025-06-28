@@ -1,11 +1,11 @@
 Summary: GNU's bc (a numeric processing language) and dc (a calculator)
 Name: bc
-Version: 1.08.1
-Release: 3%{?dist}
+Version: 1.08.2
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/bc/
-Source0: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.xz
-Source1: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.xz.sig
+Source0: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.gz
+Source1: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.gz.sig
 Source2: kevin_pizzini.asc
 Patch1: bc-1.06-dc_ibase.patch
 Patch2: bc-1.06.95-doc.patch
@@ -52,6 +52,9 @@ rm -f %{buildroot}/%{_infodir}/dir
 %{_infodir}/dc.info*
 
 %changelog
+* Thu Jun 26 2025 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.08.2-1
+- Update to 1.08.2 - rhbz#2368486
+
 * Wed Mar 05 2025 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.08.1-3
 - Verify gpg signature
 - Change to https links

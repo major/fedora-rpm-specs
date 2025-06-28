@@ -12,6 +12,8 @@ Release:        1%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
+# tests: Retry NVWrite command after 0x922 return code and inc lockout counter
+Patch0:         https://github.com/stefanberger/swtpm/commit/4da66c66f92438443e66b67555673c9cb898b0ae.patch
 
 BuildRequires: make
 BuildRequires:  git-core

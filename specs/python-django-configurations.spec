@@ -16,6 +16,7 @@ License:        BSD-3-Clause
 URL:            https://django-configurations.readthedocs.io/
 Source:         %{pypi_source}
 Patch:          %{pypi_name}-adjust_test_cases.diff
+Patch:          django-redis.diff
 
 BuildArch:      noarch
 

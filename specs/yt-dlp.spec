@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2025.06.09
+Version:        2025.06.25
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -16,15 +16,6 @@ URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 # License of the specfile
 Source:         yt-dlp.spec.license
-
-# [test] `traversal`: Fix morsel tests for Python 3.14 (#13471)
-# https://github.com/yt-dlp/yt-dlp/pull/13471
-#
-# https://github.com/yt-dlp/yt-dlp/issues/13452
-# test_traversal_morsel fails on Python 3.14
-#
-# https://bugzilla.redhat.com/2345522
-Patch:          0001-test-traversal-Fix-morsel-tests-for-Python-3.14-1347.patch
 
 # https://github.com/yt-dlp/yt-dlp/commit/6f9e6537434562d513d0c9b68ced8a61ade94a64
 # [rh:websockets] Upgrade websockets to 13.0 (#10815)

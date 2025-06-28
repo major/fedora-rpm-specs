@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpdocumentor-reflection-common2
 #
-# Copyright (c) 2017-2021 Remi Collet, Shawn Iwinski
+# Copyright (c) 2017-2025 Remi Collet, Shawn Iwinski
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -28,7 +28,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       13%{?github_release}%{?dist}
+Release:       14%{?github_release}%{?dist}
 Summary:       Common reflection classes used by phpdocumentor
 
 Group:         Development/Libraries
@@ -44,19 +44,15 @@ BuildArch:     noarch
 %if %{with_tests}
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
-BuildRequires: phpunit7
-## phpcompatinfo (computed from version 2.0.0)
-BuildRequires: php-pcre
-BuildRequires: php-spl
+BuildRequires: phpunit9
+%endif
 ## Autoloader
 BuildRequires: php-fedora-autoloader-devel
-%endif
 
 # composer.json
 Requires:      php(language) >= %{php_min_ver}
 # phpcompatinfo (computed from version 2.0.0)
-Requires:      php-pcre
-Requires:      php-spl
+# only pcre and spl
 # Autoloader
 Requires:      php-composer(fedora/autoloader)
 
@@ -91,10 +87,10 @@ touch vendor/autoload.php
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in php php73 php74 php80; do
+for PHP_EXEC in php php81 php82 php83 php84; do
     if which $PHP_EXEC; then
         $PHP_EXEC -d auto_prepend_file=$BOOTSTRAP \
-            %{_bindir}/phpunit7 --no-coverage --verbose || RETURN_CODE=1
+            %{_bindir}/phpunit9 --no-coverage || RETURN_CODE=1
     fi
 done
 exit $RETURN_CODE
@@ -120,6 +116,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 2.2.0-14
+- switch to phpunit9
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

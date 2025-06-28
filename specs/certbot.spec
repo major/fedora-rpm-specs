@@ -17,7 +17,7 @@
 
 
 Name:           certbot
-Version:        4.0.0
+Version:        4.1.1
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -31,6 +31,10 @@ Source12:       certbot-sysconfig-certbot
 Source13:       certbot-cli.ini
 Source14:       certbot-README.fedora
 Source15:       certbot.logrotate
+
+# disable one test which tries to access the network
+# https://github.com/certbot/certbot/issues/10354
+Patch1:         certbot-disable-test_lock_order-renew.patch
 
 BuildArch:      noarch
 
@@ -373,6 +377,12 @@ fi
 
 
 %changelog
+* Thu Jun 26 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 4.1.1-1
+- update to 4.1.1
+
+* Thu Jun 26 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 4.0.0-2
+- rebuilt for Python 3.14 rhbz#2371691
+
 * Wed Apr 09 2025 Jonathan Wright <jonathan@almalinux.org> - 4.0.0-1
 - update to 4.0.0 rhbz#2336260
 

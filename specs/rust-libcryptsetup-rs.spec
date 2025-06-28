@@ -5,7 +5,7 @@
 %global crate libcryptsetup-rs
 
 Name:           rust-libcryptsetup-rs
-Version:        0.12.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        High level Rust bindings for libcryptsetup
 
@@ -57,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "mutex" feature of the "%{crate}" crate.
 
 %files       -n %{name}+mutex-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+static-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+static-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "static" feature of the "%{crate}" crate.
+
+%files       -n %{name}+static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

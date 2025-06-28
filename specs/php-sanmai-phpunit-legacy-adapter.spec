@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-sanmai-phpunit-legacy-adapter
 #
-# Copyright (c) 2020-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -18,7 +18,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        8.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PHPUnit Legacy Versions Adapter
 
 License:        Apache-2.0
@@ -27,9 +27,11 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  phpunit7
 BuildRequires:  phpunit8
 BuildRequires:  phpunit9
+BuildRequires:  phpunit10
+BuildRequires:  phpunit11
+BuildRequires:  phpunit12
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -80,29 +82,39 @@ EOF
 
 : run upstream test suite with all php and phpunit versions
 ret=0
-for cmd in php80 php81 php82
-do
-  if which $cmd; then
-    $cmd %{_bindir}/phpunit7 --verbose || ret=1
-  fi
-done
-for cmd in php80 php81 php82
+for cmd in php80 php81 php82 php83 php84
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
 done
-for cmd in php80 php81 php82
+for cmd in php80 php81 php82 php83 php84
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
 done
 if [ -x %{_bindir}/phpunit10 ]; then
-  for cmd in php80 php81 php82
+  for cmd in php81 php82 php83 php84
   do
     if which $cmd; then
-      $cmd %{_bindir}/phpunit9 --verbose || ret=1
+      $cmd %{_bindir}/phpunit10 || ret=1
+    fi
+  done
+fi
+if [ -x %{_bindir}/phpunit11 ]; then
+  for cmd in php82 php83 php84
+  do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit11 || ret=1
+    fi
+  done
+fi
+if [ -x %{_bindir}/phpunit12 ]; then
+  for cmd in php83 php84
+  do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit12 || ret=1
     fi
   done
 fi
@@ -120,6 +132,10 @@ exit $ret
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 8.2.2-7
+- tests: remove phpunit7, add phpunit11 and phpunit12
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

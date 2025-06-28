@@ -2,7 +2,7 @@
 %global sum ANSI Color formatting for output in terminal
 
 Name:           python-%{pypi_name}
-Version:        2.5.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        %{sum}
 

@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20250204^%{shortcommit}
+Version:        20250612^%{shortcommit}
 %else
-Version:        20250204
+Version:        20250612
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -38,8 +38,7 @@ Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2024.05.09.tar.gz
 Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
-Patch0:         https://github.com/lammps/lammps/commit/4d453a65e6728760d3eeb0e88ea2ad8a49d790e1.patch
-Patch1:         https://github.com/lammps/lammps/commit/b3e75a6f841c1cf783605b0d1bb0a4537b1e947d.patch
+Patch0:         https://github.com/lammps/lammps/commit/aecc85e3d5f9bf80934af90ad3ec8cafbd42f88b.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # mpi is broken on s390x see, bug #2322073
@@ -53,6 +52,10 @@ BuildRequires:  libjpeg-devel
 %ifnarch %ix86
 BuildRequires:  openmpi-devel
 BuildRequires:  heffte-openmpi-devel
+%ifarch x86_64
+#F42 only, https://src.fedoraproject.org/rpms/rocfft/pull-request/1
+BuildRequires:  rocm-hip-devel
+%endif
 BuildRequires:  python%{python3_pkgversion}-mpi4py-openmpi
 BuildRequires:  python%{python3_pkgversion}-mpi4py-mpich
 %endif
@@ -66,8 +69,6 @@ BuildRequires:  gsl-devel
 BuildRequires:  voro++-devel
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  hdf5-devel
-BuildRequires:  kim-api-devel
-BuildRequires:  kim-api-examples
 BuildRequires:  cmake3 >= 3.16
 BuildRequires:  ocl-icd-devel
 BuildRequires:  opencl-headers
@@ -241,7 +242,6 @@ for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   -DPKG_ATC=ON \
   -DPKG_H5MD=ON \
   %{?with_kokkos:-DPKG_KOKKOS=ON -DEXTERNAL_KOKKOS=ON} \
-  -DPKG_KIM=ON \
   -DENABLE_TESTING=ON \
   -DGTEST_URL=file://%{S:1} \
   -DYAML_URL=file://%{S:2} \
@@ -319,6 +319,7 @@ done
 %{_bindir}/micelle2d.x
 %{_bindir}/stl_bin2txt
 %{_bindir}/phana
+%{_bindir}/reformat-json
 
 %files devel
 %{_libdir}/liblammps.so
@@ -376,6 +377,11 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Fri Jun 20 2025 Richard Berger <richard.berger@outlook.com> - 20250612-1
+- Version bump to 20250612
+- disable kim-api (orphaned package)
+- add patch to avoid segfault in Fortran interface
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 20250204-2
 - Rebuilt for Python 3.14
 

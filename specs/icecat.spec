@@ -303,8 +303,8 @@ Suggests: mozilla-ublock-origin
 Provides: webclient
 
 %if 0%{?fedora} >= 40
-Obsoletes:  icecat-wayland < 2:115.19.0-1
-Obsoletes:  icecat-x11 < 2:115.19.0-1
+Obsoletes:  icecat-wayland < 3:128.12.0-1
+Obsoletes:  icecat-x11 < 3:128.12.0-1
 %endif
 
 %description
@@ -335,7 +335,7 @@ Extensions included to this version of IceCat:
 %if %{with langpacks_subpkg}
 %package langpacks
 Summary: IceCat langpacks
-Requires: %{name} = 2:%{version}-%{release}
+Requires: %{name} = 3:%{version}-%{release}
 %description langpacks
 The icecat-langpacks package contains all the localization
 and translations langpack add-ons.
@@ -457,7 +457,6 @@ echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`"
 
 %ifarch s390x %{arm64}
 echo "ac_add_options --disable-jit" >> .mozconfig
-echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
 %if 0%{?build_with_pgo}
@@ -550,10 +549,13 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 export RUSTFLAGS="-Cdebuginfo=0"
 %endif
 
-export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
-export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive -std=gnu++17"
-export LDFLAGS=$MOZ_LINK_FLAGS
+#  error "STL code can only be used with -fno-exceptions"
+CXXFLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-fexceptions/-fno-exceptions/')
+export CXXFLAGS="$CXXFLAGS"
+export CXXFLAGS="$CXXFLAGS -fpermissive -std=gnu++17"
 
+export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
+export LDFLAGS=$MOZ_LINK_FLAGS
 export PREFIX='%{_prefix}'
 export LIBDIR='%{_libdir}'
 export PKG_CONFIG="`which pkg-config`"
@@ -720,9 +722,6 @@ ln -sf %{icecatappdir}/%{name}-bin ${RPM_BUILD_ROOT}%{icecatappdir}/%{name}
 rm -rf ${RPM_BUILD_ROOT}%{icecatappdir}/dictionaries
 ln -s %{_datadir}/hunspell ${RPM_BUILD_ROOT}%{icecatappdir}/dictionaries
 
-# Copy over run-icecat.sh
-cp -p build/unix/run-%{name}.sh %{buildroot}%{icecatappdir}/
-
 # Remove unused directories
 rm -rf %{buildroot}%{_libdir}/%{icecat_devel}
 rm -rf %{buildroot}%{_datadir}/idl/%{icecat_ver}
@@ -783,9 +782,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{icecatappdir}/*.so
 %{icecatappdir}/*.ini
 %{icecatappdir}/omni.ja
-%{icecatappdir}/run-icecat.sh
 %{icecatappdir}/dependentlibs.list
-%{icecatappdir}/plugin-container
 %{icecatappdir}/pingsender
 %{icecatappdir}/gmp-clearkey/
 

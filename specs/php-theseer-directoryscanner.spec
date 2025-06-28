@@ -1,8 +1,8 @@
 # spec file for php-theseer-directoryscanner
 #
-# Copyright (c) 2014-2024 Remi Collet
-# License: CC-BY-SA
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -22,25 +22,26 @@
 
 Name:           php-theseer-directoryscanner
 Version:        1.3.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A recursive directory scanner and filter
 
-Group:          Development/Libraries
 License:        BSD-2-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}.tar.gz
 
+# minimal fix to allow phpunit9
+Patch0:         %{name}-tests.patch
+
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.3.1
 %if %{with tests}
-BuildRequires:  phpunit7
+BuildRequires:  phpunit9
 %endif
 
 # From composer.json
 Requires:       php(language) >= 5.3.1
 # From phpcompatinfo report for 1.3.0
 Requires:       php-fileinfo
-Requires:       php-spl
 
 Provides:       php-composer(theseer/directoryscanner) = %{version}
 Provides:       php-pear(%{pear_channel}/%{pear_name}) = %{version}
@@ -52,6 +53,7 @@ A recursive directory scanner and filter.
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 
 %build
@@ -68,18 +70,19 @@ cp -pr src %{buildroot}%{php_home}/%{gh_project}
 cat << 'EOF' | tee bs.php
 <?php
 require_once '%{buildroot}%{php_home}/%{gh_project}/autoload.php';
-class_alias('PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase');
 EOF
 
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit7 \
+    $cmd %{_bindir}/phpunit9 \
          --bootstrap bs.php \
          --verbose \
          --no-coverage \
+         --do-not-cache-result \
+         --test-suffix=.test.php \
          --no-configuration \
-         tests/*php|| ret=1
+         tests || ret=1
   fi
 done
 exit $ret
@@ -94,7 +97,6 @@ fi
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc composer.json
 %dir %{php_home}
@@ -102,6 +104,10 @@ fi
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 1.3.3-11
+- use phpunit9
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

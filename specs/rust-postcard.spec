@@ -5,7 +5,7 @@
 %global crate postcard
 
 Name:           rust-postcard
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        No_std + serde compatible message library for Rust
 
@@ -17,9 +17,6 @@ Source:         %{crates_source}
 Source10:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard/v%{version}/LICENSE-APACHE
 Source11:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Update cobs to 0.3.0: https://github.com/jamesmunns/postcard/pull/226
-# * Update postcard’s dep. on postcard-derive to 0.2:
-#   https://github.com/jamesmunns/postcard/pull/228
 # * Patch out features that would require embedded-io or defmt
 Patch:          postcard-fix-metadata.diff
 
@@ -69,6 +66,18 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+core-num-saturating-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+core-num-saturating-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "core-num-saturating" feature of the "%{crate}" crate.
+
+%files       -n %{name}+core-num-saturating-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+crc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -115,6 +124,30 @@ This package contains library source intended for building other packages which
 use the "heapless-cas" feature of the "%{crate}" crate.
 
 %files       -n %{name}+heapless-cas-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+nalgebra-v0_33-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nalgebra-v0_33-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nalgebra-v0_33" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nalgebra-v0_33-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+nalgebra_v0_33-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nalgebra_v0_33-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nalgebra_v0_33" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nalgebra_v0_33-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+paste-devel

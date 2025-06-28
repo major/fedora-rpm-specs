@@ -1,7 +1,7 @@
 %global giturl  https://github.com/jdillard/sphinx-sitemap
 
 Name:           python-sphinx-sitemap
-Version:        2.6.0
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Sitemap generator for Sphinx
 
@@ -11,6 +11,10 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/sphinx-sitemap-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -t
+BuildOption(install): -l sphinx_sitemap
+
 BuildRequires:  python3-devel
 
 %global _description %{expand:
@@ -28,16 +32,8 @@ Summary:        Sitemap generator for Sphinx
 %prep
 %autosetup -n sphinx-sitemap-%{version}
 
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp README.rst README.html
-
-%install
-%pyproject_install
-%pyproject_save_files -l sphinx_sitemap
 
 %check
 %tox

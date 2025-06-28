@@ -17,6 +17,8 @@ Source10:       https://github.com/Andlon/matrixcompare/raw/57a66bd/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * Update proptest dev-dependencies to 1.0:
 #   https://github.com/Andlon/matrixcompare/pull/12
+# * Update num dependency to 0.4:
+#   https://github.com/Andlon/matrixcompare/pull/13
 Patch:          matrixcompare-mock-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

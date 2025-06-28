@@ -2,11 +2,12 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
+Patch1: audit-4.0.5-af_unix.patch
 BuildRequires: make gcc
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 5.0
@@ -90,6 +91,7 @@ Management Facility) database, through an IBM Tivoli Directory Server
 Summary: audit rules and utilities
 License: GPL-2.0-or-later
 Requires(post): coreutils
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Recommends: %{name} = %{version}-%{release}
 
 %description rules
@@ -97,6 +99,7 @@ The audit rules package contains the rules and utilities to load audit rules.
 
 %prep
 %setup -q -n %{name}-userspace-%{version}
+%patch -P 1 -p1
 cp %{SOURCE1} .
 
 %build
@@ -132,6 +135,8 @@ touch -r ./audit.spec $RPM_BUILD_ROOT/etc/libaudit.conf
 touch -r ./audit.spec $RPM_BUILD_ROOT/usr/share/man/man5/libaudit.conf.5.gz
 
 %check
+# This is disabled due to uid mismatches in the auparse tests
+# The next upstream release fixes this.
 #make check
 # Get rid of make files so that they don't get packaged.
 rm -f rules/Makefile*
@@ -297,6 +302,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Jun 26 2025 Steve Grubb <sgrubb@redhat.com> 4.0.5-2
+- Apply audit-4.0.5-af_unix.patch (#2375024)
+
 * Wed Jun 11 2025 Steve Grubb <sgrubb@redhat.com> 4.0.5-1
 - New upstream release
 

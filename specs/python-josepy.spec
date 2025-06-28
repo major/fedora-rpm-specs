@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JOSE protocol implementation in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -14,6 +14,9 @@ License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/josepy
 Source0:        %{pypi_source}
 Source2:        https://dl.eff.org/certbot.pub
+# patch by Marc Mueller / cdce8p
+# https://github.com/certbot/josepy/commit/8ddcaaed99a61e9277df1ec00157f0aea53378d4
+Patch1:         python-josepy-support-py314.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -60,7 +63,7 @@ Documentation for python-%{pypi_name}
 %endif
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
@@ -101,6 +104,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Thu Jun 26 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 2.0.0-4
+- add patch to support Python 3.14
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.0-3
 - Rebuilt for Python 3.14
 

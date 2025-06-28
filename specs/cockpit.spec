@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        340
-Release:        2%{?dist}
+Version:        341
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -618,6 +618,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jun 25 2025 Packit <hello@packit.dev> - 341-1
+- services: show link to podman page for quadlets
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 340-2
 - Rebuilt for Python 3.14
 

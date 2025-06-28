@@ -291,7 +291,7 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
-* Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
+* Tue Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Remove suse check for using ldconfig
 
 * Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1

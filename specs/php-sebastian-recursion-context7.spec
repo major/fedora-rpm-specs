@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
 License:        BSD-3-Clause
@@ -33,6 +33,8 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
+
+Patch0:         https://github.com/sebastianbergmann/recursion-context/commit/31933c1e9e455d4c039cbbc4daf0bee85691729b.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
@@ -63,6 +65,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 
 %build
@@ -102,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 7.0.0-3
+- add upstream patch for test suite with phpunit 12.2
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 7.0.0-2
 - enable test suite
 
