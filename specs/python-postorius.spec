@@ -12,6 +12,8 @@ URL:            https://gitlab.com/mailman/postorius
 Source:         %{pypi_source postorius}
 # don't ship examples, they end up in sitelib
 Patch:          postorius-dont-ship-examples.diff
+# allow Django 5.2, for Python 3.14 compatibility
+Patch:          postorius-django52.diff
 
 BuildArch:      noarch
 

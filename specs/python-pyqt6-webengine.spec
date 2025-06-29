@@ -72,7 +72,7 @@ done
 %files -n python%{python3_pkgversion}-pyqt6-webengine
 %doc README.md
 %license LICENSE
-%{python3_sitearch}/PyQt6_WebEngine-%{version}%{?snap:.%{snap}}.dist-info
+%{python3_sitearch}/pyqt6_webengine-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt6/QtWebEngineCore.*
 %{python3_sitearch}/PyQt6/QtWebEngineQuick.*
 %{python3_sitearch}/PyQt6/QtWebEngineWidgets.*

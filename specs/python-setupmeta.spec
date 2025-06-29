@@ -31,11 +31,22 @@ BuildRequires:  git-core
 %autosetup -n setupmeta-%{version} -p1
 
 %generate_buildrequires
+# required to make it not try to self-refer
+# this is deliberately in this section instead of %%prep
+# as we need to remove it over and over again
+# with repeated %%generate_buildrequires rounds
+rm -rf setupmeta.egg-info
 %pyproject_buildrequires
 
 
 %build
+# to avoid a self dependency bootstrap loop, we build the wheel twice
+# 1) this generates a wheel with version 0.0.0
 %pyproject_wheel
+# 2) we use it to generate the versioned wheel
+export PYTHONPATH=%{_pyproject_wheeldir}/setupmeta-0.0.0-py3-none-any.whl
+%pyproject_wheel
+rm %{_pyproject_wheeldir}/setupmeta-0.0.0-py3-none-any.whl
 
 %install
 %pyproject_install

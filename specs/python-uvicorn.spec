@@ -1,3 +1,13 @@
+# python-uvloop fails to build with Python 3.14: AttributeError: module
+# 'asyncio' has no attribute 'AbstractChildWatcher'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2326210
+# python-uvloop fails to build with Python 3.13: error: implicit declaration of
+# function ‘_Py_RestoreSignals’
+# https://bugzilla.redhat.com/show_bug.cgi?id=2256747
+# python-uvloop: FTBFS in Fedora rawhide/f42
+# https://bugzilla.redhat.com/show_bug.cgi?id=2341233
+%bcond uvloop 0
+
 Name:           python-uvicorn
 Version:        0.34.0
 Release:        %autorelease
@@ -8,7 +18,12 @@ URL:            https://www.uvicorn.org
 Source:         https://github.com/encode/uvicorn/archive/%{version}/uvicorn-%{version}.tar.gz
 # https://github.com/encode/uvicorn/pull/2590
 Patch:          0001-Avoid-test-dependency-on-typing_extensions.patch
+# Fix test_loop_auto for Python 3.14
+# https://github.com/encode/uvicorn/pull/2652
+Patch:          https://github.com/encode/uvicorn/pull/2652.patch
 BuildArch:      noarch
+
+BuildRequires:  tomcli
 
 %global common_description %{expand:
 Uvicorn is an ASGI web server implementation for Python.  Until recently Python
@@ -41,6 +56,16 @@ BuildRequires:  python3-wsproto
 
 %prep
 %autosetup -p 1 -n uvicorn-%{version}
+%if %{without uvloop}
+# Note that by removing uvloop from the standard extra but still shipping the
+# metapackage, dependent packages may FTBFS in %%check or (if inadequately
+# tested) fail at runtime, rather than FTBFS in RPM dependency resolution.
+tomcli set pyproject.toml lists delitem \
+    project.optional-dependencies.standard 'uvloop.*'
+%endif
+# Do not treat warnings as errors; it is too strict for downstream packaging
+tomcli set pyproject.toml lists delitem \
+    tool.pytest.ini_options.filterwarnings 'error'
 
 
 %generate_buildrequires
@@ -59,7 +84,7 @@ BuildRequires:  python3-wsproto
 %check
 # There are various issues testing with websockets 14+.
 # https://github.com/encode/uvicorn/issues/1908
-%pytest --verbose -k 'not websocket' --pythonwarnings 'ignore:websockets:DeprecationWarning'
+%pytest --verbose -k 'not websocket'
 
 
 %files -n python3-uvicorn -f %{pyproject_files}

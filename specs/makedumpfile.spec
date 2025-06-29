@@ -1,9 +1,9 @@
-%global eppic_ver 63c2a2072464d774097a1a6cc1d2e98290f89c49
+%global eppic_ver 72da440362e20291d5ecbb04b6eb7c7b492f233c
 %global eppic_shortver %(c=%{eppic_ver}; echo ${c:0:7})
 Name: makedumpfile
 Version: 1.7.7
 Summary: make a small dumpfile of kdump
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -57,6 +57,9 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Tue Jun 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.7.7-2
+- Fix build with glibc-2.42
+
 * Tue Apr 22 2025 Packit <hello@packit.dev> - 1.7.7-1
 - Update to version 1.7.7
 - Resolves: rhbz#2361565

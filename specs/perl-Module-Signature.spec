@@ -2,7 +2,7 @@
 %global gnupghome %(mktemp --directory)
 
 Name:           perl-Module-Signature
-Version:        0.90
+Version:        0.92
 Release:        1%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
@@ -15,15 +15,8 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(inc::Module::Install) >= 0.92
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Module::Install::Can)
-BuildRequires:  perl(Module::Install::External)
-BuildRequires:  perl(Module::Install::Makefile)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::Scripts)
-BuildRequires:  perl(Module::Install::WriteAll)
-BuildRequires:  sed
 # Module runtime
 BuildRequires:  gnupg2
 BuildRequires:  perl(constant)
@@ -33,14 +26,19 @@ BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Socket::INET)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Diff)
+BuildRequires:  perl(vars)
 BuildRequires:  perl(version)
+BuildRequires:  perl(warnings)
 # Test suite
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IPC::Run)
 BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
 # Dependencies
 Requires:       gnupg2
@@ -50,6 +48,7 @@ Requires:       perl(IO::Socket::INET)
 Requires:       perl(Text::Diff)
 Requires:       perl(version)
 Suggests:       perl(PAR::Dist)
+Suggests:       /usr/bin/perldoc
 
 %description
 This package contains a command line tool and module for checking and creating
@@ -58,18 +57,20 @@ SIGNATURE files for Perl CPAN distributions.
 %prep
 %setup -q -n Module-Signature-%{version}
 
-# Remove bundled modules
-rm -r ./inc/*
-sed -i -e '/^inc\//d' MANIFEST
-
 %build
 export GNUPGHOME=%{gnupghome}
-perl Makefile.PL --skipdeps INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
 %{_fixperms} -c %{buildroot}
+
+# Manually install cpansign and its manpage
+# https://github.com/audreyt/module-signature/issues/44
+mkdir -p %{buildroot}{%{_bindir},%{_mandir}/man1}
+install -p -m 755 script/cpansign %{buildroot}%{_bindir}/cpansign
+pod2man script/cpansign > %{buildroot}%{_mandir}/man1/cpansign.1
 
 %check
 export GNUPGHOME=%{gnupghome}
@@ -81,13 +82,21 @@ make test TEST_SIGNATURE=0
 rm -rf %{buildroot} %{gnupghome}
 
 %files
-%doc AUTHORS Changes README *.pub
+%doc AUTHORS Changes SECURITY.md *.pub
 %{_bindir}/cpansign
 %{perl_vendorlib}/Module/
 %{_mandir}/man1/cpansign.1*
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Fri Jun 27 2025 Paul Howarth <paul@city-fan.org> - 0.92-1
+- Update to 0.92
+ - Add SECURITY.md policy
+ - Move to three-arg open
+ - Remove spaces from eol
+ - Change build process to Dist::Zilla
+- Suggest perldoc, needed for cpansign --help
+
 * Fri Jun 13 2025 Paul Howarth <paul@city-fan.org> - 0.90-1
 - Update to 0.90
   - Fix fail on signature file with an unexpected empty line (CPAN RT#166901)

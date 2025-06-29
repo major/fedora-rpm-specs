@@ -5,7 +5,7 @@
 %global modname django_extensions
 
 Name:           python-%{srcname}
-Version:        3.2.3
+Version:        4.1
 Release:        %autorelease
 Summary:        Extensions for Django
 
@@ -23,6 +23,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with doc}
 BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 BuildRequires:  make
 %endif
 
@@ -58,9 +59,11 @@ rm tests/management/commands/test_mail_debug.py
 rm django_extensions/management/commands/shell_plus.py
 rm -r tests/management/commands/shell_plus_tests/
 %endif
+# Relax pytest requirement
+sed -i 's|pytest<8|pytest|' requirements-dev.txt
 # Remove coverage
 sed -i /pytest-cov/d requirements-dev.txt
-sed -Ei 's/--cov[^ =]*[ =][^ =]+//g' setup.cfg
+sed -i 's| --cov=.*"|"|' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -90,6 +93,9 @@ SELECTOR="not PipCheckerTests"
 # E   ?              ++++++++++++++++
 SELECTOR+=" and not test_should_highlight_bash_syntax_without_name"
 %endif
+# >       self.assertEqual(with_no_flag, with_flag)
+# E       AssertionError: {'cre[21 chars] 18:50', 'cli_options': 'django_extensions tes[39372 chars]}]}]} != {'cre[21 chars] 18:51', 'cli_optio
+SELECTOR+=" and not test_graph_models_relation_fields_only"
 %pytest -v django_extensions tests \
   -k "${SELECTOR}" \
   --ignore tests/test_dumpscript.py

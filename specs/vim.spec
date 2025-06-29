@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1435
+%define patchlevel 1484
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -99,9 +99,6 @@ Patch3003: vim-python3-tests.patch
 Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch3005: vim-8.0-copy-paste.patch
-# PySequence_Fast_{GET_ITEM,GET_SIZE} removed from stable API
-# https://github.com/vim/vim/pull/17575
-Patch3006: vim-py314-nogetsize.patch
 
 
 # uses autoconf in spec file
@@ -429,7 +426,6 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 3003 -p1 -b .python-tests
 %patch -P 3004 -p1 -b .fips-warning
 %patch -P 3005 -p1 -b .copypaste
-%patch -P 3006 -p1 -b .py314-noget
 
 
 %build
@@ -1062,6 +1058,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 %changelog
+* Fri Jun 27 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1484-1
+- patchlevel 1484
+
 * Thu Jun 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1435-2
 - FTBFS with Python 3.14 (fedora#2373314)
 

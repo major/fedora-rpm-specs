@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-google-recaptcha
 #
-# Copyright (c) 2017-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    d59a801e98a4e9174814a6d71bbc268dff1202df
+%global gh_commit    56522c261d2e8c58ba416c90f81a4cd9f2ed89b9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     google
 %global gh_project   recaptcha
@@ -14,8 +14,8 @@
 %global psr0         ReCaptcha
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.3.0
-Release:        6%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        reCAPTCHA PHP client library
 
 License:        BSD-3-Clause
@@ -28,16 +28,12 @@ BuildArch:      noarch
 %if %{with_tests}
 BuildRequires:  php(language) >= 8
 BuildRequires:  php-curl
-BuildRequires:  php-date
 BuildRequires:  php-json
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 # For tests, from composer.json "require-dev": {
 #        "phpunit/phpunit": "^10",
 #        "friendsofphp/php-cs-fixer": "^3.14",
 #        "php-coveralls/php-coveralls": "^2.5"
-# Keep phpunit9 for PHP 8.0
-BuildRequires:  phpunit9
+BuildRequires:  phpunit10
 %endif
 # For autoloader
 BuildRequires:  php-composer(fedora/autoloader)
@@ -47,10 +43,7 @@ BuildRequires:  php-composer(fedora/autoloader)
 Requires:       php(language) >= 8
 # From phpcompatinfo report for 1.2.1
 Requires:       php-curl
-Requires:       php-date
 Requires:       php-json
-Requires:       php-pcre
-Requires:       php-spl
 # For generated autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -97,10 +90,13 @@ cp -pr src/%{psr0} %{buildroot}%{_datadir}/php/%{psr0}
 BOOTSTRAP=%{buildroot}%{_datadir}/php/%{psr0}/autoload.php
 ret=0
 
-for cmdarg in php php80 "php81 %{_bindir}/phpunit10" "php82 %{_bindir}/phpunit10"; do
+for cmdarg in php php81 php82 php83 php84; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9}  --bootstrap=$BOOTSTRAP || ret=0
+    $1 ${2:-%{_bindir}/phpunit10} \
+      -d date.timezone=UTC  \
+      --bootstrap=$BOOTSTRAP \
+      --no-coverage || ret=1
   fi
 done
 exit $ret
@@ -110,7 +106,6 @@ exit $ret
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc composer.json
 %doc *.md
@@ -118,6 +113,10 @@ exit $ret
 
 
 %changelog
+* Fri Jun 27 2025 Remi Collet <remi@remirepo.net> - 1.3.1-1
+- update to 1.3.1
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.16.2
+Version:	2.17.0
 Release:	1%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
@@ -86,8 +86,6 @@ mv conf.d/65-nonlatin.conf conf.d/69-nonlatin.conf
 
 install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontconfig_confdir}/
-
-rm $RPM_BUILD_ROOT/%{_libdir}/libfontconfig.a
 
 # Use implied value to allow the use of conditional conf
 rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
@@ -202,6 +200,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Fri Jun 27 2025 Akira TAGOH <tagoh@redhat.com> - 2.17.0-1
+- New upstream release.
+  Resolves: rhbz#2375126
+
 * Fri Apr 11 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.2-1
 - New upstream release.
 

@@ -16,8 +16,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.37.0
-Release:        2%{?dist}
+Version:        2.38.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -302,6 +302,7 @@ done
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
 %{_mandir}/man1/pvsecret-create-retrievable.1*
+%{_mandir}/man1/pvsecret-create-update-cck.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
@@ -310,6 +311,8 @@ done
 %{_mandir}/man1/pvsecret.1*
 %dir %{_datadir}/s390-tools
 %{_datadir}/s390-tools/pvimg/
+%{bash_completions_dir}/*.bash
+%{zsh_completions_dir}/_*
 
 #
 # enf of multi-arch section
@@ -407,6 +410,7 @@ This package provides minimal set of tools needed to system to boot.
 %{_udevrulesdir}/81-ccw.rules
 %{_udevrulesdir}/81-dpm.rules
 %{_udevrulesdir}/90-cpi.rules
+%{_udevrulesdir}/80-hotplug-cpu.rules
 %{_sysconfdir}/kernel/install.d/20-grubby.install
 %{_prefix}/lib/kernel/install.d/10-zfcpdump.install
 %{_prefix}/lib/kernel/install.d/20-zipl-kernel.install
@@ -517,9 +521,6 @@ s390 base tools. This collection provides the following utilities:
      feature. Those traces are filtered with the zfcpdbf script, i.e. merge
      several traces, make it more readable etc.
 
-   * scsi_logging_level:
-     Create, get or set the logging level for the SCSI logging facility.
-
    * zconf:
      Set of scripts to configure and list status information of Linux for
      zSeries IO devices.
@@ -619,7 +620,6 @@ For more information refer to the following publications:
 %{_sbindir}/qetharp
 %{_sbindir}/qethconf
 %{_sbindir}/qethqoat
-%exclude %{_sbindir}/scsi_logging_level
 %{_sbindir}/sclpdbf
 %{_sbindir}/start_hsnc.sh
 %{_sbindir}/tape390_crypt
@@ -633,6 +633,7 @@ For more information refer to the following publications:
 %{_sbindir}/zfcpdbf
 %{_sbindir}/zgetdump
 %{_sbindir}/zipl-switch-to-blscfg
+%{_sbindir}/zmemtopo
 %{_sbindir}/znetconf
 %{_sbindir}/zpcictl
 %{_bindir}/cpacfinfo
@@ -646,6 +647,7 @@ For more information refer to the following publications:
 %{_bindir}/pvsecret
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
+%{_bindir}/zpwr
 %{_unitdir}/dumpconf.service
 %{_unitdir}/opticsmon.service
 %ghost %config(noreplace) %{_sysconfdir}/zipl.conf
@@ -653,6 +655,7 @@ For more information refer to the following publications:
 %{_sysconfdir}/mdevctl.d/*
 %{_sysusersdir}/s390utils-base.conf
 /usr/lib/dracut/modules.d/99ngdump/
+/usr/lib/dracut/dracut.conf.d/99-pkey.conf
 # own the mdevctl dirs until new release is available
 %dir /usr/lib/mdevctl
 %dir /usr/lib/mdevctl/scripts.d
@@ -685,6 +688,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
 %{_mandir}/man1/pvsecret-create-retrievable.1*
+%{_mandir}/man1/pvsecret-create-update-cck.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
@@ -695,6 +699,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/zkey-cryptsetup.1*
 %{_mandir}/man1/zkey-ekmfweb.1*
 %{_mandir}/man1/zkey-kmip.1*
+%{_mandir}/man1/zpwr.1*
 %{_mandir}/man4/prandom.4*
 %{_mandir}/man5/hsavmcore.conf.5*
 %{_mandir}/man8/chccwdev.8*
@@ -740,10 +745,13 @@ For more information refer to the following publications:
 %{_mandir}/man8/zfcpdbf.8*
 %{_mandir}/man8/zgetdump.8*
 %{_mandir}/man8/zipl-switch-to-blscfg.8*
+%{_mandir}/man8/zmemtopo.8*
 %{_mandir}/man8/znetconf.8*
 %{_mandir}/man8/zpcictl.8*
 %dir %{_datadir}/s390-tools
 %{_datadir}/s390-tools/netboot/
+%{bash_completions_dir}/*.bash
+%{zsh_completions_dir}/_*
 %dir %attr(0770,root,zkeyadm) %{_sysconfdir}/zkey
 %dir %attr(0770,root,zkeyadm) %{_sysconfdir}/zkey/kmip
 %dir %attr(0770,root,zkeyadm) %{_sysconfdir}/zkey/kmip/profiles
@@ -1116,6 +1124,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Jun 27 2025 Dan Horák <dan[at]danny.cz> - 2:2.38.0-1
+- rebased to 2.38.0 (rhbz#2374765)
+
 * Thu Mar 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2:2.37.0-2
 - Properly generate Rust BuildRequires on Fedora
 - Update License (for s390utils/s390utils-base) to reflect Rust deps.

@@ -7,6 +7,8 @@ License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mailman/django-mailman3
 Source:         %{pypi_source django_mailman3}
 Patch:          django-mailman3-localdeps.patch
+# Allow Django 5.2, for Python 3.14 compatibility
+Patch:          django-mailman3-django52.patch
 
 BuildArch:      noarch
 

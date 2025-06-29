@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250613
+Version:	20250627
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -615,6 +615,16 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Fri Jun 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250627-1
+- Update to 20250627
+- amdgpu: A metric ton of fixes for their GPU firmware
+- WHENCE: various updates
+- qcom: update firmware binary for SM8550
+- qcom: venus-5.4: add the firmware binary for qcs615
+- brcm: Fix symlinks for Khadas VIM SDIO wifi config
+- mediatek: Update mt8186 SCP firmware
+- qcom: add gpu firmwares for X1P42100 chipset
+
 * Fri Jun 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250613-1
 - Update to 20250613
 - Upgrade path for nvidia firmware changes (thanks Denys Vlasenko)

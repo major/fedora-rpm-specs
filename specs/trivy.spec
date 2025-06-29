@@ -3,7 +3,7 @@
 
 # https://github.com/aquasecurity/trivy
 %global goipath         github.com/aquasecurity/trivy
-Version:                0.60.0
+Version:                0.63.0
 
 %gometa -L
 

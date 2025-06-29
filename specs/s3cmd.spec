@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	6
+%define	release	7
 
 Name:           %{name}
 Version:        %{version}
@@ -22,7 +22,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 Requires:       python3-dateutil
-Requires:       python3-magic
+Requires:       ( python3-magic or python3-file-magic )
 
 # Disable auto dependencies as sources match Python2
 %{?python_disable_dependency_generator}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Fri Jun 27 2025 Frank Crawford <frank@crawford.emu.id.au> - 2.4.0-7
+- Fix for python3-magic/python3-file-magic requirement issue (BZ2375030)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.0-6
 - Rebuilt for Python 3.14
 

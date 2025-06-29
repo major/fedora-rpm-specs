@@ -11,7 +11,7 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.20.2
+Version:        2.21.0
 Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
@@ -282,6 +282,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Fri Jun 27 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.0-1
+- Rebase to 2.21.0
+
 * Wed Apr 16 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.20.2-1
 - Update to 2.20.2
 

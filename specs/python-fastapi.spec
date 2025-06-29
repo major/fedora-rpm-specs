@@ -52,7 +52,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.12
+Version:        0.115.14
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -91,9 +91,9 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist httpx} >= 0.23
 # requirements-tests.txt:
 BuildRequires:  %{py3_dist pytest} >= 7.1.3
-BuildRequires:  %{py3_dist dirty-equals} >= 0.8
+BuildRequires:  %{py3_dist dirty-equals} >= 0.9
 %if %{with sqlmodel}
-BuildRequires:  %{py3_dist sqlmodel} >= 0.0.22
+BuildRequires:  %{py3_dist sqlmodel} >= 0.0.24
 %endif
 BuildRequires:  %{py3_dist flask} >= 1.1.2
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
@@ -107,7 +107,7 @@ BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 BuildRequires:  %{py3_dist passlib[bcrypt]} >= 1.7.2
 %endif
 %if %{with inline_snapshot}
-BuildRequires:  %{py3_dist inline-snapshot} >= 0.19.3
+BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
 %endif
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
@@ -945,6 +945,12 @@ sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
 # Comment out all dependencies on uvicorn. Note that this removes it from the
 # “all” extra metapackage.
 sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
+%endif
+%if %{without inline_snapshot}
+# Stub out inline_snapshot.Snapshot so that tests/utils.py is still importable;
+# the pydantic_snapshot function will still fail if it ever actually *called*.
+sed -r -i 's/from inline_snapshot import Snapshot/# &\nSnapshot = object/' \
+    tests/utils.py
 %endif
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we

@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global specversion 2.rc1
+%global specversion 4.rc1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 9a5e54bae85847c4bb6ed7c7fb06103ebebbc64a
@@ -762,6 +762,15 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Jun 27 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-0.4.rc1
+- seems as if pre-tasks need to have tags to be executed
+  at least that worked on a pull request via pagure
+
+* Fri Jun 27 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-0.3.rc1
+- New corosync package is leaving /var/lib/corosync to be created by systemd
+  we're running our test without systemd so have it done by playbook
+- Enable fencing regression tests again
+
 * Wed Jun 25 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-0.2.rc1
 - Disable fencing regression tests for now
 

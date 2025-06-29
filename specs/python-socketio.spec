@@ -1,7 +1,5 @@
-# Temporarily disable tests that require uvicorn
-# F43FailsToInstall: python3-uvicorn+standard, python3-uvicorn
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372189
-%bcond uvicorn 0
+# If necessary, we can disable tests that require uvicorn.
+%bcond uvicorn 1
 
 Name:           python-socketio
 Version:        5.13.0

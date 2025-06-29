@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.53.1
+%global real_version 1.53.91
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -194,6 +194,8 @@ Requires: dbus >= %{dbus_version}
 Requires: glib2 >= %{glib2_version}
 Requires: %{name}-libnm%{?_isa} = %{epoch}:%{version}-%{release}
 
+Recommends: iputils
+
 %if 0%{?rhel} == 8
 # Older libndp versions use select() (rh#1933041). On well known distros,
 # choose a version that has the necessary fix.
@@ -220,7 +222,7 @@ Obsoletes: NetworkManager-dispatcher-routing-rules < 1:1.47.5-3
 %endif
 
 %if 0%{?fedora} >= 41
-%if 0%{without ifcfg_rh}
+%if %{without ifcfg_rh}
 Obsoletes: NetworkManager-initscripts-ifcfg-rh < 1:1.49-3.1
 Obsoletes: NetworkManager-dispatcher-routing-rules < 1:1.49.3-1
 Obsoletes: NetworkManager-initscripts-updown < 1:1.49.3-1
@@ -295,6 +297,7 @@ BuildRequires: libubsan
 BuildRequires: firewalld-filesystem
 BuildRequires: iproute
 BuildRequires: iproute-tc
+BuildRequires: libnvme-devel >= 1.5
 
 Provides: %{name}-dispatcher%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -585,6 +588,7 @@ Preferably use nmcli instead.
 %endif
 	-Dnft=%{_sbindir}/nft \
 	-Diptables=%{_sbindir}/iptables \
+	-Dip6tables=%{_sbindir}/ip6tables \
 %if %{with dhclient}
 	-Ddhclient=%{_sbindir}/dhclient \
 %else
@@ -1069,6 +1073,9 @@ fi
 
 
 %changelog
+* Fri Jun 27 2025 Beniamino Galvani <bgalvani@redhat.com> - 1:1.53.90-1
+- Update to 1.54-rc2 release (1.53.90)
+
 * Tue Mar 04 2025 Íñigo Huguet <ihuguet@redhat.com> - 1:1.53.1-1
 - Update to 1.53.1 release (development)
 

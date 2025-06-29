@@ -1,8 +1,11 @@
 %bcond mingw %[0%{?fedora}]
 
+# Build without documentation for bootstrapping purposes
+%bcond bootstrap 0
+
 Name:           check
 Version:        0.15.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A unit test framework for C
 License:        LGPL-2.1-or-later
 URL:            https://libcheck.github.io/check/
@@ -16,12 +19,12 @@ VCS:            git:https://github.com/libcheck/check.git
 Source:         %{name}-%{version}.tar.gz
 # Only needed for autotools in Fedora
 Patch0:         %{name}-0.11.0-info-in-builddir.patch
-# Fix test failures due to varying floating point behavior across platforms
-Patch1:         %{name}-0.11.0-fp.patch
 # Fix a texinfo error due to a missing @end verbatim
 # https://github.com/libcheck/check/issues/360
 # https://github.com/libcheck/check/pull/361
-Patch2:         %{name}-0.15.2-texinfo.patch
+Patch1:         %{name}-0.15.2-texinfo.patch
+# Fix test failures due to varying floating point behavior across platforms
+Patch2:         %{name}-0.11.0-fp.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -32,7 +35,9 @@ BuildRequires:  pkgconfig
 %if ! 0%{?rhel}
 BuildRequires:  pkgconfig(libsubunit)
 %endif
-BuildRequires:  texinfo, texlive-tex, graphviz
+%if %{without bootstrap}
+BuildRequires:  texinfo
+%endif
 
 %if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
@@ -96,7 +101,10 @@ MinGW libraries and headers for developing programs with check
 %if 0%{?fedora}
 %patch -P0 -p1 -b .info-in-builddir
 %endif
-%autopatch -m1 -p1
+%if %{without bootstrap}
+%patch -P1 -p1
+%endif
+%autopatch -m2 -p1
 
 %conf
 # Fix detection of various time-related function declarations
@@ -122,7 +130,11 @@ sed -i 's,set(libdir .*),set(libdir "%{_libdir}"),' CMakeLists.txt
 mkdir autotools_build
 cd autotools_build
 %global _configure ../configure
-%configure --disable-timeout-tests
+%configure \
+%if %{with bootstrap}
+  --disable-build-docs \
+%endif
+  --disable-timeout-tests
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -138,7 +150,10 @@ cd -
 %cmake_build
 
 %if %{with mingw}
-%mingw_configure
+%mingw_configure \
+%if %{with bootstrap}
+  --disable-build-docs
+%endif
 %mingw_make %{?_smp_mflags}
 %endif
 
@@ -181,13 +196,13 @@ rm -rf checkmk/test/check_checkmk*
 rm -rf checkmk/test/empty_input
 cd -
 
-%ldconfig_scriptlets
-
 %files
 %doc AUTHORS NEWS
 %license COPYING.LESSER
 %{_libdir}/libcheck.so.0*
+%if %{without bootstrap}
 %{_infodir}/check*
+%endif
 
 %files devel
 %doc doc/example
@@ -234,6 +249,10 @@ cd -
 %endif
 
 %changelog
+* Fri Jun 27 2025 Jerry James  <loganjerry@gmail.com> - 0.15.2-18
+- Add bootstrap mode that does not build documentation
+- Remove unused graphviz and texlive-tex BRs
+
 * Thu Jan 16 2025 Jerry James <loganjerry@gmail.com> - 0.15.2-17
 - Add patch to fix texinfo error
 

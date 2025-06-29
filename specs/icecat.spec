@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
-%global use_bundled_cbindgen  1
+%global use_bundled_cbindgen  0
 
 ####################
 
@@ -555,7 +555,7 @@ export CXXFLAGS="$CXXFLAGS"
 export CXXFLAGS="$CXXFLAGS -fpermissive -std=gnu++17"
 
 export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
-export LDFLAGS=$MOZ_LINK_FLAGS
+export LDFLAGS="%{__global_ldflags} $MOZ_LINK_FLAGS -L%{_libdir} -L%{icecatappdir}"
 export PREFIX='%{_prefix}'
 export LIBDIR='%{_libdir}'
 export PKG_CONFIG="`which pkg-config`"
@@ -759,6 +759,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %if %{with langpacks_subpkg}
 %files
+%dir %{langpackdir}
 %else
 %files -f %{name}.lang
 %endif
@@ -769,9 +770,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*x*/apps/%{name}*.png
 %{_metainfodir}/*.appdata.xml
 %dir %{icecatappdir}
-%if %{with langpacks}
-%dir %{langpackdir}
-%endif
 %{icecatappdir}/glxtest
 %{icecatappdir}/vaapitest
 %{icecatappdir}/browser/
@@ -785,6 +783,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{icecatappdir}/dependentlibs.list
 %{icecatappdir}/pingsender
 %{icecatappdir}/gmp-clearkey/
+%ifarch %{arm64} riscv64
+%{icecatappdir}/v4l2test
+%endif
 
 %changelog
 %autochangelog

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xdg-terminal-exec
-Version:        0.13.0
+Version:        0.13.2
 Release:        %autorelease
 Summary:        Proposed XDG Default Terminal Execution Spec implementation
 

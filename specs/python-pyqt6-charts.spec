@@ -76,7 +76,7 @@ grep %{buildroot} %{buildroot}%{python3_sitearch}/*.dist-info/* && exit 1 || tru
 %files -n python3-pyqt6-charts
 %license LICENSE
 %doc ChangeLog NEWS README.md
-%{python3_sitearch}/PyQt6_Charts-%{version}%{?snap:.%{snap}}.dist-info
+%{python3_sitearch}/pyqt6_charts-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt6/QtCharts.*
 
 %files -n python3-pyqt6-charts-devel

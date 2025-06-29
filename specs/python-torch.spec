@@ -6,12 +6,12 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.7.0-rc10
-%global commit0 134179474539648ba7dee1317959529fbd0e7f89
+# v2.8.0-rc3
+%global commit0 3d53a53e504089a52a149791fd33d7fc898bd055
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250415
-%global pypi_version 2.7.0
-%global flatbuffers_version 23.3.3
+%global date0 20250625
+%global pypi_version 2.8.0
+%global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
 %else
@@ -92,19 +92,16 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 %endif
 
 %if %{without kineto}
+%if %{with gitcommit}
+%global ki_commit 5e7501833f1021ce6f618572d3baf657b6319658
+%else
 %global ki_commit be1317644c68b4bfc4646024a6b221066e430031
+%endif
 %global ki_scommit %(c=%{ki_commit}; echo ${c:0:7})
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
 
 %if %{without gitcommit}
-# Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
-
-# ROCm patches
-# Patches need to be refactored for ToT
-# These are ROCm packages
-# Patch101:      0001-cuda-hip-signatures.patch
-
 # https://github.com/pytorch/pytorch/issues/150187
 # The hack job
 # Patch11:       0001-python-torch-disable-ck.patch
@@ -112,6 +109,7 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 Patch11:       0001-Add-cmake-varaible-USE_ROCM_CK.patch
 
 %else
+Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -190,6 +188,9 @@ BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
+%if %{with gitcommit}
+BuildRequires:  rocsolver-devel
+%endif
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 
@@ -356,9 +357,11 @@ sed -i -e 's@list(APPEND Caffe2_DEPENDENCY_LIBS fmt::fmt-header-only)@#list(APPE
 sed -i -e 's@if(NOT TARGET fxdiv)@if(MSVC AND USE_XNNPACK)@' caffe2/CMakeLists.txt
 sed -i -e 's@TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@#TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@' caffe2/CMakeLists.txt
 
+%if %{without gitcommit}
 # https://github.com/pytorch/pytorch/issues/149803
 # Tries to checkout nccl
 sed -i -e 's@    checkout_nccl()@#    checkout_nccl()@' tools/build_pytorch_libs.py
+%endif
 
 # Disable the use of check_submodule's in the setup.py, we are a tarball, not a git repo
 sed -i -e 's@check_submodules()$@#check_submodules()@' setup.py
@@ -432,6 +435,9 @@ mv googletest third_party
 #
 # Fake out pocketfft, and system header will be used
 mkdir third_party/pocketfft
+%if %{with gitcommit}
+cp /usr/include/pocketfft_hdronly.h third_party/pocketfft/
+%endif
 
 #
 # Use the system valgrind headers
@@ -585,7 +591,12 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
+%if %{?fedora} <= 43
+export PYTORCH_ROCM_ARCH="gfx1100;gfx1201"
+%else
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+%endif
+
 %py3_build
 
 %else

@@ -16,6 +16,8 @@ URL:            https://gitlab.com/mailman/hyperkitty
 Source:         %{url}/-/archive/%{version}/hyperkitty-%{version}.tar.gz
 # don't check out modules from git
 Patch:          HyperKitty-tox-localdeps.patch
+# Allow Django 5.2, for Python 3.14 compatibility
+Patch:          hyperkitty-django52.diff
 
 BuildArch:      noarch
 

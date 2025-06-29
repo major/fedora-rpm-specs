@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -586,6 +586,12 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Fri Jun 27 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-4
+- Update sshd@.service to follow upstream, mostly support ephemeral sshd keys
+  Submitted by Allison Karlitskaya (https://src.fedoraproject.org/rpms/openssh/pull-request/101)
+  Needs a SELinux counterpart.
+  Related: rhbz#2374928
+
 * Mon Jun 09 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-3
 - Apply patches forgot in previous respin
 

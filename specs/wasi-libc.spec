@@ -10,6 +10,8 @@ Source1:    smoke-test.c
 
 # Allow using artifacts from %%build in %%install instead of recompiling
 Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
+# Compatibility patches from upstream main
+Patch:      0002-Adjust-Makefile-for-LLVM-trunk-20-as-of-2025-01-26-5.patch
 
 # This contains parts of the musl C library; specify as bundled so we get notified about potential vulnerabilities
 %global     musl_version 1.2.3

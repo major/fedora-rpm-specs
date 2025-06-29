@@ -1,6 +1,6 @@
 Name:           asymptote
 Version:        3.01
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -79,7 +79,11 @@ BuildRequires:  libtirpc-devel
 BuildRequires:  eigen3-static
 BuildRequires:  libcurl-devel
 BuildRequires:  libsigsegv-devel
+%if 0%{?fedora} >= 42
+BuildRequires:  mesa-compat-libOSMesa-devel
+%else
 BuildRequires:  mesa-libOSMesa-devel
+%endif
 BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glm-devel
 BuildRequires:  boost-devel, rapidjson-devel
@@ -204,6 +208,10 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Tue Jun 24 2025 José Expósito <jexposit@redhat.com> - 3.01-2
+- Use mesa-compat-libOSMesa on Fedora 42 and later
+  Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2373991
+
 * Thu Mar 20 2025 Tom Callaway <spot@fedoraproject.org> - 3.01-1
 - update to 3.01
 

@@ -1,5 +1,5 @@
 Name:           perl-rdapper
-Version:        1.12
+Version:        1.13
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -17,12 +17,15 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
 BuildRequires:  perl(constant)
+# Encode not used at tests
 BuildRequires:  perl(Getopt::Long)
+# I18N::Langinfo not used at tests
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
+BuildRequires:  perl(Net::IDN::Encode)
 BuildRequires:  perl(Net::RDAP) >= 0.35
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
@@ -88,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 27 2025 Petr Pisar <ppisar@redhat.com> - 1.13-1
+- 1.13 bump
+
 * Thu May 22 2025 Petr Pisar <ppisar@redhat.com> - 1.12-1
 - 1.12 bump
 

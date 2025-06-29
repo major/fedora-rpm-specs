@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond tests %{undefined rhel}
 
 Name:           python-fasteners

@@ -42,6 +42,10 @@ tar xf %{SOURCE1}
 %build
 autoreconf -ifv
 export LIBS=-lunistring
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+# Initialization of 'void (*)(void)' from incompatible pointer type
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
 %configure --enable-unicode
 make %{?_smp_mflags}
 

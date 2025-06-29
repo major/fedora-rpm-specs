@@ -25,8 +25,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.2
-Release:        2%{?dist}
+Version:        1.26.3
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -869,6 +869,9 @@ EOF
 
 
 %changelog
+* Fri Jun 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.3-1
+- 1.26.3
+
 * Sun Jun 15 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.2-2
 - Move aom, curl, openal, openjpeg to main package
 - Move lv2 to separate subpackage (rhbz#1731750)

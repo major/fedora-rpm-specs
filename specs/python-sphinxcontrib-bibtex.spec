@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mcmtroffaes/sphinxcontrib-bibtex
 
 Name:           python-sphinxcontrib-bibtex
-Version:        2.6.3
+Version:        2.6.5
 Release:        %autorelease
 Summary:        Sphinx extension for BibTeX style citations
 
@@ -11,6 +11,9 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinxcontrib-bibtex-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l sphinxcontrib
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
@@ -62,6 +65,7 @@ Documentation for python-sphinxcontrib-bibtex.
 %prep
 %autosetup -p1 -n sphinxcontrib-bibtex-%{version}
 
+%conf
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("http://www\.sphinx-doc\.org/en/master/", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
@@ -70,16 +74,7 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
 # Fedora does not have autoapi, so do not try to test with it
 rm -fr test/test_autoapi.py test/roots/test-autoapi
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l 'sphinxcontrib*'
-
+%install -a
 # The Sphinx documentation cannot be built with an uninstalled
 # sphinxcontrib.bibtex because python finds the installed sphinxcontrib
 # package, which doesn't contain bibtex.  We fake out python by copying the

@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           shell-color-prompt
-Version:        0.7
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
@@ -65,6 +65,11 @@ BASH_COLOR_PROMPT_DIR=%{buildroot}%{profiledir} bats --timing --gather-test-outp
 
 
 %changelog
+* Fri Jun 27 2025 Jens Petersen <petersen@redhat.com> - 0.7.1-1
+- slightly revert the terminal detection to avoid serial term regressions:
+  still setup for COLORTERM but otherwise TERM must be "*color" or "linux"
+  (#2352650)
+
 * Thu Jun 26 2025 Jens Petersen <petersen@redhat.com> - 0.7-1
 - enable bash-color-prompt for most terminals by default (#2352650)
 - respect NO_COLOR unless BASH_PROMPT_USE_COLOR is set (#2352650)

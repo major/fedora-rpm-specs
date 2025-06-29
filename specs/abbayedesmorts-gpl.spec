@@ -1,6 +1,6 @@
 Name:           abbayedesmorts-gpl
-Version:        2.0.4
-Release:        3%{?dist}
+Version:        2.0.5
+Release:        1%{?dist}
 Summary:        Platform game set in 13th century
 
 # Graphics and Sounds are licensed under
@@ -10,8 +10,6 @@ License:        GPL-3.0-only AND CC-BY-3.0
 # https://locomalito.com/abbaye_des_morts.php
 URL:            https://github.com/nevat/abbayedesmorts-gpl 
 Source0:        https://github.com/nevat/abbayedesmorts-gpl/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Fix building with gcc 15
-Patch0:         %{name}-2.0.4-gcc15.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -77,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/abbaye.app
 
 
 %changelog
+* Fri Jun 27 2025 Andrea Musuruane <musuruan@gmail.com> - 2.0.5-1
+- Updated to new upstream release
+
 * Thu Jan 23 2025 Andrea Musuruane <musuruan@gmail.com> - 2.0.4-3
 - Fix FTBFS (BZ #2339459)
 
