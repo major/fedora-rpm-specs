@@ -1,8 +1,6 @@
 %bcond tests 1
 # Enable tests that require Pydantic?
-# Pydantic is not ready for Python 3.14:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372054
-%bcond pydantic_tests 0
+%bcond pydantic_tests 1
 
 # for github etc. use the forgemacros
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/#_using_forges_hosted_revision_control
@@ -37,7 +35,7 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        3.2.0
+Version:        3.3.0
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 

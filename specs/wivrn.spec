@@ -2,17 +2,14 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  0.25
-# Due to https://github.com/WiVRn/WiVRn/issues/343
-# we're grabbing a specific commit for the patches
-%global wivrn_patches  309bd92fbbf828c81d98a2b6da5b1de9a4d9be04
+%global wivrn_version  25.6
 %global tag0           v%{wivrn_version}
-%global date           20250518
+%global date           20250626
 
 # WiVRn is based on Monado, we need the full source
-# Monado base source (find in CMakeLists.txt FetchContent_Declare(monado))
+# Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        2a6932d46dad9aa957205e8a47ec2baa33041076
+%global commit1        bb9bcee2a3be75592de819d9e3fb2c8ed27bb7dc
 %global monado_version 25.0.0
 
 %forgemeta
@@ -83,30 +80,31 @@ Source0:        %{forgesource0}
 Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
 
 # Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado/ (check the tag)
+# Make sure to re-pull the patches every release. They are rebased and need to be updated!
 # For tagged releases: https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%%{tag0}/patches/monado/
 # For commit releases: https://raw.githubusercontent.com/WiVRn/WiVRn/%%{commit0}/patches/monado/
 # downstream-only - WiVRn specific Monado patches
-Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
+Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
+Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0003-Use-extern-socket-fd.patch
+Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0004-c-render-Add-storage-usage-to-distortion-mesh.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-c-render-Add-storage-usage-to-distortion-mesh.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0005-change-environment-blend-mode-selection-logic.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0006-Use-mipmaps-for-distortion-shader.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-Convert-to-YCbCr-in-Monado.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0007-Convert-to-YCbCr-in-Monado.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-store-alpha-channel-in-layer-1.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0008-store-alpha-channel-in-layer-1.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-st-oxr-bind-to-dynamic-role-s-profile.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0009-st-oxr-bind-to-dynamic-role-s-profile.patch
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-c-main-allow-custom-pacing-app-factory.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0010-c-main-allow-custom-pacing-app-factory.patch
+Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{wivrn_patches}/patches/monado/0011-st-oxr-forward-0-refresh-rate.patch
+Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-Replace-distortion-with-pixel-aligned-foveation.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

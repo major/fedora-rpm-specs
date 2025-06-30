@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
+%global crate_version 4.0.0-alpha.4
 
 Name:           rust-glycin-utils
-Version:        3.0.1
+Version:        4.0.0~alpha.4
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-utils
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -120,7 +121,7 @@ use the "tokio" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -134,7 +135,8 @@ use the "tokio" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip one test that fails on s390x: https://gitlab.gnome.org/GNOME/glycin/-/issues/158
+%cargo_test -- -- --skip editing::change_memory_format::test::u16_to_u8
 %endif
 
 %changelog

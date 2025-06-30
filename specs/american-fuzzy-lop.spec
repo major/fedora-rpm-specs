@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.32c
+Version:       4.33c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.32c
+%global tag    v4.33c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -22,7 +22,8 @@ Source1:       hello.c
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
 # i686 support was silently removed in AFL++ 4.10c
-ExclusiveArch: x86_64 s390x
+# s390x breaks GCC see https://bugzilla.redhat.com/show_bug.cgi?id=2375376
+ExclusiveArch: x86_64
 
 BuildRequires: gcc
 BuildRequires: gcc-plugin-devel
@@ -194,6 +195,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-c++
 %{_bindir}/afl-cmin
 %{_bindir}/afl-cmin.bash
+%{_bindir}/afl-cmin.py
 %{_bindir}/afl-fuzz
 %{_bindir}/afl-gcc-fast
 %{_bindir}/afl-g++-fast
@@ -224,6 +226,7 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-analyze.8*
 %{_mandir}/man8/afl-cmin.8*
 %{_mandir}/man8/afl-cmin.bash.8*
+%{_mandir}/man8/afl-cmin.py.8*
 %{_mandir}/man8/afl-fuzz.8*
 %{_mandir}/man8/afl-gcc-fast.8*
 %{_mandir}/man8/afl-g++-fast.8*
@@ -287,6 +290,10 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Sat Jun 28 2025 Richard W.M. Jones <rjones@redhat.com> - 4.33c-1
+- New version 4.33c (RHBZ#2375374)
+- Disable s390x because of RHBZ#2375376
+
 * Fri May  2 2025 Richard W.M. Jones <rjones@redhat.com> - 4.32c-1
 - New version 4.32c (RHBZ#2362447)
 

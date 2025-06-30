@@ -3,7 +3,7 @@
 %global giturl  https://github.com/arminbiere/kissat
 
 Name:           kissat
-Version:        4.0.2
+Version:        4.0.3
 Release:        %autorelease
 Summary:        Keep It Simple SAT solver
 
@@ -57,15 +57,8 @@ Library links and header files for developing applications that use
 %autosetup -p1 -n %{name}-rel-%{version}
 
 %conf
-# Remove handle.c from APPSRC; it defines kissat_signal_name, which is called
-# from library code, so handle.c must be in the library as well.
-sed -i 's/ handle\.c//' makefile.in
-
 # Set the library soname
 sed -i 's/@SOVER@/%{sover}/;s/@MAJVER@/%{majver}/' makefile.in
-
-# Adapt to a drat-trim change
-sed -ri '/sqrt|prime/s/false/true/' test/testcnfs.h
 
 # Use Fedora flags by default
 sed -e 's|-W -Wall|%{build_cflags} -fPIC|' \

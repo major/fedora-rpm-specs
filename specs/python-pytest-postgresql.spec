@@ -2,7 +2,7 @@
 %global name_with_underscore pytest_postgresql
 
 Name:           python-%{pypi_name}
-Version:        6.1.1
+Version:        7.0.2
 Release:        %autorelease
 Summary:        A pytest plugin for PostgreSQL database integration
 

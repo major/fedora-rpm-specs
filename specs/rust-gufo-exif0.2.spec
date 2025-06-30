@@ -4,16 +4,15 @@
 %global debug_package %{nil}
 
 %global crate gufo-exif
-%global crate_version 0.3.0-alpha
 
-Name:           rust-gufo-exif
-Version:        0.3.0~alpha
+Name:           rust-gufo-exif0.2
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Exif loading and editing
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-exif
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -63,7 +62,7 @@ use the "chrono" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

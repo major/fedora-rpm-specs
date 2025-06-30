@@ -5,7 +5,7 @@
 %global crate schemars
 
 Name:           rust-schemars
-Version:        0.8.22
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Generate JSON Schemas from Rust code
 
@@ -13,9 +13,10 @@ License:        MIT
 URL:            https://crates.io/crates/schemars
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused support for arrayvec v0.5
-# * drop unused support for bigdecimal v0.3
-# * drop unused support for uuid v0.8
+# * drop garde dev-dependency (not packaged)
+# * drop jsonschema dev-dependency (not packaged)
+# * drop validator dev-dependency (not packaged)
+# * drop integration tests, which would require jsonschema
 Patch:          schemars-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -75,28 +76,28 @@ use the "bigdecimal04" feature of the "%{crate}" crate.
 %files       -n %{name}+bigdecimal04-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytes-devel
+%package     -n %{name}+bytes1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytes-devel %{_description}
+%description -n %{name}+bytes1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytes" feature of the "%{crate}" crate.
+use the "bytes1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytes-devel
+%files       -n %{name}+bytes1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+chrono-devel
+%package     -n %{name}+chrono04-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+chrono-devel %{_description}
+%description -n %{name}+chrono04-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "chrono" feature of the "%{crate}" crate.
+use the "chrono04" feature of the "%{crate}" crate.
 
-%files       -n %{name}+chrono-devel
+%files       -n %{name}+chrono04-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+derive-devel
@@ -111,76 +112,16 @@ use the "derive" feature of the "%{crate}" crate.
 %files       -n %{name}+derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive_json_schema-devel
+%package     -n %{name}+either1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive_json_schema-devel %{_description}
+%description -n %{name}+either1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive_json_schema" feature of the "%{crate}" crate.
+use the "either1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive_json_schema-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+either-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+either-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "either" feature of the "%{crate}" crate.
-
-%files       -n %{name}+either-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+enumset-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+enumset-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "enumset" feature of the "%{crate}" crate.
-
-%files       -n %{name}+enumset-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+impl_json_schema-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+impl_json_schema-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "impl_json_schema" feature of the "%{crate}" crate.
-
-%files       -n %{name}+impl_json_schema-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+indexmap-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+indexmap-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "indexmap" feature of the "%{crate}" crate.
-
-%files       -n %{name}+indexmap-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+indexmap1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+indexmap1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "indexmap1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+indexmap1-devel
+%files       -n %{name}+either1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+indexmap2-devel
@@ -193,6 +134,18 @@ This package contains library source intended for building other packages which
 use the "indexmap2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+indexmap2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jiff02-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff02-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff02" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+preserve_order-devel
@@ -219,16 +172,16 @@ use the "raw_value" feature of the "%{crate}" crate.
 %files       -n %{name}+raw_value-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rust_decimal-devel
+%package     -n %{name}+rust_decimal1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rust_decimal-devel %{_description}
+%description -n %{name}+rust_decimal1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rust_decimal" feature of the "%{crate}" crate.
+use the "rust_decimal1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rust_decimal-devel
+%files       -n %{name}+rust_decimal1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+schemars_derive-devel
@@ -243,64 +196,64 @@ use the "schemars_derive" feature of the "%{crate}" crate.
 %files       -n %{name}+schemars_derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+semver-devel
+%package     -n %{name}+semver1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+semver-devel %{_description}
+%description -n %{name}+semver1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "semver" feature of the "%{crate}" crate.
+use the "semver1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+semver-devel
+%files       -n %{name}+semver1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+smallvec-devel
+%package     -n %{name}+smallvec1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+smallvec-devel %{_description}
+%description -n %{name}+smallvec1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "smallvec" feature of the "%{crate}" crate.
+use the "smallvec1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+smallvec-devel
+%files       -n %{name}+smallvec1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+smol_str-devel
+%package     -n %{name}+smol_str02-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+smol_str-devel %{_description}
+%description -n %{name}+smol_str02-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "smol_str" feature of the "%{crate}" crate.
+use the "smol_str02" feature of the "%{crate}" crate.
 
-%files       -n %{name}+smol_str-devel
+%files       -n %{name}+smol_str02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ui_test-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ui_test-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ui_test" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ui_test-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+url-devel
+%package     -n %{name}+url2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+url-devel %{_description}
+%description -n %{name}+url2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "url" feature of the "%{crate}" crate.
+use the "url2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+url-devel
+%files       -n %{name}+url2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+uuid1-devel
@@ -318,12 +271,12 @@ use the "uuid1" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop tests that pull in arrayvec v0.5
-rm tests/arrayvec.rs
-# drop tests that pull in bigdecimal v0.3
-rm tests/decimal.rs
-# drop tests that pull in uuid v0.8
-rm tests/uuid.rs
+# drop garde integration test (not packaged)
+rm tests/integration/garde.rs
+sed -r -i 's/^mod garde;$/# &/' tests/integration/main.rs
+# drop validator integration test (not packaged)
+rm tests/integration/validator.rs
+sed -r -i 's/^mod validator;$/# &/' tests/integration/main.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

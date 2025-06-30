@@ -13,7 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/nu-test-support
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow which 7: https://github.com/nushell/nushell/pull/14489
+# * Allow which 7 and 8: https://github.com/nushell/nushell/pull/14489,
+#   https://github.com/nushell/nushell/pull/16045
 Patch:          nu-test-support-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

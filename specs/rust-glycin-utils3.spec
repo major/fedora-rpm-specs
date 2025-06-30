@@ -2,17 +2,16 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate glycin
-%global crate_version 3.0.0-alpha.5
+%global crate glycin-utils
 
-Name:           rust-glycin
-Version:        3.0.0~alpha.5
+Name:           rust-glycin-utils3
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/glycin
-Source:         %{crates_source %{crate} %{crate_version}}
+URL:            https://crates.io/crates/glycin-utils
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -34,7 +33,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-LGPL-2.1
 %license %{crate_instdir}/LICENSE-MPL-2.0
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -61,16 +59,16 @@ use the "async-io" feature of the "%{crate}" crate.
 %files       -n %{name}+async-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gdk4-devel
+%package     -n %{name}+glib-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gdk4-devel %{_description}
+%description -n %{name}+glib-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gdk4" feature of the "%{crate}" crate.
+use the "glib" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gdk4-devel
+%files       -n %{name}+glib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gobject-devel
@@ -83,6 +81,30 @@ This package contains library source intended for building other packages which
 use the "gobject" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gobject-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+image-rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+image-rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "image-rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+image-rs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+loader-utils-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+loader-utils-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "loader-utils" feature of the "%{crate}" crate.
+
+%files       -n %{name}+loader-utils-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel
@@ -98,7 +120,7 @@ use the "tokio" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -112,8 +134,7 @@ use the "tokio" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a doctest that doesn't compile
-%cargo_test -- -- --skip 'src/lib.rs'
+%cargo_test
 %endif
 
 %changelog

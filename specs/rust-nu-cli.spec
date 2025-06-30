@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * temporarily bump reedline from 0.36.0 to 0.37.0
 # * Allow rstest 0.23 (https://github.com/nushell/nushell/pull/14350)
-# * Allow which 7 (https://github.com/nushell/nushell/pull/14489)
+# * Allow which 7 and 8: https://github.com/nushell/nushell/pull/14489,
+#   https://github.com/nushell/nushell/pull/16045
 # * Update lscolors from 0.17 to 0.20:
 #   https://github.com/nushell/nushell/pull/15737
 Patch:          nu-cli-fix-metadata.diff

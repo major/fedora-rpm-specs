@@ -1,5 +1,5 @@
 Name:           3dprinter-udev-rules
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        Rules for udev to give regular users access to operate 3D printers
 License:        MIT-0

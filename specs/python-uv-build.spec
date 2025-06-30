@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.7.13
+Version:        0.7.16
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -16,6 +16,7 @@ Summary:        The uv build backend
 # output of %%{cargo_license_summary}. This should automatically include the
 # licenses of the following bundled forks:
 #   - pubgrub/version-ranges, Source200, is MPL-2.0.
+#   - reqwest-middleware/reqwest-retry, Source300, is (MIT OR Apache-2.0).
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -28,6 +29,7 @@ Summary:        The uv build backend
 # Apache-2.0 OR MIT
 # Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
@@ -45,6 +47,7 @@ License:        %{shrink:
                 0BSD AND
                 (0BSD OR MIT OR Apache-2.0) AND
                 Apache-2.0 AND
+                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT OR Zlib) AND
                 (Apache-2.0 OR MIT-0) AND
@@ -87,6 +90,19 @@ Source:         %{pypi_source uv_build}
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
+# Until “Report retry count on Ok results,”
+# https://github.com/TrueLayer/reqwest-middleware/pull/235, is reviewed,
+# merged, and released, uv must use a fork of reqwest-middleware/reqwest-retry
+# to support the changes in “Show retries for HTTP status code errors,”
+# https://github.com/astral-sh/uv/pull/13897. We therefore bundle the fork as
+# prescribed in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+%global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
+%global reqwest_middleware_rev ad8b9d332d1773fde8b4cd008486de5973e0a3f8
+%global reqwest_middleware_snapdate 20250607
+%global reqwest_retry_baseversion 0.7.0
+Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
+
 BuildSystem:            pyproject
 BuildOption(install):   -l uv_build
 
@@ -115,6 +131,11 @@ License:        %{license} AND %{extra_crate_licenses}
 %global pubgrub_snapinfo %{pubgrub_snapdate}git%{sub %{pubgrub_rev} 1 7}
 %global version_ranges_version %{version_ranges_baseversion}^%{pubgrub_snapinfo}
 Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
+# This is a fork of reqwest-middleware/reqwest-retry; see the notes about
+# Source300.
+%global reqwest_middleware_snapinfo %{reqwest_middleware_snapdate}git%{sub %{reqwest_middleware_rev} 1 7}
+%global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
+Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
 # upstream writes “These have diverged significantly and the upstream versions
@@ -164,12 +185,36 @@ install -t LICENSE.bundled/version-ranges -D -p -m 0644 \
     crates/version-ranges/LICENSE
 git2path workspace.dependencies.version-ranges crates/version-ranges
 
+# See comments above Source300:
+%setup -q -T -D -b 300 -n uv_build-%{version}
+pushd '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
+%autopatch -p1 -m300 -M399
+popd
+# Upstream has only modified reqwest-retry, so we may as well use the system
+# copy of reqwest-middleware.
+rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
+tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.git'
+tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.rev'
+tomcli set Cargo.toml str 'workspace.dependencies.reqwest-middleware.version' \
+    '0.4.2'
+tomcli set Cargo.toml del patch.crates-io.reqwest-middleware
+ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-retry' \
+    crates/reqwest-retry
+git2path workspace.dependencies.reqwest-retry crates/reqwest-retry
+tomcli set Cargo.toml del patch.crates-io.reqwest-retry
+tomcli set crates/reqwest-retry/Cargo.toml del \
+    'dependencies.reqwest-middleware.path'
+install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
+    crates/reqwest-retry/LICENSE*
+# We do not need the reqwest-tracing crate.
+rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-tracing'
+
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/pep440_rs -D -p -m 0644 crates/uv-pep440/License-*
 install -t LICENSE.bundled/pep508_rs -D -p -m 0644 crates/uv-pep508/License-*
 
 # Patch out foreign (e.g. Windows-only) dependencies.
-find . -type f -name Cargo.toml -print \
+find -L . -type f -name Cargo.toml -print \
     -execdir rust2rpm-helper strip-foreign -o '{}' '{}' ';'
 
 # Do not strip the compiled executable; we need useful debuginfo. Upstream set

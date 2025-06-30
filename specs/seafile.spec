@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        9.0.13
-Release:        2%{?dist}
+Version:        9.0.14
+Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPL-2.0-or-later WITH GPL-3.0-linking-source-exception
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jun 28 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.14-1
+- Update to 9.0.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 9.0.13-2
 - Rebuilt for Python 3.14
 

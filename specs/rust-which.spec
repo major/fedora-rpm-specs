@@ -5,7 +5,7 @@
 %global crate which
 
 Name:           rust-which
-Version:        7.0.3
+Version:        8.0.0
 Release:        %autorelease
 Summary:        Rust equivalent of Unix command "which"
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+real-sys-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+real-sys-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "real-sys" feature of the "%{crate}" crate.
+
+%files       -n %{name}+real-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+regex-devel

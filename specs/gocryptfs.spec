@@ -24,7 +24,9 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
 BuildRequires:  gcc
+%if 0%{?fedora}
 BuildRequires:  go-vendor-tools
+%endif
 BuildRequires:  pandoc
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  /usr/bin/fusermount
@@ -38,8 +40,10 @@ Requires:       fuse3
 %setup -q -T -D -a1 %{forgesetupargs}
 %autopatch -p1
 
+%if 0%{?fedora}
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
+%endif
 
 %build
 export GO_LDFLAGS="-X main.GitVersion=%{version} \
@@ -50,14 +54,18 @@ export GO_LDFLAGS="-X main.GitVersion=%{version} \
 ./Documentation/MANPAGE-render.bash
 
 %install
+%if 0%{?fedora}
 %go_vendor_license_install -c %{S:2}
+%endif
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -Dpm644 Documentation/gocryptfs.1 -t %{buildroot}%{_mandir}/man1
 install -Dpm644 Documentation/gocryptfs-xray.1 -t %{buildroot}%{_mandir}/man1
 
 %check
+%if 0%{?fedora}
 %go_vendor_license_check -c %{S:2}
+%endif
 %if %{with check}
 # Requires the allow_other option in /etc/fuse
 for test in "TestForceOwner" \
@@ -74,7 +82,11 @@ ln -s %{gobuilddir}/bin/gocryptfs-xray gocryptfs-xray
 %gotest ./...
 %endif
 
+%if 0%{?fedora}
 %files -f %{go_vendor_license_filelist}
+%else
+%files
+%endif
 %license vendor/modules.txt
 %doc README.md
 %{_bindir}/gocryptfs

@@ -2,7 +2,7 @@
 %global gnupghome %(mktemp --directory)
 
 Name:           perl-Module-Signature
-Version:        0.92
+Version:        0.93
 Release:        1%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
@@ -66,12 +66,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_install}
 %{_fixperms} -c %{buildroot}
 
-# Manually install cpansign and its manpage
-# https://github.com/audreyt/module-signature/issues/44
-mkdir -p %{buildroot}{%{_bindir},%{_mandir}/man1}
-install -p -m 755 script/cpansign %{buildroot}%{_bindir}/cpansign
-pod2man script/cpansign > %{buildroot}%{_mandir}/man1/cpansign.1
-
 %check
 export GNUPGHOME=%{gnupghome}
 # Don't try to run signature test because it needs access over network to keyserver,
@@ -89,6 +83,10 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Sat Jun 28 2025 Paul Howarth <paul@city-fan.org> - 0.93-1
+- Update to 0.93
+  - The cpansign script was not installed with version 0.92 (GH#44)
+
 * Fri Jun 27 2025 Paul Howarth <paul@city-fan.org> - 0.92-1
 - Update to 0.92
  - Add SECURITY.md policy

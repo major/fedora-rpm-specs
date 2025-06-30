@@ -16,6 +16,8 @@ Patch:          procs-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove docker feature / dockworker dependency
 # * relax directories dependency to allow building with both v5 and v6
+# * relax which dependency to allow building with both v7 and v8
+#   (https://github.com/dalance/procs/pull/796)
 Patch:          procs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -14,7 +14,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove feature for building / statically linking vendored OpenSSL sources
 # * relax parking_lot_core dependency from =0.9.9 to ^0.9.9
-# * allow which 7.0.0: https://github.com/extrawurst/gitui/pull/2418
+# * allow which 7 and 8: https://github.com/extrawurst/gitui/pull/2418,
+#   https://github.com/gitui-org/gitui/pull/2671
 # * update ron from 0.8 to 0.10
 #   (https://github.com/gitui-org/gitui/commit/5755c096b42553de98490cf788dff1a4925bc574,
 #   https://github.com/gitui-org/gitui/commit/aa513b40e191da181174836aac27545bd952a613)
@@ -32,6 +33,7 @@ Blazing fast terminal-ui for git.}
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND MIT AND Unlicense AND WTFPL
 # (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
@@ -44,16 +46,14 @@ Summary:        %{summary}
 # CC0-1.0
 # ISC
 # MIT
-# MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR GPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-# Zlib OR Apache-2.0 OR MIT
-License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND ISC AND MPL-2.0 AND Unicode-DFS-2016 AND Unlicense AND WTFPL AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR GPL-3.0-or-later) AND (Unlicense OR MIT)
+License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND ISC AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND Unlicense AND WTFPL AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR GPL-3.0-or-later) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -73,6 +73,8 @@ License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND B
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# Prove that nothing from wix/ is installed or used in the build.
+rm -rv wix
 
 %generate_buildrequires
 %cargo_generate_buildrequires

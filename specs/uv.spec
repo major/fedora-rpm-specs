@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.13
+Version:        0.7.16
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -75,6 +75,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # licenses of the following bundled forks:
 #   - async_zip, Source100, is MIT.
 #   - pubgrub/version-ranges, Source200, is MPL-2.0.
+#   - reqwest-middleware/reqwest-retry, Source300, is (MIT OR Apache-2.0).
 #   - tl, Source400, is MIT.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -164,6 +165,19 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
+# Until “Report retry count on Ok results,”
+# https://github.com/TrueLayer/reqwest-middleware/pull/235, is reviewed,
+# merged, and released, uv must use a fork of reqwest-middleware/reqwest-retry
+# to support the changes in “Show retries for HTTP status code errors,”
+# https://github.com/astral-sh/uv/pull/13897. We therefore bundle the fork as
+# prescribed in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+%global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
+%global reqwest_middleware_rev ad8b9d332d1773fde8b4cd008486de5973e0a3f8
+%global reqwest_middleware_snapdate 20250607
+%global reqwest_retry_baseversion 0.7.0
+Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
+
 # For the time being, uv must use a fork of tl. See:
 #   Path back to using released tl crate dependency?
 #   https://github.com/astral-sh/uv/issues/6687
@@ -195,19 +209,9 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
-# Unpin reqwest. Reverts “Downgrade reqwest and hyper-util,”
-# https://github.com/astral-sh/uv/pull/13835. The pin was due to
-# https://github.com/astral-sh/uv/issues/13831, and based on discussion in that
-# issue and in https://github.com/hyperium/hyper-util/pull/200, we can update
-# reqwest as long as we also update hyper-util to 0.1.14 or later.
-#
-# The issue that the pin worked around was only reported on MacOS, but we would
-# rather not assume that is the only place it occurs.
-#
-# This is downstream-only because it is extremely temporary: upstream is
-# tracking and testing the fix in hyper-util, and we can expect that the
-# version pin will be removed in the next release or two.
-Patch:          uv-0.7.13-unpin-reqwest.patch
+# Update to reqwest 0.12.20
+# https://github.com/astral-sh/uv/pull/14243
+Patch:          %{url}/pull/14243.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
@@ -261,6 +265,11 @@ Provides:       bundled(crate(async_zip)) = %{async_zip_version}
 %global version_ranges_version %{version_ranges_baseversion}^%{pubgrub_snapinfo}
 Provides:       bundled(crate(pubgrub)) = %{pubgrub_version}
 Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
+# This is a fork of reqwest-middleware/reqwest-retry; see the notes about
+# Source300.
+%global reqwest_middleware_snapinfo %{reqwest_middleware_snapdate}git%{sub %{reqwest_middleware_rev} 1 7}
+%global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
+Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
 # This is a fork of tl; see the notes about Source400.
 %global tl_snapinfo %{tl_snapdate}git%{sub %{tl_rev} 1 7}
 %global tl_version %{tl_baseversion}^%{tl_snapinfo}
@@ -446,6 +455,30 @@ install -t LICENSE.bundled/version-ranges -D -p -m 0644 \
     crates/pubgrub/version-ranges/LICENSE
 git2path workspace.dependencies.version-ranges crates/pubgrub/version-ranges
 
+# See comments above Source300:
+%setup -q -T -D -b 300 -n uv-%{version}
+pushd '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
+%autopatch -p1 -m300 -M399
+popd
+# Upstream has only modified reqwest-retry, so we may as well use the system
+# copy of reqwest-middleware.
+rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
+tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.git'
+tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.rev'
+tomcli set Cargo.toml str 'workspace.dependencies.reqwest-middleware.version' \
+    '0.4.2'
+tomcli set Cargo.toml del patch.crates-io.reqwest-middleware
+ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-retry' \
+    crates/reqwest-retry
+git2path workspace.dependencies.reqwest-retry crates/reqwest-retry
+tomcli set Cargo.toml del patch.crates-io.reqwest-retry
+tomcli set crates/reqwest-retry/Cargo.toml del \
+    'dependencies.reqwest-middleware.path'
+install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
+    crates/reqwest-retry/LICENSE*
+# We do not need the reqwest-tracing crate.
+rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-tracing'
+
 # See comments above Source400:
 %setup -q -T -D -b 400 -n uv-%{version}
 ln -s '../../tl-%{tl_rev}' crates/tl
@@ -575,14 +608,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
-
-# which
-#   wanted: 7.0.3
-#   currently packaged: 7.0.3, but planning to update to 8.0.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
-#   Updated upstream in uv 0.4.13.
-tomcli set Cargo.toml str workspace.dependencies.which.version \
-    '>=7.0.0, <9.0.0'
 
 %cargo_prep
 
@@ -726,6 +751,10 @@ skip="${skip-} --skip middleware::tests::test_tracing_url"
 #           0 │+7ba9bfcaf3c0354c2cb8578922a00726b1ff6bdfa85fcb738bd45978fa86fd0a
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip tests::built_by_uv_building"
+
+# Upstream is working on this; see
+# https://github.com/astral-sh/uv/pull/14243#issuecomment-3001792931.
+skip="${skip-} --skip registry_client::tests::test_redirect_preserve_fragment"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

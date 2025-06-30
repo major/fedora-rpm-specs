@@ -2,8 +2,8 @@ Name:    We10X-icon-theme
 Summary: Colorful icon theme inspired by Microsoft Windows 10 aesthetic
 License: GPL-3.0-only
 
-%global git_date    20250614
-%global git_commit  8bc78dd6f60980efc322ea90f67950180afb5fe4
+%global git_date    20250627
+%global git_commit  4423fb96e4779d69070b6d2de456f9a93847268f
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 Version: 0^%{git_date}git%{git_commit_short}
@@ -56,6 +56,26 @@ sed  \
 %install
 install -m 755 -d '%{buildroot}%{_datadir}/icons'
 ./install.sh --dest '%{buildroot}%{_datadir}/icons'
+
+# Some icon categories used to have separate versions for classic
+# and dark variant of the theme. Later, upstream decided to use the same
+# icons for both, replacing the dark version's directory with a symlink.
+# This makes RPM throw an error when trying to update the package,
+# as it refuses to replace a directory with a symlink.
+#
+# For each affected category, if the -dark directory is a symlink,
+# replace it with a directory filled with file symlinks.
+for CATEGORY in status/16 status/22 status/24; do
+	CATEGORY_DIR="%{buildroot}%{_datadir}/icons/We10X-dark/${CATEGORY}"
+	if [[ -L "${CATEGORY_DIR}" ]]; then
+		rm "${CATEGORY_DIR}"
+		install -m 755 -d "${CATEGORY_DIR}"
+
+		for FILE in "%{buildroot}%{_datadir}/icons/We10X/${CATEGORY}/"* ; do
+			ln -sr "${FILE}" "${CATEGORY_DIR}/"
+		done
+	fi
+done
 
 for VARIANT in '' '-dark'; do
 	THEME="%{buildroot}%{_datadir}/icons/We10X${VARIANT}"
@@ -137,6 +157,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Sat Jun 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250627git4423fb9-1
+- Update to latest git snaphot (2025-06-27)
+- Fix transaction error when updating the package (rhbz#2375285)
+
 * Mon Jun 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250614git8bc78dd-1
 - Update to latest git snapshot (2025-06-14)
 

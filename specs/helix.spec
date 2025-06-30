@@ -43,6 +43,10 @@ Patch:          remove-windows-dependency.patch
 # Compatibility patch for gix 0.70
 # * https://github.com/helix-editor/helix/pull/12614/files
 Patch:          gix-0.70-compatibility.patch
+# Allow which 8
+# build(deps): bump which from 7.0.3 to 8.0.0
+# https://github.com/helix-editor/helix/pull/13729
+Patch:          which-8.patch
 
 # Exclude %%{ix86} since the build fails with LLVM ERROR: out of memory Allocation failed error
 ExcludeArch: %{ix86}

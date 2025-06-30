@@ -1,7 +1,7 @@
 %global pypi_name mirakuru
 
 Name:           python-%{pypi_name}
-Version:        2.5.3
+Version:        2.6.0
 Release:        %autorelease
 Summary:        A process orchestration tool designed for functional and integration tests
 
@@ -18,6 +18,7 @@ BuildRequires:  netcat
 BuildRequires:  procps-ng
 BuildRequires:  python-unversioned-command
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-rerunfailures)
 BuildRequires:  python3dist(python-daemon)
 
 

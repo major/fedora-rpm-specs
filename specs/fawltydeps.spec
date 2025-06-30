@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           fawltydeps
-Version:        0.19.0
+Version:        0.20.0
 Release:        %{autorelease}
 Summary:        Find undeclared and unused 3rd-party dependencies in your Python project
 
@@ -12,11 +12,6 @@ Summary:        Find undeclared and unused 3rd-party dependencies in your Python
 License:        MIT
 URL:            https://tweag.github.io/FawltyDeps/
 Source:         %forgesource
-# Remove deprecated AST code
-# Upstream already announced that the next release will no longer
-# support Python 3.8 and appears to be actively working towards it.
-# https://github.com/tweag/FawltyDeps/commit/fa700308e61601bb29471611a1067b11812ce35b
-Patch:          remove_deprecated_ast_code.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -40,12 +35,6 @@ is inspired by the Monty Python-adjacent Fawlty Towers sitcom.}
 
 %prep
 %forgeautosetup -p1
-# Drop version pinning on `packaging` for F41-
-%if %{fedora} < 41
-sed -r \
-    -e 's/(packaging) =.*/\1 = "*"/' \
-    -i pyproject.toml
-%endif
 
 # Don't impose upper bounds (= "^x.y")
 sed -r \
@@ -74,15 +63,14 @@ install -m 0644 man/%{name}.1 %{buildroot}%{_mandir}/man1
 
 
 %check
+%pyproject_check_import
 %if %{with tests}
 # Disable tests requiring network
 k="${k-}${k+ and }not test_resolve_dependencies_install_deps"
 k="${k-}${k+ and }not generates_expected_mappings"
 # TypeError: 'NoneType' object is not subscriptable
 k="${k-}${k+ and }not no_pyenvs_found"
-%pytest -v "${k:+-k $k}"
-%else
-%pyproject_check_import
+%pytest -r fEs "${k:+-k ${k:-}}"
 %endif
 
 

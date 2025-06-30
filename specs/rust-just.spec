@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Relax 'dirs' dependency from 6.0.0 to >=5,<7
 # * Relax 'strum' dependency from 0.27.1 to >=0.26,<0.28
+# * Relax 'which' dev-dependency from 7.0.0 to >=7,<9
 Patch:          just-fix-metadata.diff
 # * Exclude unwanted files
 Patch2:         just-exclude-unwanted-files.patch

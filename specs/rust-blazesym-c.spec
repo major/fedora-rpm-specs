@@ -29,8 +29,9 @@ Source:         https://raw.githubusercontent.com/libbpf/blazesym/v0.2.0-rc.0/ca
 # Manually created patch for downstream crate metadata changes
 # * include LICENSE
 # * declare stub capi feature for cargo-c
-# * allow which 7:
-#   https://github.com/libbpf/blazesym/commit/ff08cfaf129a16e1ecb3e59b6242a040cfa8ec60
+# * allow which 7, 8:
+#   https://github.com/libbpf/blazesym/commit/ff08cfaf129a16e1ecb3e59b6242a040cfa8ec60,
+#   https://github.com/libbpf/blazesym/pull/1194
 Patch:          blazesym-c-fix-metadata.diff
 
 # Does not support ELF32 yet

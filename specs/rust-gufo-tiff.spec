@@ -3,15 +3,16 @@
 %global debug_package %{nil}
 
 %global crate gufo-tiff
+%global crate_version 0.3.0-alpha
 
 Name:           rust-gufo-tiff
-Version:        0.2.1
+Version:        0.3.0~alpha
 Release:        %autorelease
 Summary:        Data structure for TIFF images
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-tiff
-Source:         %{crates_source}
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -48,7 +49,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

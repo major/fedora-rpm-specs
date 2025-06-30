@@ -11,7 +11,7 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 Patch0101:   0101-use-wlroots-backend-with-unknown-compositors.patch
 
 BuildRequires:  cmake
-BuildRequires:  fdupes
+%dnl BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  pkgconfig(Qt6Xdg)
@@ -90,7 +90,7 @@ for desktop in %{buildroot}/%{_datadir}/lxqt/lxqt-panel/*.desktop; do
 done
 desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop ||:
 
-%fdupes -s %{buildroot}%{_datadir}/lxqt
+%dnl %fdupes -s %{buildroot}%{_datadir}/lxqt
 
 %find_lang lxqt-panel --with-qt
 %find_lang cpuload --with-qt

@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 3.0.0-alpha.5
 
-Name:           rust-glycin
-Version:        3.0.0~alpha.5
+Name:           rust-glycin2
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -98,7 +97,7 @@ use the "tokio" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           seadrive-gui
-Version:        3.0.13
+Version:        3.0.15
 Release:        1%{?dist}
 Summary:        GUI part of Seafile Drive client
 
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Sat Jun 28 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.15-1
+- Update to 3.0.15 (#2362605)
+
 * Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.13-1
 - Update to 3.0.13 (#2350047)
 

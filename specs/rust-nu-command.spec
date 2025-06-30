@@ -21,7 +21,9 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * Update titlecase from 2.0 to 3.0
 # * Relax chrono-tz dependency to allow building with 0.8..=0.10
 # * allow rstest 0.23: https://github.com/nushell/nushell/pull/14350
-# * allow procfs 0.17 and which 7: https://github.com/nushell/nushell/pull/14489
+# * allow procfs 0.17 and which 7,
+#   https://github.com/nushell/nushell/pull/14489, and which 8,
+#   https://github.com/nushell/nushell/pull/16045
 # * allow roxmltree 0.20: https://github.com/nushell/nushell/pull/14513
 # * Update lscolors from 0.17 to 0.20:
 #   https://github.com/nushell/nushell/pull/15737

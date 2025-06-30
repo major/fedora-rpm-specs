@@ -40,7 +40,9 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  golang >= 1.23.0
 BuildRequires:  go-rpm-macros
+%if 0%{?fedora}
 BuildRequires:  go-vendor-tools
+%endif
 
 BuildRequires:  gnupg2
 BuildRequires:  desktop-file-utils
@@ -212,8 +214,10 @@ find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{python3}|g'    
 
 find -type f ! -executable -name "*.py" -exec sed -i '1{\@^#!%{python3}@d}' "{}" \;
 
+%if 0%{?fedora}
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:4}
+%endif
 
 %build
 %set_build_flags
@@ -229,7 +233,9 @@ unset LDFLAGS
 %gobuild -o _build/bin/kitten ./tools/cmd
 
 %install
+%if 0%{?fedora}
 %go_vendor_license_install -c %{S:4}
+%endif
 
 # rpmlint fixes
 find linux-package/%{_lib}/%{name}/shell-integration -type f ! -executable -exec sed -r -i '1{\@^#!/bin/(fish|zsh|sh|bash)@d}' "{}" \;
@@ -245,12 +251,10 @@ rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
 
 
 %check
+%if 0%{?fedora}
 %go_vendor_license_check -c %{S:4} %{kitten_license}
-%if %{with test}
-%if 0%{?epel}
-sed '/def test_ssh_leading_data/a \
-\        self.skipTest("Skipping a failing test")' -i kitty_tests/ssh.py
 %endif
+%if %{with test}
 export %{gomodulesmode}
 # Some tests ignores PATH env...
 mkdir -p kitty/launcher
@@ -275,7 +279,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_mandir}/man{1,5}/*.{1,5}*
 %{_metainfodir}/*.xml
 
+%if 0%{?fedora}
 %files kitten -f %{go_vendor_license_filelist}
+%else
+%files kitten
+%endif
 %license vendor/modules.txt
 %license LICENSE
 %{_bindir}/kitten
