@@ -3,7 +3,7 @@
 %undefine _strict_symbol_defs_build
 
 Name:           qmplay2
-Version:        25.06.11
+Version:        25.06.27
 Release:        %autorelease
 Summary:        A Qt based media player, streamer and downloader
 # LGPL-3.0-or-later: QMPlay2

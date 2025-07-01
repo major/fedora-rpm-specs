@@ -1,7 +1,7 @@
 %global pypi_name shtab
 
 Name:           python-shtab
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Automagic shell tab completion for Python CLI applications
 

@@ -5,6 +5,13 @@ Summary:          Gerber file viewer from the gEDA toolkit
 License:          GPL-2.0-only
 URL:              https://github.com/gerbv/gerbv
 Source:           https://github.com/gerbv/gerbv/archive/refs/tags/%{name}-%{version}.tar.gz
+
+# https://github.com/gerbv/gerbv/issues/255
+Patch0:           gerbv-2.10.0-Fix-Fails-GCC15.patch
+
+# fix for https://bugzilla.redhat.com/show_bug.cgi?id=2331596
+Requires:         gdk-pixbuf2-modules-extra
+
 BuildRequires:    gcc-c++
 BuildRequires:    make
 BuildRequires:    automake
@@ -46,7 +53,7 @@ you will need to install %{name}-devel.
 
 
 %prep
-%autosetup
+%autosetup -p1
 # use explicit version for compilation and not a git-derived one
 sed -i -e "s/m4_esyscmd(utils\/git-version-gen.sh [0-9.]*)/%{version}/" configure.ac
 

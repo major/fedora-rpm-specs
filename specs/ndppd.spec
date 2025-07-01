@@ -1,15 +1,12 @@
-%global commit e01d67a864bbeeb8e15f35ad955aecafa52e4c3d
-
 Name:           ndppd
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        NDP Proxy Daemon
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/DanielAdolfsson/ndppd
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        %{url}/raw/%{commit}/%{name}.service
-Source2:        %{name}.conf
+Source1:        %{name}.conf
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -25,13 +22,12 @@ section 7.2.
 %setup -q
 
 %build
-%set_build_flags
 %make_build
 
 %install
-%make_install PREFIX=/usr
-install -Dpm0644 %SOURCE1 %{buildroot}%{_unitdir}/ndppd.service
-install -Dpm0644 %SOURCE2 %{buildroot}%{_tmpfilesdir}/ndppd.conf
+%make_install PREFIX="%{_prefix}" SBINDIR="%{buildroot}%{_sbindir}"
+install -Dpm0644 -t %{buildroot}%{_unitdir} ndppd.service
+install -Dpm0644 %SOURCE1 %{buildroot}%{_tmpfilesdir}/ndppd.conf
 install -dm0755 %{buildroot}/run/%{name}
 install -Dpm0644 ndppd.conf-dist %{buildroot}%{_sysconfdir}/ndppd.conf
 

@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.6.12
+Version:        4.6.13
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -282,8 +282,6 @@ PermutateTest::test_permutate
 PlyTest::test_face_attributes
 PlyTest::test_uv_export
 PlyTest::test_vertex_attributes
-# https://github.com/mikedh/trimesh/issues/1351#issuecomment-2964820046
-VisualTest::test_data_model
 # Regressions in test_boolean.py with Blender 4.2.0
 # https://github.com/mikedh/trimesh/issues/2267
 # Fixed in trimesh 4.4.7, except on s390x:
@@ -293,6 +291,11 @@ test_boolean
 test_multiple
 test_multiple_difference
 %endif
+
+# This has been observed failing on at least x86_64, ppc64le, and s390x.
+# https://github.com/mikedh/trimesh/issues/1351#issuecomment-2964820046
+# https://github.com/mikedh/trimesh/issues/1351#issuecomment-3016671094
+VisualTest::test_data_model
 
 # This test fails if it doesn’t finish within 30 seconds, and executing it in
 # parallel with other tests tends to slow it down too much. We exclude it here,

@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.7.3
+Version:        0.7.4
 Release:        %{autorelease}
 Summary:        Missing widgets and components for PyQt/PySide
 %forgemeta
@@ -12,9 +12,6 @@ Summary:        Missing widgets and components for PyQt/PySide
 License:        BSD-3-Clause AND MIT
 URL:            %forgeurl
 Source:         %forgesource
-# Fixes test failing on beg endian
-# https://github.com/pyapp-kit/superqt/issues/287
-Patch:          0001-Make-qimage_to_array-work-on-big-endian-288.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -76,11 +73,6 @@ export QT_LOGGING_RULES="default.debug=true"
 k="${k-}${k+ and }not test_qiconify"
 # Test fails for unknown reason
 k="${k-}${k+ and }not test_wrapped_eliding_label"
-# Test fails on s390x since version 0.7.2
-# https://github.com/pyapp-kit/superqt/issues/287
-%if "%{_build_arch}" == "s390x"
-k="${k-}${k+ and }not test_cmap_draw_result"
-%endif
 %pytest -r fEs ${k+-k "${k-}"}
 %else
 %pyproject_check_import

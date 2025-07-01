@@ -33,7 +33,7 @@
 
 # bootstrap needs 9.6+ (& hadrian needs Cabal-3.10)
 # epel9 ghc too old to build hadrian
-%if 0%{?fedora} == 40 || %{defined el9}
+%if %{defined el9}
 %global ghcboot_major 9.6
 %endif
 %global ghcboot ghc%{?ghcboot_major}
@@ -57,7 +57,7 @@
 %else
 %global llvm_major 15
 %endif
-%global ghc_llvm_archs s390x riscv64
+%global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
@@ -66,7 +66,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -95,6 +95,9 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+# riscv64
+Patch40: https://src.opensuse.org/pool/ghc/raw/branch/factory/riscv64-ncg.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -253,6 +256,13 @@ install the main ghc package.
 Summary: Makes %{name} default ghc
 Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Conflicts: ghc-compiler
+Conflicts: ghc8.10-compiler-default
+Conflicts: ghc9.0-compiler-default
+Conflicts: ghc9.2-compiler-default
+Conflicts: ghc9.4-compiler-default
+Conflicts: ghc9.6-compiler-default
+Conflicts: ghc9.8-compiler-default
+Conflicts: ghc9.12-compiler-default
 
 %description compiler-default
 The package contains symlinks to make %{name} the default GHC compiler.
@@ -405,7 +415,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P10 -p1 -b .orig
 %endif
 
-%ifarch %{ghc_unregisterized_arches} riscv64
+%ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
 %endif
 # remove if epel9 ghc using llvm
@@ -419,6 +429,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+%ifarch riscv64
+%patch -P40 -p1 -b .orig
+%endif
 
 # https://github.com/haskell/directory/pull/184
 rm libraries/directory/directory.buildinfo
@@ -844,6 +857,10 @@ make test
 
 
 %changelog
+* Sun Jun 29 2025 Jens Petersen <petersen@redhat.com> - 9.10.2-9
+- add openSUSE's backport of riscv64 NCG
+- add conflicts for other ghcX.Y-compiler-default packages
+
 * Sat May 03 2025 Jens Petersen <petersen@redhat.com> - 9.10.2-8
 - https://downloads.haskell.org/~ghc/9.10.2/docs/users_guide/9.10.2-notes.html
 

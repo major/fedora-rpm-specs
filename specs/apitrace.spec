@@ -6,8 +6,8 @@
 %global libbacktrace_shortcommit %(c=%{libbacktrace_commit}; echo ${c:0:7})
 
 Name:           apitrace
-Version:        12.0
-Release:        4%{?commit:.git%{shortcommit}}%{?dist}
+Version:        13.0
+Release:        1%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -40,8 +40,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libdwarf-devel
 BuildRequires:  libpng-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  snappy-devel
 # For libbacktrace tests
 BuildRequires:  python3
@@ -97,10 +96,7 @@ mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
 
 
 %build
-# TODO: Remove this in next version
-# https://github.com/apitrace/apitrace/commit/fd643354337000c4d1b4497e1ac2fec381202d40
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake -DENABLE_STATIC_SNAPPY=OFF
+%cmake -DENABLE_STATIC_SNAPPY=OFF -DENABLE_QT6=ON
 %cmake_build
 
 
@@ -143,6 +139,9 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 
 
 %changelog
+* Sun Jun 29 2025 Sandro Mani <manisandro@gmail.com> - 13.0-1
+- Update to 13.0
+
 * Fri May 30 2025 Cristian Le <git@lecris.dev> - 12.0-4
 - Allow to build with CMake 4.0
 - Remove the ctest workaround

@@ -1,8 +1,8 @@
 %global plugin_name googlechat
 
-%global commit0 ddc118bdb46f02d865ae56b470cf3176520df59b
+%global commit0 c220ca0d1612d03986b2ce096af35b773cdaf04a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date 20240101
+%global date 20250629
 
 Name: purple-%{plugin_name}
 Version: 0
@@ -64,6 +64,9 @@ chmod 755 %{buildroot}%{_libdir}/purple-2/lib%{plugin_name}.so
 %{_datadir}/pixmaps/pidgin/protocols/*/%{plugin_name}.png
 
 %changelog
+* Sun Jun 29 2025 Jan Kratochvil <jan@jankratochvil.net> - 0-5.20250629gitc220ca0
+- Update to the latest snapshot.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-5.20240101gitddc118b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
