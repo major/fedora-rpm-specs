@@ -168,6 +168,9 @@ rm -rf html/.{doctrees,buildinfo}
 %meson_install
 %find_lang %{name}
 
+# https://gitlab.gnome.org/jrb/crosswords/-/blob/master/docs/PACKAGING.md#version-0316
+rm -f %{buildroot}%{_libexecdir}/gen-word-list-resource
+
 %if %{with tests}
 %check
 %meson_test

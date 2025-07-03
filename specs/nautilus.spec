@@ -2,11 +2,11 @@
 
 %global glib2_version 2.79.0
 %global gnome_autoar_version 0.4.4
-%global gtk4_version 4.15.2
+%global gtk4_version 4.17.5
 %global libadwaita_version 1.6~beta
 
 Name:           nautilus
-Version:        48.2
+Version:        49~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})

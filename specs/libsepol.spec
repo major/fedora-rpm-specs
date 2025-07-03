@@ -1,15 +1,15 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
-Version: 3.8
-Release: 1%{?dist}
+Version: 3.9
+Release: 0.rc2.1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libsepol-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libsepol-%{version}-rc2.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 URL: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N libsepol-3.8 -- libsepol
+# $ git format-patch -N libsepol-3.9-rc2 -- libsepol
 # $ i=1; for j in 0*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -60,7 +60,7 @@ The libsepol-utils package contains the utilities
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libsepol-%{version}
+%autosetup -p 2 -n libsepol-%{version}-rc2
 
 # sparc64 is an -fPIC arch, so we need to fix it here
 %ifarch sparc64

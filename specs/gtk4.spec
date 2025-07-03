@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.19.1
+Version:        4.19.2
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -59,6 +59,7 @@ BuildRequires:  pkgconfig(harfbuzz) >= %{harfbuzz_version}
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
 BuildRequires:  pkgconfig(sysprof-capture-4)
@@ -182,9 +183,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_bindir}/gtk4-update-icon-cache
 %{_libdir}/libgtk-4.so.1*
 %dir %{_libdir}/gtk-4.0
-%dir %{_libdir}/gtk-4.0/%{bin_version}
-%{_libdir}/gtk-4.0/%{bin_version}/media/
-%{_libdir}/gtk-4.0/%{bin_version}/printbackends/
 %{_libdir}/gtk-4.0/modules
 %{_libdir}/girepository-1.0/
 %{_mandir}/man1/gtk4-launch.1*

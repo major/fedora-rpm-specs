@@ -3,7 +3,7 @@
 %global srcname h5netcdf
 
 Name: python-%{srcname}
-Version: 1.6.1
+Version: 1.6.3
 Release: %autorelease
 Summary: Python interface for the netCDF4 file-format in HDF5 files
 License: BSD-3-Clause
@@ -43,7 +43,7 @@ Summary: %{summary}
 
 %check
 %if %{with check}
-%pytest -k "not test_no_circular_references"
+%pytest
 %else
 %pyproject_check_import -e '*.test*'
 %endif

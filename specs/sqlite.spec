@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3500000
-%define docver 3500000
-%define rpmver 3.50.0
+%define realver 3500200
+%define docver 3500200
+%define rpmver 3.50.2
 %define year 2025
 
 Summary: Library that implements an embeddable SQL database engine
@@ -349,6 +349,10 @@ make test
 %endif
 
 %changelog
+* Sat Jun 28 2025 Packit <hello@packit.dev> - 3.50.2-1
+- Update to version 3.50.2
+- Resolves: rhbz#2370851
+
 * Thu May 29 2025 Packit <hello@packit.dev> - 3.50.0-1
 - Update to version 3.50.0
 - Resolves: rhbz#2369200

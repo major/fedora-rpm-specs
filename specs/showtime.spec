@@ -3,7 +3,7 @@
 %global libadwaita_version 1.6~beta
 
 Name:           showtime
-Version:        48.1
+Version:        49~alpha
 
 Release:        %autorelease
 Summary:        Modern video player built using GTK4

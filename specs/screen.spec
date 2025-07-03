@@ -4,7 +4,7 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 BuildRequires: make
@@ -44,14 +44,11 @@ EOF
 
 %configure \
 	--enable-pam \
-	--enable-colors256 \
-	--enable-rxvt_osc \
-	--enable-use-locale \
 	--enable-telnet \
 	--with-pty-mode=0620 \
 	--with-pty-group=$(getent group tty | cut -d : -f 3) \
-	--with-sys-screenrc="%{_sysconfdir}/screenrc" \
-	--with-socket-dir="%{_rundir}/screen"
+	--with-system_screenrc="%{_sysconfdir}/screenrc" \
+	--enable-socket-dir="%{_rundir}/screen" \
 
 # We would like to have braille support.
 sed -i -e 's/.*#.*undef.*HAVE_BRAILLE.*/#define HAVE_BRAILLE 1/;' config.h
@@ -118,6 +115,13 @@ install -m0644 -D screen.sysusers.conf %{buildroot}%{_sysusersdir}/screen.conf
 %{_sysusersdir}/screen.conf
 
 %changelog
+* Mon Jun 30 2025 Josef Ridky <jridky@redhat.com> - 5.0.1-4
+- Modify configuration options to reflect changes in version 5.0.1
+
+* Sat Jun 28 2025 Charles R. Anderson <cra@alum.wpi.edu> - 5.0.1-3
+- Add --enable-socket-dir
+- Resolves: rhbz#2375347
+
 * Wed Jun 25 2025 Josef Ridky <jridky@redhat.com> - 5.0.1-2
 - Unify patch name
 

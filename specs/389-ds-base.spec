@@ -66,9 +66,9 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (%{variant})
 Name:             389-ds-base
-Version:          3.1.2
+Version:          3.1.3
 Release:          %{autorelease -n %{?with_asan:-e asan}}%{?dist}
-License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0
+License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
 URL:              https://www.port389.org
 Obsoletes:        %{name}-legacy-tools < 1.4.4.6
 Obsoletes:        %{name}-legacy-tools-debuginfo < 1.4.4.6
@@ -76,89 +76,81 @@ Provides:         ldif2ldbm >= 0
 
 ##### Bundled cargo crates list - START #####
 Provides:  bundled(crate(addr2line)) = 0.24.2
-Provides:  bundled(crate(adler2)) = 2.0.0
-Provides:  bundled(crate(ahash)) = 0.7.8
+Provides:  bundled(crate(adler2)) = 2.0.1
+Provides:  bundled(crate(allocator-api2)) = 0.2.21
 Provides:  bundled(crate(atty)) = 0.2.14
-Provides:  bundled(crate(autocfg)) = 1.4.0
-Provides:  bundled(crate(backtrace)) = 0.3.74
+Provides:  bundled(crate(autocfg)) = 1.5.0
+Provides:  bundled(crate(backtrace)) = 0.3.75
 Provides:  bundled(crate(base64)) = 0.13.1
-Provides:  bundled(crate(bitflags)) = 2.8.0
+Provides:  bundled(crate(bitflags)) = 2.9.1
 Provides:  bundled(crate(byteorder)) = 1.5.0
 Provides:  bundled(crate(cbindgen)) = 0.26.0
-Provides:  bundled(crate(cc)) = 1.2.10
-Provides:  bundled(crate(cfg-if)) = 1.0.0
+Provides:  bundled(crate(cc)) = 1.2.27
+Provides:  bundled(crate(cfg-if)) = 1.0.1
 Provides:  bundled(crate(clap)) = 3.2.25
 Provides:  bundled(crate(clap_lex)) = 0.2.4
-Provides:  bundled(crate(concread)) = 0.2.21
-Provides:  bundled(crate(crossbeam)) = 0.8.4
-Provides:  bundled(crate(crossbeam-channel)) = 0.5.14
-Provides:  bundled(crate(crossbeam-deque)) = 0.8.6
+Provides:  bundled(crate(concread)) = 0.5.6
 Provides:  bundled(crate(crossbeam-epoch)) = 0.9.18
 Provides:  bundled(crate(crossbeam-queue)) = 0.3.12
 Provides:  bundled(crate(crossbeam-utils)) = 0.8.21
-Provides:  bundled(crate(errno)) = 0.3.10
+Provides:  bundled(crate(equivalent)) = 1.0.2
+Provides:  bundled(crate(errno)) = 0.3.12
 Provides:  bundled(crate(fastrand)) = 2.3.0
 Provides:  bundled(crate(fernet)) = 0.1.4
+Provides:  bundled(crate(foldhash)) = 0.1.5
 Provides:  bundled(crate(foreign-types)) = 0.3.2
 Provides:  bundled(crate(foreign-types-shared)) = 0.1.1
-Provides:  bundled(crate(getrandom)) = 0.2.15
+Provides:  bundled(crate(getrandom)) = 0.3.3
 Provides:  bundled(crate(gimli)) = 0.31.1
-Provides:  bundled(crate(hashbrown)) = 0.12.3
+Provides:  bundled(crate(hashbrown)) = 0.15.4
 Provides:  bundled(crate(heck)) = 0.4.1
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
 Provides:  bundled(crate(indexmap)) = 1.9.3
-Provides:  bundled(crate(instant)) = 0.1.13
-Provides:  bundled(crate(itoa)) = 1.0.14
-Provides:  bundled(crate(jobserver)) = 0.1.32
-Provides:  bundled(crate(libc)) = 0.2.169
-Provides:  bundled(crate(linux-raw-sys)) = 0.4.15
-Provides:  bundled(crate(lock_api)) = 0.4.12
-Provides:  bundled(crate(log)) = 0.4.25
-Provides:  bundled(crate(lru)) = 0.7.8
-Provides:  bundled(crate(memchr)) = 2.7.4
-Provides:  bundled(crate(miniz_oxide)) = 0.8.3
+Provides:  bundled(crate(itoa)) = 1.0.15
+Provides:  bundled(crate(jobserver)) = 0.1.33
+Provides:  bundled(crate(libc)) = 0.2.174
+Provides:  bundled(crate(linux-raw-sys)) = 0.9.4
+Provides:  bundled(crate(log)) = 0.4.27
+Provides:  bundled(crate(lru)) = 0.13.0
+Provides:  bundled(crate(memchr)) = 2.7.5
+Provides:  bundled(crate(miniz_oxide)) = 0.8.9
 Provides:  bundled(crate(object)) = 0.36.7
-Provides:  bundled(crate(once_cell)) = 1.20.2
-Provides:  bundled(crate(openssl)) = 0.10.68
+Provides:  bundled(crate(once_cell)) = 1.21.3
+Provides:  bundled(crate(openssl)) = 0.10.73
 Provides:  bundled(crate(openssl-macros)) = 0.1.1
-Provides:  bundled(crate(openssl-sys)) = 0.9.104
+Provides:  bundled(crate(openssl-sys)) = 0.9.109
 Provides:  bundled(crate(os_str_bytes)) = 6.6.1
-Provides:  bundled(crate(parking_lot)) = 0.11.2
-Provides:  bundled(crate(parking_lot_core)) = 0.8.6
 Provides:  bundled(crate(paste)) = 0.1.18
 Provides:  bundled(crate(paste-impl)) = 0.1.18
 Provides:  bundled(crate(pin-project-lite)) = 0.2.16
-Provides:  bundled(crate(pkg-config)) = 0.3.31
-Provides:  bundled(crate(ppv-lite86)) = 0.2.20
+Provides:  bundled(crate(pkg-config)) = 0.3.32
 Provides:  bundled(crate(proc-macro-hack)) = 0.5.20+deprecated
-Provides:  bundled(crate(proc-macro2)) = 1.0.93
-Provides:  bundled(crate(quote)) = 1.0.38
-Provides:  bundled(crate(rand)) = 0.8.5
-Provides:  bundled(crate(rand_chacha)) = 0.3.1
-Provides:  bundled(crate(rand_core)) = 0.6.4
-Provides:  bundled(crate(redox_syscall)) = 0.2.16
-Provides:  bundled(crate(rustc-demangle)) = 0.1.24
-Provides:  bundled(crate(rustix)) = 0.38.44
-Provides:  bundled(crate(ryu)) = 1.0.18
-Provides:  bundled(crate(scopeguard)) = 1.2.0
-Provides:  bundled(crate(serde)) = 1.0.217
-Provides:  bundled(crate(serde_derive)) = 1.0.217
-Provides:  bundled(crate(serde_json)) = 1.0.137
+Provides:  bundled(crate(proc-macro2)) = 1.0.95
+Provides:  bundled(crate(quote)) = 1.0.40
+Provides:  bundled(crate(r-efi)) = 5.3.0
+Provides:  bundled(crate(rustc-demangle)) = 0.1.25
+Provides:  bundled(crate(rustix)) = 1.0.7
+Provides:  bundled(crate(ryu)) = 1.0.20
+Provides:  bundled(crate(serde)) = 1.0.219
+Provides:  bundled(crate(serde_derive)) = 1.0.219
+Provides:  bundled(crate(serde_json)) = 1.0.140
 Provides:  bundled(crate(shlex)) = 1.3.0
-Provides:  bundled(crate(smallvec)) = 1.13.2
+Provides:  bundled(crate(smallvec)) = 1.15.1
+Provides:  bundled(crate(sptr)) = 0.3.2
 Provides:  bundled(crate(strsim)) = 0.10.0
-Provides:  bundled(crate(syn)) = 2.0.96
-Provides:  bundled(crate(tempfile)) = 3.15.0
+Provides:  bundled(crate(syn)) = 2.0.103
+Provides:  bundled(crate(tempfile)) = 3.20.0
 Provides:  bundled(crate(termcolor)) = 1.4.1
-Provides:  bundled(crate(textwrap)) = 0.16.1
-Provides:  bundled(crate(tokio)) = 1.43.0
-Provides:  bundled(crate(tokio-macros)) = 2.5.0
+Provides:  bundled(crate(textwrap)) = 0.16.2
+Provides:  bundled(crate(tokio)) = 1.45.1
 Provides:  bundled(crate(toml)) = 0.5.11
-Provides:  bundled(crate(unicode-ident)) = 1.0.15
+Provides:  bundled(crate(tracing)) = 0.1.41
+Provides:  bundled(crate(tracing-attributes)) = 0.1.30
+Provides:  bundled(crate(tracing-core)) = 0.1.34
+Provides:  bundled(crate(unicode-ident)) = 1.0.18
 Provides:  bundled(crate(uuid)) = 0.8.2
 Provides:  bundled(crate(vcpkg)) = 0.2.15
-Provides:  bundled(crate(version_check)) = 0.9.5
-Provides:  bundled(crate(wasi)) = 0.11.0+wasi_snapshot_preview1
+Provides:  bundled(crate(wasi)) = 0.14.2+wasi_0.2.4
 Provides:  bundled(crate(winapi)) = 0.3.9
 Provides:  bundled(crate(winapi-i686-pc-windows-gnu)) = 0.4.0
 Provides:  bundled(crate(winapi-util)) = 0.1.9
@@ -173,8 +165,7 @@ Provides:  bundled(crate(windows_i686_msvc)) = 0.52.6
 Provides:  bundled(crate(windows_x86_64_gnu)) = 0.52.6
 Provides:  bundled(crate(windows_x86_64_gnullvm)) = 0.52.6
 Provides:  bundled(crate(windows_x86_64_msvc)) = 0.52.6
-Provides:  bundled(crate(zerocopy)) = 0.7.35
-Provides:  bundled(crate(zerocopy-derive)) = 0.7.35
+Provides:  bundled(crate(wit-bindgen-rt)) = 0.39.0
 Provides:  bundled(crate(zeroize)) = 1.8.1
 Provides:  bundled(crate(zeroize_derive)) = 1.4.2
 Provides:  bundled(npm(@eslint-community/eslint-utils)) = 4.4.1
@@ -195,6 +186,7 @@ Provides:  bundled(npm(@patternfly/patternfly)) = 5.4.1
 Provides:  bundled(npm(@patternfly/react-charts)) = 7.4.3
 Provides:  bundled(npm(@patternfly/react-core)) = 5.4.1
 Provides:  bundled(npm(@patternfly/react-icons)) = 5.4.0
+Provides:  bundled(npm(@patternfly/react-log-viewer)) = 5.3.0
 Provides:  bundled(npm(@patternfly/react-styles)) = 5.4.0
 Provides:  bundled(npm(@patternfly/react-table)) = 5.4.1
 Provides:  bundled(npm(@patternfly/react-tokens)) = 5.4.0
@@ -299,6 +291,7 @@ Provides:  bundled(npm(locate-path)) = 6.0.0
 Provides:  bundled(npm(lodash)) = 4.17.21
 Provides:  bundled(npm(lodash.merge)) = 4.6.2
 Provides:  bundled(npm(loose-envify)) = 1.4.0
+Provides:  bundled(npm(memoize-one)) = 5.2.1
 Provides:  bundled(npm(minimatch)) = 3.1.2
 Provides:  bundled(npm(ms)) = 2.1.3
 Provides:  bundled(npm(natural-compare)) = 1.4.0
@@ -435,18 +428,7 @@ BuildRequires:    doxygen
 # For tests!
 BuildRequires:    libcmocka-devel
 # For lib389 and related components.
-BuildRequires:    python%{python3_pkgversion}
 BuildRequires:    python%{python3_pkgversion}-devel
-BuildRequires:    python%{python3_pkgversion}-setuptools
-BuildRequires:    python%{python3_pkgversion}-ldap
-BuildRequires:    python%{python3_pkgversion}-pyasn1
-BuildRequires:    python%{python3_pkgversion}-pyasn1-modules
-BuildRequires:    python%{python3_pkgversion}-dateutil
-BuildRequires:    python%{python3_pkgversion}-argcomplete
-BuildRequires:    python%{python3_pkgversion}-argparse-manpage
-BuildRequires:    python%{python3_pkgversion}-policycoreutils
-BuildRequires:    python%{python3_pkgversion}-libselinux
-BuildRequires:    python%{python3_pkgversion}-cryptography
 
 # For cockpit
 %if %{with cockpit}
@@ -508,11 +490,6 @@ Source4:          389-ds-base.sysusers
 Source5:          https://fedorapeople.org/groups/389ds/libdb-5.3.28-59.tar.bz2
 %endif
 
-Patch:            0001-Issue-6544-logconv.py-python3-magic-conflicts-with-p.patch
-Patch:            0002-Issue-6489-After-log-rotation-refresh-the-FD-pointer.patch
-Patch:            0003-Issue-6554-During-import-of-entries-without-nsUnique.patch
-Patch:            0004-Issue-6555-Potential-crash-when-deleting-a-replicate.patch
-Patch:            0005-Issue-6776-Enabling-audit-log-makes-slapd-coredump.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
@@ -609,7 +586,6 @@ Requires: openssl-perl
 Requires: iproute
 Requires: python%{python3_pkgversion}-libselinux
 Recommends: bash-completion
-%{?python_provide:%python_provide python%{python3_pkgversion}-lib389}
 
 %description -n python%{python3_pkgversion}-lib389
 This module contains tools and libraries for accessing, testing,
@@ -627,6 +603,12 @@ Requires:         python%{python3_pkgversion}-lib389 = %{version}-%{release}
 %description -n cockpit-389-ds
 A cockpit UI Plugin for configuring and administering the 389 Directory Server
 %endif
+
+%generate_buildrequires
+cd src/lib389
+# Tests do not run in %%check (lib389's tests need to be fixed)
+# but test dependencies are needed to check import lib389.topologies
+%pyproject_buildrequires -g test
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -737,19 +719,10 @@ autoreconf -fiv
 %endif
 
 # lib389
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-  sed -i "/prefix/s@sbin@bin@g" src/lib389/setup.py.in
-%endif
-make src/lib389/setup.py
 pushd ./src/lib389
-%py3_build
+%{python3} validate_version.py --update
+%pyproject_wheel
 popd
-# argparse-manpage dynamic man pages have hardcoded man v1 in header,
-# need to change it to v8
-sed -i  "1s/\"1\"/\"8\"/" %{_builddir}/%{name}-%{version}/src/lib389/man/dsconf.8
-sed -i  "1s/\"1\"/\"8\"/" %{_builddir}/%{name}-%{version}/src/lib389/man/dsctl.8
-sed -i  "1s/\"1\"/\"8\"/" %{_builddir}/%{name}-%{version}/src/lib389/man/dsidm.8
-sed -i  "1s/\"1\"/\"8\"/" %{_builddir}/%{name}-%{version}/src/lib389/man/dscreate.8
 
 # Generate symbolic info for debuggers
 export XCFLAGS=$RPM_OPT_FLAGS
@@ -779,7 +752,8 @@ cp -r %{_builddir}/%{name}-%{version}/man/man3 $RPM_BUILD_ROOT/%{_mandir}/man3
 
 # lib389
 pushd src/lib389
-%py3_install
+%pyproject_install
+%pyproject_save_files -l lib389
 popd
 
 # Register CLI tools for bash completion
@@ -834,6 +808,9 @@ export TSAN_OPTIONS=print_stacktrace=1:second_deadlock_stack=1:history_size=7
 %if %{without asan} && %{without msan}
 if ! make DESTDIR="$RPM_BUILD_ROOT" check; then cat ./test-suite.log && false; fi
 %endif
+
+# Check import for lib389 modules
+%pyproject_check_import -e '*.test*'
 
 %post
 if [ -n "$DEBUGPOSTTRANS" ] ; then
@@ -1011,18 +988,24 @@ exit 0
 %{_libdir}/%{pkgname}/plugins/libback-bdb.so
 %endif
 
-%files -n python%{python3_pkgversion}-lib389
-%doc LICENSE LICENSE.GPLv3+
-%{python3_sitelib}/lib389*
-%{_sbindir}/dsconf
-%{_mandir}/man8/dsconf.8.gz
-%{_sbindir}/dscreate
-%{_mandir}/man8/dscreate.8.gz
-%{_sbindir}/dsctl
-%{_mandir}/man8/dsctl.8.gz
-%{_sbindir}/dsidm
-%{_mandir}/man8/dsidm.8.gz
+%files -n python%{python3_pkgversion}-lib389 -f %{pyproject_files}
+%doc src/lib389/README.md
+%license LICENSE LICENSE.GPLv3+
+# Binaries
+%{_bindir}/dsconf
+%{_bindir}/dscreate
+%{_bindir}/dsctl
+%{_bindir}/dsidm
+%{_bindir}/openldap_to_ds
 %{_libexecdir}/%{pkgname}/dscontainer
+# Man pages
+%{_mandir}/man8/dsconf.8.gz
+%{_mandir}/man8/dscreate.8.gz
+%{_mandir}/man8/dsctl.8.gz
+%{_mandir}/man8/dsidm.8.gz
+%{_mandir}/man8/openldap_to_ds.8.gz
+%exclude %{_mandir}/man1
+# Bash completions for scripts provided by python3-lib389
 %{bash_completions_dir}/dsctl
 %{bash_completions_dir}/dsconf
 %{bash_completions_dir}/dscreate

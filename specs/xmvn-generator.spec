@@ -11,6 +11,11 @@ ExclusiveArch:  %{java_arches}
 
 Source0:        https://github.com/fedora-java/xmvn-generator/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+# https://github.com/fedora-java/xmvn-generator/pull/8
+Patch:          0001-Disable-verbose-debug-output-by-default.patch
+# https://github.com/fedora-java/xmvn-generator/pull/9
+Patch:          0002-Suppress-non-fatal-stack-traces-unless-debugging-is-.patch
+
 BuildRequires:  gcc
 BuildRequires:  lujavrite
 BuildRequires:  rpm-devel

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.17.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -22,6 +22,7 @@ Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
+Patch7:		%{name}-fix-crash.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -89,6 +90,9 @@ ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontc
 
 # Use implied value to allow the use of conditional conf
 rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
+
+# Do not enable bitmap-related conf
+rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/70-*bitmaps*.conf
 
 # Install docs manually
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
@@ -200,6 +204,11 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Mon Jun 30 2025 Akira TAGOH <tagoh@redhat.com> - 2.17.0-2
+- Backport a patch to fix a crash with Graphite fonts
+- Drop 70-*bitmaps*.conf from /etc/fonts/conf.d so far.
+  Resolves: rhbz#2375426
+
 * Fri Jun 27 2025 Akira TAGOH <tagoh@redhat.com> - 2.17.0-1
 - New upstream release.
   Resolves: rhbz#2375126

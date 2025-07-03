@@ -1,46 +1,58 @@
 Name:           perl-Promises
-Version:        1.04
-Release:        16%{?dist}
+Version:        1.05
+Release:        1%{?dist}
 Summary:        Implementation of Promises in Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Promises
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Promises-%{version}.tar.gz
 BuildArch:      noarch
+# Fix numbering of line in test when shebang is added
+Patch0:         Promises-1.05-Fix-numbering-of-line-in-test.patch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
 BuildRequires:  perl(AE)
 BuildRequires:  perl(AnyEvent)
-BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(EV)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(IO::Async)
 BuildRequires:  perl(IO::Async::Loop)
 BuildRequires:  perl(IO::Async::Timer::Countdown)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Mojo::IOLoop)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Sub::Attribute)
 BuildRequires:  perl(Sub::Exporter)
-BuildRequires:  perl(Test::Fatal)
+# Tests
+BuildRequires:  perl(blib)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::Async)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception)
+BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.89
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Warn)
-BuildRequires:  perl(warnings)
-BuildRequires:  sed
 Requires:       perl(Data::Dumper)
 Requires:       perl(Module::Runtime)
+
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(AsyncUtil\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(NoEV\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Promises::Test.*\\)
+
 
 %description
 This module is an implementation of the "Promise/A+" pattern for
@@ -48,9 +60,24 @@ asynchronous programming. Promises are meant to be a way to better deal
 with the resulting callback spaghetti that can often result in
 asynchronous programs.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Promises-%{version}
-sed -i 's|#!perl|#! /usr/bin/perl|' ./example/*.pl
+%autosetup -p1 -n Promises-%{version}
+perl -MConfig -pi -e 's|^#!.*perl|$Config{startperl}|' ./example/*.pl
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -60,16 +87,33 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes example README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Promises*
+%{_mandir}/man3/Promises*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 30 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-1
+- 1.05 bump (rhbz#2375526)
+- Package tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

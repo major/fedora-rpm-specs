@@ -1,40 +1,73 @@
 Name:           python-nbclassic
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
-# Main package is BSD-3-Clause
+# nbclassic itself is BSD-3-Clause
+# The rest are licenses of bundled JS libs.
 #
-# Licenses of the bundled JS libs (semi-automatic)
-# helpful cmd: find ./ -name ".bower.json" -or -name "bower.json" -or -name "component.json" -or -name "composer.json" | \
-#    xargs grep -i 'license' | sed -r 's/.*components\/(.*)\/.* "(.*)",?/\1: \2/' | sort | uniq | sort
-# backbone: MIT
-# bootstrap: MIT
-# google-caja: Apache 2.0
-# jquery: MIT
-# jquery-typeahead: MIT
-# jquery-ui: MIT
-# marked: MIT
-# MathJax: Apache-2.0
-# moment: MIT
-# requirejs-text: MIT
-# text-encoding: Apache-2.0
-# 
-# and the manual detective work:
+# [[[cog
+#    import cog
+#    from glob import glob
+#    from pathlib import Path
+#    import json
 #
-# bootstrap-tour: Apache-2.0
-# codemirror: MIT
-# es6-promise: MIT (from npmjs.com)
-# jed: MIT
-# react: MIT
-# requirejs{,-plugins,-text}: MIT
-# underscore: MIT
+#    licenses = {}
+#    versions = {}
+#    not_found_licenses = []
+#    not_found_versions = []
+#    components = sorted(
+#        glob("python-nbclassic-*-build/nbclassic-*/nbclassic/static/components/*"))
 #
-# to open npm page for bundled JS libs run:
-#   find ./ -name ".bower.json" | xargs grep '"version":' | \ 
-#   sed -r 's@.*components/(.*)/\.bower\.json: +"version": +"(.*)",@https://www.npmjs.com/package/\1/v/\2@'
+#    for component in components:
+#        for file in ".bower.json", "bower.json", "package.json", "composer.json":
+#            path = Path(component) / file
+#            name = path.parent.name
+#            if path.is_file():
+#                data = json.loads(path.read_text())
+#                if "license" in data and name not in licenses:
+#                    license = data["license"]
+#                    if isinstance(license, list):
+#                        license = " AND ".join(license)
+#                    licenses[name] = license
+#
+#                if "version" in data and name not in versions:
+#                    versions[name] = data["version"]
+#        if name not in licenses:
+#            not_found_licenses.append(name)
+#        if name not in versions:
+#            not_found_versions.append(name)
+#
+#    cog.outl("# Licenses found:")
+#    for license in sorted(set(licenses.values())):
+#        cog.outl(f"#  - {license}")
+#    cog.outl("#\n# License not found for:")
+#    for component in not_found_licenses:
+#        cog.outl(f"#  - {component}")
+#
+# ]]]
+# Licenses found:
+#  - Apache 2.0
+#  - Apache-2.0
+#  - MIT
+#  - MIT AND OFL-1.1
+#
+# License not found for:
+#  - create-react-class
+#  - es6-promise
+#  - react
+#  - requirejs-plugins
+#  - sanitizer
+#  - xterm.js
+#  - xterm.js-css
+#  - xterm.js-fit
+# [[[end]]]
+#
+# Manual license detective work:
+# - Apache-2.0 - sanitizer
+# - MIT - create-react-class, es6-promise, react, requirejs-plugins, xterm
 
-License:        BSD-3-Clause AND MIT AND Apache-2.0
+License:        BSD-3-Clause AND Apache-2.0 AND MIT AND (MIT AND OFL-1.1)
 URL:            https://jupyter.org
 Source:         %{pypi_source nbclassic}
 # Patch to use the TeX fonts from the MathJax package rather than STIXWeb
@@ -43,6 +76,9 @@ Patch:          Use-MathJax-TeX-fonts-rather-than-STIXWeb.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# Upstream requires "babel" pkg but in Fedora
+# python3-babel does not contain "pybabel" tool.
+BuildRequires:  babel
 # for validating desktop entry
 BuildRequires:  desktop-file-utils
 
@@ -70,36 +106,50 @@ Requires:       fontawesome4-fonts-web
 Requires:       fontawesome-fonts-web
 %endif
 
-# Bundled JS libraries in nbclassic/static/components/
-# generated in unpacked sources by:
-# find ./ -name ".bower.json" | xargs grep '"version":' | sed -r 's/.*components\/(.*)\/\.bower\.json: +"version": +"(.*)",/Provides:        bundled(\1) = \2/' | sort
-Provides:        bundled(backbone) = 1.2.0
-Provides:        bundled(bootstrap) = 3.4.1
-Provides:        bundled(bootstrap-tour) = 0.9.0
-Provides:        bundled(codemirror) = 5.58.2
-Provides:        bundled(es6-promise) = 1.0.0
-Provides:        bundled(google-caja) = 5669.0.0
-Provides:        bundled(jed) = 1.1.1
-Provides:        bundled(jquery) = 3.5.1
-Provides:        bundled(jquery-typeahead) = 2.10.7
-Provides:        bundled(jquery-ui) = 1.13.2
-Provides:        bundled(marked) = 4.0.19
-Provides:        bundled(MathJax) = 2.7.9
-Provides:        bundled(moment) = 2.29.4
-Provides:        bundled(react) = 16.0.0
-Provides:        bundled(requirejs) = 2.2.0
-Provides:        bundled(requirejs-plugins) = 1.0.3
-Provides:        bundled(requirejs-text) = 2.0.16
-Provides:        bundled(text-encoding) = 0.1.0
-Provides:        bundled(underscore) = 1.13.6
+# Bundled JS libraries in nbclassic/static/components/ (uses data loaded above)
+#
+# [[[cog
+#    cog.outl("# Version not found for:")
+#    for name in not_found_versions:
+#        cog.outl(f"#  - {name}")
+#    for name, version in versions.items():
+#        cog.outl(f"Provides:        bundled(npm({name})) = {version}")
+# ]]]
+# Version not found for:
+#  - create-react-class
+#  - react
+#  - sanitizer
+#  - xterm.js
+#  - xterm.js-css
+#  - xterm.js-fit
+Provides:        bundled(npm(MathJax)) = 2.7.9
+Provides:        bundled(npm(backbone)) = 1.6.0
+Provides:        bundled(npm(bootstrap)) = 3.4.1
+Provides:        bundled(npm(bootstrap-tour)) = 0.12.0
+Provides:        bundled(npm(codemirror)) = 5.58.2
+Provides:        bundled(npm(es6-promise)) = 1.0.0
+Provides:        bundled(npm(font-awesome)) = 4.7.0
+Provides:        bundled(npm(google-caja)) = 5669.0.0
+Provides:        bundled(npm(jed)) = 1.1.1
+Provides:        bundled(npm(jquery)) = 3.7.1
+Provides:        bundled(npm(jquery-typeahead)) = 2.10.7
+Provides:        bundled(npm(jquery-ui)) = 1.13.3
+Provides:        bundled(npm(marked)) = 4.0.19
+Provides:        bundled(npm(moment)) = 2.29.4
+Provides:        bundled(npm(requirejs)) = 2.2.0
+Provides:        bundled(npm(requirejs-plugins)) = 1.0.3
+Provides:        bundled(npm(requirejs-text)) = 2.0.16
+Provides:        bundled(npm(text-encoding)) = 0.0.0
+Provides:        bundled(npm(underscore)) = 1.13.7
+# [[[end]]]
+
 
 %description -n python3-nbclassic %_description
 
 
 %prep
 %autosetup -p1 -n nbclassic-%{version}
-sed -ri "/(pytest-cov|coverage|nbval|pytest-playwright|pytest_tornasync)/d" setup.cfg
-sed -ri "s/'(pytest-cov|coverage|nbval|pytest-playwright|pytest_tornasync)',?//g" setup.py
+sed -ri "/(pytest-cov|coverage|nbval|pytest-playwright|pytest-tornasync)/d" pyproject.toml
 
 
 %generate_buildrequires
@@ -168,6 +218,9 @@ end
 # Lang files
 %dir %{python3_sitelib}/nbclassic/i18n/
 %{python3_sitelib}/nbclassic/i18n/*.py
+%{python3_sitelib}/nbclassic/i18n/*.cfg
+%{python3_sitelib}/nbclassic/i18n/*.md
+%{python3_sitelib}/nbclassic/i18n/*.json
 %{python3_sitelib}/nbclassic/i18n/__pycache__/
 %lang(fr) %{python3_sitelib}/nbclassic/i18n/fr_FR/
 %lang(ja) %{python3_sitelib}/nbclassic/i18n/ja_JP/

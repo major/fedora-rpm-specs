@@ -1,21 +1,21 @@
 %global glib2_version 2.80
-%global gtk4_version 4.15
-%global gtksourceview_version 5.10.0
+%global gtk4_version 4.17.3
+%global gtksourceview_version 5.15.0
 %global enchant_version 2.2.0
-%global libadwaita_version 1.6~alpha
-%global libspelling_version 0.3.0
+%global libadwaita_version 1.6.0
+%global libspelling_version 0.4.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	48.3
+Version:	49~alpha
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 # Code is GPL-3.0-or-later and the Appdata is CC0-1.0
 License:	GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
-Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	pkgconfig(editorconfig)
 BuildRequires:	pkgconfig(enchant-2) >= %{enchant_version}
@@ -78,160 +78,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
-* Fri May 30 2025 nmontero <nmontero@redhat.com> - 48.3-1
-- Update to 48.3
-
-* Mon Mar 31 2025 nmontero <nmontero@redhat.com> - 48.2-1
-- Update to 48.2
-
-* Thu Mar 20 2025 nmontero <nmontero@redhat.com> - 48.1-1
-- Update to 48.1
-
-* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
-- Update to 48.0
-
-* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
-- Update to 48.rc
-
-* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.3-1
-- Update to 47.3
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Nov 25 2024 nmontero <nmontero@redhat.com> - 47.2-1
-- Update to 47.2
-
-* Sat Oct 19 2024 David King <amigadave@amigadave.com> - 47.1-1
-- Update to 47.1
-
-* Mon Sep 16 2024 nmontero <nmontero@redhat.com> - 47.0-1
-- Update to 47.0
-
-* Mon Aug 05 2024 nmontero <nmontero@redhat.com> - 47~beta-1
-- Update to 47.beta
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jul 05 2024 David King <amigadave@amigadave.com> - 47~alpha-1
-- Update to 47.alpha
-
-* Sat May 11 2024 David King <amigadave@amigadave.com> - 46.3-1
-- Update to 46.3
-
-* Sat Apr 13 2024 David King <amigadave@amigadave.com> - 46.1-1
-- Update to 46.1
-
-* Sat Mar 16 2024 David King <amigadave@amigadave.com> - 46.0-1
-- Update to 46.0
-
-* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 46~rc-1
-- Update to 46.rc
-
-* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
-- Update to 46.beta
-
-* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 46~alpha-3
-- Rebuild for ICU 74
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
-- Update to 46.alpha
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Oct 30 2023 Kalev Lember <klember@redhat.com> - 45.1-1
-- Update to 45.1
-
-* Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
-- Update to 45.0
-- Add minimum required libadwaita version
-
-* Tue Aug 08 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
-- Update to 45.beta
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 45~alpha-3
-- Rebuilt for ICU 73.2
-
-* Wed Jul 05 2023 Adam Williamson <awilliam@redhat.com> - 45~alpha-2
-- Backport an upstream commit to focus Document Type search box on open
-
-* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
-- Update to 45.alpha
-
-* Tue Jun 06 2023 David King <amigadave@amigadave.com> - 44.0-2
-- Drop unnecessary libpcre BuildRequires (#2212743)
-
-* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
-- Update to 44.0
-
-* Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
-- Update to 44.rc
-
-* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
-- Update to 44.beta
-
-* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
-- Update to 44.alpha
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 43.1-3
-- Rebuild for ICU 72
-
-* Thu Oct 06 2022 Kalev Lember <klember@redhat.com> - 43.1-2
-- Backport upstream patch to fix the release number in appdata
-
-* Tue Oct 04 2022 Kalev Lember <klember@redhat.com> - 43.1-1
-- Update to 43.1
-
-* Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
-- Update to 43.0
-
-* Tue Aug 09 2022 Kalev Lember <klember@redhat.com> - 43~alpha1-1
-- Update to 43.alpha1
-
-* Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 43~alpha0-3
-- Rebuilt for ICU 71.1
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 43~alpha0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Kalev Lember <klember@redhat.com> - 43~alpha0-1
-- Update to 43.alpha0
-
-* Tue Jun 14 2022 David King <amigadave@amigadave.com> - 42.2-1
-- Update to 42.2 (#2096085)
-
-* Fri May 27 2022 Link Dupont <link@sub-pop.net> - 42.1-2
-- Patch to fix session handling crash (RHBZ#2071116)
-
-* Fri Apr 22 2022 David King <amigadave@amigadave.com> - 42.1-1
-- Update to 42.1 (#2077673)
-
-* Sat Mar 19 2022 David King <amigadave@amigadave.com> - 42.0-1
-- Update to 42.0
-
-* Tue Mar 08 2022 David King <amigadave@amigadave.com> - 42~rc1-1
-- Update to 42.rc1
-
-* Thu Jan 20 2022 David King <amigadave@amigadave.com> - 42~alpha2-1
-- Update to 42.alpha2
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 41.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jan 06 2022 Neal Gompa <ngompa@fedoraproject.org> - 41.1-1
-- Update to 41.1
-
-* Tue Oct 05 2021 Neal Gompa <ngompa@fedoraproject.org> - 41.0-1
-- Initial packaging
-
+%autochangelog

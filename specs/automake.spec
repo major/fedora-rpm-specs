@@ -1,4 +1,4 @@
-%global api_version 1.17
+%global api_version 1.18
 
 # redhat-rpm-config sets CFLAGS, CXXFLAGS and LDFLAGS, but not
 # OBJCFLAGS. This means that Obj-C tests will be compiled without hardening
@@ -16,14 +16,11 @@
 # Run optional test
 %bcond_without automake_enables_optional_test
 
-# remove once %%configure is used instead of ./configure
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
-
 Summary:    A GNU tool for automatically creating Makefiles
 Name:       automake
 # Any bump here requires libtool rebuild, rhbz#1813010
-Version:    %{api_version}
-Release:    2%{?dist}
+Version:    %{api_version}.1
+Release:    1%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # usr/bin/* - GPL-2.0-or-later
@@ -59,10 +56,6 @@ Source:     ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 # which lead to .package_note-automake-1.16.5-3.fc36.x86_64.ld
 # being inserted in build logs, breaking the original grep instruction
 Patch: fort2.patch
-
-# Patch submitted upstream:
-# https://lists.gnu.org/archive/html/automake-patches/2024-11/msg00000.html
-Patch: 0001-py-compile-Allow-user-to-disable-python.patch
 
 URL:        http://www.gnu.org/software/automake/
 Requires:   autoconf >= 2.65
@@ -166,6 +159,9 @@ make -k %{?_smp_mflags} check %{?TESTS_FLAGS: TESTS="%{TESTS_FLAGS}"} \
 
 
 %changelog
+* Fri Jun 27 2025 Frédéric Bérat <fberat@redhat.com> - 1.18.1-1
+- Rebase to upstream version 1.18.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
