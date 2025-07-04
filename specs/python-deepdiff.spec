@@ -1,16 +1,18 @@
-%global _without_tests 1
 # Don't have sphinx-sitemaps for now...
 %bcond_with docs
 %bcond_without tests
 
 Name:           python-deepdiff
 Version:        8.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
 Source:         https://github.com/seperman/deepdiff/archive/%{version}/%{name}-v%{version}.tar.gz
+
+# Fix tests with python 3.14: https://github.com/seperman/deepdiff/pull/556
+Patch1:         fix-test-python-3.14.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -61,7 +63,7 @@ Recommends:     python3-deepdiff+cli
 
 
 %prep
-%setup -n deepdiff-%{version}
+%autosetup -p1 -n deepdiff-%{version}
 
 find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 
@@ -114,6 +116,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sun Jun 29 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.5.0-4
+- Fix tests with python 3.14 (rhbz#2374300).
+
 * Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 8.5.0-3
 - Bootstrap for Python 3.14.0b3 bytecode
 
