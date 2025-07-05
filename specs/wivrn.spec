@@ -2,7 +2,7 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.6
+%global wivrn_version  25.6.1
 %global tag0           v%{wivrn_version}
 %global date           20250626
 

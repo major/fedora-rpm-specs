@@ -1,13 +1,35 @@
 Name:       dontpanic   
 Version:    1.02
-Release:    18%{?dist}
+Release:    19%{?dist}
 Summary:    Very simple library and executable used in testing Alien::Base
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+# LICENSE:              GPL-1.0 text
+# README.md:            GPL-1.0-or-later OR Artistic-1.0-Perl
+## Unbunled
+# aclocal.m4:           FSFULLRWD AND FSFULLR
+# config/compile:       GPL-2.0-or-later WITH Autoconf-exception-generic
+# config/config.guess:  GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# config/config.sub:    GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# config/depcomp:       GPL-2.0-or-later WITH Autoconf-exception-generic
+# config/install-sh:    X11 AND LicenseRef-Fedora-Public-Domain
+# config/ltmain.sh:     GPL-2.0-or-later WITH Libtool-exception AND
+#                       GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later
+# config/missing:       GPL-2.0-or-later WITH Autoconf-exception-generic
+# configure:            FSFUL AND GPL-2.0-or-later WITH Libtool-exception
+# m4/libtool.m4:        FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
+#                       AND FSFUL
+# m4/ltversion.m4:      FSFULLR
+# m4/lt~obsolete.m4:    FSFULLR
+# m4/ltoptions.m4:      FSFULLR
+# m4/ltsugar.m4:        FSFULLR
+# Makefile.in:          FSFULLRWD
+# src/Makefile.in:      FSFULLRWD
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl    
+SourceLicense:  %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND X11 AND FSFULLRWD AND FSFULLR AND FSFUL AND LicenseRef-Fedora-Public-Domain
 URL:        https://github.com/Perl5-Alien/%{name}/
 Source0:    %{url}archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  autoconf
+BuildRequires:  autoconf >= 2.69
 BuildRequires:  automake
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  libtool
@@ -28,6 +50,7 @@ applications that use %{name}.
 
 %prep
 %setup -q
+rm -r aclocal.m4 autogen.sh config configure Makefile.in m4/* src/Makefile.in
 autoreconf -fi
 
 %build
@@ -44,15 +67,20 @@ make %{?_smp_mflags} check
 %files
 %license LICENSE
 %doc Changes README.md
-%{_bindir}/%{name}
-%{_libdir}/*.so.*
+%{_bindir}/dontpanic
+%{_libdir}/libdontpanic.so.0{,.*}
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig
+%{_includedir}/libdontpanic.h
+%{_libdir}/libdontpanic.so
+%dir %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/dontpanic.pc
 
 %changelog
+* Thu Jul 03 2025 Petr Pisar <ppisar@redhat.com> - 1.02-19
+- Declare a source license
+- Unbundle autotools scripts
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

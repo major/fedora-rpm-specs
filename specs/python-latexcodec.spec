@@ -1,16 +1,16 @@
 Name:           python-latexcodec
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Lexer and codec to work with LaTeX code in Python
 
 License:        MIT
 URL:            https://latexcodec.readthedocs.io/
 VCS:            git:https://github.com/mcmtroffaes/latexcodec.git
-BuildArch:      noarch
 Source:         %pypi_source latexcodec
-# Fix the build with python 3.13
-# See https://github.com/mcmtroffaes/latexcodec/issues/98
-Patch:          %{name}-python3.13.patch
+
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -l latexcodec
 
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -60,18 +60,10 @@ sed -i 's/default/classic/' doc/conf.py
 # Use local objects.inv for intersphinx
 sed -i "s|\('http://docs\.python\.org/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" doc/conf.py
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
+%build -a
 PYTHONPATH=$PWD make -C doc html
 rm -f doc/_build/html/.buildinfo
 rst2html --no-datestamp LICENSE.rst LICENSE.html
-
-%install
-%pyproject_install
-%pyproject_save_files -l latexcodec
 
 %check
 %pytest -v

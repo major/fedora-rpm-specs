@@ -1,4 +1,4 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           dola-transformer
 Version:        1.0.1
@@ -11,16 +11,13 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola-transformer/releases/download/%{version}/dola-transformer-%{version}.tar.zst
 
-%if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
-%else
-BuildRequires:  maven-local
-BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
-BuildRequires:  mvn(javax.inject:javax.inject)
-BuildRequires:  mvn(org.apache.maven:maven-api-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-api-spi:4.0.0-rc-3)
-BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-%endif
+BuildSystem:    maven
+BuildOption:    usesJavapackagesBootstrap
+BuildOption:    xmvnToolchain "openjdk25"
+BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-3"
+# TODO enable tests once EasyMock is updated to version >= 5.
+# Tests require EasyMock 5, but we only have EasyMock 4 packaged.
+BuildOption:    skipTests
 
 %description
 Dola Transformer is an extension for Apache Maven 4 that enables
@@ -33,17 +30,6 @@ project, Dola Transformer works with a variety of model formats and is
 not limited to XML.  This makes it especially useful in environments
 where custom Maven builds are needed without manually editing POM
 files.
-
-%prep
-%autosetup -p1 -C
-
-%build
-# TODO enable tests once EasyMock is updated to version >= 5.
-# Tests require EasyMock 5, but we only have EasyMock 4 packaged.
-%mvn_build -j -f
-
-%install
-%mvn_install
 
 %files -f .mfiles
 %license LICENSE NOTICE

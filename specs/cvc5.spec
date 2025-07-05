@@ -4,12 +4,12 @@
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
-%global pcommit be54c2388b3271f657cad41cf5e3d6bc97cd51a1
+%global pcommit 27d50b6b23b59ef6661ef0b122daa8a51ba8e9d5
 
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -28,9 +28,6 @@ Patch:          %{name}-flags.patch
 Patch:          %{name}-skip-himem-tests.patch
 # Adapt to cocoalib 0.99850
 Patch:          %{name}-cocoalib.patch
-# Adapt to cadical 2.1.x
-# https://github.com/cvc5/cvc5/pull/11716
-Patch:          %{name}-cadical.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -142,9 +139,6 @@ Python 3 interface to %{name}.
 %conf
 mkdir -p %{_vpath_builddir}/deps/src/CVC5PythonicAPI
 cp -p %{SOURCE1} %{_vpath_builddir}/deps/src
-
-# The Fedora editline library does not need libbsd
-sed -i 's/ bsd//' cmake/FindEditline.cmake
 
 # Adapt to the way kissat is packaged for Fedora
 sed -i 's,#include <kissat/kissat\.h>,#include <kissat.h>,' src/prop/kissat.h

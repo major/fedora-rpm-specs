@@ -15,10 +15,13 @@ Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Obsoletes:      %{name}-javadoc < 2.0-28
 
 BuildSystem:    maven
-BuildOption:    -Fjpb
-BuildOption:    =:>plexus/%{name}
-BuildOption:    =org.codehaus.plexus:|org.sonatype.plexus:
-BuildOption:    -DjavaVersion=8
+BuildOption:    usesJavapackagesBootstrap
+BuildOption:    xmvnToolchain "openjdk21"
+BuildOption:    mavenOption "-DjavaVersion=8"
+BuildOption:    artifact ":plexus-cipher" {
+BuildOption:        file "plexus/plexus-cipher"
+BuildOption:        alias "org.sonatype.plexus:"
+BuildOption:    }
 
 %description
 Plexus Cipher is a Java-based library from the Plexus project,

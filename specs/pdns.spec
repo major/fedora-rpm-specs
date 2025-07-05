@@ -2,8 +2,8 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.9.3
-Release: 2%{?dist}
+Version: 4.9.5
+Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
@@ -325,6 +325,9 @@ make %{?_smp_mflags} -C pdns check
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Jul 03 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.4-1
+- Update to 4.9.4
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.9.3-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 277
+%global baseversion 278
 
 %undefine _auto_set_build_flags
 
@@ -22,7 +22,7 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
-Patch2:         0001-Only-link-asmjit-if-native-DRCs-are-built.patch
+Patch2:         0001-No-longer-require-wayland-egl-backend-at-compile-tim.patch
 
 # %%{arm}:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1627625
@@ -33,7 +33,7 @@ ExcludeArch:    %{arm} %{ix86}
 BuildRequires:  asio-static
 BuildRequires:  expat-devel
 BuildRequires:  flac-devel
-BuildRequires:  fontconfig-devel
+BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  gcc-c++
 BuildRequires:  glm-devel
 BuildRequires:  jack-audio-connection-kit
@@ -43,6 +43,7 @@ BuildRequires:  libXinerama-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  lua-devel >= 5.3.0
 BuildRequires:  make
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  portaudio-devel
 BuildRequires:  portmidi-devel
 BuildRequires:  pugixml-devel
@@ -54,7 +55,6 @@ BuildRequires:  rapidjson-devel
 BuildRequires:  SDL2_ttf-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  utf8proc-devel
-BuildRequires:  wayland-devel
 BuildRequires:  zlib-devel
 Requires:       %{name}-data = %{version}-%{release}
 

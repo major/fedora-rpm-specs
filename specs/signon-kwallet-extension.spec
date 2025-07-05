@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 25.04.2
+Version: 25.04.3
 Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
@@ -50,6 +50,9 @@ Supplements:    (kf6-kwallet and signon)
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
 - 25.04.2
 

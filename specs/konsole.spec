@@ -8,7 +8,7 @@
 
 Name:    konsole
 Summary: KDE Terminal emulator
-Version: 25.04.2
+Version: 25.04.3
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -142,6 +142,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
 - 25.04.2
 

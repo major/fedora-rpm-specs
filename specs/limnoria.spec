@@ -1,8 +1,8 @@
-%global upstreamver 2024-05-31
+%global upstreamver 2025-05-03
 
 Name:           limnoria
-Version:        20240531
-Release:        3%{?dist}
+Version:        20250503
+Release:        1%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -79,7 +79,7 @@ export SOURCE_DATE_EPOCH
 #check
 
 %files
-%doc ChangeLog CONTRIBUTING.md README.md RELNOTES
+%doc CONTRIBUTING.md README.md
 %license LICENSE.md
 %{_bindir}/supybot
 %{_bindir}/supybot-adduser
@@ -116,6 +116,9 @@ export SOURCE_DATE_EPOCH
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jul 02 2025 Kevin Fenzi <kevin@scrye.com> - 20250503-1
+- Update to 2025-05-03
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 20240531-3
 - Rebuilt for Python 3.14
 

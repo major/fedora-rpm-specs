@@ -3,7 +3,7 @@
 %global version_snap %(VER='%{version}'; echo "${VER/*^/}")
 
 Name:		chirp
-Version:	0.4.0
+Version:	%{ver}^20250620
 Release:	%autorelease
 Summary:	A tool for programming two-way radio equipment
 
@@ -19,6 +19,12 @@ BuildRequires:	sed
 BuildRequires:	gettext
 BuildRequires:	make
 BuildRequires:	python3-devel
+
+# for tests
+BuildRequires:	python3dist(pytest)
+BuildRequires:	python3-pyyaml
+BuildRequires:	python3-ddt
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	hicolor-icon-theme
 Requires:	hicolor-icon-theme
@@ -38,15 +44,14 @@ sed -i 's/\(\bversion\s*=\s*\)0\b/\1"%{version_strip_caret}"/' setup.py
 
 # Rename package to avoid pypi conflict
 sed -i 's/\(\bname\s*=\s*'"'"'\)chirp'"'"'/\1chirp-project'"'"'/' setup.py
-
+mv chirp.egg-info chirp_project.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x wx
+%pyproject_buildrequires -x wx
 
 
 %build
 %pyproject_wheel
-%make_build -C chirp/locale
 
 
 %install
@@ -55,9 +60,6 @@ sed -i 's/\(\bname\s*=\s*'"'"'\)chirp'"'"'/\1chirp-project'"'"'/' setup.py
 
 # Locale
 mkdir -p %{buildroot}%{_datadir}/locale
-pushd chirp/locale
-cp -prt %{buildroot}%{_datadir}/locale `ls -d */`
-popd
 ln -frs %{buildroot}%{_datadir}/locale \
   %{buildroot}%{python3_sitelib}/chirp/locale
 %find_lang CHIRP
@@ -82,13 +84,14 @@ ln -frs %{buildroot}%{_mandir}/man1/chirp.1.gz \
 
 
 %check
-%tox
+%pytest
 
 
 %files -f %{pyproject_files} -f CHIRP.lang
 %license COPYING
-%doc README.chirpc README.developers
+%doc README.md
 %{_bindir}/chirpc
+%{_bindir}/experttune
 %{python3_sitelib}/chirp/locale
 
 %pyproject_extras_subpkg -n chirp wx

@@ -3,7 +3,7 @@
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.4.1
+Version:        6.4.2
 Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -106,6 +106,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
 - 6.4.1
 

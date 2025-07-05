@@ -1,7 +1,7 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           dola-gleaner
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Maven 4 extension for extracting build dependencies
 License:        Apache-2.0
@@ -11,22 +11,10 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola-gleaner/releases/download/%{version}/dola-gleaner-%{version}.tar.zst
 
-%if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
-%else
-BuildRequires:  maven-local
-BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
-BuildRequires:  mvn(javax.inject:javax.inject)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api)
-BuildRequires:  mvn(org.apache.maven:maven-api-core:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-api-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-artifact:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-core:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-plugin-api:4.0.0-rc-3)
-BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
-BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-%endif
+BuildSystem:    maven
+BuildOption:    usesJavapackagesBootstrap
+BuildOption:    xmvnToolchain "openjdk25"
+BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-3"
 
 %description
 Dola Gleaner is an extension for Apache Maven 4 that extracts build
@@ -36,15 +24,6 @@ that would be required to complete the specified build.
 
 This tool is especially useful for tools and environments that need to
 understand build requirements without performing the build itself.
-
-%prep
-%autosetup -p1 -C
-
-%build
-%mvn_build -j
-
-%install
-%mvn_install
 
 %files -f .mfiles
 %license LICENSE NOTICE

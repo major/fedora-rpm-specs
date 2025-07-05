@@ -22,7 +22,7 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.10.3
+Version:   0.10.4
 Release:   1%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
@@ -351,6 +351,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Thu Jul  3 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.4-1
+- Update to 0.10.4
+
 * Tue Apr  1 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.3-1
 - Update to 0.10.3
 - Enable Xvnc over Unix domain socket

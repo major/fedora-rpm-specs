@@ -1,14 +1,14 @@
 %define ruby_inc %(pkg-config --cflags ruby)
-%define libsepolver 3.8-1
+%define libsepolver 3.9-0
 
 Summary: SELinux library and simple utilities
 Name: libselinux
-Version: 3.8
-Release: 3%{?dist}
+Version: 3.9
+Release: 0.rc2.1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libselinux-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libselinux-%{version}-rc2.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 Source3: selinuxconlist.8
 Source4: selinuxdefcon.8
@@ -16,12 +16,10 @@ Source4: selinuxdefcon.8
 Url: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.8 -- libselinux
+# $ git format-patch -N 3.9-rc2 -- libselinux
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
-Patch0002: 0002-libselinux-prioritize-local-literal-fcontext-definit.patch
-Patch0003: 0003-libselinux-Revert-part-of-previous-patch.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel
@@ -94,7 +92,7 @@ needed for developing SELinux applications.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libselinux-%{version}
+%autosetup -p 2 -n libselinux-%{version}-rc2
 
 %build
 export DISABLE_RPM="y"
@@ -221,7 +219,4 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8-3
-- Rebuilt for Python 3.14
-
 %autochangelog

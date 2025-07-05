@@ -195,8 +195,8 @@
 Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
-Version:          11.1
-Release:          10%{?prereltag:%{prereltag}}%{?dist}
+Version:          11.2
+Release:          1%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
@@ -205,7 +205,7 @@ Release:          0.@PACKAGE_RELEASE@%{?dist}.23
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
 %if ( 0%{_for_fedora_koji_builds} )
-Source0:          http://bits.gluster.org/pub/gluster/glusterfs/src/glusterfs-%{version}%{?prereltag}.tar.gz
+Source0:          http://github.com/gluster/glusterfs/archive/v%{version}%{?prereltag}/glusterfs-%{version}%{?prereltag}.tar.gz
 Source1:          glusterd.sysconfig
 Source2:          glusterfsd.sysconfig
 Source7:          glusterfsd.service
@@ -215,6 +215,7 @@ Source0:          @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 %endif
 Patch0001:        0001-configure.ac.patch
 Patch0002:        0002-contrib-aclocal-python.m4.patch
+Patch0003:        0003-makefile-am-subdirs.patch
 
 BuildRequires:    systemd
 
@@ -813,6 +814,7 @@ This package provides the glusterfs thin-arbiter translator.
 %patch 0001 -p1
 %endif
 %patch 0002 -p1
+%patch 0003 -p1
 %if ( ! %{_usepython3} )
 echo "fixing python shebangs..."
 for f in api events extras geo-replication libglusterfs tools xlators; do
@@ -831,6 +833,8 @@ EOF
 export CFLAGS="$(echo $CFLAGS) -DUATOMIC_NO_LINK_ERROR"
 %endif
 sed -i -e 's/--quiet//' configure.ac
+echo "v%{version}-0" > VERSION
+cat VERSION
 ./autogen.sh && %configure \
         %{?_with_asan} \
         %{?_with_cmocka} \
@@ -1638,6 +1642,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Wed Jul 02 2025 Benson Muite <fed500@fedoraproject.org> - 11.2-1
+- Update to latest release
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 11.1-10
 - Rebuilt for Python 3.14
 

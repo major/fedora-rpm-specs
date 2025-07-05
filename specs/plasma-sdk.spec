@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookan
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
 - 6.4.1
 

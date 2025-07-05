@@ -1,6 +1,6 @@
 Name: gnucash-docs
 Summary: Help files and documentation for the GnuCash personal finance manager
-Version: 5.11
+Version: 5.12
 URL: https://gnucash.org/
 Release: 1%{?dist}
 License: GFDL-1.1-only
@@ -42,6 +42,9 @@ end
 return 0
 
 %changelog
+* Thu Jul 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12-1
+- 5.12
+
 * Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.11-1
 - 5.11
 

@@ -1,7 +1,7 @@
 %global kf6_min_version 6.0.0
 
 Name:           kasts
-Version:        25.04.2
+Version:        25.04.3
 Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+ - review is highly recommended.
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
 - 25.04.2
 

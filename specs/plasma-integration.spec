@@ -7,7 +7,7 @@
 
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -124,6 +124,9 @@ Requires:       qqc2-desktop-style%{?_isa}
 %endif
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
 - 6.4.1
 

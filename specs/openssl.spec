@@ -33,8 +33,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.5.0
-Release: 5%{?dist}
+Version: 3.5.1
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -88,20 +88,15 @@ Patch0042: 0042-FIPS-EC-disable-weak-curves.patch
 Patch0043: 0043-FIPS-NO-DSA-Support.patch
 Patch0044: 0044-FIPS-NO-DES-support.patch
 Patch0045: 0045-FIPS-NO-Kmac.patch
-Patch0046: 0046-FIPS-NO-PQ-ML-SLH-DSA.patch
-Patch0047: 0047-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
-Patch0048: 0048-Current-Rebase-status.patch
-Patch0049: 0049-FIPS-KDF-key-lenght-errors.patch
-Patch0050: 0050-FIPS-fix-disallowed-digests-tests.patch
-Patch0051: 0051-Make-openssl-speed-run-in-FIPS-mode.patch
-Patch0052: 0052-Backport-upstream-27483-for-PKCS11-needs.patch
-Patch0053: 0053-Red-Hat-9-FIPS-indicator-defines.patch
-Patch0054: 0054-crypto-disable-OSSL_PARAM_REAL-on-UEFI.patch
-Patch0055: 0055-hashfunc-add-stddef.h-include.patch
-Patch0056: 0056-rio-add-RIO_POLL_METHOD_NONE.patch
-Patch0057: 0057-apps-x509.c-Fix-the-addreject-option-adding-trust-in.patch
+Patch0046: 0046-FIPS-Fix-some-tests-due-to-our-versioning-change.patch
+Patch0047: 0047-Current-Rebase-status.patch
+Patch0048: 0048-FIPS-KDF-key-lenght-errors.patch
+Patch0049: 0049-FIPS-fix-disallowed-digests-tests.patch
+Patch0050: 0050-Make-openssl-speed-run-in-FIPS-mode.patch
+Patch0051: 0051-Backport-upstream-27483-for-PKCS11-needs.patch
+Patch0052: 0052-Red-Hat-9-FIPS-indicator-defines.patch
 %if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
-Patch0058: 0058-Allow-hybrid-MLKEM-in-FIPS-mode.patch
+Patch0053: 0053-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 %endif
 
 
@@ -228,8 +223,7 @@ sslarch=linux-ppc64
 %endif
 %ifarch ppc64le
 sslarch="linux-ppc64le"
-#POWER8 support
-#sslflags=enable-ec_nistp_64_gcc_128
+sslflags=enable-ec_nistp_64_gcc_128
 %endif
 %ifarch mips mipsel
 sslarch="linux-mips32 -mips32r2"
@@ -473,6 +467,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Jul 01 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.1-1
+- Rebasing to OpenSSL 3.5.1
+
 * Thu Jun 05 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.0-5
 - Sync patches from RHEL
 

@@ -49,6 +49,9 @@ Patch: 0001-renderers-Do-not-assume-all-keyboards-have-LEDs.patch
 # https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/341 (merged)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2341810
 Patch: 0001-ply-keymap-icon-Make-Dvorak-check-case-insensitive.patch
+# And a generic fix for missing pre-rendered keyboard-layout texts
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/358
+Patch: 0001-ply-keymap-icon-Fix-falling-back-to-label-plugin-whe.patch
 
 # https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/792fe7474a02a1facacdd52e0dcf9053da4b1f6e
 # Fix for the label plugin not finding fonts
@@ -63,6 +66,39 @@ Patch: plymouth-24.004.60-device-scale-fixes.patch
 # https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/342
 # https://bugzilla.redhat.com/show_bug.cgi?id=2346150
 Patch: plymouth-24.004.60-use_simpledrm-config.patch
+
+# Backport upstream fix for crash when using 2 GPUs with displays attached and
+# using evdev input support (XKBLAYOUT set in /etc/vconsole.conf)
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/d20b1be527817c21500c3daa4dfdd0e9c7c731b8
+# https://bugzilla.redhat.com/show_bug.cgi?id=2368186
+Patch: 0001-drm-Check-for-NULL-terminal-in-watch_input_device.patch
+
+# Fix a crash caused by calling ply_event_loop_watch_fd () with a -1 fd
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/354
+# https://bugzilla.redhat.com/show_bug.cgi?id=2370979
+Patch: 0001-drm-Fix-crash-when-terminal-fd-is-still-1-after-reco.patch
+
+# Don't use simpledrm together with LUKS, see commit message for details
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/355
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359283
+Patch: 0001-Add-UseSimpledrmNoLuks-config-file-keyword.patch
+
+# Fix Disk unlock screen keymap and capslock icons not shown on monitor on second GPU
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/356
+# https://bugzilla.redhat.com/show_bug.cgi?id=2375854
+Patch: 0001-Fix-keymap-and-capslock-icon-on-displays-on-second-G.patch
+
+# Make the prompt below the diskunlock password entry box look a bit better
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/357
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/294
+# https://bugzilla.redhat.com/show_bug.cgi?id=2356893
+Patch: 0001-two-step-Remove-at-the-end-of-passphrase-prompt-belo.patch
+Patch: 0002-two-step-Add-some-padding-between-text-entry-field-a.patch
+
+# Patches from upstream to fix messages being logged twice on serial consoles
+Patch: 0001-utils-Don-t-lose-log-level-when-silencing-kmsg.patch
+Patch: 0002-details-Suppress-kernel-s-own-kmsg-console-output.patch
+Patch: 0003-kmsg-reader-Seek-to-the-end-of-the-ringbuffer.patch
 
 BuildRequires: meson
 BuildRequires: system-logos
@@ -278,8 +314,8 @@ Plymouth. It features a small spinner on a dark background.
 %autosetup -p1 -a 1
 # Change the default theme
 sed -i -e 's/spinner/bgrt/g' src/plymouthd.defaults
-# Use simpledrm /dev/dri/card# by default
-echo UseSimpledrm=1 >> src/plymouthd.defaults
+# Use simpledrm /dev/dri/card# by default, except when LUKS disk encrpytion is used
+echo UseSimpledrmNoLuks=1 >> src/plymouthd.defaults
 
 %if 0%{?rhel} > 9
 find -type f -exec sed -i -e 's/Cantarell/Red Hat Text/g' {} \;
@@ -376,6 +412,7 @@ fi
 %dir %{_datadir}/plymouth/themes
 %dir %{_datadir}/plymouth/themes/details
 %dir %{_datadir}/plymouth/themes/text
+%dir %{_datadir}/plymouth/themes/tribar
 %dir %{_libexecdir}/plymouth
 %dir %{_localstatedir}/lib/plymouth
 %dir %{_libdir}/plymouth/renderers

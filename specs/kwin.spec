@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -270,6 +270,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.1-1
 - 6.4.1
 

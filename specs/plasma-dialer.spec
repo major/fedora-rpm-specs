@@ -2,7 +2,7 @@
 
 Name:           plasma-dialer
 Epoch:          1
-Version:        6.4.1
+Version:        6.4.2
 Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 %{_kf6_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.4.1-1
 - 6.4.1
 

@@ -1,14 +1,14 @@
 # Upstream build system requires the use of libbpf sources and a pinned version
 # https://bugzilla.redhat.com/show_bug.cgi?id=2184233#c5
 %global libbpf_url https://github.com/libbpf/libbpf
-%global libbpf_commit c5f22aca0f3aa855daa159b2777472b35e721804
+%global libbpf_commit 5e3306e89a44cab09693ce4bfe50bfc0cb595941
 %global libbpf_shortcommit %(c=%{libbpf_commit}; echo ${c:0:7})
-%global libbpf_date 20241120
+%global libbpf_date 20250701
 # see libbpf/src/Makefile for version
 %global libbpf_version 1.6.0~^%{libbpf_date}git%{libbpf_shortcommit}
 
 Name:           veristat
-Version:        0.4.1
+Version:        0.5
 Release:        %autorelease
 Summary:        Tool for loading, verifying, and debugging BPF object files
 

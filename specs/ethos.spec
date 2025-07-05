@@ -1,5 +1,5 @@
 Name:           ethos
-Version:        0.1.1
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Flexible and efficient proof checker for SMT solvers
 
@@ -7,8 +7,6 @@ License:        BSD-3-Clause
 URL:            https://github.com/cvc5/ethos
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{name}-%{version}.tar.gz
-# Explicitly include cstdint.h; fixes FTBFS with GCC 15
-Patch:          %{url}/pull/111.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -39,7 +37,8 @@ mkdir -p %{buildroot}%{_bindir}
 cp -p %{_vpath_builddir}/src/ethos %{buildroot}%{_bindir}
 
 %check
-%ctest
+# Tests spuriously fail when run in parallel
+%ctest -j1
 
 %files
 %doc NEWS.md README.md user_manual.md

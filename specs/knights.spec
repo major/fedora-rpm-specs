@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	25.04.2
+Version:	25.04.3
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/qlogging-categories6/knights.renamecategories
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Thu Jun 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 25.04.2-1
 - 25.04.2
 

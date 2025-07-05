@@ -1,6 +1,6 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -72,6 +72,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf6_datadir}/kscreen/graz.png
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.2-1
+- 6.4.2
+
 * Tue Jun 24 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.4.1-1
 - 6.4.1
 

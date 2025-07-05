@@ -1,6 +1,6 @@
 Name:           perl-Net-eBay
-Version:        0.62
-Release:        7%{?dist}
+Version:        0.63
+Release:        1%{?dist}
 Summary:        Perl Interface to XML based eBay API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-eBay
@@ -11,34 +11,38 @@ Patch0:         Net-eBay-0.61-Do-use-non-existent-IgorBusinessRules.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
+BuildRequires:  sed
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-BuildRequires:  sed
-# Run-time:
-# BSD::Resource not used at tests
 BuildRequires:  perl(Carp)
-# Cwd not used at tests
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(DateTime::Precise)
-# Getopt::Long not used at tests
-# HTML::FormatText not used at tests
-# HTML::PrettyPrinter not used at tests
-# HTML::TreeBuilder not used at tests
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(HTTP::Date)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(HTTP::Status)
+BuildRequires:  perl(JSON)
+BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(URI)
+BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(XML::Dumper)
+BuildRequires:  perl(XML::Simple)
+# Run-time:
+BuildRequires:  perl(BSD::Resource)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(DateTime::Precise)
+BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(HTML::FormatText)
+BuildRequires:  perl(HTML::PrettyPrinter)
+BuildRequires:  perl(HTML::TreeBuilder)
 # LWP::Protocol::https for HTTPS, not Crypt::SSLeay or Net::SSLeay,
 # CPAN RT#105378
 BuildRequires:  perl(LWP::Protocol::https)
-BuildRequires:  perl(LWP::UserAgent)
-# Text::Format not used at tests
-BuildRequires:  perl(utf8)
-BuildRequires:  perl(vars)
-BuildRequires:  perl(XML::Dumper)
-BuildRequires:  perl(XML::Simple)
+BuildRequires:  perl(Text::Format)
 # Tests:
 BuildRequires:  perl(Test::More)
 # Optional tests:
@@ -81,10 +85,13 @@ make test
 %{_bindir}/ebay-revise-item.pl
 %{_bindir}/ebay-search.pl
 %{_bindir}/ebay-validate-test-user.pl
-%{perl_vendorlib}/*
-%{_mandir}/man3/Net::eBay.3pm.gz
+%{perl_vendorlib}/Net/
+%{_mandir}/man3/Net::eBay.3pm*
 
 %changelog
+* Thu Jul 03 2025 Xavier Bachelot <xavier@bachelot.org> - 0.63-1
+- Update to 0.63 (RHBZ#2367155)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

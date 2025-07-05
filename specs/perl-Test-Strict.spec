@@ -1,3 +1,10 @@
+# Run optional test
+%if ! (0%{?rhel})
+%bcond_without perl_Test_Strict_enables_optional_test
+%else
+%bcond_with perl_Test_Strict_enables_optional_test
+%endif
+
 Name:           perl-Test-Strict
 Version:        0.54
 Release:        2%{?dist}
@@ -27,12 +34,14 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Scalar)
 BuildRequires:  perl(Test::More)
 # Optional tests only
+%if %{with perl_Test_Strict_enables_optional_test}
 BuildRequires:  perl(Moose::Autobox)
 BuildRequires:  perl(Test::CheckManifest) >= 1.28
 BuildRequires:  perl(Test::DistManifest) >= 1.012
 BuildRequires:  perl(Test::Version) >= 1.003001
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.10
+%endif
 
 %description
 "Test::Strict" lets you check the syntax, presence of "use strict;" and
@@ -57,8 +66,8 @@ make test
 %files
 %license LICENSE
 %doc README Changes 
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Test*
+%{_mandir}/man3/Test::Strict*
 
 %changelog
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-2

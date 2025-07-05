@@ -1,5 +1,5 @@
 Name:           audex
-Version:        25.04.2
+Version:        25.04.3
 Release:        1%{?dist}
 Summary:        Audio ripper
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.au
 %{_kf6_metainfodir}/org.kde.audex.appdata.xml
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Wed Jun 04 2025 Steve Cossette <farchord@gmail.com> - 25.04.2-1
 - 25.04.2
 

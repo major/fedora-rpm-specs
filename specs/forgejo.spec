@@ -36,7 +36,9 @@ Source1:        %{name}-%{version}-go-vendor.tar.bz2
 # (
 #     cd forgejo-%%{version}-build/forgejo
 #     rm -rf node_modules/
+#     npm uninstall esbuild-loader
 #     npm install --omit=optional --no-save
+#     rm -r node_modules/*esbuild*
 #     cd ..
 #     tar -cvaf ../%%{name}-%%{version}-nodejs-vendor.tar.xz forgejo/node_modules
 # )
@@ -52,7 +54,8 @@ Source10:       forgejo-node-deps-provides.py
 Source11:       forgejo-node-get-licenses.py
 
 Patch0:         forgejo-10.0.1-app.ini.tmpl.patch
-Patch1:         forgejo-11.0.1-webpack-mock-crash.patch
+Patch1:         forgejo-11.0.2-no-esbuild-loader.patch
+Patch2:         forgejo-11.0.1-webpack-mock-crash.patch
 
 # Remove shebang from bash autocompletion snippet
 # https://codeberg.org/forgejo/forgejo/pulls/8137
@@ -89,13 +92,13 @@ them!
 
 %prep
 %autosetup -N -n %{name}
+patch --input=%{PATCH0} --output=app.ini.tmpl custom/conf/app.example.ini
+%patch 1 -p1 -b .no-esbuild-loader
+%patch 2 -p1 -b .webpack-mock-patch
+%patch 10 -p1 -b .bash-completion
+
 tar --strip-components=1 -xf %{S:1}
 tar --strip-components=1 -xf %{S:2}
-
-patch --input=%{PATCH0} --output=app.ini.tmpl custom/conf/app.example.ini
-%patch 1 -p1 -b .webpack-mock-patch
-
-%patch 10 -p1 -b .bash-completion
 
 
 %generate_buildrequires

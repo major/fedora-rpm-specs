@@ -1,7 +1,7 @@
 %global cargo_install_lib 0
 
 Name:           selenium-manager
-Version:        4.32.0
+Version:        4.34.0
 Release:        %autorelease
 Summary:        Automated driver and browser management for Selenium
 # Full break down of the licenses is located in the LICENCE.dependencies file.
@@ -48,8 +48,13 @@ License:        %{shrink:
 URL:            https://github.com/SeleniumHQ/selenium
 Source0:        %{url}/archive/selenium-%{version}.tar.gz
 
-# Patches allows for buillding without dependencies which are by default
-# unconditionally pulled even do they aren't required
+# Patches remove the requirements to pull dependencies
+# used by other OS or linux distributions.
+# For example apple-flat-package or debpkg,
+# doesn't have representation in fedora repo and shoudn't be used.
+# Corresponding funcitons using these dependencies then also have to be deleted.
+# Issue is based on lack of target configuration when building from source.
+# Upstream status: https://github.com/SeleniumHQ/selenium/issues/15009#issuecomment-3027302387
 Patch0:         0001-remove-unnecessary-dependencies.patch
 Patch1:         0001-remove-unsupported-function.patch
 
@@ -86,3 +91,4 @@ cd ..
 
 %changelog
 %autochangelog
+

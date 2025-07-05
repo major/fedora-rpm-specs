@@ -3,8 +3,8 @@
 %endif
 
 Name: mbedtls
-Version: 3.6.3
-Release: 1%{?dist}
+Version: 3.6.4
+Release: 2%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0
 URL: https://www.trustedfirmware.org/projects/mbed-tls
@@ -50,7 +50,13 @@ sed -i 's|//\(#define MBEDTLS_THREADING_C\)|\1|' include/mbedtls/mbedtls_config.
 sed -i 's|//\(#define MBEDTLS_THREADING_PTHREAD\)|\1|' include/mbedtls/mbedtls_config.h
 
 %build
+%if 0%{?fedora}
 export CFLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized -Wno-error=unterminated-string-initialization -fzero-init-padding-bits=unions"
+%endif
+
+%if 0%{?rhel} <= 10
+export CFLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized"
+%endif
 
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
@@ -96,6 +102,12 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Thu Jul 03 2025 Morten Stevens <mstevens@fedoraproject.org> - 3.6.4-2
+- Add conditional CFLAGS for Fedora and RHEL
+
+* Thu Jul 03 2025 Morten Stevens <mstevens@fedoraproject.org> - 3.6.4-1
+- Update to 3.6.4
+
 * Tue Mar 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.6.3-1
 - Update to 3.6.3
 

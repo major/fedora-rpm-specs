@@ -2,11 +2,6 @@
 %global commit   bb7ae0615f6e661c217a1c77fdff70122859c3c5
 %forgemeta
 
-# Allow AAC to be played directly in the client rather than
-# first being transcoded on the server.  Requires libraries not included
-# in Fedora for legal reasons.
-%bcond_with      faad
-
 
 Name:            squeezelite
 Version:         2.0.0.1533
@@ -26,9 +21,7 @@ Source4:         %{name}.sysconfig
 
 BuildRequires: make
 BuildRequires:   alsa-lib-devel
-%if %{with faad}
 BuildRequires:   faad2-devel
-%endif
 BuildRequires:   ffmpeg-free-devel
 BuildRequires:   flac-devel
 BuildRequires:   gcc
@@ -67,7 +60,7 @@ EOF
 %build
 %set_build_flags
 
-export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO -DRPI -DFFMPEG %{?!with_faad:-DNO_FAAD} -DUSE_LIBOGG -DUSE_SSL -DOPUS"
+export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO -DRPI -DFFMPEG -DUSE_LIBOGG -DUSE_SSL -DOPUS"
 %make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/ogg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-alsa
 %make_build clean
 

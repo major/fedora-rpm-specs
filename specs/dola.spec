@@ -1,7 +1,7 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           dola
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Declarative system for Java RPM packaging
 License:        Apache-2.0
@@ -11,31 +11,22 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola/releases/download/%{version}/dola-%{version}.tar.zst
 
-%if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
-%else
-BuildRequires:  lujavrite
-BuildRequires:  maven-local
-BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
-BuildRequires:  mvn(org.apache.commons:commons-compress)
-BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
-BuildRequires:  mvn(org.easymock:easymock)
-BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-api:5.0.0)
-BuildRequires:  mvn(org.fedoraproject.xmvn:xmvn-core:5.0.0)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
-BuildRequires:  mvn(org.ow2.asm:asm)
-%endif
-
+Requires:       dola-gleaner
+Requires:       dola-transformer
 Requires:       java-21-openjdk-headless
 Requires:       lujavrite
 Requires:       rpm-build
 Requires:       xmvn5-minimal
-Requires:       xmvn5-toolchain-openjdk21
-Requires:       xmvn5-tools
 Requires:       xmvn5-mojo
-Requires:       dola-gleaner
-Requires:       dola-transformer
+Requires:       xmvn5-tools
+
+BuildSystem:    maven
+BuildOption:    usesJavapackagesBootstrap
+BuildOption:    xmvnToolchain "openjdk25"
+BuildOption:    buildRequires {
+BuildOption:        version "org.apache.maven:" "4.0.0-rc-3"
+BuildOption:        version "org.fedoraproject.xmvn:" "5.0.0"
+BuildOption:    }
 
 %description
 Dola is a modern, declarative system for RPM packaging of Maven-based
@@ -45,14 +36,7 @@ Instead, all build configuration is expressed using BuildOption tags
 (introduced in RPM 4.20), resulting in cleaner, more maintainable spec
 files.
 
-%prep
-%autosetup -p1 -C
-
-%build
-%mvn_build -j -- -P\!quality
-
-%install
-%mvn_install
+%install -a
 install -D -p -m 644 dola-bsx/src/main/lua/dola-bsx.lua %{buildroot}%{_rpmluadir}/dola-bsx.lua
 install -D -p -m 644 dola-dbs/src/main/lua/dola-dbs.lua %{buildroot}%{_rpmluadir}/dola-dbs.lua
 install -D -p -m 644 dola-generator/src/main/lua/dola-generator.lua %{buildroot}%{_rpmluadir}/dola-generator.lua

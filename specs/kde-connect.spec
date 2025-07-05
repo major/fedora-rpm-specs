@@ -1,8 +1,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 25.04.2
-Release: 2%{?dist}
+Version: 25.04.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -197,6 +197,9 @@ done
 
 
 %changelog
+* Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
+- 25.04.3
+
 * Sun Jun 08 2025 Dan Čermák <dan.cermak@posteo.net> - 25.04.2-2
 - Add missing Requires: qt6qml(org.kde.desktop)
 
