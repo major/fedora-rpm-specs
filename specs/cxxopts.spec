@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: cxxopts
-Version: 3.2.1
+Version: 3.3.1
 Release: %autorelease
 
 Summary: Lightweight C++ command line option parser
@@ -9,10 +9,6 @@ License: MIT
 URL: https://github.com/jarro2783/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/jarro2783/cxxopts/commit/63d1b65a694cfceafc20863afa75df49dfbe6b2a
-Patch100: %{name}-3.2.1-add-missing-include.patch
-# https://github.com/jarro2783/cxxopts/pull/451
-Patch101: %{name}-3.2.1-cmake4-compatibility.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -55,8 +51,8 @@ Requires: libstdc++-devel%{?_isa}
 %doc README.md
 %license LICENSE
 %{_includedir}/%{name}.hpp
-%{_libdir}/cmake/%{name}/
-%{_libdir}/pkgconfig/%{name}.pc
+%{_datadir}/cmake/%{name}/
+%{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
 %autochangelog

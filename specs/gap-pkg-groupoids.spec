@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/groupoids
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.76
+Version:        1.77
 Release:        %autorelease
 Summary:        Groupoids, group graphs, and groupoid graphs
 
@@ -13,6 +13,9 @@ ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/groupoids/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Fix a typo in a test
+# https://github.com/gap-packages/groupoids/pull/70
+Patch:          %{name}-test.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -63,7 +66,7 @@ Requires:       GAPDoc-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 %build
 mkdir ../pkg

@@ -1,5 +1,5 @@
 Name:           xonsh
-Version:        0.19.3
+Version:        0.19.9
 Release:        %autorelease
 Summary:        A general purpose, Python-ish shell
 
@@ -106,7 +106,7 @@ if [ "$1" = 0 ] && [ -f %{_sysconfdir}/shells ] ; then
 fi
 
 %files -f %{pyproject_files}
-%doc README.rst CHANGELOG.rst
+%doc README.rst
 %license license
 %{_bindir}/xonsh
 %{_bindir}/xonsh-cat

@@ -1,10 +1,10 @@
-%global git_commit 5ebf81d1d8755a9728c02405e6c6402379c177f4
+%global git_commit 331e24a2c6a39ab20d399e6f0ee29a8516ebef4b
 
-%global EXCLUDE_MODULES cachedb_cassandra %{!?_with_oracle:db_oracle} launch_darkly osp python sngtc tls_wolfssl
+%global EXCLUDE_MODULES cachedb_cassandra %{!?_with_oracle:db_oracle} launch_darkly osp sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.5.5
+Version:  3.5.6
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,8 +18,7 @@ Patch: opensips-0005-Add-support-for-upcoming-json-c-0.14.0.patch
 Patch: opensips-0006-libcouchbase-API-v3.patch
 Patch: opensips-0007-Guard-VERSIONTYPE.patch
 Patch: opensips-0008-A-new-string-transformation.patch
-Patch: opensips-0009-Fix-FTBFS-with-recent-GCC.patch
-Patch: opensips-0010-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
+Patch: opensips-0009-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
 
 URL:      https://opensips.org
 
@@ -42,11 +41,9 @@ Obsoletes: %{name}-auth_diameter
 Obsoletes: %{name}-event_datagram
 Obsoletes: %{name}-event_jsonrpc
 Obsoletes: %{name}-mi_xmlrpc
-Obsoletes: %{name}-python < 2.4.6-4
 Obsoletes: %{name}-seas
 Obsoletes: %{name}-sms
 Obsoletes: %{name}-xmlrpc
-Obsoletes: python2-%{name} < 2.4.6-4
 
 %description
 OpenSIPS or Open SIP Server is a very fast and flexible SIP (RFC3261)
@@ -753,19 +750,18 @@ This module is a gateway for presence between SIP and XMPP. It translates one
 format into another and uses xmpp, pua and presence modules to manage the
 transmition of presence state information.
 
-# FIXME disable python2 until upstream adds support for Py3
-#%package  -n python2-opensips
-#BuildRequires: python2-devel
-#%{?python_provide:%python_provide python2-opensips}
-# Remove before F30
-#Provides: %{name}-python = %{version}-%{release}
-#Provides: %{name}-python%{?_isa} = %{version}-%{release}
-#Obsoletes: %{name}-python < %{version}-%{release}
-#Summary:  Python scripting support
-#Requires: %{name}%{?_isa} = %{version}-%{release}
+%package  -n python3-opensips
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
+Provides: %{name}-python = %{version}-%{release}
+Provides: %{name}-python%{?_isa} = %{version}-%{release}
+Obsoletes: %{name}-python < 2.4.6-4
+Obsoletes: python2-%{name} < 2.4.6-4
+Summary:  Python scripting support
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
-#%description -n python2-opensips
-#Helps implement your own OpenSIPS extensions in Python
+%description -n python3-opensips
+Helps implement your own OpenSIPS extensions in Python
 
 %package  rabbitmq
 Summary:  RabbitMQ module
@@ -917,7 +913,7 @@ clients.
 %autosetup -p1
 
 %build
-LOCALBASE=/usr NICER=0 CFLAGS="%{optflags} -fgnu89-inline" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} \
+LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   cfg_target=%{_sysconfdir}/opensips/
@@ -954,8 +950,6 @@ mkdir -p %{buildroot}%{_localstatedir}/run/%{name}
 
 #install sysconfig file
 install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-
-
 
 %post
 %systemd_post %{name}.service
@@ -1518,9 +1512,8 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/pua_xmpp.so
 %doc docdir/README.pua_xmpp
 
-# FIXME disable python2 until upstream adds support for Py3
-#%files -n python2-opensips
-#%{_libdir}/opensips/modules/python.so
+%files -n python3-opensips
+%{_libdir}/opensips/modules/python.so
 
 %files rabbitmq
 %{_libdir}/opensips/modules/rabbitmq.so
@@ -1588,7 +1581,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %files xmpp
 %{_libdir}/opensips/modules/xmpp.so
 %doc docdir/README.xmpp
-
 
 %changelog
 %autochangelog

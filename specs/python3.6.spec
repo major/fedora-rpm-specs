@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 46%{?dist}
+Release: 47%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -340,6 +340,7 @@ Source102: setuptools-CVE-2024-6345.patch
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
 # Fixup distutils/unixccompiler.py to remove standard library path from rpath
+#
 # Was Patch0 in ivazquez' python3000 specfile
 Patch1: 00001-rpath.patch
 
@@ -739,8 +740,7 @@ Patch427: 00427-zipextfile-tell-and-seek-cve-2024-0450.patch
 Patch431: 00431-cve-2024-4032.patch
 
 # 00435 # f80b87e6a67eebe0693b895261bad2e9a58a4825
-# gh-121650: Encode newlines in headers, and verify
-#  headers are sound (GH-122233)
+# gh-121650: Encode newlines in headers, and verify headers are sound (GH-122233)
 #
 # Per RFC 2047:
 #
@@ -826,6 +826,27 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # Backported from upstream 3.10+:
 # https://github.com/python/cpython/pull/127361
 Patch457: 00457-ssl-raise-oserror-for-err_lib_sys.patch
+
+# 00465 # 2224c823bcc1b62b85f516883151459ae51cdb7d
+# tarfile cves
+#
+# Security fixes for CVE-2025-4517, CVE-2025-4330, CVE-2025-4138, CVE-2024-12718, CVE-2025-4435 on tarfile
+#
+# The backported fixes do not contain changes for ntpath.py and related tests,
+# because the support for symlinks and junctions were added later in Python 3.9,
+# and it does not make sense to backport them to 3.6 here.
+#
+# The patch is contains the following changes:
+# - https://github.com/python/cpython/commit/42deeab5b2efc2930d4eb73416e1dde9cf790dd2
+#   fixes symlink handling for tarfile.data_filter
+# - https://github.com/python/cpython/commit/9d2c2a8e3b8fe18ee1568bfa4a419847b3e78575
+#   fixes handling of existing files/symlinks in tarfile
+# - https://github.com/python/cpython/commit/00af9794dd118f7b835dd844b2b609a503ad951e
+#   adds a new "strict" argument to realpath()
+# - https://github.com/python/cpython/commit/dd8f187d0746da151e0025c51680979ac5b4cfb1
+#   fixes mulriple CVE fixes in the tarfile module
+# - downstream only fixes that makes the changes work and compatible with Python 3.6
+Patch465: 00465-tarfile-cves.patch
 
 # (New patches go here ^^^)
 #
@@ -2106,6 +2127,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jun 26 2025 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-47
+- Security fixes for CVE-2025-4517, CVE-2025-4330, CVE-2025-4138, CVE-2024-12718, CVE-2025-4435
+
 * Wed Apr 23 2025 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-46
 - Add RPM Provides for python3.6-libs, python3.6-devel, python3.6-idle, python3.6-tkinter, python3.6-test
 

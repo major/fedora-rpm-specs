@@ -5,7 +5,7 @@
 %global crate libheif-rs
 
 Name:           rust-libheif-rs
-Version:        1.0.2
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Safe wrapper around the libheif-sys crate for parsing heif/heic files
 
@@ -31,13 +31,9 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/data/LICENSE-CC-BY-SA-4.0
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-# Don't include the test data in the package as it is not useful for other
-# programs consuming the crate. This also avoids us having to include
-# CC-BY-SA-4.0 that the test data is licensed under in the license tag.
 %exclude %{crate_instdir}/data/
 %exclude %{crate_instdir}/tests/
 
@@ -53,16 +49,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+use-bindgen-devel
+%package     -n %{name}+latest-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+use-bindgen-devel %{_description}
+%description -n %{name}+latest-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "use-bindgen" feature of the "%{crate}" crate.
+use the "latest" feature of the "%{crate}" crate.
 
-%files       -n %{name}+use-bindgen-devel
+%files       -n %{name}+latest-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_17-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_17-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_17" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_17-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_18-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_19-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_19-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_19" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_19-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -80,12 +112,8 @@ use the "use-bindgen" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that rely on broken behaviour of older libheif versions
-%{cargo_test -- -- --exact %{shrink:
-    --skip read_from_reader
-    --skip test_raw_color_profile_of_image
-    --skip test_read_avif_image
-}}
+# * skip tests that rely on unavailable loaders for some image formats
+%cargo_test -- -- --exact --skip get_auxiliary_images
 %endif
 
 %changelog

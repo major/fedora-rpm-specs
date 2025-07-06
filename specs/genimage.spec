@@ -1,8 +1,6 @@
-%global commit 3bfee1fe3f69e15b38969bcf087d394f6d1ae9fe
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 %global fs_block_tools %(cat <<EOF
 e2fsprogs \\
+genext2fs \\
 genisoimage \\
 f2fs-tools \\
 btrfs-progs \\
@@ -19,14 +17,14 @@ erofs-utils
 EOF)
 
 Name:           genimage
-Version:        18^20250620.g%{shortcommit}
+Version:        19
 
 Release:        %autorelease
 Summary:        Flexible filesystem and disk image generator
 
 License:        GPL-2.0-only
 URL:            https://github.com/pengutronix/genimage/
-Source0:        %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/v%{version}/genimage-%{version}.tar.xz
 
 Recommends:     %{fs_block_tools}
 
@@ -52,7 +50,7 @@ It also supports creating flash/disk images out of different
 file-system images and files.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 autoreconf -fi
 
 

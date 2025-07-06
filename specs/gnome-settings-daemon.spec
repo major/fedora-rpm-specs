@@ -1,24 +1,19 @@
-%global glib2_version 2.58
+%global glib2_version 2.70
 %global colord_version 1.4.5
 %global geocode_glib_version 3.26.3
-%global gnome_desktop_version 3.37.1
+%global gnome_desktop_version 4.0
 %global gsettings_desktop_schemas_version 46~beta
-%global gtk3_version 3.15.3
+%global gtk4_version 4.0
 %global geoclue_version 2.3.1
 %global xfixes_version 6.0
 
-%ifnarch s390 s390x
-%global wacom_unit org.gnome.SettingsDaemon.Wacom.service
-%else
-%global wacom_unit %{nil}
-%endif
-%global systemd_units org.gnome.SettingsDaemon.A11ySettings.service org.gnome.SettingsDaemon.Color.service org.gnome.SettingsDaemon.Datetime.service org.gnome.SettingsDaemon.Housekeeping.service org.gnome.SettingsDaemon.Keyboard.service org.gnome.SettingsDaemon.MediaKeys.service org.gnome.SettingsDaemon.Power.service org.gnome.SettingsDaemon.PrintNotifications.service org.gnome.SettingsDaemon.Rfkill.service org.gnome.SettingsDaemon.ScreensaverProxy.service org.gnome.SettingsDaemon.Sharing.service org.gnome.SettingsDaemon.Smartcard.service org.gnome.SettingsDaemon.Sound.service org.gnome.SettingsDaemon.UsbProtection.service org.gnome.SettingsDaemon.Wwan.service org.gnome.SettingsDaemon.XSettings.service %%{wacom_unit}
+%global systemd_units org.gnome.SettingsDaemon.A11ySettings.service org.gnome.SettingsDaemon.Color.service org.gnome.SettingsDaemon.Datetime.service org.gnome.SettingsDaemon.Housekeeping.service org.gnome.SettingsDaemon.Keyboard.service org.gnome.SettingsDaemon.MediaKeys.service org.gnome.SettingsDaemon.Power.service org.gnome.SettingsDaemon.PrintNotifications.service org.gnome.SettingsDaemon.Rfkill.service org.gnome.SettingsDaemon.ScreensaverProxy.service org.gnome.SettingsDaemon.Sharing.service org.gnome.SettingsDaemon.Smartcard.service org.gnome.SettingsDaemon.Sound.service org.gnome.SettingsDaemon.UsbProtection.service org.gnome.SettingsDaemon.Wwan.service org.gnome.SettingsDaemon.XSettings.service
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        48.1
+Version:        49~alpha
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -31,7 +26,7 @@ Source1:    	org.gnome.settings-daemon.plugins.power.gschema.override
 
 BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  meson >= 0.49.0
+BuildRequires:  meson >= 0.64.0
 BuildRequires:  perl-interpreter
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(alsa)
@@ -43,9 +38,9 @@ BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(geoclue-2.0) >= %{geoclue_version}
 BuildRequires:  pkgconfig(geocode-glib-2.0) >= %{geocode_glib_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
+BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}
-BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(gweather4)
 BuildRequires:  pkgconfig(lcms2) >= 2.2
@@ -64,18 +59,15 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xfixes) >= %{xfixes_version}
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(wayland-client)
-%ifnarch s390 s390x
-BuildRequires:  pkgconfig(libwacom) >= 0.7
-%endif
 
 Requires: colord >= %{colord_version}
 Requires: iio-sensor-proxy
 Requires: geoclue2 >= %{geoclue_version}
 Requires: geocode-glib2%{?_isa} >= %{geocode_glib_version}
 Requires: glib2%{?_isa} >= %{glib2_version}
-Requires: gnome-desktop3%{?_isa} >= %{gnome_desktop_version}
+Requires: gnome-desktop4%{?_isa} >= %{gnome_desktop_version}
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
-Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires: gtk4%{?_isa} >= %{gtk4_version}
 Requires: libgweather4%{?_isa}
 
 %description
@@ -147,8 +139,6 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml
 
-%{_libexecdir}/gsd-backlight-helper
-%{_datadir}/polkit-1/actions/org.gnome.settings-daemon.plugins.power.policy
 %{_libexecdir}/gsd-power
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Power.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.xml
@@ -174,14 +164,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Wacom.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.global-shortcuts.gschema.xml
-
-%ifnarch s390 s390x
-%{_libexecdir}/gsd-wacom
-%{_libexecdir}/gsd-wacom-oled-helper
-%{_datadir}/polkit-1/actions/org.gnome.settings-daemon.plugins.wacom.policy
-%endif
 
 %{_libexecdir}/gsd-xsettings
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop

@@ -1,8 +1,8 @@
 %global pypi_name qpageview
 
 Name:           python-%{pypi_name}
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Widget to display page-based documents for Qt6/PyQt6
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE docs/source/license.rst
 
 %changelog
+* Fri Jul 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-1
+- 1.0.1
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.14
 

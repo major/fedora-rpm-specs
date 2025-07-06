@@ -13,8 +13,8 @@
 
 
 Name:           lttng-ust
-Version:        2.13.9
-Release:        2%{?dist}
+Version:        2.14.0
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
 Summary:        LTTng Userspace Tracer library
@@ -116,7 +116,8 @@ make check
 
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/ChangeLog
-%{_docdir}/%{name}/java-agent.txt
+%{_docdir}/%{name}/java-agent.md
+%{_docdir}/%{name}/python-agent.md
 %{_docdir}/%{name}/LICENSE
 %{_docdir}/%{name}/README.md
 
@@ -136,6 +137,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Thu Jul 03 2025 Michael Jeanson <mjeanson@efficios.com> - 2.14.0-1
+- New upstream release
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.13.9-2
 - Rebuilt for Python 3.14
 

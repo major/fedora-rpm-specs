@@ -3,16 +3,15 @@
 Name:           targetcli
 License:        Apache-2.0
 Summary:        An administration shell for storage targets
-Version:        2.1.58
-Release:        5%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 URL:            https://github.com/open-iscsi/%{oname}
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 # Proposed upstream
 ## From: https://github.com/open-iscsi/targetcli-fb/pull/176
 BuildArch:      noarch
-BuildRequires:  python3-devel, python3-setuptools, systemd-rpm-macros
-Requires:       python3-rtslib, target-restore, python3-configshell, python3-six, python3-dbus
-Requires:       python3-gobject-base
+BuildRequires:  python3-devel, systemd-rpm-macros
+Requires:       target-restore
 
 
 %description
@@ -24,21 +23,29 @@ users will also need to install and use fcoe-utils.
 %prep
 %setup -q -n %{oname}-%{version}
 
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires
+
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l 'targetcli*'
 mkdir -p %{buildroot}%{_sysconfdir}/target/backup
 mkdir -p %{buildroot}%{_mandir}/man8/
 install -m 644 targetcli*.8 %{buildroot}%{_mandir}/man8/
 mkdir -p %{buildroot}%{_unitdir}/
 install -m 644 systemd/* %{buildroot}%{_unitdir}/
 
-%files
+%check
+%pyproject_check_import
+
+%files -f %{pyproject_files}
 %doc README.md
 %license COPYING
-%{python3_sitelib}/targetcli*
 %{_bindir}/targetcli
 %{_bindir}/targetclid
 %{_mandir}/man8/targetcli*.8*
@@ -47,6 +54,9 @@ install -m 644 systemd/* %{buildroot}%{_unitdir}/
 %dir %{_sysconfdir}/target/backup
 
 %changelog
+* Tue Jul 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.1-1
+- Update to 3.0.1
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.58-5
 - Rebuilt for Python 3.14
 

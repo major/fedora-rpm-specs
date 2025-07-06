@@ -8,8 +8,8 @@
 
 
 Name:           lttng-tools
-Version:        2.13.15
-Release:        2%{?dist}
+Version:        2.14.0
+Release:        1%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -20,24 +20,30 @@ Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 Source4:        lttng-tools.sysusers.conf
 
+Patch0:         libfmt.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  g++
+BuildRequires:  kmod-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel >= 2.7.6
-BuildRequires:  lttng-ust-devel >= 2.13.0
-BuildRequires:  lttng-ust-devel < 2.14.0
+BuildRequires:  lttng-ust-devel >= 2.14.0
+BuildRequires:  lttng-ust-devel < 2.15.0
 BuildRequires:  make
-BuildRequires:  popt-devel
+BuildRequires:  popt-devel >= 1.13
 BuildRequires:  systemd-units
 BuildRequires:  systemtap-sdt-devel
-BuildRequires:  userspace-rcu-devel >= 0.11.0
+BuildRequires:  userspace-rcu-devel >= 0.14.0
 
 # For check
-BuildRequires:  babeltrace
+BuildRequires:  babeltrace2
 BuildRequires:  hostname
 BuildRequires:  kmod
+BuildRequires:  libbabeltrace2-devel
 BuildRequires:  procps-ng
+BuildRequires:  python3-bt2
+BuildRequires:  xxd
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -189,6 +195,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Thu Jul 03 2025 Michael Jeanson <mjeanson@efficios.com> - 2.14.0-1
+- New upstream release
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.13.15-2
 - Rebuilt for Python 3.14
 

@@ -4,7 +4,7 @@
 %bcond moto 0
 
 Name:           python-smart_open
-Version:        7.1.0
+Version:        7.3.0.post1
 Release:        %autorelease
 Summary:        Utils for streaming large files (S3, HDFS, gzip, bz2, and more)
 
@@ -15,38 +15,21 @@ Source:         %{url}/archive/v%{version}/smart_open-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): %{shrink:
-                                     %{?with_gcs:-x all}
-                                     -x azure
-                                     %{?with_gcs:-x gcs}
-                                     -x http
                                      -x s3
-                                     -x ssh
+                                     %{?with_gcs:-x gcs}
+                                     -x azure
+                                     -x http
                                      -x webhdfs
+                                     -x ssh
                                      -x zst
+                                     %{?with_gcs:-x all}
+                                     %{?with_tests:-x test}
                                      }
 BuildOption(install):   -l smart_open
 
-%if %{with tests}
-# See tests_require in setup.py.
-%if %{with moto}
-BuildRequires:  %{py3_dist moto[server]}
-%endif
-BuildRequires:  %{py3_dist responses}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-rerunfailures}
-# The dependencies on pytest_benchmark, awscli, pyopenssl, and numpy were all
-# added in upstream commit 8a58abe5e751af5b72e219e1bf3a90bb54e13b12.
-# - Not needed; we do not care about benchmarks.
-# BuildRequires:  %%{py3_dist pytest_benchmark}
-# - Not required for any tests that we can run (if at all)
-# BuildRequires:  %%{py3_dist awscli}
-# - Not required for any tests that we can run (if at all)
-# BuildRequires:  %%{py3_dist pyopenssl}
-# - This one is real: used by integration-tests/test_207.py
-BuildRequires:  %{py3_dist numpy}
-%endif
-
 BuildArch:      noarch
+
+BuildRequires:  tomcli
 
 %global common_description %{expand:
 smart_open is a Python library for efficient streaming of very large files
@@ -90,23 +73,37 @@ Obsoletes:      python3-smart_open < 7.1.0-5
 
 
 %if %{with gcs}
-%pyproject_extras_subpkg -n python3-smart-open all gcs
+%pyproject_extras_subpkg -n python3-smart-open gcs all
 %endif
-%pyproject_extras_subpkg -n python3-smart-open azure http s3 ssh webhdfs zst
+%pyproject_extras_subpkg -n python3-smart-open s3 azure http webhdfs ssh zst
+
+
+%prep -a
+%if %{without moto}
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
+    '(smart_open\[all\]|moto\b).*'
+%endif
+# The dependencies on pytest_benchmark, awscli, pyopenssl, and numpy were all
+# added in upstream commit 8a58abe5e751af5b72e219e1bf3a90bb54e13b12. We do not
+# care about benchmarks, so do not need pytest_benchmark; and awscli and
+# pyopenssl are not needed for any tests that we can run (if at all). The numpy
+# dependency is real; it is used by integration-tests/test_207.py.
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
+    '(pytest_benchmark|awscli|pyopenssl)\b.*'
 
 
 %check -a
 %if %{with tests}
 %if %{without gcs}
-ignore="${ignore-} --ignore=smart_open/tests/test_gcs.py"
+ignore="${ignore-} --ignore=tests/test_gcs.py"
 %endif
 %if %{without moto}
-ignore="${ignore-} --ignore=smart_open/tests/test_s3_version.py"
-ignore="${ignore-} --ignore=smart_open/tests/test_s3.py"
-ignore="${ignore-} --ignore=smart_open/tests/test_smart_open.py"
+ignore="${ignore-} --ignore=tests/test_s3.py"
+ignore="${ignore-} --ignore=tests/test_s3_version.py"
+ignore="${ignore-} --ignore=tests/test_smart_open.py"
 %endif
 
-%pytest ${ignore-} -rs
+%pytest ${ignore-} -rs tests
 %endif
 
 

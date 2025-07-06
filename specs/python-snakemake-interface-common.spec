@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-common
-Version:        1.19.4
+Version:        1.20.1
 Release:        %autorelease
 Summary:        Common functions and classes for Snakemake and its plugins
 
@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 %prep -a
 # Downstream-only: Remove upper SemVer bound on packaging, e.g. "packaging
-# >=25.0,<26.0"; we must work with what we have, and SemVer breaks in packaging
+# >=24.0,<26.0"; we must work with what we have, and SemVer breaks in packaging
 # are unlikely to cause problems in practice.
 sed -r -i 's/(packaging >=[[:alnum:].]+),<[[:alnum:].]+/\1/' pyproject.toml
 

@@ -1,12 +1,13 @@
 Name:           mopidy-mpd
-Version:        3.3.0^20241110git9c66c58
-Release:        2%{?dist}
+Version:        4.0.0~a1
+Release:        1%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
 URL:            https://mopidy.com/ext/mpd/
-#Source0:        %%{pypi_source}
-Source0:        https://github.com/mopidy/mopidy-mpd/archive/9c66c58dff86dbcc78276d9ee815fa287f85414b.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/m/mopidy-mpd/mopidy_mpd-4.0.0a1.tar.gz
+# package has been renamed from Mopidy-MPD to mopidy_mpd, pypi_source can't handle that.
+%dnl Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -25,12 +26,8 @@ available from MPD clients.
 
 
 %prep
-%autosetup -n %{name}-9c66c58dff86dbcc78276d9ee815fa287f85414b -p1
+%autosetup -n mopidy_mpd-4.0.0a1 -p1
 #^TODO: revert to %%autosetup -n %%{name}-%%{version} -p1
-echo $'Metadata-Version: 2.1\nName: mopidy-mpd\nVersion: 3.3.0' > PKG-INFO
-#^HACK: needed for setuptools to determine version when building from git snapshots
-echo 'include src/mopidy_*/ext.conf' > MANIFEST.in
-#^HACK: needed for %%pyproject_install until upstream releases tarball including this file
 
 %generate_buildrequires
 %pyproject_buildrequires -p
@@ -47,9 +44,12 @@ echo 'include src/mopidy_*/ext.conf' > MANIFEST.in
 
 %files -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.md
 
 %changelog
+* Wed Mar  5 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a1
+- Upgrade to latest prerelease
+
 * Tue Jun 24 2025 Python Maint <python-maint@redhat.com> - 3.3.0^20241110git9c66c58-2
 - Rebuilt for Python 3.14
 

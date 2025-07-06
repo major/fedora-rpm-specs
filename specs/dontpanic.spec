@@ -1,6 +1,6 @@
 Name:       dontpanic   
 Version:    1.02
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    Very simple library and executable used in testing Alien::Base
 # LICENSE:              GPL-1.0 text
 # README.md:            GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,7 +24,7 @@ Summary:    Very simple library and executable used in testing Alien::Base
 # Makefile.in:          FSFULLRWD
 # src/Makefile.in:      FSFULLRWD
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl    
-SourceLicense:  %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND X11 AND FSFULLRWD AND FSFULLR AND FSFUL AND LicenseRef-Fedora-Public-Domain
+SourceLicense:  (%{license}) AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND X11 AND FSFULLRWD AND FSFULLR AND FSFUL AND LicenseRef-Fedora-Public-Domain
 URL:        https://github.com/Perl5-Alien/%{name}/
 Source0:    %{url}archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  autoconf >= 2.69
@@ -77,6 +77,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/dontpanic.pc
 
 %changelog
+* Fri Jul 04 2025 Petr Pisar <ppisar@redhat.com> - 1.02-20
+- Correct a source license declaration
+
 * Thu Jul 03 2025 Petr Pisar <ppisar@redhat.com> - 1.02-19
 - Declare a source license
 - Unbundle autotools scripts

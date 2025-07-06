@@ -12,7 +12,7 @@
 %global _jpbindingdir %{_datadir}/jpbinding
 
 Name:           javapackages-tools
-Version:        6.4.0
+Version:        6.4.1
 Release:        %autorelease
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause

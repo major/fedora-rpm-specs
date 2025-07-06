@@ -15,8 +15,17 @@
 # x264 is not in Fedora
 %bcond x264 0
 
-# CEF is not packaged yet...
+%if ! (0%{?fedora} >= 42)
+# CEF is only available in F42+
 %bcond cef 0
+%else
+%ifarch %{x86_64} %{arm64}
+# CEF is only available on x86_64 and aarch64
+%bcond cef 1
+%else
+%bcond cef 0
+%endif
+%endif
 
 %if "%{__isa_bits}" == "64"
 %global lib64_suffix ()(64bit)
@@ -24,17 +33,20 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.5.5
-%global obsbrowser_commit 4023fad79e2e9ff277b706432fe33eddbdab6d6a
-%global cef_version 6533
+%global obswebsocket_version 5.6.1
+%global obsbrowser_commit 9ffe3828da5fa87d481ad2df2ecb178154818a60
+
+# Upstream does not declare this yet. Arbitrarily pick 133.4 since upstream
+# commits reference support for 133 ("Enable building with CEF 6943").
+%global cef_api_version 13304
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.0.3
-Release:        3%{?dist}
+Version:        31.1.0~rc1
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -52,15 +64,12 @@ Source2:        https://github.com/obsproject/obs-browser/archive/%{obsbrowser_c
 # Backports from upstream
 
 # Proposed upstream
+## From: https://github.com/obsproject/obs-studio/pull/12326
+Patch0101:      0101-frontend-Consider-settings-changed-if-an-output-sett.patch
+Patch0102:      0102-frontend-Allow-invalid-recording-encoder-if-quality-.patch
 ## From: https://github.com/obsproject/obs-studio/pull/8529
-Patch0101:      0101-UI-Consistently-reference-the-software-H264-encoder-.patch
-Patch0102:      0102-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 
-Patch0104:      add_missing_include.patch
-## From: https://github.com/obsproject/obs-studio/pull/11906
-## https://github.com/obsproject/obs-studio/commit/52d57cf70ca70f55378112f6eeb5708fb7680a6b.patch
-Patch0105:      52d57cf70ca70f55378112f6eeb5708fb7680a6b.patch
 # Downstream Fedora patches
 ## Use fdk-aac by default
 Patch1001:      obs-studio-UI-use-fdk-aac-by-default.patch
@@ -76,6 +85,7 @@ BuildRequires:  desktop-file-utils
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  asio-devel
+BuildRequires:  extra-cmake-modules
 BuildRequires:  fdk-aac-free-devel
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  fontconfig-devel
@@ -133,9 +143,6 @@ Requires:       /usr/bin/ffmpeg
 ## Note, we can do this because openh264 is provided in a default-enabled
 ## third party repository provided by Cisco.
 Recommends:     openh264%{?_isa}
-%if %{with x264}
-Requires:       x264%{?_isa}
-%endif
 
 # Ensure QtWayland is installed when libwayland-client is installed
 Requires:      (qt6-qtwayland%{?_isa} if libwayland-client%{?_isa})
@@ -178,11 +185,13 @@ software for video recording and live streaming.
 
 %files
 %doc README.rst
-%license UI/data/license/gplv2.txt
+%license frontend/data/license/gplv2.txt
 %license COPYING
 %{_bindir}/obs
 %{_bindir}/obs-ffmpeg-mux
+%ifarch %{x86_64}
 %{_bindir}/obs-nvenc-test
+%endif
 %{_datadir}/metainfo/com.obsproject.Studio.metainfo.xml
 %{_datadir}/applications/com.obsproject.Studio.desktop
 %{_datadir}/icons/hicolor/*/apps/com.obsproject.Studio.*
@@ -236,13 +245,14 @@ Header files for Open Broadcaster Software
 %if %{with cef}
 %package plugin-browser
 Summary:        Open Broadcaster Software Studio - CEF-based browser plugin
-BuildRequires:  obs-cef-devel
+BuildRequires:  cef-devel
 
 # Filter out bogus libcef.so requires as this is handled manually
 # with an explicit dependency
 %global __requires_exclude ^libcef\\.so.*$
 
-Requires:       (obs-cef%{?_isa} with obs-cef(abi) = %{cef_version})
+# Require the correct CEF API support
+%{?_cef_api_requires:%_cef_api_requires %{cef_api_version}}
 Requires:       obs-studio%{?_isa} = %{version}-%{release}
 Supplements:    obs-studio%{?_isa}
 
@@ -288,6 +298,11 @@ tar -xf %{SOURCE1} -C plugins/obs-websocket --strip-components=1
 tar -xf %{SOURCE2} -C plugins/obs-browser --strip-components=1
 %autopatch -p1
 
+# This is provided by cef-devel systemwide
+rm cmake/finders/FindCEF.cmake
+
+# Fix obs-browser rpath setting
+sed -e 's,INSTALL_RPATH ".*",INSTALL_RPATH "%{_libdir}/cef/",' -i plugins/obs-browser/cmake/os-linux.cmake
 
 %if ! %{with x264}
 # disable x264 plugin
@@ -327,12 +342,17 @@ cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 
 
 %build
+# libcef_wrapper needs to be built static
+%undefine _cmake_shared_libs
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DOBS_VERSION_OVERRIDE=%{version_no_tilde} \
        -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF \
        -DUNIX_STRUCTURE=1 -GNinja \
 %if ! %{with cef}
        -DENABLE_BROWSER=OFF \
+%else
+       -DENABLE_BROWSER=ON \
+       -DCEF_API_VERSION=%{cef_api_version} \
 %endif
        -DENABLE_JACK=ON \
        -DENABLE_LIBFDK=ON \
@@ -365,6 +385,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Jul 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.1.0~rc1-2
+- Rebuild for libdatachannel 0.23.1
+
+* Tue Jul 01 2025 Asahi Lina <lina@asahilina.net> - 31.1.0~rc1-1
+- Update obs-studio to 31.1.0~rc1
+- Rebase patches after upstream rework
+- Update obs-websocket to 5.6.1
+- Update obs-browser to 9ffe3828da5
+- Re-enable CEF support
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 31.0.3-3
 - Rebuilt for Python 3.14
 

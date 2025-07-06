@@ -12,7 +12,10 @@ URL:            %forgeurl
 Source:         %forgesource
 # Fix tests failing with Python 3.13
 # https://github.com/python-rope/rope/issues/801
-Patch:          %forgeurl/pull/809.patch
+Patch:          %{forgeurl}/pull/809.patch
+# Apply patch for Python 3.14
+# https://github.com/python-rope/rope/issues/810
+Patch:          %{forgeurl}/pull/818.patch
 
 BuildArch:      noarch
 

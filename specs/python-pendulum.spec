@@ -1,97 +1,107 @@
 %bcond tests 1
-%global pypi_name pendulum
 
-Name:           python-%{pypi_name}
-Version:        3.0.0
-Release:        6%{?dist}
+Name:           python-pendulum
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
 URL:            https://pendulum.eustace.io
 Source0:        https://github.com/sdispater/pendulum/archive/%{version}/pendulum-%{version}.tar.gz
-Patch0:         0001-Use-zoneinfo-instead-of-tzdata-package-to-retrieve-t.patch
-# https://github.com/python-pendulum/pendulum/commit/483443a
-Patch1:         0002-Backport-support-for-PyO3-0.22-and-Python-3.13.patch
 
+BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
 BuildRequires:  tzdata
+
 %if %{with tests}
+# Even though there is now a [test] extra, some test dependencies are still
+# only listed in [tool.poetry.group.test.dependencies].
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytz}
-BuildRequires:  %{py3_dist time-machine}
 %endif
 
-%description
+%global common_description %{expand:
 Unlike other datetime libraries for Python, Pendulum is a drop-in replacement
 for the standard datetime class (it inherits from it), so, basically, you can
 replace all your datetime instances by DateTime instances in you code.
 
 It also removes the notion of naive datetimes: each Pendulum instance is
-timezone-aware and by default in UTC for ease of use.
+timezone-aware and by default in UTC for ease of use.}
 
-%package -n     python3-%{pypi_name}
+%description %{common_description}
+
+%package -n     python3-pendulum
 Summary:        %{summary}
-# Primary: MIT
-# Apache-2.0
+# Rust crates compiled into the executable contribute additional license terms.
+# To obtain the following list of licenses, build the package and note the
+# output of %%{cargo_license_summary}.
+#
 # MIT
 # MIT OR Apache-2.0
-License:        MIT AND Apache-2.0 AND (MIT OR Apache-2.0)
+License:        %{license} AND (MIT OR Apache-2.0)
 
-BuildRequires:  python3-devel
-%{?python_provide:%python_provide python3-%{pypi_name}}
 Requires:       tzdata
 
-%description -n python3-%{pypi_name}
-Unlike other datetime libraries for Python, Pendulum is a drop-in replacement
-for the standard datetime class (it inherits from it), so, basically, you can
-replace all your datetime instances by DateTime instances in you code.
-
-It also removes the notion of naive datetimes: each Pendulum instance is
-timezone-aware and by default in UTC for ease of use.
+%description -n python3-pendulum %{common_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-# Remove tzdata dependency. We use the system one.
+%autosetup -n pendulum-%{version} -p1
+# Remove tzdata dependency. We can rely on a system-wide timezone database.
 tomcli-set pyproject.toml lists delitem project.dependencies 'tzdata.*'
 # Remove pytest-benchmark dependency. We don't care about it in RPM builds.
 sed -i '/@pytest.mark.benchmark/d' $(find tests -type f -name '*.py')
 %cargo_prep
 cd rust
-rm -rf Cargo.lock
+rm Cargo.lock
 # Remove unpackaged feature. This is only needed for Windows.
-tomcli-set Cargo.toml lists delitem dependencies.pyo3.features 'generate-import-lib'
+tomcli-set Cargo.toml lists delitem dependencies.pyo3.features \
+    'generate-import-lib'
 
 %generate_buildrequires
-%pyproject_buildrequires -r
-cd rust
+# For unclear reasons, maturin checks for all crate dependencies when it is
+# invoked as part of %%pyproject_buildrequires – including those corresponding
+# to optional features.
+#
+# Since maturin always checks for dev-dependencies, we need -t so that they are
+# generated even when the “check” bcond is disabled.
+pushd rust >/dev/null
 %cargo_generate_buildrequires -t
+popd >/dev/null
+%pyproject_buildrequires %{?with_tests:-x test}
 
 %build
 export RUSTFLAGS=%{shescape:%build_rustflags}
-%pyproject_wheel
 
-cd rust
+pushd rust
 %cargo_license_summary
-%{cargo_license} > LICENSES.dependencies
+%{cargo_license} > ../LICENSES.dependencies
+popd
+
+%pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files pendulum
+%pyproject_save_files -l pendulum
 
 %check
 %pyproject_check_import
 %if %{with tests}
 # some tests are temporarily skipped to make the package build with python3.14
 # upstream issue: https://github.com/python-pendulum/pendulum/issues/900
-%pytest -k "not test_from_format and not test_local_time_positive_integer and not test_local_time_negative_integer"
+k="${k-}${k+ and }not test_from_format"
+k="${k-}${k+ and }not test_local_time_positive_integer"
+k="${k-}${k+ and }not test_local_time_negative_integer"
+%pytest -k "${k-}"
 %endif
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE rust/LICENSES.dependencies
+%files -n python3-pendulum -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Thu Jun 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.0-1
+- Update to 3.1.0 (close RHBZ#2361121)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-6
 - Rebuilt for Python 3.14
 

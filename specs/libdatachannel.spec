@@ -1,8 +1,8 @@
 %define soversion() %(echo "%1" | awk -F. '{print $1"."$2}')
 
 Name:           libdatachannel
-Version:        0.21.2
-Release:        3%{?dist}
+Version:        0.23.1
+Release:        1%{?dist}
 Summary:        WebRTC network library featuring Data Channels, Media Transport, and WebSockets
 
 License:        MPL-2.0
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.23.1-1
+- Rebase to 0.23.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

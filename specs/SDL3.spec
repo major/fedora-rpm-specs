@@ -17,7 +17,7 @@
 
 
 Name:           SDL3
-Version:        3.2.12
+Version:        3.2.16
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
@@ -137,22 +137,12 @@ export LDFLAGS="%{shrink:%{build_ldflags}}"
 
 %cmake \
     -DSDL_INSTALL_DOCS=ON \
-    -DSDL_DLOPEN=ON \
-    -DSDL_VIDEO_KMSDRM=ON \
-    -DSDL_ARTS=OFF \
-    -DSDL_ESD=OFF \
-    -DSDL_NAS=OFF \
-    -DSDL_PULSEAUDIO_SHARED=ON \
-    -DSDL_JACK_SHARED=ON \
-    -DSDL_PIPEWIRE_SHARED=ON \
-    -DSDL_ALSA=ON \
-    -DSDL_VIDEO_WAYLAND=ON \
-    -DSDL_LIBDECOR_SHARED=ON \
-    -DSDL_VIDEO_VULKAN=ON \
+    -DSDL_DEPS_SHARED=ON \
     -DSDL_SSE3=OFF \
     -DSDL_RPATH=OFF \
+    -DSDL_VENDOR_INFO="%{?dist_vendor} %{version}-%{release}" \
     %{?with_static:-DSDL_STATIC=ON} \
-    %{?with_static:-DSDL_STATIC_PIC=ON} \
+    %{?with_static:-DCMAKE_POSITION_INDEPENDENT_CODE=ON} \
 %ifarch ppc64le
     -DSDL_ALTIVEC=OFF \
 %endif
@@ -200,6 +190,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Fri Jul 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.2.16-1
+- Update to 3.2.16
+
 * Fri May 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.2.12-1
 - Update to 3.2.12
 

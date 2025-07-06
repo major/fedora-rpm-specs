@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 2.3.3
+Version: 4.0.0
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to create, read and manipulate Git repositories by wrapping system calls to the git binary
 License: MIT
@@ -23,7 +23,7 @@ BuildRequires: git-core
 BuildRequires: rubygem(mocha)
 BuildRequires: rubygem(activesupport)
 BuildRequires: rubygem(rchardet)
-BuildRequires: rubygem(process_executer)
+BuildRequires: rubygem(process_executer) >= 4.0.0
 BuildRequires: rubygem(addressable)
 BuildArch: noarch
 Requires:  git-core
@@ -83,18 +83,23 @@ ruby  -Ilib -I. -Itests -e 'Dir.glob "tests/**/*.rb", &method(:require)'
 
 %files
 %dir %{gem_instdir}
-%license %{gem_instdir}/LICENSE
 %{gem_instdir}/MAINTAINERS.md
 %{gem_libdir}
 %{gem_spec}
+%exclude %{gem_instdir}/LICENSE
 %exclude %{gem_cache}
 %exclude %{gem_instdir}/.github
 %exclude %{gem_instdir}/.gitignore
 %exclude %{gem_instdir}/.yardopts
 %exclude %{gem_instdir}/Gemfile
-%exclude %{gem_instdir}/RELEASING.md
 %exclude %{gem_instdir}/Rakefile
 %exclude %{gem_instdir}/git.gemspec
+%exclude %{gem_instdir}/.commitlintrc.yml
+%exclude %{gem_instdir}/.husky/commit-msg
+%exclude %{gem_instdir}/.release-please-manifest.json
+%exclude %{gem_instdir}/package.json
+%exclude %{gem_instdir}/release-please-config.json
+%license LICENSE
 
 
 %files doc

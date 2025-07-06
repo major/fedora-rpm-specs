@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-png
-%global crate_version 0.3.0-alpha
+%global crate_version 0.3.0-alpha.1
 
 Name:           rust-gufo-png
-Version:        0.3.0~alpha
+Version:        0.3.0~alpha.1
 Release:        %autorelease
 Summary:        Data structure for PNG images
 

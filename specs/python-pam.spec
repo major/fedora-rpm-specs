@@ -1,12 +1,23 @@
 Name:           python-pam
 Version:        2.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Pure Python interface to the Pluggable Authentication Modules system on Linux
 License:        MIT
 URL:            https://github.com/FirefighterBlu3/python-pam
 Source0:        https://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+# https://github.com/FirefighterBlu3/python-pam/pull/49
+# Don't ship pam/pam.py, which appears to be solely a footgun
+Patch:          0001-Don-t-ship-pam.py-in-the-module.patch
+# https://github.com/FirefighterBlu3/python-pam/pull/47
+# Drop use of six, we haven't supported Python 2 for years
+# This was an undeclared dependency, seems better to drop it
+# than declare it
+# Modified to correct the indent issue and drop changes to pam.py
+# since the prior patch demotes it to an example
+Patch:          47-mod.patch
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -24,21 +35,27 @@ This module provides an authenticate function that allows the caller to
 authenticate a given username / password against the PAM system on Linux.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files -l pam
 
-%files -n python3-pam
+%check
+%pyproject_check_import
+
+%files -n python3-pam -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/pam
-%{python3_sitelib}/python_pam-%{version}*
 
 %changelog
+* Fri Jul 04 2025 Adam Williamson <awilliam@redhat.com> - 2.0.2-13
+- Backport PR #47 to drop use of (and undeclared dep on) six
+- Backport PR #49 to drop unused footgun pam.py
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.2-12
 - Rebuilt for Python 3.14
 

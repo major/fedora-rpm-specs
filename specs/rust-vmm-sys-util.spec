@@ -5,7 +5,7 @@
 %global crate vmm-sys-util
 
 Name:           rust-vmm-sys-util
-Version:        0.12.1
+Version:        0.14.0
 Release:        %autorelease
 Summary:        System utility set
 

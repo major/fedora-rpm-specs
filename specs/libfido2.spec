@@ -1,13 +1,22 @@
 Name:           libfido2
 
-Version:        1.15.0
-Release:        8%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
 URL:            https://github.com/Yubico/%{name}
 Source0:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
+#
+# Yubico does not provide a central gpg keyring download file. Instead, they
+# provide a list of individuals that release code and their fingerprints at
+#   https://developers.yubico.com/Software_Projects/Software_Signing.html
+# One must import all the keys and then export into the keyfile.
+#   gpg2 --homedir /tmp/ --receive-keys "keyid0"
+#   gpg2 --homedir /tmp/ --receive-keys "keyid1"
+#   gpg2 --homedir /tmp/ --export --armor --output yubico-release-gpgkeys.asc
+#
 Source2:        yubico-release-gpgkeys.asc
 
 BuildRequires:  gnupg2
@@ -97,6 +106,10 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Fri Jul 04 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.16.0-1
+- Update to 1.16.0 release ( resolves: rhbz#2364444 )
+- Document how to create the gpg releases keyfile for verification 
+
 * Fri May 09 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.15.0-8
 - Rebuilt for libcbor 0.12.0
 

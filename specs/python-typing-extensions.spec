@@ -1,5 +1,5 @@
 Name:           python-typing-extensions
-Version:        4.14.0
+Version:        4.14.1
 Release:        1%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
@@ -63,6 +63,9 @@ cd src
 
 
 %changelog
+* Fri Jul 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.1-1
+- Updated to version 4.14.1 (close RHBZ#2376358)
+
 * Tue Jun 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.0-1
 - Updated to version 4.14.0 (close RHBZ#2369847)
 

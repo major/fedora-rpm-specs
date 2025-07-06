@@ -1,7 +1,7 @@
-%global commit bad1faa7f5fd21a315c45cc6327cfc9874f499fb
+%global commit 27d2acd196b983afad774c109966bc7b44c4a85c
 # %%global tag 11 #disabled due to unarragment release line after mass rebuild.
 %global githead %(printf %%.7s %commit)
-%global gitdate 20230709
+%global gitdate 20250704
 
 # epel7 compatibility mode
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -48,7 +48,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  52.%{gitdate}git%{?dist}
+Release:  53.%{gitdate}git%{?dist}
 Summary:  GNU Portability Library
 License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
 URL:      https://www.gnu.org/software/gnulib
@@ -56,7 +56,7 @@ Source0:  https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=snapshot;h=%{githe
 Source1:  https://erislabs.net/gitweb/?p=gnulib.git;a=blob_plain;hb=HEAD;f=debian/manpages/check-module.1
 Source2:  https://erislabs.net/gitweb/?p=gnulib.git;a=blob_plain;hb=HEAD;f=debian/manpages/gnulib-tool.1
 
-Patch0:   test-u8-strstr-alarm.diff
+#Patch0:   test-u8-strstr-alarm.diff
 
 BuildRequires:		perl-generators
 BuildRequires:		texinfo
@@ -124,7 +124,8 @@ make %{?_smp_mflags} MODULES.html
 sed -i -r 's#HREF="(lib|m4|modules)#HREF="%{_datadir}/%{name}/\1#g' MODULES.html
 sed -i "/^[ ]*gnulib_dir=/s#\`[^\`]*\`#%{_datadir}/%{name}#" gnulib-tool
 # This part is done with the target path
-make %{?_smp_mflags} info html
+make %{?_smp_mflags} info
+make %{?_smp_mflags} html
 # Removing unused files
 rm -f */.cvsignore
 rm -f */.gitignore
@@ -249,6 +250,9 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Fri Jul 04 2025 Mosaab Alzoubi <mosaab[AT]ruya[DOT]systems> - 0-53.20250704git
+- Update on 2025-07-04
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-52.20230709git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

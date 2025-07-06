@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.4
-Release:        2%{?dist}
+Version:        9.5
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -74,7 +74,7 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.1
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(bcrypt) >= 4.2
-Requires: (python3dist(boto3) >= 1.38 with python3dist(boto3) < 1.39)
+Requires: python3dist(boto3) >= 1.38
 Requires: (python3dist(cryptography) >= 45 with python3dist(cryptography) < 45.1)
 Requires: (python3dist(flask-babel) >= 4 with python3dist(flask-babel) < 4.1)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
@@ -88,7 +88,7 @@ Requires: python3dist(flask-sqlalchemy) >= 3
 Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask) >= 3.1 with python3dist(flask) < 3.2)
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
-Requires: python3dist(google-auth-oauthlib) >= 1.2.0
+Requires: python3dist(google-auth-oauthlib) >= 1.2
 Requires: python3dist(gssapi) >= 1.7
 Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) < 0.4)
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
@@ -106,7 +106,7 @@ Requires: (python3dist(sqlalchemy) >= 2 with python3dist(sqlalchemy) < 3)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: python3dist(typer) >= 0.15
-Requires: (python3dist(urllib3) >= 2.4 with python3dist(urllib3) < 2.5)
+Requires: python3dist(urllib3) >= 2.4
 Requires: python3dist(user-agents) = 2.2
 Requires: (python3dist(werkzeug) >= 3.1 with python3dist(werkzeug) < 3.2)
 Requires: python3dist(wtforms) >= 3
@@ -264,6 +264,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 03 2025 Sandro Mani <manisandro@gmail.com> - 9.5-1
+- Update to 9.5
+
 * Mon Jun 23 2025 Sandro Mani <manisandro@gmail.com> - 9.4-2
 - Rebuild (python-3.14)
 

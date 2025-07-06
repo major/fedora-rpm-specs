@@ -1,29 +1,25 @@
-# Generated from process_executer-1.1.0.gem by gem2rpm -*- rpm-spec -*-
-%global gem_name process_executer
+# Generated from track_open_instances-0.1.15.gem by gem2rpm -*- rpm-spec -*-
+%global gem_name track_open_instances
 
 Name: rubygem-%{gem_name}
-Version: 4.0.0
+Version: 0.1.15
 Release: %autorelease
-Summary: An API for executing commands in a sub process
+Summary: A mix-in to ensure that all instances of a class are closed
 License: MIT
-URL: https://github.com/main-branch/process_executer
+URL: https://github.com/main-branch/track_open_instances
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-
-# SOURCE1 contains the upstream tag of the project from github
-# in particular this includes the spec directory which was not
-# included in the gemfile.
+# Needed for the spec directory
 Source1: https://github.com/main-branch/%{gem_name}/archive/v%{version}/%{gem_name}-%{version}.tar.gz
-
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 3.0.0
+BuildRequires: ruby >= 3.1.0
 BuildRequires: rubygem(rspec)
-BuildRequires: rubygem(track_open_instances)
-
-BuildArch:     noarch
+BuildArch: noarch
 
 %description
-An API for executing commands in a sub process.
+A mix-in to track instances of Ruby classes that require explicit cleanup,
+helping to identify potential resource leaks. It maintains a list of
+created instances and allows checking for any that remain open.
 
 
 %package doc
@@ -33,7 +29,7 @@ BuildArch: noarch
 
 
 %description doc
-An API for executing commands in a sub process
+Documentation for %{name}.
 
 
 %prep
@@ -45,6 +41,10 @@ tar zxf %{SOURCE1} %{gem_name}-%{version}/spec --strip-components 1
 # Skip coverage test formatter, not available and undesirable
 sed -i '/# SimpleCov configuration/,/^end/s/.*//'  spec/spec_helper.rb
 sed -i '/^SimpleCov::RSpec.start/,/^end/s/.*//' spec/spec_helper.rb
+
+# Not surprising this is needed but odd its not needed when using
+# rake.
+sed -i '1a require '\''track_open_instances'\''' spec/spec_helper.rb
 
 
 %build
@@ -68,29 +68,30 @@ rspec spec
 
 %files
 %dir %{gem_instdir}
+%exclude %{gem_instdir}/.commitlintrc.yml
+%exclude %{gem_instdir}/.husky
 %exclude %{gem_instdir}/.markdownlint.yml
 %exclude %{gem_instdir}/.rubocop.yml
+%exclude %{gem_instdir}/.yamllint.yml
 %exclude %{gem_instdir}/.yardopts
-%license %{gem_instdir}/LICENSE.txt
+%exclude %{gem_instdir}/LICENSE.txt
 %{gem_libdir}
+%exclude %{gem_instdir}/package.json
+%exclude %{gem_instdir}/pre-commit
 %exclude %{gem_cache}
 %{gem_spec}
+%license LICENSE.txt
 
 
 %files doc
 %doc %{gem_docdir}
+%doc %{gem_instdir}/.release-please-manifest.json
 %exclude %{gem_instdir}/.rspec
-%exclude %{gem_instdir}/.commitlintrc.yml
-%exclude %{gem_instdir}/.husky/commit-msg
-%exclude %{gem_instdir}/package.json
-%exclude %{gem_instdir}/.release-please-manifest.json
-%exclude %{gem_instdir}/release-please-config.json
-
 %doc %{gem_instdir}/CHANGELOG.md
-%{gem_instdir}/Gemfile
+%doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
-%{gem_instdir}/process_executer.gemspec
+%doc %{gem_instdir}/release-please-config.json
 
 
 %changelog

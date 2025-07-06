@@ -71,10 +71,10 @@ This package contains developer documentation for %{name}.
 %meson_install
 install -m 644 -D tests/libsoup.supp %{buildroot}%{_datadir}/libsoup-3.0/libsoup.supp
 
+%find_lang libsoup-3.0
+
 %check
 %meson_test
-
-%find_lang libsoup-3.0
 
 %files -f libsoup-3.0.lang
 %license COPYING

@@ -1,10 +1,6 @@
-# https://github.com/systemd/systemd/issues/33167
-# This workaround can be removedif f41 updates to systemd 257
-%bcond systemd_cap_workaround %[0%{?fedora} == 41]
-
 Name:    powerdevil
 Version: 6.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -12,9 +8,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
-
-# Revert https://invent.kde.org/plasma/powerdevil/-/commit/7860551aeaeed400fb8db9f2535bfa493ce06e53
-Patch0:  revert-systemd-ambient-caps.patch
 
 # Plasma Dependencies
 BuildRequires:  plasma-workspace-devel
@@ -89,10 +82,7 @@ of a daemon (a KDED module) and a KCModule for its configuration.
 
 
 %prep
-%setup
-%if %{with systemd_cap_workaround}
-%patch -P0 -p1
-%endif
+%autosetup -p1
 
 
 %build
@@ -166,6 +156,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 
 
 %changelog
+* Fri Jul 04 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-2
+- Removal of the systemd ambiant caps patch, as this was applied upstream
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
 - 6.4.2
 

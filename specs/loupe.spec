@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           loupe
-Version:        48.1
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Image viewer
 
@@ -41,7 +41,7 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/loupe
-Source0:        https://download.gnome.org/sources/loupe/48/loupe-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/loupe/49/loupe-%{tarball_version}.tar.xz
 # To create the vendor tarball:
 #   tar Jxvf loupe-%%{tarball_version}.tar.xz ; \
 #   pushd loupe-%%{tarball_version} ; \

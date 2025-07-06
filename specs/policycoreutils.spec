@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.8-1
-%global libsemanagever  3.8-1
-%global libselinuxver   3.8-1
+%global libsepolver     3.9-0
+%global libsemanagever  3.9-0
+%global libselinuxver   3.9-0
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -10,12 +10,12 @@
 
 Summary: SELinux policy core utilities
 Name:    policycoreutils
-Version: 3.8
-Release: 3%{?dist}
+Version: 3.9
+Release: 0.rc2.1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/selinux-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/selinux-%{version}-rc2.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
@@ -35,7 +35,7 @@ Source22: selinux-gui.zip
 # wlc --key <apikey> --url https://translate.fedoraproject.org/api/ download selinux/sandbox --output ./
 Source23: selinux-sandbox.zip
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.8 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.9-rc2 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
@@ -44,6 +44,8 @@ Patch0003: 0003-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0004: 0004-Use-SHA-2-instead-of-SHA-1.patch
 Patch0005: 0005-python-sepolicy-Fix-spec-file-dependencies.patch
 Patch0006: 0006-sepolicy-use-multiprocessing-fork-method.patch
+Patch0007: 0007-policycoreutils-use-pkg-config-for-libsemanage.patch
+Patch0008: 0008-Policycoreutils-Make-pkg-config-work-for-more-types-.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -93,7 +95,7 @@ to switch roles.
 
 %prep -p /usr/bin/bash
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 1 -n selinux-%{version}
+%autosetup -p 1 -n selinux-%{version}-rc2
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/

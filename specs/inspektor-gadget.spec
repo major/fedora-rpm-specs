@@ -60,7 +60,7 @@ BuildRequires:  go-vendor-tools
 # Wiping out currentgoldflags eliminates that.
 %global currentgoldflags ""
 export GO_LDFLAGS="-X %{goipath}/internal/version.version=v%{version} \
-  -X %{goipath}/cmd/common/image.builderImage=ghcr.io/inspektor-gadget/ebpf-builder:v%{version}"
+  -X %{goipath}/cmd/common/image.builderImage=ghcr.io/inspektor-gadget/gadget-builder:v%{version}"
 export GO_BUILDTAGS="netgo"
 go build %{gobuildflags} -o %{gobuilddir}/bin/ig %{goipath}/cmd/ig
 

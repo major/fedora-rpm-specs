@@ -5,7 +5,7 @@
 
 Name:           chez-scheme
 Summary:        Scheme incremental optimizing compiler
-Version:        10.1.0
+Version:        10.2.0
 Release:        %autorelease
 URL:            https://cisco.github.io/ChezScheme
 # zlib and lz4 source are removed in prep
@@ -101,8 +101,7 @@ case %{_arch} in
      *) MACHINE=--pb ;;
 esac
 
-# gcc15/C23 workaround: https://github.com/racket/zuo/issues/24
-./configure --installbin=%{_bindir} --installlib=%{_libdir} --installman=%{_mandir} --temproot=%{buildroot} --threads $MACHINE ZLIB=-lz LZ4=-llz4 CFLAGS_FOR_BUILD="-std=gnu17"
+./configure --installbin=%{_bindir} --installlib=%{_libdir} --installman=%{_mandir} --temproot=%{buildroot} --threads $MACHINE ZLIB=-lz LZ4=-llz4
 make
 
 %install

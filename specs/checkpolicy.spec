@@ -1,17 +1,17 @@
-%define libselinuxver 3.8-1
-%define libsepolver 3.8-1
+%define libselinuxver 3.9-0
+%define libsepolver 3.9-0
 
 Summary: SELinux policy compiler
 Name: checkpolicy
-Version: 3.8
-Release: 1%{?dist}
+Version: 3.9
+Release: 0.rc2.1%{?dist}.1
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/checkpolicy-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/checkpolicy-%{version}-rc2.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.8 -- checkpolicy
+# $ git format-patch -N 3.9-rc2 -- checkpolicy
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -36,7 +36,7 @@ Only required for building policies.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n checkpolicy-%{version}
+%autosetup -p 2 -n checkpolicy-%{version}-rc2
 
 %build
 

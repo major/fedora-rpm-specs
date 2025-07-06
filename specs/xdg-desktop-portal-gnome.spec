@@ -3,13 +3,13 @@
 %global xdg_desktop_portal_version 1.19.1
 
 Name:           xdg-desktop-portal-gnome
-Version:        48.0
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GNOME
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

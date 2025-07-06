@@ -205,7 +205,6 @@
 %endif
 %if 0%{?fedora}
 %global bundlecrc32c 0
-%global bundlesimdutf 0
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 9
 %global bundlelibopenjpeg2 0
@@ -216,15 +215,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 137
-%global chromium_branch 7151
+%global chromium_major 138
+%global chromium_branch 7204
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 103
+%global chromium_minor 92
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit f354b0eaa12bc11adb0591911ebaa528b83e6cd6
+%global cef_commit d0f1f64c40d0325b81837cd740c8284ec8dce4e2
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 17
+%global cef_patch 15
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -268,15 +267,11 @@ Patch90: chromium-121-system-libxml.patch
 Patch91: chromium-108-system-opus.patch
 
 # patch for Failed NodeJS version check
-Patch92: chromium-136-checkversion-nodejs.patch
-
-# Fix FTBFS
-Patch93: chromium-137-pdfium-png_decoder-build-error.patch
-Patch94: chromium-137-simdutf-build-error.patch
-Patch95: chromium-137-simdutf-7.x-build-error.patch
+Patch92: chromium-138-checkversion-nodejs.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
+Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
 Patch130: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
@@ -324,8 +319,8 @@ Patch315: chromium-134-rust-libadler2.patch
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
 
-# Fix FTBFS, clang++: error: unknown argument: '-fextend-variable-liveness=none'
-Patch317: chromium-137-clang++-unknown-argument.patch
+# unknown warning option -Wno-nontrivial-memcall
+Patch317: chromium-138-clang++-unknown-argument.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -799,7 +794,7 @@ Provides: bundled(boringssl)
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
 %if %{bundlesimdutf}
-Provides: bundled(simdutf) = 6.4.0
+Provides: bundled(simdutf) = 7.0.0
 %endif
 Provides: bundled(bspatch) = 465265d0d473d107b76e74d969199eaf2cdc8750
 Provides: bundled(colorama) = 0.4.6
@@ -952,16 +947,10 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
-%patch -P93 -p1 -b .pdfium-png_decoder-build-error
-%if ! %{bundlesimdutf}
-%patch -P94 -p1 -b .simdutf-build-error
-%if 0%{?fedora} > 42
-%patch -P95 -p1 -b .simdutf-7.x-build-error
-%endif
-%endif
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
+%patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
 %endif
@@ -1527,8 +1516,13 @@ DEPOT_TOOLS=%{_builddir}/chromium-%{chromium_version}/third_party/depot_tools
 rm -f ${DEPOT_TOOLS}/ninja
 export PATH=$PATH:$DEPOT_TOOLS
 
+CEF_GN_DEFINES=""
+# Disable features inappropriate for CEF build
+CEF_GN_DEFINES+=' use_gtk=false use_qt5=false use_qt6=false enable_remoting=false'
+CEF_GN_DEFINES+=' use_cups=false use_gio=false use_kerberos=false'
+CEF_GN_DEFINES+=' use_libpci=false use_udev=false'
 # Fix static TLS relocations in Blink, see: https://github.com/chromiumembedded/cef/issues/3803
-CEF_GN_DEFINES="blink_heap_inside_shared_library=true"
+CEF_GN_DEFINES+=" blink_heap_inside_shared_library=true"
 
 GN_DEFINES="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES $CEF_GN_DEFINES" \
 GN_ARGUMENTS="--script-executable=%{chromium_pybin}" \
@@ -1586,7 +1580,7 @@ cp -a ../distrib_minimal/include %{buildroot}%{_includedir}/cef/include
 cp -a ../distrib_minimal/libcef_dll %{buildroot}%{cef_wrapper_src_path}/libcef_dll
 
 # Remove include file targets, since includes are in a different path
-sed -ie '/\.\.\/include/d' %{buildroot}%{cef_wrapper_src_path}/libcef_dll/CMakeLists.txt
+sed -i -e '/\.\.\/include/d' %{buildroot}%{cef_wrapper_src_path}/libcef_dll/CMakeLists.txt
 sed \
   -e "s,__CEF_INCLUDE__,%{_includedir}/cef," \
   -e "s,__CEF_LIB__,%{chromium_path}," \

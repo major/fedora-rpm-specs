@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        48.3
+Version:        49~alpha
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -31,7 +31,7 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # Zlib
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
-Source:         https://download.gnome.org/sources/papers/48/papers-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/papers/49/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
 #   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version} ; \
 #   cargo vendor && tar Jcvf ../papers-%%{tarball_version}-vendor.tar.xz vendor/ ; popd

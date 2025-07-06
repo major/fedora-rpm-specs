@@ -5,7 +5,7 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.7
+Version: 2.8
 Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
@@ -145,8 +145,8 @@ time make %{?_smp_mflags} check-self-compare ENABLE_SLOW_TEST=yes || (cat tests/
 %if %{with abidb}
 %{_bindir}/abidb
 %endif
-%{_libdir}/libabigail.so.6
-%{_libdir}/libabigail.so.6.0.0
+%{_libdir}/libabigail.so.7
+%{_libdir}/libabigail.so.7.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -170,6 +170,10 @@ time make %{?_smp_mflags} check-self-compare ENABLE_SLOW_TEST=yes || (cat tests/
 %endif
 
 %changelog
+* Fri Jul 04 2025 Dodji Seketeli  <dodji@redhat.com> - 2.8-1
+- Update to usptream 2.8 tarball
+- Support new libabigail.so.7.0.0 SONAME
+
 * Fri Apr 11 2025 Dodji Seketeli  <dodji@redhat.com> - 2.7-1
 - Update to upstream 2.7 tarball
 - Do not build with by default XXH_INLINE_ALL anymore

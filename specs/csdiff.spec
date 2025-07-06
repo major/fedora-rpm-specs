@@ -20,8 +20,8 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    3.5.4
-Release:    2%{?dist}
+Version:    3.5.5
+Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -169,6 +169,9 @@ make version.cc
 %endif
 
 %changelog
+* Thu Jul 03 2025 Kamil Dudka <kdudka@redhat.com> - 3.5.5-1
+- update to latest upstream release
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.5.4-2
 - Rebuilt for Python 3.14
 

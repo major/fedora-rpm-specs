@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 3.0.0-alpha.5
+%global crate_version 3.0.0-alpha.6
 
 Name:           rust-glycin
-Version:        3.0.0~alpha.5
+Version:        3.0.0~alpha.6
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

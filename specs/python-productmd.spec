@@ -1,16 +1,11 @@
 Name:           python-productmd
-Version:        1.45
-Release:        3%{?dist}
+Version:        1.46
+Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
 URL:            https://github.com/release-engineering/productmd
 Source:         %{pypi_source productmd}
-
-# https://github.com/release-engineering/productmd/pull/188
-# Allow 'wsl' format for 'wsl2' type
-# Needed with recent Kiwi / pungi changes, or else composes with WSL images fail
-Patch:          0001-Add-wsl-format-for-wsl2-images.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -48,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Fri Jul 04 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.46-1
+- New upstream release 1.46
+
 * Thu Jul 03 2025 Adam Williamson <awilliam@redhat.com> - 1.45-3
 - Backport PR #188 to fix composes with WSL images
 

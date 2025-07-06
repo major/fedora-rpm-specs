@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.05.01
+%global srcver	2025.07.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -363,6 +363,7 @@ local subpackages = {
       obsoletes={ "sans-soyombo-vf" }
     },
     { alias="sans-serif", family="Sans Sundanese" },
+    { alias="sans-serif", family="Sans Sunuwar", lang={ "suz" } },
     { alias="sans-serif", family="Sans Syloti Nagri" },
     { alias="sans-serif", family="Sans Syriac", lang={ "syr" },
       obsoletes={ "sans-syriac-estrangela" }
@@ -1204,6 +1205,10 @@ done
 
 
 %changelog
+* Fri Jul  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250701-1
+- Updates to monthly release of 2025.07.01.
+- Add new subpackage google-noto-sans-sunuwar-fonts
+
 * Tue May 13 2025 Akira TAGOH <tagoh@redhat.com> - 20250501-1
 - Updates to monthly release of 2025.05.01.
 

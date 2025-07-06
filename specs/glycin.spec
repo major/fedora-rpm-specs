@@ -7,13 +7,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        1.2.1
+Version:        2.0~alpha.6
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
 SourceLicense:  MPL-2.0 OR LGPL-2.1-or-later
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND IJG
 # (MIT OR Apache-2.0) AND Unicode-3.0
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -36,6 +38,7 @@ License:        %{shrink:
     ISC AND
     MIT AND
     Unicode-3.0 AND
+    Unicode-DFS-2016 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
@@ -46,7 +49,7 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.gnome.org/GNOME/glycin
-Source0:        https://download.gnome.org/sources/glycin/1.2/glycin-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/glycin/2.0/glycin-%{tarball_version}.tar.xz
 
 # fixup for issue that makes "cargo tree" fail to parse tests/Cargo.toml
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
@@ -54,9 +57,8 @@ Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # https://gitlab.gnome.org/GNOME/glycin/-/merge_requests/143
 Patch:          0002-Update-glycin-jxl-to-0.11.1.patch
 Patch:          0003-loaders-relax-jpegxl-rs-dependency-from-0.11.1-to-0..patch
-Patch:          0004-loaders-glycin-image-rs-relax-zune-zpeg-dependency.patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
-Patch:          0005-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
+Patch:          0004-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -96,6 +98,15 @@ Summary:        Sandboxed image rendering (image loading backends)
 Sandboxed and extendable image decoding.
 
 This package contains the different image loading backends.
+
+%package        thumbnailer
+Summary:        Sandboxed image rendering (thumbnailer)
+Requires:       glycin-loaders%{_isa} = %{version}-%{release}
+
+%description    thumbnailer
+Sandboxed and extendable image decoding.
+
+This package contains the thumbnailer implementation.
 
 %package        libs
 Summary:        Sandboxed image rendering (C library)
@@ -198,27 +209,32 @@ rm -r loaders/glycin-raw
 %{_libexecdir}/glycin-loaders/
 %{_datadir}/glycin-loaders/
 
+%files thumbnailer
+%{_bindir}/glycin-thumbnailer
+%dir %{_datadir}/thumbnailers/
+%{_datadir}/thumbnailers/*.thumbnailer
+
 %files libs
-%{_libdir}/libglycin-1.so.0{,.*}
-%{_libdir}/girepository-1.0/Gly-1.typelib
+%{_libdir}/libglycin-2.so.0{,.*}
+%{_libdir}/girepository-1.0/Gly-2.typelib
 
 %files gtk4-libs
-%{_libdir}/libglycin-gtk4-1.so.0{,.*}
-%{_libdir}/girepository-1.0/GlyGtk4-1.typelib
+%{_libdir}/libglycin-gtk4-2.so.0{,.*}
+%{_libdir}/girepository-1.0/GlyGtk4-2.typelib
 
 %files devel
-%{_includedir}/glycin-1/
-%{_libdir}/libglycin-1.so
-%{_libdir}/pkgconfig/glycin-1.pc
-%{_datadir}/gir-1.0/Gly-1.gir
-%{_datadir}/vala/vapi/glycin-1.{deps,vapi}
+%{_includedir}/glycin-2/
+%{_libdir}/libglycin-2.so
+%{_libdir}/pkgconfig/glycin-2.pc
+%{_datadir}/gir-1.0/Gly-2.gir
+%{_datadir}/vala/vapi/glycin-2.{deps,vapi}
 
 %files gtk4-devel
-%{_includedir}/glycin-gtk4-1/
-%{_libdir}/libglycin-gtk4-1.so
-%{_libdir}/pkgconfig/glycin-gtk4-1.pc
-%{_datadir}/gir-1.0/GlyGtk4-1.gir
-%{_datadir}/vala/vapi/glycin-gtk4-1.{deps,vapi}
+%{_includedir}/glycin-gtk4-2/
+%{_libdir}/libglycin-gtk4-2.so
+%{_libdir}/pkgconfig/glycin-gtk4-2.pc
+%{_datadir}/gir-1.0/GlyGtk4-2.gir
+%{_datadir}/vala/vapi/glycin-gtk4-2.{deps,vapi}
 
 
 %changelog

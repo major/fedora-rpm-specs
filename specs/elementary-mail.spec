@@ -12,6 +12,8 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND
 URL:            https://github.com/elementary/mail
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+Patch:          0001-libcamel-3.57.1.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext

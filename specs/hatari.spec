@@ -1,11 +1,12 @@
+%define ver %(echo %version|awk -F. '{print $1"."($2)}')
+
 Summary: An Atari ST/STE/TT/Falcon emulator suitable for playing games
 Name: hatari
-Version: 2.5.0
-Release: 4%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version: 2.6.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
-URL: http://hatari.tuxfamily.org/
-Source0: http://download.tuxfamily.org/%{name}/%{version}/%{name}-%{version}.tar.bz2
+URL: https://www.hatari-emu.org/
+Source0: https://framagit.org/%{name}/releases/-/raw/main/v%{ver}/%{name}-%{version}.tar.bz2
 Source1: %{name}.appdata.xml
 
 BuildRequires: gcc
@@ -58,13 +59,7 @@ built-in debugger which can (optionally) embed the Hatari emulator window.
 
 
 %prep
-%setup -q
-
-# Fix interpreter
-for pyfile in tools/atari-convert-dir.py tools/debugger/hatari_profile.py tools/hconsole/example.py tools/hconsole/hconsole.py python-ui/hatariui.py python-ui/gentypes.py python-ui/debugui.py
-do
-  sed -i '1s|/usr/bin/env python3|%{__python3}|' $pyfile
-done
+%autosetup
 
 
 %build
@@ -130,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Sat Jun 28 2025 Andrea Musuruane <musuruan@gmail.com> - 2.6.0-1
+- Updated to new upstream release
+- New website and Source URL
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -12,6 +12,8 @@ Summary:	Bluetooth graphical utilities
 License:	GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeBluetooth
 Source0:	https://download.gnome.org/sources/gnome-bluetooth/47/gnome-bluetooth-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/merge_requests/223
+Patch0:         0001-tests-Fix-meson-setup-with-pygobject.patch
 
 %if 0%{?rhel}
 ExcludeArch:	s390 s390x

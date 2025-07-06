@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.5.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -195,6 +195,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Fri Jul 04 2025 Frédéric Bérat <fberat@redhat.com> - 2.5.4-5
+- Rebuilt for automake 1.18.1
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

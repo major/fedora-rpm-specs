@@ -1,20 +1,19 @@
 %global smallversion 0.4
 
 Name:           libvisual
-Version:        0.4.1
-Release:        7%{?dist}
+Version:        0.4.2
+Release:        1%{?dist}
 Epoch:          1
 
 Summary:        Abstraction library for audio visualisation plugins
 License:        LGPL-2.1-or-later
-URL:            https://libvisual.sf.net
-Source0:        https://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.bz2
+URL:            https://github.com/Libvisual/libvisual
+Source0:        https://github.com/Libvisual/libvisual/releases/download/libvisual-%{version}/libvisual-%{version}.tar.bz2
 
-Patch0:         libvisual-0.4.0-better-altivec-detection.patch
-Patch1:         libvisual-0.4.0-respect-environment-ldflags.patch
+Patch1:         libvisual-0.4.2-respect-environment-ldflags.patch
 Patch2:         libvisual-c99.patch
 
-BuildRequires:  automake
+BuildRequires:  automake, autoconf, libtool, autoconf-archive, gettext-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  sdl12-compat-devel
@@ -45,9 +44,9 @@ This package contains the files needed to build an application with libvisual.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .better-altivec-detection
 %patch -P1 -p1 -b .respect-environment-ldflags
 %patch -P2 -p1 -b .c99
+autoreconf -ifv
 
 %build
 %configure
@@ -100,7 +99,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 %files -f %{name}-%{smallversion}.lang
 %doc AUTHORS ChangeLog NEWS README TODO
 %license COPYING
+%{_bindir}/lv-tool-%{smallversion}
 %{_libdir}/*.so.*
+%{_mandir}/man1/lv-tool-%{smallversion}.1*
 
 %files devel
 %doc README NEWS TODO AUTHORS
@@ -110,6 +111,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jul  4 2025 Tom Callaway <spot@fedoraproject.org> - 1:0.4.2-1
+- update to 0.4.2, fix FTBFS
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

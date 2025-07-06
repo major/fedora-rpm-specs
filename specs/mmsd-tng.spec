@@ -1,5 +1,5 @@
 Name:           mmsd-tng
-Version:        2.5.0
+Version:        2.6.4
 Release:        %autorelease
 Summary:        Multimedia Messaging Service
 

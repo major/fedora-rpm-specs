@@ -4,12 +4,17 @@ Tenacity is a general-purpose retrying library to simplify the task of adding
 retry behavior to just about anything.}
 
 Name:           python-%{pypi_name}
-Version:        8.2.3
-Release:        7%{?dist}
+Version:        9.1.2
+Release:        1%{?dist}
 Summary:        Retry code until it succeeds
 License:        Apache-2.0
 URL:            https://github.com/jd/%{pypi_name}
 Source:         %{pypi_source}
+# Python 3.14 fixes
+# https://bugzilla.redhat.com/show_bug.cgi?id=2327977
+# Pushed upstream: https://github.com/jd/tenacity/pull/528
+# Rebased on tenacity-9.1.2.tar.gz
+Patch0:         528.patch
 BuildArch:      noarch
 
 %description %{_description}
@@ -19,7 +24,7 @@ Summary:          %{summary}
 BuildRequires:    python3-devel
 # for tests
 BuildRequires:    python3-pytest
-BuildRequires:    python3-tornado
+BuildRequires:    python3-tornado >= 4.5
 
 
 %description -n python3-%{pypi_name} %{_description}
@@ -28,6 +33,8 @@ BuildRequires:    python3-tornado
 %autosetup -n %{pypi_name}-%{version} -p 1
 # Avoid type checking dependency
 sed -e '/typeguard/d' -i setup.cfg
+# [toml] is an empty feature since setuptools switched to builtin tomllib
+sed -e 's/setuptools_scm\[toml\]/setuptools_scm/' -i pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -46,6 +53,11 @@ sed -e '/typeguard/d' -i setup.cfg
 %doc README.rst
 
 %changelog
+* Thu Jun 26 2025 Sandro Bonazzola <sbonazzo@redhat.com> - 9.1.2-1
+- Rebase on upstream 9.1.2
+- Fixes fedora#2292885
+- Fixes fedora#2327977
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 8.2.3-7
 - Rebuilt for Python 3.14
 

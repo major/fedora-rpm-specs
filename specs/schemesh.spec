@@ -1,5 +1,4 @@
-#Hard-coded for now, will try to make it dynamic
-%global chezschemeversion 10.1.0
+%global chez_version %(%{_bindir}/scheme --version 2>/dev/null || echo unknown)
 %global forgeurl https://github.com/cosmos72/schemesh
 
 Name:    schemesh
@@ -14,14 +13,14 @@ Source0: %{forgesource}
 
 BuildRequires: gcc
 BuildRequires: make
-BuildRequires: chez-scheme = %{chezschemeversion}
-BuildRequires: chez-scheme-devel = %{chezschemeversion}
+# chez-scheme < 10.2 outputs --version to stderr
+BuildRequires: chez-scheme-devel >= 10.2
 BuildRequires: lz4-devel
 BuildRequires: ncurses-devel
 BuildRequires: libuuid-devel
 BuildRequires: zlib-devel
 
-Requires: chez-scheme%{?_isa} = %{chezschemeversion}
+Requires: chez-scheme%{?_isa} = %{chez_version}
 
 %description
 Schemesh is an interactive shell scriptable in Lisp.
