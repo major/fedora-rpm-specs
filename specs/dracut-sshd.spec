@@ -1,12 +1,11 @@
 Name:           dracut-sshd
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        OpenSSH initramfs dracut integration
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/gsauthof/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         sshd-config-etc.diff
 
 BuildArch:      noarch
 

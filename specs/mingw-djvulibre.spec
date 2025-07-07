@@ -3,38 +3,22 @@
 %global pkgname djvulibre
 
 Name:          mingw-%{pkgname}
-Version:       3.5.28
-Release:       11%{?dist}
+Version:       3.5.29
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
 License:       GPL-2.0-or-later
 URL:           http://djvu.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/djvu/%{pkgname}-%{version}.tar.gz
-# Downstream fix for CVE-2021-32490
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1943408
-Patch100:      CVE-2021-32490.patch
-# Downstream fix for CVE-2021-32491
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1943409
-Patch101:      CVE-2021-32491.patch
-# Downstream fix for CVE-2021-32492
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1943410
-Patch102:      CVE-2021-32492.patch
-# Downstream fix for CVE-2021-32493
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1943424
-Patch103:      CVE-2021-32493.patch
-# Downstream fix for CVE-2021-3500
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1943411
-Patch104:      CVE-2021-3500.patch
-
 
 BuildRequires: automake autoconf libtool make
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libjpeg-turbo
 
@@ -120,6 +104,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw64_bindir}/*.exe
 
 %changelog
+* Sat Jul 05 2025 Sandro Mani <manisandro@gmail.com> - 3.5.29-1
+- Update to 3.5.29
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.28-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

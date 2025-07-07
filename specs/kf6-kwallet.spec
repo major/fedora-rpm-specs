@@ -1,8 +1,8 @@
 %global framework kwallet
 
 Name:    kf6-%{framework}
-Version: 6.15.0
-Release: 3%{?dist}
+Version: 6.16.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -124,6 +124,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
+- 6.16.0
+
 * Sat Jun 21 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-3
 - add Requires: qca-qt6-ossl to -libs
   see RHBZ#2367944

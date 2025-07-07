@@ -10,6 +10,10 @@ License:        BSD-3-Clause
 URL:            https://reproject.readthedocs.io/
 Source0:        %{pypi_source}
 
+# Backport upstream patch which removes the upper Cython version bound
+# https://github.com/astropy/reproject/commit/27aee71380bbdd29fefec6f0319d5b21bbc590d5
+Patch:          fix-cython-pin.patch
+
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
@@ -27,7 +31,6 @@ Summary:        %{sum}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-sed -i -e 's/oldest-supported-numpy/numpy/' -e 's/cython==3.0.4/cython>=3/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

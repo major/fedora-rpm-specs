@@ -1,5 +1,5 @@
 Name:          python-libarchive-c
-Version:       5.1
+Version:       5.3
 Release:       %autorelease
 Summary:       Python interface to libarchive
 License:       CC0-1.0
@@ -9,9 +9,8 @@ URL:           https://github.com/Changaco/python-libarchive-c
 %global tag %{version}
 %forgemeta
 
-Source0:       https://github.com/Changaco/python-libarchive-c/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-Patch:         https://github.com/Changaco/python-libarchive-c/commit/a56e9402c76c2fb9631651de7bae07b5fbb0b624.patch
+Source:        https://github.com/Changaco/python-libarchive-c/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch:         0001-Allow-rmd160-digest-to-be-missing-in-tests.patch
 
 BuildRequires: libarchive-devel
 BuildArch:     noarch

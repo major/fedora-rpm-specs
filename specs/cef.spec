@@ -108,7 +108,9 @@
 ## END CEF
 
 # enable|disable debuginfo
-%global enable_debug 0
+## CEF: Enable debug info to make it possible to debug CEF/consumer issues
+%global enable_debug 1
+## END CEF
 # disable debuginfo due to a bug in debugedit on el7
 # error: canonicalization unexpectedly shrank by one character
 # https://bugzilla.redhat.com/show_bug.cgi?id=304121

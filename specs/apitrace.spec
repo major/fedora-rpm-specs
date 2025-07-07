@@ -7,7 +7,7 @@
 
 Name:           apitrace
 Version:        13.0
-Release:        1%{?commit:.git%{shortcommit}}%{?dist}
+Release:        2%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -106,8 +106,9 @@ mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
 # Install doc through %%doc
 rm -rf %{buildroot}%{_docdir}/
 
-# Install desktop file
+# Install desktop file and icon
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE2}
+install -Dpm 0644 gui/resources/qapitrace.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/qapitrace.png
 
 # Install appdata file
 install -Dpm 0644 %{SOURCE3} %{buildroot}%{_datadir}/appdata/qapitrace.appdata.xml
@@ -136,9 +137,13 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 %{_bindir}/qapitrace
 %{_datadir}/applications/qapitrace.desktop
 %{_datadir}/appdata/qapitrace.appdata.xml
+%{_datadir}/icons/hicolor/128x128/apps/qapitrace.png
 
 
 %changelog
+* Sat Jul 05 2025 Sandro Mani <manisandro@gmail.com> - 13.0-2
+- Add qapitrace icon
+
 * Sun Jun 29 2025 Sandro Mani <manisandro@gmail.com> - 13.0-1
 - Update to 13.0
 

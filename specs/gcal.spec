@@ -7,8 +7,8 @@ Summary:	GNU Gregorian calendar program
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
-URL:		http://www.gnu.org/software/gcal/
-Source0:	ftp://ftp.gnu.org/gnu/gcal/%{name}-%{version}.tar.xz
+URL:		https://www.gnu.org/software/gcal/
+Source0:	https://ftp.gnu.org/gnu/gcal/%{name}-%{version}.tar.xz
 # The man pages are not shipped in tarball but reside in the git repository
 # at https://git.savannah.gnu.org/git/gcal.git
 # To fetch the man pages from a clone of that repository, do:
@@ -19,11 +19,13 @@ Source1:	gcal-man-v%{gcalmantag}.tar.xz
 Patch:		gcal-glibc-no-libio.patch
 Patch:		gcal-configure-c99.patch
 Patch:		gcal-4.1-oob-write.patch
-BuildRequires:  gcc
-BuildRequires:	gettext, ncurses-devel
-BuildRequires:  libunistring-devel
-BuildRequires: make
-BuildRequires: autoconf automake gettext-devel
+Patch:		gcal-configure-tget.patch
+BuildRequires:	gcc
+BuildRequires:	gettext-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	libunistring-devel
+BuildRequires:	make
+BuildRequires:	autoconf automake
 
 # Gnulib is granted exception of "no bundled libraries" packaging guideline:
 # https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
@@ -47,7 +49,7 @@ export LIBS=-lunistring
 export CFLAGS="$CFLAGS -std=gnu17"
 %endif
 %configure --enable-unicode
-make %{?_smp_mflags}
+%make_build
 
 
 %check
@@ -55,7 +57,7 @@ make check
 
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 install -dm 755 %{buildroot}%{_mandir}/man1
 install -pm 644 doc/en/man/*.1 %{buildroot}%{_mandir}/man1
 rm -f %{buildroot}%{_datadir}/%{name}/Makefile.in
@@ -63,7 +65,8 @@ rm -f %{buildroot}%{_infodir}/dir
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc AUTHORS BUGS COPYING LIMITATIONS NEWS README THANKS TODO
+%license COPYING
+%doc AUTHORS BUGS LIMITATIONS NEWS README THANKS
 %{_bindir}/gcal
 %{_bindir}/gcal2txt
 %{_bindir}/tcal

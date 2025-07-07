@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.5.1
+Version:        1.5.4
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -149,6 +149,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Sat Jul 05 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.4-1
+- new version
+
 * Tue Apr 01 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.1-2
 - Add SELinux policy for /dev/dma_heap
 

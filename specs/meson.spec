@@ -3,15 +3,13 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        High productivity build system
 
 License:        Apache-2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
-# Fix test_compiler_detection on RHEL where gcc does not include ObjC
-Patch:          https://github.com/mesonbuild/meson/pull/14661.patch
 
 BuildArch:      noarch
 

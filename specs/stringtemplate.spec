@@ -1,13 +1,18 @@
 Summary: A Java template engine
 Name: stringtemplate
 Version: 3.2.1
-Release: 37%{?dist}
+Release: 38%{?dist}
+License: BSD-3-Clause
 URL: http://www.stringtemplate.org/
 Source0: http://www.stringtemplate.org/download/stringtemplate-%{version}.tar.gz
 # Build jUnit tests + make the antlr2 generated code before preparing sources
 Patch0: stringtemplate-3.1-build-junit.patch
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+# With JDK 21 and later, StringTemplate is a name in java.lang, which makes a
+# bar instance of the StringTemplate name ambiguous.  Only use the name fully
+# qualified to eliminate the ambiguity.
+Patch1: stringtemplate-3.2.1-ambiguity.patch
+# Update deprecated uses of "new Integer" and "new Boolean"
+Patch2: stringtemplate-3.2.1-deprecated.patch
 
 BuildRequires: ant
 BuildRequires: ant-antlr
@@ -32,8 +37,7 @@ Requires:       java-javadoc
 API documentation for %{name}.
 
 %prep
-%setup -q
-%patch -P0
+%autosetup -p0
 sed -i -e 's/source="1.4"/source="1.8"/g' build.xml
 sed -i -e 's/target="1.4"/target="1.8"/g' build.xml
 
@@ -56,6 +60,11 @@ ant javadocs -Dpackages= -Djavadocs.additionalparam="-Xdoclint:none"
 %{_javadocdir}/%{name}
 
 %changelog
+* Sat Jul 05 2025 Jerry James  <loganjerry@gmail.com> - 3.2.1-38
+- Add patch to fix ambiguous references to StringTemplate
+- Add patch to avoid using deprecated "new Integer" and "new Boolean"
+- Change license to BSD-3-Clause
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

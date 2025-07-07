@@ -1,23 +1,19 @@
-%bcond_without perl
-%bcond_without ruby
-%bcond_with    octave
-%bcond_without r
-%bcond_with    java
-%bcond_without python
-%bcond_without check
+%bcond perl   1
+%bcond ruby   1
+%bcond octave 0
+%bcond r      1
+%bcond java   0
+%bcond python 1
+%bcond check  1
 
 # The build result of docs is different between architectures.
-# Also, something is wrong with javascript, and the page is unusable anywa.
+# Also, something is wrong with javascript, so the page is unusable anyway.
 # Let's not build the subpackage until the issue is fixed upstream.
-%bcond_with doc
+%bcond doc    0
 
 # Exclude sharp binding (Error CS0246)
 Obsoletes:      libsbml-sharp < 0:5.18.0-20
-%ifarch %{mono_arches}
-%bcond_with mono
-%else
-%bcond_with mono
-%endif
+%bcond mono   0
 
 # those have special requirements, the rest follows main package name
 %global octpkg  SBML
@@ -34,7 +30,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 %global _docdir_fmt %{name}
 
 Name:           libsbml
-Version:        5.20.4
+Version:        5.20.5
 Release:        %autorelease
 Summary:        Systems Biology Markup Language library
 License:        LGPL-2.1-or-later
@@ -45,8 +41,9 @@ Source:         https://github.com/sbmlteam/libsbml/archive/v%{version_no_tilde}
 Patch:          0001-Use-system-minizip-cmake.patch
 Patch:          0002-Fix-install-libpaths.patch
 Patch:          0003-Fix-jsfile-globs.patch
+Patch:          0004-Add-missing-include-to-fix-build-with-newer-gcc.patch
 # Fix build failure with libsbml-5.20.4
-Patch:          0001-cmake-do-not-skip-building-of-static-libs.patch
+Patch:          0005-cmake-do-not-skip-building-of-static-libs.patch
 
 BuildRequires:  cmake
 BuildRequires:  zlib-devel

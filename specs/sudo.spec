@@ -1,9 +1,9 @@
 # comment out if no extra version
-%global extraver p5
+%global extraver p1
 
 Summary: Allows restricted root access for specified users
 Name: sudo
-Version: 1.9.15
+Version: 1.9.17
 # remove -b 3 after rebase !!!
 # use "-p -e % {?extraver}" when beta
 # use "-e % {?extraver}"" when patch version
@@ -16,12 +16,6 @@ Source1: sudoers
 Requires: pam
 Recommends: system-default-editor
 Recommends: %{name}-python-plugin%{?_isa} = %{version}-%{release}
-
-# https://github.com/sudo-project/sudo/commit/89918caf5a349cac4e2a56ba503d7476c6f16067
-# https://github.com/sudo-project/sudo/issues/374
-# https://bugzilla.redhat.com/show_bug.cgi?id=2245820
-# Fix tests with Python 3.13+
-Patch: 0001-Python-3.12-backtraces-use-in-addition-to-when-under.patch
 
 BuildRequires: make
 BuildRequires: pam-devel
@@ -82,13 +76,7 @@ BuildRequires:  python3-devel
 # Remove bundled copy of zlib
 rm -rf zlib/
 
-%ifarch s390 s390x sparc64
-F_PIE=-fPIE
-%else
-F_PIE=-fpie
-%endif
-
-export CFLAGS="$RPM_OPT_FLAGS $F_PIE -std=gnu17" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 
 %configure \
         --prefix=%{_prefix} \
@@ -117,14 +105,13 @@ export CFLAGS="$RPM_OPT_FLAGS $F_PIE -std=gnu17" LDFLAGS="-pie -Wl,-z,relro -Wl,
         --with-sssd
 #       --without-kerb5 \
 #       --without-kerb4
-make
+%make_build
 
 %check
-make check
+%make_build check
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR="$RPM_BUILD_ROOT" install_uid=`id -u` install_gid=`id -g` sudoers_uid=`id -u` sudoers_gid=`id -g`
+%make_install install_uid=`id -u` install_gid=`id -g` sudoers_uid=`id -u` sudoers_gid=`id -g`
 
 chmod 755 $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_sbindir}/*
 install -p -d -m 700 $RPM_BUILD_ROOT/var/db/sudo
@@ -180,7 +167,6 @@ EOF
 
 
 %files -f sudo_all.lang
-%defattr(-,root,root)
 %attr(0440,root,root) %config(noreplace) /etc/sudoers
 %attr(0750,root,root) %dir /etc/sudoers.d/
 %config(noreplace) /etc/pam.d/sudo

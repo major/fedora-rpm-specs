@@ -1,5 +1,5 @@
 Name:           python-oracledb
-Version:        2.5.1
+Version:        3.2.0
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 
@@ -8,6 +8,13 @@ URL:            https://oracle.github.io/python-oracledb/
 Source:         %{pypi_source oracledb}
 
 BuildRequires:  python3-devel
+# https://github.com/oracle/python-oracledb/issues/512
+BuildRequires:  python3-azure-appconfiguration
+BuildRequires:  python3-azure-core
+BuildRequires:  python3-azure-identity
+BuildRequires:  python3-azure-keyvault-secrets
+BuildRequires:  python3-oci
+
 BuildRequires:  gcc
 
 %global _description %{expand:

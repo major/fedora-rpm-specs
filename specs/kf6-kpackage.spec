@@ -1,8 +1,8 @@
 %global framework kpackage
 
 Name:           kf6-%{framework}
-Version:        6.15.0
-Release:        2%{?dist}
+Version:        6.16.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 library to load and install packages as plugins
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -87,6 +87,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kpackage/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
+- 6.16.0
+
 * Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
 - 6.15 and plasma 3.4 compatibility rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name puremagic
 
 Name:           python-%{pypi_name}
-Version:        1.29
+Version:        1.30
 Release:        %autorelease
 Summary:        Pure python implementation of magic file detection
 
@@ -56,7 +56,7 @@ sed -r \
 
 
 %check
-%pytest -v
+%pytest -r fEs
 %pyproject_check_import
 
 

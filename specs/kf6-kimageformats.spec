@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version:        6.15.0
-Release:        2%{?dist}
+Version:        6.16.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6ImageFormats/
 
 %changelog
+* Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
+- 6.16.0
+
 * Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
 - 6.15 and plasma 3.4 compatibility rebuild
 

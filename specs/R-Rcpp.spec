@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\((pkgKitten|rbenchmark|tinytest)\\)
 
 Name:		R-%{packname}
-Version:	1.0.14
-Release:	3%{?dist}
+Version:	1.1.0
+Release:	1%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
@@ -110,6 +110,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Fri Jul 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.1.0-1
+- Update to 1.1.0
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.14-3
 - R-maint-sig mass rebuild
 

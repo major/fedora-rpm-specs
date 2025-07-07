@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.7
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -13,6 +13,8 @@ Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgra
 Patch0:         no-sphinx-qt-doc.patch
 # sphinxext-rediraffe has been retired
 Patch1:         drop-rediraffe.patch
+# Support numpy 2.3.0+
+Patch2:         https://github.com/pyqtgraph/pyqtgraph/commit/eb440f50c3255df8da30adb4e3b59d768ef0f142.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -83,6 +85,12 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Sat Jul 05 2025 Scott Talbert <swt@techie.net> - 0.13.7-9
+- Fix FTBFS with numpy 2.3.0+ (#2372071)
+
+* Sat Jul 05 2025 Python Maint <python-maint@redhat.com> - 0.13.7-8
+- Rebuilt for Python 3.14
+
 * Tue Jan 21 2025 Sandro <devel@penguinpee.nl> - 0.13.7-7
 - Drop dependency on `sphinxext-rediraffe`
 

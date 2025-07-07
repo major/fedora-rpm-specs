@@ -1,9 +1,9 @@
-%global sepol_ver 3.6
-%global selinux_ver 3.6
+%global sepol_ver 3.9
+%global selinux_ver 3.9
 
 Name:           setools
 Version:        4.5.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only AND LGPL-2.1-only
@@ -145,6 +145,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Sat Jul 05 2025 Petr Lautrbach <lautrbach@redhat.com> - 4.5.1-8
+- Rebuilt with SELinux userspace 3.9-rc2 release
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.5.1-7
 - Rebuilt for Python 3.14
 

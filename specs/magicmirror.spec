@@ -107,8 +107,6 @@ ln -s custom.css.sample css/custom.css
   --forceExit
 %endif
 
-%pre
-%sysusers_create_compat %{SOURCE5}
 
 %post
 %systemd_post %{name}.service

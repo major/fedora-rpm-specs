@@ -10,9 +10,9 @@
 %global subpkgs %{coprapi} %{fedorakrb} %{say}
 
 Name:           fbrnch
-Version:        1.7
+Version:        1.7.1
 # can only be reset when all subpkgs bumped
-Release:        28%{?dist}
+Release:        30%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -182,6 +182,10 @@ and many more commands.
 set noclobber
 mkdir -p %{buildroot}%{bash_completions_dir}
 %{buildroot}%{_bindir}/%{name} --bash-completion-script %{name} | sed s/filenames/default/ > %{buildroot}%{bash_completions_dir}/%{name}
+mkdir -p %{buildroot}%{fish_completions_dir}
+%{buildroot}%{_bindir}/%{name} --fish-completion-script %{name} > %{buildroot}%{fish_completions_dir}/%{name}.fish
+mkdir -p %{buildroot}%{zsh_completions_dir}
+%{buildroot}%{_bindir}/%{name} --zsh-completion-script %{name} > %{buildroot}%{zsh_completions_dir}/_%{name}
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/%{name}.1
@@ -196,9 +200,20 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 %{bash_completions_dir}/%{name}
 %{_mandir}/man1/%{name}.1*
 # End cabal-rpm files
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 
 %changelog
+* Sat Jul 05 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-30
+- add fish and zsh completions
+
+* Sat Jul 05 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-29
+- merging now prompts even with --merge (--no-prompt) when branch unmergeable
+- parallel: restore package header output for merge
+- parallel: fix error for -F/-E when run outside dist-git
+- createKojiSidetag: needs krbTicket
+
 * Fri Jun 06 2025 Jens Petersen <petersen@redhat.com> - 1.7-28
 - support epel10.x minors with fedora-releases-0.3.0
 - 'merge': now done from origin for consistency

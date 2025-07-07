@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 3.2.2
-Release: 2
+Release: 2%{?dist}
 URL:     https://gitlab.com/rit-fonts/rit-%{fontfamily}
 
 %global foundry         RIT

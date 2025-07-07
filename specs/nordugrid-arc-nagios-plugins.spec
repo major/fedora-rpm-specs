@@ -9,7 +9,7 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	3.2.0
+Version:	3.2.1
 Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
@@ -108,6 +108,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Sat Jul 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.1-1
+- Version 3.2.1
+
 * Fri Jun 27 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.0-1
 - Version 3.2.0
 

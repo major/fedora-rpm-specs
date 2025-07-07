@@ -1,12 +1,13 @@
-%global _without_tests 1
 %bcond tests 1
 # Build dependencies gunicorn and uvloop are required only for integration
 # tests, which can be omitted if they are not available.
 %bcond gunicorn 1
-%bcond uvloop 1
+# F43FailsToInstall: python3-uvloop
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372190
+%bcond uvloop %[ 0%{?fedora} < 43 ]
 
 Name:           python-aiohttp
-Version:        3.11.16
+Version:        3.11.18
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 
@@ -18,6 +19,10 @@ Source:         %{url}/archive/v%{version}/aiohttp-%{version}.tar.gz
 
 # downstream only patch
 Patch:          0001-Unbundle-llhttp.patch
+# Update a regex in test_aiohttp_request_coroutine for Python 3.14
+# https://github.com/aio-libs/aiohttp/pull/11271
+# We patch in just the fix; no changes in CONTRIBUTORS.txt and news fragments.
+Patch:          %{url}/pull/11271/commits/381a18c6cabe84fe326849a9d7e89f2907ad4666.patch
 
 BuildRequires:  gcc
 
@@ -134,6 +139,31 @@ k="${k-}${k+ and }not test_import_time"
 # upstream’s expectation due to
 # https://fedoraproject.org/wiki/Changes/ZlibNGTransition.
 k="${k-}${k+ and }not test_send_compress_text"
+%if v"0%{?python3_version}" >= v"3.14"
+# TODO: Is this fixed in the latest 3.12.x release? If not, report it upstream.
+# This will be easier after pydantic and uvloop are installable in a Python
+# 3.14 virtual environment.
+#
+# >       assert cookies == cj._cookies
+# E       AssertionError: assert defaultdict(<...'fifteenth'>}) == defaultdict(<...'fifteenth'>})
+# E
+# E         Differing items:
+# E         {('invalid-values.com', ''): <SimpleCookie:
+#           invalid-expires-cookie='sixteenth'
+#           invalid-max-age-cookie='fifteenth'>} != {('invalid-values.com',
+#           ''): <SimpleCookie: invalid-expires-cookie='sixteenth'
+#           invalid-max-age-cookie='fifteenth'>}
+# E         {('different.org', ''): <SimpleCookie:
+#           different-domain-cookie='sixth'>} != {('different.org', ''):
+#           <SimpleCookie: different-domain-cookie='sixth'>}
+# E         {('', ''): <SimpleCookie: shared-cookie='first'>} != {('', ''):
+#           <SimpleCookie: shared-cookie='first'>}
+# E         {('maxagetest.com', ''): <SimpleCookie:
+#           max-age-cookie='fourteenth'>} != {('...
+# E
+# E         ...Full output truncated (25 lines hidden), use '-vv' to show
+k="${k-}${k+ and }not test_pickle_format"
+%endif
 %if %{without gunicorn}
 k="${k-}${k+ and }not test_no_warnings[aiohttp.worker]"
 %endif

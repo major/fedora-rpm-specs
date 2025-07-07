@@ -1,12 +1,12 @@
 Name:          libcec
-Version:       7.0.0
-Release:       3%{?dist}
+Version:       7.1.1
+Release:       1%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
 Source0:       https://github.com/Pulse-Eight/%{name}/archive/%{name}-%{version}.tar.gz
 
-# https://github.com/knight-of-ni/libcec/commit/f4a314a601b3d1d074c9ebed0abb898533935c59.patch
+# https://github.com/knight-of-ni/libcec/commit/ec1c9acc29636ccfc0686493868a7daeae903339.patch
 Patch1:        libcec-pythonlib.patch
 
 # Per i686 leaf package policy 
@@ -72,8 +72,8 @@ install -Dm 644 systemd/cec-active-source.service %{buildroot}%{_unitdir}/cec-ac
 install -Dm 644 systemd/cec-active-source.timer %{buildroot}%{_unitdir}/cec-active-source.timer
 install -Dm 644 systemd/cec-poweroff-tv.service %{buildroot}%{_unitdir}/cec-poweroff-tv.service
 
-#Remove libtool archives.
-find %{buildroot} -name '*.la' -delete
+#Remove static libraries and libtool archives.
+find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 # Remove versioned binaries
 rm %{buildroot}%{_bindir}/cec-client %{buildroot}%{_bindir}/cecc-client
@@ -112,6 +112,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{python3_sitearch}/cec/
 
 %changelog
+* Fri Jul 04 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 7.1.1-1
+- 7.1.1 release
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 7.0.0-3
 - Rebuilt for Python 3.14
 

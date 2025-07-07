@@ -2,8 +2,8 @@
 
 Name:    kf6
 # This version MUST remain in sync with KF6 versions!
-Version: 6.15.0
-Release: 2%{?dist}
+Version: 6.16.0
+Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -95,6 +95,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
+- 6.16.0
+
 * Tue Jun 17 2025 Steve Cossette <farchord@gmail.com> - 6.15.0-2
 - Bump for 'add new kf6 macros for api doc generation' MR (#12)
 

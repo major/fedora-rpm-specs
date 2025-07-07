@@ -51,10 +51,10 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.43-development
+%global source_directory 1.44-stable
 
 Name:           nbdkit
-Version:        1.43.13
+Version:        1.44.1
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1540,6 +1540,13 @@ fi
 
 
 %changelog
+* Sat Jul 05 2025 Richard W.M. Jones <rjones@redhat.com> - 1.44.1-1
+- New upstream stable branch version 1.44.1
+- Contains data integrity fix: "server: Fix .zero fallback path"
+
+* Tue Jul 01 2025 Richard W.M. Jones <rjones@redhat.com> - 1.44.0-1
+- New upstream stable branch version 1.44.0
+
 * Mon Jun 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1.43.13-1
 - New upstream development branch version 1.43.13
 

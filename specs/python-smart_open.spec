@@ -92,6 +92,14 @@ tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
     '(pytest_benchmark|awscli|pyopenssl)\b.*'
 
 
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
 %check -a
 %if %{with tests}
 %if %{without gcs}

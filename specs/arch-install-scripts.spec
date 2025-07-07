@@ -1,10 +1,11 @@
 Name:           arch-install-scripts
-Version:        28
+Version:        29
 Release:        %autorelease
 Summary:        Scripts to bootstrap Arch Linux distribution
 License:        GPL-2.0-only
-URL:            https://github.com/archlinux/arch-install-scripts
+URL:            https://gitlab.archlinux.org/archlinux/arch-install-scripts
 %global forgeurl %url
+%global tag v%version
 %forgemeta
 Source0:        %forgesource
 BuildArch:      noarch
@@ -26,7 +27,7 @@ To install and launch Arch in a container:
   systemd-nspawn -bD /var/lib/machines/arch
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{tag}
 
 %build
 %make_build PREFIX=%{_prefix}
@@ -46,7 +47,7 @@ make check
 %{_datadir}/bash-completion/completions/genfstab
 %{_datadir}/bash-completion/completions/pacstrap
 %dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_archinstallscripts
+%{_datadir}/zsh/site-functions/_*
 %{_mandir}/man8/arch-chroot.8*
 %{_mandir}/man8/genfstab.8*
 %{_mandir}/man8/pacstrap.8*

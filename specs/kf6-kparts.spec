@@ -1,8 +1,8 @@
 %global framework kparts
 
 Name:    kf6-%{framework}
-Version: 6.15.0
-Release: 2%{?dist}
+Version: 6.16.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -97,6 +97,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
+- 6.16.0
+
 * Tue Jun 17 2025 Marie Loise Nolden <loise@kde.org> - 6.15.0-2
 - 6.15 and plasma 3.4 compatibility rebuild
 

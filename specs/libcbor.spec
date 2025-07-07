@@ -1,13 +1,13 @@
 Name:		libcbor
 Version:	0.12.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A CBOR parsing library
 
 License:	MIT
 URL:		http://libcbor.org
 Source0:	https://github.com/PJK/%{name}/archive/v%{version}.tar.gz
 # Upstream patch for cmake version min version (supports cmake 4.0)
-Patch0001:      0001-Set-cmake_minimum_required-to-3.5.patch 
+Patch0001:      0001-Set-cmake_minimum_required-to-3.5.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen
@@ -64,6 +64,9 @@ cp doc/build/man/libcbor.3 %{buildroot}%{_mandir}/man3/
 %{_mandir}/man3/libcbor.3{,.*}
 
 %changelog
+* Sat Jul 05 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.12.0-5
+- Minor lint fixes
+
 * Wed Apr 16 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.12.0-4
 - Convert to autosetup
 - Add in upstream patch for cmake min version

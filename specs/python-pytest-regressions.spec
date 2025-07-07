@@ -1,7 +1,7 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.8.0
+Version:        2.8.1
 Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 
@@ -82,6 +82,7 @@ rm doc/_build/html/.buildinfo
 
 %check
 # Adapt the expected ndarray type on s390x
+# https://github.com/ESSS/pytest-regressions/issues/156
 if [ $(uname -m) = s390x ]; then
   sed -i 's/int64/<i8/' tests/test_ndarrays_regression.py
 fi

@@ -195,7 +195,7 @@ Epoch:		2
 %global _epoch_prefix %{?epoch:%{epoch}:}
 
 Summary:	User space components of the Ceph file system
-License:	(LicenseRef-Callaway-LGPLv2+ OR LGPL-3.0-only) AND CC-BY-SA-3.0 AND GPL-2.0-only AND BSL-1.0 AND LicenseRef-Callaway-BSD AND MIT
+License:        LGPL-2.1-or-later AND LGPL-3.0-only AND CC-BY-SA-3.0 AND GPL-2.0-only AND BSL-1.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
 %if 0%{?suse_version}
 Group:		System/Filesystems
 %endif

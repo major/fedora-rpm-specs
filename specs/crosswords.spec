@@ -22,6 +22,7 @@ Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 # https://jrb.pages.gitlab.gnome.org/crosswords/devel-docs/PACKAGING.html
 ExcludeArch:    s390x
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
 BuildRequires:  gcc

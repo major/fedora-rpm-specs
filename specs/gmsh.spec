@@ -9,7 +9,7 @@
 %endif
 %bcond_without mpich
 
-%global sover 4.13
+%global sover 4.14
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -17,8 +17,8 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.13.2
-Release:    12%{?dist}
+Version:    4.14.0
+Release:    1%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -39,17 +39,8 @@ Patch1:     gmsh_med.patch
 Patch2:     gmsh_julia.patch
 # Remove odd install of gmsh shared library
 Patch3:     gmsh_install.patch
-# Fix build error caused by include ordering
-Patch4:     gmsh_build.patch
 # Unbundle gl2ps
-Patch5:     gmsh_unbundle_gl2ps.patch
-# Header fix for GCC 13
-Patch6:     gmsh-cstdint.patch
-# Fix incompatible size_t* -> uint64_t* conversions
-Patch7:     gmsh_uint64.patch
-# Fix build failure with GCC15
-# https://gitlab.onelab.info/gmsh/gmsh/-/issues?show=eyJpaWQiOiIzMjc2IiwiZnVsbF9wYXRoIjoiZ21zaC9nbXNoIiwiaWQiOjQ0MTB9
-Patch8:     gmsh-gcc15.patch
+Patch4:     gmsh_unbundle_gl2ps.patch
 
 BuildRequires: ann-devel
 %if %{with flexiblas}
@@ -239,6 +230,7 @@ ls -1 | \
     grep -v ^hxt$ | \
     grep -v ^kbipack$ | \
     grep -v ^onelab$ | \
+    grep -v ^tinyobjloader$ | \
 xargs rm -rf
 )
 
@@ -411,6 +403,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Fri Jul 04 2025 Sandro Mani <manisandro@gmail.com> - 4.14.0-1
+- Update to 4.14.0
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.13.2-12
 - Rebuilt for Python 3.14
 

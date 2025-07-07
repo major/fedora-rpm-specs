@@ -1,9 +1,10 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
+Patch:  hugin-2024.0.0-UseGNUInstallDirs.patch
 URL: http://hugin.sourceforge.net/
 Requires: shared-mime-info
 Requires: webclient
@@ -40,9 +41,6 @@ src/hugin_script_interface/plugins/*.py
 
 %build
 %cmake \
-%if "%{?_lib}" == "lib64"
-  %{?_cmake_lib_suffix64} \
-%endif
   -DBUILD_HSI=1 \
   -DUSE_GDKBACKEND_X11=ON \
   -DBUILD_WITH_EPOXY=ON
@@ -183,6 +181,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Mon Jun 23 2025 Cristian Le <git@lecris.dev> - 2024.0.0-7
+- Use modern GNUInstallDirs patterns
+
 * Wed Jun 11 2025 Cristian Le <git@lecris.dev> - 2024.0.0-6
 - Explicitly set LIB_SUFFIX
 

@@ -1,7 +1,7 @@
 Summary: Port Scan Attack Detector (psad) watches for suspect traffic
 Name: psad
 Version: 2.4.6
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://www.cipherdyne.org/psad/
@@ -116,6 +116,7 @@ cat >> $TMPDIR/psad-rpm.cil << __EOF__
 (allow psad_t journalctl_exec_t(file (execute execute_no_trans map open read)))
 (allow psad_t kernel_t (system (module_request)))
 (allow psad_t psad_var_log_t(file (read rename unlink write)))
+(allow psad_t self (capability2 (perfmon)))
 (allow psad_t self (netlink_tcpdiag_socket (bind create setopt)))
 (allow psad_t sysfs_t (dir (read)))
 (allow psad_t sysfs_t (file (getattr open read)))
@@ -136,7 +137,7 @@ cat >> $TMPDIR/psad-rpm.cil << __EOF__
 (dontaudit psad_t radvd_exec_t (file (getattr)))
 (dontaudit psad_t rngd_exec_t (file (getattr)))
 (dontaudit psad_t rpcd_exec_t (file (getattr)))
-(dontaudit psad_t self (capability (dac_override sys_ptrace sys_resource)))
+(dontaudit psad_t self (capability (dac_override sys_admin sys_ptrace sys_resource)))
 (dontaudit psad_t self (cap_userns (sys_ptrace)))
 (dontaudit psad_t sshd_exec_t (file (getattr)))
 (dontaudit psad_t syslogd_exec_t (file (getattr)))
@@ -193,6 +194,10 @@ fi
 %ghost %attr(0700,root,root) /run/%{name}/psad.cmd
 
 %changelog
+* Sat Jul 05 2025 Dominik Mierzejewski <rpm@greysector.net> - 2.4.6-22
+- fix some new SELinux AVC denials
+- use modern /run path in tmpfiles config
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

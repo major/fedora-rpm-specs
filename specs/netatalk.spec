@@ -8,7 +8,7 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           4.2.2
+Version:           4.2.4
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
@@ -159,8 +159,10 @@ This package contains the HTML documentation for %{name}.
 # Don't build the japanese docs
 sed -i 's\install: true\install: false\' doc/translated/ja/meson.build
 
-# Set RuntimeDirectory in the service file rather than use a tmpfiles.d config
-sed -E -i 's|^(ExecStart=.*)|\1\nRuntimeDirectory=lock/netatalk|' distrib/initscripts/systemd.netatalk.service.in
+# Set RuntimeDirectory in the relevant service files rather than use a tmpfiles.d config
+for servicename in atalkd netatalk papd; do
+  sed -E -i "s|^(PIDFile=.*)|RuntimeDirectory=lock/netatalk\nRuntimeDirectoryPreserve=yes\n\1|" distrib/initscripts/systemd.${servicename}.service.in
+done
 
 %build
 %meson \
@@ -362,6 +364,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/htmldocs
 
 %changelog
+* Sat Jul 05 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.4-1
+- 4.2.4 release
+- add RunTimeDirectory to relevant service files, fixes RHBZ#2376521
+
 * Mon Apr 28 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.2-1
 - 4.2.2 release
 - replace cmark with pandoc. Alows building of htmldocs.

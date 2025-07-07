@@ -8,8 +8,8 @@ output of git diff. It then reports coverage information for lines in the \
 diff.
 
 Name:           python-diff-cover
-Version:        9.2.0
-Release:        3%{?dist}
+Version:        9.4.1
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        Apache-2.0
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Tue Jun 24 2025 Mattia Verga <mattia.verga@proton.me> - 9.4.1-1
+- Update to 9.4.1 to fix FTB with Python 3.14 (Fedora#2332362, Fedora#2350299)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 9.2.0-3
 - Rebuilt for Python 3.14
 
