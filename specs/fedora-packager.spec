@@ -87,13 +87,12 @@ Requires:       krb5-pkinit
 install -D %{SOURCE0} %{buildroot}%{_licensedir}/%{name}/COPYING
 install -D %{SOURCE2} %{buildroot}%{_bindir}/pkgname
 install -D %{SOURCE3} %{buildroot}%{_bindir}/rpmbuild-md5
-install -D %{SOURCE4} %{buildroot}%{_bindir}/s390-koji
 install -D %{SOURCE4} %{buildroot}%{_bindir}/stg-koji
+install -D %{SOURCE4} %{buildroot}%{_bindir}/riscv-koji
 install -D %{SOURCE5} %{buildroot}%{_bindir}/fkinit
-install -D %{SOURCE17} %{buildroot}%{_bindir}/riscv-koji
 
 install -m0644 -Dt %{buildroot}%{_sysconfdir}/koji.conf.d/ \
-  %{SOURCE10} %{SOURCE11} %{SOURCE12}
+  %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE17}
 install -m0644 -Dt %{buildroot}%{_sysconfdir}/krb5.conf.d/ \
   %{SOURCE13} %{SOURCE14}
 install -m0644 -Dt %{buildroot}%{_sysconfdir}/pki/ipa/ \
@@ -103,7 +102,6 @@ install -m0644 -Dt %{buildroot}%{_sysconfdir}/pki/ipa/ \
 %license %{_licensedir}/%{name}/
 %{_bindir}/pkgname
 %{_bindir}/rpmbuild-md5
-%{_bindir}/s390-koji
 %{_bindir}/riscv-koji
 %{_bindir}/stg-koji
 %config(noreplace) %{_sysconfdir}/koji.conf.d/*

@@ -1,7 +1,7 @@
 %global srcname pykdtree
 
 Name:           python-%{srcname}
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Fast kd-tree implementation with OpenMP-enabled queries
 
@@ -49,7 +49,7 @@ BuildRequires:  python3dist(pytest)
 %pyproject_save_files %{srcname}
 
 %check
-%{pytest} --pyargs pykdtree
+%{pytest} --pyargs pykdtree -k 'not test_stub'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 

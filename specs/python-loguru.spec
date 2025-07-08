@@ -14,6 +14,9 @@ Source:         %{url}/archive/%{version}/loguru-%{version}.tar.gz
 # https://github.com/Delgan/loguru/pull/1298
 # Cherry-picked to 0.7.3
 Patch:          0001-Fix-deprecation-warning-raised-by-tests-with-Python-.patch
+# Fix failing "exception_modern" unit test with Python 3.14 (#1331)
+# https://github.com/Delgan/loguru/commit/84023e2bd8339de95250470f422f096edcb8f7b7
+Patch:          %{url}/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch
 
 BuildArch:      noarch
 
@@ -54,13 +57,6 @@ Summary:        %{summary}
 # Make sure we don’t run the detailed typing tests; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 ignore="${ignore-} --ignore=tests/typesafety/test_logger.yml"
-
-%if v"0%{?python3_version}" >= v"3.14"
-# Python 3.14.0a6: a few new regressions
-# https://github.com/Delgan/loguru/issues/1331
-k="${k-}${k+ and }not test_exception_others[recursion_error]"
-k="${k-}${k+ and }not test_exception_modern[type_hints-minimum_python_version0]"
-%endif
 
 %pytest ${ignore-} -k "${k-}" -rs
 %endif

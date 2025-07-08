@@ -1,10 +1,14 @@
+%bcond barcode 0%{?fedora}
+
 Name:		mupdf
 %global libname libmupdf
-Version:	1.25.4
 %global pypiname mupdf
+Version:	1.26.3
+%global somajor 26
+%global sominor 3
+%global soname %{somajor}.%{sominor}
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
-%global soname 25.4
 Release:	%autorelease
 Summary:	A lightweight PDF viewer and toolkit
 License:	AGPL-3.0-or-later
@@ -19,12 +23,19 @@ Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 # Do install shared libraries in the python tree
 Patch:		0001-setup.py-do-not-bundle-c-and-c-libs-in-wheel.patch
+# Suggested upstream:
 # Avoid core dump of python bindings with gcc15
+# https://github.com/ArtifexSoftware/mupdf/pull/55
 Patch:		0001-pdf_choice_widget_options2-avoid-core-dump-with-_GLI.patch
 # Do not apply CXXFLAGS to swig
+# https://github.com/ArtifexSoftware/mupdf/pull/56
 Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
+# Work around pyproject_hooks frpm pip 25 meddling with path
 # https://github.com/ArtifexSoftware/mupdf/pull/68
 Patch:		0001-Work-around-pip-25-pyproject_hooks-1.2.0-path-meddli.patch
+# Be more helpful with the new warning in 1.26.x
+# https://github.com/ArtifexSoftware/mupdf/pull/74
+Patch:		0001-pdf_font-report-font-name-in-warning.patch
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
 BuildRequires:	libjpeg-devel freetype-devel libXext-devel curl-devel
@@ -32,17 +43,21 @@ BuildRequires:	harfbuzz-devel openssl-devel mesa-libEGL-devel
 BuildRequires:	mesa-libGL-devel mesa-libGLU-devel libXi-devel libXrandr-devel
 BuildRequires:	gumbo-parser-devel leptonica-devel tesseract-devel
 BuildRequires:	freeglut-devel
-BuildRequires:	jbig2dec-devel
+BuildRequires:	jbig2dec-devel brotli-devel
 BuildRequires:	swig python3-clang python3-devel
+%if %{with barcode}
+BuildRequires:	zxing-cpp-devel zint-devel
+%endif
+
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
 # to integrate Artifex's changes. 
-Provides:	bundled(lcms2-devel) = 2.14~rc1^60.gab4547b
+Provides:	bundled(lcms2-devel) = lcms2.16^65.gf75fad7
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
 Provides:	bundled(mujs-devel) = 1.3.5
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
-Provides:	bundled(extract) = 10.03.0
+Provides:	bundled(extract) = 10.05
 
 %description
 MuPDF is a lightweight PDF viewer and toolkit written in portable C.
@@ -105,6 +120,7 @@ echo > user.make "\
 	USE_SYSTEM_MUJS := no # build needs source anyways
 	USE_TESSERACT := yes
 	VENV_FLAG :=
+	barcode := %{?with_barcode:yes}%{!?with_barcode:no}
 	build := release
 	shared := yes
 	verbose := yes
@@ -113,6 +129,12 @@ echo > user.make "\
 # c++ and python install targets rebuild unconditionally. Avoid multiple rebuilds:
 sed -i -e '/^install-shared-c++:/s/ c++//' Makefile
 sed -i -e '/^install-shared-python:/s/ python//' Makefile
+# distribution builds are without experimental API:
+sed -i -e '/DZXING_EXPERIMENTAL_API/ d' Makelists
+%if %{without barcode}
+# enforce same setting as above for py bindings:
+sed -i -e 's/barcode=yes/barcode=no/' scripts/wrap/__main__.py
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -R
@@ -142,6 +164,10 @@ find %{buildroot}/%{_mandir} -type f -exec chmod 0644 {} \;
 find %{buildroot}/%{_includedir} -type f -exec chmod 0644 {} \;
 cd %{buildroot}/%{_bindir} && ln -s %{name}-x11 %{name}
 
+%check
+# test import of python module and basic functionality
+LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %{py3_test_envvars} %{python3} scripts/mupdfwrap_test.py thirdparty/lcms2/doc/*.pdf
+
 %files
 %license COPYING
 %doc README CHANGES docs/*
@@ -157,6 +183,7 @@ cd %{buildroot}/%{_bindir} && ln -s %{name}-x11 %{name}
 %files libs
 %license COPYING
 %{_libdir}/%{libname}.so.%{soname}
+%{_libdir}/%{libname}.so.%{somajor}
 
 %files cpp-devel
 %{_includedir}/%{name}
@@ -165,6 +192,7 @@ cd %{buildroot}/%{_bindir} && ln -s %{name}-x11 %{name}
 %files cpp-libs
 %license COPYING
 %{_libdir}/%{libname}cpp.so.%{soname}
+%{_libdir}/%{libname}cpp.so.%{somajor}
 
 %files -n python3-%{pypiname} -f %{pyproject_files}
 %license COPYING

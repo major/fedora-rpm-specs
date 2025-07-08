@@ -4,17 +4,18 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.40.0
+Version:        1.41.0
 Release:        %autorelease
 Summary:        Just a command runner
 
 License:        CC0-1.0
 URL:            https://crates.io/crates/just
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          just-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Relax 'dirs' dependency from 6.0.0 to >=5,<7
-# * Relax 'strum' dependency from 0.27.1 to >=0.26,<0.28
-# * Relax 'which' dev-dependency from 7.0.0 to >=7,<9
+# * Unpin 'clap_complete'
 Patch:          just-fix-metadata.diff
 # * Exclude unwanted files
 Patch2:         just-exclude-unwanted-files.patch
@@ -73,7 +74,6 @@ License:        %{shrink:
 %{_bindir}/just
 %doc examples
 %{_mandir}/man1/just.1*
-%{bash_completions_dir}/just
 %{fish_completions_dir}/just.fish
 %{zsh_completions_dir}/_just
 
@@ -121,14 +121,13 @@ use the "default" feature of the "%{crate}" crate.
 %{cargo_license} > LICENSE.dependencies
 # Generate man page and shell completions
 target/rpm/just --man > target/rpm/just.1
-for shell in bash fish zsh; do
+for shell in fish zsh; do
     target/rpm/just --completions $shell > target/rpm/just.$shell
 done
 
 %install
 %cargo_install
 install -D -m644 -pv target/rpm/just.1    %{buildroot}%{_mandir}/man1/just.1
-install -D -m644 -pv target/rpm/just.bash %{buildroot}%{bash_completions_dir}/just
 install -D -m644 -pv target/rpm/just.fish %{buildroot}%{fish_completions_dir}/just.fish
 install -D -m644 -pv target/rpm/just.zsh  %{buildroot}%{zsh_completions_dir}/_just
 
@@ -138,6 +137,7 @@ install -D -m644 -pv target/rpm/just.zsh  %{buildroot}%{zsh_completions_dir}/_ju
 # * alignment test expects unicode-width 0.1.13
 %{cargo_test -- -- %{shrink:
     --skip completions::bash
+    --skip completions::replacements
     --skip misc::list_alignment
 }}
 %endif

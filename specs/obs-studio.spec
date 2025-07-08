@@ -36,9 +36,10 @@
 %global obswebsocket_version 5.6.1
 %global obsbrowser_commit 9ffe3828da5fa87d481ad2df2ecb178154818a60
 
-# Upstream does not declare this yet. Arbitrarily pick 133.4 since upstream
-# commits reference support for 133 ("Enable building with CEF 6943").
-%global cef_api_version 13304
+# Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
+# and it works around a CEF versioning teething issue:
+# https://github.com/chromiumembedded/cef/issues/3959
+%global cef_api_version 13700
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
@@ -46,7 +47,7 @@
 
 Name:           obs-studio
 Version:        31.1.0~rc1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -385,6 +386,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sun Jul 06 2025 Asahi Lina <lina@asahilina.net> - 31.1.0~rc1-3
+- Switch CEF API to 13700 (works around crash)
+
 * Fri Jul 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.1.0~rc1-2
 - Rebuild for libdatachannel 0.23.1
 

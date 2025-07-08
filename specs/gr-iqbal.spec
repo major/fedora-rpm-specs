@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       37.%{git_suffix}%{?dist}
+Release:       38.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -82,6 +82,9 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Sun Jul 06 2025 Python Maint <python-maint@redhat.com> - 0.38.2-38.20210210gitfbee239a
+- Rebuilt for Python 3.14
+
 * Tue Jun 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.38.2-37.20210210gitfbee239a
 - Rebuilt for new python
 

@@ -4,7 +4,7 @@
 %global crate du-dust
 
 Name:           du-dust
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        More intuitive version of du
 

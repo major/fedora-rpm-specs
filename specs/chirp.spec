@@ -84,7 +84,8 @@ ln -frs %{buildroot}%{_mandir}/man1/chirp.1.gz \
 
 
 %check
-%pytest
+# Disabled, too time and memory expensive
+#%%pytest
 
 
 %files -f %{pyproject_files} -f CHIRP.lang

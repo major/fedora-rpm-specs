@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -120,7 +120,6 @@ Plugins for the koji build daemon
 Summary: Koji RPM builder daemon
 License: LGPL-2.1-only
 Requires: mock >= 0.9.14
-Requires(pre): /usr/sbin/useradd
 Requires: squashfs-tools
 Requires(post): systemd
 Requires(preun): systemd
@@ -199,6 +198,12 @@ koji-web is a web UI to the Koji system.
 # to the wheel we will produce.
 sed -e '/util\/koji/g' -e '/koji_cli_plugins/g' -i setup.py
 
+# Create a sysusers.d config file
+cat >koji.sysusers.conf <<EOF
+u kojibuilder - - /builddir /bin/bash
+m kojibuilder mock
+EOF
+
 %build
 %py3_build_wheel
 
@@ -232,6 +237,8 @@ extra_dirs='
 for fn in $extra_dirs ; do
     %py_byte_compile %{__python3} %{buildroot}$fn
 done
+
+install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 
 %files
 %{_bindir}/koji
@@ -311,9 +318,7 @@ done
 %dir /etc/kojid
 %config(noreplace) /etc/kojid/kojid.conf
 %attr(-,kojibuilder,kojibuilder) /etc/mock/koji
-
-%pre builder
-/usr/sbin/useradd -r -s /bin/bash -G mock -d /builddir -M kojibuilder 2>/dev/null ||:
+%{_sysusersdir}/koji.conf
 
 %post builder
 %systemd_post kojid.service
@@ -351,6 +356,10 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Sun Jul 06 2025 Kevin Fenzi <kevin@scrye.com> - 1.35.3-3
+- Add patch from Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> with sysusers.d handling
+- Fixes rhbz#2364015
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.35.3-2
 - Rebuilt for Python 3.14
 

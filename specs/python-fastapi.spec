@@ -5,7 +5,7 @@
 
 # Breaks a circular dependency on fastapi-cli by omitting it from fastapi’s
 # “standard” and “all” extras.
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 %bcond inline_snapshot %{undefined el10}
 %bcond orjson 1

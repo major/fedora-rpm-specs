@@ -1,10 +1,10 @@
 %global zig_pixman_ver 0.3.0
 %global zig_wayland_ver 0.3.0
-%global zig_wlroots_ver 0.19.1
+%global zig_wlroots_ver 0.19.2
 %global zig_xkbcommon_ver 0.3.0
 
 Name:           river
-Version:        0.3.10
+Version:        0.3.11
 Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
@@ -131,6 +131,12 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Sat Jul 05 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.11-1
+- Update to 0.3.11
+
+* Sun Jun 22 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.10-1
+- Update to 0.3.10
+
 * Tue Apr 22 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.9-1
 - Update to 0.3.9 (#2351096)
 

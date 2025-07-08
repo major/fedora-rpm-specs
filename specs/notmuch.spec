@@ -15,85 +15,95 @@
 %global with_emacs29 1
 %endif
 
-Name:           notmuch
-Version:        0.39
-Release:        %autorelease
-Summary:        System for indexing, searching, and tagging email
-License:        GPL-3.0-or-later
-URL:            https://notmuchmail.org/
-Source0:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
-Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
+Name:		notmuch
+Version:	0.39
+Release:	%autorelease
+Summary:	System for indexing, searching, and tagging email
+License:	GPL-3.0-or-later
+URL:		https://notmuchmail.org/
+Source0:	https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
+Source1:	https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 # imported from `gpg --locate-external-key david@tethera.net`
 # cross checked with `gpg --keyserver keyring.debian.org --recv-key 7E4E65C8720B706B`
 # as per author's instructions on the mailing-list
 # `gpg --export --export-options export-minimal 7A18807F100A4570C59684207E4E65C8720B706B > gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg`
-Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
-Patch:          0001-test-allow-to-use-full-scan.patch
-Patch:          0002-test-use-NOTMUCH_NEW-consistently.patch
-Patch:          0003-test-use-NOTMUCH_NEW_OPTIONS-in-atomicity.py.patch
-Patch:          0004-test-correct-comparison-order-in-T380.patch
-Patch:          0005-test-do-not-pass-T380.1-for-the-wrong-reasons.patch
-Patch:          0006-test-reword-T380.2-to-be-clearer.patch
-Patch:          0007-test-set-up-the-outcount-for-T380.1.patch
+Source2:	gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
+Patch:		0001-test-allow-to-use-full-scan.patch
+Patch:		0002-test-use-NOTMUCH_NEW-consistently.patch
+Patch:		0003-test-use-NOTMUCH_NEW_OPTIONS-in-atomicity.py.patch
+Patch:		0004-test-correct-comparison-order-in-T380.patch
+Patch:		0005-test-do-not-pass-T380.1-for-the-wrong-reasons.patch
+Patch:		0006-test-reword-T380.2-to-be-clearer.patch
+Patch:		0007-test-set-up-the-outcount-for-T380.1.patch
 
-BuildRequires:  make
+BuildRequires:	make
+
 %if 0%{?fedora} >= 41
-BuildRequires:  bash-completion-devel
+BuildRequires:	bash-completion-devel
 %else
-BuildRequires:  bash-completion
+BuildRequires:	bash-completion
 %endif
-BuildRequires:  desktop-file-utils
-BuildRequires:  emacs
-BuildRequires:  emacs-el
-BuildRequires:  emacs-nox
-Buildrequires:  gcc gcc-c++
-BuildRequires:  libtool
-BuildRequires:  doxygen
-BuildRequires:  texinfo
-BuildRequires:  gnupg2
-BuildRequires:  gnupg2-smime
-BuildRequires:  gmime30-devel
-BuildRequires:  libtalloc-devel
-BuildRequires:  perl-interpreter
-BuildRequires:  perl-generators
-BuildRequires:  perl-podlators
-BuildRequires:  ruby-devel
-%if %{with sfsexp}
-BuildRequires:  pkgconfig(sfsexp)
-%endif
-BuildRequires:  xapian-core-devel
-BuildRequires:  zlib-devel
-BuildRequires:  python3-devel
-BuildRequires:  python3-cffi
-BuildRequires:  python3-docutils
-BuildRequires:  python3-sphinx
 
-BuildRequires:  python3-setuptools
+BuildRequires:	desktop-file-utils
+BuildRequires:	emacs
+BuildRequires:	emacs-el
+BuildRequires:	emacs-nox
+Buildrequires:	gcc gcc-c++
+BuildRequires:	libtool
+BuildRequires:	doxygen
+BuildRequires:	texinfo
+BuildRequires:	gnupg2
+BuildRequires:	gnupg2-smime
+BuildRequires:	gmime30-devel
+BuildRequires:	libtalloc-devel
+BuildRequires:	perl-interpreter
+BuildRequires:	perl-generators
+BuildRequires:	perl-podlators
+BuildRequires:	ruby-devel
+
+%if %{with sfsexp}
+BuildRequires:	pkgconfig(sfsexp)
+%endif
+
+BuildRequires:	xapian-core-devel
+BuildRequires:	zlib-devel
+BuildRequires:	python3-devel
+BuildRequires:	python3-cffi
+BuildRequires:	python3-docutils
+BuildRequires:	python3-sphinx
+BuildRequires:	python3-setuptools
+
 %if %{with tests}
-BuildRequires:  python3-pytest
+BuildRequires:	python3-pytest
+
 # Not available on *EL, skip some tests there:
-  %if 0%{?fedora}
-BuildRequires:  python3-pytest-shutil
-  %endif
+%if 0%{?fedora}
+BuildRequires:	python3-pytest-shutil
+%endif
+
 # dtach not available on *EL, skip some tests there;
 # copr only: use mjg/dtach-epel
-  %if 0%{?fedora} || %{without distrobuild}
-BuildRequires:  dtach
-  %endif
-BuildRequires:  gdb
-  %if %{with sfsexp}
-BuildRequires:  git-core
-  %endif
+%if 0%{?fedora} || %{without distrobuild}
+BuildRequires:	dtach
 %endif
-BuildRequires:  man
-BuildRequires:  openssl
+
+BuildRequires:	gdb
+
+%if %{with sfsexp}
+BuildRequires:	git-core
+%endif
+
+%endif
+
+BuildRequires:	man
+BuildRequires:	openssl
 # You might also want to rebuild with valgrind-devel libasan libasan-static.
 
 Requires(post): /sbin/install-info
 Requires(postun): /sbin/install-info
 
 %description
-Fast system for indexing, searching, and tagging email.  Even if you
+Fast system for indexing, searching, and tagging email. Even if you
 receive 12000 messages per month or have on the order of millions of
 messages that you've been saving for decades, Notmuch will be able to
 quickly search all of it.
@@ -105,24 +115,24 @@ work is provided by an external library, Xapian. So if Notmuch
 provides no user interface and Xapian does all the heavy lifting, then
 what's left here? Not much.
 
-%package    devel
-Summary:    Development libraries and header files for the Notmuch library
-Requires:   %{name} = %{version}-%{release}
+%package	devel
+Summary:	Development libraries and header files for the Notmuch library
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Notmuch-devel contains the development libraries and header files for
-Notmuch email program.  These libraries and header files are
+Notmuch email program. These libraries and header files are
 necessary if you plan to do development using Notmuch.
 
 Install notmuch-devel if you are developing C programs which will use the
-Notmuch library.  You'll also need to install the notmuch package.
+Notmuch library. You'll also need to install the notmuch package.
 
 %if %{with sfsexp}
-%package    git
-Summary:    Manage notmuch tags with git
-Requires:   %{name} = %{version}-%{release}
-Requires:   git-core
-Recommends: python3-notmuch2
+%package	git
+Summary:	Manage notmuch tags with git
+Requires:	%{name} = %{version}-%{release}
+Requires:	git-core
+Recommends:	python3-notmuch2
 
 %description git
 This package contains a simple tool to save, restore, and synchronize
@@ -130,52 +140,52 @@ notmuch tags via git repositories.
 %endif
 
 %package -n emacs-notmuch
-Summary:    Not much support for Emacs
-BuildArch:  noarch
-Requires:   %{name} = %{version}-%{release}
-Requires:   emacs(bin) >= %{_emacs_version}
+Summary:	Not much support for Emacs
+BuildArch:	noarch
+Requires:	%{name} = %{version}-%{release}
+Requires:	emacs(bin) >= %{_emacs_version}
 
 %description -n emacs-notmuch
 %{summary}.
 
 %package -n python3-notmuch2
-Summary:    Python3 bindings for notmuch (cffi)
-Requires:   %{name} = %{version}-%{release}
+Summary:	Python3 bindings for notmuch (cffi)
+Requires:	%{name} = %{version}-%{release}
 %{?python_provide:%python_provide python3-notmuch2}
 
-Requires:   python3
+Requires:	python3
 # Keep these as long as we need to provide an upgrade path:
-Obsoletes:  python-notmuch < 0.39~rc2-1
-Obsoletes:  python3-notmuch < 0.39~rc2-1
+Obsoletes:	python-notmuch < 0.39~rc2-1
+Obsoletes:	python3-notmuch < 0.39~rc2-1
 
 %description -n python3-notmuch2
 %{summary}.
 
 %package -n ruby-notmuch
-Summary:    Ruby bindings for notmuch
-Requires:   %{name} = %{version}-%{release}
+Summary:	Ruby bindings for notmuch
+Requires:	%{name} = %{version}-%{release}
 
 %description -n ruby-notmuch
 %{summary}.
 
-%package    mutt
-Summary:    Notmuch (of a) helper for Mutt
-BuildArch:  noarch
-Requires:   %{name} = %{version}-%{release}
-Requires:   perl(Term::ReadLine::Gnu)
+%package	mutt
+Summary:	Notmuch (of a) helper for Mutt
+BuildArch:	noarch
+Requires:	%{name} = %{version}-%{release}
+Requires:	perl(Term::ReadLine::Gnu)
 
 %description mutt
 notmuch-mutt provide integration among the Mutt mail user agent and
 the Notmuch mail indexer.
 
-%package    vim
-Summary:    A Vim plugin for notmuch
-Requires:   ruby-%{name} = %{version}-%{release}
-Requires:   rubygem-mail
-Requires:   vim-enhanced
+%package	vim
+Summary:	A Vim plugin for notmuch
+Requires:	ruby-%{name} = %{version}-%{release}
+Requires:	rubygem-mail
+Requires:	vim-enhanced
 # Required for updating helptags in scriptlets.
-Requires(post):    vim-enhanced
-Requires(postun):  vim-enhanced
+Requires(post): vim-enhanced
+Requires(postun): vim-enhanced
 
 %description vim
 notmuch-vim is a Vim plugin that provides a fully usable mail client
@@ -202,7 +212,7 @@ popd
 
 # Build notmuch-mutt
 pushd contrib/notmuch-mutt
-    make
+make
 popd
 
 %if %{with tests}
@@ -241,18 +251,18 @@ popd
 
 # Install the ruby bindings
 pushd bindings/ruby
-    make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot}
 popd
 
 # Install notmuch-mutt
 install -m0755 contrib/notmuch-mutt/notmuch-mutt \
-    %{buildroot}%{_bindir}/notmuch-mutt
+	%{buildroot}%{_bindir}/notmuch-mutt
 install -m0644 contrib/notmuch-mutt/notmuch-mutt.1 \
-    %{buildroot}%{_mandir}/man1/notmuch-mutt.1
+	%{buildroot}%{_mandir}/man1/notmuch-mutt.1
 
 # Install notmuch-vim
 pushd vim
-    make install DESTDIR=%{buildroot} prefix="%{_datadir}/vim/vimfiles"
+make install DESTDIR=%{buildroot} prefix="%{_datadir}/vim/vimfiles"
 popd
 
 %if %{without sfsexp}

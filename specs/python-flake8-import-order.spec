@@ -2,7 +2,7 @@
 %bcond_with pylama
 
 Name:           python-%{srcname}
-Version:        0.19.0
+Version:        0.19.2
 Release:        %autorelease
 Summary:        Flake8 plugin for checking order of imports in Python code
 

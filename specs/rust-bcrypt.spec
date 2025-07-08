@@ -5,7 +5,7 @@
 %global crate bcrypt
 
 Name:           rust-bcrypt
-Version:        0.16.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Easily hash and verify passwords using bcrypt
 

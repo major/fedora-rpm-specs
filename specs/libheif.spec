@@ -4,7 +4,7 @@
 %bcond openjph 1
 
 Name:           libheif
-Version:        1.19.8
+Version:        1.20.1
 Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -23,6 +23,8 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(openh264)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(zlib)
 %ifnarch %{ix86}
 %if %{with openjph}
 BuildRequires:  pkgconfig(openjph) >= 0.18.0
@@ -165,6 +167,11 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %changelog
+* Sun Jul 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.20.1-1
+- update to 1.20.1 (resolves rhbz#2375931)
+- build heif-view tool (requires SDL2)
+- add explicit build dependency on zlib
+
 * Sun Apr 27 2025 Packit <hello@packit.dev> - 1.19.8-1
 - Update to version 1.19.8
 - Resolves: rhbz#2362578

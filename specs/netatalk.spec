@@ -161,7 +161,7 @@ sed -i 's\install: true\install: false\' doc/translated/ja/meson.build
 
 # Set RuntimeDirectory in the relevant service files rather than use a tmpfiles.d config
 for servicename in atalkd netatalk papd; do
-  sed -E -i "s|^(PIDFile=.*)|RuntimeDirectory=lock/netatalk\nRuntimeDirectoryPreserve=yes\n\1|" distrib/initscripts/systemd.${servicename}.service.in
+  sed -E -i 's|^(PIDFile=.*)|RuntimeDirectory=lock/netatalk\nRuntimeDirectoryPreserve=yes\n\1|' distrib/initscripts/systemd.${servicename}.service.in
 done
 
 %build
@@ -180,7 +180,7 @@ done
         -Dwith-cups=true                                                       \
         -Dwith-tests=true                                                      \
         -Dwith-testsuite=true                                                  \
-        %{?fedora:-Dwith-appletalk=true}                                       \
+        %{?fedora:-Dwith-appletalk=true}
 
 %meson_build
 

@@ -1,8 +1,11 @@
 Name: qtile
-Version: 0.29.0
-Release: 5%{?dist}
+Version: 0.32.0
+Release: 1%{?dist}
 Summary: A pure-Python tiling window manager
 Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.gz
+# Upstream uses the newer metadata labels to specify the project license.
+# However, they aren't supported in the Fedora build environment yet.
+Patch: 0001-Update-pyproject.toml-license-metadata.patch
 
 # Everything licensed under MIT except for the following files.
 # GPL-3.0-or-later:
@@ -21,6 +24,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
+BuildRequires:  xterm
 BuildRequires:  rsvg-pixbuf-loader
 BuildRequires: (pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18)
 # https://github.com/qtile/qtile/issues/4830
@@ -44,7 +48,7 @@ Requires: libpangocairo-1.0.so.0%{libsymbolsuffix}
 # Recommended packages for widgets
 Recommends: python3-psutil
 Recommends: python3-pyxdg
-Recommends: python3-dbus-next
+Recommends: python3-dbus-fast
 Recommends: python3-xmltodict
 Recommends: python3-dateutil
 Recommends: python3-mpd2
@@ -82,6 +86,7 @@ Summary: Qtile's python library
 %package wayland
 Summary: Qtile wayland session
 BuildRequires: xorg-x11-server-Xwayland
+BuildRequires: python3-pywlroots
 Requires: qtile = %{version}-%{release}
 Requires: python3-libqtile+wayland = %{version}-%{release}
 
@@ -128,9 +133,12 @@ desktop-file-install \
 # solves the issue. Please see the upstream issue:
 # https://github.com/qtile/qtile/issues/4573
 %ifnarch s390x ppc64le
-# The test_chord_widget is broken on Rawhide (F41)
-# https://github.com/qtile/qtile/issues/4930
-%pytest -vv --backend x11 --backend wayland -k "not test_chord_widget"
+# test_chord_widget is broken on Rawhide (F41)
+# See: https://github.com/qtile/qtile/issues/4930
+#
+# test_vertical_clock
+# See: https://github.com/qtile/qtile/issues/5283
+%pytest -vv --backend x11 --backend wayland -k "not test_chord_widget" -k "not test_vertical_clock"
 %endif
 
 
@@ -148,6 +156,12 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jul 03 2025 Danny Colin <contact@dannycolin.com> - 0.32.0-1
+- New upstream release (0.32.0)
+- Recommend python3-dbus-fast which replace python3-dbus-next
+- Add xterm as a build requirement for the test suite
+- Add python3-pywlroots as a build requirement for the Wayland package
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.29.0-5
 - Rebuilt for Python 3.14
 

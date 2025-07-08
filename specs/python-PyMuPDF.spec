@@ -4,8 +4,11 @@
 
 %bcond docs %{defined fedora}
 
+# mupdf barcode support is available on Fedora copr git build only
+%bcond barcode %[ %{defined fedora} && %["%copr_projectname" == "mupdf-git"] ] 
+
 Name:		python-%{pypi_name}
-Version:	1.25.3
+Version:	1.26.3
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -17,8 +20,7 @@ Patch:		0001-fix-test_-font.patch
 Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch:		0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
-# https://github.com/pymupdf/PyMuPDF/pull/4374
-Patch:		0001-adjust-to-python-3.14.patch
+Patch:		0001-tests-adjust-to-verbose-font-warning.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)
@@ -103,6 +105,8 @@ sphinx-build docs docs_built
 SKIP="not test_codespell and not test_pylint"
 # test_fontarchives tries to download special module via pip
 SKIP="$SKIP and not test_fontarchive"
+# test_open2 requires a git checkout
+SKIP="$SKIP and not test_open2"
 # flake8 has no place in downstream packaging
 SKIP="$SKIP and not test_flake8"
 # test_2791 fails sporadically with its empiric bounds
@@ -117,6 +121,12 @@ SKIP="$SKIP and not test_fit_springer"
 SKIP="$SKIP and not test_spikes"
 # these compare renderings with system fonts or missing fonts
 SKIP="$SKIP and not test_1645 and not test_4180"
+# test downloads data from the internet
+SKIP="$SKIP and not test_4445 and not test_4457"
+%if %{without barcode}
+# we build mupdf without barcode support
+SKIP="$SKIP and not test_barcode"
+%endif
 %ifarch s390 s390x
 # test_3087 crashes on s390 s390x (bigendian mask problem?)
 SKIP="$SKIP and not test_3087"

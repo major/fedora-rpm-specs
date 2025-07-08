@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -12,6 +12,10 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 # We use the GitHub archive instead of the PyPI sdist to get CHANGELOG.md and
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
+
+# build: Do not pin numpy to 1.x; allow numpy 2
+# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/329
+Patch:          %{url}/pull/329.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm

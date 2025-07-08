@@ -20,10 +20,7 @@
 %bcond ocio          1
 %bcond oiio          1
 %bcond ptex          1
-# Requires python-pyopengl, which FTBFS in F42+
-# (https://bugzilla.redhat.com/show_bug.cgi?id=2341191) and therefore FTI since
-# the Python 3.14 mass rebuild.
-%bcond usdview       0
+%bcond usdview       1
 # TODO: Figure out how to re-enable the tests. Currently these want to install
 # into /usr/tests, and there are issues with the launchers finding the
 # command-line tools in the buildroot.

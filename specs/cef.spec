@@ -1559,23 +1559,17 @@ popd
 
 pushd ../distrib_minimal/Release
   cp -a libvk_swiftshader.so* %{buildroot}%{chromium_path}
-  strip %{buildroot}%{chromium_path}/libvk_swiftshader.so
   cp -a libvulkan.so* %{buildroot}%{chromium_path}
-  strip %{buildroot}%{chromium_path}/libvulkan.so.1
   cp -a vk_swiftshader_icd.json %{buildroot}%{chromium_path}
 
   cp -a libcef.so %{buildroot}%{chromium_path}
-  strip %{buildroot}%{chromium_path}/libcef.so
   cp -a chrome-sandbox %{buildroot}%{chromium_path}/chrome-sandbox
-  strip %{buildroot}%{chromium_path}/chrome-sandbox
 
   # V8 initial snapshots
   # https://code.google.com/p/chromium/issues/detail?id=421063
   cp -a v8_context_snapshot.bin %{buildroot}%{chromium_path}
   # This is ANGLE, not to be confused with the similarly named files under swiftshader/
   cp -a libEGL.so* libGLESv2.so* %{buildroot}%{chromium_path}
-  strip %{buildroot}%{chromium_path}/libEGL.so
-  strip %{buildroot}%{chromium_path}/libGLESv2.so
 popd
 
 cp -a ../distrib_minimal/include %{buildroot}%{_includedir}/cef/include

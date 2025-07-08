@@ -1,7 +1,7 @@
-%global snapshot 20250411
+%global snapshot 20250706
 
 Name:           megatools
-Version:        1.11.4
+Version:        1.11.5
 Release:        %autorelease
 Summary:        Command line client for MEGA
 License:        GPL-3.0-or-later
