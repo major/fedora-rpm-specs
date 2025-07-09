@@ -3,7 +3,7 @@
 
 Name:           perl-Gnome2-Canvas
 Version:        1.006
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        An engine for structured graphics in Gnome2 (deprecated)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -83,6 +83,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.006-17
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

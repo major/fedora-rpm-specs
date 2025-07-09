@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -417,6 +417,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.8.1-7
+- Perl 5.42 rebuild
+
 * Tue Jun 17 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-6
 - Update to better support post-quantum cryptography
 

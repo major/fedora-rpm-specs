@@ -1,6 +1,7 @@
 %global glib2_version 2.79.0
 %global gtk4_version 4.15.0
 %global libadwaita_version 1.6~beta
+%global blueprint_compiler_version 0.18
 
 Name:           showtime
 Version:        49~alpha
@@ -23,7 +24,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson
-BuildRequires:  blueprint-compiler
+BuildRequires:  blueprint-compiler >= %{blueprint_compiler_version}
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-4)

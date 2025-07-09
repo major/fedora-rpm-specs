@@ -1,6 +1,6 @@
 Name:           perl-experimental
 Version:        0.035
-Release:        1%{?dist}
+Release:        519%{?dist}
 Summary:        Experimental features made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/experimental
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.035-519
+- Increase release to favour standalone package
+
 * Mon May 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.035-1
 - 0.035 bump (rhbz#2363256)
 

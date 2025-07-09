@@ -1,7 +1,7 @@
 Name:           perl-IO-Socket-Multicast
 Summary:        Perl library for sending and receiving multicast messages
 Version:        1.12
-Release:        30%{?dist}
+Release:        31%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-Multicast
@@ -66,6 +66,9 @@ find %{buildroot} -type d -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.12-31
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

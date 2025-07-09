@@ -1,7 +1,7 @@
 Summary: Perl bindings for the Newt library
 Name: perl-Newt
 Version: 1.08
-Release: 73%{?dist}
+Release: 74%{?dist}
 URL: https://metacpan.org/release/Newt-1.08
 Source: https://cpan.metacpan.org/authors/id/A/AM/AMEDINA/Newt-1.08.tar.gz
 Patch0: newt-perl-1.08-debian.patch
@@ -62,6 +62,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/Newt*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-74
+- Perl 5.42 rebuild
+
 * Thu Jan 30 2025 Michal Josef Špaček <mspacek@redhat.com> - 1.08-73
 - Fix pointer type (rhbz#2341033)
   Thanks Paul Howarth

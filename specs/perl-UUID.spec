@@ -1,6 +1,6 @@
 Name:           perl-UUID
 Version:        0.37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Universally Unique Identifier library for Perl
 # README:       Artistic-2.0
 # ulib/md5.c:   (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.37-2
+- Perl 5.42 rebuild
+
 * Mon Feb 24 2025 Petr Pisar <ppisar@redhat.com> - 0.37-1
 - 0.37 bump
 

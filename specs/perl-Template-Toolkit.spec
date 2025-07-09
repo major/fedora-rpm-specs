@@ -1,6 +1,6 @@
 Name:           perl-Template-Toolkit
 Version:        3.102
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Template processing system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.template-toolkit.org/
@@ -124,6 +124,9 @@ make test
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.102-3
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

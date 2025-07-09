@@ -1,6 +1,6 @@
 Name:           perl-Term-Size 
 Version:        0.211
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Simple way to get terminal size 
 Source0:        https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.211-16
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.211-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

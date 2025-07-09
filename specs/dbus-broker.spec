@@ -1,7 +1,7 @@
 %global dbus_user_id 81
 
 Name:                 dbus-broker
-Version:              36
+Version:              37
 Release:              %autorelease
 Summary:              Linux D-Bus Message Broker
 License:              Apache-2.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (Apache-2.0 OR LGPL-2.1-or-later)

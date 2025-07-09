@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	7
+%define		baserelease	8
 %define		srcname		mecab-perl
 
 Name:		perl-mecab
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -depth -type d | xargs rmdir 2>/dev/null || :
 %{perl_vendorarch}/auto/MeCab/
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.996-8
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

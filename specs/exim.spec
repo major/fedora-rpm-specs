@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.98.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -510,6 +510,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.98.2-3
+- Perl 5.42 rebuild
+
 * Fri May 09 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.98.2-2
 - Make sure the /usr/sbin/sendmail symlink exists (if /usr/sbin is a directory)
 

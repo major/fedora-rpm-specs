@@ -1,6 +1,6 @@
 Name:           perl-Net-Patricia
 Version:        1.22
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Patricia Trie perl module for fast IP address lookups
 # The entire source code is GPLv2+ except libpatricia/ which is BSD
 # Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.22-44
+- Perl 5.42 rebuild
+
 * Sun Feb 23 2025 Kevin Fenzi <kevin@scrye.com> - 1.22-43
 - Add patch to fix FTBFS from Paul Howarth. Fixes rhbz#2341032
 

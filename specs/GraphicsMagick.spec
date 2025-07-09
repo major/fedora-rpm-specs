@@ -20,7 +20,7 @@
 
 Name: GraphicsMagick
 Version: 1.3.45
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: An ImageMagick fork, offering faster image generation and better quality
 Url: http://www.graphicsmagick.org/
 License: MIT
@@ -322,6 +322,9 @@ exit 1
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.45-4
+- Perl 5.42 rebuild
+
 * Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1.3.45-3
 - Rebuild for jpegxl (libjxl) 0.11.1
 

@@ -13,11 +13,12 @@ Source0:        https://github.com/NetworkManager/%{name}/releases/download/v%{v
 Requires:       openssl-libs
 Requires:       p11-kit-server
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(p11-kit-1)
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  openssl-devel-engine%{?_isa}
 
 %description
 This is a PKCS#11 engine for OpenSSL based on p11-kit capable of utilizing the

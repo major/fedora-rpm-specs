@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
 Version:        0.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-2
+- Perl 5.42 rebuild
+
 * Mon Feb 10 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.35-1
 - 0.35 bump (rhbz#2343874)
 

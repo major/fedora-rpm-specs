@@ -20,6 +20,9 @@ BuildRequires:  systemd-rpm-macros
 # Needed for the distribution icon
 Requires:       system-logos
 
+# Utilities used by the OOBE script
+Requires:       shadow-utils
+Requires:       systemd
 
 %description
 Provides WSL specific configuration files and first-time setup script.

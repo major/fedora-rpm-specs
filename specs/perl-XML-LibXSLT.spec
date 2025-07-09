@@ -3,7 +3,7 @@
 Name:       perl-XML-LibXSLT
 # NOTE: also update perl-XML-LibXML to a compatible version.  See below why.
 Version:    %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Perl module for interfacing to GNOME's libxslt
 # lib/XML/LibXSLT.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/XML/LibXSLT/Quick.pm: MIT
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.003.000-4
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.003.000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

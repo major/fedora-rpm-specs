@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV_XS
 Version:        1.60
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
@@ -80,6 +80,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.60-2
+- Perl 5.42 rebuild
+
 * Fri Jan 31 2025 Paul Howarth <paul@city-fan.org> - 1.60-1
 - Update to 1.60 (rhbz#2343165)
   - Add SECURITY.md

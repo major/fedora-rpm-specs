@@ -1,6 +1,6 @@
 Name:           perl-Text-Reflow
 Version:        1.17
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Perl module for reflowing text files using Knuth's paragraphing algorithm
 License:        GPL-3.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Text-Reflow
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.17-30
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

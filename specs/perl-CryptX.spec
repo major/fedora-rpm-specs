@@ -5,7 +5,7 @@
 
 Name:           perl-CryptX
 Version:        0.087
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -150,6 +150,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.087-3
+- Perl 5.42 rebuild
+
 * Thu Jun 12 2025 Xavier Bachelot <xavier@bachelot.org> - 0.087-2
 - Use any version of Math::BigInt and Math::BigFloat
 - Fix bundled Provides:

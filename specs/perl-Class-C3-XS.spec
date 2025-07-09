@@ -1,6 +1,6 @@
 Name:		perl-Class-C3-XS
 Version:	0.15
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	XS speedups for Class::C3
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-C3-XS
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Class::C3::XS.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-18
+- Perl 5.42 rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

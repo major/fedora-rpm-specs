@@ -1,11 +1,10 @@
 Name:           perl-Term-ReadLine-Gnu
-Version:        1.46
-Release:        11%{?dist}
+Version:        1.47
+Release:        1%{?dist}
 Summary:        Perl extension for the GNU Readline/History Library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ReadLine-Gnu
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-%{version}.tar.gz
-Patch0:         0000-Fix-for-compilation-in-C23-mode.patch
 Patch1:         0001-Force-TERM-vt100-for-readline-test.patch
 
 BuildRequires:  coreutils
@@ -84,6 +83,13 @@ expect -c '
 
 
 %changelog
+* Mon Jul 07 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.47-1
+- Update to 1.47
+- Drop upstreamed patch
+
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.46-12
+- Perl 5.42 rebuild
+
 * Fri Jan 24 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.46-11
 - Add 0001-Force-TERM-vt100-for-readline-test.patch to fix i686 build.
 

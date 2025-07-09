@@ -1,6 +1,6 @@
 Name:		perl-File-FcntlLock
 Version:	0.22
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Perl module for file locking with fcntl
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-35
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

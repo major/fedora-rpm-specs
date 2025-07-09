@@ -1,14 +1,16 @@
 %global base_version 2.21
 Name:           perl-threads
 Epoch:          1
-Version:        2.40
-Release:        512%{?dist}
+Version:        2.43
+Release:        519%{?dist}
 Summary:        Perl interpreter-based threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDHEDDEN/threads-%{base_version}.tar.gz
 # Unbundled from perl 5.40.0-RC1
 Patch0:         threads-2.21-Upgrade-to-2.40.patch
+# Unbundled from perl 5.42.0
+Patch1:         threads-2.40-Upgrade-to-2.43.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -70,6 +72,7 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n threads-%{base_version}
 %patch -P0 -p1
+%patch -P1 -p1
 chmod -x examples/*
 
 # Generate ppport.h
@@ -127,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.43-519
+- Upgrade to 2.43 as provided in perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.40-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

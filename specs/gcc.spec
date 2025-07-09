@@ -1,10 +1,10 @@
-%global DATE 20250521
-%global gitrev b9def1721b12cae307c1a1ebc49030fce6531dfa
+%global DATE 20250707
+%global gitrev c138e88e24a87a165b741b7c6e3452a430aca820
 %global gcc_version 15.1.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -305,6 +305,7 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
+Patch13: gcc15-pr120837.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -2432,9 +2433,9 @@ cd obj-%{gcc_target_platform}
 # run the tests.
 LC_ALL=C make %{?_smp_mflags} -k check ALT_CC_UNDER_TEST=gcc ALT_CXX_UNDER_TEST=g++ \
 %if 0%{?fedora} >= 20 || 0%{?rhel} > 7
-     RUNTESTFLAGS="--target_board=unix/'{,-fstack-protector-strong}'" || :
+     RUNTESTFLAGS="--target_board=unix/'{-foffload=disable,-fstack-protector-strong/-foffload=disable}'" || :
 %else
-     RUNTESTFLAGS="--target_board=unix/'{,-fstack-protector}'" || :
+     RUNTESTFLAGS="--target_board=unix/'{-foffload=disable,-fstack-protector/-foffload=disable}'" || :
 %endif
 %if !%{build_annobin_plugin}
 if [ -f %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/plugin/annobin.so ]; then
@@ -3765,6 +3766,33 @@ end
 %endif
 
 %changelog
+* Mon Jul  7 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-3
+- update from releases/gcc-15 branch
+  - PRs ada/120665, ada/120705, ada/120854, c/120180, c++/116064, c++/120123,
+	c++/120363, c++/120413, c++/120414, c++/120471, c++/120502,
+	c++/120555, c++/120575, c++/120684, c++/120940, fortran/51961,
+	fortran/85750, fortran/99838, fortran/101735, fortran/102599,
+	fortran/114022, fortran/119856, fortran/119948, fortran/120193,
+	fortran/120355, fortran/120483, fortran/120711, fortran/120784,
+	ipa/120295, libfortran/119856, libstdc++/99832, libstdc++/120367,
+	libstdc++/120432, libstdc++/120465, libstdc++/120548,
+	libstdc++/120625, libstdc++/120648, libstdc++/120650,
+	libstdc++/120931, libstdc++/120934, middle-end/118694,
+	middle-end/120369, middle-end/120547, middle-end/120608,
+	middle-end/120631, rtl-optimization/116389, rtl-optimization/120050,
+	rtl-optimization/120182, rtl-optimization/120347,
+	rtl-optimization/120423, rtl-optimization/120550,
+	rtl-optimization/120795, target/86772, target/119971, target/120042,
+	target/120441, target/120442, target/120480, target/120624,
+	testsuite/52641, testsuite/120082, testsuite/120919,
+	tree-optimization/116352, tree-optimization/119960,
+	tree-optimization/120003, tree-optimization/120341,
+	tree-optimization/120357, tree-optimization/120638,
+	tree-optimization/120654, tree-optimization/120677,
+	tree-optimization/120729, tree-optimization/120927
+- fix up FE lowering of pointer arith (PR c/120837)
+- perform %%check with -foffload=disable flag
+
 * Wed May 21 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-2
 - update from releases/gcc-15 branch
   - PRs ada/112958, ada/120104, c/120057, c++/119863, c++/119864, c++/119938,

@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -578,6 +578,9 @@ fi
 %{_sysusersdir}/inn.conf
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.7.3-3
+- Perl 5.42 rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.7.3-2
 - Rebuilt for Python 3.14
 

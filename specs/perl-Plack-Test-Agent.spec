@@ -2,18 +2,19 @@
 %bcond_without perl_Plack_Test_Agent_enables_optional_test
 
 Name:           perl-Plack-Test-Agent
-Version:        1.5
-Release:        14%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Object-oriented interface for testing PSGI applications
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack-Test-Agent
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/Plack-Test-Agent-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -48,8 +49,26 @@ Plack::Test::Agent is an object-oriented interface to test PSGI applications.
 It can perform GET and POST requests against PSGI applications either in
 process or over HTTP through a Plack::Handler compatible backend.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Plack-Test-Agent-%{version}
+%if %{without perl_Plack_Test_Agent_enables_optional_test}
+rm t/cycle.t
+perl -i -ne 'print $_ unless m{^t/cycle\.t}' MANIFEST
+%endif
+# Normalize shebangs
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -58,6 +77,15 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING http_proxy
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset AUTHOR_TESTING http_proxy
@@ -66,10 +94,19 @@ make test
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Plack
+%dir %{perl_vendorlib}/Plack/Test
+%{perl_vendorlib}/Plack/Test/Agent.pm
+%{_mandir}/man3/Plack::Test::Agent.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Petr Pisar <ppisar@redhat.com> - 1.6-1
+- 1.6 bump
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

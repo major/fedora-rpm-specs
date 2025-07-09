@@ -3,7 +3,7 @@
 Summary: Frozen Bubble arcade game
 Name: frozen-bubble
 Version: 2.2.1
-Release: 0.51.beta1%{?dist}
+Release: 0.52.beta1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://www.frozen-bubble.org/
@@ -192,6 +192,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/frozen-bu
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.1-0.52.beta1
+- Perl 5.42 rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.1-0.51.beta1
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

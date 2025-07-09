@@ -1,6 +1,6 @@
 Name:           perl-Math-FFT
 Version:        1.36
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Perl module to calculate Fast Fourier Transforms
 # arrays.c:         GPL-1.0-or-later OR Artistic-1.0-Perl (copied from
 #                   <https://metacpan.org/dist/PGPLOT>)
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.36-17
+- Perl 5.42 rebuild
+
 * Wed Mar 12 2025 Petr Pisar <ppisar@redhat.com> - 1.36-16
 - Convert a license tag to SPDX
 - Package the tests

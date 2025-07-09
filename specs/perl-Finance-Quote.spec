@@ -1,7 +1,7 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.65
+%global cpan_version 1.66
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %{cpan_version})
 Release:        1%{?dist}
@@ -54,8 +54,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(String::Util)
 BuildRequires:  perl(Text::Template)
 BuildRequires:  perl(Time::Piece)
-BuildRequires:  perl(Time::Seconds)
-BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
@@ -121,11 +119,11 @@ make test
 %{_mandir}/man3/Finance::Quote::AlphaVantage.3*
 %{_mandir}/man3/Finance::Quote::ASEGR.3*
 %{_mandir}/man3/Finance::Quote::ASX.3*
-%{_mandir}/man3/Finance::Quote::Bloomberg.3*
 %{_mandir}/man3/Finance::Quote::BorsaItaliana.3*
 %{_mandir}/man3/Finance::Quote::Bourso.3*
 %{_mandir}/man3/Finance::Quote::BSEIndia.3*
 %{_mandir}/man3/Finance::Quote::BVB.3*
+%{_mandir}/man3/Finance::Quote::CMBChina.3*
 %{_mandir}/man3/Finance::Quote::Comdirect.3*
 %{_mandir}/man3/Finance::Quote::Consorsbank.3*
 %{_mandir}/man3/Finance::Quote::CSE.3*
@@ -145,7 +143,6 @@ make test
 %{_mandir}/man3/Finance::Quote::FTfunds.3*
 %{_mandir}/man3/Finance::Quote::GoldMoney.3*
 %{_mandir}/man3/Finance::Quote::GoogleWeb.3*
-%{_mandir}/man3/Finance::Quote::HU.3*
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
 %{_mandir}/man3/Finance::Quote::MarketWatch.3*
 %{_mandir}/man3/Finance::Quote::MorningstarCH.3*
@@ -154,19 +151,15 @@ make test
 %{_mandir}/man3/Finance::Quote::NSEIndia.3*
 %{_mandir}/man3/Finance::Quote::NZX.3*
 %{_mandir}/man3/Finance::Quote::OnVista.3*
-%{_mandir}/man3/Finance::Quote::Oslobors.3*
-%{_mandir}/man3/Finance::Quote::SEB.3*
 %{_mandir}/man3/Finance::Quote::Sinvestor.3*
 %{_mandir}/man3/Finance::Quote::SIX.3*
 %{_mandir}/man3/Finance::Quote::StockData.3*
 %{_mandir}/man3/Finance::Quote::Stooq.3*
 %{_mandir}/man3/Finance::Quote::TesouroDireto.3*
-%{_mandir}/man3/Finance::Quote::Tiaacref.3*
 %{_mandir}/man3/Finance::Quote::TMX.3*
 %{_mandir}/man3/Finance::Quote::Tradegate.3*
 %{_mandir}/man3/Finance::Quote::TSP.3*
 %{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
-%{_mandir}/man3/Finance::Quote::Troweprice.3*
 %{_mandir}/man3/Finance::Quote::TwelveData.3*
 %{_mandir}/man3/Finance::Quote::Union.3*
 %{_mandir}/man3/Finance::Quote::XETRA.3*
@@ -175,6 +168,17 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Jul  7 2025 Paul Howarth <paul@city-fan.org> - 1.6600-1
+- Update to 1.66
+  - Modified CurrencyRates/CurrencyFreaks.pm to return from and to values
+    instead of calculated rate
+  - Removed Bloomberg.pm, Tiaacref.pm, Troweprice.pm
+  - AlphaVantage: Return 'symbol not found' when no price data is returned
+  - ASX: Changed error message when symbol isn't found (GH#497)
+  - Added a new module to fetch the fund NAV from CMBChina (GH#494)
+  - Added Cookie Jar to Comdirect user agent (GH#491)
+  - Removed HU.pm, Oslobors.pm, and SEB.pm (GH#490)
+
 * Sun Apr 27 2025 Paul Howarth <paul@city-fan.org> - 1.6500-1
 - Update to 1.65
   - Added EXCHANGE feature to Sinvestor.pm and some fixes (GH#481)

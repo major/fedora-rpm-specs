@@ -1,6 +1,6 @@
 Name:           perl-Data-Clone
 Version:        0.006
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Polymorphic data cloning
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Clone
@@ -62,6 +62,9 @@ polymorphic data cloning.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.006-7
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

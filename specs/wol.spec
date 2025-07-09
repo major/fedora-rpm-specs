@@ -1,6 +1,6 @@
 Name:           wol
 Version:        0.7.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Wake On Lan client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,6 +25,7 @@ hardware that is Magic Packet compliant. SecureON is supported by wol too.
 %patch -P1 -p1 -b .configure-c99
 
 %build
+export CFLAGS="$CFLAGS -std=gnu11"
 %configure --disable-static
 make %{?_smp_mflags}
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv
@@ -43,6 +44,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_bindir}/%{name}*
 
 %changelog
+* Wed Apr 30 2025 David Auer <dreua@posteo.de> - 0.7.1-37
+- Fix build with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

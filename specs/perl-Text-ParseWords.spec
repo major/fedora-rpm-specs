@@ -1,6 +1,6 @@
 Name:           perl-Text-ParseWords
 Version:        3.31
-Release:        512%{?dist}
+Release:        519%{?dist}
 Summary:        Parse text into an array of tokens or array of arrays
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-ParseWords
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.31-519
+- Increase release to favour standalone package
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.31-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

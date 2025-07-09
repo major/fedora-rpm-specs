@@ -2,15 +2,17 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.9.5
+Version: 4.9.7
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
-Patch0: pdns-gcc15.patch
 ExcludeArch: %{arm} %{ix86}
 
+%if 0%{?rhel}
+Requires(pre): shadow-utils
+%endif
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -140,10 +142,12 @@ This package contains the ixfrdist program.
 %prep
 %autosetup -p1
 
+%if 0%{?fedora}
 # Create a sysusers.d config file
 cat >pdns.sysusers.conf <<EOF
 u pdns - 'PowerDNS Authoritative Server' /var/lib/pdns -
 EOF
+%endif
 
 %build
 export CPPFLAGS="-DLDAP_DEPRECATED"
@@ -190,11 +194,20 @@ sed -i \
 %{__rm} %{buildroot}/%{_bindir}/stubquery
 %{__install} -d %{buildroot}/%{_sharedstatedir}/%{name}
 
+%if 0%{?fedora}
 install -m0644 -D pdns.sysusers.conf %{buildroot}%{_sysusersdir}/pdns.conf
+%endif
 
 %check
 make %{?_smp_mflags} -C pdns check
 
+%if 0%{?rhel}
+%pre
+getent group pdns >/dev/null || groupadd -r pdns
+getent passwd pdns >/dev/null || \
+	useradd -r -g pdns -d /var/lib/pdns -s /sbin/nologin \
+	-c "PowerDNS Authoritative Server" pdns
+%endif
 
 %post
 %systemd_post pdns.service
@@ -227,7 +240,9 @@ make %{?_smp_mflags} -C pdns check
 %dir %attr(-,pdns,pdns) %{_sharedstatedir}/%{name}
 %dir %attr(-,root,pdns) %{_sysconfdir}/%{name}/
 %attr(0640,root,pdns) %config(noreplace) %{_sysconfdir}/%{name}/pdns.conf
+%if 0%{?fedora}
 %{_sysusersdir}/pdns.conf
+%endif
 
 %files tools
 %{_bindir}/calidns
@@ -325,8 +340,15 @@ make %{?_smp_mflags} -C pdns check
 %{_unitdir}/ixfrdist@.service
 
 %changelog
-* Thu Jul 03 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.4-1
-- Update to 4.9.4
+* Mon Jul 07 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.7-1
+- Update to 4.9.7
+
+* Mon Jul 07 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.5-2
+- Do not use sysusers.d config file for RHEL
+- Fix typo in changelog
+
+* Thu Jul 03 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.5-1
+- Update to 4.9.5
 
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.9.3-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically

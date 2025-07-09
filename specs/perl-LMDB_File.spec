@@ -1,6 +1,6 @@
 Name:           perl-LMDB_File
 Version:        0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl5 wrapper around the OpenLDAP's LMDB
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) OR Artistic-2.0
 URL:            https://metacpan.org/release/LMDB_File
@@ -95,6 +95,9 @@ compatible with others DBMs.
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.14-2
+- Perl 5.42 rebuild
+
 * Sun Mar 16 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
 - Update to 0.14
 

@@ -15,21 +15,21 @@ end}
 %global gomodulesmode GO111MODULE=auto
 
 Name:           grafana-pcp
-Version:        5.2.2
-Release:        3%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
 
 Source0:        https://github.com/performancecopilot/grafana-pcp/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        grafana-pcp-vendor-%{version}-2.tar.xz
+Source1:        grafana-pcp-vendor-%{version}-1.tar.xz
 # Note: In case there were no changes to this tarball, the NVR of this tarball
 # lags behind the NVR of this package.
 %if %{compile_frontend} == 0
 # Source2 contains the precompiled frontend and dashboards
 # Note: In case there were no changes to this tarball, the NVR of this tarball
 # lags behind the NVR of this package.
-Source2:        grafana-pcp-webpack-%{version}-2.tar.gz
+Source2:        grafana-pcp-webpack-%{version}-1.tar.gz
 %endif
 Source3:        create_bundles.sh
 Source4:        build_frontend.sh
@@ -38,6 +38,7 @@ Source6:        create_bundles_in_container.sh
 
 Patch1:         0001-remove-unused-frontend-crypto.patch
 Patch2:         0002-remove-faulty-metric-tables.patch
+Patch3:         0003-fix-create_bundles-issue.patch
 
 # Intersection of go_arches and nodejs_arches
 ExclusiveArch:  %{grafanapcp_arches}
@@ -137,6 +138,7 @@ bpftrace scripts from pmdabpftrace(1), as well as several dashboards.
 
 %patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
 
 
 %build
@@ -196,6 +198,9 @@ yarn test
 
 
 %changelog
+* Mon Jul 7 2025 Sam Feifer <sfeifer@redhat.org> - 5.3.0-1
+- update to 5.3.0 tagged upstream sources, see CHANGELOG
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: 		perl-Date-Pcalc
 Version:	6.1
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	Gregorian calendar date calculations
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Date-Pcalc
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 6.1-47
+- Perl 5.42 rebuild
+
 * Sat Jan 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 6.1-46
 - Add 0001-Fix-bool-detection.patch (F42FTBS, RHBZ#2341027).
 

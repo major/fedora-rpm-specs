@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -104,6 +104,9 @@ desktop-file-install	\
 
 
 %changelog
+* Mon Jul 07 2025 Tomas Korbar <tkorbar@redhat.com> - 4.9.3-3
+- Do not wait for server close-notify on TLS close
+
 * Tue May 13 2025 Tomas Korbar <tkorbar@redhat.com> - 4.9.3-2
 - Make lftp properly close TLS session on file upload
 

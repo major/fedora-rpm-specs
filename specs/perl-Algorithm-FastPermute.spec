@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-FastPermute
 Version:        0.999
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Rapid generation of permutations
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -56,6 +56,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %exclude %{perl_vendorarch}/Algorithm/perms.pl
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.999-54
+- Perl 5.42 rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.999-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

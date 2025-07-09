@@ -7,7 +7,7 @@
 
 Name:		perl-Ref-Util-XS
 Version:	0.117
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Utility functions for checking references
 License:	MIT
 URL:		https://metacpan.org/release/Ref-Util-XS
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/Ref::Util::XS.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.117-26
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.117-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

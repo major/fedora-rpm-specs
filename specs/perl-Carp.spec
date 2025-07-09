@@ -1,7 +1,7 @@
 %global base_version 1.50
 Name:           perl-Carp
 Version:        1.54
-Release:        512%{?dist}
+Release:        519%{?dist}
 Summary:        Alternative warn and die for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp
@@ -95,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.54-519
+- Increase release to favour standalone package
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.54-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

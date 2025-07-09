@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-RSA
 Version:        0.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to OpenSSL for RSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-RSA
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-2
+- Perl 5.42 rebuild
+
 * Wed May 07 2025 Xavier Bachelot <xavier@bachelot.org> - 0.35-1
 - Update to 0.35 (RHBZ#2364877)
   - Fixes CVE-2024-2467 (RHBZ#2269568)

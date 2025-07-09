@@ -1,6 +1,6 @@
 Name:           perl-perlfaq
 Version:        5.20250619
-Release:        1%{?dist}
+Release:        519%{?dist}
 Summary:        Frequently asked questions about Perl
 # Code examples are Public Domain
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250619-519
+- Increase release to favour standalone package
+
 * Mon Jun 23 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250619-1
 - 5.20250619 bump (rhbz#2374272)
 

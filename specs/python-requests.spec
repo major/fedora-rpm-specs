@@ -6,7 +6,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-requests
-Version:        2.32.3
+Version:        2.32.4
 Release:        %autorelease
 Summary:        HTTP library, written in Python, for human beings
 
@@ -31,29 +31,6 @@ Patch:          support_IPv6_CIDR_in_no_proxy.patch
 # Note: this can be replaced by https://github.com/psf/requests/pull/6767
 # when it is ready, or dropped in a release where that is merged
 Patch:          0001-Don-t-create-default-SSLContext-if-CA-bundle-isn-t-p.patch
-
-# Add CA constraint to test CA
-#
-# Otherwise recent versions of OpenSSL reject it as an invalid CA certificate
-# (at least once the test certificates are regenerated).
-#
-# https://github.com/psf/requests/commit/507409661335bd3dd8a7e39f04d07b42e519becc
-Patch:         https://github.com/psf/requests/commit/507409661335bd3dd8a7e39f04d07b42e519becc.patch
-# Regenerate test certificates
-# https://github.com/psf/requests/commit/9ebebdef98a6aacfbedcf2ca61ba0eaecc2563f4
-Patch:         https://github.com/psf/requests/commit/9ebebdef98a6aacfbedcf2ca61ba0eaecc2563f4.patch
-# Add key usage extension to test ca.crt
-# https://github.com/psf/requests/pull/6924
-Patch:          https://github.com/psf/requests/pull/6924.patch
-# Together, these three patches fix one of the three regressions reported in
-# the following issue, and the only one that we see downstream:
-#
-# Test regressions with urllib3 2.4.0 on Python 3.13
-# https://github.com/psf/requests/issues/6934
-#
-# See also:
-#
-# https://github.com/urllib3/urllib3/pull/3577#issuecomment-2765190031
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -108,7 +85,7 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files requests
+%pyproject_save_files -l requests
 
 
 %check
@@ -121,7 +98,6 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %files -n python%{python3_pkgversion}-requests -f %{pyproject_files}
-%license LICENSE
 %doc README.md HISTORY.md
 
 

@@ -2,7 +2,7 @@ Name:           perl-Pod-Simple
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        3.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for parsing POD documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Simple
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.47-2
+- Perl 5.42 rebuild
+
 * Mon May 19 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.47-1
 - 3.47 bump (rhbz#2366683)
 

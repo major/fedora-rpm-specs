@@ -1,8 +1,8 @@
 %global base_version 2.183
 
 Name:           perl-Data-Dumper
-Version:        2.189
-Release:        513%{?dist}
+Version:        2.191
+Release:        519%{?dist}
 Summary:        Stringify perl data structures, suitable for printing and eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper
@@ -13,6 +13,8 @@ Patch0:         Data-Dumper-2.183-Upgrade-to-2.184.patch
 Patch1:         Data-Dumper-2.184-Upgrade-to-2.188.patch
 # Upgrade to 2.189 based on perl-5.40.0-RC1
 Patch2:         Data-Dumper-2.188-Upgrade-to-2.189.patch
+# Upgrade to 2.191 based on perl-5.42.0
+Patch3:         Data-Dumper-2.189-Upgrade-to-2.191.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -20,6 +22,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Devel::PPPort)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(strict)
@@ -77,6 +80,11 @@ with "%{_libexecdir}/%{name}/test".
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
+
+# Generate ppport.h
+#perl -MDevel::PPPort \
+#    -e "Devel::PPPort::WriteFile() or die 'Could not generate ppport.h: $!'"
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -118,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.191-519
+- Upgrade to 2.191 based on perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.189-513
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

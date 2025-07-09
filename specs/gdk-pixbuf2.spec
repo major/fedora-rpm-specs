@@ -1,18 +1,26 @@
 %global glib2_version 2.56.0
+%ifarch i686
+%global with_glycin 0
+%else
+%global with_glycin 1
+%endif
 
 Name:           gdk-pixbuf2
-Version:        2.42.12
+Version:        2.43.3
 Release:        %autorelease
 Summary:        An image loading library
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
-Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
+%if %{with_glycin}
+BuildRequires:  pkgconfig(glycin-2)
+%endif
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libtiff-devel
@@ -76,8 +84,12 @@ the functionality of the installed %{name} package.
 
 %build
 %meson \
-       -Dgtk_doc=true \
+       -Ddocumentation=true \
        -Dman=true \
+       -Dandroid=disabled \
+%if !%{with_glycin}
+       -Dglycin=disabled \
+%endif
        %{nil}
 
 %global _smp_mflags -j1

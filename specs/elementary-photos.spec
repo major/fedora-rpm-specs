@@ -1,13 +1,13 @@
+%global __provides_exclude_from ^%{_libdir}/%{appname}/.*\\.so$
+
 %global srcname photos
 %global appname io.elementary.%{srcname}
 
-%global __provides_exclude_from ^%{_libdir}/%{appname}/.*\\.so$
-
 Name:           elementary-photos
 Summary:        Photo manager and viewer from elementary
-Version:        2.7.5
+Version:        8.0.1
 Release:        %autorelease
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 URL:            https://github.com/elementary/photos
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -15,11 +15,11 @@ Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.46.0
+BuildRequires:  meson >= 0.57.0
 BuildRequires:  vala
 
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.5
-BuildRequires:  pkgconfig(geocode-glib-1.0)
+BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(gexiv2) >= 0.4.90
 BuildRequires:  pkgconfig(gio-2.0) >= 2.20
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.20
@@ -36,6 +36,8 @@ BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libexif) >= 0.6.16
 BuildRequires:  pkgconfig(libgphoto2) >= 2.4.2
 BuildRequires:  pkgconfig(libhandy-1)
+BuildRequires:  pkgconfig(libportal)
+BuildRequires:  pkgconfig(libportal-gtk3)
 BuildRequires:  pkgconfig(libraw) >= 0.13.2
 BuildRequires:  pkgconfig(libsoup-2.4) >= 2.26.0
 BuildRequires:  pkgconfig(libwebp) >= 0.4.4
@@ -69,17 +71,16 @@ Foundation.
 %check
 desktop-file-validate \
     %{buildroot}/%{_datadir}/applications/%{appname}.desktop
-
 desktop-file-validate \
-    %{buildroot}/%{_datadir}/applications/%{appname}-viewer.desktop
+    %{buildroot}/%{_datadir}/applications/%{appname}.viewer.desktop
 
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_datadir}/metainfo/%{appname}.appdata.xml
+    %{buildroot}/%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %files -f %{appname}.lang
-%doc README.md
 %license COPYING
+%doc README.md
 
 %{_bindir}/%{appname}
 
@@ -88,11 +89,11 @@ appstream-util validate-relax --nonet \
 %{_libexecdir}/%{appname}/
 
 %{_datadir}/applications/%{appname}.desktop
-%{_datadir}/applications/%{appname}-viewer.desktop
+%{_datadir}/applications/%{appname}.viewer.desktop
 %{_datadir}/glib-2.0/schemas/%{appname}.gschema.xml
-%{_datadir}/glib-2.0/schemas/%{appname}-extras.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{appname}.svg
-%{_datadir}/metainfo/%{appname}.appdata.xml
+%{_datadir}/icons/hicolor/*/apps/%{appname}.viewer.svg
+%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %changelog

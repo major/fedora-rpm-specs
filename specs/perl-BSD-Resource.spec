@@ -8,7 +8,7 @@
 Name:           perl-BSD-Resource
 Version:        1.291.100
 %global module_version 1.2911
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        BSD process resource limit and priority functions
 # No matter what the pm and xs headers say, this is stated in the POD and,
 # according to upstream changelog for 1.2905, is correct.
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.291.100-29
+- Perl 5.42 rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.291.100-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

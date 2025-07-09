@@ -1,8 +1,8 @@
 %global nm_version 1.2
 %global nma_version 1.0
-%global glib_required_version 2.63.1
-%global gtk_required_version 4.6
-%global geoclue_version 2.3.1
+%global glib_required_version 2.64
+%global gtk_required_version 4.17
+%global geoclue_version 2.6.0
 %global gnome_desktop_version 44.0-7
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -14,13 +14,13 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        48.1
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

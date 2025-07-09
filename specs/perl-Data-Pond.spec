@@ -1,6 +1,6 @@
 Name:           perl-Data-Pond
 Version:        0.006
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl-based open notation for data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -55,6 +55,9 @@ JavaScript, but Pond represents fewer data types directly.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.006-2
+- Perl 5.42 rebuild
+
 * Sun Mar 30 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.006-1
 - Update to 0.006, with new maintainer (#2355690)
 - Drop upstreamed patch

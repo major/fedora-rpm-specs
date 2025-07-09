@@ -1,23 +1,26 @@
 %global glib2_version 2.74.0
-%global gtk4_version 4.12.0
-%global libadwaita_version 1.6~alpha
+%global gtk4_version 4.13.3
+%global libadwaita_version 1.6
 %global webkitgtk_version 2.43.4
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           epiphany
 Epoch:          1
-Version:        48.3
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Web
-Source0:        https://download.gnome.org/sources/epiphany/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/epiphany/49/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch
+Patch1:         epiphany-49.alpha-build.patch
 
+BuildRequires:  /usr/bin/rst2man
+BuildRequires:  blueprint-compiler
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext-devel

@@ -15,7 +15,7 @@
 
 Name:    genders
 Version: %{majorver}.%{minorver}.%{patchver}~^%{commitdate}git%{shortcommit}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Static cluster configuration database
 License: GPL-2.0-only
 
@@ -211,6 +211,9 @@ mv %{buildroot}/%{_datarootdir}/java/Genders.jar %{buildroot}/%{_jnidir}/
 %{_usr}/lib/genders/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.28.1~^20231119git27b915d-4
+- Perl 5.42 rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1~^20231119git27b915d-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

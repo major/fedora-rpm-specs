@@ -1,8 +1,8 @@
 %global base_version 3.25
 Name:           perl-Storable
 Epoch:          1
-Version:        3.32
-Release:        512%{?dist}
+Version:        3.37
+Release:        519%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,6 +10,8 @@ URL:            https://metacpan.org/release/Storable
 Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Storable-%{base_version}.tar.gz
 # Unbundled from perl 5.37.12
 Patch0:         Storable-3.25-Upgrade-to-3.32.patch
+# Unbundled from perl 5.42.0
+Patch1:         Storable-3.32-Upgrade-to-3.37.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -18,6 +20,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Devel::PPPort)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Spec) >= 0.8
@@ -88,6 +91,10 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n Storable-%{base_version}
 
+# Generate ppport.h which is used since 1.32
+perl -MDevel::PPPort \
+    -e 'Devel::PPPort::WriteFile() or die "Could not generate ppport.h: $!"'
+
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -136,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.37-519
+- Upgrade to 3.37 as provided in perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.32-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

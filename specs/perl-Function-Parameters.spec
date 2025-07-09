@@ -4,7 +4,7 @@
 Name:           perl-Function-Parameters
 %global cpan_version 2.002005
 Version:        2.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Function-Parameters
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.5-2
+- Perl 5.42 rebuild
+
 * Sun Jan 19 2025 Paul Howarth <paul@city-fan.org> - 2.2.5-1
 - Update to 2.002005 (rhbz#2338807)
   - When debugging, skip over invisible (generated) parameter initialization

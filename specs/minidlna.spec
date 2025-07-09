@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -20,6 +20,9 @@ Patch0:         %{name}-1.3.0-select_use_after_free.patch
 # Add compatibility with FFMPEG 7.0
 # https://sourceforge.net/p/minidlna/git/merge-requests/58/
 Patch1:         0001-Add-compatibility-with-FFMPEG-7.0.patch
+# Fix CVE-2023-47430
+# https://sourceforge.net/p/minidlna/bugs/361/
+Patch2:         %{name}-CVE-2023-47430.patch
 
 BuildRequires:  avahi-devel
 BuildRequires:  flac-devel
@@ -138,6 +141,10 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Mon Jul 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.3.3-13
+- use systemctl try-restart in postrotate script (resolves rhbz#2372859)
+- attempt to fix CVE-2023-47430 (resolves rhbz#2271621)
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.3-12
 - Rebuilt for flac 1.5.0
 

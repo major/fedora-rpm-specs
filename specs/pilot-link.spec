@@ -4,7 +4,7 @@
 Summary: File transfer utilities between Linux and PalmPilots
 Name: pilot-link
 Version: 0.12.5
-Release: 64%{?dist}
+Release: 65%{?dist}
 Epoch: 2
 # libpisock/md5.c       Public Domain
 # libpisock/blob.c      LGPLv2+
@@ -206,6 +206,9 @@ install -p -m644 %{SOURCE4} %{buildroot}/lib/udev/rules.d/
 /lib/udev/rules.d/69-pilot-link.rules
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2:0.12.5-65
+- Perl 5.42 rebuild
+
 * Fri Mar 21 2025 Nikola Forró <nforro@redhat.com> - 2:0.12.5-64
 - Rebuild with GCC 15
 

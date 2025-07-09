@@ -1,6 +1,6 @@
 Name:           perl-Lucy
 Version:        0.6.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Search engine library
 # other files:                              Apacge-2.0
 # modules/unicode/ucd/WordBreak.tab:        Unicode-DFS-2015
@@ -128,6 +128,9 @@ rm -f $RPM_BUILD_ROOT/%{perl_vendorarch}/auto/Lucy/Lucy.bs
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.6.2-25
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

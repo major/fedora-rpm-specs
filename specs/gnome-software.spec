@@ -235,7 +235,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/gnome-software
 %{_datadir}/applications/gnome-software-local-file-flatpak.desktop
 %{_datadir}/applications/gnome-software-local-file-fwupd.desktop
+%if %{with packagekit} || %{with rpmostree} || %{with dnf5}
 %{_datadir}/applications/gnome-software-local-file-packagekit.desktop
+%endif
 %{_datadir}/applications/org.gnome.Software.desktop
 %{_datadir}/bash-completion/completions/gnome-software
 %{_mandir}/man1/gnome-software.1*

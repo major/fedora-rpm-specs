@@ -1,5 +1,5 @@
 Name:           python-productmd
-Version:        1.46
+Version:        1.47
 Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Mon Jul 07 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.47-1
+- Fixup for dropping python-six
+
 * Fri Jul 04 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.46-1
 - New upstream release 1.46
 

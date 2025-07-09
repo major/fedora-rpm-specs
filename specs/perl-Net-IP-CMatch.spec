@@ -1,6 +1,6 @@
 Name:           perl-Net-IP-CMatch
 Version:        0.02
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        Efficiently match IP addresses against IP ranges with C
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.02-59
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

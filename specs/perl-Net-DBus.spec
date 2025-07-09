@@ -1,6 +1,6 @@
 Name:           perl-Net-DBus
 Version:        1.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Use and provide DBus services
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-DBus
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Net::DBus*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.0-19
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

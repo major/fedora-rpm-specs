@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1342,6 +1342,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 16.9-5
+- Perl 5.42 rebuild
+
 * Wed Jun 25 2025 Filip Janus <fjanus@redhat.com> - 16.9-4
 - Enable zstd
 

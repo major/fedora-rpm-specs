@@ -10,7 +10,7 @@
 %bcond_with tests
 
 Name:              valkey
-Version:           8.1.2
+Version:           8.1.3
 Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
@@ -404,6 +404,10 @@ fi
 
 
 %changelog
+* Mon Jul  7 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-1
+- update to 8.1.3
+  fixes CVE-2025-CVE-2025-32023 and CVE-2025-48367
+
 * Wed Jun 18 2025 Remi Collet <remi@fedoraproject.org> - 8.1.2-1
 - update to 8.1.2
   fixes CVE-2025-27151

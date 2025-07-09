@@ -1,6 +1,6 @@
 Name: bcftools
 Version: 1.15.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
 # This software is available under a choice of one of two licenses,
@@ -99,6 +99,9 @@ make test
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.15.1-13
+- Perl 5.42 rebuild
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.15.1-12
 - Rebuild with gsl 2.8
 

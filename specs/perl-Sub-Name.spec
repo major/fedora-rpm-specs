@@ -4,7 +4,7 @@
 
 Name:		perl-Sub-Name
 Version:	0.28
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Name - or rename - a sub
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Name
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Sub::Name.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.28-3
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

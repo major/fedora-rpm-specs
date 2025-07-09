@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.1.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -416,6 +416,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:7.1.1.47-2
+- Perl 5.42 rebuild
+
 * Sun Mar 30 2025 Packit <hello@packit.dev> - 1:7.1.1.47-1
 - Update to version 7.1.1.47
 - Resolves: rhbz#2356054

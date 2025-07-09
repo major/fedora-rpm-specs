@@ -4,7 +4,7 @@
 Name:           perl-Crypt-SSLeay
 Summary:        OpenSSL glue that provides LWP with HTTPS support
 Version:        0.72
-Release:        46%{?dist}
+Release:        47%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Crypt-SSLeay
 Source0:        https://cpan.metacpan.org/authors/id/N/NA/NANIS/Crypt-SSLeay-%{version}.tar.gz
@@ -111,6 +111,9 @@ make test
 %{_mandir}/man3/Net::SSL.3pm*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.72-47
+- Perl 5.42 rebuild
+
 * Tue Feb 18 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.72-46
 - Change path to certificates file (bz#2338978)
 

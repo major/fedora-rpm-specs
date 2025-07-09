@@ -1,6 +1,6 @@
 Name:           perl-Inline-Python
 Version:        0.57
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Write Perl subs and classes in Python
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Python
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.57-16
+- Perl 5.42 rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.57-15
 - Rebuilt for Python 3.14
 

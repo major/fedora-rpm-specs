@@ -3,7 +3,7 @@
 
 Name:           perl-meta
 Version:        0.013
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Meta-programming API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/meta
@@ -92,6 +92,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.013-2
+- Perl 5.42 rebuild
+
 * Thu Apr 24 2025 Petr Pisar <ppisar@redhat.com> - 0.013-1
 - 0.013 bump
 

@@ -5,8 +5,8 @@
 %bcond_without libunwind
 
 Name:           scorep
-Version:        9.0
-Release:        2%{?dist}
+Version:        9.1
+Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -24,7 +24,7 @@ BuildRequires:  otf2-devel >= 3.1
 BuildRequires:  papi-devel
 BuildRequires:  gcc-plugin-devel
 # Required for cubelib to build scorep-score against cubew
-BuildRequires:  %{?dts:%dts-}gcc-c++
+BuildRequires:  gcc-c++
 BuildRequires:  llvm-devel
 BuildRequires:  clang
 BuildRequires:  clang-devel
@@ -67,7 +67,9 @@ ExcludeArch: s390 s390x armv7hl i686
 The Score-P (Scalable Performance Measurement Infrastructure for\
 Parallel Codes) measurement infrastructure is a highly scalable and\
 easy-to-use tool suite for profiling and event trace recording of\
-HPC applications.
+HPC applications.\
+Reference DOI: 10.1007/978-3-642-31476-6_7
+
 
 %description
 %desc
@@ -167,7 +169,6 @@ ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 # Disable LTO
 %define _lto_cflags %{nil}
 
-%{?dts:. /opt/rh/%dts/enable}
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
 %global configure_opts --enable-shared --disable-static --disable-silent-rules %{?with_libunwind:--with-libunwind=yes}
@@ -221,7 +222,7 @@ find %{buildroot} -name '*.a' -delete
 
 # Strip rpath
 chrpath -d %{buildroot}%{_libdir}/*.so.* %{buildroot}%{_bindir}/scorep-score
-chrpath -d %{?dowrap:%{buildroot}%{_libexecdir}/scorep/scorep-library-wrapper-generator}
+chrpath -d %{buildroot}%{_libexecdir}/scorep/scorep-library-wrapper-generator
 
 # Fixme: I haven't figured out how to get this re-built with the final
 # build-gcc-plugin result; kludge it for now.
@@ -232,7 +233,6 @@ yes, using the C++ compiler and -I$(%_bindir/gcc -print-file-name=plugin/include
 %ldconfig_scriptlets libs
 
 %check
-%{?dts:. /opt/rh/%dts/enable}
 %if %{with_openmpi}
 %_openmpi_load
 OMPI_MCA_rmaps_base_oversubscribe=1 \
@@ -244,7 +244,8 @@ make -C serial check V=1
 
 %files
 %license COPYING
-%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
+#%doc AUTHORS CITATION.cff ChangeLog README.md THANKS OPEN_ISSUES
+%doc AUTHORS README.md THANKS
 %{_bindir}/scorep
 %{_bindir}/scorep-backend-info
 %{_bindir}/scorep-g++
@@ -350,6 +351,15 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Mon Jun 30 2025 Dave Love <loveshack@fedoraproject.org> - 9.1-1
+- Update to version 9.1
+- Add DOI
+- Revert serial build change
+- Fix running chrpath
+
+* Tue Jun 17 2025 Dave Love <loveshack@fedoraproject.org> - 9.0-3
+- Build with single CPU to avoid race
+
 * Sun May 11 2025 Dave Love <loveshack@fedoraproject.org> - 9.0-2
 - Depend on cube-libs-devel, not cube-devel
 

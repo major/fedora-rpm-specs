@@ -6,7 +6,7 @@
 
 Name:             kvirc
 Version:          5.2.6
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Free portable IRC client
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:          LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -145,6 +145,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.6-5
+- Perl 5.42 rebuild
+
 * Tue Jun 17 2025 Alexey Kurov <nucleo@fedoraproject.org> - 5.2.6-4
 - fix compilation with Qt >= 6.9
 

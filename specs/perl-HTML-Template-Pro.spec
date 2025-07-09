@@ -1,6 +1,6 @@
 Name:           perl-HTML-Template-Pro
 Version:        0.9524
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl/XS module to use HTML Templates from CGI scripts
 # Automatically converted from old format: GPL+ or Artistic or LGPLv2+ - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR LicenseRef-Callaway-LGPLv2+
@@ -68,6 +68,9 @@ A fast and lightweight C/Perl+XS HTML Template engine implementation.
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.9524-14
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9524-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

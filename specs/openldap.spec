@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -549,6 +549,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.6.10-2
+- Perl 5.42 rebuild
+
 * Tue Jun 10 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.10-1
 - Rebase to version 2.6.10 (rhbz#2368103)
 

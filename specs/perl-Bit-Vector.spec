@@ -1,6 +1,6 @@
 Name:           perl-Bit-Vector
 Version:        7.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Efficient bit vector, set of integers and "big int" math library
 # Outdated FSF address reported, rt#85827
 # Clarified by a private mail from the author:
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 7.4-38
+- Perl 5.42 rebuild
+
 * Sat Jan 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.4-37
 - Add 0001-Fix-bool-detection.patch (F42FTBS, RHBZ#2341020).
 

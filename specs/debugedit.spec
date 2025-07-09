@@ -1,6 +1,6 @@
 Name: debugedit
-Version: 5.1
-Release: 7%{?dist}
+Version: 5.2
+Release: 1%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -29,7 +29,7 @@ BuildRequires: automake
 # The find-debuginfo.sh script has a couple of tools it needs at runtime.
 # For strip_to_debug, eu-strip
 Requires: elfutils
-# For add_minidebug, readelf, awk, nm, sort, comm, objcopy, xz
+# For ar, add_minidebug, readelf, awk, nm, sort, comm, objcopy, xz
 Requires: binutils, gawk, coreutils, xz
 # For find and xargs
 Requires: findutils
@@ -45,13 +45,6 @@ Requires: dwz
 Requires: grep
 
 %global _hardened_build 1
-
-Patch1: 0001-find-debuginfo-Check-files-are-writable-before-modif.patch
-Patch2: 0001-find-debuginfo-Fix-skip_mini-.gnu_debugdata-handling.patch
-patch3: 0001-find-debuginfo-Make-return-from-do_file-explicit.patch
-patch4: debugedit-5.1-binutils-tools-override.patch
-patch5: 0001-debugedit-Handle-unused-.debug_str_offsets-entries.patch
-patch6: 0001-Add-basic-find-debuginfo-script-tests.patch
 
 %description
 The debugedit project provides programs and scripts for creating
@@ -93,6 +86,10 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Mon Jul  7 2025 Mark Wielaard <mjw@fedoraproject.org> - 5.2-1
+- New upstream 5.2 release
+- Drop all local patches
+
 * Fri Jun 20 2025 Mark Wielaard <mjw@fedoraproject.org> - 5.1-7
 - Add 0001-Add-basic-find-debuginfo-script-tests.patch
 

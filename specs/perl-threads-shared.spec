@@ -1,8 +1,8 @@
 %global base_version 1.59
 
 Name:           perl-threads-shared
-Version:        1.69
-Release:        512%{?dist}
+Version:        1.70
+Release:        519%{?dist}
 Summary:        Perl extension for sharing data structures between threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-shared
@@ -22,6 +22,8 @@ Patch4:         threads-shared-1.62-Upgrade-to-1.64.patch
 Patch5:         threads-shared-1.64-Upgrade-to-1.68.patch
 # Unbundled from perl 5.40.0-RC1
 Patch6:         threads-shared-1.68-Upgrade-to-1.69.patch
+# Unbundled from perl 5.42.0
+Patch7:         threads-shared-1.69-Upgrade-to-1.70.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -31,6 +33,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 # Config_m not needed
+BuildRequires:  perl(Devel::PPPort)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
@@ -74,6 +77,10 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n threads-shared-%{base_version}
 
+# Generate ppport.h
+perl -MDevel::PPPort \
+    -e "Devel::PPPort::WriteFile() or die 'Could not generate ppport.h: $!'"
+
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*pl; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -114,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.70-519
+- Upgrade to 1.70 as provided in perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

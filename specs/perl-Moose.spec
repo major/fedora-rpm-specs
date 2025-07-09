@@ -7,8 +7,8 @@
 
 Name:           perl-Moose
 Summary:        Complete modern object system for Perl 5
-Version:        2.2207
-Release:        6%{?dist}
+Version:        2.4000
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Moose
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Moose-%{version}.tar.gz
@@ -70,6 +70,7 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Symbol)
+BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Fatal) >= 0.001
 BuildRequires:  perl(Test::More) >= 0.96
@@ -196,6 +197,12 @@ make test
 %{_mandir}/man3/Test::Moose*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.4000-2
+- Perl 5.42 rebuild
+
+* Mon Jul  7 2025 Paul Howarth <paul@city-fan.org> - 2.4000-1
+- Update to 2.4000
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2207-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

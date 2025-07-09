@@ -1,6 +1,6 @@
 Name:           perl-EV
 Version:        4.34
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
@@ -81,6 +81,9 @@ PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.34-8
+- Perl 5.42 rebuild
+
 * Wed May 07 2025 Carl George <carlwgeorge@fedoraproject.org> - 4.34-7
 - Add patch to remove unescaped quotes from typemap file rhbz#2364628
 

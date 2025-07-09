@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.44.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1540,6 +1540,9 @@ fi
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44.1-2
+- Perl 5.42 rebuild
+
 * Sat Jul 05 2025 Richard W.M. Jones <rjones@redhat.com> - 1.44.1-1
 - New upstream stable branch version 1.44.1
 - Contains data integrity fix: "server: Fix .zero fallback path"

@@ -1,6 +1,6 @@
 Name:           perl-IP-Geolocation-MMDB
 Version:        1.013
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Read MaxMind DB files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/IP-Geolocation-MMDB
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/IP::Geolocation::MMDB::Metadata.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.013-2
+- Perl 5.42 rebuild
+
 * Sun Mar 16 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.013-1
 - Update to 1.013
 

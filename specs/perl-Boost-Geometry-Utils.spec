@@ -1,6 +1,6 @@
 Name:           perl-Boost-Geometry-Utils
 Version:        0.15
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Bindings for the Boost Geometry library
 # README:               GPL+ or Artistic
 # src/medial_axis.hpp:  Boost
@@ -103,6 +103,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-44
+- Perl 5.42 rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

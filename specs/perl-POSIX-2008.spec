@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
 Version:        0.24
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.24-4
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

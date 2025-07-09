@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -259,6 +259,9 @@ fi
 %files devel
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5^20250522gita855b3a-2
+- Perl 5.42 rebuild
+
 * Thu May 22 2025 Adam Williamson <awilliam@redhat.com> - 5^20250522gita855b3a-1
 - Update to latest git
 - Drop a now-unneeded test workaround

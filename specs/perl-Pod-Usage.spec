@@ -2,7 +2,7 @@ Name:           perl-Pod-Usage
 # Compete with perl.spec's epoch
 Epoch:          4
 Version:        2.05
-Release:        1%{?dist}
+Release:        519%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -127,6 +127,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.05-519
+- Increase release to favour standalone package
+
 * Mon Mar 31 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.05-1
 - 2.05 bump (rhbz#2355944)
 

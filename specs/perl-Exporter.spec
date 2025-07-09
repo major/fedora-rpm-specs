@@ -1,12 +1,14 @@
 %global base_version 5.78
 
 Name:           perl-Exporter
-Version:        5.78
-Release:        512%{?dist}
+Version:        5.79
+Release:        519%{?dist}
 Summary:        Implements default import method for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Exporter-%{base_version}.tar.gz
+# Upgrade to 5.79 based on perl-5.42.0
+Patch0:         Exporter-5.78-Upgrade-to-5.79.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -41,9 +43,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Exporter-%{base_version}
-# Remove optional author test to prevent cycle Exporter <-> Test::More
-rm t/pod.t
-perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
+%patch -P0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.79-519
+- Upgrade to 5.79 as provided in perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.78-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

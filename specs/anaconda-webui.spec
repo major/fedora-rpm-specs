@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        41
+Version:        42
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -38,17 +38,17 @@ Requires: fedora-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.1.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
+Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.2.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-table)) = 6.1.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
-Provides: bundled(npm(focus-trap)) = 7.6.2
+Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
@@ -110,7 +110,7 @@ exit 0
 %dir %{_datadir}/anaconda/firefox-theme/extlink
 %{_datadir}/anaconda/firefox-theme/extlink/user.js
 %{_libexecdir}/anaconda/webui-desktop
-%{_libexecdir}/anaconda/firefox-ext
+%{_libexecdir}/anaconda/browser-ext
 %{_datadir}/applications/extlinks.desktop
 %{_datadir}/applications/anaconda-gnome-control-center.desktop
 %{_unitdir}/webui-cockpit-ws.service
@@ -118,6 +118,14 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Jul 07 2025 Packit <hello@packit.dev> - 42-1
+- components/localization: adjust menu height for smaller screens
+- components/users: improve UX by focusing root password input on checkbox toggle
+- Replace firefox-ext with browser-ext to handle Spins which do not have firefox as default
+- Simplify webui-desktop script by removing unnecessary URL path parsing
+- webui-desktop: modularize the script by isolating user creation and firefox logic
+- webui-desktop: Add support for custom web engine
+
 * Tue Jun 24 2025 Packit <hello@packit.dev> - 41-1
 - components: error: redesign error reporting
 

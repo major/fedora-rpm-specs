@@ -1,22 +1,23 @@
 %global libical_version 3.0.5
 %global gsettings_desktop_schemas_version 3.21.2
 %global edataserver_version 3.45.1
-%global glib2_version 2.67.5
+%global glib2_version 2.80.0
 %global gtk4_version 4.15.2
-%global libadwaita_version 1.6~alpha
+%global libadwaita_version 1.8~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        48.1
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
 # Sources are GPL-3.0-or-later, Appdata is CC0-1.0.
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calendar
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc

@@ -1,6 +1,6 @@
 Name:           perl-RPM2
 Version:        1.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl bindings for the RPM Package Manager API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/RPM2
@@ -62,6 +62,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/RPM2.*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.4-32
+- Perl 5.42 rebuild
+
 * Tue Apr 22 2025 Petr Pisar <ppisar@redhat.com> - 1.4-31
 - Adapt to RPM 6 (bug #2361571)
 - Fix a crash in RPM plugins (upstream PR #3)

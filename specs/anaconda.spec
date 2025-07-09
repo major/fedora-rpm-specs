@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.25
+Version: 43.28
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -38,7 +38,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.64-1
+%define pykickstartver 3.65-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.12.1-1
 %define rpmver 4.15.0
@@ -367,6 +367,12 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %autosetup -p 1
 
 %build
+
+# Work around an issue where a version mismatch between the automake version on
+# the build system and what was used when the tarball was created will cause
+# a failure.
+autoreconf -vfi
+
 # use actual build-time release number, not tarball creation time release number
 %configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
@@ -503,6 +509,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 07 2025 Packit <hello@packit.dev> - 43.28-1
+- Fix an issue with automake versions when building the rpm (a.badger)
+- anaconda.py: remove duplicate import (k.koukiou)
+- anaconda.py: remove obsolete comment (k.koukiou)
+
 * Tue Jun 24 2025 Packit <hello@packit.dev> - 43.25-1
 - Change formatting on some error messages (a.badger)
 - Enable all steps of the installation queue (adamkankovsky)

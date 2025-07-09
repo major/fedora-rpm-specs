@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Eksblowfish
 Version:        0.009
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Eksblowfish block cipher
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Eksblowfish
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.009-44
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

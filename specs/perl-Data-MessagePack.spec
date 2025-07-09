@@ -2,7 +2,7 @@
 
 Name:           perl-Data-MessagePack
 Version:        1.02
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MessagePack serialising/deserialising
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-MessagePack
@@ -102,6 +102,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-12
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

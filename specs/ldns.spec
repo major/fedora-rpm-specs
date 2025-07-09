@@ -40,7 +40,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -365,6 +365,9 @@ rm -rf doc/man
 %doc doc/*.dox
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.4-4
+- Perl 5.42 rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.8.4-3
 - Rebuilt for Python 3.14
 

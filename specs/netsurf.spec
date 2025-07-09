@@ -1,6 +1,6 @@
 Name:           netsurf
-Version:        3.9
-Release:        17%{?dist}
+Version:        3.11
+Release:        1%{?dist}
 Summary:        Compact graphical web browser
 
 # There are MIT licensed bits as well as LGPL-licensed talloc, but most
@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(xcb-image)
 BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xcb-atom)
 BuildRequires:  pkgconfig(xcb-util)
+BuildRequires:  gdk-pixbuf2-modules-extra%{?_isa}
 
 %description
 NetSurf is a compact graphical web browser which aims for HTML5, CSS and
@@ -135,6 +136,9 @@ desktop-file-validate \
 
 
 %changelog
+* Mon Jul 07 2025 Lubomir Rintel <lkundrak@v3.sk> - 3.11-1
+- Update to 3.11
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

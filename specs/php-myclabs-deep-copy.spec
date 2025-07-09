@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    1720ddd719e16cf0db4eb1c6eca108031636d46c
+%global gh_commit    faed855a7b5f4d4637717c2b3863e277116beb36
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   DeepCopy
@@ -17,7 +17,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-myclabs-deep-copy%{major}
-Version:        1.13.1
+Version:        1.13.3
 Release:        1%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
@@ -98,7 +98,7 @@ rm -r tests/DeepCopyTest/Matcher/Doctrine \
       tests/DeepCopyTest/Filter/Doctrine
 
 ret=0
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=vendor/autoload.php \
        %{_bindir}/phpunit9 \
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Mon Jul  7 2025 Remi Collet <remi@remirepo.net> - 1.13.3-1
+- update to 1.13.3
+
 * Sun May  4 2025 Remi Collet <remi@remirepo.net> - 1.13.1-1
 - update to 1.13.1
 

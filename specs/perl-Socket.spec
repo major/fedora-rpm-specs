@@ -1,7 +1,7 @@
 Name:           perl-Socket
 Epoch:          4
 Version:        2.039
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Networking constants and support functions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Socket
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.039-2
+- Perl 5.42 rebuild
+
 * Mon Jun 30 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.039-1
 - 2.039 bump (rhbz#2375527)
 

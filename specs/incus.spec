@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.13
+Version:        6.14
 
 %gometa
 
@@ -55,6 +55,9 @@ Source202:      %{swaggerui_source_baseurl}/swagger-ui-standalone-preset.js#/swa
 Source203:      %{swaggerui_source_baseurl}/swagger-ui.css#/swagger-ui-%{swaggerui_version}.css
 
 # Patches upstream or proposed upstream
+# Fix for non-constant format string in call to fmt.Errorf
+# https://github.com/lxc/incus/pull/2260
+Patch1001:      2260.patch
 
 # Downstream only patches
 ## Allow offline builds
@@ -456,6 +459,10 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Mon Jun 30 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.14-1
+- Updated to incus-6.14
+- Added patch for non-constant format strings
+
 * Fri May 30 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.13-1
 - Updated to incus-6.13
 

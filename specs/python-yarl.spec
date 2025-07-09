@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.18.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module to handle URLs
 
 License:        Apache-2.0
@@ -30,6 +30,9 @@ The module provides handy URL class for URL parsing and changing.
 %autosetup -n %{pypi_name}-%{version} -p1
 # Disable coverage
 sed -r -e 's/(-.*cov.*$)/#\1/g' -i pytest.ini
+# Remove upper pin of Cython version
+# This can be removed in yarl version >= 1.20.0
+sed -i 's/Cython ~= 3\.0\.0/Cython >= 3.0.0/' packaging/pep517_backend/_backend.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -50,6 +53,9 @@ sed -r -e 's/(-.*cov.*$)/#\1/g' -i pytest.ini
 %doc CHANGES.rst README.rst
 
 %changelog
+* Mon Jul 07 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.18.3-3
+- Remove cython upper version pin
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.18.3-2
 - Rebuilt for Python 3.14
 

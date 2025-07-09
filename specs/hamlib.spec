@@ -9,7 +9,7 @@
 
 Name:           hamlib
 Version:        4.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -243,6 +243,9 @@ make V=1 check
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.6.1-3
+- Perl 5.42 rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.6.1-2
 - Rebuilt for Python 3.14
 

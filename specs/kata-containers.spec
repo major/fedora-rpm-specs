@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.12.0
+Version: 3.13.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -53,7 +53,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.2
+Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -390,6 +390,9 @@ fi
 
 
 %changelog
+* Mon Jul 07 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.13.0-1
+- kata-containers 3.13.0, required vendor source correction
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

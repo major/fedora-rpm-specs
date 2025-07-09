@@ -1,8 +1,8 @@
 %global base_version 3.75
 
 Name:           perl-PathTools
-Version:        3.91
-Release:        513%{?dist}
+Version:        3.94
+Release:        519%{?dist}
 Summary:        PathTools Perl module (Cwd, File::Spec)
 # Cwd.xs:                   BSD-3-Clause
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,6 +21,8 @@ Patch3:         PathTools-3.80-Upgrade-to-3.84.patch
 Patch4:         PathTools-3.84-Upgrade-to-3.89.patch
 # Unbundled from perl 5.40.1
 Patch5:         PathTools-3.89-Upgrade-to-3.91.patch
+# Unbundled from perl 5.42.0
+Patch6:         PathTools-3.91-Upgrade-to-3.94.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -121,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jul 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.94-519
+- Upgrade to 3.94 as provided in 5.42.0
+
 * Tue Jan 21 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.91-513
 - Upgrade to 3.91 as provided in 5.40.1
   version of File::Spec was updated

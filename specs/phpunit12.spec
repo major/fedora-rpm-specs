@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    b71849b29f7a8d7574e4401873cb8b539896613f
-%global gh_date      2025-06-27
+%global gh_commit    638644c62a58f04974da115f98981c9b48564021
+%global gh_date      2025-07-04
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    2
 
-%global upstream_version 12.2.5
+%global upstream_version 12.2.6
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -262,7 +262,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
      $cmd ./phpunit $OPT || ret=1
   fi
@@ -283,6 +283,9 @@ exit $ret
 
 
 %changelog
+* Mon Jul  7 2025 Remi Collet <remi@remirepo.net> - 12.2.6-1
+- update to 12.2.6
+
 * Fri Jun 27 2025 Remi Collet <remi@remirepo.net> - 12.2.5-1
 - update to 12.2.5
 

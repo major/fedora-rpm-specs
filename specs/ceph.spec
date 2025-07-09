@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -207,7 +207,6 @@ Patch:		0010-CET-Add-CET-marker-to-crc32c_intel_fast_zero_asm.s.patch
 Patch:		0011-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assembly-co.patch
 Patch:		0012-spdk-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assemb.patch
 Patch:		0016-src-tracing-patch
-Patch:		0017-gcc-12-omnibus.patch
 Patch:		0018-src-rgw-store-dbstore-CMakeLists.txt.patch
 Patch:		0024-gcc-13.patch
 Patch:		0029-src-rgw-rgw_amqp.cc.patch
@@ -220,7 +219,6 @@ Patch:		0041-src-mgr-PyModule.cc.patch
 Patch:		0043_src_common_crc32c_ppc_asm.S.patch
 Patch:		0044_src_cpp_redis_CMakeLists.txt.patch
 Patch:		0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
-Patch:		0046-src-s3select-include-s3select_parquet_intrf.h.patch
 Patch:		0047-openssl-no-engine.patch
 Patch:		0048-src-mds-CMakeLists.txt.patch
 Patch:		0049-src-rocksdb-db-blob-blob_file_meta.h.patch
@@ -229,6 +227,7 @@ Patch:		0051-src-googletest-nosharedlibs.patch
 Patch:		0052-src-tracing.patch
 Patch:		0053-src-test-neorados-common_tests.h.patch
 Patch:		0055-python314.patch
+Patch:		0056-libarrow-20.0.0.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -401,6 +400,10 @@ BuildRequires:	libpmemobj-devel >= 1.8
 %if 0%{with system_arrow}
 BuildRequires:	libarrow-devel
 BuildRequires:	parquet-libs-devel
+%else
+BuildRequires: xsimd-devel
+%endif
+%if 0%{with system_utf8proc}
 BuildRequires:	utf8proc-devel
 %endif
 %if 0%{with system_qat}
@@ -1532,6 +1535,10 @@ env | sort
 %endif
 %if 0%{with system_arrow}
     -DWITH_SYSTEM_ARROW:BOOL=ON \
+%else
+    -Dxsimd_SOURCE="SYSTEM" \
+%endif
+%if 0%{with system_utf8proc}
     -DWITH_SYSTEM_UTF8PROC:BOOL=ON \
 %endif
 %ifarch x86_64 aarch64
@@ -2733,6 +2740,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Jul 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-7
+- w/ libarrow-20 in f43-build-side-113972
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2:19.2.2-6
 - Rebuilt for Python 3.14
 

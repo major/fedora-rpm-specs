@@ -1,6 +1,6 @@
 Name:           perl-POSIX-AtFork
 Version:        0.04
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Hook registrations at fork(2)
 # lib/POSIX/AtFork.pm:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:                       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-20
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

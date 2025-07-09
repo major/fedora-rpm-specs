@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3624,6 +3624,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 6.3.7-8
+- Perl 5.42 rebuild
+
 * Thu Jun 26 2025 Nathan Scott <nathans@redhat.com> - 6.3.7-7
 - Fix python PMDA wrapper handling of list objects (BZ 2371769)
 - Improve tmpfiles.d handling of empty directories (BZ 2372945)

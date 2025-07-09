@@ -10,8 +10,8 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        27.2.0
-%global cpp_soversion 27
+Version:        28.0.0
+%global cpp_soversion 28
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
 
@@ -19,10 +19,9 @@ License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
 
-# Add a LICENSE file for Python
-# https://github.com/cucumber/messages/pull/278
-# Just the commit with the file, not the one that adds a changelog entry:
-Patch:          %{url}/pull/278/commits/509e51ca1f7bea03b45f3e89146d291735db57ec.patch
+# Fix C++ version and ABI/SONAME version for 28.0.0
+# https://github.com/cucumber/messages/pull/306
+Patch:          %{url}/pull/306.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -81,8 +80,6 @@ This package contains header files and libraries for developing and building
 programs that use Cucumber Messages for C++.
 
 
-# Please publish the new Python bindings on PyPI
-# https://github.com/cucumber/messages/issues/277
 %package -n python3-cucumber-messages
 Summary:        Message protocol for representing results and other information from Cucumber
 

@@ -1,6 +1,6 @@
 Name:           perl-Compress-Stream-Zstd
 Version:        0.206
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl interface to the Zstd (Zstandard) (de)compressor
 License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://metacpan.org/release/Compress-Stream-Zstd/
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.206-9
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.206-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

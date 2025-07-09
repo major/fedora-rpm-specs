@@ -76,8 +76,6 @@ BuildRequires:  python3-devel
 # Remove bundled copy of zlib
 rm -rf zlib/
 
-export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
-
 %configure \
         --prefix=%{_prefix} \
         --sbindir=%{_sbindir} \

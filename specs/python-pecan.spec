@@ -3,8 +3,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:           python-%{pypi_name}
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        A lean WSGI object-dispatching web framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,6 +48,9 @@ fast with few dependencies
 %{_bindir}/gunicorn_pecan
 
 %changelog
+* Mon Jul 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
+- 1.7.0
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.6.0-2
 - Rebuilt for Python 3.14
 

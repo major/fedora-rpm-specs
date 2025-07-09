@@ -1,6 +1,6 @@
 Name:           perl-String-Compare-ConstantTime
 Version:        0.321
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Timing side-channel protected string compare
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.321-23
+- Perl 5.42 rebuild
+
 * Tue Apr 01 2025 Petr Pisar <ppisar@redhat.com> - 0.321-22
 - Fix CVE-2024-13939 (leaking the length of a secret string) (bug #2355705)
 

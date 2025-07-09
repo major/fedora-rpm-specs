@@ -1,18 +1,30 @@
 %global glib2_version 2.68.0
 %global libgit2_glib_version 1.2.0
+%global commit f7501bc827f1d4476336b0db0791335cf8a613c4
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global gitdate 20250512
+%global git 1
 
 Name:           gitg
-Version:        44
-Release:        10%{?dist}
+Version:        45~%{gitdate}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# most code is under GPL-2.0-or-later, except:
+# contrib/ide/ide*: GPL-3.0-or-later
+# contrib/xml/xml-reader.{c,h}: LGPL-2.0-or-later
+# vapi/gpg-error.vapi: MIT
+# vapi/gpgme.vapi: MIT
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:            https://wiki.gnome.org/Apps/Gitg
+%if 0%{?git}
+Source0:        https://gitlab.gnome.org/GNOME/gitg/-/archive/%{commit}/gitg-%{commit}.tar.bz2
+Patch0:         gitg-norpath.patch
+%else
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{version}.tar.xz
+%endif
 
 BuildRequires:  /usr/bin/appstream-util
-BuildRequires:  /usr/bin/chrpath
 BuildRequires:  /usr/bin/desktop-file-validate
 
 BuildRequires:  gettext
@@ -32,7 +44,6 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-4)
 BuildRequires:  pkgconfig(gspell-1)
 BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(libdazzle-1.0)
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libpeas-1.0)
@@ -43,6 +54,8 @@ BuildRequires:  vala
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # PeasGtk typelib required by the plugins engine
 Requires:       libpeas-gtk%{?_isa}
+
+%global __provides_exclude_from ^%{_libdir}/gitg/plugins/.*\\.so$
 
 %description
 gitg is the GNOME GUI client to view git repositories.
@@ -67,7 +80,7 @@ This package contains development files for %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n gitg-%{commit}
 
 
 %build
@@ -79,12 +92,8 @@ This package contains development files for %{name}.
 
 %install
 %meson_install
+%py_byte_compile %{python3} %{buildroot}%{python3_sitelib}/gi/overrides/GitgExt.py
 
-# Remove lib64 rpaths
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gitg
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gitg/plugins/libdiff.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gitg/plugins/libfiles.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgitg-ext-1.0.so.0.0.0
 
 %find_lang %{name}
 
@@ -96,7 +105,6 @@ appstream-util validate-relax --nonet \
     %{buildroot}/%{_datadir}/metainfo/org.gnome.gitg.appdata.xml
 
 
-%ldconfig_scriptlets libs
 
 
 %files -f %{name}.lang
@@ -113,30 +121,40 @@ appstream-util validate-relax --nonet \
 
 %files libs
 %license COPYING
-%{_libdir}/libgitg-*.so.*
-%{_libdir}/gitg/
+%{_libdir}/libgitg{,-ext}-1.0.so.0{,.0.0}
+%dir %{_libdir}/gitg
+%dir %{_libdir}/gitg/plugins
+%{_libdir}/gitg/plugins/{diff,files}.plugin
+%{_libdir}/gitg/plugins/lib{diff,files}.so
 %dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/Gitg*-1.0.typelib
-%{python3_sitelib}/gi/overrides/*
+%{_libdir}/girepository-1.0/Gitg{,Ext}-1.0.typelib
+%pycached %{python3_sitelib}/gi/overrides/GitgExt.py
 
 %files devel
-%{_includedir}/libgitg-1.0/
-%{_includedir}/libgitg-ext-1.0/
-%{_libdir}/libgitg-*.so
-%{_libdir}/pkgconfig/libgitg*-1.0.pc
+%{_includedir}/libgitg{,-ext}-1.0/
+%{_libdir}/libgitg{,-ext}-1.0.so
+%{_libdir}/pkgconfig/libgitg{,-ext}-1.0.pc
 %dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/Gitg-1.0.gir
-%{_datadir}/gir-1.0/GitgExt-1.0.gir
+%{_datadir}/gir-1.0/Gitg{,Ext}-1.0.gir
 %dir %{_datadir}/glade
 %dir %{_datadir}/glade/catalogs
 %{_datadir}/glade/catalogs/gitg-glade.xml
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
-%{_datadir}/vala/vapi/libgitg-1.0.vapi
-%{_datadir}/vala/vapi/libgitg-ext-1.0.vapi
+%{_datadir}/vala/vapi/libgitg{,-ext}-1.0.vapi
 
 
 %changelog
+* Mon Jul 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 45~20250512gitf7501bc-1
+- update to 20250512 git snapshot
+- remove rpaths with a patch
+- make file lists more explicit
+- filter out private plugin Provides:
+- bytecompile Python code and use appropriate macro in file list
+- correct License: tag
+- fix version
+- drop unused dependency
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 44-10
 - Rebuilt for Python 3.14
 

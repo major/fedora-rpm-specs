@@ -1,6 +1,6 @@
 Name:           perl-Convert-Binary-C
 Version:        0.85
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Binary data conversion using C types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Binary-C
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.85-4
+- Perl 5.42 rebuild
+
 * Fri Jan 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.85-3
 - Fix C23 issues in old hash code (rhbz#2341022)
 

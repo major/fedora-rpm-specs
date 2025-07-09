@@ -6,7 +6,7 @@
 Summary:        Firebird interface for perl
 Name:           perl-DBD-Firebird
 Version:        1.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAM/%{pkgname}-%{version}.tar.gz
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.39-2
+- Perl 5.42 rebuild
+
 * Sun Jan 19 2025 Robert Scheck <robert@fedoraproject.org> 1.39-1
 - Upgrade to 1.39 (#2338811)
 

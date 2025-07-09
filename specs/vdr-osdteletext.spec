@@ -1,6 +1,10 @@
 %global pname   osdteletext
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 
+%global commit0 cae4629f84886015b0619af6fdb1084853b80f93
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gitdate 20211217
+
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 43
 %global vdr_version 2.7.6
@@ -11,14 +15,18 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        2.3.1
-Release:        21%{?dist}
+Version:        2.3.2
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
+# Release:        21%%{?dist}
 Summary:        OSD teletext plugin for VDR
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/vdr-projects/vdr-plugin-osdteletext
-Source0:        https://github.com/vdr-projects/vdr-plugin-osdteletext/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/vdr-projects/vdr-plugin-osdteletext/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
+# Source0:        https://github.com/vdr-projects/vdr-plugin-osdteletext/archive/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
 Source1:        %{name}.conf
+# https://www.vdr-portal.de/forum/thread/136886-gel%%C3%%B6st-vdr-startet-nicht-mehr-mit-aktivem-vdr-osdteletext-plugin/?postID=1382554#post1382554
+Patch0:         Fix_DrawMessage.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -32,7 +40,8 @@ display, with sound and video from the current channel playing in the
 background.
 
 %prep
-%autosetup -p1 -n vdr-plugin-%{pname}-%{version}
+#%%autosetup -p1 -n vdr-plugin-%%{pname}-%%{version}
+%autosetup -p1 -n vdr-plugin-%{pname}-%{commit0}
 sed -i -e 's|/var/cache/vdr/vtx|%{vdr_rundir}/%{pname}|g' \
     osdteletext.c README README.DE rootdir.c
 
@@ -66,6 +75,10 @@ install -Dpm 644 teletext2.ttf \
 %attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
 
 %changelog
+* Fri Jul 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.3.2-0.1.20211217gitcae4629
+- Update to last git release 2.3.2-0.1.20211217gitcae4629
+- Add Fix_DrawMessage.patch
+
 * Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.3.1-21
 - Rebuilt for new VDR API version 2.7.6
 
@@ -211,7 +224,7 @@ install -Dpm 644 teletext2.ttf \
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
 * Sun May 06 2018 Martin Gansser <martinkg@fedoraproject.org> - 0.9.7-3
-- Add %{pname}-4bpp.diff
+- Add %%{pname}-4bpp.diff
 
 * Sun Apr 29 2018 Martin Gansser <martinkg@fedoraproject.org> - 0.9.7-2
 - Add %%{pname}-%%{version}.patch

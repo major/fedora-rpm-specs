@@ -15,7 +15,6 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
-BuildRequires:  kdelibs-devel
 BuildRequires:  openbabel-devel
 BuildRequires:  pkgconfig(Qt6Svg)
 BuildRequires:  desktop-file-utils

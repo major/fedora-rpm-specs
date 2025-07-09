@@ -1,6 +1,6 @@
 Name:           perl-Cairo-GObject
 Version:        1.005
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Integrate Cairo into the Glib type system
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Cairo-GObject
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.005-21
+- Perl 5.42 rebuild
+
 * Mon May 12 2025 Petr Pisar <ppisar@redhat.com> - 1.005-20
 - Correct a license tag to "LGPL-2.1-or-later"
 - Package the tests

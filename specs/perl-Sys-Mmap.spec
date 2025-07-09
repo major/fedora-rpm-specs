@@ -1,6 +1,6 @@
 Name:           perl-Sys-Mmap
 Version:        0.20
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Use mmap to map in a file as a Perl variable
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,9 @@ find %{buildroot} -type d -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.20-20
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

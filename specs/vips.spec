@@ -1,4 +1,4 @@
-%global vips_version_base 8.16
+%global vips_version_base 8.17
 %global vips_version %{vips_version_base}.1
 %global vips_soname_major 42
 
@@ -44,7 +44,7 @@ BuildRequires:	nifticlib-devel
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig
 BuildRequires:	gettext
-BuildRequires:	gtk-doc
+BuildRequires:	gi-docgen
 BuildRequires:	doxygen
 
 # bc command used in test suite
@@ -81,7 +81,6 @@ libraries necessary for developing programs using VIPS.
 %package tools
 Summary:	Command-line tools for %{name}
 Requires:	vips%{?_isa} = %{version}-%{release}
-Requires:	python3-cairo
 
 %description tools
 The %{name}-tools package contains command-line tools for working with VIPS.
@@ -98,8 +97,8 @@ its C++ API.
 
 
 %package jxl
-Summary:       JPEG XL support for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary:	JPEG XL support for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description jxl
 The %{name}-jxl package contains the jxl module for VIPS, providing JPEG XL
@@ -107,8 +106,8 @@ support.
 
 
 %package heif
-Summary:       HEIF support for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary:	HEIF support for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description heif
 The %{name}-heif package contains the heif module for VIPS, providing AVIF
@@ -116,24 +115,24 @@ support.
 
 
 %package openslide
-Summary:       OpenSlide support for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary:	OpenSlide support for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description openslide
 The %{name}-openslide package contains the OpenSlide module for VIPS.
 
 
 %package poppler
-Summary:       Poppler support for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary:	Poppler support for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description poppler
 The %{name}-poppler package contains the Poppler module for VIPS.
 
 
 %package magick
-Summary:       Magick support for %{name} using ImageMagick7
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary:	Magick support for %{name} using ImageMagick7
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description magick
 The %{name}-magick package contains the Magick module for VIPS using
@@ -154,8 +153,8 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 # https://github.com/NIFTI-Imaging/nifti_clib/pull/140
 %meson \
     -Dnifti-prefix-dir=/usr \
-    -Ddoxygen=true \
-    -Dgtk_doc=true \
+    -Dcpp-docs=true \
+    -Ddocs=true \
     -Dpdfium=disabled \
     %{nil}
 
@@ -194,8 +193,8 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 
 
 %files doc
-%{_datadir}/gtk-doc
-%{_docdir}/vips-doc/html
+%{_docdir}/vips
+%{_docdir}/vips-cpp
 %license LICENSE
 
 

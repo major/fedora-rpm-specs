@@ -7,7 +7,7 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
@@ -140,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-24
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

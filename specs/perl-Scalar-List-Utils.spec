@@ -1,7 +1,7 @@
 Name:           perl-Scalar-List-Utils
 Epoch:          5
 Version:        1.69
-Release:        1%{?dist}
+Release:        519%{?dist}
 Summary:        A selection of general-utility scalar and list subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-List-Utils
@@ -109,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5:1.69-519
+- Increase release to favour standalone package
+
 * Mon Apr 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5:1.69-1
 - 1.69 bump (rhbz#2356766)
 

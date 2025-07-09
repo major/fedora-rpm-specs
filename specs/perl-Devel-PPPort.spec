@@ -4,8 +4,8 @@
 %bcond_without perl_Devel_PPPort_enables_optional_test
 
 Name:           perl-Devel-PPPort
-Version:        3.72
-Release:        513%{?dist}
+Version:        3.73
+Release:        519%{?dist}
 Summary:        Perl Pollution Portability header generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PPPort
@@ -15,6 +15,8 @@ Patch0:         Devel-PPPort-3.68-Upgrade-to-3.71.patch
 Patch1:         Devel-PPPort-3.68-Add-shebang-to-tests.patch
 # Upgrade to 3.72 based on perl-5.40.0-RC1
 Patch2:         Devel-PPPort-3.71-Upgrade-to-3.72.patch
+# Upgrade to 3.73 based on perl-5.42.0
+Patch3:         Devel-PPPort-3.72-Upgrade-to-3.73.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -116,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.73-519
+- Upgrade to 3.73 based on perl-5.42.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.72-513
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

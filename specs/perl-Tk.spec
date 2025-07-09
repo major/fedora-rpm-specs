@@ -6,7 +6,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -276,6 +276,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-22
+- Perl 5.42 rebuild
+
 * Wed Apr 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 804.036-21
 - Avoid perl-Devel-Leak dependency on RHEL
 

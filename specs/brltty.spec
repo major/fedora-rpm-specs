@@ -1,5 +1,5 @@
-%define pkg_version 6.7
-%define api_version 0.8.6
+%define pkg_version 6.8
+%define api_version 0.8.7
 
 # minimal means brltty-minimal subpackage with minimal deps for
 # braille support in Anaconda installer
@@ -36,8 +36,8 @@
 %global __requires_exclude ^(%{_privatelibs})$
 
 Name: brltty
-Version: 6.7
-Release: 11%{?dist}
+Version: 6.8
+Release: 1%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -47,14 +47,7 @@ Source3: brlapi-forbuild.h
 Source4: brltty.sysusers
 Patch1: brltty-6.3-loadLibrary.patch
 # libspeechd.h moved in latest speech-dispatch (NOT sent upstream)
-Patch2: brltty-6.3-libspeechd.patch
-# https://brltty.app/pipermail/brltty/2024-December/020462.html
-Patch3: brltty-6.6-path-separator-fix.patch
-# https://github.com/brltty/brltty/commit/249f36e5da4b60dee33e9207b41c5a3b135a670e
-# also required by Tcl 9.0
-Patch4: brltty-6.7-utf8.patch
-# https://github.com/brltty/brltty/commit/c657726a5e03d53a037632e6068d0c2273950b36
-Patch5: brltty-6.7-tcl9.patch
+Patch2: brltty-6.8-libspeechd.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -681,6 +674,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Jul 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.8-1
+- 6.8
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.7-11
 - Rebuilt for Python 3.14
 

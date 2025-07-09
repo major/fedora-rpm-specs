@@ -1,6 +1,6 @@
 Name:           perl-File-Fetch
 Version:        1.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generic file fetching mechanism
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Fetch
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-2
+- Perl 5.42 rebuild
+
 * Tue Apr 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-1
 - 1.08 bump (rhbz#2362740)
 

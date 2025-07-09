@@ -1,6 +1,6 @@
 Name:           perl-Imager
 Version:        1.028
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.028-2
+- Perl 5.42 rebuild
+
 * Mon Jun 23 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.028-1
 - 1.028 bump (rhbz#2374270)
 

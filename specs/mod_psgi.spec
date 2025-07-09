@@ -12,7 +12,7 @@
 
 Name:       mod_psgi
 Version:    0.0.1
-Release:    0.24.%{snapshot}git%{shortcommit}%{?dist}
+Release:    0.25.%{snapshot}git%{shortcommit}%{?dist}
 Summary:    Apache httpd plugin for handling PSGI applications
 # Automatically converted from old format: ASL 2.0
 License:    Apache-2.0
@@ -99,6 +99,9 @@ make test
 %{_httpd_moddir}/%{name}.so
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.0.1-0.25.20120822git9732348
+- Perl 5.42 rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.0.1-0.24.20120822git9732348
 - Add explicit BR: libxcrypt-devel
 

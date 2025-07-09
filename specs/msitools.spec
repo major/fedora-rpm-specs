@@ -35,6 +35,11 @@ License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
 
+# upstream commits since last release
+Patch:          0002-wxi-fixes-for-f43.patch
+Patch:          0019-wxi-update-harfbuzz.patch
+Patch:          0025-wxi-fix-adwaita-icon-theme-48.1.patch
+
 Requires:       libgsf >= 1.14.24-2
 
 BuildRequires:  git-core
@@ -64,8 +69,6 @@ BuildRequires:  mingw32-libffi
 BuildRequires:  mingw64-libffi
 BuildRequires:  mingw32-pcre2
 BuildRequires:  mingw64-pcre2
-BuildRequires:  mingw32-pixman
-BuildRequires:  mingw64-pixman
 BuildRequires:  mingw32-termcap
 BuildRequires:  mingw64-termcap
 BuildRequires:  mingw32-win-iconv
@@ -199,6 +202,8 @@ BuildRequires:  mingw32-orc
 BuildRequires:  mingw64-orc
 BuildRequires:  mingw32-pango
 BuildRequires:  mingw64-pango
+BuildRequires:  mingw32-pixman
+BuildRequires:  mingw64-pixman
 BuildRequires:  mingw32-portablexdr
 BuildRequires:  mingw64-portablexdr
 BuildRequires:  mingw32-readline

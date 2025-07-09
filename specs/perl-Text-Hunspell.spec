@@ -1,6 +1,6 @@
 Name:		perl-Text-Hunspell
 Version:	2.16
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Perl interface to the Hunspell library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Text-Hunspell
@@ -72,6 +72,9 @@ LANG=en_US make test TEST_POD=1 TEST_VERBOSE=1
 %{_mandir}/man3/Text::Hunspell.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.16-11
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

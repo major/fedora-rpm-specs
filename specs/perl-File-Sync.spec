@@ -1,6 +1,6 @@
 Name:           perl-File-Sync
 Version:        0.11
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl access to fsync() and sync() function calls
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Sync
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/File::Sync.3pm*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-37
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

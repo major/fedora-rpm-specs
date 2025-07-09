@@ -1,6 +1,6 @@
 Name:           perl-Sys-Virt
 Version:        11.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Represent and manage a libvirt hypervisor connection
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Virt
@@ -97,6 +97,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 11.2.0-2
+- Perl 5.42 rebuild
+
 * Tue Jun 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 11.2.0-1
 - 11.2.0 bump (rhbz#2371164)
 

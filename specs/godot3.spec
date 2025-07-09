@@ -17,8 +17,8 @@
 %define rdnsname %{urdnsname}3
 
 Name:           godot3
-Version:        3.6
-Release:        5%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -30,12 +30,10 @@ Source0:        https://github.com/godotengine/godot-builds/releases/download/%{
 Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{uname}-%{uversion}.tar.xz.sha256
 
 Patch0:         godot3-dist-files-rebranding.patch
-# https://github.com/godotengine/godot/pull/97139
+# https://github.com/godotengine/godot/pull/100389
 Patch1:         godot3-miniupnp228.patch
-# https://github.com/godotengine/godot/pull/102023
-Patch2:         0001-embree-Fix-invalid-output-operators-raising-errors-w.patch
 # Partial port of https://github.com/godotengine/godot/pull/90482
-Patch3: 90428.diff
+Patch3:         godot3-mbedtls3-90482.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -286,6 +284,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Jun 25 2025 Rémi Verschelde <akien@fedoraproject.org> - 3.6.1-1
+- Version 3.6.1-stable
+
 * Thu Jun 19 2025 Simone Caronni <negativo17@gmail.com> - 3.6-5
 - Rebuild for updated miniupnpc.
 

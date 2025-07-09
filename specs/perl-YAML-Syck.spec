@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-Syck
 Version:        1.34
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
 # *:      MIT
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-17
+- Perl 5.42 rebuild
+
 * Sat Jan 18 2025 Paul Howarth <paul@city-fan.org> - 1.34-16
 - Build using -std=gnu17 since ancient code does not compile with -std=c23
 

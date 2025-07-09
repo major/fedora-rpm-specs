@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -359,6 +359,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.4.8-10
+- Perl 5.42 rebuild
+
 * Mon Jun 23 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-9
 - update source code URL and fix sanitize warning in clkeys and clsmime
 
