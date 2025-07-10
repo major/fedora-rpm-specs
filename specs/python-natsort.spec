@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library that sorts lists using the "natural order" sort
 
 License:        MIT
@@ -19,8 +19,6 @@ BuildRequires:  python3dist(hypothesis)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(semver)
-BuildRequires:  python3dist(setuptools)
-%{?python_enable_dependency_generator}
 
 %global _description \
 Python module which provides "natural sorting".\
@@ -37,29 +35,33 @@ natural sort:       ['a1', 'a2', 'a4', 'a9', 'a10']
 
 %package -n python3-%{srcname}
 Summary:	%{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 %description -n python3-%{srcname} %{_description}
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
+%pyproject_check_import
 %pytest
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/%{srcname}
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Jul 09 2025 Robert Scheck <robert@fedoraproject.org> - 8.4.0-5
+- Stop using deprecated %%py3_build/%%py3_install macros (#2377922)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 8.4.0-4
 - Rebuilt for Python 3.14
 

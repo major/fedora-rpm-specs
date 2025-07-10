@@ -3,7 +3,7 @@ SymEngine is a standalone fast C++ symbolic manipulation library. Optional thin
 wrappers allow usage of the library from other languages.}
 
 Name:           symengine
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Fast symbolic manipulation library
 License:        MIT
@@ -57,7 +57,7 @@ sed -i -e 's|DEF_INSTALL_CMAKE_DIR lib/cmake|DEF_INSTALL_CMAKE_DIR %{_lib}/cmake
 %files
 %license LICENSE
 %doc AUTHORS README.md
-%{_libdir}/libsymengine.so.0.13
+%{_libdir}/libsymengine.so.0.14
 %{_libdir}/libsymengine.so.%{version}
 
 %files devel

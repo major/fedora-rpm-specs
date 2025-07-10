@@ -6,7 +6,7 @@
 %global crate avif-serialize
 
 Name:           rust-avif-serialize
-Version:        0.8.3
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Minimal writer for AVIF header structure (MPEG/HEIF/MIAF/ISO-BMFF)
 

@@ -7,7 +7,7 @@
 
 Name:           perl-Compress-Bzip2
 Version:        2.28
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Interface to Bzip2 compression library
 # bzlib-src/win-tst-dlltest.c (unbundled):  Public Domain
 # bzlib-src/LICENSE (unbundled):            BSD-4-Clause
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.28-23
+- Perl 5.42 re-rebuild of bootstrapped packages
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.28-22
 - Perl 5.42 rebuild
 

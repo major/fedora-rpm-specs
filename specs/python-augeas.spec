@@ -1,17 +1,19 @@
 Name:		python-augeas
 Version:	1.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Python bindings to augeas
 License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
 Source0:	https://github.com/hercules-team/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 BuildRequires:	augeas-devel
 BuildRequires:	python3-pytest
 BuildRequires:	python3-cffi
 BuildRequires:	gcc
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 python-augeas is a set of Python bindings around augeas.
@@ -31,10 +33,10 @@ python3-augeas is a set of Python bindings around augeas.
 %autosetup -p1
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 
 %check
 %{pytest}
@@ -44,9 +46,12 @@ python3-augeas is a set of Python bindings around augeas.
 %doc AUTHORS README.md
 %{python3_sitearch}/_augeas.abi3.so
 %{python3_sitearch}/augeas/
-%{python3_sitearch}/python_augeas-*.egg-info
+%{python3_sitearch}/python_augeas-*.dist-info
 
 %changelog
+* Tue Jul 08 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.2.0-3
+- Migrate from deprecated py3 macros to pyproject macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.0-2
 - Rebuilt for Python 3.14
 

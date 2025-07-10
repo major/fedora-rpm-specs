@@ -1,7 +1,7 @@
 %global shortname mozilla-django-oidc
 Name:          python-%{shortname}
-Version:       1.2.2
-Release:       21%{?dist}
+Version:       4.0.1
+Release:       1%{?dist}
 Summary:       A django OpenID Connect library
 
 License:       MPL-2.0
@@ -10,7 +10,6 @@ Source0:       https://github.com/mozilla/%{shortname}/archive/%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %description
 A django OpenID Connect library.
@@ -26,18 +25,24 @@ A django OpenID Connect library.
 %prep
 %autosetup -n %{shortname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files mozilla_django_oidc
 
-%files -n python3-%{shortname}
+%files -n python3-%{shortname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/mozilla_django_oidc/
-%{python3_sitelib}/mozilla_django_oidc-*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.1-1
+- Update to 4.0.1
+- Migrate to new python build macros (rhbz: 2377903)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.2-21
 - Rebuilt for Python 3.14
 

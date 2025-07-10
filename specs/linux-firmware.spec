@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250627
+Version:	20250708
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -436,10 +436,6 @@ end
 %{_firmwarepath}/nvidia/a*
 %{_firmwarepath}/nvidia/g*
 %{_firmwarepath}/nvidia/tu*
-%ghost /usr/lib/firmware/nvidia/ad103
-%ghost /usr/lib/firmware/nvidia/ad104
-%ghost /usr/lib/firmware/nvidia/ad106
-%ghost /usr/lib/firmware/nvidia/ad107
 
 # Microcode updates
 %files -n amd-ucode-firmware
@@ -615,6 +611,23 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250708-1
+- Update to 20250708
+- Drop incorrect nvidia ghost entries
+- xe: Add fan_control v203.0.0.0 for BMG
+- Update AMD cpu microcode
+- amdgpu: Add DCN 3.6/PSP 14.0.5/SDMA 6.1.3/GC 11.5.3
+- mediatek MT7921: update bluetooth firmware to 20250625154126
+- qcom/adreno: document firmware revisions
+- qcom/adreno: move A610 and A702 ZAP files to Adreno driver section
+- qcom: Add sdx61 Foxconn vendor firmware image file
+- Revert "Update firmware file for Intel Pulsar core"
+- xe: First GuC/HuC release for Pantherlake
+- update firmware for MT7921 WiFi device
+- rtw89: 8922a: update fw to v0.35.80.0
+- rtw89: 8852c: update fw to v0.27.129.1
+- rtw89: 8852c: update fw to v0.27.128.0
+
 * Fri Jun 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250627-1
 - Update to 20250627
 - amdgpu: A metric ton of fixes for their GPU firmware

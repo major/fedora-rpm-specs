@@ -1,11 +1,11 @@
 %global major 9
 %global majorver %{major}.0
-%global vers %{majorver}.0
+%global vers %{majorver}.2
 
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -20,8 +20,8 @@ BuildRequires: libXft-devel
 Conflicts: itcl <= 3.2
 Obsoletes: tile <= 0.8.2
 Provides: tile = 0.8.2
-Patch1: tk-8.6.12-make.patch
-Patch2: tk-8.6.15-conf.patch
+Patch: tk-8.6.12-make.patch
+Patch: tk-8.6.15-conf.patch
 
 %description
 When paired with the Tcl scripting language, Tk provides a fast and powerful
@@ -109,6 +109,10 @@ ln -s %{_bindir}/wish %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jul 08 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 1:9.0.2-1
+- New version
+  Related: rhbz#2347162
+
 * Thu Feb 20 2025 Orion Poplawski <orion@nwra.com> - 1:9.0.0-4
 - Fix target for libtk.so
 

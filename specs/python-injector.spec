@@ -1,4 +1,3 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name injector
 
 Name:           python-%{pypi_name}
@@ -13,7 +12,6 @@ Patch0:         sphinx.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel >= 3.10
-BuildRequires:  python3dist(setuptools)
 
 %global _description %{expand:
 Dependency injection as a formal pattern is less useful in Python than in other
@@ -34,7 +32,6 @@ Providing a Pythonic API trumps faithfulness.}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %{_description}
 
@@ -51,12 +48,13 @@ BuildRequires:  python3dist(typing-extensions)
 %prep
 %autosetup -n %{pypi_name}-%{version} -p0
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 # Generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs html
@@ -66,14 +64,16 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
-%files -n python3-%{pypi_name}
-%license COPYING
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %files -n python3-%{pypi_name}-doc
 %doc html

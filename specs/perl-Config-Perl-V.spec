@@ -1,6 +1,6 @@
 Name:           perl-Config-Perl-V
 Version:        0.38
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Structured data retrieval of perl -V output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-Perl-V
@@ -89,6 +89,9 @@ make test PERL_CORE=%{defined perl_bootstrap}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.38-520
+- Perl 5.42 re-rebuild of bootstrapped packages
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.38-519
 - Increase release to favour standalone package
 

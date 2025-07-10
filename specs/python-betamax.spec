@@ -23,9 +23,7 @@ much easier.
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests >= 2.0
@@ -39,13 +37,19 @@ Python 3 version.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
+%pyproject_check_import -t
+
 %if %{with tests}
 # test_pytest_fixture: not sure why it fails but better run some tests than none
 # test_replays_response_from_cassette: https://github.com/betamaxpy/betamax/issues/184
@@ -54,11 +58,8 @@ TEST_SELECTOR="not test_fixtures and not test_replays_response_from_cassette and
 py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.0-5

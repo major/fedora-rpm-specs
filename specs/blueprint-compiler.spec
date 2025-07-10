@@ -1,16 +1,13 @@
-%global         forgeurl https://gitlab.gnome.org/jwestman/blueprint-compiler
-
 Name:           blueprint-compiler
-Version:        0.16.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        A markup language for GTK user interfaces
 
-%global         tag v%{version}
-%forgemeta
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 License:        LGPL-3.0-or-later
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://gitlab.gnome.org/GNOME/blueprint-compiler
+Source0:        https://download.gnome.org/sources/%{name}/0.18/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -34,7 +31,7 @@ increase adoption of cool advanced features like GtkExpression.
 
 
 %prep
-%forgeautosetup
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build

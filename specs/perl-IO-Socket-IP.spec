@@ -7,7 +7,7 @@
 
 Name:           perl-IO-Socket-IP
 Version:        0.43
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Drop-in replacement for IO::Socket::INET supporting both IPv4 and IPv6
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-IP
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.43-520
+- Perl 5.42 re-rebuild of bootstrapped packages
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.43-519
 - Increase release to favour standalone package
 

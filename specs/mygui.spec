@@ -1,42 +1,47 @@
 Name:           mygui
-Version:        3.2.2
-%global commit 8a05127d7c5bb6772df88185b1f99d8052c379a4
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-Release:        16%{?dist}
-Summary:        Fast, simple and flexible GUI library for Ogre
-# UnitTests include agg-2.4, which is under a BSD variant (not built or installed here)
+Version:        3.4.3
+Release:        %autorelease
+Summary:        Fast, simple and flexible GUI library for games and 3D applications.
 License:        MIT
 URL:            http://mygui.info/
-Source0:        https://github.com/MyGUI/mygui/archive/%{commit}/mygui-%{commit}.tar.gz
-# Helper to run demos, based on A. Torkhov Ogre-Samples shipped with ogre-samples
-Source1:        MyGUI-Demos
-# Another helper for the tools
-Source2:        MyGUI-Tools
+Source0:        https://github.com/MyGUI/mygui/archive/MyGUI%{version}/mygui-MyGUI%{version}.tar.gz
 # Demo and tools resources configuration
-Source3:        resources.xml
-# LayoutEditor desktop entry
-Source4:        mygui-layouteditor.desktop
-# Fix multilib and flags with cmake
-Patch0:         mygui_multilib_cflags.patch
-# Fixup libCommon
-Patch1:         mygui-libCommon-fixup.patch
+Source1:        resources.xml
+# Script to run MyGui tools
+Source2:        MyGUI-Tools
+# Desktop files
+Source3:        mygui-layouteditor.desktop
+Source4:        mygui-imageeditor.desktop
+Source5:        mygui-fonteditor.desktop
+Source6:        mygui-skineditor.desktop
 
+BuildRequires:  cmake
+BuildRequires:  cmake(SDL2)
+BuildRequires:  desktop-file-utils
+BuildRequires:  dos2unix
+BuildRequires:  doxygen
+BuildRequires:  freetype-devel 
 BuildRequires:  gcc-c++
-BuildRequires:  freetype-devel, desktop-file-utils
-BuildRequires:  ois-devel, ogre-devel, doxygen, graphviz, cmake, dos2unix
-BuildRequires:  libuuid-devel, libX11-devel
+BuildRequires:  glew-devel
+BuildRequires:  graphviz
+BuildRequires:  libuuid-devel
+BuildRequires:  libX11-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  ninja-build
+BuildRequires:  ois-devel
+BuildRequires:  SDL2_image-devel
 
 Requires:       dejavu-sans-fonts
 
-
 %description
-MyGUI is a GUI library for Ogre Rendering Engine which aims to be fast, 
-flexible and simple in using. 
+MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) for games and 3D applications.
 
 %package        devel
 Summary:        Development files for MyGUI
-Requires:       %{name} = %{version}-%{release}
-Requires:       pkgconfig, ois-devel, ogre-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       mesa-libGL-devel
+Requires:       ois-devel
+Requires:       pkgconfig
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -51,183 +56,138 @@ BuildArch:      noarch
 The %{name}-devel-doc package contains reference documentation for
 developing applications that use %{name}.
 
-
-%package demos
-Summary:        MyGUI demo executables and media
-Requires:       %{name} = %{version}-%{release}
-
-%description demos
-This package contains the compiled (not the source) sample applications coming
-with MyGUI.  It also contains some media (meshes, textures,...) needed by these
-samples. The samples are installed in %{_libdir}/MYGUI/Demos, and an helper
-script MyGUI-Demos is provided and installed in %{_bindir}.
-
-
 %package tools
 Summary:        MyGUI tools 
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description tools
-This package contains the MyGUI tools, installed in %{_libdir}/MYGUI/Tools. 
+This package contains the MyGUI tools, installed in %{_bindir}. 
 LayoutEditor is an application for designing UIs using MyGUI library,
-FontEditor, ImageEditor and SkinEditor are also provided.
-An helper script MyGUI-Tools is provided and installed in %{_bindir}.
-
+FontEditor, ImageEditor and SkinEditor are also provided. They are
+renamed to be prefixed with mygui (ie mygui-LayoutEditor)
 
 %prep
-%setup -qn %{name}-%{commit}
-%patch0 -p0 -b .multilib
-%patch1 -p0 -b .fixup
-# Fix non-UTF8 files
-for file in Tools/LayoutEditor/Readme.txt ; do
-   dos2unix -n $file timestamp && \
-   iconv -f ISO-8859-1 -t UTF-8 -o $file timestamp && \
-   touch -r timestamp $file && \
-   rm timestamp
-done
-# Generate README for -tools and -demos
-cat > Tools/README << EOT
-This package contains the MyGUI tools: ImageEditor, FontEditor, 
-SkinEditor and LayoutEditor; to run the tools, 
-launch the helper script
-%{_bindir}/MyGUI-Tools
-EOT
-cat > Demos/README << EOT
-This package contains MyGUI demos; to run the demos, launch the
-helper script %{_bindir}/MyGUI-Demos
-EOT
+%setup -qn %{name}-MyGUI%{version}
 
-%if (%{?fedora} > 20) && (%{?fedora} < 24)
-# Fedora > 20 has freetype2/freetype.h
-sed -i -e 's,freetype/freetype.h,freetype2/freetype.h,' CMake/Packages/FindFreetype.cmake
-%endif
 
 %build
-# Plugins are windows only atm
-%cmake . \
-   -DMYGUI_INSTALL_PDB:INTERNAL=FALSE -DCMAKE_BUILD_TYPE:STRING=Release \
-   -DMYGUI_BUILD_PLUGINS:BOOL=OFF -DCMAKE_CXX_FLAGS_RELEASE= \
-   -DCMAKE_SKIP_RPATH:BOOL=ON
-make %{?_smp_mflags}
-# Generate doxygen documentation
+%cmake -G Ninja \
+   -DMYGUI_BUILD_DEMOS=FALSE \
+   -DMYGUI_BUILD_DOCS=TRUE \
+   -DMYGUI_BUILD_PLUGINS=OFF \
+   -DMYGUI_BUILD_TOOLS=TRUE \
+   -DMYGUI_DONT_USE_OBSOLETE=ON \
+   -DMYGUI_INSTALL_DEMOS=FALSE \
+   -DMYGUI_INSTALL_DOCS=TRUE \
+   -DMYGUI_INSTALL_PDB=FALSE \
+   -DMYGUI_INSTALL_TOOLS=TRUE \
+   -DMYGUI_RENDERSYSTEM=4 \
+   -DMYGUI_USE_SYSTEM_GLEW=TRUE
+%cmake_build
+cd %{_vpath_builddir}
 pushd Docs
 doxygen
-rm -f html/installdox
 popd
 
-
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} INSTALL="install -p"
-# install missing headers
-mkdir -p %{buildroot}/%{_includedir}/MyGUI/
-install -Dp -m 644 MyGUIEngine/include/*Alloc*.h %{buildroot}/%{_includedir}/MyGUI/
-install -Dp -m 644 Platforms/Ogre/OgrePlatform/include/* %{buildroot}/%{_includedir}/MyGUI/
-
-# Remove any archive
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-# Remove binaries installed in %%{_bindir}
-rm -rf %{buildroot}/%{_bindir}/
-
-# Install the samples 
-mkdir -p %{buildroot}%{_libdir}/MYGUI/Demos 
-cp -p %{SOURCE3} bin/plugins.cfg %{buildroot}%{_libdir}/MYGUI/Demos
-sed -i 's|^PluginFolder=.*$|PluginFolder=%{_libdir}/OGRE|' \
-    %{buildroot}%{_libdir}/MYGUI/Demos/plugins.cfg
-sed -i 's|^Plugin=RenderSystem_Direct3D9$|#Plugin=RenderSystem_Direct3D9|' \
-    %{buildroot}%{_libdir}/MYGUI/Demos/plugins.cfg
-for file in bin/Demo_* ; do
-  install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Demos/`basename $file`
-done
-mkdir -p %{buildroot}%{_bindir}
-install -Dp -m 755 %{SOURCE1} %{buildroot}%{_bindir}/
-
-# Install the tools
-mkdir -p %{buildroot}%{_libdir}/MYGUI/Tools
-cp -p %{SOURCE3} bin/plugins.cfg %{buildroot}%{_libdir}/MYGUI/Tools
-sed -i 's|^PluginFolder=.*$|PluginFolder=%{_libdir}/OGRE|' \
-    %{buildroot}%{_libdir}/MYGUI/Tools/plugins.cfg
-sed -i 's|^Plugin=RenderSystem_Direct3D9$|#Plugin=RenderSystem_Direct3D9|' \
-    %{buildroot}%{_libdir}/MYGUI/Tools/plugins.cfg
-for file in bin/LayoutEditor bin/ImageEditor bin/SkinEditor bin/FontEditor ; do
-  install -Dp -m 755 $file %{buildroot}%{_libdir}/MYGUI/Tools/`basename $file`
-done
-install -Dp -m 755 %{SOURCE2} %{buildroot}%{_bindir}/
+%cmake_install
+install -d %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
+install -d %{buildroot}%{_datadir}/MYGUI/Tools
+install -D %{_vpath_builddir}/Docs/html/* %{buildroot}%{_datadir}/doc/mygui-devel-doc/html
 
 # Install desktop entry for LayoutEditor
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE3}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE5}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE6}
 
-# Copy Media files
-mkdir -p %{buildroot}%{_datadir}/MyGUI/
-cp -a Media %{buildroot}%{_datadir}/MyGUI/
+# Replace resources.xml with our version of it
+rm -f %{buildroot}%{_bindir}/resources.xml
+install %{SOURCE1} %{buildroot}%{_datadir}/MYGUI/Tools/resources.xml
 
-# The subpackages put stuff in this directory
-mkdir -p %{buildroot}%{_libdir}/MYGUI
+# Move tools out of bin and into datadir/tools
+mv %{buildroot}%{_bindir}/ImageEditor %{buildroot}%{_datadir}/MYGUI/Tools/ImageEditor
+mv %{buildroot}%{_bindir}/FontEditor %{buildroot}%{_datadir}/MYGUI/Tools/FontEditor
+mv %{buildroot}%{_bindir}/LayoutEditor %{buildroot}%{_datadir}/MYGUI/Tools/LayoutEditor
+mv %{buildroot}%{_bindir}/SkinEditor %{buildroot}%{_datadir}/MYGUI/Tools/SkinEditor
 
-# Strip away code in media dir
-#rm -rf %{buildroot}%{_datadir}/MyGUI/Media/Tools/LayoutEditor/CodeTemplates/
+# Install our handy tools script
+install -Dpm755 %{SOURCE2} %{buildroot}%{_bindir}/MyGUI-Tools
+
 # Strip away unittests media 
-rm -rf %{buildroot}%{_datadir}/MyGUI/Media/UnitTests
+rm -rf %{buildroot}%{_datadir}/MYGUI/Media/UnitTests
 
 # Remove CMake stuff from Media
-rm -f %{buildroot}%{_datadir}/MyGUI/Media/CMakeLists.txt
+rm -f %{buildroot}%{_datadir}/MYGUI/Media/CMakeLists.txt
 
 # Link fonts from dejavu package
-ln -fs %{_datadir}/fonts/dejavu/DejaVuSans.ttf \
-  %{buildroot}%{_datadir}/MyGUI/Media/MyGUI_Media/DejaVuSans.ttf
-ln -fs %{_datadir}/fonts/dejavu/DejaVuSans-ExtraLight.ttf \
-  %{buildroot}%{_datadir}/MyGUI/Media/MyGUI_Media/DejaVuSans-ExtraLight.ttf
+ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans.ttf \
+  %{buildroot}%{_datadir}/MYGUI/Media/MyGUI_Media/DejaVuSans.ttf
+ln -fs %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans-ExtraLight.ttf \
+  %{buildroot}%{_datadir}/MYGUI/Media/MyGUI_Media/DejaVuSans-ExtraLight.ttf
 
-# CMake hurts my brain.
-cp -a %{_lib}/libCommon.so* %{buildroot}%{_libdir}/
+# Move icons to appropriate directory
+for size in 16 24 32 48 96 256 ; do
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_FE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_fe.png
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_IE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_ie.png
+  install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_SE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_se.png
+done
 
+# Layout Editor is missing 32x32 icons, so we're doing them seperately. 
+for size in 16 24 48 96 256 ; do
+    install -Dpm644 Media/Common/Sources/Icons/MyGUI_Icon_LE_${size}x${size}.png %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/mygui_le.png
+done
+
+%check
+%ctest
 
 %files
-%doc COPYING.MIT
-%{_libdir}/*.so.*
-%dir %{_libdir}/MYGUI
-%dir %{_datadir}/MyGUI
-%dir %{_datadir}/MyGUI/Media
-%{_datadir}/MyGUI/Media/Common
-%{_datadir}/MyGUI/Media/MyGUI_Media
-
+%license COPYING.MIT
+%doc README.md
+%{_libdir}/libMyGUICommon.so.%{version}
+%{_libdir}/libMyGUIEngine.so.%{version}
+%dir %{_datadir}/MYGUI
+%dir %{_datadir}/MYGUI/Media
+%{_datadir}/MYGUI/Media/Common
+%{_datadir}/MYGUI/Media/MyGUI_Media
+%{_datadir}/MYGUI/Media/Wrapper
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-
+%{_includedir}/MYGUI
+%{_libdir}/libEditorFramework.so
+%{_libdir}/libMyGUI.OpenGLPlatform.so
+%{_libdir}/libMyGUICommon.so
+%{_libdir}/libMyGUIEngine.so
+%{_libdir}/pkgconfig/MYGUI.pc
 
 %files devel-doc
 %doc Docs/html
 
-
-%files demos
-%doc Demos/README
-%{_bindir}/MyGUI-Demos
-%{_libdir}/MYGUI/Demos
-%{_datadir}/MyGUI/Media/Demos
-%{_datadir}/MyGUI/Media/Wrapper
-
-
 %files tools
-%doc Tools/README Tools/LayoutEditor/Readme.txt
+%doc Tools/Readme.txt Tools/LayoutEditor/Readme.txt
 %{_bindir}/MyGUI-Tools
-%{_libdir}/MYGUI/Tools
-%{_datadir}/MyGUI/Media/Tools
+%{_datadir}/MYGUI/Tools/resources.xml
+%{_datadir}/MYGUI/Tools/LayoutEditor
+%{_datadir}/MYGUI/Tools/ImageEditor
+%{_datadir}/MYGUI/Tools/FontEditor
+%{_datadir}/MYGUI/Tools/SkinEditor
+%{_datadir}/MYGUI/Media/Tools
+%{_datadir}/MYGUI/Media/Demos
+%{_iconsdir}/hicolor/*/apps/mygui_*.png
 %{_datadir}/applications/mygui-layouteditor.desktop
+%{_datadir}/applications/mygui-skineditor.desktop
+%{_datadir}/applications/mygui-fonteditor.desktop
+%{_datadir}/applications/mygui-imageeditor.desktop
 
 
 %changelog
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+%autochangelog
+* Tue Jun 25 2025 Claire Robsahm <inquiries@chapien.net> - 3.4.3-4
+- Made libraries and icons explicit rather than wildcard.
+- Removed unnecessary dependencies and sorted them alphabetically.
 
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-15
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+* Mon Jun 09 2025 Claire Robsahm <inquiries@chapien.net> - 3.4.3-1
+- Updated to 3.4.3. Build using OpenGL instead of OGRE.
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild

@@ -12,6 +12,8 @@ BuildArch:	noarch
 BuildRequires:	desktop-file-utils
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+# to build wheel
+BuildRequires:	python3-pip
 Requires:	python3-wxpython4
 Requires:	python3-libconcord
 # For mhgui
@@ -36,19 +38,18 @@ This includes the Harmony 200 and Harmony 300. To use it, simply run
 %autosetup -p1
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install "--skip-update-desktop-db"
+%pyproject_install
+%pyproject_save_files congruity
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/mhgui.desktop
 
-%files
+%files -f %{pyproject_files}
 %doc Changelog COPYING README.txt
 %license LICENSE.txt
 %{_bindir}/*
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-%{version}-*egg-info/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/mhgui.desktop
 %{_mandir}/*/*

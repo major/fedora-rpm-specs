@@ -1,9 +1,8 @@
 %bcond_without tests
-%global srcname lexicon
 
 Name:		python-lexicon
 Version:	2.0.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
 License:	BSD-2-Clause
 URL:		https://github.com/bitprophet/lexicon
@@ -11,7 +10,6 @@ Source0:	https://github.com/bitprophet/lexicon/archive/%{version}/lexicon-%{vers
 Patch0:		lexicon-2.0.1-pytest8.patch
 BuildArch:	noarch
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 
 %if %{with tests}
 # For test suite
@@ -24,7 +22,6 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 
 %package -n python3-lexicon
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
-%{?python_provide:%python_provide python3-lexicon}
 
 %description -n python3-lexicon
 Lexicon is a simple collection of dict sub-classes providing extra power.
@@ -32,14 +29,17 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 %prep
 %setup -q -n lexicon-%{version}
 
-# Attempt to fix for pytest 8
+# Fix for pytest 8
 %patch -P 0
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %if %{with tests}
 %check
@@ -50,9 +50,12 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 %license LICENSE
 %doc docs/changelog.rst README.rst
 %{python3_sitelib}/lexicon/
-%{python3_sitelib}/lexicon-%{version}-*.egg-info/
+%{python3_sitelib}/lexicon-%{version}.dist-info/
 
 %changelog
+* Tue Jul  8 2025 Paul Howarth <paul@city-fan.org> - 2.0.1-17
+- Stop using deprecated %%py3_build/%%py3_install macros (rhbz#2377852)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.1-16
 - Rebuilt for Python 3.14
 

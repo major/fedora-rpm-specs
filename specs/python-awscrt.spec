@@ -3,7 +3,7 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.24.2
+Version:        0.27.2
 Release:        %autorelease
 
 Summary:        Python bindings for the AWS Common Runtime
@@ -16,8 +16,8 @@ URL:            https://github.com/awslabs/aws-crt-python
 
 Source0:        %{pypi_source awscrt}
 
-# one test requires internet connection, skip it
-Patch0:         skip-test-requiring-network.patch
+# two tests require internet connection, skip them
+Patch0:         skip-tests-requiring-network.patch
 # skip SHA1 in test_crypto
 Patch1:         skip-SHA1-in-test_crypto.patch
 
@@ -30,8 +30,8 @@ BuildRequires:  openssl-devel
 
 BuildRequires:  python%{python3_pkgversion}-websockets
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2180988
-ExcludeArch:    s390x
+# s390x: https://bugzilla.redhat.com/show_bug.cgi?id=2180988
+ExcludeArch:    %{ix86} s390x
 
 
 %description
@@ -58,11 +58,6 @@ sed -i -e 's/setuptools>=75\.3\.1/setuptools/' -e 's/wheel>=0\.45\.1/wheel/' pyp
 
 
 %build
-%ifarch %{ix86}
-# disable SSE2 instructions to prevent a crash in aws-c-common thread handling
-# probably caused by a compiler bug
-export CFLAGS="%{optflags} -mno-sse2"
-%endif
 export AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO=1
 %pyproject_wheel
 

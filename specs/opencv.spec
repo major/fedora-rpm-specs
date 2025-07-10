@@ -120,6 +120,9 @@ Patch12:        0007-fix-for-large-tEXt-chunk.patch
 Patch13:        0008-Merge-pull-request-26854-from-vrabaud-png_leak.patch
 Patch14:        0009-Merge-pull-request-26872-from-sturkmen72-ImageEncode.patch
 Patch15:        0010-Merge-pull-request-26915-from-mshabunin-fix-png-be.patch
+# Fix build with Qt 6.9, by Atri Bhattacharya (thanks)
+# https://github.com/opencv/opencv/issues/27223#issuecomment-2797750952
+Patch16:        qt69.patch
 
 
 BuildRequires:  gcc-c++
@@ -433,6 +436,7 @@ popd &>/dev/null
 %patch -P 13 -p1 -b .png8
 %patch -P 14 -p1 -b .png9
 %patch -P 15 -p1 -b .png10
+%patch -P 16 -p1 -b .qt69
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -609,8 +613,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 4.11.0-4
+* Tue Jul 08 2025 Adam Williamson <awilliam@redhat.com> - 4.11.0-4
 - Rebuilt for Python 3.14
+- Add patch from Atri Bhattacharya to fix build with Qt 6.9
 
 * Tue Mar 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.11.0-3
 - Use Qt6 in highgui and cvv

@@ -1,7 +1,7 @@
 Name:           python-pcodedmp
 Summary:        VBA p-code disassembler
 Version:        1.2.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://github.com/bontchev/pcodedmp
 VCS:            https://github.com/bontchev/pcodedmp
@@ -13,15 +13,14 @@ BuildArch:      noarch
 # python-pcodedmp and python-oletools
 %bcond_with     bootstrap
 
-# No python-pypandoc packages in EPEL 8 (yet?)
-%if 0%{?fedora} || 0%{?rhel} == 7
+# No python-pypandoc packages in EPEL 8 and 10 (yet?)
+%if 0%{?fedora} || 0%{?rhel} == 9
 %bcond_without  pypandoc
 %else
 %bcond_with     pypandoc
 %endif
 
 Source0:        %{pypi_source}
-Patch0:         python-pcodedmp-1.2.6-python27.patch
 
 
 
@@ -39,120 +38,78 @@ a Python library and command line tool to display it.}
 
 %package -n pcodedmp
 Summary:        %{summary}
-Requires:       python%{python3_pkgversion}-pcodedmp = %{version}-%{release}
+Requires:       python3-pcodedmp = %{version}-%{release}
 
 %description -n pcodedmp %_description
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%package -n python2-pcodedmp
+%package -n python3-pcodedmp
 Summary:        %{summary}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
+BuildRequires:  python3-devel
+%if 0%{?rhel} && 0%{?rhel} < 9
+BuildRequires:  python3-setuptools
+%endif
 %if %{with pypandoc}
-BuildRequires:  python2-pypandoc
+BuildRequires:  python3-pypandoc
 %endif
 %if %{without bootstrap}
-BuildRequires:  python2-oletools >= 0.54
-Requires:       python2-oletools >= 0.54
+BuildRequires:  python3-lxml
+BuildRequires:  python3-oletools >= 0.54
+Requires:       python3-oletools >= 0.54
 %endif
-%{?python_provide:%python_provide python2-pcodedmp}
+%if 0%{?rhel} && 0%{?rhel} < 9
+%{?python_provide:%python_provide python3-pcodedmp}
+%endif
 
-%description -n python2-pcodedmp %_description
-%endif
-
-%package -n python%{python3_pkgversion}-pcodedmp
-Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with pypandoc}
-BuildRequires:  python%{python3_pkgversion}-pypandoc
-%endif
-%if %{without bootstrap}
-BuildRequires:  python%{python3_pkgversion}-lxml
-BuildRequires:  python%{python3_pkgversion}-oletools >= 0.54
-Requires:       python%{python3_pkgversion}-oletools >= 0.54
-%endif
-%{?python_provide:%python_provide python%{python3_pkgversion}-pcodedmp}
-
-%description -n python%{python3_pkgversion}-pcodedmp %_description
-
-%if 0%{?with_python3_other}
-%package -n python%{python3_other_pkgversion}-pcodedmp
-Summary:        %{summary}
-BuildRequires:  python%{python3_other_pkgversion}-devel
-BuildRequires:  python%{python3_other_pkgversion}-setuptools
-%if %{with pypandoc}
-BuildRequires:  python%{python3_other_pkgversion}-pypandoc
-%endif
-%if %{without bootstrap}
-BuildRequires:  python%{python3_other_pkgversion}-lxml
-BuildRequires:  python%{python3_other_pkgversion}-oletools >= 0.54
-Requires:       python%{python3_other_pkgversion}-oletools >= 0.54
-%endif
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-pcodedmp}
-
-%description -n python%{python3_other_pkgversion}-pcodedmp %_description
-%endif
+%description -n python3-pcodedmp %_description
 
 %prep
 %autosetup -n pcodedmp-%{version}
 
-%build
-%if 0%{?rhel} && 0%{?rhel} < 8
-%py2_build
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%generate_buildrequires
+%pyproject_buildrequires
 %endif
+
+%build
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_wheel
+%else
 %py3_build
-%{?with_python3_other:%py3_other_build}
+%endif
 
 %install
-%if 0%{?rhel} && 0%{?rhel} < 8
-%py2_install
-%endif
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_install
+%pyproject_save_files -l pcodedmp
+%else
 %py3_install
-%{?with_python3_other:%py3_other_install}
+%endif
 
 # The check requires oletools, which might not be available during bootstrapping
 %if %{without bootstrap}
 %check
 # There are no pytest tests defined at this moment
 # %%pytest
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_check_import
+%else
 # Do at least basic smoke test
 %py3_check_import pcodedmp
+%endif
 %endif
 
 %files -n pcodedmp
 %{_bindir}/pcodedmp
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%files -n python2-pcodedmp
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%files -n python3-pcodedmp -f %{pyproject_files}
+%else
+%files -n python3-pcodedmp
 %license LICENSE
-%doc README.md
-%{python2_sitelib}/pcodedmp/
-%{python2_sitelib}/pcodedmp-*.egg-info
-%endif
-
-%files -n python%{python3_pkgversion}-pcodedmp
-%license LICENSE
-%doc README.md
-%{python3_sitelib}/pcodedmp/
-%{python3_sitelib}/pcodedmp-*.egg-info/
-
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-pcodedmp
-%license LICENSE
-%doc README.md
 %{python3_sitelib}/pcodedmp/
 %{python3_sitelib}/pcodedmp-*.egg-info/
 %endif
+%doc README.md
 
 %changelog
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.6-25
-- Rebuilt for Python 3.14
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.6-24
-- Bootstrap for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

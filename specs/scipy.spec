@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.15.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -174,6 +174,10 @@ sed -i "/numpy/s/,<2\.3//" pyproject.toml
 # Loosen the upper bound on pybind11
 sed -i '/pybind11/s/2\.13\.0/2.14.0/' pyproject.toml
 
+# Loosen the upper bound on Cython
+# This can be removed from scipy >= 1.16.0
+sed -i '/Cython/s/,<3\.1\.0//' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -p %{?with_tests:-x test} %{build_backend_args}
 
@@ -287,6 +291,9 @@ popd
 %endif
 
 %changelog
+* Tue Jul 08 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.15.3-3
+- Loosen the upper bound on Cython
+
 * Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.15.3-2
 - Bump EVR
 

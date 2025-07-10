@@ -52,6 +52,8 @@ Patch:          %{name}-Singular-4.3.2.patch
 Patch:          %{name}-gcc-15.patch
 # Build the bundled sympol against system cddlib and lrslib
 Patch:          %{name}-sympol.patch
+# Adapt for Perl 5.42.0 update
+Patch:          %{name}-Perl-5.42.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.

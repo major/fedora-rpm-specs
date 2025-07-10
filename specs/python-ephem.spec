@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compute positions of the planets and stars
 
 License:        MIT
@@ -14,45 +14,51 @@ Patch0:         ephem_bsymbolic.patch
 
 BuildRequires:  gcc
 
+
 %description
 PyEphem provides an ephem Python package for performing high-precision
 astronomy computations. The underlying numeric routines are coded in C
 and are the same ones that drive the popular XEphem astronomy application.
 
+
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-
-Provides:       python3-pyephem = %{version}-%{release}
-Obsoletes:      python3-pyephem < 3.7.1.1
 
 %description -n python3-%{pypi_name}
 PyEphem provides an ephem Python package for performing high-precision
 astronomy computations. The underlying numeric routines are coded in C
 and are the same ones that drive the popular XEphem astronomy application.
 
+
 %package -n python-%{pypi_name}-doc
 Summary:        The %{pypi_name} documentation
 BuildArch:      noarch
-
 BuildRequires:  python3-sphinx
 
 %description -n python-%{pypi_name}-doc
 Documentation for %{pypi_name}.
 
+
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 PYTHONPATH=${PWD} sphinx-build-3 ephem/doc html
 rm -rf html/.{doctrees,buildinfo}
 
+
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
+
 
 %check
 cd %{buildroot}%{python3_sitearch}/%{pypi_name}
@@ -64,19 +70,20 @@ cd %{buildroot}%{python3_sitearch}/%{pypi_name}
 # Remove left-overs from the tests
 rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.pytest_cache}
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%exclude %{python3_sitearch}/%{pypi_name}/tests
-%exclude %{python3_sitearch}/%{pypi_name}/doc
 
 %files -n python-%{pypi_name}-doc
 %doc html
 %license LICENSE
 
+
 %changelog
+* Tue Jul 08 2025 Sandro Mani <manisandro@gmail.com> - 4.2-3
+- Use pyproject macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.2-2
 - Rebuilt for Python 3.14
 

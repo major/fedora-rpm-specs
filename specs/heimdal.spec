@@ -6,8 +6,8 @@ Name: heimdal
 Version: 7.8.0
 Release: %autorelease
 Summary: A Kerberos 5 implementation without export restrictions
-# Automatically converted from old format: BSD and MIT - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
+# Tracked at https://github.com/abstrm/heimdal/blob/heimdal-7.8.0-spdx/doc/copyright.texi
+License: BSD-2-Clause AND BSD-3-Clause AND HPND-export-US AND HPND-export2-US AND LicenseRef-Fedora-Public-Domain
 URL: http://www.heimdal.software/heimdal
 Source0:  https://github.com/%{name}/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source3:  %{name}.sysconfig

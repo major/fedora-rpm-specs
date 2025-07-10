@@ -1,121 +1,68 @@
 %global srcname requests-ftp
 
-# Disable python3 by default on RHEL < 7
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-# Diable python2 by default on RHEL > 7 or Fedora > 28
-%if 0%{?rhel} > 7 || 0%{?fedora} > 28
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        FTP transport adapter for python-requests
 
 License:        Apache-2.0
 URL:            https://github.com/Lukasa/requests-ftp
-Source0:        https://pypi.python.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
+
+# the last pypi release was 0.3.1, from commit 20ce5bf5388ae9b9edfdd9bf6d381a399e5bcad0 but without test data
+%global commit d959118dbfc1f04c9726dfff48d5a2a64c1a01f2
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+Source0:        https://github.com/Lukasa/%{srcname}/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz
 
 BuildArch:      noarch
 
-# from https://github.com/Lukasa/requests-ftp/pull/28, handle multi-line responses
-# from 4090846
-Patch1:         PR28-01-Adding-2-tests-and-updated-statud_code-build.patch
-# from 4f6a9f5
-Patch2:         PR28-02-Adding-code-3-to-retr4ieve-status_code.patch
-# from 3fb2700
-Patch3:         PR28-03-fix-warning-in-interpreting-ftp-status-codes-minor-d.patch
-# 2caa427 is only test updates, tests not in pypi tarball
-# from 7321ab3
-Patch5:         PR28-05-Improve-logging-in-status-code-extraction.patch
+BuildRequires:  python3-devel
 
 # Remove use of the cgi module, which is only used to implement STOR
 Patch6:         0001-Remove-use-of-the-cgi-module.patch
+
+Patch7:         0001-Relax-the-test-requirement-versions.patch
+Patch8:         0001-Add-explicit-schemes-to-the-proxy-URLs.patch
 
 %description
 Requests-FTP is an implementation of a very stupid FTP transport adapter for
 use with the awesome Requests Python library.
 
-%if %{with python2}
-%package -n python2-%{srcname}
-Summary:        FTP transport adapter for python-requests
-%{?python_provide:%python_provide python2-%{srcname}}
-
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-
-Requires:       python2-requests
-
-%description -n python2-%{srcname}
-Requests-FTP is an implementation of a very stupid FTP transport adapter for
-use with the awesome Requests Python library.
-
-This is the Python 2 version of the transport adapter module.
-%endif
-
-%if %{with python3}
 %package -n python3-%{srcname}
 Summary:        FTP transport adapter for python3-requests
-%{?python_provide:%python_provide python3-%{srcname}}
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-
-Requires:       python3-requests
 
 %description -n python3-requests-ftp
 Requests-FTP is an implementation of a very stupid FTP transport adapter for
 use with the awesome Requests Python library.
 
 This is the Python 3 version of the transport adapter module.
-%endif
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
-rm -rf requests_ftp.egg-info
+%autosetup -n %{srcname}-%{commit} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-
-%if %{with python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 %install
-%if %{with python2}
-%py2_install
-%endif
+%pyproject_install
+%pyproject_save_files requests_ftp
 
-%if %{with python3}
-%py3_install
-%endif
+%check
+%tox
 
-%if %{with python2}
-%files -n python2-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python2_sitelib}/requests_ftp/
-%{python2_sitelib}/requests_ftp*.egg-info*
-%endif
-
-%if %{with python3}
-%files -n python3-%{srcname}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/requests_ftp/
-%{python3_sitelib}/requests_ftp*.egg-info*
-%endif
 
 %changelog
+* Tue Jul  8 2025 David Shea <reallylongword@gmail.com> - 0.3.1-38
+- Switch to pyproject macros
+- Remove python2 support
+- Switch to github for the upstream source
+- Run the tests in %%check
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.1-37
 - Rebuilt for Python 3.14
 

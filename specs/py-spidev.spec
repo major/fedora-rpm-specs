@@ -1,14 +1,13 @@
 Name:           py-spidev
-Version:        3.4
-Release:        21%{?dist}
+Version:        3.7
+Release:        1%{?dist}
 Summary:        A python library for manipulating SPI via spidev
 License:        MIT
 URL:            https://github.com/doceme/py-spidev/
-Source0:        https://github.com/doceme/py-spidev/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 A python module for interfacing with SPI devices from user 
@@ -26,17 +25,24 @@ space via the spidev linux kernel driver.
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files spidev
 
-%files -n python3-spidev
+%files -n python3-spidev -f %{pyproject_files}
 %license LICENSE
-%{python3_sitearch}/spidev*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.7-1
+- Update to 3.7
+- Migrate to new python build macros (rhbz: 2377407)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.4-21
 - Rebuilt for Python 3.14
 

@@ -9,8 +9,8 @@
 
 Name:           perl-POE-Component-IRC
 Summary:        A POE component for building IRC clients
-Version:        6.93
-Release:        14%{?dist}
+Version:        6.95
+Release:        1%{?dist}
 # LICENSE:      (GPL-1.0-or-later OR Artistic-1.0-Perl) declaration,
 #               GPL-1.0 text and Artistic-1.0 text
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,15 +26,12 @@ Release:        14%{?dist}
 # docs/rfc2813.html: non-free
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 SourceLicense:  (%{license}) AND Beerware AND GPL-2.0-or-later
+URL:            https://metacpan.org/release/POE-Component-IRC
 # Origin Source0 URL:
 # https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-Component-IRC-%%{version}.tar.gz
 # stripped from non-free IETF documents with repackage.sh script.
 Source0:        POE-Component-IRC-%{version}_repackaged.tar.gz
 Source1:        repackage.sh
-# Fix webirc check in connection configuration, CPAN RT#157738,
-# proposed to upstream
-Patch0:         POE-Component-IRC-6.93-Fix-for-Perl-5.42.0.patch
-URL:            https://metacpan.org/release/POE-Component-IRC
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -224,6 +221,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 08 2025 Petr Pisar <ppisar@redhat.com> - 6.95-1
+- 6.95 bump
+
 * Thu May 15 2025 Petr Pisar <ppisar@redhat.com> - 6.93-14
 - Fix webirc check in connection configuration (CPAN RT#157738)
 - Remove non-free IETF documents from the package

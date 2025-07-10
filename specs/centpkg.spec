@@ -84,6 +84,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 * Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 0.10.0-4
 - Rebuilt for Python 3.14
 
+* Tue Jun 10 2025 Stephen Gallagher <sgallagh@redhat.com> - 0.10.0-3
+- Use authentication session for PP API
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.10.0-2
 - Rebuilt for Python 3.14
 

@@ -38,9 +38,6 @@ ExcludeArch:    ppc ppc64 s390 s390x
 BuildRequires:  gcc-c++
 BuildRequires:  sqlite-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-PyPDF2
-BuildRequires:  python3-pybind11 pybind11-devel
 BuildRequires:  python3-pytest
 
 BuildRequires:  mapnik-devel >= %{mapnik_version}
@@ -49,7 +46,6 @@ BuildRequires:  mapnik-utils >= %{mapnik_version}
 
 BuildRequires:  git-core
 BuildRequires:  boost-devel boost-python3-devel
-BuildRequires:  python3-cairo-devel
 BuildRequires:  postgresql-test-rpm-macros postgis
 
 %description
@@ -58,7 +54,6 @@ BuildRequires:  postgresql-test-rpm-macros postgis
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{summary}.
@@ -70,13 +65,17 @@ tar --directory=test/data --strip-components=1 --gunzip --extract --file=%{SOURC
 tar --directory=test/data-visual --strip-components=1 --gunzip --extract --file=%{SOURCE2} 
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-export PYCAIRO=true
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files mapnik
 
 
 %check
@@ -88,10 +87,9 @@ psql -c "CREATE EXTENSION postgis" template_postgis
 PGHOST="$PWD" LANG="C.UTF-8" %pytest test/python_tests
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md AUTHORS.md CHANGELOG.md CONTRIBUTING.md
 %license COPYING
-%{python3_sitearch}/*
 
 
 %changelog

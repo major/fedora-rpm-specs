@@ -1,13 +1,12 @@
 Name:		python-fluidity-sm
 Version:	0.2.0
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	State machine implementation for Python objects
 License:	MIT
 URL:		https://github.com/nsi-iff/fluidity
 Source0:	https://github.com/nsi-iff/fluidity/archive/%{version}/fluidity-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 # For test suite
 BuildRequires:	python3-should_dsl
 
@@ -16,7 +15,6 @@ State machine implementation for Python objects.
 
 %package -n python3-fluidity-sm
 Summary:	State machine implementation for Python objects
-%{?python_provide:%python_provide python3-fluidity-sm}
 
 %description -n python3-fluidity-sm
 State machine implementation for Python objects.
@@ -24,11 +22,14 @@ State machine implementation for Python objects.
 %prep
 %setup -q -n fluidity-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %{py3_test_envvars} %{python3} -m unittest spec/*.py
@@ -37,9 +38,12 @@ State machine implementation for Python objects.
 %license LICENSE
 %doc CHANGELOG README.rst
 %{python3_sitelib}/fluidity/
-%{python3_sitelib}/fluidity_sm-%{version}-*.egg-info/
+%{python3_sitelib}/fluidity_sm-%{version}.dist-info/
 
 %changelog
+* Tue Jul  8 2025 Paul Howarth <paul@city-fan.org> - 0.2.0-38
+- Stop using deprecated %%py3_build/%%py3_install macros (rhbz#2377723)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.0-37
 - Rebuilt for Python 3.14
 

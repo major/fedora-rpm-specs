@@ -1,19 +1,23 @@
 Name:           python-resultsdb_api
 # NOTE: if you update version, *make sure* to also update `setup.py`
 Version:        2.1.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Interface api to ResultsDB
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://pagure.io/taskotron/resultsdb_api
 Source0:        https://qa.fedoraproject.org/releases/resultsdb_api/resultsdb_api-%{version}.tar.gz
 
-# https://pagure.io/taskotron/resultsdb_api/pull-request/14
-# Fixes a bug that broke things completely on F<=34
-Patch0:         0001-Fix-Retry-allowed-methods-for-urllib-1.25.patch
-
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-simplejson
+BuildRequires:  python3-pytest
+BuildRequires:  python3-requests
+BuildRequires:  python3-virtualenv
 
 %description
 Interface api to ResultsDB
@@ -23,14 +27,6 @@ Summary: %summary
 Requires:       python3-simplejson
 Requires:       python3-requests
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-simplejson
-BuildRequires:  python3-pytest
-BuildRequires:  python3-requests
-BuildRequires:  python3-virtualenv
-
 %description -n python3-resultsdb_api
 Python3 interface to resultsdb.
 
@@ -38,22 +34,24 @@ Python3 interface to resultsdb.
 %autosetup -p1 -n resultsdb_api-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files resultsdb_api
 
 %check
 %pytest
 
-%files -n python3-resultsdb_api
+%files -n python3-resultsdb_api -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/resultsdb_api.*
-%{python3_sitelib}/__pycache__/resultsdb_api.*
-%{python3_sitelib}/resultsdb_api-%{version}*.egg-info
 
 %changelog
+* Tue Jul 08 2025 Adam Williamson <awilliam@redhat.com> - 2.1.5-17
+- Drop no-longer-needed urllib bc patch
+- Modernize spec to use pyproject macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1.5-16
 - Rebuilt for Python 3.14
 

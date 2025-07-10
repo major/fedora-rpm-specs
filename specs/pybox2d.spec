@@ -1,6 +1,6 @@
 Name:           pybox2d
 Version:        2.3.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A 2D rigid body simulation library for Python
 
 License:        zlib
@@ -9,9 +9,10 @@ Source0:        https://github.com/pybox2d/%{name}/archive/%{version}.tar.gz#/%{
 
 # Replace deprecated use of _swigconstant
 # Upstream pull request: https://github.com/pybox2d/pybox2d/pull/90
-Patch0:			replace-deprecated-swigconstant.patch
+Patch0:		replace-deprecated-swigconstant.patch
 
 BuildRequires:  gcc gcc-c++
+BuildRequires:  python3-devel
 BuildRequires:  swig
 
 %description
@@ -22,10 +23,6 @@ animation.
 
 %package -n python3-%{name}
 Summary:        %{summary}
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-
 %{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
@@ -39,19 +36,24 @@ This package provides the Python 3 build of %{name}.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files Box2D
  
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md examples/*
-%{python3_sitearch}/*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.2-30
+- Migrate to new python build macros (rhbz: 2377383)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.2-29
 - Rebuilt for Python 3.14
 

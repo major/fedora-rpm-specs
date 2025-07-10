@@ -6,7 +6,7 @@
 %global crate resolv-conf
 
 Name:           rust-resolv-conf
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Resolv.conf file parser
 

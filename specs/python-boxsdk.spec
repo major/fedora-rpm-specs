@@ -18,9 +18,7 @@ BuildArch:          noarch
 
 %package -n python%{python3_pkgversion}-%{modname}
 Summary:            %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
 BuildRequires:      python%{python3_pkgversion}-requests
 BuildRequires:      python%{python3_pkgversion}-six
 BuildRequires:      python%{python3_pkgversion}-wrapt
@@ -48,22 +46,25 @@ Python %{python3_version} version.
 %prep
 %autosetup -n box-python-sdk-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l boxsdk
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 pytest-3
 %endif
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc *.md
-%license LICENSE
-%{python3_sitelib}/boxsdk/
-%{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.14.0-2

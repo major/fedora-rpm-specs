@@ -1,6 +1,6 @@
 %global neo_major 25
 %global neo_minor 22
-%global neo_build 33944.8
+%global neo_build 33944.12
 
 %if 0%{?rhel}
 %global use_system_headers  0
@@ -112,6 +112,8 @@ Devel files for developing against intel-level-zero
 rm -rv third_party/sse2neon
 
 %build
+# mitigations are handled by the kernel, unnecessary for the GPU/userspace
+# disabling mitigations adds up to 20% performance improvement
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DNEO_OCL_VERSION_MAJOR=%{neo_major} \
@@ -127,6 +129,7 @@ rm -rv third_party/sse2neon
 %endif
     -DNEO_ENABLE_I915_PRELIM_DETECTION=TRUE \
     -DNEO_ENABLE_XE_PRELIM_DETECTION=TRUE \
+    -DNEO_DISABLE_MITIGATIONS=TRUE \
     -G Ninja
 
 %cmake_build

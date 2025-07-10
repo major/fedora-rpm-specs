@@ -1,6 +1,6 @@
 Name:          intelhex
 Version:       2.3.0
-Release:       17%{?dist}
+Release:       18%{?dist}
 Summary:       Utilities for manipulating Intel HEX file format
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -10,7 +10,6 @@ Source0:       https://github.com/python-intelhex/intelhex/archive/%{version}.ta
 BuildArch: noarch
 BuildRequires: dos2unix
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-sphinx
 BuildRequires: make
 
@@ -54,14 +53,17 @@ dos2unix README.rst
 dos2unix NEWS.rst
 sed -i '1d' intelhex/bench.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 pushd docs/manual/
 make html
 popd 
 
 %install
-%py3_install
+%pyproject_install
 
 %files
 %doc NEWS.rst README.rst
@@ -77,6 +79,9 @@ popd
 %doc docs/manual/.build/html/searchindex.js
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.0-18
+- Migrate to new python build macros (rhbz: 2377288)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.0-17
 - Rebuilt for Python 3.14
 

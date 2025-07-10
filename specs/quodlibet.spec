@@ -91,12 +91,17 @@ This package installs %{summary}.
 install -pm 0644 %{S:3} .
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
 desktop-file-install \
 	--dir %{buildroot}%{_datadir}/applications		\
@@ -126,7 +131,7 @@ desktop-file-install \
 %{_mandir}/man1/quodlibet.1*
 
 
-%files -n exfalso -f %{name}.lang
+%files -n exfalso -f %{name}.lang -f %{pyproject_files}
 %license COPYING
 %doc NEWS.rst README.rst
 %{_bindir}/exfalso
@@ -138,9 +143,6 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/*x*/apps/io.github.quodlibet.ExFalso.png
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/metainfo/io.github.quodlibet.ExFalso.appdata.xml
-
-%{python3_sitelib}/quodlibet-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/quodlibet
 
 
 %files zsh-completion

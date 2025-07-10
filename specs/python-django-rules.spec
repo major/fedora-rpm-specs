@@ -1,16 +1,15 @@
 %global shortname django-rules
 Name:          python-%{shortname}
-Version:       3.3.0
-Release:       12%{?dist}
+Version:       3.5.0
+Release:       1%{?dist}
 Summary:       Awesome Django authorization, without the database
 
 License:       MIT
 URL:           https://github.com/dfunckt/%{shortname}/
-Source0:       https://github.com/dfunckt/%{shortname}/archive/v%{version}/%{shortname}-%{version}.tar.gz
+Source0:       %{url}/archive/v%{version}/%{shortname}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %description
 Awesome Django authorization, without the database.
@@ -26,18 +25,24 @@ Awesome Django authorization, without the database.
 %prep
 %autosetup -n %{shortname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files rules
 
-%files -n python3-%{shortname}
+%files -n python3-%{shortname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/rules/
-%{python3_sitelib}/rules-*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+- Migrate to new python build macros (rhbz: 2377656)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3.0-12
 - Rebuilt for Python 3.14
 

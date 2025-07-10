@@ -26,6 +26,7 @@ BuildRequires:	tpm2-abrmd-devel
 # for tools
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-pip
 BuildRequires:	python3-pyasn1-modules
 BuildRequires:	python3-pyyaml
 BuildRequires:	python3-cryptography
@@ -77,7 +78,7 @@ sed -i -e "/'bcrypt',/d" tools/setup.py
 %configure --enable-unit --with-fapi=yes
 %{make_build}
 pushd tools
-%py3_build
+%pyproject_wheel
 popd
 
 
@@ -91,7 +92,7 @@ install src/pkcs11.h $RPM_BUILD_ROOT/%{_includedir}/
   rm $RPM_BUILD_ROOT%{_libdir}/pkcs11/libtpm2_pkcs11.a
 
 pushd tools
-%py3_install
+%pyproject_install
 install -Dpm 755 tpm2_ptool $RPM_BUILD_ROOT%{_bindir}/tpm2_ptool
 popd
 

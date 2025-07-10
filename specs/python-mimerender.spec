@@ -13,6 +13,8 @@ Source1:        https://github.com/martinblech/mimerender/blob/v%{version}/LICEN
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# for wheel building
+BuildRequires:  python3-pip
 BuildRequires:  python3-mimeparse
 BuildRequires:  python3-setuptools
 
@@ -61,18 +63,17 @@ add support for other frameworks. This is the Python 3 build of mimerender.
 cp %{SOURCE1} ./LICENSE
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
 %{__python3} src/mimerender.py
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{srcname}*
-%{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.0-24

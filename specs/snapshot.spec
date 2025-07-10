@@ -9,7 +9,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        48.0.1
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -26,6 +26,7 @@ Summary:        Take pictures and videos
 # MIT
 # MIT OR Apache-2.0
 # MPL-2.0 OR LGPL-2.1-or-later
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
@@ -45,10 +46,11 @@ License:        %{shrink:
 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/snapshot
-Source:         https://download.gnome.org/sources/snapshot/48/snapshot-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/snapshot/49/snapshot-%{tarball_version}.tar.xz
 
 # Downstream patch to disable linting as part of self tests
 Patch:          0001-Disable-cargo-clippy-test.patch
+Patch:          0002-Drop-zvariant-5.4-version-pin.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

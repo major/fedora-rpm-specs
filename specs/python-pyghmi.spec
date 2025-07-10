@@ -14,8 +14,8 @@ incorporate the pyghmi library into a Python application.
 
 Summary: %{common_summary}
 Name: python-%{sname}
-Version: %{?version:%{version}}%{!?version:1.5.69}
-Release: 7%{?dist}
+Version: %{?version:%{version}}%{!?version:1.6.2}
+Release: 1%{?dist}
 Source0: https://tarballs.opendev.org/x/%{sname}/%{sname}-%{version}.tar.gz
 License: Apache-2.0
 Prefix: %{_prefix}
@@ -81,8 +81,11 @@ sed -i s/@@REDHATVERSION@@/%{version}/ pyghmi/version.py
 sed -e "s/#VERSION#/%{version}/" setup.py.tmpl > setup.py
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 %if %{with docs}
 sphinx-build -b html doc/source doc/build/html
 
@@ -91,7 +94,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %if %{with tests}
@@ -107,7 +110,7 @@ stestr run
 %{_bindir}/virshbmc
 %{_bindir}/fakebmc
 %{python3_sitelib}/%{sname}
-%{python3_sitelib}/%{sname}-*.egg-info
+%{python3_sitelib}/%{sname}-*.dist-info
 %exclude %{python3_sitelib}/%{sname}/tests
 
 %files -n python3-%{sname}-tests
@@ -121,6 +124,10 @@ stestr run
 %endif
 
 %changelog
+* Tue Jul 08 2025 Dmitry Tantsur <dtantsur@proton.me> - 1.6.2-1
+- Update to 1.6.2
+- Stop using deprecated macros (#2378038)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.5.69-7
 - Rebuilt for Python 3.14
 

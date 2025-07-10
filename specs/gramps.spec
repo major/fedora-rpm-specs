@@ -1,6 +1,6 @@
 Name:           gramps
 Version:        6.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -14,7 +14,6 @@ BuildRequires:	perl(XML::Parser)
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-gobject
 BuildRequires:  intltool
-BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:  libappstream-glib
 
 Requires:       python%{python3_pkgversion}
@@ -45,11 +44,14 @@ based plugin system.
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 # the script starts with -O, the macros add -sP.  execve(2) treats everything
 # after the interpreter as a single argument, so the flags need to be combined
@@ -93,8 +95,14 @@ desktop-file-install --delete-original  \
 %{_datadir}/icons/hicolor/*/apps/org.gramps_project.Gramps.*
 %{_datadir}/icons/hicolor/*/mimetypes/*
 %{_mandir}/man1/%{name}.1.gz
+%{_mandir}/cs/man1/gramps.1.gz
+%{_mandir}/fr/man1/gramps.1.gz
+%{_mandir}/nl/man1/gramps.1.gz
+%{_mandir}/pl/man1/gramps.1.gz
+%{_mandir}/pt_BR/man1/gramps.1.gz
+%{_mandir}/sv/man1/gramps.1.gz
 %{_metainfodir}/org.gramps_project.Gramps.metainfo.xml
-%{python3_sitelib}/gramps*egg-info
+%{python3_sitelib}/gramps*dist-info
 %{python3_sitelib}/gramps/__init*
 %{python3_sitelib}/gramps/__main*
 %{python3_sitelib}/gramps/grampsapp*
@@ -108,6 +116,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Tue Jul 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.3-2
+- Migrate to new macros.
+
 * Mon Jun 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.3-1
 - 6.0.3
 

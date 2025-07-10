@@ -1,9 +1,9 @@
 %global pypi_name EasyProcess
 %global dist_name %{py_dist_name %{pypi_name}}
 
-Name:           python-%{dist_name}
+Name:           python-easyprocess
 Version:        1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Easy to use Python subprocess interface
 
 License:        BSD-2-Clause
@@ -12,7 +12,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
 # For Tests
 BuildRequires:  iputils
 BuildRequires:  %{py3_dist pytest}
@@ -24,34 +23,40 @@ EasyProcess is an easy to use python subprocess interface.}
 
 %description %_description
 
-%package -n     python3-%{dist_name}
+%package -n     python3-easyprocess
 Summary:        %{summary}
 
 Requires:       %{py3_dist py}
-%description -n python3-%{dist_name} %_description
+%description -n python3-easyprocess %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # Avoid circular dependency with PyVirtualDisplay
 rm -f tests/test_fast/test_deadlock.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{dist_name}
 
 %check
+%pyproject_check_import
+
 %pytest
 
 
-%files -n python3-%{dist_name}
+%files -n python3-easyprocess -f %{pyproject_files}
 %doc README.md
-%license LICENSE.txt
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{dist_name}/
 
 %changelog
+* Tue Jul 08 2025 Scott Talbert <swt@techie.net> - 1.1-7
+- Migrate to pyproject macros (#2377681)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1-6
 - Rebuilt for Python 3.14
 

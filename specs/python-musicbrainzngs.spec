@@ -3,7 +3,7 @@
 
 Name:           python-musicbrainzngs
 Version:        0.7.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python bindings for MusicBrainz NGS webservice
 
 # Automatically converted from old format: BSD and ISC - review is highly recommended.
@@ -24,7 +24,6 @@ For more information on the MusicBrainz webservice see:
 Summary:        Python %{python3_pkgversion} bindings for MusicBrainz NGS webservice
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{module_name}}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
 
 %description -n python%{python3_pkgversion}-%{module_name}
@@ -39,19 +38,18 @@ For more information on the MusicBrainz webservice see:
 chmod a-x examples/*.py
 sed -i '1{\@^#!/usr/bin/env python@d}' examples/*.py
 
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
 
 %check
 rm -rf musicbrainzngs
 %pytest
-
  
 %files -n python%{python3_pkgversion}-%{module_name}
 %license COPYING
@@ -60,6 +58,10 @@ rm -rf musicbrainzngs
 
 
 %changelog
+* Tue Jul 08 2025 Johannes Lips <hannes@fedoraproject.org> 0.7.1-16
+- remove deprecated setuppy macros
+- https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.1-15
 - Rebuilt for Python 3.14
 

@@ -9,7 +9,7 @@ Name:           perl-version
 Epoch:          9
 Version:        0.99.33
 %global module_version 0.9933
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Perl extension for Version Objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/version
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 9:0.99.33-520
+- Perl 5.42 re-rebuild of bootstrapped packages
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 9:0.99.33-519
 - Increase release to favour standalone package
 

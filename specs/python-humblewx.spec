@@ -10,6 +10,8 @@ License:        GPL-3.0-or-later
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://pypi.python.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
 
+BuildRequires:  python3-wxpython4
+
 BuildArch:      noarch
 
 %description
@@ -18,9 +20,7 @@ Library that simplifies creating user interfaces with wxPython.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{sum}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       python3-wxpython4
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Library that simplifies creating user interfaces with wxPython.
@@ -28,16 +28,21 @@ Library that simplifies creating user interfaces with wxPython.
 %prep
 %autosetup -n %{srcname}-%{version} -p0
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '%{srcname}*'
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license COPYING
+%check
+%pyproject_check_import -t
+
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst AUTHORS
-%{python3_sitelib}/%{srcname}*/
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.2-11

@@ -169,7 +169,7 @@ wish to test their applications without running them on their real X server.
 %package        Xvfb
 Summary:        A X Windows System virtual framebuffer X server
 # xvfb-run is GPLv2, rest is MIT
-License:        MIT and GPLv2
+License:        MIT and GPL-2.0-only
 Requires:       xorg-x11-server-common >= %{version}-%{release}
 # required for xvfb-run
 Requires:       xorg-x11-xauth
@@ -415,6 +415,9 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 09 2025 Peter Hutterer <peter.hutterer@redhat.com>
+- Update Xvfb SPDX license identifier
+
 * Wed Jun 18 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.18-1
 - Update to xserver 21.1.18
 - Contains an additional fix for CVE-2025-49176

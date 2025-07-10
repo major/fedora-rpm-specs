@@ -51,11 +51,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.44-stable
+%global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.44.1
-Release:        2%{?dist}
+Version:        1.45.1
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -591,6 +591,8 @@ nbdkit-cache-filter        Server-side cache.
 nbdkit-cacheextents-filter Cache extents.
 
 nbdkit-checkwrite-filter   Check writes match contents of plugin.
+
+nbdkit-count-filter        Count bytes read, written, zeroed and trimmed.
 
 nbdkit-cow-filter          Copy-on-write overlay for read-only plugins.
 
@@ -1338,6 +1340,7 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-cache-filter.so
 %{_libdir}/%{name}/filters/nbdkit-cacheextents-filter.so
 %{_libdir}/%{name}/filters/nbdkit-checkwrite-filter.so
+%{_libdir}/%{name}/filters/nbdkit-count-filter.so
 %{_libdir}/%{name}/filters/nbdkit-cow-filter.so
 %{_libdir}/%{name}/filters/nbdkit-ddrescue-filter.so
 %{_libdir}/%{name}/filters/nbdkit-delay-filter.so
@@ -1384,6 +1387,7 @@ fi
 %{_mandir}/man1/nbdkit-cache-filter.1*
 %{_mandir}/man1/nbdkit-cacheextents-filter.1*
 %{_mandir}/man1/nbdkit-checkwrite-filter.1*
+%{_mandir}/man1/nbdkit-count-filter.1*
 %{_mandir}/man1/nbdkit-cow-filter.1*
 %{_mandir}/man1/nbdkit-ddrescue-filter.1*
 %{_mandir}/man1/nbdkit-delay-filter.1*
@@ -1540,6 +1544,10 @@ fi
 
 
 %changelog
+* Tue Jul 08 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.1-1
+- New upstream development branch 1.45.1
+- New nbdkit-count-filter.
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44.1-2
 - Perl 5.42 rebuild
 

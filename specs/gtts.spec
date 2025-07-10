@@ -12,7 +12,6 @@ Source0:        https://github.com/pndurette/gTTS/archive/v%{version}.tar.gz#/%{
 
 BuildArch: noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-click
 BuildRequires:  python3-gtts-token
 BuildRequires:  python3-requests

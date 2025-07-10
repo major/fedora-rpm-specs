@@ -1,14 +1,12 @@
-%global srcname paramiko
-
-Name:          python-%{srcname}
+Name:          python-paramiko
 Version:       3.5.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
 License:       LGPL-2.1-or-later
 URL:           https://github.com/paramiko/paramiko
-Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:       %{url}/archive/%{version}/paramiko-%{version}.tar.gz
 
 # Remove pytest-relaxed, which depends on pytest4
 # Can be removed when https://github.com/paramiko/paramiko/pull/1665/ is released
@@ -36,19 +34,15 @@ encrypted tunnel (this is how sftp works, for example).
 %description
 %{paramiko_desc}
 
-%package -n python%{python3_pkgversion}-%{srcname}
+%package -n python%{python3_pkgversion}-paramiko
 Summary:       SSH2 protocol library for python
 BuildRequires: python%{python3_pkgversion}-devel >= 3.6
-BuildRequires: %{py3_dist bcrypt} >= 3.2
-BuildRequires: %{py3_dist cryptography} >= 3.3
 BuildRequires: %{py3_dist lexicon} >= 2.0.1
 BuildRequires: %{py3_dist pyasn1} >= 0.1.7
-BuildRequires: %{py3_dist pynacl} >= 1.5
 BuildRequires: %{py3_dist pytest}
-BuildRequires: %{py3_dist setuptools}
 Recommends:    %{py3_dist pyasn1} >= 0.1.7
 
-%description -n python%{python3_pkgversion}-%{srcname}
+%description -n python%{python3_pkgversion}-paramiko
 %{paramiko_desc}
 
 Python 3 version.
@@ -63,17 +57,20 @@ Requires:      %{name} = %{version}-%{release}
 
 This is the documentation and demos.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n paramiko-%{version}
 
 chmod -c a-x demos/*
 sed -i -e '/^#!/,1d' demos/*
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 sphinx-build -b html sites/docs/ html/
 rm html/.buildinfo
@@ -82,16 +79,19 @@ rm -r html/.doctrees
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-paramiko
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/paramiko/
+%{python3_sitelib}/paramiko-%{version}.dist-info/
 
 %files doc
 %doc html/ demos/
 
 %changelog
+* Tue Jul  8 2025 Paul Howarth <paul@city-fan.org> - 3.5.1-3
+- Update to current Python packaging guidelines (rhbz#2377972)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.5.1-2
 - Rebuilt for Python 3.14
 

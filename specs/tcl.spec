@@ -1,6 +1,6 @@
 %global xver 9
 %global yver 0
-%global zver 0
+%global zver 2
 
 %global majorver %{xver}.%{yver}
 %global vers %{majorver}.%{zver}
@@ -9,7 +9,7 @@
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 8%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -28,9 +28,9 @@ Obsoletes: tcl-tcldict <= %{vers}
 Provides: tcl-tcldict = %{vers}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318255
 Provides: bundled(zlib) = 1.3.1
-Patch0: tcl-9.0.0-autopath.patch
-Patch1: tcl-8.6.15-conf.patch
-Patch3: tcl-9.0.0-tcltests-path-fix.patch
+Patch: tcl-9.0.2-autopath.patch
+Patch: tcl-8.6.15-conf.patch
+Patch: tcl-9.0.0-tcltests-path-fix.patch
 
 %if %sdt
 BuildRequires: systemtap-sdt-dtrace
@@ -160,6 +160,10 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_libdir}/pkgconfig/tcl.pc
 
 %changelog
+* Tue Jul 08 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 1:9.0.2-1
+- New version
+  Resolves: rhbz#2347162
+
 * Wed Feb 05 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:9.0.0-8
 - Use system libtommath only on Fedora
 

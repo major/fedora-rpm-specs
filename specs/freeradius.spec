@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -903,6 +903,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.7-5
+- Perl 5.42 rebuild
+
 * Wed Jun 11 2025 Antonio Torres <antorres@redhat.com> - 3.2.7-4
 - Update logrotate postrotate script with `systemctl try-reload-or-restart`
   Resolves: rhbz#2371329

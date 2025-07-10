@@ -9,7 +9,6 @@ Source0:	https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version
 
 
 BuildRequires:  python%{python3_pkgversion}-devel python%{python3_pkgversion}-numpy python%{python3_pkgversion}-Cython
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  SDL2_ttf-devel SDL2_image-devel SDL2_mixer-devel
 BuildRequires:  SDL2-devel freetype-devel
 BuildRequires:  libpng-devel libjpeg-devel libX11-devel
@@ -39,7 +38,6 @@ pygame.
 Summary:        Python3 modules for writing games
 Requires:       gnu-free-sans-fonts
 Recommends:     python%{python3_pkgversion}-numpy
-%{?python_provide:%python_provide python%{python3_pkgversion}-pygame}
 
 %description -n python%{python3_pkgversion}-pygame
 Pygame is a set of Python modules designed for writing games. It is
@@ -73,14 +71,19 @@ rm -f src_c/ffmovie.[ch]
 sed -i "s/distutils.ccompiler.spawn/distutils.spawn.spawn/" setup.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # Suppress runtime warning about disabled avx2 support, make support for
 # systems without explicit.
 export PYGAME_DETECT_AVX2=0
-%py3_build cython
+%pyproject_wheel -C--global-option=cython
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name} '%{name}*'
 
 #use system font.
 rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{name}/freesansbold.ttf
@@ -96,10 +99,8 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 #image_test now fails in mock, unable to find video device.
 #PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/image_test.py
  
-%files -n python%{python3_pkgversion}-pygame
+%files -n python%{python3_pkgversion}-pygame -f %{pyproject_files}
 %doc docs/ README* WHATSNEW*
-%dir %{python3_sitearch}/%{name}
-%{python3_sitearch}/%{name}*
 
 %files devel
 %doc examples/

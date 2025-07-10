@@ -1,16 +1,15 @@
 %global shortname django-ipware
 Name:          python-%{shortname}
 Version:       4.0.2
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       A Django application to retrieve client's IP address
 
 License:       MIT
 URL:           https://github.com/un33k/%{shortname}/
-Source0:       https://github.com/un33k/%{shortname}/archive/%{version}.tar.gz#/%{shortname}-%{version}.tar.gz
+Source0:       %{url}/archive/%{version}.tar.gz#/%{shortname}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-django
 
 %description
@@ -27,11 +26,14 @@ A Django application to retrieve client's IP address.
 %prep
 %autosetup -n %{shortname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %{__python3} manage.py test
@@ -42,6 +44,9 @@ A Django application to retrieve client's IP address.
 %{python3_sitelib}/django_ipware*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.2-13
+- Migrate to new python build macros (rhbz: 2377645)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.2-12
 - Rebuilt for Python 3.14
 

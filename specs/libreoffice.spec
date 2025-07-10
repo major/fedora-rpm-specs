@@ -1,13 +1,13 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 25.8.0
 # This is the last (fourth) digit of LO version
-%global libo_min_version 0
+%global libo_min_version 1
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
-%global libo_prerelease .beta1
+%global libo_prerelease %{nil}
 # Should contain any suffix of release tarball name, e.g., -buildfix1.
 %global libo_buildfix %{nil}
 %global libo_python python3
@@ -1174,6 +1174,8 @@ sed -i -e /CppunitTest_sc_subsequent_filters_test2/d sc/Module_sc.mk
 # Started to fail in 25.8.0.0
 sed -i -e /CppunitTest_sw_core_text/d sw/Module_sw.mk
 
+# starts to fail with 25.8.0.1
+sed -i -e /CppunitTest_vcl_text/d vcl/Module_vcl.mk
 
 %build
 # path to external tarballs

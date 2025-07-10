@@ -4,16 +4,15 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A python library to interact with the Youtube Chromecast api
 
 License:        MIT
 URL:            https://github.com/ur1katz/casttube
-Source0:        https://github.com/ur1katz/casttube/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if 0%{?with_tests}
 BuildRequires:  python3-requests
 %endif
@@ -33,24 +32,29 @@ Casttube is a python library to interact with the Youtube Chromecast api.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 rm -f %{buildroot}%{_prefix}/LICENSE
+%pyproject_save_files %{pypi_name}
 
 %check
 %if %{with_tests}
 %{__python3} setup.py test
 %endif
 
-%files -n python3-casttube
+%files -n python3-casttube -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/casttube
-%{python3_sitelib}/casttube-%{version}-py*.egg-info
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.2.1-17
+- Migrate to new python build macros (rhbz: 2377505)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.1-16
 - Rebuilt for Python 3.14
 

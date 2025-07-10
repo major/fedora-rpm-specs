@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.151.0
+Version:        2.154.3
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 
@@ -21,7 +21,10 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %if %{with tests}
+BuildRequires:  python3dist(docstring-parser)
+BuildRequires:  python3dist(pydantic)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(rich)
 BuildRequires:  python3dist(vcrpy)
 %endif
 
@@ -60,7 +63,7 @@ sed -i 's/--config-file/--config-file-path/' tests/conftest.py
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e 'oci.addons.*'
 
 %if %{with tests}
 %pytest tests/autogentest tests/unit tests/integ

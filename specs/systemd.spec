@@ -24,7 +24,8 @@
 %bcond bootstrap 0
 %bcond tests     1
 %bcond lto       1
-%bcond docs      1
+# Build docs on 64-bit architectures only
+%bcond docs      %[%{?__isa_bits} >= 64]
 
 # Build from git main
 %bcond upstream  0
@@ -1125,6 +1126,14 @@ BRP_PESIGN_FILES=/usr/lib/systemd/boot/efi/systemd-boot%{efi_arch}.efi BRP_PESIG
 %check
 %if %{with tests}
 meson test -C %{_vpath_builddir} -t 6 --print-errorlogs
+%endif
+
+%if %{with lto}
+# Make sure that LTO is effective at removing unused code. When compiled
+# without LTO, we end up with all of libbasic_static.a in libsystemd.so.
+# For example, all the configuration stuff is not needed for libsystemd.so.
+# Make sure it is gone.
+(! strings %{buildroot}%{_libdir}/libsystemd.so | grep Config)
 %endif
 
 #############################################################################################

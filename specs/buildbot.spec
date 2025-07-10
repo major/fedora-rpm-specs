@@ -1,5 +1,4 @@
 # Enable Python dependency generation
-%{?python_enable_dependency_generator}
 
 # Missing dependencies for tests
 %bcond_with check
@@ -44,10 +43,8 @@ Source11:       buildbot-worker@.service
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 # For making the build work from source
-BuildRequires:  python3dist(setuptools) >= 21.2.1
 BuildRequires:  python3dist(twisted) >= 17.9
 BuildRequires:  python3dist(jinja2) >= 2.1
 BuildRequires:  python3dist(zope-interface) >= 4.1.1
@@ -116,6 +113,8 @@ inconvenienced by the failure.
 
 %files
 # Empty because metapackage
+%exclude %{python3_sitelib}/*buildbot_pkg*
+%exclude %{python3_sitelib}/__pycache__/*buildbot_pkg*
 
 # ---------------------------------------------------------------------
 
@@ -150,7 +149,7 @@ done
 %{_bindir}/buildbot
 %{_mandir}/man1/buildbot.1*
 %{python3_sitelib}/buildbot/
-%{python3_sitelib}/buildbot-*egg-info/
+%{python3_sitelib}/buildbot-*dist-info/
 %dir %{_sharedstatedir}/buildbot
 %dir %attr(-, buildbot-master, buildbot-master) %{_sharedstatedir}/buildbot/master
 %{_unitdir}/buildbot-master@.service
@@ -267,7 +266,7 @@ done
 %{_bindir}/buildbot-worker
 %{_mandir}/man1/buildbot-worker.1*
 %{python3_sitelib}/buildbot_worker/
-%{python3_sitelib}/buildbot_worker-*egg-info/
+%{python3_sitelib}/buildbot_worker-*dist-info/
 %dir %{_sharedstatedir}/buildbot
 %dir %attr(-, buildbot-worker, buildbot-worker) %{_sharedstatedir}/buildbot/worker
 %{_unitdir}/buildbot-worker@.service
@@ -285,17 +284,17 @@ Provides web frontend for buildbot.
 %files www
 %license COPYING
 %{python3_sitelib}/buildbot_www/
-%{python3_sitelib}/buildbot_www-*.egg-info/
+%{python3_sitelib}/buildbot_www-*.dist-info/
 %{python3_sitelib}/buildbot_waterfall_view/
-%{python3_sitelib}/buildbot_waterfall_view-*egg-info/
+%{python3_sitelib}/buildbot_waterfall_view-*dist-info/
 %{python3_sitelib}/buildbot_grid_view/
-%{python3_sitelib}/buildbot_grid_view-*egg-info/
+%{python3_sitelib}/buildbot_grid_view-*dist-info/
 %{python3_sitelib}/buildbot_console_view/
-%{python3_sitelib}/buildbot_console_view-*egg-info/
+%{python3_sitelib}/buildbot_console_view-*dist-info/
 %{python3_sitelib}/buildbot_badges/
-%{python3_sitelib}/buildbot_badges-*egg-info/
+%{python3_sitelib}/buildbot_badges-*dist-info/
 %{python3_sitelib}/buildbot_wsgi_dashboards/
-%{python3_sitelib}/buildbot_wsgi_dashboards-*egg-info/
+%{python3_sitelib}/buildbot_wsgi_dashboards-*dist-info/
 
 # ---------------------------------------------------------------------
 
@@ -326,8 +325,11 @@ cat >buildbot-worker.sysusers.conf <<EOF
 u buildbot-worker - 'Service account for the Buildbot worker' %{_sharedstatedir}/buildbot/worker -
 EOF
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %if %{with docs}
 #TODO create API documentation
@@ -337,8 +339,7 @@ popd
 %endif
 
 pushd ../%{name}_worker-%{version}
-sed -i /future/d setup.py
-%py3_build
+%pyproject_wheel
 popd
 
 # For buildbot_pkg build-time module to set version correctly
@@ -352,12 +353,12 @@ bbweb_components=(pkg www waterfall_view grid_view console_view badges wsgi_dash
 for bbweb_component in ${bbweb_components[@]}; do
 	pushd ../%{name}_${bbweb_component}-%{version}
 	sed -e "s/^    setup_requires=.*$//" -i setup.py
-	%py3_build
+	%pyproject_wheel
 	popd
 done
 
 %install
-%py3_install
+%pyproject_install
 
 # For buildbot_pkg build-time module to set version correctly
 export BUILDBOT_VERSION=%{version}
@@ -369,7 +370,7 @@ bbweb_components=(www waterfall_view grid_view console_view badges wsgi_dashboar
 
 for bbweb_component in ${bbweb_components[@]}; do
 	pushd ../%{name}_${bbweb_component}-%{version}
-	%py3_install
+	%pyproject_install
 	popd
 done
 
@@ -382,7 +383,7 @@ tar xf docs/docs.tgz --strip-components=1 -C %{buildroot}%{_pkgdocdir}
 
 # install worker files
 pushd ../%{name}_worker-%{version}
-%py3_install
+%pyproject_install
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/buildbot-worker.1
 install -m0644 -D buildbot.sysusers.conf %{buildroot}%{_sysusersdir}/buildbot.conf
 install -m0644 -D buildbot-worker.sysusers.conf %{buildroot}%{_sysusersdir}/buildbot-worker.conf

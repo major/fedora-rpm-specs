@@ -5,7 +5,7 @@
 
 Name:           gtts-token
 Version:        1.1.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Calculates a token to run the Google Translate text to speech
 License:        MIT
 URL:            https://github.com/boudewijn26/gTTS-token
@@ -13,7 +13,6 @@ Source0:        https://github.com/Boudewijn26/gTTS-token/archive/v%{version}.ta
 
 BuildArch: noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(requests)
 %if 0%{?with_tests}
 BuildRequires:  python3-pytest
@@ -36,23 +35,28 @@ validation of Google Translate
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files gtts_token
 
 %check
 %if %{with_tests}
 %{__python3} setup.py test
 %endif
 
-%files -n python3-gtts-token
+%files -n python3-gtts-token -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/gTTS_token-*
-%{python3_sitelib}/gtts_token/
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.4-17
+- Migrate to new python build macros (rhbz: 2377279)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1.4-16
 - Rebuilt for Python 3.14
 

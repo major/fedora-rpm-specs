@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ Python 3 version.
 # remove useless shebang
 sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 
+# Remove explicit Cython version, rely on wildcard
+sed -i 's/cython==3\.0\.\*/cython==3.*/' pyproject.toml
+
 %build
 %pyproject_wheel
 
@@ -62,6 +65,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Tue Jul 08 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.1.0-4
+- Remove explicit Cython version
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0-3
 - Rebuilt for Python 3.14
 

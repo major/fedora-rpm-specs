@@ -10,7 +10,7 @@ Patch:          certifi-2024.08.30-use-system-cert.patch
 
 BuildArch:      noarch
 
-# Require the system certificate bundle (/etc/pki/tls/certs/ca-bundle.crt)
+# Require the system certificate bundle (/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem)
 BuildRequires: ca-certificates
 
 BuildRequires:  python3-devel
@@ -66,10 +66,10 @@ rm -rf certifi/*.pem
 %check
 # sanity check
 export PYTHONPATH=%{buildroot}%{python3_sitelib}
-test $(%{__python3} -m certifi) == /etc/pki/tls/certs/ca-bundle.crt
-test $(%{__python3} -c 'import certifi; print(certifi.where())') == /etc/pki/tls/certs/ca-bundle.crt
+test $(%{__python3} -m certifi) == /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+test $(%{__python3} -c 'import certifi; print(certifi.where())') == /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 %{__python3} -c 'import certifi; print(certifi.contents())' > contents
-diff --ignore-blank-lines /etc/pki/tls/certs/ca-bundle.crt contents
+diff --ignore-blank-lines /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem contents
 # upstream tests
 %pytest -v
 

@@ -12,6 +12,8 @@ Source0:       https://github.com/apache/buildstream-plugins/archive/%{version}/
 
 BuildRequires: python3-devel >= 3.9
 
+Requires:      buildstream
+
 Requires:      git
 Requires:      lzip
 Requires:      patch

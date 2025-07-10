@@ -5,7 +5,7 @@
 %global crate crunchy
 
 Name:           rust-crunchy
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Crunchy unroller: deterministically unroll constant loops
 

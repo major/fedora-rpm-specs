@@ -1,14 +1,13 @@
 Name:          zezere
 Version:       0.5.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       A provisioning service for Fedora IoT
 License:       MIT
 URL:           https://github.com/fedora-iot/zezere
-Source0:       https://github.com/fedora-iot/zezere/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:       %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: systemd
 
 %description
@@ -17,7 +16,6 @@ Fedora IoT to devices without needing a physical console.
 
 %package ignition
 Summary: Ignition client for Zezere
-Requires: python3-setuptools
 Requires: ignition
 
 %description ignition
@@ -26,11 +24,14 @@ An Ignition client for Zezere managed systems.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 install zezere_ignition/__init__.py %{buildroot}/usr/bin/zezere-ignition
 chmod +x %{buildroot}/usr/bin/zezere-ignition
@@ -53,6 +54,9 @@ ln -s /run/zezere-ignition-banner %{buildroot}%{_sysconfdir}/issue.d/zezere_igni
 %{_unitdir}/*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.2-10
+- Migrate to new python build macros (rhbz: 2378512)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.2-9
 - Rebuilt for Python 3.14
 

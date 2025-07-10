@@ -10,6 +10,7 @@ Summary:        Xorg X11 Synaptics touchpad input driver
 Version:        1.10.0
 Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:            http://www.x.org
+# SPDX
 License:        MIT
 
 %if 0%{?gitdate}
@@ -163,6 +164,9 @@ Development files for the Synaptics TouchPad for X.Org.
 %{_includedir}/xorg/synaptics-properties.h
 
 %changelog
+* Wed Jul 09 2025 Peter Hutterer <peter.hutterer@redhat.com>
+- Add SPDX marker to License
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

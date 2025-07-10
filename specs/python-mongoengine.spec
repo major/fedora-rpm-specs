@@ -6,35 +6,29 @@ from Python. It uses a simple declarative API, similar \
 to the Django ORM.
  
  
-Name: python-mongoengine
-Version: 0.29.1
-Release: 3%{?dist}
-BuildArch: noarch
+Name:          python-mongoengine
+Version:       0.29.1
+Release:       4%{?dist}
+BuildArch:     noarch
  
-License: MIT
-Summary: %{sum}
-URL:     http://mongoengine.org/
-Source0: %{pypi_source %pkgname}
-# pymongo and pymongo-gridfs is needed for the docs
-BuildRequires: python3-pymongo
-BuildRequires: python3-pymongo-gridfs
-BuildRequires: python3-sphinx
-BuildRequires: python3-sphinx_rtd_theme
+License:       MIT
+Summary:       %{sum}
+URL:           http://mongoengine.org/
+Source0:       %{pypi_source %pkgname}
+
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: make
- 
- 
+
+
 %description
 %{desc}
  
  
 %package -n python3-%{pkgname}
-Summary: %{sum}
-Recommends: python3-blinker
-Recommends: python3-pillow
-Requires: python3-pymongo
-Requires: python3-pymongo-gridfs
+Summary:       %{sum}
+Recommends:    python3-blinker
+Recommends:    python3-pillow
+Requires:      python3-pymongo
+Requires:      python3-pymongo-gridfs
  
  
 %description -n python3-%{pkgname}
@@ -42,8 +36,12 @@ Requires: python3-pymongo-gridfs
  
  
 %package doc
-Summary: Documentation for %{name}
-BuildArch: noarch
+Summary:       Documentation for %{name}
+BuildArch:     noarch
+BuildRequires: python3-sphinx
+BuildRequires: python3-sphinx_rtd_theme
+BuildRequires: python3-pymongo-gridfs
+BuildRequires: make
  
  
 %description doc
@@ -51,14 +49,18 @@ Documentation for %{name}.
  
  
 %prep
-%setup -q -n %{pkgname}-%{version}
+%autosetup -p1 -n %{pkgname}-%{version}
 find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 # Avoid build dependency on readthedocs-sphinx-ext
 sed -Ei 's/(, )?"readthedocs_ext\.readthedocs"//' docs/conf.py
  
+
+%generate_buildrequires
+%pyproject_buildrequires
+
  
 %build
-%py3_build
+%pyproject_wheel
 PYTHONPATH=$(pwd) make -C docs SPHINXBUILD=sphinx-build-3 html
 rm -f docs/_build/html/.buildinfo
 # Don't ship fonts
@@ -66,13 +68,13 @@ rm -rf docs/_build/html/_static/font
  
  
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pkgname}
  
-%files -n python3-%{pkgname}
+
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pkgname}
-%{python3_sitelib}/%{pkgname}-*.egg-info
  
  
 %files doc
@@ -81,6 +83,9 @@ rm -rf docs/_build/html/_static/font
  
  
 %changelog
+* Tue Jul 08 2025 Sandro Mani <manisandro@gmail.com> - 0.29.1-4
+- Use pyproject macros
+
 * Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 0.29.1-3
 - Rebuilt for Python 3.14
 

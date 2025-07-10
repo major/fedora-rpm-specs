@@ -9,7 +9,6 @@ Source0:	ftp://ftp.alsa-project.org/pub/pyalsa/pyalsa-%{version}.tar.bz2
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= %{version}
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 BuildRequires:	gcc
 
 # Filter private shared library provides
@@ -22,21 +21,26 @@ Python bindings for the ALSA library.
 
 %package -n python3-alsa
 Summary: %summary
-%{?python_provide:%python_provide python3-alsa}
 
 %description -n python3-alsa %_description
 
 %prep
 %autosetup -n pyalsa-%{version} -p 1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 	
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files '*'
 
-%files -n python3-alsa
-%{python3_sitearch}/*
+%check
+%pyproject_check_import
+
+%files -n python3-alsa -f %{pyproject_files}
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.14-2

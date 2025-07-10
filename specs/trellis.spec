@@ -1,16 +1,16 @@
-%global commit0 14ac883fa639b11fdc98f3cdef87a5d01f79e73d
+%global commit0 f98e72e4963d9c9da57620595282e58d46a045f7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global commit1 4dda149b9e4f1753ebc8b011ece2fe794be1281a
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global snapdate 20250121
+%global snapdate 20250707
 
 %global __python %{__python3}
 
 Name:          trellis
 Version:       1.2.1
-Release:       32.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       33.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -123,6 +123,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Mon Jul 07 2025 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-33.20250707gitf98e72e
+- Update to newer snapshot
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-32.20250121git14ac883
 - Rebuilt for Python 3.14
 

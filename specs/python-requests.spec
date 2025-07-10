@@ -25,7 +25,7 @@ Patch:          system-certs.patch
 # This change is backported also into RHEL 9.4 (via CS)
 Patch:          support_IPv6_CIDR_in_no_proxy.patch
 
-# Fix crash on import if /etc/pki/tls/certs/ca-bundle.crt is missing
+# Fix crash on import if /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem is missing
 # https://bugzilla.redhat.com/show_bug.cgi?id=2297632
 # https://github.com/psf/requests/pull/6781
 # Note: this can be replaced by https://github.com/psf/requests/pull/6767

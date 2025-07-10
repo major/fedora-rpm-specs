@@ -2,20 +2,16 @@
 %bcond_with tests
 
 Name:      pyee
-Version:   9.0.4
-Release:   13%{?dist}
+Version:   13.0.0
+Release:   1%{?dist}
 Summary:   A port of node.js's EventEmitter to python
 License:   MIT
 URL:       https://pypi.python.org/pypi/pyee
 Source0:   https://github.com/jfhbrook/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:    pyee-switch-to-unittest-mock.diff
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-sphinx
-BuildRequires: python3-tox
-BuildRequires: python3-twisted
 %if %{with tests}
 BuildRequires: python3-flake8
 BuildRequires: python3-pytest
@@ -37,11 +33,15 @@ A port of node.js's EventEmitter to python.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
 %check
 # currently segfaults
@@ -50,11 +50,14 @@ A port of node.js's EventEmitter to python.
 %pytest -v
 %endif
 
-%files -n python3-ee
+%files -n python3-ee -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 13.0.0-1
+- Update to 13.0.0
+- Migrate to new python build macros (rhbz: 2377386)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 9.0.4-13
 - Rebuilt for Python 3.14
 

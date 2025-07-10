@@ -43,7 +43,7 @@
 
 Name:           wine
 Version:        10.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -281,7 +281,6 @@ Requires(preun):       %{_sbindir}/alternatives
 Requires:       wine-filesystem = %{version}-%{release}
 
 %ifarch %{ix86}
-Requires:       (wine-wow32 = %{version}-%{release} if wine-core(x86-64))
 # CUPS support uses dlopen - rhbz#1367537
 Requires:       cups-libs(x86-32)
 Requires:       freetype(x86-32)
@@ -317,10 +316,11 @@ Requires:  mingw32-libxslt
 Requires:  mingw32-vkd3d >= 1.14
 Requires:  mingw32-win-iconv
 Requires:  mingw32-zlib
+Provides:  wine-wow32 = %{version}-%{release}
+Obsoletes: wine-wow32 < 10.4-6
 %endif
 
 %ifarch x86_64
-Requires:       (wine-wow64 = %{version}-%{release} if wine-core(x86-32))
 # CUPS support uses dlopen - rhbz#1367537
 Requires:       cups-libs(x86-64)
 Requires:       freetype(x86-64)
@@ -356,6 +356,8 @@ Requires:  mingw64-libxslt
 Requires:  mingw64-vkd3d >= 1.14
 Requires:  mingw64-win-iconv
 Requires:  mingw64-zlib
+Provides:  wine-wow64 = %{version}-%{release}
+Obsoletes: wine-wow64 < 10.4-6
 %endif
 
 %ifarch aarch64
@@ -678,22 +680,6 @@ Requires: wine-core = %{version}-%{release}
 
 %description opencl
 This package adds the opencl driver for wine.
-%endif
-
-%ifarch %{ix86}
-%package wow32
-Summary:        Wine wow32 package
-
-%description wow32
-This package adds symlinks for wine wow64 functionality.
-%endif
-
-%ifarch x86_64
-%package wow64
-Summary:        Wine wow64 package
-
-%description wow64
-This package adds symlinks for wine wow64 functionality.
 %endif
 
 %prep
@@ -1211,6 +1197,15 @@ fi
 %{_libdir}/wine/%{winepedirs}/wmplayer.exe
 %{_libdir}/wine/%{winepedirs}/wscript.exe
 %{_libdir}/wine/%{winepedirs}/uninstaller.exe
+
+%ifarch %{ix86}
+%{_libdir}/wine/x86_64-unix
+%{_libdir}/wine/x86_64-windows
+%endif
+%ifarch x86_64
+%{_libdir}/wine/i386-unix
+%{_libdir}/wine/i386-windows
+%endif
 
 %{_libdir}/wine/%{winepedirs}/acledit.dll
 %{_libdir}/wine/%{winepedirs}/aclui.dll
@@ -2254,19 +2249,10 @@ fi
 %{_libdir}/wine/%{winesodir}/opencl.so
 %endif
 
-%ifarch %{ix86}
-%files wow32
-%{_libdir}/wine/x86_64-unix
-%{_libdir}/wine/x86_64-windows
-%endif
-
-%ifarch x86_64
-%files wow64
-%{_libdir}/wine/i386-unix
-%{_libdir}/wine/i386-windows
-%endif
-
 %changelog
+* Mon Jul 07 2025 Michael Cronenworth <mike@cchtml.com> - 10.4-6
+- Deprecate legacy wow32 and wow64 packages
+
 * Wed Jun 25 2025 Teoh Han Hui <teohhanhui@gmail.com> - 10.4-5
 - Add conditional build for new wow64 mode
 

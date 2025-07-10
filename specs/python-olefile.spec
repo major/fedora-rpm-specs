@@ -1,6 +1,6 @@
 Name:           python-olefile
 Version:        0.47
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python package to parse, read and write Microsoft OLE2 files
 
 %global         srcname         olefile
@@ -40,7 +40,6 @@ This package contains documentation for %{name}.
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-%{srcname} %{_description}
 Python3 version.
@@ -54,13 +53,18 @@ find ./ -type f -name '*.py' -exec dos2unix '{}' ';'
 dos2unix doc/*.rst
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 make -C doc html BUILDDIR=_doc_build SPHINXBUILD=sphinx-build-%{python3_version}
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l olefile
 
 
 %check
@@ -70,14 +74,15 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/test_olefile.py
 %files doc
 %doc doc/_doc_build/html
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname}  -f %{pyproject_files}
 %doc README.md
 %license doc/License.rst
-%{python3_sitelib}/olefile-*.egg-info
-%{python3_sitelib}/olefile/
 
 
 %changelog
+* Tue Jul 08 2025 Sandro Mani <manisandro@gmail.com> - 0.47-8
+- Use pyproject macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.47-7
 - Rebuilt for Python 3.14
 

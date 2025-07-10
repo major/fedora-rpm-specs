@@ -3,8 +3,8 @@
 %global global_desc One line jokes for programmers (jokes as a service)
 
 Name:           %{pypi_name}
-Version:        0.5.0
-Release:        33%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        %{global_desc}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -14,7 +14,6 @@ Source0:        https://github.com/%{pypi_name}/%{pypi_name}/archive/v%{version}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if 0%{?with_tests}
 BuildRequires:  python3-pytest
 %endif
@@ -34,26 +33,31 @@ Summary: %{global_desc}. This package includes a commandline interface.
 %prep
 %setup -q -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name} pyjokescli
 
 %check
 %if %{with_tests}
 %{__python3} setup.py test
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENCE.txt
 %doc docs/*
-# For noarch packages: sitelib
 %{_bindir}/pyjoke*
-%{python3_sitelib}/pyjokes-*
-%{python3_sitelib}/pyjokes/
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.6.0-1
+- Update to 0.6.0
+- Migrate to new python build macros (rhbz: 2377395)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.0-33
 - Rebuilt for Python 3.14
 

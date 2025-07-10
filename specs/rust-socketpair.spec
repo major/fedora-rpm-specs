@@ -5,7 +5,7 @@
 %global crate socketpair
 
 Name:           rust-socketpair
-Version:        0.19.6
+Version:        0.19.8
 Release:        %autorelease
 Summary:        Cross-platform socketpair functionality
 

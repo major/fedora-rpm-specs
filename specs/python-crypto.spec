@@ -1,13 +1,7 @@
-# Share docs between packages for multiple python versions
-%global _docdir_fmt %{name}
-
-# Single python3 version in Fedora, python3_pkgversion macro not available
-%{!?python3_pkgversion:%global python3_pkgversion 3}
-
-Summary:	Cryptography library for Python
+Summary:	Unmaintained cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	55%{?dist}
+Release:	56%{?dist}
 # Mostly LicenseRef-Fedora-Public-Domain apart from parts of HMAC.py and setup.py, which are PSF-2.0
 License:	LicenseRef-Fedora-Public-Domain AND PSF-2.0
 URL:		http://www.pycrypto.org/
@@ -32,8 +26,7 @@ BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	gmp-devel >= 4.1
 BuildRequires:	libtomcrypt-devel >= 1.16
-BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-setuptools
+BuildRequires:	python3-devel
 
 %description
 PyCrypto is a collection of both secure hash functions (such as MD5 and
@@ -42,15 +35,12 @@ SHA), and various encryption algorithms (AES, DES, RSA, ElGamal, etc.).
 This software is no longer maintained upstream. Please use the Cryptography
 or PyCryptodome software instead.
 
-%package -n python%{python3_pkgversion}-crypto
-Summary:	Cryptography library for Python 3
-%{?python_provide:%python_provide python%{python3_pkgversion}-crypto}
+%package -n python3-crypto
+Summary:	Unmaintained cryptography library for Python
 
-%description -n python%{python3_pkgversion}-crypto
+%description -n python3-crypto
 PyCrypto is a collection of both secure hash functions (such as MD5 and
 SHA), and various encryption algorithms (AES, DES, RSA, ElGamal, etc.).
-
-This is the Python 3 build of the package.
 
 This software is no longer maintained upstream. Please use the Cryptography
 or PyCryptodome software instead.
@@ -120,12 +110,15 @@ rm -rf src/libtom
 # Fix Python 3.13 compatibility
 %patch -P 14
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %global optflags %{optflags} -fno-strict-aliasing
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 # Remove group write permissions on shared objects
 find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod -c g-w {} \;
@@ -135,15 +128,19 @@ find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod -c g-w {} \;
 %{py3_test_envvars} %{python3} lib/Crypto/SelfTest/__init__.py
 
 # Benchmark
-%{py3_test_envvars} %{__python3} pct-speedtest.py
+%{py3_test_envvars} %{python3} pct-speedtest.py
 
-%files -n python%{python3_pkgversion}-crypto
+%files -n python3-crypto
 %license COPYRIGHT LEGAL/
 %doc README TODO ACKS ChangeLog Doc/
 %{python3_sitearch}/Crypto/
-%{python3_sitearch}/pycrypto-%{version}-py3.*.egg-info
+%{python3_sitearch}/pycrypto-%{version}.dist-info/
 
 %changelog
+* Tue Jul  8 2025 Paul Howarth <paul@city-fan.org> - 2.6.1-56
+- Stop using deprecated %%py3_build/%%py3_install macros (rhbz#2377592)
+- Drop support for building for multiple Python versions
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.6.1-55
 - Rebuilt for Python 3.14
 

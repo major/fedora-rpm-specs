@@ -7,8 +7,8 @@
 %global __requires_exclude pkg-config
 
 Name: dracut
-Version: 105
-Release: 3%{?dist}
+Version: 107
+Release: 1%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -34,33 +34,21 @@ Patch3:  0003-feat-kernel-install-do-nothing-when-KERNEL_INSTALL_I.patch
 # fix(kernel-install): do not generate an initrd when one was specified
 # Author: Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
 Patch4:  0004-fix-kernel-install-do-not-generate-an-initrd-when-on.patch
-# fix(pcsc): add libpcsclite_real.so.*
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch5:  0005-fix-pcsc-add-libpcsclite_real.so.patch
 # revert: "fix(rescue): make rescue always no-hostonly"
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch6:  0006-revert-fix-rescue-make-rescue-always-no-hostonly.patch
-# feat: systemd-battery-check dracut module
-# Author: Jo Zzsi <jozzsicsataban@gmail.com>
-Patch7:  0007-feat-systemd-battery-check-dracut-module.patch
-# fix(systemd-ask-password): do not half-install systemd-ask-password-wall
-# Author: Jo Zzsi <jozzsicsataban@gmail.com>
-Patch8:  0008-fix-systemd-ask-password-do-not-half-install-systemd.patch
-# feat(systemd-battery-check): always include the module if possible
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch9:  0009-feat-systemd-battery-check-always-include-the-module.patch
+Patch5:  0005-revert-fix-rescue-make-rescue-always-no-hostonly.patch
 # fix(dracut-install): initize fts pointer
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch10: 0010-fix-dracut-install-initize-fts-pointer.patch
+Patch6:  0006-fix-dracut-install-initize-fts-pointer.patch
 # feat: add openssl module
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch11: 0011-feat-add-openssl-module.patch
-# fix(multipath): skip default multipath.conf with mpathconf
-# Author: Benjamin Marzinski <bmarzins@redhat.com>
-Patch12: 0012-fix-multipath-skip-default-multipath.conf-with-mpath.patch
+Patch7:  0007-feat-add-openssl-module.patch
 # fix(ossl): ignore compiler warnings
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch13: 0013-fix-ossl-ignore-compiler-warnings.patch
+Patch8:  0008-fix-ossl-ignore-compiler-warnings.patch
+# Revert "feat(fips): include openssl's fips.so and openssl.cnf"
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch9:  0009-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -260,7 +248,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 
 %files
 %if %{with doc}
-%doc README.md docs/HACKING.md AUTHORS NEWS.md dracut.html docs/dracut.png docs/dracut.svg
+%doc README.md AUTHORS NEWS.md
 %endif
 %license COPYING lgpl-2.1.txt
 %{_bindir}/dracut
@@ -300,7 +288,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %endif
 
 %{dracutlibdir}/modules.d/00bash
-%{dracutlibdir}/modules.d/00shell-interpreter
 %{dracutlibdir}/modules.d/00systemd
 %{dracutlibdir}/modules.d/00systemd-network-management
 %ifnarch s390 s390x
@@ -328,7 +315,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/01systemd-resolved
 %{dracutlibdir}/modules.d/01systemd-sysext
 %{dracutlibdir}/modules.d/01systemd-sysctl
-%{dracutlibdir}/modules.d/01systemd-sysusers
 %{dracutlibdir}/modules.d/01systemd-timedated
 %{dracutlibdir}/modules.d/01systemd-timesyncd
 %{dracutlibdir}/modules.d/01systemd-tmpfiles
@@ -344,10 +330,11 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/09dbus
 %{dracutlibdir}/modules.d/10i18n
 %{dracutlibdir}/modules.d/30convertfs
+%{dracutlibdir}/modules.d/45drm
+%{dracutlibdir}/modules.d/45simpledrm
 %{dracutlibdir}/modules.d/45net-lib
+%{dracutlibdir}/modules.d/45plymouth
 %{dracutlibdir}/modules.d/45url-lib
-%{dracutlibdir}/modules.d/50drm
-%{dracutlibdir}/modules.d/50plymouth
 %{dracutlibdir}/modules.d/62bluetooth
 %{dracutlibdir}/modules.d/80lvmmerge
 %{dracutlibdir}/modules.d/80lvmthinpool-monitor
@@ -395,6 +382,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/97masterkey
 %{dracutlibdir}/modules.d/98integrity
 %{dracutlibdir}/modules.d/97biosdevname
+%{dracutlibdir}/modules.d/97systemd-emergency
 %{dracutlibdir}/modules.d/98dracut-systemd
 %{dracutlibdir}/modules.d/98ecryptfs
 %{dracutlibdir}/modules.d/98pollcdrom
@@ -407,6 +395,8 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/99fs-lib
 %{dracutlibdir}/modules.d/99openssl
 %{dracutlibdir}/modules.d/99shutdown
+%{dracutlibdir}/modules.d/99shell-interpreter
+%{dracutlibdir}/modules.d/99systemd-sysusers
 %attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/log/dracut.log
 %dir %{_sharedstatedir}/initramfs
 %if %{defined _unitdir}
@@ -484,6 +474,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Jul 02 2025 Pavel Valena <pvalena@redhat.com> - 107-1
+- build: upgrade to dracut 107
+
 * Wed Apr 02 2025 Pavel Valena <pvalena@redhat.com> - 105-3
 - fix(multipath): skip default multipath.conf with mpathconf
 

@@ -1,19 +1,18 @@
 %global pypi_name pypubsub
 %global src_name Pypubsub
 
-Name:           python-%{pypi_name}
+Name:           python-pypubsub
 Version:        4.0.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD-2-Clause
 URL:            https://github.com/schollii/pypubsub
-Source0:        https://github.com/schollii/%{pypi_name}/archive/v%{version}.tar.gz#/%{src_name}-%{version}.tar.gz
+Source0:        https://github.com/schollii/pypubsub/archive/v%{version}.tar.gz#/%{src_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 
 %description
 PyPubSub provides a publish - subscribe API that facilitates the development of
@@ -24,11 +23,10 @@ subscribe to messages of a given topic. The package also supports a variety of
 advanced features that facilitate debugging and maintaining pypubsub topics and
 messages in larger applications.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-pypubsub
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-pypubsub
 PyPubSub provides a publish - subscribe API that facilitates the development of
 event-based / message-based applications. PyPubSub supports sending and
 receiving messages between objects of an application. It is centered on the
@@ -40,25 +38,32 @@ messages in larger applications.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pubsub
 
 %check
+%pyproject_check_import
+
 pushd tests/suite
 PYTHONPATH=%{buildroot}%{python3_sitelib} PYTHONDONTWRITEBYTECODE=1 py.test-%{python3_version}
 popd
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-pypubsub -f %{pyproject_files}
 %doc README.rst src/pubsub/RELEASE_NOTES.txt
 %license src/pubsub/LICENSE_BSD_Simple.txt
-%{python3_sitelib}/%{src_name}*
-%{python3_sitelib}/pubsub/
 
 %changelog
+* Tue Jul 08 2025 Scott Talbert <swt@techie.net> - 4.0.3-26
+- Migrate to pyproject macros (#2378071)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.0.3-25
 - Rebuilt for Python 3.14
 

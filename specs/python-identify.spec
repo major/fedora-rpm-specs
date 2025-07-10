@@ -12,13 +12,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(ukkonen)
 %if %{with check}
 BuildRequires:  python3-pytest
 %endif
-
-%?python_enable_dependency_generator
 
 %description
 Given a file (or some information about a file), return a set of standardized
@@ -27,7 +24,6 @@ tags identifying what the file is.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 
 %description -n python3-%{pypi_name}
@@ -37,30 +33,31 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %if %{with check}
 %check
+%pyproject_check_import
+
 %{python3} -m pytest -v
 %endif
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %{_bindir}/%{pypi_name}-cli
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog

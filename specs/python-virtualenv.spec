@@ -111,7 +111,7 @@ sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/pat
 # - test_bundle.py (whole file)
 # Uses disabled functionalities around automatic updates:
 # - test_periodic_update.py (whole file)
-PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
+PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 %pytest -vv -k "not test_bundle and \
                 not test_acquire and \
                 not test_periodic_update and \

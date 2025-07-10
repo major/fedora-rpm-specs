@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -20,7 +20,6 @@ Patch1:         PY_SSIZE_T_CLEAN.patch
 Patch2:         include_unistd.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-requests
 BuildRequires:  krb5-devel
 BuildRequires:  gcc
@@ -37,7 +36,6 @@ is needed for client/server Kerberos authentication based on\
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{desc}
@@ -45,25 +43,33 @@ Summary:        %{sum}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
 install -m 644 $RPM_SOURCE_DIR/LICENSE LICENSE 
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -L '*'
 
 %check
+%pyproject_check_import
+
 # Regression test for https://bugzilla.redhat.com/2008899
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{python3} -c 'import kerberos; kerberos.channelBindings(application_data=b"")'
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitearch}/*
 
 
 %changelog
+* Tue Jul 08 2025 Rob Crittenden <rcritten@redhat.com> - 1.3.0-29
+- Stop using deprecated python build/install macros (#2377840)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.0-28
 - Rebuilt for Python 3.14
 

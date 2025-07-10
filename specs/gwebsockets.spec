@@ -1,17 +1,16 @@
 Name:          gwebsockets
 Version:       0.7
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       GLib based websockets server
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           https://github.com/sugarlabs/gwebsockets
-Source0:       https://github.com/sugarlabs/gwebsockets/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:       %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:     noarch 
 
 BuildRequires: glib2-devel
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %description
 A websocket server written in python. It uses GIO for network
@@ -29,17 +28,23 @@ communication and hence it easily integrates with the GLib mainloop.
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{name}*
 
 %changelog
+* Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.7-20
+- Migrate to new python build macros (rhbz: 2377281)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7-19
 - Rebuilt for Python 3.14
 

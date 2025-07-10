@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -38,7 +38,6 @@ Requires:       logrotate
 Requires(post): systemd-units
 Requires:       %{name}-core = %{version}-%{release}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  systemd-devel
 %{?systemd_requires}
 # packages for make check
@@ -78,12 +77,16 @@ packages.
 %autosetup -p1  -n freeipa-healthcheck-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_sysconfdir}/ipahealthcheck
 install -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/ipahealthcheck
@@ -139,7 +142,7 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 %dir %{_localstatedir}/log/ipa/healthcheck
 %config(noreplace) %{_sysconfdir}/ipahealthcheck/ipahealthcheck.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/ipahealthcheck
-%{python3_sitelib}/ipahealthcheck-%{version}-*.egg-info/
+%{python3_sitelib}/ipahealthcheck-%{version}.dist-info/
 %{python3_sitelib}/ipahealthcheck-%{version}-*-nspkg.pth
 %{_unitdir}/*
 %{_libexecdir}/*
@@ -155,6 +158,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Tue Jul 08 2025 Rob Crittenden <rcritten@redhat.com> - 0.18-4
+- Stop using deprecated python build/install macros (#2377261)
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.18-3
 - Rebuilt for Python 3.14
 

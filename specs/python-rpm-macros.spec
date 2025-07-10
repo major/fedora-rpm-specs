@@ -55,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 BuildArch:      noarch
 
@@ -167,6 +167,11 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Sun Jun 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-2
+- Deprecate %%py3_build, %%py3_build_wheel, and %%py3_install
+- Deprecate %%py_build, %%py_build_wheel, and %%py_install
+- https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Wed May 28 2025 Karolina Surma <ksurma@redhat.com> - 3.14-1
 - Update main Python to 3.14
 

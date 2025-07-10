@@ -31,7 +31,6 @@ Patch2:         py313.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  libpcap-devel
 
 %description
@@ -47,7 +46,6 @@ Python classes for constructing and dissecting network packets.
 %package -n python3-%{gitname}
 Summary:        %{sum}
 
-%{?python_provide:%python_provide python3-%{gitname}}
 
 %description -n python3-%{gitname}
 Python3 package of %{gitname}.
@@ -66,8 +64,11 @@ Python classes for constructing and dissecting network packets.
 %patch -P 1 -p1
 %patch -P 2 -p0
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 #fix encodings
 sed -i 's/\r//' LICENSE
@@ -78,14 +79,16 @@ mv pcapy.html.tmp pcapy.html
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
 
 rm -rf %{buildroot}/usr/share/doc/pcapy
 
-%files -n python3-%{gitname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{gitname} -f %{pyproject_files}
 %doc README pcapy.html
-%{python3_sitearch}/*
 
 
 %changelog

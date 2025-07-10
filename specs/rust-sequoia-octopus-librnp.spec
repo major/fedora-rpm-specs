@@ -7,7 +7,7 @@
 %global __provides_exclude_from ^%{tb_plugindir}/.*\\.so$
 
 Name:           rust-sequoia-octopus-librnp
-Version:        1.11.0
+Version:        1.11.1
 Release:        %autorelease
 Summary:        Reimplementation of RNP's interface using Sequoia for use with Thunderbird
 
@@ -42,10 +42,10 @@ Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
 # BSL-1.0
 # LGPL-2.0-or-later
 # MIT
@@ -54,7 +54,9 @@ Summary:        %{summary}
 # MIT OR LGPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     LGPL-2.0-or-later AND
@@ -63,10 +65,11 @@ License:        %{shrink:
     BSL-1.0 AND
     MIT AND
     MPL-2.0 AND
+    Unicode-3.0 AND
     Unicode-DFS-2016 AND
+    Zlib AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR ISC OR MIT) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND

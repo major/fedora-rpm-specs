@@ -9,7 +9,7 @@
 %endif
 
 Name: intel-igc
-Version: 2.12.5
+Version: 2.12.7
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 

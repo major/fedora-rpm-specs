@@ -6,7 +6,7 @@
 %global crate arboard
 
 Name:           rust-arboard
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Image and text handling for the OS clipboard
 

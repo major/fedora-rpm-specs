@@ -5,7 +5,7 @@
 %global crate notify
 
 Name:           rust-notify
-Version:        8.0.0
+Version:        8.1.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 
@@ -61,6 +61,18 @@ This package contains library source intended for building other packages which
 use the "crossbeam-channel" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crossbeam-channel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+flume-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+flume-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "flume" feature of the "%{crate}" crate.
+
+%files       -n %{name}+flume-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

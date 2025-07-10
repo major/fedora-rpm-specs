@@ -15,14 +15,11 @@ BuildArch:          noarch
 
 %package -n python%{python3_pkgversion}-%{modname}
 Summary:            %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
 BuildRequires:      python%{python3_pkgversion}-pytest
 BuildRequires:      python%{python3_pkgversion}-pytest-cov
 BuildRequires:      python%{python3_pkgversion}-coverage
 BuildRequires:      python%{python3_pkgversion}-cryptography
-%{?python_enable_dependency_generator}
 
 %description -n python%{python3_pkgversion}-%{modname}
 %{summary}.
@@ -32,23 +29,27 @@ Python %{python3_version} version.
 %prep
 %autosetup -n encrypted-content-encoding-%{version} -p1
 
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
+
 %build
 cd python
-%py3_build
+%pyproject_wheel
 
 %install
 cd python
-%py3_install
+%pyproject_install
+%pyproject_save_files -l http_ece -L
 
 %check
+%pyproject_check_import
+
 cd python
 %pytest
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc python/README.rst python/*.md
-%license LICENSE
-%{python3_sitelib}/http_ece/
-%{python3_sitelib}/http_ece-*.egg-info/
 
 %changelog
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-3

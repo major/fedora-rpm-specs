@@ -2,12 +2,12 @@
 
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
-Version: 0.22.11
-Release: 12%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+Version: 0.23.0
+Release: 1%{?dist}
+License: BSD-3-Clause
 URL: https://pypi.org/project/autowrap/
 Source0: https://github.com/OpenMS/autowrap/archive/refs/tags/release/%{version}/%{name}-release-%{version}.tar.gz
+Patch0:  autowrap-fix_configuration_for_old_setuptools.patch
 BuildArch: noarch
 
 ## For testing
@@ -20,66 +20,52 @@ This module uses the Cython "header" .pxd files to automatically generate
 Cython input (.pyx) files. It does so by parsing the header files and possibly
 annotations in the header files to generate correct Cython code.
 
-%package -n python%{python3_pkgversion}-autowrap
+%package -n python3-autowrap
 Summary: Generates Python3 Extension modules from [Cython] PXD files
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-setuptools
-BuildRequires: python%{python3_pkgversion}-pytest
-BuildRequires: python%{python3_pkgversion}-Cython
+%py_provides python3-%{name}
+BuildRequires: pyproject-rpm-macros
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
+BuildRequires: python3-pytest
+BuildRequires: python3-Cython
 Obsoletes: python2-autowrap < 0:%{version}-%{release}
-%if 0%{?rhel}
-Obsoletes: python34-autowrap < 0:%{version}-%{release}
-%endif
 
-%description -n python%{python3_pkgversion}-autowrap
+%description -n python3-autowrap
 %{summary}.
 
 %prep
-%setup -qc
+%autosetup -n %{name}-release-%{version} -N
+
+%if 0%{?fedora} < 43
+%patch -P 0 -p1
+%endif
 
 ##Remove bundled files
 rm -rf %{name}-release-%{version}/autowrap/data_files/boost
 
+%generate_buildrequires
+%pyproject_buildrequires -x tests
+
 %build
-pushd %{name}-release-%{version}
-%py3_build
-popd
+%pyproject_wheel
 
 %install
-
-pushd %{name}-release-%{version}
-%py3_install
-
-mkdir exe && pushd exe
-for i in python%{python3_version}-autowrap autowrap-%{python3_version} autowrap-v%{version}-%{python3_version}; do
-  touch -r $RPM_BUILD_ROOT%{_bindir}/autowrap $i
-  install -p $i $RPM_BUILD_ROOT%{_bindir}
-  ln -sf %{_bindir}/autowrap $RPM_BUILD_ROOT%{_bindir}/$i
-done
-popd
-popd
+%pyproject_install
+%pyproject_save_files autowrap
 
 %if 0%{?with_tests}
 %check
-pushd %{name}-release-%{version}
-export CPPFLAGS="-I%{_includedir}/boost"
-export CXXFLAGS="-I%{_includedir}/boost"
-py.test-%{python3_version} -v tests
-popd
+export CFLAGS="-I%{_includedir}/boost"
+%pytest -v -m "not network"
 %endif
 
-%files -n python%{python3_pkgversion}-autowrap
-%license %{name}-release-%{version}/LICENSE
+%files -n python3-autowrap -f %{pyproject_files}
 %{_bindir}/autowrap
-%{_bindir}/autowrap-%{python3_version}
-%{_bindir}/python%{python3_version}-autowrap
-%{_bindir}/autowrap-v%{version}-%{python3_version}
-%{python3_sitelib}/autowrap/
-%exclude %{python3_sitelib}/tests
-%{python3_sitelib}/*.egg-info
 
 %changelog
+* Tue Jul 08 2025 Antonio Trande <sagitter@fedoraproject.org> - 0.23.0-1
+- Release 0.23.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.22.11-12
 - Rebuilt for Python 3.14
 

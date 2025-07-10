@@ -16,7 +16,6 @@ Source0: %{forgesource}
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3dist(setuptools)
 
 %global common_description %{expand:
 The scp.py module uses a paramiko transport to send and receive files via the
@@ -35,19 +34,21 @@ Summary: %{summary}
 %forgeautosetup
 %generate_buildrequires
 
+%pyproject_buildrequires
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%check
+%pyproject_check_import
+
+
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE.txt
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

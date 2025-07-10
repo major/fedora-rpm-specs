@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.12.20
+Version:        0.12.22
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -352,18 +352,6 @@ This package contains library source intended for building other packages which
 use the "rustls-tls-webpki-roots-no-provider" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rustls-tls-webpki-roots-no-provider-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+slab-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+slab-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "slab" feature of the "%{crate}" crate.
-
-%files       -n %{name}+slab-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+socks-devel

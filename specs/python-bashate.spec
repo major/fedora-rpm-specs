@@ -21,7 +21,6 @@ and will continue to evolve over time.
 
 %package -n python3-%{pypi_name}
 Summary:        A pep8 equivalent for bash scripts
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(fixtures)
@@ -57,9 +56,10 @@ Documentation for the bashate module
 %prep
 %autosetup -S git -n %{pypi_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 rm -rf {test-,}requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 #remove shebang
@@ -68,10 +68,10 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' bashate/bashate.py
 sphinx-build-3 -b html -d build/doctrees  doc/source doc/build/html
 rm -rf doc/build/html/.{doctrees,buildinfo}
 
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 stestr --test-path ./bashate/tests run
@@ -81,7 +81,7 @@ stestr --test-path ./bashate/tests run
 %license LICENSE
 %{_bindir}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info
 %exclude %{python3_sitelib}/%{pypi_name}/tests
 
 %files -n python-%{pypi_name}-doc

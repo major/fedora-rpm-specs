@@ -1,7 +1,7 @@
 Name: py-radix
 Summary: Radix tree data structure for Python
 Version: 0.10.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 URL: https://github.com/mjschultz/py-radix
 Source0: https://github.com/mjschultz/py-radix/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -33,11 +33,15 @@ for networks (the data structure itself is more general).
 Summary: Radix tree data structure for Python
 
 BuildRequires: python3-devel
+%if 0%{?rhel} && 0%{?rhel} < 9
 BuildRequires: python3-setuptools
+%endif
 # Needed for tests
 BuildRequires: python3-pytest
 
+%if 0%{?rhel} && 0%{?rhel} < 9
 %{?python_provide:%python_provide python3-%{name}}
+%endif
 
 %description -n python3-%{name}
 py-radix is an implementation of a radix tree for Python, which
@@ -54,22 +58,47 @@ for networks (the data structure itself is more general).
 rm -f inet_ntop.c strlcpy.c
 touch inet_ntop.c strlcpy.c
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %build
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_wheel
+%else
 %py3_build
+%endif
 
 %install
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_install
+%pyproject_save_files -l radix
+%else
 %py3_install
+%endif
 
 %check
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%pyproject_check_import
+%endif
+
 %pytest -v
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%files -n python3-%{name} -f %{pyproject_files}
+%else
 %files -n python3-%{name}
-%doc README.rst
 %license LICENSE
 %{python3_sitearch}/py_radix*
 %{python3_sitearch}/radix*
+%endif
+%doc README.rst
 
 %changelog
+* Tue Jul 08 2025 Robert Scheck <robert@fedoraproject.org> - 0.10.0-15
+- Stop using deprecated %%py3_build/%%py3_install macros (#2377402)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.10.0-14
 - Rebuilt for Python 3.14
 

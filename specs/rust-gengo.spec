@@ -5,7 +5,7 @@
 %global crate gengo
 
 Name:           rust-gengo
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -13,12 +13,11 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Do not depend on criterion; it is needed only for benchmarks
 # * Allow an older version of rstest
-# * update gix dependency to 0.72
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Get the language distribution stats of your repository.}
@@ -103,8 +102,6 @@ use the "owo-colors" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on criterion; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.criterion
 
 %generate_buildrequires
 %cargo_generate_buildrequires

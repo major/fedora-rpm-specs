@@ -33,8 +33,8 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.6.1
-%global obsbrowser_commit 9ffe3828da5fa87d481ad2df2ecb178154818a60
+%global obswebsocket_version 5.6.2
+%global obsbrowser_commit 033a23befe01e0a2f85b95af384a89b82c8d6a40
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
 # and it works around a CEF versioning teething issue:
@@ -46,8 +46,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.1.0~rc1
-Release:        3%{?dist}
+Version:        31.1.0
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -386,6 +386,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Tue Jul 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.1.0-1
+- Update to 31.1.0 final
+- Update obs-websocket to 5.6.2
+- Update obs-browser to 033a23befe01
+
 * Sun Jul 06 2025 Asahi Lina <lina@asahilina.net> - 31.1.0~rc1-3
 - Switch CEF API to 13700 (works around crash)
 

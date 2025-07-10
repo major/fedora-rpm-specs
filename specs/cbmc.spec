@@ -4,7 +4,7 @@
 %define utils_version 1.3
 
 Name:           cbmc
-Version:        6.6.0
+Version:        6.7.0
 Release:        1%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
@@ -131,6 +131,9 @@ mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Tue Jul 08 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.7.0-1
+- rebase to the latest upstream release (rhbz#2374934)
+
 * Mon May 05 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.6.0-1
 - rebase to the latest upstream release (rhbz#2362802)
 

@@ -61,7 +61,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.26.3
+Version:           1.28.0
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -554,7 +554,7 @@ fi
 
 %files core
 %license LICENSE
-%doc CHANGES README README.dynamic instance.conf
+%doc CHANGES README.md README.dynamic instance.conf
 %{_sbindir}/nginx
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf.default

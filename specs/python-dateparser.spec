@@ -14,8 +14,8 @@
 %endif
 
 Name:           python-dateparser
-Version:        1.2.1
-Release:        3%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -23,9 +23,6 @@ URL:            https://github.com/scrapinghub/dateparser
 Source0:        %{url}/archive/v%{version}/dateparser-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        dateparser-download.1
-
-# Python 3.14 compatibility
-Patch:          https://github.com/scrapinghub/dateparser/pull/1273.patch
 
 BuildArch:      noarch
 
@@ -212,6 +209,9 @@ k="${k-}${k+ and }not search_dates"
 
 
 %changelog
+* Tue Jul 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-1
+- 1.2.2
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-3
 - Rebuilt for Python 3.14
 

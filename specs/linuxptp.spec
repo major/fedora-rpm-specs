@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -18,6 +18,8 @@ Source2:	ptp4l.service
 Source3:	timemaster.service
 Source4:	timemaster.conf
 Source5:	ptp4l.conf
+Source6:	ts2phc.service
+Source7:	ts2phc.conf
 # external test suite
 Source10:	https://github.com/mlichvar/linuxptp-testsuite/archive/%{testsuite_ver}/linuxptp-testsuite-%{testsuite_ver}.tar.gz
 # simulator for test suite
@@ -84,15 +86,20 @@ bzip2 -9 selinux/linuxptp.pp
 %makeinstall
 
 mkdir -p $RPM_BUILD_ROOT{%{_sysconfdir}/sysconfig,%{_unitdir},%{_mandir}/man5}
-install -m 644 -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_unitdir}
-install -m 644 -p %{SOURCE4} %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}
+install -m 644 -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE6} \
+	$RPM_BUILD_ROOT%{_unitdir}
+install -m 644 -p %{SOURCE4} %{SOURCE5} %{SOURCE7} \
+	$RPM_BUILD_ROOT%{_sysconfdir}
 
 echo 'OPTIONS="-f /etc/ptp4l.conf"' > \
 	$RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/ptp4l
 echo 'OPTIONS="-a -r"' > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/phc2sys
+echo 'OPTIONS="-f /etc/ts2phc.conf"' > \
+	$RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/ts2phc
 
-echo '.so man8/ptp4l.8' > $RPM_BUILD_ROOT%{_mandir}/man5/ptp4l.conf.5
-echo '.so man8/timemaster.8' > $RPM_BUILD_ROOT%{_mandir}/man5/timemaster.conf.5
+for s in ptp4l timemaster ts2phc; do
+	echo ".so man8/$s.8" > $RPM_BUILD_ROOT%{_mandir}/man5/$s.conf.5
+done
 
 %if 0%{?with_selinux}
 install -D -m 0644 selinux/linuxptp.pp.bz2 \
@@ -109,13 +116,13 @@ export CLKNETSIM_RANDOM_SEED=26743
 PATH=..:$PATH ./run
 
 %post
-%systemd_post phc2sys.service ptp4l.service timemaster.service
+%systemd_post phc2sys.service ptp4l.service timemaster.service ts2phc.service
 
 %preun
-%systemd_preun phc2sys.service ptp4l.service timemaster.service
+%systemd_preun phc2sys.service ptp4l.service timemaster.service ts2phc.service
 
 %postun
-%systemd_postun_with_restart phc2sys.service ptp4l.service timemaster.service
+%systemd_postun_with_restart phc2sys.service ptp4l.service timemaster.service ts2phc.service
 
 %if 0%{?with_selinux}
 %pre selinux
@@ -144,10 +151,13 @@ fi
 %config(noreplace) %{_sysconfdir}/ptp4l.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/phc2sys
 %config(noreplace) %{_sysconfdir}/sysconfig/ptp4l
+%config(noreplace) %{_sysconfdir}/sysconfig/ts2phc
 %config(noreplace) %{_sysconfdir}/timemaster.conf
+%config(noreplace) %{_sysconfdir}/ts2phc.conf
 %{_unitdir}/phc2sys.service
 %{_unitdir}/ptp4l.service
 %{_unitdir}/timemaster.service
+%{_unitdir}/ts2phc.service
 %{_sbindir}/hwstamp_ctl
 %{_sbindir}/nsm
 %{_sbindir}/phc2sys
@@ -161,6 +171,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Tue Jul 08 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-5
+- add ts2phc service and default configs
+
 * Mon Feb 03 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-4
 - update selinux policy to allow ptp4l to use generic netlink sockets
 - harden systemd services

@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 51%{?dist}
+Release: 52%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -27,7 +27,7 @@ Patch2: %{name}-remove-des-support-from-snmp-plugin.patch
 Patch3: %{name}-py311-dont-include-longintrepr.patch
 Patch4: collectd-c99.patch
 Patch5: collectd-c99-2.patch
-Patch6: collectd-5.12.0-automake-1.17.patch
+Patch6: collectd-5.12.0-automake-1.18.patch
 
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -1240,6 +1240,10 @@ make check
 
 
 %changelog
+* Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.12.0-52
+- Perl 5.42 rebuild
+- Update patch to fix FTBFS with automake 1.18
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.12.0-51
 - Rebuilt for Python 3.14
 

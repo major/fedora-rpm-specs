@@ -13,7 +13,7 @@ for typical Sphinx themes.}
 
 Name:           python-%{pypi_name}
 Version:        1.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A minimal pure-CSS theme for Sphinx
 License:        ISC
 URL:            https://gitlab.com/lv2/%{pypi_name}
@@ -22,7 +22,6 @@ Source0:        %{url}/-/archive/v%{version}/%{pypi_name}-v%{version}.tar.bz2
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %description %{common_description}
 
@@ -30,13 +29,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 %package -n python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 
-%if 0%{?epel} && 0%{?epel} <= 8
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-%endif
-
-%if 0%{?fedora} == 32
-%py_provides python3-%{pypi_name}
-%endif
 
 %description -n python%{python3_pkgversion}-%{pypi_name} %{common_description}
 
@@ -45,23 +37,32 @@ Summary:        %{summary}
 %autosetup -p1 -n %{pypi_name}-v%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
-%files -n  python%{python3_pkgversion}-%{pypi_name}
+%check
+%pyproject_check_import
+
+
+%files -n  python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-# For noarch packages: sitelib
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Jul 08 2025 Guido Aulisi <guido.aulisi@gmail.com> - 1.4.2-4
+- Migrate to pyproject macros (#2378238)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.4.2-3
 - Rebuilt for Python 3.14
 

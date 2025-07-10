@@ -1,5 +1,5 @@
 Name:           plasma-settings
-Version:        25.02.0
+Version:        25.07.0
 Release:        1%{?dist}
 # Automatically converted from old format: BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.mo
 %{_kf6_datadir}/plasma-settings/
 
 %changelog
+* Tue Jul 08 2025 Steve Cossette <farchord@gmail.com> - 25.07.0-1
+- 25.07.0
+
 * Mon Feb 24 2025 Steve Cossette <farchord@gmail.com> - 25.02.0-1
 - 25.02.0
 

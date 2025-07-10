@@ -1,12 +1,12 @@
 Name:           lujavrite
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Lua library for calling Java code
 License:        Apache-2.0
 URL:            https://github.com/mizdebsk/lujavrite
 ExclusiveArch:  %{java_arches}
 
-Source0:        https://github.com/mizdebsk/lujavrite/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         https://github.com/mizdebsk/lujavrite/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  lua-devel
