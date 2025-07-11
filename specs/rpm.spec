@@ -22,9 +22,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 5.99.90
+%global rpmver 5.99.91
 #global snapver rc1
-%global baserelease 6
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -113,6 +113,10 @@ rpm-4.9.90-no-man-dirs.patch
 
 # Use systemd-sysusers due to https://github.com/shadow-maint/shadow/issues/940
 rpm-4.20-sysusers.patch
+# Back out of enforcing signature checking until the infra is updated
+rpm-6.0-vfylevel.patch
+# Back out to v4 package format by default until the infra is updated
+rpm-6.0-rpmformat.patch
 
 # Temporarily disable the deprecation warning for
 # %%clamp_mtime_to_source_date_epoch, details here:
@@ -120,8 +124,6 @@ rpm-4.20-sysusers.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
-0001-Fix-a-refactoring-regression-in-rich-dep-and-rpmdb-s.patch
-0001-Fix-a-regression-when-calling-rpmReadPackageFile-wit.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -346,9 +348,6 @@ change.
 %prep
 %autosetup -n rpm-%{srcver} -p1
 
-# back out of enforcing signature checking until the build tooling works with it
-sed -i -e "s:%%_pkgverify_level all:%%_pkgverify_level digest:g" macros.in
-
 %build
 %set_build_flags
 
@@ -460,6 +459,10 @@ fi
 %{_mandir}/man5/rpm-config.5*
 %{_mandir}/man5/rpm-macrofile.5*
 %{_mandir}/man5/rpm-rpmrc.5*
+%{_mandir}/man7/rpm-lua.7*
+%{_mandir}/man7/rpm-macros.7*
+%{_mandir}/man7/rpm-payloadflags.7*
+%{_mandir}/man7/rpm-queryformat.7*
 %{_mandir}/man8/rpm.8*
 %{_mandir}/man8/rpmdb.8*
 %{_mandir}/man8/rpmkeys.8*
@@ -570,6 +573,7 @@ fi
 %{_mandir}/man1/rpmspec.1*
 %{_mandir}/man1/rpmlua.1*
 %{_mandir}/man1/rpm-setup-autosign.1*
+%{_mandir}/man5/rpmbuild-config.5.*
 
 %{rpmhome}/brp-*
 %{rpmhome}/check-*
@@ -617,6 +621,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Jul 02 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-1
+- Rebase to 6.0 beta1
+- Revert to v4 package format by default for now (upstream switched to v6)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.99.90-6
 - Rebuilt for Python 3.14
 

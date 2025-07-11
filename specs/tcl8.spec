@@ -1,11 +1,11 @@
 %define majorver 8.6
-%define	vers %{majorver}.15
+%define	vers %{majorver}.16
 %{!?sdt:%define sdt 1}
 
 Summary: Tool Command Language, pronounced tickle, version 8
 Name: tcl8
 Version: %{vers}
-Release: 10%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -141,6 +141,10 @@ ln -s %{_bindir}/tclsh8 %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_datadir}/tcl%{majorver}/tclAppInit.c
 
 %changelog
+* Wed Jul 09 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 1:8.6.16-1
+- New version
+  Resolves: rhbz#2376818
+
 * Sun Feb  2 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.15-10
 - Rebuilt for new gcc
 

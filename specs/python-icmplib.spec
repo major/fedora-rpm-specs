@@ -1,8 +1,7 @@
 Name:           python-icmplib
-Version:        3.0.3
+Version:        3.0.4
 Release:        %autorelease
 Summary:        An implementation of the ICMP protocol in Python
-# See https://github.com/ValentinBELYN/icmplib/issues/72
 License:        LGPL-3.0-or-later
 URL:            https://github.com/ValentinBELYN/icmplib
 # pypi_source tar ball differs from github tag and is lacking docs/examples :(

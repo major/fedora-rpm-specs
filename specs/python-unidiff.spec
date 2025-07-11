@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library to parse and interact with unified diffs (patches)
 License:        MIT
 URL:            http://github.com/matiasb/python-unidiff
@@ -18,10 +18,8 @@ python-unidiff is a Python library to parse and interact with unified diffs
 (patches).
 
 %package -n python%{python3_pkgversion}-%{modname}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %description -n python%{python3_pkgversion}-%{modname}
 python-unidiff is a Python library to parse and interact with unified diffs 
@@ -31,23 +29,29 @@ python-unidiff is a Python library to parse and interact with unified diffs
 %autosetup -n %{modname}-%{version} -p1
 rm -r unidiff.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 %check
+%pyproject_check_import
+
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest discover -s tests/
 
-%files -n python%{python3_pkgversion}-%{modname}
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc README.rst HISTORY
 %{_bindir}/%{modname}
-%{python3_sitelib}/%{modname}
-%{python3_sitelib}/%{modname}*.egg-info
 
 %changelog
+* Wed Jul 09 2025 Matej Focko <mfocko@fedoraproject.org> - 0.7.5-8
+- Migrate from %py3* to %pyproject* (Fixes rhbz#2378305)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.5-7
 - Rebuilt for Python 3.14
 

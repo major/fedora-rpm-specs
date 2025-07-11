@@ -8,8 +8,12 @@ License:        GPL-3.0-or-later
 URL:            https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/
 Source0:        https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/archive/%{version}/iio-sensor-proxy-%{version}.tar.bz2
 
+# Fixes for chromebook-style accelerometer (e.g. Framework laptops)
+Patch0101:      https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/400.patch
+
 BuildRequires:  meson
 BuildRequires:  gcc
+BuildRequires:  git-core
 BuildRequires:  gtk-doc
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(systemd)
@@ -33,7 +37,7 @@ BuildArch:      noarch
 This package contains the documentation for %{name}.
 
 %prep
-%autosetup
+%autosetup -S git_am
 
 %build
 %meson -Dgtk_doc=true -Dgtk-tests=false

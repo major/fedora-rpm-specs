@@ -15,9 +15,6 @@ A Python library for generating RSS 2.0 feeds.
 
 %package -n python3-PyRSS2Gen
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-# for wheel building
-BuildRequires:	python3-pip
 Requires:	python3-feedparser
 Summary:	A Python library for generating RSS 2.0 feeds
 BuildArch:	noarch
@@ -25,9 +22,11 @@ BuildArch:	noarch
 A Python3 library for generating RSS 2.0 feeds.
 
 
-
 %prep
 %setup -qn PyRSS2Gen-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

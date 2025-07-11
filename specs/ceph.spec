@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2740,6 +2740,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Jul 9 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-8
+- w/ libarrow-20 in f43-build-side-114791 w/ Python 3.14
+
 * Mon Jul 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-7
 - w/ libarrow-20 in f43-build-side-113972
 

@@ -1,8 +1,8 @@
 %global pypi_name xmltodict
 
 Name:               python-xmltodict
-Version:            0.13.0
-Release:            7%{?dist}
+Version:            0.14.2
+Release:            1%{?dist}
 Summary:            Python to transform XML to JSON
 
 License:            MIT
@@ -19,37 +19,41 @@ Wikipedia.
 %package -n python3-%{pypi_name}
 Summary:            %{summary}
 
-BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      %{py3_dist pytest}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 
 %description -n python3-%{pypi_name}
 xmltodict is a Python module that makes working with XML feel like you are
-working with JSON.  It's very fast (Expat-based) and has a streaming mode
+working with JSON. It's very fast (Expat-based) and has a streaming mode
 with a small memory footprint, suitable for big XML dumps like Discogs or
 Wikipedia.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-*
-%{python3_sitelib}/__pycache__/%{pypi_name}*
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.14.2-1
+- Update to latest upstream release 0.14.2
+- Replace py3_build/py3_install (closes rhbz#2378360)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.13.0-7
 - Rebuilt for Python 3.14
 

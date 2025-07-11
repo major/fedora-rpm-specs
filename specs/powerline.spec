@@ -1,5 +1,3 @@
-%global debug_package %{nil}
-
 Name:           powerline
 Version:        2.8.4
 Release:        %autorelease
@@ -9,7 +7,6 @@ License:        MIT
 Url:            https://github.com/powerline/powerline
 
 BuildRequires: make
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-devel
 BuildRequires:  fdupes
@@ -106,15 +103,18 @@ to your ~/.tmux.conf file.
 %autosetup -p1
 find -type f -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-# nothing to build
+# `setup.py` uses `CFLAGS` for both compiler and linker flags
+CFLAGS="%{build_cflags} %{build_ldflags}" \
+%pyproject_wheel
 
 %install
 sed -i -e "/DEFAULT_SYSTEM_CONFIG_DIR/ s@None@'%{_sysconfdir}/xdg'@" powerline/config.py
 sed -i -e "/TMUX_CONFIG_DIRECTORY/ s@BINDINGS_DIRECTORY@'/usr/share'@" powerline/config.py
-# `setup.py` uses `CFLAGS` for both compiler and linker flags
-CFLAGS="%{build_cflags} %{build_ldflags}" \
-%{__python3} setup.py install --prefix=%{_prefix} --root=%{buildroot} --optimize=1
+%pyproject_install
 
 # Check that the powerline client is an ELF executable
 ldd %{buildroot}%{_bindir}/powerline
@@ -150,34 +150,14 @@ for f in powerline-config.1 powerline-daemon.1 powerline-lint.1 powerline.1; do
 %__install -m0644 docs/_build/man/$f %{buildroot}%{_datadir}/man/man1/$f
 done
 
-# awesome
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/awesome/
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/awesome/powerline.lua %{buildroot}%{_datadir}/%{name}/awesome/
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/awesome/powerline-awesome.py %{buildroot}%{_datadir}/%{name}/awesome/
+# shell and window-manager bindings
+install -d -m0755 %{buildroot}%{_datadir}/%{name}
+for binding in awesome bash fish i3 qtile shell tcsh zsh; do
+  mv %{buildroot}%{python3_sitelib}/%{name}/bindings/"$binding" %{buildroot}%{_datadir}/%{name}/
+done
 
-# bash bindings
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/bash
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/bash/powerline.sh %{buildroot}%{_datadir}/%{name}/bash/
-
-# fish
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/fish
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/fish/powerline-setup.fish %{buildroot}%{_datadir}/%{name}/fish
-
-# i3
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/i3
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/i3/powerline-i3.py %{buildroot}%{_datadir}/%{name}/i3
-
-# qtile
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/qtile
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/qtile/widget.py %{buildroot}%{_datadir}/%{name}/qtile
-
-# shell bindings
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/shell
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/shell/powerline.sh %{buildroot}%{_datadir}/%{name}/shell/
-
-# tcsh
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/tcsh
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/tcsh/powerline.tcsh %{buildroot}%{_datadir}/%{name}/tcsh
+# pdb bindings
+sed -i '1{\@^#!/usr/bin/python3@d}' %{buildroot}%{python3_sitelib}/%{name}/bindings/pdb/__main__.py
 
 # tmux plugin
 install -d -m0755 %{buildroot}%{_datadir}/tmux
@@ -191,21 +171,17 @@ install -d -m0755 %{buildroot}%{_datadir}/vim/vimfiles/autoload/powerline
 mv %{buildroot}%{python3_sitelib}/powerline/bindings/vim/autoload/powerline/debug.vim %{buildroot}%{_datadir}/vim/vimfiles/autoload/powerline/debug.vim
 rm -rf %{buildroot}%{python3_sitelib}/powerline/bindings/vim/autoload
 
-# zsh
-install -d -m0755 %{buildroot}%{_datadir}/%{name}/zsh
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/zsh/__init__.py %{buildroot}%{_datadir}/%{name}/zsh
-mv %{buildroot}%{python3_sitelib}/powerline/bindings/zsh/powerline.zsh %{buildroot}%{_datadir}/%{name}/zsh
-
 # vim-powerline AppStream metadata
 mkdir -p %{buildroot}%{_datadir}/metainfo
 install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/metainfo
 
 # systemd
 install -d -m 0755 %{buildroot}%{_userunitdir}
-install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_userunitdir}/powerline.service
+mv %{buildroot}%{python3_sitelib}/%{name}/dist/systemd/powerline-daemon.service %{buildroot}%{_userunitdir}/powerline.service
 
 # cleanup
 %__rm -rf %{buildroot}%{python3_sitelib}/%{name}/config_files
+%__rm -rf %{buildroot}%{python3_sitelib}/%{name}/dist
 
 %if 0%{?fedora}
 %fdupes %{buildroot}%{python3_sitelib}
@@ -309,25 +285,7 @@ PYTHONPATH=. TEST_ROOT=. \
 %{_mandir}/man1/powerline-config.1*
 %{_mandir}/man1/powerline-daemon.1*
 %{_mandir}/man1/powerline-lint.1*
-%dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/awesome
-%{_datadir}/%{name}/awesome/powerline.lua
-%{_datadir}/%{name}/awesome/powerline-awesome.py*
-%dir %{_datadir}/%{name}/bash
-%{_datadir}/%{name}/bash/powerline.sh
-%dir %{_datadir}/%{name}/fish
-%{_datadir}/%{name}/fish/powerline-setup.fish
-%dir %{_datadir}/%{name}/i3
-%{_datadir}/%{name}/i3/powerline-i3.py*
-%dir %{_datadir}/%{name}/qtile
-%{_datadir}/%{name}/qtile/widget.py*
-%dir %{_datadir}/%{name}/shell
-%{_datadir}/%{name}/shell/powerline.sh
-%dir %{_datadir}/%{name}/tcsh
-%{_datadir}/%{name}/tcsh/powerline.tcsh
-%dir %{_datadir}/%{name}/zsh
-%{_datadir}/%{name}/zsh/__init__.py*
-%{_datadir}/%{name}/zsh/powerline.zsh
+%{_datadir}/%{name}
 %{python3_sitelib}/*
 %{_userunitdir}/powerline.service
 

@@ -1,8 +1,8 @@
 %global pypi_name mechanicalsoup
 
 Name:           python-%{pypi_name}
-Version:        1.3.0
-Release:        5%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Python library for automating interaction with websites
 
 License:        MIT
@@ -18,17 +18,11 @@ and can follow links and submit forms. It doesn't do JavaScript.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(beautifulsoup4)
-BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest-httpbin)
 BuildRequires:  python3dist(pytest-mock)
-BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(requests-mock)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(six)
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 MechanicalSoup automatically stores and sends cookies, follows redirects,
@@ -36,27 +30,31 @@ and can follow links and submit forms. It doesn't do JavaScript.
 
 %prep
 %autosetup -n MechanicalSoup-%{version}
-rm -rf %{pypi_name}.egg-info
 # No linting
 sed -i -e 's/--flake8//g' setup.cfg
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
+%build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v tests
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/MechanicalSoup-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.4.0-1
+- Update to latest upstream release (closes rhbz#2369327)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.0-5
 - Rebuilt for Python 3.14
 

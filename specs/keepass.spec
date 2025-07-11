@@ -1,5 +1,5 @@
 Name:           keepass
-Version:        2.58
+Version:        2.59
 Release:        %autorelease
 Summary:        Password manager
 

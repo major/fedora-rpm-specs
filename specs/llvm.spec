@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 7
+%global patch_ver 8
 #global rc_ver 3
 
 %bcond_with snapshot_build
@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -3432,6 +3432,9 @@ fi
 
 #region changelog
 %changelog
+* Wed Jul 09 2025 Nikita Popov <npopov@redhat.com> - 20.1.8-1
+- Update to LLVM 20.1.8
+
 * Fri Jun 20 2025 Kashyap Chamarthy <kchamart@redhat.com> - 20.1.7-2
 - Add riscv64 enablement bits; thanks: Songsong Zhang
    (U2FsdGVkX1@gmail.com) and David Abdurachmanov (davidlt@rivosinc.com)

@@ -1,5 +1,6 @@
 %global apiver 2.91
 
+%global fmt_version 11.0.0
 %global fribidi_version 1.0.0
 %global glib2_version 2.72.0
 %global gnutls_version 3.2.7
@@ -9,9 +10,10 @@
 %global libsystemd_version 220
 %global pango_version 1.22.0
 %global pcre2_version 10.21
+%global simdutf_version 7.2.1
 
 Name:           vte291
-Version:        0.80.2
+Version:        0.81.0
 Release:        %autorelease
 Summary:        GTK terminal emulator library
 
@@ -19,11 +21,12 @@ Summary:        GTK terminal emulator library
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/0.80/vte-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/vte/0.81/vte-%{version}.tar.xz
 
 # https://gitlab.gnome.org/GNOME/vte/-/merge_requests/2
 Patch0:         0001-Only-use-fast_float-when-std-from_chars-is-insuffici.patch
 
+BuildRequires:  pkgconfig(fmt) >= %{fmt_version}
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -36,6 +39,8 @@ BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libpcre2-8) >= %{pcre2_version}
 BuildRequires:  pkgconfig(libsystemd) >= %{libsystemd_version}
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
+BuildRequires:  pkgconfig(simdutf) >= %{simdutf_version}
+BuildRequires:  fast_float-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
@@ -144,6 +149,10 @@ rm %{buildroot}/%{_datadir}/applications/org.gnome.Vte.App.Gtk4.desktop
 %{_userunitdir}/vte-spawn-.scope.d
 %{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk3.desktop
 %{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk4.desktop
+%dir %{_datadir}/vte-2.91
+%dir %{_datadir}/vte-2.91/terminfo
+%dir %{_datadir}/vte-2.91/terminfo/x
+%{_datadir}/vte-2.91/terminfo/x/xterm-256color
 
 %files gtk4
 %{_libdir}/libvte-%{apiver}-gtk4.so.0*

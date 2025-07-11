@@ -18,9 +18,11 @@ Source1:        email_validator.1
 # https://github.com/JoshData/python-email-validator/pull/143
 Patch:          %{url}/pull/143.patch
 
+BuildSystem:            pyproject
+BuildOption(install):   -l email_validator
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 # test_requirements.txt pins exact versions and includes unwanted coverage and
 # linting dependencies, so we fall back to manual BuildRequires:
 BuildRequires:  %{py3_dist pytest}
@@ -51,37 +53,28 @@ Key features:
 
 %description %{_description}
 
+
 %package -n     python3-email-validator
 Summary:        %{summary}
 
 %description -n python3-email-validator %{_description}
 
-%prep
-%autosetup -n python-email-validator-%{version} -p1
 
-# Removes test where IPv4 address is embeded into IPv6 address.
-# Parsing of this type of IPv6 seems to be broken in Python.
-# https://github.com/python/cpython/issues/128840#issuecomment-2914324533
-sed -i "/IPv6:1111:2222:3333:4444:5555:6666:255.255.255.255/d" tests/test_syntax.py
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l email_validator
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
-%check
+
+%check -a
 %pytest -v tests -m 'not network'
 
+
 %files -n python3-email-validator -f %{pyproject_files}
-%doc CHANGELOG.md README.md
+%doc CHANGELOG.md
+%doc README.md
+
 %{_bindir}/email_validator
 %{_mandir}/man1/email_validator.1*
+
 
 %changelog
 %autochangelog

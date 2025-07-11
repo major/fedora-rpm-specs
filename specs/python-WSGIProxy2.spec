@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        WSGI Proxy that supports several HTTP backends
 
 License:        MIT
@@ -19,10 +19,10 @@ WSGI Proxy that supports several HTTP backends.
 %package -n     python3-%{pypi_name}
 Summary:        WSGI Proxy that supports several HTTP backends
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-requests
+BuildRequires:  python3-webtest
 Requires:       python3-webob
 Requires:       python3-six
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %_description
 
@@ -30,21 +30,27 @@ Python 3 version.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{package_name}
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README_fixt.py README.rst
-%{python3_sitelib}/%{package_name}/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.4.6-21
+- Migrate from py_build/py_install to pyproject macros (bz#2378349)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.6-20
 - Rebuilt for Python 3.14
 

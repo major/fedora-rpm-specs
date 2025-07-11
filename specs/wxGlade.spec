@@ -1,6 +1,6 @@
 Name:           wxGlade
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
@@ -10,7 +10,6 @@ Source2:        wxglade.png
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       python3-wxpython4
 
 %description
@@ -25,11 +24,15 @@ and <= 2.7.
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l wxglade
 
 # Let's handle licenses by ourselves.
 rm -frv %{buildroot}%{_docdir}/wxglade/LICENSE.txt
@@ -39,17 +42,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{S:1}
 install -pm 755 -d %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 
-%files
+%check
+%pyproject_check_import -t
+
+%files -f %{pyproject_files}
 %{_docdir}/wxglade/
-%license LICENSE.txt
 %{_bindir}/wxglade*
 %{_datadir}/icons/hicolor/*x*/apps/*
 %{_datadir}/applications/*
 %{_datadir}/wxglade
-%{python3_sitelib}/wxglade/
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 1.1.1-3
+- Migrate to pyproject macros (#2378505)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.1-2
 - Rebuilt for Python 3.14
 

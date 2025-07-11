@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.13.0
+Version: 3.14.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -66,10 +66,7 @@ Source5:    50-kata
 
 # Keep this patch downstream as it'd be hard to justify such change upstream
 Patch0999:  0999-osbuilder-Adjust-agent_version-for-our-builds.patch
-Patch1000:  1000-Remove-shebang-in-non-executable-completion-script.patch
 Patch1001:  1001-Remove-warnings-as-compilation-errors.patch
-Patch1002:  1002-Bump-time-dependency-for-Kata.patch
-Patch1003:  1003-Fix-arch-name-compilation-failure.patch
 
 %if 0%{?have_go_rpm_macros}
 BuildRequires: go-rpm-macros
@@ -390,6 +387,9 @@ fi
 
 
 %changelog
+* Tue Jul 08 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.14.0-1
+- kata-containers 3.14.0, update to latest release
+
 * Mon Jul 07 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.13.0-1
 - kata-containers 3.13.0, required vendor source correction
 

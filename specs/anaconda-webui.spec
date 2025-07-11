@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        42
+Version:        43
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -31,7 +31,7 @@ Requires: anaconda-core  >= %{anacondacorever}
 # it can often fall back to a diferent browser. This does not work in the limited installer
 # environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
 %if ! 0%{?rhel}
-Requires: firefox
+Requires: (firefox if fedora-release-workstation)
 %endif
 %if 0%{?fedora}
 Requires: fedora-logos
@@ -118,6 +118,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 09 2025 Packit <hello@packit.dev> - 43-1
+- components: port to new modal from Patternfly library
+- Only require Firefox on Fedora Workstation
+- Other test code and source code improvements
+
 * Mon Jul 07 2025 Packit <hello@packit.dev> - 42-1
 - components/localization: adjust menu height for smaller screens
 - components/users: improve UX by focusing root password input on checkbox toggle

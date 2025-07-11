@@ -5,7 +5,7 @@
 %global crate twox-hash
 
 Name:           rust-twox-hash
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Rust implementation of the XXHash and XXH3 algorithms
 

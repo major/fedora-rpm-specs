@@ -10,66 +10,28 @@ pid provides a PidFile class that manages PID files. PidFile features:
 
 PidFile can also be used as a context manager or a decorator.}
 
-%if %{defined el6}
-%bcond_without  python2
-# nose is too old
-%bcond_with     python2_tests
-%endif
-
-%if %{defined el7}
-%bcond_without  python2
-%bcond_without  python2_tests
-%endif
-
-%bcond_without  python3
-%bcond_without  python3_tests
-
 Name:           python-%{srcname}
-Version:        2.2.3
-Release:        25%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        PID file management library
 
 License:        Apache-2.0
 URL:            https://github.com/trbs/pid
 Source0:        %pypi_source
 
-# https://github.com/trbs/pid/pull/23
-Patch0:         use-standard-library-mock-when-available.patch
-
 BuildArch:      noarch
 
 %description %{common_description}
 
-%if %{with python2}
-%package -n python2-%{srcname}
-Summary:        %{summary}
-
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%if %{with python2_tests}
-BuildRequires:  python2-nose >= 1.0
-BuildRequires:  python2-mock
-%endif
-
-%{?python_provide:%python_provide python2-%{srcname}}
-
-%description -n python2-%{srcname} %{common_description}
-%endif
-
-%if %{with python3}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with python3_tests}
-BuildRequires:  python%{python3_pkgversion}-pytest
-%endif
 
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
+# Test dependencies
+BuildRequires:  python3dist(pytest)
 
 %description -n python%{python3_pkgversion}-%{srcname} %{common_description}
-%endif
 
 %prep
 # This needs to have a blank line after because of a bug in the EL6 macros
@@ -77,47 +39,29 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 rm -rf %{srcname}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%if %{with python2}
-%py2_build
-%endif
-%if %{with python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 %install
-%if %{with python2}
-%py2_install
-%endif
-%if %{with python3}
-%py3_install
-%endif
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
-%if %{with python2_tests}
-PYTHONPATH=%{buildroot}%{python2_sitelib} nosetests-%{python2_version} --verbose
-%endif
-%if %{with python3_tests}
 %pytest
-%endif
 
-%if %{with python2}
-%files -n python2-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc AUTHORS CHANGELOG README.rst
-%{python2_sitelib}/%{srcname}
-%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
-%endif
-
-%if %{with python3}
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
-%doc AUTHORS CHANGELOG README.rst
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%endif
 
 %changelog
+* Wed Jul  9 2025 David Shea <reallylongword@gmail.com> - 3.0.4-1
+- Update to 3.0.4
+- Remove python2 subpackage
+- Switch to pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.3-25
 - Rebuilt for Python 3.14
 

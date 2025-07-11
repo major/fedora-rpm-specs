@@ -1,6 +1,6 @@
 Name:           ranger
 Version:        1.9.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A vim-like file manager
 License:        GPL-3.0-only
 URL:            https://ranger.github.io/
@@ -9,7 +9,6 @@ Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 #Suggests:       w3m-img
 
 %description
@@ -25,29 +24,39 @@ you'll be going.
 sed -i -e '1d;2i#!/usr/bin/python3' %{name}.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 mv %{buildroot}%{_pkgdocdir} _doc
 find _doc -type f -exec chmod -R -x '{}' \;
 
 
-%files
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -f %{pyproject_files}
 %doc _doc/*
 %{_bindir}/ranger
 %{_bindir}/rifle
-%{python3_sitelib}/*
 %{_datadir}/applications/ranger.desktop
 %{_mandir}/man1/ranger.1*
 %{_mandir}/man1/rifle.1*
 
 
 %changelog
+* Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 1.9.4-5
+- Modernize RPM Macros (rhbz#2378430)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.9.4-4
 - Rebuilt for Python 3.14
 

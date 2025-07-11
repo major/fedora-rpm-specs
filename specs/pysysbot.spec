@@ -1,9 +1,8 @@
 name:           pysysbot
 Version:        0.3.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A simple python jabber bot for getting system information
 
-# Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://affolter-engineering.ch/pysysbot
 Source0:        https://github.com/fabaff/pysysbot/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -28,15 +27,20 @@ get information about the remote system.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 install -Dp -m 0644 data/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 install -Dp -m 0644 data/%{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -Dp -m 0644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 rm -rf %{buildroot}%{_defaultdocdir}
+
+%pyproject_save_files -l pysysbot
 
 %post
 %systemd_post %{name}.service
@@ -47,17 +51,18 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %postun
 %systemd_postun_with_restart %{name}.service
 
-%files
+%files -n %files -n pysysbot -f %{pyproject_files}
 %doc AUTHORS ChangeLog README.rst
 %license COPYING
 %{_mandir}/man*/%{name}*.*
 %{_bindir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/
 %{_unitdir}/%{name}.service
-%{python3_sitelib}/%{name}-*.egg-info/
-%{python3_sitelib}/%{name}/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.0-25
+- Closes rhbz#2377410
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.0-24
 - Rebuilt for Python 3.14
 

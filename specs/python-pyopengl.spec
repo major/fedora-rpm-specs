@@ -1,34 +1,30 @@
-%global srcname PyOpenGL
-%global shortname pyopengl
+%global srcname pyopengl
 
-Name:           python-%{shortname}
-Version:        3.1.7
-Release:        13%{?dist}
+Name:           python-pyopengl
+Version:        3.1.9
+Release:        1%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
-Source0:        https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
-Source1:        https://pypi.python.org/packages/source/P/%{srcname}-accelerate/%{srcname}-accelerate-%{version}.tar.gz
-Patch0:         python-3.12.patch
-Patch1:         python-pyopengl-c99.patch
-# Fix for NumPy 2.x intp type
-# https://github.com/mcfletch/pyopengl/commit/f897b0ed75c00d4c524be4689683a334832217ac
-Patch2:         numpy-intp-type.patch
-Patch3:         fix-test-vbo.patch
+Source0:        %{pypi_source}
+Source1:        %{pypi_source pyopengl_accelerate}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-numpy
-BuildRequires:  python3-Cython
 
 # For tests
+BuildRequires:  freeglut
+BuildRequires:  libglvnd-egl
+BuildRequires:  libglvnd-gles
 BuildRequires:  libglvnd-opengl
 BuildRequires:  libXi
 BuildRequires:  mesa-dri-drivers
+BuildRequires:  mesa-libEGL
 BuildRequires:  mesa-libGLU
+BuildRequires:  python3-psutil
 BuildRequires:  python3-pygame
 BuildRequires:  python3-pytest
+BuildRequires:  python3-xlib
 BuildRequires:  xorg-x11-server-Xvfb
 
 %description
@@ -41,14 +37,13 @@ PyOpenGL is inter-operable with a large number of external GUI libraries
 for Python including (Tkinter, wxPython, FxPy, PyGame, and Qt). 
 
 
-%package -n     python3-%{shortname}
+%package -n     python3-pyopengl
 Summary:        Python 3 bindings for OpenGL
 Requires:       freeglut
 Requires:       libglvnd-opengl
 Requires:       python3-numpy
-%{?python_provide:%python_provide python3-%{shortname}}
 
-%description -n python3-%{shortname}
+%description -n python3-pyopengl
 PyOpenGL is the cross platform Python binding to OpenGL and related APIs. It
 includes support for OpenGL v1.1, GLU, GLUT v3.7, GLE 3 and WGL 4. It also
 includes support for dozens of extensions (where supported in the underlying
@@ -58,44 +53,46 @@ PyOpenGL is inter-operable with a large number of external GUI libraries
 for Python including (Tkinter, wxPython, FxPy, PyGame, and Qt). 
 
 
-%package -n     python3-%{shortname}-tk
+%package -n     python3-pyopengl-tk
 Summary:        %{srcname} Python 3.x Tk widget
 BuildArch:      noarch
-Requires:       python3-%{shortname} = %{version}-%{release}
+Requires:       python3-pyopengl = %{version}-%{release}
 Requires:       python3-tkinter
-%{?python_provide:%python_provide python3-%{shortname}-tk}
 
-%description -n python3-%{shortname}-tk
+%description -n python3-pyopengl-tk
 %{srcname} Togl (Tk OpenGL widget) 1.6 support for Python 3.x.
 
 
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1 -F2 -d %{srcname}-accelerate-%{version}
-%patch -P3 -p1
+
+%generate_buildrequires
+for dir in %{srcname}-%{version} %{srcname}_accelerate-%{version} ; do
+    pushd $dir >&2
+    %pyproject_buildrequires
+    popd >&2
+done
 
 %build
 # Delete all Cython generated .c files to force a rebuild in py3_build
 # (py2_build then reuses the Cython output)
-pushd %{srcname}-accelerate-%{version}/src
+pushd %{srcname}_accelerate-%{version}/src
 for f in *.pyx ; do
     rm -f "${f%.pyx}.c"
 done
 popd
 
-for dir in %{srcname}-%{version} %{srcname}-accelerate-%{version} ; do
+for dir in %{srcname}-%{version} %{srcname}_accelerate-%{version} ; do
     pushd $dir
-    %py3_build
+    %pyproject_wheel
     popd
 done
 
 
 %install
-for dir in %{srcname}-%{version} %{srcname}-accelerate-%{version} ; do
+for dir in %{srcname}-%{version} %{srcname}_accelerate-%{version} ; do
     pushd $dir
-    %py3_install
+    %pyproject_install
     popd
 done
 
@@ -111,29 +108,33 @@ popd
 
 %check
 %ifarch s390x
-export PYTEST_ADDOPTS="-k 'not test_buffer_api_basic and not test_glCallLists_twice2'"
+export PYTEST_ADDOPTS="-k 'not test_buffer_api_basic and not test_glCallLists_twice2 and not test_check_egl_es2 and not test_egl_ext_enumerate'"
 %else
-export PYTEST_ADDOPTS="-k 'not test_glCallLists_twice2'"
+export PYTEST_ADDOPTS="-k 'not test_glCallLists_twice2 and not test_check_egl_es2 and not test_egl_ext_enumerate'"
 %endif
 PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
   xvfb-run -a -s "-screen 0 1024x768x24 -ac +extension GLX +render -noreset" \
   pytest %{srcname}-%{version}/tests
 
 
-%files -n python3-%{shortname}
+%files -n python3-pyopengl
 %license %{srcname}-%{version}/license.txt
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/pyopengl-%{version}.dist-info
 %{python3_sitelib}/OpenGL/
 %exclude %{python3_sitelib}/OpenGL/Tk
 %{python3_sitearch}/OpenGL_accelerate/
-%{python3_sitearch}/%{srcname}_accelerate-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/pyopengl_accelerate-%{version}.dist-info/
 
 
-%files -n python3-%{shortname}-tk
+%files -n python3-pyopengl-tk
 %{python3_sitelib}/OpenGL/Tk
 
 
 %changelog
+* Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 3.1.9-1
+- Update to new upstream release 3.1.9 (#2335109)
+- Migrate to pyproject macros (#2378062)
+
 * Fri Jul 04 2025 Scott Talbert <swt@techie.net> - 3.1.7-13
 - Fix FTBFS due to missing libXi and broken/failing tests (#2341191)
 

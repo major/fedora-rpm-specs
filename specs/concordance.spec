@@ -2,7 +2,7 @@
 
 Name: concordance
 Version: 1.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Software to program the Logitech Harmony remote control
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -59,6 +59,11 @@ Python 3 bindings for libconcord
 %setup -q
 
 
+%generate_buildrequires
+cd %{libpkg}/bindings/python
+%pyproject_buildrequires
+
+
 %build
 cd %{libpkg}
 
@@ -68,7 +73,7 @@ cd -
 
 # python bindings
 cd %{libpkg}/bindings/python
-%py3_build
+%pyproject_wheel
 cd -
 
 cd %{name}
@@ -89,11 +94,17 @@ cd -
 
 # python bindings
 cd %{libpkg}/bindings/python
-%py3_install
+%pyproject_install
+%pyproject_save_files libconcord
 cd -
 
 cd %{name}
 make DESTDIR=%{buildroot} install
+
+
+%check
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%pyproject_check_import
 
 
 %files
@@ -115,12 +126,14 @@ make DESTDIR=%{buildroot} install
 %{_includedir}/*.h
 %{_libdir}/*.so
 
-%files -n python3-%{libpkg}
+%files -n python3-%{libpkg} -f %{pyproject_files}
 %doc %{libpkg}/bindings/python/README
-%{python3_sitelib}/*
 
 
 %changelog
+* Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 1.5-14
+- Migrate to pyproject macros (#2377228)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5-13
 - Rebuilt for Python 3.14
 

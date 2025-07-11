@@ -13,7 +13,7 @@ continuous integration and releasing new versions of your software simply by
 creating a tag.}
 
 Name:           python-dunamai
-Version:        1.24.1
+Version:        1.25.0
 Release:        %{autorelease}
 Summary:        Dynamic version generation
 

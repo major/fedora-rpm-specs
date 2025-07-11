@@ -1,9 +1,8 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name freecell_solver
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -12,12 +11,12 @@ Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(cffi)
 BuildRequires:  python3dist(openstackdocstheme)
 BuildRequires:  python3dist(oslotest) >= 1.10.0
 BuildRequires:  python3dist(pbr)
 BuildRequires:  python3dist(pbr) >= 2.0
 BuildRequires:  python3dist(python-subunit) >= 0.0.18
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(testtools) >= 1.4.0
 BuildRequires:  python3dist(sphinx)
 
@@ -26,43 +25,47 @@ Python bindings for Freecell Solver using cffi.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 Requires:       python3dist(pbr) >= 2.0
 %description -n python3-%{pypi_name}
 Python bindings for Freecell Solver using cffi.
 
 %package -n python-%{pypi_name}-doc
-Summary:        freecell_solver documentation
+Summary:        Documentation for freecell_solver
 %description -n python-%{pypi_name}-doc
 Documentation for freecell_solver
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst doc/source/readme.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %files -n python-%{pypi_name}-doc
 %doc html
 %license LICENSE
 
 %changelog
+* Wed Jul 09 2025 Shlomi Fish <shlomif@shlomifish.org> 0.2.6-18
+- Stop using deprecated RPM macros (#2377726)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.6-17
 - Rebuilt for Python 3.14
 

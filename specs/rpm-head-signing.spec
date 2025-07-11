@@ -11,7 +11,7 @@
 
 Name:           rpm-head-signing
 Version:        1.7.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Small python module to extract RPM header and file digests
 License:        MIT
 URL:            https://github.com/fedora-iot/rpm-head-signing
@@ -57,12 +57,15 @@ for lib in rpm_head_signing/*.py; do
 done
 
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
+%build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
 %if %{with tests}
@@ -74,15 +77,16 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} SKIP_IMA_LIVE_CHECK=true python3 test
 %endif
 
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 %{_bindir}/verify-rpm-ima-signatures
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-*/
 
 
 %changelog
+* Wed Jul 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.7.4-10
+- Migrate to new python build macros (rhbz: 2378441)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.4-9
 - Rebuilt for Python 3.14
 

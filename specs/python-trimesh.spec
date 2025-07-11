@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.6.13
+Version:        4.7.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -123,8 +123,8 @@ Recommends:     /usr/bin/openscad
 %description -n python3-trimesh %{_description}
 
 
-# We skip packaging the “deprecated” extra, in part because it would require an
-# old version of gmsh. We therefore cannot package the “all” extra, either.
+# We skip packaging the “deprecated” extra, since we no longer wish to maintain
+# python-openctm. We therefore cannot package the “all” extra, either.
 %pyproject_extras_subpkg -n python3-trimesh -a easy
 # Note that the "recommend" extra does have an arch-dependent dependency.
 %pyproject_extras_subpkg -n python3-trimesh recommend

@@ -66,7 +66,9 @@ This package contains sample programs and applications that use %{name}.
 %autosetup -p1 -n libvpl-%{version}
 
 %build
-%cmake -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
+%cmake \
+-DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
+-DBUILD_EXAMPLES=ON
 %cmake_build
 
 %install

@@ -4,7 +4,7 @@ Summary:        Documentation for the Python 3 programming language
 # The Version should be in-sync with the python3 package:
 %global         pybasever 3.14
 %global         general_version %{pybasever}.0
-%global         prerel b3
+%global         prerel b4
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
 Release:        %autorelease
@@ -12,14 +12,13 @@ Release:        %autorelease
 # Examples, recipes, and other code in the documentation are dual licensed under Python-2.0.1/0BSD
 License:        Python-2.0.1 AND (Python-2.0.1 OR 0BSD)
 URL:            https://www.python.org/
-Source0:        %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
+Source:         %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
 BuildArch:      noarch
 
 Recommends:     python3 = %{version}
-%{?python_provide:%python_provide %{name}}
 
-BuildRequires: make
-BuildRequires:  %{__python3}
+BuildRequires:  make
+BuildRequires:  python3-devel
 BuildRequires:  python3-docs-theme >= 2022.1
 BuildRequires:  python3-sphinx >= 1:8.2.0
 BuildRequires:  python3-docutils
@@ -47,8 +46,7 @@ rm Doc/build/html/.buildinfo
 mkdir -p %{buildroot}
 
 %check
-# Verify that all of the local links work (see rhbz#670493 - doesn't apply
-# to python3-docs, but only to older python-docs)
+# Verify that all of the local links work (see rhbz#670493)
 #
 # (we can't check network links, as we shouldn't be making network connections
 # within a build.  Also, don't bother checking the .txt source files; some
@@ -61,6 +59,7 @@ linkchecker \
 %endif
 
 %files
+%license LICENSE
 %doc Misc/NEWS Misc/HISTORY Misc/README Doc/build/html
 
 %changelog

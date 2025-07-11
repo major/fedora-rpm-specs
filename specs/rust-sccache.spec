@@ -12,7 +12,11 @@ Release:        %autorelease
 Summary:        Ccache-like tool
 ExcludeArch:    %{ix86}
 
-License:        Apache-2.0 OR MIT
+# The entire source is Apache-2.0, except:
+# - src/lru_disk_cache/lru_cache.rs is Apache-2.0 OR MIT
+# - tests/cmake-hip/vectoradd_hip.cpp is MIT, but does not contribute to the
+#   licenses of the binary RPMs
+License:        Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            https://crates.io/crates/sccache
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
@@ -41,6 +45,31 @@ options, or alternatively, in local storage.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# Output of %%{cargo_license_summary}:
+#
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
+# Apache-2.0 OR Apache-2.0 WITH LLVM-exception
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR ISC OR MIT
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# CDLA-Permissive-2.0
+# ISC
+# MIT
+# MIT OR Apache-2.0
+# MIT OR Zlib OR Apache-2.0
+# MIT-0 OR Apache-2.0
+# MPL-2.0
+# Unicode-3.0
+# Unlicense OR MIT
+# Zlib
 License:        %{shrink:
     Apache-2.0 AND
     BSD-2-Clause AND

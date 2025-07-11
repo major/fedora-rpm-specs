@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        0.7.9
+Version:        0.7.11
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -17,6 +17,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency
 # * drop dev-dependencies which are only needed for example binaries
 Patch:          winnow-fix-metadata.diff
+Patch:          0001-Port-from-is_terminal_polyfill-to-std-io-IsTerminal.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

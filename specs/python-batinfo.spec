@@ -1,49 +1,53 @@
-%global srcname batinfo
+%global pypi_name batinfo
 
-Name:           python-%{srcname}
+Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Python module to retrieve battery information
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/nicolargo/batinfo
-Source0:        https://files.pythonhosted.org/packages/source/b/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source %{pypi_name} %{version}}
 Buildarch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 A simple Python module to retrieve battery information on Linux-based
 operating system. No ACPI or external software is needed. Only the Linux
 kernel and its /sys/class/power_supply folder.
 
-%package -n python3-%{srcname}
+%package -n python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname}
+%description -n python3-%{pypi_name}
 A simple Python module to retrieve battery information on Linux-based
 operating system. No ACPI or external software is needed. Only the Linux
 kernel and its /sys/class/power_supply folder.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-rm -rf %{buildroot}%{_defaultdocdir}/%{srcname}/
+%pyproject_install
+rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/
 
-%files -n python3-%{srcname}
+%pyproject_save_files -l %{pypi_name}
+
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc AUTHORS README.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.4.2-34
+- Replace py3_build/py3_install (closes rhbz#2377475)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.2-33
 - Rebuilt for Python 3.14
 

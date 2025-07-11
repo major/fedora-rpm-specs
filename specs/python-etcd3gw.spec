@@ -43,7 +43,6 @@ Requires:  python2-pbr
 Requires:  python2-requests
 Requires:  python2-six
 
-%{?python_provide:%python_provide python2-%{srcname}}
 
 %description -n python2-%{srcname}
 A python client for etcd3 grpc-gateway v3alpha API
@@ -64,9 +63,6 @@ Requires: python3-pbr
 Requires: python3-requests
 Requires: python3-six
 
-%{?python_enable_dependency_generator}
-
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 A python client for etcd3 grpc-gateway v3alpha API
@@ -78,13 +74,16 @@ A python client for etcd3 grpc-gateway v3alpha API
 # Let's manage dependencies using rpm deps.
 rm -f *requirements.txt
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %if %{with python2}
 %py2_build
 %endif
 
 %if %{with python3}
-%py3_build
+%pyproject_wheel
 %endif
 
 %install
@@ -93,10 +92,13 @@ rm -f *requirements.txt
 %endif
 
 %if %{with python3}
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 %endif
 
 %check
+%pyproject_check_import
+
 %if %{with python2}
 export PYTHON=%{__python2}
 py.test
@@ -118,11 +120,8 @@ py.test-3
 %endif
 
 %if %{with python3}
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md CONTRIBUTING.rst HACKING.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 %endif
 
 

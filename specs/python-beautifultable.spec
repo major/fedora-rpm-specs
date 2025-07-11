@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Print ASCII tables for terminals
 
 License:        MIT
@@ -28,9 +28,8 @@ Features included but not limited to:
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wcwidth
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(wcwidth)
+BuildRequires:  python3dist(pytest)
  
 %description -n python3-%{pypi_name}
 This package provides the BeautifulTable class for easily printing tabular data
@@ -49,22 +48,28 @@ Features included but not limited to:
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %{pytest} test.py
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.1.0-12
+- Fix build (closes rhbz#2329845)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.0-11
 - Rebuilt for Python 3.14
 

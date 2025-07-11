@@ -3,9 +3,9 @@
 %global py3_deps python3-PyQt5 python3-numpy python3-pyopengl
 %bcond_without docs
 
-Name:           python-%{srcname}
+Name:           python-pyqtgraph
 Version:        0.13.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -18,7 +18,6 @@ Patch2:         https://github.com/pyqtgraph/pyqtgraph/commit/eb440f50c3255df8da
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 # For Docs
 %if %{with docs}
 BuildRequires:  make %{py3_dist pydata-sphinx-theme sphinx sphinx_design}
@@ -39,33 +38,35 @@ GraphicsView framework for fast display.}
 %description %_description
 
 
-%package -n python3-%{srcname}
+%package -n python3-pyqtgraph
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 Requires:       %{py3_deps}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-pyqtgraph %_description
 
 %if %{with docs}
 %package doc
-Summary:        Documentation for the %{srcname} library
+Summary:        Documentation for the pyqtgraph library
 
 %description doc
-This package provides documentation for the %{srcname} library.
+This package provides documentation for the pyqtgraph library.
 %endif
 
 %prep
 %autosetup -p1 -n %{srcname}-%{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 %if %{with docs}
 make -C doc html
 %endif
 
 %install
-%py3_install
-rm -rf %{buildroot}/%{python3_sitelib}/pyqtgraph/examples
+%pyproject_install
+%pyproject_save_files -l pyqtgraph
 rm -f doc/build/html/.buildinfo
 rm -f doc/build/html/objects.inv
 
@@ -74,17 +75,18 @@ rm -f doc/build/html/objects.inv
 # https://github.com/pyqtgraph/pyqtgraph/issues/2110 (test_PolyLineROI)
 %pytest -k "not (test_reload or test_PolyLineROI)"
 
-%files -n python3-%{srcname}
-%license LICENSE.txt
+%files -n python3-pyqtgraph -f %{pyproject_files}
 %doc CHANGELOG README.md
-%{python3_sitelib}/*
 
 %if %{with docs}
 %files doc
-%doc pyqtgraph/examples doc/build/html
+%doc doc/build/html
 %endif
 
 %changelog
+* Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 0.13.7-10
+- Migrate to pyproject macros (#2378072)
+
 * Sat Jul 05 2025 Scott Talbert <swt@techie.net> - 0.13.7-9
 - Fix FTBFS with numpy 2.3.0+ (#2372071)
 

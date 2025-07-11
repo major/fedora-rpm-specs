@@ -1,8 +1,8 @@
 %global pypi_name scramp
 
 Name:           python-%{pypi_name}
-Version:        1.4.5
-Release:        5%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        Implementation of the SCRAM protocol
 
 License:        MIT-0
@@ -46,6 +46,9 @@ Scramp is a pure-Python implementation of the SCRAM authentication protocol.
 %license LICENSE
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.4.6-1
+- Update to latest upstream release (closes rhbz#2376515)
+
 * Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1.4.5-5
 - Rebuilt for Python 3.14
 

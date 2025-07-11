@@ -1,11 +1,11 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.5.0
+Version:        3.5.1
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -13,6 +13,12 @@ Summary:        A bridge from UFOs to FontTool objects
 License:        MIT AND Apache-2.0
 URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
+
+# update fonttools and fix integration tests
+# https://github.com/googlefonts/ufo2ft/pull/929
+# (backport just the essential change and omit commits that would not apply
+# cleanly to files in the sdist)
+Patch:          %{forgeurl}/pull/929/commits/5ca4800ef39167c377fc669b41e146520cfa641b.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
@@ -60,11 +66,6 @@ k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters
 # Test can fail when updates are not synchronized, but is not essential
 # https://github.com/googlefonts/ufo2ft/issues/877
 k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
-# Some test failures with current fonttools
-# https://github.com/googlefonts/ufo2ft/issues/920
-k="${k-}${k+ and }not (FeatureCompilerTest and test_buildTables_FeatureLibError)"
-k="${k-}${k+ and }not (IntegrationTest and test_compileVariableCFF2s)"
-k="${k-}${k+ and }not (IntegrationTest and test_compileVariableTTFs)"
 
 %pytest -k "${k-}" tests
 
@@ -73,6 +74,10 @@ k="${k-}${k+ and }not (IntegrationTest and test_compileVariableTTFs)"
 %doc README.rst
  
 %changelog
+* Wed Jul 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.1-1
+- Update to 3.5.1 (close RHBZ#2376167)
+- Backport patch for current fonttools
+
 * Mon Jun 16 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-4
 - Update to 3.5.0 (close RHBZ#2361673)
 - Report and skip brittle integration tests failing with current fonttools;

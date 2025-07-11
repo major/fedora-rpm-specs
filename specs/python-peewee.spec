@@ -5,7 +5,7 @@
 %bcond_without postgres_tests
 
 Name:           python-peewee
-Version:        3.18.1
+Version:        3.18.2
 Release:        %autorelease
 Summary:        A simple and small ORM
 

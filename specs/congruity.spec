@@ -11,9 +11,6 @@ BuildArch:	noarch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-# to build wheel
-BuildRequires:	python3-pip
 Requires:	python3-wxpython4
 Requires:	python3-libconcord
 # For mhgui
@@ -36,6 +33,9 @@ This includes the Harmony 200 and Harmony 300. To use it, simply run
 
 %prep
 %autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

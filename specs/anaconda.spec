@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.28
+Version: 43.29
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -509,6 +509,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 09 2025 Packit <hello@packit.dev> - 43.29-1
+- data: profile.d: use slitherer as default web engine everywhere but for
+  workstation (k.koukiou)
+
 * Mon Jul 07 2025 Packit <hello@packit.dev> - 43.28-1
 - Fix an issue with automake versions when building the rpm (a.badger)
 - anaconda.py: remove duplicate import (k.koukiou)

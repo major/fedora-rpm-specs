@@ -2,7 +2,7 @@
 
 Name:           python-%{tarName}
 Version:        1.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Implements a lazy string for python useful for use with gettext
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -14,7 +14,6 @@ Patch0:         0001-Enable-building-on-python3-along-with-changes-to-doc.patch
 Patch1:         0002-python3-2to3-including-doc.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %global _description\
 A module that provides lazy strings for translations. Basically you get an\
@@ -25,7 +24,6 @@ is evaluated based on a callable you provide.
 
 %package -n python3-speaklater
 Summary: Implements a lazy string for python3 useful for gettext
-%{?python_provide:%python_provide python3-speaklater}
 
 %description -n python3-speaklater
 A module that provides lazy strings for translations. Basically you get an
@@ -39,24 +37,30 @@ This package provides the python3 version of the module.
 %patch -P0 -p1
 %patch -P1 -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l 'speaklater*'
 
 %check
+%pyproject_check_import
+
 pushd build/lib
 %{__python3} -m doctest speaklater.py
 popd
 
-%files -n python3-speaklater
-%{python3_sitelib}/speaklater*
-%{python3_sitelib}/__pycache__/*
-%license LICENSE
+%files -n python3-speaklater -f %{pyproject_files}
 %doc PKG-INFO README
 
 %changelog
+* Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.3-39
+- Migrate from py_build/py_install to pyproject macros (bz#2377724)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3-38
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           khard
 Version:        0.19.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An address book for the Linux console
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -10,9 +10,7 @@ Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
-Requires:       python3-atomicwrites
 Requires:       python3-configobj
 Requires:       python3-ruamel-yaml
 Requires:       python3-unidecode
@@ -27,12 +25,17 @@ removes carddav address book entries at your local machine.
 %setup -q
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
 mkdir -p %{buildroot}%{_datadir}/khard/examples/
 mkdir -p %{buildroot}%{_datadir}/khard/examples/davcontroller/
 install -p -m 0644 misc/davcontroller/davcontroller.py %{buildroot}%{_datadir}/khard/examples/davcontroller/davcontroller.py
@@ -44,16 +47,22 @@ install -p -m 0644 misc/zsh/_email-khard %{buildroot}%{_datadir}/zsh/site-functi
 install -p -m 0644 misc/zsh/_khard %{buildroot}%{_datadir}/zsh/site-functions/_khard
 
 
-%files
+%check
+%pyproject_check_import
+
+
+%files -f %{pyproject_files}
 %doc CHANGES README.md todo.txt
-%license LICENSE
 %{_bindir}/khard
-%{python3_sitelib}/*
 %{_datadir}/khard/
 %{_datadir}/zsh/site-functions/
 
 
 %changelog
+* Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.1-7
+- Modernize RPM macros (rhbz#2377298)
+- Remove atomicwrites dependency (https://github.com/lucc/khard/pull/343)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.19.1-6
 - Rebuilt for Python 3.14
 

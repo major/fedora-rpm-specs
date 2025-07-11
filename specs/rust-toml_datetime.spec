@@ -5,7 +5,7 @@
 %global crate toml_datetime
 
 Name:           rust-toml_datetime
-Version:        0.6.9
+Version:        0.6.11
 Release:        %autorelease
 Summary:        TOML-compatible datetime type
 

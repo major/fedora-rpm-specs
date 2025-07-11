@@ -1,17 +1,16 @@
-%global srcname pbkdf2
-
-Name:      python-%{srcname}
+Name:      python-pbkdf2
 Version:   1.3
-Release:   34%{?dist}
+Release:   35%{?dist}
 Summary:   A module for a password-based key derivation function
 
 License:   MIT
 URL:       https://www.dlitz.net/software/python-pbkdf2/
-Source0:   %{pypi_source}
+Source0:   %{pypi_source pbkdf2}
 Patch1:    pbkdf2-license.patch
 Patch2:    pbkdf2-remove-shebang.patch
 
-BuildArch: noarch
+BuildArch:     noarch
+BuildRequires: python3-devel
 
 %global _description %{expand:
 A pure Python Implementation of the password-based key derivation function,
@@ -19,35 +18,44 @@ PBKDF2, specified in RSA PKCS#5 v2.0.}
 
 %description %_description
 
-%package -n python3-%{srcname}
-Summary:       %{summary}
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+%package -n python3-pbkdf2
+Summary: %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-pbkdf2 %_description
+
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n pbkdf2-%{version}
 
-rm -rf %{srcname}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pbkdf2
+
 
 %check
+%pyproject_check_import
+
 %{python3} -m unittest test/*
 
-%files -n python3-%{srcname}
-%doc PKG-INFO
+
+%files -n python3-pbkdf2 -f %{pyproject_files}
 %doc README.txt
-%license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%pycached %{python3_sitelib}/pbkdf2.py
+
 
 %changelog
+* Wed Jul 09 2025 Jonny Heggheim <hegjon@gmail.com> - 1.3-35
+- Removed deprecated macros
+  https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3-34
 - Rebuilt for Python 3.14
 

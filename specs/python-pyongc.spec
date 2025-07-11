@@ -1,14 +1,13 @@
-%global srcname PyOngc
 %global modname pyongc
 
 Name:           python-%{modname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        A python interface for accessing OpenNGC database data
 # Code license is MIT, database is CC-BY-SA-4.0
 License:        MIT AND CC-BY-SA-4.0
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source:         %{pypi_source PyOngc}
+URL:            https://pypi.python.org/pypi/PyOngc
+Source:         %{pypi_source pyongc}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -33,7 +32,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{modname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x data
@@ -45,7 +44,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files %{modname}
+%pyproject_save_files %{modname} -l
 
 
 %check
@@ -54,7 +53,6 @@ Summary:        %{summary}
 
 
 %files -n python3-%{modname} -f %{pyproject_files}
-%license LICENSES/MIT.txt LICENSES/CC-BY-SA-4.0.txt
 %doc README.rst
 %{_bindir}/ongc
 

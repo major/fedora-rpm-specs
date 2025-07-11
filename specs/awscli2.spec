@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.25.0
+Version:            2.27.0
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -46,8 +46,8 @@ Obsoletes:          awscli < 2
 Provides:           awscli-2 = %{version}-%{release}
 Obsoletes:          awscli-2 < %{version}-%{release}
 
-# python-awscrt does not build on s390x
-ExcludeArch:        s390x
+# python-awscrt does not build on i686 nor s390x
+ExcludeArch:        %{ix86} s390x
 
 
 %description

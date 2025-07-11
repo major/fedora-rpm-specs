@@ -1,18 +1,16 @@
 Name:           netsed
-Version:        1.2
-Release:        26%{?dist}
-Summary:        A tool to modify network packets
+Version:        1.4
+Release:        1%{?dist}
+Summary:        Tool to modify network packets
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://silicone.homelinux.org/projects/netsed/
 Source0:        http://silicone.homelinux.org/release/%{name}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-#BuildRequires:  rubygem-minitest
 
 %description
 NetSED is small and handful utility designed to alter the contents of
@@ -38,15 +36,14 @@ make doc
 %install
 install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
-#%check
-#cd test
-#ruby tc_*.rb
-
 %files
 %doc LICENSE NEWS README TODO html/
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> -1.4-1
+- Update to latest upstream release (closes rhbz#2366676)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           isync
-Version:        1.5.0
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Tool to synchronize IMAP4 and Maildir mailboxes
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,14 +10,6 @@ Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar
 Source1:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz.asc
 # needs manual removal of leftover html elements
 Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x63bfd037cad71e8dff3aea3ac17714f08d1bdbba#./%{name}.keyring
-# https://sourceforge.net/p/isync/patches/19/
-Patch0:         v2-0001-fix-compile-with-fno-lto.patch
-Patch1:         0001-fix-initial-build-from-git.patch
-Patch2:         0002-fix-IMAP-INBOX-case-normalization.patch
-Patch3:         0003-add-missing-trailing-newlines-in-error-calls.patch
-Patch4:         0004-fix-typos.patch
-Patch5:         0005-improve-reporting-of-failure-to-open-previously-pres.patch
-Patch6:         0006-fix-implicit-listing-of-Maildir-INBOX-under-Path.patch
 
 BuildRequires:  perl
 BuildRequires:  libdb-devel
@@ -64,6 +56,9 @@ rm -r %{buildroot}%{_defaultdocdir}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.1-1
+- Update to latest upstream release (closes rhbz#2351435)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

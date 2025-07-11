@@ -46,7 +46,6 @@ BuildRequires:  pkgconfig(libgeoclue-2.0) >= %{geoclue_version}
 BuildRequires:  pkgconfig(libnma-gtk4) >= %{nma_version}
 BuildRequires:  pkgconfig(libnm) >= %{nm_version}
 BuildRequires:  pkgconfig(libsecret-1)
-BuildRequires:  pkgconfig(packagekit-glib2)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)

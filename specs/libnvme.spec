@@ -3,11 +3,15 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.13
-Release: 2%{?dist}
+Version: 1.14
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2370805
+Patch0:  libnvme-1.15_ioctl-only_use_io_uring_for_char_devices.patch
+Patch1:  libnvme-1.15_types-Fix_nvme_ns_id_desc_packing.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -18,7 +22,6 @@ BuildRequires: json-c-devel >= 0.13
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: keyutils-libs-devel
-BuildRequires: liburing-devel >= 2.2
 %if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: kernel-headers >= 5.15
 %endif
@@ -60,7 +63,7 @@ This package contains Python bindings for libnvme.
 %autosetup -p1 -n %{name}-%{version_no_tilde}
 
 %build
-%meson -Dpython=enabled -Dlibdbus=enabled -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
+%meson -Dpython=enabled -Dlibdbus=enabled -Dliburing=disabled -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
 %meson_build
 
 %install
@@ -77,9 +80,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.13.0
+%{_libdir}/libnvme.so.1.14.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.13.0
+%{_libdir}/libnvme-mi.so.1.14.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -99,6 +102,10 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Wed Jul 09 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.14-1
+- Upstream v1.14 release
+- Disable io_uring support per upstream suggestion
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.13-2
 - Rebuilt for Python 3.14
 

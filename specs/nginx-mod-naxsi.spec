@@ -2,7 +2,7 @@
 
 Name:           nginx-mod-naxsi
 Version:        1.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        nginx web application firewall module
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -51,6 +51,9 @@ install -m0755 naxsi_rules/naxsi_core.rules %{buildroot}%{_datadir}/nginx/naxsi/
 
 
 %changelog
+* Wed Jul 09 2025 Felix Kaechele <felix@kaechele.ca> - 1.6-10
+- Rebuild for nginx 1.28.0
+
 * Thu Feb 06 2025 Felix Kaechele <felix@kaechele.ca> - 1.6-9
 - Rebuild for nginx 1.26.3
 

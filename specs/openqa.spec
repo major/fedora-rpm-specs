@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   6deeb26bf64c56797d2037f78869618db0d5405d
+%global github_commit   371ad64df87ff7bdfb558b0bd59013f13a4e5a57
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250522
+%global github_date     20250709
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -135,13 +135,10 @@ Source4:        23-fedora-messaging.t
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
 
-# https://github.com/os-autoinst/openQA/pull/6472
-# Tweaks to the git behavior and config for it, includes disabling
-# auto-update by default (it causes havoc on our instances)
-Patch:          0001-Disentangle-git_auto_clone-and-git_auto_update.patch
-Patch:          0002-Tweak-git-config-access-in-_git_clone_all.patch
-Patch:          0003-Re-add-git_auto_commit-and-improved-docs-for-the-git.patch
-Patch:          0004-Disable-git_auto_update-by-default.patch
+# https://github.com/os-autoinst/openQA/pull/6578
+# https://progress.opensuse.org/issues/183833
+# avoid tap worker hosts breaking due to dbus quota exhaustion
+Patch:          0001-worker-disconnect-dbus-from-NameOwnerChanged-signal-.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -180,14 +177,14 @@ Obsoletes:      openqa < 4.3-7
 # The NPM bundled dependency generator does not work as the modules
 # seem to be stripped down to the minimum openQA needs - package.json
 # is stripped out. So we have to list these manually
-Provides:       bundled(nodejs-ace-builds) = 1.41.0
+Provides:       bundled(nodejs-ace-builds) = 1.43.1
 Provides:       bundled(nodejs-anser) = 2.3.2
-Provides:       bundled(nodejs-bootstrap) = 5.3.6
+Provides:       bundled(nodejs-bootstrap) = 5.3.7
 Provides:       bundled(nodejs-chosen-js) = 1.8.7
 Provides:       bundled(nodejs-d3) = 7.9.0
 Provides:       bundled(nodejs-dagre-d3) = 0.6.4
-Provides:       bundled(nodejs-datatables.net) = 2.3.0
-Provides:       bundled(nodejs-datatables.net-bs5) = 2.3.1
+Provides:       bundled(nodejs-datatables.net) = 2.3.2
+Provides:       bundled(nodejs-datatables.net-bs5) = 2.3.2
 Provides:       bundled(nodejs-fork-awesome) = 1.2.0
 Provides:       bundled(nodejs-jquery) = 3.7.1
 Provides:       bundled(nodejs-jquery-ujs) = 1.2.3
@@ -415,7 +412,6 @@ cp %{SOURCE4} t/
 %build
 # this does nothing, but it's harmless, so just in case it turns up...
 make %{?_smp_mflags}
-
 
 %install
 export LC_ALL=en_US.UTF-8
@@ -678,7 +674,7 @@ fi
 %files worker
 %{_datadir}/openqa/lib/OpenQA/CacheService/
 %{_datadir}/openqa/lib/OpenQA/Worker/
-%ghost %config(noreplace) %{_sysconfdir}/openqa/workers.ini
+%ghost %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/openqa/workers.ini
 %ghost %config(noreplace) %attr(0400,_openqa-worker,root) %{_sysconfdir}/openqa/client.conf
 %dir %{_sysconfdir}/openqa/workers.ini.d
 %dir %{_sysconfdir}/openqa/client.conf.d
@@ -703,7 +699,7 @@ fi
 %{_datadir}/openqa/script/openqa-vde_switch
 %{_tmpfilesdir}/openqa.conf
 %{_sysusersdir}/openQA-worker.conf
-%ghost %dir %{_rundir}/openqa
+%ghost %dir %attr(0755,_openqa-worker,root) %{_rundir}/openqa
 # worker libs
 %dir %{_datadir}/openqa
 %dir %{_datadir}/openqa/script
@@ -804,6 +800,13 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Wed Jul 09 2025 Adam Williamson <awilliam@redhat.com> - 5^20250709git371ad64-1
+- Update to latest upstream git
+- Drop merged patches
+
+* Mon Jul 07 2025 Adam Williamson <awilliam@redhat.com> - 5^20250522git6deeb26-2
+- Backport PR #6578 to fix tap worker dbus quota issue
+
 * Thu May 22 2025 Adam Williamson <awilliam@redhat.com> - 5^20250522git6deeb26-1
 - Update to latest upstream git
 - Drop merged patches

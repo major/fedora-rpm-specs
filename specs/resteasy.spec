@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -12,11 +12,15 @@ Patch1:         0001-RESTEASY-2559-Improper-validation-of-response-header.patch
 Patch2:         0001-Remove-Log4jLogger.patch
 Patch3:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 Patch4:         0001-Update-to-new-jakarta-xml-bind-namespace.patch
+Patch5:         rest-easy-jakarta.patch
 
 BuildArch:      noarch
 %if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
 %endif
+
+BuildRequires: tomcat-servlet-6.0-api
+BuildRequires: tomcat-jakartaee-migration
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
@@ -24,7 +28,7 @@ BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:  mvn(org.apache.tomcat:tomcat-servlet-api)
+
 
 # Jackson 2
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
@@ -217,10 +221,21 @@ find -name '*.jar' -print -delete
 </configuration>'
 
 %build
-%mvn_build -f -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+
+%mvn_build -f -j   -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+
+ls %{_buildrootdir}
 
 %install
+
 %mvn_install
+
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-client.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-client.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jackson2-provider.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jackson2-provider.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jaxrs.jar  %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jaxrs.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE  %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-servlet-initializer.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-servlet-initializer.jar
+
+find .  %{_buildrootdir}/BUILDROOT
 
 %files -n pki-%{name}
 %doc README.md
@@ -239,8 +254,8 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-32
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Wed Jul 09 2025 Jack Magne <jmagne@redhat.com> - 3.0.26-33
+- Rebuilt with support and migration  for tomcat10 and jarkarta ee.
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

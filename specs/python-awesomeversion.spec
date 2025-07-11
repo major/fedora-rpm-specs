@@ -39,7 +39,6 @@ sed -i -e 's/version = "0"/version = "%{version}"/g' pyproject.toml
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
-rm %{buildroot}/%{python3_sitelib}/LICENCE.md
 
 %check
 %pytest -v tests
@@ -50,4 +49,3 @@ rm %{buildroot}/%{python3_sitelib}/LICENCE.md
 
 %changelog
 %autochangelog
-

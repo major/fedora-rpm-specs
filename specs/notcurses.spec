@@ -17,15 +17,16 @@ BuildRequires: libdeflate-devel
 BuildRequires: libqrcodegen-devel
 BuildRequires: libunistring-devel
 BuildRequires: ffmpeg-free-devel
+BuildRequires: ncurses-devel
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pandoc
-BuildRequires: python3-cffi
 BuildRequires: python3-devel
-BuildRequires: python3-pypandoc
-BuildRequires: python3-setuptools
-BuildRequires: pkgconfig(ncurses)
 # for en_US.UTF-8 locale (we just want *some* UTF-8 one)
 BuildRequires: glibc-langpack-en
+
+%generate_buildrequires
+cd cffi
+%pyproject_buildrequires
 
 %description
 Notcurses facilitates the creation of modern TUI programs,
@@ -77,7 +78,7 @@ Python wrappers and a demonstration script for the notcurses library.
  -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 %cmake_build
 cd cffi
-CFLAGS="-I../include -L../" %py3_build
+CFLAGS="-I../include -L../" %pyproject_wheel
 
 %check
 #ctest -V %{?_smp_mflags}
@@ -85,7 +86,7 @@ CFLAGS="-I../include -L../" %py3_build
 %install
 %cmake_install
 cd cffi
-%py3_install
+%pyproject_install
 
 %files
 %doc CONTRIBUTING.md doc/CURSES.md doc/HACKING.md doc/HISTORY.md INSTALL.md doc/OTHERS.md README.md USAGE.md NEWS.md TERMINALS.md
@@ -145,9 +146,9 @@ cd cffi
 %files -n python3-%{name}
 %{_bindir}/notcurses-pydemo
 %{_bindir}/ncdirect-pydemo
-%{_mandir}/man1/notcurses-pydemo.1*
-%{_mandir}/man1/ncdirect-pydemo.1*
-%{python3_sitearch}/*egg-info/
+%{python3_sitearch}/%{_mandir}/man1/notcurses-pydemo.1*
+%{python3_sitearch}/%{_mandir}/man1/ncdirect-pydemo.1*
+%{python3_sitearch}/notcurses-%{version}.dist-info/
 %{python3_sitearch}/notcurses/
 %attr(0755, -, -) %{python3_sitearch}/notcurses/notcurses.py
 %{python3_sitearch}/*.so

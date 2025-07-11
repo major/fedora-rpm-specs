@@ -11,6 +11,8 @@ URL:            https://symengine.org/
 ExcludeArch:    %{ix86}
 
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/symengine/symengine/commit/d8234815beee37447bd85d51c70f4a855509c20f.patch
+Patch1:         https://github.com/symengine/symengine/commit/00085a24acbffd95dafb94331fa4a07a0da44ffa.patch
 
 BuildRequires:  cereal-devel
 BuildRequires:  cmake
@@ -33,13 +35,16 @@ The %{name}-devel package contains libraries and header files for developing
 applications that use SymEngine.
 
 %prep
-%autosetup
+%autosetup -p1
 sed -i -e 's|DEF_INSTALL_CMAKE_DIR lib/cmake|DEF_INSTALL_CMAKE_DIR %{_lib}/cmake|g' CMakeLists.txt
 
 %build
 # https://github.com/symengine/symengine?tab=readme-ov-file#recommended-options-to-build
 %cmake \
     -DINTEGER_CLASS=flint \
+%ifarch s390x
+    -DHAVE_SYMENGINE_RTTI=no \
+%endif
     -DWITH_GMP=on \
     -DWITH_LLVM=on \
     -DWITH_LLVM=on \

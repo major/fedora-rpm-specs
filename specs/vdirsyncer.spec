@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.19.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -32,7 +32,6 @@ BuildRequires:  python3-icalendar
 BuildRequires:  python3-lxml
 BuildRequires:  python3-requests >= 2.10
 BuildRequires:  python3-requests-toolbelt >= 0.4.0
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
@@ -62,7 +61,6 @@ It aims to be for CalDAV and CardDAV what OfflineIMAP is for IMAP.
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 Requires:       python3-atomicwrites >= 0.1.7
 Requires:       python3-click >= 5.0
@@ -92,6 +90,9 @@ for the vdirsyncer calendar/address-book synchronization utility.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Here we set upstream version based on setuptools_scm documentation
 # this is done to avoid the following error:
@@ -99,7 +100,7 @@ for the vdirsyncer calendar/address-book synchronization utility.
 # since we are not importing a .git repository in the tarball
 # From: https://athoscr.fedorapeople.org/packaging/python-setuptools_scm_git_archive.spec
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%py3_build
+%pyproject_wheel
 
 # Custom sphinx docs need to import vdirsyncer classes from the untarred
 # source tree
@@ -122,21 +123,21 @@ rm -fv docs/_build/html/{.buildinfo,objects.inv}
 # since we are not importing a .git repository in the tarball
 # From: https://athoscr.fedorapeople.org/packaging/python-setuptools_scm_git_archive.spec
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
 cp -r docs/_build/man/%{name}.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 
 %check
+%pyproject_check_import
+
 %if %{with tests}
 sh build.sh tests
 %endif
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS.rst README.rst CONTRIBUTING.rst
-%{python3_sitelib}/%{srcname}-*.egg-info
-%{python3_sitelib}/%{srcname}
 
 
 %files
@@ -150,6 +151,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.3-3
+- Modernize RPM macros (rhbz#2378494)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.19.3-2
 - Rebuilt for Python 3.14
 

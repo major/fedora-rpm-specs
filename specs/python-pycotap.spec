@@ -1,9 +1,8 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name pycotap
 
 Name:           python-%{pypi_name}
 Version:        1.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A tiny test runner that outputs TAP results to standard output
 
 License:        MIT
@@ -12,7 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 pycotap is a simple Python test runner for unit tests that outputs Test Anything
@@ -23,7 +21,6 @@ printers and processors.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 pycotap is a simple Python test runner for unit tests that outputs Test Anything
@@ -34,22 +31,28 @@ printers and processors.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 find %{buildroot}/%{python3_sitelib} -name '*.py' | xargs sed -i '/^#!/d'
 %__rm -f %{buildroot}/usr/COPYING
 
-%files -n python3-%{pypi_name}
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Wed Jul 09 2025 Shlomi Fish <shlomif@shlomifish.org> 1.3.1-7
+- Stop using deprecated RPM macros ( https://bugzilla.redhat.com/show_bug.cgi?id=2378026 )
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.1-6
 - Rebuilt for Python 3.14
 

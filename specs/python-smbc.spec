@@ -6,7 +6,7 @@
 Summary:       Python bindings for libsmbclient API from Samba
 Name:          python-smbc
 Version:       1.0.25.1
-Release:       11%{?dist}
+Release:       12%{?dist}
 URL:           https://github.com/hamano/pysmbc
 Source:        %{URL}/archive/%{version}/pysmbc-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -17,8 +17,10 @@ BuildRequires: gcc
 BuildRequires: git-core
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: libsmbclient-devel >= 3.2
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 This package provides Python bindings for the libsmbclient API
@@ -44,10 +46,10 @@ Documentation for python-smbc.
 %autosetup -n pysmbc-%{version} -S git
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{_bindir}/pydoc3 -w smbc
 %{_bindir}/mkdir html
@@ -63,6 +65,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Wed Jul 09 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.25.1-12
+- remove deprecated python macros (fedora#2378212)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.25.1-11
 - Rebuilt for Python 3.14
 

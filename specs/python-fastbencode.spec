@@ -1,8 +1,8 @@
 %global pypi_name fastbencode
 
 Name:           python-%{pypi_name}
-Version:        0.2
-Release:        7%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Implementation of bencode with optional fast C extensions
 
 License:        GPL-2.0-or-later AND MIT
@@ -12,8 +12,6 @@ URL:            https://github.com/breezy-team/fastbencode
 Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(cython) >= 0.29
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  gcc
 
 %global _description %{expand:
@@ -37,11 +35,14 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -x cext
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %{py3_test_envvars} %{python3} -m unittest
@@ -50,9 +51,14 @@ Summary:        %{summary}
 %license COPYING
 %doc README.md
 %{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Tue Jul 08 2025 Ondřej Pohořelský <opohorel@redhat.com> - 0.3.2-1
+- Update to 0.3.2
+- Migrated to new python packaging guidelines
+- Resolves: rhbz#2377697, rhbz#2377047
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2-7
 - Rebuilt for Python 3.14
 

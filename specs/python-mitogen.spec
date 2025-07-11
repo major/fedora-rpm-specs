@@ -8,8 +8,8 @@
 %global pkgname %{srcname}
 
 Name:           python-%{pkgname}
-Version:        0.3.22
-Release:        2%{?dist}
+Version:        0.3.24
+Release:        1%{?dist}
 Summary:        Distributed self-replicating programs in Python
 
 License:        LicenseRef-Callaway-BSD
@@ -51,25 +51,31 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 # No compat support needed
 rm -r mitogen/compat ansible_mitogen/compat
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{srcname}
 
 %check
 # tests/README.md says the tests need:
 #    - internet connection
 #    - working docker daemon
 
-%files -n python%{python3_pkgversion}-%{pkgname}
+%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{libname}
 %{python3_sitelib}/ansible_%{libname}
-%{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.24-1
+- Update to latest upstream release (closes rhbz#2362709)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.22-2
 - Rebuilt for Python 3.14
 

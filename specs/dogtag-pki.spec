@@ -2,25 +2,27 @@
 Name:             dogtag-pki
 ################################################################################
 
+# Don't use macros in these params since they need to be parsed by build.sh
+%global           vendor_id dogtag
 %global           product_name Dogtag PKI
 %global           product_id dogtag-pki
 %global           theme dogtag
 
 # Upstream version number:
 %global           major_version 11
-%global           minor_version 6
+%global           minor_version 8
 %global           update_version 0
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.3
+%global           release_number 0.1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase alpha1
+%global           phase beta1
 
 %undefine         timestamp
 %undefine         commit_id
@@ -30,7 +32,8 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -39,10 +42,6 @@ Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timesta
 #     -o pki-<version>.tar.gz \
 #     <version tag>
 Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}/pki-%{version}%{?phase:-}%{?phase}.tar.gz
-
-# https://github.com/dogtagpki/pki/pull/4929
-# required for sbin merge
-Patch: 0001-Make-sbin-install-dir-configurable.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -67,15 +66,34 @@ ExcludeArch: i686
 # Java
 ################################################################################
 
+# use Java 17 on Fedora 39 or older and RHEL 9 or older
+# otherwise, use Java 21
+
+# maven-local is a subpackage of javapackages-tools
+
+%if 0%{?fedora} && 0%{?fedora} <= 39 || 0%{?rhel} && 0%{?rhel} <= 9
+
+%define java_runtime java-17-openjdk
+%define java_devel java-17-openjdk-devel
+%define java_headless java-17-openjdk-headless
+%define java_home %{_jvmdir}/jre-17-openjdk
+%define maven_local maven-local-openjdk17
+
+%else
+
+%define java_runtime java-21-openjdk
 %define java_devel java-21-openjdk-devel
 %define java_headless java-21-openjdk-headless
 %define java_home %{_jvmdir}/jre-21-openjdk
+%define maven_local maven-local
+
+%endif
 
 ################################################################################
 # Application Server
 ################################################################################
 
-%global app_server tomcat-9.0
+%global app_server tomcat-10.1
 
 ################################################################################
 # PKI
@@ -131,6 +149,9 @@ ExcludeArch: i686
 %define pki_uid 17
 %define pki_groupname pkiuser
 %define pki_gid 17
+
+# Create a home directory for PKI user at /home/pkiuser
+# to store rootless Podman container.
 %define pki_homedir /home/%{pki_username}
 
 %global saveFileContext() \
@@ -156,12 +177,12 @@ fi;
 ################################################################################
 
 BuildRequires:    make
-BuildRequires:    cmake >= 3.0.2
+BuildRequires:    cmake
 BuildRequires:    gcc-c++
 BuildRequires:    zip
 
 BuildRequires:    nspr-devel
-BuildRequires:    nss-devel >= 3.36.1
+BuildRequires:    nss-devel >= 3.101
 
 BuildRequires:    openldap-devel
 BuildRequires:    pkgconfig
@@ -169,7 +190,7 @@ BuildRequires:    policycoreutils
 
 # Java build dependencies
 BuildRequires:    %{java_devel}
-BuildRequires:    maven-local
+BuildRequires:    %{maven_local}
 %if 0%{?fedora}
 BuildRequires:    xmvn-tools
 %endif
@@ -178,6 +199,14 @@ BuildRequires:    javapackages-tools
 %if %{without runtime_deps}
 BuildRequires:    xmlstarlet
 %endif
+
+BuildRequires:     tomcat-jakartaee-migration
+BuildRequires:     pki-resteasy-core                 >= 3.0.26-33
+BuildRequires:     pki-resteasy-client               >= 3.0.26-33
+BuildRequires:     pki-resteasy-servlet-initializer  >= 3.0.26-33
+BuildRequires:     pki-resteasy-jackson2-provider    >= 3.0.26-33
+BuildRequires:     pki-resteasy                      >= 3.0.26-33
+
 
 BuildRequires:    mvn(commons-cli:commons-cli)
 BuildRequires:    mvn(commons-codec:commons-codec)
@@ -213,14 +242,18 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 %endif
 
-BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 9.0.62
-BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 9.0.62
-BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 9.0.62
-BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 9.0.62
+BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.33
+BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.33
+BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.33
+BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.33
 
-BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
-BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.5.0
-BuildRequires:    mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.5.0
+%if 0%{?rhel} && 0%{?rhel} >= 10
+BuildRequires:    tomcat9-lib
+%endif
+
+BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.8
+BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
+BuildRequires:    mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 
 # Python build dependencies
 BuildRequires:    python3 >= 3.6
@@ -460,7 +493,7 @@ BuildArch:        noarch
 Obsoletes:        pki-base < %{version}-%{release}
 Provides:         pki-base = %{version}-%{release}
 
-Requires:         nss >= 3.36.1
+Requires:         nss >= 3.101
 
 Requires:         python3-pki = %{version}-%{release}
 Requires(post):   python3-pki = %{version}-%{release}
@@ -548,6 +581,7 @@ Provides:         bundled(jaxb-api)
 Provides:         bundled(jackson-annotations)
 Provides:         bundled(jackson-core)
 Provides:         bundled(jackson-databind)
+Provides:         bundled(jackson-modules-base)
 Provides:         bundled(jackson-jaxrs-providers)
 Provides:         bundled(jackson-jaxrs-json-provider)
 
@@ -559,8 +593,8 @@ Provides:         bundled(resteasy-client)
 Provides:         bundled(resteasy-jackson2-provider)
 %endif
 
-Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
-Requires:         mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.5.0
+Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.8
+Requires:         mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 Requires:         %{product_id}-base = %{version}-%{release}
 
 %description -n   %{product_id}-java
@@ -576,7 +610,7 @@ Obsoletes:        pki-tools < %{version}-%{release}
 Provides:         pki-tools = %{version}-%{release}
 
 Requires:         openldap-clients
-Requires:         nss-tools >= 3.36.1
+Requires:         nss-tools >= 3.101
 Requires:         %{product_id}-java = %{version}-%{release}
 Requires:         p11-kit-trust
 Requires:         file
@@ -632,12 +666,14 @@ Requires:         mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 Provides:         bundled(resteasy-servlet-initializer)
 %endif
 
-Requires:         tomcat >= 1:9.0.62
-Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.5.0
+Requires:         tomcat >= 1:10.1.33
+
+Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
 
 Requires:         systemd
 Requires(post):   systemd-units
 Requires(postun): systemd-units
+Requires(pre):    shadow-utils
 
 # pki-healthcheck depends on the following library
 %if 0%{?rhel}
@@ -653,18 +689,12 @@ Conflicts:        ipa-server < 4.7.1
 Conflicts:        freeipa-server < 4.7.1
 %endif
 
-Provides:         bundled(js-backbone) = 1.4.0
+Provides:         bundled(js-backbone) = 1.6.0
 Provides:         bundled(js-bootstrap) = 3.4.1
-Provides:         bundled(js-jquery) = 3.5.1
+Provides:         bundled(js-jquery) = 3.7.1
 Provides:         bundled(js-jquery-i18n-properties) = 1.2.7
 Provides:         bundled(js-patternfly) = 3.59.2
-Provides:         bundled(js-underscore) = 1.9.2
-
-# https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
-# since we don't follow the guidelines on how users and groups should
-# be created we must explicitly specify these provides
-Provides:       user(%{pki_username})
-Provides:       group(%{pki_groupname})
+Provides:         bundled(js-underscore) = 1.13.7
 
 %description -n   %{product_id}-server
 This package provides libraries and utilities needed by %{product_name} services.
@@ -864,7 +894,7 @@ Requires(postun): systemd-units
 # additional runtime requirements needed to run native 'tpsclient'
 # REMINDER:  Revisit these once 'tpsclient' is rewritten as a Java app
 
-Requires:         nss-tools >= 3.36.1
+Requires:         nss-tools >= 3.101
 Requires:         openldap-clients
 
 %description -n   %{product_id}-tps
@@ -919,6 +949,7 @@ BuildArch:        noarch
 Obsoletes:        pki-console < %{version}-%{release}
 Provides:         pki-console = %{version}-%{release}
 
+Requires:         %{java_runtime}
 Requires:         %{product_id}-java = %{version}-%{release}
 Requires:         %{product_id}-console-theme = %{version}-%{release}
 
@@ -1086,7 +1117,31 @@ then
     cp /usr/share/java/resteasy/resteasy-jackson2-provider.jar \
         resteasy-jackson2-provider-$RESTEASY_VERSION.jar
 
-    ls -l
+    #migrate necessary files being copied around to jakarta 9.0 ee
+
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar  jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar 
+
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-json-provider-$JACKSON_VERSION.jar jackson-jaxrs-json-provider-$JACKSON_VERSION.jar
+
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-annotations-$JACKSON_VERSION.jar jackson-annotations-$JACKSON_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-core-$JACKSON_VERSION.jar  jackson-core-$JACKSON_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-databind-$JACKSON_VERSION.jar jackson-databind-$JACKSON_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-base-$JACKSON_VERSION.jar  jackson-jaxrs-base-$JACKSON_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-jaxrs-json-provider-$JACKSON_VERSION.jar jackson-jaxrs-json-provider-$JACKSON_VERSION.jar 
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE  jackson-module-jaxb-annotations-$JACKSON_VERSION.jar jackson-module-jaxb-annotations-$JACKSON_VERSION.jar
+
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar  jakarta.activation-api-$JAKARTA_ACTIVATION_API_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar  
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.xml.bind-api-$JAXB_API_VERSION.jar jakarta.xml.bind-api-$JAXB_API_VERSION.jar 
+
+    # Add local artifact so we can compile against the migrated jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
+    # We could have used the maven install plugin but it's not available with standard rpms.
+
+    # Create the local artifact structure
+    mkdir -p ~/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION
+    # Copy over the jaxrs api so we can compile
+    cp jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar  ~/.m2/repository/pki-local/jboss-jaxrs-api_2.0_spec/$JAXRS_VERSION/jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
+
     popd
 fi
 
@@ -1163,7 +1218,8 @@ fi
 %mvn_file org.dogtagpki.pki:pki-server            pki/pki-server
 %mvn_file org.dogtagpki.pki:pki-server-webapp     pki/pki-server-webapp
 %mvn_file org.dogtagpki.pki:pki-tomcat            pki/pki-tomcat
-%mvn_file org.dogtagpki.pki:pki-tomcat-9.0        pki/pki-tomcat-9.0
+#%mvn_file org.dogtagpki.pki:pki-tomcat-9.0        pki/pki-tomcat-9.0
+%mvn_file org.dogtagpki.pki:pki-tomcat-10.1       pki/pki-tomcat-10.1
 %mvn_file org.dogtagpki.pki:pki-ca                pki/pki-ca
 %mvn_file org.dogtagpki.pki:pki-kra               pki/pki-kra
 %mvn_file org.dogtagpki.pki:pki-ocsp              pki/pki-ocsp
@@ -1182,7 +1238,7 @@ fi
 %mvn_package org.dogtagpki.pki:pki-server         pki-server
 %mvn_package org.dogtagpki.pki:pki-server-webapp  pki-server
 %mvn_package org.dogtagpki.pki:pki-tomcat         pki-server
-%mvn_package org.dogtagpki.pki:pki-tomcat-9.0     pki-server
+%mvn_package org.dogtagpki.pki:pki-tomcat-10.1     pki-server
 %mvn_package org.dogtagpki.pki:pki-ca             pki-ca
 %mvn_package org.dogtagpki.pki:pki-kra            pki-kra
 %mvn_package org.dogtagpki.pki:pki-ocsp           pki-ocsp
@@ -1195,11 +1251,15 @@ fi
 %mvn_package org.dogtagpki.pki:pki-console        pki-console
 %endif
 
+%if 0%{?fedora}
 # Create a sysusers.d config file
-cat >dogtag-pki.sysusers.conf <<EOF
-g pkiuser %{pki_gid}
-u pkiuser %{pki_uid} 'Certificate System' %{pki_homedir} -
+
+cat > %{product_id}.sysusers.conf <<EOF
+g %{pki_username} %{pki_gid}
+u %{pki_groupname} %{pki_uid} 'Certificate System' %{pki_homedir} -
 EOF
+
+%endif
 
 ################################################################################
 %build
@@ -1226,7 +1286,7 @@ ln -sf ../../base/tools/target/pki-tools.jar
 
 %if %{with server}
 ln -sf ../../base/tomcat/target/pki-tomcat.jar
-ln -sf ../../base/tomcat-9.0/target/pki-tomcat-9.0.jar
+ln -sf ../../base/tomcat-10.1/target/pki-tomcat-10.1.jar
 ln -sf ../../base/server/target/pki-server.jar
 ln -sf ../../base/server-webapp/target/pki-server-webapp.jar
 %endif
@@ -1269,44 +1329,8 @@ popd
 %endif
 
 # Remove all symbol table and relocation information from the executable.
-C_FLAGS="-s"
-CXX_FLAGS="$CXX_FLAGS -g -fPIE -pie"
-
-%if 0%{?fedora}
-# https://sourceware.org/annobin/annobin.html/Test-gaps.html
-C_FLAGS="$C_FLAGS -fplugin=annobin"
-
-%ifarch x86_64
-# https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
-C_FLAGS="$C_FLAGS -fcf-protection=full"
-%endif
-
-# https://sourceware.org/annobin/annobin.html/Test-optimization.html
-C_FLAGS="$C_FLAGS -O2"
-CXX_FLAGS="$CXX_FLAGS -O2"
-
-# https://sourceware.org/annobin/annobin.html/Test-glibcxx-assertions.html
-C_FLAGS="$C_FLAGS -D_GLIBCXX_ASSERTIONS"
-CXX_FLAGS="$CXX_FLAGS -D_GLIBCXX_ASSERTIONS"
-
-# https://sourceware.org/annobin/annobin.html/Test-lto.html
-C_FLAGS="$C_FLAGS -fno-lto"
-
-# https://sourceware.org/annobin/annobin.html/Test-fortify.html
-C_FLAGS="$C_FLAGS -D_FORTIFY_SOURCE=3"
-CXX_FLAGS="$CXX_FLAGS -D_FORTIFY_SOURCE=3"
-
-# https://sourceware.org/annobin/annobin.html/Test-stack-clash.html
-C_FLAGS="$C_FLAGS -fstack-clash-protection"
-CXX_FLAGS="$CXX_FLAGS -fstack-clash-protection"
-
-%ifarch aarch64
-# https://sourceware.org/annobin/annobin.html/Test-dynamic-tags.html
-C_FLAGS="$C_FLAGS -mbranch-protection=standard"
-CXX_FLAGS="$CXX_FLAGS -mbranch-protection=standard"
-%endif
-
-%endif
+C_FLAGS="%{optflags}"
+CXX_FLAGS="%{optflags}"
 
 pkgs=base\
 %{?with_server:,server}\
@@ -1359,6 +1383,22 @@ pkgs=base\
 %if %{with maven}
 # install Java binaries
 %mvn_install
+
+# Normally JAR files are installed in /usr/share/java/pki.
+# Since pki-tools.jar uses JNI Maven might install it in
+# /usr/lib/java/pki or /usr/share/java/pki depending on the
+# build environment.
+find %{buildroot} -name "*.jar"
+
+# Create link to ensure pki-tools.jar is available at both locations.
+if [ -e %{buildroot}%{_jnidir}/pki/pki-tools.jar ]; then
+   ln -sf ../../../..%{_jnidir}/pki/pki-tools.jar %{buildroot}%{_javadir}/pki
+else
+   mkdir -p %{buildroot}%{_jnidir}/pki
+   ln -sf ../../../..%{_javadir}/pki/pki-tools.jar %{buildroot}%{_jnidir}/pki
+fi
+
+# with maven
 %endif
 
 # install PKI console, Javadoc, and native binaries
@@ -1543,9 +1583,25 @@ xmlstarlet edit --inplace \
 
 %if %{with server}
 
-install -m0644 -D dogtag-pki.sysusers.conf %{buildroot}%{_sysusersdir}/dogtag-pki.conf
+%if 0%{?fedora}
+
+install -m0644 -D %{product_id}.sysusers.conf %{buildroot}%{_sysusersdir}/%{product_id}.conf
+%pre -n %{product_id}-server
+
+%else
 
 %pre -n %{product_id}-server
+
+# create PKI group if it doesn't exist
+getent group %{pki_groupname} >/dev/null || groupadd -f -g %{pki_gid} -r %{pki_groupname}
+
+# create PKI user if it doesn't exist
+if ! getent passwd %{pki_username} >/dev/null ; then
+    useradd -r -u %{pki_uid} -g %{pki_groupname} -d %{pki_homedir} -s /sbin/nologin -c "Certificate System" %{pki_username}
+fi
+
+%endif
+
 # create PKI home directory if it doesn't exist
 if [ ! -d %{pki_homedir} ] ; then
     cp -ar /etc/skel %{pki_homedir}
@@ -1723,6 +1779,7 @@ fi
 %{_bindir}/TokenInfo
 %{_datadir}/pki/tools/
 %{_datadir}/pki/lib/p11-kit-trust.so
+%{_libdir}/libpki-tps.so
 %{_mandir}/man1/AtoB.1.gz
 %{_mandir}/man1/AuditVerify.1.gz
 %{_mandir}/man1/BtoA.1.gz
@@ -1753,10 +1810,8 @@ fi
 %{_mandir}/man1/PKCS10Client.1.gz
 %{_mandir}/man1/PKICertImport.1.gz
 %{_mandir}/man1/tpsclient.1.gz
-
-%if %{without maven}
-%{_datadir}/java/pki/pki-tools.jar
-%endif
+%{_javadir}/pki/pki-tools.jar
+%{_jnidir}/pki/pki-tools.jar
 
 # with base
 %endif
@@ -1815,13 +1870,15 @@ fi
 %{_mandir}/man8/pki-healthcheck.8.gz
 %{_datadir}/pki/setup/
 %{_datadir}/pki/server/
-%{_sysusersdir}/dogtag-pki.conf
-
+%if 0%{?fedora}
+%{_sysusersdir}/%{product_id}.conf
+%endif
 %if %{without maven}
 %{_datadir}/java/pki/pki-server.jar
 %{_datadir}/java/pki/pki-server-webapp.jar
 %{_datadir}/java/pki/pki-tomcat.jar
-%{_datadir}/java/pki/pki-tomcat-9.0.jar
+#%{_datadir}/java/pki/pki-tomcat-9.0.jar
+%{_datadir}/java/pki/pki-tomcat-10.1.jar
 %endif
 
 # with server
@@ -2007,6 +2064,9 @@ fi
 
 ################################################################################
 %changelog
+* Wed Jul 09 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.1.beta1
+- Rebase to PKI 11.8.0-beta1
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 11.6.0-0.3.alpha1.2
 - Rebuilt for Python 3.14
 

@@ -1,16 +1,14 @@
 Name:           irclog2html
-Version:        2.17.2
-Release:        24%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        A script to convert IRC logs to HTML and other formats
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://mg.pov.lt/irclog2html/
 Source0:        https://github.com/mgedmin/irclog2html/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 irclog2html is a nice IRC log parser and colorizer that will do the most common
@@ -23,15 +21,21 @@ echo "You may need the irclog.css file. It is available at
   %{_datadir}/%{name}/irclog.css
 " > README.fedora
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -Dpm 0644 src/%{name}/irclog.css %{buildroot}%{_datadir}/%{name}
 
-%files
+%pyproject_save_files -l %{name}
+
+%files -n %files -n irclog2html -f %{pyproject_files}
 %doc CHANGES.rst HACKING.rst README.rst README.fedora
 %license COPYING
 %{_bindir}/%{name}
@@ -39,10 +43,12 @@ install -Dpm 0644 src/%{name}/irclog.css %{buildroot}%{_datadir}/%{name}
 %{_bindir}/irclogserver
 %{_bindir}/logs2html
 %{_datadir}/%{name}/
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/*.egg-info
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 4.0.0-1
+- Update to latest upstream release 4.0.0
+- Replace py3_build/py3_install (closes rhbz#2377291)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.17.2-24
 - Rebuilt for Python 3.14
 

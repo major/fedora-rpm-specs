@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -17,10 +17,15 @@ BuildRequires:	mvn(commons-io:commons-io)
 BuildRequires:	mvn(junit:junit)
 BuildRequires:	asciidoctor
 Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
+%if %{?rhel}%{!?rhel:0} == 9
+Requires:	(java-headless or java-11-headless or java-17-headless or java-21-headless)
+Suggests:	java-headless
+%else
 Requires:	java-headless
+%endif
 
 Requires(post):		%{_sbindir}/update-alternatives
-Requires(postun):	%{_sbindir}/update-alternatives
+Requires(preun):	%{_sbindir}/update-alternatives
 
 # Older versions of voms-clients did not have alternatives
 Conflicts:	voms-clients < 2.0.12
@@ -56,7 +61,7 @@ voms-proxy-init, voms-proxy-destroy and voms-proxy-info.
 %pom_remove_plugin org.asciidoctor:asciidoctor-maven-plugin
 
 %if %{?rhel}%{!?rhel:0} == 9
-# Default openjdk in RHEL 9 is 11
+# Default build JDK in RHEL 9 is 11
 %pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source/text()" 11
 %pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target/text()" 11
 %endif
@@ -128,7 +133,7 @@ install -p -m 644 man/vomses.5 %{buildroot}%{_mandir}/man5/vomses.5
     --slave %{_mandir}/man1/voms-proxy-destroy.1.gz voms-proxy-destroy-man \
     %{_mandir}/man1/voms-proxy-destroy3.1.gz
 
-%postun
+%preun
 if [ $1 -eq 0 ] ; then
     %{_sbindir}/update-alternatives --remove voms-proxy-init \
     %{_bindir}/voms-proxy-init3
@@ -163,10 +168,13 @@ fi
 %license LICENSE
 
 %changelog
+* Tue Jul 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-3
+- Allow alternative java versions in EPEL 9
+
 * Tue Apr 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-2
 - Update URL tag
 
-* Sat Apr 19 2025 Mattias Ellert  <mattias.ellert@physics.uu.se> - 3.3.5-1
+* Sat Apr 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-1
 - Update to version 3.3.5
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2

@@ -31,8 +31,6 @@ URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
 
-Patch0: 0001-Rename-ignition.cfg-05_ignition.cfg.patch
-
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
 

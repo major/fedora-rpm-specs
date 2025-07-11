@@ -5,7 +5,7 @@ Python wrappers to the C++ library SymEngine, a fast C++ symbolic manipulation
 library.}
 
 Name:           python-symengine
-Version:        0.13.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        SymEngine Python Wrappers
 License:        MIT
@@ -16,9 +16,13 @@ Source0:        https://github.com/symengine/%{srcname}/archive/v%{version}/%{sr
 
 BuildRequires:  cereal-devel
 BuildRequires:  cmake
+BuildRequires:  cmake(llvm)
+BuildRequires:  cmake(zlib)
 BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
+BuildRequires:  libffi-devel
+BuildRequires:  libxml2-devel
 BuildRequires:  python3-devel
 BuildRequires:  symengine-devel
 
@@ -47,26 +51,17 @@ This package contains tests for SymEngine.py.
 %build
 %pyproject_wheel
 
-# Dirty hack to recreate a wheel that goes all into python3_sitearch:
-wheel=$(basename pyproject-wheeldir/*.whl)
-unzip -qd temp pyproject-wheeldir/$wheel
-pushd temp
-  cp -ar symengine-%{version}.data/purelib/symengine/* symengine/
-  rm -fr symengine-%{version}.data
-  zip -qr $wheel *
-popd
-mv temp/$wheel pyproject-wheeldir/
-rm -fr temp
-
 %install
 %pyproject_install
 %pyproject_save_files -l symengine
 
+%ifnarch s390x
 %check
 # Tests don't produce any output:
 for i in symengine/tests/test_*.py; do
   %{py3_test_envvars} %{python3} $i
 done
+%endif
 
 %files -n  python3-symengine -f %{pyproject_files}
 %license LICENSE

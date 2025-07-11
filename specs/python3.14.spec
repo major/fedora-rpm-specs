@@ -46,10 +46,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b3
+%global prerel b4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -1737,6 +1737,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Jul 08 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~b4-1
+- Update to Python 3.14.0b4
+
 * Wed Jun 25 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~b3-3
 - Conditionally skip tests not working with the older expat version
 

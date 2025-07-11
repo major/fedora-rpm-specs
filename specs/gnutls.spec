@@ -12,14 +12,16 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-Version: 3.8.9
+Version: 3.8.10
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
-# https://gitlab.com/gnutls/gnutls/-/merge_requests/1934
-Patch: gnutls-3.8.9-ktls-kernel-check.patch
+# add tests/ktls_utils.h missing in the distribution
+Patch: gnutls-3.8.10-tests-ktls.patch
+# run tests/cert-test/mldsa.sh in VPATH build
+Patch: gnutls-3.8.10-tests-mldsa.patch
 
 %bcond_without bootstrap
 %bcond_without dane
@@ -142,7 +144,7 @@ Source201:	gnutls-3.8.8-tests-rsa-default.patch
 %endif
 
 %if %{with leancrypto}
-Source300:	leancrypto-1.3.0.tar.gz
+Source300:	leancrypto-1.5.0.tar.gz
 %endif
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
@@ -504,7 +506,7 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/ncrypt.dll*
 %check
 %if %{with tests}
 pushd native_build
-make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null XFAIL_TESTS="$xfail_tests"
+make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null || { cat tests/test-suite.log tests/cert-tests/test-suite.log tests/slow/test-suite.log src/gl/tests/test-suite.log; exit 1; }
 popd
 %endif
 

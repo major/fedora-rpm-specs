@@ -69,7 +69,11 @@ introduction.
 %autosetup -p1
 
 %build
+%if 0%{?fedora} > 41
+%pyproject_wheel
+%else
 %py3_build
+%endif
 # write rpm macros
 cat << EOF > macros.osc
 %%osc_plugin_dir %{osc_plugin_dir}
@@ -99,7 +103,11 @@ PYTHONPATH=. argparse-manpage \
     --url="https://github.com/openSUSE/osc/"
 
 %install
+%if 0%{?fedora} > 41
+%pyproject_install
+%else
 %py3_install
+%endif
 
 mkdir -p %{buildroot}%{_localstatedir}/lib/osc-plugins
 

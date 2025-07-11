@@ -1,8 +1,8 @@
 %global pypi_name pywizlight
 
 Name:           python-%{pypi_name}
-Version:        0.6.0
-Release:        2%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        Python connector for WiZ light devices
 
 License:        MIT
@@ -25,20 +25,26 @@ A Python connector for WiZ light devices.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{pypi_name}
+%pyproject_save_files -l %{pypi_name}
+
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 %{_bindir}/wizlight
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.3-1
+- Update to latest upstream release 0.6.3 (closes rhbz#2355176)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.0-2
 - Rebuilt for Python 3.14
 

@@ -13,10 +13,6 @@ Source1:        https://github.com/martinblech/mimerender/blob/v%{version}/LICEN
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# for wheel building
-BuildRequires:  python3-pip
-BuildRequires:  python3-mimeparse
-BuildRequires:  python3-setuptools
 
 %description
 mimerender provides a decorator that wraps a HTTP request handler to select
@@ -61,6 +57,9 @@ add support for other frameworks. This is the Python 3 build of mimerender.
 %prep
 %autosetup -n %{srcname}-%{version}
 cp %{SOURCE1} ./LICENSE
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

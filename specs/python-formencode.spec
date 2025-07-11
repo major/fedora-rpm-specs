@@ -2,7 +2,7 @@
 
 Name:           python-formencode
 Version:        2.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTML form validation, generation, and convertion package  
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
@@ -25,7 +25,6 @@ for filling and generating forms.
 Summary: HTML form validation, generation, and convertion package
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-docutils
 BuildRequires: python3-wheel
 BuildRequires: python3-pip
@@ -35,7 +34,6 @@ BuildRequires: python3-setuptools_scm
 Requires: python3-setuptools
 Requires: python-formencode-langpacks
 
-%{?python_provide:%python_provide python3-formencode}
 
 %description -n python3-formencode
 FormEncode validates and converts nested structures. It allows for a.
@@ -56,34 +54,23 @@ library.
 %autosetup -n formencode-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # remove setuptools_scm_git_archive from setup requires
 sed -i "s|'setuptools_scm_git_archive',||" setup.py
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l formencode
 
 rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/docs/
 # packaged as license, remove this file with wrong path
 rm -f $RPM_BUILD_ROOT%{_prefix}/LICENSE.txt
-
-# bah.  setuptools resource badness
-# Luckily ian bicking wrote the lookup for this to correctly fallback on the
-# system catalog
-for file in $RPM_BUILD_ROOT%{python3_sitelib}/formencode/i18n/* ; do
-    if [ -d $file ] ; then
-        if [ -e $file/LC_MESSAGES/%{srcname}.mo ] ; then
-            mkdir -p $RPM_BUILD_ROOT%{_datadir}/locale/`basename $file`/LC_MESSAGES/
-            mv $file/LC_MESSAGES/%{srcname}.mo $RPM_BUILD_ROOT%{_datadir}/locale/`basename $file`/LC_MESSAGES/
-        fi
-    fi
-done
-rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/formencode/i18n
-
-%find_lang %{srcname}
-
 
 
 #%%check
@@ -92,15 +79,20 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/formencode/i18n
 #PYTHONPATH=$(pwd) nosetests-%%{python3_version}
 
 
-%files -n python3-formencode
-%doc PKG-INFO docs
-%license LICENSE.txt
-%{python3_sitelib}/formencode/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+%check
+%pyproject_check_import
 
-%files -n python-formencode-langpacks -f %{srcname}.lang
+
+%files -n python3-formencode -f %{pyproject_files}
+%doc docs
+%license LICENSE.txt
+
+%files -n python-formencode-langpacks
 
 %changelog
+* Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.1.1-3
+- Migrate from py_build/py_install to pyproject macros (bz#2377724)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.1-2
 - Rebuilt for Python 3.14
 

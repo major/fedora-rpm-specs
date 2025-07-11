@@ -6,7 +6,7 @@
 %global crate tracing-attributes
 
 Name:           rust-tracing-attributes
-Version:        0.1.28
+Version:        0.1.30
 Release:        %autorelease
 Summary:        Procedural macro attributes for automatically instrumenting functions
 

@@ -1,8 +1,8 @@
 %global pypi_name asteval
 
 Name:           python-%{pypi_name}
-Version:        1.0.5
-Release:        3%{?dist}
+Version:        1.0.6
+Release:        1%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -21,11 +21,10 @@ and used if available.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-cov)
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(setuptools-scm)
 
 %description -n python3-%{pypi_name}
 ASTEVAL is a safe(ish) evaluator of Python expressions and statements,
@@ -47,28 +46,34 @@ Documentation for %{name}.
 rm -rf %{pypi_name}.egg-info
 sed -i -e '/^#!\//, 1d' asteval/asteval.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 PYTHONPATH=${PWD} sphinx-build-3 doc html
 rm -rf html/.{doctrees,buildinfo} html/_static/empty
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v tests
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %files -n python-%{pypi_name}-doc
 %doc html
 %license LICENSE
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.6-1
+- Update to latest upstream release (closes rhbz#2338907)
+- Fix CVE-2025-24359 (closes rhbz#2341976)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.5-3
 - Rebuilt for Python 3.14
 

@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.44.0
+Version:        2.47.0
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -115,6 +115,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Wed Jul 09 2025 Jonathan Wright <jonathan@almalinux.org> - 2.47.0-1
+- update to 2.47.0 rhbz#2370410
+
 * Fri May 30 2025 Adam Fidel <refuse@gmail.com> - 2.44.0-1
 - update to 2.44.0 rhbz#2368161
 

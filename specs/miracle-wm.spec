@@ -2,8 +2,11 @@
 %global miroil_ver 5.0
 %global mirversion 2.18
 
+%global miracle_configlib_somajor 0
+
+
 Name:           miracle-wm
-Version:        0.5.1
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
@@ -41,11 +44,31 @@ BuildRequires:  boost-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  systemd-rpm-macros
 
+Recommends:     xorg-x11-server-Xwayland%{?_isa}
+
+Requires:       %{name}-config-libs%{?_isa} = %{version}-%{release}
+
 %description
 miracle-wm is a Wayland compositor based on Mir. It features a tiling window
 manager at its core, very much in the style of i3 and sway. The intention is
 to build a compositor that is flashier and more feature-rich than either of
 those compositors, like swayfx.
+
+%package config-libs
+Summary:        Libraries for %{name} configuration
+
+%description config-libs
+This package provides the libraries for manipulating the configuration
+of %{name}.
+
+%package config-devel
+Summary:        Development files for %{name} configuration library
+Requires:       %{name}-config-libs%{?_isa} = %{version}-%{release}
+
+%description config-devel
+This package provides the files to develop applications that use the
+libraries for manipulating the configuration of %{name}.
+
 
 %prep
 %autosetup -S git_am
@@ -61,7 +84,7 @@ those compositors, like swayfx.
 
 
 %check
-%{_vpath_builddir}/bin/miracle-wm-tests
+%{_vpath_builddir}/tests/miracle-wm-tests
 
 
 %files
@@ -69,14 +92,26 @@ those compositors, like swayfx.
 %{_bindir}/miracle-wm-sensible-terminal
 %{_bindir}/miracle-wm-session
 %{_bindir}/miraclemsg
-%{_libexecdir}/miracle-wm-session-setup
+%{_libexecdir}/miracle-wm-*
 %{_datarootdir}/wayland-sessions/miracle-wm.desktop
 %{_userunitdir}/miracle-wm*
 %license LICENSE
 %license miraclemsg/LICENSE.sway session/LICENSE.sway-systemd
 
+%files config-libs
+%license LICENSE
+%{_libdir}/libmiracle-wm-config.so.%{miracle_configlib_somajor}{,.*}
+
+%files config-devel
+%{_includedir}/miracle/
+%{_libdir}/libmiracle-wm-config.so
+%{_libdir}/pkgconfig/miracle-wm-config.pc
+
 
 %changelog
+* Wed Jul 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.6.1-1
+- Update to 0.6.1
+
 * Thu Mar 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.1-1
 - Update to 0.5.1
 

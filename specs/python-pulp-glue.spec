@@ -1,6 +1,6 @@
 Name: python-pulp-glue
-Version: 0.32.1
-Release: 4%{?dist}
+Version: 0.34.0
+Release: 1%{?dist}
 Summary: The version agnostic Pulp 3 client library in python
 
 License: GPL-2.0-or-later
@@ -69,6 +69,9 @@ sed -i '/"multidict/s/,<[0-9.]\+//' pyproject.toml
 
 
 %changelog
+* Wed Jul 09 2025 Matthias Dellweg <x9c4@redhat.com> - 0.34.0-1
+- new version
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.32.1-4
 - Rebuilt for Python 3.14
 

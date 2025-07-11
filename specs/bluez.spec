@@ -6,12 +6,14 @@
 
 Name:    bluez
 Version: 5.83
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
+Patch1:  0001-shared-shell-Fix-not-calling-pre_run-for-main-menu.patch
+Patch2:  0001-shared-shell-Fix-not-running-pre_run-on-MODE_NON_INT.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -333,6 +335,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Wed Jul 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.83-2
+- Fix for single commands without BT shell
+
 * Mon Jun 02 2025 Bastien Nocera <bnocera@redhat.com> - 5.83-1
 - Update to 5.83
 

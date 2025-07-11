@@ -1,9 +1,8 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
 Version:        0.24.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -11,7 +10,6 @@ Source0:        %{pypi_source pysol_cards}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %description
 The pysol-cards python module allows the python developer to generate the
@@ -19,7 +17,6 @@ initial deals of some PySol FC games.
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 The pysol-cards python module allows the python developer to generate the
@@ -27,25 +24,30 @@ initial deals of some PySol FC games.
 
 %prep
 %autosetup -n pysol_cards-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
 # Must do the default python version install last because
 # the scripts in /usr/bin are overwritten with every setup.py install.
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pysol_cards
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/pysol_cards
-%{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 09 2025 Shlomi Fish <shlomif@shlomifish.org> 0.24.0-2%{?dist}
+- Stop using deprecated RPM macros (#2378090)
+
 * Sat Jun 14 2025 Shlomi Fish <shlomif@shlomifish.org> 0.24.0-1
 - Update to 0.24.0 (#2362883)
 

@@ -1,32 +1,36 @@
 Name:           python-trezor
 Version:        0.13.10
-Release:        2%{?dist}
-Summary:        Python library for communicating with TREZOR Hardware Wallet
+Release:        4%{?dist}
+Summary:        Python library and command-line client for communicating with Trezor Hardware Wallet
 
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
-URL:            https://github.com/trezor/python-trezor
+URL:            https://github.com/trezor/trezor-firmware/tree/main/python
 Source0:        %{pypi_source trezor}
+
+# Remove click's upper version bound
+Patch:          remove_click_upper_bound.patch
 
 BuildArch:      noarch
 
-BuildRequires:  pkgconfig(bash-completion)
-
-%description
-%{summary}.
-
-%package -n python3-trezor
-Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       %{py3_dist hidapi}
-Requires:       trezor-common >= 2.3.6
+BuildRequires:  pkgconfig(bash-completion)
 
 #Unit tests
 BuildRequires:  python3-pytest
 BuildRequires:  python3-typing-extensions
 BuildRequires:  python3-requests
 BuildRequires:  %{py3_dist construct-classes}
+#check_import
+BuildRequires:  python3-qt5
+
+%description
+%{summary}.
+
+%package -n python3-trezor
+Summary:        %{summary}
+Requires:       %{py3_dist hidapi}
+Requires:       trezor-common >= 2.3.6
+
 
 %description -n python3-trezor
 %{summary}.
@@ -34,20 +38,26 @@ BuildRequires:  %{py3_dist construct-classes}
 
 %prep
 %autosetup -n trezor-%{version}
-rm -rf trezor.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l trezorlib
 
 install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_dir}/trezorctl
 
 
 %check
+%pyproject_check_import
+
 #Missing dependency on stellar_sdk
 %{pytest} \
   tests/test_btc.py \
@@ -58,18 +68,22 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_d
   tests/test_transport.py
 
 
-%files -n python3-trezor
+%files -n python3-trezor -f %{pyproject_files}
 %doc AUTHORS
 %doc CHANGELOG.md
 %doc README.md
-%license COPYING
-%{python3_sitelib}/trezor-*.egg-info/
-%{python3_sitelib}/trezorlib/
 %{_bindir}/trezorctl
 %{bash_completions_dir}/trezorctl
 
 
 %changelog
+* Wed Jul 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.13.10-4
+- Remove click's upper version bound
+
+* Wed Jul 09 2025 Jonny Heggheim <hegjon@gmail.com> - 0.13.10-3
+- Removed deprecated macros
+  https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.13.10-2
 - Rebuilt for Python 3.14
 

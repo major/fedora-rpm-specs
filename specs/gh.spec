@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.74.0
+Version:                2.75.0
 
 %gometa -L -f
 
@@ -83,7 +83,7 @@ for test in "TestNewInspectCmd" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
-%gocheck
+%gocheck -t github.com/cli/cli/v2/third-party
 %endif
 
 %files -f %{go_vendor_license_filelist}

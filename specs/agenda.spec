@@ -2,7 +2,7 @@
 
 Name:           agenda
 Summary:        A simple, slick, speedy and no-nonsense task manager
-Version:        1.1.2
+Version:        1.2.0
 Release:        %autorelease
 
 # The entire source is GPL-3.0-or-later, except:
@@ -18,33 +18,6 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 SourceLicense:  %{license} AND LGPL-2.0-or-later
 URL:            https://github.com/dahenson/agenda
 Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
-
-# Add <launchable/> tag to AppStream metadata
-# https://github.com/dahenson/agenda/pull/148
-#
-# https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html#qsr-app-launchable-info
-#
-# Omitting this tag now now triggers a hard validation error in “appstreamcli
-# validate”:
-#
-# https://github.com/ximion/appstream/commit/ad98bfd8db789c80507e82278d6d766acba4937c
-Patch:          0001-Add-launchable-tag-to-AppStream-metadata.patch
-# Convert homepage link from HTTP to HTTPS in AppData XML
-# https://github.com/dahenson/agenda/pull/152/commits/39bd498e8959e14e6a3ac7530ae49eb71aa91599
-#
-# From:
-#
-# Convert HTTP links to HTTPS
-# https://github.com/dahenson/agenda/pull/152
-#
-# Rebased on 1.1.2 and on top of PR#148
-Patch:          0002-Convert-homepage-link-from-HTTP-to-HTTPS-in-AppData-.patch
-# Fix deprecated top-level developer_name in AppData XML
-# https://github.com/dahenson/agenda/pull/151
-#
-# Rebased on 1.1.2 and on top of PR#148 and PR#152
-Patch:          0003-Fix-deprecated-top-level-developer_name-in-AppData-X.patch
-Patch:          0004-Add-a-developer-ID-in-AppData-XML.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -76,6 +49,7 @@ Summary(es):    Un administrador de tareas simple, pulido, rápido y sin complic
 Summary(fr):    Un gestionnaire de tâches simple, rapide et élégant
 Summary(gl):    Un xestor de tarefas pulido, sinxelo, rápido e sen complicacións
 Summary(it):    Un promemoria semplice, elegante, veloce e senza fronzoli
+# This translation is for the alternative summary, “Get things done”
 Summary(ja):    タスクを完了しましょう
 Summary(ka):    მარტივი, მოხერხებული, სწრაფი დავალებების მმართველი ყოველგვარი უაზრობების გარეშე
 Summary(ko):    간단하고 미려한 일정 관리자
@@ -106,6 +80,22 @@ Key Features:
   • Autocompletion for previously added tasks
   • Undo/Redo with Ctrl-Z and Ctrl-Y
   • Quit with the Esc key
+
+%description -l it
+Un task manager per aiutarti a tenere traccia delle attività che contano di
+più.
+
+A volte, hai solo bisogno di un elenco di attività per mantenerti motivato.
+Agenda fornisce un modo per annotare i tuoi compiti e spuntarli mentre li
+completi. L'elenco viene salvato automaticamente, quindi puoi chiudere
+l'elenco per estrarlo in modo senza perdere il tuo posto.
+
+Caratteristiche principali:
+
+  • Salva automaticamente l'elenco delle attività
+  • Visualizza le tue attività completate finché non scegli di eliminarle
+  • Completamento automatico per attività aggiunte in precedenza
+  • Esci con il tasto Esc
 
 %description -l ja
 最も重要なタスクの記録に便利な、タスク管理アプリです。

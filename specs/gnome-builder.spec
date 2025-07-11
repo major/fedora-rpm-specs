@@ -17,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        48.0
+Version:        49~alpha
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -40,7 +40,7 @@ Summary:        IDE for writing GNOME-based software
 # Automatically converted from old format: GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0 - review is highly recommended.
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Builder
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags
@@ -73,6 +73,7 @@ BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(template-glib-1.0) >= %{template_glib_version}
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
 BuildRequires:  pkgconfig(webkitgtk-6.0)
+BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme

@@ -4,8 +4,8 @@
 
 Name:          yelp
 Epoch:         2
-Version:       42.2
-Release:       9%{?dist}
+Version:       42.3
+Release:       1%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 # Automatically converted from old format: LGPLv2+ and ASL 2.0 and GPLv2+ - review is highly recommended.
@@ -15,8 +15,6 @@ Source:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_v
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=687960
 Patch1:        0001-Center-new-windows.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2357092
-Patch2:        yelp-CVE-2025-3155.patch
 
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libhandy-1) >= %{libhandy_version}
@@ -31,9 +29,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: bzip2-devel
 BuildRequires: gcc
 BuildRequires: gettext-devel
-BuildRequires: intltool
 BuildRequires: itstool
-BuildRequires: make
+BuildRequires: meson
 Requires:      libhandy%{?_isa} >= %{libhandy_version}
 Requires:      yelp-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:      yelp-xsl
@@ -61,11 +58,11 @@ This package contains header files for the libraries in the yelp-libs package.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-%configure --disable-static
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 find $RPM_BUILD_ROOT%{_libdir} -name '*.la' -delete
 
@@ -98,6 +95,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Wed Jul 09 2025 Milan Crha <mcrha@redhat.com> - 2:42.3-1
+- Update to 42.3
+
 * Fri May 09 2025 Jan Grulich <jgrulich@redhat.com> - 2:42.2-9
 - Fix CVE-2025-3155 - arbitrary file-read
 

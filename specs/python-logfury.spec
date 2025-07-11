@@ -1,53 +1,62 @@
-%global srcname logfury
-
-Name:           python-%{srcname}
+Name:           python-logfury
 Version:        1.0.1
-Release:        14%{?dist}
+Release:        16%{?dist}
 Summary:        Library for logging of method calls for Python
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ppolewicz/logfury
-Source0:        %{pypi_source}
+Source0:        %{pypi_source logfury}
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools_scm
 
 Patch0:         relax-setuptools_scm.patch
 
 %description
 %{summary}.
 
-%package -n python3-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
 
-%{?python_provide:%python_provide python3-%{srcname}}
+%package -n python3-logfury
+Summary: %{summary}
 
-%description -n python3-%{srcname}
+
+%description -n python3-logfury
 %{summary}.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
-rm -rf %{srcname}.egg-info
-%patch -P0 -p1
+%autosetup -p1 -n logfury-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l logfury
 
 
-%files -n python3-%{srcname}
+%check
+%pyproject_check_import
+
+
+%files -n python3-logfury -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+
 
 %changelog
+* Wed Jul 09 2025 Jonny Heggheim <hegjon@gmail.com> - 1.0.1-16
+- Reviewed and fixed license
+
+* Wed Jul 09 2025 Jonny Heggheim <hegjon@gmail.com> - 1.0.1-15
+- Removed deprecated macros https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-14
 - Rebuilt for Python 3.14
 

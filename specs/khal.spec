@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:       khal
-Version:    0.11.3
+Version:    0.13.0
 Release:    %autorelease
 Summary:    CLI calendar application
 
@@ -15,8 +15,9 @@ Source0:    https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{v
 # a blog of the changelog. We only need the manpage. We also fix a Makefile error
 # which happens when using .tar.gz
 Patch0:     khal-0.8.2-sphinx-docfix.patch
-# https://github.com/pimutils/khal/pull/1365
-Patch1:     khal-0.11.3-intersphinx-fix.patch
+# Support Python 3.14.
+# https://github.com/pimutils/khal/pull/1417
+Patch1:     khal-0.13.0-support-py3.14.patch
 BuildArch:  noarch
 
 BuildRequires: make
@@ -25,6 +26,7 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 
 Requires:       python3-click >= 3.2
+Requires:       python3-click-log >= 3.2
 Requires:       python3-configobj
 Requires:       python3-dateutil
 Requires:       python3-icalendar

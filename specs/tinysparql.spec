@@ -5,13 +5,13 @@
 %global tracker_obsoletes_version 3.8
 
 Name:           tinysparql
-Version:        3.9.2
+Version:        3.10~alpha
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tinysparql/
-Source0:        https://download.gnome.org/sources/tinysparql/3.9/tinysparql-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/tinysparql/3.10/tinysparql-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:	gcc
@@ -167,34 +167,4 @@ This package contains the documentation for %{name}.
 
 
 %changelog
-* Mon Apr 21 2025 nmontero <nmontero@redhat.com> - 3.9.2-1
-- Update to 3.9.2
-
-* Fri Mar 21 2025 nmontero <nmontero@redhat.com> - 3.9.1-2
-- Add Obsoletes line to devel package
-
-* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 3.9.1-1
-- Update to 3.9.1
-
-* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
-- Update to 3.9.rc
-
-* Wed Feb 05 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-6
-- Move Obsoletes and Provides lines
-
-* Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-5
-- Version bump
-
-* Fri Jan 31 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-4
-- Version bump
-
-* Thu Jan 23 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-3
-- Minor change in %files
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Oct 03 2024 Nieves Montero <nmontero@redhat.com> - 3.8.rc-1
-- Rename tracker to tinysparql
-- Rename libtracker-sparql to libtinysparql
-- Update to 3.8~rc
+%autochangelog

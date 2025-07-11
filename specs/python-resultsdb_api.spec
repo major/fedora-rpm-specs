@@ -11,13 +11,6 @@ Source0:        https://qa.fedoraproject.org/releases/resultsdb_api/resultsdb_ap
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pip
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-simplejson
-BuildRequires:  python3-pytest
-BuildRequires:  python3-requests
-BuildRequires:  python3-virtualenv
 
 %description
 Interface api to ResultsDB
@@ -32,6 +25,9 @@ Python3 interface to resultsdb.
 
 %prep
 %autosetup -p1 -n resultsdb_api-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
 %pyproject_wheel

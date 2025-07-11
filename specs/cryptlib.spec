@@ -1,11 +1,10 @@
 %global includetests 1
 # 0=no, 1=yes
 %global cryptlibdir %{_libdir}/%{name}
-%global withpython2 0
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -35,7 +34,7 @@ BuildRequires: libbsd-devel
 BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: python3-devel
-BuildRequires: python-setuptools
+BuildRequires: python3-pip
 BuildRequires: java-devel
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
@@ -43,11 +42,6 @@ BuildRequires: perl-generators
 BuildRequires: perl-Data-Dumper
 BuildRequires: perl-ExtUtils-MakeMaker
 BuildRequires: make
-
-
-%if %{withpython2}
-    BuildRequires: python2-devel >= 2.7
-%endif
 
 
 %description
@@ -102,16 +96,6 @@ Buildarch : noarch
 
 %description javadoc
 Cryptlib Javadoc information
-
-%if %{withpython2}
-    %package python2
-    Summary:  Cryptlib bindings for python2
-    Group:    System Environment/Libraries
-    Requires: %{name}%{?_isa} = %{version}-%{release}
-    Requires: python2 >= 2.7
-    %description python2
-    Cryptlib module for application development in Python 2
-%endif
 
 %package python3
 Summary:  Cryptlib bindings for python3
@@ -169,6 +153,8 @@ rm %{_builddir}/%{name}-%{version}/bindings/cryptlib.jar
 cd %{_builddir}/%{name}-%{version}/bindings
 /usr/bin/tar xpzf %{SOURCE5}
 
+%pyproject_buildrequires 
+
 %build
 cd %{name}-%{version}
 chmod +x tools/mkhdr.sh
@@ -178,6 +164,7 @@ tools/mkhdr.sh
 # rename cryptlib symbols that may collide with openssl symbols
 chmod +x tools/rename.sh
 tools/rename.sh
+
 # build java bindings
 cp /etc/alternatives/java_sdk/include/jni.h .
 cp /etc/alternatives/java_sdk/include/linux/jni_md.h .
@@ -190,10 +177,8 @@ make stestlib  ADDFLAGS="%{optflags}"
 
 # build python modules
 cd bindings
-%if %{withpython2}
-     python2 setup.py build
-%endif
-python3 setup.py build
+%pyproject_wheel
+
 
 # build javadoc
 mkdir javadoc
@@ -234,15 +219,8 @@ mkdir -p %{buildroot}%{_javadocdir}/%{name}
 rm -rf %{_builddir}/%{name}-%{version}/bindings/javadoc/META-INF
 cp -r %{_builddir}/%{name}-%{version}/bindings/javadoc/* %{buildroot}%{_javadocdir}/%{name}
 
-%if %{withpython2}
-     # install python2 module
-     mkdir -p %{buildroot}%{python2_sitelib}
-     cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*%{python2_version}/cryptlib_py.so %{buildroot}%{python2_sitelib}
-%endif
-
 # install python3 module
 mkdir -p %{buildroot}%{python3_sitelib}
-# cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*%{python3_version}/cryptlib_py%{python3_ext_suffix} %{buildroot}%{python3_sitelib}/cryptlib_py.so
 cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*/cryptlib_py%{python3_ext_suffix} %{buildroot}%{python3_sitelib}/cryptlib_py.so
 
 # install Perl module
@@ -329,11 +307,6 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 %files javadoc
 %{_javadocdir}/%{name}
 
-%if %{withpython2}
-     %files python2
-     %{python2_sitelib}/cryptlib_py.so
-%endif
-
 %files python3
 %{python3_sitelib}/cryptlib_py.so
 
@@ -357,8 +330,10 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/clsmime.1.gz
 
 
-
 %changelog
+* Tue Jul 08 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-11
+- Migration to pyproject macros and removal of python 2.7 build option (RHBZ 2378536)
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.4.8-10
 - Perl 5.42 rebuild
 

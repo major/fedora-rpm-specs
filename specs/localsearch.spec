@@ -32,14 +32,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.9.0
+Version:        3.10~alpha
 Release:        1%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
-Source0:        https://download.gnome.org/sources/%{name}/3.9/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.10/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
 
 BuildRequires:  asciidoc
@@ -161,6 +161,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %if ! 0%{?flatpak}
 %{_libexecdir}/localsearch-writeback-3
 %endif
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/localsearch
 %dir %{_datadir}/dbus-1
 %dir %{_datadir}/dbus-1/interfaces
 %dir %{_datadir}/dbus-1/services
@@ -171,6 +174,7 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %if 0%{?flatpak}
 %exclude %{_datadir}/dbus-1/services/org.freedesktop.LocalSearch3.service
 %exclude %{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
+%exclude %{_datadir}/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service
 %endif
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/localsearch3/
@@ -184,39 +188,4 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
-* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 3.9.0-1
-- Update to 3.9.0
-
-* Tue Mar 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9~rc-2
-- Disable ffmpeg dependency on RHEL
-
-* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
-- Update to 3.9.rc
-
-* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-9
-- Rebuild for the renaming of tracker to tinysparql
-
-* Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-8
-- Bump the version of the tracker-miners obsoletes
-
-* Wed Jan 29 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-7
-- Delete a Requires line
-
-* Fri Jan 24 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-6
-- Change in Requires
-
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-3
--Add gcc patch
-
-* Wed Jan 15 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-2
--Bump release to rebuild after deleted build
-
-* Wed Nov 06 2024 Nieves Montero <nmontero@redhat.com> - 3.8.rc-1
-- Rename tracker-miners to localsearch
-- Update to 3.8~rc
+%autochangelog

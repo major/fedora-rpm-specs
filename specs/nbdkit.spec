@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.45.1
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -587,8 +587,6 @@ nbdkit-blocksize-filter    Adjust block size of requests sent to plugins.
 nbdkit-blocksize-policy-filter  Set block size constraints and policy.
 
 nbdkit-cache-filter        Server-side cache.
-
-nbdkit-cacheextents-filter Cache extents.
 
 nbdkit-checkwrite-filter   Check writes match contents of plugin.
 
@@ -1338,7 +1336,6 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-blocksize-filter.so
 %{_libdir}/%{name}/filters/nbdkit-blocksize-policy-filter.so
 %{_libdir}/%{name}/filters/nbdkit-cache-filter.so
-%{_libdir}/%{name}/filters/nbdkit-cacheextents-filter.so
 %{_libdir}/%{name}/filters/nbdkit-checkwrite-filter.so
 %{_libdir}/%{name}/filters/nbdkit-count-filter.so
 %{_libdir}/%{name}/filters/nbdkit-cow-filter.so
@@ -1385,7 +1382,6 @@ fi
 %{_mandir}/man1/nbdkit-blocksize-filter.1*
 %{_mandir}/man1/nbdkit-blocksize-policy-filter.1*
 %{_mandir}/man1/nbdkit-cache-filter.1*
-%{_mandir}/man1/nbdkit-cacheextents-filter.1*
 %{_mandir}/man1/nbdkit-checkwrite-filter.1*
 %{_mandir}/man1/nbdkit-count-filter.1*
 %{_mandir}/man1/nbdkit-cow-filter.1*
@@ -1544,6 +1540,15 @@ fi
 
 
 %changelog
+* Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.45.1-4
+- Perl 5.42 re-rebuild updated packages
+
+* Wed Jul 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.1-3
+- Remove cacheextents filter (deprecated & removed upstream)
+
+* Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.45.1-2
+- Perl 5.42 re-rebuild updated packages
+
 * Tue Jul 08 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.1-1
 - New upstream development branch 1.45.1
 - New nbdkit-count-filter.

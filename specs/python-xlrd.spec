@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -25,9 +25,7 @@ dates.  Unicode-aware.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{sum}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Extract data from Excel spreadsheets (.xls and .xlsx, versions 2.0 onwards)
@@ -39,7 +37,6 @@ dates.  Unicode-aware.
 Summary:        %{sum}
 BuildRequires:  python%{python3_other_pkgversion}-devel
 BuildRequires:  python%{python3_other_pkgversion}-setuptools
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{srcname}}
 
 %description -n python%{python3_other_pkgversion}-%{srcname}
 Extract data from Excel spreadsheets (.xls and .xlsx, versions 2.0 onwards)
@@ -63,7 +60,7 @@ dates.  Unicode-aware.
 
 
 %build
-%py3_build
+%pyproject_wheel
 %if 0%{?with_python3_other}
 %py3_other_build
 %endif
@@ -72,7 +69,8 @@ dates.  Unicode-aware.
 %if 0%{?with_python3_other}
 %py3_other_install
 %endif
-%py3_install
+%pyproject_install
+%pyproject_save_files -l xlrd
 
 # remove .py extension from binary
 mv $RPM_BUILD_ROOT%{_bindir}/runxlrd.py $RPM_BUILD_ROOT%{_bindir}/runxlrd
@@ -81,14 +79,12 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
   $RPM_BUILD_ROOT/%{python3_sitelib}/xlrd/examples
 
 %check
+%pyproject_check_import
+
 %{python3} -c 'import xlrd'
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.rst
-%attr(755,root,root) %dir %{python3_sitelib}/xlrd
-%{python3_sitelib}/xlrd/*
-%{python3_sitelib}/xlrd-*egg-info
 %attr(755,root,root) %{_bindir}/*
 
 %if 0%{?with_python3_other}
@@ -101,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %endif
 
 %changelog
+* Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.1-23
+- Migrate from py_build/py_install to pyproject macros (bz#2378516)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.1-22
 - Rebuilt for Python 3.14
 

@@ -1,26 +1,22 @@
 %global py_name Screenkey
 Name:		screenkey
 Version:	1.5
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A screencast tool to display your keys
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		https://www.thregr.org/~wavexx/software/%{name}
 Source0:	%{URL}/releases/%{name}-%{version}.tar.gz
-Source1:        %{URL}/releases/%{name}-%{version}.tar.gz.asc
-Source2:        https://www.thregr.org/~wavexx/files/wavexx.asc
+Source1:	%{URL}/releases/%{name}-%{version}.tar.gz.asc
+Source2:	https://www.thregr.org/~wavexx/files/wavexx.asc
 
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-babel
 BuildRequires:	desktop-file-utils
 
 BuildRequires: gnupg2
 
-Requires:   python3-gobject
-Requires:   python3-cairo
 Requires:   slop
 
 Recommends: fontawesome-fonts
@@ -41,29 +37,32 @@ A screencast tool to display your keys, featuring:
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
-# Remove bundled egg-info
-rm -rf %{src_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-%find_lang %{name}
+%pyproject_install
+%pyproject_save_files -l %{py_name}
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
-%files -f %{name}.lang
+%files -f %{pyproject_files}
 %doc README.rst NEWS.rst
 %license COPYING.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/org.thregr.%{name}.metainfo.xml
-%{python3_sitelib}/%{py_name}/
-%{python3_sitelib}/%{name}-%{version}-*.egg-info
 
 %changelog
+* Wed Jul 09 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 1.5-13
+- Migrate to new python rpm macros
+- Fixes RHBZ#2378449
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.5-12
 - Rebuilt for Python 3.14
 

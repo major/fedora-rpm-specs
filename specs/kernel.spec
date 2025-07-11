@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc5.250708gd006330be3f7.46
+%define pkgrelease 0.rc5.250709g733923397fd9.47
 %define kversion 6
-%define tarfile_release 6.16-rc5-25-gd006330be3f7
+%define tarfile_release 6.16-rc5-38-g733923397fd9
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.250708gd006330be3f7.46%{?buildid}%{?dist}
+%define specrelease 0.rc5.250709g733923397fd9.47%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4347,8 +4347,11 @@ fi\
 #
 #
 %changelog
-* Tue Jul 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.d006330be3f7.46]
+* Wed Jul 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.733923397fd9.47]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Jul 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.733923397fd9.46]
+- Linux v6.16.0-0.rc5.733923397fd9
 
 * Tue Jul 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.d006330be3f7.45]
 - Turn on TSA Mitigation for Fedora (Justin M. Forbes)

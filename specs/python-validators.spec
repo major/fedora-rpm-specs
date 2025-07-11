@@ -1,8 +1,8 @@
 %global pypi_name validators
 
 Name:           python-%{pypi_name}
-Version:        0.34.0
-Release:        3%{?dist}
+Version:        0.35.0
+Release:        1%{?dist}
 Summary:        Data validation in Python for humans
 
 License:        LicenseRef-Callaway-BSD
@@ -20,7 +20,7 @@ a schema.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(pytest)
 
 %description -n python3-%{pypi_name}
 Python has all kinds of data validation tools, but every one of them seems to
@@ -49,6 +49,9 @@ pytest-%{python3_version} --ignore "tests/crypto_addresses/test_eth_address.py"
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.35.0-1
+- Update to latest upstream release (closes rhbz#2355176)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.34.0-3
 - Rebuilt for Python 3.14
 

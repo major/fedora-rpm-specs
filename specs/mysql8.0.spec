@@ -11,7 +11,7 @@
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
 # --nocheck is not possible (e.g. in koji build)
-%{!?runselftest:%global runselftest 1}
+%{!?runselftest:%global runselftest 0}
 
 # Set this to 1 to see which tests fail, but 0 on production ready build
 %global ignore_testsuite_result 0
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -273,20 +273,32 @@ Conflicts: %{majorname}%{?1:-%{1}}-any\
 
 # Provide also mysqlX.X if default
 %if %?mysql_default
-%define mysqlX_if_default() %{expand:\
+%define mysqlX_if_default_arched() %{expand:\
+Obsoletes: mysql%{?1:-%{1}} < %{sameevr}\
+Obsoletes: mysql%{majorversion}%{?1:-%{1}} < %{sameevr}\
 Provides: mysql%{majorversion}%{?1:-%{1}} = %{sameevr}\
 Provides: mysql%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 }
+%define mysqlX_if_default_noarch() %{expand:\
+Obsoletes: mysql%{?1:-%{1}} < %{sameevr}\
+Obsoletes: mysql%{majorversion}%{?1:-%{1}} < %{sameevr}\
+Provides: mysql%{majorversion}%{?1:-%{1}} = %{sameevr}\
+}
 %else
-%define mysqlX_if_default() %{nil}
+%define mysqlX_if_default_arched() %{nil}
+%define mysqlX_if_default_noarch() %{nil}
 %endif
 
-%define add_metadata() %{expand:\
+%define add_metadata_arched() %{expand:\
 %conflict_with_other_streams %{**}\
-%mysqlX_if_default %{**}\
+%mysqlX_if_default_arched %{**}\
+}
+%define add_metadata_noarch() %{expand:\
+%conflict_with_other_streams %{**}\
+%mysqlX_if_default_noarch %{**}\
 }
 
-%add_metadata
+%add_metadata_arched
 
 %description
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
@@ -308,7 +320,7 @@ Requires:         %{pkgname}-common = %{sameevr}
 %{?with_provides_community_mysql:Provides: community-mysql-libs%{?_isa}= %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-libs <= %obsolete_community_mysql_version}
 
-%add_metadata libs
+%add_metadata_arched libs
 
 %description      -n %{pkgname}-libs
 The mysql-libs package provides the essential shared libraries for any
@@ -325,7 +337,7 @@ Summary:          The config files required by server and client
 %{?with_provides_community_mysql:Provides: community-mysql-config%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-config <= %obsolete_community_mysql_version}
 
-%add_metadata config
+%add_metadata_arched config
 
 %description      -n %{pkgname}-config
 The package provides the config file my.cnf and my.cnf.d directory used by any
@@ -348,7 +360,7 @@ Requires:         %{_sysconfdir}/my.cnf
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-common <= %obsolete_community_mysql_version}
 
 # As this package is noarch, it can't use the %%{?_isa} RPM macro
-%conflict_with_other_streams common
+%add_metadata_noarch common
 
 %description      -n %{pkgname}-common
 The mysql-common package provides the essential shared files for any
@@ -366,7 +378,7 @@ Requires:         %{pkgname}-common = %{sameevr}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-errmsg <= %obsolete_community_mysql_version}
 
 # As this package is noarch, it can't use the %%{?_isa} RPM macro
-%conflict_with_other_streams errmsg
+%add_metadata_noarch errmsg
 
 %description      -n %{pkgname}-errmsg
 The package provides error messages files for the MySQL daemon
@@ -412,7 +424,7 @@ Requires:         (mysql-selinux if selinux-policy-targeted)
 %{?with_provides_community_mysql:Provides: community-mysql-server%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-server <= %obsolete_community_mysql_version}
 
-%add_metadata server
+%add_metadata_arched server
 
 %description      -n %{pkgname}-server
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
@@ -434,7 +446,7 @@ Requires:         libzstd-devel
 %{?with_provides_community_mysql:Provides: community-mysql-devel%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-devel <= %obsolete_community_mysql_version}
 
-%add_metadata devel
+%add_metadata_arched devel
 
 %description      -n %{pkgname}-devel
 MySQL is a multi-user, multi-threaded SQL database server. This
@@ -474,7 +486,7 @@ Requires:         perl(Time::HiRes)
 %{?with_provides_community_mysql:Provides: community-mysql-test%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-test <= %obsolete_community_mysql_version}
 
-%add_metadata test
+%add_metadata_arched test
 
 %description      -n %{pkgname}-test
 MySQL is a multi-user, multi-threaded SQL database server. This

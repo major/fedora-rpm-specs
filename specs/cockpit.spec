@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        341.1
+Version:        342
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -618,6 +618,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 09 2025 Packit <hello@packit.dev> - 342-1
+- Bug fixes and translation updates
+
 * Fri Jun 27 2025 Packit <hello@packit.dev> - 341.1-1
 - Stratis gating fixes
 
