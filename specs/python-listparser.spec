@@ -1,4 +1,3 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name listparser
 
 Name:           python-%{pypi_name}
@@ -13,7 +12,6 @@ BuildArch:      noarch
 Patch0:         2to3.patch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
 
 %description
@@ -24,7 +22,6 @@ exported settings format.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 listparser is a Python library that parses subscription lists (also called
@@ -39,31 +36,32 @@ Documentation for listparser.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p0
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 chmod 644 COPYING
 chmod 644 COPYING.LESSER
 chmod 644 README.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 # generate html docs 
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 #%check
 #%{__python3} lptest.py test
 
-%files -n python3-%{pypi_name}
-%license COPYING COPYING.LESSER
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %files -n python-%{pypi_name}-doc
 %license COPYING COPYING.LESSER

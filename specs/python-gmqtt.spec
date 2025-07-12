@@ -2,7 +2,7 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        0.6.16
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Client for the MQTT protocol
 
@@ -18,26 +18,27 @@ Asynchronous Python MQTT client implementation.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %if %{with network}
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(pytest)
 %endif
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Asynchronous Python MQTT client implementation.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 # Requires access to a third-party MQTT Broker
 %if %{with network}
@@ -45,12 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{__python3} setup.py test
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
 %autochangelog
-

@@ -4,7 +4,7 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.19
+Version:        %{basever}.20
 %global pyversion 2.7
 Release:        %autorelease
 Summary:        Python implementation with a Just-In-Time compiler
@@ -167,6 +167,25 @@ Source3: pip-CVE-2023-5752.patch
 # Upstream solution: https://github.com/pypa/setuptools/pull/4332
 # Patch simplified because upstream doesn't support SVN anymore.
 Source4: setuptools-CVE-2024-6345.patch
+
+# Patch for the bundled setuptools wheel for CVE-2025-47273
+# Path traversal in PackageIndex.download leads to Arbitrary File Write
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2366982
+# Upstream solution: https://github.com/pypa/setuptools/commit/250a6d17978f9f6ac3ac887091f2d32886fbbb0b
+# Patch modified for Python 2
+Source5: setuptools-CVE-2025-47273.patch
+
+# Patch for the bundled requests within the bundled pip for CVE-2024-47081
+# .netrc credentials leaked with malicious URLs
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2371272
+# Upstream fix: https://github.com/psf/requests/pull/6965
+Source6: pip-requests-CVE-2024-47081.patch
+
+# Patch for the bundled urrlib3 within the bundled pip for CVE-2025-50181
+# Redirects are not disabled when retries are disabled on PoolManager instantiation
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2373799
+# Upstream fix: https://github.com/urllib3/urllib3/commit/f05b1329126d5be6de501f9d1e3e36738bc08857
+Source7: pip-urllib3-CVE-2025-50181.patch
 
 # Patch pypy.translator.platform so that stdout from "make" etc gets logged,
 # rather than just stderr, so that the command-line invocations of the compiler
@@ -445,15 +464,18 @@ rmdir lib-python/2.7/ensurepip/_bundled
 %endif
 
 %if %{without rpmwheels}
-# Patch the bundled pip wheel for CVE-2023-5752
+# Patch the bundled pip wheel for CVE-2023-5752, CVE-2024-47081, CVE-2025-50181
 unzip -qq lib-python/2.7/ensurepip/_bundled/pip-20.0.2-py2.py3-none-any.whl
 patch -p1 < %{SOURCE3}
+patch -p1 < %{SOURCE6}
+patch -p1 < %{SOURCE7}
 zip -rq lib-python/2.7/ensurepip/_bundled/pip-20.0.2-py2.py3-none-any.whl pip pip-20.0.2.dist-info
 rm -rf pip/ pip-20.0.2.dist-info/
 
-# Patch the bundled setuptools wheel for CVE-2024-6345
+# Patch the bundled setuptools wheel for CVE-2024-6345, CVE-2025-47273
 unzip -qq lib-python/2.7/ensurepip/_bundled/setuptools-44.0.0-py2.py3-none-any.whl
 patch -p1 < %{SOURCE4}
+patch -p1 < %{SOURCE5}
 zip -rq lib-python/2.7/ensurepip/_bundled/setuptools-44.0.0-py2.py3-none-any.whl easy_install.py pkg_resources setuptools setuptools-44.0.0.dist-info
 rm -rf easy_install.py pkg_resources/ setuptools/ setuptools-44.0.0.dist-info/
 %endif

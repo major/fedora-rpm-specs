@@ -1,24 +1,15 @@
 %global geany_plug_docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
-%global req_geany_ver 2.0
+%global req_geany_ver 2.1
 
 Name:           geany-plugins
-Version:        2.0
-Release:        12%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Plugins for Geany
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://plugins.geany.org/
 Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.tar.bz2
-# Fix various warnings in projectorganizer
-Patch0:         https://github.com/geany/geany-plugins/pull/1315.patch
-Patch1:         https://github.com/geany/geany-plugins/pull/1334.patch
-Patch2:         geany-plugins-2.0-gcc15.patch
-# Add support for webkit2gtk-4.1
-Patch3:         https://github.com/geany/geany-plugins/pull/1295.patch
-Patch4:         https://github.com/geany/geany-plugins/pull/1335.patch
-Patch5:         https://github.com/geany/geany-plugins/commit/a9914c7df9729cf8db4c5e9f5f20082c68fd158c.patch
-Patch6:         https://github.com/geany/geany-plugins/commit/a235afb4c6286a5221d12891b2ec374cbe182446.patch
 
 BuildRequires:  geany-devel >= %{req_geany_ver}
 BuildRequires:  geany-libgeany >= %{req_geany_ver}
@@ -46,7 +37,7 @@ Plugins for Geany. Plugins included are:
 * Automark (highlights all words that match current word)
 * Code navigation (Navigate through your source code easily)
 * Commander (Control Geany using commands from a command panel)
-#* Debugger (Enables debugging in Geany)
+* Debugger (Enables debugging in Geany)
 * Defineformat (Write multiline defines with aligned backslash)
 * GeanyGDB (Integration with GDB)
 * GeanyGenDoc (Automatically generate documentation source code)
@@ -68,6 +59,7 @@ Plugins for Geany. Plugins included are:
 * Latex (Add LaTeX support to Geany)
 * LineOperations (Assortment of simple line functions that can be applied to an open file)
 * Lipsum (Generate random Text)
+* LSP (Language Server Protocol for Geany)
 * Markdown (Real time preview for Markdown documents)
 * Overview (Overview over the code in a sidebar)
 * PairTagHighlighter (Find and highlight matching opening/closing HTML tags)
@@ -303,6 +295,15 @@ document.
 #This plugin provides extensive support for developing in the lua programming
 #language.
 
+%package lsp
+Summary:   Language Server Protocol for Geany
+Group:     Development/Tools
+Requires:  geany-plugins-common = %{version}-%{release}
+
+%description lsp
+LSP Client is a language server protocol client plugin that allows to run
+multiple language servers for various programming languages, making their
+functionality accessible to Geany.  
 
 %package geanymacro
 Summary:   User defined Macros for Geany
@@ -766,6 +767,11 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 #%{_datadir}/%{name}/geanylua/
 #%{_libdir}/%{name}/geanylua/
 
+%files lsp
+%doc %{geany_plug_docdir}/lsp/
+%{_libdir}/geany/lsp.so
+%{_datadir}/%{name}/lsp/
+
 %files geanymacro
 %doc %{geany_plug_docdir}/geanymacro/
 %{_libdir}/geany/geanymacro.so
@@ -884,6 +890,10 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Thu Jul 10 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 2.1-1
+- New upstream release: Geany-Plugins 2.1
+- New Plugin: LSP
+
 * Mon Feb 17 2025 Sérgio Basto <sergio@serjux.com> - 2.0-12
 - Rebuilt with webkitgtk6.0-devel markdown plugin
 

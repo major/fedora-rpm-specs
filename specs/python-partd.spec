@@ -11,6 +11,9 @@ Source:         %pypi_source %{srcname}
 
 BuildArch:      noarch
 
+# Needed for the zeromq test
+BuildRequires:  systemd-resolved
+
 %global _description %{expand:
 Key-value byte store with appendable values: Partd stores key-value pairs.
 Values are raw bytes. We append on old values. Partd excels at shuffling

@@ -2,15 +2,13 @@
 %global srcname animatplot
 
 Name:           python-%{srcname}
-Version:        0.4.4
-Release:        4%{?dist}
+Version:        0.4.5
+Release:        1%{?dist}
 Summary:        Making animating in Matplotlib easy
 
 License:        MIT
 URL:            https://github.com/boutproject/animatplot-ng
 Source0:        https://github.com/boutproject/animatplot-ng/archive/v%{version}/animatplot-ng-v%{version}.tar.gz
-Patch:          https://github.com/boutproject/animatplot-ng/pull/19.patch#./matplotlib-390.patch
-Patch:          https://github.com/boutproject/animatplot-ng/commit/844ab4443c8987923b2a2f4d743bbd237d917028.patch#./no-custom-parsing.patch
 
 BuildArch:      noarch
 
@@ -24,19 +22,13 @@ A Python package for making interactive animated plots build on Matplotlib.
 Summary:        %{summary}
 
 BuildRequires:  pandoc
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx) >= 1.5.1
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(ipykernel)
 BuildRequires:  python3dist(nbsphinx)
-BuildRequires:  python3dist(matplotlib) >= 2.2
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pillow)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pip)
-BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(setuptools-scm) >= 7
 
 %description -n python3-%{srcname}
 A Python package for making interactive animated plots build on Matplotlib.
@@ -48,6 +40,8 @@ Summary:        Documentation for python3-%{srcname}
 %description -n python3-%{srcname}-doc
 Documentation for python3-%{srcname}.
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %prep
 %autosetup -n %{srcname}-ng-%{version} -p1 -S git
@@ -59,7 +53,6 @@ rm -rf %{srcname}.egg-info
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-# %py3_build
 
 pushd docs
 %{__python3} -m sphinx source html
@@ -70,7 +63,7 @@ popd
 
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%py3_install
+%pyproject_install
 
 
 %check
@@ -82,13 +75,16 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %doc README.md
 %license LICENSE
 %{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}_ng-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{srcname}_ng-%{version}.dist-info
 
 %files -n python3-%{srcname}-doc
 %doc docs/html
 
 
 %changelog
+* Thu Jul 10 2025 David Bold <davidsch@fedoraproject.org> - 0.4.5-1
+- Update to 0.4.5
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.4.4-4
 - Rebuilt for Python 3.14
 

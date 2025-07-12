@@ -5,8 +5,10 @@
 %global gosource %{forgeurl}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 %global _local_file_attrs node_deps
-%global __node_deps_provides %{SOURCE10} %{_builddir}/%{name}-src-%{version}/package-lock.json
+%global __node_deps_provides %{S:11} %{_builddir}/%{name}-src-%{version}/package-lock.json
 %global __node_deps_path ^%{_bindir}/%{name}$
+
+%global pagure_migrator_gitrev c9a5694dd2
 
 Name:           forgejo
 Version:        11.0.2
@@ -43,15 +45,20 @@ Source1:        %{name}-%{version}-go-vendor.tar.bz2
 #     tar -cvaf ../%%{name}-%%{version}-nodejs-vendor.tar.xz forgejo/node_modules
 # )
 Source2:        %{name}-%{version}-nodejs-vendor.tar.xz
-Source3:        go-vendor-tools.toml
-Source4:        robots.txt
-Source5:        forgejo.service
-Source6:        forgejo-init.service
-Source7:        forgejo-init.sh
-Source8:        forgejo.sysusers.conf
-Source9:        forgejo.sysconfig
-Source10:       forgejo-node-deps-provides.py
-Source11:       forgejo-node-get-licenses.py
+# Pagure migrator plugin. Generate from the pagure-migrator branch of
+# https://codeberg.org/ryanlerch/forgejo like this:
+# git archive -o %%{name}-pagure-migrator-$(git rev-parse --short HEAD).tgz \
+#     pagure-migrator -- \*pagure\*
+Source3:        %{name}-pagure-migrator-%{pagure_migrator_gitrev}.tgz
+Source4:        go-vendor-tools.toml
+Source5:        robots.txt
+Source6:        forgejo.service
+Source7:        forgejo-init.service
+Source8:        forgejo-init.sh
+Source9:        forgejo.sysusers.conf
+Source10:       forgejo.sysconfig
+Source11:       forgejo-node-deps-provides.py
+Source12:       forgejo-node-get-licenses.py
 
 Patch0:         forgejo-10.0.1-app.ini.tmpl.patch
 Patch1:         forgejo-11.0.2-no-esbuild-loader.patch
@@ -99,10 +106,11 @@ patch --input=%{PATCH0} --output=app.ini.tmpl custom/conf/app.example.ini
 
 tar --strip-components=1 -xf %{S:1}
 tar --strip-components=1 -xf %{S:2}
+tar --strip-components=0 -xf %{S:3}
 
 
 %generate_buildrequires
-%go_vendor_license_buildrequires -c %{S:3}
+%go_vendor_license_buildrequires -c %{S:4}
 
 
 %build
@@ -133,7 +141,7 @@ sed -e 's/gitea/%{name}/g' \
 touch -r contrib/autocompletion/bash_autocomplete %{name}.complete
 
 %install
-%go_vendor_license_install -c %{S:3}
+%go_vendor_license_install -c %{S:4}
 install -m755 -d %{buildroot}%{_defaultlicensedir}/%{name}/public/assets
 install -m644 public/assets/licenses.txt %{buildroot}%{_defaultlicensedir}/%{name}/public/assets/
 install -m755 -d %%{buildroot}{_defaultlicensedir}/%{name}/vendor
@@ -147,30 +155,30 @@ install -m755 -d \
     %{buildroot}%{_sysconfdir}/%{name}/templates
 
 install -m644 -p -D app.ini.tmpl %{buildroot}%{_sysconfdir}/%{name}/conf/app.ini.tmpl
-install -m644 -p -D %{S:4} %{buildroot}%{_sysconfdir}/%{name}/public/robots.txt
+install -m644 -p -D %{S:5} %{buildroot}%{_sysconfdir}/%{name}/public/robots.txt
 install -m644 -p -D %{name}.complete %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -m644 -p -D %{S:5} %{buildroot}%{_unitdir}/%{name}.service
-install -m644 -p -D %{S:6} %{buildroot}%{_unitdir}/%{name}-init.service
-install -m755 -p -D %{S:7} %{buildroot}%{_libexecdir}/%{name}-init
-install -m644 -p -D %{S:8} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -m644 -p -D %{S:6} %{buildroot}%{_unitdir}/%{name}.service
+install -m644 -p -D %{S:7} %{buildroot}%{_unitdir}/%{name}-init.service
+install -m755 -p -D %{S:8} %{buildroot}%{_libexecdir}/%{name}-init
+install -m644 -p -D %{S:9} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 install -m750 -d \
     %{buildroot}%{_sharedstatedir}/%{name} \
     %{buildroot}%{_sharedstatedir}/%{name}/data \
     %{buildroot}%{_sharedstatedir}/%{name}/log
 
-install -m640 -D %{S:9} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -m640 -D %{S:10} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 # We carry so many copies of the same license files…
 hardlink --ignore-time %{buildroot}
 
 
 %check
-%go_vendor_license_check -c %{S:3} %{vendored_go_mod_licenses}
+%go_vendor_license_check -c %{S:4} %{vendored_go_mod_licenses}
 
 
 %pre
-%sysusers_create_compat %{S:8}
+%sysusers_create_compat %{S:9}
 
 
 %post

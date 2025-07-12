@@ -2,8 +2,8 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        0.23.1
-Release:        4%{?dist}
+Version:        0.26.2
+Release:        1%{?dist}
 Summary:        FTP client/server for asyncio
 
 License:        Apache-2.0
@@ -56,6 +56,9 @@ BuildRequires:  %{py3_dist trustme}
 %doc README.rst
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.26.2-1
+- Update to latest upstream release (closes rhbz#2331673)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.23.1-4
 - Rebuilt for Python 3.14
 

@@ -7,6 +7,7 @@ Summary:        Plots data on map projections (with continental and political bo
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
 Source0:        https://github.com/matplotlib/basemap/archive/v%{version}/basemap-%{version}.tar.gz
+Patch0:         pyver.patch
 
 BuildRequires:  gcc
 
@@ -28,7 +29,6 @@ Requires:       python3-basemap
 Summary:        Plots data on map projections (with continental and political boundaries)
 License:        LGPL-2.1-or-later
 BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, geos-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  chrpath
 # Needed to regenerate Cython generated files.
 BuildRequires:  python3-Cython
@@ -46,28 +46,24 @@ projections (with continental and political boundaries).
 %prep
 %autosetup -n basemap-%{version} -p1
 
+
 %build
 export GEOS_LIB="/usr/"
 
-#pushd src
 %python3 setup.py config
-%py3_build
-chrpath --delete build/lib*/*.so
-#popd
+%pyproject_wheel
 
 pushd data/basemap_data
-%py3_build
+%pyproject_wheel
 popd
 
 %install
-#pushd src
-%py3_install
-#popd
+%pyproject_install
 
 pushd data/basemap_data
-%py3_install
+%pyproject_install
 popd
-
+chrpath --delete %{buildroot}%{python3_sitearch}/_geoslib.cpython-3*.so
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
@@ -80,11 +76,11 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 %license LICENSE.*
 %doc README.md
 %{python3_sitearch}/mpl_toolkits/basemap
-%{python3_sitearch}/basemap-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/basemap-*.dist-info
 %{python3_sitearch}/_geoslib.cpython-3*.so
 %{python3_sitelib}/mpl_toolkits/basemap_data
 # It seems that they forgot to bump the version in basemap_data
-%{python3_sitelib}/basemap_data-*-py%{python3_version}.egg-info
+%{python3_sitelib}/basemap_data-*.dist-info
 
 
 %changelog

@@ -215,6 +215,8 @@ Source18:       samba-winbind-systemd-sysusers.conf
 Source201:      README.downgrade
 Source202:      samba.abignore
 
+Patch0:         samba-4.22.x-get_kdc_ip_string.patch
+
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
 Requires: %{name}-common-libs = %{samba_depver}

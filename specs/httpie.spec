@@ -7,6 +7,9 @@ License:        BSD-3-Clause
 URL:            https://httpie.org/
 Source:         https://github.com/httpie/cli/archive/%{version}/cli-%{version}.tar.gz
 
+# Fix test_lazy_choices_help failure on Python 3.14+
+Patch:          https://github.com/httpie/cli/pull/1643.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

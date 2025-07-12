@@ -6,7 +6,7 @@
 Name: perl-%{FullName}
 Summary: Pango style text formatting
 License: (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
-Version: 0.039
+Version: 0.045
 Release: %autorelease
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
@@ -21,16 +21,16 @@ BuildArch: noarch
 
 Requires: perl(:VERSION) >= 5.26.0
 
-Recommends: perl(PDF::API2) >= 2.036
+Recommends: perl(PDF::API2) >= 2.047
 Recommends: perl(HarfBuzz::Shaper) >= 0.026
 
 BuildRequires: make
 BuildRequires: perl(Carp)
 BuildRequires: perl(ExtUtils::MakeMaker) >= 7.24
-BuildRequires: perl(Object::Pad) >= 0.78
+BuildRequires: perl(Object::Pad) >= 0.818
 BuildRequires: perl(File::Basename)
 BuildRequires: perl(HarfBuzz::Shaper) >= 0.026
-BuildRequires: perl(PDF::API2) >= 2.036
+BuildRequires: perl(PDF::API2) >= 2.047
 BuildRequires: perl(Test::More)
 BuildRequires: perl(constant)
 BuildRequires: perl(overload)

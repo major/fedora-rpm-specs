@@ -33,8 +33,6 @@ Patch:          https://github.com/ipython/ipython/pull/14876.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-stack-data
 
 %if %{with doc}
 BuildRequires:  python3-sphinx
@@ -47,18 +45,11 @@ BuildRequires:  python3-typing-extensions
 
 %if %{with check}
 BuildRequires:  python3-Cython
-BuildRequires:  python3-matplotlib
-BuildRequires:  python3-matplotlib-inline
 BuildRequires:  python3-tornado >= 4.0
 BuildRequires:  python3-zmq
 BuildRequires:  python3-nbformat
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-ipykernel
 BuildRequires:  python3-jupyter-client
-BuildRequires:  python3-testpath
-# for frontend
-BuildRequires:  python3-pygments
 # for latex
 BuildRequires: /usr/bin/dvipng
 BuildRequires: tex(amsmath.sty)
@@ -92,20 +83,12 @@ Main features:\
 
 %package -n python3-ipython
 Summary:        An enhanced interactive Python shell
-%{?python_provide:%python_provide python3-ipython}
-%{?python_provide:%python_provide python3-ipython-console}
+%py_provides    python3-ipython-console
 Provides:       ipython3 = %{version}-%{release}
 Provides:       ipython = %{version}-%{release}
-Provides:       python3-ipython-console = %{version}-%{release}
 Obsoletes:      python3-ipython-console < 5.3.0-1
 Conflicts:      python2-ipython < 7
 
-BuildRequires:  python3-decorator
-BuildRequires:  python3-jedi >= 0.10
-BuildRequires:  python3-pexpect
-BuildRequires:  python3-pickleshare
-BuildRequires:  python3-prompt-toolkit >= 2
-BuildRequires:  python3-traitlets >= 5.13.0
 Requires:       (tex(amsmath.sty) if /usr/bin/dvipng)
 Requires:       (tex(amssymb.sty) if /usr/bin/dvipng)
 Requires:       (tex(amsthm.sty)  if /usr/bin/dvipng)
@@ -116,11 +99,10 @@ Requires:       (tex(bm.sty)      if /usr/bin/dvipng)
 
 This package provides IPython for in a terminal.
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-ipython -i %{python3_sitelib}/*.egg-info notebook}
+%pyproject_extras_subpkg -n python3-ipython notebook
 
 %package -n python3-ipython-sphinx
 Summary:        Sphinx directive to support embedded IPython code
-%{?python_provide:%python_provide python3-ipython-sphinx}
 Requires:       python3-ipython = %{version}-%{release}
 BuildRequires:  python3-sphinx
 Requires:       python3-sphinx
@@ -132,10 +114,8 @@ This package contains the ipython sphinx extension.
 
 %package -n python3-ipython+test
 Summary:        Tests for %{name}
-Provides:       python3-ipython-tests = %{version}-%{release}
 Obsoletes:      python3-ipython-tests < 8.7.0-2
-%{?python_provide:%python_provide python3-ipython-tests}
-%{?python_provide:%python_provide python3-ipython+test}
+%py_provides    python3-ipython-tests
 Requires:       python3-ipykernel
 Requires:       python3-ipython = %{version}-%{release}
 Requires:       python3-jupyter-client
@@ -155,7 +135,6 @@ You can check this way, if ipython works on your platform.
 %if %{with doc}
 %package -n python3-ipython-doc
 Summary:        Documentation for %{name}
-%{?python_provide:%python_provide python3-ipython-doc}
 %description -n python3-ipython-doc
 This package contains the documentation of %{name}.
 %endif
@@ -186,8 +165,12 @@ sed -i "s/def setup(/def setup_method(/" IPython/core/tests/test_pylabtools.py
 sed -i "s/def teardown(/def teardown_method(/" IPython/core/tests/test_pylabtools.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_check:-x test}
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %if %{with doc}
@@ -200,7 +183,7 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
 
 # link the manpage to ipython3
 mv %{buildroot}%{_mandir}/man1/ipython{,3}.1
@@ -238,7 +221,7 @@ popd
 %{python3_sitelib}/IPython/testing/__pycache__/
 %{python3_sitelib}/IPython/testing/*.py*
 %{python3_sitelib}/IPython/testing/plugin
-%{python3_sitelib}/ipython-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/ipython-*.dist-info/
 
 %{python3_sitelib}/IPython/core/
 %{python3_sitelib}/IPython/extensions/
@@ -255,7 +238,7 @@ popd
 
 
 %files -n python3-ipython+test
-%ghost %{python3_sitelib}/ipython-%{version}-py%{python3_version}.egg-info/
+%ghost %{python3_sitelib}/ipython-*.dist-info/
 %{python3_sitelib}/IPython/*/tests
 
 

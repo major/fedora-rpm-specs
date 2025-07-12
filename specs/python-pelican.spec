@@ -24,7 +24,6 @@ Pelican is a static site generator, written in Python_.
 
 %package -n python3-%{pypi_name}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 Obsoletes:      python-%{pypi_name} < 3.7.1-4
 Obsoletes:      python2-%{pypi_name} < 3.7.1-4
@@ -32,7 +31,6 @@ Conflicts:      python2-%{pypi_name} < 3.7.1-4
 Provides:       %{pypi_name} == %{version}-%{release}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-blinker
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-unidecode
@@ -90,8 +88,11 @@ sed -i '1d' pelican/tools/templates/publishconf.py.jinja2
 # release pytz constraints
 sed -i "s|'pytz >= 0a'|'pytz'|" setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 # build docs
 PYTHONPATH=.:$PYTHONPATH sphinx-build-3 docs html
@@ -102,7 +103,8 @@ rm -rf html/.doctrees html/.buildinfo
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 # backwards compatibility helpers
 ln -s ./pelican %{buildroot}/%{_bindir}/pelican-3
@@ -113,12 +115,13 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %check
+%pyproject_check_import -t
+
 # re-checked tests, upstream is on python3.8, we are using 3.9.
 # pytest -s --cov=pelican pelican
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc html README.rst
-%license LICENSE
 
 %{_bindir}/pelican
 %{_bindir}/pelican-import
@@ -131,8 +134,6 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 %{_bindir}/pelican-quickstart-3
 %{_bindir}/pelican-themes-3
 
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*-py%{python3_version}.egg-info
 
 
 %changelog

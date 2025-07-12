@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   371ad64df87ff7bdfb558b0bd59013f13a4e5a57
+%global github_commit   2f1c94d6282ce7680cb949fe4ea42b5f0fa8b30a
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250709
+%global github_date     20250710
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -134,11 +134,6 @@ Source4:        23-fedora-messaging.t
 # but we need to change the groups so we have our own versions here
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
-
-# https://github.com/os-autoinst/openQA/pull/6578
-# https://progress.opensuse.org/issues/183833
-# avoid tap worker hosts breaking due to dbus quota exhaustion
-Patch:          0001-worker-disconnect-dbus-from-NameOwnerChanged-signal-.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -800,6 +795,10 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Jul 10 2025 Adam Williamson <awilliam@redhat.com> - 5^20250710git2f1c94d-1
+- Update to latest upstream git
+- Drop merged patch
+
 * Wed Jul 09 2025 Adam Williamson <awilliam@redhat.com> - 5^20250709git371ad64-1
 - Update to latest upstream git
 - Drop merged patches

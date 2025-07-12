@@ -15,7 +15,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 %if 0%{?el8}
 BuildRequires:  python3dist(dataclasses)
 %endif
@@ -36,16 +35,12 @@ with Protocol Buffers.}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %{_description}
 
 
 %prep
 %autosetup -n protobuf-%{version}
-
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
 # Fix shebangs
 pushd pure_protobuf
@@ -54,12 +49,17 @@ sed -i 's|/usr/bin/env python3|%{_bindir}/python3|' \
 popd
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pure_protobuf
 
 # E: non-executable-script
 pushd %{buildroot}%{python3_sitelib}/pure_protobuf/
@@ -68,14 +68,10 @@ popd
 
 
 %check
-%{python3} -m pytest -v
+%pytest
 
-
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/pure_protobuf-%{version}-py*.egg-info
-%{python3_sitelib}/pure_protobuf/
 
 
 %changelog

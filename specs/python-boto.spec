@@ -53,7 +53,6 @@ Patch10:        boto-2.45.0-modifysubnetattribute.patch
 Patch11:        remove-python-mock.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 # boto/plugin.py and boto/pyami/launch_ami.py uses imp
 BuildRequires:  (python3-zombie-imp if python3 >= 3.12)
@@ -103,12 +102,15 @@ cloud systems like Eucalyptus, OpenStack and Open Nebula.
 cp -p %{SOURCE1} .
 
 
-%build
-%{__python3} setup.py build
+%generate_buildrequires
+%pyproject_buildrequires
 
+
+%build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%pyproject_install
 rm -f $RPM_BUILD_ROOT/%{_bindir}/*
 
 

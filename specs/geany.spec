@@ -4,15 +4,14 @@
 %undefine  py_auto_byte_compile
 
 Name:      geany
-Version:   2.0
-Release:   6%{?dist}
+Version:   2.1
+Release:   2%{?dist}
 Summary:   A fast and lightweight IDE using GTK3
 
 # Automatically converted from old format: GPLv2+ and MIT - review is highly recommended.
 License:   GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.geany.org/
 Source0:   http://download.geany.org/%{name}-%{version}.tar.bz2
-Patch0:    geany-2.0-gcc15.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: python3-docutils
@@ -25,11 +24,12 @@ BuildRequires: make
 Requires: vte291%{?_isa}
 Requires: geany-libgeany = %{version}-%{release}
 
-Provides: bundled(scintilla) = 5.3.7
-Provides: bundled(lexilla) = 5.2.7
+Provides: bundled(scintilla) = 5.5.4
+Provides: bundled(lexilla) = 5.4.2
 
 Recommends: xterm
 
+Obsoletes: geany-themes
 
 %description
 Geany is a small and fast integrated development environment with basic
@@ -157,6 +157,11 @@ EOF
 %{_libdir}/pkgconfig/geany.pc
 
 %changelog
+* Thu Jul 10 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 2.1-2
+- New upstream release: Geany 2.1 (RHBZ#2376572)
+- Remove gcc15 patch
+- Introduce Obsoletes for geany-themes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Fix build with patch from Gentoo

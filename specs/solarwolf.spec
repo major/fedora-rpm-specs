@@ -5,10 +5,8 @@ Summary: A Python port of SolarFox
 
 License: LGPL-2.0-or-later
 URL: http://pygame.org/shredwheat/solarwolf
-#Source0: http://pygame.org/shredwheat/solarwolf/solarwolf-%{version}.tar.gz
 Source0: solarwolf-d19d830.tar.gz
 Source1: solarwolf.desktop
-#Patch0: solarwolf-path.patch
 Patch1: solarwolf-1.6.0a4-python3.patch
 BuildArchitectures: noarch
 BuildRequires: desktop-file-utils python3-devel python3-setuptools
@@ -23,30 +21,14 @@ powerups for your only chance.
 
 %prep
 %setup -qn solarwolf-d19d830
-#chmod 755 data/music
-#chmod 644 data/music/*
-#chmod 755 data/audio
-#chmod 644 data/audio/*
 
-#%patch0 -p0
 %patch -P1 -p0
-#%py3_shebang_fix .
-#find . -type f -name '*.py' | xargs 2to3 -w
 
 %build
-%py3_build
+%python3 setup.py build
 
 %install
-%py3_install
-#mkdir -p  %{buildroot}%{_bindir}
-#install -p -m 755 solarwolf.py %{buildroot}%{_bindir}/solarwolf
-
-#mkdir -p  %{buildroot}%{_datadir}/solarwolf
-#mkdir -p  %{buildroot}%{_datadir}/solarwolf/data
-#cp -ra data/* %{buildroot}%{_datadir}/solarwolf/data
-
-#mkdir -p  %{buildroot}%{_datadir}/solarwolf/code
-#install -p -m 644 code/* %{buildroot}%{_datadir}/solarwolf/code
+%python3 setup.py install --skip-build --root %{buildroot} --prefix %{_prefix}
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install \
@@ -60,7 +42,6 @@ install -p -m 644 dist/solarwolf.png \
 
 %files
 %{_bindir}/solarwolf
-#%{_datadir}/solarwolf/
 %{python3_sitelib}/solarwolf/
 %{python3_sitelib}/solarwolf-*.egg-info/
 %license lgpl.txt

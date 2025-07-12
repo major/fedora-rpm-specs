@@ -15,7 +15,6 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-cffi
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  c-ares-devel
 # for docs
 BuildRequires:  python3-sphinx
@@ -32,7 +31,6 @@ resolutions asynchronously.
 
 %package     -n python3-%{srcname}
 Summary:        Python interface for c-ares
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 pycares is a Python module which provides an interface to
@@ -59,9 +57,13 @@ This package contains documentation in reST and HTML formats.
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 export PYCARES_USE_SYSTEM_LIB=1
-%py3_build
+%pyproject_wheel
 
 # Build sphinx documentation
 pushd docs/
@@ -70,7 +72,8 @@ popd # docs
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 # Install html docs
 mkdir -p %{buildroot}%{_pkgdocdir}/
@@ -84,16 +87,15 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %check
+%pyproject_check_import
+
 # no tests to run with pytest: Disabling.
 
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst ChangeLog
 # For arch-specific packages: sitearch
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 
 %files -n python-%{srcname}-doc

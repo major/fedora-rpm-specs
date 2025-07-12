@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -50,7 +50,6 @@ BuildRequires:  pkgconfig(libxml++-2.6)
 BuildRequires:  pkgconfig(nettle)
 BuildRequires:  pkgconfig(umockdev-1.0) >= 0.6
 BuildRequires:  pkgconfig(uuid)
-BuildRequires:  pkgconfig(wayland-eglstream)
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(xcb)
@@ -194,7 +193,7 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 %cmake	-GNinja %{?with_lto:-DMIR_LINK_TIME_OPTIMIZATION=ON} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
 	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
-	-DMIR_PLATFORM="gbm-kms;x11;wayland;eglstream-kms"
+	-DMIR_PLATFORM="gbm-kms;wayland;x11"
 
 %cmake_build
 
@@ -245,7 +244,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/libmirserver.so.*
 %{_libdir}/libmirwayland.so.*
 %dir %{_libdir}/mir/server-platform
-%{_libdir}/mir/server-platform/graphics-eglstream-kms.so.*
 %{_libdir}/mir/server-platform/graphics-gbm-kms.so.*
 %{_libdir}/mir/server-platform/graphics-wayland.so.*
 %{_libdir}/mir/server-platform/input-evdev.so.*
@@ -282,6 +280,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Thu Jul 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.0-2
+- Drop EGLStreams support
+
 * Fri Jun 27 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.0-1
 - Rebase to 2.21.0
 

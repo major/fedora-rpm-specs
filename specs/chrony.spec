@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -25,6 +25,8 @@ Source10:       https://gitlab.com/chrony/clknetsim/-/archive/master/clknetsim-%
 
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
+# let systemd create /var/lib/chrony and /var/log/chrony
+Patch2:         chrony-servicedirs.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -36,9 +38,6 @@ BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
 
 # Needed by the leapseclist directive in default chrony.conf
 Requires:       tzdata
-
-# Old NetworkManager expects the dispatcher scripts in a different place
-Conflicts:      NetworkManager < 1.20
 
 # suggest drivers for hardware reference clocks
 Suggests:       ntp-refclock
@@ -59,6 +58,7 @@ service to other computers in the network.
 %setup -q -n %{name}-%{version}%{?prerelease} -a 10
 %{?gitpatch:%patch -P 0 -p1}
 %patch -P 1 -p1 -b .nm-dispatcher-dhcp
+%patch -P 2 -p1 -b .servicedirs
 
 %{?gitpatch: echo %{version}-%{gitpatch} > version.txt}
 
@@ -69,7 +69,7 @@ md5sum -c <<-EOF | (! grep -v 'OK$')
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
-        274a44cd51981d6d4d3a44dfc92c94ab  examples/chronyd.service
+        607c82f56639486f52c31105632909eb  examples/chronyd.service
         5ddbb8a8055f587cb6b0b462ca73ea46  examples/chronyd-restricted.service
 EOF
 
@@ -97,10 +97,6 @@ rm -f getdate.c
 mv clknetsim-*-%{clknetsim_ver}* test/simulation/clknetsim
 
 %build
-%ifarch aarch64
-# workaround for bug #2367978
-CFLAGS="$RPM_OPT_FLAGS -fno-inline"
-%endif
 %configure \
 %{?with_debug: --enable-debug} \
         --enable-ntp-signd \
@@ -203,12 +199,17 @@ fi
 %{_unitdir}/chrony*.service
 %{_sysusersdir}/chrony.conf
 %{_mandir}/man[158]/%{name}*.[158]*
-%dir %attr(750,chrony,chrony) %{_localstatedir}/lib/chrony
+%ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/lib/chrony
 %ghost %attr(-,chrony,chrony) %{_localstatedir}/lib/chrony/drift
 %ghost %attr(-,chrony,chrony) %{_localstatedir}/lib/chrony/rtc
-%dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
+%ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Thu Jul 10 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-2
+- let systemd create /var/lib/chrony and /var/log/chrony (#2372944)
+- drop workaround for broken build on aarch64
+- drop old conflict with NetworkManager
+
 * Wed Jun 11 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-1
 - update to 4.7
 

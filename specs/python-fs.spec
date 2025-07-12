@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 # https://spdx.org/licenses/MIT.html
@@ -20,7 +20,6 @@ Patch:          570.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 BuildRequires:  python3dist(appdirs)
 BuildRequires:  python3dist(six)
@@ -46,14 +45,20 @@ Summary:        %{summary}
 %prep
 %autosetup -n pyfilesystem2-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 # Almost all tests in tests/test_ftpfs.py need python3dist(pyftpdlib), which is
 # packaged, but this imports from pyftpdlib.tests, which is not packaged.
 ignore="${ignore-} --ignore=tests/test_ftpfs.py"
@@ -67,13 +72,13 @@ k="${k-}${k+ and }not (test_geturl_for_fs and not binary)"
 %pytest -k "${k-}" ${ignore-}
 %endif
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md examples
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
+* Thu Jul 10 2025 Parag Nemade <pnemade AT redhat DOT com> - 2.4.16-13
+- Convert a spec to use pyproject macros (rh#2377730)
+
 * Sat Jun 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.16-12
 - Remove obsolete test skip (regression was fixed in Python 3.12.1)
 - Report and skip regressions related to URL formation in Python 3.14;

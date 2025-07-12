@@ -38,7 +38,9 @@ It closely follows the original API.
 %setup -q -n CommonMark-%{version}
 
 %build
-/usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+# -std=c17 is needed to fix build with GCC 15
+# see https://github.com/Perl/perl5/issues/23192
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS -std=c17" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install

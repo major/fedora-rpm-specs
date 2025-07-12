@@ -1,6 +1,6 @@
 Name:           zimg
 Version:        3.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Scaling, color space conversion, and dithering library
 License:        WTFPL
 URL:            https://github.com/sekrit-twc/zimg
@@ -10,11 +10,11 @@ Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 # Fix build with GCC 15
 Patch0:         https://github.com/sekrit-twc/zimg/pull/218.patch
 
-BuildRequires: make
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
+BuildRequires:  make
 
 %description
 The "z" library implements the commonly required image processing basics of
@@ -37,10 +37,6 @@ developing applications that use %{name}.
 %autosetup -p1 -n zimg-release-%{version}
 
 %build
-%ifarch armv7hl
-CXXFLAGS=$(echo %{optflags} | sed -e 's/ -mfpu=vfpv3-d16//g')
-%endif
-
 autoreconf -vif
 %configure \
     --disable-static \
@@ -71,6 +67,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 10 2025 Simone Caronni <negativo17@gmail.com> - 3.0.5-5
+- Clean up SPEC file.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

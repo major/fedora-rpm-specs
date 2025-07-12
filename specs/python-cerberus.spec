@@ -56,11 +56,9 @@ Summary: %{summary}
 %pytest -vv %{slugname}/tests
 %endif
 
-%files -n python3-%{slugname}
+%files -n python3-%{slugname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst AUTHORS CHANGES.rst
-%{python3_sitelib}/%{srcname}-%{version}.dist-info
-%{python3_sitelib}/%{slugname}/
 
 %changelog
 %autochangelog

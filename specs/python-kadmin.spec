@@ -37,16 +37,16 @@ Python %{python3_version} version.
 
 %build
 export CFLAGS="$CFLAGS -fcommon -std=gnu17"
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python%{python3_pkgversion}-%{modname}
 %doc README.md
 %license LICENSE.txt
 %{python3_sitearch}/%{modname}*.so
-%{python3_sitearch}/python_%{modname}*.egg-info
+%{python3_sitearch}/python_%{modname}*.dist-info
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.2-27.20181207git94e50ed

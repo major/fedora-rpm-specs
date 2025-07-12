@@ -1,6 +1,6 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 20.1.7
+%global llvm_test_suite_version 20.1.8
 #global rc_ver 3
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:-rc%{rc_ver}}.src.fedora
 
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Thu Jul 10 2025 Nikita Popov <npopov@redhat.com> - 20.1.8-1
+- Update to LLVM 20.1.8
+
 * Fri Jun 20 2025 Nikita Popov <npopov@redhat.com> - 20.1.7-1
 - Update to LLVM 20.1.7
 

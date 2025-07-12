@@ -11,7 +11,6 @@ Source0:        %pypi_source
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest-runner
 
 %description
@@ -27,18 +26,23 @@ Summary:        %{summary}
 %setup -q -n %{pypi_name}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import -t
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/stone
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.1-18

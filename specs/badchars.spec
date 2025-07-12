@@ -1,9 +1,8 @@
 %global pypi_name badchars
-%{?python_disable_dependency_generator}
 
 Name:           %{pypi_name}
-Version:        0.4.0
-Release:        14%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        HEX bad char generator for different programming languages
 
 License:        MIT
@@ -12,7 +11,6 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 A HEX bad char generator to instruct encoders such as shikata-ga-nai to
@@ -20,7 +18,6 @@ transform those to other chars.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 A HEX bad char generator to instruct encoders such as shikata-ga-nai to
@@ -28,23 +25,30 @@ transform those to other chars.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -M
 
 %files
 %{_bindir}/%{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE.txt
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.5.0-1
+- Update to latest upstream release
+- Replace py3_build/py3_install (closes rhbz#2377208)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -19,7 +19,6 @@ Patch1:         %{name}-python3.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 This is MultipartPostHandler plus a fix for UTF-8 systems.
@@ -27,7 +26,6 @@ Enables the use of multipart/form-data for posting forms.
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 Obsoletes:  python-%{pypi_name} < 0.1.5-12
 Obsoletes:  python2-%{pypi_name} < 0.1.5-12
@@ -46,23 +44,27 @@ rm -rf doc # no real doc there
 # also change the URL in the Py2 example
 sed -i 's|http://www.google.com|https://getfedora.org/|' examples/MultipartPostHandler-example.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files 'MultipartPostHandler*'
 
 %if %{with internet}
 %check
+%pyproject_check_import
+
 # do it form a different folder
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} examples/MultipartPostHandler-example.py > py3.html
 # with internet
 %endif 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.txt examples/MultipartPostHandler-example.py
-%{python3_sitelib}/MultipartPostHandler*
-%{python3_sitelib}/__pycache__/MultipartPostHandler*
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.5-38

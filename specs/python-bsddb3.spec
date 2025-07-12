@@ -28,7 +28,7 @@ Source0:        %{pypi_source}
 Patch0:          dont-include-standard-paths-in-runtime-libdir.patch
 Patch1:          TextTestResult.patch
 Patch2:          threads.patch
-BuildRequires:  gcc libdb-devel python3-setuptools
+BuildRequires:  gcc libdb-devel
 
 %description    %{common_description}
 
@@ -38,8 +38,6 @@ BuildRequires:  gcc libdb-devel python3-setuptools
 %package -n     %{python3_name}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%{?python_provide:%python_provide %{python3_name}}
 
 %description -n %{python3_name} %{common_description}
 
@@ -51,7 +49,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 Summary:        %{summary}
 BuildRequires:  python%{python3_other_pkgversion}-devel
 BuildRequires:  python%{python3_other_pkgversion}-setuptools
-%{?python_provide:%python_provide %{python3_other_name}}
 
 %description -n %{python3_other_name} %{common_description}
 %endif
@@ -60,8 +57,11 @@ BuildRequires:  python%{python3_other_pkgversion}-setuptools
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+#%%generate_buildrequires
+#%%pyproject_buildrequires
+
 %build
-%py3_build -- --berkeley-db-incdir=%{_includedir} --berkeley-db-libdir=%{_libdir}
+%pyproject_wheel
 %{?with_python3_other:%py3_other_build}
 
 %install
@@ -95,7 +95,7 @@ fix_scripts_shebangs_and_permissions %{__python3_other} \
     %{buildroot}%{python3_other_sitearch}/%{srcname}
 %endif
 
-%py3_install -- --berkeley-db-incdir=%{_includedir} --berkeley-db-libdir=%{_libdir}
+%pyproject_install 
 fix_scripts_shebangs_and_permissions %{__python3} \
     %{buildroot}%{python3_sitearch}/%{srcname}
 
@@ -111,7 +111,7 @@ rm -f %{buildroot}%{_includedir}/python3.*/%{srcname}/bsddb.h
 %doc ChangeLog PKG-INFO README.txt
 %license LICENSE.txt
 %{python3_sitearch}/bsddb3/
-%{python3_sitearch}/bsddb3-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/bsddb3-%{version}.dist-info
 
 %if %{with python3_other}
 %files -n %{python3_other_name}

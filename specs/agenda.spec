@@ -2,7 +2,7 @@
 
 Name:           agenda
 Summary:        A simple, slick, speedy and no-nonsense task manager
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 
 # The entire source is GPL-3.0-or-later, except:

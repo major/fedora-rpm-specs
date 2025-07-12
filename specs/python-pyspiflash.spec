@@ -1,8 +1,8 @@
 %global pypi_name pyspiflash
 
 Name:           python-%{pypi_name}
-Version:        0.6.3
-Release:        18%{?dist}
+Version:        0.6.5
+Release:        1%{?dist}
 Summary:        Python SPI data flash device drivers
 
 License:        MIT
@@ -18,9 +18,6 @@ products, to store firmware, microcode or configuration parameters.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-#BuildRequires:  python3-pyftdi
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 SPI flash devices, also known as DataFlash are commonly found in embedded
@@ -29,23 +26,30 @@ products, to store firmware, microcode or configuration parameters.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l spiflash
 
 # Not running tests as they try to create a device
 #%check
 #PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} i2cflash/tests/serialeeprom.py
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst spiflash/AUTHORS
 %license LICENSE
-%{python3_sitelib}/spiflash/
-%{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.5-1
+- Update to latest upstream release (closes rhbz#2354883)
+- Replace py3_build/py3_install (closes rhbz#2378096)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.3-18
 - Rebuilt for Python 3.14
 

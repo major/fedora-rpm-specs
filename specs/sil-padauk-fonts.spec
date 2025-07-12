@@ -1,5 +1,5 @@
 Version:  3.003
-Release:  18%{?dist}
+Release:  19%{?dist}
 URL:      https://software.sil.org/padauk/
 
 %global         foundry         SIL
@@ -54,6 +54,10 @@ Source11: 66-%{fontpkgname1}.conf
 %fontfiles -a
 
 %changelog
+* Thu Jul 10 2025 Akira TAGOH <tagoh@redhat.com> - 3.003-19
+- Add fallback rule of monospace.
+  See https://fedoraproject.org/wiki/Changes/SetDefaultMonospaceFallbackFont
+
 * Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 3.003-18
 - Remove non-exist LICENSE.md file
 

@@ -1,6 +1,6 @@
 Name:           renameutils
 Version:        0.12.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A set of programs to make renaming and copying of files easier
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -8,6 +8,9 @@ License:        GPL-3.0-or-later
 URL:            http://www.nongnu.org/renameutils
 Source0:        http://savannah.nongnu.org/download/%{name}/%{name}-%{version}.tar.gz
 Patch0:         renameutils-0.12.0-install-typo.patch
+# Based on patch from Debian. Also updates declarations.
+# https://salsa.debian.org/debian/renameutils/-/blob/8d33a6d7ad3eafe997c8dcff5a17493e7f698a36/debian/patches/gcc15-fixes.patch
+Patch1:         renameutils-0.12.0-gcc15-fixes.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -46,6 +49,7 @@ keep those characters encoded in saved files.
 %prep
 %setup -q
 %patch -P0 -p1 -b .install-typo
+%patch -P1 -p1 -b .gcc15-fixes
 
 
 %build
@@ -66,6 +70,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.12.0-29
+- Fix GCC 15 issues (rhbz#2341278)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

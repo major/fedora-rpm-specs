@@ -11,7 +11,6 @@ URL:                https://github.com/gpodder/%{modname}
 Source0:            %{url}/archive/%{version}.tar.gz#/%{modname}-%{version}.tar.gz
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
 
 BuildArch:          noarch
 
@@ -23,7 +22,6 @@ Python.
 
 %package -n python3-%{modname}
 Summary:            %{sum}
-%{?python_provide:%python_provide python3-%{modname}}
 
 
 %description -n python3-%{modname}
@@ -36,19 +34,23 @@ Summary:            %{sum}
 # Better safe than sorry
 find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '%{modname}*'
 
 %{!?_licensedir: %global license %doc}
 
-%files -n python3-%{modname}
+%check
+%pyproject_check_import
+
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
-%{python3_sitelib}/%{modname}*
-%{python3_sitelib}/__pycache__/%{modname}*
 
 
 %changelog

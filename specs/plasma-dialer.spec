@@ -3,7 +3,7 @@
 Name:           plasma-dialer
 Epoch:          1
 Version:        6.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
@@ -48,9 +48,6 @@ BuildRequires:  wayland-devel
 BuildRequires:  callaudiod-devel
 BuildRequires:  pkgconfig(protobuf)
 
-%if 0%{?fedora}
-BuildRequires:  reuse
-%endif
 BuildRequires:  wayland-devel
 
 
@@ -107,6 +104,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 %{_kf6_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Thu Jul 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:6.4.2-2
+- Drop unnecessary build dependency on reuse
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.2-1
 - 6.4.2
 

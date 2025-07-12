@@ -1,8 +1,8 @@
 %global pypi_name pyvlx
 
 Name:           python-%{pypi_name}
-Version:        0.2.20
-Release:        13%{?dist}
+Version:        0.2.26
+Release:        1%{?dist}
 Summary:        Python wrapper for the Velux KLF 200 API
 
 License:        LGPL-3.0-or-later
@@ -22,7 +22,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pyyaml)
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3dist(typing-extensions)
 
 %description -n python3-%{pypi_name}
 PyVLX allow you to control VELUX windows with Python. It uses the Velux
@@ -31,24 +31,29 @@ Windows.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v test
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.2.26-1
+- Update to latest upstream release (closes rhbz#2327983)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.20-13
 - Rebuilt for Python 3.14
 

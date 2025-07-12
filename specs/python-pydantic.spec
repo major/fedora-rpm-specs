@@ -1,7 +1,7 @@
 %bcond tests 1
 
-%global commit dac3c437870a056839c0a485ae3112c76d5e4a7f
-%global snapdate 20250702
+%global commit 9452e13c571db7d31051768c3b4d47a6e2ceea7d
+%global snapdate 20250710
 
 Name:           python-pydantic
 Version:        2.11.7^%{snapdate}git%{sub %{commit} 1 7}
@@ -14,10 +14,6 @@ License:        MIT
 URL:            https://github.com/pydantic/pydantic
 %dnl Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
 Source:         %{url}/archive/%{commit}/pydantic-%{commit}.tar.gz
-
-# Add initial support for Python 3.14
-# https://github.com/pydantic/pydantic/pull/11991
-Patch:          %{url}/pull/11991.patch
 
 BuildArch:      noarch
 
@@ -104,24 +100,6 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 # We don't build docs or care about benchmarking
 ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore=tests/benchmarks"
-
-# Upstream Python 3.14 support is not quite done yet. These are the remaining
-# test failures:
-k="${k-}${k+ and} not test_create_model_must_not_reset_parent_namespace"
-k="${k-}${k+ and} not test_cross_module_cyclic_reference_dataclass"
-k="${k-}${k+ and} not test_forward_ref_auto_update_no_model"
-k="${k-}${k+ and} not test_incomplete_superclass"
-k="${k-}${k+ and} not test_model_rebuild_localns"
-k="${k-}${k+ and} not test_rebuild_dataclass"
-k="${k-}${k+ and} not test_undefined_types_warning_1a_raised_by_default_2a_future_annotations"
-k="${k-}${k+ and} not test_top_level_fwd_ref[validate-False]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[validate-True]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[serialize-False]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[serialize-True]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[json_schema-False]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[json_schema-True]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[json_schemas-False]"
-k="${k-}${k+ and} not test_top_level_fwd_ref[json_schemas-True]"
 
 %pytest ${ignore-} -k "${k-}" -rs
 %endif

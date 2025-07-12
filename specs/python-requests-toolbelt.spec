@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        Apache-2.0
@@ -20,10 +20,8 @@ belong in requests proper.
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-%{?python_provide:%python_provide python3-%{altname}}
+%py_provides    python3-%{altname}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-betamax
 BuildRequires:  python3-pyOpenSSL
 BuildRequires:  python3-pytest
@@ -43,25 +41,32 @@ sed -i -E -e 's/^(\s*)import mock/\1from unittest import mock/' \
     tests/*.py tests/*/*.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{altname}
 
 %check
+%pyproject_check_import
+
 # Disable tests that need network access and those which are currently failing
 py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py \
        -k "not test_downloadutils and not test_dump and not test_sessions"
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst HISTORY.rst
-%{python3_sitelib}/%{altname}/
-%{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Thu Jul 10 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-11
+- Convert a spec to use pyproject macros (rh#2378170)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.0-10
 - Rebuilt for Python 3.14
 

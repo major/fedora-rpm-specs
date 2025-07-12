@@ -1,13 +1,12 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.0.5
-Release: 2%{?dist}
+Version: 4.1.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
-Patch1: audit-4.0.5-af_unix.patch
 BuildRequires: make gcc
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 5.0
@@ -99,7 +98,6 @@ The audit rules package contains the rules and utilities to load audit rules.
 
 %prep
 %setup -q -n %{name}-userspace-%{version}
-%patch -P 1 -p1
 cp %{SOURCE1} .
 
 %build
@@ -107,8 +105,7 @@ autoreconf -fv --install
 # Remove the ids code, its not ready
 sed -i 's/ ids / /' audisp/plugins/Makefile.am
 sed -i 's/ ids / /' audisp/plugins/Makefile.in
-%configure --with-python=no \
-           --with-python3=yes \
+%configure --with-python3=yes \
            --enable-gssapi-krb5=yes --with-arm --with-aarch64 --with-riscv \
            --with-libcap-ng=yes --without-golang --enable-zos-remote \
            --with-io_uring --enable-experimental --with-nftables
@@ -126,6 +123,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 # Remove these items so they don't get picked up.
 rm -f $RPM_BUILD_ROOT/%{_libdir}/libaudit.a
 rm -f $RPM_BUILD_ROOT/%{_libdir}/libauparse.a
+rm -f $RPM_BUILD_ROOT/%{_libdir}/libauplugin.a
 
 find $RPM_BUILD_ROOT -name '*.la' -delete
 find $RPM_BUILD_ROOT/%{_libdir}/python%{python3_version}/site-packages -name '*.a' -delete || true
@@ -135,9 +133,7 @@ touch -r ./audit.spec $RPM_BUILD_ROOT/etc/libaudit.conf
 touch -r ./audit.spec $RPM_BUILD_ROOT/usr/share/man/man5/libaudit.conf.5.gz
 
 %check
-# This is disabled due to uid mismatches in the auparse tests
-# The next upstream release fixes this.
-#make check
+make check
 # Get rid of make files so that they don't get packaged.
 rm -f rules/Makefile*
 
@@ -202,6 +198,7 @@ fi
 %license lgpl-2.1.txt
 %{_libdir}/libaudit.so.1*
 %{_libdir}/libauparse.*
+%{_libdir}/libauplugin.so.1*
 %config(noreplace) %attr(640,root,root) /etc/libaudit.conf
 %{_mandir}/man5/libaudit.conf.5.gz
 
@@ -209,11 +206,13 @@ fi
 %doc contrib/plugin
 %{_libdir}/libaudit.so
 %{_libdir}/libauparse.so
+%{_libdir}/libauplugin.so
 %{_includedir}/libaudit.h
 %{_includedir}/audit_logging.h
 %{_includedir}/audit-records.h
 %{_includedir}/auparse.h
 %{_includedir}/auparse-defs.h
+%{_includedir}/auplugin.h
 %{_datadir}/aclocal/audit.m4
 %{_libdir}/pkgconfig/audit.pc
 %{_libdir}/pkgconfig/auparse.pc
@@ -302,6 +301,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Jul 10 2025 Steve Grubb <sgrubb@redhat.com> 4.1.0-1
+- New upstream release
+
 * Thu Jun 26 2025 Steve Grubb <sgrubb@redhat.com> 4.0.5-2
 - Apply audit-4.0.5-af_unix.patch (#2375024)
 

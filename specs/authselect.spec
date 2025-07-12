@@ -2,8 +2,8 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.5.1
-Release:        1%{?dist}
+Version:        1.6.0
+Release:        %autorelease
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -46,10 +46,19 @@ BuildRequires:  %{_bindir}/a2x
 BuildRequires:  libcmocka-devel >= 1.0.0
 BuildRequires:  libselinux-devel
 Requires: authselect-libs%{?_isa} = %{version}-%{release}
+
+# RHEL does not have meta flag yet
+%if 0%{?rhel} <= 10
+Suggests: sssd
+Suggests: samba-winbind
+Suggests: fprintd-pam
+Suggests: oddjob-mkhomedir
+%else
 Suggests(meta): sssd
 Suggests(meta): samba-winbind
 Suggests(meta): fprintd-pam
 Suggests(meta): oddjob-mkhomedir
+%endif
 
 # Properly obsolete removed authselect-compat package.
 Obsoletes: authselect-compat < 1.3
@@ -190,6 +199,7 @@ find $RPM_BUILD_ROOT -name "*.a" -exec %__rm -f {} \;
 %endif
 %{_libdir}/libauthselect.so.*
 %{_mandir}/man5/authselect-profiles.5*
+%dir %{_datadir}/doc/authselect
 %{_datadir}/doc/authselect/COPYING
 %{_datadir}/doc/authselect/README.md
 %license COPYING
@@ -246,236 +256,4 @@ done
 
 exit 0
 
-%changelog
-* Wed Feb 05 2025 Packit <hello@packit.dev> - 1.5.1-1
-- Update to version 1.5.1
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Oct 9 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-8
-- Temporary revert: myhostname is put right before dns module in nsswitch.conf hosts (rhbz#2291062)
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org>
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 28 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-6
-- Use Suggests(meta) to avoid circular dependencies (rhbz#2291235)
-
-* Tue Feb 27 2024 Jonathan Lebon <jonathan@jlebon.com> - 1.5.0-5
-- Fix altfiles rendering on OSTree variants
-
-* Fri Feb 23 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-4
-- Add back with-files-access-provider
-- Remove outdated scriptlets
-- Group merging added to nsswitch.conf group in all profiles
-- myhostname is put right before dns module in nsswitch.conf hosts (rhbz#2257197)
-- Internal packaging changes
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-1
-- Rebase to 1.5.0
-- "minimal" profile was removed and replaced with "local". (rhbz#2253180)
-- "local" profile is now default (rhbz#2253180)
-
-* Wed Sep 27 2023 Pavel Březina <pbrezina@redhat.com> - 1.4.3-1
-- Rebase to 1.4.3
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 5 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.2-1
-- Rebase to 1.4.2
-
-* Thu Dec 1 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.1-1
-- Rebase to 1.4.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 8 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.0-2
-- Fix issues with popt-1.19
-
-* Thu May 5 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.0-1
-- Rebase to 1.3.0
-
-* Thu Feb 10 2022 Pavel Březina <pbrezina@redhat.com> - 1.3.0-10
-- Fix mdns support (#2052269)
-
-* Thu Feb 3 2022 Pavel Březina <pbrezina@redhat.com> - 1.3.0-9
-- Make authselect compatible with ostree (#2034360)
-- Authselect now requires explicit opt-out if users don't want to use it (#2051545)
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jan 13 2022 Pavel Březina <pbrezina@redhat.com> - 1.3.0-7
-- Remove unnecessary dependencies (#2039869)
-
-* Thu Jan 13 2022 Pavel Březina <pbrezina@redhat.com> - 1.3.0-6
-- Fix detection of ostree system (#2034360)
-
-* Tue Dec 28 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.3.0-5
-- Try to use io.open() in pre scriptlet instead of rpm.open() (rpm >= 4.17.0)
-
-* Tue Dec 21 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.3.0-4
-- Use lua for pre scriptlets to reduce dependencies
-
-* Fri Dec 10 2021 Pavel Březina <pbrezina@redhat.com> - 1.3.0-3
-- Update conflicting versions of glibc and pam
-
-* Mon Dec 6 2021 Pavel Březina <pbrezina@redhat.com> - 1.3.0-1
-- Rebase to 1.3.0
-- Authselect configuration is now enforced (#2000936)
-
-* Sat Aug 14 2021 Björn Esser <besser82@fedoraproject.org> - 1.2.4-2
-- Add proper Obsoletes for removed authselect-compat package
-  Fixes: rhbz#1993189
-
-* Mon Aug 9 2021 Pavel Březina <pbrezina@redhat.com> - 1.2.4-1
-- Rebase to 1.2.4
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun 21 2021 Björn Esser <besser82@fedoraproject.org> - 1.2.3-3
-- Backport support for yescrypt hash method
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.2.3-2
-- Rebuilt for Python 3.10
-
-* Wed Mar 31 2021 Pavel Březina <pbrezina@redhat.com> - 1.2.3-1
-- Rebase to 1.2.3
-
-* Tue Mar 09 2021 Benjamin Berg <bberg@redhat.com> - 1.2.2-4
-- Add patch to make fingerprint-auth return non-failing pam_fprintd.so errors
-  Resolves: #1935331
-
-* Thu Mar 4 2021 Pavel Březina <pbrezina@redhat.com> - 1.2.2-3
-- minimal: add dconf settings to explicitly disable fingerprint and smartcard authentication
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Nov 25 2020 Pavel Březina <pbrezina@redhat.com> - 1.2.2-1
-- Rebase to 1.2.2
-- Add nss-altfiles to profiles on Fedora Silverblue
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 22 2020 Pavel Březina <pbrezina@redhat.com> - 1.2.1-3
-- Add resolved by default to nis and minimal profiles
-- Fix parsing of multiple conditionals on the same line
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-2
-- Rebuilt for Python 3.9
-
-* Mon May 11 2020 Pavel Březina <pbrezina@redhat.com> - 1.2.1-1
-- Rebase to 1.2.1
-
-* Wed Mar 4 2020 Pavel Březina <pbrezina@redhat.com> - 1.2-1
-- Rebase to 1.2
-
-* Mon Feb 17 2020 Pavel Březina <pbrezina@redhat.com> - 1.1-7
-- fix restoring non-authselect configuration from backup
-
-* Wed Jan 29 2020 Pavel Březina <pbrezina@redhat.com> - 1.1-6
-- cli: fix auto backup when --force is set
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1-3
-- Rebuilt for Python 3.8
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jun 13 2019 Pavel Březina <pbrezina@redhat.com> - 1.1-1
-- Rebase to 1.1
-
-* Tue Feb 26 2019 Pavel Březina <pbrezina@redhat.com> - 1.0.3-1
-- Rebase to 1.0.3
-
-* Tue Feb 26 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.0.2-4
-- Use %ghost for files owned by authselect
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Dec 3 2018 Pavel Březina <pbrezina@redhat.com> - 1.0.2-2
-- Resolves rhbz#1655025 (invalid backup).
-
-* Fri Nov 23 2018 Pavel Březina <pbrezina@redhat.com> - 1.0.2-1
-- Rebase to 1.0.2
-
-* Thu Sep 27 2018 Pavel Březina <pbrezina@redhat.com> - 1.0.1-2
-- Require systemd instead of systemctl
-
-* Thu Sep 27 2018 Pavel Březina <pbrezina@redhat.com> - 1.0.1-1
-- Rebase to 1.0.1
-
-* Fri Sep 14 2018 Pavel Březina <pbrezina@redhat.com> - 1.0-3
-- Scriptlets should no produce any error messages (RHBZ #1622272)
-- Provide fix for pwquality configuration (RHBZ #1618865)
-
-* Thu Aug 30 2018 Adam Williamson <awilliam@redhat.com> - 1.0-2
-- Backport PR #78 to fix broken pwquality config (RHBZ #1618865)
-
-* Mon Aug 13 2018 Pavel Březina <pbrezina@redhat.com> - 1.0-1
-- Rebase to 1.0
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.4-4
-- Rebuilt for Python 3.7
-
-* Mon May 14 2018 Pavel Březina <pbrezina@redhat.com> - 0.4-3
-- Disable sssd as sudo rules source with sssd profile by default (RHBZ #1573403)
-
-* Wed Apr 25 2018 Christian Heimes <cheimes@redhat.com> - 0.4-2
-- Don't disable oddjobd.service (RHBZ #1571844)
-
-* Mon Apr 9 2018 Pavel Březina <pbrezina@redhat.com> - 0.4-1
-- rebasing to 0.4
-
-* Tue Mar 6 2018 Pavel Březina <pbrezina@redhat.com> - 0.3.2-1
-- rebasing to 0.3.2
-- authselect-compat now only suggests packages, not recommends
-
-* Mon Mar 5 2018 Pavel Březina <pbrezina@redhat.com> - 0.3.1-1
-- rebasing to 0.3.1
-
-* Tue Feb 20 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.3-3
-- Provide authconfig
-
-* Tue Feb 20 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.3-2
-- Properly own all appropriate directories
-- Remove unneeded %%defattr
-- Remove deprecated Group tag
-- Make Obsoletes versioned
-- Remove unneeded ldconfig scriptlets
-
-* Tue Feb 20 2018 Pavel Březina <pbrezina@redhat.com> - 0.3-1
-- rebasing to 0.3
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-* Wed Jan 10 2018 Pavel Březina <pbrezina@redhat.com> - 0.2-2
-- fix rpmlint errors
-* Wed Jan 10 2018 Pavel Březina <pbrezina@redhat.com> - 0.2-1
-- rebasing to 0.2
-* Mon Jul 31 2017 Jakub Hrozek <jakub.hrozek@posteo.se> - 0.1-1
-- initial packaging
+%autochangelog

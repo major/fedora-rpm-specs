@@ -1,4 +1,4 @@
-%global candidate rc5
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.07
-Release:  0.5%{?candidate:.%{candidate}}%{?dist}
+Release:  2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -38,21 +38,22 @@ Patch8:   uefi-enable-https-boot-by-default.patch
 Patch9:   tools-termios_linux.h-Fix-build-error-on-ppc64.patch
 
 # Device improvments
-# Rockchips improvements
-Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
 # USB-PD improvements
-Patch11:  USB-PD-TCPM-improvements.patch
+Patch10:  USB-PD-TCPM-improvements.patch
+# Rockchips improvements
+Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
 # Rockchip DT rebase for fixes
-Patch12:  0001-Rebase-to-upstream-6.15.5-rockchip-DTs.patch
+Patch12:  Rebase-to-upstream-6.15.5-rockchip-DTs.patch
+Patch13:  Initial-MNT-Reform2-support.patch
+# Fix Jetson Nano
+Patch14:  p3450-fix-board.patch
 
 # Add EFI_PARTITION_INFO_PROTOCOL support
-Patch13: disk-efi-Move-logic-to-get-a-GPT-entry-into-a-helper.patch
-Patch14: disk-efi-expose-the-part_get_gpt_pte-helper-function.patch
-Patch15: efi_loader-disk-add-EFI_PARTITION_INFO_PROTOCOL-supp.patch
-Patch16: efi_selftest-Add-basic-partition-info-check-to-block.patch
+Patch20:  disk-efi-Move-logic-to-get-a-GPT-entry-into-a-helper.patch
+Patch21:  disk-efi-expose-the-part_get_gpt_pte-helper-function.patch
+Patch22:  efi_loader-disk-add-EFI_PARTITION_INFO_PROTOCOL-supp.patch
+Patch23:  efi_selftest-Add-basic-partition-info-check-to-block.patch
 
-# Should be upstream but it's taking time
-#Patch9:   Add-video-damage-tracking.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -279,6 +280,12 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Thu Jul 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-2
+- Update patch for rebase issue
+
+* Wed Jul 09 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-1
+- Update to 2025.07 GA
+
 * Fri Jun 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-0.5.rc5
 - Update to 2025.07 RC5
 - Enable LWIP stack by default

@@ -4,7 +4,7 @@
 Summary: KDE zeroconf implementation based on avahi
 Name:	 kdnssd-avahi
 Version: 0.1.3
-Release: 0.47.%{beta}%{?dist}
+Release: 0.48.%{beta}%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -21,6 +21,8 @@ Patch301: kde3-automake-version.patch
 # also add --force-missing to get aarch64 support (#925029/#925627)
 Patch302: kde3-automake-add-missing.patch
 Patch303: kde3-autoconf-version.patch
+# fix syntax error in acinclude.m4.in causing error with recent autoconf
+Patch304: kdnssd-avahi-acinclude_m4_syntax.patch
 
 Patch399: kdnssd-avahi-fedora-c99.patch
 
@@ -55,6 +57,7 @@ Provides: libkdnssd-devel
 %patch -P301 -p1 -b .automake-version
 %patch -P302 -p1 -b .automake-add-missing
 %patch -P303 -p1 -b .autoconf2.7x
+%patch -P304 -p1 -b .acinclude_syntax
 %patch -P399 -p1 -b .c99
 
 make -f admin/Makefile.common cvs
@@ -99,6 +102,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Mon Jul 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.3-0.48.20080116svn
+- Fix syntax error in acinclude.m4.in
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.47.20080116svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

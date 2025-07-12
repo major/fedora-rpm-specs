@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.19
+Version:        0.7.20
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -199,9 +199,9 @@ Source400:      %{tl_git}/archive/%{tl_rev}/tl-%{tl_rev}.tar.gz
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
-# Update Rust crate reqwest to v0.12.22
-# https://github.com/astral-sh/uv/pull/14475
-Patch:          %{url}/pull/14475.patch
+# Conditionalize version_extras test on the pypi feature
+# https://github.com/astral-sh/uv/pull/14536
+Patch:          %{url}/pull/14536.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
@@ -741,10 +741,6 @@ skip="${skip-} --skip middleware::tests::test_tracing_url"
 #           0 │+7ba9bfcaf3c0354c2cb8578922a00726b1ff6bdfa85fcb738bd45978fa86fd0a
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip tests::built_by_uv_building"
-
-# Upstream is working on this; see
-# https://github.com/astral-sh/uv/pull/14243#issuecomment-3001792931.
-skip="${skip-} --skip registry_client::tests::test_redirect_preserve_fragment"
 
 %ifarch s390x
 # ---- registry_client::tests::test_redirect_to_server_with_credentials stdout ----

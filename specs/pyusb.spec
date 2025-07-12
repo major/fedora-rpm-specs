@@ -16,9 +16,7 @@ methods to support most USB operations.
 
 %package -n python3-pyusb
 Summary:       %summary
-%{?python_provide:%python_provide python3-pyusb}
 BuildRequires: python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 Requires:       libusb1
 
@@ -30,20 +28,24 @@ methods to support most USB operations.
 %autosetup
 sed -i -e 's/\r//g' README.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '*'
 
 %check
+%pyproject_check_import
+
 cd tests
 %{py3_test_envvars} %{python3} ./testall.py
 
-%files -n python3-pyusb
-%license LICENSE
+%files -n python3-pyusb -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/*
 
 %changelog
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.1-3

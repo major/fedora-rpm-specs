@@ -2,12 +2,13 @@
 
 Name:           python-pyopengl
 Version:        3.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        %{pypi_source}
 Source1:        %{pypi_source pyopengl_accelerate}
+Patch0:         %{url}/pull/156/commits/5597fc91adaf7cf9d54e678e9014f5b3a8843260.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -65,6 +66,7 @@ Requires:       python3-tkinter
 
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
+%patch -P0 -p2 -F2 -d %{srcname}_accelerate-%{version}
 
 %generate_buildrequires
 for dir in %{srcname}-%{version} %{srcname}_accelerate-%{version} ; do
@@ -131,6 +133,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Thu Jul 10 2025 Scott Talbert <swt@techie.net> - 3.1.9-2
+- Fix FTFBS with Cython 3.1.2 (#2377049)
+
 * Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 3.1.9-1
 - Update to new upstream release 3.1.9 (#2335109)
 - Migrate to pyproject macros (#2378062)

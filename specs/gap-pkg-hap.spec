@@ -12,7 +12,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.66
+Version:        1.68
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
@@ -70,9 +70,6 @@ Suggests:       graphviz
 Suggests:       ImageMagick
 Suggests:       openssh-clients
 
-# This can be removed when F40 reaches EOL
-Obsoletes:      gap-pkg-happrime < 0.6-8
-
 %description
 HAP is a homological algebra library for use with the GAP computer
 algebra system, and is still under development.  Its initial focus is on
@@ -97,9 +94,6 @@ Summary:        HAP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
-# This can be removed when F40 reaches EOL
-Obsoletes:      gap-pkg-happrime-doc < 0.6-8
-
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
@@ -117,8 +111,9 @@ sed -i.orig 's/"firefox"/"xdg-open"/' lib/externalSoftware.gap
 fixtimestamp lib/externalSoftware.gap
 
 # Remove obsolete files
+rm -fr lib/*/*.old lib/Functors/*.ancient lib/GOuterGroups/*.trial \
+  lib/Congruence/keep
 find . \( -name \*keep\* -o -name \*working\* -o -name \*.swp \) -delete
-rm -fr lib/*/*.old lib/Functors/*.ancient lib/GOuterGroups/*.trial
 
 # Clean up documentation to force complete rebuild
 cd doc

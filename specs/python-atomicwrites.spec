@@ -5,7 +5,7 @@
 
 Name:       python-atomicwrites
 Version:    1.4.1
-Release:    13%{?git_tag}%{?dist}
+Release:    14%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -18,7 +18,6 @@ BuildArch:  noarch
 
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with docs}
 BuildRequires:  python3-sphinx
 %endif
@@ -45,9 +44,12 @@ Python 3 version.
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 
-%py3_build
+%pyproject_wheel
 
 %if %{with docs}
 export PYTHONPATH=`pwd`
@@ -60,7 +62,8 @@ unset PYTHONPATH
 
 %install
 
-%py3_install
+%pyproject_install
+%pyproject_save_files '%{short_name}*'
 
 %if %{with docs}
 install -d "$RPM_BUILD_ROOT%{_mandir}/man1"
@@ -68,19 +71,23 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %check
+%pyproject_check_import
+
 %if %{with tests}
 
 %{__python3} -m pytest -v
 %endif
 
-%files -n python3-%{short_name}
+%files -n python3-%{short_name} -f %{pyproject_files}
 %doc README.rst LICENSE
-%{python3_sitelib}/%{short_name}*/
 %if %{with docs}
 %{_mandir}/man1/atomicwrites.1.*
 %endif
 
 %changelog
+* Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 1.4.1-14
+- Modernize RPM macros (rhbz#2377464)
+
 * Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 1.4.1-13
 - Bootstrap for Python 3.14.0b3 bytecode
 

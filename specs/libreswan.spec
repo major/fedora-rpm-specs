@@ -78,8 +78,6 @@ BuildRequires: ElectricFence
 Requires: iproute >= 2.6.8
 Requires: nss >= %{nss_version}
 Requires: nss-softokn
-Requires: nss-tools
-Requires: unbound-libs >= %{unbound_version}
 Requires: logrotate
 # for pidof
 Requires: procps-ng
@@ -116,6 +114,8 @@ Libreswan is based on Openswan-2.6.38 which in turn is based on FreeS/WAN-2.04
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec (minimal version)
 Requires(post): bash
 Requires(post): coreutils
+Requires: nss-tools
+Requires: unbound-libs >= %{unbound_version}
 
 %description minimal
 Libreswan is a free implementation of IPsec & IKE for Linux.  IPsec is

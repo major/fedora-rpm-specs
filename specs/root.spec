@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3580,6 +3580,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 10 2025 Stephen Gallagher <sgallagh@redhat.com> - 6.36.00-3
+- Rebuilt for libarrow 20
+
 * Sat Jun 21 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.00-2
 - Add root-tree-ntuple and root-tree-ntuple-utils dependensies to root-core
   (listed in root-config --libs)

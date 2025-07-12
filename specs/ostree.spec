@@ -7,7 +7,7 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2025.2
+Version: 2025.3
 Release: %autorelease
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later

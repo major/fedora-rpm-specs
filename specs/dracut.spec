@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 107
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -49,6 +49,10 @@ Patch8:  0008-fix-ossl-ignore-compiler-warnings.patch
 # Revert "feat(fips): include openssl's fips.so and openssl.cnf"
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch9:  0009-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
+# Revert "chore: remove unused function"
+# Author: Adam Williamson <awilliam@redhat.com>
+# https://github.com/dracut-ng/dracut-ng/pull/1436
+Patch10: 0001-Revert-chore-remove-unused-function.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -474,6 +478,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Jul 10 2025 Adam Williamson <awilliam@redhat.com> - 107-2
+- Backport fix to bring back inst_library for anaconda (dracut-ng PR #1436)
+
 * Wed Jul 02 2025 Pavel Valena <pvalena@redhat.com> - 107-1
 - build: upgrade to dracut 107
 

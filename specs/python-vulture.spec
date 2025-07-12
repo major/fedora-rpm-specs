@@ -9,8 +9,8 @@ implicitly may be reported as unused. Nonetheless, vulture can be a \
 very helpful tool for higher code quality.
 
 Name:           python-%{pypi_name}
-Version:        2.13
-Release:        3%{?dist}
+Version:        2.14
+Release:        1%{?dist}
 Summary:        Find dead code
 
 License:        MIT
@@ -38,28 +38,29 @@ BuildRequires:  python3dist(pytest-cov)
 %autosetup -n %{pypi_name}-%{version}
 sed -i '1{/^#!/d}' vulture/*.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-mv %{buildroot}%{_bindir}/%{pypi_name} %{buildroot}%{_bindir}/%{pypi_name}-%{python3_version}
-ln -s %{_bindir}/vulture-%{python3_version} %{buildroot}/%{_bindir}/vulture-3
-ln -s %{_bindir}/vulture-%{python3_version} %{buildroot}/%{_bindir}/vulture
+%pyproject_install
+
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v tests
 
-%files -n python3-%{pypi_name}
+%files -n %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGELOG.md README.md
 %license LICENSE.txt
 %{_bindir}/%{pypi_name}
-%{_bindir}/%{pypi_name}-3
-%{_bindir}/%{pypi_name}-%{python3_version}
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2.14-1
+- Update to latest upstream release (closes rhbz#2331034)
+
 * Sun Jun 15 2025 Python Maint <python-maint@redhat.com> - 2.13-3
 - Rebuilt for Python 3.14
 

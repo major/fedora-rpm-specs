@@ -3,7 +3,7 @@
 
 Name:           python-jinja2-time
 Version:        0.2.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Jinja2 Extension for Dates and Times
 
 License:        MIT
@@ -20,7 +20,6 @@ Jinja2 Extension for Dates and Times
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pkgname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-arrow
 BuildRequires:  python3-jinja2
 # Required for tests
@@ -34,24 +33,28 @@ Jinja2 Extension for Dates and Times.
 %prep
 %autosetup -p 1 -n %{pkgname}-%{version}
 
-%build
 
-%{py3_build}
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
 
 %install
-
-%{py3_install}
+%pyproject_install
+%pyproject_save_files jinja2_time
 
 %check
 %pytest tests
 
-
-%files -n python3-%{pkgname}
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %license LICENSE
 %doc *.rst
-%{python3_sitelib}/*
 
 %changelog
+* Thu Jul 10 2025 Federico Pellegrin <fede@evolware.org> - 0.2.0-30
+- Use new Python macros in spec file (rhbz#2377822)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.2.0-29
 - Rebuilt for Python 3.14
 

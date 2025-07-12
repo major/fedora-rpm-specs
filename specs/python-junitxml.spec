@@ -11,7 +11,6 @@ Source0:        https://pypi.python.org/packages/source/j/%{pypi_name}/%{pypi_na
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 
 %global _description\
@@ -38,14 +37,17 @@ compatible XML.
 rm -rf %{py3dir}
 cp -a . %{py3dir}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 pushd %{py3dir}
-%{__python3} setup.py build
+%pyproject_wheel
 popd
 
 %install
 pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
 popd
 mv %{buildroot}%{_bindir}/pyjunitxml %{buildroot}%{_bindir}/pyjunitxml-%{python3_version}
 ln -s ./pyjunitxml-%{python3_version} %{buildroot}%{_bindir}/pyjunitxml-3

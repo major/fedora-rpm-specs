@@ -26,7 +26,7 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 
 Requires:       python3-click >= 3.2
-Requires:       python3-click-log >= 3.2
+Requires:       python3-click-log >= 0.2.0
 Requires:       python3-configobj
 Requires:       python3-dateutil
 Requires:       python3-icalendar

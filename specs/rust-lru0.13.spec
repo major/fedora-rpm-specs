@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ironrdp-server
+%global crate lru
 
-Name:           rust-ironrdp-server
-Version:        0.6.1
+Name:           rust-lru0.13
+Version:        0.13.0
 Release:        %autorelease
-Summary:        Extendable skeleton for implementing custom RDP servers
+Summary:        LRU cache implementation
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ironrdp-server
+License:        MIT
+URL:            https://crates.io/crates/lru
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Extendable skeleton for implementing custom RDP servers.}
+A LRU cache implementation.}
 
 %description %{_description}
 
@@ -30,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -48,28 +47,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+helper-devel
+%package     -n %{name}+hashbrown-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+helper-devel %{_description}
+%description -n %{name}+hashbrown-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "helper" feature of the "%{crate}" crate.
+use the "hashbrown" feature of the "%{crate}" crate.
 
-%files       -n %{name}+helper-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rayon-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rayon-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rayon" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rayon-devel
+%files       -n %{name}+hashbrown-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

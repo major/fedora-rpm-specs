@@ -1,11 +1,10 @@
-# Created by pyp2rpm-3.2.3
 %global pypi_name sqlalchemy-collectd
 
 %global with_checks 1
 
 Name:           python-%{pypi_name}
 Version:        0.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Send database connection pool stats to collectd
 
 License:        MIT
@@ -23,13 +22,11 @@ entrypoints and no code changes...
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 Requires:       python3-setuptools
 Requires:       python3-sqlalchemy >= 1.1
 Requires:       collectd-python
 
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sqlalchemy >= 1.1
 BuildRequires:  python3-devel
 %if 0%{?with_checks} > 0
@@ -49,24 +46,29 @@ entrypoints and no code changes...
 %prep
 %setup -q -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files sqlalchemy_collectd
 
 %check
 %if 0%{?with_checks} > 0
 %{__python3} -m pytest
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst LICENSE examples/
-%{python3_sitelib}/sqlalchemy_collectd
-%{python3_sitelib}/sqlalchemy_collectd-%{version}-py%{python3_version}.egg-info
 %{_bindir}/connmon
 
 %changelog
+* Thu Jul 10 2025 Mike Bayer <mbayer@redhat.com> - 0.0.8-5
+- Migrate to pyproject macros (rhbz#2378245)
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.0.8-4
 - Rebuilt for Python 3.14
 

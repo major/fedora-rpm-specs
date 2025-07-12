@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.14
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python module and programs for SPF (Sender Policy Framework)
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -24,7 +24,6 @@ should be done during the MAIL FROM:<...> command.
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 # For tests
 # BuildRequires:  python2-yaml
@@ -48,14 +47,17 @@ This package provides Python 3 build of %{srcname}.
 %setup -qn %{srcname}-%{version}
 %patch -P0 -p1 -b .newlines
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %check
 # Tests require unpackaged python-authres
 
 %install
-%py3_install
+%pyproject_install
 mv %{buildroot}%{_bindir}/type99.py %{buildroot}%{_bindir}/type99
 mv %{buildroot}%{_bindir}/spfquery.py %{buildroot}%{_bindir}/spfquery
 rm -f %{buildroot}%{_bindir}/*.py{o,c}
@@ -68,9 +70,12 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/*.py
 %{_bindir}/type99
 %{_bindir}/spfquery
 %{python3_sitelib}/spf.py*
-%{python3_sitelib}/pyspf-%{version}-py*.egg-info
+%{python3_sitelib}/pyspf-%{version}.dist-info
 
 %changelog
+* Thu Jul 10 2025 Bojan Smojver <bojan@rexursive.com> - 2.0.14-24
+- Stop using deprecated %%py3_build and %%py3_install macros (bz#2378094)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.14-23
 - Rebuilt for Python 3.14
 

@@ -1,14 +1,15 @@
-%define gcr_version 4.1.0
-%define gnome_online_accounts_version 3.51.0
-%define glib2_version 2.76.6
-%define gnome_desktop_version 44.0-7
-%define gsd_version 48~rc
-%define gsettings_desktop_schemas_version 48~alpha-2
-%define upower_version 0.99.8
-%define gtk4_version 4.15.2
-%define gnome_bluetooth_version 42~alpha
-%define libadwaita_version 1.7~alpha
-%define nm_version 1.24.0
+%global blueprint_compiler_version 0.17
+%global gcr_version 4.1.0
+%global gnome_online_accounts_version 3.51.0
+%global glib2_version 2.76.6
+%global gnome_desktop_version 44.0-7
+%global gsd_version 48~rc
+%global gsettings_desktop_schemas_version 48~alpha-2
+%global upower_version 1.90.6
+%global gtk4_version 4.15.2
+%global gnome_bluetooth_version 42~alpha
+%global libadwaita_version 1.7~alpha
+%global nm_version 1.52.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
@@ -16,14 +17,15 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        48.3
+Version:        49~alpha
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  blueprint-compiler >= %{blueprint_compiler_version}
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt
 BuildRequires:  gcc

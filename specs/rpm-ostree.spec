@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2025.8
+Version: 2025.9
 Release: %{autorelease}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
@@ -14,8 +14,6 @@ Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-
 # Fix libdnf use of CMake
 # https://github.com/rpm-software-management/libdnf/commit/099600ca94f3b205461cc010dd257d9d1abd068d
 Patch0: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
-# https://github.com/coreos/rpm-ostree/issues/5411
-Patch1: 0001-scripts-suppress-error-about-glibc.posttrans-scriptl.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

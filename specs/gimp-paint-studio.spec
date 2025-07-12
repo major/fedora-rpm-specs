@@ -3,7 +3,7 @@ Version:		2.0
 Release:		%autorelease
 Summary:		A collection of tool option presets and brushes for GIMP
 License:		CC-BY-SA-3.0 AND GPL-2.0-only
-URL:			http:s//code.google.com/p/gps-%{name}/
+URL:			https://code.google.com/p/gps-%{name}/
 Source0:		https://gps-%{name}.googlecode.com/files/GPS_2_0.tar.gz
 Source1:		%{name}.metainfo.xml
 

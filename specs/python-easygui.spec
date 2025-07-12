@@ -14,7 +14,6 @@ Source1:        easygui-LICENSE.txt
 
 BuildArch:      noarch
 BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-setuptools
 
 %global _description\
 Experienced Pythonistas need support for quick and dirty GUI features. New\
@@ -62,14 +61,17 @@ This package allows for use of easygui with Python 3.
 rm -rf %{py3dir}
 cp -a . %{py3dir}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 pushd %{py3dir}
-CFLAGS="$RPM_OPT_FLAGS" %{__python3} setup.py build
+%pyproject_wheel
 popd
 
 %install
 pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
 popd
 
 install -m 644 %{SOURCE1} .

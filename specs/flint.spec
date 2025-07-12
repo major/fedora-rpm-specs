@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flintlib/flint
 
 Name:           flint
-Version:        3.3.0
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 

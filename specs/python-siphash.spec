@@ -11,7 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 A Python implementation of SipHash-2-4, a fast short-input PRF with a 128-bit
@@ -20,7 +19,6 @@ key and 64-bit output.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 A Python implementation of SipHash-2-4, a fast short-input PRF with a 128-bit
@@ -30,23 +28,26 @@ key and 64-bit output.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md Changelog
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 
 %changelog

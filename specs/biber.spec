@@ -4,7 +4,7 @@
 Name:           biber
 # Export $BCF_VERSION from lib/Biber/Constants.pm, bug #2048536
 %define bcfversion 3.11
-Version:        2.20
+Version:        2.21
 Release:        1%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 # bin/biber:        Artistic-2.0
@@ -64,6 +64,7 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Slurper)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
 %if %{with biber_enables_extra_test}
 BuildRequires:  perl(Getopt::Long)
 %endif
@@ -71,6 +72,7 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(IPC::Run3)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Lingua::Translit) >= 0.28
 BuildRequires:  perl(List::AllUtils)
 BuildRequires:  perl(List::Util)
@@ -267,6 +269,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %changelog
+* Thu Jul 10 2025 Petr Pisar <ppisar@redhat.com> - 2.21-1
+- 2.21 bump
+
 * Mon Feb 03 2025 Petr Pisar <ppisar@redhat.com> - 2.20-1
 - 2.20 bump
 

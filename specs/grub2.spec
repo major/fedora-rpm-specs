@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -419,9 +419,6 @@ if test -f ${EFI_HOME}/grubenv; then
     mv --force ${EFI_HOME}/grubenv ${GRUB_HOME}/grubenv
 fi
 
-# ensure we exit 0
-mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
-
 %files common -f grub.lang
 %dir %{_libdir}/grub/
 %dir %{_datarootdir}/grub/
@@ -598,7 +595,10 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
-* Fri Jun 12 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-36
+* Tue Jul 8 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-37
+- spec: fix grub stub cfg creation script
+
+* Thu Jun 12 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-36
 - spec: moved grub stub cfg creation into a script
 
 * Thu Jun 5 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-35

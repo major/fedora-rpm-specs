@@ -5,7 +5,7 @@
 %{?!_systemdgeneratordir:%global _systemdgeneratordir /usr/lib/systemd/system-generators}
 
 # Netplan library soversion major
-%global libsomajor 0
+%global libsomajor 1
 
 # networkd is not available everywhere
 %if 0%{?rhel} && ! 0%{?epel}
@@ -14,28 +14,24 @@
 %bcond_without networkd_support
 %endif
 
-# Disable tests as they currently require nose, which is deprecated
 %bcond_with tests
 
 Name:           netplan
-Version:        0.105
-Release:        10%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Network configuration tool using YAML
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://netplan.io/
 Source0:        https://github.com/canonical/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Backports from upstream
-
-# Proposed upstream
-Patch0101:      netplan-glib-2.56-compat-rhel8.patch
-
 # Downstream only
 Patch1001:      netplan-fallback-renderer.patch
+# https://github.com/canonical/netplan/pull/555
+# probably won't be necessary in > 1.1.2
+Patch1002:      status_fail_cleanly.patch
 
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
@@ -45,13 +41,15 @@ BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  /usr/bin/pandoc
+BuildRequires:  %{_bindir}/pandoc
+BuildRequires:  python3dist(cffi)
 %if %{with tests}
 # For tests
-BuildRequires:  /usr/sbin/ip
+BuildRequires:  %{_sbindir}/ip
+BuildRequires:  libcmocka-devel
 BuildRequires:  python3dist(coverage)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(netifaces)
-BuildRequires:  python3dist(nose)
 BuildRequires:  python3dist(pycodestyle)
 BuildRequires:  python3dist(pyflakes)
 BuildRequires:  python3dist(pyyaml)
@@ -61,7 +59,7 @@ BuildRequires:  python3dist(pyyaml)
 Requires:       python3dist(netifaces)
 Requires:       python3dist(pyyaml)
 # 'ip' command is used in netplan apply subcommand
-Requires:       /usr/sbin/ip
+Requires:       %{_sbindir}/ip
 # netplan ships dbus files
 Requires:       dbus-common
 
@@ -73,9 +71,14 @@ Suggests:       %{name}-default-backend-NetworkManager
 # Netplan requires its core libraries
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
+# Python bindings are in their own package but are required for CLI
+Requires:       python3-%{name}%{?_isa} = %{version}-%{release}
+
 # Provide the package name that Ubuntu uses for it too...
 Provides:       %{ubuntu_name} = %{version}-%{release}
 Provides:       %{ubuntu_name}%{?_isa} = %{version}-%{release}
+
+
 
 %description
 netplan reads network configuration from /etc/netplan/*.yaml which are written by administrators,
@@ -90,15 +93,15 @@ Currently supported backends are NetworkManager and systemd-networkd.
 %doc %{_docdir}/%{name}/
 %{_sbindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/dbus-1/system-services/io.netplan.Netplan.service
-%{_datadir}/dbus-1/system.d/io.netplan.Netplan.conf
+%{_datadir}/dbus-1/system-services/io.%{name}.Netplan.service
+%{_datadir}/dbus-1/system.d/io.%{name}.Netplan.conf
 %{_systemdgeneratordir}/%{name}
 %{_mandir}/man5/%{name}.5*
 %{_mandir}/man8/%{name}*.8*
 %dir %{_sysconfdir}/%{name}
-%dir %{_prefix}/lib/%{name}
-%{_prefix}/lib/%{name}/generate
-%{_prefix}/lib/%{name}/%{name}-dbus
+%dir %{_libexecdir}/%{name}
+%{_libexecdir}/%{name}/generate
+%{_libexecdir}/%{name}/%{name}-dbus
 %{_datadir}/bash-completion/completions/%{name}
 
 # ------------------------------------------------------------------------------------------------
@@ -116,7 +119,7 @@ This package provides Netplan's core libraries.
 
 %files libs
 %license COPYING
-%{_libdir}/libnetplan.so.%{libsomajor}{,.*}
+%{_libdir}/lib%{name}.so.%{libsomajor}{,.*}
 
 # ------------------------------------------------------------------------------------------------
 
@@ -134,7 +137,8 @@ This package provides development headers and libraries for building application
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/libnetplan.so
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 # ------------------------------------------------------------------------------------------------
 
@@ -165,7 +169,30 @@ networking daemon.
 This package configures Netplan to use NetworkManager as its backend.
 
 %files default-backend-NetworkManager
-%{_prefix}/lib/%{name}/00-netplan-default-renderer-nm.yaml
+%attr(600,root,root) %{_prefix}/lib/%{name}/00-network-manager-all.yaml
+
+# ------------------------------------------------------------------------------------------------
+
+%package -n python3-%{name}
+Summary:        Python bindings for lib%{name}
+
+Requires:       python3-cffi
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description -n python3-%{name}
+Declarative network configuration Python bindings
+Netplan reads YAML network configuration files which are written
+by administrators, installers, cloud image instantiations, or other OS
+deployments. During early boot it then generates backend specific
+configuration files in /run to hand off control of devices to a particular
+networking daemon.
+
+Currently supported backends are networkd and NetworkManager.
+
+This package provides a CFFI based Python bindings to libnetplan.
+
+%files -n python3-%{name}
+%{python3_sitearch}/%{name}/
 
 # ------------------------------------------------------------------------------------------------
 
@@ -200,35 +227,49 @@ This package configures Netplan to use systemd-networkd as its backend.
 
 # ------------------------------------------------------------------------------------------------
 
+
 %prep
 %autosetup -p1
 
-# Drop -Werror to avoid the following error:
-# /usr/include/glib-2.0/glib/glib-autocleanups.h:28:3: error: 'ip_str' may be used uninitialized in this function [-Werror=maybe-uninitialized]
-sed -e "s/-Werror//g" -i Makefile
+# these tests all fail in containers, or are linting/codestyle which we don't care about
+sed -i -e "/    test('legacy-tests',/,+3d" \
+	-e "/    test('codestyle',/,+3d" \
+	-e "/    test('linting',/,+3d" \
+	-e "/    test('unit-tests',/,+4d" \
+	meson.build
 
 
 %build
-%make_build CFLAGS="%{build_cflags}"
+%if %{with tests}
+%meson
+%else
+%meson -Dtesting=false
+%endif
+%meson_build
 
 
 %install
-%make_install ROOTPREFIX=%{_prefix} LIBDIR=%{_libdir} LIBEXECDIR=%{_libexecdir}
-
-# Ensure that libnetplan gets picked up by the dependency generators in RHEL 8
-chmod +x %{buildroot}%{_libdir}/libnetplan.so.%{libsomajor}*
+%meson_install
 
 # Pre-create the config directory
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 
+# Create the lib dir for default config
+mkdir -p %{buildroot}%{_prefix}/lib/%{name}
+
+mv -n %{buildroot}/%{python3_sitelib}/%{name}/* %{buildroot}/%{python3_sitearch}/%{name}/
+rm -f %{python3_sitelib}/%{name}/
+
 # Generate Netplan default renderer configuration
-cat > %{buildroot}%{_prefix}/lib/%{name}/00-netplan-default-renderer-nm.yaml <<EOF
+cat > %{buildroot}%{_prefix}/lib/%{name}/00-network-manager-all.yaml <<EOF
 network:
+  version: 2
   renderer: NetworkManager
 EOF
 %if %{with networkd_support}
 cat > %{buildroot}%{_prefix}/lib/%{name}/00-netplan-default-renderer-networkd.yaml <<EOF
 network:
+  version: 2
   renderer: networkd
 EOF
 %endif
@@ -236,11 +277,14 @@ EOF
 
 %if %{with tests}
 %check
-make check
+%meson_test
 %endif
 
 
 %changelog
+* Thu Jun 12 2025 Jonathan Wright <jonathan@almalinux.org> - 1.1.2-1
+- update to 1.1.2 rhbz#2168690
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.105-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

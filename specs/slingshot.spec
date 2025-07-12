@@ -32,10 +32,10 @@ randomly generated playing fields.
 rm -f src/slingshot/data/FreeSansBold.ttf
 
 %build
-%py3_build
+%python3 setup.py build
 
 %install
-%py3_install
+%python3 setup.py install --skip-build --root %{buildroot} --prefix %{_prefix}
 
 rm -rf $RPM_BUILD_ROOT/slingshot
 rm -rf $RPM_BUILD_ROOT/home

@@ -1,5 +1,5 @@
 Name:          perl-Net-DNS
-Version:       1.50
+Version:       1.51
 Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT

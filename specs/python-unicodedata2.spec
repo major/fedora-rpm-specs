@@ -1,10 +1,9 @@
-# Created by pyp2rpm-3.3.7
 %global pypi_name unicodedata2
 %global pypi_version %{version}
 
 Name:           python-%{pypi_name}
 Version:        16.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -16,7 +15,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-randomly)
 BuildRequires:  python3dist(pytest-xdist)
-BuildRequires:  python3dist(setuptools)
 
 %description
 This module provides access to the Unicode Character Database (UCD)
@@ -42,22 +40,28 @@ is data from Unicode 13.0.0.
 %prep
 %autosetup -n %{pypi_name}-%{pypi_version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
+%pyproject_check_import
+
 %pytest -v
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitearch}/%{pypi_name}%{python3_ext_suffix}
-%{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 10 2025 Parag Nemade <pnemade AT redhat DOT com> - 16.0.0-4
+- Convert a spec to use pyproject macros (rh#2378303)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 16.0.0-3
 - Rebuilt for Python 3.14
 

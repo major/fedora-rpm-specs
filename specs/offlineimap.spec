@@ -36,11 +36,10 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-distro
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-sphinx
 BuildRequires:  asciidoc
 BuildRequires:  make
 BuildRequires:  gzip
-BuildRequires:  python3-sphinx
 
 Requires: sqlite
 Requires: python3-distro
@@ -57,6 +56,10 @@ computer as well. OfflineIMAP is also useful if you want to use a mail
 reader that does not have IMAP support, has poor IMAP support, or does
 not provide disconnected operation.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
 
 %setup -n offlineimap3-%{version}
@@ -71,7 +74,7 @@ mv imaplib2/imaplib2.py3 ../offlineimap3-%{version}/offlineimap/imaplib2.py
 
 %build
 
-%{py3_build}
+%pyproject_wheel
 
 # 'make docs' builds the man pages and the api documentation.
 make docs SPHINXBUILD='%{__python3} -msphinx'
@@ -81,7 +84,8 @@ chmod a-x docs/offlineimap.1.gz
 chmod a-x docs/offlineimapui.7.gz
 
 %install
-%{py3_install}
+
+%pyproject_install
 
 #  Fix python shebang in the offlineimap program.
 %py3_shebang_fix %{buildroot}/%{_bindir}/offlineimap
@@ -100,11 +104,14 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %doc offlineimap.conf* docs/html/*.html
 %{_bindir}/%{name}
 %{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}.dist-info/
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Thu Jul 10 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.0-19
+- Update python packaging macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 8.0.0-18
 - Rebuilt for Python 3.14
 

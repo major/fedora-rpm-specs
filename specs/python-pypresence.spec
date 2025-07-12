@@ -1,6 +1,6 @@
 Name:           python-pypresence
 Version:        4.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Discord Rich Presence Client in Python 
 License:        MIT
 URL:            https://qwertyquerty.github.io/pypresence/html/index.html
@@ -8,7 +8,6 @@ Source0:        https://github.com/qwertyquerty/pypresence/archive/v%{version}/p
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 
 %global _description \
@@ -32,27 +31,31 @@ Summary:        %{summary}
 # docs include files that are under a different license model, omitting them
 rm -rf %{buildroot}/docs
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pypresence
 
 
 %check
-%py3_check_import pypresence
+%pyproject_check_import -t
 
 
-%files -n python3-pypresence
+%files -n python3-pypresence -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/pypresence/
-%{python3_sitelib}/pypresence-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Thu Jul 10 2025 Steve Cossette <farchord@gmail.com> - 4.3.0-9
+- Updated python macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.3.0-8
 - Rebuilt for Python 3.14
 

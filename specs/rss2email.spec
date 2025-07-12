@@ -12,12 +12,13 @@ Source1:        r2e-migrate
 Source2:        r2e-migrate.1
 Source3:        README.migrate
 Patch1:         rss2email-3.14-remove-special-bytes.patch
+Patch2:         rss2email-3.14-fix-tests-pr-279.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-feedparser >= 6.0.5
 BuildRequires:  python3-html2text >= 2018.1.9
+BuildRequires:  python3-beautifulsoup4
 Recommends:     python3-beautifulsoup4
 Recommends:     esmtp
 # r2e-migrate
@@ -46,12 +47,17 @@ This package provides %{summary}.
 cp -p %{SOURCE3} .
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -L %{name}
 
 install -D -m 644 -p completion/r2e.zsh %{buildroot}%{_datadir}/zsh/functions/Completion/Unix/_r2e
 
@@ -62,18 +68,18 @@ install -D -m 644 -p %{SOURCE2} %{buildroot}%{_mandir}/man1/r2e-migrate.1
 
 
 %check
+%pyproject_check_import
+
 PATH="${PATH}:%{buildroot}%{_bindir}" PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ./test/test.py
 
 
-%files
+%files -f %{pyproject_files}
 %license COPYING
 %doc AUTHORS CHANGELOG README.rst README.migrate
 %{_bindir}/r2e
 %{_bindir}/r2e-migrate
 %{_mandir}/man1/r2e.1*
 %{_mandir}/man1/r2e-migrate.1*
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %files zsh-completion
 %{_datadir}/zsh/functions/Completion/Unix/_r2e

@@ -21,11 +21,11 @@ BuildArch:      noarch
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
+
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-wheel
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description -n python3-%{srcname} %{_description}
 
@@ -35,15 +35,15 @@ Python 3 version.
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{srcname}
 %license LICENCE
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 %{python3_sitelib}/%{srcname}/
 
 %changelog

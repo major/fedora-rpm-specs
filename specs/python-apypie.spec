@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apipie bindings for Python
 
 License:        MIT
@@ -11,7 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %description
 Python bindings for the Apipie - Ruby on Rails API documentation tool.
@@ -24,22 +23,27 @@ Apipie bindings for Python3
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%check
+%pyproject_check_import
+
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Thu Jul 10 2025 Ondřej Gajdušek <ogajduse@redhat.com> - 0.7.1-3
+- pyprojectize RPM spec - rhbz#2377456
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.1-2
 - Rebuilt for Python 3.14
 

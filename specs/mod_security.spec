@@ -11,7 +11,7 @@
 
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
-Version: 2.9.9
+Version: 2.9.11
 Release: 1%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
@@ -148,6 +148,9 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Thu Jul 10 2025 Joe Orton  <jorton@redhat.com> - 2.9.11-1
+- update to 2.9.11
+
 * Thu May 29 2025 Joe Orton  <jorton@redhat.com> - 2.9.9-1
 - update to 2.9.9 (#2367908)
 - add bconds for yajl, ssdeep dependencies

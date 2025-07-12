@@ -1,5 +1,5 @@
 Name:           openpgl
-Version:        0.5.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Open Path Guiding Library 
 

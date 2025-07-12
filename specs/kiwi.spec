@@ -8,8 +8,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.2.24
-Release:        3%{?dist}
+Version:        10.2.27
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,8 +17,6 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-Patch0001:      0001-Add-overlayfs-as-supporting-xattr-ACLs-as-well.patch
-Patch0002:      0002-Allow-boot-to-be-a-btrfs-subvolume.patch
 
 # Proposed upstream
 
@@ -619,6 +617,9 @@ fi
 
 
 %changelog
+* Thu Jul 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.27-1
+- Update to 10.2.27
+
 * Mon Jun 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.24-3
 - Backport support for running on overlayfs and allowing /boot as a subvolume
 

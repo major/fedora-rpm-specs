@@ -3,10 +3,10 @@
 
 Name:           libserf
 Version:        1.3.10
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
-URL:            http://serf.apache.org/
+URL:            https://serf.apache.org/
 Source0:        https://archive.apache.org/dist/serf/serf-%{version}.tar.bz2
 BuildRequires:  gcc, pkgconfig
 BuildRequires:  apr-devel, apr-util-devel, krb5-devel, openssl-devel
@@ -56,10 +56,15 @@ popd
 %install
 %cmake_install
 
-mkdir -p  %{buildroot}%{_libdir}/pkgconfig
-mv %{buildroot}%{_datadir}/pkgconfig/serf.pc %{buildroot}%{_libdir}/pkgconfig/serf-%{major}.pc
-ln -s serf-%{major}.pc %{buildroot}%{_libdir}/pkgconfig/serf.pc
-rm -rf %{buildroot}%{_datadir}
+%if %{major} == 1
+# Create compat stub library for cross-distro compatibility, since
+# upstream unintentionally bumped the soname from libserf-1.so.0 to
+# libserf-1.so.1 in 1.3.0. This can be deleted once major is 2.
+# See: https://lists.apache.org/thread/o1vvpbv6pvw0bh8x5zqwyzbsqk4ntj7c
+%define compatso libserf-1.so.1
+%{__cc} %{optflags} -shared -o %{buildroot}%{_libdir}/%{compatso} \
+       -Wl,-soname,%{compatso} -L%{buildroot}%{_libdir} -lserf-1
+%endif
 
 %check
 %ifnarch %ix86
@@ -67,7 +72,7 @@ rm -rf %{buildroot}%{_datadir}
 %else
 true
 %endif
-grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf.pc
+grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf-%{major}.pc
 
 %ldconfig_scriptlets
 
@@ -82,6 +87,10 @@ grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf.pc
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Mon Jun 23 2025 Joe Orton  <jorton@redhat.com> - 1.3.10-11
+- create compat libserf-1.so.1 for compatibility with upstream 1.x soname
+- only ship serf-1.pc not serf.pc
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

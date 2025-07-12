@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/xmod
 
 Name:           gap-pkg-xmod
-Version:        2.94
+Version:        2.95
 Release:        %autorelease
 Summary:        Crossed Modules and Cat1-Groups for GAP
 

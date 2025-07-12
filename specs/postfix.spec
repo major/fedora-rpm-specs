@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.10.2
-Release: 3%{?dist}
+Version: 3.10.3
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -96,7 +96,7 @@ Source101: postfix-pam.conf
 
 # Patches
 
-Patch1: postfix-3.10.2-config.patch
+Patch1: postfix-3.10.3-config.patch
 Patch2: postfix-3.9.0-files.patch
 Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
@@ -849,6 +849,12 @@ fi
 %endif
 
 %changelog
+* Thu Jul 10 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2:3.10.3-1
+- New version
+  Resolves: rhbz#2379297
+- Updated cyrus-imapd comment in config to point to the correct location
+  Related: RHEL-63089
+
 * Thu Jun  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.2-3
 - Updated pflogsumm to 1.1.6
   Resolves: rhbz#2368396

@@ -1,4 +1,3 @@
-# Created by pyp2rpm-3.3.7
 %global pypi_name berkeleydb
 %global pypi_version 18.1.4
 
@@ -56,10 +55,10 @@ Manager. Complete support for Oracle Berkeley DB Base Replication.
 %autosetup -n %{pypi_name}-%{pypi_version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 chrpath --delete $RPM_BUILD_ROOT%{python3_sitearch}/berkeleydb/_berkeleydb.cpython-*-linux-gnu*so
 
@@ -69,7 +68,7 @@ sed -i /env\ python/d $RPM_BUILD_ROOT%{python3_sitearch}/berkeleydb/dbshelve.py
 %license LICENSE.txt licenses.txt
 %doc README.txt
 %{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
+%{python3_sitearch}/%{pypi_name}-%{pypi_version}.dist-info
 
 %files -n python3-%{pypi_name}-devel
 %{_includedir}/python%{python3_version}/berkeleydb/
