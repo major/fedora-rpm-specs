@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %global pypi_name csvkit
 %global project_owner wireservice
 %global github_name csvkit
@@ -7,8 +6,8 @@ of tabular file formats.
 
 
 Name:           python-%{pypi_name}
-Version:        2.0.1
-Release:        3%{?dist}
+Version:        2.1.0
+Release:        0%{?dist}
 Summary:        Suite of utilities for converting to and working with CSV
 
 License:        MIT
@@ -25,7 +24,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist agate} >= 1.6.1
 BuildRequires:  %{py3_dist agate-excel} >= 0.2.2
@@ -33,7 +31,6 @@ BuildRequires:  %{py3_dist agate-dbf} >= 0.2
 BuildRequires:  %{py3_dist agate-sql} >= 0.5.3
 BuildRequires:  %{py3_dist six} >= 1.6.1
 BuildRequires:  %{py3_dist furo}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -51,13 +48,16 @@ Documentation package
 
 %prep
 %setup -q -n %{github_name}-%{version}
-rm -rf *.egg-info
 # Fix non-executable-script
 find csvkit -name \*.py -type f | xargs sed -i '1{\@^#!/usr/bin/env python@d}'
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 cd docs
 make html
@@ -65,7 +65,8 @@ make man
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 mkdir -p %{buildroot}%{_mandir}/man1
 for file in docs/_build/man/*.1; do
@@ -80,16 +81,16 @@ chmod -x examples/realdata/census_2000/VROUTFSJ.TXt
 
 
 %check
+%pyproject_check_import
+
 # This tests fails because of local error.
 pytest-%{python3_version} tests -v -k "not test_convert_dbf and not test_decimal_format"
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license COPYING
 %doc README.rst CHANGELOG.rst AUTHORS.rst
 %{_bindir}/*
 %{_mandir}/man1/*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 
 %files doc
@@ -98,6 +99,10 @@ pytest-%{python3_version} tests -v -k "not test_convert_dbf and not test_decimal
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 2.1.0-1
+- Update to 2.1.0
+- Correct Python macro usages
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 2.0.1-3
 - Rebuilt for Python 3.14
 

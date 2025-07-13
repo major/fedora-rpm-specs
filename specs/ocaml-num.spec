@@ -20,8 +20,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-num
-Version:        1.5
-Release:        11%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -30,7 +30,7 @@ VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Downstream patch to add -g flag.
-Patch5:         0001-src-Add-g-flag-to-mklib.patch
+Patch:          0001-src-Add-g-flag-to-mklib.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n num-%{version} -p1
 
+# FIXME: ocaml-findlib complains that num is already installed without this
+sed -i 's,cp \(META.num META\),mv \1,' src/Makefile
+
 
 %build
 make opam-modern PROFILE=release ARCH=%{num_arch} FLAMBDA=true
@@ -81,6 +84,12 @@ make -j1 test PROFILE=release ARCH=%{num_arch} FLAMBDA=true
 export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR/stublibs
 %make_install ARCH=%{num_arch}
+
+# Version 1.6 removed the directory directive from the META file.  Somehow, we
+# now install the files in the wrong directory.  Probably one of the lines
+# above needs to be tweaked, but I am unsure how.
+mv %{buildroot}%{ocamldir}/*.{a,cm*,mli} %{buildroot}%{ocamldir}/num
+
 %ocaml_files
 
 
@@ -94,6 +103,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.6-1
+- Version 1.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

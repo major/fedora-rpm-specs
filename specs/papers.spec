@@ -18,18 +18,20 @@ Summary:        View multipage documents
 # papers itself is:
 SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND libtiff
 # ... and its crate dependencies are:
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # GPL-2.0-or-later
 # MIT
-# MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
 Source:         https://download.gnome.org/sources/papers/49/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
@@ -40,6 +42,7 @@ Source1:        papers-%{tarball_version}-vendor.tar.xz
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  gcc
 BuildRequires:  itstool
 BuildRequires:  meson
@@ -194,8 +197,8 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %files libs
 %license COPYING
-%{_libdir}/libppsdocument-4.0.so.5{,.*}
-%{_libdir}/libppsview-4.0.so.4{,.*}
+%{_libdir}/libppsdocument-4.0.so.6{,.*}
+%{_libdir}/libppsview-4.0.so.5{,.*}
 %{_libdir}/papers/
 %{_metainfodir}/papers-comicsdocument.metainfo.xml
 %if %{with djvu}

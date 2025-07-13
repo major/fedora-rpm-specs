@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:          ocaml-ocamlbuild
-Version:       0.15.0
-Release:       3%{?dist}
+Version:       0.16.1
+Release:       1%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -21,7 +21,7 @@ VCS:           git:%{url}.git
 Source0:       %{url}/archive/%{version}/ocamlbuild-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires: ocaml >= 4.04.0
+BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-rpm-macros
 BuildRequires: ncurses
 BuildRequires: asciidoc
@@ -108,6 +108,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.16.1-1
+- Version 0.16.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

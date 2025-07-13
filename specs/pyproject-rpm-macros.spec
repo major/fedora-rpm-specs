@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.18.2
+Version:        1.18.3
 Release:        1%{?dist}
 
 # Macro files
@@ -167,6 +167,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Jul 11 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.3-1
+- %%pyproject_buildrequires: Do not generate BuildRequires from Requires core metadata fields
+- That field is deprecated and should include importable module names, not distribution packages
+- Related: rhbz#2378463
+
 * Mon May 19 2025 Maxwell G <maxwell@gtmx.me> - 1.18.2-1
 - Fix handling of config_settings in %%pyproject_buildrequires
 

@@ -61,7 +61,7 @@ BuildRequires:  rubygem-asciidoctor
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  ant-junit
 %endif
@@ -90,7 +90,7 @@ BuildRequires:  junit5
 
 Requires:       %{name}-lib = %{version}-%{release}
 Requires:       %{name}-jdk-binding
-Suggests:       %{name}-openjdk21 = %{version}-%{release}
+Suggests:       %{name}-openjdk25 = %{version}-%{release}
 
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1:1.10.15-21
@@ -349,8 +349,8 @@ rm src/main/org/apache/tools/ant/listener/Log4jListener.java
 
 #install jars
 %if %{with bootstrap}
-ln -s %{_prefix}/lib/javapackages-bootstrap/junit.jar lib/optional/junit.jar
-ln -s %{_prefix}/lib/javapackages-bootstrap/hamcrest-core.jar lib/optional/hamcrest-core.jar
+ln -s %{_datadir}/javapackages-bootstrap/junit.jar lib/optional/junit.jar
+ln -s %{_datadir}/javapackages-bootstrap/hamcrest-core.jar lib/optional/hamcrest-core.jar
 %else
 %if %{with ant_minimal}
 build-jar-repository -s -p lib/optional junit hamcrest/core hamcrest/library

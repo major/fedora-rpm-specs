@@ -27,7 +27,7 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2504
+Version:        6.2.2505
 Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 ExcludeArch:    %{ix86}
@@ -286,7 +286,7 @@ includedir=$MPI_INCLUDE/%{name}\
 \
 Name: %{name}\
 Description:  %{summary}\
-Version: %{version}\
+Version: 6.2.2505
 Libs: -L\\\${libdir} -lnglib\
 Libs.private: -lngcgs -lnggeom2d -lngmesh -lngocc -lngstl\
 Cflags: -I\\\${includedir}\
@@ -420,6 +420,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri Jul 11 2025 Sandro Mani <manisandro@gmail.com> - 6.2.2505-1
+- Update to 6.2.2505
+
 * Fri Jun 13 2025 Sandro Mani <manisandro@gmail.com> - 6.2.2504-1
 - Update to 6.2.2504
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cinaps
 Version:        0.15.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Trivial Metaprogramming tool using the OCaml toplevel
 
 License:        MIT
@@ -73,6 +73,9 @@ help2man -N --version-string=%{version} \
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.15.1-24
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

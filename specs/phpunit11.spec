@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    4ad8fe263a0b55b54a8028c38a18e3c5bef312e0
-%global gh_date      2025-07-04
+%global gh_commit    446d43867314781df7e9adf79c3ec7464956fd8f
+%global gh_date      2025-07-11
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.26
+%global upstream_version 11.5.27
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -49,7 +49,7 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.3            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 11.0.10   with php-composer(phpunit/php-code-coverage) < 12)
@@ -85,7 +85,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-mbstring": "*",
 #        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
-#        "myclabs/deep-copy": "^1.13.1",
+#        "myclabs/deep-copy": "^1.13.3",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^11.0.10",
@@ -112,7 +112,7 @@ Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-xmlwriter
-Requires:       (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.13.3            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 11.0.10   with php-composer(phpunit/php-code-coverage) < 12)
@@ -291,6 +291,10 @@ exit $ret
 
 
 %changelog
+* Fri Jul 11 2025 Remi Collet <remi@remirepo.net> - 11.5.27-1
+- update to 11.5.27
+- raise dependency on myclabs/deep-copy 1.13.3
+
 * Mon Jul  7 2025 Remi Collet <remi@remirepo.net> - 11.5.26-1
 - update to 11.5.26
 

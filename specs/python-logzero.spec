@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -11,7 +11,7 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel
 
 %description
 Robust and effective logging for Python 2 and 3.
@@ -26,11 +26,14 @@ Robust and effective logging for Python 3.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{srcname}
 %license LICENSE
@@ -38,6 +41,9 @@ Robust and effective logging for Python 3.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 1.7.0-16
+- switch to pyproject macros (BZ #2377865)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7.0-15
 - Rebuilt for Python 3.14
 

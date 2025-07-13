@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/cowsql/cowsql
-Version:        1.15.8
+Version:        1.15.9
 %forgemeta
 
 Name:           cowsql

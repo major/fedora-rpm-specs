@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -81,6 +81,9 @@ grep expected invalid-err.log >/dev/null
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.4.0-14
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

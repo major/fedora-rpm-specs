@@ -1,8 +1,8 @@
 %global srcname bottle
 
 Name:           python-%{srcname}
-Version:        0.13.2
-Release:        3%{?dist}
+Version:        0.13.4
+Release:        1%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -12,7 +12,6 @@ Source0:        https://github.com/bottlepy/%{srcname}/archive/%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python3dist(pytest)
 
 %description
@@ -37,11 +36,14 @@ Python Standard Library.
 %autosetup -p1 -n %{srcname}-%{version}
 sed -i '/^#!/d' bottle.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 rm %{buildroot}%{_bindir}/bottle %{buildroot}%{_bindir}/bottle.py
 
 %check
@@ -51,10 +53,16 @@ rm %{buildroot}%{_bindir}/bottle %{buildroot}%{_bindir}/bottle.py
 %license LICENSE
 %doc AUTHORS README.rst docs/*
 %{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %{python3_sitelib}/*.py
 
 %changelog
+* Fri Jul 11 2025 Federico Pellegrin <fede@evolware.org> - 0.13.4-1
+- Bump to 0.13.4
+
+* Fri Jul 11 2025 Federico Pellegrin <fede@evolware.org> - 0.13.2-4
+- Use new Python macros in spec file (rhbz#2377493)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.13.2-3
 - Rebuilt for Python 3.14
 

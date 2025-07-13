@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        114%{?dist}
+Release:        115%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -133,6 +133,9 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.9.5-115
+- Rebuild to fix OCaml dependencies
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.9.5-114
 - Perl 5.42 rebuild
 

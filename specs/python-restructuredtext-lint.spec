@@ -10,7 +10,7 @@ It reports errors and warning including:\
 
 Name:           python-%{pkg_name}
 Version:        1.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        reStructuredText linter
 
 License:        Unlicense
@@ -28,14 +28,12 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-PyYAML >= 3.11
 BuildRequires:  python3-docutils >= 0.11
 BuildRequires:  python3-docutils < 1.0
 Requires:       python3-docutils >= 0.11
 Requires:       python3-docutils < 1.0
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
 %description -n python3-%{pkg_name}
 %{desc}
@@ -48,28 +46,36 @@ cp -a %{SOURCE1} .
 find -name '*.pyc' -delete
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 PYTHONPATH="$(pwd)" pytest-%{python3_version} -v
 
 
-%files -n python3-%{pkg_name}
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %doc README.rst
 %license UNLICENSE
 %{_bindir}/rst-lint
 %{_bindir}/restructuredtext-lint
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 1.4.0-13
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.4.0-12
 - Rebuilt for Python 3.14
 

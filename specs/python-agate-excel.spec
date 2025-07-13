@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %global pypi_name agate-excel
 %global file_name agateexcel
 %global project_owner wireservice
@@ -9,7 +8,7 @@ See: http://agate-excel.rtfd.org
 
 Name:           python-%{pypi_name}
 Version:        0.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Adds read support for Excel files to agate
 
 License:        MIT
@@ -25,7 +24,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3dist(agate) >= 1.5
 BuildRequires:  python3dist(xlrd) >= 0.9.4
@@ -33,7 +31,6 @@ BuildRequires:  python3dist(openpyxl) >= 2.3
 BuildRequires:  python3dist(olefile)
 BuildRequires:  python3dist(furo)
 
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -57,8 +54,12 @@ Documentation package.
 sed -i '1{\@^#!/usr/bin/env python@d}' agateexcel/*.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 # Build documentation
 pushd docs
@@ -68,18 +69,19 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{file_name}
 
 
 %check
+%pyproject_check_import
+
 %pytest tests -v
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst AUTHORS.rst CHANGELOG.rst
 %license COPYING
-%{python3_sitelib}/agate_excel-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{file_name}/
 
 
 %files -n python-%{pypi_name}-doc
@@ -88,6 +90,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.4.1-6
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.1-5
 - Rebuilt for Python 3.14
 

@@ -1,9 +1,3 @@
-# We unconditionally build implementations for C++ and Python. We plan to build
-# and install the C library once we have clarity on where to install its
-# headers, https://github.com/cucumber/gherkin/pull/346. For now, nothing is
-# expected to require the C library in the short term, and we do not want to
-# have to move the headers if upstream ends up requesting changes to the PR.
-%bcond c 0
 # Implementations for various other languages are present in the source. Some,
 # like Dart, belong to ecosystems that are not packaged. Others, like Perl,
 # could perhaps be enabled if motivation existed. Still others should be (or
@@ -17,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        32.1.2
+Version:        33.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 32
-%global c_soversion 32
+%global cpp_soversion 33
+%global c_soversion 33
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -35,29 +29,6 @@ Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 # based on a cursory inspection of gherkin-generate-tokens.cpp.
 Source10:       gherkin.1
 Source11:       gherkin-generate-tokens.1
-
-# [c]: install headers under cucumber/gherkin/ and .cmake files under gherkin/
-# https://github.com/cucumber/gherkin/pull/346
-Patch:          %{url}/pull/346.patch
-# [c] Prefer the longest step keyword
-# https://github.com/cucumber/gherkin/pull/417
-# Take just the commit with the fix, not the changelog entry, to avoid conflicts
-Patch:          %{url}/pull/417/commits/4549a339ac741530cdc6d2e94d4571ea600fb71c.patch
-# [c] Fix setting keyword type when matching Action or Outcome
-# https://github.com/cucumber/gherkin/pull/418
-# Take just the commit with the fix, not the changelog entry, to avoid conflicts
-Patch:          %{url}/pull/418/commits/fdf65d84c375a6bda3d872511b2b6935cc681bce.patch
-
-# cpp: Enable codegen
-# https://github.com/cucumber/gherkin/pull/414
-Patch:          %{url}/pull/414.patch
-# [cpp] Fix regenerating dialect.cpp, and do so
-# https://github.com/cucumber/gherkin/pull/415
-Patch:          %{url}/pull/415.patch
-# [cpp] Prefer the longest step keyword
-# https://github.com/cucumber/gherkin/pull/416
-# Take just the commit with the fix, not the changelog entry, to avoid conflicts
-Patch:          %{url}/pull/416/commits/4046645aa562e4252529e23cdf79e51cad6e19c9.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -101,7 +72,6 @@ BuildArch:      noarch
 This package contains data files shared among multiple Gherkin implementations.
 
 
-%if %{with c}
 %package c-libs
 Summary:        Libraries implementing Gherkin in C
 
@@ -122,7 +92,6 @@ Requires:       %{name}-c-libs%{?_isa} = %{version}-%{release}
 
 This package contains header files and libraries for developing and building
 programs that use the C implementation of Gherkin.
-%endif
 
 
 %package cpp-libs
@@ -201,12 +170,10 @@ popd >/dev/null
 
 
 %conf
-%if %{with c}
 echo '==== Configuring C implementation ===='
 pushd c
 %cmake -GNinja
 popd
-%endif
 
 echo '==== Configuring C++ implementation ===='
 pushd cpp
@@ -215,12 +182,10 @@ popd
 
 
 %build
-%if %{with c}
 echo '==== Building C implementation ===='
 pushd c
 %cmake_build
 popd
-%endif
 
 echo '==== Building C++ implementation ===='
 pushd cpp
@@ -237,12 +202,10 @@ popd
 install -t '%{buildroot}%{_datadir}/gherkin' -D -p -m 0644 \
     gherkin-languages.json
 
-%if %{with c}
 echo '==== Installing C implementation ===='
 pushd c
 %cmake_install
 popd
-%endif
 
 echo '==== Installing C++ implementation ===='
 pushd cpp
@@ -262,7 +225,6 @@ popd
 
 
 %check
-%if %{with c}
 echo '==== Testing C implementation ===='
 pushd c
 # C tests are automatically executed during %%cmake_build.
@@ -278,7 +240,6 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %make_build acceptance \
     GHERKIN_GENERATE_TOKENS='%{_vpath_builddir}/gherkin_generate_tokens'
 %endif
 popd
-%endif
 
 echo '==== Testing C++ implementation ===='
 pushd cpp
@@ -317,7 +278,6 @@ echo '==== Testing Python implementation ===='
 %{_datadir}/gherkin/gherkin-languages.json
 
 
-%if %{with c}
 %files c-libs
 %license LICENSE
 %{_libdir}/libgherkin.so.%{c_soversion}{,.*}
@@ -333,7 +293,6 @@ echo '==== Testing Python implementation ===='
 
 %{_libdir}/libgherkin.so
 %{_libdir}/cmake/gherkin/
-%endif
 
 
 %files cpp-libs

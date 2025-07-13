@@ -2,7 +2,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.4.0
+Version:          1.4.1
 Release:          %autorelease
 Summary:          Split, Combine and Compress PDF Files
 

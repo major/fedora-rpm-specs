@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pyml
 Version:        20231101
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
@@ -24,9 +24,6 @@ BuildRequires:  ocaml-stdcompat-devel >= 18
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist numpy}
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-pyml-doc < 20220615-3
 
 %description
 py.ml provides OCaml bindings for Python 2 and Python 3.  This library
@@ -79,6 +76,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 20231101-13
+- Rebuild to fix OCaml dependencies
+
 * Wed Apr  9 2025 Jerry James <loganjerry@gmail.com> - 20231101-12
 - Rebuild for ocaml-stdcompat 20.1
 

@@ -1,28 +1,4 @@
-%if 0%{?fedora}
-	%bcond_without python3
-	%bcond_without python3_debug
-	%if 0%{?fedora} > 31
-		%bcond_with    python2
-		%bcond_with    python2_debug
-	%else
-		%bcond_without python2
-		%bcond_without python2_debug
-	%endif
-%else
-	%if 0%{?rhel} > 7
-		%bcond_with    python2
-		%bcond_without python3
-		%bcond_with    python2_debug
-		%bcond_without python3_debug
-	%else
-		%bcond_without python2
-		%bcond_with    python3
-		%bcond_without python2_debug
-		%bcond_with    python3_debug
-	%endif
-%endif
-
-%bcond_without tests
+%bcond tests 1
 
 %global srcname	psycopg2
 %global sum	A PostgreSQL database adapter for Python
@@ -31,36 +7,18 @@ programming language. At its core it fully implements the Python DB \
 API 2.0 specifications. Several extensions allow access to many of the \
 features offered by PostgreSQL.
 
-%global python_runtimes	\\\
-	%{?with_python2:python2} \\\
-	%{?with_python2_debug:python2-debug} \\\
-	%{?with_python3:python3} \\\
-	%{?with_python3_debug:python3-debug}
-
-%{!?with_python2:%{!?with_python3:%{error:one python version needed}}}
-
-# Python 2.5+ is not supported by Zope, so it does not exist in
-# recent Fedora releases. That's why zope subpackage is disabled.
-%global zope 0
-%if %zope
-%global ZPsycopgDAdir %{_localstatedir}/lib/zope/Products/ZPsycopgDA
-%endif
-
 
 Summary:	%{sum}
 Name:		python-%{srcname}
-Version:	2.9.9
-Release:	9%{?dist}
+Version:	2.9.10
+Release:	1%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 Url:		https://www.psycopg.org/
 
-Source0:	https://github.com/psycopg/psycopg2/archive/%{version}/psycopg2-%{version}.tar.gz
+Source:		https://github.com/psycopg/psycopg2/archive/%{version}/psycopg2-%{version}.tar.gz
 
-%{?with_python2:BuildRequires:	python2-devel python2-setuptools}
-%{?with_python3:BuildRequires:	python3-devel python3-setuptools}
-%{?with_python2_debug:BuildRequires:	python2-debug}
-%{?with_python3_debug:BuildRequires:	python3-debug}
+BuildRequires:	python3-devel
 
 BuildRequires:	gcc
 BuildRequires:	libpq-devel
@@ -71,56 +29,16 @@ BuildRequires:	python-sphinx
 BuildRequires:	postgresql-test-rpm-macros
 %endif
 
-Conflicts:	python-psycopg2-zope < %{version}
-
 # Remove test 'test_from_tables' for s390 architecture
 # from ./tests/test_types_extras.py
 Patch0: test_types_extras-2.9.3-test_from_tables.patch
-
-# Fix build when using Python 3.13
-# https://github.com/psycopg/psycopg2/pull/1695
-Patch1: python3-13.patch
 
 %description
 %{desc}
 
 
-%if %{with python2}
-%package -n python2-%{srcname}
-%{?python_provide:%python_provide python2-%{srcname}}
-Summary: %{sum} 2
-
-%description -n python2-%{srcname}
-%{desc}
-
-
-%package -n python2-%{srcname}-tests
-Summary: A testsuite for %sum 2
-Requires: python2-%srcname = %version-%release
-
-%description -n python2-%{srcname}-tests
-%desc
-This sub-package delivers set of tests for the adapter.
-%endif
-
-
-%if %{with python2_debug}
-%package -n python2-%{srcname}-debug
-Summary: A PostgreSQL database adapter for Python 2 (debug build)
-# Require the base package, as we're sharing .py/.pyc files:
-Requires:	python2-%{srcname} = %{version}-%{release}
-%{?python_provide:%python_provide python2-%{srcname}-debug}
-
-%description -n python2-%{srcname}-debug
-This is a build of the psycopg PostgreSQL database adapter for the debug
-build of Python 2.
-%endif
-
-
-%if %{with python3}
 %package -n python3-psycopg2
 Summary: %{sum} 3
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description  -n python3-psycopg2
 %{desc}
@@ -133,48 +51,19 @@ Requires: python3-%srcname = %version-%release
 %description -n python3-%{srcname}-tests
 %desc
 This sub-package delivers set of tests for the adapter.
-%endif
-
-
-%if %{with python3_debug}
-%package -n python3-psycopg2-debug
-Summary: A PostgreSQL database adapter for Python 3 (debug build)
-# Require base python 3 package, as we're sharing .py/.pyc files:
-Requires:	python3-psycopg2 = %{version}-%{release}
-
-%description -n python3-%{srcname}-debug
-This is a build of the psycopg PostgreSQL database adapter for the debug
-build of Python 3.
-%endif
 
 
 %package doc
 Summary:	Documentation for psycopg python PostgreSQL database adapter
-%{?with_python2:Provides: python2-%{srcname}-doc = %{version}-%{release}}
-%{?with_python3:Provides: python3-%{srcname}-doc = %{version}-%{release}}
+%py_provides python3-%{srcname}-doc
 
 %description doc
 Documentation and example files for the psycopg python PostgreSQL
 database adapter.
 
 
-%if %zope
-%package zope
-Summary:	Zope Database Adapter ZPsycopgDA
-# The exceptions allow linking to OpenSSL and PostgreSQL's libpq
-License:	GPLv2+ with exceptions or ZPLv1.0
-Requires:	%{name} = %{version}-%{release}
-Requires:	zope
-
-%description zope
-Zope Database Adapter for PostgreSQL, called ZPsycopgDA
-%endif
-
-
 %prep
 %setup -q -n psycopg2-%{version}
-
-%patch 1 -p1
 
 # The patch is applied only for s390 architecture as 
 # on other architectures the test works
@@ -182,18 +71,20 @@ Zope Database Adapter for PostgreSQL, called ZPsycopgDA
 %patch -P0 -p0
 %endif
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-export CFLAGS=${RPM_OPT_FLAGS} LDFLAGS=${RPM_LD_FLAGS}
-for python in %{python_runtimes} ; do
-  $python setup.py build
-done
+%pyproject_wheel
 
 # Fix for wrong-file-end-of-line-encoding problem; upstream also must fix this.
 for i in `find doc -iname "*.html"`; do sed -i 's/\r//' $i; done
 for i in `find doc -iname "*.css"`; do sed -i 's/\r//' $i; done
 
 # Get rid of a "hidden" file that rpmlint complains about
-%{__rm} -f doc/html/.buildinfo
+rm -f doc/html/.buildinfo
 
 # We can not build docs now:
 # https://www.postgresql.org/message-id/2741387.dvL6Cb0VMB@nb.usersys.redhat.com
@@ -217,86 +108,25 @@ export PSYCOPG2_TESTDB_PORT=$PGPORT
 
 cmd="import tests; tests.unittest.main(defaultTest='tests.test_suite')"
 
-%if %{with python2}
-PYTHONPATH=%buildroot%python2_sitearch %__python2 -c "$cmd" --verbose
-%endif
-%if %{with python3}
-PYTHONPATH=%buildroot%python3_sitearch %__python3 -c "$cmd" --verbose
-%endif
+%py3_test_envvars %python3 -c "$cmd" --verbose
 %endif
 
 
 %install
-export CFLAGS=${RPM_OPT_FLAGS} LDFLAGS=${RPM_LD_FLAGS}
-for python in %{python_runtimes} ; do
-  $python setup.py install --no-compile --root %{buildroot}
-done
+%pyproject_install
+%pyproject_save_files -l psycopg2
 
 # Upstream removed tests from the package so we need to add them manually
-%if %{with python2}
-cp -r tests/ %{buildroot}%{python2_sitearch}/%{srcname}/tests/
-for i in `find %{buildroot}%{python2_sitearch}/%{srcname}/tests/ -iname "*.py"`; do
-  sed -i 's|#!/usr/bin/env python|#!/usr/bin/python2|' $i
-done
-%endif
-%if %{with python3}
 cp -r tests/ %{buildroot}%{python3_sitearch}/%{srcname}/tests/
-for i in `find %{buildroot}%{python3_sitearch}/%{srcname}/tests/ -iname "*.py"`; do
-  sed -i 's|#!/usr/bin/env python|#!/usr/bin/python3|' $i
-done
-%endif
+%py3_shebang_fix %{buildroot}%{python3_sitearch}/%{srcname}/tests/
 
-%if %zope
-%{__install} -d %{buildroot}%{ZPsycopgDAdir}
-%{__cp} -pr ZPsycopgDA/* %{buildroot}%{ZPsycopgDAdir}
-%endif
 
-%if %{with python2}
-%files -n python2-psycopg2
-%license LICENSE
+%files -n python3-psycopg2 -f %{pyproject_files}
 %doc AUTHORS NEWS README.rst
-%dir %{python2_sitearch}/psycopg2
-%{python2_sitearch}/psycopg2/*.py
-%{python2_sitearch}/psycopg2/*.pyc
-%{python2_sitearch}/psycopg2/_psycopg.so
-%{python2_sitearch}/psycopg2/*.pyo
-%{python2_sitearch}/psycopg2-%{version}-py2*.egg-info
-
-
-%files -n python2-%{srcname}-tests
-%{python2_sitearch}/psycopg2/tests
-%endif
-
-
-%if %{with python2_debug}
-%files -n python2-%{srcname}-debug
-%license LICENSE
-%{python2_sitearch}/psycopg2/_psycopg_d.so
-%endif
-
-
-%if %{with python3}
-%files -n python3-psycopg2
-%license LICENSE
-%doc AUTHORS NEWS README.rst
-%dir %{python3_sitearch}/psycopg2
-%{python3_sitearch}/psycopg2/*.py
-%{python3_sitearch}/psycopg2/_psycopg.cpython-%{python3_version_nodots}[!d]*.so
-%dir %{python3_sitearch}/psycopg2/__pycache__
-%{python3_sitearch}/psycopg2/__pycache__/*.py{c,o}
-%{python3_sitearch}/psycopg2-%{version}-py3*.egg-info
 
 
 %files -n python3-%{srcname}-tests
 %{python3_sitearch}/psycopg2/tests
-%endif
-
-
-%if %{with python3_debug}
-%files -n python3-psycopg2-debug
-%license LICENSE
-%{python3_sitearch}/psycopg2/_psycopg.cpython-%{python3_version_nodots}d*.so
-%endif
 
 
 %files doc
@@ -304,19 +134,12 @@ done
 %doc doc/src/_build/html
 
 
-%if %zope
-%files zope
-%license LICENSE
-%dir %{ZPsycopgDAdir}
-%{ZPsycopgDAdir}/*.py
-%{ZPsycopgDAdir}/*.pyo
-%{ZPsycopgDAdir}/*.pyc
-%{ZPsycopgDAdir}/dtml/*
-%{ZPsycopgDAdir}/icons/*
-%endif
-
-
 %changelog
+* Thu Jul 10 2025 Ales Nezbeda <anezbeda@redhat.com> - 2.9.10-1
+- Update to 2.9.10
+- Change build system
+- Removed debug subpackage
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.9.9-9
 - Rebuilt for Python 3.14
 

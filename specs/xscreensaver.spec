@@ -1,9 +1,8 @@
 %define name          xscreensaver
 
-%define mainversion   6.10
-%define extratarver   1
-#%%define beta_ver      b2
-%undefine beta_ver
+%define mainversion   6.12
+%dnl %define extratarver   1
+%dnl %define beta_ver      b2
 
 
 %define modular_conf  1
@@ -105,6 +104,8 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
+# demo-Gtk.c/server_current_hack: read hack number when really available
+Patch5201:       xscreensaver-6.12-0001-server_current_hack-read-hack-number-when-really-ava.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -208,6 +209,9 @@ BuildRequires:   pkgconfig(libavformat)
 BuildRequires:   pkgconfig(libswscale)
 BuildRequires:   pkgconfig(libswresample)
 %endif
+# From xscreensaver 6.12
+BuildRequires:   pkgconfig(wayland-server)
+BuildRequires:   pkgconfig(wayland-client)
 %if 0%{?fedora}
 BuildRequires:   %{default_text}
 %endif
@@ -410,6 +414,7 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
+%__cat %PATCH5201 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -548,6 +553,10 @@ sed -i.term \
 %if 0
 sed -i.rpmlint -n -e '1,5p' driver/xscreensaver.pam
 %endif
+# xscreensaver 6.12
+sed -i.auth driver/xscreensaver.pam.in \
+	-e '\@auth.*include.*system-auth@s|^#||'
+%__git commit -m "Use system-auth for auth again" -a
 
 if [ -x %{_datadir}/libtool/config.guess ]; then
   # use system-wide copy
@@ -658,6 +667,8 @@ CONFIG_OPTS="$CONFIG_OPTS --with-text-file=%{default_text}"
 CONFIG_OPTS="$CONFIG_OPTS --with-x-app-defaults=%{_datadir}/X11/app-defaults"
 CONFIG_OPTS="$CONFIG_OPTS --disable-root-passwd"
 CONFIG_OPTS="$CONFIG_OPTS --with-browser=xdg-open"
+# 6.12
+CONFIG_OPTS="$CONFIG_OPTS --with-wayland"
 
 # From xscreensaver 5.12, login-manager option is on by default
 # For now, let's enable it on F-14 and above
@@ -1199,6 +1210,12 @@ exit 0
 %endif
 
 %changelog
+* Fri Jul 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.12-2
+- Fix heap buffer overflow on xscreensaver-settings when reading previous hack
+
+* Fri Jul 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.12-1
+- Update to 6.12
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.10.1-2
 - Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 

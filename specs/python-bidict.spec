@@ -21,10 +21,9 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist hypothesis}
 BuildRequires:  %{py3_dist pytest-xdist}
 BuildRequires:  %{py3_dist typing-extensions}
-# Used for only one doctest!
-BuildRequires:  %{py3_dist sortedcollections}
 # The sortedcontainers dependency is mentioned in documentation, but does not
-# appear in a doctest that we actually run.
+# appear in a doctest that we actually run. The sortedcollections dependency is
+# used for only one doctest, which we ignore.
 
 %global common_description %{expand:
 The bidirectional mapping library for Python.}
@@ -44,7 +43,12 @@ sed -r -i '/--benchmark/d' pytest.ini
 
 
 %check -a
-%pytest
+# This contains one doctest, which requires the sortedcollections dependency.
+# It’s not worth maintaining the dependency solely for that, especially as it
+# is otherwise not needed in Fedora at all.
+ignore="${ignore-} --ignore=docs/extending.rst"
+
+%pytest ${ignore-}
 
 
 %files -n python3-bidict -f %{pyproject_files}

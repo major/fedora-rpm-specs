@@ -35,6 +35,7 @@ BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: python3-devel
 BuildRequires: python3-pip
+BuildRequires: python-setuptools
 BuildRequires: java-devel
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
@@ -331,7 +332,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
-* Tue Jul 08 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-11
+* Tue Fri 11 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-11
 - Migration to pyproject macros and removal of python 2.7 build option (RHBZ 2378536)
 
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.4.8-10

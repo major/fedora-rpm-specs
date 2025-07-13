@@ -7,7 +7,7 @@
 %endif
 
 Name:		perl-IO-Socket-SSL
-Version:	2.094
+Version:	2.095
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
@@ -126,6 +126,11 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Fri Jul 11 2025 Paul Howarth <paul@city-fan.org> - 2.095-1
+- Update to 2.095
+  - Regression: make sysread set buffer to empty string again when returning EOF
+    (GH#171)
+
 * Thu Jun 19 2025 Paul Howarth <paul@city-fan.org> - 2.094-1
 - Update to 2.094
   - Fix memory leak introduced in 2.092

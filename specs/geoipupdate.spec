@@ -2,12 +2,12 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	7.1.0
+Version:	7.1.1
 
 %gometa
 
 Name:		geoipupdate
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -17,7 +17,7 @@ Source1:	geoipupdate.cron
 
 BuildRequires:	coreutils
 BuildRequires:	crontabs
-BuildRequires:	golang(github.com/cenkalti/backoff/v4)
+BuildRequires:	golang(github.com/cenkalti/backoff/v5)
 BuildRequires:	golang(github.com/gofrs/flock)
 BuildRequires:	golang(github.com/spf13/pflag)
 BuildRequires:	golang(golang.org/x/net/http2)
@@ -107,6 +107,11 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Fri Jul 11 2025 Paul Howarth <paul@city-fan.org> - 7.1.1-1
+- Update to 7.1.1
+  - Update dependencies and re-build binaries with new Go version; no
+    substantive changes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

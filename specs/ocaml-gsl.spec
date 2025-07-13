@@ -1,6 +1,6 @@
 Name:           ocaml-gsl
 Version:        1.25.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPL-3.0-or-later
 
@@ -70,6 +70,9 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.25.1-4
+- Rebuild to fix OCaml dependencies
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.25.1-3
 - Rebuild with gsl 2.8
 

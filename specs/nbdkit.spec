@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.45.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1540,6 +1540,9 @@ fi
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.45.1-5
+- Rebuild to fix OCaml dependencies
+
 * Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.45.1-4
 - Perl 5.42 re-rebuild updated packages
 

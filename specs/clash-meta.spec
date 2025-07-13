@@ -42,6 +42,8 @@ BuildRequires:  systemd-rpm-macros
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
+export LDFLAGS=" \
+    -X github.com/metacubex/mihomo/constant.Version=%{version}"
 %gobuild -o %{gobuilddir}/bin/clash-meta "-tags=with_gvisor" %{goipath}
 
 %install

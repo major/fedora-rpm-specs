@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        14.1
+Version:        15.0.1
 Release:        %autorelease
 Summary:        Implementation of the WebSocket Protocol for Python
 
@@ -33,6 +33,8 @@ applications.}
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(werkzeug)
+Requires:       python3dist(werkzeug)
 
 %description -n python3-%{pypi_name} %{_description}
 
@@ -55,12 +57,14 @@ BuildRequires:  python3-devel
 %if %{with tests}
 # Skip some tests that require network connectivity and/or a running daemon.
 # Investigate: test_server_shuts_down_* tests hang or fail on Python 3.12
-%pytest -v --ignore compliance --ignore tests/sync -k "not test_explicit_host_port and not test_server_shuts_down and not test_keepalive_is_enabled and not test_close_waits and not test_close_server_keeps_handlers_running and not test_keepalive and not test_keepalive_times_out and not test_close_server_keeps_connections_open"
+%pytest -v --ignore compliance --ignore tests/sync -k "not test_explicit_host_port and not test_server_shuts_down and not test_keepalive_is_enabled and not test_close_waits and not test_close_server_keeps_handlers_running and not test_keepalive and not test_keepalive_times_out and not test_close_server_keeps_connections_open and not test_basic_auth_invalid_password"
 %endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
+%license LICENSE
+%{_bindir}/websockets
 
 %changelog
 %autochangelog

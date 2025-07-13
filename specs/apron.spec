@@ -76,11 +76,6 @@ BuildRequires:  texinfo-tex
 # Do not Require symbols we do not Provide
 %global __ocaml_requires_opts -i Coeff -i Dim -i Interval -i Lincons0 -i Linexpr0 -i Scalar -i Tcons0 -i Texpr0
 
-# This can be removed when F40 reaches EOL
-%ifnarch %{java_arches}
-Obsoletes:      japron < 0.9.13-12
-%endif
-
 %description
 The APRON library is dedicated to the static analysis of the numerical
 variables of a program by Abstract Interpretation.  The aim of such an

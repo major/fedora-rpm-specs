@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curses
 Version:        1.0.11
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        OCaml bindings for ncurses
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.0.11-14
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

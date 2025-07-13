@@ -24,13 +24,13 @@ BuildRequires:  gmp-devel
 BuildRequires:  libffi-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  python3-devel
-BuildRequires:  symengine-devel
+BuildRequires:  symengine-devel >= 0.14.0
 
 %description    %{common_description}
 
 %package -n python3-symengine
 Summary:        %{summary}
-Requires:       symengine%{?_isa} >= %{version}
+Requires:       symengine%{?_isa} >= 0.14.0
 
 %description -n python3-symengine %{common_description}
 

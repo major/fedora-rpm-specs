@@ -48,18 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+__bench-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__bench-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__bench" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__bench-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+acceptor-devel
 Summary:        %{summary}
 BuildArch:      noarch

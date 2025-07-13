@@ -40,6 +40,11 @@ BuildRequires:  shadow-utils
 # doc build requirements
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+# for tests
+BuildRequires:  python3dist(pytest)
+%if 0%{?fedora}
+BuildRequires:  python3dist(pytest-xdist)
+%endif
 
 %description %{desc}
 
@@ -533,6 +538,15 @@ if [ $1 -eq 0 ]; then
         semanage fcontext --delete --type install_exec_t        '%{_bindir}/kiwi-ng(.*)'        2> /dev/null || :
     fi
 fi
+
+%check
+pushd test/unit
+# skipped tests require anymarkup which was retired from Fedora
+# we patch the code of default ISO tagging method, hence skip test_config_sections_* too
+%pytest %{?fedora:-n auto} --ignore markup/any_test.py -k \
+  "not test_process_image_info_print_yaml and not test_process_image_info_print_toml \
+   and not test_config_sections_defaults and not test_config_sections_invalid"
+popd
 
 %files -n python3-%{name}
 %license LICENSE

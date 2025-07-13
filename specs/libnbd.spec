@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.23.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.23.4-3
+- Rebuild to fix OCaml dependencies
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.23.4-2
 - Rebuilt for Python 3.14
 

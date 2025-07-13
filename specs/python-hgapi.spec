@@ -1,6 +1,6 @@
 Name:           python-hgapi
 Version:        1.7.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Python API to Mercurial using the command-line interface
 
 License:        MIT
@@ -23,10 +23,8 @@ changes to the repository (including hgrc).
 %package -n     python3-hgapi
 Summary:        Python 3 API to Mercurial using the command-line interface
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  mercurial
 Requires:       mercurial
-%{?python_provide:%python_provide python3-hgapi}
 
 %description -n python3-hgapi
 hgapi is a pure-Python API to Mercurial, that uses the command-line interface
@@ -40,7 +38,6 @@ changes to the repository (including hgrc).
 %setup -q -n hgapi-%{version}
 cp %{SOURCE1} .
 # Remove egg
-rm -r hgapi.egg-info
 # Apply patch
 sed -i 's/\r$//' hgapi/testhgapi.py
 # Correct end of line encoding for README.rst
@@ -49,24 +46,30 @@ sed -i 's/\r$//' README.rst
 rm -rf %{py3dir}
 cp -a . %{py3dir}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %check
-%{__python3} setup.py test || true
 
 
 %files -n python3-hgapi
-%doc README.rst LICENSE
-%{python3_sitelib}/hgapi-%{version}-py%{python3_version}.egg-info
+%doc README.rst
+%license LICENSE
+%{python3_sitelib}/hgapi-%{version}.dist-info/
 %{python3_sitelib}/hgapi/
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 1.7.4-29
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.4-28
 - Rebuilt for Python 3.14
 

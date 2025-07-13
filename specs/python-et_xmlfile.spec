@@ -8,7 +8,7 @@ the openpyxl project but is now a standalone module.
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -29,7 +29,6 @@ BuildRequires:  %py3_dist setuptools
 BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist lxml
 Requires:       %py3_dist lxml
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -39,25 +38,33 @@ Requires:       %py3_dist lxml
 %autosetup -n %{pypi_name}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 %pytest
 
 
-%files -n python3-%{pypi_name}
-%license LICENCE.rst
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst doc/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
+%license LICENCE.rst
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 2.0.0-3
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.0-2
 - Rebuilt for Python 3.14
 

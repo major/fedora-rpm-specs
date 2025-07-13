@@ -22,6 +22,8 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: make
 
+Patch0: libzmf-install-docs.patch
+
 %description
 libzmf is library providing ability to interpret and import Zoner
 document formats into various applications. Currently it only supports

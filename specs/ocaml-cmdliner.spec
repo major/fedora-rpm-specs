@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cmdliner
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.3.0-7
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

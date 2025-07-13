@@ -1,31 +1,19 @@
-%global commit c2f5d130c91b1696385a6ae0b5bcfd5214bcc9ca
+%global commit d0e0c997336b3210f05b3e1daa7bb5cb9900d274
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20240920
+%global git 0
 
 Name: tre
-Version: 0.8.0
-Release: 48.20140228git%{shortcommit}%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+Version: 0.9.0
+Release: 1%{?dist}
+License: BSD-2-Clause
+%if 0%{?git}
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
-# based on https://github.com/laurikari/tre/pull/19
-Patch0: %{name}-chicken.patch
-# make internal tests of agrep work with just-built shared library
-Patch1: %{name}-tests.patch
+%else
+Source0: https://github.com/laurikari/tre/archive/v%{version}/tre-%{version}.tar.gz
+%endif
 # don't force build-time LDFLAGS into tre.pc
 Patch2: %{name}-ldflags.patch
-# CVE-2016-8859, based on http://seclists.org/oss-sec/2016/q4/att-183/0001-fix-missing-integer-overflow-checks-in-regexec-buffe.patch
-Patch3: %{name}-CVE-2016-8859.patch
-# last hunk from the patch from https://github.com/laurikari/tre/issues/37
-Patch4: %{name}-issue37.patch
-# https://github.com/laurikari/tre/issues/50
-# https://github.com/wch/r-source/commit/55f210ad56828ba2c63ccf027cb64e95adde7119
-Patch5: %{name}-issue50.patch
-# based on https://github.com/laurikari/tre/pull/49
-Patch10: %{name}-python3.patch
-# Remove broken agrep test entry (fails with bash >= 5.2)
-Patch11: https://github.com/laurikari/tre/pull/87.patch
-# Deprecated PyUnicode APIs
-Patch12: %{name}-pep623.patch
 Summary: POSIX compatible regexp library with approximate matching
 URL: http://laurikari.net/tre/
 # rebuild autotools for bug #926655
@@ -35,7 +23,6 @@ BuildRequires: gettext-devel
 BuildRequires: glibc-langpack-en
 BuildRequires: libtool
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 Requires: %{name}-common = %{version}-%{release}
 
 %description
@@ -61,7 +48,6 @@ building applications which use the TRE library.
 
 %package -n python3-%{name}
 Summary: Python bindings for the tre library
-%{?python_provide:%python_provide python3-tre}
 
 %description -n python3-%{name}
 This package contains the python bindings for the TRE library.
@@ -83,62 +69,67 @@ Unlike other agrep implementations, TRE agrep allows full POSIX
 regexps of any length, any number of errors, and non-uniform costs.
 
 %prep
+%if 0%{?git}
 %setup -q -n tre-%{commit}
-%patch -P0 -p1 -b .chicken
-%patch -P1 -p1 -b .tests
+%else
+%setup -q
+%endif
 %patch -P2 -p1 -b .ldflags
-%patch -P3 -p1 -b .CVE-2016-8859
-%patch -P4 -p1 -b .issue37
-%patch -P5 -p1 -b .issue50
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1 -b .pep623
 # rebuild autotools for bug #926655
 touch ChangeLog
 autoreconf -vif
+
+%generate_buildrequires
+pushd python > /dev/null
+%pyproject_buildrequires
+popd > /dev/null
 
 %build
 %configure --disable-static --disable-rpath
 %make_build
 pushd python
-%py3_build
+%pyproject_wheel
 popd
 
 %install
 %make_install
-pushd python
-%py3_install
-popd
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
+%pyproject_install
+%pyproject_save_files tre
+rm -v %{buildroot}%{_libdir}/*.la
 %find_lang %{name}
 
 %check
 %{__make} check
-
-%ldconfig_scriptlets
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%pyproject_check_import
 
 %files
-%{_libdir}/libtre.so.*
+%{_libdir}/libtre.so.5{,.*}
 
 %files common -f %{name}.lang
 %license LICENSE
-%doc AUTHORS ChangeLog NEWS README THANKS TODO
-%doc doc/*.html doc/*.css
+%doc AUTHORS ChangeLog NEWS README.md THANKS TODO
+%doc doc/tre-{api,syntax}.html doc/default.css
 
 %files devel
 %{_libdir}/libtre.so
-%{_libdir}/pkgconfig/*
-%{_includedir}/*
+%{_libdir}/pkgconfig/tre.pc
+%{_includedir}/tre/
 
-%files -n python3-%{name}
-%attr(0755,root,root) %{python3_sitearch}/tre%{python3_ext_suffix}
-%{python3_sitearch}/tre-%{version}-py%{python3_version}.egg-info
+%files -n python3-%{name} -f %{pyproject_files}
 
 %files -n agrep
 %{_bindir}/agrep
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Fri Jul 11 2025 Dominik Mierzejewski <dominik@greysector.net> 0.9.0-1
+- update to 0.9.0
+- drop upstreamed patches
+- correct SPDX license tag
+- avoid using globs in file lists
+- switch to modern python packaging (resolves rhbz#2378481)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.0-48.20140228gitc2f5d13
 - Rebuilt for Python 3.14
 

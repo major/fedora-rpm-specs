@@ -12,7 +12,7 @@ so far seems to work (all tests pass on 2.7, 3.3, and 3.4).
 
 Name:           python-%{pypi_name}
 Version:        0.9.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python parser for the CommonMark Markdown spec
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,12 +47,10 @@ Documentation package.
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-hypothesis
 Suggests:       python-CommonMark-doc
 Suggests:       %{name}-utils == %{version}-%{release}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 %{desc}
@@ -67,23 +65,29 @@ sed -i '1{\@^#!/usr/bin/env python@d}' commonmark/cmark.py
 
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l commonmark
 
 
 %check
+%pyproject_check_import
+
 export PYTHONIOENCODING=UTF-8
 PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/commonmark-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/commonmark/
 
 %files utils
 %license LICENSE
@@ -95,6 +99,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.9.1-21
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.9.1-20
 - Rebuilt for Python 3.14
 

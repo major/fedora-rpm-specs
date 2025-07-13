@@ -30,8 +30,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.63
-Release: 4%{?dist}
+Version: 2.4.64
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -89,19 +89,16 @@ Patch3: httpd-2.4.43-deplibs.patch
 Patch19: httpd-2.4.53-detect-systemd.patch
 # Features/functional changes
 Patch20: httpd-2.4.48-r1842929+.patch
-Patch21: httpd-2.4.43-mod_systemd.patch
+Patch21: httpd-2.4.64-mod_systemd.patch
 Patch22: httpd-2.4.53-export.patch
 Patch23: httpd-2.4.43-corelimit.patch
 Patch24: httpd-2.4.54-icons.patch
 Patch25: httpd-2.4.43-cachehardmax.patch
-Patch26: httpd-2.4.43-socket-activation.patch
-Patch27: httpd-2.4.43-sslciphdefault.patch
-Patch28: httpd-2.4.43-sslprotdefault.patch
-Patch29: httpd-2.4.43-logjournal.patch
-Patch30: httpd-2.4.53-separate-systemd-fns.patch
-Patch31: httpd-2.4.63-r1912477+.patch
-Patch32: httpd-2.4.54-selinux.patch
-Patch33: httpd-2.4.63-r1926064.patch
+Patch26: httpd-2.4.43-sslciphdefault.patch
+Patch27: httpd-2.4.64-sslprotdefault.patch
+Patch28: httpd-2.4.43-logjournal.patch
+Patch29: httpd-2.4.63-r1912477+.patch
+Patch30: httpd-2.4.64-separate-systemd-fns.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -848,6 +845,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Jul 11 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.64-1
+- new version 2.4.64
+
 * Tue Jun 24 2025 Joe Orton  <jorton@redhat.com> - 2.4.63-4
 - mod_dav: add dav_get_base_path() API
 

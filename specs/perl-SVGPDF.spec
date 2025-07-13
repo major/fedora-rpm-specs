@@ -6,7 +6,7 @@
 Name: perl-%{FullName}
 Summary: SVG support for Perl PDF::API2 and similar
 License: BSD-2-Clause
-Version: 0.090
+Version: 0.091
 Release: %autorelease
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}

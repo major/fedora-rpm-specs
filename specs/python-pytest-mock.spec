@@ -1,17 +1,15 @@
-%global pypi_name pytest-mock
+%global pypi_name pytest_mock
+%global package_name pytest-mock
 %global file_name pytest_mock
 
-Name:           python-%{pypi_name}
-Version:        3.14.0
-Release:        4%{?dist}
+Name:           python-%{package_name}
+Version:        3.14.1
+Release:        1%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-mock/
 Source0:        %{pypi_source}
-
-# Compatibility with Python 3.14
-Patch:          https://github.com/pytest-dev/pytest-mock/pull/469.patch
 
 BuildArch:      noarch
 
@@ -20,7 +18,7 @@ This plugin installs a mocker fixture which is a thin-wrapper around the
 patching API provided by the mock package, but with the benefit of not having
 to worry about undoing patches at the end of a test.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-%{package_name}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
@@ -30,16 +28,14 @@ BuildRequires:  %py3_dist setuptools_scm
 %if %{undefined rhel}
 BuildRequires:  %py3_dist pytest-asyncio
 %endif
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-%{package_name}
 This plugin installs a mocker fixture which is a thin-wrapper around the
 patching API provided by the mock package, but with the benefit of not having
 to worry about undoing patches at the end of a test.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-rm -rf *.egg-info
+%autosetup -n %{file_name}-%{version} -p1
 # Correct end of line encoding for README
 sed -i 's/\r$//' README.rst
 
@@ -51,8 +47,11 @@ sed -i 's/\r$//' README.rst
 
 %install
 %pyproject_install
+%pyproject_save_files -l %{file_name}
 
 %check
+%pyproject_check_import
+
 %pytest -v tests \
   -k "not test_standalone_mock and not test_detailed_introspection and not test_detailed_introspection \
   and not test_assert_called_args_with_introspection and not test_assert_called_kwargs_with_introspection \
@@ -60,13 +59,15 @@ sed -i 's/\r$//' README.rst
   and not test_used_with_package_scope and not test_used_with_session_scope \
   %{?rhel:and not test_instance_async_method_spy}"
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{package_name} -f %{pyproject_files}
 %doc CHANGELOG.rst README.rst
 %license LICENSE
-%{python3_sitelib}/%{file_name}/
-%{python3_sitelib}/%{file_name}-%{version}.dist-info/
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 3.14.1-1
+- Update to 3.14.1
+- Add support for Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.14.0-4
 - Rebuilt for Python 3.14
 

@@ -34,9 +34,6 @@ BuildRequires:  ocaml-webbrowser-devel
 BuildRequires:  ocaml-opam-format-devel >= 2.0.0
 %endif
 
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-topkg-doc < 1.0.5-4
-
 %global _desc %{expand:
 Topkg is a packager for distributing OCaml software.  It provides an
 API to describe the files a package installs in a given build

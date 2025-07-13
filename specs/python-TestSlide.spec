@@ -26,6 +26,9 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 #
 # Rebased to 2.7.1; version bound loosened to allow 4.x as well as 3.x
 Patch100:       TestSlide-2.7.1-typeguard-4.patch
+#     for name in klass.__dict__:
+# E   RuntimeError: dictionary changed size during iteration
+Patch101:       TestSlide-strictmock-fix-dictionary-changed-size.diff
 
 BuildArch:      noarch
 
@@ -108,8 +111,10 @@ make docs V=1
 
 %if %{with tests}
 %check
+# deselect tests sensitive to version of pygments
+# see e.g. rhbz#2350306
 %pytest tests/*_unittest.py tests/*_testslide.py \
-%if 0%{?el9}
+%if 0%{?el9} || 0%{?python3_version_nodots} >= 314
   --deselect tests/cli_unittest.py::TestCliDocumentFormatter::test_prints_exceptions_with_cause \
   --deselect tests/cli_unittest.py::TestCliProgressFormatter::test_prints_exceptions_with_cause \
   --deselect tests/cli_unittest.py::TestCliLongFormatter::test_prints_exceptions_with_cause \

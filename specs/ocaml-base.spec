@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/janestreet/base
 
 Name:           ocaml-base
-Version:        0.17.2
+Version:        0.17.3
 Release:        %autorelease
 Summary:        Jane Street standard library for OCaml
 
@@ -26,8 +26,8 @@ Patch:          %{name}-popcount.patch
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-intrinsics-kernel-devel
-BuildRequires:  ocaml-sexplib0-devel
+BuildRequires:  ocaml-intrinsics-kernel-devel >= 0.17.0
+BuildRequires:  ocaml-sexplib0-devel >= 0.17.0
 
 %if %{with test}
 BuildRequires:  ocaml-core-devel

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-result
 Version:        1.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Compat result type
 
 License:        BSD-3-Clause
@@ -53,6 +53,9 @@ files for developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.5-29
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

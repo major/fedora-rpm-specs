@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -22,10 +22,6 @@ BuildRequires:  ocaml-dune >= 2.6.0
 BuildRequires:  ocaml-menhir >= 20180528
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      %{name}-doc < 0.4.0-5
-Provides:       %{name}-doc = %{version}-%{release}
 
 %description
 This package contains a library to parse and typecheck a conservative
@@ -72,6 +68,9 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.4.0-23
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

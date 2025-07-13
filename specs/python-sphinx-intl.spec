@@ -9,8 +9,8 @@ support the Transifex service for translation with Sphinx (not packaged yet).
 
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        5%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        Sphinx utility that make it easy to translate and to apply translation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -28,7 +28,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-click
@@ -41,7 +40,6 @@ Requires:       python%{python3_pkgversion}-click
 Requires:       python%{python3_pkgversion}-babel
 Requires:       python%{python3_pkgversion}-sphinx
 Conflicts:      python2-%{pypi_name} < 0.9.11-6
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 %desc
@@ -80,16 +78,17 @@ rm tests/test_*transifex*.py
 
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{srcname}-%{version}*.dist-info/
-%{python3_sitelib}/%{srcname}/
 %{_bindir}/%{cmdname}-3*
 %{_bindir}/%{cmdname}
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 2.3.1-1
+- Update to 2.3.1
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.0-5
 - Rebuilt for Python 3.14
 

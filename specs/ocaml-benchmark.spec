@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-benchmark
 Version:        1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.7-2
+- Rebuild to fix OCaml dependencies
+
 * Sun Feb 09 2025 Andy Li <andy@onthewings.net> - 1.7-1
 - New upstream release (RHBZ#2342924)
 

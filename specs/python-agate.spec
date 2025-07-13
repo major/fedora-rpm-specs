@@ -1,5 +1,3 @@
-%{?python_enable_dependency_generator}
-
 %global pypi_name agate
 %global project_owner wireservice
 %global github_name agate
@@ -12,7 +10,7 @@ agate was previously known as journalism.
 
 Name:           python-%{pypi_name}
 Version:        1.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
@@ -28,11 +26,10 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3-pytest
-BuildRequires:  python3-coverage >= 3.7.1
-BuildRequires:  python3-lxml >= 3.6.0
-BuildRequires:  python3-cssselect
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(coverage) >= 3.7.1
+BuildRequires:  python3dist(lxml) >= 3.6.0
+BuildRequires:  python3dist(cssselect)
 BuildRequires:  python3dist(six) >= 1.9
 BuildRequires:  python3dist(pytimeparse) >= 1.1.5
 BuildRequires:  python3dist(parsedatetime) >= 2.1
@@ -43,7 +40,6 @@ BuildRequires:  python3dist(leather) >= 0.3.
 BuildRequires:  python3dist(furo)
 # This is required for tests to start.
 BuildRequires:  glibc-langpack-en
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -71,8 +67,12 @@ sed -i '1{\@^#!/usr/bin/env Python@d}' agate/testcase.py
 sed -i 's/parsedatetime>=2.1,!=2.5,!=2.6/parsedatetime>=2.1,!=2.5/' setup.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 # Build documentation
 pushd docs
@@ -82,20 +82,20 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 # test_cast_format_locale fails because some locale are missing is koji env.
 # test_order_by_nulls is weird and should be investigated
 %pytest tests -v -k "not test_cast_format_locale and not test_order_by_nulls"
 
 
-%files -n python3-%{pypi_name}
-%doc README.rst AUTHORS.rst CHANGELOG.rst
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license COPYING
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 
 %files -n python-%{pypi_name}-doc
@@ -104,6 +104,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 1.13.0-3
+- Correct Python macro usages.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.13.0-2
 - Rebuilt for Python 3.14
 

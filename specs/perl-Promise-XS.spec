@@ -1,6 +1,6 @@
 Name:           perl-Promise-XS
 Version:        0.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast promises in Perl
 # bundled easyxs is MIT
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
@@ -72,5 +72,8 @@ make test
 %{_mandir}/man3/Promise::XS*
 
 %changelog
+* Fri Jul 11 2025 Chris Adams <linux@cmadams.net> 0.20-2
+- bump for Fedora 43 perl 5.42
+
 * Tue Feb 18 2025 Chris Adams <linux@cmadams.net> 0.20-1
 - initial package

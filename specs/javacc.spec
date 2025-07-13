@@ -54,7 +54,7 @@ Patch:          0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  javacc
 %endif
@@ -113,7 +113,7 @@ fixtimestamp examples/JJTreeExamples/cpp/eg3.jjt
 
 %build
 %if %{with bootstrap}
-cp %{_prefix}/lib/javapackages-bootstrap/javacc.jar bootstrap/javacc.jar
+cp %{_datadir}/javapackages-bootstrap/javacc.jar bootstrap/javacc.jar
 %else
 build-jar-repository -p bootstrap javacc
 %endif

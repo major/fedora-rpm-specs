@@ -15,7 +15,7 @@ See docs/changes.rst for a full list of changes in each version.
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        31.git%{shortcommit}%{?dist}
+Release:        32.git%{shortcommit}%{?dist}
 Summary:        Read DBF Files with Python
 
 License:        MIT
@@ -33,9 +33,7 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -61,8 +59,12 @@ chmod -x examples/{*.py,**/*.py,dbf2sqlite}
 %patch -P0 -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 # Build documentation
 pushd docs
@@ -72,19 +74,20 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 # The script will launch pytest for Python 2 and 3.
 pytest-%{python3_version}
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 
 %files -n python-%{pypi_name}-doc
@@ -93,6 +96,9 @@ pytest-%{python3_version}
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 2.0.7-32.git300b2d7
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.7-31.git300b2d7
 - Rebuilt for Python 3.14
 

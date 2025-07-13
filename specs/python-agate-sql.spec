@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %global pypi_name agate-sql
 %global file_name agatesql
 %global project_owner wireservice
@@ -8,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Adds SQL read/write support to agate
 
 License:        MIT
@@ -24,12 +23,10 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3dist(agate) >= 1.5
 BuildRequires:  python3dist(sqlalchemy) >= 1.0.8
 BuildRequires:  python3dist(furo)
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -52,8 +49,12 @@ Documentation package.
 sed -i '1{\@^#!/usr/bin/env python@d}' agatesql/*.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 # Build documentation
 pushd docs
@@ -63,18 +64,19 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{file_name}
 
 
 %check
+%pyproject_check_import
+
 # Some tests fails here but they pass on travis. We should check how this environment differs to explain this.
 %pytest tests -v -k "not test_to_sql_create_statement_with_dialects"
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst AUTHORS.rst CHANGELOG.rst
 %license COPYING
-%{python3_sitelib}/agate_sql-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{file_name}/
 
 
 %files -n python-%{pypi_name}-doc
@@ -83,6 +85,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.7.2-6
+- Correct Python macro usages
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.7.2-5
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk
 Version:        2.18.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -149,6 +149,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.18.14-2
+- Rebuild to fix OCaml dependencies
+
 * Mon Feb  3 2025 Jerry James <loganjerry@gmail.com> - 2.18.14-1
 - Version 2.18.14
 - Drop upstreamed precious and ocaml5 patches

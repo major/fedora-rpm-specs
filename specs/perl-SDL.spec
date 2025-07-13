@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ Patch3:         SDL-2.548-Fix-reference-counting-in-set_event_filter.patch
 # <https://github.com/PerlGameDev/SDL/issues/294>, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/309>
 Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
+# Adapt t/core_surface.t test to SDL3, incompatible with SDL2, bug #2341036,
+# proposed to upstream, <https://github.com/PerlGameDev/SDL/pull/310>
+Patch5:         SDL-2.548-core_surface.t-test-data-icon.bmp-is-really-4-bits-p.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -186,6 +189,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Fri Jul 11 2025 Petr Pisar <ppisar@redhat.com> - 2.548-29
+- Adapt t/core_surface.t test to SDL3 (bug #2341036)
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.548-28
 - Perl 5.42 rebuild
 

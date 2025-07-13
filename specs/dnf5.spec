@@ -1,19 +1,17 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 14
+%global project_version_minor 15
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-dnfdaemon-Removed-incorrect-output-parameter-names.patch
-Patch2:         0002-dnfdaemon-Make-permission-check-more-consistent.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -787,6 +785,7 @@ Package management service with a DBus interface.
 Summary:        Polkit rule to allow wheel group members install trusted packages
 License:        GPL-2.0-or-later
 Requires:       polkit
+Requires:       dnf5daemon-server = %{version}-%{release}
 BuildArch:      noarch
 
 %description -n dnf5daemon-server-polkit
@@ -1024,6 +1023,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Fri Jul 11 2025 Packit <hello@packit.dev> - 5.2.15.0-1
+- Update to version 5.2.15.0
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.2.14.0-4
 - Perl 5.42 rebuild
 

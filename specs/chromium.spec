@@ -245,7 +245,7 @@
 
 Name:	chromium
 Version: 138.0.7204.100
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1248,7 +1248,7 @@ CHROMIUM_CORE_GN_DEFINES+=' google_default_client_secret="%{default_client_secre
 
 CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
 CHROMIUM_CORE_GN_DEFINES+=" clang_base_path=\"$clang_base_path\""
-CHROMIUM_CORE_GN_DEFINES+=" clang_version=\"$clang_version\""
+CHROMIUM_CORE_GN_DEFINES+=" clang_version=$clang_version"
 CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 
@@ -1741,6 +1741,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 11 2025 Tom Stellard <tstellar@redhat.com> -138.0.7204.100-2
+- Update rust-clanglib patch for clang 21
+
 * Wed Jul 09 2025 Than Ngo <than@redhat.com> - 138.0.7204.100-1
 - Update to 138.0.7204.100
 

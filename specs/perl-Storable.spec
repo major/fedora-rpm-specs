@@ -2,7 +2,7 @@
 Name:           perl-Storable
 Epoch:          1
 Version:        3.37
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,8 @@ Requires:       perl(IO::File)
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(HAS_OVERLOAD\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(STDump\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(STTestLib\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\(testlib.pl\\)
 
 %description
@@ -143,6 +145,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.37-520
+- Filter private test requires
+
 * Sun Jul 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.37-519
 - Upgrade to 3.37 as provided in perl-5.42.0
 

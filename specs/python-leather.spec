@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %global pypi_name leather
 %global dir_name leather
 %global project_owner wireservice
@@ -16,7 +15,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -33,7 +32,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx >= 1.2.2
 BuildRequires:  python3-furo
@@ -42,7 +40,6 @@ BuildRequires:  python3-sphinx_rtd_theme >= 0.1.6
 BuildRequires:  python3-lxml >= 3.6.0
 BuildRequires:  python3-six >= 1.6.1
 BuildRequires:  python3-cssselect
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -65,8 +62,11 @@ sed -i '1{\@^#!/usr/bin/env python@d}' leather/*.py leather/**/*.py
 # Remove hidden files in examples
 rm examples/charts/.placeholder
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 pushd docs
     make html
     # Remove hidden file
@@ -75,18 +75,19 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{dir_name}
 
 
 %check
+%pyproject_check_import
+
 %pytest tests -v
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license COPYING
-%{python3_sitelib}/%{dir_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{dir_name}/
 
 
 %files -n python-%{pypi_name}-doc
@@ -95,6 +96,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.4.0-6
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.4.0-5
 - Rebuilt for Python 3.14
 

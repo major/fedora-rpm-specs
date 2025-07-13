@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -75,6 +75,7 @@ group["monospace"] = "Noto Sans Mono"
 --default: bool: Wheter font is default or not
 --variable: bool: Wheter font is variable or not
 --priority: int: priority number for fontconfig config file
+--fallback: array: alias name for fallback. similarly work for 'alias' but no rules for family->alias
 --
 local subpackages = {
     { alias="cursive",    family="Nastaliq Urdu", lang={ "ur" } },
@@ -103,7 +104,7 @@ local subpackages = {
       obsoletes={ "sans-anatolian-hieroglyphs-vf" }
     },
     { alias="sans-serif", family="Sans Arabic",
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -118,10 +119,10 @@ local subpackages = {
     { alias="sans-serif", family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", family="Sans Bassa Vah" },
     { alias="sans-serif", family="Sans Batak", lang={ "bbc" } },
-    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn", "mni" },
-      default=true
+    { alias="sans-serif", family="Sans Bengali", lang={ "as", "bn", "mni" },
+      default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Bengali UI", lang= { "as", "bn", "mni" },
+    { alias="sans-serif", family="Sans Bengali UI", lang={ "as", "bn", "mni" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-bengali-ui-vf" },
     },
@@ -158,7 +159,7 @@ local subpackages = {
       obsoletes={ "sans-deseret-vf" }
     },
     { alias="sans-serif", family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
-      default=true,
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Devanagari UI", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -173,10 +174,10 @@ local subpackages = {
       obsoletes={ "sans-elymaic-vf" }
     },
     { alias="sans-serif", family="Sans Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Georgian", lang={ "ka" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Glagolitic" },
     { alias="sans-serif", family="Sans Gothic", lang={ "got" },
@@ -184,7 +185,7 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Grantha" },
     { alias="sans-serif", family="Sans Gujarati", lang={ "gu" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Gujarati UI", lang={ "gu" },
       priority=rpm.expand('%{lprio}'), nogroup=1
@@ -206,7 +207,7 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Hebrew", lang={ "he", "yi" },
       obsoletes={ "sans-hebrew-droid", "sans-hebrew-new" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Imperial Aramaic",
       obsoletes={ "sans-imperial-aramaic-vf" }
@@ -217,7 +218,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Javanese" },
     { alias="sans-serif", family="Sans Kaithi" },
     { alias="sans-serif", family="Sans Kannada", lang={ "kn" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -227,7 +228,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Kharoshthi" },
     { alias="sans-serif", family="Sans Khmer", lang={ "km" },
       obsoletes={ "sans-khmer-ui" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Khojki" },
     { alias="sans-serif", family="Sans Khudawadi" },
@@ -321,7 +322,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Old Turkic" },
     { alias="sans-serif", family="Sans Oriya", lang={ "or" },
       obsoletes={ "sans-oriya-ui" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Osage" },
     { alias="sans-serif", family="Sans Osmanya",
@@ -350,7 +351,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Siddham" },
     { alias="sans-serif", family="Sans SignWriting" },
     { alias="sans-serif", family="Sans Sinhala", lang={ "si" },
-      default=true,
+      default=true, fallback={ "monospace" },
       fcconfexfile=rpm.expand('%{SOURCE8}')
     },
     { alias="sans-serif", family="Sans Sinhala UI", lang={ "si" },
@@ -383,7 +384,7 @@ local subpackages = {
       obsoletes={ "sans-tai-viet-vf" },
     },
     { alias="sans-serif", family="Sans Tamil", lang={ "ta" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Tamil Supplement", lang={ "ta" },
       excludeci=true, nogroup=1
@@ -393,7 +394,7 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Tangsa" },
     { alias="sans-serif", family="Sans Telugu", lang={ "te" },
-      default=true
+      default=true, fallback= { "monospace" }
     },
     { alias="sans-serif", family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -403,7 +404,7 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Thai", lang={ "th" },
       obsoletes={ "sans-thai-ui" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", family="Sans Thai Looped", lang={ "th" },
       obsoletes={ "looped-thai", "looped-thai-ui" }
@@ -550,7 +551,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Adlam" },
     { alias="sans-serif", variable=true, family="Sans Adlam Unjoined" },
     { alias="sans-serif", variable=true, family="Sans Arabic",
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -562,7 +563,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", variable=true, family="Sans Bassa Vah" },
     { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn", "mni" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Canadian Aboriginal", lang={ "iu" },
       default=true
@@ -572,16 +573,16 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", variable=true, family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Georgian", lang={ "ka" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Gujarati", lang={ "gu" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Gunjala Gondi" },
     { alias="sans-serif", variable=true, family="Sans Gurmukhi", lang={ "pa" },
@@ -591,11 +592,11 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Hanifi Rohingya" },
     { alias="sans-serif", variable=true, family="Sans Hebrew", lang={ "he", "yi" },
       obsoletes={ "sans-hebrew-droid-vf", "sans-hebrew-new-vf" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Javanese" },
     { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -605,7 +606,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Kawi" },
     { alias="sans-serif", variable=true, family="Sans Khmer", lang={ "km" },
       obsoletes={ "sans-khmer-ui-vf" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Lao", lang={ "lo" },
       obsoletes={ "sans-lao-ui-vf" },
@@ -638,10 +639,10 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Ol Chiki" },
     { alias="sans-serif", variable=true, family="Sans Oriya", lang={ "or" },
       obsoletes={ "sans-oriya-ui-vf" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Sinhala", lang={ "si" },
-      default=true,
+      default=true, fallback={ "monospace" },
       fcconfexfile=rpm.expand('%{SOURCE8}')
     },
     { alias="sans-serif", variable=true, family="Sans Sora Sompeng" },
@@ -652,7 +653,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Tai Tham" },
     { alias="sans-serif", variable=true, family="Sans Tamil", lang={ "ta" },
       obsoletes={ "sans-tamil-supplement-vf" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Tamil UI", lang={ "ta" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -660,7 +661,7 @@ local subpackages = {
     },
     { alias="sans-serif", variable=true, family="Sans Tangsa" },
     { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
@@ -671,7 +672,7 @@ local subpackages = {
     },
     { alias="sans-serif", variable=true, family="Sans Thai", lang={ "th" },
       obsoletes={ "sans-thai-ui-vf" },
-      default=true
+      default=true, fallback={ "monospace" }
     },
     { alias="sans-serif", variable=true, family="Sans Thai Looped", lang={ "th" },
       obsoletes={ "sansthai-looped-vf",  "looped-thai-vf", "looped-thai-ui-vf" }
@@ -770,6 +771,44 @@ local function is_nonlatin(table)
     return true
 end
 
+local function _genfcconf(alias, family, lang, reverse)
+    local ret = ""
+    local generic = [[
+    <test name="family">\
+      <string>]] .. alias .. [[</string>\
+    </test>\
+    <edit name=\"family\" mode=\"prepend\">\
+      <string>Noto ]] .. family .. [[</string>\
+    </edit>\]]
+    if lang then
+        for i = 1, #lang do
+            ret = ret .. [[  <match>\
+    <test name=\"lang\" compare=\"contains\">\
+      <string>]] .. lang[i] .. [[</string>\
+    </test>\
+]] .. generic .. "\n" .. [[
+  </match>\
+]]
+        end
+    else
+        ret = ret .. [[  <match>\
+]] .. generic .. "\n" .. [[
+  </match>\
+]]
+    end
+    if reverse then
+        ret = ret .. [[
+  <alias>\
+    <family>Noto ]] .. family .. [[</family>\
+    <default>\
+      <family>]] .. alias .. [[</family>\
+    </default>\
+  </alias>\
+]]
+    end
+    return ret
+end
+
 local function genfcconf(table)
     local extra = "\\\n"
     if table.fcconfexfile then
@@ -784,42 +823,18 @@ local function genfcconf(table)
             error("Unable to open " .. table.fcconfexfile)
         end
     end
-    local generic = [[
-    <test name="family">\
-      <string>]] .. table.alias .. [[</string>\
-    </test>\
-    <edit name=\"family\" mode=\"prepend\">\
-      <string>Noto ]] .. table.family .. [[</string>\
-    </edit>\]]
     local xml = [[
 <?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 <!DOCTYPE fontconfig SYSTEM \"urn:fontconfig:fonts.dtd\">\
 <fontconfig>\
 ]]
-    if table.lang then
-        for i = 1, #table.lang do
-	    xml = xml .. [[  <match>\
-    <test name=\"lang\" compare=\"contains\">\
-      <string>]] .. table.lang[i] .. [[</string>\
-    </test>\
-]] .. generic .. "\n" .. [[
-  </match>\
-]]
-	end
-    else
-        xml = xml .. [[  <match>\
-]] .. generic .. "\n" .. [[
-  </match>\
-]]
+    xml = xml .. _genfcconf(table.alias, table.family, table.lang, true)
+    if table.fallback then
+        for i = 1, #table.fallback do
+            xml = xml .. _genfcconf(table.fallback[i], table.family, table.lang, false)
+        end
     end
-    xml = xml .. [[
-  <alias>\
-    <family>Noto ]] .. table.family .. [[</family>\
-    <default>\
-      <family>]] .. table.alias .. [[</family>\
-    </default>\
-  </alias>\
-]] .. extra .. [[
+    xml = xml .. extra .. [[
 </fontconfig>\
 ]]
     if table.fcconffile then
@@ -1205,6 +1220,24 @@ done
 
 
 %changelog
+* Thu Jul 10 2025 Akira TAGOH <tagoh@redhat.com> - 20250701-2
+- Add fallback config of monospace for following languages. See
+  https://fedoraproject.org/wiki/Changes/SetDefaultMonospaceFallbackFont
+  - Arabic
+  - Bengali
+  - Devanagari
+  - Ethiopic
+  - Georgian
+  - Gujarati
+  - Hebrew
+  - Kannada
+  - Khmer
+  - Oriya
+  - Sinhala
+  - Tamil
+  - Telugu
+  - Thai
+
 * Fri Jul  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250701-1
 - Updates to monthly release of 2025.07.01.
 - Add new subpackage google-noto-sans-sunuwar-fonts

@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-labltk
 Version:       8.06.15
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -134,6 +134,9 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 8.06.15-2
+- Rebuild to fix OCaml dependencies
+
 * Mon Feb 03 2025 Richard W.M. Jones <rjones@redhat.com> - 8.06.15-1
 - New upstream version 8.06.15
 - Includes Tcl 9 support (RHBZ#2337740)

@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   2f1c94d6282ce7680cb949fe4ea42b5f0fa8b30a
+%global github_commit   28a0214524bafe06f9866f9043fb5fe0975f4b51
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250710
+%global github_date     20250711
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -795,6 +795,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Fri Jul 11 2025 Adam Williamson <awilliam@redhat.com> - 5^20250711git28a0214-1
+- Update to latest upstream git (fix timestamps on overview page)
+
 * Thu Jul 10 2025 Adam Williamson <awilliam@redhat.com> - 5^20250710git2f1c94d-1
 - Update to latest upstream git
 - Drop merged patch

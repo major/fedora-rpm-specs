@@ -19,7 +19,7 @@
 %endif
 
 Name:          mutter
-Version:       49~alpha.0
+Version:       49~alpha.1
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -31,10 +31,6 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/4133
-# https://bugzilla.redhat.com/show_bug.cgi?id=2369567
-Patch:         window-tracker-regression.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

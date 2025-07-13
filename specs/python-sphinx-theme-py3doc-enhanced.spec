@@ -6,7 +6,7 @@ enhancements.
 
 Name:           python-%{pkgname}
 Version:        2.4.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Theme based on the theme of https://docs.python.org/3/
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -24,8 +24,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
 Provides:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{pkgname}
@@ -36,22 +34,32 @@ Provides:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 %setup -qn %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
-%files -n python%{python3_pkgversion}-%{pkgname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
+%license LICENSE
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 2.4.0-15
+- Correct Python macro usages.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.0-14
 - Rebuilt for Python 3.14
 

@@ -8,7 +8,7 @@
 #
 
 
-%global gh_commit    b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d
+%global gh_commit    53834f587d7ab2527eb237459d7b94d1fb9d4c5a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -16,7 +16,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.9
+%global upstream_version 2.8.10
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -205,6 +205,9 @@ php -r '
 
 
 %changelog
+* Fri Jul 11 2025 Remi Collet <remi@remirepo.net> - 2.8.10-1
+- update to 2.8.10
+
 * Tue May 13 2025 Remi Collet <remi@remirepo.net> - 2.8.9-1
 - update to 2.8.9
 

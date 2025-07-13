@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cppo
 Version:        1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.8.0-3
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %global pypi_name openpyxl
 %global sum Python library to read/write Excel 2010 xlsx/xlsm files
 %global desc openpyxl is a Python library to read/write Excel 2010 xlsx/xlsm/xltx/xltm files.\
@@ -7,8 +6,8 @@ It was born from lack of existing library to read/write natively from Python the
 Office Open XML format.
 
 Name:           python-%{pypi_name}
-Version:        3.1.2
-Release:        10%{?dist}
+Version:        3.1.5
+Release:        1%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and Python - review is highly recommended.
@@ -24,8 +23,8 @@ BuildArch:      noarch
 %package -n     python3-%{pypi_name}
 Summary:        %{sum}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3dist(numpy)
+Requires:       python3dist(numpy)
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -33,27 +32,37 @@ BuildRequires:  python3-setuptools
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-rm -rf *.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 # No tests
 
 
-%files -n python3-%{pypi_name}
-%license LICENCE.rst
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst AUTHORS.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
+%license LICENCE.rst
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 3.1.5-1
+- Update to 3.1.5
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.2-10
 - Rebuilt for Python 3.14
 

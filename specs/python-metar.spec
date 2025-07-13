@@ -1,24 +1,33 @@
 %global srcname metar
 %global summary Coded METAR and SPECI weather reports parser for Python
+%global packagezipfile python-metar-20250512git-d87ebdf.zip
 
 Name: python-%{srcname}
 Version: 1.11.0
-Release: 7%{?dist}
+Release: 20250512git%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
 # (but without the second condition on use of names of contributors)
 License: BSD-Source-Code
+
 URL: https://github.com/python-metar/python-metar
+
 # note that development was moved to a new github account
 # the old account was: http://github.com/tomp/python-metar
 # see also this discussion on the 2 project names:
 # https://github.com/python-metar/python-metar/issues/58
-Source: https://files.pythonhosted.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
+
+# releases are at pypi
+# Source: https://files.pythonhosted.org/packages/source/m/%%{srcname}/%%{srcname}-%%{version}.tar.gz
+
+# but the latest release does not contain a pyproject.toml file
+# so cannot easily be build with the new pyproject macros.
+# Therefore a snapshot from github is used in stead:
+Source:  https://github.com/python-%{srcname}/python-%{srcname}/archive/d87ebdf3049cb542fb3a94f470dca37821378e91.zip#/%{packagezipfile}
 
 BuildArch: noarch
 
-BuildRequires: python3-setuptools
 BuildRequires: python3-devel python3-pytest
 
 %global _description \
@@ -32,46 +41,54 @@ and ICAO (International Civil Aviation Organization).
 
 %package -n python3-%{srcname}
 Summary: %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python-%{srcname}}
 
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+
+cd %{_builddir}
+unzip %{_sourcedir}/%{packagezipfile}
+mv python-metar-main python-%{srcname}-%{version}
+
+%generate_buildrequires
+
+cd %{_builddir}/python-%{srcname}-%{version}
+%pyproject_buildrequires
 
 %build
 
-%py3_build
+cd %{_builddir}/python-%{srcname}-%{version}
+%pyproject_wheel
 
 %install
 
-%py3_install
+cd %{_builddir}/python-%{srcname}-%{version}
+%pyproject_install
 
-# note: sample file is not present anymore in pypi version
 # remove executable permissions from sample.py to
 # prevent dependencies being pulled in from this file
-#chmod 644 sample.py
+chmod 644 sample.py
 
 %check
 
-# these variants dont work, even if the first one
-# works just fine when doing a manual install. Dont know why.
-#%%{__python3} setup.py test
-#PYTHONPATH="%%{buildroot}%%{python3_sitelib}" %%{__python3} setup.py test
-
-# this works fine
-PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
-
+cd %{_builddir}/python-%{srcname}-%{version}
+%{__python3} -m pytest -v
 
 %files -n python3-%{srcname}
 
-%doc LICENSE README.md PKG-INFO CHANGELOG.md 
-# sample.py
+%doc python-%{srcname}-%{version}/sample.py
+%doc python-%{srcname}-%{version}/README.md
+%doc python-%{srcname}-%{version}/CHANGELOG.md
+%doc python-%{srcname}-%{version}/LICENSE
 
 %{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}*egg-info
+%{python3_sitelib}/python_%{srcname}*dist-info
 
 %changelog
+* Fri Jul 11 2025 Jos de Kloe <josdekloe@gmail.com> 1.11.0-20250512git
+- adapt spec file to use the new pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.11.0-7
 - Rebuilt for Python 3.14
 

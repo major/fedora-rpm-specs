@@ -9,7 +9,7 @@ fields are supported.
 
 Name:           python-%{pypi_name}
 Version:        0.99.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -28,9 +28,7 @@ BuildArch:      noarch
 %package -n     python3-%{pypi_name}
 Summary:        %{sum}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       python3-aenum
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -41,26 +39,36 @@ Requires:       python3-aenum
 # Correct line endings for setup.py
 sed -i "s|\r||g" setup.py
 %autopatch -p1
-rm -rf *.egg-info
 rm -f dbf/ver_32.py
 rm -f dbf/ver_2.py
 sed -i "s|\r||g" dbf/README.md
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc dbf/README.md
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}/
+%license dbf/LICENSE
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.99.3-9
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.99.3-8
 - Rebuilt for Python 3.14
 

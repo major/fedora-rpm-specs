@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -64,6 +64,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.7.0-22
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

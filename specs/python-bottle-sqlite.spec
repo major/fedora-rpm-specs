@@ -1,7 +1,7 @@
 %global srcname bottle-sqlite
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        SQLite3 integration for Bottle WSGI framework
 
 License:        MIT
@@ -24,7 +24,6 @@ need a database connection.
 Summary: SQLite3 integration for Bottle WSGI framework
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 Requires:       python3-bottle
 
@@ -43,20 +42,26 @@ need a database connection.
 %prep
 %setup -q -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{srcname}
 %doc PKG-INFO README.rst
 %{python3_sitelib}/bottle_sqlite.py*
 %{python3_sitelib}/__pycache__/bottle_sqlite*
-%{python3_sitelib}/bottle_sqlite*.egg-info
+%{python3_sitelib}/bottle_sqlite*.dist-info
 
 
 %changelog
+* Fri Jul 11 2025 Federico Pellegrin <fede@evolware.org> - 0.2.0-11
+- Use new Python macros in spec file (rhbz#2377494)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.0-10
 - Rebuilt for Python 3.14
 

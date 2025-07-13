@@ -1,8 +1,8 @@
 %global pypi_name python-snappy
 
 Name:           python-snappy
-Version:        0.7.2
-Release:        5%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 Summary:        Python library for the snappy compression library from Google
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -21,14 +21,12 @@ Python bindings for the snappy compression library from Google.
 Summary:        Python library for the snappy compression library from Google
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-cffi
 BuildRequires:  python3-cramjam
 BuildRequires:  snappy-devel
 Requires:       python3-cffi
 Requires:       snappy
 # Don't use %%pypi_name here to avoid a python-python-snappy provide
-%{?python_provide:%python_provide python3-snappy}
 
 %description -n python3-snappy
 Python bindings for the snappy compression library from Google.
@@ -38,22 +36,33 @@ Python bindings for the snappy compression library from Google.
 %setup -qn python_snappy-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l snappy
 
 
-%files -n python3-snappy
+%check
+%pyproject_check_import
+
+
+%files -n python3-snappy -f %{pyproject_files}
 %doc README.rst AUTHORS
 %license LICENSE
-%{python3_sitelib}/snappy/
-%{python3_sitelib}/python_snappy-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.7.3-1
+- Update to 0.7.3
+- Correct Python macro usages
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.7.2-5
 - Rebuilt for Python 3.14
 

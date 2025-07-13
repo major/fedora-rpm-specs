@@ -2,7 +2,7 @@
 %global short_name commons-%{base_name}
 
 Name:           apache-commons-exec
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        Apache-2.0
@@ -63,6 +63,9 @@ find src/test/java/ -name "*.java" -exec sed  -i '/SetSystemProperty/d' {} \;
 
 
 %changelog
+* Sat Jul 12 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.5.0-1
+- Update to 1.5.0
+
 * Sun Jan 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.4.0-1
 - Update to 1.4.0
 

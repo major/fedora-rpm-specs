@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlmpfr
 Version:        4.2.1
-Release:        8%{?dist}%{?bugfix:.%{bugfix}}
+Release:        9%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
@@ -26,9 +26,6 @@ BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pkgconfig(mpfr)
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-mlmpfr-doc < 4.1.0-13
 
 %description
 This library provides OCaml bindings for MPFR.
@@ -69,6 +66,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 4.2.1-9
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

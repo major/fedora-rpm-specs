@@ -24,14 +24,14 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  5
-%global github_commit   a855b3a2ed70ef02ad6d125ee95be0fb1fe28c04
+%global github_commit   d55ec722f662bc218505f314e9cc249eeb6a5cd7
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250522
+%global github_date     20250707
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -39,6 +39,14 @@ License:        GPL-2.0-or-later
 URL:            https://os-autoinst.github.io/openQA/
 ExcludeArch:    %{ix86}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
+
+# https://github.com/os-autoinst/os-autoinst/pull/2727
+# make os-autoinst-multi-machine work on Fedora (maybe?)
+Patch:          0001-setup-multi-machine-extend-network-service-detection.patch
+# https://github.com/os-autoinst/os-autoinst/pull/2728
+# Fix tests without Inline::Lua
+Patch:          0001-t-make-autotest-tests-pass-if-lua-and-or-python-are-.patch
+Patch:          0002-t-use-mock-not-redefine-for-lua_set.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -62,8 +70,9 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # main_requires_additional and the perl(:MODULE_COMPAT) require below
 # their versioning of mojolicious is different due to
 # https://github.com/openSUSE/cpanspec/issues/47
+# they have iproute2, we have iproute
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(Feature::Compat::Try) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
+%define main_requires %main_requires_additional git-core iproute jq perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(Feature::Compat::Try) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
 # diff from SUSE: SUSE has python3-yamllint, Fedora has just yamllint
 # The following line is generated from dependencies.yaml (upstream)
 %define yamllint_requires yamllint
@@ -81,6 +90,8 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # ffmpeg-free, not ffmpeg
 # we don't use test_non_s390_requires because on Fedora all the deps
 # are available on s390x, ditto python_support_requires
+# we don't use lua_support_requires because perl-Inline-Lua isn't
+# packaged on Fedora at all
 # The following line is generated from dependencies.yaml (upstream)
 %define test_requires %build_requires %ocr_requires %test_base_requires %yamllint_requires ffmpeg-free perl(Inline::Python) perl(YAML::PP) python3-pillow-tk
 # The following line is generated from dependencies.yaml (upstream)
@@ -168,8 +179,6 @@ rm xt/30-make.t
 # we don't really need to ship this in the package, usually the web UI
 # is much better for needle editing
 rm %{buildroot}%{_prefix}/lib/os-autoinst/script/crop.py*
-# this is only useful on SUSE
-rm %{buildroot}%{_bindir}/os-autoinst-setup-multi-machine
 # we're going to %%license this
 rm %{buildroot}%{_pkgdocdir}/COPYING
 ls -lR %buildroot
@@ -242,6 +251,7 @@ fi
 %{_prefix}/lib/os-autoinst/script/dewebsockify
 %{_prefix}/lib/os-autoinst/script/vnctest
 %{_bindir}/os-autoinst-generate-needle-preview
+%{_bindir}/os-autoinst-setup-multi-machine
 
 %dir %{_prefix}/lib/os-autoinst/schema
 %{_prefix}/lib/os-autoinst/schema/Wheels-01.yaml
@@ -259,6 +269,11 @@ fi
 %files devel
 
 %changelog
+* Fri Jul 11 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-1
+- Update to latest git
+- Backport #2727 to fix multi-machine script on Fedora
+- Backport #2728 to fix tests without Inline::Lua
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5^20250522gita855b3a-2
 - Perl 5.42 rebuild
 

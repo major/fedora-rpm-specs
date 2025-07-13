@@ -1,6 +1,6 @@
 Name:           rss2email
 Version:        3.14
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Deliver news from RSS feeds to your SMTP server as text or HTML mail
 
 # Automatically converted from old format: GPLv2+ or GPLv3+ - review is highly recommended.
@@ -85,6 +85,10 @@ PATH="${PATH}:%{buildroot}%{_bindir}" PYTHONPATH=%{buildroot}%{python3_sitelib} 
 %{_datadir}/zsh/functions/Completion/Unix/_r2e
 
 %changelog
+* Fri Jul 11 2025 David Kaufmann <astra@ionic.at> - 3.14-13
+- Moved to new python3 build system
+- Fix indentation in testcases
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.14-12
 - Rebuilt for Python 3.14
 

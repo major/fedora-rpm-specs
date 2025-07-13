@@ -8,7 +8,7 @@ yml and toml formats.
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %sum
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -18,7 +18,6 @@ Source0:        https://github.com/mattrobenolt/jinja2-cli/archive/0.8.2/jinja2-
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-jinja2
 
@@ -32,7 +31,6 @@ BuildArch:      noarch
 Requires:       python3-jinja2
 Requires:       python3-PyYAML
 Requires:       python3-toml
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %desc
@@ -42,31 +40,39 @@ Requires:       python3-toml
 %setup -qn %{pypi_name}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l jinja2cli
 
 # Remove tests from install (not good folder)
 rm -rf %{buildroot}%{python3_sitelib}/tests
 
 
 %check
+%pyproject_check_import
+
 # Copy test template
 py.test-%{python3_version}
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
+%license LICENSE
 %{_bindir}/jinja2
-%{python3_sitelib}/jinja2_cli-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/jinja2cli/
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.8.2-14
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.2-13
 - Rebuilt for Python 3.14
 

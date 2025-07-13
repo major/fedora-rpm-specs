@@ -9,6 +9,9 @@ Summary:        A CLI and TUI tool for interacting with Mastodon
 License:        GPL-3.0-only
 URL:            https://github.com/ihabunek/%{modname}
 Source0:        https://github.com/ihabunek/%{modname}/archive/refs/tags/%{version}.tar.gz#/%{modname}-%{version}.tar.gz
+# https://github.com/ihabunek/toot/issues/540
+# but tui is broken
+Patch0:         urwid.patch
 
 BuildArch:      noarch
 

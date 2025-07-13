@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-postgresql
-Version:        5.1.3
-Release:        2%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        OCaml library for accessing PostgreSQL databases
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -14,7 +14,7 @@ Source0:        %{url}/releases/download/%{version}/postgresql-%{version}.tbz
 BuildRequires:  ocaml >= 4.12
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  libpq-devel
+BuildRequires:  pkgconfig(libpq)
 
 
 %description
@@ -57,11 +57,14 @@ developing applications that use %{name}.
 
 
 %files devel -f .ofiles-devel
-%doc CHANGES.md examples
+%doc CHANGELOG.md examples
 %license LICENSE.md
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 5.2.0-1
+- Version 5.2.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

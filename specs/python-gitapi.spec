@@ -1,6 +1,6 @@
 Name:           python-gitapi
 Version:        1.1.0
-Release:        0.a3%{?dist}.33
+Release:        0.a3%{?dist}.34
 Summary:        Pure-Python API to git, which uses the command-line interface
 
 License:        MIT
@@ -20,9 +20,7 @@ Pure-Python API to git, which uses the command-line interface.
 
 %package -n     python3-gitapi
 Summary:        Pure-Python API to git, which uses the command-line interface
-%{?python_provide:%python_provide python3-gitapi}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       git
 
 %description -n python3-gitapi
@@ -33,29 +31,38 @@ Pure-Python API to git, which uses the command-line interface.
 %setup -q -n gitapi-%{version}a2
 cp %{SOURCE1} .
 # Remove egg
-rm -r gitapi.egg-info
 # Apply patches
 sed -i 's/\r$//' gitapi/testgitapi.py
 # Correct end of line encoding for README.rst
 sed -i 's/\r$//' README.rst
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l gitapi
 
 
-%files -n python3-gitapi
-%license LICENSE
+%check
+%pyproject_check_import
+
+
+%files -n python3-gitapi -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/gitapi-%{version}a2-py%{python3_version}.egg-info/
-%{python3_sitelib}/gitapi/
+%license LICENSE
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 1.1.0-0a3.34
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.0-0.a3.33
 - Rebuilt for Python 3.14
 

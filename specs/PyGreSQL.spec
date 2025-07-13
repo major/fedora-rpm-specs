@@ -1,23 +1,21 @@
 %global srcname	PyGreSQL
-%global uversion 6.0.1
+%global uversion 6.1.0
 
 %{!?runselftest:%global runselftest 1}
 
 Name:		%{srcname}
-Version:	6.0.1
-Release:	7%{?dist}
+Version:	6.1.0
+Release:	1%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
-# Author states his intention is to dual license under PostgreSQL or Python
-# licenses --- this is not too clear from the current tarball documentation,
-# but hopefully will be clearer in future releases.
-# The PostgreSQL license is very similar to other MIT licenses, but the OSI
-# recognizes it as an independent license, so we do as well.
-# Automatically converted from old format: PostgreSQL or Python - review is highly recommended.
-License:	PostgreSQL OR LicenseRef-Callaway-Python
+License:	PostgreSQL
 
 Source0:	https://github.com/PyGreSQL/%{name}/archive/%{uversion}/%{name}-%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
+
+# Patch to remove overly strict version constraints on pip and virtualenv
+# These constraints break builds on Fedora Rawhide where newer versions are used
+Patch0:		tox.patch
 
 BuildRequires:	gcc
 BuildRequires:	libpq-devel
@@ -58,15 +56,16 @@ find -type f -exec chmod 644 {} +
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python3-pygresql
 %license docs/copyright.rst
+%license %{python3_sitearch}/pygresql-*.dist-info/licenses/LICENSE.txt
 %doc docs/*.rst
 %{python3_sitearch}/pg/*.so
 %{python3_sitearch}/pg/*.py
@@ -76,7 +75,10 @@ find -type f -exec chmod 644 {} +
 %{python3_sitearch}/pgdb/*.py
 %{python3_sitearch}/pgdb/__pycache__/*.py{c,o}
 %{python3_sitearch}/pgdb/py.typed
-%{python3_sitearch}/*.egg-info
+%{python3_sitearch}/pygresql-*.dist-info/WHEEL
+%{python3_sitearch}/pygresql-*.dist-info/INSTALLER
+%{python3_sitearch}/pygresql-*.dist-info/METADATA
+%{python3_sitearch}/pygresql-*.dist-info/top_level.txt
 
 
 %check
@@ -98,6 +100,10 @@ EOF
 
 
 %changelog
+* Wed Jul 09 2025 Nikola Davidova <ndavidov@redhat.com> - 6.1.0-1
+- Rebase to the latest upstream version
+- Stop using deprecated setup.py command (rhbz#2378584)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.0.1-7
 - Rebuilt for Python 3.14
 

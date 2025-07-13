@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
-Version:        1.12
-Release:        11%{?dist}
+Version:        1.13
+Release:        1%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -13,18 +13,10 @@ License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://xavierleroy.org/camlidl/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/camlidl%{shortversion}.tar.gz
-# META file from opam (RHBZ#1026991).
-Source1:        https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/camlidl/camlidl.%{version}/files/META
 
-# Both patches sent upstream on 2020-05-20.
-# Allow destdir installs.
-Patch1:         0001-Allow-destdir-installs.patch
+# Patch sent upstream on 2020-05-20.
 # Pass -g option to ocamlmklib.
-Patch2:         0002-Pass-g-option-to-ocamlmklib.patch
-# Avoid segfaults in OCaml GC
-# https://github.com/xavierleroy/camlidl/commit/346de7b484a087a035af7d14a76d6c1693915e08
-# https://github.com/xavierleroy/camlidl/commit/64a30a2385b30cbaf159e0709895ed3efc7ece3f
-Patch3:         %{name}-gc-segfault.patch
+Patch:          0001-Pass-g-option-to-ocamlmklib.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
@@ -61,8 +53,10 @@ developing applications that use %{name}.
 %prep
 %autosetup -n camlidl-camlidl%{shortversion} -p1
 
+
+%conf
 sed -e 's|^OCAMLLIB=.*|OCAMLLIB=%{_libdir}/ocaml|' \
-    -e 's|^BINDIR=.*|BINDIR=%{_bindir}|' \
+    -e 's|^BINDIR=.*|BINDIR=%{buildroot}%{_bindir}|' \
     -e 's|^CFLAGS=.*|CFLAGS=%{build_cflags}|' \
 %ifarch %{ocaml_native_compiler}
     -e 's|^OCAMLC=.*|OCAMLC=ocamlc.opt -g|' \
@@ -89,10 +83,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ocaml/caml
 mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ocaml/stublibs
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 
-# Install META file (RHBZ#1026991).  The META file is missing a directory
-# directive, which makes ocamlfind complain when building consumers.
-sed '/version/adirectory = "^"' %{SOURCE1} > \
-    $RPM_BUILD_ROOT/%{ocamldir}/META.camlidl
 
 %make_install
 %ocaml_files
@@ -108,6 +98,11 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
+* Thu Jun 26 2025 Jerry James  <loganjerry@gmail.com> - 1.13-1
+- Version 1.13
+- Drop upstreamed DESTDIR and GC patches
+- Upstream now ships a META file
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

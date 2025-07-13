@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -13,7 +13,6 @@ Patch0:         PySolFC-desktop-exec.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl-interpreter
 BuildRequires:  tcl-devel < 1:9
@@ -36,7 +35,6 @@ Requires:       python%{python3_pkgversion}-pygame
 Requires:       tix
 Requires:       python%{python3_pkgversion}-tkinter
 Requires:       python%{python3_pkgversion}-imaging-tk
-Requires:       python%{python3_pkgversion}-random2
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     PySolFC-cardsets
 Recommends:     PySolFC-music
@@ -52,18 +50,21 @@ Provides:       pysol = %{version}-%{release}
 %description
 %{name} is a collection of more than 1000 solitaire card games. It is a fork
 of PySol solitaire. Its features include modern look and feel (uses Tile widget
-set), multiple cardsets and tableau backgrounds, sound, unlimited undo, player
+set), multiple card-sets and tableau backgrounds, sound, unlimited undo, player
 statistics, a hint system, demo games, a solitaire wizard, support for user
 written plug-ins, an integrated HTML help browser, and lots of documentation.
 
 %prep
 %autosetup -p1 -a2
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 # install desktop file
 desktop-file-install \
     --delete-original \
@@ -82,7 +83,7 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 %license COPYING
 %doc README.md
 %{python3_sitelib}/pysollib
-%{python3_sitelib}/*egg-info
+%{python3_sitelib}/*dist-info
 %{_bindir}/pysol
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/*.png
@@ -90,6 +91,12 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Fri Jul 11 2025 Shlomi Fish <shlomif@shlomifish.org> 3.4.0-2
+- Remove unused / unavailable deps ( eg - python3-random2 )
+- Use pyprojectize/etc. to modernize the .spec
+- rhbz#2379434
+- rhbz#2377406
+
 * Sun Jun 15 2025 Packit <hello@packit.dev> - 3.4.0-1
 - Update to version 3.4.0
 - Resolves: rhbz#2372876

@@ -1,8 +1,8 @@
 %global pypi_name git_up
 
 Name:           git-up
-Version:        2.2.0
-Release:        11%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -11,8 +11,11 @@ Source0:        %{pypi_source}
 Source1:        https://raw.githubusercontent.com/msiemens/PyGitUp/v%{version}/LICENCE
 
 # pytest 8 compatibility
-# https://github.com/msiemens/PyGitUp/pull/135
+# https://github.com/msiemens/PyGitUp/commit/eb7b155e3396ac645dc075665e87b16bc34e6827.patch
 Patch:          135.patch
+# termcolor 3 compatibility
+# https://github.com/msiemens/PyGitUp/pull/141
+Patch:          141.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -53,6 +56,10 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Fri Jul 11 2025 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 2.3.0-1
+- Update to 2.3.0 (fixes rhbz#2316732)
+- Fix build with termcolor 3 (fixes rhbz#2375192)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.2.0-11
 - Rebuilt for Python 3.14
 

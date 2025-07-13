@@ -7,7 +7,7 @@ Documentation is available on Read the Docs: http://recommonmark.readthedocs.org
 
 Name:           python-recommonmark
 Version:        0.7.1
-Release:        12.git%{?dist}
+Release:        13.git%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -23,12 +23,10 @@ BuildArch:      noarch
 Summary:        %{sum}
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-docutils
 BuildRequires:  python%{python3_pkgversion}-CommonMark
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-sphinx
-%{?python_provide:%python_provide python%{python3_pkgversion}-recommonmark}
 
 %description -n python%{python3_pkgversion}-recommonmark
 %{desc}
@@ -37,18 +35,22 @@ BuildRequires:  python%{python3_pkgversion}-sphinx
 %prep
 %setup -qn recommonmark-%{version}
 # Remove upstream's egg-info
-rm -rf recommonmark.egg-info
 
 sed -i '1{\@^#!/usr/bin/env python@d}' recommonmark/scripts.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
 #  install python3 first to have unversioned binaries for python 3
-%py3_install
+%pyproject_install
+%pyproject_save_files recommonmark
 pushd %{buildroot}%{_bindir}  # Enter buildroot bindir to ease symlink creation
 for cm2bin in cm2*; do
     mv "${cm2bin}" "${cm2bin}-%{python3_version}"
@@ -59,20 +61,23 @@ popd  # Leave buildroot bindir
 
 
 %check
+%pyproject_check_import
+
 # Skip some tests because of https://github.com/readthedocs/recommonmark/issues/164
 %pytest --ignore tests/test_sphinx.py
 
 
-%files -n python%{python3_pkgversion}-recommonmark
+%files -n python%{python3_pkgversion}-recommonmark -f %{pyproject_files}
 %doc README.md
 %license license.md
-%{python3_sitelib}/recommonmark-%{version}*-py%{python3_version}.egg-info/
-%{python3_sitelib}/recommonmark/
 %{_bindir}/cm2*-3
 %{_bindir}/cm2*-%{python3_version}
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.7.1-13.git
+- Correct Python macro usages
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.7.1-12.git
 - Rebuilt for Python 3.14
 

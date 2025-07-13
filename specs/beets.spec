@@ -47,7 +47,7 @@ Requires:       python3-acoustid
 Requires:       python3-requests
 Requires:       python3-pylast
 Requires:       python3-musicbrainzngs >= 0.4
-Requires:       python3-mpd
+Requires:       python3-mpd2
 Requires:       python3-gobject >= 3.0
 Requires:       gstreamer1
 Requires:       js-jquery

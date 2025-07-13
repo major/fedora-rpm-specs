@@ -1,4 +1,4 @@
-%global baserelease 18
+%global baserelease 19
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})

@@ -3,7 +3,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-executor-plugins
-Version:        9.3.7
+Version:        9.3.8
 Release:        %autorelease
 Summary:        Stable interface for interactions between Snakemake and its executor plugins
 

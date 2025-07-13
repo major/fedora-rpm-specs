@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-libvirt
 Version:        0.6.1.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        OCaml binding for libvirt
 License:        LGPL-2.1-or-later
 
@@ -78,6 +78,9 @@ make install
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.6.1.7-15
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

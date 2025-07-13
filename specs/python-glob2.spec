@@ -5,7 +5,7 @@ wildcards.
 
 Name:           python-%{pkg_name}
 Version:        0.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Glob module recursive wildcards support
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,10 +22,8 @@ BuildArch:      noarch
 %package -n     python3-%{pkg_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 Requires:       python3-setuptools
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
 %description -n python3-%{pkg_name}
 %{desc}
@@ -37,25 +35,33 @@ sed -i "s/setup(/setup_method(/" test.py
 sed -i "s/teardown(/teardown_method(/" test.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pkg_name}
 
 %check
+%pyproject_check_import
+
 %pytest test.py
 
 
-%files -n python3-%{pkg_name}
-%license LICENSE
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %doc README.rst CHANGES
-%{python3_sitelib}/%{pkg_name}-%{pypi_version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pkg_name}/
+%license LICENSE
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.7-26
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7-25
 - Rebuilt for Python 3.14
 

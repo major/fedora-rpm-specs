@@ -7,7 +7,7 @@ commands on each passing and failing test run.
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Local continuous test runner with pytest and watchdog
 
 License:        MIT
@@ -24,7 +24,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       python3-colorama >= 0.3.3
 Requires:       python3-docopt >= 0.6.2
 Requires:       python3-pytest >= 2.6.4
@@ -33,7 +32,6 @@ Requires:       python3-watchdog >= 0.6.0
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=1360383
 Requires:       python3-PyYAML
 Requires:       python3-pathtools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -47,14 +45,19 @@ sed -i 's/\r$//' %{file_name}/watcher.py
 # %%patch0 -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 cp %{SOURCE1} .
 
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{file_name}
 pushd %{buildroot}%{_bindir}
 mv ptw ptw-%{python3_version}
 ln -s ptw-%{python3_version} ptw-3
@@ -63,16 +66,21 @@ ln -s pytest-watch-%{python3_version} pytest-watch-3
 popd
 
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md CHANGES.md AUTHORS.md
 %license LICENSE
-%{python3_sitelib}/%{file_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{file_name}/
 %{_bindir}/ptw-3*
 %{_bindir}/pytest-watch-3*
 
 
 %changelog
+* Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 4.2.0-24
+- Correct Python macro usages
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.2.0-23
 - Rebuilt for Python 3.14
 

@@ -1,19 +1,21 @@
 %global gem_name excon
 
-# Test suite fails with fresh certificates. Upstream hit this issue as well:
+# The certificate refresh is broken by:
+# https://github.com/excon/excon/pull/810
+# Upstream hit this issue as well:
 # https://github.com/excon/excon/pull/823/commits/06659d6408faa4f7c17b90f1b3e204fc00448311
 %bcond_with certificate_refresh
 
 Name: rubygem-%{gem_name}
-Version: 0.100.0
-Release: 5%{?dist}
+Version: 1.2.7
+Release: 1%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/excon/excon.git --no-checkout
-# cd excon && git archive -v -o excon-0.100.0-tests.txz v0.100.0 tests/ spec/
-Source1: %{gem_name}-%{version}-tests.txz
+# git clone https://github.com/excon/excon.git --no-checkout && cd excon
+# git archive -v -o excon-1.2.7-tests.tar.gz v1.2.7 tests/ spec/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -25,8 +27,8 @@ BuildRequires: rubygem(delorean)
 BuildRequires: rubygem(eventmachine)
 BuildRequires: rubygem(open4)
 BuildRequires: rubygem(puma)
-BuildRequires: rubygem(sinatra)
 BuildRequires: rubygem(rspec)
+BuildRequires: rubygem(sinatra)
 BuildRequires: rubygem(webrick)
 BuildArch: noarch
 
@@ -48,7 +50,7 @@ Documentation for %{name}.
 
 # Use system crypto policies.
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
-sed -i "/ciphers/ s/'.*'/'PROFILE=SYSTEM'/" lib/excon/constants.rb
+sed -i "/ciphers:/ s/'.*'/'PROFILE=SYSTEM'/" lib/excon/constants.rb
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -77,6 +79,13 @@ ln -s %{_builddir}/tests tests
 sed -i '/if plugin == :unicorn/ i\  before { skip("until #{plugin} is in Fedora") } if plugin == :unicorn' spec/support/shared_contexts/test_server_context.rb
 sed -i '/with_unicorn/ s/^/  pending\n\n/' tests/{basic_tests.rb,proxy_tests.rb}
 
+# DNS resolution does not work on Koji
+sed -i "/it 'passes the dns_timeouts to Resolv::DNS::Config' do/a\
+    skip 'DNS resolution is disabled in Mock'" spec/requests/dns_timeout_spec.rb
+sed -i "/it 'resolv_resolver config reaches Resolv::DNS::Config' do/a\
+    skip 'DNS resolution is disabled in Mock'" spec/requests/resolv_resolver_spec.rb
+
+
 rspec spec
 
 # Don't use Bundler.
@@ -84,6 +93,12 @@ sed -i "/'bundler\/setup'/ s/^/#/" tests/test_helper.rb
 
 # This would require sinatra-contrib.
 sed -i '/redirecting_with_cookie.ru/,/^  end/ s/^/#/' tests/middlewares/capture_cookies_tests.rb
+
+# This is required for Rack 2.x compatibility and can be removed as soon as
+# Rack 3+ and Rackup gems are in Fedora.
+ruby -e 'require "rackup/handler/webrick"' || (
+  sed -i 's/ackup/ack/' tests/rackups/ssl*.ru
+)
 
 %if %{with certificate_refresh}
 # Keep the test certificates fresh.
@@ -109,6 +124,10 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Fri Jul 11 2025 Vít Ondruch <vondruch@redhat.com> - 1.2.7-1
+- Update to Excon 1.2.7.
+  Resolves: rhbz#2233807
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.100.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

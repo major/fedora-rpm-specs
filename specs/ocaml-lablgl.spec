@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -146,6 +146,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1:1.07-17
+- Rebuild to fix OCaml dependencies
+
 * Mon Feb 17 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-16
 - Fix for Tcl/Tk 9.0 (RHBZ#2343941)
 

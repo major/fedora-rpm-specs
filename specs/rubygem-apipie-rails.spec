@@ -2,8 +2,8 @@
 %global gem_name apipie-rails
 
 Name: rubygem-%{gem_name}
-Version: 0.8.1
-Release: 8%{?dist}
+Version: 1.4.2
+Release: 1%{?dist}
 Summary: Rails REST API documentation tool
 # The project itself is MIT
 # For ASL 2.0, see https://github.com/Apipie/apipie-rails/issues/66
@@ -11,12 +11,9 @@ Summary: Rails REST API documentation tool
 License: MIT AND Apache-2.0
 URL: http://github.com/Apipie/apipie-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Patch0, Patch1 were committed in https://github.com/Apipie/apipie-rails/pull/807
-# and will be included in the next release
-# Ruby 3.2 removes Fixnum, use Integer
-Patch0:  apipie-rails-0.8.1-ruby32-Fixnum-removal.patch
-# Ruby 3.2 removes File.exists? , use File.exist?
-Patch1:  apipie-rails-0.8.1-ruby32-File_exist-removal.patch
+# Fix Rails 7.2+ compatibility
+# https://github.com/Apipie/apipie-rails/pull/948
+Patch0: rubygem-apipie-rails-1.4.2-Fix-ActiveSupport-Deprecation-warn-deprecation.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -26,6 +23,8 @@ BuildRequires: rubygem(rails-controller-testing)
 BuildRequires: rubygem(rspec-rails)
 # app/public/apipie/javascripts/bundled/jquery.js
 Provides: bundled(js-jquery1) = 1.12.4
+# app/public/apipie/javascripts/bundled/bootstrap*.js
+Provides: bundled(js-bootstrap) = 2.3.2
 BuildArch: noarch
 
 %description
@@ -55,8 +54,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
 %patch 0 -p1
-%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -81,27 +80,31 @@ pushd .%{gem_instdir}
 # Don't use Bundler.
 sed -i "/require 'bundler\/setup'/ s/^/#/" spec/spec_helper.rb
 sed -i "/Bundler.require/ s/^/#/" spec/dummy/config/application.rb
+rm Gemfile
+
+# We don't care about code coverage.
+sed -i '/[sS]imple[cC]ov/ s/^/#/' spec/spec_helper.rb
 
 # We don't have json-schema in Fedora ATM :/
 # https://bugzilla.redhat.com/show_bug.cgi?id=1675932
 for f in \
-  spec/controllers/apipies_controller_spec.rb \
+  spec/lib/apipie/apipies_controller_spec.rb \
   spec/lib/swagger/rake_swagger_spec.rb
 do
   sed -i "/json-schema/ s/^/#/" $f
   sed -i "/JSON::Validator/ s/^/#/" $f
 done
-mv spec/lib/swagger/response_validation_spec.rb{,.disable}
+mv spec/controllers/pets_controller_spec.rb{,.disable}
 
 rspec -Ispec/dummy/components/test_engine/lib -rrails-controller-testing spec
 popd
-
 
 %files
 %dir %{gem_instdir}
 %exclude %{gem_instdir}/.*
 %license %{gem_instdir}/APACHE-LICENSE-2.0
 %license %{gem_instdir}/MIT-LICENSE
+%license %{gem_instdir}/NOTICE
 %{gem_instdir}/app
 %{gem_instdir}/config
 %{gem_libdir}
@@ -113,9 +116,9 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
-%doc %{gem_instdir}/NOTICE
+%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/PROPOSAL_FOR_RESPONSE_DESCRIPTIONS.md
-%doc %{gem_instdir}/README.rst
+%doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/apipie-rails.gemspec
 %{gem_instdir}/gemfiles
@@ -123,6 +126,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 11 2025 Vít Ondruch <vondruch@redhat.com> - 1.4.2-1
+- Update to apipie-rails 1.4.2.
+  Resolves: rhbz#2123907
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 %bcond jreality 0
 
 Name:           polymake
-Version:        4.13
+Version:        4.14
 Release:        %autorelease
 
 # GPL-2.0-or-later: the project as a whole
@@ -48,8 +48,6 @@ Patch:          %{name}-prefix.patch
 Patch:          %{name}-soplex.patch
 # Adapt to a changed function name in Singular 4.3.2
 Patch:          %{name}-Singular-4.3.2.patch
-# Adapt to streamlined headers in GCC 15
-Patch:          %{name}-gcc-15.patch
 # Build the bundled sympol against system cddlib and lrslib
 Patch:          %{name}-sympol.patch
 # Adapt for Perl 5.42.0 update
@@ -311,7 +309,7 @@ make test
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.13
+%{_libdir}/lib%{name}*.so.4.14
 %{_mandir}/man1/%{name}.1*
 
 %files doc

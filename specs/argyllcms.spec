@@ -2,8 +2,8 @@
 %undefine _include_frame_pointers
 
 Name: argyllcms
-Version: 3.3.0
-Release: 2%{?dist}
+Version: 3.4.0
+Release: 1%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -96,6 +96,9 @@ jam -fJambase %{?_smp_mflags} -sPREFIX=%{_prefix} -sDESTDIR=%{buildroot} -sREFSU
 %install
 jam -fJambase -sPREFIX=%{_prefix} -sDESTDIR=%{buildroot} -sREFSUBDIR=share/color/argyll/ref install
 rm -f %{buildroot}/%{_bindir}/*.txt
+ 
+mkdir -p %{buildroot}%{_metainfodir}
+mv %{buildroot}%{_bindir}/com.argyllcms.metainfo.xml %{buildroot}%{_metainfodir}/com.argyllcms.metainfo.xml
 
 %files
 %license License*.txt
@@ -148,6 +151,7 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_bindir}/txt2ti3
 %{_bindir}/viewgam
 %{_bindir}/xicclu
+%{_metainfodir}/com.argyllcms.metainfo.xml
 
 %files doc
 %license doc/DocLicense.txt
@@ -158,6 +162,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Fri Jul 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
+- 3.4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

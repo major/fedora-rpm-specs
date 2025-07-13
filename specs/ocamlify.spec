@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlify
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -53,6 +53,9 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.1.0-2
+- Rebuild to fix OCaml dependencies
+
 * Sun Feb 23 2025 Andy Li <andy@onthewings.net> - 0.1.0-1
 - New upstream version. (RHBZ#2347156)
 - Remove patches that are not needed anymore.

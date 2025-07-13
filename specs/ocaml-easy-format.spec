@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.3.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        High-level and functional interface to the Format module
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.3.4-14
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

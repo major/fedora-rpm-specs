@@ -228,10 +228,6 @@ License:        MIT
 Requires:       %{name}-configurator%{?_isa} = %{version}-%{release}
 Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
 
-# This can be removed when F40 reaches EOL
-Obsoletes:      %{name}-devel < 2.9.1-4
-Provides:       %{name}-devel = %{version}-%{release}
-
 %description    configurator-devel
 The ocaml-dune-configurator-devel package contains libraries and
 signature files for developing applications that use

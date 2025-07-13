@@ -13,11 +13,12 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://archive.apache.org/dist/maven/resolver/maven-resolver-%{version}-source-release.zip
 
 Patch:          0001-Remove-use-of-deprecated-SHA-1-and-MD5-algorithms.patch
+Patch:          0002-Make-I-O-errors-during-test-cleanup-non-fatal.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(javax.inject:javax.inject)

@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -674,6 +674,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 6.8-2
+- Rebuild to fix OCaml dependencies
+
 * Mon Jul 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.8-1
 - 6.8
 

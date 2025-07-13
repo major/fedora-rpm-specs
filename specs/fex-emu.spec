@@ -100,6 +100,8 @@ Patch:          %{forgeurl}/commit/a37def2c22e528477f64296747228400ddc40222.patc
 Patch:          %{forgeurl}/commit/8eaf45414c05c9e7ef6f74a323d95fe7e0d883c1.patch
 # FEXServer: Don't time out while clients are still connected
 Patch:          %{forgeurl}/commit/c326e2d669fd5e9356f6107e188413a449cc1fd7.patch
+# Fix for LLVM 21
+Patch:          %{forgeurl}/commit/99920f89ddf35d80fce0a17e8a3d13f6082ad5d5.patch
 
 # FEX upstream only supports these architectures
 %if %{with x86_debug}
