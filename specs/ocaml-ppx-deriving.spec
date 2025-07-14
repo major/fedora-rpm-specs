@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-ppx/ppx_deriving
 
 Name:           ocaml-ppx-deriving
-Version:        6.0.3
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Type-driven code generation for OCaml
 
@@ -19,7 +19,7 @@ BuildRequires:  ocaml-dune >= 1.6.3
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-ppx-derivers-devel
-BuildRequires:  ocaml-ppxlib-devel >= 0.32.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 
 %description
 Deriving is a library simplifying type-driven code generation on OCaml.

@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ppx-variants-conv
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Generate accessor & iteration functions for OCaml variant types
 
@@ -18,7 +18,7 @@ Source:         %{url}/archive/v%{version}/ppx_variants_conv-%{version}.tar.gz
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-ppx-inline-test-devel
 BuildRequires:  ocaml-variantslib-devel >= 0.17
 

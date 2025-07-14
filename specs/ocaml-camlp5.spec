@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/camlp5/camlp5
 
 Name:           ocaml-camlp5
-Version:        8.03.03
+Version:        8.03.05
 Release:        1%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
@@ -25,7 +25,7 @@ BuildRequires:  make
 BuildRequires:  ocaml >= 4.10
 BuildRequires:  ocaml-bos-devel
 BuildRequires:  ocaml-camlp-streams-devel >= 5.0
-BuildRequires:  ocaml-camlp5-buildscripts >= 0.02
+BuildRequires:  ocaml-camlp5-buildscripts >= 0.06
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-ounit-devel

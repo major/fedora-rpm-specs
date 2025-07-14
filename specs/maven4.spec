@@ -1,16 +1,14 @@
+%bcond bootstrap 0
+
+%global xversion 4.0.0-rc-4
 %global maven_version_suffix 4
-
-%bcond_with bootstrap
-
 %global bundled_slf4j_version 1.7.36
 %global homedir %{_datadir}/maven%{?maven_version_suffix}
 %global confdir %{_sysconfdir}/maven%{?maven_version_suffix}
 
-%global xversion 4.0.0-rc-3
-
 Name:           maven4
 Epoch:          1
-Version:        4.0.0~rc.3
+Version:        4.0.0~rc.4
 Release:        %autorelease
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
@@ -27,13 +25,13 @@ Source2:        mvn.1
 Patch:          0001-Adapt-mvn-script.patch
 # Downstream-specific, avoids build-dependency on logback
 Patch:          0002-Invoke-logback-via-reflection.patch
+Patch:          0003-Port-tests-to-work-with-Mockito-3.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.fasterxml.woodstox:woodstox-core)
-BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(com.google.inject:guice::classes:)
 BuildRequires:  mvn(commons-cli:commons-cli)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
@@ -41,15 +39,16 @@ BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-apache:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-jdk:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon:2.0.7)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-named-locks:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-apache:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-jdk:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon:2.0.9)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util:2.0.9)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-file)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-http)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
@@ -57,6 +56,7 @@ BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interactivity-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-sec-dispatcher:4.1.0)
@@ -64,15 +64,19 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils:4.0.1)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.codehaus.woodstox:stax2-api)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
-BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject::no_asm:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.jdom:jdom2)
 BuildRequires:  mvn(org.jline:jansi-core)
 BuildRequires:  mvn(org.jline:jline-builtins)
+BuildRequires:  mvn(org.jline:jline-console)
 BuildRequires:  mvn(org.jline:jline-console-ui)
 BuildRequires:  mvn(org.jline:jline-reader)
 BuildRequires:  mvn(org.jline:jline-style)
+BuildRequires:  mvn(org.jline:jline-terminal)
 BuildRequires:  mvn(org.jline:jline-terminal-jni)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.17)
 BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.17)
@@ -186,7 +190,7 @@ sed -i "
 %mvn_package :apache-maven __noinstall
 %mvn_package ::mdo: __noinstall
 
-%mvn_compat_version : 4.0.0-rc-3
+%mvn_compat_version : 4.0.0-rc-4
 
 %build
 %mvn_build -j -f -- -Dproject.build.sourceEncoding=UTF-8

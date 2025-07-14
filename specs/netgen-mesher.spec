@@ -286,7 +286,7 @@ includedir=$MPI_INCLUDE/%{name}\
 \
 Name: %{name}\
 Description:  %{summary}\
-Version: 6.2.2505
+Version: %{version}\
 Libs: -L\\\${libdir} -lnglib\
 Libs.private: -lngcgs -lnggeom2d -lngmesh -lngocc -lngstl\
 Cflags: -I\\\${includedir}\

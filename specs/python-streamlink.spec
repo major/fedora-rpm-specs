@@ -7,8 +7,8 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        7.1.3
-Release:        2%{?dist}
+Version:        7.5.0
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -20,6 +20,8 @@ Patch1:         %{name}-6.6.2-documentation.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist shtab}
+# For easy patching of pyproject.toml
+BuildRequires:  tomcli
 BuildArch:      noarch
 
 %description
@@ -63,17 +65,26 @@ Zsh command line completion support for %{srcname}.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# - Fix dependency on pycryptodomex
-# - Fix version constraint on trio
-sed -i -e 's/pycryptodome\b/&x/g' -e '/"trio[[:space:];<>=]/d; /dependencies = \[/a\  "trio",' pyproject.toml
+# Fix dependency on pycryptodomex
+tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(\s*[><=]+.*)" "\1x\2"
 
-# Drop development dependencies not available in Fedora or not useful for tests
-sed -i -e '/# code-linting/,/^$/d' -e '/# typing/,/^$/d' dev-requirements.txt
-sed -i -e '/^furo\b/d' -e '/# typing/,/^$/d' docs-requirements.txt
+%if 0%{?fedora} < 43
+# Drop version constraint on setuptools
+tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools)\s*[><=]+.*" "\1"
+tomcli set pyproject.toml arrays replace "dependency-groups.dev" "(setuptools)\s*[><=]+.*" "\1"
+# setuptools < 77.0.3 doesn't support PEP 639
+tomcli set pyproject.toml del "project.license" "project.license-files"
+%endif
+%if 0%{?fedora} <= 41
+# Drop version constraint on freezegun
+tomcli set pyproject.toml arrays replace "dependency-groups.test" "(freezegun)\s*[><=]+.*" "\1"
+# Drop version constraint on trio
+tomcli set pyproject.toml arrays replace "project.dependencies" "(trio)\s*[><=].*\s;\s*python_version>='3\.13'" "\1"
+%endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r docs-requirements.txt dev-requirements.txt
+%pyproject_buildrequires -g test -g build -g docs
 
 
 %build
@@ -97,6 +108,10 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %check
+%if 0%{?fedora} <= 41
+# Skip failing tests due to freezegun version incompatibility
+export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefmt_custom"
+%endif
 %pytest
 
 
@@ -116,6 +131,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Sat Jul 12 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.5.0-1
+- Update to 7.5.0
+
 * Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 7.1.3-2
 - Rebuilt for Python 3.14
 

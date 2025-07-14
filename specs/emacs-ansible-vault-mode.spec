@@ -1,8 +1,8 @@
 %global pkg ansible-vault-mode
 
 Name:           emacs-%{pkg}
-Version:        0.5.2
-Release:        10%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 Summary:        Minor mode for in place manipulation of ansible-vault
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sat Jul 12 2025 Mohame El Morabity <melmorabity@fedoraproject.org> - 0.5.3-1
+- Update to 0.5.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

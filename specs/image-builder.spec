@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        22
+Version:        23
 
 %gometa
 
@@ -165,6 +165,7 @@ Provides: bundled(golang(google.golang.org/grpc)) = 1.70.0
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.5
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
+Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.4.0
 # BUNDLE_END
 %endif
 
@@ -233,6 +234,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Jun 25 2025 Packit <hello@packit.dev> - 23-1
+Changes with 23
+----------------
+  * cmd/describe: ensure that all image types can be described (HMS-7044) (#231)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-06-25
+
+
 * Sun Jun 22 2025 Packit <hello@packit.dev> - 22-1
 Changes with 22
 ----------------

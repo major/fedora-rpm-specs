@@ -28,8 +28,8 @@ Note: all modules are installed under the Cryptodome package to avoid conflicts
 with the PyCrypto library.}
 
 Name:           python-%{srcname}
-Version:        3.21.0
-Release:        3%{?dist}
+Version:        3.23.0
+Release:        1%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -46,6 +46,8 @@ BuildRequires:  make
 BuildRequires:  python3-devel
 # Needed for documentation
 BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
 
 %description
 %{_description}
@@ -90,7 +92,7 @@ mv lib/Crypto/SelfTest/__main__.py.new lib/Crypto/SelfTest/__main__.py
 touch .separate_namespace
 %pyproject_wheel
 
-# Build documentation
+# Build man pages
 %make_build -C Doc/ man SPHINXBUILD=sphinx-build
 
 
@@ -119,6 +121,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Sat Jul 12 2025 Mohame El Morabity <melmorabity@fedoraproject.org> - 3.23.0-1
+- Update to 3.23.0
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.21.0-3
 - Rebuilt for Python 3.14
 

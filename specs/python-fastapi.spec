@@ -4,8 +4,12 @@
 # package. (The fastapi-cli package is versioned and packaged separately.)
 
 # Breaks a circular dependency on fastapi-cli by omitting it from fastapi’s
-# “standard” and “all” extras.
+# “standard”, “standard-no-fastapi-cloud-cli”, and “all” extras.
 %bcond bootstrap 0
+
+# The "standard" extra now requires fastapi-cloud-cli, which awaits review:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2379742
+%bcond cloudcli 0
 
 %bcond inline_snapshot %{undefined el10}
 %bcond orjson 1
@@ -52,7 +56,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.14
+Version:        0.116.1
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -71,10 +75,6 @@ Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 # https://github.com/fastapi/fastapi/pull/13114
 # Rebased on 0.115.12.
 Patch:          0001-Allow-httpx-0.28.x-relax-pins.patch
-
-# ⬆️ Bump Starlette to allow up to 0.47.0: `>=0.40.0,<0.48.0`
-# https://github.com/fastapi/fastapi/pull/13743
-Patch:          %{url}/pull/13743.patch
 
 BuildRequires:  python3-devel
 
@@ -112,6 +112,15 @@ BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
+%if %{without cloudcli}
+# These would be generated from the “all” extra; we still want them for testing.
+BuildRequires:  %{py3_dist ujson}
+%if %{with orjson}
+BuildRequires:  %{py3_dist orjson} >= 3.2.1
+%endif
+BuildRequires:  %{py3_dist pydantic-settings} >= 2
+BuildRequires:  %{py3_dist pydantic-extra-types} >= 2
+%endif
 
 Summary(az):    %{sum_az}
 Summary(bn):    %{sum_bn}
@@ -845,7 +854,9 @@ Requires:       python3-fastapi-slim = %{version}-%{release}
 %description -n python3-fastapi -l zh %{common_description_zh}
 
 
+%if %{with cloudcli}
 %pyproject_extras_subpkg -n python3-fastapi -i %{python3_sitelib}/fastapi-%{version}.dist-info all
+%endif
 
 
 %package -n     python3-fastapi-slim
@@ -874,6 +885,12 @@ Summary(vi):    %{sum_vi}
 Summary(yo):    %{sum_yo}
 Summary(zh-Hant):    %{sum_zh_hant}
 Summary(zh):    %{sum_zh}
+
+%if %{without cloudcli}
+# We can only continue to package the standard extra if we package
+# fastapi-cloud-cli.
+Obsoletes:      python3-fastapi-slim+standard < 0.116.1-1
+%endif
 
 %description -n python3-fastapi-slim %{common_description_en}
 
@@ -924,7 +941,7 @@ Summary(zh):    %{sum_zh}
 %description -n python3-fastapi-slim -l zh %{common_description_zh}
 
 
-%pyproject_extras_subpkg -n python3-fastapi-slim -i %{python3_sitelib}/fastapi_slim-%{version}.dist-info standard all
+%pyproject_extras_subpkg -n python3-fastapi-slim -i %{python3_sitelib}/fastapi_slim-%{version}.dist-info %{?with_cloudcli:standard all} standard-no-fastapi-cloud-cli
 
 
 %prep
@@ -932,8 +949,8 @@ Summary(zh):    %{sum_zh}
 
 %if %{with bootstrap}
 # Break a dependency cycle with fastapi-cli by commenting out all dependencies
-# on it. Note that this removes it from the “standard” and “all” extra
-# metapackages.
+# on it. Note that this removes it from the “standard”,
+# “standard-no-fastapi-cloud-cli”, and “all” extras metapackages.
 sed -r -i 's/("fastapi-cli(-slim)?\b.*",)/# \1/' pyproject.toml
 %endif
 %if %{without orjson}
@@ -960,10 +977,10 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 %generate_buildrequires
 export TIANGOLO_BUILD_PACKAGE='fastapi-slim'
-%pyproject_buildrequires -x standard,all
+%pyproject_buildrequires -x %{?with_cloudcli:standard,all,}standard-no-fastapi-cloud-cli
 (
   export TIANGOLO_BUILD_PACKAGE='fastapi'
-  %pyproject_buildrequires -x all
+  %pyproject_buildrequires %{?with_cloudcli:-x all}
 ) | grep -vE '\bfastapi-slim\b'
 
 

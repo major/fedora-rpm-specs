@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.4
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Python JSON module and lint checker
 License:        LGPL-3.0-or-later
 URL:            http://deron.meranda.us/python/%{srcname}/
@@ -11,7 +11,6 @@ Patch0:         demjson_2.2.4_py39.patch
 Patch1:         demjson_2.2.4_2to3.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %global base_description The demjson package is a comprehensive Python language library to read\
 and write JSON; the popular language-independent data format standard.\
@@ -27,7 +26,6 @@ to make it easier to read.
 
 %package -n python3-%{srcname}
 Summary:        Python JSON module and lint checker
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{base_description}
@@ -37,17 +35,23 @@ Summary:        Python JSON module and lint checker
 %autosetup -n %{srcname}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # fix shebang lines
 find %{buildroot}%{python3_sitelib} \
      -name '*.py' -exec \
      sed -i "1{/^#!/d}" {} \;
+
+%pyproject_save_files -l %{srcname}
 
 
 %check
@@ -57,15 +61,16 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 popd
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.txt README.md
 %doc docs
-%license LICENSE.txt
-%{python3_sitelib}/*
 %{_bindir}/jsonlint
 
 
 %changelog
+* Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 2.2.4-39
+- Update for current Python packaging guidelines.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.4-38
 - Rebuilt for Python 3.14
 

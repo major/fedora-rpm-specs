@@ -1,49 +1,51 @@
 Name:           pycmd
 Version:        1.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Tools for managing/searching Python related files
 License:        MIT
 URL:            https://pypi.python.org/pypi/pycmd
 Source0:        https://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  python3-devel
 
-
-%description
+%global _description %{expand:
 Pycmd is a collection of command line tools for helping with Python
-development.
+development.}
 
-%package -n python%{python3_pkgversion}-pycmd
+%description %_description
+
+%package -n python3-pycmd
 Summary:        Tools for managing/searching Python related files
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-py >= 1.4.0
-Requires:       python%{python3_pkgversion}-setuptools
-Requires:       python%{python3_pkgversion}-py >= 1.4.0
-%{?python_provide:%python_provide python%{python3_pkgversion}-pycmd}
+Requires:       python3-setuptools
+Requires:       python3-py >= 1.4.0
 
 
-%description -n python%{python3_pkgversion}-pycmd
-Pycmd is a collection of command line tools for helping with Python
-development.
+%description -n python3-pycmd %_description
 
 
 %prep
-%setup -q
+%autosetup
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # remove shebangs from all scripts
 find %{buildroot}%{python3_sitelib} -name '*.py' \
      -exec sed -i -e '1{/^#!/d}' {} \;
 
+%pyproject_save_files -l pycmd
 
-%files -n python%{python3_pkgversion}-pycmd
+
+%files -n python3-pycmd -f %{pyproject_files}
 %doc README.txt
 %doc CHANGELOG
 %license LICENSE
@@ -53,10 +55,12 @@ find %{buildroot}%{python3_sitelib} -name '*.py' \
 %{_bindir}/py.lookup
 %{_bindir}/py.svnwcrevert
 %{_bindir}/py.which
-%{python3_sitelib}/*
 
 
 %changelog
+* Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.2-20
+- Update for current Python packaging guidelines.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2-37
 - Rebuilt for Python 3.14
 

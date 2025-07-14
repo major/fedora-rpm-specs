@@ -23,10 +23,12 @@
 # Releases are tagged with a date stamp.
 %global reldate 20240915
 
+%bcond_without mingw
+
 
 Name:           json-c
 Version:        0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JSON implementation in C
 
 License:        MIT
@@ -68,6 +70,30 @@ BuildRequires:  hardlink
 This package contains the reference manual for %{name}.
 
 
+%if %{with mingw}
+%package -n mingw32-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc
+
+%description -n mingw32-%{name}
+%{summary}.
+
+
+%package -n mingw64-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc
+
+%description -n mingw64-%{name}
+%{summary}.
+
+%{?mingw_debug_package}
+%endif
+
+
 %prep
 %autosetup -n %{name}-%{name}-%{version}-%{reldate} -p 1
 
@@ -79,20 +105,30 @@ doxygen -s -u doc/Doxyfile.in
 
 
 %build
-%cmake \
-  -DBUILD_STATIC_LIBS:BOOL=OFF       \
+cmake_opts="-DBUILD_STATIC_LIBS:BOOL=OFF       \
   -DCMAKE_BUILD_TYPE:STRING=RELEASE  \
   -DCMAKE_C_FLAGS_RELEASE:STRING=""  \
   -DDISABLE_BSYMBOLIC:BOOL=OFF       \
   -DDISABLE_WERROR:BOOL=ON           \
   -DENABLE_RDRAND:BOOL=ON            \
   -DENABLE_THREADING:BOOL=ON         \
-  -G Ninja
+  -G Ninja"
+%cmake $cmake_opts
 %cmake_build --target all doc
+
+%if %{with mingw}
+%mingw_cmake $cmake_opts
+%mingw_ninja
+%endif
 
 
 %install
 %cmake_install
+
+%if %{with mingw}
+%mingw_ninja_install
+%mingw_debug_install_post
+%endif
 
 # Documentation
 mkdir -p %{buildroot}%{_pkgdocdir}
@@ -136,8 +172,28 @@ unset USE_VALGRIND
 %endif
 %doc %{_pkgdocdir}
 
+%if %{with mingw}
+%files -n mingw32-%{name}
+%license COPYING
+%{mingw32_includedir}/%{name}
+%{mingw32_bindir}/lib%{name}.dll
+%{mingw32_libdir}/lib%{name}.dll.a
+%{mingw32_libdir}/cmake/%{name}
+%{mingw32_libdir}/pkgconfig/%{name}.pc
+
+%files -n mingw64-%{name}
+%license COPYING
+%{mingw64_includedir}/%{name}
+%{mingw64_bindir}/lib%{name}.dll
+%{mingw64_libdir}/lib%{name}.dll.a
+%{mingw64_libdir}/cmake/%{name}
+%{mingw64_libdir}/pkgconfig/%{name}.pc
+%endif
 
 %changelog
+* Sun Jun 15 2025 Sandro Mani <manisandro@gmail.com> - 0.18-3
+- Add mingw build
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

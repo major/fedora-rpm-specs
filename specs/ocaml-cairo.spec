@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -156,6 +156,9 @@ export GTK_LIBS="%{build_ldflags} $gtk_libs"
 
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2:0.6.5-3
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

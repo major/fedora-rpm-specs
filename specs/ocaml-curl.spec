@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ygrek/ocurl
 
 Name:           ocaml-curl
-Version:        0.9.2
-Release:        20%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -13,13 +13,12 @@ URL:            https://ygrek.org/p/ocurl
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/ocurl-%{version}.tar.gz
 
-BuildRequires:  make
-BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-ocamldoc
-BuildRequires:  ocaml-findlib
 BuildRequires:  libcurl-devel >= 7.28.0
+BuildRequires:  ocaml >= 4.11
+BuildRequires:  ocaml-dune >= 3.0
+BuildRequires:  ocaml-dune-configurator-devel >= 3.18.1
+BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-lwt-ppx-devel
-BuildRequires:  ocaml-rpm-macros
 
 
 %description
@@ -39,58 +38,64 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 
+%package        lwt
+Summary:        LWT bindings for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+
+%description    lwt
+The %{name}-lwt package contains LWT bindings for %{name}.
+
+
+%package        lwt-devel
+Summary:        LWT development files for %{name}
+Requires:       %{name}-lwt%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-lwt-devel%{?_isa}
+
+
+%description    lwt-devel
+The %{name}-devel package contains libraries and signature files for
+developing applications that use LWT with %{name}.
+
+
 %prep
 %autosetup -p1 -n ocurl-%{version}
 
-# Files in the archive have spurious +x mode.
-find . -type f -perm /0111 -exec chmod 0644 {} +
-chmod 0755 configure install-sh
-
-# Link with debuginfo
-sed -i "s|\$(OCAMLMKLIB)|& -g|" Makefile.in
-
-%ifnarch %{ocaml_native_compiler}
-# Do not try to install native objects
-sed -i 's/ curl_lwt\$(EXT_OBJ)//;s/ curl\$(EXT_LIB)//' Makefile.in
-%endif
-
 
 %build
-# Parallel builds don't work.
-unset MAKEFLAGS
-
-# Add -fPIC to avoid:
-# /usr/bin/ld: /usr/lib64/ocaml/curl/libcurl-helper.a(curl-helper.o):
-# relocation R_X86_64_32S against `.rodata' can not be used when
-# making a shared object; recompile with -fPIC
-CFLAGS="%{build_cflags} -fPIC" \
-%configure --libdir=%{_libdir} --with-findlib
-
-make
-make doc
+%dune_build
 
 
 %install
-export OCAMLFIND_DESTDIR=%buildroot%{ocamldir}
-mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
-%make_install
-cp -p opam %{buildroot}%{ocamldir}/curl
-
-# Make clean in the examples dir so our docs don't contain binaries.
-make -C examples clean
-
-%ocaml_files
+%dune_install -s
 
 
-%files -f .ofiles
+%check
+%dune_check
+
+
+%files -f .ofiles-curl -f .ofiles-ocurl
+%doc CHANGES.txt README.md
 %license COPYING
 
 
-%files devel -f .ofiles-devel
-%doc doc examples
+%files devel -f .ofiles-curl-devel -f .ofiles-ocurl-devel
+%doc examples
+
+
+%files lwt -f .ofiles-curl_lwt
+
+
+%files lwt-devel -f .ofiles-curl_lwt-devel
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.10.0-1
+- Version 0.10.0
+- Build with dune
+- New lwt and lwt-devel subpackages
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

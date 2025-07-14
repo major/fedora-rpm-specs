@@ -14,9 +14,9 @@ Patch1:         %{name}.filelist.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  %{py3_dist d2to1}
-BuildRequires:  %{py3_dist pyyaml}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 Simple scripts that allow read access to YAML files through command line.  This
@@ -31,11 +31,11 @@ of YAML file.
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files

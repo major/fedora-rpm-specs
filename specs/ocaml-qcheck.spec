@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.24
-Release:        3%{?dist}
+Version:        0.26
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -18,24 +18,18 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch:          %{name}-mathlib.patch
-# Work around asciidoc errors due to unspecified language
-# https://github.com/c-cube/qcheck/issues/325
-Patch:          %{name}-asciidoc.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.8.0
 BuildRequires:  ocaml-alcotest-devel >= 1.4.0
 BuildRequires:  ocaml-ounit-devel
-BuildRequires:  ocaml-ppxlib-devel >= 0.22.0
-BuildRequires:  ocaml-ppx-deriving-devel >= 5.2.1
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
+BuildRequires:  ocaml-ppx-deriving-devel >= 6.1.0
 BuildRequires:  python3-pygments
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-ounit%{?_isa} = %{version}-%{release}
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      %{name}-doc < 0.19
 
 %global _desc %{expand:
 Qcheck enables checking invariants (properties of a type) over randomly
@@ -200,6 +194,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.26-1
+- Version 0.26
+- Drop upstreamed asciidoc patch
+
 * Thu Mar 20 2025 Jerry James <loganjerry@gmail.com> - 0.24-3
 - Rebuild for ocaml-alcotest 1.9.0
 

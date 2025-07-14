@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-let
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Monadic let-bindings for OCaml
 
@@ -15,7 +15,7 @@ BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppx-here-devel >= 0.17
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 
 %description
 Ppx_let is a ppx rewriter for monadic and applicative let bindings,

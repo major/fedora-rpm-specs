@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -12,9 +12,9 @@ License:        GPL-2.0-or-later
 ExcludeArch:    %{power64}
 %endif
 
-URL:            http://people.redhat.com/~rjones/virt-top/
-Source0:        http://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz
-Source1:        http://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz.sig
+URL:            https://people.redhat.com/~rjones/virt-top/
+Source0:        https://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz
+Source1:        https://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz.sig
 
 # Post-process output of CSV file (RHBZ#665817, RHBZ#912020).
 Source2:        processcsv.py
@@ -118,6 +118,10 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Mon Jul 07 2025 Jerry James  <loganjerry@gmail.com> - 1.1.2-3
+- Rebuild to fix OCaml dependencies
+- Change http URLs to https
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-2
 - Enable ocaml-gettext again
 

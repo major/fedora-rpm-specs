@@ -2,21 +2,19 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.3.7
-Release:        2%{?dist}
+Version:        3.3.10
+Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
-# - pynicotine/external/ip2location.py and pynicotine/external/tinytag.py are
-#   MIT
-# - IP2Location Country Database (pynicotine/external/ipcountrydb.bin) is
-#   CC-BY-SA-4.0 (see pynicotine/external/README.md)
+# - pynicotine/external/tinytag.py is MIT
+# - IP2Location Country Database (pynicotine/external/data/ip_country_data.csv)
+#   is CC-BY-SA-4.0 (see pynicotine/external/README.md)
 License:        GPL-3.0-or-later AND MIT AND CC-BY-SA-4.0
 URL:            https://nicotine-plus.github.io/nicotine-plus/
 Source0:        https://github.com/nicotine-plus/nicotine-plus/archive/%{version}/%{name}-%{version}.tar.gz
-# - Disable tests requiring an Internet connection
-# - Disable metadata tests because they fail on Koji builders, while they pass
-#   locally with mock (builder architecture? SELinux issues?)
-Patch0:         %{name}-3.3.4-tests.patch
+# Disable metadata tests because they fail on Koji builders, while they pass
+# locally with mock (builder architecture? SELinux issues?)
+Patch0:         %{name}-3.3.10-tests.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -24,14 +22,13 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 # Needed for tests
 BuildRequires:  gtk4
-# Runtime dependencies are not declared in setup.py (except pygobject) but are
-# actually required (see doc/DEPENDENCIES.md)
-Requires:       gspell
+# Runtime dependencies are not declared in setup.py but are actually required
+# (see doc/DEPENDENCIES.md)
 Requires:       (gtk4 or gtk3)
+Requires:       (gtk3 and gspell)
+Requires:       (gtk4 and libadwaita)
 Requires:       hicolor-icon-theme
-# pynicotine/external/ip2location.py is a bundled fork of
-# https://pypi.org/project/IP2Location/
-Provides:       bundled(python3dist(ip2location))
+Requires:       %{py3_dist pygobject}
 # pynicotine/external/tinytag.py is a bundled fork of
 # https://pypi.org/project/tinytag/
 Provides:       bundled(python3dist(tinytag))
@@ -73,12 +70,16 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 %license COPYING
 %{_bindir}/%{altname}
 %{_datadir}/applications/%{appdata_id}.desktop
+%{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/icons/hicolor/*/*/*.svg
 %{_metainfodir}/%{appdata_id}.appdata.xml
 %{_mandir}/man1/%{altname}.1.*
 
 
 %changelog
+* Sat Jul 12 2025 Mohame El Morabity <melmorabity@fedoraproject.org> - 3.3.10-1
+- Update to 3.3.10
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.3.7-2
 - Rebuilt for Python 3.14
 

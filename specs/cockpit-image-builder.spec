@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        69
+Version:        71
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,67 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Jul 9 2025 Packit <hello@packit.dev> - 71-1
+Changes with 71
+----------------
+  * Remove IQE scripts and configs (HMS-8779) (#3395)
+    * Author: Klara Simickova, Reviewers: Tomáš Koscielniak
+  * Remove devel dockerfile and update README (HMS-8780) (#3396)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Remove the Edge Management federated module (HMS-8637) (#3296)
+    * Author: Simon Steinbeiß, Reviewers: Klara Simickova
+  * Update Konflux references (#3374)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * Wizard: Fix package search bug with RH repos in template (#3321)
+    * Author: Dominik Vágner, Reviewers: Klara Simickova
+  * Wizard: Hide FSC step for WSL targets (HMS-8758) (#3380)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Hide Kernel step for WSL (HMS-8759) (#3389)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Parse locale codes to readable options (HMS-8577) (#3259)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Remove repository column from packages table (HMS-8701) (#3339)
+    * Author: Klara Simickova, Reviewers: Anna Vítová
+  * Wizard: Render labels for all FSC table columns (#3379)
+    * Author: Klara Simickova, Reviewers: Simon Steinbeiß
+  * Wizard: Replace VMware radios with checkboxes (HMS-8778) (#3393)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Replace deprecated Modals with non-deprecated ones (HMS-8691) (#3325)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Show error with duplicated values (HMS-6306) (#3368)
+    * Author: Klara Simickova, Reviewers: Katarína Sieklová
+  * api: Update pull.sh, regenerate schemas and fix errors (HMS-8720) (#3331)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * build(deps): bump @redhat-cloud-services/frontend-components-notifications from 5.0.4 to 6.1.0 (#3382)
+    * Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  * build(deps-dev): bump @babel/core from 7.27.4 to 7.27.7 (#3384)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @babel/core from 7.27.7 to 7.28.0 (#3401)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @babel/preset-env from 7.27.2 to 7.28.0 (#3400)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.35.1 to 8.36.0 (#3404)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/parser from 8.35.1 to 8.36.0 (#3403)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @vitejs/plugin-react from 4.4.1 to 4.6.0 (#3361)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump stylelint from 16.18.0 to 16.21.0 (#3376)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump stylelint from 16.21.0 to 16.21.1 (#3402)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * chore(deps): update konflux references (#3399)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * cockpit/README.md: initial version (#3367)
+    * Author: Florian Schüller, Reviewers: Gianluca Zuccarelli
+  * split out dev checks (HMS-8754) (#3372)
+    * Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  * test: Add mock handler for `repository_parameters` (HMS-8721) (#3349)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-07-09
+
 
 * Wed Jun 11 2025 Packit <hello@packit.dev> - 69-1
 Changes with 69

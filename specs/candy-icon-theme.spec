@@ -4,8 +4,8 @@ License:        GPL-3.0-only
 
 %global git_repo    candy-icons
 %global git_url     https://github.com/EliverLara/%{git_repo}
-%global git_commit  9720f52c97f582780f0927541ba19963603ad7f5
-%global git_date    20250608
+%global git_commit  475c5b27d34e6bde3ed11e985a727bd7ec9f155a
+%global git_date    20250710
 
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
@@ -62,6 +62,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Sat Jul 12 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250710.git475c5b2-1
+- Update to latest git snapshot (2025-07-10)
+
 * Mon Jun 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250608.git9720f52-1
 - Update to latest git snapshot (2025-06-08)
 

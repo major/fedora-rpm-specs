@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-fontconfig
-Version:        2.16.0
+Version:        2.17.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Fontconfig library
 
 License:        MIT
 URL:            http://fontconfig.org
-Source0:        http://fontconfig.org/release/fontconfig-%{version}.tar.xz
+Source0:        https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/%{version}/fontconfig-%{version}.tar.bz2
 
 # Allow disabling tests (do not build)
 Patch0:         fontconfig_tests.patch
@@ -165,6 +165,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Sat Jul 12 2025 Sandro Mani <manisandro@gmail.com> - 2.17.1-1
+- Update to 2.17.1
+
 * Mon Jan 27 2025 Sandro Mani <manisandro@gmail.com> - 2.16.0-1
 - Update to 2.16.0
 

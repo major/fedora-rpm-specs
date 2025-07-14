@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-pcre
-Version:        8.0.2
-Release:        2%{?dist}
+Version:        8.0.4
+Release:        1%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -14,6 +14,7 @@ Source0:        %{url}/releases/download/%{version}/pcre-%{version}.tbz
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  ocaml-ounit-devel
 BuildRequires:  pcre-devel
 
 
@@ -49,7 +50,7 @@ developing applications that use %{name}.
 
 
 %files -f .ofiles
-%doc CHANGES.md README.md
+%doc CHANGELOG.md README.md
 %license LICENSE.md
 
 
@@ -57,6 +58,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 8.0.4-1
+- Version 8.0.4
+- BR ocaml-ounit for the tests
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gettext
 Version:        0.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -158,6 +158,9 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.5.0-4
+- Rebuild to fix OCaml dependencies
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-3
 - Remove use of dune-site
 

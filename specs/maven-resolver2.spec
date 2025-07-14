@@ -1,8 +1,8 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           maven-resolver2
 Epoch:          1
-Version:        2.0.7
+Version:        2.0.9
 Release:        %autorelease
 Summary:        Apache Maven Artifact Resolver library
 License:        Apache-2.0
@@ -13,11 +13,12 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://archive.apache.org/dist/maven/resolver/maven-resolver-%{version}-source-release.zip
 
 Patch:          0001-Remove-use-of-deprecated-SHA-1-and-MD5-algorithms.patch
+Patch:          0002-Make-I-O-errors-during-test-cleanup-non-fatal.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-codec:commons-codec)
@@ -27,9 +28,9 @@ BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
-BuildRequires:  mvn(org.apache.maven:maven-model-builder:4.0.0-rc-3)
+BuildRequires:  mvn(org.apache.maven:maven-model-builder:4.0.0-rc-4)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
-BuildRequires:  mvn(org.apache.maven:maven-resolver-provider:4.0.0-rc-3)
+BuildRequires:  mvn(org.apache.maven:maven-resolver-provider:4.0.0-rc-4)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils:4.0.2)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
@@ -79,10 +80,10 @@ artifact transports and artifact resolution.
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin -r :japicmp-maven-plugin
 
-%mvn_compat_version : 2.0.7
+%mvn_compat_version : 2.0.9
 
 %build
-%mvn_build -j -f -j -- -Dmaven4Version=4.0.0-rc-3
+%mvn_build -j -f -j -- -Dmaven4Version=4.0.0-rc-4
 
 %install
 %mvn_install

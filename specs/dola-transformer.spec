@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           dola-transformer
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Maven 4 extension for dynamic POM transformation
 License:        Apache-2.0
@@ -14,7 +14,7 @@ Source:         https://github.com/mizdebsk/dola-transformer/releases/download/%
 BuildSystem:    maven
 BuildOption:    usesJavapackagesBootstrap
 BuildOption:    xmvnToolchain "openjdk25"
-BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-3"
+BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-4"
 # TODO enable tests once EasyMock is updated to version >= 5.
 # Tests require EasyMock 5, but we only have EasyMock 4 packaged.
 BuildOption:    skipTests

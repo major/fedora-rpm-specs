@@ -1,7 +1,7 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           xmvn5
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Local Extensions for Apache Maven
 License:        Apache-2.0
@@ -9,23 +9,23 @@ URL:            https://fedora-java.github.io/xmvn/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         https://github.com/fedora-java/xmvn/releases/download/5.0.0/xmvn-5.0.0.tar.zst
+Source:         https://github.com/fedora-java/xmvn/releases/download/%{version}/xmvn-%{version}.tar.zst
 Source21:       toolchains-openjdk21.xml
 Source25:       toolchains-openjdk25.xml
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(javax.inject:javax.inject)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.7)
-BuildRequires:  mvn(org.apache.maven:maven-api-core:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-api-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-artifact:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-core:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-3)
-BuildRequires:  mvn(org.apache.maven:maven-plugin-api:4.0.0-rc-3)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.9)
+BuildRequires:  mvn(org.apache.maven:maven-api-core:4.0.0-rc-4)
+BuildRequires:  mvn(org.apache.maven:maven-api-model:4.0.0-rc-4)
+BuildRequires:  mvn(org.apache.maven:maven-artifact:4.0.0-rc-4)
+BuildRequires:  mvn(org.apache.maven:maven-core:4.0.0-rc-4)
+BuildRequires:  mvn(org.apache.maven:maven-model:4.0.0-rc-4)
+BuildRequires:  mvn(org.apache.maven:maven-plugin-api:4.0.0-rc-4)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)
@@ -151,13 +151,13 @@ xmvn -B -o -Dmaven.test.skip=true -P\!quality verify
 %mvn_artifact pom.xml
 %mvn_artifact xmvn-parent/pom.xml
 %mvn_artifact xmvn-tools/pom.xml
-%mvn_artifact xmvn-api/pom.xml xmvn-api/target/xmvn-api-5.0.0.jar
-%mvn_artifact xmvn-core/pom.xml xmvn-core/target/xmvn-core-5.0.0.jar
-%mvn_artifact xmvn-connector/pom.xml xmvn-connector/target/xmvn-connector-5.0.0.jar
-%mvn_artifact xmvn-mojo/pom.xml xmvn-mojo/target/xmvn-mojo-5.0.0.jar
-%mvn_artifact xmvn-tools/xmvn-resolve/pom.xml xmvn-tools/xmvn-resolve/target/xmvn-resolve-5.0.0.jar
-%mvn_artifact xmvn-tools/xmvn-subst/pom.xml xmvn-tools/xmvn-subst/target/xmvn-subst-5.0.0.jar
-%mvn_artifact xmvn-tools/xmvn-install/pom.xml xmvn-tools/xmvn-install/target/xmvn-install-5.0.0.jar
+%mvn_artifact xmvn-api/pom.xml xmvn-api/target/xmvn-api-%{version}.jar
+%mvn_artifact xmvn-core/pom.xml xmvn-core/target/xmvn-core-%{version}.jar
+%mvn_artifact xmvn-connector/pom.xml xmvn-connector/target/xmvn-connector-%{version}.jar
+%mvn_artifact xmvn-mojo/pom.xml xmvn-mojo/target/xmvn-mojo-%{version}.jar
+%mvn_artifact xmvn-tools/xmvn-resolve/pom.xml xmvn-tools/xmvn-resolve/target/xmvn-resolve-%{version}.jar
+%mvn_artifact xmvn-tools/xmvn-subst/pom.xml xmvn-tools/xmvn-subst/target/xmvn-subst-%{version}.jar
+%mvn_artifact xmvn-tools/xmvn-install/pom.xml xmvn-tools/xmvn-install/target/xmvn-install-%{version}.jar
 
 version=5.*
 tar --delay-directory-restore -xvf target/xmvn-*-bin.tar.gz
@@ -169,7 +169,7 @@ rm -Rf xmvn-${version}/lib/{installer,resolver,subst}/
 # Irrelevant Maven launcher scripts
 rm -f xmvn-${version}/bin/*
 
-%mvn_compat_version : 5.0.0
+%mvn_compat_version : %{version}
 
 %install
 %mvn_install

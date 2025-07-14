@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           dola-gleaner
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Maven 4 extension for extracting build dependencies
 License:        Apache-2.0
@@ -14,7 +14,7 @@ Source:         https://github.com/mizdebsk/dola-gleaner/releases/download/%{ver
 BuildSystem:    maven
 BuildOption:    usesJavapackagesBootstrap
 BuildOption:    xmvnToolchain "openjdk25"
-BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-3"
+BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-4"
 
 %description
 Dola Gleaner is an extension for Apache Maven 4 that extracts build

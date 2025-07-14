@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           valijson
-Version:        1.0.5
+Version:        1.0.6
 Release:        %autorelease
 Summary:        Header-only JSON Schema validation library for C++11
 

@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.8.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -315,6 +315,9 @@ done
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 1:2.8.1-2
+- Rebuild to fix OCaml dependencies
+
 * Thu Jun 26 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.8.1-1
 - New upstream stable version 2.8.1
 

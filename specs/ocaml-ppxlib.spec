@@ -2,7 +2,7 @@
 
 Name:           ocaml-ppxlib
 Epoch:          1
-Version:        0.35.0
+Version:        0.36.1
 Release:        %autorelease
 Summary:        Base library and tools for ppx rewriters
 
@@ -25,9 +25,6 @@ BuildRequires:  ocaml-sexplib0-devel >= 0.15
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      %{name}-doc < 1:0.26.0-3
 
 %description
 The ppxlib project provides the basis for the ppx system, which is

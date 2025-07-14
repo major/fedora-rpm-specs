@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        10.0.0
+Version:        10.1.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -75,7 +75,7 @@ Windows Mono library required for Wine.
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 # remove shipped compiler
-rm -rf llvm-mingw-20210423-ucrt-ubuntu-18.04-x86_64/*
+rm -rf llvm-mingw-*-ucrt-ubuntu-*-x86_64/
 sed -i 's/$CPPFLAGS_FOR_BTLS $btls_cflags/$CPPFLAGS_FOR_BTLS -fPIC $btls_cflags/' mono/configure.ac
 
 # workaround coreutils 9.2 behavior change to "cp -n" option (RHBZ#2208129)
@@ -89,6 +89,8 @@ export CPPFLAGS_FOR_BTLS="-fPIC"
 echo "AUTO_LLVM_MINGW=0" > user-config.make
 # Disable WpfGfx as it requires LLVM to compile
 echo "ENABLE_DOTNET_CORE_WPFGFX=0" >> user-config.make
+# Enable DWARF debug symbols
+echo "PREFER_DWARF_SYMBOLS=1" >> user-config.make
 %make_build image
 
 %install
@@ -119,6 +121,11 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Jun 30 2025 Björn Esser <besser82@fedoraproject.org> - 10.1.0-1
+- version upgrade
+- Fix FTBFS by forcing DWARF debuginfo
+- Fix removal of pre-build toolchain
+
 * Sun Apr 06 2025 Michael Cronenworth <mike@cchtml.com> - 10.0.0-1
 - version upgrade
 

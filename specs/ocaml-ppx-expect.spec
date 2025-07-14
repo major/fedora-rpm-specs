@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %bcond test 0
 
 Name:           ocaml-ppx-expect
-Version:        0.17.2
+Version:        0.17.3
 Release:        %autorelease
 Summary:        Framework for writing tests in OCaml
 
@@ -19,7 +19,7 @@ BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppx-here-devel >= 0.17
 BuildRequires:  ocaml-ppx-inline-test-devel >= 0.17
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-stdio-devel >= 0.17
 
 %if %{with test}

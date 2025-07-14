@@ -72,7 +72,6 @@ of use take priority.
 
 %package        contrib
 Summary:        Contrib for %{name}
-License:        LGPLv2+ or ASL 2.0
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 

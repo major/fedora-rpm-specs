@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc4.50
+%define pkgrelease 0.rc5.250712g379f604cc3dc.50
 %define kversion 6
-%define tarfile_release 6.16-rc4
+%define tarfile_release 6.16-rc5-224-g379f604cc3dc
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.50%{?buildid}%{?dist}
+%define specrelease 0.rc5.250712g379f604cc3dc.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -644,9 +644,6 @@ Summary: The Linux kernel
 %define cpupowerarchs i686 x86_64 ppc64le aarch64 riscv64
 %endif
 
-# Architectures we build kernel livepatching selftests on
-%define klptestarches x86_64 ppc64le s390x
-
 %if 0%{?use_vdso}
 %define _use_vdso 1
 %else
@@ -714,7 +711,7 @@ Release: %{pkg_release}
 %if 0%{?fedora}
 ExclusiveArch: noarch x86_64 s390x aarch64 ppc64le riscv64
 %else
-ExclusiveArch: noarch i386 i686 x86_64 s390x aarch64 ppc64le
+ExclusiveArch: noarch i386 i686 x86_64 s390x aarch64 ppc64le riscv64
 %endif
 ExclusiveOS: Linux
 %ifnarch %{nobuildarches}
@@ -857,6 +854,16 @@ BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
 # debugedit-5.1-5 in F42 added support to override tools with target versions.
 %undefine _include_gdb_index
 %endif
+
+%if 0%{?rhel}%{?centos}
+%ifarch riscv64
+# Temporary workaround to avoid using find-debuginfo and gdb.minimal.
+# The current c10s version of gdb-minimal (14.2-4.el10) crashes when given some
+# riscv64 kernel modules (see RHEL-91586). Not building the gdb index avoids
+# breaking CI for now.
+%undefine _include_gdb_index
+%endif
+%endif
 %endif
 
 # These below are required to build man pages
@@ -973,6 +980,9 @@ Source33: %{name}-x86_64-debug-rhel.config
 # ARM64 64K page-size kernel config
 Source42: %{name}-aarch64-64k-rhel.config
 Source43: %{name}-aarch64-64k-debug-rhel.config
+
+Source44: %{name}-riscv64-rhel.config
+Source45: %{name}-riscv64-debug-rhel.config
 %endif
 
 %if %{include_rhel} || %{include_automotive}
@@ -1169,7 +1179,7 @@ device drivers shipped with it are documented in these files.
 You'll want to install this package if you need a reference to the
 options that can be passed to Linux kernel modules at load time.
 
-
+%if %{with_headers}
 %package headers
 Summary: Header files for the Linux kernel for use by glibc
 Obsoletes: glibc-kernheaders < 3.0-46
@@ -1184,7 +1194,9 @@ between the Linux kernel and userspace libraries and programs.  The
 header files define structures and constants that are needed for
 building most standard programs and are also needed for rebuilding the
 glibc package.
+%endif
 
+%if %{with_cross_headers}
 %package cross-headers
 Summary: Header files for the Linux kernel for use by cross-glibc
 %if 0%{?gemini}
@@ -1197,6 +1209,7 @@ between the Linux kernel and userspace libraries and programs.  The
 header files define structures and constants that are needed for
 building most standard programs and are also needed for rebuilding the
 cross-glibc package.
+%endif
 
 %package debuginfo-common-%{_target_cpu}
 Summary: Kernel source files used by %{name}-debuginfo packages
@@ -1393,6 +1406,7 @@ Summary: gcov graph and source files for coverage data collection.\
 %{?1:%{1}-}gcov includes the gcov graph and source files for gcov coverage collection.\
 %{nil}
 
+%if %{with_kernel_abi_stablelists}
 %package -n %{package_name}-abi-stablelists
 Summary: The Red Hat Enterprise Linux kernel ABI symbol stablelists
 AutoReqProv: no
@@ -1400,6 +1414,7 @@ AutoReqProv: no
 The kABI package contains information pertaining to the Red Hat Enterprise
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
+%endif
 
 %if %{with_kabidw_base}
 %package kernel-kabidw-base-internal
@@ -2293,6 +2308,7 @@ BuildKernel() {
 
 %ifarch aarch64 riscv64
     %{log_msg "Build dtb kernel"}
+    mkdir -p $RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer
     %{make} ARCH=$Arch dtbs INSTALL_DTBS_PATH=$RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer
     %{make} ARCH=$Arch dtbs_install INSTALL_DTBS_PATH=$RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer
     cp -r $RPM_BUILD_ROOT/%{image_install_path}/dtb-$KernelVer $RPM_BUILD_ROOT/lib/modules/$KernelVer/dtb
@@ -3256,13 +3272,6 @@ pushd tools/testing/selftests
 %{log_msg "main selftests compile"}
 %{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
 
-%ifarch %{klptestarches}
-	# kernel livepatching selftest test_modules will build against
-	# /lib/modules/$(shell uname -r)/build tree unless KDIR is set
-	export KDIR=$(realpath $(pwd)/../../..)
-	%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="livepatch" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install || true
-%endif
-
 # 'make install' for bpf is broken and upstream refuses to fix it.
 # Install the needed files manually.
 %{log_msg "install selftests"}
@@ -3624,12 +3633,6 @@ pushd tools/testing/selftests/tc-testing
 find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
 find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
 find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
-popd
-# install livepatch selftests
-pushd tools/testing/selftests/livepatch
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/livepatch/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/livepatch/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/livepatch/{} \;
 popd
 # install net/netfilter selftests
 pushd tools/testing/selftests/net/netfilter
@@ -4349,8 +4352,55 @@ fi\
 #
 #
 %changelog
-* Mon Jun 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.50]
+* Sat Jul 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.379f604cc3dc.50]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Sat Jul 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.379f604cc3dc.49]
+- Linux v6.16.0-0.rc5.379f604cc3dc
+
+* Fri Jul 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.bc9ff192a6c9.48]
+- kernel.spec: honor packaging flags (Scott Weaver)
+- Fix FIPS mode for Fedora (Justin M. Forbes)
+- Linux v6.16.0-0.rc5.bc9ff192a6c9
+
+* Thu Jul 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.8c2e52ebbe88.47]
+- Linux v6.16.0-0.rc5.8c2e52ebbe88
+
+* Wed Jul 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.733923397fd9.46]
+- Linux v6.16.0-0.rc5.733923397fd9
+
+* Tue Jul 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.d006330be3f7.45]
+- Turn on TSA Mitigation for Fedora (Justin M. Forbes)
+- Linux v6.16.0-0.rc5.d006330be3f7
+
+* Mon Jul 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.44]
+- Linux v6.16.0-0.rc5
+
+* Sun Jul 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.1f988d0788f5.43]
+- Linux v6.16.0-0.rc4.1f988d0788f5
+
+* Sat Jul 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.a79a588fc176.42]
+- Linux v6.16.0-0.rc4.a79a588fc176
+
+* Fri Jul 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.4c06e63b9203.41]
+- redhat/configs: Enable CONFIG_AMD_HSMP_ACPI and CONFIG_AMD_HSMP_PLAT on RHEL (David Arcari)
+- Linux v6.16.0-0.rc4.4c06e63b9203
+
+* Thu Jul 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.b4911fb0b060.40]
+- redhat/configs: CONFIG_WWAN enough as a module (Jose Ignacio Tornos Martinez)
+- redhat/configs: Enable CONFIG_NET_SCH_BPF on RHEL (Viktor Malik)
+- config: new config in drivers/phy (Izabela Bakollari)
+- Linux v6.16.0-0.rc4.b4911fb0b060
+
+* Wed Jul 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.66701750d556.39]
+- livepatch: no need to build kselftests with kernel (Radomir Vrbovsky)
+- redhat: Restore the status quo wrt memory onlining (Vitaly Kuznetsov) [2375049]
+- redhat/spec: Disable gdb index for riscv cross-compile (Jennifer Berringer)
+- gitlab-ci: Enable CI for riscv64 on centos/eln (Jennifer Berringer)
+- redhat: Enable RISC-V arch for centos/eln (Jennifer Berringer)
+
+* Tue Jul 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.66701750d556.38]
+- Linux v6.16.0-0.rc4.66701750d556
 
 * Mon Jun 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.37]
 - Linux v6.16.0-0.rc4

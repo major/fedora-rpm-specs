@@ -3,23 +3,24 @@ Summary: Light and dark, colorful GTK+ theme
 License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20250410
-%global git_commit_master 7d80a1646e93ede3752fc53138909204cb98b882
+# Upstream keeps each colour variant of the theme in a separate git branch.
+%global git_date_master 20250630
+%global git_commit_master d4f980a65c4e1acaabd69c34dfbedbe3779799e1
 
-%global git_date_ambar 20250410
-%global git_commit_ambar 4a58228599fe308b04917f23acb1b64988c66147
+%global git_date_ambar 20250630
+%global git_commit_ambar 1390141ded3bc51a77af7dfd863e484b5a597c19
 
-%global git_date_ambar_blue 20250410
-%global git_commit_ambar_blue 47b3a449ac3391331d6ac388fb5189cdcb5db6e7
+%global git_date_ambar_blue 20250630
+%global git_commit_ambar_blue aa8c72eeeeabc6bee242163128326a62ee220baa
 
-%global git_date_ambar_blue_dark 20250410
-%global git_commit_ambar_blue_dark 53925c7a93f87ce5109b97b38ccdb8fd747884cc
+%global git_date_ambar_blue_dark 20250630
+%global git_commit_ambar_blue_dark 699d9816524fee6334d0e13ced328ac51210d5f2
 
-%global git_date_mars 20250410
-%global git_commit_mars 5a07711edb2e3ed1a7e69531dfdb03593fbfc842
+%global git_date_mars 20250630
+%global git_commit_mars 43ce08374ec31bed7ca391e94ebd072344bb5997
 
-%global git_date_nova 20250410
-%global git_commit_nova b5472df36006f47ec6f20c92705e01155a777fa7
+%global git_date_nova 20250630
+%global git_commit_nova 45a75e114494133fdf971a165db5475797e9daff
 
 %global git_date %( \
 	( \
@@ -141,6 +142,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sat Jul 12 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20250630-1
+- Update to latest git snapshots (2025-06-30)
+
 * Wed Apr 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20250410-1
 - Update to v6.0
 

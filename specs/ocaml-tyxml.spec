@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-tyxml
 Version:        4.6.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -14,12 +14,14 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/tyxml-%{version}.tbz
 # Fedora's OCaml is new enough that we do not need the seq shim
 Patch:          %{name}-seq.patch
+# Adapt to ppxlib 0.36: https://github.com/ocsigen/tyxml/pull/340
+Patch:          %{name}-ppxlib-0.36.patch
 
-BuildRequires:  ocaml >= 4.04
+BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-markup-devel >= 0.7.2
-BuildRequires:  ocaml-ppxlib-devel >= 0.18
+BuildRequires:  ocaml-ppxlib-devel >= 0.36
 BuildRequires:  ocaml-re-devel >= 1.5.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 
@@ -143,6 +145,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 4.6.0-18
+- Rebuild to fix OCaml dependencies
+
 * Fri Mar 14 2025 Jerry James <loganjerry@gmail.com> - 4.6.0-17
 - Rebuild for ocaml-uutf 1.0.4
 

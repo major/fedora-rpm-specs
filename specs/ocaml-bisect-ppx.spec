@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -20,6 +20,8 @@ License:        MIT AND BSD-3-Clause
 URL:            https://aantron.github.io/bisect_ppx/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/bisect_ppx-%{version}.tar.gz
+# Support ppxlib 0.36.0
+Patch:          %{giturl}/pull/448.patch
 
 BuildRequires:  git-core
 BuildRequires:  ocaml >= 4.03.0
@@ -30,10 +32,6 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 %if %{with test}
 BuildRequires:  ocamlformat
 %endif
-
-# This can be removed when Fedora 40 reaches EOL
-Obsoletes:      %{name}-doc < 2.5.0-1
-Provides:       %{name}-doc = %{version}-%{release}
 
 %description
 Bisect_ppx is a code coverage tool for OCaml.  It helps you test
@@ -57,7 +55,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n bisect_ppx-%{version}
+%autosetup -n bisect_ppx-%{version} -p1
 
 %build
 %dune_build
@@ -83,6 +81,10 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.8.3-17
+- Rebuild to fix OCaml dependencies
+- Add patch to support ppxlib 0.36.x
+
 * Wed Feb 12 2025 Jerry James <loganjerry@gmail.com> - 2.8.3-16
 - Rebuild for ocaml-ppxlib 0.35.0
 

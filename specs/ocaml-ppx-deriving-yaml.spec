@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ppx-deriving-yaml
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Derive conversion functions between OCaml types and YAML
 
@@ -20,7 +20,7 @@ BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-dune >= 3.14
 BuildRequires:  ocaml-mdx-devel >= 2.4.1
 BuildRequires:  ocaml-ppx-deriving-devel
-BuildRequires:  ocaml-ppxlib-devel >= 0.25.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-yaml-devel
 
 %description

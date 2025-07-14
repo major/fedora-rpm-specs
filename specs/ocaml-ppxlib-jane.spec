@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-ppxlib-jane
-Version:        0.17.2
+Version:        0.17.4
 Release:        %autorelease
 Summary:        Utilities for working with Jane Street AST constructs
 
@@ -17,7 +17,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 5.3.0
 BuildRequires:  ocaml-dune >= 3.11.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 
 %description
 A library for use in ppxes for constructing and matching on ASTs

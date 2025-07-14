@@ -1,6 +1,6 @@
 Name:           soundconverter
-Version:        4.0.5
-Release:        6%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Simple sound converter application for GNOME
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -30,6 +30,9 @@ Requires:       gstreamer1-plugins-base
 Requires:       gstreamer1-plugins-good
 Requires:       gstreamer1-plugins-ugly-free
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %description
 SoundConverter is the leading audio file converter for the GNOME Desktop. It
@@ -47,14 +50,12 @@ conversion. It can also extract the audio from videos.
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
-mkdir -p %{buildroot}/usr/share/locale
-mv build/mo/* %{buildroot}/usr/share/locale/
 %find_lang %{name}
 
 desktop-file-install \
@@ -70,7 +71,7 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS CHANGELOG
+%doc AUTHORS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/*%{name}.desktop
@@ -80,10 +81,14 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 %{_docdir}/%{name}/
 %{_metainfodir}/%{name}.appdata.xml
 %{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-*.egg-info
+%{python3_sitelib}/%{name}-*.dist-info
 
 
 %changelog
+* Thu Jul 10 2025 Richard Shaw <hobbes1069@gmail.com> - 4.1.0-1
+- Update to 4.1.0.
+- Convert from setup.py to pyproject build.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.0.5-6
 - Rebuilt for Python 3.14
 

@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,8 +78,18 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Jul 11 2025 Packit <hello@packit.dev> - 1.10.0-1
+- We have fixed a minor bug caused by adding the `PACKIT_SPECFILE_PATH` to the environment of Packit actions. (#2627)
+- We have added a support for ELN aliases in Packit. (#2630)
+- Resolves: rhbz#2372314
+
 * Sun Jun 22 2025 Python Maint <python-maint@redhat.com> - 1.8.0-2
 - Rebuilt for Python 3.14
+
+* Wed Jun 11 2025 Packit <hello@packit.dev> - 1.9.0-1
+- Packit now exposes `specfile_path` as the environment variable `PACKIT_SPECFILE_PATH` for all Packit action hooks to reference from the config. (#2589)
+- We have added a support for passing `upstream_package_name` to the `upstream_tag_template` option. (#2604)
+- Resolves: rhbz#2372314
 
 * Fri May 09 2025 Packit <hello@packit.dev> - 1.8.0-1
 - You can now validate a Packit config passed to the Packit CLI via a path, e.g., `packit config validate -c /tmp/my-custom-packit-config.yml`. (#2556)

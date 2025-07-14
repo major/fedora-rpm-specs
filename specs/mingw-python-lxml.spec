@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       5.4.0
+Version:       6.0.0
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -89,6 +89,9 @@ export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
 
 
 %changelog
+* Sat Jul 12 2025 Sandro Mani <manisandro@gmail.com> - 6.0.0-1
+- Update to 6.0.0
+
 * Sat May 03 2025 Sandro Mani <manisandro@gmail.com> - 5.4.0-1
 - Update to 5.4.0
 

@@ -1,7 +1,7 @@
 %global pypi_name acres
 
 Name:           python-%{pypi_name}
-Version:        0.4.1
+Version:        0.5.0
 Release:        %{autorelease}
 Summary:        Access resources on your terms
 

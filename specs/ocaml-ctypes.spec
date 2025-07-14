@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ctypes
 Version:        0.23.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -83,6 +83,9 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.23.0-5
+- Rebuild to fix OCaml dependencies
+
 * Sat Jan 18 2025 Jerry James <loganjerry@gmail.com> - 0.23.0-4
 - Add patch for C23 compatibility
 

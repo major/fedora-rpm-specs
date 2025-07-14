@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        6.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -19,7 +19,6 @@ BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(libnemo-extension) >= 6.4.0
-BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  gnome-common
@@ -341,6 +340,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Sat Jul 12 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-4
+- Remove unused build requires
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.4.0-3
 - Rebuilt for Python 3.14
 

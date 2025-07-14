@@ -13,12 +13,12 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The top-level license files apply to the non-free main distribution of
 # alt-ergo.  The alt-ergo-free distribution, which we package, is distributed
-# with the CeCILL-C license, as noted on the webiste and also in
+# with the CeCILL-C license, as noted on the website and also in
 # sources/tools/gui/main_gui.ml.
 # The AB-Why3 plugin is LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 License:	CECILL-C AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -271,6 +271,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.3.3-25
+- Rebuild to fix OCaml dependencies
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,6 +8,8 @@ Summary:  Library for manipulating Apple Binary and XML Property Lists
 License:  LGPL-2.0-or-later
 URL:      https://www.libimobiledevice.org/
 Source:   %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+# cython: Fix build with cython 3.1+
+Patch:    %{forgeurl}/commit/d7fe479707af57aeedf7e41c08e7fb698cd2e2a3.patch
 
 BuildRequires: gcc-c++
 BuildRequires: python3-Cython

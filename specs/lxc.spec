@@ -1,11 +1,11 @@
 %if 0%{?fedora}
-%bcond_without seccomp
-%bcond_without static_init
+%global with_seccomp 1
+%global with_static_init 1
 %endif
 
 %if 0%{?rhel} >= 7
 %ifarch %{ix86} x86_64 %{arm} aarch64
-%bcond_without seccomp
+%global with_seccomp 1
 %endif
 %endif
 
@@ -13,7 +13,7 @@
 
 Name:           lxc
 Version:        6.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Resource Containers
 # Automatically converted from old format: LGPLv2+ and GPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only
@@ -31,7 +31,7 @@ BuildRequires:  glibc-headers
 BuildRequires:  kernel-headers
 BuildRequires:  libcap
 BuildRequires:  libcap-devel
-%if %{?with_seccomp}
+%if 0%{?with_seccomp}
 BuildRequires:  pkgconfig(libseccomp)
 %endif
 BuildRequires:  libselinux-devel
@@ -42,7 +42,7 @@ BuildRequires:  pam-devel
 BuildRequires:  pkg-config
 BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig(dbus-1)
-%if %{?with_static_init}
+%if 0%{?with_static_init}
 BuildRequires:  libcap-static
 BuildRequires:  glibc-static
 %endif
@@ -225,7 +225,7 @@ cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 %{_libexecdir}/%{name}
 # fixme: should be in libexecdir?
 %{_sbindir}/init.%{name}
-%if %{?with_static_init}
+%if 0%{?with_static_init}
 %{_sbindir}/init.%{name}.static
 %endif
 %{_bindir}/%{name}-autostart
@@ -277,6 +277,9 @@ cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 
 
 %changelog
+* Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.4-2
+- Revert wrong usage of bcond macros, to allow building on EPEL.
+
 * Sat Jun 21 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.4-1
 - Update to 6.0.4.
 - Untabify spec file.

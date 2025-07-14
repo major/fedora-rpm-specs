@@ -1,12 +1,12 @@
-%global srcname Python-fontconfig
+%global srcname python_fontconfig
 
 Name:           python-fontconfig
-Version:        0.5.1
-Release:        20%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Python bindings for Fontconfig library
 
 License:        GPL-3.0-or-later
-URL:            https://pypi.org/project/%{srcname}/
+URL:            https://github.com/lilydjwg/%{name}
 Source0:        %{pypi_source}
 
 BuildRequires:  gcc
@@ -14,7 +14,7 @@ BuildRequires:  fontconfig-devel
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 # Needed for tests
-BuildRequires:  gnu-free-mono-fonts
+BuildRequires:  dejavu-serif-fonts
 
 %description
 %{summary}.
@@ -47,8 +47,7 @@ Summary:        %{summary}
 
 
 %check
-export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
-yes | %{python3} test/test.py
+yes | %{py3_test_envvars} %{python3} test/test.py
 
 
 %files -n python3-fontconfig -f %{pyproject_files}
@@ -57,6 +56,9 @@ yes | %{python3} test/test.py
 
 
 %changelog
+* Sat Jul 12 2025 Mohamed El Morabity - 0.6.0-1
+- Update to 0.6.0
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.1-20
 - Rebuilt for Python 3.14
 

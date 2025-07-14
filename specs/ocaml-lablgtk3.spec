@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk3
 Version:        3.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml interface to gtk3
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -24,9 +24,6 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-3.0)
 BuildRequires:  pkgconfig(gtkspell3-3.0)
 BuildRequires:  pkgconfig(librsvg-2.0)
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-lablgtk3-doc < 3.1.2-5
 
 %global _description %{expand:
 LablGTK3 is an Objective Caml interface to gtk3.  It uses the rich
@@ -175,6 +172,9 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 3.1.5-6
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

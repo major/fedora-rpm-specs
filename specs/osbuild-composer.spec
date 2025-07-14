@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        144
+Version:        145
 
 %gometa
 
@@ -691,6 +691,25 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jul 09 2025 Packit <hello@packit.dev> - 145-1
+Changes with 145
+----------------
+  * Test/repositories/el8*: use rhui-4 instead of rhui-3 (#4665)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Michael Vogt
+  * Update snapshots to 20250626 (#4763)
+    * Author: SchutzBot, Reviewers: Brian C. Lane, Tomáš Hozza
+  * ci: introduce gobump gha (#4758)
+    * Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  * cloudapi/v2: add patch_url to customizations (#4756)
+    * Author: rverdile, Reviewers: Brian C. Lane, Tomáš Hozza
+  * common: fix unclosed logrus logging pipes (#4728)
+    * Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger, Tomáš Hozza
+  * fix: update gobump GHA (#4761)
+    * Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-07-09
+
+
 * Wed Jun 25 2025 Packit <hello@packit.dev> - 144-1
 Changes with 144
 ----------------

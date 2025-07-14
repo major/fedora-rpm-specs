@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-markup
 Version:        1.0.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Error-recovering streaming HTML5 and XML parsers for OCaml
 
 License:        MIT
@@ -100,6 +100,9 @@ sed -i '/uchar/d' markup.opam
 %files lwt-devel -f .ofiles-markup-lwt-devel
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 1.0.3-22
+- Rebuild to fix OCaml dependencies
+
 * Fri Mar 14 2025 Jerry James <loganjerry@gmail.com> - 1.0.3-21
 - Rebuild for ocaml-uutf 1.0.4
 

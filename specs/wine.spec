@@ -1,13 +1,17 @@
 # The new wow64 mode is disabled by default
 # https://gitlab.winehq.org/wine/wine/-/releases/wine-9.0#wow64
+%if 0%{?fedora} >= 43
 %bcond new_wow64 1
+%else
+%bcond new_wow64 0
+%endif
 
 # Compiling the preloader fails with hardening enabled
 %undefine _hardened_build
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  9.4.0
+%global winemono  10.1.0
 %if 0%{?fedora}
 %global opencl    1
 %endif
@@ -42,8 +46,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.4
-Release:        6%{?dist}
+Version:        10.12
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -135,11 +139,6 @@ BuildRequires:  libpcap-devel
 # modular x
 BuildRequires:  libX11-devel
 BuildRequires:  mesa-libGL-devel mesa-libGLU-devel
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-BuildRequires:  mesa-compat-libOSMesa-devel
-%else
-BuildRequires:  mesa-libOSMesa-devel
-%endif
 BuildRequires:  libXxf86dga-devel libXxf86vm-devel
 BuildRequires:  libXrandr-devel libXrender-devel
 BuildRequires:  libXext-devel
@@ -294,11 +293,6 @@ Requires:       libXrender(x86-32)
 #dlopen in windowscodesc (fixes rhbz#1085075)
 Requires:       libpng(x86-32)
 Requires:       libpcap(x86-32)
-%if 0%{?fedora} >= 42
-Requires:       mesa-compat-libOSMesa(x86-32)
-%else
-Requires:       mesa-libOSMesa(x86-32)
-%endif
 Requires:       libv4l(x86-32)
 Requires:       unixODBC(x86-32)
 Requires:       SDL2(x86-32)
@@ -334,11 +328,6 @@ Requires:       libXrender(x86-64)
 #dlopen in windowscodesc (fixes rhbz#1085075)
 Requires:       libpng(x86-64)
 Requires:       libpcap(x86-64)
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-Requires:       mesa-compat-libOSMesa(x86-64)
-%else
-Requires:       mesa-libOSMesa(x86-64)
-%endif
 Requires:       libv4l(x86-64)
 Requires:       unixODBC(x86-64)
 Requires:       SDL2(x86-64)
@@ -371,11 +360,6 @@ Requires:       libXcursor
 #dlopen in windowscodesc (fixes rhbz#1085075)
 Requires:       libpng
 Requires:       libpcap
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
-Requires:       mesa-compat-libOSMesa
-%else
-Requires:       mesa-libOSMesa
-%endif
 Requires:       libv4l
 Requires:       unixODBC
 Requires:       SDL2
@@ -2250,6 +2234,13 @@ fi
 %endif
 
 %changelog
+* Sat Jul 12 2025 Björn Esser <besser82@fedoraproject.org> - 10.12-2
+- Drop unneeded libOSMesa dependency
+- Use new wow64 mode for Fedora 43 and later, only
+
+* Sat Jul 12 2025 Björn Esser <besser82@fedoraproject.org> - 10.12-1
+- version update
+
 * Mon Jul 07 2025 Michael Cronenworth <mike@cchtml.com> - 10.4-6
 - Deprecate legacy wow32 and wow64 packages
 

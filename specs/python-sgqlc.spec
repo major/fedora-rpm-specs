@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/profusion/sgqlc
 
 Name:           python-%{pypi_name}
-Version:        16.4
+Version:        16.5
 Release:        %{autorelease}
 Summary:        Simple GraphQL Client
 %forgemeta

@@ -3,7 +3,7 @@
 
 Name:               python-robosignatory
 Version:            0.8.2
-Release:            8%{?prerelease}%{?dist}
+Release:            9%{?prerelease}%{?dist}
 Summary:            A Fedora Messaging consumer that automatically signs artifacts
 
 License:            GPL-2.0-or-later
@@ -13,11 +13,6 @@ Source0:            https://pagure.io/releases/robosignatory/robosignatory-%{ver
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      python3-fedora-messaging
-BuildRequires:      python3-psutil
-BuildRequires:      python3-boto3
-BuildRequires:      python3-click
 BuildRequires:      python3-koji
 # Tests
 BuildRequires:      python3-pytest
@@ -46,7 +41,6 @@ Summary: %summary
 Requires:           python3-fedora-messaging
 Requires:           koji
 Requires:           rpmdevtools
-%{?python_provide:%python_provide python3-robosignatory}
 # This is the default package
 Provides:           robosignatory = %{version}-%{release}
 
@@ -57,14 +51,25 @@ Provides:           robosignatory = %{version}-%{release}
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files robosignatory
+
 
 %check
-%{__python3} -m pytest -v
+%pyproject_check_import
+%pytest
+
 
 %files -n python3-robosignatory
 %doc README.rst LICENSE
@@ -74,6 +79,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jul 12 2025 Mattia Verga <mattia.verga@proton.me> - 0.8.2-9
+- Migrate to modern Python macros (Fedora#2378177)
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 0.8.2-8
 - Rebuilt for Python 3.14
 

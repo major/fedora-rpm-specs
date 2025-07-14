@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-opam-file-format
-Version:        2.1.6
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Parser and printer for the opam file syntax
 
@@ -15,10 +15,12 @@ URL:            https://github.com/ocaml/opam-file-format
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  ocaml
-BuildRequires:  ocaml-dune
+BuildRequires:  ocaml >= 4.02
+BuildRequires:  ocaml-dune >= 3.13
+BuildRequires:  ocaml-menhir >= 20211230
 # for tests
-BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-alcotest-devel >= 0.4.8
+BuildRequires:  ocaml-fmt-devel
 
 %description
 Parser and printer for the opam file syntax.

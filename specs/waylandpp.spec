@@ -1,6 +1,6 @@
 Name:           waylandpp
-Version:        1.0.0
-Release:        8%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Wayland C++ bindings
 
 # waylandpp includes part of Wayland under MIT, wayland-scanner++ is GPLv3+
@@ -8,8 +8,6 @@ Summary:        Wayland C++ bindings
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND GPL-3.0-or-later
 URL:            https://github.com/NilsBrause/%{name}/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix build with GCC 13
-Patch0:         %{name}-1.0.0-gcc13.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -50,7 +48,7 @@ The %{name}-doc package contains development documentation for %{name}.
 
 
 %prep
-%autosetup -p0
+%autosetup
 
 
 %build
@@ -93,6 +91,9 @@ rm -r $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-doc/latex/
 
 
 %changelog
+* Sat Jul 12 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.0.1-1
+- Update to 1.0.1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

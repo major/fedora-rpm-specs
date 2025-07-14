@@ -220,12 +220,12 @@
 %global chromium_major 138
 %global chromium_branch 7204
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 92
+%global chromium_minor 100
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit d0f1f64c40d0325b81837cd740c8284ec8dce4e2
+%global cef_commit 54811fe7cdd35827140cdc012acadf6527afa926
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 15
+%global cef_patch 21
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -441,11 +441,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
-# This is a fixup for chromium-135-rust-clanglib.patch because the CEF build system
-# does not preserve GN argument types (integer-like strings are cast to int)
-Patch902: cef-gn-arg-types.patch
-# Fix static TLS in gwp_asan, see: https://github.com/chromiumembedded/cef/issues/3803
-Patch903: cef-gwp-asan-tls-fix.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -457,9 +452,7 @@ Patch903: cef-gwp-asan-tls-fix.patch
 Source0: chromium-%{chromium_version}-clean.tar.xz
 ## END CEF
 Source1: README.fedora
-Source2: chromium.conf
-Source3: chromium-browser.sh
-Source4: chromium-browser.desktop
+## CEF (remove): Config files
 # Also, only used if you want to reproduce the clean tarball.
 Source5: clean_ffmpeg.sh
 Source6: chromium-latest.py
@@ -1084,8 +1077,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if ! %{bundlelibxml}
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
-%patch -P902 -p1 -b .cef-gn-arg-types
-%patch -P903 -p1 -b .cef-gwp-asan-tls-fix
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF
@@ -1276,7 +1267,7 @@ CHROMIUM_CORE_GN_DEFINES+=' is_cfi=false use_thin_lto=false'
 
 CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
 CHROMIUM_CORE_GN_DEFINES+=" clang_base_path=\"$clang_base_path\""
-CHROMIUM_CORE_GN_DEFINES+=" clang_version=\"$clang_version\""
+CHROMIUM_CORE_GN_DEFINES+=" clang_version=$clang_version"
 CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 
@@ -1523,8 +1514,6 @@ CEF_GN_DEFINES=""
 CEF_GN_DEFINES+=' use_gtk=false use_qt5=false use_qt6=false enable_remoting=false'
 CEF_GN_DEFINES+=' use_cups=false use_gio=false use_kerberos=false'
 CEF_GN_DEFINES+=' use_libpci=false use_udev=false'
-# Fix static TLS relocations in Blink, see: https://github.com/chromiumembedded/cef/issues/3803
-CEF_GN_DEFINES+=" blink_heap_inside_shared_library=true"
 
 GN_DEFINES="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES $CEF_GN_DEFINES" \
 GN_ARGUMENTS="--script-executable=%{chromium_pybin}" \

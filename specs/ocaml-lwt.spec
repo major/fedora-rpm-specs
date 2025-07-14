@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocsigen/lwt
 
 Name:           ocaml-lwt
-Version:        5.9.0
-Release:        3%{?dist}
+Version:        5.9.1
+Release:        1%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -19,6 +19,9 @@ VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/lwt-%{version}.tar.gz
 # Expose a dependency on the math library so rpm can see it
 Patch:          %{name}-mathlib.patch
+# Compatibility with ppxlib 0.36
+# https://github.com/ocsigen/lwt/pull/1033
+Patch:          %{name}-ppxlib-0.36.patch
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
@@ -170,6 +173,10 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 5.9.1-1
+- Version 5.9.1
+- Add upstream patch for compatibility with ppxlib 0.36
+
 * Wed Feb 12 2025 Jerry James <loganjerry@gmail.com> - 5.9.0-3
 - Rebuild for ocaml-ppxlib 0.35.0
 

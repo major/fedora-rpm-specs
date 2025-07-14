@@ -1,14 +1,9 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# We used to build documentation with odoc, but did not include the generated
-# documentation in any binary package.  Furthermore, there is now a dependency
-# loop: ocaml-sedlex -> ocaml-yojson -> ocaml-odoc -> ocaml-sedlex.
-%bcond docs 0
-
 Name:           ocaml-sedlex
-Version:        3.3
-Release:        3%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -25,10 +20,6 @@ BuildRequires:  ocaml-ppxlib-devel
 BuildRequires:  ocaml-ppx-expect-devel
 BuildRequires:  ocaml-gen-devel
 BuildRequires:  unicode-ucd
-
-%if %{with docs}
-BuildRequires:  ocaml-odoc
-%endif
 
 %description
 A lexer generator for OCaml, similar to ocamllex, but supporting Unicode.
@@ -51,19 +42,16 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -p1 -n sedlex-%{version}
 
-# Upstream's regression test is written for Unicode 15.0.0 through 16.0.0.  Our
-# Unicode files may be from a more recent version of the standard.  The test has
-# a good chance of succeeding anyway, so we cross our fingers and give it a try.
+# Upstream's regression test is written for Unicode 16.0.0.  Our Unicode files
+# may be from a more recent version of the standard.  The test has a good
+# chance of succeeding anyway, so we cross our fingers and give it a try.
 # If the regression test fails, we'll have to try another approach.
 univer=$(sed -n 's/.*PropList-\([.[:digit:]]*\)\.txt/\1/p' %{_datadir}/unicode/ucd/PropList.txt)
-sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
+sed -i "s/16\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
   src/generator/data/base_url src/syntax/unicode.ml
 
 %build
 %dune_build
-%if %{with docs}
-%dune_build @doc
-%endif
 
 
 %install
@@ -85,6 +73,10 @@ sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 3.6-1
+- Version 3.6
+- Remove option to build docs now that odoc has been retired
+
 * Wed Feb 12 2025 Jerry James <loganjerry@gmail.com> - 3.3-3
 - Rebuild for ocaml-ppxlib 0.35.0
 

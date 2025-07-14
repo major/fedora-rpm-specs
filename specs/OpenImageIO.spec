@@ -2,8 +2,8 @@
 %global sover 2.5
 
 Name:           OpenImageIO
-Version:        2.5.16.0
-Release:        8%{?dist}
+Version:        2.5.19.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -208,6 +208,10 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jul 12 2025 Richard Shaw <hobbes1069@gmail.com> - 1:2.5.19.0-1
+- Udate to 2.5.19.0.
+- Rebuild for tbb 2022.0.0.
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1:2.5.16.0-8
 - Rebuilt for Python 3.14
 

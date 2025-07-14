@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %bcond test 0
 
 Name:           ocaml-ppx-inline-test
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Syntax extension for writing inline tests in OCaml code
 
@@ -18,7 +18,7 @@ Source:         %{url}/archive/v%{version}/ppx_inline_test-%{version}.tar.gz
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-time-now-devel >= 0.17
 
 %if %{with test}

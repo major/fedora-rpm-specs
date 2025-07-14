@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.2.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPL-2.0-or-later
@@ -39,7 +39,6 @@ Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 Requires:      python3
 Requires:      %{py3_dist pyserial}
 Requires:      %{py3_dist pyusb}
@@ -53,22 +52,28 @@ Requires:      %{py3_dist pyusb}
 sed -i 's/radexreader-local /python3-radexreader-rpm /g' src/radexreader-cli.py
 sed -i 's/\#\!\/usr\/bin\/python3/\#/g' src/radexreader/__init__.py
 
+%generate_buildrequires
+cd src
+%pyproject_buildrequires
+
 %build
 cd src
-%py3_build
+%pyproject_wheel
 
 %install
 cd src
-%py3_install
+%pyproject_install
 install -Dpm 755 radexreader-cli.py %{buildroot}%{_bindir}/radexreader
 install -Dpm 644 ../data/radexreader.1 %{buildroot}%{_mandir}/man1/radexreader.1
 install -Dpm 644 ../data/radexreader.fr.1 %{buildroot}%{_mandir}/fr/man1/radexreader.1
 install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/udev/rules.d/60-%{name}.rules
 
+%pyproject_save_files radexreader
+
 %files -n python3-radexreader
 %license LICENSE
 %doc README.md
-%ghost %{python3_sitelib}/radexreader*egg-info/
+%{python3_sitelib}/radexreader*dist-info/
 %{python3_sitelib}/radexreader/
 %{_bindir}/radexreader
 %{_mandir}/man1/radexreader.1*
@@ -77,6 +82,9 @@ install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/ude
 
 
 %changelog
+* Sat Jul 12 2025 Fabrice Creuzot <code@luigifab.fr> - 1.2.5-3
+- Migrating to %pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.5-2
 - Rebuilt for Python 3.14
 

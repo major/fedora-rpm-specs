@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.45
+Version:        2.56
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
@@ -11,6 +11,9 @@ Source0:        %{url}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # in order to support Python 3.6, something we are not concerned about. See:
 # https://gerrit.googlesource.com/git-repo/+/b5644160b74e70e223caa62ad0ca2ce8310cfb87
 Patch:          0001-Revert-tests-Fix-tox-error-in-py36-use-virtualenv-20.patch
+
+# Remove unnecessary black version upper bound
+Patch:          0001-tox-Remove-black-version-constraint.patch
 
 BuildArch:      noarch
 
@@ -48,7 +51,7 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/%{name}*.1
 install -Dpm0644 completion.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 %check
-%{py3_test_envvars} %{python3} -c 'import pytest; pytest.main()'
+%{py3_test_envvars} %{python3} -c 'import multiprocessing, pytest; multiprocessing.set_start_method("fork"); pytest.main()'
 
 %files
 %license LICENSE

@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           dola
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Declarative system for Java RPM packaging
 License:        Apache-2.0
@@ -10,6 +10,11 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/mizdebsk/dola/releases/download/%{version}/dola-%{version}.tar.zst
+
+# https://github.com/mizdebsk/dola/pull/30
+Patch:          0001-Update-to-XMvn-5.1.0.patch
+# https://github.com/mizdebsk/dola/pull/32
+Patch:          0002-Ensure-os_install_post-commands-are-NL-terminated.patch
 
 Requires:       %{name}-bsx = %{version}-%{release}
 Requires:       %{name}-generator = %{version}-%{release}
@@ -24,8 +29,8 @@ BuildOption:    usesJavapackagesBootstrap
 BuildOption:    singletonPackaging
 BuildOption:    xmvnToolchain "openjdk25"
 BuildOption:    buildRequires {
-BuildOption:        version "org.apache.maven:" "4.0.0-rc-3"
-BuildOption:        version "org.fedoraproject.xmvn:" "5.0.0"
+BuildOption:        version "org.apache.maven:" "4.0.0-rc-4"
+BuildOption:        version "org.fedoraproject.xmvn:" "5.1.0"
 BuildOption:    }
 
 %description

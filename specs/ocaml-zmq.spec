@@ -1,15 +1,15 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global giturl  https://github.com/issuu/ocaml-zmq
+%global giturl  https://github.com/issuuArchive/ocaml-zmq
 
 Name:           ocaml-zmq
 Version:        5.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
-URL:            https://engineering.issuu.com/ocaml-zmq/
+URL:            https://issuuarchive.github.io/ocaml-zmq/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/zmq-%{version}.tbz
 
@@ -19,9 +19,6 @@ BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-lwt-devel >= 2.6.0
 BuildRequires:  ocaml-ounit2-devel
 BuildRequires:  pkgconfig(libzmq)
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-zmq-doc < 5.1.5-3
 
 %description
 This library contains basic OCaml bindings for ZeroMQ.
@@ -94,6 +91,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-eio
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 5.3.0-8
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

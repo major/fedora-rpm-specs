@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ppx-globalize
-Version:        0.17.0
+Version:        0.17.2
 Release:        %autorelease
 Summary:        Generate functions to copy local values to the global heap
 
@@ -18,7 +18,7 @@ Source:         %{url}/archive/v%{version}/ppx_globalize-%{version}.tar.gz
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-base-devel >= 0.17
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-ppxlib-jane-devel >= 0.17
 
 %description

@@ -11,11 +11,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
 %global coqver  8.20.1
-%global commit  7b828a0674e600cf14d79733c3c19b048ac9beec
+%global commit  655554b0ed11d64e534143a200be5ddab8179c3d
 %global giturl  https://gitlab.inria.fr/gappa/coq
 
 Name:           gappalib-coq
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Coq support library for gappa
 

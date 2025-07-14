@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %bcond test 0
 
 Name:           ocaml-ppx-optcomp
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Optional compilation for OCaml
 
@@ -23,7 +23,7 @@ Source:         %{url}/archive/v%{version}/ppx_optcomp-%{version}.tar.gz
 BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-stdio-devel >= 0.17
 
 %if %{with test}

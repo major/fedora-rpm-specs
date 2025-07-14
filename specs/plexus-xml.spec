@@ -1,4 +1,4 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           plexus-xml
 Version:        4.0.4
@@ -15,14 +15,16 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
 
-# Baseid on upstream commit 1f1ff6f
-Patch:          0001-Upgrade-to-Maven-4.0.0-rc-3.patch
+# https://github.com/codehaus-plexus/plexus-xml/pull/53
+Patch:          0001-Upgrade-to-Maven-4.0.0-rc-2.patch
+# https://github.com/codehaus-plexus/plexus-xml/pull/65
+Patch:          0002-Bump-org.apache.maven-maven-xml-from-4.0.0-rc-3-to-4.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-3)
+BuildRequires:  maven-local-openjdk25
+BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-4)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
 # TODO Remove in Fedora 46

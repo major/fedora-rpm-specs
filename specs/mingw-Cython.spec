@@ -8,7 +8,7 @@
 
 Name:          mingw-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
-Version:       3.0.12
+Version:       3.1.2
 Release:       1%{?dist}
 
 License:       Apache-2.0
@@ -78,7 +78,7 @@ MinGW Windows Python3 %{mod_name} library.
 %{mingw32_python3_sitearch}/__pycache__/cython*.pyc
 %{mingw32_python3_sitearch}/pyximport/
 %{mingw32_python3_sitearch}/%{mod_name}/
-%{mingw32_python3_sitearch}/%{mod_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/cython-%{version}.dist-info/
 %{_prefix}/%{mingw32_target}/bin/cygdb
 %{_prefix}/%{mingw32_target}/bin/cython
 %{_prefix}/%{mingw32_target}/bin/cythonize
@@ -86,7 +86,7 @@ MinGW Windows Python3 %{mod_name} library.
 %{mingw32_python3_hostsitearch}/__pycache__/cython*.pyc
 %{mingw32_python3_hostsitearch}/pyximport/
 %{mingw32_python3_hostsitearch}/%{mod_name}/
-%{mingw32_python3_hostsitearch}/%{mod_name}-%{version}.dist-info/
+%{mingw32_python3_hostsitearch}/cython-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE.txt
@@ -97,7 +97,7 @@ MinGW Windows Python3 %{mod_name} library.
 %{mingw64_python3_sitearch}/__pycache__/cython*.pyc
 %{mingw64_python3_sitearch}/pyximport/
 %{mingw64_python3_sitearch}/%{mod_name}/
-%{mingw64_python3_sitearch}/%{mod_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/cython-%{version}.dist-info/
 %{_prefix}/%{mingw64_target}/bin/cygdb
 %{_prefix}/%{mingw64_target}/bin/cython
 %{_prefix}/%{mingw64_target}/bin/cythonize
@@ -105,10 +105,13 @@ MinGW Windows Python3 %{mod_name} library.
 %{mingw64_python3_hostsitearch}/__pycache__/cython*.pyc
 %{mingw64_python3_hostsitearch}/pyximport/
 %{mingw64_python3_hostsitearch}/%{mod_name}/
-%{mingw64_python3_hostsitearch}/%{mod_name}-%{version}.dist-info/
+%{mingw64_python3_hostsitearch}/cython-%{version}.dist-info/
 
 
 %changelog
+* Sat Jul 12 2025 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
+- Update to 3.1.2
+
 * Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 3.0.12-1
 - Update to 3.0.12
 

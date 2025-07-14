@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.53.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.53.7-2
+- Rebuild to fix OCaml dependencies
+
 * Sat Feb 22 2025 Matthew Krupcale <mkrupcale@gmail.com> - 2.53.7-1
 - Update to v2.53.7
 

@@ -21,7 +21,7 @@
 %define radicale_major  3
 
 %define radicale_version  3.5.4
-%define radicale_release  3
+%define radicale_release  5
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -63,15 +63,14 @@ Source60:         https://inf-it.com/open-source/download/InfCloud_%{infcloud_ve
 
 BuildArch:        noarch
 
+BuildRequires:    python3-devel
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %package -n %{radicale_package_name}
 Summary:          %{summary}
 
-BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-pip
-BuildRequires:    python3-wheel
-BuildRequires:    pyproject-rpm-macros
 BuildRequires:    systemd
 BuildRequires:    checkpolicy
 BuildRequires:    selinux-policy-devel
@@ -209,7 +208,7 @@ Summary:        Fonts for InfCloud extension for Radicale internal WebUI
 License:        Apache-2.0
 URL:            https://inf-it.com/open-source/clients/infcloud/
 Requires:       %{radicale_package_name}-InfCloud = %{version}-%{release}
-Obsoletes:	%{radicale_package_name}-InfCloud-fonts
+Obsoletes:	%{radicale_package_name}-InfCloud-fonts < 3.5.4-3
 
 
 %description -n %{radicale_package_name}-InfCloud-fontware
@@ -529,6 +528,9 @@ fi
 
 
 %changelog
+* Sat Jun 12 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-5
+- add macros generate_buildrequires, pyproject_buildrequires and remove obsoletes
+
 * Sat Jun 14 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-3
 - Rename InfCloud-fonts package to InfCloud-fontware (BZ#2372650)
 

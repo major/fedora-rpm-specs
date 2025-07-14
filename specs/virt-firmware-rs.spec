@@ -1,5 +1,5 @@
 %bcond efi_apps 0
-%bcond check    1
+%bcond run_test 1
 
 %ifarch aarch64
 %bcond efi_apps 1
@@ -15,7 +15,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 
 # tests fail due to endian issues
 %ifarch s390x
-%bcond check    0
+%bcond run_test 0
 %endif
 
 Name:           virt-firmware-rs
@@ -99,8 +99,8 @@ for dir in efi-apps efi-tools igvm-tools; do
     cp -v ${dir}/README.md README.${dir}.md
 done
 
-%if %{with check}
 %check
+%if %{with run_test}
 %cargo_test -- --package virtfw-libefi
 %cargo_test -- --package virtfw-efi-tools --features udev
 %cargo_test -- --package virtfw-igvm-tools

@@ -1,7 +1,7 @@
 %global pkg ansible
 
 Name:           emacs-%{pkg}
-Version:        0.4.0
+Version:        0.4.2
 Release:        1%{?dist}
 Summary:        Ansible minor mode
 
@@ -46,6 +46,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sat Jul 12 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.4.2-1
+- Update to 0.4.2
+
 * Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.4.0-1
 - Update to 0.4.0
 

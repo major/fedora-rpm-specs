@@ -6,20 +6,21 @@
 %global __local_generator_provides cat %{_builddir}/%{buildsubdir}/bundled-provides.txt
 %global __local_generator_path ^%{metadataPath}/.*$
 %global debug_package %{nil}
-%global javaHomePath %{_jvmdir}/jre-21-openjdk
+%global javaHomePath %{_jvmdir}/jre-25-openjdk
 %global mavenHomePath %{_datadir}/%{name}
 %global metadataPath %{mavenHomePath}/maven-metadata
-%global artifactsPath %{_prefix}/lib
+%global artifactsPath %{_datadir}
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.23.0
+Version:        1.24.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        Apache-1.1 AND Apache-2.0 AND (Apache-2.0 OR EPL-2.0) AND (Apache-2.0 OR LGPL-2.0-or-later) AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND CPL-1.0 AND EPL-1.0 AND EPL-2.0 AND (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND LicenseRef-Fedora-Public-Domain AND MIT AND Plexus AND SMLNJ AND Saxpath AND xpp
 URL:            https://github.com/fedora-java/javapackages-bootstrap
-ExclusiveArch:  %{java_arches}
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/fedora-java/javapackages-bootstrap/releases/download/%{version}/javapackages-bootstrap-%{version}.tar.zst
 # License breakdown
@@ -166,16 +167,17 @@ Source:         xmlunit.tar.zst
 Source:         xmvn.tar.zst
 Source:         xz-java.tar.zst
 
+# https://github.com/fedora-java/javapackages-bootstrap/pull/194
+Patch:          0001-Fix-permissions-of-mvnup-executable.patch
+
 BuildRequires:  byaccj
-BuildRequires:  gcc
-BuildRequires:  java-21-openjdk-devel
+BuildRequires:  java-25-openjdk-devel
 BuildRequires:  jurand
-BuildRequires:  rpm-devel
 Requires:       bash
 Requires:       coreutils
-Requires:       java-21-openjdk-devel
+Requires:       java-25-openjdk-devel
 Requires:       javapackages-common
-Requires:       lujavrite%{?_isa}
+Requires:       lujavrite
 Requires:       procps-ng
 
 %description
@@ -226,7 +228,7 @@ install -D -p -m 644 downstream/dola/dola-generator/src/main/rpm/dolagen.attr %{
 install -D -p -m 644 downstream/dola/dola-bsx/src/main/conf/dola-bsx.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/00-dola-bsx.conf
 install -D -p -m 644 downstream/dola/dola-dbs/src/main/conf/dola-dbs.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/04-dola-dbs.conf
 install -D -p -m 644 downstream/dola/dola-generator/src/main/conf/dola-generator.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/03-dola-generator.conf
-install -D -p -m 644 downstream/dola/dola-rpm-api/src/main/conf/dola-rpm-api.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/02-dola-rpm-api.conf
+install -D -p -m 644 downstream/dola/dola-bsx-api/src/main/conf/dola-bsx-api.conf %{buildroot}%{_javaconfdir}/%{name}/dola/classworlds/02-dola-bsx-api.conf
 
 echo '
 %%__xmvngen_debug 1

@@ -3,7 +3,7 @@
 
 Name:		python3-%{pkgname}
 Version:	5.2
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	An XML based template processor for TAL, TALES and METAL specifications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -11,8 +11,6 @@ URL:		http://www.owlfish.com/software/simpleTAL/
 Source0:	http://www.owlfish.com/software/simpleTAL/downloads/%{srcname}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	python3-devel
-BuildRequires:	(python3-setuptools if python3-devel >= 3.12)
-%{?python_provide:%python_provide python3-%{pkgname}}
 
 %description
 SimpleTAL is a stand alone Python implementation of the TAL, TALES and
@@ -23,12 +21,17 @@ METAL specifications used in Zope to power HTML and XML templates.
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pkgname}
 
 # remove x-bits from example files
 find examples -name '*.py' -exec chmod -x {} \;
@@ -38,16 +41,16 @@ find examples -name '*.py' -exec chmod -x {} \;
 %{__python3} runtests.py || :
 
 
-%files
+%files -f %{pyproject_files}
 %doc Changes.txt README.txt
 %doc documentation/html
 %doc examples
-%license LICENSE.txt
-%{python3_sitelib}/%{pkgname}
-%{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 
 %changelog
+* Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 5.2-32
+- Update for current Python packaging guidelines.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.2-31
 - Rebuilt for Python 3.14
 

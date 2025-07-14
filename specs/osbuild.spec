@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        153
+Version:        155
 
 %forgemeta
 
@@ -329,6 +329,21 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Mon Jul 07 2025 Packit <hello@packit.dev> - 155-1
+Changes with 155
+----------------
+  * Add org.osbuild.dnf4.versionlock stage [HMS-8771] (#2135)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Tomáš Hozza
+  * Update images dependency ref to latest (#2142)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * add ssh_pwauth  to org.osbuild.cloud-init (#2138)
+    * Author: odra, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages/vagrant: add virtualbox support (COMPOSER-2503) (#1136)
+    * Author: Jelle van der Waa, Reviewers: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-07-07
+
+
 * Fri Jun 20 2025 Packit <hello@packit.dev> - 153-1
 Changes with 153
 ----------------

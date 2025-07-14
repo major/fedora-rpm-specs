@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -257,6 +257,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 4.1.9-26
+- Rebuild to fix OCaml dependencies
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.1.9-25
 - Rebuilt for new tcl/tk/ocaml-labltk
   Resolves: rhbz#2337741

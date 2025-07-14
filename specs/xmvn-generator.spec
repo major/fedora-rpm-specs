@@ -1,7 +1,7 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           xmvn-generator
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
@@ -9,12 +9,12 @@ URL:            https://github.com/fedora-java/xmvn-generator
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source:         https://github.com/fedora-java/xmvn-generator/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         https://github.com/fedora-java/xmvn-generator/releases/download/%{version}/xmvn-generator-%{version}.tar.zst
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(io.kojan:dola-bsx-api)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.easymock:easymock)

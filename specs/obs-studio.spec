@@ -34,7 +34,7 @@
 
 
 %global obswebsocket_version 5.6.2
-%global obsbrowser_commit 033a23befe01e0a2f85b95af384a89b82c8d6a40
+%global obsbrowser_commit bdabf8300ecefeb566b81f4a7ff75f8a8e21f62b
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
 # and it works around a CEF versioning teething issue:
@@ -46,7 +46,7 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.1.0
+Version:        31.1.1
 Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
@@ -386,6 +386,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sat Jul 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.1.1-1
+- Update to 31.1.1
+
 * Tue Jul 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.1.0-1
 - Update to 31.1.0 final
 - Update obs-websocket to 5.6.2

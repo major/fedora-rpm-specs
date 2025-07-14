@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -21,9 +21,6 @@ BuildRequires:  asciidoc
 BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  python3-pygments
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-qtest-doc < 2.11.2-9
 
 
 %description
@@ -85,6 +82,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.11.2-26
+- Rebuild to fix OCaml dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

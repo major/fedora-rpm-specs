@@ -1,7 +1,7 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           jline
-Version:        3.29.0
+Version:        3.30.4
 Release:        %autorelease
 Summary:        Java library for handling console input
 License:        BSD-3-Clause AND Apache-2.0
@@ -19,7 +19,7 @@ BuildRequires:  gcc
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
@@ -53,6 +53,9 @@ familiar.
 %autosetup -p1 -C
 cp -p console-ui/LICENSE.txt LICENSE-APACHE.txt
 
+# Remove local Maven extensions not needed for RPM build
+rm -r .mvn/
+
 # Remove prebuilt native objects
 rm -r native/src/main/resources/org/jline/nativ/*/
 
@@ -62,9 +65,12 @@ sed -i /-Werror/d $(find -name pom.xml)
 # Optional dependency on juniversalchardet was removed via a patch
 %pom_remove_dep -r :juniversalchardet
 
-# Disable FFM module for now
-# TODO enable FFM when switching to Java 25
-%pom_disable_module terminal-ffm
+# Disable test that requires "nano" text editor
+rm builtins/src/test/java/org/jline/builtins/SyntaxHighlighterTest.java
+
+# Disable test that uses unpackaged jimfs dependency
+%pom_remove_dep :jimfs builtins
+rm builtins/src/test/java/org/jline/builtins/SyntaxHighlighterJimFsTest.java
 
 # Disable unwanted modules
 %pom_disable_module terminal-jna
@@ -101,7 +107,7 @@ install -p -m 755 libjlinenative.so %{buildroot}%{_prefix}/lib/%{name}/
 
 %files -f .mfiles
 %{_prefix}/lib/%{name}
-%doc changelog.md README.md
+%doc README.md
 %license LICENSE.txt LICENSE-APACHE.txt
 
 %changelog

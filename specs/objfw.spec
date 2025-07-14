@@ -4,7 +4,7 @@
 
 Name:          objfw
 Version:       1.3.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       LGPL-3.0-only
@@ -56,9 +56,11 @@ The libobjfw package contains the library needed by programs using ObjFW.
 
 %package -n libobjfw-devel
 Summary:       Header files, libraries and tools for libobjfw
+Requires:      clang
 Requires:      libobjfw%{_isa} = %{version}-%{release}
-Requires:      libobjfwrt-devel%{_isa} = %{version}-%{release}
 Requires:      libobjfwhid-devel%{_isa} = %{version}-%{release}
+Requires:      libobjfwrt-devel%{_isa} = %{version}-%{release}
+Requires:      lksctp-tools-devel%{_isa}
 
 %description -n libobjfw-devel
 The libobjfw-devel package contains the header files, libraries and tools to
