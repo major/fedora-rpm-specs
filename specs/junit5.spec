@@ -44,7 +44,7 @@ Patch:          0003-Remove-legacy-XML-console-support.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.univocity:univocity-parsers)
 BuildRequires:  mvn(info.picocli:picocli)
 BuildRequires:  mvn(junit:junit)

@@ -5,7 +5,7 @@
 %global crate libcst_derive
 
 Name:           rust-libcst_derive
-Version:        1.7.0
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Proc macro helpers for libcst
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/libcst_derive
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 Proc macro helpers for libcst.}
@@ -48,6 +49,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# fix CRLF line endings in all source files
+find -type f -print -exec dos2unix --keepdate {} +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

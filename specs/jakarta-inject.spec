@@ -14,7 +14,7 @@ Source0:        https://github.com/jakartaee/inject/archive/%{version}.tar.gz
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 # TODO Remove in Fedora 46

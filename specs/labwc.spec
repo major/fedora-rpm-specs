@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.8.4
+Version:    0.9.0
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor
@@ -19,19 +19,19 @@ BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(libinput) >= 1.14
 BuildRequires: pkgconfig(librsvg-2.0) >= 2.46
+BuildRequires: pkgconfig(libsfdo-basedir)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pangocairo)
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(scdoc)
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(wayland-server) >= 0.19.0
-BuildRequires: pkgconfig(wlroots-0.18) >= 0.18.1
+BuildRequires: pkgconfig(wlroots-0.19) >= 0.19.0
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: pkgconfig(libsfdo-basedir)
+BuildRequires: pkgconfig(xwayland)
 
 Requires:      mesa-dri-drivers
-Requires:      xorg-x11-server-Xwayland
 Requires:      xdg-desktop-portal-wlr
 
 Conflicts:     %{name} < 0.8.2-3
@@ -112,6 +112,7 @@ standalone environment.
 %license LICENSE
 %doc NEWS.md
 %{_bindir}/%{name}
+%{_bindir}/lab-sensible-terminal
 %{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*

@@ -1,6 +1,6 @@
 Name:           mopidy-mpd
 Version:        4.0.0~a1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
@@ -47,7 +47,10 @@ available from MPD clients.
 %doc README.md
 
 %changelog
-* Wed Mar  5 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a1
+* Sun Jul 13 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a1-2
+- Fix changelog
+
+* Fri Jul 4 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a1-1
 - Upgrade to latest prerelease
 
 * Tue Jun 24 2025 Python Maint <python-maint@redhat.com> - 3.3.0^20241110git9c66c58-2

@@ -15,7 +15,7 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-http)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)

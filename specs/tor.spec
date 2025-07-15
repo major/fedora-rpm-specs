@@ -14,7 +14,7 @@
 
 Name:       tor
 Version:    0.4.8.17
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -96,6 +96,9 @@ echo "$(cat %{SOURCE1} | cut -d ' ' -f 1) %{SOURCE0}" | sha256sum --check
 mv %{buildroot}%{_sysconfdir}/tor/torrc.sample \
     %{buildroot}%{_sysconfdir}/tor/torrc
 
+mkdir -p %{buildroot}%{_sysconfdir}/tor/torrc.d/
+sed -i 's@^#%include /etc/torrc.d/\*.conf@%include /etc/tor/torrc.d/*.conf@' %{buildroot}%{_sysconfdir}/tor/torrc
+
 install -D -p -m 0644 %{SOURCE20} %{buildroot}%{_sysconfdir}/tor/README
 
 mkdir -p %{buildroot}%{logdir}
@@ -153,6 +156,7 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_unitdir}/tor-master.service
 
 %dir %{_sysconfdir}/tor
+%dir %{_sysconfdir}/tor/torrc.d
 %{_sysconfdir}/tor/README
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/tor/torrc
 %config(noreplace) %{_sysconfdir}/logrotate.d/tor
@@ -164,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Sun Jul 13 2025 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.17-2
+- Enable drop-in configuration by default bz#2338912
+
 * Sun Jul 06 2025 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.17-1
 - update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-8-17/19681
 

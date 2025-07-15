@@ -9,7 +9,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
@@ -23,6 +23,9 @@ SAX-like API for parsing XML DTDs.
 %autosetup -p1 -C
 
 pushd dtd-parser
+
+# -Werror is considered harmful for downstream package builds
+sed -i /-Werror/d pom.xml
 
 %pom_remove_parent
 

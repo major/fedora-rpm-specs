@@ -13,7 +13,7 @@ Source0:        http://download.sourceforge.net/sourceforge/jsch/jsch-%{version}
 Source1:        MANIFEST.MF
 Source2:        plugin.properties
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jcraft:jzlib)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  zip

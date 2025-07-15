@@ -21,7 +21,7 @@ BuildRequires:  byaccj
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  jflex
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)

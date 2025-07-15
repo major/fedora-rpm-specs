@@ -16,7 +16,7 @@ Source2:        %{name}-ext-MANIFEST.MF
 Source3:        http://repo1.maven.org/maven2/xml-apis/xml-apis/2.0.2/xml-apis-2.0.2.pom
 Source4:        http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.pom
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  apache-parent
 # TODO Remove in Fedora 46

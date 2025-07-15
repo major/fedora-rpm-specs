@@ -14,7 +14,7 @@ Source0:        https://repo1.maven.org/maven2/org/codehaus/mojo/extra-enforcer-
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.enforcer:enforcer-api)

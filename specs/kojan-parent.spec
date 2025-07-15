@@ -14,7 +14,7 @@ Source0:        https://github.com/mizdebsk/kojan-parent/archive/refs/tags/6.tar
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 %endif
 
 %description

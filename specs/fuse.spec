@@ -61,6 +61,7 @@ pgk-config) to develop FUSE v2 based applications/filesystems.
 %prep
 %autosetup -p 1
 
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 # ./makeconf.sh
 #disable device creation during build/install
 sed -i 's|mknod|echo Disabled: mknod |g' util/Makefile.in

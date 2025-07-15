@@ -1,6 +1,6 @@
 Name:           iperf3
-Version:        3.18
-Release:        3%{?dist}
+Version:        3.19
+Release:        1%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 # src/cjson.{c,h} and src/net.{c,h} are MIT
@@ -14,8 +14,6 @@ URL:            https://github.com/esnet/iperf
 Source0:        %{url}/archive/%{version}/iperf-%{version}.tar.gz
 # Add some reporting: https://github.com/esnet/iperf/pull/1278
 Patch0:         1278-rebase.patch
-# fix build with gcc15: https://github.com/esnet/iperf/pull/1805
-Patch:          https://patch-diff.githubusercontent.com/raw/esnet/iperf/pull/1805.patch
 BuildRequires:  libuuid-devel
 BuildRequires:  gcc
 BuildRequires:  lksctp-tools-devel
@@ -62,6 +60,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Sun Jul 13 2025 Kevin Fenzi <kevin@scrye.com> - 3.19-1
+- Update to 3.19. Fixes rhbz#2366951
+
 * Sat Jan 18 2025 Kevin Fenzi <kevin@scrye.com> - 3.18-3
 - Rebase upstream patch from https://github.com/esnet/iperf/pull/1278
 

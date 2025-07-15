@@ -16,7 +16,7 @@ BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.annotation:jsr250-api)
 %endif
 # TODO Remove in Fedora 46

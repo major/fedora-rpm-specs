@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ppx-deriving-yojson
-Version:        3.9.1
+Version:        3.10.0
 Release:        %autorelease
 Summary:        JSON codec generator for OCaml
 
@@ -14,6 +14,10 @@ License:        MIT
 URL:            https://github.com/ocaml-ppx/ppx_deriving_yojson
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/ppx_deriving_yojson-%{version}.tar.gz
+# Add granular type constraints on cases in of_yojson
+Patch:          %{url}/pull/164.patch
+# Make tests compatible with ocaml-yojson 3.x
+Patch:          %{url}/pull/165.patch
 
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-dune >= 1.0
@@ -21,9 +25,6 @@ BuildRequires:  ocaml-ounit-devel >= 2.0.0
 BuildRequires:  ocaml-ppx-deriving-devel >= 5.1
 BuildRequires:  ocaml-ppxlib-devel >= 0.30.0
 BuildRequires:  ocaml-yojson-devel >= 1.6.0
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      ocaml-ppx-deriving-yojson-doc < 3.6.1-15
 
 %description
 Deriving_Yojson is a ppx_deriving plugin that generates JSON serializers
@@ -44,11 +45,6 @@ signature files for developing applications that use
 
 %prep
 %autosetup -n ppx_deriving_yojson-%{version} -p1
-
-# Fix version number
-sed -i.orig 's/3\.7\.0/%{version}/' ppx_deriving_yojson.opam
-touch -r ppx_deriving_yojson.opam.orig ppx_deriving_yojson.opam
-rm ppx_deriving_yojson.opam.orig
 
 %build
 %dune_build

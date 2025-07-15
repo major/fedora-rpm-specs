@@ -21,8 +21,10 @@ Patch:         %{name}-%{version}-configure-c99.patch
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: ant
-BuildRequires: java-devel
-BuildRequires: javapackages-local
+BuildRequires: javapackages-local-openjdk25
+
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.7.7-86
 
 %description
 ANTLR, ANother Tool for Language Recognition, (formerly PCCTS) is a
@@ -50,13 +52,6 @@ BuildArch:     noarch
 %description manual
 Documentation for %{name}.
 
-%package     javadoc
-Summary:       Javadoc for %{name}
-BuildArch:     noarch
-
-%description javadoc
-Javadoc for %{name}.
-
 %package     C++
 Summary:       C++ bindings for antlr2 generated parsers
 Provides:      antlr-static = %{version}-%{release}
@@ -76,7 +71,7 @@ sed -i 's/\r//' LICENSE.txt
 %mvn_file %{name}:%{name} %{name}
 
 %build
-ant -Dj2se.apidoc=%{_javadocdir}/java
+ant jar
 # make expects to find it here
 cp work/lib/antlr.jar .
 export CLASSPATH=.
@@ -93,7 +88,7 @@ chmod 0644 doc/*
 # jars, POM and depmap
 %mvn_artifact %{SOURCE3} work/lib/%{name}.jar
 %mvn_alias %{name}:%{name} %{name}:%{name}all
-%mvn_install -J work/api
+%mvn_install
 
 mkdir -p $RPM_BUILD_ROOT{%{_includedir}/%{name},%{_libdir},%{_bindir}}
 
@@ -121,9 +116,6 @@ install -p -m 755 scripts/antlr-config $RPM_BUILD_ROOT%{_bindir}
 %files manual
 %license LICENSE.txt
 %doc doc/*
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

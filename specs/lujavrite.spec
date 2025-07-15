@@ -10,7 +10,7 @@ Source:         https://github.com/mizdebsk/lujavrite/archive/refs/tags/%{versio
 
 BuildRequires:  gcc
 BuildRequires:  lua-devel
-BuildRequires:  java-21-openjdk-devel
+BuildRequires:  java-25-openjdk-devel
 
 %{?lua_requires}
 
@@ -24,14 +24,14 @@ and using JNI interface to invoke Java methods.
 
 %build
 export LDFLAGS=-llua-5.4
-export JAVA_HOME=%{_jvmdir}/jre-21-openjdk
+export JAVA_HOME=%{_jvmdir}/jre-25-openjdk
 ./build.sh
 
 %install
 install -D -p -m 0755 lujavrite.so %{buildroot}%{lua_libdir}/%{name}.so
 
 %check
-export JAVA_HOME=%{_jvmdir}/jre-21-openjdk
+export JAVA_HOME=%{_jvmdir}/jre-25-openjdk
 lua test.lua
 
 %files

@@ -28,7 +28,7 @@ Patch:          0003-Remove-dependency-on-powermock.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.guava:failureaccess)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.inject:guice)
@@ -85,7 +85,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple::sources:)
 
 Requires: %{name}-lib = %{epoch}:%{version}-%{release}
 Requires: %{name}-jdk-binding
-Suggests: %{name}-openjdk21 = %{epoch}:%{version}-%{release}
+Suggests: %{name}-openjdk25 = %{epoch}:%{version}-%{release}
 
 Requires(post): alternatives
 Requires(postun): alternatives

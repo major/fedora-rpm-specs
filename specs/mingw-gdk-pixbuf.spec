@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.42.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -17,6 +17,8 @@ Source0:        http://download.gnome.org/sources/gdk-pixbuf/%{release_version}/
 Source1:        gdk-pixbuf.loaders
 # Backport fix for CVE-2025-6199
 Patch0:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/c4986342b241cdc075259565f3fa7a7597d32a32.patch
+# Backport fix for CVE-2025-7345
+Patch1:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/4af78023ce7d3b5e3cec422a59bb4f48fa4f5886.patch
 
 BuildArch:      noarch
 
@@ -137,6 +139,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 2.42.12-5
+- Backport fix for CVE-2025-7345
+
 * Tue Jun 24 2025 Sandro Mani <manisandro@gmail.com> - 2.42.12-4
 - Backport fix for CVE-2025-6199
 

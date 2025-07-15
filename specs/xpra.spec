@@ -1,41 +1,8 @@
-%bcond_with enc_x264
-%bcond_with enc_x265
-# Theses settings requires 64bit
-%if 0%{?__isa_bits} == 64
-%bcond_without dec_avcodec2
-%bcond_without csc_swscale
-%else
-%bcond_with dec_avcodec2
-%bcond_with csc_swscale
-%endif
-
 # For debugging only
 %bcond_with debug
-%if %{with debug}
-%global _with_debug --with-debug
-%endif
 #
 
 %global __js_jquery_latest %{_datadir}/javascript/jquery/latest/
-
-# These are necessary as the _with_foo is *not* defined if the
-# --with flag isn't specifed, and we need to have the --without
-# specified option in that case.
-%if %{without enc_x264}
-%global _with_enc_x264 --without-enc_x264
-%endif
-
-%if %{with enc_x265}
-%global _with_enc_x265 --with-enc_x265
-%endif
-
-%if %{without dec_avcodec2}
-%global _with_dec_avcodec2 --without-dec_avcodec2
-%endif
-
-%if %{without csc_swscale}
-%global _with_csc_swscale --without-csc_swscale
-%endif
 
 # Remove private provides from .so files in the python3_sitearch directory
 %global __provides_exclude_from ^%{python3_sitearch}/.*\\.so$
@@ -49,11 +16,10 @@
 %endif
 
 Name:           xpra
-Version:        5.1
+Version:        5.1.1
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
-# Automatically converted from old format: GPLv2+ and BSD and LGPLv3+ and MIT - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-3.0-or-later AND LicenseRef-Callaway-MIT
+License:        GPL-2.0-or-later AND BSD-2-Clause AND LGPL-3.0-or-later AND BSD-3-Clause
 URL:            https://www.xpra.org/
 Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 # Appdata file for Fedora
@@ -97,6 +63,7 @@ BuildRequires:  pygobject3-devel
 BuildRequires:  python3-gobject-devel
 %endif
 BuildRequires:  libappstream-glib
+BuildRequires:  libasan
 BuildRequires:  python3-cairo-devel
 BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  xorg-x11-drv-dummy
@@ -194,30 +161,21 @@ cat >xpra.sysusers.conf <<EOF
 g xpra -
 EOF
 
+%generate_buildrequires
+%pyproject_buildrequires -x tests
+
 %build
-%set_build_flags
 export CFLAGS="%{optflags} -I%{_includedir}/security"
-%py3_build -- \
-    --without-nvidia --without-pandoc_lua \
-    --with-verbose \
-    --with-vpx \
-    %{?_with_enc_x264} \
-    %{?_with_enc_x265} \
-    %{?_with_dec_avcodec2} \
-    %{?_with_csc_swscale} \
-    %{?_with_debug} \
-    --with-Xdummy \
-    --with-Xdummy_wrapper \
-    --without-strict \
-    --with-enc_ffmpeg
+%pyproject_wheel -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-enc_ffmpeg -C--global-option=--with-vpx -C--global-option=--with-dec_avcodec2 -C--global-option=--with-csc_swscale -C--global-option=--with-debug
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files xpra
 
-mkdir -p %{buildroot}%{_unitdir}
-mv %{buildroot}/lib/systemd/system/xpra.*  %{buildroot}%{_unitdir}/
+# Install config files in the right directory
+mv %{buildroot}%{_prefix}/etc  %{buildroot}/
 
-#move icon to proper directory
+# move icon to proper directory
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps
 
@@ -230,25 +188,25 @@ install -pm 644 fs/share/icons/xpra-mdns.png %{buildroot}%{_datadir}/icons/hicol
 rm -f %{buildroot}%{_datadir}/icons/xpra-shadow.png
 install -pm 644 fs/share/icons/xpra-shadow.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
 
-#replace old file with horrible WindowsXP old image
+# replace old file with horrible WindowsXP old image
 rm -rf %{buildroot}%{_datadir}/appdata
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
 
-#Install nvenc.keys file
+# Install nvenc.keys file
 mkdir -p %{buildroot}%{_sysconfdir}/xpra
 install -pm 644 fs/etc/xpra/nvenc.keys %{buildroot}%{_sysconfdir}/xpra
 
-#remove doc stuff from /usr/share
+# remove doc stuff from /usr/share
 rm %{buildroot}%{_datadir}/xpra/COPYING
 
-#fix shebangs from python3_sitearch
+# fix shebangs from python3_sitearch
 for i in `ack -rl '^#!/.*python' %{buildroot}%{python3_sitearch}/xpra`; do
     %py3_shebang_fix $i
     chmod 0755 $i
 done
 
-#fix permissions on shared objects
+# fix permissions on shared objects
 find %{buildroot}%{python3_sitearch}/xpra -name '*.so' \
     -exec chmod 0755 {} \;
 
@@ -280,7 +238,7 @@ install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
-%files
+%files -f %{pyproject_files}
 %license COPYING
 %dir %{_sysconfdir}/xpra
 %dir %{_sysconfdir}/xpra/conf.d
@@ -303,9 +261,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/xpra
 %{_bindir}/xpra_launcher
 %{_bindir}/run_scaled
-%{_sysusersdir}/*.conf
-%{python3_sitearch}/xpra/
-%{python3_sitearch}/*.egg-info
+%{_bindir}/xpra_Xdummy
 %{_datadir}/applications/xpra*.desktop
 %{_datadir}/icons/hicolor/48x48/apps/xpra-mdns.png
 %{_datadir}/icons/hicolor/48x48/apps/xpra-shadow.png

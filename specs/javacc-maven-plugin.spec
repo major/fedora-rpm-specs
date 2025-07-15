@@ -22,7 +22,7 @@ Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
@@ -43,12 +43,11 @@ BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.1.1-4
+
 %description
 Maven Plugin for processing JavaCC grammar files.
-
-%if %{without bootstrap}
-%{?javadoc_package}
-%endif
 
 %prep
 %autosetup -p1 -C
@@ -75,11 +74,7 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %endif
 
 %build
-%if %{with bootstrap}
 %mvn_build -j
-%else
-%mvn_build
-%endif
 
 %install
 %mvn_install

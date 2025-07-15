@@ -14,7 +14,7 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)

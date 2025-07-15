@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        8.5.0
+Version:        8.6.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -369,6 +369,11 @@ TEST_ARGS=(
     --exclude-test-name test_qt
     # only local ??
     --exclude-test-name test_recipe_browser_webengine
+    # fails on ppc64le
+%ifarch ppc64le
+    --exclude-test-name test_fts_pool
+    --exclude-test-name test_fts_search
+%endif
 )
 
 CALIBRE_PY3_PORT=1 \

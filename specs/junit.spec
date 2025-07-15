@@ -20,7 +20,7 @@ Patch:          0002-Port-to-OpenJDK-21.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 %endif

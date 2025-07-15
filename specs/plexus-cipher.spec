@@ -16,7 +16,7 @@ Obsoletes:      %{name}-javadoc < 2.0-28
 
 BuildSystem:    maven
 BuildOption:    usesJavapackagesBootstrap
-BuildOption:    xmvnToolchain "openjdk21"
+BuildOption:    xmvnToolchain "openjdk25"
 BuildOption:    mavenOption "-DjavaVersion=8"
 BuildOption:    artifact ":plexus-cipher" {
 BuildOption:        file "plexus/plexus-cipher"

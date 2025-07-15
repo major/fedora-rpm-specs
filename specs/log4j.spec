@@ -20,7 +20,7 @@ Patch:          0002-Remove-usage-of-toolchains.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)

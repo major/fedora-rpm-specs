@@ -15,6 +15,8 @@ Source:         https://github.com/mizdebsk/dola/releases/download/%{version}/do
 Patch:          0001-Update-to-XMvn-5.1.0.patch
 # https://github.com/mizdebsk/dola/pull/32
 Patch:          0002-Ensure-os_install_post-commands-are-NL-terminated.patch
+# https://github.com/mizdebsk/dola/pull/33
+Patch:          0003-Switch-to-OpenJDK-for-runtime.patch
 
 Requires:       %{name}-bsx = %{version}-%{release}
 Requires:       %{name}-generator = %{version}-%{release}
@@ -43,7 +45,7 @@ files.
 
 %package bsx
 Summary:        Runtime layer for running Dola inside RPM builds
-Requires:       java-21-openjdk-headless
+Requires:       java-25-openjdk-headless
 Requires:       lujavrite
 Requires:       rpm-build
 

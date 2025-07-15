@@ -1,7 +1,7 @@
 %global appid eu.scarpetta.PDFMixTool
 
 Name:           pdfmixtool
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        An application to split, merge, rotate and mix PDF files
 

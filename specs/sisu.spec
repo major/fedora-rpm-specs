@@ -18,7 +18,7 @@ Patch:          0001-Add-ASM-support-for-Java-24-and-25.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject.extensions:guice-servlet)
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)

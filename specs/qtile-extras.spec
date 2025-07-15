@@ -1,11 +1,15 @@
 Name: qtile-extras
-Version: 0.29.0
-Release: 6%{?dist}
+Version: 0.32.0
+Release: 1%{?dist}
 Summary: A collection of mods for Qtile
 
 License: MIT
 URL: https://github.com/elParaguayo/qtile-extras
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Upstream uses the newer metadata labels to specify the project license.
+# However, they aren't supported in the Fedora build environment yet.
+Patch: 0001-Update-pyproject.toml-license-metadata.patch
 
 BuildArch: noarch
 
@@ -20,6 +24,7 @@ BuildRequires: gdk-pixbuf2-devel
 BuildRequires: python3-dbus-next
 BuildRequires: python3-gobject
 BuildRequires: python3-gobject-base
+BuildRequires: python3-dbus-fast
 
 # Test dependencies
 # In the ideal world, we would generate the Python dependencies dynamically
@@ -118,6 +123,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Sun Jul 13 2025 Jakub Kadlcik <frostyx@email.cz> - 0.32.0-1
+- New upstream version
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

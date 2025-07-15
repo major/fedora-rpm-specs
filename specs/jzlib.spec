@@ -12,7 +12,7 @@ Source0:        https://github.com/ymnk/jzlib/archive/%{version}.tar.gz
 # This patch is sent upstream: https://github.com/ymnk/jzlib/pull/15
 Patch:          jzlib-javadoc-fixes.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.1.3-37

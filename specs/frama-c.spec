@@ -5,11 +5,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        30.0
+Version:        31.0
 Release:        %autorelease
 Summary:        Framework for source code analysis of C software
 
-%global pkgversion %{version}-Zinc
+%global pkgversion %{version}-Gallium
 
 # Licensing breakdown in source file frama-c.licensing
 License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception
@@ -41,9 +41,6 @@ Patch:          %{name}-bytes.patch
 # Expose use of math library symbols to RPM
 Patch:          %{name}-mathlib.patch
 
-# Adapt to changes in why3 1.8.0
-Patch:          %{name}-why3.1.8.0.patch
-
 # Adapt to changes in C23
 Patch:          %{name}-c23.patch
 
@@ -59,22 +56,23 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-apron-devel
-BuildRequires:  ocaml-dune >= 3.13.0
+BuildRequires:  ocaml-dune > 3.13.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-dune-site-devel >= 3.13.0
+BuildRequires:  ocaml-dune-site-devel > 3.13.0
 BuildRequires:  ocaml-lablgtk3-devel >= 3.1.0
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel
 BuildRequires:  ocaml-menhir >= 20181006
 BuildRequires:  ocaml-mlmpfr-devel
-BuildRequires:  ocaml-ocamlgraph-devel >= 2.1.0
+BuildRequires:  ocaml-ocamlgraph-devel >= 2.2.0
 BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppx-deriving-yaml-devel >= 0.2.0
 BuildRequires:  ocaml-ppx-deriving-yojson-devel
 BuildRequires:  ocaml-unionfind-devel >= 20220107
-BuildRequires:  ocaml-why3-devel >= 1.7.1
+BuildRequires:  ocaml-why3-devel >= 1.8.0
 BuildRequires:  ocaml-yaml-devel >= 3.0.0
 BuildRequires:  ocaml-yojson-devel >= 2.0.1
 BuildRequires:  ocaml-zarith-devel >= 1.9
+BuildRequires:  ocaml-zip-devel
 BuildRequires:  ocaml-zmq-devel
 BuildRequires:  pandoc
 BuildRequires:  python3-devel
@@ -150,10 +148,10 @@ sed -ri 's/^CP[[:blank:]]+=.*/& -p/' share/Makefile.common
 
 # Do not use env
 %py3_shebang_fix share/analysis-scripts
-%py3_shebang_fix share/machdeps
+%py3_shebang_fix share/machdeps/make_machdep
 %py3_shebang_fix src/plugins/e-acsl/examples/ensuresec/push-alerts
-%py3_shebang_fix src/plugins/e-acsl/scripts
-%py3_shebang_fix tests/compliance
+%py3_shebang_fix tests/libc
+%py3_shebang_fix tests/syntax/cpp-command.t
 
 %build
 %dune_build
@@ -230,7 +228,7 @@ fi
 # FIXME: tests fail on ppc6le due to redefinition of bool
 # FIXME: test issue-eacsl-40.1.exec.wtests fails on aarch64
 # FIXME: C23 has wreaked havoc on the test suite
-#%%ifarch x86_64
+#%%ifarch %{x86_64}
 #%%check
 #export PYTHONPATH=%%{buildroot}%%{ocamldir}/frama-c/lib/analysis-scripts
 #why3 config detect

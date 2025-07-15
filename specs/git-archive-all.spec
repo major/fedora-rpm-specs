@@ -2,7 +2,7 @@
 
 Name:           git-archive-all
 Version:        1.23.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Archive git repository with its submodules
 
 License:        MIT
@@ -10,7 +10,6 @@ URL:            https://github.com/Kentzo/git-archive-all
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 # git-submodule is in git, not in git-core
 Requires:       git
 
@@ -21,23 +20,33 @@ BuildArch:      noarch
 
 %prep
 %autosetup
-#sed -i -e '1{\@^#! /usr/bin/env python@d}' %{modname}.py
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
-%files
-%license LICENSE.txt
+
+%check
+%pyproject_check_import
+
+
+%files -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/%{name}
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}.py
-%{python3_sitelib}/__pycache__/%{modname}.*
+
 
 %changelog
+* Sun Jul 13 2025 Richard Shaw <hobbes1069@gmail.com> - 1.23.1-11
+- Move from deprecated setup.py to pyproject build.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.23.1-10
 - Rebuilt for Python 3.14
 

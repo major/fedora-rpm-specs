@@ -26,7 +26,7 @@ Patch:          %{name}-build.patch
 # Patch the manifest so that it includes OSGi stuff
 Patch:          %{name}-manifest.patch
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  apache-parent
 BuildRequires:  xml-commons-apis >= 1.4.01

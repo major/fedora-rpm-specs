@@ -1,14 +1,19 @@
 Name:           python-oauth
 Version:        1.0.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Library for OAuth version 1.0a
 
 License:        MIT
 URL:            http://code.google.com/p/oauth/
 Source0:        http://pypi.python.org/packages/source/o/oauth/oauth-%{version}.tar.gz
 
+# In Python 3 urlparse is urllib.parse
+Patch0:         oauth-python3.patch
+
 BuildArch:      noarch
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel
+# Needed for %%check
+BuildRequires:  python3-cgi
 
 %global _description\
 Library for OAuth version 1.0a.\
@@ -18,28 +23,40 @@ Library for OAuth version 1.0a.\
 
 %package -n python3-oauth
 Summary: %summary
-%{?python_provide:%python_provide python3-oauth}
 
 %description -n python3-oauth %_description
 
+
 %prep
-%autosetup -n oauth-%{version}
+%autosetup -p1 -n oauth-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files '*'
  
 
-%files -n python3-oauth
+%check
+%pyproject_check_import
+
+
+%files -n python3-oauth -f %{pyproject_files}
 %doc LICENSE.txt
-%{python3_sitelib}/*
 
 
 %changelog
+* Sun Jul 13 2025 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-40
+- Update to use pyproject over deprecated setuptools for builds.
+- Add patch for urlparse as for Python 3 it has been moved to urllib.parse.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-39
 - Rebuilt for Python 3.14
 

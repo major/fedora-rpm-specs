@@ -3,8 +3,8 @@
 # License text: https://spdx.org/licenses/MIT
 
 Name:           python-zstarfile
-Version:        0.2.0
-Release:        6%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Tarfile extension with additional compression algorithms and PEP 706 by default
 
 
@@ -15,16 +15,15 @@ Source0:        %{furl}/refs/download/v%{version}/zstarfile-%{version}.tar.gz
 Source1:        %{furl}/refs/download/v%{version}/zstarfile-%{version}.tar.gz.asc
 Source2:        https://meta.sr.ht/~gotmax23.pgp
 
-# Test Python 3.13 and add basic support for 3.14 and drop 3.8
-# https://git.sr.ht/~gotmax23/zstarfile/commit/be51fe5010c76177547954c4fc7ef6a24b3d4f30
-Patch:          0001-Test-Python-3.13-and-add-basic-support-for-3.14-and-.patch
-
 BuildArch:      noarch
 
 BuildRequires:  gnupg2
 BuildRequires:  python3-devel
 
-Recommends:     %{py3_dist zstarfile[all]}
+# zstandard is part of stdlib on Python 3.14, so no need to pull in pyzstd by default.
+# Zstarfile still provides an option pyzstopen method that uses pyzstd.
+Recommends:     (%{py3_dist zstarfile[zstandard]} if python(abi) < 3.14)
+Recommends:     python3-zstarfile+lz4
 
 %global _description %{expand:
 zstarfile is a tarfile extension with additional compression algorithms and
@@ -67,6 +66,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-zstarfile all lz4 zstandard
 
 %changelog
+* Sun Jul 13 2025 Maxwell G <maxwell@gtmx.me> - 0.3.0-1
+- Update to 0.3.0.
+
 * Tue Jun 10 2025 Maxwell G <maxwell@gtmx.me> - 0.2.0-6
 - Fix build with Python 3.14
 

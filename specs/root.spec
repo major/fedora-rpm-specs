@@ -37,9 +37,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.36.00
+Version:	6.36.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -94,13 +94,11 @@ Patch9:		%{name}-Use-size_t-for-offset.patch
 #		Fix 32 bit test failure
 #		https://github.com/root-project/root/pull/18993
 Patch10:	%{name}-Fix-test-for-32-bit-architectures.patch
-#		Remove extra 0 in release number
-Patch11:	%{name}-Update-release-number.patch
 #		https://github.com/root-project/root/issues/18988
 #		https://github.com/root-project/root/pull/19014
 #		https://github.com/root-project/root/pull/19107
-Patch12:	%{name}-Python-Update-reference-refcount-values-for-Python-3.patch
-Patch13:	%{name}-Python-Update-reference-refcount-values-for-Python-3x.patch
+Patch11:	%{name}-Python-Update-reference-refcount-values-for-Python-3.patch
+Patch12:	%{name}-Python-Update-reference-refcount-values-for-Python-3x.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1516,6 +1514,8 @@ provides a thin client (interface) to MySQL servers. Using this
 client, one can obtain information from a MySQL database into the
 ROOT environment.
 
+This package is deprecated and will be removed in the next release of ROOT.
+
 %package sql-odbc
 Summary:	ODBC plugin for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1525,6 +1525,8 @@ Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 This package contains the ODBC (Open DataBase Connectivity) plugin
 for ROOT, that allows transparent access to any kind of database that
 supports the ODBC protocol.
+
+This package is deprecated and will be removed in the next release of ROOT.
 
 %package sql-sqlite
 Summary:	Sqlite client plugin for ROOT
@@ -1547,6 +1549,8 @@ This package contains the PostGreSQL plugin for ROOT. This plugin
 provides a thin client (interface) to PostGreSQL servers. Using this
 client, one can obtain information from a PostGreSQL database into the
 ROOT environment.
+
+This package is deprecated and will be removed in the next release of ROOT.
 
 %package tmva
 Summary:	Toolkit for multivariate data analysis
@@ -1959,7 +1963,6 @@ This package contains utility functions for ntuples.
 %patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
-%patch -P13 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2461,6 +2464,12 @@ popd
 #
 # - test-webgui-ping
 #   error: Cannot display window in native
+#
+# - test-stressgraphics-firefox-skip3d:
+#   requires firefox...
+#
+# - tutorial-visualisation-webcanv-fonts_ttf.cxx:
+#   Requires web graphics
 excluded="\
 test-stressIOPlugins|\
 tutorial-analysis-dataframe-df101_h1Analysis|\
@@ -2486,42 +2495,27 @@ gtest-net-netxng-RRawFileNetXNG|\
 gtest-net-netxng-TNetXNGFileTest|\
 tutorial-analysis-parallel-mp_processSelector|\
 tutorial-tmva-tmva103_Application|\
-test-webgui-ping"
-
-# gtest-roofit-roofit-vectorisedPDFs-testLandau:
-# Expected equality of these values:
-#   nFarOff
-#     Which is: 1
-#   0u
-#     Which is: 0
-#
-# gtest-tree-treeplayer-ttreeindex-clone
-# gtest-tree-treeplayer-treetreeplayertestUnit:
-# Randomly fail - can't open file that was just created - race condition?
-#
-# test-stressgraphics-firefox-skip3d:
-# requires firefox...
-#
-# tutorial-visualisation-webcanv-fonts_ttf.cxx:
-# Requires web graphics
-excluded="${excluded}|\
-gtest-roofit-roofit-vectorisedPDFs-testLandau|\
-gtest-tree-treeplayer-ttreeindex-clone|\
-gtest-tree-treeplayer-treetreeplayertestUnit|\
+test-webgui-ping|\
 test-stressgraphics-firefox-skip3d|\
 tutorial-visualisation-webcanv-fonts_ttf.cxx"
 
+# Duplicated tests
+# https://github.com/root-project/root/issues/19346
+# - gtest-tree-treeplayer-ttreeindex-clone
+# - gtest-tree-treeplayer-ttreeindex-getlistoffriends
+# - gtest-tree-treeplayer-ttreereader-friends
+excluded="${excluded}|\
+gtest-tree-treeplayer-ttreeindex-clone|\
+gtest-tree-treeplayer-ttreeindex-getlistoffriends|\
+gtest-tree-treeplayer-ttreereader-friends"
+
 %ifarch %{ix86}
-# - gtest-tree-dataframe-dataframe-concurrency
-#   "There's already an active task arena."
-#
-# - gtest-hist-hist-TFormulaGradientTests|\
+# - gtest-hist-hist-TFormulaGradientTests
 #   out of memory
 #
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views
 #   ValueError: buffer is smaller than requested size
 excluded="${excluded}|\
-gtest-tree-dataframe-dataframe-concurrency|\
 gtest-hist-hist-TFormulaGradientTests|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views"
 %endif
@@ -2546,6 +2540,12 @@ gtest-tree-ntuple-ntuple-evolution"
 # - ZeroDivisionError: float division by zero
 excluded="${excluded}|\
 tutorial-roofit-roostats-StandardBayesianMCMCDemo-py"
+%endif
+
+%if %{?rhel}%{!?rhel:0} >= 10
+excluded="${excluded}|\
+test-stressgraphics\$\$|\
+test-stressgraphics-interpreted"
 %endif
 %endif
 
@@ -2687,6 +2687,7 @@ RNTuple.StdAtomic:\
 %ifarch s390x
 InterpreterTest.Evaluate:\
 TClingDataMemberInfo.Offset:\
+TTreeReaderBasic.LorentzVector32:\
 %endif
 RCsvDS.Remote:\
 RNTuple.OpenHTTP:\
@@ -3580,6 +3581,9 @@ fi
 %endif
 
 %changelog
+* Sun Jul 13 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.02-1
+- Update to 6.36.02
+
 * Thu Jul 10 2025 Stephen Gallagher <sgallagh@redhat.com> - 6.36.00-3
 - Rebuilt for libarrow 20
 

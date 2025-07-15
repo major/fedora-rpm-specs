@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
 # Automatically converted from old format: MIT and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -10,6 +10,7 @@ License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
 URL:            http://py.readthedocs.io/
 Source:         %{pypi_source}
 BuildArch:      noarch
+BuildRequires:  python3-devel
 
 %description
 The py lib is a Python development support library featuring the
@@ -24,11 +25,7 @@ following tools and modules:
 
 %package -n python3-%{srcname}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
 Requires:       python3-setuptools
-%{?python_provide:%python_provide python3-%{srcname}}
 Provides:       bundled(python3-apipkg) = 2.0
 Provides:       bundled(python3-iniconfig) = 1.1.1
 Obsoletes:      platform-python-%{srcname} < %{version}-%{release}
@@ -54,31 +51,39 @@ find . \
    -exec chmod u=rw,go=r {} \;
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 # Remove bundled dist/egg-info directories, they shouldn't be shipped for
 # bundled modules and in some cases they could confuse automatic generators
 # that read the dist/egg-info data.
 rm -rf %{buildroot}%{python3_sitelib}/py/_vendored_packages/*.{dist,egg}-info
+sed -i -r -e '/\/py\/_vendored_packages\/.*(dist|egg)-info/d' %{pyproject_files}
 
 
 %check
+%pyproject_check_import
+
 %py3_check_import %{srcname}
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG.rst
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/py-*.egg-info/
-%{python3_sitelib}/py/
 
 
 %changelog
+* Sun Jul 13 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.11.0-16
+- Update for current Python packaging guidelines.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.11.0-15
 - Rebuilt for Python 3.14
 

@@ -9,9 +9,8 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/clarkware/jdepend/archive/refs/tags/2.10.tar.gz#/jdepend-2.10.tar.gz
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
-BuildRequires:  java-devel
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 2.10-27
 

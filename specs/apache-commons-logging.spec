@@ -14,7 +14,7 @@ Source0:        https://www.apache.org/dist/commons/logging/source/commons-loggi
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.logging.log4j:log4j-1.2-api)

@@ -2,18 +2,14 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-yojson
-Version:        2.2.2
-Release:        3%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
 URL:            https://github.com/ocaml-community/yojson
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/yojson-%{version}.tbz
-# Expose a dependency on the math library so RPM can see it
-Patch0:         %{name}-mathlib.patch
-# Fedora does not need the seq forward compatibility library
-Patch1:         %{name}-seq.patch
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel >= 0.8.5
@@ -55,6 +51,7 @@ supports parsing JSON5 to Yojson.Basic.t and Yojson.Safe.t types.
 Summary:        Development files for %{name}-five
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:       %{name}-five%{?_isa} = %{version}-%{release}
+Requires:       ocaml-sedlex-devel%{?_isa}
 
 %description    five-devel
 The %{name}-five-devel package contains libraries and signature
@@ -93,6 +90,10 @@ files for developing applications that use %{name}-five.
 
 
 %changelog
+* Tue Jul 01 2025 Jerry James  <loganjerry@gmail.com> - 3.0.0-1
+- Version 3.0.0
+- Drop all patches
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           qgit
-Version:        2.11
+Version:        2.12
 Release:        1%{?dist}
 Summary:        GUI browser for git repositories
 
@@ -9,7 +9,7 @@ URL:            https://github.com/tibirna/qgit
 Source0:        https://github.com/tibirna/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  libappstream-glib
 Requires:       git-core >= 1.4.0
 
@@ -43,6 +43,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Sun Jul 13 2025 Dan Horák <dan[at]danny.cz> - 2.12-1
+- Update to the new upstream version 2.12 (rhbz#2379770)
+
 * Fri May 02 2025 Dan Horák <dan[at]danny.cz> - 2.11-1
 - Update to the new upstream version 2.11
 

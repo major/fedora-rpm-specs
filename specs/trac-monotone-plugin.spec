@@ -4,7 +4,7 @@
 
 Name:           trac-monotone-plugin
 Version:        0.0.15
-Release:        0.13.%{tardate}mtn%{tarrev}%{?dist}
+Release:        0.14.%{tardate}mtn%{tarrev}%{?dist}
 Summary:        Monotone version control plugin for Trac
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -15,7 +15,6 @@ URL:            http://tracmtn.1erlei.de/
 Source:         %{tarname}.tar.bz2
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       python3-setuptools
 Requires:       trac >= 1.5
 Requires:       monotone >= 1.1
@@ -29,22 +28,27 @@ This Trac plugin provides support for the Monotone SCM.
 %autosetup -n %{tarname}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l tracmtn
 
 
-%files
+%files -f %{pyproject_files}
 %doc README
-%license COPYING
-%{python3_sitelib}/TracMonotone-*.egg-info/
-%{python3_sitelib}/tracmtn/
 
 
 %changelog
+* Sun Jul 13 2025 Thomas Moschny <thomas.moschny@gmx.de> - 0.0.15-0.14.20210704mtn34341a53
+- Update for current Python packaging guidelines.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.15-0.13.20210704mtn34341a53
 - Rebuilt for Python 3.14
 

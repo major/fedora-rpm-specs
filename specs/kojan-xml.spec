@@ -14,7 +14,7 @@ Source0:        https://github.com/mizdebsk/kojan-xml/archive/refs/tags/1.0.1.ta
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)

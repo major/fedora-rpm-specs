@@ -11,7 +11,7 @@ Source0:        https://archive.apache.org/dist/commons/net/source/commons-net-%
 Source1:        https://downloads.apache.org/commons/net/source/commons-net-%{version}-src.tar.gz.asc
 Source2:        https://downloads.apache.org/commons/KEYS
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)

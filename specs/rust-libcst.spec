@@ -8,7 +8,7 @@
 %global crate libcst
 
 Name:           rust-libcst
-Version:        1.7.0
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Python parser and Concrete Syntax Tree library
 
@@ -21,6 +21,7 @@ Source:         %{crates_source}
 Patch:          libcst-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 A Python parser and Concrete Syntax Tree library.}
@@ -71,6 +72,8 @@ use the "trace" feature of the "%{crate}" crate.
 %cargo_prep
 # drop a test that requires fixtures which are not included in published crates
 rm tests/parser_roundtrip.rs
+# fix CRLF line endings in all source files
+find -type f -print -exec dos2unix --keepdate {} +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

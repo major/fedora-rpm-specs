@@ -24,7 +24,7 @@ Patch:          0001-Adapt-build.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  ant-junit
 %endif

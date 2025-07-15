@@ -15,7 +15,7 @@ Source100:      https://repo1.maven.org/maven2/org/apiguardian/apiguardian-api/%
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.1.2-28

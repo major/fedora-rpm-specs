@@ -91,7 +91,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple::sources:)
 
 Requires: %{name}-lib = %{epoch}:%{version}-%{release}
 Requires: %{name}-jdk-binding
-Suggests: %{name}-openjdk21 = %{epoch}:%{version}-%{release}
+Suggests: %{name}-openjdk25 = %{epoch}:%{version}-%{release}
 
 Requires(post): alternatives
 Requires(postun): alternatives

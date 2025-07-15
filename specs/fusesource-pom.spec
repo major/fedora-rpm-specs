@@ -14,7 +14,7 @@ Source0:        https://github.com/fusesource/mvnplugins/archive/refs/tags/fuses
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 %endif
 
 %description

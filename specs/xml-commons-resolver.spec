@@ -16,7 +16,7 @@ Source8:        %{name}-xread.1
 Patch:          %{name}-1.2-crosslink.patch
 Patch:          %{name}-1.2-osgi.patch
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  apache-parent
 # TODO Remove in Fedora 46

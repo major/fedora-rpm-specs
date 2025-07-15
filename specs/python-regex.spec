@@ -9,9 +9,11 @@ Summary:        Alternative regular expression module, to replace re
 License:        LicenseRef-Callaway-Python AND CNRI-Python
 URL:            https://bitbucket.org/mrabarnett/mrab-regex
 Source0:        https://files.pythonhosted.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  gcc
+# needed for processing README.rst
 BuildRequires:  /usr/bin/rst2html
 BuildRequires:  python3-pygments
-BuildRequires:  gcc
 
 %global _description %{expand:
 This new regex implementation is intended eventually to replace
@@ -25,8 +27,6 @@ implementation is in the form of a module called 'regex'.}
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %description -n python%{python3_pkgversion}-%{srcname} %_description
 
@@ -35,22 +35,30 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 # rebuild the HTML doc
 rst2html docs/UnicodeProperties.rst > docs/UnicodeProperties.html
 rst2html README.rst > README.html
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%check
+%pyproject_check_import
+
+
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.html
 %doc docs/Features.html
 %doc docs/UnicodeProperties.html
-%{python3_sitearch}/*
 
 
 %autochangelog

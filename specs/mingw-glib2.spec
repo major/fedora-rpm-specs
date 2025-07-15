@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.85.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -181,7 +181,7 @@ find %{buildroot} -name "*.la" -delete
 
 # Win32
 %files -n mingw32-glib2 -f mingw32-glib20.lang
-%license COPYING
+%license LICENSES/LGPL-2.1-or-later.txt
 %{mingw32_bindir}/gdbus.exe
 %{mingw32_bindir}/gi-compile-repository.exe
 %{mingw32_bindir}/gi-decompile-typelib.exe
@@ -239,7 +239,7 @@ find %{buildroot} -name "*.la" -delete
 
 # Win64
 %files -n mingw64-glib2 -f mingw64-glib20.lang
-%license COPYING
+%license LICENSES/LGPL-2.1-or-later.txt
 %{mingw64_bindir}/gdbus.exe
 %{mingw64_bindir}/gi-compile-repository.exe
 %{mingw64_bindir}/gi-decompile-typelib.exe
@@ -297,6 +297,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 2.85.1-2
+- Fix incorrectly installed license file
+
 * Sun Jun 15 2025 Sandro Mani <manisandro@gmail.com> - 2.85.1-1
 - Update to 2.85.1
 

@@ -18,7 +18,7 @@ Source1:        https://github.com/stephenc/jcip-annotations/archive/refs/tags/j
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 # TODO Remove in Fedora 46

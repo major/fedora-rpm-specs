@@ -13,7 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/java-schema-utilities/%{name}/archive/refs/tags/relaxngDatatype-%{version}.tar.gz
 Source1:        copying.txt
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 2011.1-14
 

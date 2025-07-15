@@ -24,7 +24,7 @@ BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)

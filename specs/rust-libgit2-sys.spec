@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libgit2-sys
-%global crate_version 0.18.1+1.9.0
+%global crate_version 0.18.2+1.9.1
 
 Name:           rust-libgit2-sys
-Version:        0.18.1
+Version:        0.18.2
 Release:        %autorelease
 Summary:        Native bindings to the libgit2 library
 
@@ -38,7 +38,7 @@ Native bindings to the libgit2 library.}
 Summary:        %{summary}
 BuildArch:      noarch
 
-Provides:       bundled(libgit2) = 1.9.0
+Provides:       bundled(libgit2) = 1.9.1
 Provides:       bundled(llhttp) = 9.2.1
 Provides:       bundled(pcre) = 8.45
 
@@ -130,6 +130,7 @@ use the "vendored" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
+%cargo_prep
 # remove upstream development scripts from libgit2
 rm -r libgit2/script/
 # remove unused bundled dependencies
@@ -137,7 +138,6 @@ rm -r libgit2/deps/chromium-zlib
 rm -r libgit2/deps/ntlmclient
 rm -r libgit2/deps/winhttp
 rm -r libgit2/deps/zlib
-%cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires

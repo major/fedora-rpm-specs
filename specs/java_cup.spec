@@ -24,7 +24,7 @@ Patch:          0002-Set-Java-source-target-to-1.8.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  java_cup
 BuildRequires:  jflex

@@ -14,7 +14,7 @@ Source0:        https://github.com/jakartaee/cdi/archive/%{version}.tar.gz
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif

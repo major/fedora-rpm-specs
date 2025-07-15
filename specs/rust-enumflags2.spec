@@ -5,7 +5,7 @@
 %global crate enumflags2
 
 Name:           rust-enumflags2
-Version:        0.7.11
+Version:        0.7.12
 Release:        %autorelease
 Summary:        Enum-based bit flags
 

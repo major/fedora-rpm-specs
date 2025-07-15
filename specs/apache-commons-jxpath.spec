@@ -16,7 +16,7 @@ Patch:          commons-jxpath-mockrunner.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-beanutils:commons-beanutils)
 BuildRequires:  mvn(jdom:jdom)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)

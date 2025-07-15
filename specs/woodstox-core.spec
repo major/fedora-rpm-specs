@@ -19,7 +19,7 @@ Patch:          0002-Patch-out-optional-support-for-msv-and-relax-schema-.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(biz.aQute.bnd:biz.aQute.bnd.annotation)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)

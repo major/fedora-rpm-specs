@@ -13,7 +13,7 @@ Source1:        %{name}-pom.xml
 Patch:          build-file.patch
 Patch:          build.properties.patch
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 BuildRequires:  apache-commons-logging
 BuildRequires:  apache-parent

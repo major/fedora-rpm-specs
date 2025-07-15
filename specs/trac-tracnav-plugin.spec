@@ -2,7 +2,7 @@
 
 Name:           trac-tracnav-plugin
 Version:        4.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Navigation Bar for Trac
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,9 +10,6 @@ URL:            https://svn.ipd.kit.edu/trac/javaparty/wiki/TracNav
 Source0:        %{pypi_source}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-toml
 Requires:       trac >= 0.11
 
 %description
@@ -28,22 +25,27 @@ that was originally supplied with Trac.
 %autosetup -n TracNav-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l tracnav
 
 
-%files
+%files -f %{pyproject_files}
 %doc README.md
-%license COPYING
-%{python3_sitelib}/TracNav-*.egg-info/
-%{python3_sitelib}/tracnav/
 
 
 %changelog
+* Sun Jul 13 2025 Thomas Moschny <thomas.moschny@gmx.de> - 4.3-17
+- Stop using deprecated macros (rhbz#2378479).
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.3-16
 - Rebuilt for Python 3.14
 

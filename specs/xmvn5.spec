@@ -76,7 +76,7 @@ Requires:       plexus-sec-dispatcher4
 Requires:       plexus-utils4
 Requires:       sisu
 Requires:       slf4j2
-Suggests:       maven4-openjdk21
+Suggests:       maven4-openjdk25
 
 %description minimal
 This package provides minimal version of XMvn, incapable of using

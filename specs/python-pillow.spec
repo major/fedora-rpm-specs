@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        11.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -42,15 +42,9 @@ BuildRequires:  openjpeg2-devel
 BuildRequires:  tk-devel
 BuildRequires:  zlib-devel
 
-BuildRequires:  python%{python3_pkgversion}-cffi
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-numpy
-BuildRequires:  python%{python3_pkgversion}-olefile
 BuildRequires:  python%{python3_pkgversion}-pytest
-%if %{with qt}
-BuildRequires:  python%{python3_pkgversion}-qt5
-%endif
-BuildRequires:  python%{python3_pkgversion}-setuptools
+
 %if %{with doc}
 BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-sphinx
@@ -58,10 +52,10 @@ BuildRequires:  python%{python3_pkgversion}-sphinx-copybutton
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 BuildRequires:  python%{python3_pkgversion}-sphinx-removed-in
 %endif
-BuildRequires:  python%{python3_pkgversion}-tkinter
+
 
 %if %{with mingw}
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-python3
 BuildRequires:  mingw32-python3-setuptools
@@ -76,7 +70,7 @@ BuildRequires:  mingw32-openjpeg2
 BuildRequires:  mingw32-tk
 BuildRequires:  mingw32-zlib
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-python3
 BuildRequires:  mingw64-python3-setuptools
@@ -195,9 +189,13 @@ MinGW Windows Python2 %{srcname} library.
 %autosetup -p1 -n Pillow-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # Native build
-%py3_build
+%pyproject_wheel
 
 # MinGW build
 %if %{with mingw}
@@ -214,21 +212,21 @@ rm -f docs/_build_py3/html/.buildinfo
 
 %install
 # Native build
+%pyproject_install
 install -d %{buildroot}/%{py3_incdir}/Imaging
 install -m 644 src/libImaging/*.h %{buildroot}/%{py3_incdir}/Imaging
-%py3_install
 
 # MinGW build
 %if %{with mingw}
 (
+%{mingw32_py3_install}
+%{mingw64_py3_install}
+
 install -d %{buildroot}/%{mingw32_py3_incdir}/Imaging
 install -m 644 src/libImaging/*.h %{buildroot}/%{mingw32_py3_incdir}/Imaging
 
 install -d %{buildroot}/%{mingw64_py3_incdir}/Imaging
 install -m 644 src/libImaging/*.h %{buildroot}/%{mingw64_py3_incdir}/Imaging
-
-%{mingw32_py3_install}
-%{mingw64_py3_install}
 
 # Remove sample scripts
 rm -rf %{buildroot}%{mingw32_bindir}
@@ -261,7 +259,7 @@ popd
 %doc README.md CHANGES.rst
 %license docs/COPYING
 %{python3_sitearch}/PIL/
-%{python3_sitearch}/pillow-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/pillow-%{version}.dist-info/
 # These are in subpackages
 %exclude %{python3_sitearch}/PIL/_imagingtk*
 %exclude %{python3_sitearch}/PIL/ImageTk*
@@ -308,6 +306,9 @@ popd
 
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 11.3.0-2
+- Use pyproject macros
+
 * Fri Jul 04 2025 Sandro Mani <manisandro@gmail.com> - 11.3.0-1
 - Update to 11.3.0
 

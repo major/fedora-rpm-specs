@@ -1,12 +1,13 @@
 Name:           google-authenticator
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One-time pass-code support using open standards
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/google/%{name}-libpam/
 Source0:        https://github.com/google/%{name}-libpam/archive/%{version}.zip
+Requires:       qrencode-libs
 BuildRequires:  pam-devel
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -51,6 +52,9 @@ make check
 
 
 %changelog
+* Sun Jul 13 2025 Marcel Haerry <mh+fedora@scrit.ch> - 1.11-2
+* Require qrencode-libs - Fixes #2367497
+
 * Sat Mar 01 2025 Marcel Haerry <mh+fedora@scrit.ch> - 1.11-1
 * Update to latest upstream: https://github.com/google/google-authenticator-libpam/releases/tag/1.11
 

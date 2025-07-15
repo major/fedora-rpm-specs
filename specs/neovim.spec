@@ -45,7 +45,7 @@
 %endif
 
 Name:           neovim
-Version:        0.11.2
+Version:        0.11.3
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT
@@ -429,16 +429,16 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/syntax/shared/README.txt
 
 %dir %{_datadir}/nvim/runtime/tutor
-%{_datadir}/nvim/runtime/tutor/tutor.tutor
-%{_datadir}/nvim/runtime/tutor/tutor.tutor.json
+%{_datadir}/nvim/runtime/tutor/*.tutor
+%{_datadir}/nvim/runtime/tutor/*.tutor.json
 
 %dir %{_datadir}/nvim/runtime/tutor/en
-%{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor
-%{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
+%{_datadir}/nvim/runtime/tutor/en/*.tutor
+%{_datadir}/nvim/runtime/tutor/en/*.tutor.json
 
 %dir %{_datadir}/nvim/runtime/tutor/ja
-%{_datadir}/nvim/runtime/tutor/ja/vim-01-beginner.tutor
-%{_datadir}/nvim/runtime/tutor/ja/vim-01-beginner.tutor.json
+%{_datadir}/nvim/runtime/tutor/ja/*.tutor
+%{_datadir}/nvim/runtime/tutor/ja/*.tutor.json
 
 %changelog
 %autochangelog

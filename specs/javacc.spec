@@ -47,9 +47,6 @@ License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://javacc.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
-# Fix javadoc errors in the JavaCharStream template
-# https://github.com/javacc/javacc/pull/257
-Patch:          0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -78,6 +75,8 @@ a tool called JJTree included with JavaCC), actions, debugging, etc.
 # ISC: docs/grammars/JSONParser.jjt
 License:        BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND (AFL-2.0 OR BSD-3-Clause) AND ISC
 Summary:        Manual for %{name}
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 7.0.13-5
 
 %description manual
 Manual for %{name}.
@@ -88,8 +87,6 @@ Requires:       %{name} = %{version}-%{release}
 
 %description demo
 Examples for %{name}.
-
-%{?javadoc_package}
 
 %prep
 %autosetup -p1 -C
@@ -120,7 +117,7 @@ build-jar-repository -p bootstrap javacc
 
 # There is maven pom which doesn't really work for building. The tests don't
 # work either (even when using bundled jars).
-%ant jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+%ant jar -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 # The pom dependencies are also wrong
 %mvn_artifact --skip-dependencies pom.xml target/javacc.jar
@@ -128,7 +125,7 @@ build-jar-repository -p bootstrap javacc
 %install
 %mvn_file : %{name}
 
-%mvn_install -J target/javadoc
+%mvn_install
 
 %jpackage_script javacc '' '' javacc javacc true
 ln -s javacc %{buildroot}%{_bindir}/javacc.sh

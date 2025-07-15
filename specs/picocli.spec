@@ -24,7 +24,7 @@ Source4:        https://repo1.maven.org/maven2/info/picocli/%{name}-shell-jline3
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
 %if %{with picocli_shell}

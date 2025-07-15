@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.13
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -68,6 +68,9 @@ Patch12:       mingw-python3_module-socket.patch
 Patch13:       mingw-python3_module-select.patch
 # Add -lpython<VER> to Libs: in pkgconfig (windows extensions need to be linked against libpython)
 Patch14:       mingw-python3_pkgconfig.patch
+
+# Backport upstream fix for CVE-2025-6069
+Patch15:       https://github.com/python/cpython/pull/135484.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -507,6 +510,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 3.11.13-2
+- Backport fix for CVE-2025-6069
+
 * Sat Jun 14 2025 Sandro Mani <manisandro@gmail.com> - 3.11.13-1
 - Update to 3.11.13
 

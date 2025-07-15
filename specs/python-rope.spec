@@ -1,26 +1,18 @@
-# Use forge macros to pull from GitHub
-%global forgeurl https://github.com/python-rope/rope
-
 Name:           python-rope
-Version:        1.13.0
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Python Code Refactoring Library
+
+%global forgeurl https://github.com/python-rope/rope
 %global tag %{version}
 %forgemeta
+
 License:        LGPL-3.0-or-later
 URL:            %forgeurl
 Source:         %forgesource
-# Fix tests failing with Python 3.13
-# https://github.com/python-rope/rope/issues/801
-Patch:          %{forgeurl}/pull/809.patch
-# Apply patch for Python 3.14
-# https://github.com/python-rope/rope/issues/810
-Patch:          %{forgeurl}/pull/818.patch
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-
 
 %global _description %{expand:
 Rope is the world’s most advanced open source Python refactoring

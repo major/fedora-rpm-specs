@@ -7,6 +7,7 @@ License:        MIT
 URL:            https://github.com/AsahiLinux/asahi-scripts
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         update-m1n1.sysconfig
+Source2:        15-update-m1n1.install
 
 BuildArch:      noarch
 
@@ -60,6 +61,9 @@ Requires:       bash
 Requires:       gzip
 Requires:       m1n1
 Requires:       uboot-images-armv8
+# grubby's /usr/lib/kernel/install.d/10-devicetree.install creates the
+# /boot/dtb symlink update-m1n1 uses to construct the 2nd stage m1n1 image
+Requires:       grubby
 
 %description -n update-m1n1
 Keep m1n1 up to date on Apple Silicon systems.
@@ -89,6 +93,9 @@ on system start.
 
 install -Ddpm0755 %{buildroot}%{_prefix}/lib/firmware/vendor
 install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
+# Install kernel-install script
+install -d -m 0755 %{buildroot}%{_kernel_install_dir}
+install -D -m 0755 -t %{buildroot}%{_kernel_install_dir} %{SOURCE2}
 
 %transfiletriggerin -n asahi-fwupdate -- %{_sbindir}/asahi-fwupdate %{_bindir}/asahi-fwextract
 %{_sbindir}/asahi-fwupdate || :
@@ -98,7 +105,7 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 
 # We can't use _libdir here because it gets incorrectly expanded to /usr/lib
-%transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /boot/dtb- /etc/m1n1.conf
+%transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /etc/m1n1.conf
 %{_sbindir}/update-m1n1 || :
 
 %files
@@ -124,6 +131,7 @@ grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 %files -n update-m1n1
 %license LICENSE
 %config(noreplace) %{_sysconfdir}/sysconfig/update-m1n1
+%{_kernel_install_dir}/15-update-m1n1.install
 %{_sbindir}/update-m1n1
 
 %files -n asahi-battery

@@ -2,13 +2,20 @@
 
 Name:           python-%{srcname}
 Version:        1.1.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Make Sphinx better at documenting Python functions and methods
 # Automatically converted from old format: MIT or ASL 2.0 - review is highly recommended.
 License:        LicenseRef-Callaway-MIT OR Apache-2.0
 URL:            https://github.com/python-trio/sphinxcontrib-trio
 Source0:        %{pypi_source}
 Patch0:         python-sphinxcontrib-trio-1.1.2.patch
+BuildRequires:  python3-devel
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-cssselect
+BuildRequires:  python3-lxml
+BuildRequires:  python3-pytest
+BuildRequires:  %{_bindir}/rst2html
+BuildRequires:  make
 BuildArch:      noarch
 
 %global desc                                                            \
@@ -28,14 +35,6 @@ especially inadequate in this case.)
 
 
 %package -n python3-%{srcname}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-cssselect
-BuildRequires:  python3-lxml
-BuildRequires:  python3-pytest
-BuildRequires:  %{_bindir}/rst2html
-BuildRequires:  make
 Summary: %{summary}
 
 %description -n python3-%{srcname}
@@ -46,30 +45,37 @@ Summary: %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 make -C docs html SPHINXBUILD=%{_bindir}/sphinx-build-3
 rm -f docs/build/html/.buildinfo
 rst2html README.rst README.html
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l sphinxcontrib_trio
 
 
-%files -n python3-%{srcname}
-%license LICENSE LICENSE.MIT LICENSE.APACHE2
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst README.html
 %doc docs/build/html
-%{python3_sitelib}/sphinxcontrib_trio
-%{python3_sitelib}/sphinxcontrib_trio-*.egg-info
 
 
 %check
+%pyproject_check_import
+
 # https://github.com/python-trio/sphinxcontrib-trio/issues/398
 %pytest -k 'not test_end_to_end'
 
 
 %changelog
+* Sun Jul 13 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.1.2-23
+- Update for current Python packaging guidelines.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1.2-22
 - Rebuilt for Python 3.14
 

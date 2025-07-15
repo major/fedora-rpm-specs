@@ -14,7 +14,7 @@ Source0:        https://github.com/joel-costigliola/assertj-core/archive/assertj
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(org.hamcrest:hamcrest)

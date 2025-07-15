@@ -16,7 +16,7 @@ Source1:        https://repo1.maven.org/maven2/org/hamcrest/hamcrest/%{upstream_
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 %endif
 # TODO Remove in Fedora 46

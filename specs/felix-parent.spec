@@ -14,7 +14,7 @@ Source0:        https://repo1.maven.org/maven2/org/apache/felix/felix-parent/%{v
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache:apache:pom:)
 %endif
 

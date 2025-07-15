@@ -13,9 +13,8 @@ Source2:        jakarta-%{name}-osgi-manifest.MF
 
 Patch:          jakarta-%{name}-attach-osgi-manifest.patch
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
-Requires:       java-headless
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.5-57
 Provides:       deprecated()

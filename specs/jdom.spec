@@ -49,7 +49,7 @@ Patch:          CVE-2021-33813.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 %endif
 # TODO Remove in Fedora 46

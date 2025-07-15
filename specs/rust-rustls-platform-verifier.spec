@@ -5,7 +5,7 @@
 %global crate rustls-platform-verifier
 
 Name:           rust-rustls-platform-verifier
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Supports verifying TLS certificates in rustls with the operating system verifier
 

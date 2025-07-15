@@ -8,7 +8,7 @@
 %global crate titlecase
 
 Name:           rust-titlecase
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Capitalize text according to the Daring Fireball style
 

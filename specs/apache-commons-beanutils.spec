@@ -16,7 +16,7 @@ Patch:          0001-Fix-CVE-2025-48734.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-collections:commons-collections)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)

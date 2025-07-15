@@ -28,12 +28,15 @@
 
 Name:           json-c
 Version:        0.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JSON implementation in C
 
 License:        MIT
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/%{name}-%{version}-%{reldate}.tar.gz
+
+# Add libver to mingw dll
+Patch0:         json-c_mingw-libver.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -176,7 +179,7 @@ unset USE_VALGRIND
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_includedir}/%{name}
-%{mingw32_bindir}/lib%{name}.dll
+%{mingw32_bindir}/lib%{name}-%{so_ver}.dll
 %{mingw32_libdir}/lib%{name}.dll.a
 %{mingw32_libdir}/cmake/%{name}
 %{mingw32_libdir}/pkgconfig/%{name}.pc
@@ -184,13 +187,16 @@ unset USE_VALGRIND
 %files -n mingw64-%{name}
 %license COPYING
 %{mingw64_includedir}/%{name}
-%{mingw64_bindir}/lib%{name}.dll
+%{mingw64_bindir}/lib%{name}-%{so_ver}.dll
 %{mingw64_libdir}/lib%{name}.dll.a
 %{mingw64_libdir}/cmake/%{name}
 %{mingw64_libdir}/pkgconfig/%{name}.pc
 %endif
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 0.18-4
+- Add libver to mingw dll
+
 * Sun Jun 15 2025 Sandro Mani <manisandro@gmail.com> - 0.18-3
 - Add mingw build
 

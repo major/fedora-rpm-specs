@@ -19,7 +19,7 @@ Source2:        %{name}-MANIFEST.MF
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 %endif
 # TODO Remove in Fedora 46

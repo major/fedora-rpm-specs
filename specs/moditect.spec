@@ -14,7 +14,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(com.github.javaparser:javaparser-core)
 BuildRequires:  mvn(junit:junit)

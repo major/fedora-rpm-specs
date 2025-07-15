@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -128,6 +128,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 4.3.6-3
+- Rebuild to fix OCaml dependencies
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.6-2
 - Rebuild for mbedtls 3.6
 

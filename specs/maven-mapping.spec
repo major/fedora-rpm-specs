@@ -14,7 +14,7 @@ Source0:        https://repo.maven.apache.org/maven2/org/apache/maven/shared/%{n
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
@@ -22,14 +22,11 @@ BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.0.0-46
+
 %description
 Maven shared component that implements file name mapping.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -37,15 +34,12 @@ API documentation for %{name}.
 %pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.source" "8" pom.xml
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

@@ -14,7 +14,7 @@ Source0:        https://docs.osgi.org/download/r8/osgi.core-%{version}.jar
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.osgi:osgi.annotation)
 %endif

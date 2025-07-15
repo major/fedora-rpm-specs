@@ -2,11 +2,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 2.8-stable
+%global source_directory 2.9-development
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.8.1
+Version:       2.9.1
 Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -315,6 +315,12 @@ done
 
 
 %changelog
+* Sun Jul 13 2025 Jerry James <loganjerry@gmail.com> - 1:2.9.1-2
+- Rebuild to fix OCaml dependencies again
+
+* Sun Jul 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.1-1
+- New upstream development version 2.9.1
+
 * Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 1:2.8.1-2
 - Rebuild to fix OCaml dependencies
 

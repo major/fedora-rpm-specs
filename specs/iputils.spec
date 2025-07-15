@@ -2,8 +2,8 @@
 
 Summary: Network monitoring tools including ping
 Name: iputils
-Version: 20240905
-Release: 4%{?dist}
+Version: 20250602
+Release: 1%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -15,8 +15,6 @@ Source1: ifenslave.tar.gz
 Source4: bsd.txt
 Source5: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
-# fix for CVE-2025-47268
-Patch1:   https://github.com/iputils/iputils/commit/070cfacd7348386173231fb16fad4983d4e6ae40.patch
 Patch100: iputils-ifenslave.patch
 Patch101: iputils-ifenslave-CWE-170.patch
 
@@ -92,6 +90,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Sun Jul 13 2025 Kevin Fenzi <kevin@scrye.com> - 20250602-1
+- Update to 20250602. Fixes rhbz#2369782
+
 * Sat May 17 2025 Kevin Fenzi <kevin@scrye.com> - 20240905-4
 - Add upstream patch for CVE-2025-47268.
 

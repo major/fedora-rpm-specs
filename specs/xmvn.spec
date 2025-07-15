@@ -17,7 +17,7 @@ Source25:       toolchains-openjdk25.xml
 BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
@@ -79,7 +79,7 @@ Requires:       plexus-sec-dispatcher
 Requires:       plexus-utils
 Requires:       sisu
 Requires:       slf4j
-Suggests:       maven-openjdk21
+Suggests:       maven-openjdk25
 
 %description minimal
 This package provides minimal version of XMvn, incapable of using

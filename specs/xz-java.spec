@@ -14,7 +14,7 @@ Source0:        https://tukaani.org/xz/xz-java-%{version}.zip
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant
 %endif
 # TODO Remove in Fedora 46
