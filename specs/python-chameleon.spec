@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        4.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        XML-based template compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -13,7 +13,6 @@ Source0:        https://github.com/malthe/chameleon/archive/%{version}/chameleon
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-lxml
 
 %generate_buildrequires
@@ -36,7 +35,6 @@ Summary: %summary
 
 Requires:   python3-setuptools
 Requires:   python3-lxml
-%{?python_provide:%python_provide python3-chameleon}
 
 %description -n python3-chameleon %_description
 
@@ -44,27 +42,27 @@ Requires:   python3-lxml
 %autosetup -n chameleon-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-
-# No need to ship tests as part of the module
-rm -rf  %{buildroot}%{python3_sitelib}/chameleon/tests
-# Data files for the tests
-find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
+%pyproject_install
+%pyproject_save_files chameleon
 
 %check
-#pytest
+%pyproject_check_import -e 'chameleon.tests*'
 %tox
 
 
-%files -n python3-chameleon
+%files -n python3-chameleon -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/chameleon/
-%{python3_sitelib}/Chameleon-%{version}*
+%exclude %{python3_sitelib}/chameleon/tests
+
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.6.0-4
+- Migrate from py_build/py_install to pyproject macros (bz#2378521)
+- Move deletes to files/exclude
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.6.0-3
 - Rebuilt for Python 3.14
 

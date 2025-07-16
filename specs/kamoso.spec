@@ -7,7 +7,7 @@
 
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
@@ -23,33 +23,26 @@ BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-solid-devel
-
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Purpose)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  kf6-rpm-macros
 
 BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(libaccounts-glib)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0)
-BuildRequires:  pkgconfig(Qt5Quick)
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Quick)
+
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  cmake(KF6Notifications)
 
 %if 0%{?tests}
 BuildRequires: mesa-libGL
@@ -59,10 +52,8 @@ BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: make
 
 # currently not linked, needs qml resources
-Requires: kf5-purpose%{?_isa} >= 1.1
-Requires: qt5-qtdeclarative%{?_isa}
-Requires: qt5-qtquickcontrols%{?_isa}
-Requires: qt5-qtgraphicaleffects%{?_isa}
+Requires: kf6-purpose%{?_isa}
+Requires: qt6-qtdeclarative%{?_isa}
 
 %description
 Kamoso is an application to take pictures and videos out of your webcam.
@@ -73,7 +64,7 @@ Kamoso is an application to take pictures and videos out of your webcam.
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} -Wno-dev
 
 %cmake_build
@@ -86,8 +77,8 @@ Kamoso is an application to take pictures and videos out of your webcam.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kamoso.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kamoso.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kamoso.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kamoso.desktop
 %if 0%{?tests}
 xvfb-run -a bash -c "%ctest"
 %endif
@@ -96,16 +87,18 @@ xvfb-run -a bash -c "%ctest"
 %files -f kamoso.lang
 %doc AUTHORS
 %license LICENSES/*
-%{_kf5_metainfodir}/org.kde.kamoso.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kamoso.desktop
-%{_kf5_bindir}/kamoso
-%{_kf5_datadir}/icons/hicolor/*/apps/kamoso.*
-%{_kf5_datadir}/icons/hicolor/*/actions/*
-%{_libdir}/gstreamer-1.0/gstkamosoqt5videosink.so
-%{_kf5_datadir}/knotifications5/%{name}*
+%{_kf6_metainfodir}/org.kde.kamoso.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kamoso.desktop
+%{_kf6_bindir}/kamoso
+%{_kf6_datadir}/icons/hicolor/*/apps/kamoso.*
+%{_kf6_datadir}/icons/hicolor/*/actions/*
+%{_kf6_datadir}/knotifications6/%{name}*
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

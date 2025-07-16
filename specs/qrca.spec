@@ -1,5 +1,5 @@
 Name:          qrca
-Version:       25.04.3
+Version:       25.07.80
 Release:       1%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
@@ -32,6 +32,7 @@ BuildRequires: cmake(KF6Service)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6NetworkManagerQt)
+BuildRequires: cmake(KF6DBusAddons)
 
 # Qml Imports
 Requires: qt6qml(org.kde.config)
@@ -68,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

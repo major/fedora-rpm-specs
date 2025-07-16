@@ -3,7 +3,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        25.04.3
+Version:        25.07.80
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
@@ -218,7 +218,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{_qt6_qmldir}/org/kde/plasma/private/kdevelopsessions/qmldir
 
 %files libs
-%{_libdir}/libKDev*.so.{61,62,6.*}
+%{_libdir}/libKDev*.so.{61,62,63,6.*}
 %{_libdir}/libKDevelopSessionsWatch.so
 %{_kf6_qtplugindir}/kdevplatform/
 %{_kf6_plugindir}/krunner/kdevelopsessions.so
@@ -234,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 9:25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 9:25.04.3-1
 - 25.04.3
 

@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -17,7 +17,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 #BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-paste-script
 
 %description
 %{desc}
@@ -29,7 +29,6 @@ Summary:        %{sum}
 #Requires:       python3-paste
 Requires:       python3-setuptools
 
-%{?python_provide:%python_provide python3-paste-deploy}
 
 
 %description -n python3-paste-deploy
@@ -40,32 +39,37 @@ Requires:       python3-setuptools
 %prep
 %setup -q -n %{srcname}-%{version}
 
-# Remove bundled egg-info if it exists
-rm -rf *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
 # disable coverage tests
 sed -i 's/ --cov//' pytest.ini
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files paste
 rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %check
+%pyproject_check_import
 %pytest
 
 
-%files -n python3-paste-deploy
+%files -n python3-paste-deploy -f %{pyproject_files}
 %license license.txt
-%{python3_sitelib}/PasteDeploy-*
-%{python3_sitelib}/paste/deploy
+%{python3_sitelib}/PasteDeploy-%{version}-py*-nspkg.pth
 
 
 %changelog
+* Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-9
+- Migrate from py_build/py_install to pyproject macros (bz#2377975)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.0-8
 - Rebuilt for Python 3.14
 

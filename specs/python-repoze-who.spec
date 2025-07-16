@@ -1,10 +1,8 @@
-%{?python_enable_dependency_generator}
-
 %global modname repoze.who
 
 Name:           python-repoze-who
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -14,7 +12,6 @@ Source0:        %pypi_source repoze_who
 BuildArch:      noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
 BuildRequires:      python3-pytest
 BuildRequires:      python3-coverage
 BuildRequires:      python3-zope-interface
@@ -51,30 +48,37 @@ considered to be the domain of the WSGI application.
 %prep
 %setup -q -n repoze_who-%{version}
 
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l repoze
 
 %check
+%pyproject_check_import
+
 #PYTHONPATH=$(pwd) %%{__python3} setup.py test
 %pytest -k "not test_crypt_check"
 
 
-%files -n python3-repoze-who
+%files -n python3-repoze-who -f %{pyproject_files}
 %doc README.rst CHANGES.rst CONTRIBUTORS.txt
-%license COPYRIGHT.txt LICENSE.txt
-%{python3_sitelib}/repoze/who/
-%{python3_sitelib}/%{modname}-*
+%license COPYRIGHT.txt
+%{python3_sitelib}/repoze.who-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-3
+- Migrate from py_build/py_install to pyproject macros (bz#2378163)
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 3.1.0-2
 - Rebuilt for Python 3.14
 

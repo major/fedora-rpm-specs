@@ -1,5 +1,5 @@
 Name: neochat
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
@@ -14,6 +14,7 @@ BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6TextToSpeech)
 %ifarch %{qt6_qtwebengine_arches}
 BuildRequires: cmake(Qt6WebView)
 %endif
@@ -122,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

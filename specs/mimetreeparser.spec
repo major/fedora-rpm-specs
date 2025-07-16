@@ -1,5 +1,5 @@
 Name:    mimetreeparser
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 Summary: Parser for MIME trees
 
@@ -20,6 +20,8 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KF6CalendarCore)
 BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KPim6Mbox)
 BuildRequires:  cmake(KPim6Libkleo)
@@ -75,6 +77,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

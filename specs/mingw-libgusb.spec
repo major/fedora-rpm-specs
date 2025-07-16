@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-libgusb
-Version:        0.4.5
+Version:        0.4.9
 Release:        %autorelease
 Summary:        GLib wrapper around libusb1 for MinGW
 
 License:        LGPL-2.1-or-later
-URL:            https://gitorious.org/gusb/
-Source0:        http://people.freedesktop.org/~hughsient/releases/libgusb-%{version}.tar.xz
+URL:            https://github.com/hughsie/libgusb
+Source0:        https://github.com/hughsie/libgusb/releases/download/%{version}/libgusb-%{version}.tar.xz
 
 BuildArch:      noarch
 BuildRequires:  meson

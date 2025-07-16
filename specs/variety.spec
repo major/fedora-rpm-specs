@@ -12,10 +12,9 @@ Version:        0.8.6
 Release:        0.12%{?snapshottag}%{?dist}
 %else
 Version:        0.8.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://github.com/varietywalls/variety
 
@@ -28,7 +27,6 @@ Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-configobj
 BuildRequires:  python3-lxml
@@ -60,9 +58,7 @@ Requires:       python3-pycurl
 Requires:       python3-requests
 Requires:       python3-httplib2
 Requires:       xorg-x11-fonts-Type1
-%if 0%{?fedora} >= 39
 Requires:       python3-zombie-imp
-%endif
 
 
 %description
@@ -91,21 +87,20 @@ desktop is always fresh and unique.
 %autosetup -p1
 %endif
 
-
-%if 0%{?fedora} >= 33
 # Replace deprecated getiterator() with iter()
 sed -i -e 's|getiterator|iter|' variety_lib/Builder.py
-%endif
 
 # remove debian part
 rm -rf debian
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-# Bytecompile Python modules
-%py_byte_compile %{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --root=%{buildroot}
+%pyproject_install
 
 %find_lang %{name}
 
@@ -121,7 +116,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/%{name}/
 %{python3_sitelib}/jumble/
-%{python3_sitelib}/%{name}-*-py*.egg-info
+%{python3_sitelib}/%{name}-*.dist-info
 %{python3_sitelib}/%{name}/
 %{python3_sitelib}/%{name}_lib/
 %{_datadir}/icons/hicolor/22x22/apps/%{name}-indicator-dark.png
@@ -129,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Wed Jul 09 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.8.13-3
+- Updated to use %%pyproject_* macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8.13-2
 - Rebuilt for Python 3.14
 

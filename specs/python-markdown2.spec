@@ -9,11 +9,8 @@ URL:            https://github.com/trentm/python-%{srcname}/
 Source0:        https://pypi.io/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-pygments
-BuildRequires:  python3-setuptools
 
-
-%description
+%global _description %{expand:
 Markdown is a text-to-HTML filter; it translates an easy-to-read /
 easy-to-write structured text format into HTML. Markdown's text format
 is most similar to that of plain text email, and supports features
@@ -23,36 +20,35 @@ This is a fast and complete Python implementation of the Markdown
 spec.
 
 For information about markdown itself, see
-http://daringfireball.net/projects/markdown/
+http://daringfireball.net/projects/markdown/}
+
+%description %_description
 
 
 %package -n python3-%{srcname}
 Summary:        A fast and complete Python implementation of Markdown
-%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname}
-Markdown is a text-to-HTML filter; it translates an easy-to-read /
-easy-to-write structured text format into HTML. Markdown's text format
-is most similar to that of plain text email, and supports features
-such as headers, emphasis, code blocks, blockquotes, and links.
+%description -n python3-%{srcname} %_description
 
-This is a fast and complete Python implementation of the Markdown
-spec.
 
-For information about markdown itself, see
-http://daringfireball.net/projects/markdown/
+# other dependencies (latex2mathml, wavedrom) not packaged
+%pyproject_extras_subpkg -n python3-%{srcname} code_syntax_highlighting
 
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # remove shebangs and fix permissions
 find %{buildroot}%{python3_sitelib} \
@@ -60,20 +56,21 @@ find %{buildroot}%{python3_sitelib} \
   -exec sed -i '1{/^#!/d}' {} \; \
   -exec chmod u=rw,go=r {} \;
 
+%pyproject_save_files -l %{srcname}
+
 
 %check
+%pyproject_check_import
+
 pushd test
 %{__python3} test.py -- -knownfailure %{?skip_tests} || :
 popd
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGES.md
 %doc CONTRIBUTORS.txt
 %doc TODO.txt
-%license LICENSE.txt
-%{python3_sitelib}/*
-%exclude %dir %{python3_sitelib}/__pycache__
 %{_bindir}/%{srcname}
 
 

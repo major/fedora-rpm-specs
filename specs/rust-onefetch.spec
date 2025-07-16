@@ -4,7 +4,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.24.0
+Version:        2.25.0
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -14,11 +14,14 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Patch out tests/repo.rs, which requires gix-testtools
 # * Use gix 0.70, gix-features 0.40; see Patch10
 # * Allow (older) rstest 0.23-0.24
-# * Allow (older) insta 1.42.1
-# * Loosen MSRV from 1.82.0 to 1.79.0
+# * Do not depend on criterion; it is needed only for benchmarks
+# * Patch out tests/repo.rs, which requires gix-testtools, and remove the
+#   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
+#   but the maintainer of the gix stack in Fedora does not intend to do so,
+#   reasonably citing upstream discouragement in
+#   https://github.com/Byron/gitoxide/discussions/900.
 Patch:          onefetch-fix-metadata.diff
 # * Downstream-only: Revert the source change associated with gix 0.71.
 # * Work with gix 0.70 for now, RHBZ#2357370.
@@ -27,7 +30,6 @@ Patch10:        0001-Revert-the-source-change-associated-with-gix-0.71.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  help2man
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Command-line Git information tool.}
@@ -76,7 +78,6 @@ License:        %{shrink:
 
 %files       -n %{crate}
 %license LICENSE.md
-%license resources/license.cache.zstd
 %license LICENSE.dependencies
 %doc CHANGELOG.md
 %doc CONTRIBUTING.md
@@ -98,7 +99,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.md
-%license %{crate_instdir}/resources/license.cache.zstd
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
@@ -131,16 +131,6 @@ use the "fail-on-deprecated" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on criterion; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.criterion
-# We could package gix-testtools as a test dependency, enabling (as of this
-# writing) five more tests. The maintainer of the gix stack in Fedora does
-# not intend to package it, citing upstream discouragement in
-# https://github.com/Byron/gitoxide/discussions/900. For now, we do without
-# the extra tests that it would enable.
-tomcli set Cargo.toml del dev-dependencies.gix-testtools
-# These tests require gix-testools:
-rm tests/repo.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

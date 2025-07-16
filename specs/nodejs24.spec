@@ -3,51 +3,51 @@
 %{load:%{_sourcedir}/nodejs.srpm.macros}
 
 # === Versions of any software shipped in the main nodejs tarball
-%nodejs_define_version node 1:24.0.1-%{autorelease} -p
+%nodejs_define_version node 1:24.4.0-%{autorelease} -p
 
 # The following ones are generated via script;
 # expect anything between the markers to be overwritten on any update.
 
 # BEGIN automatic-version-macros  # DO NOT REMOVE THIS LINE!
-# Version from node-v24.0.1/src/node_version.h
+# Version from node-v24.4.0/src/node_version.h
 %global node_soversion 137
 
-# Version from node-v24.0.1/deps/ada/ada.h
-%nodejs_define_version ada 3.2.3
-# Version from node-v24.0.1/deps/brotli/c/common/version.h
+# Version from node-v24.4.0/deps/ada/ada.h
+%nodejs_define_version ada 3.2.4
+# Version from node-v24.4.0/deps/brotli/c/common/version.h
 %nodejs_define_version brotli 1.1.0
-# Version from node-v24.0.1/deps/cares/include/ares_version.h
+# Version from node-v24.4.0/deps/cares/include/ares_version.h
 %nodejs_define_version c_ares 1.34.5
-# Version from node-v24.0.1/deps/histogram/include/hdr/hdr_histogram_version.h
+# Version from node-v24.4.0/deps/histogram/include/hdr/hdr_histogram_version.h
 %nodejs_define_version histogram 0.11.8
-# Version from node-v24.0.1/tools/icu/current_ver.dep
+# Version from node-v24.4.0/tools/icu/current_ver.dep
 %nodejs_define_version icu 77.1 -p
-# Version from node-v24.0.1/deps/uv/include/uv/version.h
-%nodejs_define_version libuv 1.50.0
-# Version from node-v24.0.1/deps/llhttp/include/llhttp.h
-%nodejs_define_version llhttp 9.2.1
-# Version from node-v24.0.1/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%nodejs_define_version nghttp2 1.64.0
-# Version from node-v24.0.1/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+# Version from node-v24.4.0/deps/uv/include/uv/version.h
+%nodejs_define_version libuv 1.51.0
+# Version from node-v24.4.0/deps/llhttp/include/llhttp.h
+%nodejs_define_version llhttp 9.3.0
+# Version from node-v24.4.0/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+%nodejs_define_version nghttp2 1.66.0
+# Version from node-v24.4.0/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 1.6.0
-# Version from node-v24.0.1/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+# Version from node-v24.4.0/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
 %nodejs_define_version ngtcp2 1.11.0
-# Version from node-v24.0.1/deps/cjs-module-lexer/src/package.json
+# Version from node-v24.4.0/deps/cjs-module-lexer/src/package.json
 %nodejs_define_version nodejs-cjs-module-lexer 2.1.0
-# Version from node-v24.0.1/lib/punycode.js
+# Version from node-v24.4.0/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
-# Version from node-v24.0.1/deps/undici/src/package.json
-%nodejs_define_version nodejs-undici 7.8.0
-# Version from node-v24.0.1/deps/npm/package.json
-%nodejs_define_version npm 1:11.3.0
-# Version from node-v24.0.1/deps/sqlite/sqlite3.h
-%nodejs_define_version sqlite 3.49.1
-# Version from node-v24.0.1/deps/uvwasi/include/uvwasi.h
+# Version from node-v24.4.0/deps/undici/src/package.json
+%nodejs_define_version nodejs-undici 7.11.0
+# Version from node-v24.4.0/deps/npm/package.json
+%nodejs_define_version npm 1:11.4.2
+# Version from node-v24.4.0/deps/sqlite/sqlite3.h
+%nodejs_define_version sqlite 3.50.2
+# Version from node-v24.4.0/deps/uvwasi/include/uvwasi.h
 %nodejs_define_version uvwasi 0.0.21
-# Version from node-v24.0.1/deps/v8/include/v8-version.h
-%nodejs_define_version v8 3:13.6.233.8 -p
-# Version from node-v24.0.1/deps/zlib/zlib.h
-%nodejs_define_version zlib 1.3.0.1-motley
+# Version from node-v24.4.0/deps/v8/include/v8-version.h
+%nodejs_define_version v8 3:13.6.233.10 -p
+# Version from node-v24.4.0/deps/zlib/zlib.h
+%nodejs_define_version zlib 1.3.1
 # END automatic-version-macros  # DO NOT REMOVE THIS LINE!
 
 # Special release for sub-packages with their own version string.
@@ -151,9 +151,6 @@ Source101:      nodejs.srpm.macros
 
 %patchlist
 0001-Remove-unused-OpenSSL-config.patch
-0002-build-look-for-libnode.so-in-lib-subdirectory.patch
-0003-tools-make-nodedownload-module-compatible-with-Pytho.patch
-0004-tools-Compile-maglev-files-into-v8_compiler-if-magle.patch
 0005-v8-highway-Fix-for-GCC-15-compiler-error-on-PPC8-PPC.patch
 
 %description

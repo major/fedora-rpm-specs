@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20250426.1
+Version:        20250713
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 
@@ -94,8 +94,7 @@ on system start.
 install -Ddpm0755 %{buildroot}%{_prefix}/lib/firmware/vendor
 install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 # Install kernel-install script
-install -d -m 0755 %{buildroot}%{_kernel_install_dir}
-install -D -m 0755 -t %{buildroot}%{_kernel_install_dir} %{SOURCE2}
+install -Dpm0755 -t %{buildroot}%{_kernel_install_dir} %{SOURCE2}
 
 %transfiletriggerin -n asahi-fwupdate -- %{_sbindir}/asahi-fwupdate %{_bindir}/asahi-fwextract
 %{_sbindir}/asahi-fwupdate || :

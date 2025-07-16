@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Library and utilities for automated guest OS installs
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
@@ -46,6 +46,10 @@ Patch: 0026-tests-mock-network-functions-so-tests-work-with-no-n.patch
 # Rename a man page (missed in 0001-Move-oz-examples.1-to-man-page-section-5-instead.patch )
 Patch: 0001-Really-rename-oz-examples.1-to-oz-examples.5.patch
 
+# https://github.com/clalancette/oz/pull/318
+# Avoid monotonic dependency
+Patch: 0001-Switch-to-time.monotonic.patch
+
 BuildArch: noarch
 
 BuildRequires: python3
@@ -58,7 +62,6 @@ BuildRequires: python3-libvirt
 BuildRequires: python3-lxml
 BuildRequires: python3-libguestfs
 BuildRequires: python3-pytest
-BuildRequires: python3-monotonic
 BuildRequires: libvirt-daemon
 BuildRequires: libvirt-daemon-kvm
 BuildRequires: libvirt-daemon-qemu
@@ -69,7 +72,6 @@ Requires: python3-lxml
 Requires: python3-libguestfs >= 1.18
 Requires: python3-libvirt
 Requires: python3-cryptography
-Requires: python3-monotonic
 Requires: python3-requests
 # in theory, oz doesn't really require libvirtd to be local to operate
 # properly.  However, because of the libguestfs manipulations, in practice
@@ -141,6 +143,9 @@ libvirtd -d
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Tue Jun 24 2025 Carl George <carlwgeorge@fedoraproject.org> - 0.18.1-20
+- Backport PR #318 to avoid monotonic dependency
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.18.1-19
 - Rebuilt for Python 3.14
 

@@ -7,13 +7,13 @@
 
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
-Version:                1.24.2
+Version:                1.25.0
 
 %global common_description %{expand:
-Delve is a debugger for the Go programming language. The goal of the project 
-is to provide a simple, full featured debugging tool for Go. Delve should be 
-easy to invoke and easy to use. Chances are if you're using a debugger, things 
-aren't going your way. With that in mind, Delve should stay out of your way as 
+Delve is a debugger for the Go programming language. The goal of the project
+is to provide a simple, full featured debugging tool for Go. Delve should be
+easy to invoke and easy to use. Chances are if you're using a debugger, things
+aren't going your way. With that in mind, Delve should stay out of your way as
 much as possible.}
 
 # Currently Delve only supports x86_64, aarch64, and ppc64le

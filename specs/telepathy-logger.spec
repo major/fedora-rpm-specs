@@ -1,6 +1,6 @@
 Name:           telepathy-logger
 Version:        0.8.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Telepathy framework logging daemon
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -10,6 +10,9 @@ Source0:        http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{vers
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1800190
 Patch0:         0001-tools-Fix-the-build-with-Python-3.patch
+# https://github.com/TelepathyIM/telepathy-logger/commit/2e50d1855b3395b622c768094ff2b617a0208724
+# Fix gcc14 -Werror=incompatible-pointer-types
+Patch1:         0002-gcc14-incompatible-pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  dbus-daemon
@@ -54,7 +57,6 @@ developing applications that use %{name}.
 sed -i.rpath -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' configure
 %endif
 
-
 %build
 %configure --disable-static --enable-introspection=yes
 #sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -92,6 +94,9 @@ make check
 
 
 %changelog
+* Thu Jul 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.2-23
+- Apply the upstream patch for gcc14 -Werror=incompatibe-pointer-types
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

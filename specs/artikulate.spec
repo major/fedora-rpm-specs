@@ -1,38 +1,37 @@
-
 Name:    artikulate
 Summary: Improve your pronunciation by listening to native speakers
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/education/%{name}
 
-Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Kirigami2)
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-filesystem
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Xml)
+
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KF6DocTools)
 
 BuildRequires: libappstream-glib
 
-BuildRequires: pkgconfig(Qt5Multimedia)
-BuildRequires: pkgconfig(Qt5Qml)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5XmlPatterns)
+
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: qt5-qtquickcontrols
 
 %description
 %{summary}.
@@ -49,40 +48,40 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html --with-qt
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc README*
 %license LICENSES/*
-%{_kf5_bindir}/artikulate
-%{_kf5_bindir}/artikulate_editor
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/applications/org.kde.artikulate.desktop
-%{_kf5_metainfodir}/org.kde.artikulate.appdata.xml
-%{_kf5_datadir}/config.kcfg/artikulate.kcfg
-%{_kf5_datadir}/knsrcfiles//artikulate.knsrc
+%{_kf6_bindir}/artikulate
+%{_kf6_bindir}/artikulate_editor
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/applications/org.kde.artikulate.desktop
+%{_kf6_metainfodir}/org.kde.artikulate.appdata.xml
+%{_kf6_datadir}/config.kcfg/artikulate.kcfg
+%{_kf6_datadir}/knsrcfiles/artikulate.knsrc
 
 %files libs
-%{_kf5_libdir}/libartikulatecore.so.0*
-%{_kf5_libdir}/libartikulatelearnerprofile.so.0*
-%{_kf5_libdir}/libartikulatesound.so.0*
+%{_kf6_libdir}/libartikulatecore.so.0
+%{_kf6_libdir}/libartikulatelearnerprofile.so.0
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

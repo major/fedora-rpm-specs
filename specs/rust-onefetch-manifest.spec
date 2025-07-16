@@ -5,7 +5,7 @@
 %global crate onefetch-manifest
 
 Name:           rust-onefetch-manifest
-Version:        2.24.0
+Version:        2.25.0
 Release:        %autorelease
 Summary:        Detect and parse manifest files
 

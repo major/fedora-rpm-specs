@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -20,13 +20,16 @@ Summary:        %sum
 URL:            https://github.com/pasteorg/paste
 #Source0:        %%{pypi_source}
 Source0:        https://github.com/pasteorg/paste/archive/%{version}/Paste-%{version}.tar.gz
+Patch1:         paste-import-urlparse.patch
 
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pyOpenSSL
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-six >= 1.4.0
+# required for tests
+BuildRequires:  python3-openid
+BuildRequires:  python3-paste-deploy
 
 
 %description
@@ -36,7 +39,6 @@ BuildRequires:  python3-six >= 1.4.0
 %package -n python3-paste
 Summary:        Tools for using a Web Server Gateway Interface stack
 
-%{?python_provide:%python_provide python3-paste}
 
 Requires: python3-pyOpenSSL
 Requires: python3-setuptools
@@ -62,29 +64,36 @@ rm StyleGuide.txt
 popd
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
+%pyproject_save_files paste
 
 
 %check
+# exclude broken modules from import tests
+%pyproject_check_import -e 'paste.debug.*' -e paste.flup_session -e paste.transaction -e paste.util.scgiserver
 export PYTHONPATH=$(pwd)
 # We don't have access to the wider internet in the buildsystem
 py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_modified"
 
 
-%files -n python3-paste
-%license docs/license.txt
+%files -n python3-paste -f %{pyproject_files}
 %doc docs/*
-%{python3_sitelib}/paste
-%{python3_sitelib}/Paste-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/Paste-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.1-8
+- Migrate from py_build/py_install to pyproject macros (bz#2378583)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.10.1-7
 - Rebuilt for Python 3.14
 

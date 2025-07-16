@@ -8,7 +8,7 @@
 
 Name:    konsole
 Summary: KDE Terminal emulator
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -119,14 +119,10 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_bindir}/konsoleprofile
 %{_kf6_datadir}/applications/org.kde.konsole.desktop
 %{_kf6_datadir}/kglobalaccel/org.kde.konsole.desktop
-%{_kf6_datadir}/kconf_update/konsole.upd
-%{_kf6_datadir}/kconf_update/konsole_add_hamburgermenu_to_toolbar.sh
 %{_kf6_datadir}/kio/servicemenus/konsolerun.desktop
 %{_kf6_datadir}/knotifications6/konsole.notifyrc
 %{_kf6_datadir}/qlogging-categories6/konsole.*
 %{_kf6_datadir}/zsh/site-functions/_konsole
-%{_kf6_libdir}/kconf_update_bin/konsole_globalaccel
-%{_kf6_libdir}/kconf_update_bin/konsole_show_menubar
 %{_kf6_metainfodir}/org.kde.konsole.appdata.xml
 %if 0%{?flatpak}
 %{_kf6_datadir}/icons/hicolor/*/apps/utilities-terminal.*
@@ -142,6 +138,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

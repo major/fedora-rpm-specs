@@ -5,13 +5,15 @@
 %global crate migrations_internals
 
 Name:           rust-migrations_internals
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        Internal implementation of diesels migration mechanism
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/migrations_internals
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          migrations_internals-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

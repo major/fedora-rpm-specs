@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:    kdepim-addons
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
@@ -177,6 +177,7 @@ popd
 %{_kf6_qtplugindir}/pim6/mailtransportactivities/kmailtransportactivitiesplugin.so
 %{_kf6_libdir}/libkaddressbookmergelibprivate.so*
 %{_kf6_qtplugindir}/pim6/kaddressbook/
+%{_kf6_libdir}/libKPim6AutoGenerateText.so.*
 
 # KMail
 %{_kf6_bindir}/kmail_*.sh
@@ -199,6 +200,9 @@ popd
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

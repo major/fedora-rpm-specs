@@ -1,12 +1,7 @@
-%if %{defined fedora}
-# dmenu requirement currently missing in epel8
-%bcond_without passmenu
-%endif
-
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        14%{?dist}
+Release:        16%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Url:            http://zx2c4.com/projects/password-store/
@@ -19,8 +14,8 @@ BuildRequires:       git-core
 BuildRequires:       gnupg2
 BuildRequires:       perl-generators
 BuildRequires:       tree >= 1.7.0
-Recommends:          (wl-clipboard if libwayland-client else xclip)
-Recommends:          (xclip if xorg-x11-server-Xorg else wl-clipboard)
+Recommends:          (wl-clipboard if libwayland-client)
+Recommends:          (xclip if xorg-x11-server-Xorg)
 Requires:            git-core
 Requires:            gnupg2
 Requires:            qrencode
@@ -30,7 +25,6 @@ Requires:            tree >= 1.7.0
 Stores, retrieves, generates, and synchronizes passwords securely using gpg
 and git.
 
-%if %{with passmenu}
 %package -n passmenu
 Summary:        A dmenu based interface to pass.
 Requires:       pass
@@ -44,7 +38,6 @@ design allows you to quickly copy a password to the clipboard without having to
 open up a terminal window if you don't already have one open. If `--type` is
 specified, the password is typed using xdotool instead of copied to the
 clipboard.
-%endif
 
 %prep
 %autosetup -p 1 -n password-store-%{version}
@@ -56,9 +49,7 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} \
      MANDIR=%{_mandir} WITH_ALLCOMP="yes" \
      install
 
-%if %{with passmenu}
 install -D -p -m 0755 contrib/dmenu/passmenu %{buildroot}%{_bindir}/passmenu
-%endif
 
 # Used by extensions
 mkdir -p %{buildroot}%{_prefix}/lib/password-store/extensions
@@ -76,13 +67,18 @@ make test
 %dir %{_prefix}/lib/password-store
 %dir %{_prefix}/lib/password-store/extensions
 
-%if %{with passmenu}
 %files -n passmenu
 %doc contrib/dmenu/README.md
 %{_bindir}/passmenu
-%endif
 
 %changelog
+* Mon Jul 14 2025 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-16
+- Build passmenu on EPEL
+
+* Mon Jul 14 2025 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-15
+- Only recommend wl-clipboard if libwayland-client is installed
+- Only recommend xclip if xorg-x11-server-Xorg is installed
+
 * Mon Jan 27 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1.7.4-14
 - Set dmenu-wayland and dmenu to Recommends instead of Requires to have
   a choice to install one or the other or both. Helpful when using Wayland

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.9
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Language detection library ported from Google's language-detection
 
 # Both python-langdetect and language-detection are under ASL 2.0
@@ -12,10 +12,11 @@ Source0:        %{pypi_source}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
-BUildRequires:  python3dist(six)
+BuildRequires:  python3dist(six)
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %global _description %{expand:
 Port of Nakatani Shuyo's language-detection library (version from 03/03/2014) to
@@ -37,15 +38,15 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-rm -rf %{pypi_name}.egginfo
+#rm -rf %{pypi_name}.egginfo
 
 chmod 644 LICENSE NOTICE langdetect/profiles/*
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -53,10 +54,13 @@ chmod 644 LICENSE NOTICE langdetect/profiles/*
 %files -n python3-%{pypi_name}
 %doc README.md
 %license LICENSE NOTICE
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 %{python3_sitelib}/%{pypi_name}/
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Jul 14 2025 Sudip Shil <sshil@redhat.com> - 1.0.9-12
+- Migrate to %pyproject_* macros and remove deprecated %py3_build/install
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.9-11
 - Rebuilt for Python 3.14
 

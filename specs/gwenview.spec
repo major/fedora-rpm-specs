@@ -1,7 +1,7 @@
 Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 # app: GPLv2+
@@ -50,6 +50,7 @@ BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6OpenGL)
 BuildRequires: cmake(Qt6WaylandClient)
 BuildRequires: cmake(Qt6WaylandScannerTools)
+BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(wayland-protocols)
@@ -121,6 +122,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 1:25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.3-1
 - 25.04.3
 

@@ -2,7 +2,7 @@
 %global sname   accessibilityinspector
 
 Name:           accessibility-inspector
-Version:        25.04.3
+Version:        25.07.80
 Release:        1%{?dist}
 Summary:        KDE Accessbility Inspector
 # LGPL: code
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

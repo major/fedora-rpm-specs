@@ -2,7 +2,7 @@
 
 Name:               python-crank
 Version:            0.8.1
-Release:            29%{?dist}
+Release:            30%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -12,7 +12,7 @@ Source0:            https://pypi.io/packages/source/c/%{modname}/%{modname}-%{ve
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
+BuildRequires:      python3-webob
 
 %global _description\
 Generalization of dispatch mechanism for use across frameworks.
@@ -30,16 +30,19 @@ This package provides the python3 version of this module
 %prep
 %setup -q -n %{modname}-%{version}
 
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
 # The current upstream tarball doesn't contain the tests
@@ -47,11 +50,16 @@ rm -rf %{modname}.egg-info
 #%{__python3} setup.py test
 
 
-%files -n python3-%{modname}
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.8.1-30
+- Migrate from py_build/py_install to pyproject macros (bz#2377588)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.1-29
 - Rebuilt for Python 3.14
 

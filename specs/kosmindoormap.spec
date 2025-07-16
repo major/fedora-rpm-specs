@@ -1,5 +1,5 @@
 Name:    kosmindoormap
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 Summary: OSM multi-floor indoor map renderer
 
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KPublicTransport)
 BuildRequires:  cmake(KOpeningHours)
 
@@ -90,6 +91,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKOSMIndoorRouting.so
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -1,6 +1,6 @@
 Name:           TurboGears2
 Version:        2.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
@@ -12,7 +12,7 @@ BuildArch:      noarch
 BuildRequires:  python3-backlash
 BuildRequires:  python3-chameleon
 BuildRequires:  python3-crank >= 0.8.0
-BuildRequires:  python3-devel python3-setuptools
+BuildRequires:  python3-devel
 BuildRequires:  python3-formencode
 BuildRequires:  python3-genshi >= 0.5.1
 BuildRequires:  python3-jinja2
@@ -44,7 +44,6 @@ database development and everything in between:\
 
 %package -n python3-%{name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{name}}
 
 Requires:       python3-backlash
 Requires:       python3-chameleon
@@ -71,11 +70,16 @@ Requires:       python3-zope-sqlalchemy >= 0.4
 %autosetup -n turbogears2-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files tg
 rm -fr %{buildroot}%{python3_sitelib}/tests
 
 # Tests cannot be included because some test dependencies
@@ -83,12 +87,16 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 #%check
 #PYTHONPATH=$(pwd) %{__python3} setup.py test
 
-%files -n python3-%{name}
+%check
+%pyproject_check_import
+
+%files -n python3-%{name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/tg/
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-3
+- Migrate from py_build/py_install to pyproject macros (bz#2378483)
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.5.0-2
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.7
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -14,6 +14,7 @@ Patch3: pmda-openmetrics-rollup.patch
 Patch4: pmapi-header-multilib-fix.patch
 Patch5: python-pmda-wrapper-list-fix.patch
 Patch6: systemd-tmpfiles.d-directories.patch
+Patch7: selinux-pcp.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -3624,6 +3625,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Jul 14 2025 William Cohen <wcohen@redhat.com> - 6.3.7-9
+- Update selinux policy (BZ 2371004)
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 6.3.7-8
 - Perl 5.42 rebuild
 

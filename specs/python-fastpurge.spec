@@ -1,135 +1,61 @@
-%global srcname fastpurge
-
 Summary: A Python client for the Akamai Fast Purge API
-Name: python-%{srcname}
-Version: 1.0.3
-Release: 14%{?dist}
-URL: https://github.com/release-engineering/%{name}
-Source0: %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
+Name: python-fastpurge
+Version: 1.0.5
+Release: %autorelease
+URL: https://github.com/release-engineering/python-fastpurge
+# PyPI tarball doesn't have tests
+Source: %{url}/archive/v%{version}/fastpurge-%{version}.tar.gz
 License: GPL-3.0-or-later
 BuildArch: noarch
 
-%description
-This library provides a simple asynchronous Python wrapper for the Fast
-Purge API, including authentication and error recovery.
+# https://github.com/release-engineering/python-fastpurge/pull/34
+Patch: 0001-Use-unittest.mock-on-Python-3.3.patch
 
-%package -n python3-%{srcname}
+
+%global _description %{expand:
+This library provides a simple asynchronous Python wrapper for the Fast
+Purge API, including authentication and error recovery.}
+
+
+%description %_description
+
+
+%package -n python3-fastpurge
 Summary:	%{summary}
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 
-# Dependencies for test suite
-BuildRequires:	python3dist(pytest)
-BuildRequires:	python3dist(edgegrid-python)
-BuildRequires:	python3dist(monotonic)
-BuildRequires:	python3dist(more-executors)
-BuildRequires:	python3dist(mock)
-BuildRequires:	python3dist(requests-mock)
 
-# for Requires we rely on the automatic Python dep generator
-%{?python_provide:%python_provide python3-%{srcname}}
+%description -n python3-fastpurge %_description
 
-%description -n python3-%{srcname}
-This library provides a simple asynchronous Python wrapper for the Fast
-Purge API, including authentication and error recovery.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p 1 -n python-fastpurge-%{version}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -e '/bandit/d' -i test-requirements.txt
+
+
+%generate_buildrequires
+%pyproject_buildrequires test-requirements.txt
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l fastpurge
+
 
 %check
-%{__python3} -m pytest -v
+%pytest -v
 
-%files -n python3-%{srcname}
+
+%files -n python3-fastpurge -f %{pyproject_files}
 %doc README.md
 %doc CHANGELOG.md
-%license LICENSE
 
-%{python3_sitelib}/%{srcname}*.egg-info/
-%{python3_sitelib}/%{srcname}/
 
 %changelog
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.3-14
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-12
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 1.0.3-10
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.3-6
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 1.0.3-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Oct 07 2021 Rohan McGovern <rohanpm@fedoraproject.org> - 1.0.3-1
-- Update to 1.0.3
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.0.2-11
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 26 2020 Rohan McGovern <rohanpm@fedoraproject.org> - 1.0.2-8
-- Explicitly BuildRequires python3-setuptools
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-7
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-5
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-4
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Apr 04 2019 Rohan McGovern <rohanpm@fedoraproject.org> - 1.0.2-2
-- Run test suite during build
-
-* Sat Mar 30 2019 Rohan McGovern <rohanpm@fedoraproject.org> - 1.0.2-1
-- Initial RPM release
+%autochangelog

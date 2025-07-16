@@ -1,5 +1,5 @@
 Name:    akonadi-calendar
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
@@ -91,13 +91,21 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{_kf6_qtplugindir}/akonadi_serializer_kcalcore.so
 %{_kf6_qtplugindir}/kf6/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf6_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
+%{_kf6_libdir}/libKPim6AkonadiCalendarCore.so.6
+%{_kf6_libdir}/libKPim6AkonadiCalendarCore.so.6.4.80
 
 
 %files devel
 %{_includedir}/KPim6/AkonadiCalendar/Akonadi/
 %{_includedir}/KPim6/AkonadiCalendar/akonadi-calendar_version.h
 %{_includedir}/KPim6/AkonadiCalendar/akonadi/
+%{_includedir}/KPim6/AkonadiCalendarCore/Akonadi
+%{_includedir}/KPim6/AkonadiCalendarCore/akonadi-calendar-core_version.h
+%{_includedir}/KPim6/AkonadiCalendarCore/akonadi/akonadi-calendar-core_export.h
+%{_includedir}/KPim6/AkonadiCalendarCore/akonadi/freebusyproviderbase.h
 %{_kf6_libdir}/cmake/KPim6AkonadiCalendar/
+%{_kf6_libdir}/cmake/KPim6AkonadiCalendarCore/
+%{_kf6_libdir}/libKPim6AkonadiCalendarCore.so
 %{_kf6_libdir}/libKPim6AkonadiCalendar.so
 %{_qt6_docdir}/*.tags
 
@@ -106,6 +114,9 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -2,7 +2,7 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        25.04.3
+Version:        25.07.80
 Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -50,6 +50,7 @@ BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  cmake(packagekitqt6)
@@ -134,8 +135,8 @@ xvfb-run -a bash -c "%ctest" || :
 %dir %{_kf6_datadir}/kglobalaccel/
 %{_kf6_datadir}/kglobalaccel/org.kde.dolphin.desktop
 %{_kf6_datadir}/kconf_update/dolphin_detailsmodesettings.upd
-%{_kf6_datadir}/kconf_update/dolphin_directorysizemode.py
-%{_kf6_datadir}/kconf_update/dolphin_directorysizemode.upd
+%{_kf6_datadir}/kconf_update/dolphin_replace_view_mode_with_view_settings_in_toolbar.py
+%{_kf6_datadir}/kconf_update/dolphin_replace_view_mode_with_view_settings_in_toolbar.upd
 %{_kf6_libdir}/kconf_update_bin/dolphin_25.04_update_statusandlocationbarssettings
 %{_kf6_datadir}/kconf_update/dolphin_statusandlocationbarssettings.upd
 %dir %{_kf6_datadir}/dolphin
@@ -149,6 +150,7 @@ xvfb-run -a bash -c "%ctest" || :
 %{_kf6_plugindir}/parts/dolphinpart.so
 %{_kf6_qtplugindir}/dolphin/
 %{_kf6_qtplugindir}/kf6/kfileitemaction/movetonewfolderitemaction.so
+%{_kf6_qtplugindir}/kf6/kfileitemaction/setfoldericonitemaction.so
 
 %files devel
 %{_includedir}/Dolphin/
@@ -159,6 +161,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

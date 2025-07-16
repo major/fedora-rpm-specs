@@ -16,7 +16,7 @@
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -131,10 +131,11 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 %{_kf6_datadir}/qlogging-categories6/kalzium.categories
 %{_kf6_metainfodir}/org.kde.kalzium.appdata.xml
 %{_mandir}/man1/kalzium.*
+%{_kf6_datadir}/knsrcfiles/kalzium.knsrc
 
 %files libs
 %if 0%{?avogadro}
-#{_kf6_libdir}/libcompoundviewer.so.5*
+%{_kf6_libdir}/libcompoundviewer.so.5*
 %endif
 %{_kf6_libdir}/libscience.so.5*
 
@@ -142,12 +143,15 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 %dir %{_includedir}/libkdeedu/
 %{_includedir}/libkdeedu/*.h
 %if 0%{?avogadro}
-#{_kf6_libdir}/libcompoundviewer.so
+%{_kf6_libdir}/libcompoundviewer.so
 %endif
 %{_kf6_libdir}/libscience.so
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

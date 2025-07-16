@@ -17,7 +17,7 @@ DSLs (domain specific languages).
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Recursive descent parsing library based on functional combinators
 
 # SPDX
@@ -27,7 +27,6 @@ Source:         %pypi_source
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
 
 
 %description %{srcdesc}
@@ -45,22 +44,29 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python3-%{srcname}
 %license LICENSE
 %doc PKG-INFO README.md
 %{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 
 
 %changelog
+* Mon Jun 02 2025 Dridi Boukelmoune <dridi@fedoraproject.org> - 1.0.1-12
+- Migrated to pyproject RPM macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-11
 - Rebuilt for Python 3.14
 

@@ -4,7 +4,7 @@
 
 Name:    ark
 Summary: Archive manager
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -102,7 +102,6 @@ Provides: ark-part%{?_isa} = %{version}-%{release}
 
 %build
 %cmake_kf6
-
 %cmake_build
 
 
@@ -130,10 +129,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 %{_kf6_datadir}/applications/org.kde.ark.desktop
 %{_kf6_datadir}/icons/hicolor/*/apps/ark.*
 %{_mandir}/man1/ark.1*
-%{_kf6_datadir}/kconf_update/ark.upd
-%{_kf6_datadir}/kconf_update/ark_add_hamburgermenu_to_toolbar.sh
-
-%ldconfig_scriptlets
 
 %files libs
 %{_kf6_libdir}/libkerfuffle.so.*
@@ -145,6 +140,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

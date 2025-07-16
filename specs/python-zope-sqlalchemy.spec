@@ -1,6 +1,6 @@
 Name:           python-zope-sqlalchemy
 Version:        3.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 BuildArch:      noarch
 
 License:        ZPL-2.1
@@ -9,7 +9,6 @@ URL:            https://github.com/zopefoundation/zope.sqlalchemy
 Source0:        https://github.com/zopefoundation/zope.sqlalchemy/archive/%{version}.tar.gz
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
 BuildRequires:      python3-zope-testing
 
 
@@ -37,29 +36,37 @@ configure engines.
 %prep
 %setup -q -n zope.sqlalchemy-%{version}
 
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+%pyproject_install
+%pyproject_save_files zope
 
 
-%files -n python3-zope-sqlalchemy
+%check
+%pyproject_check_import
+
+
+%files -n python3-zope-sqlalchemy -f %{pyproject_files}
 %doc src/zope/sqlalchemy/README.rst
 %doc CHANGES.rst CREDITS.rst
 %license COPYRIGHT.txt LICENSE.txt
-# Co-own %%{python_sitelib}/zope/
-%{python3_sitelib}/zope.sqlalchemy-*
-%{python3_sitelib}/zope/sqlalchemy
+%{python3_sitelib}/zope.sqlalchemy-%{version}-py%{python3_version}-nspkg.pth
 %exclude %{python3_sitelib}/zope/sqlalchemy/*.rst
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1-9
+- Migrate from py_build/py_install to pyproject macros (bz#2378597)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1-8
 - Rebuilt for Python 3.14
 

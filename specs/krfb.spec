@@ -1,6 +1,6 @@
 Name:    krfb
 Summary: Desktop sharing
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
@@ -20,6 +20,10 @@ BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: qt6-qtwayland-devel
 BuildRequires: qt6-qtbase-private-devel
+BuildRequires: lzo-devel
+BuildRequires: libpng-devel
+BuildRequires: libgcrypt-devel
+BuildRequires: openssl-devel
 
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6Config)
@@ -113,6 +117,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -1,24 +1,13 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global with_yum 1
-%global with_bzr 1
-%global bazaar bzr
-%endif
-
 %if 0%{?fedora}
 %global with_brz 1
-%global bazaar brz
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global dnf_is_mandatory 1
-%global dnf_uses_python3 1
+%global with_dnf5 1
 %endif
 
 Name:      etckeeper
-Version:   1.18.21
-Release:   6%{?dist}
+Version:   1.18.22
+Release:   1%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -26,6 +15,7 @@ URL:       https://etckeeper.branchable.com/
 Source0:   https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/%{name}-%{version}.tar.gz
 Source1:   README.fedora
 Source2:   cron.daily
+Source3:   etckeeper.actions
 # build plugins separately
 Patch0:    etckeeper-makefile-remove-python-plugins.patch
 # see rhbz#1460461
@@ -40,6 +30,7 @@ Patch4:    etckeeper-1.18.18-fix-output-for-ansible.patch
 # see rhbz#2203408 and pr#7
 Patch5:    etckeeper-1.18.21-bz2203408.patch
 BuildArch: noarch
+BuildRequires: make
 BuildRequires: %{_bindir}/markdown_py
 Requires:  git-core
 Requires:  perl-interpreter
@@ -47,9 +38,10 @@ Requires:  crontabs
 Requires:  findutils
 Requires:  hostname
 Requires:  which
-%if 0%{?dnf_is_mandatory}
 Requires:  %{name}-dnf = %{version}-%{release}
-%endif # dnf_is_mandatory
+%if 0%{?with_dnf5}
+Requires:  %{name}-dnf5 = %{version}-%{release}
+%endif # with_dnf5
 BuildRequires:  systemd
 Requires(post): systemd
 Requires(preun): systemd
@@ -66,30 +58,15 @@ understand the basics of working with version control.
 
 The default backend is git, if want to use a another backend please
 install the appropriate tool (mercurial, darcs or bzr).
-%{?bazaar: To use bazaar/breezy as backend, please also install the %{name}-%{bazaar} package.}
+%{?with_brz: To use breezy as bzr backend, please also install the %{name}-brz package.}
 
 To start using the package please read %{_pkgdocdir}/README.
-
-
-%if 0%{?with_bzr}
-%package bzr
-Summary:  Support for bzr with etckeeper
-BuildRequires: python2-devel
-BuildRequires: bzr
-Requires: %{name} = %{version}-%{release}
-Requires: bzr
-
-%description bzr
-This package provides a bzr backend for etckeeper, if you want to use
-etckeeper with bzr backend, install this package.
-%endif # with_bzr
 
 
 %if 0%{?with_brz}
 %package brz
 Summary:  Support for bzr with etckeeper (via breezy)
 BuildRequires: python3-devel
-BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 BuildRequires: brz
 Requires: %{name} = %{version}-%{release}
 Requires: brz
@@ -102,18 +79,10 @@ etckeeper with (bzr) bazaar repositories, install this package.
 
 %package dnf
 Summary:  DNF plugin for etckeeper support
-%if 0%{?dnf_uses_python3}
 BuildRequires: python3-devel
-BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 BuildRequires: python3-dnf
 Requires: python3-dnf
-%else
-BuildRequires: python2-devel
-BuildRequires: dnf
-Requires: dnf
-%endif # dnf_uses_python3
 BuildRequires: dnf-plugins-core
-BuildRequires: make
 Requires: %{name} = %{version}-%{release}
 Requires: dnf-plugins-core
 
@@ -122,15 +91,21 @@ This package provides a DNF plugin for etckeeper. If you want to use
 etckeeper with DNF, install this package.
 
 
+%if 0%{?with_dnf5}
+%package dnf5
+Summary:  DNF5 plugin for etckeeper support
+Requires: %{name} = %{version}-%{release}
+Requires: libdnf5-plugin-actions >= 5.2.11.0
+
+%description dnf5
+This package provides a DNF5 plugin for etckeeper. If you want to use
+etckeeper with DNF5, install this package.
+%endif # with_dnf5
+
+
 %prep
 %autosetup -p1
-%if 0%{?with_yum}
-# we set yum here, so the yum plugin gets built, and change that to
-# dnf later, if needed
-sed -e 's|HIGHLEVEL_PACKAGE_MANAGER=.*|HIGHLEVEL_PACKAGE_MANAGER=yum|' \
-%else
 sed -e 's|HIGHLEVEL_PACKAGE_MANAGER=.*|HIGHLEVEL_PACKAGE_MANAGER=dnf|' \
-%endif # with_yum
     -e 's|LOWLEVEL_PACKAGE_MANAGER=.*|LOWLEVEL_PACKAGE_MANAGER=rpm|' \
     -i etckeeper.conf
 sed -e 's|^prefix=.*|prefix=%{_prefix}|' \
@@ -144,37 +119,41 @@ sed -e 's|^prefix=.*|prefix=%{_prefix}|' \
     -i Makefile
 # move each plugin in its own subdirectory, so each has its own build/
 # directory
-mkdir bzr-plugin ; mv etckeeper-bzr bzr-plugin
-mkdir brz-plugin ; mv etckeeper-brz brz-plugin
-mkdir dnf-plugin ; mv etckeeper-dnf dnf-plugin
+mkdir brz-plugin
+mv etckeeper-brz brz-plugin
+ln -snf etckeeper-brz/__init__.py brz-plugin/setup.py
+
+mkdir dnf-plugin
+mv etckeeper-dnf dnf-plugin
+ln -snf etckeeper-dnf/etckeeper.py dnf-plugin/setup.py
+
 cp -av %{SOURCE1} .
+
+
+%generate_buildrequires
+%if 0%{?with_brz}
+cd brz-plugin
+%pyproject_buildrequires
+cd ..
+%endif # with_brz
+
+cd dnf-plugin
+%pyproject_buildrequires
+cd ..
 
 
 %build
 %make_build
 
-%if 0%{?with_bzr}
-pushd bzr-plugin
-%define py_setup etckeeper-bzr/__init__.py
-%py2_build
-popd
-%endif # with_bzr
-
 %if 0%{?with_brz}
-pushd brz-plugin
-%define py_setup etckeeper-brz/__init__.py
-%py3_build
-popd
+cd brz-plugin
+%pyproject_wheel
+cd ..
 %endif # with_brz
 
-pushd dnf-plugin
-%define py_setup etckeeper-dnf/etckeeper.py build
-%if 0%{?dnf_uses_python3}
-%py3_build
-%else
-%py2_build
-%endif # dnf_uses_python3
-popd
+cd dnf-plugin
+%pyproject_wheel
+cd ..
 
 markdown_py -f README.html README.md
 
@@ -182,36 +161,22 @@ markdown_py -f README.html README.md
 %install
 %make_install
 
-%if 0%{?with_bzr}
-pushd bzr-plugin
-%define py_setup etckeeper-bzr/__init__.py
-%py2_install
-popd
-%endif # with_bzr
-
 %if 0%{?with_brz}
-pushd brz-plugin
-%define py_setup etckeeper-brz/__init__.py
-%py3_install
-popd
+cd brz-plugin
+%pyproject_install
+cd ..
 %endif # with_brz
 
-pushd dnf-plugin
-%define py_setup etckeeper-dnf/etckeeper.py build
-%if 0%{?dnf_uses_python3}
-%py3_install
-%else
-%py2_install
-%endif # dnf_uses_python3
-popd
-
-%if 0%{?dnf_is_mandatory}
-sed -e 's|HIGHLEVEL_PACKAGE_MANAGER=.*|HIGHLEVEL_PACKAGE_MANAGER=dnf|' \
-    -i %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
-%endif # dnf_is_mandatory
+cd dnf-plugin
+%pyproject_install
+cd ..
 
 install -D -p %{SOURCE2} %{buildroot}%{_sysconfdir}/cron.daily/%{name}
 install -d  %{buildroot}%{_localstatedir}/cache/%{name}
+
+%if 0%{?with_dnf5}
+install -D -p %{SOURCE3} %{buildroot}%{_sysconfdir}/dnf/libdnf5-plugins/actions.d/%{name}.actions
+%endif # with_dnf5
 
 
 %post
@@ -248,23 +213,9 @@ fi
 %dir %{_datadir}/zsh
 %dir %{_datadir}/zsh/vendor-completions
 %{_datadir}/zsh/vendor-completions/_%{name}
-%if 0%{?with_yum}
-%dir %{_prefix}/lib/yum-plugins
-%{_prefix}/lib/yum-plugins/%{name}.*
-%dir %{_sysconfdir}/yum/pluginconf.d
-%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/%{name}.conf
-%endif # with_yum
 %{_localstatedir}/cache/%{name}
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.timer
-
-
-%if 0%{?with_bzr}
-%files bzr
-%{python2_sitelib}/bzrlib/plugins/%{name}
-# exclude egg-info dir, doesn't contain meaningful information
-%exclude %{python2_sitelib}/bzr_%{name}-*.egg-info
-%endif # with_bzr
 
 
 %if 0%{?with_brz}
@@ -275,27 +226,32 @@ fi
 %dir %{python3_sitelib}/breezy/plugins/
 %{python3_sitelib}/breezy/plugins/%{name}/
 # exclude egg-info dir, doesn't contain meaningful information
-%exclude %{python3_sitelib}/brz_%{name}-*.egg-info
+%exclude %{python3_sitelib}/brz_%{name}-*.dist-info
 %endif # with_brz
 
 
 %files dnf
-%if 0%{?dnf_uses_python3}
 %{python3_sitelib}/dnf-plugins/%{name}.py
 %exclude %{python3_sitelib}/dnf-plugins/__init__.py
 %{python3_sitelib}/dnf-plugins/__pycache__/%{name}.*
 %exclude %{python3_sitelib}/dnf-plugins/__pycache__/__init__.*
 # exclude egg-info dir, doesn't contain meaningful information
-%exclude %{python3_sitelib}/dnf_%{name}-*.egg-info
-%else
-%{python2_sitelib}/dnf-plugins/%{name}.py*
-%exclude %{python2_sitelib}/dnf-plugins/__init__.py*
-# exclude egg-info dir, doesn't contain meaningful information
-%exclude %{python2_sitelib}/dnf_%{name}-*.egg-info
-%endif # dnf_uses_python3
+%exclude %{python3_sitelib}/dnf_%{name}-*.dist-info
+
+
+%if 0%{with_dnf5}
+%files dnf5
+%{_sysconfdir}/dnf/libdnf5-plugins/actions.d/%{name}.actions
+%endif # with_dnf5
 
 
 %changelog
+* Mon Jul 14 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.22-1
+- Update to 1.18.22.
+- Remove all EL7-related conditionals and parts.
+- Update for current Python packaging guidelines (rhbz#2377253).
+- Add support for DNF5 (rhbz#2326283).
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.18.21-6
 - Rebuilt for Python 3.14
 

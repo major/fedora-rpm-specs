@@ -1,6 +1,6 @@
 Name:    dragon
 Summary: Media player
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -18,6 +18,7 @@ BuildRequires: extra-cmake-modules
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Multimedia)
 
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6ConfigWidgets)
@@ -33,8 +34,10 @@ BuildRequires: cmake(KF6Solid)
 BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Kirigami)
 
 BuildRequires: cmake(Phonon4Qt6)
+BuildRequires: pkgconfig(libavcodec)
 
 BuildRequires: libappstream-glib
 
@@ -65,21 +68,17 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_qt6_settingsdir}/dragonplayerrc
 %{_kf6_bindir}/dragon
 %{_kf6_datadir}/applications/org.kde.dragonplayer.desktop
 %{_kf6_datadir}/icons/hicolor/*/apps/dragonplayer.*
-%{_kf6_datadir}/icons/oxygen/*/actions/player-volume-muted.*
-%{_kf6_datadir}/kio/servicemenus/dragonplayer_play_dvd.desktop
-%{_kf6_datadir}/solid/actions/dragonplayer-opendvd.desktop
-%{_kf6_datadir}/solid/actions/dragonplayer-openaudiocd.desktop
+%{_kf6_qmldir}/org/kde/dragon/
 %{_kf6_metainfodir}/org.kde.dragonplayer.appdata.xml
-%{_kf6_mandir}/man1/%{name}.1*
-# -libs subpkg ? --rex
-%{_kf6_plugindir}/parts/dragonpart.so
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

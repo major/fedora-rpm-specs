@@ -1,8 +1,6 @@
-%{?python_enable_dependency_generator}
-
 Name:           python-repoze-tm2
 Version:        2.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Zope-like transaction manager via WSGI middleware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,9 +20,7 @@ Zope to make use of two-phase commit transactions in a WSGI context.
 %package -n python3-repoze-tm2
 Summary: Zope-like transaction manager via WSGI middleware
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-transaction
-%{?python_provide:%python_provide python3-repoze-tm2}
 
 %description -n python3-repoze-tm2
 The ZODB transaction manager is a completely generic transaction manager.  It
@@ -39,23 +35,34 @@ This package contains the python3 version of the library.
 %setup -q -n repoze.tm2-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l repoze
 
 
 
-%files -n python3-repoze-tm2
-%license LICENSE.txt
+%check
+%pyproject_check_import
+
+
+
+%files -n python3-repoze-tm2 -f %{pyproject_files}
 %doc README.rst COPYRIGHT.txt CHANGES.rst
-%{python3_sitelib}/repoze.tm2-*
-%{python3_sitelib}/repoze/tm
+%{python3_sitelib}/repoze.tm2-%{version}-py*-nspkg.pth
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.0-13
+- Migrate from py_build/py_install to pyproject macros (bz#2378161)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.2.0-12
 - Rebuilt for Python 3.14
 

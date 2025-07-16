@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.28.901
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -18,6 +18,8 @@ Source2:        commitid
 %else
 Source0:        https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{version}/libinput-%{version}.tar.bz2
 %endif
+
+Patch0001:      0001-plugins-add-a-plugin-to-emulate-high-resolution-whee.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -156,6 +158,9 @@ intended to be run by users.
 
 
 %changelog
+* Tue Jul 15 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.901-2
+- Fix broken mouse wheel on non-high-resolution devices (#2379768)
+
 * Thu Jul 10 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.901-1
 - libinput 1.28.901
 

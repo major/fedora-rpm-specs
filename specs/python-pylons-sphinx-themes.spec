@@ -5,7 +5,7 @@ projects.
 
 Name: python-%{srcname}
 Version: 1.0.13
-Release: 14%{?dist}
+Release: 15%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,7 +15,7 @@ URL: https://github.com/Pylons/%{srcname}
 Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: python3-pygments
 
 
 %description
@@ -25,7 +25,6 @@ BuildRequires: python3-setuptools
 %package -n python3-%{srcname}
 Summary: %{summary}
 
-%{?python_provide:%python_provide python3-%{srcname}}
 
 
 %description -n python3-%{srcname}
@@ -36,22 +35,31 @@ Summary: %{summary}
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pylons_sphinx_themes
 
 
-%files -n python3-%{srcname}
-%license LICENSE.txt
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/pylons_sphinx_themes
-%{python3_sitelib}/*.egg-info
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.0.13-15
+- Migrate from py_build/py_install to pyproject macros (bz#??????)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.13-14
 - Rebuilt for Python 3.14
 

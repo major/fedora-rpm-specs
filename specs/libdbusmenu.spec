@@ -150,6 +150,7 @@ that use %{name}.
 %prep
 %setup -q -n %{name}-%{version} -c
 
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 pushd %{name}-%{version}
 %patch 0 -p1
 autoreconf -fiv

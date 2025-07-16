@@ -2,7 +2,7 @@
 
 Name:             python-sieve
 Version:          0.1.9
-Release:          36%{?dist}
+Release:          37%{?dist}
 Summary:          XML Comparison Utils
 
 License:          MIT
@@ -13,7 +13,6 @@ BuildArch:        noarch
 
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
 BuildRequires:    python3-six
 BuildRequires:    python3-lxml
 BuildRequires:    python3-markupsafe
@@ -74,31 +73,39 @@ Example usage::
 %prep
 %setup -q -n %{modname}-%{version}
 
-rm -rf %{modname}.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
 %check
 # check disabled, only deprecated nose is supported
 #%%{__python3} setup.py test
+%pyproject_check_import -e 'sieve.tests.*'
 
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc LICENSE.txt README.rst
-%{python3_sitelib}/%{modname}
-%{python3_sitelib}/%{modname}-%{version}-*
+#%{python3_sitelib}/%{modname}-%{version}-*
+%exclude %{python3_sitelib}/%{modname}/tests
 
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.1.9-37
+- Migrate from py_build/py_install to pyproject macros (bz#2378590)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.9-36
 - Rebuilt for Python 3.14
 

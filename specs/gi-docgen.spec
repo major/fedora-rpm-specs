@@ -1,11 +1,16 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+# Sphinx-generated HTML documentation is historically not suitable for
+# packaging; see https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for
+# discussion. We can generate PDF documentation as a substitute.
 #
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+# In Fedora 42 and later, we can (and in Fedora 43 and later, we do) build the
+# HTML documentation but unbundle Doxygen-inserted JavaScript assets from the
+# HTML documentation as much as possible, as prescribed in
+# https://src.fedoraproject.org/rpms/doxygen/blob/f42/f/README.rpm-packaging.
+%bcond doc_pdf %[ %{defined fc41} || %{defined fc42} ]
+
 
 Name:           gi-docgen
-Version:        2025.3
+Version:        2025.4
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -108,10 +113,10 @@ BuildArch:      noarch
 BuildRequires:  python3dist(pytest)
 
 # Documentation
-%if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+%if %{with doc_pdf}
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -203,6 +208,10 @@ find . -type f \( -name '*.woff' -o -name '*.woff2' \) -print -delete
 %if %{with doc_pdf}
 sphinx-build -b latex -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_latex
 %make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
+%else
+sphinx-build -b html -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_html
+# Do not ship hashes and caches for incremental rebuilds.
+rm -rv %{_vpath_builddir}/_html/{.buildinfo,.doctrees}
 %endif
 
 
@@ -215,6 +224,8 @@ install -t '%{buildroot}%{_pkgdocdir}' -D -m 0644 -p \
 %if %{with doc_pdf}
 install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 \
     '%{_vpath_builddir}/_latex/gi-docgen.pdf'
+%else
+cp -rp '%{_vpath_builddir}/_html' '%{buildroot}%{_pkgdocdir}/html'
 %endif
 cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 

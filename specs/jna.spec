@@ -46,7 +46,7 @@ ExclusiveArch:  %{java_arches}
 Requires:       libffi
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  libffi-devel
 BuildRequires:  ant
 BuildRequires:  ant-junit

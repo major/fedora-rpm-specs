@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -128,11 +128,17 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/qlogging-categories6/kdenlive.categories
 %{_kf6_mandir}/man1/kdenlive.1*
 %{_kf6_mandir}/man1/kdenlive_render.1*
+%{_kf6_qmldir}/org/kde/kdenlive/
+%{_kf6_libdir}/libkdenliveLibplugin.a
+%{_kf6_datadir}/qlogging-categories6/kdenlive.renamecategories
 # consider subpkg for multilib
 %{_kf6_plugindir}/thumbcreator/mltpreview.so
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -19,8 +19,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 %endif
 
-BuildRequires: tomcat-servlet-6.0-api
-BuildRequires: tomcat-jakartaee-migration
+BuildRequires:  tomcat-servlet-6.0-api
+BuildRequires:  tomcat-jakartaee-migration
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
@@ -222,20 +222,16 @@ find -name '*.jar' -print -delete
 
 %build
 
-%mvn_build -f -j   -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
-
-ls %{_buildrootdir}
+%mvn_build -f -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 
 %mvn_install
 
-/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-client.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-client.jar
-/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jackson2-provider.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jackson2-provider.jar
-/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jaxrs.jar  %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-jaxrs.jar
-/usr/bin/javax2jakarta -logLevel=ALL -profile=EE  %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-servlet-initializer.jar %{_buildrootdir}/BUILDROOT%{_datarootdir}/java/resteasy/%{name}-servlet-initializer.jar
-
-find .  %{_buildrootdir}/BUILDROOT
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-client.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-client.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-jackson2-provider.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-jackson2-provider.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-jaxrs.jar  %{buildroot}%{_datadir}/java/resteasy/%{name}-jaxrs.jar
+/usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-servlet-initializer.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-servlet-initializer.jar
 
 %files -n pki-%{name}
 %doc README.md
@@ -256,6 +252,9 @@ find .  %{_buildrootdir}/BUILDROOT
 %changelog
 * Wed Jul 09 2025 Jack Magne <jmagne@redhat.com> - 3.0.26-33
 - Rebuilt with support and migration  for tomcat10 and jarkarta ee.
+
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

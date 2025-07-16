@@ -4,7 +4,7 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -28,6 +28,7 @@ Source11:       akonadiserverrc.sqlite
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
+BuildRequires:  desktop-file-utils
 
 BuildRequires:  cmake(KF6ItemViews)
 BuildRequires:  cmake(KF6KIO)
@@ -138,7 +139,7 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
 
 %install
 %cmake_install
-
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.configdialog.desktop
 %find_lang libakonadi6 --all-name --with-html --with-qt
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
@@ -161,7 +162,6 @@ install -p -m644 -D akonadiserverrc %{buildroot}%{_sysconfdir}/xdg/akonadi/akona
 ## unpackaged files
 # omit mysql-global-mobile.conf
 rm -fv %{buildroot}%{_sysconfdir}/xdg/akonadi/mysql-global-mobile.conf
-
 
 %post
 /usr/sbin/update-alternatives \
@@ -197,6 +197,7 @@ fi
 %{_kf6_bindir}/akonadi2xml
 %{_kf6_bindir}/akonadiselftest
 %{_kf6_bindir}/akonaditest
+%{_kf6_bindir}/akonadiagentconfigdialog
 %{_kf6_datadir}/dbus-1/services/org.freedesktop.Akonadi.*.service
 %{_kf6_datadir}/mime/packages/akonadi-mime.xml
 %{_kf6_datadir}/akonadi/
@@ -204,10 +205,11 @@ fi
 %{_kf6_datadir}/kf6/akonadi/
 %{_kf6_libdir}/libKPim6Akonadi*.so.*
 %{_kf6_datadir}/icons/hicolor/*/apps/akonadi.*
-
 # akonadi_knut_resource
 %{_kf6_bindir}/akonadi_knut_resource
 %{_kf6_datadir}/kf6/akonadi_knut_resource/
+%{_kf6_qmldir}/org/kde/akonadi/
+%{_kf6_datadir}/applications/org.kde.akonadi.configdialog.desktop
 
 %files devel
 %{_kf6_datadir}/dbus-1/interfaces/org.freedesktop.Akonadi.*.xml
@@ -216,9 +218,11 @@ fi
 %{_includedir}/KPim6/AkonadiCore/
 %{_includedir}/KPim6/AkonadiWidgets/
 %{_includedir}/KPim6/AkonadiXml/
+%{_includedir}/KPim6/AkonadiAgentWidgetBase/
 %{_kf6_libdir}/libKPim6Akonadi*.so
 %{_kf6_libdir}/cmake/KPim6Akonadi/
 %{_kf6_qtplugindir}/pim6/akonadi/akonadi_test_searchplugin.so
+%{_kf6_qtplugindir}/pim6/akonadi/config/knutconfig.so
 %{_kf6_qtplugindir}/designer/akonadi6widgets.so
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
@@ -248,6 +252,9 @@ fi
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -1,7 +1,7 @@
-%global project mpris-webhook
+%global project beetpost
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit b2636ce537d40b769f6c09da465d0abf5d683902
+%global commit 682a1dd4dff9d32c1716a9635d47cf08b5f05a8a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -9,7 +9,7 @@
 
 %global common_description %{expand:
 %{project} is an optional service designed to bridge
-the gap between your local MPRIS media playback and
+the gap between your local media playback and
 Beetbrainz.}
 
 %gometa
@@ -17,7 +17,7 @@ Beetbrainz.}
 Name:           %{goname}
 Version:        1.1.6
 Release:        %autorelease
-Summary:        Webhook integration for mpris-enabled players with %{project}
+Summary:        Playback Event Dispatcher for Beetbrainz
 License:        GPL-3.0-or-later
 URL:            %{gourl}
 Source0:        %{gosource}
@@ -25,6 +25,10 @@ Source0:        %{gosource}
 BuildRequires: golang >= 1.24
 BuildRequires: systemd-rpm-macros
 BuildRequires: golang(github.com/godbus/dbus/v5)
+
+Provides:      golang-codeberg-gbcox-mpris-webhook = %{version}-%{release}
+Obsoletes:     golang-codeberg-gbcox-mpris-webhook < 1.1.6-1.20250714git682a1dd
+
 
 %description %common_description
 

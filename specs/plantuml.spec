@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2025.3
+Version:        1.2025.4
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -7,9 +7,6 @@ Summary:        Program to generate UML diagram from a text description
 License:        LGPL-3.0-or-later
 URL:            http://plantuml.com/
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/plantuml/plantuml/pull/2239
-# https://github.com/plantuml/plantuml/pull/2241
-Source1:        https://raw.githubusercontent.com/plantuml/plantuml/refs/heads/master/build.xml
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -40,7 +37,6 @@ PlantUML supports the following diagram types
 
 %prep
 %autosetup
-cp %{SOURCE1} build.xml
 
 
 %build

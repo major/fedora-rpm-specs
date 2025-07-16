@@ -1,7 +1,7 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -137,6 +137,7 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 %{_datadir}/akonadi/davgroupware-providers/*
 
 %files libs
+%{_kf6_libdir}/libakonadi-singlefileresource-widget.so.*
 %{_kf6_libdir}/libakonadi-filestore.so.*
 %{_kf6_libdir}/libfolderarchivesettings.so.*
 %{_kf6_libdir}/libakonadi-singlefileresource.so.*
@@ -150,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 1:25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:25.04.3-1
 - 25.04.3
 

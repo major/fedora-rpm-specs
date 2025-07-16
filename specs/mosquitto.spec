@@ -1,7 +1,7 @@
 %global with_tests 0
 
 Name:           mosquitto
-Version:        2.0.21
+Version:        2.0.22
 Release:        1%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
@@ -21,7 +21,7 @@ BuildRequires:  libxslt
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
 %if 0%{?fedora}
-  BuildRequires:  openssl-devel-engine
+BuildRequires:  openssl-devel-engine
 %endif
 BuildRequires:  systemd-devel
 %if 0%{?with_tests}
@@ -90,6 +90,9 @@ make test
 %license LICENSE.txt 
 %doc ChangeLog.txt CONTRIBUTING.md README.md
 %{_bindir}/%{name}*
+%if 0%{?fedora} < 42 || 0%{?rhel}
+%{_sbindir}/%{name}
+%endif
 %{_libdir}/libmosquitto*.so.1
 %{_libdir}/libmosquitto*.so.%{version}
 %{_libdir}/mosquitto_dynamic_security.so
@@ -109,6 +112,10 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Mon Jul 14 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-1
+- Update to 2.0.22
+- Update for older releases to address sbin dir
+
 * Thu Mar 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.21-1
 - Update to 2.0.21
 

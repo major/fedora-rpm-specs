@@ -111,6 +111,9 @@ Summary: The Linux kernel
 # Sign modules on all arches
 %global signmodules 1
 
+# Add additional rhel certificates to system trusted keys.
+%global rhelkeys 1
+
 # Compress modules only for architectures that build modules
 %ifarch noarch
 %global zipmodules 0
@@ -162,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc5.250712g379f604cc3dc.50
+%define pkgrelease 0.rc6.52
 %define kversion 6
-%define tarfile_release 6.16-rc5-224-g379f604cc3dc
+%define tarfile_release 6.16-rc6
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.250712g379f604cc3dc.50%{?buildid}%{?dist}
+%define specrelease 0.rc6.52%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -249,8 +252,10 @@ Summary: The Linux kernel
 %define with_dbgonly   %{?_with_dbgonly:      1} %{?!_with_dbgonly:      0}
 # Only build the realtime kernel (--with rtonly):
 %define with_rtonly    %{?_with_rtonly:       1} %{?!_with_rtonly:       0}
-# Only build the automotive kernel (--with automotiveonly):%
+# Only build the automotive variant of the kernel (--with automotiveonly):
 %define with_automotiveonly %{?_with_automotiveonly:       1} %{?!_with_automotiveonly:       0}
+# Build the automotive kernel (--with automotive_build), this builds base variant with automotive config/options:
+%define with_automotive_build %{?_with_automotive_build:   1} %{?!_with_automotive_build:     0}
 # Only build the tools package
 %define with_toolsonly %{?_with_toolsonly:    1} %{?!_with_toolsonly:    0}
 # Control whether we perform a compat. check against published ABI.
@@ -416,7 +421,7 @@ Summary: The Linux kernel
 %define with_arm64_64k 0
 %endif
 
-# if requested, only build automotive kernel
+# if requested, only build the automotive variant of the kernel
 %if %{with_automotiveonly}
 %define with_automotive 1
 %define with_realtime 0
@@ -424,6 +429,12 @@ Summary: The Linux kernel
 %define with_debug 0
 %define with_debuginfo 0
 %define with_vdso_install 0
+%define with_selftests 1
+%endif
+
+# if requested, build kernel-automotive
+%if %{with_automotive_build}
+%define with_automotive 1
 %define with_selftests 1
 %endif
 
@@ -481,6 +492,9 @@ Summary: The Linux kernel
 %define with_kabichk 0
 %define with_kernel_abi_stablelists 0
 %define with_kabidw_base 0
+%define signkernel 0
+%define signmodules 1
+%define rhelkeys 0
 %endif
 
 
@@ -672,7 +686,7 @@ Summary: The Linux kernel
 %else
 %define with_realtime_base 0
 %endif
-%if %{with_automotive} && %{with_base}
+%if %{with_automotive} && %{with_base} && !%{with_automotive_build}
 %define with_automotive_base 1
 %else
 %define with_automotive_base 0
@@ -791,9 +805,8 @@ BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools 
 BuildRequires: (python3-wheel if python3-setuptools < 70)
 %endif
 
-%if %{with_tools} || %{signmodules} || %{signkernel}
 BuildRequires: openssl-devel
-%endif
+
 %if %{with_selftests}
 BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel python3-docutils python3-jsonschema
 %ifarch x86_64 riscv64
@@ -1092,7 +1105,7 @@ Source487: %{name}-riscv64-rt-debug-fedora.config
 %endif
 
 %if %{include_automotive}
-%if %{with_automotiveonly}
+%if %{with_automotive_build}
 Source488: %{name}-aarch64-rhel.config
 Source489: %{name}-aarch64-debug-rhel.config
 Source490: %{name}-x86_64-rhel.config
@@ -1137,11 +1150,13 @@ Patch999999: linux-kernel-test.patch
 %description
 The kernel meta package
 
-#
 # This macro does requires, provides, conflicts, obsoletes for a kernel package.
 #	%%kernel_reqprovconf [-o] <subpackage>
 # It uses any kernel_<subpackage>_conflicts and kernel_<subpackage>_obsoletes
 # macros defined above.
+# -o: Skips main "Provides" that would satisfy general kernel requirements that
+#     special-purpose kernels shouldn't include.
+#     For example, used for zfcpdump-core to *not* provide kernel-core. (BZ 2027654)
 #
 %define kernel_reqprovconf(o) \
 %if %{-o:0}%{!-o:1}\
@@ -1506,11 +1521,11 @@ This meta package provides a single reference that other packages can Require to
 %package %{?1:%{1}-}modules-internal\
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
 Group: System Environment/Kernel\
-Provides: kernel%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: kernel%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: kernel%{?1:-%{1}}-modules-internal = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}\
+Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
 Provides: installonlypkg(kernel-module)\
-Provides: kernel%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
@@ -1612,6 +1627,10 @@ The meta-package for the %{1} kernel\
 # This macro creates a kernel-<subpackage> and its -devel and -debuginfo too.
 #	%%define variant_summary The Linux kernel compiled for <configuration>
 #	%%kernel_variant_package [-n <pretty-name>] [-m] [-o] <subpackage>
+# -m: Used with debugbuildsenabled==0 to create a "meta" debug variant that
+#     depends on base variant and skips debug/internal/partner packages.
+# -o: Skips main "Provides" that would satisfy general kernel requirements that
+#     special-purpose kernels shouldn't include.
 #
 %define kernel_variant_package(n:mo) \
 %package %{?1:%{1}-}core\
@@ -1666,11 +1685,11 @@ Requires(pre): systemd >= 254-1\
 %package %{?1:%{1}-}modules-partner\
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
 Group: System Environment/Kernel\
-Provides: kernel%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: kernel%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: kernel%{?1:-%{1}}-modules-partner = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}\
+Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
 Provides: installonlypkg(kernel-module)\
-Provides: kernel%{?1:-%{1}}-modules-partner-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
@@ -1781,15 +1800,10 @@ It should only be installed when trying to gather additional information
 on kernel bugs, as some of these options impact performance noticably.
 %endif
 
-%if %{with_debug} && %{with_automotive}
+%if %{with_debug} && %{with_automotive} && !%{with_automotive_build}
 %define variant_summary The Linux Automotive kernel compiled with extra debugging enabled
-%if %{with_automotiveonly}
-%kernel_variant_package debug
-%description debug-core
-%else
 %kernel_variant_package automotive-debug
 %description automotive-debug-core
-%endif
 The kernel package contains the Linux kernel (vmlinuz), the core of any
 Linux operating system.  The kernel handles the basic functions
 of the operating system:  memory allocation, process allocation, device
@@ -1802,13 +1816,8 @@ on kernel bugs, as some of these options impact performance noticably.
 
 %if %{with_automotive_base}
 %define variant_summary The Linux kernel compiled with PREEMPT_RT enabled
-%if %{with_automotiveonly}
-%kernel_variant_package
-%description core
-%else
 %kernel_variant_package automotive
 %description automotive-core
-%endif
 This package includes a version of the Linux kernel compiled with the
 PREEMPT_RT real-time preemption support, targeted for Automotive platforms
 %endif
@@ -2086,12 +2095,16 @@ done
 %if %{signkernel}%{signmodules}
 
 # Add DUP and kpatch certificates to system trusted keys for RHEL
+truncate -s0 ../certs/rhel.pem
 %if 0%{?rhel}
+%if %{rhelkeys}
 %{log_msg "Add DUP and kpatch certificates to system trusted keys for RHEL"}
 openssl x509 -inform der -in %{SOURCE100} -out rheldup3.pem
 openssl x509 -inform der -in %{SOURCE101} -out rhelkpatch1.pem
 openssl x509 -inform der -in %{SOURCE102} -out nvidiagpuoot001.pem
-cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem > ../certs/rhel.pem
+cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem >> ../certs/rhel.pem
+# rhelkeys
+%endif
 %if %{signkernel}
 %ifarch s390x ppc64le
 openssl x509 -inform der -in %{secureboot_ca_0} -out secureboot.pem
@@ -3055,12 +3068,8 @@ BuildKernel %make_target %kernel_image %{_use_vdso} rt-debug
 BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k-debug
 %endif
 
-%if %{with_automotive}
-%if %{with_automotiveonly}
-BuildKernel %make_target %kernel_image %{_use_vdso} debug
-%else
+%if %{with_automotive} && !%{with_automotive_build}
 BuildKernel %make_target %kernel_image %{_use_vdso} automotive-debug
-%endif
 %endif
 
 %if %{with_arm64_16k}
@@ -3097,11 +3106,7 @@ BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k
 %endif
 
 %if %{with_automotive_base}
-%if %{with_automotiveonly}
-BuildKernel %make_target %kernel_image %{_use_vdso}
-%else
 BuildKernel %make_target %kernel_image %{_use_vdso} automotive
-%endif
 %endif
 
 %if %{with_up_base}
@@ -3940,13 +3945,8 @@ fi\
 %endif
 
 %if %{with_automotive_base}
-%if %{with_automotiveonly}
-%kernel_variant_preun
-%kernel_variant_post
-%else
 %kernel_variant_preun -v automotive
 %kernel_variant_post -v automotive -r kernel
-%endif
 %endif
 
 %if %{with_realtime} && %{with_debug}
@@ -3966,14 +3966,9 @@ fi\
 %kernel_kvm_post rt-64k-debug
 %endif
 
-%if %{with_automotive} && %{with_debug}
-%if %{with_automotiveonly}
-%kernel_variant_preun -v debug
-%kernel_variant_post -v debug
-%else
+%if %{with_automotive} && %{with_debug} && !%{with_automotive_build}
 %kernel_variant_preun -v automotive-debug
 %kernel_variant_post -v automotive-debug
-%endif
 %endif
 
 ###
@@ -4298,18 +4293,11 @@ fi\
 %if %{with_realtime}
 %kernel_variant_files %{_use_vdso} %{with_debug} rt-debug
 %endif
-%if %{with_automotiveonly}
-%kernel_variant_files %{_use_vdso} %{with_automotive_base}
-%else
 %kernel_variant_files %{_use_vdso} %{with_automotive_base} automotive
-%endif
-%if %{with_automotive}
-%if %{with_automotiveonly}
-%kernel_variant_files %{_use_vdso} %{with_debug} debug
-%else
+%if %{with_automotive} && !%{with_automotive_build}
 %kernel_variant_files %{_use_vdso} %{with_debug} automotive-debug
 %endif
-%endif
+
 %if %{with_debug_meta}
 %files debug
 %files debug-core
@@ -4352,8 +4340,23 @@ fi\
 #
 #
 %changelog
-* Sat Jul 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.379f604cc3dc.50]
+* Mon Jul 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.52]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Jul 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.51]
+- kernel.spec: use %%{name} in partner/internal modules (Scott Weaver)
+- kernel.spec: introduce with_automotive_build (Scott Weaver)
+- kernel.spec: fix kernel-automotive packaging (Scott Weaver)
+- kernel.spec: add a few macro option comments (Scott Weaver)
+- kernel.spec: add conditional to include rhel trusted certificates (Eric Chanudet)
+- kernel.spec: Always BuildRequire openssl-devel (Eric Chanudet)
+- kernel.spec: automotive: disable kernel signature by default (Eric Chanudet)
+- redhat/configs: automotive: enable extra system cert (Eric Chanudet)
+- redhat/configs: automotive: Disable module signature with modules_install (Eric Chanudet)
+- Linux v6.16.0-0.rc6
+
+* Sun Jul 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.3f31a806a62e.50]
+- Linux v6.16.0-0.rc5.3f31a806a62e
 
 * Sat Jul 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.379f604cc3dc.49]
 - Linux v6.16.0-0.rc5.379f604cc3dc

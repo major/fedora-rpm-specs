@@ -1,6 +1,6 @@
 Name:           python-repoze-who-plugins-sa
 Version:        1.0.1
-Release:        47.20160106gite1a36c5%{?dist}
+Release:        48.20160106gite1a36c5%{?dist}
 Summary:        repoze.who SQLAlchemy plugin
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,7 +22,6 @@ Patch101: repoze-who-plugins-sa-requires.patch
 BuildArch:      noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-repoze-who
 BuildRequires: python3-sqlalchemy
 BuildRequires: python3-coverage
@@ -37,7 +36,6 @@ or Elixir-based models.\
 
 %package -n python3-repoze-who-plugins-sa
 Summary: repoze.who SQLAlchemy plugin
-%{?python_provide:%python_provide python3-repoze-who-plugins-sa}
 
 %description -n python3-repoze-who-plugins-sa
 This plugin provides one repoze.who authenticator which works with SQLAlchemy
@@ -49,31 +47,37 @@ based models on python3
 %patch -P 101 -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files repoze
 
 
 %check
+%pyproject_check_import
 # Tests not ported to Python3.
 %if 0
 %pytest
 %endif
 
 
-%files -n python3-repoze-who-plugins-sa
+%files -n python3-repoze-who-plugins-sa -f %{pyproject_files}
 %doc README.txt
-%{python3_sitelib}/repoze.who.plugins.sa-*
-%{python3_sitelib}/repoze/who/plugins/sa.py
-%{python3_sitelib}/repoze/who/plugins/__pycache__/sa.*
+%{python3_sitelib}/repoze.who.plugins.sa-%{version}-py%{python3_version}-nspkg.pth
 %exclude %{python3_sitelib}/tests
 
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.0.1-48.20160106gite1a36c5
+- Migrate from py_build/py_install to pyproject macros (bz#2378162)
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.0.1-47.20160106gite1a36c5
 - Rebuilt for Python 3.14
 

@@ -1,5 +1,5 @@
 Name:		perltidy
-Version:	20250616
+Version:	20250711
 Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Mon Jul 14 2025 Paul Howarth <paul@city-fan.org> - 20250711-1
+- Update to 20250711 (see CHANGES.md for details)
+
 * Mon Jun 16 2025 Paul Howarth <paul@city-fan.org> - 20250616-1
 - Update to 20250616 (see CHANGES.md for details)
 - Use %%{make_build} and %%{make_install}

@@ -5,7 +5,7 @@
 %global giturl  https://github.com/executablebooks/MyST-NB
 
 Name:           myst-nb
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Jupyter Notebook Sphinx reader
 
@@ -14,8 +14,6 @@ BuildArch:      noarch
 URL:            https://myst-nb.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Ignore deprecation warnings from python-jupyter-core
-Patch:          %{name}-jupyter-core-deprecation.patch
 
 BuildRequires:  help2man
 BuildRequires:  python3-devel

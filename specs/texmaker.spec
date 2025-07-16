@@ -45,9 +45,6 @@ Patch3: texmaker-zlib.patch
 Patch4: texmaker-lcms.patch
 Patch5: texmaker-libpng.patch
 
-# Excldue arches where qtwebengine-devel is missing
-ExcludeArch: ppc64 ppc64le s390x
-
 # Bundled libraries
 Provides: bundled(pdfium)
 #  pdfium/third_party

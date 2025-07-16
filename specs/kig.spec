@@ -3,7 +3,7 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
@@ -31,22 +31,21 @@ BuildRequires: gettext
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5TextEditor)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6TextEditor)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6CoreAddons)
 
-BuildRequires: pkgconfig(Qt5PrintSupport)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5XmlPatterns)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6PrintSupport)
 
 # when split occurred
 Conflicts: kdeedu-math < 4.7.0-10
@@ -62,7 +61,7 @@ Conflicts: kdeedu-math < 4.7.0-10
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   -DPYTHON_EXECUTABLE:PATH=%{__python3} \
   -DPYTHON_INCLUDE_DIR=%{_python3_include} \
   -DPYTHON_LIBRARY=%{_python3_lib} \
@@ -83,24 +82,27 @@ Conflicts: kdeedu-math < 4.7.0-10
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/%{name}*
-%{_kf5_bindir}/pykig.*
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/icons/hicolor/*/mimetypes/application-x-%{name}.*
-%{_kf5_datadir}/%{name}/
-%{_kf5_plugindir}/parts/kigpart.so
-%{_kf5_datadir}/katepart5/syntax/python-kig.xml
-%{_kf5_datadir}/metainfo/org.kde.%{name}.metainfo.xml
+%{_kf6_bindir}/%{name}*
+%{_kf6_bindir}/pykig.*
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/icons/hicolor/*/mimetypes/application-x-%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_plugindir}/parts/kigpart.so
+%{_kf6_datadir}/katepart5/syntax/python-kig.xml
+%{_kf6_datadir}/metainfo/org.kde.%{name}.metainfo.xml
 %{_mandir}/man1/kig.1*
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

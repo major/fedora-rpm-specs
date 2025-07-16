@@ -6,11 +6,11 @@ Summary:        Transaction management for Python
 License:        ZPL-2.1
 URL:            https://pypi.io/project/transaction
 Source0:        %pypi_source transaction
+Patch1:         transaction-no-explicit-setuptools-req.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-zope-interface
 
@@ -25,7 +25,6 @@ mainly used by the ZODB, though.
 Summary:        Transaction management for Python 3
 
 Requires:       python3-zope-interface
-%{?python_provide:%python_provide python3-transaction}
 
 %description -n python3-transaction %_description
 
@@ -33,26 +32,28 @@ Requires:       python3-zope-interface
 %prep
 %autosetup -n transaction-%{version} -p1
 
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files transaction
 
 
 %check
+%pyproject_check_import
 %pytest
 
 
-%files -n python3-transaction
+%files -n python3-transaction -f %{pyproject_files}
 %doc README.rst LICENSE.txt COPYRIGHT.txt
-%{python3_sitelib}/transaction/
-%{python3_sitelib}/transaction-*.egg-info
 
 
 %changelog

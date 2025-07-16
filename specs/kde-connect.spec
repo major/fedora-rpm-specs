@@ -1,7 +1,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
@@ -171,13 +171,11 @@ done
 %{_kf6_datadir}/knotifications6/*
 %{_kf6_datadir}/plasma/plasmoids/org.kde.kdeconnect/
 %{_kf6_datadir}/qlogging-categories6/kdeconnect*
-%{_kf6_datadir}/applications/kcm_kdeconnect.desktop
 %{_kf6_metainfodir}/org.kde.kdeconnect.appdata.xml
 %{_kf6_metainfodir}/org.kde.kdeconnect.metainfo.xml
 %{_kf6_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
 %{_kf6_plugindir}/kio/kdeconnect.so
 %{_qt6_archdatadir}/qml/org/kde/kdeconnect/
-%{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 
 %files -n kdeconnectd
 %{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
@@ -185,10 +183,7 @@ done
 %{_kf6_bindir}/kdeconnectd
 %{_datadir}/dbus-1/services/org.kde.kdeconnect.service
 
-%ldconfig_scriptlets libs
-
 %files libs
-%{_kf6_libdir}/libkdeconnectpluginkcm.so.*
 %{_kf6_libdir}/libkdeconnectcore.so.*
 %{_qt6_plugindir}/kdeconnect/
 
@@ -197,6 +192,9 @@ done
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

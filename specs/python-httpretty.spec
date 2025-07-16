@@ -32,7 +32,7 @@ Patch4:         test_handle_slashes.patch
 # Fixes RHBZ#2261569
 Patch5:         chunked_requests_handled_by_urllib3.patch  
 # Mock socket.shutdown for compatibility with urllib3 >= 2.3
-Patch6:         https://github.com/gabrielfalcao/HTTPretty/pull/485.patch
+Patch6:         485.patch
 # python 3.14 changes
 # functools.partial is now a method descriptor https://github.com/python/cpython/issues/121027
 # instead of utcnow() use datetime.datetime.now(tz=datetime.UTC)
@@ -54,6 +54,8 @@ Requires:       python3-six
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
+BuildRequires:  python3-wheel
 %if %{run_tests}
 BuildRequires:  python3-boto3
 BuildRequires:  python3-httplib2
@@ -81,14 +83,18 @@ Don't worry, HTTPretty is here for you.
 %prep
 %autosetup -n httpretty-%{version} -p1
 
-# Alternative for building from commit tarball
-#autosetup -n %%{github_name}-%%{github_commit} -p1
+%if %{run_tests}
+%pyproject_buildrequires -x testing
+%else
+%pyproject_buildrequires
+%endif
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files httpretty
 
 %check
 %if %{run_tests}
@@ -107,11 +113,9 @@ Don't worry, HTTPretty is here for you.
   -k "not test_httpretty_should_handle_paths_starting_with_two_slashes and not test_recording_calls"
 %endif
 
-%files -n python3-httpretty
+%files -n python3-httpretty -f %{pyproject_files}
 %doc README.rst
 %license COPYING
-%{python3_sitelib}/httpretty
-%{python3_sitelib}/httpretty-%{version}-py%{python3_version}.egg-info
 
 
 %changelog

@@ -1,6 +1,6 @@
 Name:    kcharselect
 Summary: Character selector 
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -19,6 +19,7 @@ BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: libappstream-glib
@@ -56,6 +57,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

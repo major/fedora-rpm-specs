@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -470,6 +470,8 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --enable-fips-warning \
   --enable-fail-if-missing \
   --disable-canberra \
+  --without-wayland \
+  --enable-year2038 \
   --disable-libsodium
 
 %make_build
@@ -532,6 +534,8 @@ mv -f os_unix.h.save os_unix.h
   --disable-libsodium \
   %endif
   --enable-fail-if-missing \
+  --with-wayland \
+  --enable-year2038 \
   --enable-canberra
 
 %make_build
@@ -587,6 +591,8 @@ make clean
   --disable-libsodium \
 %endif
   --enable-fail-if-missing \
+  --without-wayland \
+  --enable-year2038 \
   --disable-canberra
 
 %make_build
@@ -1058,6 +1064,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 %changelog
+* Mon Jul 14 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1537-2
+- 2379759 - remove wayland-libs from vim and vi (fedora#2379759)
+
 * Fri Jul 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1537-1
 - patchlevel 1537
 

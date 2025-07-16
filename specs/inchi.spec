@@ -13,7 +13,7 @@ Patch0: %{name}-rpm.patch
 # reported upstream:
 # https://sourceforge.net/p/inchi/bugs/77/
 Patch1: %{name}-1.0.6-0001-MolfileReadCountsLine-fix-storing-n_atoms-n_bonds-me.patch
-License: LicenseRef-IUPAC-InChI-Trust
+License: GPL-2.0-or-later
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: make

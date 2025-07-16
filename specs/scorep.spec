@@ -5,7 +5,7 @@
 %bcond_without libunwind
 
 Name:           scorep
-Version:        9.1
+Version:        9.2
 Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
@@ -351,6 +351,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Mon Jul 14 2025 Dave Love <loveshack@fedoraproject.org> - 9.2-1
+- Update to version 9.2
+
 * Mon Jun 30 2025 Dave Love <loveshack@fedoraproject.org> - 9.1-1
 - Update to version 9.1
 - Add DOI

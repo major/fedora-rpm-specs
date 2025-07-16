@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        25.04.3
+Version:        25.07.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2 - review is highly recommended.
 License:        GPL-3.0-only AND CC0-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-or-later AND GPL-2.0-only
@@ -45,6 +45,7 @@ BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(KUnifiedPush)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(QCoro6)
 
 BuildRequires:  cmake(MpvQt)
 # Should not be required, but mpv is built against it, so...
@@ -99,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.tokodon.service
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

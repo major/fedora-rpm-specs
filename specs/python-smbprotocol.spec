@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Interact with a server using the SMB 2/3 Protocol
 
 License:        MIT
@@ -36,11 +36,15 @@ based on the MS-SMB2 document.
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
 %pytest -v tests \
@@ -49,14 +53,15 @@ rm -rf %{pypi_name}.egg-info
   and not message \
   and not dfs"
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name}  -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/smbclient/
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jul 14 2025 Tom Rix <Tom.Rix@amd.com> - 1.9.0-11
+- Use pyproject macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.0-10
 - Rebuilt for Python 3.14
 

@@ -53,7 +53,7 @@ controlled enemies in exciting game modes:
 
 %package data
 Summary:        Audio, icons and XML files for %{name}
-License:        CC-BY and CC-BY-SA
+License:        CC-BY-3.0 AND CC-BY-SA-3.0
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{fonts}

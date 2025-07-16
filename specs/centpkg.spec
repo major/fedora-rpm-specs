@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -16,7 +16,6 @@ BuildArch:      noarch
 Patch: 0001-Use-the-authenticated-session-for-PP-API.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 # runtime requirements for test suite
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-GitPython
@@ -45,13 +44,18 @@ Provides the centpkg-sig command for working with dist-git.
 %autosetup -p 1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 %{python3} doc/centpkg_man_page.py > centpkg.1
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{name}
 install -D -p -m 0644 src/stream.conf      %{buildroot}%{_sysconfdir}/koji.conf.d/stream.conf
 install -D -p -m 0644 src/centpkg.conf     %{buildroot}%{_sysconfdir}/rpkg/centpkg.conf
 install -D -p -m 0644 src/centpkg-sig.conf %{buildroot}%{_sysconfdir}/rpkg/centpkg-sig.conf
@@ -60,17 +64,16 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %check
+%pyproject_check_import
+
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verbose
 
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc README.md
 %config(noreplace) %{_sysconfdir}/koji.conf.d/stream.conf
 %config(noreplace) %{_sysconfdir}/rpkg/centpkg.conf
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 %{_datadir}/bash-completion/completions/centpkg
 %{_mandir}/man1/centpkg.1*
 
@@ -81,6 +84,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Mon Jul 14 2025 Stephen Gallagher <sgallagh@redhat.com> - 0.10.0-5
+- Switch to %%pyproject_* macros
+- Resolves: rhbz#2377223
+
 * Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 0.10.0-4
 - Rebuilt for Python 3.14
 

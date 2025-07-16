@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -11,9 +11,12 @@ URL:            https://github.com/%{author}/%{pypi_name}
 Source0:        https://github.com/%{author}/%{pypi_name}/archive/refs/tags/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-ply
+
+BuildRequires:  python3dist(ply)
+BuildRequires:  pyproject-rpm-macros
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 phply is a parser for the PHP programming language written using PLY.
@@ -25,28 +28,31 @@ Summary:        %{summary}
 phply is a parser for the PHP programming language written using PLY
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 rm -rf %{buildroot}/%{python3_sitelib}/tests
 
 %check
 %py3_check_import %{pypi_name}
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python3-%{pypi_name}
 %doc README.md
 %license LICENSE
 %{_bindir}/phplex
 %{_bindir}/phpparse
 %{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-nspkg.pth
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
+%{python3_sitelib}/%{pypi_name}*.pth
 
 %changelog
+* Mon Jul 14 2025 Sudip Shil <sshil@redhat.com> - 1.2.5-13
+- Migrate to %pyproject_* macros and remove deprecated %py3_build/install
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.5-12
 - Rebuilt for Python 3.14
 

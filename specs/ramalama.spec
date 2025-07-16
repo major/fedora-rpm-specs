@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.10.1
+%global version0  0.11.0
 %forgemeta
 
 %global summary   Command line tool for working with AI LLM models
@@ -11,11 +11,11 @@
 Name:             %{pypi_name}
 # DO NOT TOUCH the Version string!
 # The TRUE source of this specfile is:
-# https://github.com/containers/ramalama/blob/main/rpm-next/ramalama.spec
+# https://github.com/containers/ramalama/blob/main/rpm/ramalama.spec
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version:          %{version0}
+Version:          0.11.0
 License:          MIT
 Release:          %{autorelease}
 Summary:          %{summary}

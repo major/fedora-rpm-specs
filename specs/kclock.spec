@@ -2,7 +2,7 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        25.04.3
+Version:        25.07.80
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-4.0 AND GPL-2.0-or-later
 Summary:        Clock app for Plasma Mobile
@@ -37,6 +37,9 @@ BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6JobWidgets)
 
 BuildRequires:  cmake(Plasma)
 
@@ -93,16 +96,20 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_sysconfdir}/xdg/autostart/%{klockd_name}-autostart.desktop
 %{_datadir}/dbus-1/services/org.kde.%{name}d.service
+%{_datadir}/krunner/dbusplugins/kclock-runner.desktop
 %{_kf6_datadir}/knotifications6/%{name}d.notifyrc
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %files plasma-applet
 %{_kf6_metainfodir}/org.kde.plasma.%{name}_1x2.appdata.xml
-%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}_plasmoid_1x2.svg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/kclock_plasmoid.svg
 %{_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x2/
 %{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

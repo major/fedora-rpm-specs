@@ -1,13 +1,6 @@
-# EPEL10 does not have kf5
-%if 0%{?rhel} && 0%{?rhel} >= 10
-%bcond_with kf5
-%else
-%bcond_without kf5
-%endif
-
 Name:          ktextaddons
-Version:       1.5.4
-Release:       3%{?dist}
+Version:       1.6.0
+Release:       1%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -34,45 +27,10 @@ BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Sonnet)
 BuildRequires: cmake(KF6SyntaxHighlighting)
-
-%if %{with kf5}
-BuildRequires: kf5-rpm-macros
-
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Keychain)
-BuildRequires: cmake(Qt5TextToSpeech)
-BuildRequires: cmake(Qt5UiPlugin)
-
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5SyntaxHighlighting)
-%endif
-
+BuildRequires: cmake(KF6TextWidgets)
 
 %description
 %{summary}.
-
-
-%if %{with kf5}
-%package        qt5
-Obsoletes:      ktextaddons < 1.5.2
-Provides:       ktextaddons = %{version}-%{release}
-Summary:        Qt5 libraries for %{name}
-Requires:       %{name}-common = %{version}-%{release}
-%description    qt5
-%{summary}.
-
-%package        qt5-devel
-Summary:        Development files for %{name}
-Obsoletes:      ktextaddons-devel < 1.5.2
-Provides:       ktextaddons-devel = %{version}-%{release}
-%description    qt5-devel
-%{summary}.
-%endif
 
 %package        qt6
 Summary:        Qt6 libraries for %{name}
@@ -103,101 +61,13 @@ BuildArch:      noarch
 
 
 %build
-mkdir %{name}_qt6
-pushd %{name}_qt6
-%cmake_kf6 -S .. -DQT_MAJOR_VERSION=6
+%cmake_kf6
 %cmake_build
-popd
-
-%if %{with kf5}
-mkdir %{name}_qt5
-pushd %{name}_qt5
-%cmake_kf5 -DQT_MAJOR_VERSION=5 -S ..
-%cmake_build
-popd
-%endif
-
 
 
 %install
-pushd %{name}_qt6
 %cmake_install
-popd
-%if %{with kf5}
-pushd %{name}_qt5
-%cmake_install
-popd
-%endif
-
 %find_lang %{name} --all-name
-
-
-%if %{with kf5}
-%files qt5
-%license LICENSES/
-%{_kf5_libdir}/libKF5TextAddonsWidgets.so.1
-%{_kf5_libdir}/libKF5TextAddonsWidgets.so.%{version}
-%{_kf5_libdir}/libKF5TextAutoCorrectionCore.so.1
-%{_kf5_libdir}/libKF5TextAutoCorrectionCore.so.%{version}
-%{_kf5_libdir}/libKF5TextAutoCorrectionWidgets.so.1
-%{_kf5_libdir}/libKF5TextAutoCorrectionWidgets.so.%{version}
-%{_kf5_libdir}/libKF5TextCustomEditor.so.1
-%{_kf5_libdir}/libKF5TextCustomEditor.so.%{version}
-%{_kf5_libdir}/libKF5TextEmoticonsCore.so.1
-%{_kf5_libdir}/libKF5TextEmoticonsCore.so.%{version}
-%{_kf5_libdir}/libKF5TextEmoticonsWidgets.so.1
-%{_kf5_libdir}/libKF5TextEmoticonsWidgets.so.%{version}
-%{_kf5_libdir}/libKF5TextEditTextToSpeech.so.1
-%{_kf5_libdir}/libKF5TextEditTextToSpeech.so.%{version}
-%{_kf5_libdir}/libKF5TextGrammarCheck.so.1
-%{_kf5_libdir}/libKF5TextGrammarCheck.so.%{version}
-%{_kf5_libdir}/libKF5TextTranslator.so.1
-%{_kf5_libdir}/libKF5TextTranslator.so.%{version}
-%{_kf5_libdir}/libKF5TextUtils.so.1
-%{_kf5_libdir}/libKF5TextUtils.so.%{version}
-%{_kf5_plugindir}/translator/translator_bing.so
-%{_kf5_plugindir}/translator/translator_deepl.so
-%{_kf5_plugindir}/translator/translator_google.so
-%{_kf5_plugindir}/translator/translator_libretranslate.so
-%{_kf5_plugindir}/translator/translator_lingva.so
-%{_kf5_plugindir}/translator/translator_yandex.so
-%{_kf5_datadir}/qlogging-categories5/ktextaddons.categories
-%{_kf5_datadir}/qlogging-categories5/ktextaddons.renamecategories
-
-%files qt5-devel
-%{_kf5_includedir}/TextAddonsWidgets/
-%{_kf5_includedir}/TextAutoCorrectionCore/
-%{_kf5_includedir}/TextAutoCorrectionWidgets/
-%{_kf5_includedir}/TextCustomEditor/
-%{_kf5_includedir}/TextEditTextToSpeech/
-%{_kf5_includedir}/TextEmoticonsCore/
-%{_kf5_includedir}/TextEmoticonsWidgets/
-%{_kf5_includedir}/TextGrammarCheck/
-%{_kf5_includedir}/TextTranslator/
-%{_kf5_includedir}/TextUtils/
-%{_kf5_libdir}/libKF5TextAddonsWidgets.so
-%{_kf5_libdir}/libKF5TextAutoCorrectionCore.so
-%{_kf5_libdir}/libKF5TextAutoCorrectionWidgets.so
-%{_kf5_libdir}/libKF5TextCustomEditor.so
-%{_kf5_libdir}/libKF5TextEditTextToSpeech.so
-%{_kf5_libdir}/libKF5TextEmoticonsCore.so
-%{_kf5_libdir}/libKF5TextEmoticonsWidgets.so
-%{_kf5_libdir}/libKF5TextGrammarCheck.so
-%{_kf5_libdir}/libKF5TextTranslator.so
-%{_kf5_libdir}/libKF5TextUtils.so
-%{_kf5_libdir}/cmake/KF5TextAddonsWidgets/
-%{_kf5_libdir}/cmake/KF5TextAutoCorrectionCore/
-%{_kf5_libdir}/cmake/KF5TextAutoCorrectionWidgets/
-%{_kf5_libdir}/cmake/KF5TextCustomEditor/
-%{_kf5_libdir}/cmake/KF5TextEmoticonsCore/
-%{_kf5_libdir}/cmake/KF5TextEmoticonsWidgets/
-%{_kf5_libdir}/cmake/KF5TextEditTextToSpeech/
-%{_kf5_libdir}/cmake/KF5TextGrammarCheck/
-%{_kf5_libdir}/cmake/KF5TextTranslator/
-%{_kf5_libdir}/cmake/KF5TextUtils/
-%{_kf5_qtplugindir}/designer/textcustomeditor.so
-%{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
-%endif
 
 %files qt6
 %license LICENSES/
@@ -221,6 +91,12 @@ popd
 %{_kf6_libdir}/libKF6TextTranslator.so.%{version}
 %{_kf6_libdir}/libKF6TextUtils.so.1
 %{_kf6_libdir}/libKF6TextUtils.so.%{version}
+%{_kf6_libdir}/libKF6TextAutoGenerateText.so.1
+%{_kf6_libdir}/libKF6TextAutoGenerateText.so.%{version}
+%{_kf6_libdir}/libKF6TextSpeechToText.so.1
+%{_kf6_libdir}/libKF6TextSpeechToText.so.%{version}
+%{_kf6_libdir}/libtextautogenerateollama.so.1
+%{_kf6_libdir}/libtextautogenerateollama.so.%{version}
 %{_kf6_plugindir}/translator/translator_bing.so
 %{_kf6_plugindir}/translator/translator_deepl.so
 %{_kf6_plugindir}/translator/translator_google.so
@@ -242,6 +118,8 @@ popd
 %{_kf6_includedir}/TextGrammarCheck/
 %{_kf6_includedir}/TextTranslator/
 %{_kf6_includedir}/TextUtils/
+%{_kf6_includedir}/TextAutoGenerateText/
+%{_kf6_includedir}/TextSpeechToText/
 %{_kf6_libdir}/libKF6TextAddonsWidgets.so
 %{_kf6_libdir}/libKF6TextAutoCorrectionCore.so
 %{_kf6_libdir}/libKF6TextAutoCorrectionWidgets.so
@@ -262,8 +140,15 @@ popd
 %{_kf6_libdir}/cmake/KF6TextGrammarCheck/
 %{_kf6_libdir}/cmake/KF6TextTranslator/
 %{_kf6_libdir}/cmake/KF6TextUtils/
+%{_kf6_libdir}/cmake/KF6TextAutoGenerateText/
+%{_kf6_libdir}/cmake/KF6TextSpeechToText/
+%{_kf6_libdir}/libKF6TextAutoGenerateText.so
+%{_kf6_libdir}/libKF6TextSpeechToText.so
 %{_kf6_qtplugindir}/designer/textcustomeditor.so
 %{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
+%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_google.so
+%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_whisper.so
+%{_kf6_qtplugindir}/kf6/textautogeneratetext/autogeneratetext_ollama.so
 %{_qt6_docdir}/*.tags
 
 %files qt6-doc
@@ -273,6 +158,9 @@ popd
 %doc README.md
 
 %changelog
+* Mon Jul 14 2025 Steve Cossette <farchord@gmail.com> - 1.6.0-1
+- 1.6.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,19 +1,11 @@
-%undefine __cmake_in_source_build
-Name:    kdegraphics-mobipocket 
-Summary: A collection of plugins to handle mobipocket files 
-Version: 25.04.3
+Name:    kdegraphics-mobipocket
+Summary: A collection of plugins to handle mobipocket files
+Version: 25.07.80
 Release: 1%{?dist}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
+License: GPL-2.0-or-later AND CC0-1.0 AND LGPL-2.1-or-later
 URL:     https://www.kde.org/applications/graphics/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
@@ -44,7 +36,6 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 %build
 %cmake_kf6 \
 	-DQT_MAJOR_VERSION=6
-    
 %cmake_build
 
 
@@ -55,8 +46,8 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 %ldconfig_scriptlets
 
 %files
-%license COPYING
-%{_libdir}/libQMobipocket6.so.2*
+%license LICENSES/*
+%{_libdir}/libQMobipocket6.so.3*
 
 %files devel
 %{_libdir}/libQMobipocket6.so
@@ -65,6 +56,9 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

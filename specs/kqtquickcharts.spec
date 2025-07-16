@@ -1,6 +1,6 @@
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
@@ -12,10 +12,10 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Quick)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
 
 # header/cmake stuff included here -- rex
 Provides: %{name}-devel = %{version}-%{release}
@@ -31,8 +31,7 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 
 %build
 
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -43,15 +42,18 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %files
 %doc AUTHORS
 %license COPYING
-%{_kf5_qmldir}/org/kde/charts/
+%{_kf6_qmldir}/org/kde/charts/
 # -devel type stuff, doesn't warrant a separate subpkg (yet)
-%{_kf5_includedir}/kqtquickcharts_version.h
-%dir %{_kf5_libdir}/cmake/
-%dir %{_kf5_libdir}/cmake/KQtQuickCharts/
-%{_kf5_libdir}/cmake/KQtQuickCharts/KQtQuickChartsVersion.cmake
-%{_kf5_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
+%{_kf6_includedir}/kqtquickcharts_version.h
+%dir %{_kf6_libdir}/cmake/
+%dir %{_kf6_libdir}/cmake/KQtQuickCharts/
+%{_kf6_libdir}/cmake/KQtQuickCharts/KQtQuickChartsVersion.cmake
+%{_kf6_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

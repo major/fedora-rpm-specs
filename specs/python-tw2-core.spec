@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -17,7 +17,6 @@ BuildArch:      noarch
 # For building, generally
 # General
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-webob >= 0.9.7
 BuildRequires:  python3-simplejson >= 2.0
 BuildRequires:  python3-decorator
@@ -59,7 +58,6 @@ Requires: python3-speaklater
 Requires: python3-paste-deploy
 Requires: python3-six
 
-%{?python_provide:%python_provide python3-tw2-core}
 
 %description -n python3-tw2-core
 ToscaWidgets is a web widget toolkit for Python to aid in the creation,
@@ -72,6 +70,9 @@ This package contains the python3 version of the toolkit
 
 %prep
 %autosetup -n %{modname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 # Fix shebang for python3
@@ -90,6 +91,9 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' tw2/core/t
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-20
+- Remove setuptools dependency and add buildrequires generator
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.3.0-19
 - Rebuilt for Python 3.14
 

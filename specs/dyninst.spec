@@ -3,7 +3,7 @@ License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND Lic
 Name: dyninst
 Group: Development/Libraries
 Release: 5%{?dist}
-URL: http://www.dyninst.org
+URL: https://www.paradyn.org
 Version: 13.0.0
 ExclusiveArch: x86_64 ppc64le aarch64
 

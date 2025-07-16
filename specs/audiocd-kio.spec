@@ -1,6 +1,6 @@
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
@@ -136,6 +136,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

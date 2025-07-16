@@ -1,6 +1,6 @@
 Name:    korganizer
 Summary: Personal Organizer
-Version: 25.04.3
+Version: 25.07.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -106,7 +106,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_datadir}/applications/org.kde.korganizer.desktop
 %{_kf6_datadir}/config.kcfg/korganizer.kcfg
 %{_kf6_datadir}/icons/hicolor/*
-%{_kf6_datadir}/knsrcfiles/korganizer.knsrc
 %{_kf6_datadir}/korganizer/
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_kf6_metainfodir}/org.kde.korganizer.appdata.xml
@@ -127,6 +126,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

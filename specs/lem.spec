@@ -16,9 +16,6 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-zarith-devel
 BuildRequires:  ocaml-num-devel
-BuildRequires:  ocaml-rpm-macros
-
-%global debug_package %{nil}
 
 %description
 Lem is a tool for lightweight executable mathematics, 

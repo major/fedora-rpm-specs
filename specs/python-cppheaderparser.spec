@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Parse C++ header files and generate a data structure
 
 License:        BSD-3-Clause
@@ -34,18 +34,23 @@ rm -rf %{pypi_name}.egg-info
 rm -rf CppHeaderParser/{examples,docs}
 sed -i -e '/^#!\//, 1d' CppHeaderParser/CppHeaderParser.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files CppHeaderParser
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.txt README.html
-%{python3_sitelib}/CppHeaderParser/
-%{python3_sitelib}/CppHeaderParser-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jul 14 2025 Tom Rix <Tom.Rix@amd.com> - 2.7.4-18
+- Use pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.7.4-17
 - Rebuilt for Python 3.14
 
