@@ -18,6 +18,8 @@ Patch0:     khal-0.8.2-sphinx-docfix.patch
 # Support Python 3.14.
 # https://github.com/pimutils/khal/pull/1417
 Patch1:     khal-0.13.0-support-py3.14.patch
+# Reduce setuptools requirement. Fedora 42 lacks setuptools 77+.
+Patch2:     khal-0.13.0-reduce-setuptools-req.patch
 BuildArch:  noarch
 
 BuildRequires: make

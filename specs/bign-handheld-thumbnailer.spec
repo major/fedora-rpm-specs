@@ -5,9 +5,9 @@
 %global cargo_install_lib 0
 
 Name:           bign-handheld-thumbnailer
-Version:        1.1.2
-Release:        2%{?dist}
-Summary:        Thumbnailer for Nintendo handheld systems
+Version:        1.1.3
+Release:        1%{?dist}
+Summary:        Thumbnailer for Nintendo handheld game consoles
 
 SourceLicense:  GPL-2.0-or-later
 # 0BSD OR MIT OR Apache-2.0
@@ -28,8 +28,7 @@ BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  meson
 
 %global _description %{expand:
-A thumbnailer for Nintendo handheld systems (Nintendo DS and 3DS) roms
-and files.}
+Thumbnailer for Nintendo handheld game consoles (DS and 3DS) roms and homebrew.}
 
 %description %{_description}
 
@@ -58,7 +57,6 @@ and files.}
 %license LICENSE
 %license LICENSE.dependencies
 %doc README.md
-%doc meson_options.txt
 %{_bindir}/bign-handheld-thumbnailer
 %dir %{_datadir}/mime
 %dir %{_datadir}/mime/packages
@@ -68,6 +66,11 @@ and files.}
 %{_metainfodir}/dev.mateusrodcosta.bign_handheld_thumbnailer.metainfo.xml
 
 %changelog
+* Tue Jul 15 2025 Mateus Rodrigues Costa <mateusrodcosta@gmail.com> - 1.1.3-1
+- Update to 1.1.3
+- Update summary and description
+- Remove meson_options.txt
+
 * Wed Jan 29 2025 Mateus Rodrigues Costa <mateusrodcosta@gmail.com> - 1.1.2-2
 - Own unowned directories under /usr/share
 

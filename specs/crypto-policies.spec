@@ -1,5 +1,5 @@
-%global git_date 20250620
-%global git_commit 9496ef7ee47499895cee097f111c94200e033729
+%global git_date 20250714
+%global git_commit cd6043a774abf6e4d17116f1497a2032f5351d49
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -38,7 +38,7 @@ Conflicts: openssl-libs < 1:3.5.0-1
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
 Conflicts: openssh < 9.9
-Conflicts: gnutls < 3.8.9-1
+Conflicts: gnutls < 3.8.10
 
 # Most users want this, the split is mostly for Fedora CoreOS
 Recommends: crypto-policies-scripts
@@ -289,6 +289,11 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Mon Jul 14 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250714-1.gitcd6043a
+- FIPS: disable MLKEM768-X25519 for openssh (no-op)
+- python, policies, tests: alias X25519-MLKEM768 to MLKEM768-X25519
+- gnutls: enable ML-DSA, for both secure-sig and secure-sig-for-cert
+
 * Fri Jun 20 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250620-1.git9496ef7
 - sequoia: Add PQC algorithms
 - sequoia: Do not include EdDSA in FIPS policy

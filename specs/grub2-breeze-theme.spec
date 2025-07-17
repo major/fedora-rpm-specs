@@ -2,7 +2,7 @@
 %global         base_name breeze-grub
 
 Name:           grub2-breeze-theme
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 Summary:        Breeze theme for GRUB
 
@@ -60,6 +60,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
+- 6.4.3
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
 - 6.4.2
 

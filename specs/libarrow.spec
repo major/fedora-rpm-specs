@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	20.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -825,7 +825,10 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
-* Mon Apr 28 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 20.0.0-2
+* Tue Jul 15 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 20.0.0-3
+- Arrow 20.0.0, rebuild with ORC (liborc) 2.1.3
+
+* Wed Jul 9 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 20.0.0-2
 - Arrow 20.0.0 GA f43-build-side-114791 and Python-3.14
 
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 19.0.1-6

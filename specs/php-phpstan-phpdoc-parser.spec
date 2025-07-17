@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    9b30d6fd026b2c132b3985ce6b23bec09ab3aa68
+%global gh_commit    b9e61a61e39e02dd90944e9115241c7f7e76bfd8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpstan
 %global gh_project   phpdoc-parser
@@ -19,7 +19,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        2.1.0
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
@@ -101,7 +101,7 @@ sed -e 's:exec://exec:' -i tests/bootstrap.php
 # use auto_prepend_file to ensure we use new version (not old one pulled by PHPUnit)
 # ignore test using doctrine/annotations
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Tue Jul 15 2025 Remi Collet <remi@remirepo.net> - 2.2.0-1
+- update to 2.2.0
+
 * Wed Feb 19 2025 Remi Collet <remi@remirepo.net> - 2.1.0-1
 - update to 2.1.0
 

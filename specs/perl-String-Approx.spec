@@ -1,17 +1,22 @@
 Name:           perl-String-Approx
 Version:        3.28
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Perl extension for approximate (fuzzy) matching
+# Fedora legal
+# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/172>
+# recommends ignoring COPYRIGHT.agrep because there is no agrep source code
+# and Artistic-1.0-Perl option because Fedora does not allow it.
 # Approx.pm:    Artistic-2.0 OR LGPL-2.0-only
 # apse.c:       LGPL-2.0-or-later OR Artistic-1.0-Perl
 # apse.h:       LGPL-2.0-or-later OR Artistic-1.0-Perl
 # Artistic:     Artistic-2.0 text
 # COPYRIGHT:    LGPL-1.0-or-later (!) OR Artistic-1.0-Perl
 # COPYRIGHT.agrep:  agrep license text
+#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/172>
 # LGPL:         LGPL-2.0 text
 # README:       Artistic-2.0 OR LGPL-2.0-only
 # README.apse:  "read the COPYRIGHT. This implementation shares no code with agrep"
-License:        (LGPL-2.0-or-later OR Artistic-1.0-Perl) AND (Artistic-2.0 OR LGPL-2.0-only)
+License:        (Artistic-2.0 OR LGPL-2.0-only) AND (LGPL-2.0-or-later)
 URL:            https://metacpan.org/release/String-Approx
 Source0:        https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -60,7 +65,7 @@ make test
 
 
 %files
-%license Artistic COPYRIGHT COPYRIGHT.agrep LGPL
+%license Artistic COPYRIGHT LGPL
 %doc ChangeLog PROBLEMS README README.apse
 %dir %{perl_vendorarch}/auto/String
 %{perl_vendorarch}/auto/String/Approx
@@ -70,6 +75,10 @@ make test
 
 
 %changelog
+* Tue Jul 15 2025 Petr Pisar <ppisar@redhat.com> - 3.28-30
+- Correct a license tag to "(Artistic-2.0 OR LGPL-2.0-only) AND
+  (LGPL-2.0-or-later)"
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.28-29
 - Perl 5.42 rebuild
 

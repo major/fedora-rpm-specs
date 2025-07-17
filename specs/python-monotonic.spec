@@ -21,6 +21,9 @@ On older versions, it will fall back to an equivalent implementation.}
 %package -n python3-monotonic
 Summary:        %{summary}
 BuildRequires:  python3-devel
+# Monotonic's GitHub repo was archived in 2021.  No other packages in Fedora
+# depend on it.
+Provides:       deprecated()
 
 
 %description -n python3-monotonic %_description

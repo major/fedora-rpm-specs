@@ -2,17 +2,20 @@
 %bcond  qt5           1
 
 Name:           kvantum
-Version:        1.1.4
+Version:        1.1.5
 Release:        %autorelease
 Summary:        SVG-based theme engine for Qt, KDE and LXQt
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/tsujan/Kvantum
-Source:         %url/archive/V%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/V%{version}/Kvantum-%{version}.tar.xz
+Source1:        %{url}/releases/download/V%{version}/Kvantum-%{version}.tar.xz.asc
+Source2:        https://github.com/tsujan.gpg
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  make
+BuildRequires:  gnupg2
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(Qt6Core)
@@ -82,6 +85,7 @@ emphasis on elegance, usability and practicality.
 This package contains the data needed Kvantum.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n Kvantum-%{version}
 
 %build

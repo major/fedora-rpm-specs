@@ -4,7 +4,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.2.9
+Version:	4.3.0
 Release:	1%{?dist}
 Summary:	Ruby binding of cairo-gobject
 
@@ -47,7 +47,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.2\.9|>= 4.2.9|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.0|>= 4.3.0|' %{gem_name}-%{version}.gemspec
 # ???
 sed -i -e \
 	'\@gobject-introspection-test-utils@d' \
@@ -113,6 +113,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Tue Jul 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-1
+- 4.3.0
+
 * Sat Mar 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.9-1
 - 4.2.9
 

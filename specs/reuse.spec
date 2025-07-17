@@ -10,6 +10,7 @@ Source0:        %pypi_source
 
 Patch:          0001-Use-importlib-mode-for-pytest.patch
 Patch:          0002-Skip-tests-with-old-freezegun.patch
+Patch:          0003-Prepare-test_cli_main.py-for-click-8.2.patch
 
 # Build
 BuildRequires:  python3-devel

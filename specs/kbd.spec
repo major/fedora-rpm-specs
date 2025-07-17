@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -184,6 +184,10 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Tue Jul 15 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.0-2
+- Fix kfont_load_font(): setfont killed by SIGSEGV
+  Resolves: #2370214
+
 * Mon Jun 09 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.0-1
 - Update to kbd-2.8.0
   Resolves: #2369419

@@ -5,13 +5,16 @@
 %global crate zerovec-derive
 
 Name:           rust-zerovec-derive
-Version:        0.10.3
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Custom derive for the zerovec crate
 
 License:        Unicode-3.0
 URL:            https://crates.io/crates/zerovec-derive
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Patch out the examples to avoid a circular dependency on the zerovec crate.
+Patch:          zerovec-derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

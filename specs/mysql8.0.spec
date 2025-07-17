@@ -6,7 +6,7 @@
 
 
 # Set if this package will be the default one in distribution
-%{!?mysql_default:%global mysql_default 1}
+%{!?mysql_default:%global mysql_default 0}
 
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          100%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1118,6 +1118,10 @@ fi
 %endif
 
 %changelog
+* Tue Jul 15 2025 Michal Schorm <mschorm@redhat.com> - 8.0.42-100
+- Disable the 'distribution default' in MySQL 8.0 in this package
+- Enable the 'distribution default' in MySQL 8.4 (package 'mysql8.4')
+
 * Thu Apr 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.42-1
 - Rebase to MySQL 8.0.42
 

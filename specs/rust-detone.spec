@@ -12,6 +12,10 @@ Summary:        Decompose Vietnamese tone marks
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/detone
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow icu_normalizer 2, from ICU4X 2.0. See “Update icu_normalizer
+#   dev-dependency to 2.0.0,” https://github.com/hsivonen/detone/pull/3.
+Patch:          detone-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

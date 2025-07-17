@@ -18,7 +18,8 @@ Source3:        prepare_vendor.sh
 
 # s390x builds fail due to a bug in jupyterlab
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278011
-ExcludeArch:    s390x
+# ppc64le build fails due to lack of a binary builder
+ExcludeArch:    %{power64} s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  help2man

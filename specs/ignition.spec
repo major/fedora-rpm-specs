@@ -22,7 +22,7 @@ Version:                2.22.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -30,6 +30,9 @@ License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
+
+# Backporting https://github.com/coreos/ignition/pull/2104
+Patch0:         0001-oraclecloud-do-not-wrap-errors-from-FetchToBuffer.patch
 
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
@@ -384,6 +387,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_prefix}/lib/bootupd/grub2-static/configs.d/05_ignition.cfg
 
 %changelog
+* Tue Jul 15 2025 Tiago Bueno <tiago.bueno@gmail.com> - 2.22.0-2
+- Backport fix for OracleCloud do not wrap errors from FetchToBuffer
+
 * Tue Jul 8 2025 Yasmin Valim <ydesouza@redhat.com> - 2.22.0-1
 - New Release
 

@@ -2,28 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate icu_collections
+%global crate potential_utf
 
-Name:           rust-icu_collections
-Version:        2.0.0
+Name:           rust-potential_utf
+Version:        0.1.2
 Release:        %autorelease
-Summary:        Collection of API for use in ICU libraries
+Summary:        Unvalidated string and character types
 
 License:        Unicode-3.0
-URL:            https://crates.io/crates/icu_collections
+URL:            https://crates.io/crates/potential_utf
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Drop benchmark-only criterion dependency
-# * Omit the unicode_bmp_blocks_selector example, which would require the
-#   internal icu_benchmark_macros crate
-Patch:          icu_collections-fix-metadata.diff
-# * Downstream-only: disable tests that create circular deps. on the icu crate
-Patch10:        0001-Downstream-only-disable-tests-that-create-circular-d.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Collection of API for use in ICU libraries.}
+Unvalidated string and character types.}
 
 %description %{_description}
 
@@ -89,25 +82,46 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+writeable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+writeable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "writeable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+writeable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zerovec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zerovec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zerovec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zerovec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f alloc,databake,serde
+%cargo_generate_buildrequires -f databake,serde,writeable,zerovec
 
 %build
-%cargo_build -f alloc,databake,serde
+%cargo_build -f databake,serde,writeable,zerovec
 
 %install
-%cargo_install -f alloc,databake,serde
+%cargo_install -f databake,serde,writeable,zerovec
 
 %if %{with check}
 %check
-# * Very many doctests have circular dependencies on the top-level icu crate,
-#   enough that it would be very tedious to patch them all out.
-%cargo_test -f alloc,databake,serde -- --lib
-%cargo_test -f alloc,databake,serde -- --tests
+%cargo_test -f databake,serde,writeable,zerovec
 %endif
 
 %changelog

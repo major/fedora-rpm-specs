@@ -21,19 +21,23 @@
 
 Name:           mysql-connector-python
 Version:        8.0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv2-with-exceptions
+License:        (MIT OR GPL-2.0-only) AND GPL-2.0-only AND BSD-2-Clause
 URL:            http://dev.mysql.com/doc/connector-python/en/index.html
-# Upstream has a mirror redirector for downloads, so the URL is hard to
-# represent statically.  You can get the tarball by following a link from
-# http://dev.mysql.com/downloads/connector/python/
-Source0:        %{name}-%{version}-src.tar.gz
+# You can get the original tarball from:
+# http://dev.mysql.com/get/Downloads/Connector-python/8.0/%%{name}-%%{version}-src.tar.gz"
+
+# The tarball has to be modified as the fonts are licensed under a copyright
+# and therefore would clash with the allowed licenses for fonts in fedora if
+# they were shipped in the src rpm
+# to modify the tarball to the desired form use the
+# generate-modified-sources.sh script available in this repo
+Source0:        %{name}-%{version}-src-without-fonts.tar.gz
 
 BuildRequires:  python3-devel >= 3
-BuildRequires:  python3-setuptools
 BuildRequires:  gcc-c++
 # for building the extension modules
 BuildRequires:  mysql-devel
@@ -50,6 +54,9 @@ BuildRequires:  mysql-server
 BuildRequires:  protobuf-devel >= 4.25.3
 BuildRequires:  protobuf-compiler >= 4.25.3
 %endif
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %global _description\
 MySQL Connector/Python is implementing the MySQL Client/Server protocol\
@@ -87,7 +94,7 @@ export MYSQLXPB_PROTOBUF_INCLUDE_DIR=%{_includedir}
 export MYSQLXPB_PROTOBUF_LIB_DIR=%{_libdir}
 export MYSQLXPB_PROTOC="%{_bindir}/protoc"
 %endif
-%py3_build
+%pyproject_wheel
 
 #building the man pages
 cd docs/mysqlx
@@ -96,7 +103,7 @@ make man BUILDDIR=%{_builddir}
 
 
 %install
-%py3_install
+%pyproject_install
 # create the man dir
 mkdir -p %{buildroot}%{_mandir}/man1
 # install the man page into the man dir with
@@ -133,10 +140,13 @@ rm -r docs/mysqlx
 %if %{with_mysqlxpb}
 %{python3_sitearch}/_mysqlxpb%{python3_ext_suffix}
 %endif
-%{python3_sitearch}/mysql_connector_python-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/mysql_connector_python-%{version}.dist-info/
 %{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Tue Jul 15 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-2
+- Bump release for package rebuild
+
 * Wed Jun 18 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.33-1
 - Rebase to 8.0.33
 

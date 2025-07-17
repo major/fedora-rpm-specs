@@ -5,7 +5,7 @@
 %global crate icu_normalizer_data
 
 Name:           rust-icu_normalizer_data
-Version:        1.5.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Data for the icu_normalizer crate
 

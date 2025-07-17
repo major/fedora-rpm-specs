@@ -10,6 +10,7 @@ URL:            https://gitlab.com/VelocityLimitless/Projects/%{name}
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  scdoc

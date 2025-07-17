@@ -1,13 +1,13 @@
 # http://trac.wildfiregames.com/wiki/BuildInstructions#Linux
 
 Name:		0ad-data
-Version:	0.0.26
-Release:	11%{?dist}
+Version:	0.27.0
+Release:	1%{?dist}
 Summary:	The Data Files for 0 AD
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
 Url:		http://play0ad.com
-Source:		http://releases.wildfiregames.com/0ad-%{version}-alpha-unix-data.tar.xz
+Source:		http://releases.wildfiregames.com/0ad-%{version}-unix-data.tar.xz
 BuildRequires:	unzip
 Requires:	dejavu-sans-fonts
 Requires:	dejavu-sans-mono-fonts
@@ -25,7 +25,7 @@ game engine.
 This package contains the 0ad data files.
 
 %prep
-%setup -q -n 0ad-%{version}-alpha
+%setup -q -n 0ad-%{version}
 
 %build
 pushd binaries/data/mods/public
@@ -49,6 +49,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Fri Jul 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.0-1
+- 0.27.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

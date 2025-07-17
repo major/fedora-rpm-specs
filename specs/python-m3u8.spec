@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python module %srcname parser
 License:        MIT
 Url:            https://github.com/globocom/m3u8
@@ -22,7 +22,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-iso8601
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(wheel)
 Requires:       python3dist(iso8601)
 
@@ -39,28 +38,28 @@ Python module %srcname parser
 
 %build
 # Bytecompile Python modules
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 # 3 deselected tests require internet connection
 #%%pytest -vv -k "not (test_load_should_ and (uri or redirect))"
 %pytest -vv -k "not (test_load_should_ and (uri or redirect)) and not test_raise_timeout_exception_if_timeout_happens_when_loading_from_uri"
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
-%dir %{python3_sitelib}/%{srcname}/
-%dir %{python3_sitelib}/%{srcname}/__pycache__/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{srcname}/__pycache__/*.pyc
-%{python3_sitelib}/%{srcname}/*.py
 
 %changelog
+* Wed Jul 09 2025 Martin Gansser <martinkg@fedoraproject.org> - 6.0.0-4
+- Updated to use %%pyproject_* macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.0.0-3
 - Rebuilt for Python 3.14
 

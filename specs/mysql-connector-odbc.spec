@@ -1,7 +1,7 @@
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        8.0.40
+Version:        8.0.42
 Release:        %autorelease
 Summary:        ODBC driver for MySQL
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.

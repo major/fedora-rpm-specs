@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.4.313.0
+%global sdkver 1.4.321.0
 
 Name:           spirv-tools
-Version:        2025.2
+Version:        2025.3
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 

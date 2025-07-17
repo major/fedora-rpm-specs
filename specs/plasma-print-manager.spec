@@ -2,7 +2,7 @@
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
+- 6.4.3
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
 - 6.4.2
 

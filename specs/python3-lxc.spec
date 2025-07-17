@@ -1,13 +1,14 @@
 Name:           python3-lxc
 Version:        5.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python binding for LXC
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://linuxcontainers.org/lxc
 Source0:        https://linuxcontainers.org/downloads/lxc/%{name}-%{version}.tar.gz
+# see https://github.com/lxc/python3-lxc/issues/35
+Patch0:         lxc-5.0.0_py3.13.patch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  lxc-devel >= 3.0.0
 BuildRequires:  pkgconfig
 BuildRequires:  gcc
@@ -39,30 +40,37 @@ Summary: Python binding for LXC
 %autosetup
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l _lxc lxc
 
 # fix examples
 chmod -x examples/*.py
 sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 %check
+%pyproject_check_import
+
 %py3_check_import lxc _lxc
 
 
-%files %{?subpkg}
-%license COPYING
+%files %{?subpkg} -f %{pyproject_files}
 %doc README.md examples
-%{python3_sitearch}/lxc/
-%{python3_sitearch}/_lxc.cpython-*.so
-%{python3_sitearch}/python3_lxc-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Jul 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.0-12
+- Update for current Python packaging guidelines.
+- Cherry pick upstream commit for Python 3.13+.
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.0.0-11
 - Rebuilt for Python 3.14
 

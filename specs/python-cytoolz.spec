@@ -8,9 +8,12 @@ Release:        3%{?dist}
 Summary:        Cython implementation of the toolz package
 
 # Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://github.com/pytoolz/%{srcname}/
 Source0:        https://files.pythonhosted.org/packages/source/c/cytoolz/cytoolz-%{version}.tar.gz
+Patch:          python-cytoolz-0001-Test-against-Python-3.14-dev-on-CI-592.patch
+
+
 
 BuildRequires:  gcc
 
@@ -81,9 +84,7 @@ rm -r %{buildroot}%{python3_sitearch}/%{srcname}/tests
 
 
 %check
-# Ignore the test_class_sigs failure - it is due to improper use of inspect in the test code itself
-# https://github.com/pytoolz/cytoolz/issues/164
-PYTHONPATH=%{buildroot}%{python3_sitearch} PYTHONDONTWRITEBYTECODE=1 py.test-%{python3_version} cytoolz/tests -k 'not test_class_sigs' -v
+PYTHONPATH=%{buildroot}%{python3_sitearch} PYTHONDONTWRITEBYTECODE=1 py.test-%{python3_version} cytoolz/tests -v
 
 
 %files -n python%{python3_pkgversion}-%{srcname}

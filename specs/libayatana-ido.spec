@@ -22,7 +22,7 @@ BuildRequires:  vala
 
 %if %{with check}
 BuildRequires:  pkgconfig(gtest)
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  xwayland-run
 %endif
 
 %global _description %{expand:
@@ -68,7 +68,7 @@ developing applications that use %{name}-gtk3.
 %if %{with check}
 %check
 cd %_vpath_builddir
-xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process %{?_smp_mflags}
+xwfb-run -- %__ctest --output-on-failure --force-new-ctest-process %{?_smp_mflags}
 %endif
 
 

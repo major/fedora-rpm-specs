@@ -51,7 +51,7 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 
 %changelog
 * Mon Jul 14 2025 Sudip Shil <sshil@redhat.com> - 1.2.5-13
-- Migrate to %pyproject_* macros and remove deprecated %py3_build/install
+- Migrate to %%pyproject_* macros and remove deprecated %%py3_build/install
 
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.5-12
 - Rebuilt for Python 3.14

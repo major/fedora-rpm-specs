@@ -6,13 +6,10 @@
 %define build_docs %{?_without_docs: 0} %{?!_without_docs: 1}
 # Build with stubdom unless rpmbuild was run with --without stubdom
 %define build_stubdom %{?_without_stubdom: 0} %{?!_without_stubdom: 1}
-# Only build with qemu-traditional if rpmbuild was run with --with qemutrad
-%define build_qemutrad %{?_with_qemutrad: 1} %{?!_with_qemutrad: 0}
 # build with ovmf from edk2-ovmf unless rpmbuild was run with --without ovmf
 %define build_ovmf %{?_without_ovmf: 0} %{?!_without_ovmf: 1}
-# set to 0 for archs that don't use qemu or ovmf (reduces build dependencies)
-%ifnarch x86_64 %{ix86}
-%define build_qemutrad 0
+# set to 0 for archs that don't use ovmf (reduces build dependencies)
+%ifnarch x86_64
 %define build_ovmf 0
 %endif
 # Build with xen hypervisor unless rpmbuild was run with --without hyp
@@ -39,8 +36,7 @@
 # --without efi
 %define build_efi %{?_without_efi: 0} %{?!_without_efi: 1}
 # xen only supports efi boot images on x86_64 or aarch64
-# i686 builds a x86_64 hypervisor so add that as well
-%ifnarch x86_64 aarch64 %{ix86}
+%ifnarch x86_64 aarch64
 %define build_efi 0
 %endif
 %if "%dist" >= ".fc20"
@@ -50,12 +46,12 @@
 %endif
 
 # Hypervisor ABI
-%define hv_abi  4.19
+%define hv_abi  4.20
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.19.2
-Release: 6%{?dist}
+Version: 4.20.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -70,60 +66,20 @@ Source14: grub-0.97.tar.gz
 Source15: polarssl-1.1.4-gpl.tgz
 # .config file for xen hypervisor
 Source21: xen.hypervisor.config
+# mini-os xen-RELEASE-4.20.0 with .git and .gitignore stripped
+Source22: mini-os-4.20.0.tar.xz
 
-Patch4: CVE-2014-0150.patch
 Patch5: xen.fedora.systemd.patch
 Patch6: xen.ocaml.selinux.fix.patch
-Patch7: xen.fedora.crypt.patch
-Patch8: qemu.trad.CVE-2015-6815.patch
-Patch9: qemu.trad.CVE-2015-5279.patch
-Patch10: qemu.trad.CVE-2015-5278.patch
-Patch11: qemu.trad.CVE-2015-7295.patch
-Patch12: qemu.trad.CVE-2015-8345.patch
-Patch13: qemu.trad.CVE-2015-7512.patch
-Patch14: qemu.trad.CVE-2015-8504.patch
-Patch15: qemu.trad.CVE-2016-1714.patch
-Patch16: qemu.trad.CVE-2016-1981.patch
-Patch17: qemu.trad.CVE-2016-2841.patch
-Patch18: qemu.trad.CVE-2016-2538.patch
-Patch19: qemu.trad.CVE-2016-2857.patch
-Patch20: qemu.trad.CVE-2016-4001.patch
-Patch21: qemu.trad.CVE-2016-4002.patch
-Patch22: qemu.trad.CVE-2016-4439.patch
-Patch23: qemu.trad.CVE-2016-4441.patch
-Patch24: qemu.trad.CVE-2016-5238.patch
-Patch25: qemu.trad.CVE-2016-5338.patch
-Patch27: qemu.trad.CVE-2016-6351.patch
-Patch29: qemu.trad.CVE-2016-8669.patch
-Patch30: qemu.trad.CVE-2016-8910.patch
-Patch31: qemu.trad.bug1399055.patch
-Patch32: qemu.trad.CVE-2016-9776.patch
-Patch33: xen.gcc7.fix.patch
 Patch34: xen.canonicalize.patch
-Patch35: qemu.trad.CVE-2017-6505.patch
-Patch36: qemu.trad.CVE-2017-7718.patch
 Patch37: droplibvirtconflict.patch
-Patch38: qemu.trad.CVE-2017-8309.patch
-Patch39: qemu.trad.CVE-2017-9330.patch
-Patch40: xen.drop.brctl.patch
 Patch41: xen.gcc9.fixes.patch
 Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch49: xen.python3.12.patch
-Patch50: xsa469-4.19-01.patch
-Patch51: xsa469-4.19-02.patch
-Patch52: xsa469-4.19-03.patch
-Patch53: xsa469-4.19-04.patch
-Patch54: xsa469-4.19-05.patch
-Patch55: xsa469-4.19-06.patch
-Patch56: xsa469-4.19-07.patch
 
 
-%if %build_qemutrad
-BuildRequires: libidn-devel zlib-devel SDL-devel curl-devel
-BuildRequires: libX11-devel gtk2-devel libaio-devel
-%endif
 # build using Fedora seabios and ipxe packages for roms
 BuildRequires: seabios-bin ipxe-roms-qemu
 %ifarch %{ix86} x86_64
@@ -166,7 +122,6 @@ Requires: xen-runtime = %{version}-%{release}
 # installs xen.
 Requires: kpartx
 ExclusiveArch: x86_64 aarch64
-#ExclusiveArch: %#{ix86} x86_64 ia64 noarch
 %if %with_ocaml
 BuildRequires: ocaml, ocaml-findlib
 BuildRequires: perl(Data::Dumper)
@@ -177,7 +132,7 @@ Requires(preun): systemd
 BuildRequires: systemd
 %endif
 BuildRequires: systemd-devel
-%ifarch armv7hl aarch64
+%ifarch aarch64
 BuildRequires: libfdt-devel
 %endif
 %if %build_hyp
@@ -209,11 +164,9 @@ Requires: /usr/bin/qemu-img
 Requires: xen-hypervisor-abi = %{hv_abi}
 # perl is used in /etc/xen/scripts/locking.sh
 Recommends: perl
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 # use /usr/bin/qemu-system-i386 in Fedora instead of qemu-xen
 Recommends: qemu-system-x86-core
-# rom file for qemu-xen-traditional
-Recommends: ipxe-roms-qemu
 %endif
 %if %build_ovmf
 Recommends: edk2-ovmf-xen
@@ -295,67 +248,23 @@ manage Xen virtual machines.
 
 %prep
 %setup -q
-%patch 4 -p1
 %patch 5 -p1
 %patch 6 -p1
-%patch 7 -p1
-%patch 8 -p1
-%patch 9 -p1
-%patch 10 -p1
-%patch 11 -p1
-%patch 12 -p1
-%patch 13 -p1
-%patch 14 -p1
-%patch 15 -p1
-%patch 16 -p1
-%patch 17 -p1
-%patch 18 -p1
-%patch 19 -p1
-%patch 20 -p1
-%patch 21 -p1
-%patch 22 -p1
-%patch 23 -p1
-%patch 24 -p1
-%patch 25 -p1
-%patch 33 -p1
 %patch 34 -p1
 %patch 37 -p1
-%patch 40 -p1
 %patch 41 -p1
 %patch 43 -p1
 %patch 45 -p1
 %patch 46 -p1
 %patch 49 -p1
-%patch 50 -p1
-%patch 51 -p1
-%patch 52 -p1
-%patch 53 -p1
-%patch 54 -p1
-%patch 55 -p1
-%patch 56 -p1
-
-# qemu-xen-traditional patches
-pushd tools/qemu-xen-traditional
-%patch 27 -p1
-%patch 29 -p1
-%patch 30 -p1
-%patch 31 -p1
-%patch 32 -p1
-%patch 35 -p1
-%patch 36 -p1
-%patch 38 -p1
-%patch 39 -p1
-popd
-
-# qemu-xen patches
-pushd tools/qemu-xen
-popd
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
 # copy xen hypervisor .config file to change settings
 cp -v %{SOURCE21} xen/.config
-
+# mini-os is now separate file
+mkdir extras
+tar -C extras -xf %{SOURCE22}
 
 %build
 # This package calls binutils components directly and would need to pass
@@ -373,20 +282,14 @@ mkdir -p dist/install/boot/efi/efi/fedora
 mkdir -p dist/install%{_libdir}/ocaml/stublibs
 %endif
 export EXTRA_CFLAGS_XEN_TOOLS="$RPM_OPT_FLAGS -Wno-error=use-after-free $LDFLAGS"
-export EXTRA_CFLAGS_QEMU_TRADITIONAL="$RPM_OPT_FLAGS"
-export EXTRA_CFLAGS_QEMU_XEN="$RPM_OPT_FLAGS"
 export PYTHON="/usr/bin/python3"
 export LDFLAGS_SAVE=`echo $LDFLAGS | sed -e 's/-Wl,//g' -e 's/,/ /g' -e 's? -specs=[-a-z/0-9]*??g'`
 export CFLAGS_SAVE="$CFLAGS"
-%if %build_qemutrad
-CONFIG_EXTRA="--enable-qemu-traditional"
-%else
 CONFIG_EXTRA=""
-%endif
 %if %build_ovmf
 CONFIG_EXTRA="$CONFIG_EXTRA --with-system-ovmf=/usr/share/edk2/xen/OVMF.fd"
 %endif
-%ifnarch armv7hl aarch64
+%ifarch aarch64
 CONFIG_EXTRA="$CONFIG_EXTRA --with-system-ipxe=/usr/share/ipxe/10ec8139.rom"
 %endif
 %if %(test -f /usr/share/seabios/bios-256k.bin && echo 1|| echo 0)
@@ -400,19 +303,10 @@ CONFIG_EXTRA="$CONFIG_EXTRA --enable-systemd"
 ./configure --prefix=%{_prefix} --libdir=%{_libdir} --libexecdir=%{_libexecdir} --with-system-qemu=/usr/bin/qemu-system-i386 --with-linux-backend-modules="xen-evtchn xen-gntdev xen-gntalloc xen-blkback xen-netback xen-pciback xen-scsiback xen-acpi-processor" $CONFIG_EXTRA
 unset CFLAGS CXXFLAGS FFLAGS LDFLAGS
 export LDFLAGS="$LDFLAGS_SAVE"
-export CFLAGS="$CFLAGS_SAVE -Wno-error=address"
+export CFLAGS=`echo "$CFLAGS_SAVE -Wno-error=address" | sed -e s/-specs=\/usr\/lib\/rpm\/redhat/redhat-annobin-cc1//g`
 
 %if %build_hyp
-%if %build_crosshyp
-export CFLAGS=`echo $CFLAGS | sed -e 's/-m32//g' -e 's/-march=i686//g' 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g'`
-XEN_TARGET_ARCH=x86_64 %make_build prefix=/usr xen CC="/usr/bin/x86_64-linux-gnu-gcc"
-%else
-%ifarch armv7hl
-export CFLAGS=`echo $CFLAGS | sed -e 's/-mfloat-abi=hard//g' -e 's/-march=armv7-a//g'`
-%endif
-# armv7hl aarch64 or x86_64
 %make_build prefix=/usr xen
-%endif
 %endif
 unset CFLAGS CXXFLAGS FFLAGS LDFLAGS
 
@@ -421,9 +315,6 @@ unset CFLAGS CXXFLAGS FFLAGS LDFLAGS
 make                 prefix=/usr docs
 %endif
 export RPM_OPT_FLAGS_RED=`echo $RPM_OPT_FLAGS | sed -e 's/-m64//g' -e 's/--param=ssp-buffer-size=4//g' -e's/-fstack-protector-strong//'`
-%ifarch %{ix86}
-export EXTRA_CFLAGS_XEN_TOOLS="$RPM_OPT_FLAGS_RED"
-%endif
 %if %build_stubdom
 %ifnarch armv7hl aarch64
 make mini-os-dir
@@ -479,18 +370,6 @@ rm -fr %{buildroot}%{_datadir}/doc/xen
 # Pointless helper
 rm -f %{buildroot}%{_bindir}/xen-python-path
 
-# qemu stuff (unused or available from upstream)
-rm -rf %{buildroot}/usr/share/xen/man
-rm -rf %{buildroot}/usr/bin/qemu-*-xen
-ln -s qemu-img %{buildroot}/%{_bindir}/qemu-img-xen
-ln -s qemu-img %{buildroot}/%{_bindir}/qemu-nbd-xen
-for file in bios.bin openbios-sparc32 openbios-sparc64 ppc_rom.bin \
-         pxe-e1000.bin pxe-ne2k_pci.bin pxe-pcnet.bin pxe-rtl8139.bin \
-         vgabios.bin vgabios-cirrus.bin video.x openbios-ppc bamboo.dtb
-do
-	rm -f %{buildroot}/%{_datadir}/xen/qemu/$file
-done
-
 # README's not intended for end users
 rm -f %{buildroot}/%{_sysconfdir}/xen/README*
 
@@ -502,19 +381,11 @@ rm -rf %{buildroot}/%{_libdir}/*.a
 
 %if %build_efi
 # clean up extra efi files
-%ifarch %{ix86}
-rm -f %{buildroot}/usr/lib64/efi/xen-%{hv_abi}.efi
-rm -f %{buildroot}/usr/lib64/efi/xen-4.efi
-rm -f %{buildroot}/usr/lib64/efi/xen.efi
-cp -p %{buildroot}/usr/lib64/efi/xen-%{version}{,.notstripped}.efi
-strip -s %{buildroot}/usr/lib64/efi/xen-%{version}.efi
-%else
 rm -f %{buildroot}/%{_libdir}/efi/xen-%{hv_abi}.efi
 rm -f %{buildroot}/%{_libdir}/efi/xen-4.efi
 rm -f %{buildroot}/%{_libdir}/efi/xen.efi
 cp -p %{buildroot}/%{_libdir}/efi/xen-%{version}{,.notstripped}.efi
 strip -s %{buildroot}/%{_libdir}/efi/xen-%{version}.efi
-%endif
 %endif
 
 %if ! %build_ocaml
@@ -766,14 +637,6 @@ fi
 %dir %{_libexecdir}/%{name}
 %dir %{_libexecdir}/%{name}/bin
 %attr(0700,root,root) %{_libexecdir}/%{name}/bin/*
-# QEMU runtime files
-%if %build_qemutrad
-%ifnarch armv7hl aarch64
-%dir %{_datadir}/%{name}/qemu
-%dir %{_datadir}/%{name}/qemu/keymaps
-%{_datadir}/%{name}/qemu/keymaps/*
-%endif
-%endif
 
 # man pages
 %if %build_docs
@@ -803,17 +666,12 @@ fi
 %{python3_sitearch}/pygrub-*.egg-info
 
 # The firmware
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %dir %{_libexecdir}/%{name}/boot
 %{_libexecdir}/xen/boot/hvmloader
-%ifnarch %{ix86}
 %{_libexecdir}/%{name}/boot/xen-shim
 /usr/lib/debug%{_libexecdir}/xen/boot/xen-shim-syms
-%endif
 %if %build_stubdom
-%if %build_qemutrad
-%{_libexecdir}/xen/boot/ioemu-stubdom.gz
-%endif
 %{_libexecdir}/xen/boot/xenstore-stubdom.gz
 %{_libexecdir}/xen/boot/xenstorepvh-stubdom.gz
 %endif
@@ -830,22 +688,21 @@ fi
 %ghost %{_localstatedir}/run/xenstored
 
 # All xenstore CLI tools
-%{_bindir}/qemu-*-xen
 %{_bindir}/xenstore
 %{_bindir}/xenstore-*
 #%#{_bindir}/remus
 # XSM
 %{_bindir}/flask-*
 # Misc stuff
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/xen-detect
 %endif
 %{_bindir}/xencov_split
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/gdbsx
 %{_bindir}/xen-kdd
 %endif
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/xen-hptool
 %{_bindir}/xen-hvmcrash
 %{_bindir}/xen-hvmctx
@@ -862,17 +719,17 @@ fi
 %{_bindir}/xenperf
 %{_bindir}/xenwatchdogd
 %{_bindir}/xl
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/xen-lowmemd
 %endif
 %{_bindir}/xencov
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/xen-mfndump
 %endif
 %{_bindir}/xenalyze
 %{_bindir}/xentrace
 %{_bindir}/xentrace_setsize
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 %{_bindir}/xen-cpuid
 %endif
 %{_bindir}/xen-livepatch
@@ -894,7 +751,7 @@ fi
 
 %files hypervisor
 %if %build_hyp
-%ifnarch armv7hl aarch64
+%ifnarch aarch64
 /boot/xen-*.gz
 /boot/xen*.config
 %else
@@ -907,11 +764,7 @@ fi
 /usr/lib/debug/xen*
 %endif
 %if %build_efi
-%ifarch %{ix86}
-/usr/lib64/efi/*.efi
-%else
 %{_libdir}/efi/*.efi
-%endif
 %endif
 
 %if %build_docs
@@ -948,9 +801,26 @@ fi
 %{_libdir}/ocaml/xen*/*.a
 %{_libdir}/ocaml/xen*/*.cmxa
 %{_libdir}/ocaml/xen*/*.cmx
+%{_libdir}/ocaml/xsd_glue/*
+%{_libexecdir}/xen/ocaml/xsd_glue/xenctrl_plugin/domain_getinfo_v1.cmxs
 %endif
 
 %changelog
+* Sun Jul 13 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.1-1
+- update to xen 4.20.1
+  remove old qemu code for spac file
+  remove armv7hl and ix86 code from spec file
+  update configuration in xen.hypervisor.config 
+  minios is now a separate file
+  package extra ocaml files
+  unset -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 for hypervisor build
+  rebase xen.efi.build.patch
+  includes fixes for security vulnerabilites
+  x86: Incorrect stubs exception handling for flags recovery [XSA-470,
+	CVE-2025-27465]
+  x86: Transitive Scheduler Attacks [XSA-471, CVE-2024-36350,
+	CVE-2024-36357]
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 4.19.2-6
 - Rebuild to fix OCaml dependencies
 

@@ -1,5 +1,5 @@
 Name:           vulkan-validation-layers
-Version:        1.4.313.0
+Version:        1.4.321.0
 Release:        %autorelease
 Summary:        Vulkan validation layers
 

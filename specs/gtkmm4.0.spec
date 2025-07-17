@@ -2,14 +2,15 @@
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
-%global glibmm_version 2.68.0
-%global gtk4_version 4.15.5
+%global glibmm_version 2.75.0
+%global gtk4_version 4.19.2
 %global cairomm_version 1.15.4
 %global pangomm_version 2.50.0
 %global gdk_pixbuf2_version 2.35.5
+%global epoxy_version 1.2
 
 Name:           gtkmm4.0
-Version:        4.18.0
+Version:        4.19.0
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 
@@ -24,7 +25,7 @@ BuildRequires:  m4
 BuildRequires:  meson
 BuildRequires:  mm-common
 BuildRequires:  pkgconfig(cairomm-1.16) >= %{cairomm_version}
-BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(epoxy) >= %{epoxy_version}
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf2_version}
 BuildRequires:  pkgconfig(glibmm-2.68) >= %{glibmm_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}

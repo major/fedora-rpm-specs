@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.65
+Version:   3.66
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -17,7 +17,9 @@ Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/
 BuildArch: noarch
 
 BuildRequires: gettext
+BuildRequires: python3-build
 BuildRequires: python3-devel
+BuildRequires: python3-pip
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
@@ -72,9 +74,15 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.txt
 %{python3_sitelib}/pykickstart
-%{python3_sitelib}/pykickstart*.egg-info
+%{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Tue Jul 15 2025 Brian C. Lane <bcl@redhat.com> - 3.66-1
+- workflows: Use py3.14 beta.4 (bcl)
+- pylint: Ignore files in .git (bcl)
+- pyproject: Bump setuptools to 77 or later (bcl)
+- Makefile: Stop running setup.py directly (bcl)
+
 * Mon Jun 16 2025 Brian C. Lane <bcl@redhat.com> - 3.65-1
 - workflows: Add python 3.14 to the test matrix (bcl)
 - Add support for RDP (jkonecny)

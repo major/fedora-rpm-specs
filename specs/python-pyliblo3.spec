@@ -5,7 +5,7 @@ Name:           python-pyliblo3
 %global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
 #Version:        0.16.2%%{snapinfo}
 Version:        0.16.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for the liblo Open Sound Control (OSC) library
 # Main code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later
@@ -70,6 +70,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 
 %check
+%pyproject_check_import
+
 %{py3_test_envvars} %{python3} -P -m unittest discover -s ./test -p '*.py'
 
 %files -n python3-pyliblo3 -f %{pyproject_files}
@@ -83,6 +85,9 @@ cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 %doc examples/
 
 %changelog
+* Tue Jul 15 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.16.3-3
+- Updated to use %%pyproject_* macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.16.3-2
 - Rebuilt for Python 3.14
 

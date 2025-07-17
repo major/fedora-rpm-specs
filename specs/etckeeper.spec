@@ -7,7 +7,7 @@
 
 Name:      etckeeper
 Version:   1.18.22
-Release:   1%{?dist}
+Release:   3%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -96,6 +96,7 @@ etckeeper with DNF, install this package.
 Summary:  DNF5 plugin for etckeeper support
 Requires: %{name} = %{version}-%{release}
 Requires: libdnf5-plugin-actions >= 5.2.11.0
+Requires: sed
 
 %description dnf5
 This package provides a DNF5 plugin for etckeeper. If you want to use
@@ -239,13 +240,19 @@ fi
 %exclude %{python3_sitelib}/dnf_%{name}-*.dist-info
 
 
-%if 0%{with_dnf5}
+%if 0%{?with_dnf5}
 %files dnf5
 %{_sysconfdir}/dnf/libdnf5-plugins/actions.d/%{name}.actions
 %endif # with_dnf5
 
 
 %changelog
+* Tue Jul 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.22-3
+- Fix conditional.
+
+* Tue Jul 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.22-2
+- Update action file to produce expected action output.
+
 * Mon Jul 14 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.22-1
 - Update to 1.18.22.
 - Remove all EL7-related conditionals and parts.

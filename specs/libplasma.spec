@@ -1,5 +1,5 @@
 Name:    libplasma
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
@@ -131,6 +131,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
+- 6.4.3
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-1
 - 6.4.2
 

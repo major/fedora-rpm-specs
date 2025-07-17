@@ -5,7 +5,7 @@
 %global crate icu_provider
 
 Name:           rust-icu_provider
-Version:        1.5.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Trait and struct definitions for the ICU data provider
 
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 Patch:          icu_provider-fix-metadata.diff
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   circular (path-based) dev-dependency on the icu crate.
-Patch10:        icu_provider-1.5.0-no-icu-dev-dependency.patch
+Patch10:        icu_provider-2.0.0-no-circular-dev-dependencies.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,16 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+datagen-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+datagen-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "datagen" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+datagen-devel
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+baked-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+baked-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "baked" feature of the "%{crate}" crate.
+
+%files       -n %{name}+baked-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+deserialize_bincode_1-devel
@@ -100,28 +112,16 @@ use the "deserialize_postcard_1" feature of the "%{crate}" crate.
 %files       -n %{name}+deserialize_postcard_1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+experimental-devel
+%package     -n %{name}+export-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+experimental-devel %{_description}
+%description -n %{name}+export-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "experimental" feature of the "%{crate}" crate.
+use the "export" feature of the "%{crate}" crate.
 
-%files       -n %{name}+experimental-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+log_error_context-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+log_error_context-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "log_error_context" feature of the "%{crate}" crate.
-
-%files       -n %{name}+log_error_context-devel
+%files       -n %{name}+export-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+logging-devel
@@ -134,18 +134,6 @@ This package contains library source intended for building other packages which
 use the "logging" feature of the "%{crate}" crate.
 
 %files       -n %{name}+logging-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+macros-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+macros-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "macros" feature of the "%{crate}" crate.
-
-%files       -n %{name}+macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -184,22 +172,34 @@ use the "sync" feature of the "%{crate}" crate.
 %files       -n %{name}+sync-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+zerotrie-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zerotrie-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zerotrie" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zerotrie-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f deserialize_json,experimental,macros,serde
+%cargo_generate_buildrequires -f alloc,deserialize_json,export,serde,std
 
 %build
-%cargo_build -f deserialize_json,experimental,macros,serde
+%cargo_build -f alloc,deserialize_json,export,serde,std
 
 %install
-%cargo_install -f deserialize_json,experimental,macros,serde
+%cargo_install -f alloc,deserialize_json,export,serde,std
 
 %if %{with check}
 %check
-%cargo_test -f deserialize_json,experimental,macros,serde
+%cargo_test -f alloc,deserialize_json,export,serde,std
 %endif
 
 %changelog

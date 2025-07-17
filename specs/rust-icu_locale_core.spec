@@ -2,28 +2,32 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate icu_collections
+%global crate icu_locale_core
 
-Name:           rust-icu_collections
+Name:           rust-icu_locale_core
 Version:        2.0.0
 Release:        %autorelease
-Summary:        Collection of API for use in ICU libraries
+Summary:        API for managing Unicode Language and Locale Identifiers
 
 License:        Unicode-3.0
-URL:            https://crates.io/crates/icu_collections
+URL:            https://crates.io/crates/icu_locale_core
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
-# * Omit the unicode_bmp_blocks_selector example, which would require the
-#   internal icu_benchmark_macros crate
-Patch:          icu_collections-fix-metadata.diff
-# * Downstream-only: disable tests that create circular deps. on the icu crate
-Patch10:        0001-Downstream-only-disable-tests-that-create-circular-d.patch
+# * Restore litemap dev-dependency with testing feature; see
+#   https://github.com/unicode-org/icu4x/pull/6601
+# * Omit the filter_langids and syntatically_canonicalize_locales examples,
+#   which would require the internal icu_benchmark_macros crate
+Patch:          icu_locale_core-fix-metadata.diff
+# * In locale_core, skip check_sizes() test on non-64-bit arches
+#   (https://github.com/unicode-org/icu4x/pull/6602); exported with git
+#   format-patch --relative so that it applies to the released crate.
+Patch10:        0001-In-locale_core-skip-check_sizes-test-on-non-64-bit-a.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Collection of API for use in ICU libraries.}
+API for managing Unicode Language and Locale Identifiers.}
 
 %description %{_description}
 
@@ -89,25 +93,36 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+zerovec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zerovec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zerovec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zerovec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f alloc,databake,serde
+%cargo_generate_buildrequires -f alloc,databake,serde,zerovec
 
 %build
-%cargo_build -f alloc,databake,serde
+%cargo_build -f alloc,databake,serde,zerovec
 
 %install
-%cargo_install -f alloc,databake,serde
+%cargo_install -f alloc,databake,serde,zerovec
 
 %if %{with check}
 %check
 # * Very many doctests have circular dependencies on the top-level icu crate,
 #   enough that it would be very tedious to patch them all out.
-%cargo_test -f alloc,databake,serde -- --lib
-%cargo_test -f alloc,databake,serde -- --tests
+%cargo_test -f alloc,databake,serde,zerovec -- --lib
 %endif
 
 %changelog

@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.28.901
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -20,6 +20,7 @@ Source0:        https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{ver
 %endif
 
 Patch0001:      0001-plugins-add-a-plugin-to-emulate-high-resolution-whee.patch
+Patch0002:      0002-evdev-track-KEY_SYSRQ-frames-and-pass-them-even-as-r.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -158,6 +159,9 @@ intended to be run by users.
 
 
 %changelog
+* Wed Jul 16 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.901-3
+- Fix Alt+PrintScreen not working (#2379912)
+
 * Tue Jul 15 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.901-2
 - Fix broken mouse wheel on non-high-resolution devices (#2379768)
 

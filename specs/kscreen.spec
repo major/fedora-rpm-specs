@@ -1,6 +1,6 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -29,6 +29,7 @@ BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(KF6Crash)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  wayland-devel
 
@@ -72,6 +73,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf6_datadir}/kscreen/graz.png
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.3-1
+- 6.4.3
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.2-1
 - 6.4.2
 

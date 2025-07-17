@@ -5,7 +5,7 @@
 %global crate litemap
 
 Name:           rust-litemap
-Version:        0.7.3
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Key-value Map implementation based on a flat, sorted Vec
 
@@ -14,12 +14,10 @@ URL:            https://crates.io/crates/litemap
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
-# * Omit removed examples from Cargo.toml
+# * Omit the language_names_hash_map and language_names_lite_map examples; they
+#   would require icu_locale_core (circularly) and the internal
+#   icu_benchmark_macros crate
 Patch:          litemap-fix-metadata.diff
-# * Fix test panics/segfaults in litemap on big-endian hosts
-# * https://github.com/unicode-org/icu4x/pull/6293
-# * Exported with git format-patch [...] --relative
-Patch10:        0001-Fix-test-panics-segfaults-in-litemap-on-big-endian-h.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -116,8 +114,6 @@ use the "yoke" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a dependency on the internal icu_benchmark_macros crate
-rm -rv examples/
 %cargo_prep
 
 %generate_buildrequires

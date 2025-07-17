@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -53,6 +53,10 @@ Patch0: sane-backends-1.0.25-udev.patch
 Patch1: sane-backends-1.0.23-soname.patch
 # Fedora-specific (for now): make installed sane-config multi-lib aware again
 Patch2: sane-backends-1.0.23-sane-config-multilib.patch
+# Asynchronous cancellation can let scanimage hang - use deferred cancellation
+# https://bugzilla.redhat.com/show_bug.cgi?id=2377132
+# https://gitlab.com/sane-project/backends/-/merge_requests/881
+Patch3: 0001-sanei_thread.c-Use-deferred-cancellation-mode.patch
 
 
 # we need autoconf during build
@@ -398,6 +402,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Fri Jul 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-3
+- 2377132 - sane-backends: "scanimage --device=test --batch-count=2" hangs: Turns on unsafe asynchronous cancellation
+
 * Thu Jun 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-2
 - fix duplicated files in -cameras
 

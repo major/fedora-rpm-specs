@@ -489,23 +489,25 @@ find  %{buildroot}%{_mandir}/man8 -regextype posix-egrep  \
 mv -v %{buildroot}/usr/sbin/* %{buildroot}/usr/bin/
 %endif
 
+
 %post
 %systemd_post fstrim.{service,timer}
 
-### Enable after completing migration to lastlog2
-# %post -n liblastlog2
-# %systemd_post lastlog2-import.service
-#
-# %postun -n liblastlog2
-# %systemd_postun lastlog2-import.service
-###
+%post -n liblastlog2
+%systemd_post lastlog2-import.service
+
 
 %preun
 %systemd_preun fstrim.{service,timer}
 
+
 %postun
 %systemd_postun_with_restart fstrim.timer
 %systemd_postun fstrim.service
+
+%postun -n liblastlog2
+%systemd_postun lastlog2-import.service
+
 
 # Please, keep uuidd running after installation! Note that systemd_post is
 # "systemctl preset" and it enable/disable service only.

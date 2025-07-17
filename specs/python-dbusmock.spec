@@ -1,8 +1,8 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.35.0
-Release:          2%{?dist}
+Version:          0.36.0
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -13,6 +13,8 @@ BuildArch:        noarch
 BuildRequires:    git
 BuildRequires:    python3-dbus
 BuildRequires:    python3-devel
+BuildRequires:    python3dist(setuptools-scm)
+BuildRequires:    python3dist(wheel)
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-gobject
 BuildRequires:    python3-pytest
@@ -37,21 +39,29 @@ Requires:         python3-dbus, python3-gobject, dbus-x11
 %autosetup -n python_%{modname}-%{version}
 rm -rf python-%{modname}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l dbusmock
 
 %check
 %{__python3} -m unittest -v
 
-%files -n python3-dbusmock
+%files -n python3-dbusmock -f %{pyproject_files}
+
 %doc README.md COPYING
-%{python3_sitelib}/*%{modname}*
 
 %changelog
+* Tue Jul 15 2025 Packit <hello@packit.dev> - 0.36.0-1
+- mockobject: Fix _wrap_in_dbus_variant for Struct and Dict types (thanks Sebastian Wick)
+- Drop setup.{cfg,py} and RHEL 9 support, move to pybuild (rhbz#2377609)
+- Drop iio-sensor-proxy tests, the template is broken (see #241)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.35.0-2
 - Rebuilt for Python 3.14
 

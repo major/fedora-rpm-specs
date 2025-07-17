@@ -5,7 +5,7 @@
 %global crate icu_normalizer
 
 Name:           rust-icu_normalizer
-Version:        1.5.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        API for normalizing text into Unicode Normalization Forms
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit the benchmark-only dev-dependency on criterion
 # * Do not package benchmarks or benchmark data
-# * Update the atoi dev-dependency to 2.0,
-#   https://github.com/unicode-org/icu4x/pull/6266
 # * Remove the dev-dependency on arraystring, which does not appear actively
 #   maintained, and which we do not want to package, at the cost of some of the
 #   tests.
@@ -24,7 +22,7 @@ Patch:          icu_normalizer-fix-metadata.diff
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   arraystring crate. It does not appear actively maintained, and we do not
 #   wish to package it solely for these tests.
-Patch10:        icu_normalizer-1.5.0-no-arraystring-tests.patch
+Patch10:        icu_normalizer-2.0.0-no-arraystring-tests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -95,6 +93,18 @@ use the "experimental" feature of the "%{crate}" crate.
 %files       -n %{name}+experimental-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+icu_properties-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+icu_properties-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "icu_properties" feature of the "%{crate}" crate.
+
+%files       -n %{name}+icu_properties-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -107,16 +117,40 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+utf16_iter-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+utf16_iter-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "utf16_iter" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+utf16_iter-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+utf8_iter-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+utf8_iter-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "utf8_iter" feature of the "%{crate}" crate.
+
+%files       -n %{name}+utf8_iter-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+write16-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+write16-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "write16" feature of the "%{crate}" crate.
+
+%files       -n %{name}+write16-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -124,19 +158,20 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f icu_properties
 
 %build
-%cargo_build
+%cargo_build -f icu_properties
 
 %install
-%cargo_install
+%cargo_install -f icu_properties
 
 %if %{with check}
 %check
 # * All doc tests use icu::normalizer, which would require the circular
 #   (path-based) dev-dependency on the icu crate.
-%cargo_test -- --tests
+%cargo_test -f icu_properties -- --lib
+%cargo_test -f icu_properties -- --tests
 %endif
 
 %changelog

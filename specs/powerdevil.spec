@@ -1,6 +1,6 @@
 Name:    powerdevil
-Version: 6.4.2
-Release: 2%{?dist}
+Version: 6.4.3
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -156,6 +156,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
+- 6.4.3
+
 * Fri Jul 04 2025 Steve Cossette <farchord@gmail.com> - 6.4.2-2
 - Removal of the systemd ambiant caps patch, as this was applied upstream
 

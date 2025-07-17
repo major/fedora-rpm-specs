@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        43
+Version:        44
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -118,6 +118,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jul 15 2025 Packit <hello@packit.dev> - 44-1
+- logging: write error logs also to journal
+- error: when frontend crash prompt users to also attach anaconda-webui log file
+- components: storage: unify partition reset logic on page load (rhbz#2361201)
+
 * Wed Jul 09 2025 Packit <hello@packit.dev> - 43-1
 - components: port to new modal from Patternfly library
 - Only require Firefox on Fedora Workstation

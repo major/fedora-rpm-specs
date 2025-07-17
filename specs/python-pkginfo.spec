@@ -18,7 +18,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(wheel)
@@ -29,7 +28,6 @@ BuildRequires:  python3dist(wheel)
 %package -n python3-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
 Requires:       python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %{common_description}
 
@@ -49,12 +47,13 @@ sed -i "s/, 'pkginfo.tests'//g" setup.py
 # work around the wheel metadata version (Fedora already produces 2.4 while upstream it's still 2.3)
 sed -i "s/assert(installed.metadata_version == '2.3')/assert(installed.metadata_version == '2.4')/" pkginfo/tests/test_installed.py
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs html
@@ -64,21 +63,21 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 %pytest
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.txt CHANGES.txt
 
 %{_bindir}/pkginfo
 
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %files -n python-%{pypi_name}-doc
 %license LICENSE.txt

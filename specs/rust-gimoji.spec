@@ -18,6 +18,9 @@ Patch:          gimoji-fix-metadata.diff
 # * Update ratatui to 0.29
 # * Cherry-picked from https://github.com/zeenix/gimoji/pull/180
 Patch10:        180.patch
+# * Update databake to 0.2.0 (https://github.com/zeenix/gimoji/pull/189):
+#   rebased on the released crate, version 1.1.0
+Patch11:        gimoji-1.1.0-databake-0.2.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -36,7 +39,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 # Zlib
-License:        MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT) AND Zlib
+License:        MIT AND Unicode-DFS-2016 AND Zlib AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

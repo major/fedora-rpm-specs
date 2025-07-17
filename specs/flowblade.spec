@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.14.0.2
-Release:        5%{?dist}
+Release:        4%{?dist}
 %else
 Version:        2.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 License:        GPL-3.0-only
 Summary:        Multitrack non-linear video editor for Linux
@@ -28,7 +28,6 @@ Patch0:         %{name}_sys_path.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 Requires:       /usr/bin/ffmpeg
 Requires:       python3-mlt
 Requires:       frei0r-plugins >= 1.4
@@ -77,13 +76,17 @@ sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade
 # flowblade is not a native Wayland application and needs to run using XWayland
 sed -i -e 's|env GDK_BACKEND=x11 flowblade %f|env GDK_BACKEND=x11 SDL_VIDEODRIVER=x11 flowblade %f|' flowblade-trunk/installdata/io.github.jliljebl.Flowblade.desktop
 
+%generate_buildrequires
+   cd flowblade-trunk
+   %pyproject_buildrequires
+
 %build 
 cd flowblade-trunk
-%py3_build
+%pyproject_wheel
 
 %install 
 cd flowblade-trunk
-%py3_install 
+%pyproject_install
 
 # fix permissions
 chmod +x %{buildroot}%{python3_sitelib}/Flowblade/launch/*
@@ -121,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Tue Jul 15 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.22-3
+- Updated to use %%pyproject_* macros
+
 * Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.22-2
 - Rebuilt for Python 3.14
 

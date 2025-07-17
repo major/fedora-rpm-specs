@@ -5,7 +5,7 @@
 %global crate idna_adapter
 
 Name:           rust-idna_adapter
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Back end adapter for idna
 

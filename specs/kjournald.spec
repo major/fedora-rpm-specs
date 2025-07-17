@@ -1,12 +1,15 @@
 Name:          kjournald
-Version:       25.04.3
-Release:       1%{?dist}
+Version:       25.07.80
+Release:       2%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
 License:       BSD-3-Clause and CC0-1.0 and MIT and LGPL-2.1-or-later and MIT
 URL:           https://invent.kde.org/system/%{name}
 
 Source:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# From: https://invent.kde.org/system/kjournald/-/merge_requests/47
+Patch1:        0001-cmake-Restore-setting-the-VERSION-and-SOVERSION-for-.patch
 
 BuildRequires: systemd-devel
 BuildRequires: kf6-rpm-macros
@@ -20,6 +23,9 @@ BuildRequires: cmake(Qt6Test)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: cmake(KF6Crash)
@@ -27,19 +33,21 @@ BuildRequires: cmake(KF6Crash)
 # QML module dependencies
 Requires:      kf6-kirigami%{?_isa}
 
+Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+
 %description
 %{summary}.
 
 %package       libs
 Summary:       Library files for kjournald
-Requires:      %{name} = %{version}
 %description   libs
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-%cmake_kf6
+# Building on Qt 6.9.1 crashed the qml compiler. This is a (...temporary?) workaround.
+%cmake_kf6 -DQT_QML_NO_CACHEGEN=ON
 %cmake_build
 
 %install
@@ -66,6 +74,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Tue Jul 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.07.80-2
+- Add patch to restore the libkjournal library
+
+* Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
+- 25.07.80
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 25.04.3-1
 - 25.04.3
 

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        155
+Version:        156
 
 %forgemeta
 
@@ -329,6 +329,15 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Tue Jul 15 2025 Packit <hello@packit.dev> - 156-1
+Changes with 156
+----------------
+  * stages/vagrant: allow configuring synced folders (HMS-6116) (#2143)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-07-15
+
+
 * Mon Jul 07 2025 Packit <hello@packit.dev> - 155-1
 Changes with 155
 ----------------

@@ -5,7 +5,7 @@
 %global crate icu_properties_data
 
 Name:           rust-icu_properties_data
-Version:        1.5.1
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Data for the icu_properties crate
 

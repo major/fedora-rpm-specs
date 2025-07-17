@@ -67,7 +67,7 @@
 
 # === Additional definitions ===
 # Architecture-dependent suffix for requiring/providing .so names
-%if %{?__isa_bits} == 64
+%if 0%{?__isa_bits} == 64
 %global _so_arch_suffix ()(64bit)
 %endif
 # place for data files

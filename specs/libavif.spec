@@ -20,11 +20,7 @@
 %else
 %bcond rav1e 1
 %endif
-%if 0%{?rhel} >= 10
-%bcond gtest 0
-%else
 %bcond gtest 1
-%endif
 %bcond check 1
 
 Name:           libavif
@@ -35,6 +31,8 @@ Summary:        Library for encoding and decoding .avif files
 License:        BSD-2-Clause
 URL:            https://github.com/AOMediaCodec/libavif
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/AOMediaCodec/libavif/pull/2635 (fixed in 1.2.0)
+Patch:          %{url}/commit/bdba09d6429c0f19dbeb487d8042ab6fb4a2d868.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

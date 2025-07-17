@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	protobuf-lite-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+BuildRequires:	python3dist(pip)
 
 %description
 The SentencePiece is an unsupervised text tokenizer for Neural Network-based
@@ -79,7 +80,7 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.1 FATAL_ERROR)@cmake_minimum_requi
 %cmake_build
 
 pushd python
-%py3_build
+%pyproject_wheel
 
 popd
 
@@ -87,7 +88,9 @@ popd
 %cmake_install
 
 pushd python
-%py3_install
+%pyproject_install
+%pyproject_save_files sentencepiece
+
 popd
 
 rm %{buildroot}%{_libdir}/libsentencepiece*.a
@@ -105,10 +108,7 @@ rm %{buildroot}%{_libdir}/libsentencepiece*.a
 %files tools
 %{_bindir}/spm*
 
-%files -n python3-%{name}
-%{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}-*.egg-info/
-
+%files -n python3-%{name}  -f %{pyproject_files}
 
 %changelog
 %autochangelog

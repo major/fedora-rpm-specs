@@ -9,7 +9,7 @@ Summary:        Alternative regular expression module, to replace re
 License:        LicenseRef-Callaway-Python AND CNRI-Python
 URL:            https://bitbucket.org/mrabarnett/mrab-regex
 Source0:        https://files.pythonhosted.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
-BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python3-devel
 BuildRequires:  gcc
 # needed for processing README.rst
 BuildRequires:  /usr/bin/rst2html
@@ -25,10 +25,10 @@ implementation is in the form of a module called 'regex'.}
 %description %_description
 
 
-%package -n python%{python3_pkgversion}-%{srcname}
+%package -n python3-%{srcname}
 Summary:        %{summary}
 
-%description -n python%{python3_pkgversion}-%{srcname} %_description
+%description -n python3-%{srcname} %_description
 
 
 %prep
@@ -55,7 +55,7 @@ rst2html README.rst > README.html
 %pyproject_check_import
 
 
-%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.html
 %doc docs/Features.html
 %doc docs/UnicodeProperties.html

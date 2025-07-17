@@ -1,6 +1,6 @@
 Name:           gpgverify
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Signature verifier for easy and safe scripting
 
 License:        Boehm-GC
@@ -10,7 +10,7 @@ Source:         macros.gpgverify.in
 Source:         license.txt
 BuildArch:      noarch
 
-Requires:       grep gnupg2
+Requires:       grep gnupg2 gnupg2-verify
 
 %description
 GPGverify is a wrapper around GnuPG's gpgv. It verifies a file against an
@@ -41,6 +41,9 @@ cp macros.gpgverify %{buildroot}%{rpmmacrodir}/
 %license license.txt
 
 %changelog
+* Tue Jul 15 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.2-2
+- Adapted the dependencies because the gnupg2 package has been split.
+
 * Fri Jun 27 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.2-1
 - Evaluate _libexecdir at build time, not at run time (reported by Yaakov
   Selkowitz).

@@ -5,7 +5,7 @@
 %global crate zerovec
 
 Name:           rust-zerovec
-Version:        0.10.4
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Zero-copy vector backed by a byte array
 
@@ -14,26 +14,31 @@ URL:            https://crates.io/crates/zerovec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks.
-# * "Drop the zv_serde example, which would require the internal
-#   icu_benchmark_macros crate.
+# * Do not depend on postcard; it is only for benchmarks and an example, and
+#   that example would have required the internal icu_benchmark_macros crate.
 # * Do not depend on getrandom; nothing that needs it is included in the crate.
-# * Do not depend on postcard; it is needed only for benchmarks, and for one
-#   example, which we also remove.
-# * Restore the yoke dev-dependency, and particularly its derive feature, in the
-#   normalized Cargo.toml; this would be fixed upstream by “In zerovec, add the
-#   yoke version bound to the dev-dependency”
-#   https://github.com/unicode-org/icu4x/pull/5537
+# * Patch out the zv_serde example to avoid a dependency on the internal
+#   icu_benchmark_macros crate.
 Patch:          zerovec-fix-metadata.diff
-# * In zerovec, skip check_sizes() test on non-64-bit arches.
-#   https://github.com/unicode-org/icu4x/pull/5606 (exported with git
-#   format-patch --relative to apply to the released crate)
-# * Since the expected sizes are based on 64-bit architectures, we need to
-#   either maintain additional expected sizes for 32-bit architectures, or (as
-#   implemented in this commit) just skip this test on architectures that are
-#   not 64-bit.
-# * Fixes: zerovec: one test fails on 32-bit platforms
-#   https://github.com/unicode-org/icu4x/issues/5605
-Patch10:        0001-In-zerovec-skip-check_sizes-test-on-non-64-bit-arche.patch
+# * Downstream-only: Ignore a few tests we can’t compile
+# * These tests fail to compile with:
+# * error[E0277]: the trait bound `Cow<'a, str>: ZeroFrom<'a, str>` is not
+#   satisfied
+# * This problem seems to be specific to testing the released crate; we cannot
+#   reproduce it in a git checkout. Enabling all features does not help; nor
+#   does ensuring the zerofrom dependency with the derive feature is present in
+#   the normalized Cargo.toml, as in
+#   https://github.com/unicode-org/icu4x/pull/6585. It could still be a similar
+#   issue with path dev-depencencies that we haven’t found yet. See
+#   https://src.fedoraproject.org/rpms/rust-zerovec/pull-request/1#comment-232114
+#   and subsequent discussion.
+Patch10:        0001-Downstream-only-Ignore-a-few-tests-we-can-t-compile.patch
+# * zerovec: two failing tests on big-endian s390x architecture
+# * https://github.com/unicode-org/icu4x/issues/6588
+# * On big-endian, skip two tests failing due to #6588
+# * https://github.com/unicode-org/icu4x/pull/6587
+# * Exported with git format-patch --relative so it applies to the crate.
+Patch11:        0001-On-big-endian-skip-two-tests-failing-due-to-6588.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -66,6 +71,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+databake-devel
@@ -143,36 +160,20 @@ use the "yoke" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-rm examples/zv_serde.rs
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f databake,derive,serde,yoke
+%cargo_generate_buildrequires -f derive,hashmap,serde
 
 %build
-%cargo_build -f databake,derive,serde,yoke
+%cargo_build -f derive,hashmap,serde
 
 %install
-%cargo_install -f databake,derive,serde,yoke
+%cargo_install -f derive,hashmap,serde
 
 %if %{with check}
 %check
-# * Tests using databake may fail due to trivial differences in the string
-#   representations of generated code, such as trailing commas without semantic
-#   significance.
 # * ule::tuple::test_pairule_validate fails in release mode
-%{cargo_test -f databake,derive,serde,yoke -- -- --exact %{shrink:
-    --skip map2d::databake::test_baked_borrowed_map
-    --skip map2d::databake::test_baked_map
-    --skip map::databake::test_baked_borrowed_map
-    --skip map::databake::test_baked_map
-    --skip yoke_impls::test::bake_VarZeroSlice
-    --skip yoke_impls::test::bake_ZeroMap
-    --skip yoke_impls::test::bake_ZeroMap2d
-    --skip yoke_impls::test::bake_ZeroMap2dBorrowed
-    --skip yoke_impls::test::bake_ZeroMapBorrowed
-    --skip yoke_impls::test::bake_ZeroMapWithULE
-    --skip ule::tuple::test_pairule_validate
-}}
+%cargo_test -f derive,hashmap,serde -- -- --exact --skip ule::tuple::test_pairule_validate
 %endif
 
 %changelog

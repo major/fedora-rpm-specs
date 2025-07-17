@@ -9,15 +9,13 @@
 %bcond uvloop 0
 
 Name:           python-uvicorn
-Version:        0.34.0
+Version:        0.35.0
 Release:        %autorelease
 Summary:        The lightning-fast ASGI server
 License:        BSD-3-Clause
 URL:            https://www.uvicorn.org
 # PyPI tarball doesn't have tests
 Source:         https://github.com/encode/uvicorn/archive/%{version}/uvicorn-%{version}.tar.gz
-# https://github.com/encode/uvicorn/pull/2590
-Patch:          0001-Avoid-test-dependency-on-typing_extensions.patch
 # Fix test_loop_auto for Python 3.14
 # https://github.com/encode/uvicorn/pull/2652
 Patch:          https://github.com/encode/uvicorn/pull/2652.patch
@@ -39,8 +37,12 @@ Uvicorn supports HTTP/1.1 and WebSockets.}
 %package -n python3-uvicorn
 Summary:        %{summary}
 BuildRequires:  python3-devel
+# See "Testing" and "Explicit optionals" in requirements.txt. We list these
+# manually because we must omit strict version pins as well as dependencies for
+# type-checking, linting, coverage analysis, etc.
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-pytest-xdist+psutil
 BuildRequires:  python3-a2wsgi
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-httpx
@@ -82,13 +84,27 @@ tomcli set pyproject.toml lists delitem \
 
 
 %check
-# There are various issues testing with websockets 14+.
-# https://github.com/encode/uvicorn/issues/1908
-%pytest --verbose -k 'not websocket'
+# Websocket-related failures should be fixed in 0.35.0,
+# https://github.com/encode/uvicorn/issues/1908, but there are some remaining
+# test failures. TODO: Investigate and/or report these.
+#
+# _ test_send_binary_data_to_server_bigger_than_default_on_websockets[httptools-max=defaults sent=defaults+1] _
+# […]
+# >                   with pytest.raises(websockets.exceptions.ConnectionClosedError):
+# E                   Failed: DID NOT RAISE <class 'websockets.exceptions.ConnectionClosedError'>
+#
+# tests/protocols/test_websocket.py:734: Failed
+# _ test_send_binary_data_to_server_bigger_than_default_on_websockets[h11-max=defaults sent=defaults+1] _
+#
+# Only two parameterizations of this test fail, but it is easier to skip the
+# whole thing.
+k="${k-}${k+ and }not test_send_binary_data_to_server_bigger_than_default_on_websockets"
+
+%pytest --verbose -rs -k "${k-}"
 
 
 %files -n python3-uvicorn -f %{pyproject_files}
-%doc README.md CHANGELOG.md
+%doc README.md CHANGELOG.md CITATION.cff
 %{_bindir}/uvicorn
 
 

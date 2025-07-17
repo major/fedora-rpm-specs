@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -39,6 +39,7 @@ Source5: qv4global_p-multilib.h
 # https://bugreports.qt.io/browse/QTBUG-87776
 # https://bugzilla.redhat.com/show_bug.cgi?id=2330219
 Patch0: qtdeclarative-cmake-do-not-automatically-link-against-qmlprivate.patch
+Patch1: qtdeclarative-qmlcachegen-fix-crash-on-unresolved-type-with-required-property.patch
 
 ## upstreamable patches
 
@@ -717,6 +718,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue Jul 15 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-3
+- Backport - qmlcachgen: fix crash on unresolved type with required property
+
 * Mon Jun 16 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-2
 - Backport - CMake: Do not automatically link against Qt6::QmlPrivate
   Fixes rhbz#2330219

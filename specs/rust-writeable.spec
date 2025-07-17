@@ -5,7 +5,7 @@
 %global crate writeable
 
 Name:           rust-writeable
-Version:        0.5.5
+Version:        0.6.1
 Release:        %autorelease
 Summary:        More efficient alternative to fmt::Display
 
@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/writeable
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only criterion dependency
+# * Omit the writeable_message example, which would require the internal
+#   icu_benchmark_macros crate
 Patch:          writeable-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -63,8 +65,6 @@ use the "either" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a dependency on the internal icu_benchmark_macros crate
-rm -rv examples/
 %cargo_prep
 
 %generate_buildrequires

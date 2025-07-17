@@ -5,7 +5,7 @@
 %global crate tinystr
 
 Name:           rust-tinystr
-Version:        0.7.6
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Small ASCII-only bounded length string representation
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/tinystr
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * add small_rng feature to rand dev-dependency, needed for tests; fixed
-#   upstream in
-#   https://github.com/unicode-org/icu4x/commit/cbf0032bee6933bb1e54a6a74df2f8624f391d37
 Patch:          tinystr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

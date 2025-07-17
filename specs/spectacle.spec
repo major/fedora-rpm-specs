@@ -1,7 +1,7 @@
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.3-1
+- 6.4.3
+
 * Thu Jul 03 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.2-1
 - 6.4.2
 

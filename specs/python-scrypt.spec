@@ -1,65 +1,68 @@
-%global pypi_name scrypt
-
-%global common_desc Python scrypt bindings This is a set of Python bindings \
-for the scrypt key derivation function. Scrypt is useful when encrypting \
-password as it is possible to specify a *minimum* amount of time to use when \
-encrypting and decrypting. If, for example, a password takes 0.05 seconds to \
-verify, a user won't notice the slight delay when signing in, but doing a \
-brute force search of several...
-
-
-Name:           python-%{pypi_name}
+Name:           python-scrypt
 Version:        0.8.27
-Release:        2%{?dist}
-Summary:        Bindings for the scrypt key derivation function library
+Release:        3%{?dist}
+Summary:        Python bindings for the scrypt key derivation function
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/holgern/py-scrypt
 Source0:        %{pypi_source scrypt}
- 
+
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 
-%description
-%{common_desc}
+%global _description %{expand:
+Scrypt is useful when encrypting password as it is possible to specify
+a minimum amount of time to use when encrypting and decrypting.
+If, for example, a password takes 0.05 seconds to verify, a user won't notice
+the slight delay when signing in, but doing a brute force search of several
+billion passwords will take a considerable amount of time. This is in contrast
+to more traditional hash functions such as MD5 or the SHA family which can be
+implemented extremely fast on cheap hardware.}
 
-%package -n     python3-%{pypi_name}
+%description %_description
+
+%package -n     python3-scrypt
 Summary:        Bindings for the scrypt key derivation function library
 Provides:       bundled(scrypt) = 1.2.1
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-%{common_desc}
+%description -n python3-scrypt %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n scrypt-%{version}
 # remove useless shebang
 sed -i '1d' scrypt/scrypt.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '_scrypt*' scrypt
+
 
 %check
+%pyproject_check_import
+
 %{pytest}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+
+%files -n python3-scrypt -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/_%{pypi_name}*.so
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Tue Jul 15 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.27-3
+- Removed deprecated macros
+  https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.27-2
 - Rebuilt for Python 3.14
 

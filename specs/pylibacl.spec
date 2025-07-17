@@ -1,13 +1,15 @@
 Name:           pylibacl
 Summary:        POSIX.1e ACLs library wrapper for Python
 Version:        0.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://pylibacl.k1024.org
 Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
 Source1:        %{url}/downloads/%{name}-%{version}.tar.gz.asc
 Source2:        https://k1024.org/files/key.asc
+# Support Python 3.14
+Patch:          https://github.com/iustin/pylibacl/commit/64011b3c82746.patch
 
 BuildRequires:  gcc
 BuildRequires:  libacl-devel
@@ -33,7 +35,7 @@ Obsoletes: py3libacl < 0.5.4
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
 %py3_build
@@ -59,6 +61,9 @@ python3 -m pytest tests -v \
 
 
 %changelog
+* Mon Jul 14 2025 Karolina Surma <ksurma@redhat.com> - 0.6.0-13
+- Support Python 3.14
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.6.0-12
 - Rebuilt for Python 3.14
 

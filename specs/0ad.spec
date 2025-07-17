@@ -12,7 +12,7 @@
 
 # Does not build with mozjs-78
 # source/scriptinterface/ScriptTypes.h:85:2: error: #error Your compiler is trying to use an untested minor version of the SpiderMonkey library. If you are a package maintainer, please make sure to check very carefully that this version does not change the behaviour of the code executed by SpiderMonkey. Different parts of the game (e.g. the multiplayer mode) rely on deterministic behaviour of the JavaScript engine. A simple way for testing this would be playing a network game with one player using the old version and one player using the new version. Another way for testing is running replays and comparing the final hash (check trac.wildfiregames.com/wiki/Debugging#Replaymode). For more information check this link: trac.wildfiregames.com/wiki/Debugging#Outofsync
-%bcond_with	system_mozjs78
+%bcond_without	system_mozjs115
 
 # Remember to rerun licensecheck after every update:
 #	https://bugzilla.redhat.com/show_bug.cgi?id=818401#c46
@@ -26,8 +26,8 @@
 %global __requires_exclude ^(libAtlasUI.*\.so|libCollada.*\.so|libmozjs78.*\.so)
 
 Name:		0ad
-Version:	0.0.26
-Release:	31%{?dist}
+Version:	0.27.0
+Release:	1%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -57,7 +57,7 @@ Url:		http://play0ad.com
 # tar Jcf %%{name}-%%{version}-alpha-unix-build.tar.xz %%{name}-%%{version}-alpha
 Source0:	%{name}-%{version}-alpha-unix-build.tar.xz
 %else
-Source0:	http://releases.wildfiregames.com/%{name}-%{version}-alpha-unix-build.tar.xz
+Source0:	http://releases.wildfiregames.com/%{name}-%{version}-unix-build.tar.xz
 %endif
 
 # Simplify checking differences when updating the package
@@ -82,6 +82,7 @@ Requires:	hicolor-icon-theme
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake
+BuildRequires:  cxxtest
 BuildRequires:	desktop-file-utils
 BuildRequires:	enet-devel
 BuildRequires:	gcc-c++
@@ -95,6 +96,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libsodium-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
+BuilDrequires:  libuuid-devel
 BuildRequires:	libzip-devel
 BuildRequires:	make
 BuildRequires:	miniupnpc-devel
@@ -109,7 +111,7 @@ BuildRequires:	valgrind-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	/usr/bin/appstream-util
 
-%if %{without system_mozjs78}
+%if %{without system_mozjs115}
 # bundled mozjs
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(libffi)
@@ -121,17 +123,17 @@ BuildRequires:	/usr/bin/zip
 # for patching bundled mozjs
 BuildRequires:	git-core
 %else
-BuildRequires:	pkgconfig(mozjs-78)
+BuildRequires:	pkgconfig(mozjs-115)
 %endif
 
 # bundled mozjs: For build time tests only
 BuildRequires:	python3.11-devel
 BuildRequires:	perl-devel
 
-ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 ppc64le
+ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64
 
-%if %{without system_mozjs78}
-Provides: bundled(mozjs) = 78
+%if %{without system_mozjs115}
+Provides: bundled(mozjs) = 115
 %endif
 
 # Only do fcollada debug build with enabling debug maintainer mode
@@ -167,27 +169,27 @@ hobbyist game developers, since 2001.
 
 #-----------------------------------------------------------------------
 %prep
-%setup -q -n %{name}-%{version}-alpha
+%setup -q -n %{name}-%{version}
 
 %if ! %{with debug}
 # disable debug build, and "int 0x3" to trap to debugger (x86 only)
-%patch -P1 -p0
+#%%patch -P1 -p0
 %endif
-%patch -P2 -p0
+#%%patch -P2 -p0
 
 # Patch bundled mozjs for Python 3.11 and setuptools 60+ compatibility
-%patch -P3 -p1
-sed -e 's|__SOURCE3__|%{SOURCE3}|' \
-    -e 's|__SOURCE4__|%{SOURCE4}|' \
-    -i libraries/source/spidermonkey/patch.sh
+#%%patch -P3 -p1
+#sed -e 's|__SOURCE3__|%{SOURCE3}|' \
+#    -e 's|__SOURCE4__|%{SOURCE4}|' \
+#    -i libraries/source/spidermonkey/patch.sh
 
-%patch -P4 -p1
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
+#%%patch -P4 -p1
+#%%patch -P5 -p1
+#%%patch -P6 -p1
+#%%patch -P7 -p1
+#%%patch -P8 -p1
+#%%patch -P9 -p1
+#%%patch -P10 -p1
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -207,11 +209,15 @@ rm -fr libraries/source/valgrind
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/243#comment-134252
 unset RUSTFLAGS
 
+./libraries/source/premake-core/build.sh
+./libraries/source/cxxtest-4.4/build.sh
+./libraries/source/fcollada/build.sh
+
 build/workspaces/update-workspaces.sh	\
     --bindir=%{_bindir}			\
     --datadir=%{_datadir}/%{name}	\
     --libdir=%{_libdir}/%{name}		\
-%if %{with system_mozjs78}
+%if %{with system_mozjs115}
     --with-system-mozjs			\
 %endif
 %if %{with system_nvtt}
@@ -241,11 +247,11 @@ for name in nvcore nvimage nvmath nvtt; do
 done
 %endif
 
-%if %{without system_mozjs78}
+%if %{without system_mozjs115}
 %if %{with debug}
-name=mozjs78-ps-debug
+name=mozjs115-ps-debug
 %else
-name=mozjs78-ps-release
+name=mozjs115-ps-release
 %endif
 install -p -m 755 binaries/system/lib${name}.so %{buildroot}%{_libdir}/%{name}/lib${name}.so
 %endif
@@ -273,17 +279,17 @@ export STRIP=/bin/true
 #-----------------------------------------------------------------------
 %check
 # Depends on availablity of nvtt
-%if %{with nvtt}
-LD_LIBRARY_PATH=binaries/system binaries/system/test%{dbg} -libdir binaries/system
-%endif
+#%%if %{with nvtt}
+#LD_LIBRARY_PATH=binaries/system binaries/system/test%{dbg} -libdir binaries/system
+#%%endif
 
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/0ad.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 
 #-----------------------------------------------------------------------
 %files
-%doc README.txt
-%license LICENSE.txt
+%doc README.md
+%license LICENSE.md
 %license license_gpl-2.0.txt license_lgpl-2.1.txt license_mit.txt
 %{_bindir}/0ad
 %{_bindir}/pyrogenesis%{dbg}
@@ -295,6 +301,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Mon Jul 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.0-1
+- 0.27.0, drop ppc64le, unsupported by premake.
+
 * Mon Jul 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.0.26-31
 - miniupnp rebuild.
 

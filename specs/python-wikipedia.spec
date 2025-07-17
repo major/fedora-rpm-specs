@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.5
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Wikipedia API for Python
 
 License:        MIT
@@ -17,12 +17,10 @@ from a page, and more.
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
-BuildRequires:  python3-setuptools
 Requires:       python3-beautifulsoup4
 Requires:       python3-requests
 
@@ -33,22 +31,28 @@ from a page, and more.
 %prep
 %autosetup -n Wikipedia-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
+%pyproject_check_import
+
 %pytest
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-*.egg-info
 
 %changelog
+* Tue Jul 15 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.4.5-34
+- Updated to use %%pyproject_* macros
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.5-33
 - Rebuilt for Python 3.14
 

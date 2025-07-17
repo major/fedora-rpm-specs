@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -272,7 +272,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
-* Tue Apr 22 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-3
+* Tue Jul 15 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-4
 * FSWC: Migrate to lastlog2
   Link: <https://fedoraproject.org/wiki/Changes/Migrate_to_lastlog2>
   Resolves: #2361588

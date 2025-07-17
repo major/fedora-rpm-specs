@@ -3,14 +3,16 @@
 %bcond_with bootstrap
 
 Name:           ninja-build
-Version:        1.12.1
-Release:        5%{?dist}
+Version:        1.13.1
+Release:        1%{?dist}
 Summary:        Small build system with a focus on speed
 License:        Apache-2.0
 URL:            https://ninja-build.org/
 Source0:        https://github.com/ninja-build/ninja/archive/v%{version}/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
+# https://github.com/ninja-build/ninja/pull/2640
+Patch0:         ninja-1.13.1-test-endianness.patch
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
 %if %{without bootstrap}
@@ -22,7 +24,6 @@ BuildRequires:  cmake
 BuildRequires:  re2c >= 0.11.3
 %endif
 %if %{without bootstrap}
-Requires:       emacs-filesystem
 Requires:       vim-filesystem
 %endif
 
@@ -79,7 +80,6 @@ echo rpm > %{ninja_distinfo}/INSTALLER
 install -Dpm0755 ninja -t %{buildroot}%{_bindir}/
 %if %{without bootstrap}
 install -Dpm0644 misc/bash-completion %{buildroot}%{_datadir}/bash-completion/completions/ninja
-install -Dpm0644 misc/ninja-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/ninja-mode.el
 install -Dpm0644 misc/ninja.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/ninja.vim
 install -Dpm0644 %{S:1} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/ninja.vim
 install -Dpm0644 misc/zsh-completion %{buildroot}%{_datadir}/zsh/site-functions/_ninja
@@ -110,7 +110,6 @@ cp -a %{ninja_distinfo} %{buildroot}%{python3_sitelib}
 %{_bindir}/ninja-build
 %if %{without bootstrap}
 %{_datadir}/bash-completion/completions/ninja
-%{_datadir}/emacs/site-lisp/ninja-mode.el
 %{_datadir}/vim/vimfiles/syntax/ninja.vim
 %{_datadir}/vim/vimfiles/ftdetect/ninja.vim
 # zsh does not have a -filesystem package
@@ -126,6 +125,10 @@ cp -a %{ninja_distinfo} %{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Mon Jul 14 2025 Ben Boeckel <fedora@me.benboeckel.net> - 1.13.1-1
+- Update to 1.13.1 (rhbz#2379488)
+- Remove emacs-mode support (moved to a separate project)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.12.1-5
 - Rebuilt for Python 3.14
 

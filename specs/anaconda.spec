@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.29
+Version: 43.30
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -26,7 +26,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %endif
 %define dasbusver 1.3
 %define dbusver 1.2.3
-%define dnfver 3.6.0
+%define dnfver 5.2.15.0-1
 %define dracutver 102-3
 %define fcoeutilsver 1.0.12-3.20100323git
 %define gettextver 0.19.8
@@ -87,7 +87,7 @@ Requires: python3-libs
 %if 0%{?rhel} > 10 || 0%{?fedora} > 40
 Requires: python3-crypt-r
 %endif
-Requires: python3-dnf >= %{dnfver}
+Requires: python3-libdnf5 >= %{dnfver}
 Requires: python3-blivet >= %{pythonblivetver}
 Requires: python3-blockdev >= %{libblockdevver}
 Requires: python3-meh >= %{mehver}
@@ -142,6 +142,10 @@ Requires: python3-pid
 # Required by the systemd service anaconda-fips.
 Requires: crypto-policies
 Requires: crypto-policies-scripts
+
+%ifnarch s390 s390x
+Requires: grub2-common >= 2.12-37
+%endif
 
 # required because of the rescue mode and RDP question
 Requires: anaconda-tui = %{version}-%{release}
@@ -509,6 +513,82 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 15 2025 Packit <hello@packit.dev> - 43.30-1
+- Bump the required version of dnf (pkratoch)
+- storage: Prevent accidental erasure of Live installation media (k.koukiou)
+- bootloader: efi: utilize grub2-common script for handling config file
+  generation (k.koukiou)
+- Remove leftover commented-out call to close base (pkratoch)
+- Update DNFManager.get_flatpak_refs to dnf5 (pkratoch)
+- Comment how getting the packages to download works (pkratoch)
+- Add a test for resolving selection with errors (pkratoch)
+- Rename the DNFManager tests back to test_module_payload_dnf_manager
+  (pkratoch)
+- Adapt the remaining DNFManager tests (pkratoch)
+- Fix checking if PackageQuery is empty (pkratoch)
+- Implement verifying repomd hashes (pkratoch)
+- Catch libdnf5 exceptions instead of previously thrown RuntimeError (pkratoch)
+- Adapt test_module_payload_dnf_manager comps tests for DNF5 (pkratoch)
+- Require the correct package for dnf5 plugins (pkratoch)
+- Handle group package types that can be specified by options in kickstart
+  (pkratoch)
+- Use pkg_gpgcheck config option instead of deprecated gpgcheck (pkratoch)
+- Sort groups and environments by display_order (pkratoch)
+- Set excludes for environments and groups (pkratoch)
+- Reduce installation progress log verbosity (pkratoch)
+- Add a second goal for second resolving in case of unavailable packages
+  (pkratoch)
+- Print number of packages when reporting installation progress (pkratoch)
+- Set package excludes (pkratoch)
+- Remove the dnf_manager exceptions related to selection resolving (pkratoch)
+- Remove unused imports (pkratoch)
+- Report downloading progress (pkratoch)
+- Respect the missing_ignored and broken_ignored configuration (pkratoch)
+- Implement replacing repositories (pkratoch)
+- Reset the dnf base when clearing cache (pkratoch)
+- Remember if repositories were loaded (pkratoch)
+- Set the destdir option (pkratoch)
+- Always call progress.quit in mocked installing packages in tests (pkratoch)
+- Don't close the multiprocessing queue too soon (pkratoch)
+- Log messages from dnf into /tmp/dnf.log (pkratoch)
+- Report error when the dnf transaction fails (pkratoch)
+- Log also the message of the dnf transaction result (pkratoch)
+- Enable some tests in test_module_payload_dnf5_manager (pkratoch)
+- Remove the test_dnf_tear_down (pkratoch)
+- Report warnings in DNFManager.resolve_selection (pkratoch)
+- Fix transaction callbacks (pkratoch)
+- Adapt tests of DNFManager.install_packages for dnf5 (pkratoch)
+- Fix setting up and running transaction (pkratoch)
+- Adapt test_module_payload_dnf_installation for dnf5 (pkratoch)
+- Adapt checking transaction errors to DNF5 (pkratoch)
+- Enable comps tests (pkratoch)
+- Fix setting of libdnf5.repo.PackageDownloader (pkratoch)
+- TEMPORARY: Store comps queries (pkratoch)
+- Remove unused _create_group method from DNFRequirementsTestCase (pkratoch)
+- Update TransactionItemState_ERROR import to libdnf5 (pkratoch)
+- Adapt dnf validation tests for dnf5 (pkratoch)
+- Fix use of group and environment iterators (pkratoch)
+- Replace `base.load_config_from_file` with `base.load_config` method
+  (pkratoch)
+- Remove variable loading, since it's done in base.setup() (pkratoch)
+- Remove test for reset_substitution method (pkratoch)
+- Adapt test_module_payload_dnf_manager download tests for dnf5 (pkratoch)
+- Adapt test_dnf_initialization.py tests for dnf5 (pkratoch)
+- Load all repositories at once (pkratoch)
+- Call dnf5 base setup at a proper place (pkratoch)
+- Fix setting releasever in dnf5 base (pkratoch)
+- Call get_download_size instead of get_package_size because of rename
+  (pkratoch)
+- Remove the DNFConfigWrapper and access the configuration options directly
+  (pkratoch)
+- Use repo.get() (vponcova)
+- Use the DNF5 API (vponcova)
+- Update to the approved version of the blivet change (a.badger)
+- pyanaconda: storage: enforce GPT partition table for ESP on EFI x86 platforms
+  (k.koukiou)
+- Do not duplicate the DEVICE_TYPES enum in storage_constraints (a.badger)
+- Retrieve DEVICE_TYPES from blivet. (a.badger)
+
 * Wed Jul 09 2025 Packit <hello@packit.dev> - 43.29-1
 - data: profile.d: use slitherer as default web engine everywhere but for
   workstation (k.koukiou)

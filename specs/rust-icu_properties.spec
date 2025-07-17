@@ -5,7 +5,7 @@
 %global crate icu_properties
 
 Name:           rust-icu_properties
-Version:        1.5.1
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Definitions for Unicode properties
 
@@ -14,7 +14,7 @@ URL:            https://crates.io/crates/icu_properties
 Source:         %{crates_source}
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   circular (path-based) dev-dependency on the icu crate.
-Patch10:        icu_properties-1.5.1-no-icu-dev-dependency.patch
+Patch10:        icu_properties-2.0.1-no-icu-dev-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -49,16 +49,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bidi-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bidi-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bidi" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bidi-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+compiled_data-devel
@@ -97,16 +97,16 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+unicode_bidi-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+unicode_bidi-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "unicode_bidi" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+unicode_bidi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -114,19 +114,20 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f alloc,datagen
 
 %build
-%cargo_build
+%cargo_build -f alloc,datagen
 
 %install
-%cargo_install
+%cargo_install -f alloc,datagen
 
 %if %{with check}
 %check
-# * All doc tests use icu::properties, which would require the circular
-#   (path-based) dev-dependency on the icu crate.
-%cargo_test -- --tests
+# * Very many doctests have circular dependencies on the top-level icu crate,
+#   enough that it would be very tedious to patch them all out.
+%cargo_test -f alloc,datagen -- --lib
+%cargo_test -f alloc,datagen -- --tests
 %endif
 
 %changelog

@@ -5,6 +5,15 @@
 %bcond tests 1
 %bcond sfsexp 1
 
+# *el 10 missing some runtime requirements
+%if 0%{?rhel} >= 10
+%bcond mutt 0
+%bcond vim 0
+%else
+%bcond mutt 1
+%bcond vim 1
+%endif
+
 # comparing {_emacs_version} in macros does not work well
 # so we catch the major version bumps ;)
 # read "with emacs at least"
@@ -168,16 +177,22 @@ Requires:	%{name} = %{version}-%{release}
 %description -n ruby-notmuch
 %{summary}.
 
+%if %{with mutt}
 %package	mutt
 Summary:	Notmuch (of a) helper for Mutt
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
+Requires:	perl(Digest::SHA)
+Requires:	perl(Mail::Box)
+Requires:	perl(Mail::Header)
 Requires:	perl(Term::ReadLine::Gnu)
 
 %description mutt
 notmuch-mutt provide integration among the Mutt mail user agent and
 the Notmuch mail indexer.
+%endif
 
+%if %{with vim}
 %package	vim
 Summary:	A Vim plugin for notmuch
 Requires:	ruby-%{name} = %{version}-%{release}
@@ -190,6 +205,8 @@ Requires(postun): vim-enhanced
 %description vim
 notmuch-vim is a Vim plugin that provides a fully usable mail client
 interface, utilizing the notmuch framework.
+%endif
+
 
 %prep
 %if %{with distrobuild}
@@ -255,18 +272,22 @@ make install DESTDIR=%{buildroot}
 popd
 
 # Install notmuch-mutt
+%if %{with mutt}
 install -m0755 contrib/notmuch-mutt/notmuch-mutt \
 	%{buildroot}%{_bindir}/notmuch-mutt
 install -m0644 contrib/notmuch-mutt/notmuch-mutt.1 \
 	%{buildroot}%{_mandir}/man1/notmuch-mutt.1
+%endif
 
 # Install notmuch-vim
+%if %{with vim}
 pushd vim
 make install DESTDIR=%{buildroot} prefix="%{_datadir}/vim/vimfiles"
 popd
+%endif
 
-%if %{without sfsexp}
 # Do not install notmuch-git which requires sfsexp
+%if %{without sfsexp}
 rm -f %{buildroot}%{_mandir}/man1/nmbug.1*
 rm -f %{buildroot}%{_mandir}/man1/notmuch-git.1*
 rm -f %{buildroot}%{_infodir}/nmbug.info*
@@ -276,6 +297,7 @@ rm -f %{buildroot}%{_infodir}/notmuch-git.info*
 rm -f %{buildroot}/%{_datadir}/applications/mimeinfo.cache
 rm -f %{buildroot}%{_infodir}/dir
 
+%if %{with vim}
 %post vim
 cd %{_datadir}/vim/vimfiles/doc
 vim -u NONE -esX -c "helptags ." -c quit
@@ -283,6 +305,7 @@ vim -u NONE -esX -c "helptags ." -c quit
 %postun vim
 cd %{_datadir}/vim/vimfiles/doc
 vim -u NONE -esX -c "helptags ." -c quit
+%endif
 
 %files
 %doc AUTHORS COPYING COPYING-GPL-3 README
@@ -361,10 +384,13 @@ vim -u NONE -esX -c "helptags ." -c quit
 %files -n ruby-notmuch
 %{ruby_vendorarchdir}/*
 
+%if %{with mutt}
 %files mutt
 %{_bindir}/notmuch-mutt
 %{_mandir}/man1/notmuch-mutt.1*
+%endif
 
+%if %{with vim}
 %files vim
 %{_datadir}/vim/vimfiles/doc/notmuch.txt
 %{_datadir}/vim/vimfiles/plugin/notmuch.vim
@@ -373,6 +399,7 @@ vim -u NONE -esX -c "helptags ." -c quit
 %{_datadir}/vim/vimfiles/syntax/notmuch-git-diff.vim
 %{_datadir}/vim/vimfiles/syntax/notmuch-search.vim
 %{_datadir}/vim/vimfiles/syntax/notmuch-show.vim
+%endif
 
 %changelog
 %autochangelog

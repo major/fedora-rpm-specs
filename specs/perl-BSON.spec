@@ -3,19 +3,22 @@
 
 Name:           perl-BSON
 Version:        1.12.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        BSON serialization and deserialization
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://metacpan.org/release/BSON
 Source0:        https://cpan.metacpan.org/authors/id/M/MO/MONGODB/BSON-v%{version}.tar.gz
+# Fix an operator preference reported by perl 5.42, bug #2380086
+Patch0:         BSON-v1.12.2-Fix-an-operator-preference.patch
+# Adapt tests to perl 5.42, bug #2380086
+Patch1:         BSON-v1.12.2-Adapt-tests-to-perl-5.41.7.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.1
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -24,7 +27,6 @@ BuildRequires:  perl(B)
 BuildRequires:  perl(base)
 BuildRequires:  perl(boolean) >= 0.45
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(DateTime)
@@ -86,6 +88,10 @@ Requires:       perl(re)
 Requires:       perl(Time::Local)
 Requires:       perl(Time::Moment)
 
+# Hide prive modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((CleanEnv|CorpusTest|TestTie|TestUtils)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((CleanEnv|PPSubclass)\\)
+
 %description
 This Perl class implements a BSON encoder and decoder. It consumes
 documents (typically hash references) and emits BSON strings and vice
@@ -93,8 +99,37 @@ versa in accordance with the BSON specification <http://bsonspec.org/>.
 
 Upstream claims it will stop supporting this code on 2020-08-13.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+%if %{with perl_BSON_enables_optional_test}
+# Optional tests:
+Requires:       perl(Math::Int64)
+%if !%{defined perl_bootstrap}
+# Build cycle: perl-MongoDB → perl-BSON
+Requires:       perl(MongoDB)
+Requires:       perl(MongoDB::BSON::Binary)
+Requires:       perl(MongoDB::BSON::Regexp)
+Requires:       perl(MongoDB::Code)
+Requires:       perl(MongoDB::DBRef) >= 1.0.0
+Requires:       perl(MongoDB::OID)
+Requires:       perl(MongoDB::Timestamp)
+%endif
+Requires:       perl(Test::Exception)
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n BSON-v%{version}
+%autosetup -p1 -n BSON-v%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -103,21 +138,43 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a corpus t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/corpus/*.pl
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING AUTOMATED_TESTING BSON_EXTJSON BSON_EXTJSON_RELAXED \
+    BSON_TEST_SORT_HASH HARNESS_PERL_SWITCHES PERL_BSON_BACKEND \
+    PERL_MONGO_NO_DEP_WARNINGS
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset AUTHOR_TESTING AUTOMATED_TESTING BSON_EXTJSON BSON_EXTJSON_RELAXED \
     BSON_TEST_SORT_HASH HARNESS_PERL_SWITCHES PERL_BSON_BACKEND \
     PERL_MONGO_NO_DEP_WARNINGS
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 # devel directory contains obsoleted or not yet valid documentation
 %doc Changes CONTRIBUTING.mkdn README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/BSON
+%{perl_vendorlib}/BSON.pm
+%{_mandir}/man3/BSON.*
+%{_mandir}/man3/BSON::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 15 2025 Petr Pisar <ppisar@redhat.com> - 1.12.2-17
+- Adapt to perl 5.42 (bug #2380086)
+- Package the tests
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

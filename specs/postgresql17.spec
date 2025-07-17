@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -106,6 +106,7 @@ Summary: PostgreSQL client programs
 %endif
 
 BuildRequires: make
+BuildRequires: libzstd-devel
 BuildRequires: lz4-devel
 BuildRequires: gcc
 BuildRequires: perl(ExtUtils::MakeMaker) glibc-devel bison flex gawk
@@ -546,6 +547,9 @@ cat >postgresql17.sysusers.conf <<EOF
 u postgres 26 'PostgreSQL Server' /var/lib/pgsql /bin/bash
 EOF
 
+cat > postgresql17.tmpfiles.conf <<EOF
+d /var/lib/pgsql 0700 postgres postgres -
+EOF
 
 %build
 # Avoid LTO on armv7hl as it runs out of memory
@@ -624,6 +628,7 @@ common_configure_options='
 	--datadir=%_datadir/pgsql
 	--with-systemd
 	--with-lz4
+    --with-zstd
 %if %icu
 	--with-icu
 %endif
@@ -711,6 +716,7 @@ upgrade_configure ()
 		--prefix=%prev_prefix \
 		--disable-rpath \
 		--with-lz4 \
+        --with-zstd \
 %if %icu
 		--with-icu \
 %endif
@@ -952,7 +958,7 @@ find_lang_bins pltcl.lst pltcl
 %endif
 
 install -m0644 -D postgresql17.sysusers.conf %{buildroot}%{_sysusersdir}/postgresql17.conf
-
+install -m0644 -D postgresql17.tmpfiles.conf %{buildroot}%{_tmpfilesdir}/postgresql17.conf
 
 %post -n %{pkgname}-server
 %systemd_post %service_name
@@ -1237,6 +1243,7 @@ make -C postgresql-setup-%{setup_version} check
 
 %{_sbindir}/postgresql-new-systemd-unit
 %{_tmpfilesdir}/postgresql.conf
+%{_tmpfilesdir}/postgresql17.conf
 %{_unitdir}/*postgresql*.service
 %attr(700,postgres,postgres) %dir %{?_localstatedir}/lib/pgsql
 %attr(644,postgres,postgres) %config(noreplace) %{?_localstatedir}/lib/pgsql/.bash_profile
@@ -1347,6 +1354,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Jul 15 2025 Filip Janus <fjanus@redhat.com> - 17.5-4
+- Enable zstd support
+- Enable tmpfiles.d configuration
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 17.5-3
 - Perl 5.42 rebuild
 

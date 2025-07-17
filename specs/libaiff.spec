@@ -61,7 +61,6 @@ autoreconf --force --install --verbose
 
 %install
 %make_install
-rm -vf '%{buildroot}%{_libdir}/libaiff.la'
 
 
 # Upstream does not provide any tests.

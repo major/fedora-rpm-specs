@@ -16,7 +16,7 @@
 Name:           libgda5
 Epoch:          1
 Version:        5.2.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.1-or-later
@@ -39,6 +39,7 @@ Patch10:        libgda5-c99-3.patch
 Patch11:        libgda5-c99-4.patch
 Patch12:        pointer-types.patch
 Patch13:        types.patch
+Patch14:        gettext.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -57,7 +58,7 @@ BuildRequires:    libgcrypt-devel
 BuildRequires:    libgee-devel
 BuildRequires:    gobject-introspection-devel >= 0.6.5
 BuildRequires:    libxml2-devel readline-devel json-glib-devel
-BuildRequires:    gtk-doc intltool gettext flex bison perl(XML::Parser)
+BuildRequires:    gtk-doc intltool gettext-devel flex bison perl(XML::Parser)
 BuildRequires:    libsecret-devel
 BuildRequires:    libsoup-devel
 BuildRequires:    openssl-devel
@@ -397,6 +398,9 @@ rm %{buildroot}/%{_sysconfdir}/%{upstream}-%{apiver}/sales_test.db
 %endif
 
 %changelog
+* Fri Jul 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:5.2.10-24
+- Graphviz rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.2.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
