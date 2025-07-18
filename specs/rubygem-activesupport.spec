@@ -4,43 +4,18 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.8
-Release: 11%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# The activesupport gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/activesupport && git archive -v -o activesupport-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Fixes for Minitest 5.16+
-# https://github.com/rails/rails/pull/45380
-Patch1: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
-Patch2: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with-test.patch
-# https://github.com/rails/rails/pull/45370
-Patch3: rubygem-activesupport-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# https://github.com/rails/rails/pull/51079
-Patch4: rubygem-activesupport-7.0.2.3-update-method_duplicable.patch
-# Drop mutex_m dependency to ease Ruby 3.4 compatibility.
-# https://github.com/rails/rails/pull/49674
-Patch5: rubygem-activesupport-7.2.0-Drop-dependency-on-mutex-m.patch
-# Ruby 3.4 backtrace compatibility.
-# https://github.com/rails/rails/pull/51101
-Patch6: rubygem-activesupport-7.2.0-Update-test-suite-for-compatibility-with-Ruby-3-4-dev.patch
-# Ruby 3.4 `Hash#inspect` compatibility.
-# https://github.com/rails/rails/commit/95c2ee8e0503215ad94629383311301742ebf012
-Patch7: rubygem-activesupport-8.0.0-Update-Active-Support-test-suite-for-Ruby-3-4-Hash-inspect.patch
-# concurrent-ruby 1.3.5+ drops Logger dependency. Make sure to load Logger
-# explicitly.
-# https://github.com/rails/rails/pull/54264
-Patch8: rubygem-activesupport-7.0.8-Ensure-the-logger-gem-is-loaded-in-Rails-7-0.patch
+# git clone http://github.com/rails/rails.git && cd rails/activesupport
+# git archive -v -o activesupport-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+# This is needed due to `force_skip` alias.
+# https://github.com/rails/rails/blob/main/tools/test_common.rb
+Source2: https://raw.githubusercontent.com/rails/rails/e25d738430bdc6bdd04cd28be705484ea953e74e/tools/test_common.rb
 
 # Ruby package has just soft dependency on rubygem(json), while
 # ActiveSupport always requires it.
@@ -53,29 +28,33 @@ Requires: tzdata
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(bigdecimal)
 BuildRequires: rubygem(builder)
 BuildRequires: rubygem(concurrent-ruby)
 BuildRequires: rubygem(connection_pool)
 BuildRequires: rubygem(dalli)
 BuildRequires: rubygem(drb)
-BuildRequires: (rubygem(i18n) >= 0.7 with rubygem(i18n) < 2)
-BuildRequires: rubygem(minitest) >= 5.0.0
-BuildRequires: rubygem(rack)
-BuildRequires: rubygem(tzinfo) >= 2.0
+BuildRequires: rubygem(i18n) >= 0.7
 BuildRequires: rubygem(listen)
+BuildRequires: rubygem(minitest) >= 5.0.0
+BuildRequires: rubygem(msgpack)
+BuildRequires: rubygem(rack)
 BuildRequires: rubygem(redis)
 BuildRequires: rubygem(rexml)
+BuildRequires: rubygem(tzinfo) >= 2.0
 BuildRequires: memcached
+%ifnarch %{ix86}
+BuildRequires: %{_bindir}/valkey-server
+%endif
 BuildRequires: tzdata
 BuildArch: noarch
-
 
 %description
 A toolkit of support libraries and Ruby core extensions extracted from the
 Rails framework. Rich support for multibyte strings, internationalization,
 time zones, and testing.
+
 
 %package doc
 Summary: Documentation for %{name}
@@ -86,32 +65,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-
-%patch 1 -p2
-%patch 3 -p2
-mv %{_builddir}/test .
-%patch 4 -p2
-mv test %{_builddir}
-%patch 5 -p2
-%patch 8 -p2
-
-pushd %{_builddir}
-%patch 2 -p2
-%patch 6 -p2
-%patch 7 -p2
-popd
-
-# Add several dependencies to avoid Ruby 3.3+ warnings.
-# https://github.com/rails/rails/commit/81699b52d2acff1840e3ace5e59412f4fa3934ab
-%gemspec_add_dep -g base64
-%gemspec_add_dep -g drb
-# https://github.com/rails/rails/commit/a77535c74c7047a517cc45ff8ecb416ea439c28d
-%gemspec_add_dep -g bigdecimal
-# https://github.com/rails/rails/commit/455b5f106e5a3eeba1e7139c63fd83dc0dd81caf
-%gemspec_add_dep -g logger
-%gemspec_add_dep -g securerandom
-%gemspec_add_dep -g benchmark
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -123,39 +77,37 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 # Move the tests into place
-ln -s %{_builddir}/tools ..
-cp -a %{_builddir}/test .
+cp -a %{builddir}/test .
 
-# These tests are really unstable, but they seems to be passing upstream :/
-# mem_cache_store_test: These tests do not pass in Koji; but work locally
-# redis_cache_store_test: failed to require "redis/connection/hiredis"
-for f in \
-  test/evented_file_update_checker_test.rb \
-  test/cache/stores/redis_cache_store_test.rb \
-  test/cache/stores/mem_cache_store_test.rb
-do
-  mv $f{,.disable}
-done
-
-# This seems to be unstable as well ...
-# https://github.com/rails/rails/issues/25682
-sed -i '/def test_iso8601_output_and_reparsing$/,/^  end$/ s/^/#/' test/core_ext/duration_test.rb
-
-# Workaround TransformValuesTest#test_default_procs_do_not_persist_*_mapping
-# test failures due to bug in Ruby 2.7.{0,1}.
-# https://bugs.ruby-lang.org/issues/16498
-sed -i '/assert_nil mapped\[:b\]/ s/^/#/' test/core_ext/hash/transform_values_test.rb
+mkdir ../tools
+ln -s %{SOURCE2} ../tools/
+touch ../tools/strict_warnings.rb
 
 sed -i '/require .bundler./ s/^/#/' test/abstract_unit.rb
 
+# Start a testing Valkey (Redis) server instance
+%ifnarch %{ix86}
+VALKEY_DIR=$(mktemp -d)
+valkey-server --dir $VALKEY_DIR --pidfile $VALKEY_DIR/valkey.pid --daemonize yes
+%endif
+
+# Start Memcached server
 memcached &
 mPID=$!
 sleep 1
-ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+
+ruby -Ilib -e 'Dir.glob "./test/**/*_test.rb", &method(:require)' -- -v
+
+# Shutdown Memcached
 kill -15 $mPID
-popd
+
+# Shutdown Valkey.
+%ifnarch %{ix86}
+kill -INT $(cat $VALKEY_DIR/valkey.pid)
+%endif
+)
 
 %files
 %dir %{gem_instdir}
@@ -170,6 +122,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Wed Jul 02 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
+- Update to Active Support 8.0.2.
+  Related: rhbz#2238177
+
 * Thu Jan 23 2025 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-11
 - Fix compatibility with concurrent-ruby 1.3.5+
 

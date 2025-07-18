@@ -1,6 +1,6 @@
 Name:           jsonnet
 Version:        0.21.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -23,15 +23,18 @@ Source2:        jsonnetfmt.1
 # Upstream wants to build single source wheels
 # these benefit from static linking,
 # but we want to link to libjsonnet here so we are sharing the lib
-Patch:          0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
+Patch: 0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
 # Upstream hard codes compiler flags
-Patch:          0002-patch-CMakeLists.txt-to-stop-overriding-build-flags.patch
+Patch: 0002-patch-CMakeLists.txt-to-stop-overriding-build-flags.patch
 # Upstream ships rapidyaml inside this source repo
-Patch:          0003-Use-system-provided-rapidyaml.patch
+Patch: 0003-Use-system-provided-rapidyaml.patch
 # Fedora/CentOS10 doesn't have the latest setuptools
-Patch:          0004-use-older-setuptools.patch
+Patch: 0004-use-older-setuptools.patch
 # Fix tag error where libc++ is tagged -rc2
-Patch:          0005-fix-cpp-lib-version.patch
+Patch: 0005-fix-cpp-lib-version.patch
+# Permit use of cmake4
+# https://bugzilla.redhat.com/show_bug.cgi?id=2380666
+Patch: 0006-Add-cmake4-to-cmake_minimum_required.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # safe to clean up "if" statements after 2026-05-31
@@ -189,6 +192,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Wed Jul 16 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0-3
+- CMake 4.0 compat
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.21.0-2
 - Rebuilt for Python 3.14
 

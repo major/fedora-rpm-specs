@@ -4,23 +4,26 @@
 %bcond_without tilt_integration_tests
 
 Name: rubygem-%{gem_name}
-Version: 3.2.0
-Release: 2%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra
-# git archive -v -o sinatra-3.2.0-test.tar.gz v3.2.0 test/
+# git archive -v -o sinatra-4.1.1-test.tar.gz v4.1.1 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.6.0
+BuildRequires: ruby
 %if %{without bootstrap}
 BuildRequires: rubygem(minitest) > 5
 BuildRequires: rubygem(mustermann)
-BuildRequires: rubygem(rack-protection) >= %{version}
+BuildRequires: rubygem(rack)
 BuildRequires: rubygem(rack-test)
+BuildRequires: rubygem(rack-protection) >= %{version}
+BuildRequires: rubygem(rack-session)
+BuildRequires: rubygem(rackup)
 # Tilt is actually required from base_test
 BuildRequires: rubygem(tilt)
 %if %{with tilt_integration_tests}
@@ -55,12 +58,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-# The strict dependency does not seems to have impact. This is changed mainly
-# due to older Musteramnn and can be eventually removed or tightened in the
-# future.
-%gemspec_remove_dep -g mustermann "~> 3.0"
-%gemspec_add_dep -g mustermann
-
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
@@ -78,11 +75,12 @@ cp -a .%{gem_dir}/* \
 # Fix shebangs, though those are examples.
 sed -i -e 's|^#!/usr/bin/env ruby|#!/usr/bin/ruby|' \
   %{buildroot}%{gem_instdir}/examples/*.rb
+chmod a+x %{buildroot}%{gem_instdir}/examples/*.rb
 
 %if %{without bootstrap}
 %check
 pushd .%{gem_instdir}
-cp -a %{_builddir}/test test
+cp -a %{builddir}/test test
 
 # Avoid ActiveSupport dependency, which should not be needed anyway.
 sed -i '/active_support/ s/^/#/' test/test_helper.rb
@@ -122,6 +120,12 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Thu Jun 12 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.1.1-1
+- Update to Sinatra 4.1.1.
+  Resolves: rhbz#2185968
+- Open Redirect Vulnerability in Sinatra via X-Forwarded-Host Header (CVE-2024-21510)
+  Resolves: rhbz#2323117
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

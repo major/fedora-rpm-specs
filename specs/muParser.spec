@@ -3,7 +3,7 @@
 Name:           muParser
 Summary:        A fast math parser library
 Version:        2.3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
@@ -32,7 +32,7 @@ Development files and the documentation
 %autosetup -n %{lcname}-%{version}
 
 %build
-%cmake .. -DENABLE_SAMPLES=ON -DENABLE_OPENMP=ON -DBUILD_SHARED_LIBS=ON
+%cmake .. -DENABLE_SAMPLES=ON -DENABLE_OPENMP=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 # -DENABLE_WIDE_CHAR=ON
 %cmake_build
 
@@ -52,6 +52,9 @@ Development files and the documentation
 %{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.5-2
+- Cmake 4 fix
+
 * Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.5-1
 - 2.3.5
 

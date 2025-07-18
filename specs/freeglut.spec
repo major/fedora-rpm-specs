@@ -2,7 +2,7 @@
 Summary:        A freely licensed alternative to the GLUT library
 Name:           freeglut
 Version:        3.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 URL:            http://freeglut.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # For the manpages
@@ -58,12 +58,12 @@ license.
 %patch -P 1 -p1
 
 %build
-%{cmake} -DFREEGLUT_BUILD_STATIC_LIBS=OFF .
-%{cmake_build}
+%cmake -DFREEGLUT_BUILD_STATIC_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
+%cmake_build
 
 
 %install
-%{make_install}
+%cmake_install
 
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man3
 install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
@@ -87,6 +87,9 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 %{_libdir}/cmake/FreeGLUT/*
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.6.0-5
+- Update for cmake4 and ninja
+
 * Thu Jan 23 2025 José Expósito <jexposit@redhat.com> - 3.6.0-4
 - Backport compilation error fix
   Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2340175

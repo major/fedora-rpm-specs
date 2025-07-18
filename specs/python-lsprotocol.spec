@@ -1,5 +1,5 @@
 Name:           python-lsprotocol
-Version:        2023.0.0
+Version:        2025.0.0
 Release:        %autorelease
 Summary:        Python implementation of the Language Server Protocol
 

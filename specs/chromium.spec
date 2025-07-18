@@ -244,8 +244,8 @@
 %endif
 
 Name:	chromium
-Version: 138.0.7204.100
-Release: 2%{?dist}
+Version: 138.0.7204.157
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -415,7 +415,7 @@ Patch406: fix-different-data-layouts.patch
 Patch407: 0002-Add-ppc64-trap-instructions.patch
 
 Patch408: fix-ppc64-linux-syscalls-headers.patch
-Patch409: use-sysconf-page-size-on-ppc64.patch
+Patch409: fix-page-allocator-overflow.patch
 Patch410: 0001-Enable-ppc64-pointer-compression.patch
 
 Patch411: dawn-fix-ppc64le-detection.patch
@@ -1741,6 +1741,12 @@ fi
 %endif
 
 %changelog
+* Wed Jul 16 2025 Than Ngo <than@redhat.com> - 138.0.7204.157-1
+- Update to 138.0.7204.157
+  * CVE-2025-7656: Integer overflow in V8
+  * CVE-2025-7657: Use after free in WebRTC
+  * CVE-2025-6558: Incorrect validation of untrusted input in ANGLE and GPU
+
 * Fri Jul 11 2025 Tom Stellard <tstellar@redhat.com> -138.0.7204.100-2
 - Update rust-clanglib patch for clang 21
 

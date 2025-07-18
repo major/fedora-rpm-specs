@@ -4,8 +4,8 @@
 %bcond_without meson
 
 Name: audacious
-Version: 4.4.2
-Release: 2%{?dist}
+Version: 4.5
+Release: 1%{?dist}
 
 %global tar_ver %{version}
 
@@ -210,6 +210,12 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 
 
 %changelog
+* Wed Jul 16 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-1
+- update to 4.5
+
+* Mon Jun 02 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-0.1.beta1
+- upgrade to 4.5-beta1
+
 * Fri Apr 25 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.4.2-2
 - use newly approved SPDX license identifier: BSD-2-Clause-pkgconf-disclaimer
 

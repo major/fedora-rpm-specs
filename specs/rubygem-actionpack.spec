@@ -1,75 +1,46 @@
 # Generated from actionpack-1.13.5.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name actionpack
 
-# Circular dependency with rubygem-railties.
+# Circular dependency with rubygem-{actverecord,railties}.
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.8
-Release: 10%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# ActionPack gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/actionpack && git archive -v -o actionpack-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Fixes for Minitest 5.16+
-# https://github.com/rails/rails/pull/45370
-Patch0: rubygem-actionpack-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# From https://github.com/rails/rails/pull/51510
-# Remove OpenStruct usage due to json 2.7.2 change
-Patch1: rubygem-actionpack-pr51510-remove-openstruct-usage.patch
-# Ruby 3.4 `Hash#inspect` compatibility.
-# https://github.com/rails/rails/pull/53202/commits/f5401a4175187cb52f93f9666723040ca0cc0843
-Patch2: rubygem-actionpack-8.0.0-Update-Action-Pack-test-suite-for-Ruby-3-4-Hash-inspect.patch
-# Ruby 3.4 Prism parser fixes.
-# https://github.com/rails/rails/pull/52943
-Patch3: rubygem-actionpack-8.0.0-Address-DebugExceptionsTest-failures-against-Ruby-with.patch
-# Ruby 3.4 backtrace compatibility.
-# https://github.com/rails/rails/pull/51101
-Patch4: rubygem-actionpack-7.2.0-Update-test-suite-for-compatibility-with-Ruby-3-4-dev.patch
-# Drop mutex_m dependency to ease Ruby 3.4 compatibility.
-# https://github.com/rails/rails/pull/49674
-Patch5: rubygem-actionpack-7.2.0-Drop-dependency-on-mutex-m.patch
-# Mitigate `URI::RFC3986_PARSER.escape is obsolete. Use
-# URI::RFC2396_PARSER.escape explicitly.` warnings, which might be quite
-# extensive.
-# https://github.com/rails/rails/pull/53164
-Patch6: rubygem-actionpack-7.1.5-7-1-Fix-URI-DEFAULT-PARSER-warnings.patch
-Patch7: rubygem-actionpack-7.1.5-7-1-Fix-URI-DEFAULT-PARSER-warnings-test.patch
-# Add support for selenium-webdriver 4.22+
-# https://github.com/rails/rails/pull/52172
-Patch8: rubygem-actionpack-7.1.5.1-Support-selenium-webdriver-4-22-0-that-enables-CDP-in-Firefox.patch
-# Fix Rack::Test 2+ test compatibility.
-# https://github.com/rails/rails/pull/45534/commits/07be723bc1d2b6a655a589dfcd4213e251cdb453
-Patch9: rubygem-actionpack-7.1.0-Ensure-Rails-is-green-with-Rack-Test-main-branch.patch
+# git clone http://github.com/rails/rails.git && cd rails/actionpack
+# git archive -v -o actionpack-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 3.2.0
 %if %{without bootstrap}
 BuildRequires: rubygem(activemodel) = %{version}
-BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(actionview) = %{version}
+BuildRequires: rubygem(launchy)
+BuildRequires: rubygem(msgpack)
 BuildRequires: rubygem(railties) = %{version}
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(rack-cache)
 BuildRequires: rubygem(rack-test)
-BuildRequires: rubygem(puma)
 BuildRequires: rubygem(capybara) >= 3.26
 BuildRequires: rubygem(selenium-webdriver)
-BuildRequires: rubygem(rexml)
+BuildRequires: rubygem(useragent)
+BuildRequires: rubygem(zeitwerk)
+BuildRequires: chromedriver chromium chromium-headless
+# Chromium availability is limited:
+# https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_800
+# and chrome-headless even more:
+# https://src.fedoraproject.org/rpms/chromium/blob/0d9761748509bb12051ab149d28c1052cd834f87/f/chromium.spec#_46-48
+ExclusiveArch: x86_64 aarch64 noarch
 %endif
 BuildArch: noarch
 
@@ -87,21 +58,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-
-pushd %{_builddir}
-%patch 0 -p2
-%patch 1 -p2
-%patch 2 -p2
-%patch 3 -p2
-%patch 4 -p2
-%patch 7 -p2
-%patch 8 -p2
-%patch 9 -p2
-popd
-
-%patch 5 -p2
-%patch 6 -p2
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -115,23 +72,47 @@ cp -a .%{gem_dir}/* \
 
 %if %{without bootstrap}
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-# Copy the tests into place
-cp -a %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
-# TODO: relative paths to fixtures are not resolved properly
-for tname in 'rendering a relative path with dot' 'rendering a relative path'; do
-  sed -i "/^\s* test \"$tname\" do/ a \      skip" \
-    test/controller/new_base/render_file_test.rb
-done
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
+
+# Use `:remote` option to surpres preload of Selenium drivers.
+sed -i '/driven_by/ s/$/, :options => {browser: :remote}/' \
+  test/abstract_unit.rb
+
+# Required on various palces such as:
+# https://github.com/rails/rails/blob/3235827585d87661942c91bc81f64f56d710f0b2/actionpack/test/dispatch/system_testing/driver_test.rb#L34
+# https://github.com/rails/rails/blob/3235827585d87661942c91bc81f64f56d710f0b2/actionpack/test/dispatch/system_testing/driver_test.rb#L53
+mkdir bin
+touch bin/test
+chmod a+x bin/test
+
+sed -r -i '/driver = ActionDispatch::SystemTesting::Driver.new\(:selenium, .*using: :(headless_)?firefox.*\)/i \
+    skip "gecko driver is not available on Fedora"' \
+  test/dispatch/system_testing/driver_test.rb
+
+# `"binary" => "/usr/bin/chromium-browser"` entry randomly appears in result.
+# It is not clear how this instability happens, but it might be caused by the
+# `:remote` option used above. Or it might be due to `selenium-manager`.
+# https://github.com/rails/rails/issues/54740
+sed -r -i '/capabilities.slice\(\*expected_capabilities\.keys\)$/ s/$/.tap {|h| h["goog:chromeOptions"].delete("binary")}/' \
+  test/dispatch/system_testing/driver_test.rb
 
 # Tests need to run in isolation
 find test -type f -name '*_test.rb' -print0 | \
   sort -z | \
-  xargs -0 -n1 -i sh -c "echo '* Test file: {}'; ruby -Ilib:test -- '{}' || exit 255"
+  xargs -0 -n1 -i sh -c "
+    echo '* Test file: {}'
+    ruby -Ilib:test -- '{}' || exit 255
+  "
 
-popd
+)
 %endif
 
 %files
@@ -147,6 +128,16 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
+- Update to Action Pack 8.0.2.
+  Related: rhbz#2238177
+- Fix missing security headers in Action Pack on non-HTML responses (CVE-2024-28103)
+  Resolves: 2290530
+  Resolves: 2290531
+- Avoid possible XSS on translation helpers (CVE-2024-26143)
+  Resolves: 2266388
+  Resolves: 2266389
+
 * Mon Feb 10 2025 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-10
 - Fix Rack::Test 2+ test compatibility.
 

@@ -1,12 +1,15 @@
 Name:           getdp
 # TODO: Enablee building with gmsh support as soon as getdp does not require private gmsh api anymore
 Version:        3.6.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
 URL:            http://www.geuz.org/getdp/
 Source0:        http://www.geuz.org/getdp/src/%{name}-%{version}-source.tgz
+
+# Increase cmake minimum version to 3.5
+Patch0:         getdp_cmakever.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -92,6 +95,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 3.6.0-11
+- Increase minimum cmake version to 3.5
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.6.0-10
 - Rebuilt for Python 3.14
 

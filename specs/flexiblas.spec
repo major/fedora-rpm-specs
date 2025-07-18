@@ -20,7 +20,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -31,6 +31,8 @@ URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source:         https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/mpimd-csc/flexiblas/issues/63
 Patch:          flexiblas-3.4.5-gemmtr.patch
+
+%global _cmake_generator "Unix Makefiles"
 
 BuildRequires:  make, cmake, python
 BuildRequires:  gcc, gcc-fortran
@@ -446,6 +448,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Wed Jul 16 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-2
+- Opt out https://fedoraproject.org/wiki/Changes/CMake_ninja_default
+
 * Fri Jan 31 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-1
 - Update to 3.4.5
 - Remove thread limit for testing

@@ -11,15 +11,14 @@ URL:            https://www2.cs.tum.edu/projects/cup/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-# svn export -r 65 https://www2.in.tum.de/repos/cup/develop/ java_cup-0.11b
-# tar cjf java_cup-0.11b.tar.bz2 java_cup-0.11b/
-Source0:        java_cup-%{version}.tar.bz2
+# git clone https://github.com/DrMichaelPetter/cup.git
+# git -C cup archive --prefix java_cup-0.11b/ c35ed3ab0cde2310af9b01321c930349c7c797e2 | zstd -15 >java_cup-0.11b.tar.zst
+Source0:        java_cup-%{version}.tar.zst
 # Add OSGi manifests
 Source2:        %{name}-MANIFEST.MF
 Source4:        %{name}-runtime-MANIFEST.MF
 
-Patch:          %{name}-build.patch
-Patch:          0002-Set-Java-source-target-to-1.8.patch
+Patch:          0001-Adopt-build-script.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

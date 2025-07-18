@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name:       nss-pem
-Version:    1.1.0
-Release:    8%{?dist}
+Version:    1.1.1
+Release:    1%{?dist}
 Summary:    PEM file reader for Network Security Services (NSS)
 
 # See README for details
@@ -50,6 +50,9 @@ module.
 %license COPYING.{GPL,MPL}
 
 %changelog
+* Wed Jul 16 2025 Kamil Dudka <kdudka@redhat.com> 1.1.1-1
+- update to latest upstream release (#2380954)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

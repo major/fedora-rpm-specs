@@ -2,7 +2,7 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.47.0
 
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     https://maxima.sourceforge.io/
@@ -31,6 +31,9 @@ Patch54: maxima-sbcl-gmp.patch
 # port xmaxima to Tcl 9.0 (rhbz#2337728)
 Patch55: maxima-tcl9.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 %define maxima_ver %{version}%{?beta}
 BuildRequires: make
 BuildRequires: emacs
@@ -43,13 +46,13 @@ Requires: emacs-filesystem >= %{_emacs_version}
 %define _enable_gcl --enable-gcl
 
 # not available for riscv64 or s390x
-%ifarch %{ix86} x86_64 aarch64 ppc64le
+%ifarch x86_64 aarch64 ppc64le
 %define default_lisp sbcl
 %define _enable_sbcl --enable-sbcl-exec
 %endif
 
 # not available for riscv64
-%ifarch %{ix86} x86_64 aarch64 ppc64le s390x
+%ifarch x86_64 aarch64 ppc64le s390x
 %define _enable_clisp --enable-clisp-exec
 %endif
 
@@ -277,9 +280,7 @@ touch debugfiles.list
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/net.sourceforge.maxima.xmaxima.desktop
-%ifnarch %{ix86}
 make -k check || cat tests/test-suite.log
-%endif
 
 %triggerin -- tetex-latex,texlive-latex
 if [ -d %{texmf}/tex/latex ]; then
@@ -379,6 +380,9 @@ fi
 
 
 %changelog
+* Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 5.47.0-9
+- Stop building for 32-bit x86
+
 * Fri Mar 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.47.0-8
 - Enable on all arches with backends available on each
 

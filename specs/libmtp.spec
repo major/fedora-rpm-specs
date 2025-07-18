@@ -51,6 +51,7 @@ library for MTP media players.
 %patch -P0 -p1
 
 %build
+export ACLOCAL_PATH=/usr/share/gettext/m4/
 yes "" | ./autogen.sh
 %configure --disable-static \
            --with-udev-rules=69-libmtp.rules \

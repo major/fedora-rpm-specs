@@ -1,8 +1,8 @@
 # Glslang revision from packaged version
-%global glslang_version 3362e24c42ab5bf7ad32c0fec64b0a0ddeb2fda1
+%global glslang_version 8c2e602ce440b7739c95ff3d69cecb1adf6becda
 
 Name:           shaderc
-Version:        2025.2
+Version:        2025.3
 Release:        %autorelease
 Summary:        Collection of tools, libraries, and tests for Vulkan shader compilation
 

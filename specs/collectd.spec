@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 52%{?dist}
+Release: 53%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1240,6 +1240,9 @@ make check
 
 
 %changelog
+* Wed Jul 16 2025 Kevin Fenzi <kevin@scrye.com> - 5.12.0-53
+- Rebuild for new xen
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.12.0-52
 - Perl 5.42 rebuild
 - Update patch to fix FTBFS with automake 1.18

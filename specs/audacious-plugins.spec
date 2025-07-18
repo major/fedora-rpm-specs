@@ -10,13 +10,13 @@
 %{?aud_plugin_dep}
 
 Name: audacious-plugins
-Version: 4.4.2
-Release: 4%{?dist}
+Version: 4.5
+Release: 1%{?dist}
 
 %global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.4-1
+%global aud_ver 4.5
 Requires: audacious%{?_isa} >= %{aud_ver}
 
 Summary: Plugins for the Audacious audio player
@@ -61,7 +61,7 @@ BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(fluidsynth)
 BuildRequires: pkgconfig(libcdio) pkgconfig(libcdio_cdda) pkgconfig(libcddb)
 BuildRequires: pkgconfig(libcue)
-BuildRequires: pkgconfig(sdl2)
+BuildRequires: pkgconfig(sdl3) => 3.2.0
 BuildRequires: pkgconfig(lirc)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(libnotify) pkgconfig(gdk-pixbuf-2.0)
@@ -76,7 +76,8 @@ BuildRequires: lame-devel
 BuildRequires: pkgconfig(opus) pkgconfig(opusfile)
 BuildRequires: pkgconfig(json-glib-1.0) >= 1.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
-BuildRequires: pkgconfig(libpipewire-0.3) pkgconfig(libspa-0.2)
+BuildRequires: pkgconfig(libpipewire-0.3) >= 0.3.33
+BuildRequires: pkgconfig(libspa-0.2)
 # ffaudio / ffmpeg
 BuildRequires: pkgconfig(libavcodec) >= 56.60.100
 BuildRequires: pkgconfig(libavformat) >= 56.40.101
@@ -294,6 +295,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %dir %{_libdir}/audacious/General/
 %{_libdir}/audacious/General/albumart-qt.so
 %{_libdir}/audacious/General/ampache.so
+%{_libdir}/audacious/General/playback-history-qt.so
 %{_libdir}/audacious/General/playlist-manager-qt.so
 %{_libdir}/audacious/General/qtui.so
 %{_libdir}/audacious/General/search-tool-qt.so
@@ -339,6 +341,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Visualization/gl-spectrum-qt.so
 %{_libdir}/audacious/Visualization/qt-spectrum.so
 %{_libdir}/audacious/Visualization/vumeter-qt.so
+%{_libdir}/audacious/Visualization/vumeter.so
 %dir %{_libdir}/audacious/Transport/
 %{_libdir}/audacious/Transport/gio.so
 %{_libdir}/audacious/Transport/mms.so
@@ -391,8 +394,15 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Wed Jul 16 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.5-1
+- update to 4.5
+
 * Fri Jun 13 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.4.2-4
 - Enabled AAC plugin
+
+* Mon Jun 02 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-0.1.beta1
+- switch BR from SDL2 to SDL3
+- upgrade to 4.5-beta1
 
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.2-3
 - Rebuilt for flac 1.5.0

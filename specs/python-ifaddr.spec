@@ -4,8 +4,8 @@ ifaddr is a small Python library that allows you to find all the IP addresses\
 of the computer.
 
 Name:           python-%{srcname}
-Version:        0.1.7
-Release:        17%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Python library that allows you to find all the IP addresses of the computer
 
 License:        MIT
@@ -20,7 +20,9 @@ BuildArch:      noarch
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description -n python3-%{srcname} %{_description}
 
@@ -30,18 +32,22 @@ Python 3 version.
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{srcname}
 %license LICENSE.txt
 %doc README.rst
 %{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 
 %changelog
+* Mon Jul 14 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 0.2.0-1
+- Update to 0.2.0
+- Migrate from py3 pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.7-17
 - Rebuilt for Python 3.14
 

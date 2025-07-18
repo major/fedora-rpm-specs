@@ -13,7 +13,6 @@ Source0:        %{pypi_source boolean_py}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  %{py3_dist Sphinx}
 BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
 BuildRequires:  %{py3_dist pytest}
@@ -29,7 +28,6 @@ AND or and NOT. Expressions are constructed from parsed strings or in Python.
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
 
@@ -38,22 +36,26 @@ Python 3 version.
 %prep
 %autosetup -p1 -n boolean_py-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 sphinx-build-%{python3_version} docs html
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l boolean
 
 %check
+%pyproject_check_import
+
 %pytest
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
 %doc CHANGELOG.rst README.rst html/
-%{python3_sitelib}/boolean.py*.egg-info/
-%{python3_sitelib}/boolean/
 
 %changelog
 %autochangelog

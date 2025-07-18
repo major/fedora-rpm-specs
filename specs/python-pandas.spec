@@ -478,7 +478,7 @@ sed -i 's/meson-python==0.13.1/meson-python>=0.13.1/' pyproject.toml
 sed -i 's/meson==1.2.1/meson>=1.2.1/' pyproject.toml
 
 # Unpin Cython
-sed -i 's/Cython==3.0.5/Cython>=3.0.5/' pyproject.toml
+sed -i 's/Cython~=3.0.5/Cython>=3.0.5/' pyproject.toml
 
 %generate_buildrequires
 # the build is expensive, so we don't use -w

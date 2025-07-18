@@ -1,7 +1,7 @@
 %global pypi_name injector
 
 Name:           python-%{pypi_name}
-Version:        0.21.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Python dependency injection framework inspired by Guice
 
@@ -12,6 +12,7 @@ Patch0:         sphinx.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel >= 3.10
+BuildRequires:  python3-furo
 
 %global _description %{expand:
 Dependency injection as a formal pattern is less useful in Python than in other

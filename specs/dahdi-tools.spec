@@ -3,7 +3,7 @@
 
 Name:           dahdi-tools
 Version:        %{tools_version}
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Userspace tools to configure the DAHDI kernel modules
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
@@ -77,7 +77,7 @@ The dahdi-devel package contains libraries and header files for
 developing applications that use DAHDI hardware.
 
 %prep
-%setup0 -q -n dahdi-tools-%{tools_version} -a 2
+%setup -q -n dahdi-tools-%{tools_version} -a 2
 ln -s dahdi-linux-%{linux_version}/include include
 
 %patch -P0 -p1 -b .blacklist
@@ -224,6 +224,9 @@ install -m0644 -D dahdi-tools.sysusers.conf %{buildroot}%{_sysusersdir}/dahdi-to
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11.1-36
+- Stop using obsoleted %%setup usage
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.11.1-35
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

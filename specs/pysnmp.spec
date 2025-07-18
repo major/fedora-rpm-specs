@@ -1,11 +1,10 @@
 Name:           pysnmp
-Version:        7.1.16
-Release:        2%{?dist}
+Version:        7.1.21
+Release:        1%{?dist}
 
 Summary:        An SNMP engine written in Python
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://pysnmp.com/
 Source0:        https://github.com/lextudio/pysnmp/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -54,6 +53,10 @@ networking.
 %license LICENSE.rst
 
 %changelog
+* Wed Jul 16 2025 Christian Krause <chkr@fedoraproject.org> - 7.1.21-1
+- Bump to latest upstream 7.1.21
+- Checked license and set to the official SPDX identifier
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.1.16-2
 - Rebuilt for Python 3.14
 

@@ -1,16 +1,16 @@
-%define libselinuxver 3.9-0
+%define libselinuxver 3.9-1
 
 Summary: SELinux Translation Daemon
 Name: mcstrans
 Version: 3.9
-Release: 0.rc2.1%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Url: https://github.com/SELinuxProject/selinux/wiki
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/mcstrans-%{version}-rc2.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/mcstrans-%{version}-rc2.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/mcstrans-%{version}.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/mcstrans-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 Source3: secolor.conf.8
-# fedora-selinux/selinux: git format-patch -N 3.9-rc2 -- mcstrans
+# fedora-selinux/selinux: git format-patch -N 3.9 -- mcstrans
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -42,7 +42,7 @@ from internal representations to user defined representation.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n mcstrans-%{version}-rc2
+%autosetup -p 2 -n mcstrans-%{version}
 
 %build
 %set_build_flags

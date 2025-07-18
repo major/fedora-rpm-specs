@@ -76,8 +76,10 @@ Patch5: 625bf7d9c11ec366c45514d5ec12ab1cdd8ce094.patch
 Patch6: 3e6f9076e19368b29a932373955a5dccd2f3cc46.patch
 # https://dev.entrouvert.org/issues/92106
 Patch7: lasso-2.8.2-python_313.patch
-# fix build with automake-1.17
-Patch8: automake-version.patch
+# Fix build with automake 1.17 and 1.18
+# https://git.entrouvert.org/entrouvert/lasso/commit/199149b686e473d6af146c74e026ede9c3282d40
+# https://git.entrouvert.org/entrouvert/lasso/commit/52246bc5ba68fa445122badb37ad6a79980d7e44
+Patch8: lasso-2.8.2-automake.patch
 # GCC 15 (https://git.entrouvert.org/entrouvert/lasso/pulls/27.patch)
 Patch9: lasso-2.8.2-gcc15.patch
 # https://dev.entrouvert.org/issues/105622

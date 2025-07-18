@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-logging
-Version:        1.3.4
+Version:        1.3.5
 Release:        %autorelease
 Summary:        Apache Commons Logging
 License:        Apache-2.0
@@ -53,7 +53,6 @@ rm src/test/java/org/apache/commons/logging/pathable/{Parent,Child}FirstTestCase
 # Avoid hard-coded versions in OSGi metadata
 %pom_xpath_set "pom:properties/pom:commons.osgi.import" '*;resolution:=optional'
 
-%pom_remove_plugin :cobertura-maven-plugin
 %pom_remove_plugin :maven-scm-publish-plugin
 
 sed -i 's/\r//' RELEASE-NOTES.txt LICENSE.txt NOTICE.txt

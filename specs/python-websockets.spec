@@ -1,9 +1,5 @@
 %global pypi_name websockets
 
-%ifarch x86_64
-%bcond_without tests
-%endif
-
 Name:           python-%{pypi_name}
 Version:        15.0.1
 Release:        %autorelease
@@ -13,11 +9,15 @@ License:        BSD-3-Clause
 URL:            https://github.com/aaugustin/websockets
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
-BuildRequires:  gcc
+# Fix help(websockets) when werkzeug isn't installed
+# This makes %%pyproject_check_import pass without werkzeug
+Patch:          https://github.com/python-websockets/websockets/commit/3128f5619d.patch
+# Fix from websockets.(asyncio|sync).router import * without werkzeug
+# This makes the tests pass without werkzeug as well
+Patch:          https://github.com/python-websockets/websockets/pull/1639.patch
 
-%if %{with tests}
+BuildRequires:  gcc
 BuildRequires:  python3dist(pytest)
-%endif
 
 %global _description %{expand:
 websockets is a library for developing WebSocket servers and clients in
@@ -33,8 +33,6 @@ applications.}
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(werkzeug)
-Requires:       python3dist(werkzeug)
 
 %description -n python3-%{pypi_name} %{_description}
 
@@ -54,11 +52,7 @@ Requires:       python3dist(werkzeug)
 %check
 %pyproject_check_import
 
-%if %{with tests}
-# Skip some tests that require network connectivity and/or a running daemon.
-# Investigate: test_server_shuts_down_* tests hang or fail on Python 3.12
-%pytest -v --ignore compliance --ignore tests/sync -k "not test_explicit_host_port and not test_server_shuts_down and not test_keepalive_is_enabled and not test_close_waits and not test_close_server_keeps_handlers_running and not test_keepalive and not test_keepalive_times_out and not test_close_server_keeps_connections_open and not test_basic_auth_invalid_password"
-%endif
+%pytest -v
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

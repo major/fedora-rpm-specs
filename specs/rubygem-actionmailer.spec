@@ -3,34 +3,24 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.8
-Release: 6%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Email composition and delivery framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# ActionMailer gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/actionmailer && git archive -v -o actionmailer-7.0.8-tests.txz v7.0.8 test/
-Source1: actionmailer-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# From https://github.com/rails/rails/pull/51510
-# Remove OpenStruct usage due to json 2.7.2 change
-Patch0:  rubygem-actionmailer-pr51510-remove-openstruct-usage.patch
+# git clone http://github.com/rails/rails.git && cd rails/actionmailer
+# git archive -v -o actionmailer-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: actionmailer-%{version}%{?prerelease}-tests.tar.gz
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 3.2.0
+BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
 BuildRequires: rubygem(activejob)  = %{version}
 BuildRequires: rubygem(mail) >= 2.5.4
-BuildRequires: rubygem(net-smtp)
 BuildArch: noarch
 
 %description
@@ -41,18 +31,14 @@ attachments.
 
 %package doc
 Summary: Documentation for %{name}
-Requires:%{name} = %{epoch}:%{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 BuildArch: noarch
 
 %description doc
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-(
-cd %{_builddir}
-%patch 0 -p2
-)
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -64,14 +50,18 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
-# Bigdecimal does not get auto-required
-# https://github.com/rails/rails/issues/44399
-ruby -Ilib:test -rbigdecimal -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
+
+ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -86,6 +76,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
+- Update to Action Mailer 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

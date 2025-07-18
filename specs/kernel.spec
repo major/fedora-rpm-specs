@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc6.52
+%define pkgrelease 0.rc6.250715g155a3c003e55.53
 %define kversion 6
-%define tarfile_release 6.16-rc6
+%define tarfile_release 6.16-rc6-2-g155a3c003e55
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.52%{?buildid}%{?dist}
+%define specrelease 0.rc6.250715g155a3c003e55.53%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4340,8 +4340,11 @@ fi\
 #
 #
 %changelog
-* Mon Jul 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.52]
+* Tue Jul 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.155a3c003e55.53]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Jul 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.155a3c003e55.52]
+- Linux v6.16.0-0.rc6.155a3c003e55
 
 * Mon Jul 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.51]
 - kernel.spec: use %%{name} in partner/internal modules (Scott Weaver)

@@ -1,6 +1,6 @@
 Name:           jxrlib
 Version:        1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Open source implementation of jpegxr
 
 # See JPEGXR_DPK_Spec_1.0.doc. Upstream request for plain text license file at
@@ -138,6 +138,10 @@ rm -f %{buildroot}%{mingw64_includedir}/jxrlib/guiddef.h
 
 
 %changelog
+* Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 1.1-31
+- Increase minimum cmake version to 3.5
+- Port CMakeLists.txt to GNUInstallDirs
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

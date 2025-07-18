@@ -5,8 +5,8 @@
 %define csexec_archs aarch64 ppc64le s390x x86_64
 
 Name:       cswrap
-Version:    2.2.4
-Release:    3%{?dist}
+Version:    2.2.5
+Release:    1%{?dist}
 Summary:    Generic compiler wrapper
 
 License:    GPL-3.0-or-later
@@ -97,6 +97,9 @@ done
 %endif
 
 %changelog
+* Wed Jul 16 2025 Kamil Dudka <kdudka@redhat.com> 2.2.5-1
+- update to latest upstream (#2380527 #2380988)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

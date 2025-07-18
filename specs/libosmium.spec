@@ -14,6 +14,8 @@ License:        BSL-1.0
 URL:            http://osmcode.org/libosmium/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/osmcode/osm-testdata/archive/%{testcommit}/osm-testdata-%{testcommit}.tar.gz
+# https://github.com/osmcode/libosmium/issues/391
+Patch0:         libosmium-cmake4.patch
 
 BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz xmlstarlet
@@ -68,6 +70,7 @@ applications that use %{name}.
 
 %prep
 %setup -q -c -T -a 0 -a 1
+%patch -d %{name}-%{version} -p 1 0
 mv %{name}-%{version} %{name}
 mv osm-testdata-%{testcommit} osm-testdata
 rm -rf libosmium/include/gdalcpp.h libosmium/test/catch

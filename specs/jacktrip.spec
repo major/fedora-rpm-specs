@@ -7,27 +7,27 @@ License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  meson, cmake, gcc-c++
+BuildRequires:  meson, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(rtaudio)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  dbus-devel
 BuildRequires:  help2man
-BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6NetworkAuth)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  cmake(Qt6Quick)
-BuildRequires:  cmake(Qt6QuickControls2)
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6ShaderTools)
-BuildRequires:  cmake(Qt6Svg)
-BuildRequires:  cmake(Qt6WebSockets)
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6NetworkAuth)
+BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  pkgconfig(Qt6Core5Compat)
+BuildRequires:  pkgconfig(Qt6Quick)
+BuildRequires:  pkgconfig(Qt6QuickControls2)
+BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:  pkgconfig(Qt6ShaderTools)
+BuildRequires:  pkgconfig(Qt6Svg)
+BuildRequires:  pkgconfig(Qt6WebSockets)
 %ifarch aarch64 x86_64
-BuildRequires:  cmake(Qt6WebEngineCore)
-BuildRequires:  cmake(Qt6WebChannel)
+BuildRequires:  pkgconfig(Qt6WebEngineCore)
+BuildRequires:  pkgconfig(Qt6WebChannel)
 %endif
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils

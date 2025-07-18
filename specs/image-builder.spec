@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 153
+%global min_osbuild_version 156
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        24
+Version:        25
 
 %gometa
 
@@ -123,8 +123,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.5.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.156.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.10.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.162.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -154,14 +154,14 @@ Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/ot
 Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.36.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.39.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.40.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
-Provides: bundled(golang(golang.org/x/net)) = 0.41.0
-Provides: bundled(golang(golang.org/x/sync)) = 0.15.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.33.0
-Provides: bundled(golang(golang.org/x/term)) = 0.32.0
-Provides: bundled(golang(golang.org/x/text)) = 0.26.0
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 200df99
+Provides: bundled(golang(golang.org/x/net)) = 0.42.0
+Provides: bundled(golang(golang.org/x/sync)) = 0.16.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.34.0
+Provides: bundled(golang(golang.org/x/term)) = 0.33.0
+Provides: bundled(golang(golang.org/x/text)) = 0.27.0
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 513f239
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 513f239
 Provides: bundled(golang(google.golang.org/grpc)) = 1.73.0
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.6
@@ -236,6 +236,19 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Jul 16 2025 Packit <hello@packit.dev> - 25-1
+Changes with 25
+----------------
+  * deps: update images to 0.162.0 (#247)
+    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Michael Vogt, Ondřej Budai
+  * main: `--version` includes git commit (#230)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Michael Vogt
+  * packit: enable RHEL 10 builds (HMS-8829) (#246)
+    * Author: Ondřej Budai, Reviewers: Florian Schüller, Sanne Raymaekers, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-07-16
+
+
 * Mon Jul 14 2025 Packit <hello@packit.dev> - 24-1
 Changes with 24
 ----------------

@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -17,10 +17,10 @@ BuildArch:      noarch
 BuildRequires:  git
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-dns
-BuildRequires:  python3-pyasn1
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 This package contains a Python WSGI module for proxying KDC requests over
@@ -43,21 +43,25 @@ minimal configuration.
 %autosetup -S git -n %{realname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+ls -ld %{python3_sitelib}/
 
 %check
-%{__python3} -m pytest
+%{pytest}
 
 %files -n python3-%{realname}
 %doc README
 %license COPYING
 %{python3_sitelib}/%{realname}/
-%{python3_sitelib}/%{realname}-%{version}-*.egg-info
+%{python3_sitelib}/%{realname}-%{version}*.dist-info
 
 %changelog
+* Mon Jul 14 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.0.0-21
+- Migrate from py3 to pyproject macros
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.0.0-20
 - Rebuilt for Python 3.14
 

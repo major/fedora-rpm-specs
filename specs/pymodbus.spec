@@ -21,13 +21,15 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.8.3
-Release: 2%{?dist}
+Version: 3.9.2
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
 URL: https://github.com/pymodbus-dev/pymodbus/
 Source0: https://github.com/pymodbus-dev/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://github.com/pymodbus-dev/pymodbus/commit/eb84cfef92ddab8780652bd420479b9cb0a4a026
+Patch0: 0001-Solve-ModbusDeviceContext-bug.-2653.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -73,6 +75,10 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Mon Jul 14 2025 Christian Krause <chkr@fedoraproject.org> - 3.9.2-1
+- Update to 3.9.2 (#2344506)
+- Add upstream patch to fix minor regression
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.8.3-2
 - Rebuilt for Python 3.14
 

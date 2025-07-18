@@ -1,9 +1,9 @@
 %global srcname towncrier
 
 %global common_description %{expand:
-Towncrier is a utility to produce useful, summarised news files for your 
+Towncrier is a utility to produce useful, summarised news files for your
 project. Rather than reading the Git history as some newer tools to produce it,
-or having one single file which developers all write to, towncrier reads "news 
+or having one single file which developers all write to, towncrier reads "news
 fragments" which contain information useful to end users.}
 
 Name:           python-%{srcname}
@@ -12,7 +12,7 @@ Release:        %autorelease
 Summary:        Building newsfiles for your project
 
 License:        MIT
-URL:            https://github.com/hawkowl/towncrier
+URL:            https://github.com/twisted/towncrier
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Relax hatchling, incremental deps
 Patch:          towncrier-relax-deps.patch
@@ -34,7 +34,7 @@ Provides:       %{srcname} = %{version}-%{release}
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

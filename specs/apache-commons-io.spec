@@ -2,7 +2,7 @@
 
 Name:           apache-commons-io
 Epoch:          1
-Version:        2.16.1
+Version:        2.19.0
 Release:        %autorelease
 Summary:        Utilities to assist with developing IO functionality
 License:        Apache-2.0
@@ -47,7 +47,8 @@ sed -i '/<argLine>/d' pom.xml
 %java_remove_annotations src -s -n DefaultLocale
 
 %pom_remove_dep com.google.jimfs:jimfs
-rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFile.java
+rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderParamFileTest.java
+rm src/test/java/org/apache/commons/io/file/PathUtilsContentEqualsTest.java
 
 %build
 # See "-DcommonsIoVersion" in maven-surefire for the tested version

@@ -3,7 +3,7 @@
 
 Name:           libebur128
 Version:        1.2.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A library that implements the EBU R 128 standard for loudness normalization
 License:        MIT
 URL:            https://github.com/jiixyj/%{name}
@@ -36,7 +36,7 @@ developing applications that use %{name}.
 %autosetup
 
 %build
-%cmake -DENABLE_TESTS:BOOL=%{?_with_tests:ON}%{!?_with_tests:OFF}
+%cmake -DENABLE_TESTS:BOOL=%{?_with_tests:ON}%{!?_with_tests:OFF} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %if %{with tests}
@@ -61,6 +61,9 @@ LD_LIBRARY_PATH=. ./r128-test-library
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.2.6-13
+- Cmake fix
+
 * Wed Mar 26 2025 Simone Caronni <negativo17@gmail.com> - 1.2.6-12
 - Drop ldconfig scriptlets.
 - Be more explicit for files.

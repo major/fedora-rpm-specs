@@ -1,63 +1,65 @@
 # Generated from activestorage-0.1.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name activestorage
 
-# Circular dependency with rubygem-railties.
-%bcond_with bootstrap
+# openh264 coded is not available in buildroot, while it can be obtained e.g.
+# from:
+# https://codecs.fedoraproject.org/openh264/43/x86_64/Packages/o/openh264-2.6.0-2.fc43.x86_64.rpm
+%bcond_with openh264
 
-# FFmpeg can be used in tests, but is not available in Fedora
-%bcond_with ffmpeg
+# TODO: Re-enable recompilation if possible. Currently, we don't have rollup.js
+# in Fedora and therefore it requires network access. Still good for checking
+# the results
+%bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 7.0.8
-Release: 6%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# The gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone https://github.com/rails/rails.git
-# cd rails/activestorage && git archive -v -o activestorage-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Fixes for Minitest 5.16+.
-# https://github.com/rails/rails/pull/45370
-Patch0: rubygem-activestorage-7.0.2.3-Fix-tests-for-minitest-5.16.patch
+# git clone https://github.com/rails/rails.git && cd rails/activestorage
+# git archive -v -o activestorage-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+# Source code of pregenerated JS files.
+# git clone https://github.com/rails/rails.git && cd rails/activestorage
+# git archive -v -o activestorage-8.0.2-js.tar.gz v8.0.2 package.json rollup.config.js
+Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-%if %{without bootstrap}
-BuildRequires: rubygem(actionpack) = %{version}
+BuildRequires: rubygem(actionmailer) = %{version}
 BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(activejob) = %{version}
+BuildRequires: rubygem(bundler)
+BuildRequires: rubygem(marcel)
 BuildRequires: rubygem(railties) = %{version}
-BuildRequires: rubygem(rails) = %{version}
 BuildRequires: rubygem(sprockets-rails)
-BuildRequires: rubygem(connection_pool)
 BuildRequires: rubygem(image_processing)
-BuildRequires: rubygem(mutex_m)
 BuildRequires: rubygem(sqlite3)
-# FFmpeg is not available in Fedora
-%{?with_ffmpeg:BuildRequires: %{_bindir}/ffmpeg}
-%{?with_ffmpeg:BuildRequires: %{_bindir}/ffprobe}
+# Required to pass some of the test/models/variant_test.rb
+# https://github.com/rails/rails/issues/44395
+BuildRequires: vips-magick
+BuildRequires: %{_bindir}/ffmpeg
+BuildRequires: %{_bindir}/ffprobe
 BuildRequires: %{_bindir}/mutool
 BuildRequires: %{_bindir}/pdftoppm
-%endif
+%{?with_openh264:BuildRequires: openh264}
+%{?with_js_recompilation:BuildRequires: %{_bindir}/npm}
 # Used for creating file previews
 Suggests: %{_bindir}/mutool
 Suggests: %{_bindir}/pdftoppm
 Suggests: %{_bindir}/ffmpeg
 Suggests: %{_bindir}/ffprobe
+# Codec for video analysis
+Suggests: openh264
 
 BuildArch: noarch
 
 %description
 Attach cloud and local files in Rails applications.
+
 
 %package doc
 Summary: Documentation for %{name}
@@ -70,11 +72,28 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
-pushd %{_builddir}
-%patch 0 -p2
-popd
-
 %build
+%if %{with js_recompilation}
+# Recompile the embedded JS files from sources.
+#
+# This is practice suggested by packaging guidelines:
+# https://fedoraproject.org/wiki/Packaging:Guidelines#Use_of_pregenerated_code
+
+find app/assets/ -type f -exec sha512sum {} \;
+
+rm -rf app/assets/
+
+cp -a %{builddir}/rollup.config.js .
+
+# TODO: This requires network access. Use Fedora rollup.js if it becomes
+# available eventually
+npm install
+npx rollup --config rollup.config.js
+
+# For comparison with the orginal checksum above.
+find app/assets/ -type f -exec sha512sum {} \;
+%endif
+
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
 %gem_install
 
@@ -84,71 +103,62 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-%if %{without bootstrap}
-# fake RAILS_FRAMEWORK_ROOT
-ln -s %{gem_dir}/specifications/rails-%{version}%{?prerelease}.gemspec .%{gem_dir}/gems/rails.gemspec
-ln -s %{gem_dir}/gems/railties-%{version}%{?prerelease}/ .%{gem_dir}/gems/railties
-ln -s %{gem_dir}/gems/activerecord-%{version}%{?prerelease}/ .%{gem_dir}/gems/activerecord
-ln -s %{gem_dir}/gems/activejob-%{version}%{?prerelease}/ .%{gem_dir}/gems/activejob
-ln -s %{gem_dir}/gems/actionpack-%{version}%{?prerelease}/ .%{gem_dir}/gems/actionpack
-ln -s %{gem_dir}/gems/activesupport-%{version}%{?prerelease}/ .%{gem_dir}/gems/activesupport
-ln -s ${PWD}%{gem_instdir} .%{gem_dir}/gems/%{gem_name}
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
-pushd .%{gem_dir}/gems/%{gem_name}
-ln -s %{_builddir}/tools ..
-# Copy the tests into place.
-cp -a %{_builddir}/test .
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
 
 touch Gemfile
-echo 'gem "actionpack"' >> ../Gemfile
-echo 'gem "activerecord"' >> ../Gemfile
-echo 'gem "activejob"' >> ../Gemfile
-echo 'gem "sprockets-rails"' >> ../Gemfile
-echo 'gem "image_processing"' >> ../Gemfile
-echo 'gem "mutex_m"' >> ../Gemfile
-echo 'gem "rails"' >> ../Gemfile
-echo 'gem "sqlite3"' >> ../Gemfile
+echo 'gem "actionmailer"' >> Gemfile
+echo 'gem "activerecord"' >> Gemfile
+echo 'gem "activejob"' >> Gemfile
+echo 'gem "sprockets-rails"' >> Gemfile
+echo 'gem "image_processing"' >> Gemfile
+echo 'gem "marcel"' >> Gemfile
+echo 'gem "railties"' >> Gemfile
+echo 'gem "sqlite3"' >> Gemfile
 
-# Disable tests that require FFmpeg
-%if %{without ffmpeg}
-mv test/analyzer/video_analyzer_test.rb{,.disable}
-mv test/analyzer/audio_analyzer_test.rb{,.disable}
-mv test/previewer/video_previewer_test.rb{,.disable}
-for f in \
-  models/preview \
-  models/representation \
-  %{nil}
-do
-sed -i '/^  test ".* MP4 video.*" do$/,/^  end$/ s/^/#/g' \
-  test/${f}_test.rb
-done
+# `ActiveStorage::Service::AzureStorageService` is deprecated and we would need
+# `azure-storage-blob` gem to make this work => just ignore the test.
+sed -i '/test "azure service is deprecated" do/a\    skip' \
+  test/service/configurator_test.rb
+
+# test/javascript_package_test.rb requires rollup.js, which we don't have.
+# OTOH, if we had it, we would recomplie the sources and the test would have
+# less value.
+mv test/javascript_package_test.rb{,.disable}
+
+# The `ffprobe` output does not containe `display_aspect_ratio` for some
+# reason. Is it missing codec or error?
+sed -i '/test "analyzing a video" do/,/^  end$/ {
+  /display_aspect_ratio/ s/^/#/
+}' test/analyzer/video_analyzer_test.rb
+
+# Disable tests that require openh264
+%if %{without openh264}
+sed -i \
+  -e '/"video\.mp4"/i\    skip' \
+  -e '/"rotated_video\.mp4"/i\    skip' \
+  -e '/"video_with_rectangular_samples\.mp4"/i\    skip' \
+  -e '/"video_with_undefined_display_aspect_ratio\.mp4"/i\    skip' \
+  -e '/"video_without_audio_stream\.mp4"/i\    skip' \
+  test/analyzer/video_analyzer_test.rb \
+  test/previewer/video_previewer_test.rb \
+  test/models/preview_test.rb \
+  test/models/representation_test.rb \
+  test/models/variant_with_record_test.rb \
 %endif
 
-# Blobs seem to be broken
-# https://github.com/rails/rails/pull/40226
-# https://github.com/rails/rails/issues/44395
-sed -i -e '/test "optimized variation of GIF"/ a skip' \
-     -e '/thumbnail variation of extensionless GIF/ a skip' \
-     -e '/test "resized variation of PSD blob" do/ a skip' \
-     -e '/test "resized variation of BMP blob" do/ a skip' \
-     -e '/test "resized variation of ICO blob" do/ a skip' \
-     -e '/test "resized variation of GIF blob" do/ a skip' \
-     -e '/test "optimized variation of GIF blob" do/ a skip' \
-  test/models/variant_test.rb
+export RUBYOPT="-I${PWD}/lib"
+export BUNDLE_GEMFILE=${PWD}/Gemfile
 
-# MiniMagic test incompatibility (depends on other gems versions)
-# Similar to: https://github.com/rails/rails/issues/44395
-# TODO: investigate or file later if the issue persists
-sed -i -e '/test "previewing a cropped PDF document"/ a skip' \
-  test/previewer/mupdf_previewer_test.rb
-
-export RUBYOPT="-I${PWD}/../%{gem_name}/lib"
-export PATH="${PWD}/../%{gem_name}/exe:$PATH"
-export BUNDLE_GEMFILE=${PWD}/../Gemfile
-
-ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
-%endif
+bundle exec ruby -Itest -ractive_storage/engine -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -166,6 +176,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jul 09 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Active Storage 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

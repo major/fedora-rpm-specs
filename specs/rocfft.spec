@@ -318,7 +318,7 @@ fi
 %endif
 
 %changelog
-* Mon June 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
+* Tue Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - Remove suse check for using ldconfig
 
 * Mon May 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5

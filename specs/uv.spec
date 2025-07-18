@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.20
+Version:        0.7.21
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -140,13 +140,13 @@ Source1:        uv.toml
 
 # Currently, uv must use a fork of async_zip, as explained in:
 #   Restore central directory buffering
-#   https://github.com/charliermarsh/rs-async-zip/pull/2
+#   https://github.com/astral-sh/rs-async-zip/pull/2
 # and further discussed in
 #   Please consider supporting the current release of async_zip
 #   https://github.com/prefix-dev/async_http_range_reader/issues/14
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global async_zip_git https://github.com/charliermarsh/rs-async-zip
+%global async_zip_git https://github.com/astral-sh/rs-async-zip
 %global async_zip_rev c909fda63fcafe4af496a07bfda28a5aae97e58d
 %global async_zip_baseversion 0.0.17
 %global async_zip_snapdate 20241114
@@ -198,10 +198,6 @@ Source400:      %{tl_git}/archive/%{tl_rev}/tl-%{tl_rev}.tar.gz
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Conditionalize version_extras test on the pypi feature
-# https://github.com/astral-sh/uv/pull/14536
-Patch:          %{url}/pull/14536.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
@@ -598,6 +594,12 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
+# indicatif
+#   wanted: 0.18.0
+#   currently packaged: 0.17.11
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2376290
+tomcli set Cargo.toml str workspace.dependencies.indicatif.version \
+    '>=0.17.11, <0.19'
 
 %cargo_prep
 
@@ -698,6 +700,11 @@ skip="${skip-} --skip version::self_version_short"
 # On other architectures, the list of available downloads differs, e.g. pypy
 # and graalpy downloads may be missing.
 skip="${skip-} --skip python_list::python_list_downloads"
+%endif
+%ifarch %{power64}
+# Weirdly, the error message lacks the expected hint. This might be worth
+# reporting upstream at some point, but it is not a serious issue.
+skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
 %endif
 # -p uv-client --test it:

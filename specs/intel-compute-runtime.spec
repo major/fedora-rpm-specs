@@ -140,7 +140,7 @@ rm -rv third_party/sse2neon
 # Compute-runtime only creates a specific /usr/bin/ocloc-version binary, due to
 # the possibility of mutiple versions installed on the system. i.e. legacy pkg
 %post -n intel-ocloc
-update-alternatives --install /usr/bin/ocloc ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1 %{neo_major}%{neo_minor}%{neo_build}
+update-alternatives --install /usr/bin/ocloc ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1 %{neo_major}%{neo_minor}$(echo %{neo_build} | cut -d '.' -f 1)
 
 %preun -n intel-ocloc
 if [ $1 == "0" ]; then

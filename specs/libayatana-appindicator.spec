@@ -1,4 +1,4 @@
-%bcond_without check
+%bcond_with check
 
 # Docs are not needed for flatpak builds
 %if 0%{?flatpak}
@@ -78,8 +78,9 @@ BuildRequires:  pkgconfig(gtk-sharp-2.0)
 
 %if %{with check}
 BuildRequires:  dbus-test-runner
+BuildRequires:  mutter
 BuildRequires:  pkgconfig(gtest)
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  xwayland-run
 %endif
 
 %description %{_description}
@@ -251,12 +252,12 @@ gacutil \
 # Tests fail randomly when running in parallel!
 
 pushd build-gtk3 >/dev/null
-xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process
+xwfb-run -c mutter -a %__ctest --output-on-failure --force-new-ctest-process
 popd >/dev/null
 
 %if %{with gtk2}
 pushd build-gtk2 >/dev/null
-xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process
+xwfb-run -c mutter -a %__ctest --output-on-failure --force-new-ctest-process
 popd >/dev/null
 %endif
 %endif

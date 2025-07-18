@@ -4,15 +4,9 @@
 #%%global branch trunk
 
 Name:           mingw-w64-tools
-Version:        12.0.0
-Release:        3%{?dist}
+Version:        13.0.0
+Release:        1%{?dist}
 Summary:        Supplementary tools which are part of the mingw-w64 toolchain
-# From Debian: Add missing CPU information (ia64, s390, s390x)
-Patch0:         widl-missing-cpu-info.patch
-# From Debian: Drop unused platform-specific context definitions
-Patch1:         widl-no-context.patch
-# From Debian: Don't error out on non-Windows CPUs
-Patch2:         widl-cpu.patch
 
 
 # http://sourceforge.net/mailarchive/forum.php?thread_name=5157C0FC.1010309%40users.sourceforge.net&forum_name=mingw-w64-public
@@ -67,6 +61,7 @@ pushd mingw-w64-tools
         make %{?_smp_mflags}
     popd
 
+    %ifnarch ppc64le s390x
     pushd widl
         # widl needs to be aware of the location of the IDL files belonging
         # to the toolchain. Therefore it needs to be built for both the win32
@@ -88,6 +83,7 @@ pushd mingw-w64-tools
           %make_build
         popd
     popd
+    %endif
 popd
 
 
@@ -95,9 +91,11 @@ popd
 pushd mingw-w64-tools
     %make_install -C gendef
     %make_install -C genidl
+    %ifnarch ppc64le s390x
     %make_install -C widl/win32
     %make_install -C widl/win64
     %make_install -C widl/ucrt64
+    %endif
 popd
 
 
@@ -105,12 +103,17 @@ popd
 %license COPYING
 %{_bindir}/gendef
 %{_bindir}/genidl
+%ifnarch ppc64le s390x
 %{_bindir}/%{mingw32_target}-widl
 %{_bindir}/%{mingw64_target}-widl
 %{_bindir}/%{ucrt64_target}-widl
+%endif
 
 
 %changelog
+* Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 13.0.0-1
+- Update to 13.0.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           maven-reporting-api
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        API to manage report generation
 License:        Apache-2.0
@@ -33,7 +33,7 @@ achieve report decoupling from the Maven 3 core.
 %autosetup
 
 # Fix end of line encoding
-sed -i.orig 's/\\r//' README.md
+sed -i.orig 's/\r//' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
 
@@ -48,6 +48,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 16 2025 Jerry James  <loganjerry@gmail.com> - 1:4.0.0-2
+- Fix end of line encodings
+
 * Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 1:4.0.0-1
 - Version 4.0.0
 

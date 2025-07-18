@@ -3,61 +3,31 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.8
-Release: 7%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# The gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/activerecord && git archive -v -o activerecord-7.0.8-tests.txz v7.0.8 test/
-Source1: activerecord-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Fixes for Minitest 5.16+
-# https://github.com/rails/rails/pull/45380
-Patch1: rubygem-activerecord-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
-# https://github.com/rails/rails/pull/45370
-Patch2: rubygem-activerecord-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# https://github.com/rails/rails/pull/46831
-Patch3: rubygem-activerecord-7.0.5-remove-require-pathname-from-drop-method.patch
-Patch4: rubygem-activerecord-7.0.5-remove-require-pathname-from-drop-method-tests.patch
-# Drop mutex_m dependency to ease Ruby 3.4 compatibility.
-# https://github.com/rails/rails/pull/49674
-Patch5: rubygem-activerecord-7.2.0-Drop-dependency-on-mutex-m.patch
-# This is inspired by https://github.com/rails/rails/commit/a1c0173ee3f5fef4ea0d6d2c90dc2b1d8672d473
-# but upstream rather added the dependency in AS:
-# https://github.com/rails/rails/commit/81699b52d2acff1840e3ace5e59412f4fa3934ab
-Patch6: rubygem-activerecord-7.0.8-Replace-Mutex_m-by-MonitorMixin.patch
-# Ruby 3.4 `Hash#inspect` compatibility.
-# https://github.com/rails/rails/pull/53202/commits/2fc43621ff0b965d25b0140be0c9599baa52501b
-Patch7: rubygem-activerecord-8.0.0-Update-Active-Record-test-suite-for-Ruby-3-4-Hash-inspect.patch
-# Unlock Sqlite3 2.x+
-# https://github.com/rails/rails/issues/52309
-# https://github.com/rails/rails/commit/3271c4f6d221a73af801d7d57905f0cece374e05
-Patch8: rubygem-activerecord-7.1.4-Allow-sqlite3-to-float-to-version-2.patch
-# Sqlite3 2.x freezes some fields.
-# https://github.com/rails/rails/pull/50859
-Patch9: rubygem-activerecord-7.1.4-Don-t-mutate-row-arrays-that-come-back-from-the-database.patch
+# git clone http://github.com/rails/rails.git && cd rails/activerecord
+# git archive -v -o activerecord-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: activerecord-%{version}%{?prerelease}-tests.tar.gz
+# Fix undefined `Rails` constant in sqlite3 dbconsole.
+# https://github.com/rails/rails/pull/54498
+Patch0: rubygem-activerecord-8.0.1-Fix-sqlite3-dbconsole-not-working-outside-Rails.patch
 
 # Database dump/load reuires the executable.
 Suggests: %{_bindir}/sqlite3
 BuildRequires: rubygems-devel
+BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(bcrypt)
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(activemodel)   = %{version}
 BuildRequires: rubygem(actionpack)   = %{version}
-BuildRequires: rubygem(builder)
 BuildRequires: rubygem(sqlite3)
-BuildRequires: rubygem(mocha)
+BuildRequires: rubygem(msgpack)
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(pg)
-BuildRequires: rubygem(benchmark-ips)
 BuildRequires: rubygem(zeitwerk)
 BuildRequires: %{_bindir}/sqlite3
 BuildRequires: tzdata
@@ -78,20 +48,9 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b 1
 
-%patch 3 -p2
-
-pushd %{_builddir}
-%patch 1 -p2
-%patch 2 -p2
-%patch 4 -p2
-%patch 7 -p2
-%patch 9 -p2
-popd
-%patch 5 -p2
-%patch 6 -p2
-%patch 8 -p2
+%patch 0 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -104,46 +63,34 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-# Move the tests into place.
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
-# Remove unnecessary dependency
-sed -i '/require .byebug./ s/^/#/g' test/cases/base_prevent_writes_test.rb
+mkdir ../tools
+# Fake strict_warnings.rb. It does not appear to be useful.
+touch ../tools/strict_warnings.rb
 
-# Build system is slower than expected
-sed -i '/assert_slower_by_at_most/ s/1\.4/2.5/' \
-  test/cases/encryption/performance/envelope_encryption_performance_test.rb
-
-# Test adapters separately
-mv -v test/cases/adapters/ %{_builddir}/.
-
-# Run without adapters
-ruby -Itest:lib -e '
+# Run without adapters, but the default adapter is not picked up anymore
+# without the `ARCONN` env variable. Not sure why :(
+ARCONN=sqlite3 ruby -Itest:lib -e '
   Dir.glob("./test/cases/**/*_test.rb")
-    .sort
-    .reject { |f| f =~ %r|/encryption/performance/| }
-    .each { |f| require f }'
+    .reject { |f| f =~ %r"/adapters/" }
+    .each { |f| require f }
+'
 
-# Return the adapters to test them
-mv -v %{_builddir}/adapters/ test/cases/.
+# Run tests for adapters only, but for the moment ignore those which needs
+# more configuration: mysql2 trilogy postgresql
+# and sqlite3_mem does not have specific test cases.
+for adapter in sqlite3; do
+ARCONN=sqlite3 ruby -Itest:lib -e "
+  # Rails is not defined for some reason :(
+  # https://github.com/rails/rails/issues/54579
+  module Rails; end
 
-# Run tests for adapters only, but without postgresql
-ruby -Itest:lib -e '
-  Dir.glob("./test/cases/adapters/**/*_test.rb")
-    .sort
-    .reject {|x| x =~ %r|/postgresql/| }
-    .each { |f| require f }'
-
-# TODO: Run postgresql adapter tests, in isolation.
-# Adapter and database needs to be set up beforehand.
-#ruby -Itest:lib -e '
-#  Dir.glob("./test/cases/adapters/**/*_test.rb")
-#    .sort
-#    .select { |x| x =~ %r|/postgresql/| }
-#    .each { |f| fork { require f } }'
-popd
+  Dir.glob %|./test/cases/adapters/${adapter}/**/*_test.rb|, &method(:require)
+"
+done
+)
 
 %files
 %dir %{gem_instdir}
@@ -159,6 +106,10 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
+- Update to Active Record 8.0.2.
+  Related: rhbz#2238177
+
 * Thu Jan 30 2025 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-7
 - Unlock Sqlite3 2.x+
 

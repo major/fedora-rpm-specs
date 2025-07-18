@@ -34,6 +34,7 @@ SourceLicense:  %{shrink:
                 }
 URL:            https://linbox-team.github.io/fflas-ffpack/
 %global forgeurl https://github.com/linbox-team/fflas-ffpack
+VCS:            git:%{forgeurl}.git
 Source0:        %{forgeurl}/releases/download/v%{version}/fflas_ffpack-%{version}.tar.bz2
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        fflas-ffpack-config.1
@@ -64,6 +65,9 @@ Patch:          %{forgeurl}/pull/385.patch
 # instruction set
 # https://github.com/linbox-team/fflas-ffpack/issues/378
 Patch:          %{forgeurl}/pull/379.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  autoconf
 BuildRequires:  automake

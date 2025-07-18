@@ -69,6 +69,9 @@ Patch:          %{name}-2.7.1-elisp.patch
 # This patch was last sent upstream on 13 Oct 2009.  Add a format attribute.
 Patch:          %{name}-2.7.1-format.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -135,7 +138,7 @@ chmod a+x ansi-tests/make-tar compile config.guess config.sub configure \
 
 # Temporary workaround for problems detecting architecture.  Remove this on the
 # next release.
-%ifarch ppc64le
+%ifarch %{power64}
 sed -i 's,output_mach=`.*`,output_mach=ppc64,' configure
 %endif
 %ifarch s390x

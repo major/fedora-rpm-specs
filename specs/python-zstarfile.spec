@@ -56,6 +56,11 @@ Summary:        %{summary}
 
 
 %check
+# ERROR_FOR_MISSING makes it so the tests don't try to use pytest.importorskip
+# which doesn't support exc_type on EPEL 9 and 10 (pytest is too old).
+%if 0%{?rhel} <= 10
+export ERROR_FOR_MISSING=1
+%endif
 %pytest
 
 

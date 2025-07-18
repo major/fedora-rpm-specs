@@ -4,37 +4,22 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.8
-Release: 6%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone https://github.com/rails/rails.git
-# cd rails/activemodel && git archive -v -o activemodel-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Adjust test for new Ruby 3.4 `Hash#inspect` format.
-# https://github.com/rails/rails/pull/53162
-Patch0: rubygem-activemodel-8.0.0-Fix-tests-to-pass-on-ruby-head.patch
-
-# Let's keep Requires and BuildRequires sorted alphabeticaly
+# git clone https://github.com/rails/rails.git && cd rails/activemodel
+# git archive -v -o activemodel-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.2.2
 BuildRequires: rubygem(activesupport) = %{version}
-%if %{without bootstrap}
-BuildRequires: rubygem(railties) = %{version}
-%endif
+%{!?with_bootstrap:BuildRequires: rubygem(railties) = %{version}}
 BuildRequires: rubygem(bcrypt) => 3.1.2
-BuildRequires: rubygem(builder)
-BuildRequires: tzdata
 BuildArch: noarch
 
 %description
@@ -52,11 +37,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b1 -b2
-
-pushd %{builddir}
-%patch 0 -p2
-popd
+%setup -q -n %{gem_name}-%{version} -b1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -69,18 +50,24 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
+
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
 
 %if %{with bootstrap}
-# This depends on Rails
+# This depends on rubygem-railties.
 mv ./test/cases/railtie_test.rb{,.disable}
 %endif
 
 # Run test in order, otherwise we get a lot of errors.
 ruby -Ilib:test -e "Dir.glob('./test/**/*_test.rb').sort.each {|t| require t}"
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -95,6 +82,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Active Model 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

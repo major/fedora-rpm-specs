@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1537
+%define patchlevel 1552
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1064,6 +1064,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 %changelog
+* Wed Jul 16 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1552-1
+- patchlevel 1552
+
 * Mon Jul 14 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1537-2
 - 2379759 - remove wayland-libs from vim and vi (fedora#2379759)
 

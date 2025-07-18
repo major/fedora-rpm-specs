@@ -1,8 +1,8 @@
-%global git_commit c216787f5e355478733a05fa5f0fce93fa9a7126
+%global git_commit bff19ea204059290da652854cd634abef10f6c43
 
 Summary:	Pythonic Smart Contract Language for the EVM
 Name:		vyper
-Version:	0.4.2
+Version:	0.4.3
 Release:	%autorelease
 BuildArch:	noarch
 License:	Apache-2.0
@@ -11,7 +11,6 @@ Source0:	%{pypi_source %{name}}
 Patch:		vyper-0001-Use-Cryptodomex.patch
 Patch:		vyper-0002-Ease-version-requirements.patch
 Patch:		vyper-0003-Remove-unnecessary-shebang.patch
-Patch:		vyper-0004-Relax-lark-dependency.patch
 BuildRequires:	git
 BuildRequires:	python3-cached_property
 BuildRequires:	python3-eth-abi

@@ -10,7 +10,7 @@
 Name:    liblastfm
 Summary: Libraries to integrate Last.fm services
 Version: 1.1.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://github.com/drfiemost/liblastfm
@@ -92,35 +92,43 @@ Requires: %{name}-qt5-fingerprint%{?_isa} = %{version}-%{release}
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 mkdir %{_target_platform}
 pushd %{_target_platform}
-%{cmake} .. \
+%cmake .. \
   -DBUILD_FINGERPRINT:BOOL=%{?fingerprint:ON}%{!?fingerprint:OFF} \
   -DBUILD_WITH_QT5:BOOL=OFF \
   -DCMAKE_BUILD_TYPE:STRING="Release"
 
-make %{?_smp_mflags}
+%cmake_build
 popd
 
 mkdir %{_target_platform}-qt5
 pushd %{_target_platform}-qt5
-%{cmake} .. \
+%cmake .. \
   -DBUILD_FINGERPRINT:BOOL=%{?fingerprint:ON}%{!?fingerprint:OFF} \
   -DBUILD_WITH_QT5:BOOL=ON \
   -DCMAKE_BUILD_TYPE:STRING="Release"
 
-make %{?_smp_mflags}
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}-qt5
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+pushd %{_target_platform}-qt5
+%cmake_install
+popd
 
+pushd %{_target_platform}
+%cmake_install
+popd
 
 %check
 ## skip UrlBuilderTest, requires net access
 export CTEST_OUTPUT_ON_FAILURE=1
-make test ARGS="-E UrlBuilderTest" -C %{_target_platform}
+pushd %{_target_platform}
+%ctest -E UrlBuilderTest
+popd
 %if 0%{?qt5}
-make test ARGS="-E UrlBuilderTest" -C %{_target_platform}-qt5
+pushd %{_target_platform}-qt5
+%ctest -E UrlBuilderTest
+popd
 %endif
 
 
@@ -170,6 +178,9 @@ make test ARGS="-E UrlBuilderTest" -C %{_target_platform}-qt5
 
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-19
+- cmake fixes
+
 * Sun Apr 27 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.1.0-18
 - Change upstream source
 - Update to latest commit

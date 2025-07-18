@@ -1,35 +1,26 @@
 %global gem_name actionmailbox
 
 Name: rubygem-%{gem_name}
-
-Version: 7.0.8
-Release: 5%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Inbound email handling framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# Actionmailbox gem doesn't ship with the test suite.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/actionmailbox && git archive -v -o actionmailbox-7.0.8-tests.txz v7.0.8 test/
-Source1: actionmailbox-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
+# git clone http://github.com/rails/rails.git && cd rails/actionmailbox
+# git archive -v -o actionmailbox-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: actionmailbox-%{version}%{?prerelease}-tests.tar.gz
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.5.0
+BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(actionmailer) = %{version}
+BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(activestorage) = %{version}
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(railties) = %{version}
-BuildRequires: rubygem(sprockets-rails)
 BuildRequires: rubygem(sqlite3)
 BuildRequires: rubygem(webmock)
-BuildRequires: tzdata
 BuildArch: noarch
 
 %description
@@ -45,7 +36,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -57,26 +48,32 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}/
-ln -s %{_builddir}/tools ..
+( cd .%{gem_instdir}/
 cp -a %{_builddir}/test .
+
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
 
 export BUNDLE_GEMFILE=${PWD}/../Gemfile
 
 cat > $BUNDLE_GEMFILE <<EOF
 gem "railties"
 gem "actionmailer"
+gem "activerecord"
 gem "activestorage"
-gem "sprockets-rails"
 gem "sqlite3"
 gem "webmock"
 EOF
 
-# Remove byebug dependency
-sed -i '/^require..byebug./ s/^/#/' test/test_helper.rb
+# Remove asset pipeline initializer
+echo > test/dummy/config/initializers/assets.rb
 
-ruby -rbundler -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -94,6 +91,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jul 09 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Action Mailbox 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

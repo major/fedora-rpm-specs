@@ -1,38 +1,20 @@
 # Generated from activejob-4.2.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name activejob
 
-#%%global prerelease 
-
 Name: rubygem-%{gem_name}
-Version: 7.0.8
-Release: 6%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Job framework with pluggable queues
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# Tests are not shipped with the gem
-# You may get them like so
-# git clone https://github.com/rails/rails.git
-# cd rails/activejob && git archive -v -o activejob-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may check it out like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-
-# Fix compatibility with Ruby 3.4 `Hash#inspect`.
-# https://github.com/rails/rails/pull/53202/commits/926cb7e78c3b43c6a5d2900065b04fe32ce70912
-Patch0: rubygem-activejob-8.0.0-Update-Active-Job-test-suite-for-Ruby-3-4-Hash-inspect.patch
-# https://github.com/rails/rails/pull/53203
-Patch1: rubygem-activejob-8.0.0-Update-Active-Job-test-suite-for-Ruby-3-4-Hash-inspect-2.patch
-# Fix backtick to single quote for Ruby 3.4.
-# https://github.com/rails/rails/pull/51101
-Patch2: rubygem-activejob-7.2.0-Update-test-suite-for-compatibility-with-Ruby-3-4-dev.patch
+# git clone https://github.com/rails/rails.git && cd rails/activejob
+# git archive -v -o activejob-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(globalid)
 BuildRequires: rubygem(zeitwerk)
@@ -40,7 +22,7 @@ BuildRequires: tzdata
 BuildArch: noarch
 
 %description
-Declare job classes that can be run by a variety of queueing backends.
+Declare job classes that can be run by a variety of queuing backends.
 
 
 %package doc
@@ -52,13 +34,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-
-pushd %{builddir}
-%patch 0 -p2
-%patch 1 -p2
-%patch 2 -p2
-popd
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -70,33 +46,38 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 
-# Run the test suite
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
+
+# We don't have isneakers in Fedora.
 sed -i '/ActiveJob::QueueAdapters::SneakersAdapter/ d' test/cases/exceptions_test.rb
 
-# We don't have delayed_job in Fedora (orphaned).
-mv test/cases/delayed_job_adapter_test.rb{,.disable}
-
-
-
-# Do not execute integration tests, otherwise Rails's generators are required.
-# Bigdecimal does not get auto-required
-# https://github.com/rails/rails/issues/44399
 ADAPTERS='async inline test'
 for ADAPTER in ${ADAPTERS}; do
-    AJ_ADAPTER=${ADAPTER} ruby -rbigdecimal -Ilib:test \
-        -e 'Dir.glob "./test/cases/**/*_test.rb", &method(:require)'
-done
+  # Reject test cases similarly to what upstream does:
+  # https://github.com/rails/rails/blob/ce359806416550c3b1b790c116aee5f0f9a182d4/activejob/Rakefile#L39-L42
+  AJ_ADAPTER=${ADAPTER} ruby -Ilib:test -e '
+    Dir.glob("./test/cases/**/*_test.rb").reject { |t|
+      (t.include?("delayed_job") && ENV["AJ_ADAPTER"] != "delayed_job") ||
+      (t.include?("async") && ENV["AJ_ADAPTER"] != "async")
+    }.each { |t| require t }'
 
-popd
+  # Do not execute integration tests, otherwise Rails's generators are required.
+  # AJ_INTEGRATION_TESTS=1 AJ_ADAPTER=${ADAPTER} ruby -Ilib:test -e 'Dir.glob "./test/integration/**/*_test.rb", &method(:require)'
+done
+)
 
 %files
-%license %{gem_instdir}/MIT-LICENSE
 %dir %{gem_instdir}
+%license %{gem_instdir}/MIT-LICENSE
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -107,6 +88,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Action Job 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

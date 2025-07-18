@@ -1,5 +1,5 @@
 Name:           remind
-Version:        05.04.01
+Version:        05.04.02
 Release:        1%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
@@ -137,6 +137,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Wed Jul 16 2025 Dick Marinus <dick@mrns.nl> - 05.04.02-1
+- v05.04.02
+
 * Sun Jun 15 2025 Dick Marinus <dick@mrns.nl> - 05.04.01-1
 - v05.04.01
 

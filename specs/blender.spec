@@ -1,4 +1,4 @@
-%global blender_api 4.4
+%global blender_api 4.5
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %global _without_bundled_deps 1
 
@@ -47,7 +47,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.4.3
+Version:        4.5.0
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -278,7 +278,7 @@ BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(OpenImageIO) >= 2.5.0.0
 BuildRequires:  pkgconfig(libopenjp2)
-BuildRequires:  pkgconfig(tbb) = 2020.3
+BuildRequires:  pkgconfig(tbb)
 BuildRequires:  potrace-devel
 
 # Audio stuff
@@ -353,13 +353,6 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 # https://projects.blender.org/blender/blender/issues/137635    
 sed -i "s|core/include|_core/include|" CMakeLists.txt
 
-# Handle python 3.14 support
-# https://bugzilla.redhat.com/show_bug.cgi?id=2373840
-# https://projects.blender.org/blender/blender/issues/140695
-%if 0%{?fedora} > 42
-sed -i "s|BINARY_SUBSCR|BINARY_SLICE|" \
-        source/blender/python/intern/bpy_driver.cc
-%endif
 
 %build
 %if %{with hip}

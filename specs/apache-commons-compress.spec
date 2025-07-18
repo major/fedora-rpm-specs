@@ -14,6 +14,7 @@ Source0:        https://archive.apache.org/dist/commons/compress/source/commons-
 Patch:          0001-Remove-Brotli-compressor.patch
 Patch:          0002-Remove-ZSTD-compressor.patch
 Patch:          0003-Remove-Pack200-compressor.patch
+Patch:          0004-Replace-unmappable-character-with-oe.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

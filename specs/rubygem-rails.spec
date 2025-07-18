@@ -3,15 +3,15 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.8
-Release: 4%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel >= 1.8.11
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 3.2.0
 BuildArch: noarch
 
 %description
@@ -22,8 +22,6 @@ convention over configuration.
 
 %package doc
 Summary: Documentation for %{name}
-# SyntaxHighlighter is dual licensed under the MIT and GPL licenses
-License: MIT and (MIT or GPL+)
 Requires: %{name} = %{epoch}:%{version}-%{release}
 BuildArch: noarch
 
@@ -44,15 +42,19 @@ cp -a .%{gem_dir}/* \
 
 %files
 %dir %{gem_instdir}
+%license %{gem_instdir}/MIT-LICENSE
 %exclude %{gem_cache}
 %{gem_spec}
-%license %{gem_instdir}/MIT-LICENSE
 
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jul 10 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
+- Update to Rails 8.0.2.
+  Resolves: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

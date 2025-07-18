@@ -1,6 +1,6 @@
 Name:           alglib
 Version:        4.05.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A numerical analysis and data processing library
 
 License:        GPL-2.0-or-later
@@ -68,7 +68,7 @@ sed -i 's|\r||g' manual.cpp.html
 
 %files
 %license gpl2.txt
-%{_libdir}/libalglib.so.4.05.0
+%{_libdir}/libalglib.so.4.5.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -80,6 +80,9 @@ sed -i 's|\r||g' manual.cpp.html
 
 
 %changelog
+* Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 4.05.0-2
+- Increase minimum cmake version, adapt library version
+
 * Mon Jun 09 2025 Sandro Mani <manisandro@gmail.com> - 4.05.0-1
 - Update to 4.05.0
 

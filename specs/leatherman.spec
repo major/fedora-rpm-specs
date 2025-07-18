@@ -1,6 +1,6 @@
 Name:           leatherman
 Version:        1.12.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collection of C++ and CMake utility libraries
 
 # leatherman is ASL 2.0
@@ -49,15 +49,20 @@ developing applications that use %{name}.
 sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 
 %build
-%cmake . -B%{_target_platform} \
+%cmake . \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DLEATHERMAN_SHARED=ON \
   -DLEATHERMAN_DEBUG=ON \
   -DLEATHERMAN_CATCH_INCLUDE=%{_includedir}/catch \
-  %{nil}
-%make_build -C %{_target_platform}
+  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+%if "%{?_lib}" == "lib64"
+   %{?_cmake_lib_suffix64} \
+%endif
+   %{nil}
+%cmake_build
 
 %install
-%make_install -C %{_target_platform}
+%cmake_install
 %find_lang %{name}_logging
 %find_lang %{name}_locale
 
@@ -74,6 +79,9 @@ sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.12.13-4
+- Cmake fixes.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

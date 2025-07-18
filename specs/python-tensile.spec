@@ -1,3 +1,4 @@
+
 %if 0%{?suse_version}
 %{?!python_module:%define python_module() python3-%{**}}
 %else
@@ -27,9 +28,6 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 Patch1:         0001-tensile-fedora-gpus.patch
-
-#Patch7:         0001-Handle-a-missing-joblib.patch
-#Patch8:         0001-serialize-reading-logic-files.patch
 
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes

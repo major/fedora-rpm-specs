@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        73
+Version:        85
 Release:        %autorelease
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
@@ -46,11 +46,12 @@ The Project Object Model files for the apache-commons packages.
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :versions-maven-plugin
 %pom_remove_plugin :maven-artifact-plugin
+%pom_remove_plugin :maven-changes-plugin
 
 %pom_remove_dep org.junit:junit-bom
 
 # Remove profiles for plugins that are useless in package builds
-for profile in animal-sniffer japicmp jacoco cobertura; do
+for profile in animal-sniffer japicmp jacoco; do
     %pom_xpath_remove "pom:profile[pom:id='${profile}']"
 done
 

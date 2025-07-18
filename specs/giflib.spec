@@ -1,7 +1,7 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
 Version:       5.2.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 
 License:       MIT
 URL:           http://www.sourceforge.net/projects/%{name}/
@@ -152,6 +152,10 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 5.2.2-7
+- Increase minimum cmake version to 3.5
+- Use GnuInstallDirs
+
 * Tue Apr 15 2025 Sandro Mani <manisandro@gmail.com> - 5.2.2-6
 - Add proposed patch for CVE-2025-31334
 

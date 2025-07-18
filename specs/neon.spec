@@ -1,5 +1,5 @@
 %bcond tests 1
-%bcond pkcs11 %{undefined rhel}
+%bcond pkcs11 %[0%{?fedora} < 43 && %{undefined rhel}]
 %bcond libproxy %{undefined rhel}
 
 # Disable automatic .la file removal
@@ -7,7 +7,7 @@
 
 Summary: An HTTP and WebDAV client library
 Name: neon
-Version: 0.34.2
+Version: 0.35.0
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://notroj.github.io/neon/
@@ -54,9 +54,14 @@ sed -i '/^install-docs/s/install-html//' Makefile.in
         --enable-warnings \
         --with-ssl=openssl --enable-threadsafe-ssl=posix \
 %if %{with libproxy}
-        --with-libproxy
+        --with-libproxy \
 %else
-        --without-libproxy
+        --without-libproxy \
+%endif
+%if %{with pkcs11}
+        --with-pakchois
+%else
+        --without-pakchois
 %endif
 %make_build
 
@@ -78,7 +83,7 @@ make %{?_smp_mflags} check
 %ldconfig_scriptlets
 
 %files -f %{name}.lang
-%doc AUTHORS BUGS TODO src/COPYING.LIB NEWS README* THANKS
+%doc AUTHORS src/COPYING.LIB NEWS README* THANKS
 %{_libdir}/*.so.*
 
 %files devel
@@ -91,6 +96,9 @@ make %{?_smp_mflags} check
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 16 2025 Joe Orton  <jorton@redhat.com> - 0.35.0-1
+- update to 0.35.0, drop pakchois support for Fedora > 42
+
 * Wed May  7 2025 Joe Orton <jorton@redhat.com> - 0.34.2-1
 - update to 0.34.2
 

@@ -3,7 +3,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -45,6 +45,11 @@ Patch:          https://github.com/linbox-team/%{name}/commit/4a1e1395804d4630ec
 # Compiler error with GCC 15 in Fedora Rawhide
 # https://github.com/linbox-team/linbox/issues/321
 Patch:          https://github.com/linbox-team/%{name}/pull/322.patch
+
+# Fix a build failure in the passagemath project, due to undefined _coldim and
+# _rowdim members of class BlockHankel.
+# https://github.com/passagemath/passagemath/issues/1047
+Patch:          blockhankel.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # The sole dependent package, sagemath, is already not built on i686.
@@ -171,6 +176,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Wed Jul 16 2025 Jerry James  <loganjerry@gmail.com> - 1.7.0-13
+- Add BlockHankel patch to fix passagemath build failure
+
 * Thu Feb 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-12
 - Rebuilt for givaro 4.2.1
 

@@ -32,7 +32,8 @@ developing applications that use %{name}.
 %build
 export LDFLAGS="-Wl,--as-needed"
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DWITH_CR32S=FALSE
+       -DWITH_CR32S=FALSE \
+       -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 

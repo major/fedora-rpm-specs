@@ -3,7 +3,7 @@
 Name: makedumpfile
 Version: 1.7.7
 Summary: make a small dumpfile of kdump
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -26,6 +26,8 @@ BuildRequires: libzstd-devel
 BuildRequires: pkgconfig
 BuildRequires: intltool
 BuildRequires: gettext
+
+Patch01: 0001-PATCH-v2-Fix-a-data-race-in-multi-threading-mode-num.patch
 
 %description
 makedumpfile is a tool to compress and filter out unneeded data from kernel
@@ -57,6 +59,9 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Thu Jul 17 2025 Tao Liu <ltao@redhat.com> - 1.7.7-3
+- Fix a data race in multi-threading mode (--num-threads=N)
+
 * Tue Jun 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.7.7-2
 - Fix build with glibc-2.42
 

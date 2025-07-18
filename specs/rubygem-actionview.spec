@@ -4,39 +4,17 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.8
-Release: 8%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
-# git clone http://github.com/rails/rails.git
-# cd rails/actionview && git archive -v -o actionview-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source2: rails-%{version}%{?prerelease}-tools.txz
-# Fixes for Minitest 5.16+
-# https://github.com/rails/rails/pull/45380
-Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
-# https://github.com/rails/rails/pull/45370
-Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
-# https://github.com/rails/rails/pull/49416
-Patch2: rubygem-actionview-pr49416-RenderCallExtractor-ruby33-compat.patch
-# From https://github.com/rails/rails/pull/51510
-# Remove OpenStruct usage due to json 2.7.2 change
-Patch3: rubygem-actionview-pr51510-remove-openstruct-usage.patch
-# Ruby 3.4 backticks compatibility.
-# https://github.com/rails/rails/pull/51101
-Patch4: rubygem-actionview-7.2.0-Update-test-suite-for-compatibility-with-Ruby-3-4-dev.patch
-# Ruby 3.4 `Hash#inspect` formatting.
-# https://github.com/rails/rails/pull/53202/commits/4b7570899e86dda156029b0a3b31e6549bcc49e4
-Patch5: rubygem-actionview-7.2.0-Update-Action-View-test-suite-for-Ruby-3-4-Hash-inspect.patch
-
+# git clone http://github.com/rails/rails.git && cd rails/actionview
+# git archive -v -o actionview-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 %if %{without bootstrap}
@@ -44,6 +22,7 @@ BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
 BuildRequires: rubygem(railties) = %{version}
+BuildRequires: rubygem(capybara)
 BuildRequires: rubygem(sqlite3)
 BuildRequires: tzdata
 %endif
@@ -62,16 +41,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
-
-pushd %{builddir}
-%patch 0 -p2
-%patch 1 -p2
-%patch 3 -p2
-%patch 4 -p2
-%patch 5 -p2
-popd
-%patch 2 -p2
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -80,7 +50,7 @@ gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
-cp -pa .%{gem_dir}/* \
+cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %if %{without bootstrap}
@@ -88,13 +58,15 @@ cp -pa .%{gem_dir}/* \
 # This requires activerecord in rails git structure
 ln -s %{gem_dir}/gems/activerecord-%{version}%{?prerelease}/ .%{gem_dir}/gems/activerecord
 
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
-# Test failure
-# https://github.com/rails/rails/issues/46130
-mv test/template/date_helper_i18n_test.rb{,.disable}
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
 
 # Make it sure that we are using fixed library, not
 # using library already installed in system path
@@ -106,22 +78,27 @@ find test -type f -name '*_test.rb' -print0 | \
   sort -z | \
   xargs -0 -n1 -i sh -c "echo '* Test file: {}'; ruby -Itest -- '{}' || exit 255"
 
-popd
+)
 %endif
 
 %files
 %dir %{gem_instdir}
+%license %{gem_instdir}/MIT-LICENSE
+%{gem_instdir}/app
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
-%license %{gem_instdir}/MIT-LICENSE
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/README.rdoc
 %doc %{gem_instdir}/CHANGELOG.md
+%doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Action View 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,6 +14,8 @@ License:        GPL-3.0-or-later and LGPL-2.1-or-later and BSD-3-Clause
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+%global _cmake_generator "Unix Makefiles"
+
 BuildRequires:  make, cmake
 BuildRequires:  gcc, gcc-fortran
 BuildRequires:  flexiblas-devel

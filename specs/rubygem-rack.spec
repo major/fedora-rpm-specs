@@ -1,34 +1,23 @@
 %global gem_name rack
 
 Name: rubygem-%{gem_name}
-Version: 2.2.4
+Version: 3.1.16
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 9%{?dist}
+Release: 1%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
-URL: https://rack.github.io/
-Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
-# https://github.com/rack/rack/pull/1998
-Patch0:  rack-pr1998-fix-regexp-3rd-arg.patch
-# https://github.com/rack/rack-session/pull/46/commits/57a6152d874420345475f94aee3e09a925bfc512
-# Note that recet rack split Rack::Session to seperate gem:
-# https://github.com/rack/rack/pull/1805
-Patch1:  rack-session-pr46-ruby34-hash-formatting-change.patch
+License: MIT AND BSD-3-Clause
+URL: https://github.com/rack/rack
+Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rack/rack.git && cd rack/
-# git archive -v -o rack-2.2.4-tests.tar.gz 2.2.4 test/
+# git archive -v -o rack-3.1.16-tests.tar.gz v3.1.16 test/
 Source1: rack-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.2
+BuildRequires: ruby >= 2.4.0
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(webrick)
-BuildRequires: rubygem(base64)
 BuildArch: noarch
-
-%global __brp_mangle_shebangs_exclude_from ^%{gem_instdir}/test/cgi/test.ru$
 
 %description
 Rack provides a minimal, modular and adaptable interface for developing
@@ -48,13 +37,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-%patch -P0 -p1
-(
-cd %{_builddir}
-%patch -P1 -p1
-)
-
-%gemspec_add_dep -g base64 ">= 0.2.0"
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -69,17 +51,12 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
-mkdir -p %{buildroot}%{_bindir}
-cp -a .%{_bindir}/* \
-        %{buildroot}%{_bindir}/
 
-find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
-find %{buildroot}%{gem_instdir}/bin -type f | \
-  xargs sed -i 's|^#!/usr/bin/env ruby$|#!/usr/bin/ruby|'
 
 %check
-pushd .%{gem_instdir}
-cp -a %{_builddir}/test .
+( cd .%{gem_instdir}
+
+cp -a %{builddir}/test .
 
 # Avoid minitest-global_expectations in exchange of lot of deprecation warnings.
 # https://github.com/rack/rack/pull/1394
@@ -87,13 +64,11 @@ mkdir -p test/minitest/global_expectations
 echo 'require "minitest/autorun"' > test/minitest/global_expectations/autorun.rb
 
 ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
-popd
+)
 
 %files
 %dir %{gem_instdir}
-%{_bindir}/rackup
 %license %{gem_instdir}/MIT-LICENSE
-%{gem_instdir}/bin
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -101,15 +76,47 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
-%doc %{gem_instdir}/README.rdoc
 %doc %{gem_instdir}/CONTRIBUTING.md
+%doc %{gem_instdir}/README.md
 %doc %{gem_instdir}/SPEC.rdoc
-%{gem_instdir}/Rakefile
-%{gem_instdir}/%{gem_name}.gemspec
-%doc %{gem_instdir}/contrib
-%doc %{gem_instdir}/example
 
 %changelog
+* Thu Jul 10 2025 Vít Ondruch <vondruch@redhat.com> - 1:3.1.16-1
+- Update to Rack 3.1.16
+  Resolves: rhbz#2124662
+- Denial of service in Content-Disposition parsing (CVE-2022-44571)
+  Resolves: rhbz#2164714
+  Resolves: rhbz#2164716
+- Denial of service in Content-Disposition parsing (CVE-2022-44570)
+  Resolves: rhbz#2164719
+  Resolves: rhbz#2164721
+- Denial of service in Content-Disposition parsing (CVE-2022-44572)
+  Resolves: rhbz#2164722
+  Resolves: rhbz#2164724
+- Denial of service in Multipart MIME parsing (CVE-2023-27530)
+  Resolves: rhbz#2176477
+  Resolves: rhbz#2176478
+- Denial of service in header parsing (CVE-2023-27539)
+  Resolves: rhbz#2179649
+  Resolves: rhbz#2179651
+- Denial of Service Vulnerability in Rack Content-Type Parsing (CVE-2024-25126)
+  Resolves: rhbz#2265593
+- Possible DoS Vulnerability with Range Header in Rack (CVE-2024-26141)
+  Resolves: rhbz#2265594
+- Possible Denial of Service Vulnerability in Rack Header Parsing (CVE-2024-26146)
+  Resolves: rhbz#2265595
+- Possible Log Injection in Rack::CommonLogger (CVE-2025-25184)
+  Resolves: rhbz#2345301
+- Escape Sequence Injection vulnerability in Rack lead to Possible Log Injection (CVE-2025-27111)
+  Resolves: rhbz#2349810
+- File Inclusion in Rack::Static (CVE-2025-27610)
+  Resolves: rhbz#2351231
+- Unbounded-Parameter DoS in Rack::QueryParser (CVE-2025-46727)
+  Resolves: rhbz#2364966
+- Rack Session Reuse Vulnerability (CVE-2025-32441). Current version
+  actually extracts the affected code into rack-session package.
+  Resolves: rhbz#2364965
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

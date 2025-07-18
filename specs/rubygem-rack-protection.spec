@@ -3,19 +3,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 3.2.0
-Release: 3%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 Summary: Ruby gem that protects against typical web attacks
 License: MIT
 URL: https://sinatrarb.com/protection/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra/rack-protection
-# git archive -v -o rack-protection-3.2.0-spec.txz v3.2.0 spec/
-Source1: %{gem_name}-%{version}-spec.txz
-# Update the test suite for Ruby 3.4 Hash#inspect changes. This is downstream
-# patch, because this functinality was removed lately:
-# https://github.com/sinatra/sinatra/pull/1989
-Patch0: rubygem-rack-protection-3.2.0-Update-the-test-suite-for-Ruby-3.4-Hash-inspect-chan.patch
+# git archive -v -o rack-protection-4.1.1-spec.tar.gz v4.1.1 spec/
+Source1: %{gem_name}-%{version}-spec.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -42,10 +38,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-pushd %{builddir}
-%patch 0 -p2
-popd
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -80,6 +72,10 @@ popd
 %{gem_instdir}/rack-protection.gemspec
 
 %changelog
+* Thu Jun 12 2025 Vít Ondruch <vondruch@redhat.com> - 4.1.1-1
+- Update to Rack::Protection 4.1.1.
+  Resolves: rhbz#2185966
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

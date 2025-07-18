@@ -1,4 +1,4 @@
-%bcond_without check
+%bcond_with check
 
 # No GTK 2 in RHEL 10
 %if 0%{?rhel} > 9
@@ -142,12 +142,12 @@ This package contains GTK3 developer tools.
 # Tests fail randomly when running in parallel
 
 pushd build-gtk3 >/dev/null
-xwfb-run -c mutter -- %__ctest -E test-indicator-ng-tester --output-on-failure --force-new-ctest-process
+xwfb-run -c mutter -- %__ctest --output-on-failure --force-new-ctest-process
 popd >/dev/null
 
 %if %{with gtk2}
 pushd build-gtk2 >/dev/null
-xwfb-run -c mutter -- %__ctest -E test-indicator-ng-tester --output-on-failure --force-new-ctest-process
+xwfb-run -c mutter -- %__ctest --output-on-failure --force-new-ctest-process
 popd >/dev/null
 %endif
 %endif

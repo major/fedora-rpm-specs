@@ -13,9 +13,9 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.6
+Version:        2.18.7
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -265,6 +265,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Wed Jul 16 2025 Maxwell G <maxwell@gtmx.me> - 2.18.7-1
+- Update to 2.18.7. Fixes rhbz#2380244.
+
 * Sat Jun 07 2025 Maxwell G <maxwell@gtmx.me> - 2.18.6-2
 - Add initial support for Python 3.14 (rhbz#2366307)
 

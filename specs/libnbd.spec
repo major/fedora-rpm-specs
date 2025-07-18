@@ -20,8 +20,8 @@
 %global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.23.4
-Release:        3%{?dist}
+Version:        1.23.5
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -220,6 +220,7 @@ autoreconf -i
 %build
 %configure \
     --disable-static \
+    --with-extra='%{name}-%{version}-%{release}' \
     --with-tls-priority=@LIBNBD,SYSTEM \
     --with-bash-completions \
     PYTHON=%{__python3} \
@@ -376,6 +377,10 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Wed Jul 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.5-1
+- New upstream development version 1.23.5
+- Add './configure --with-extra' containing downstream package information.
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.23.4-3
 - Rebuild to fix OCaml dependencies
 

@@ -1,23 +1,21 @@
-%global commit 219db73c723e4b197c2784718c86b29c782e4b95
+%global commit ab9bbbda643b99681c642ba5350730e5bdbfdec7
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global project todo.py
 %global owner okulbilisim
-%global date 20151115
+%global date 20171025
 
 Name:           todocli
 Version:        0.1
-Release:        34.%{date}git%{shortcommit}%{?dist}
+Release:        35.%{date}git%{shortcommit}%{?dist}
 Summary:        Command line To Do application
 
 License:        MIT
 URL:            https://github.com/okulbilisim/todo.py
 Source0:        https://github.com/%{owner}/%{project}/archive/%{commit}/%{project}-%{commit}.tar.gz
-Source1:        todocli.1
 Patch0:         todocli-fix-version.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 A To Do command line application with SQLite back end written in Python.
@@ -28,14 +26,17 @@ A To Do command line application with SQLite back end written in Python.
 #Remove egg.info
 rm -rf %{name}.egg.info
 
+%generate_buildrequires
+%pyproject_buildrequires 
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}/%{_mandir}/man1
-install -p -m 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/
+install -p -m 0644 todocli.1 %{buildroot}/%{_mandir}/man1/
  
 %files
 %doc README.md
@@ -46,6 +47,10 @@ install -p -m 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jul 16 2025 Didier Fabert <didier.fabert@gmail.com> - 0.1-35.20171025gitab9bbbd
+- Stop using deprecated py3_build/py3_install macros https://bugzilla.redhat.com/show_bug.cgi?id=2378474
+- migrated to last commit
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1-34.20151115git219db73
 - Rebuilt for Python 3.14
 

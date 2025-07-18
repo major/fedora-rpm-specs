@@ -1,3 +1,7 @@
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
 %global cpan_name DBD-mysql
 
 # Disable leak tests
@@ -7,7 +11,7 @@
 
 Name:           perl-DBD-MySQL
 Version:        5.012
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -188,6 +192,12 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 16 2025 Michal Josef Špaček <mspacek@redhat.com> - 5.012-4
+- Version bump
+
+* Wed Jul 16 2025 Michal Schorm <mschorm@redhat.com> - 5.012-3
+- Rebuild without i686 architecture - MySQL 8.4 no longer supports it
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.012-2
 - Perl 5.42 rebuild
 

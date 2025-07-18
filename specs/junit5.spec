@@ -5,7 +5,7 @@
 %global vintage_version %{version}
 
 Name:           junit5
-Version:        5.10.2
+Version:        5.13.3
 Release:        %autorelease
 Summary:        Java regression testing framework
 License:        EPL-2.0
@@ -40,6 +40,7 @@ Source500:      https://repo1.maven.org/maven2/org/junit/junit-bom/%{version}/ju
 Patch:          0001-Drop-transitive-requirement-on-apiguardian.patch
 Patch:          0002-Add-missing-module-static-requires.patch
 Patch:          0003-Remove-legacy-XML-console-support.patch
+Patch:          0004-Add-JRE-class-generated-from-template.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -109,7 +110,7 @@ done
 
 %files -f .mfiles
 %{_bindir}/junit-platform-console
-%license LICENSE.md LICENSE-notice.md
+%license LICENSE.md NOTICE.md
 
 %changelog
 %autochangelog

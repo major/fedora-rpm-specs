@@ -2,7 +2,7 @@
 %define _hardened_build 1
 Name: ettercap
 Version: 0.8.3.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
 License: GPL-2.0-or-later
 URL: http://ettercap.sourceforge.net
@@ -66,14 +66,15 @@ analysis.
 %build
 mkdir build
 pushd build
-%cmake ../ -DINSTALL_PREFIX=/usr -DMAN_INSTALLDIR=%{_mandir} -DINSTALL_LIBDIR=%{_libdir} -DENABLE_IPV6=yes -DENABLE_GEOIP=no -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
-make CFLAGS="$RPM_BUILD_FLAGS"
+%cmake ../ -DINSTALL_PREFIX=/usr -DMAN_INSTALLDIR=%{_mandir} -DINSTALL_LIBDIR=%{_libdir} -DENABLE_IPV6=yes -DENABLE_GEOIP=no -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake_build
 
 %install
 mkdir -p  %{buildroot}%{_bindir}
 pushd build
-make install DESTDIR=%{buildroot}
-make install man DESTDIR=%{buildroot}
+%cmake_install
+#make install DESTDIR=%{buildroot}
+#make install man DESTDIR=%{buildroot}
 #getting rid of libtool files potentially left behind when building plugins
 rm -f %{buildroot}%{_libdir}/ettercap/*.la
 mkdir -p %{buildroot}%{_docdir}
@@ -121,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3.1-17
+- cmake fixes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

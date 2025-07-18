@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-jxpath
-Version:        1.3
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Simple XPath interpreter
 License:        Apache-2.0
@@ -10,8 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://www.apache.org/dist/commons/jxpath/source/commons-jxpath-%{version}-src.tar.gz
-
-Patch:          commons-jxpath-mockrunner.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -33,15 +31,14 @@ JavaBeans, Maps, Servlet contexts, DOM etc, including mixtures thereof.
 %prep
 %autosetup -p1 -C
 
-%pom_remove_dep xerces:
-%pom_remove_dep xml-apis:
+%pom_remove_dep com.mockrunner:
 
 # Remove dependency on glassfish
 %pom_remove_dep :servlet-api
 %pom_remove_dep :jsp-api
-rm src/java/org/apache/commons/jxpath/servlet/*Context*.java
-rm src/java/org/apache/commons/jxpath/servlet/*Handler.java
-rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
+rm src/main/java/org/apache/commons/jxpath/servlet/*Context*.java
+rm src/main/java/org/apache/commons/jxpath/servlet/*Handler.java
+rm src/test/java/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 
 %mvn_file ":{*}" %{name} @1
 %mvn_alias : org.apache.commons:

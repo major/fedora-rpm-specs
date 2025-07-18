@@ -1,54 +1,37 @@
 # Generated from actioncable-5.0.0.rc2.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name actioncable
 
-# Disabling JS recompilation might significantly reduce the amount of
-# build dependencies.
-# TODO: Re-enable recompilation if possible. ATM, it does not do anything,
-# because the CoffeScript was replaced by ES2015 modules:
-# https://github.com/rails/rails/pull/34177
-%global recompile_js 0
+# TODO: Re-enable recompilation if possible. Currently, we don't have rollup.js
+# in Fedora and therefore it requires network access. Still good for checking
+# the results
+%bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 7.0.8
-Release: 5%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 Summary: WebSocket framework for Rails
 License: MIT
-URL: http://rubyonrails.org
+URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
-# The gem doesn't ship with the test suite, you may check it out like so
-# git clone https://github.com/rails/rails.git
-# cd rails/actioncable && git archive -v -o actioncable-7.0.8-tests.txz v7.0.8 test/
-Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
-# The source code of pregenerated JS files is not packaged.
-# You may get them like so
-# git clone https://github.com/rails/rails.git
-# cd rails/actioncable && git archive -v -o actioncable-7.0.8-app.txz v7.0.8 app/
-Source2: %{gem_name}-%{version}%{?prerelease}-app.txz
-# Recompile with script extracted from
-# https://github.com/rails/rails/blob/71d406697266fc2525706361b86aeb85183fe4c7/actioncable/Rakefile
-Source3: recompile_js.rb
-# The tools are needed for the test suite, are however unpackaged in gem file.
-# You may get them like so
-# git clone https://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.8-tools.txz v7.0.8 tools/
-Source4: rails-%{version}%{?prerelease}-tools.txz
+# git clone https://github.com/rails/rails.git && cd rails/actioncable
+# git archive -v -o actioncable-8.0.2-tests.tar.gz v8.0.2 test/
+Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+# Source code of pregenerated JS files.
+# git clone https://github.com/rails/rails.git && cd rails/actioncable
+# git archive -v -o actioncable-8.0.2-js.tar.gz v8.0.2 app/javascript package.json rollup.config.js
+Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 
 BuildRequires: ruby(release)
-BuildRequires: rubygems-devel > 1.3.1
-BuildRequires: ruby >= 2.2.2
+BuildRequires: rubygems-devel
+BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(actionpack) = %{version}
-BuildRequires: rubygem(mocha)
-BuildRequires: rubygem(nio4r)
+BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(puma)
+BuildRequires: rubygem(websocket-driver)
+BuildRequires: rubygem(zeitwerk)
 BuildRequires: %{_bindir}/redis-server
 BuildRequires: rubygem(redis)
-BuildRequires: rubygem(hiredis) >= 0.6.3
-BuildRequires: rubygem(websocket-driver)
-%if 0%{?recompile_js} > 0
-BuildRequires: rubygem(coffee-script)
-BuildRequires: rubygem(sprockets)
-BuildRequires: %{_bindir}/node
-%endif
+%{?with_js_recompilation:BuildRequires: %{_bindir}/npm}
 BuildArch: noarch
 
 %description
@@ -65,23 +48,30 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -a2 -b4
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
 %build
-%if 0%{?recompile_js} > 0
-# Recompile the embedded JS file from CoffeeScript sources.
+%if %{with js_recompilation}
+# Recompile the embedded JS files from sources.
 #
 # This is practice suggested by packaging guidelines:
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Use_of_pregenerated_code
 
-cp -a %{SOURCE3} .
+find app/assets/ -type f -exec sha512sum {} \;
 
-# Remove folder to ensure JS is recompiled
-# The `test` was added just to demonstrate the missing directory, in case
-# anybody wonders.
-test -d lib/assets/compiled
-rm -rf lib/assets/compiled
-RUBYOPT=-Ilib ruby recompile_js.rb
+rm -rf app/assets
+
+ln -s %{builddir}/app/javascript ./app/javascript
+ln -s %{builddir}/package.json .
+cp -a %{builddir}/rollup.config.js .
+
+# TODO: This requires network access. Use Fedora rollup.js if it becomes
+# available eventually
+npm install
+npx rollup --config rollup.config.js
+
+# For comparison with the orginal checksum above.
+find app/assets/ -type f -exec sha512sum {} \;
 %endif
 
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -93,15 +83,26 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/tools ..
-mv %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
+
+mkdir ../tools
+# Fake test_common.rb. It does not provide any functionality besides
+# `force_skip` alias.
+touch ../tools/test_common.rb
+# Netiher strict_warnings.rb appears to be useful.
+touch ../tools/strict_warnings.rb
 
 # We don't have websocket-client-simple in Fedora yet.
 mv test/client_test.rb{,.disable}
 
 # TODO: Needs AR together with PostgreSQL.
 mv test/subscription_adapter/postgresql_test.rb{,.disable}
+
+# test/javascript_package_test.rb requires rollup.js, which we don't have.
+# OTOH, if we had it, we would recomplie the sources and the test would have
+# less value.
+mv test/javascript_package_test.rb{,.disable}
 
 # Start a testing Redis server instance
 REDIS_DIR=$(mktemp -d)
@@ -112,16 +113,15 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 # Shutdown Redis.
 kill -INT $(cat $REDIS_DIR/redis.pid)
 
-# TODO: Enable the test/javascript test cases.
-popd
+)
 
 %files
 %dir %{gem_instdir}
 %license %{gem_instdir}/MIT-LICENSE
+%{gem_instdir}/app
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
-%{gem_instdir}/app
 
 %files doc
 %doc %{gem_docdir}
@@ -129,6 +129,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
+- Update to Action Cable 8.0.2.
+  Related: rhbz#2238177
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

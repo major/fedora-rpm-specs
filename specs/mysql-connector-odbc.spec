@@ -1,3 +1,7 @@
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc

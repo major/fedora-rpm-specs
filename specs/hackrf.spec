@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2024.02.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -82,7 +82,15 @@ pushd host
 %cmake \
   -DINSTALL_UDEV_RULES=on \
   -DUDEV_RULES_PATH:PATH=%{_udevrulesdir} \
-  -DUDEV_RULES_GROUP=plugdev
+  -DUDEV_RULES_GROUP=plugdev \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+  -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+  -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+  %if "%{?_lib}" == "lib64"
+    %{?_cmake_lib_suffix64} \
+  %endif
 
 %cmake_build
 popd
@@ -136,6 +144,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Wed Jul 16 2025 Steven A. Falco <stevenfalco@gmail.com> - 2024.02.1-4
+- Adapt to cmake 4.0 changes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.02.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

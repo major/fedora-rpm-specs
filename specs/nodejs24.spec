@@ -227,7 +227,7 @@ Version:        %{npm_version}
 Release:        %{nodejs_subpackage_release}
 
 BuildArch:      noarch
-Requires:       nodejs%{node_version_major}%{?_isa} = %{node_evr}
+Requires:       nodejs%{node_version_major}         = %{node_evr}
 Recommends:     nodejs%{node_version_major}-docs    = %{node_evr}
 Provides:       npm(npm) = %{npm_version}
 

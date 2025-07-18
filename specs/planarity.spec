@@ -7,6 +7,9 @@ URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
 VCS:		git:%{url}.git
 Source:		%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 %global _docdir_fmt %{name}
 
 BuildRequires:	autoconf

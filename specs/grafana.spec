@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -123,7 +123,7 @@ Requires:         shared-mime-info
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
 # This ensures that the grafana-selinux package and all its dependencies are
 # not pulled into containers and other systems that do not use SELinux
-Requires: (grafana-selinux = %{version}-%{release} if selinux-policy-targeted)
+Requires: (grafana-selinux = %{version}-%{release} if selinux-policy-any)
 %else
 Requires: grafana-selinux = %{version}-%{release}
 %endif
@@ -746,10 +746,8 @@ Graphite, InfluxDB & OpenTSDB.
 # SELinux package
 %package selinux
 Summary:             SELinux policy module supporting grafana
-BuildArch:           noarch
-Requires:            %{name} = %{version}-%{release}
-Requires:	           selinux-policy-targeted
-Requires(post):      selinux-policy-targeted, /usr/sbin/semanage
+Requires:	           selinux-policy-any
+Requires(post):      selinux-policy-any, /usr/sbin/semanage
 Requires(postun):    /usr/sbin/semanage
 BuildRequires:       selinux-policy-devel
 
@@ -992,10 +990,7 @@ export GOEXPERIMENT=boringcrypto
 
 # SELinux policy
 %pre selinux
-for selinuxvariant in %{selinux_variants}
-do
-  %selinux_relabel_pre -s ${selinuxvariant}
-done
+%selinux_relabel_pre
 
 %post selinux
 for selinuxvariant in %{selinux_variants}
@@ -1003,8 +998,8 @@ do
   %selinux_modules_install -s ${selinuxvariant} %{_datadir}/selinux/packages/${selinuxvariant}/grafana.pp.bz2 &>/dev/null
   /usr/sbin/semanage port -a -t grafana_port_t -p tcp 3000 &> /dev/null || :
   semodule -X400 -r grafana &>/dev/null || true
-  %selinux_relabel_post -s ${selinuxvariant}
 done
+%selinux_relabel_post
 
 if [ "$1" -le "1" ]; then # First install
    # The daemon needs to be restarted for the custom label to be applied.
@@ -1029,6 +1024,11 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Wed Jul 16 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-15
+- Backport selinux policy changes
+- Backport selinux packaging changes in the spec file
+
+
 * Tue May 13 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-14
 - fix CVE-2025-4123
 

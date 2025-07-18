@@ -16,7 +16,7 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 25.02.0
+Version: 25.07.0
 Release: 1%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
@@ -228,7 +228,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.146*
+%{_libdir}/libpoppler.so.151*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc
@@ -287,6 +287,10 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 16 2025 Marek Kasik <mkasik@redhat.com> - 25.07.0-1
+- Update to 25.07.0
+- Resolves: #2349694
+
 * Mon Feb 10 2025 Marek Kasik <mkasik@redhat.com> - 25.02.0-1
 - Update to 25.02.0
 - Resolves: #2309104

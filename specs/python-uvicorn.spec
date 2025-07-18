@@ -6,7 +6,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2256747
 # python-uvloop: FTBFS in Fedora rawhide/f42
 # https://bugzilla.redhat.com/show_bug.cgi?id=2341233
-%bcond uvloop 0
+%bcond uvloop %{undefined fc43}
 
 Name:           python-uvicorn
 Version:        0.35.0
