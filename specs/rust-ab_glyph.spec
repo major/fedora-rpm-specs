@@ -7,7 +7,7 @@
 %global crate ab_glyph
 
 Name:           rust-ab_glyph
-Version:        0.2.29
+Version:        0.2.31
 Release:        %autorelease
 Summary:        API for loading, scaling, positioning and rasterizing OpenType font glyphs
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gvar-alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gvar-alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gvar-alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gvar-alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

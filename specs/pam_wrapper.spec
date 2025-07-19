@@ -1,5 +1,5 @@
 Name:           pam_wrapper
-Version:        1.1.7
+Version:        1.1.8
 Release:        %autorelease
 
 Summary:        A tool to test PAM applications and PAM modules
@@ -11,7 +11,7 @@ Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        pam_wrapper.keyring
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  cmake
 BuildRequires:  libcmocka-devel
 BuildRequires:  python3-devel

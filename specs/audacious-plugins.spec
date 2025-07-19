@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -108,12 +108,12 @@ BuildRequires: pkgconfig(Qt5X11Extras)
 # plugin is Qt based
 BuildRequires: pkgconfig(ampache_browser_1)
 
+# added 2025-07-17
+Obsoletes: audacious-plugins-freeworld < 4.4.2-4
+Provides:  audacious-plugins-freeworld = %{version}-%{release}
 # added 2025-06-13
 Obsoletes: audacious-plugins-freeworld-aac < 4.4.2-4
 Provides:  audacious-plugins-freeworld-aac = %{version}-%{release}
-# added 2023-11-04
-Obsoletes: audacious-plugins-freeworld-mms < %{version}-%{release}
-Provides:  audacious-plugins-freeworld-mms = %{version}-%{release}
 
 # plugin .so files
 %if 0%{?fedora} > 29 || 0%{?rhel} > 8
@@ -394,7 +394,12 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
-* Wed Jul 16 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 4.5-1
+* Thu Jul 17 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-2
+- obsolete -freeworld package, since it's been a meta-package only
+  and currently doesn't pull it any extra packages anymore
+- cleanup: drop old Obs/Conf for -freeworld-mms package
+
+* Wed Jul 16 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-1
 - update to 4.5
 
 * Fri Jun 13 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.4.2-4

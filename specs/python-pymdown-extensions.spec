@@ -1,7 +1,7 @@
 %global pypi_name pymdown-extensions
 
 Name:           python-%{pypi_name}
-Version:        10.12
+Version:        10.16
 Release:        %autorelease
 Summary:        Extension pack for Python Markdown
 
@@ -23,8 +23,6 @@ Markdown.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-# Needed for the tests to pass
-BuildRequires:  python3-pygments >= 2.18.0
 
 %description -n python3-%{pypi_name}
 PyMdown Extensions (pymdownx) is a collection of extensions for Python
@@ -37,6 +35,10 @@ Markdown.
 
 # Drop invalid entry that breaks the pyproject macros
 sed -i '/\.\[extra\]/d' pyproject.toml
+
+# Don't run mypy and drop its unpackaged typing deps
+sed -e '/^mypy/d' -e '/^types-/d' -i requirements/test.txt
+sed -i '/"{envpython}" -m mypy/d' pyproject.toml
 
 # EL10 only has markdown 3.5
 # https://issues.redhat.com/browse/RHEL-74397

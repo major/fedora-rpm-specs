@@ -493,6 +493,10 @@ Patch: 0001-tests-functional-Use-no-shutdown-in-the-hppa_seabios.patch
 # Increase test-replication timeout
 # NOT upstream, but see https://gitlab.com/qemu-project/qemu/-/issues/3035
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
+# Fix build on x86_64 with Xen 4.20
+# sent upstream 2025-07-17, e.g.
+# https://lists.xen.org/archives/html/xen-devel/2025-07/msg01268.html
+Patch: 0001-xen-passthrough-add-missing-error-report-include.patch
 
 
 BuildRequires: gnupg2

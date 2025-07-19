@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   4.6.0
+Version:   4.7.0
 Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
@@ -52,6 +52,7 @@ make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu-
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y CFG_CONSOLE_UART=0x8 O=out/k3-j784s4
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3399 CFG_ARM64_core=y O=out/rockchip-rk3399
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3588 CFG_ARM64_core=y O=out/rockchip-rk3588
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=sunxi-sun50i_a64 CFG_ARM64_core=y O=out/sunxi-sun50i_a64
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=versal CFG_ARM64_core=y O=out/versal
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=zynqmp CFG_ARM64_core=y O=out/zynqmp
@@ -73,10 +74,14 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/k3-am62x/
 install -p -m 0644 out/k3-am62x/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
 install -p -m 0644 out/k3-am62x/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
 
-# rk3399 expects the .elf
+# rockchip expects the .elf
 mkdir -p %{buildroot}%{_datadir}/%{name}/rockchip-rk3399
 install -p -m 0644 out/rockchip-rk3399/core/tee.elf /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
 install -p -m 0644 out/rockchip-rk3399/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/rockchip-rk3588
+install -p -m 0644 out/rockchip-rk3588/core/tee.elf /%{buildroot}%{_datadir}/%{name}/rockchip-rk3588
+install -p -m 0644 out/rockchip-rk3588/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/rockchip-rk3588
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
 install -p -m 0644 out/sunxi-sun50i_a64/core/tee-raw.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
@@ -98,6 +103,10 @@ install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jul 17 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.7.0-1
+- Update to 4.7.0
+- Enable rk3588
+
 * Mon Apr 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.6.0-1
 - Update to 4.6.0
 

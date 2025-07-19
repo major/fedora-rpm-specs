@@ -4,7 +4,9 @@ Release:        %autorelease
 Summary:        Utility to show USB bandwidth
 License:        BSD-3-Clause
 URL:            https://github.com/aguinet/usbtop
-Source0:        %{url}/archive/release-%{version}/usbtop-%{version}.tar.gz
+Source:         %{url}/archive/release-%{version}/usbtop-%{version}.tar.gz
+# https://github.com/aguinet/usbtop/pull/45
+Patch:          0001-CMake-4-compatibility.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
@@ -20,7 +22,7 @@ USB buses and devices.
 
 
 %prep
-%autosetup -n usbtop-release-%{version}
+%autosetup -p 1 -n usbtop-release-%{version}
 rm -rf third-party
 
 

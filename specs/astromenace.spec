@@ -1,6 +1,6 @@
 Name: astromenace
 Version:  1.4.3
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: Hardcore 3D space shooter with spaceship upgrade possibilities  
 
 License: GPL-3.0-only
@@ -37,7 +37,7 @@ Go ahead and make alien aggressors regret their insolence.
 %setup -q
 
 %build
-%cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"
+%cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"i -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %__cmake_builddir/astromenace --pack --rawdata=./gamedata --dir=./
@@ -106,6 +106,9 @@ EOF
 %{_datadir}/astromenace/
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.3-2
+- Cmake fixes
+
 * Mon Feb 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.3-1
 - 1.4.3
 

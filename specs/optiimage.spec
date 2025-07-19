@@ -1,6 +1,6 @@
 Name:          optiimage
 Version:       1.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-3.0-only AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later AND GPL-3.0-or-later AND BSD-2-Clause AND LGPL-3.0-only AND FSFAP
 Summary:       A useful image compressor that supports many file types
 URL:           https://apps.kde.org/%{name}/
@@ -31,7 +31,6 @@ BuildRequires: cmake(QCoro6Core)
 BuildRequires: cmake(QCoro6Qml)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6KirigamiAddons)
-BuildRequires: reuse
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: python3-devel
 
@@ -75,5 +74,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/org.kde.optiimage.metainfo.xml
 
 %changelog
+* Wed May 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-2
+- Drop unnecessary build dependency on reuse
+
 * Mon Dec 02 2024 Steve Cossette <farchord@gmail.com> - 1.0.0-1
 - Initial Release

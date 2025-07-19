@@ -92,7 +92,6 @@ BuildRequires: gperf
 %if %{with_docs}
 BuildRequires: gtk-doc >= %{gtk_doc_version}
 %endif
-BuildRequires: ninja-build
 BuildRequires: vala
 BuildRequires: systemd
 
@@ -281,8 +280,7 @@ fi
 export CPPFLAGS="-I%{_includedir}/et"
 export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -Wno-deprecated-declarations"
 
-%cmake -G Ninja \
-	-DENABLE_MAINTAINER_MODE=OFF \
+%cmake -DENABLE_MAINTAINER_MODE=OFF \
 	-DENABLE_FILE_LOCKING=fcntl \
 	-DENABLE_DOT_LOCKING=OFF \
 	-DENABLE_INTROSPECTION=ON \

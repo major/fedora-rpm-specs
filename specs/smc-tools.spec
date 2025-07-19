@@ -1,14 +1,11 @@
 Name:           smc-tools
-Version:        1.8.4
-Release:        2%{?dist}
+Version:        1.8.5
+Release:        1%{?dist}
 Summary:        Shared Memory Communication Tools
 
 License:        EPL-1.0
 URL:            https://github.com/ibm-s390-linux/smc-tools
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/ibm-s390-linux/smc-tools/pull/15
-Patch0:         %{name}-gcc15.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -69,6 +66,9 @@ sockets in Linux.
 
 
 %changelog
+* Thu Jul 17 2025 Dan Horák <dan@danny.cz> - 1.8.5-1
+- update to 1.8.5 (rhbz#2381597)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -22,7 +22,7 @@ Version:                2.22.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -387,6 +387,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_prefix}/lib/bootupd/grub2-static/configs.d/05_ignition.cfg
 
 %changelog
+* Wed Jul 16 2025 Tiago Bueno <tiago.bueno@gmail.com> - 2.22.0-3
+- Fix rpminspect debug symbols failure
+
 * Tue Jul 15 2025 Tiago Bueno <tiago.bueno@gmail.com> - 2.22.0-2
 - Backport fix for OracleCloud do not wrap errors from FetchToBuffer
 

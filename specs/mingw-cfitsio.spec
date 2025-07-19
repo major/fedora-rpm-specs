@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
 Version:       4.6.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       CFITSIO
@@ -110,6 +110,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/speed.exe
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 4.6.2-2
+- Increase minimum cmake version
+
 * Fri Mar 28 2025 Sandro Mani <manisandro@gmail.com> - 4.6.2-1
 - Update to 4.6.2
 

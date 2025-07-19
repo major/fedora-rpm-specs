@@ -3,15 +3,13 @@
 %global debug_package %{nil}
 
 Name:           ruby-build
-Version:        20250610
+Version:        20250716
 Release:        %autorelease
 Summary:        Compile and install Ruby
 
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/rbenv/ruby-build/pull/2543
-Patch:          2543.patch
 
 BuildRequires:  gawk
 BuildRequires:  grep

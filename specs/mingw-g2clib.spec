@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.6.3
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       MinGW Windows g2clib library
 
 BuildArch:     noarch
@@ -105,6 +105,9 @@ cp -p %{SOURCE2} .
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.6.3-14
+- Set minimum cmake version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

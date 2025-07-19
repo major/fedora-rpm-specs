@@ -3,16 +3,27 @@
 
 %ifnarch ppc64
 # Enable LTO on non-ppc64 (c.f. rhbz#1515934)
-%bcond_without lto
+%bcond lto 1
 %endif
 
 # Disable ctest run by default
 # They take a long time and are generally broken in the build environment
-%bcond_with run_tests
+%bcond run_tests 0
+
+# Track various library soversions
+%global miral_sover 7
+%global mircommon_sover 11
+%global mircore_sover 2
+%global miroil_sover 7
+%global mirplatform_sover 31
+%global mirserver_sover 64
+%global mirwayland_sover 5
+%global mirplatformgraphics_sover 23
+%global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.21.0
-Release:        2%{?dist}
+Version:        2.21.1
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -227,29 +238,29 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %files common-libs
 %license COPYING.LGPL*
 %doc README.md
-%{_libdir}/libmircore.so.*
-%{_libdir}/libmircommon.so.*
-%{_libdir}/libmirplatform.so.*
+%{_libdir}/libmircore.so.%{mircore_sover}
+%{_libdir}/libmircommon.so.%{mircommon_sover}
+%{_libdir}/libmirplatform.so.%{mirplatform_sover}
 %dir %{_libdir}/mir
 
 %files lomiri-libs
 %license COPYING.GPL*
 %doc README.md
-%{_libdir}/libmiroil.so.*
+%{_libdir}/libmiroil.so.%{miroil_sover}
 
 %files server-libs
 %license COPYING.GPL*
 %doc README.md
-%{_libdir}/libmiral.so.*
-%{_libdir}/libmirserver.so.*
-%{_libdir}/libmirwayland.so.*
+%{_libdir}/libmiral.so.%{miral_sover}
+%{_libdir}/libmirserver.so.%{mirserver_sover}
+%{_libdir}/libmirwayland.so.%{mirwayland_sover}
 %dir %{_libdir}/mir/server-platform
-%{_libdir}/mir/server-platform/graphics-gbm-kms.so.*
-%{_libdir}/mir/server-platform/graphics-wayland.so.*
-%{_libdir}/mir/server-platform/input-evdev.so.*
-%{_libdir}/mir/server-platform/renderer-egl-generic.so.*
-%{_libdir}/mir/server-platform/server-virtual.so.*
-%{_libdir}/mir/server-platform/server-x11.so.*
+%{_libdir}/mir/server-platform/graphics-gbm-kms.so.%{mirplatformgraphics_sover}
+%{_libdir}/mir/server-platform/graphics-wayland.so.%{mirplatformgraphics_sover}
+%{_libdir}/mir/server-platform/input-evdev.so.%{mirplatforminput_sover}
+%{_libdir}/mir/server-platform/renderer-egl-generic.so.%{mirplatformgraphics_sover}
+%{_libdir}/mir/server-platform/server-virtual.so.%{mirplatformgraphics_sover}
+%{_libdir}/mir/server-platform/server-x11.so.%{mirplatformgraphics_sover}
 
 %files test-tools
 %license COPYING.GPL*
@@ -280,6 +291,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Thu Jul 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.1-1
+- Update to 2.21.1
+- Start tracking library soversions properly
+
 * Thu Jul 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.0-2
 - Drop EGLStreams support
 

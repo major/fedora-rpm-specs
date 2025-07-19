@@ -3,7 +3,7 @@
 
 Name:           openambit
 Version:        0.5
-Release:        14%{?commit:.git%shortcommit}%{?dist}
+Release:        15%{?commit:.git%shortcommit}%{?dist}
 Summary:        Open software for the Suunto Ambit(2)
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -17,6 +17,8 @@ Patch0:         openambit_unbundle-hidapi.patch
 Patch1:         openambit_python3.patch
 # Add missing extern declarations (GCC10 FTBFS)
 Patch2:         openambit_gcc10.patch
+# Raise CMake minimum version to 3.5
+Patch3:         openambit_cmakever.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -132,6 +134,9 @@ rm -rf src/libambit/hidapi
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 0.5-15
+- Raise minimum cmake version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 %global bootstrap 0
 
 Name:           mingw-crt
-Version:        12.0.0
-Release:        5%{?dist}
+Version:        13.0.0
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler runtime
 
 License:        LicenseRef-Fedora-Public-Domain AND ZPL-2.1
@@ -37,10 +37,6 @@ Source1:       standard-dlls-mingw32
 Source2:       standard-dlls-mingw64
 # (rpm -ql ucrt64-crt | grep '\.a$' | while read f ; do x86_64-w64-mingw32ucrt-dlltool -I $f 2>/dev/null ; done) | sort | uniq | tr A-Z a-z > standard-dlls-ucrt64
 Source3:       standard-dlls-ucrt64
-
-# Patch has been proposed upstream:
-# https://sourceforge.net/p/mingw-w64/mailman/message/58799229/
-Patch0001:      0001-crt-Add-bcryptprimitives.def.patch
 
 BuildArch:      noarch
 
@@ -142,6 +138,9 @@ rm -rf %{buildroot}%{ucrt64_includedir}/*.c
 
 
 %changelog
+* Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com>
+- Update to 13.0.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

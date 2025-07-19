@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.8.3
+Version:	5.8.4
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
@@ -378,11 +378,21 @@ export HOSTNAME=localhost
 adminpath=$(mktemp -d -p /var/tmp)
 sed "s!all.adminpath .*!all.adminpath ${adminpath}!" \
     -i %{_vpath_builddir}/tests/cluster/common.cfg \
+       %{_vpath_builddir}/tests/badredir/common.cfg \
        tests/XRootD/common.cfg
+
+# Use a separate directory for TPC test due to name clash (srv1, srv2)
+adminpath2=$(mktemp -d -p /var/tmp)
+sed "s!all.adminpath .*!all.adminpath ${adminpath2}!" \
+    -i %{_vpath_builddir}/tests/TPCTests/common.cfg
+
+trap "rm -rf ${adminpath} ${adminpath2}" EXIT
+
+# The badredir test fails when there is no network - exclude
 
 touch testfile
 if ( setfattr -n user.testattr -v testvalue testfile ) ; then
-    %ctest
+    %ctest -- -E XRootD::badredir
 else
     echo "Extended file attributes not supported by file system"
     echo "Don't run tests that require them"
@@ -397,14 +407,14 @@ XrdCl::ThreadingTest|\
 XrdCl::WorkflowTest.CheckpointTest|\
 XrdCl::WorkflowTest.XAttrWorkflowTest|\
 XrdEc::XrdEcTests|\
+XRootD::badredir|\
 XRootD::cluster::test|\
 XRootD::http::test|\
+XRootD::posix::test|\
 XRootD::tpc::test"
     %ctest -- -E $exclude
 fi
 rm testfile
-
-rm -rf ${adminpath}
 
 %pre server
 %sysusers_create_compat %{SOURCE1}
@@ -655,6 +665,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun Jul 13 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.4-1
+- Update to version 5.8.4
+
 * Fri Jun 06 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.8.3-1
 - Update to version 5.8.3
 

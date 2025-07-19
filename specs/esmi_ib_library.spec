@@ -1,15 +1,8 @@
 # The documentation doesn't build at the moment, use the prebuilt one instead
 %bcond_with doc
 
-%if 0%{?fedora} && 0%{?fedora} >= 42
-# kernel 6.13.6 from Fedora 41 is too old for v4.1.2
-%bcond_without system_amd_hsmp
-%else
-%bcond_with system_amd_hsmp
-%endif
-
 Name:           esmi_ib_library
-Version:        4.1.2
+Version:        4.3
 
 %global major_version %(echo %{version} | cut -d. -f1)
 %global minor_version %(echo %{version} | cut -d. -f2)
@@ -22,12 +15,7 @@ Summary:        E-SMI: EPYC System management Interface In-band Library
 License:        NCSA
 URL:            https://github.com/amd/esmi_ib_library
 Source:         %{url}/archive/%{srcversion}/%{name}-%{srcversion}.tar.gz
-# for OS releases where amd_hsmp.h from kernel-headers is too old
-Source:         https://github.com/amd/amd_hsmp/raw/0773094d8a59c641150c8b04f16bc782eaee2bd9/amd_hsmp.h
-# https://github.com/amd/esmi_ib_library/pull/18
-Patch:          esmi-fix-finding-amd_hsmp-include.patch
-# Patch to use the bundled amd_hsmp.h we download rather than the system one
-Patch100:       esmi-use-bundled-amd_hsmp-include.patch
+Patch:          %{url}/pull/21.patch#/esmi_ib_library-fix-cflags.diff
 
 # This is a hardware enablement package for AMD x86_64 platforms
 ExclusiveArch:  x86_64
@@ -76,19 +64,14 @@ that provides options to Monitor and Control System Management functionality.
 
 %prep
 %autosetup -N -n %{name}-%{srcversion}
-%autopatch -p1 -M 99
-# The amd_hsmp.h provided by kernel-headers is out of date
-%if %{without system_amd_hsmp}
-cp -p %{SOURCE1} include/e_smi/amd_hsmp.h
-%autopatch -p1 -m 100 -M 199
-%endif
+%autopatch -p1
 
 # Use FHS install paths and patch version detection
 sed -i CMakeLists.txt \
     -e 's:${E_SMI}/bin:%{_bindir}:g' \
     -e 's:e_smi/include:%{_includedir}:g' \
     -e 's:${E_SMI}/lib/static:%{_libdir}:g' \
-    -e 's:${E_SMI}/lib:%{_libdir}:g' \
+    -e 's:LIBRARY DESTINATION lib COMPONENT:LIBRARY DESTINATION %{_libdir} COMPONENT:g' \
     -e 's:${E_SMI}/doc:%{_pkgdocdir}:g' \
     -e 's:get_package_version_number("1.0.0.0":get_version_from_tag("%{soversion}":'
 
@@ -98,7 +81,7 @@ rm ESMI_IB_Release_Notes.pdf ESMI_Manual.pdf
 %endif
 
 %build
-%cmake
+%cmake -DCMAKE_C_FLAGS="$CFLAGS" -DCMAKE_INSTALL_PREFIX=%{_prefix}
 %cmake_build
 %if %{with doc}
 make -C %{_vpath_builddir} doc
@@ -119,7 +102,7 @@ chrpath -d %{buildroot}/%{_bindir}/e_smi_tool
 %doc %{_pkgdocdir}/README.md
 %doc %{_pkgdocdir}/RELEASENOTES.md
 %{_libdir}/libe_smi64.so.%{major_version}
-%{_libdir}/libe_smi64.so.%{version}
+%{_libdir}/libe_smi64.so.%{soversion}
 
 %files devel
 %{_includedir}/e_smi/

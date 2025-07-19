@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.28.901
-Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.28.902
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -18,9 +18,6 @@ Source2:        commitid
 %else
 Source0:        https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{version}/libinput-%{version}.tar.bz2
 %endif
-
-Patch0001:      0001-plugins-add-a-plugin-to-emulate-high-resolution-whee.patch
-Patch0002:      0002-evdev-track-KEY_SYSRQ-frames-and-pass-them-even-as-r.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -159,6 +156,9 @@ intended to be run by users.
 
 
 %changelog
+* Thu Jul 17 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.902-1
+- libinput 1.28.902
+
 * Wed Jul 16 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.28.901-3
 - Fix Alt+PrintScreen not working (#2379912)
 

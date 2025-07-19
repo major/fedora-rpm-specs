@@ -6,7 +6,7 @@
 Name:    tidy
 Summary: Utility to clean up and pretty print HTML/XHTML/XML
 Version: 5.8.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: W3C
 URL:     http://www.html-tidy.org/
@@ -61,14 +61,20 @@ pushd build/cmake
 %cmake ../../ \
   -DCMAKE_BUILD_TYPE:STRING=Release \
   -DTIDY_CONSOLE_SHARED:BOOL=ON \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+%if "%{?_lib}" == "lib64"
+   %{?_cmake_lib_suffix64} \
+%endif
   %{?tidy_compat_headers:-DTIDY_COMPAT_HEADERS:BOOL=ON}
+
+%cmake_build
 popd
 
-%make_build -C build/cmake
-
-
 %install
-make install/fast DESTDIR=%{buildroot}  -C build/cmake
+pushd build/cmake
+%cmake_install
+popd
 
 ## unpackaged files
 # omit static lib
@@ -96,6 +102,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/libtidy.a
 
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.8.0-11
+- Cmake fixes
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

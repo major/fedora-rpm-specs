@@ -1,6 +1,6 @@
 Name:           python-textual
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -58,7 +58,7 @@ Summary:        Docs and examples for python3-textual
 # is packaged
 rm -rf tests/snapshot_tests
 rm -rf tests/test_slug.py
-%pytest -k "not test_textual_env_var and not test_register_language and not test_register_language_existing_language and not test_register_language and not test_language_binary_missing and not test_setting_unknown_language and not test_update_highlight_query"
+%pytest -k "not test_textual_env_var and not test_softbreak_split_links_rendered_correctly and not test_setting_unknown_language and not test_register_language and not test_update_highlight_query"
 
 
 %files -n python3-textual -f %{pyproject_files}
@@ -70,6 +70,9 @@ rm -rf tests/test_slug.py
 
 
 %changelog
+* Fri Jul 18 2025 Jonathan Wright <jonathan@almalinux.org> - 4.0.0-1
+- update to 4.0.0 rhbz#2345983
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.14
 

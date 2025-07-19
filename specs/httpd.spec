@@ -31,7 +31,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.64
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -103,6 +103,8 @@ Patch30: httpd-2.4.64-separate-systemd-fns.patch
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
+# https://bz.apache.org/bugzilla/show_bug.cgi?id=69745
+Patch61: httpd-2.4.64-r1927270.patch
 
 # Security fixes
 # Patch200: ...
@@ -845,6 +847,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Thu Jul 17 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.64-2
+- Fix RewriteRule with inverted pattern and RewriteCond regression
+
 * Fri Jul 11 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.64-1
 - new version 2.4.64
 

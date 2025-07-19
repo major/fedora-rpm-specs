@@ -10,6 +10,8 @@ Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        socket_wrapper.keyring
 
+Patch0:         swrap-fix-tests.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gnupg2

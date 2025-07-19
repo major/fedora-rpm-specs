@@ -2,7 +2,7 @@
 %global ibus_tables_dir %{_datadir}/ibus-table/tables
 %global ibus_icons_dir %{_datadir}/ibus-table/icons
 Name:           ibus-table-chinese
-Version:        1.8.13
+Version:        1.8.14
 Release:        %autorelease
 Summary:        Chinese input tables for IBus
 Summary(zh_CN): 中文码表输入法

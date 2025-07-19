@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-464-gb3b0d0308c
+%global glibcsrcdir glibc-2.41.9000-517-g0263528f8d
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 20
+%global baserelease 21
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2381,6 +2381,53 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Jul 17 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-21
+- Auto-sync with upstream branch master,
+  commit 0263528f8dd60cf58976e2d516b7c9edb16ae6f8:
+- malloc: fix definition for MAX_TCACHE_SMALL_SIZE
+- SFrame: Add tests that uses DWARF backtracer
+- configure: Add --enable-sframe option
+- elf: Add SFrame stack tracing
+- aarch64: Add SFrame support for aarch64 architecture
+- x86: Add SFrame support for x86 architecture
+- elf: Add SFrame support to _dl_find_object function
+- x86_64: Optimize modf/modff for x86_64-v2
+- Linux: Keep termios ioctl constants strictly internal
+- termios: Move isatty, __isatty_nostatus from io
+- termios: Reflow and sort Makefile
+- Remove termios2 ioctl defintions from public headers
+- elf: Remove now pointless empty ld.so.conf files in single tests
+- support: Always run ldconfig in containered tests
+- Makefile: Add ld.so.conf with libgcc dir to testroot.pristine
+- Makeconfig: Add libgcc directory to rtld-prefix search path
+- Mark support for lock elision as deprecated.
+- x86: Avoid vector/r16-r31 registers and memcpy/memset in mcount_internal
+- fstat: add test and documentation for an edge case.
+- fstatat: extend tests and documentation
+- elf: Restore support for _r_debug interpositions and copy relocations
+- elf: Introduce _dl_debug_change_state
+- elf: Introduce separate _r_debug_array variable
+- manual: Remove '.info' suffix in manual names passed to @ref [BZ #32962].
+- elf: Add DL_ADDRESS_WITHOUT_RELOC [BZ #33088]
+- stdlib: Fix __libc_message_impl iovec size (BZ 32947)
+- AArch64: Avoid memset ifunc in cpu-features.c [BZ #33112]
+- malloc: Cleanup tcache_init()
+- malloc: replace instances of __builtin_expect with __glibc_unlikely
+- malloc: refactored aligned_OK and misaligned_chunk
+- elf: Add missing DSO dependencies for tst-rtld-no-malloc-{audit,preload}
+- powerpc: Remove modf optimization
+- powerpc: Remove modff optimization
+- manual: Add missing free to open_memstream example [BZ #27866]
+- Linux: Convert '__close_nocancel_nostatus' to a standalone handler
+- Linux: Fix '__close_nocancel_nostatus' clobbering 'errno' [BZ #33035]
+- inet: Implement inet_ntoa on top of inet_ntop
+- resolv: Optimize inet_ntop
+- resolve: Proper indent resolv/inet_ntop.c
+- benchtests: Add IPv6 inet_ntop benchmark
+- benchtests: Add IPv4 inet_ntop benchmark
+- posix: Fix fnmatch build with gcc-16
+- powerpc: use .machine power10 in POWER10 assembler sources
+
 * Sun Jun 22 2025 Florian Weimer  <fweimer@redhat.com> - 2.41.9000-20
 - Remove glibc-rh2368545.patch, applied upstream.
 - Auto-sync with upstream branch master,

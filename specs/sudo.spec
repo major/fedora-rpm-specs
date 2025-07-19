@@ -116,12 +116,15 @@ install -p -d -m 700 $RPM_BUILD_ROOT/var/db/sudo
 install -p -d -m 700 $RPM_BUILD_ROOT/var/db/sudo/lectured
 install -p -d -m 750 $RPM_BUILD_ROOT/etc/sudoers.d
 install -p -c -m 0440 %{SOURCE1} $RPM_BUILD_ROOT/etc/sudoers
-#add sudo to protected packages
-install -p -d -m 755 $RPM_BUILD_ROOT/etc/dnf/protected.d/
-touch sudo.conf
-echo sudo > sudo.conf
-install -p -c -m 0644 sudo.conf $RPM_BUILD_ROOT/etc/dnf/protected.d/
-rm -f sudo.conf
+# Add sudo to protected packages. Old location for yum/dnf.
+mkdir -p $RPM_BUILD_ROOT/etc/dnf/protected.d/
+echo "sudo" >$RPM_BUILD_ROOT/etc/dnf/protected.d/sudo.conf
+# Add sudo to protected packages. New location for dnf5.
+mkdir -p $RPM_BUILD_ROOT/usr/share/dnf5/libdnf.conf.d/
+cat >$RPM_BUILD_ROOT/usr/share/dnf5/libdnf.conf.d/protect-sudo.conf <<EOF
+[main]
+protected_packages = sudo
+EOF
 
 chmod +x $RPM_BUILD_ROOT%{_libexecdir}/sudo/*.so # for stripping, reset in %%files
 
@@ -172,6 +175,9 @@ EOF
 %attr(0644,root,root) %{_tmpfilesdir}/sudo.conf
 %attr(0644,root,root) %config(noreplace) /etc/dnf/protected.d/sudo.conf
 %attr(0640,root,root) %config(noreplace) /etc/sudo.conf
+%dir /usr/share/dnf5
+%dir /usr/share/dnf5/libdnf.conf.d
+/usr/share/dnf5/libdnf.conf.d/protect-sudo.conf
 %dir /var/db/sudo
 %dir /var/db/sudo/lectured
 %attr(4111,root,root) %{_bindir}/sudo

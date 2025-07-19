@@ -1,6 +1,6 @@
 Name:       kst
 Version:    2.0.8
-Release:    57%{?dist}
+Release:    58%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
@@ -101,7 +101,7 @@ A plugin allowing kst to open and read data in getdata (dirfile) format.
 # https://bugs.kde.org/show_bug.cgi?id=322289
 %cmake -Dkst_merge_files=0 -Dkst_rpath=0 \
   -Dkst_install_prefix=%{_prefix} -Dkst_install_libdir=%{_lib} \
-  -Dkst_test=1 -Dkst_release=1 -Dkst_verbose=1
+  -Dkst_test=1 -Dkst_release=1 -Dkst_verbose=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build --target kst2
 
 %check
@@ -128,26 +128,16 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 %{_libdir}/kst2/plugins/libkst2_fi*so
 
 %{_datadir}/applications/kst2.desktop
-#%{_datadir}/services/kst/kstplugin_*desktop
-#%{_datadir}/servicetypes/kst/kst*desktop
-#%{_datadir}/apps/kst/kstui.rc
-#%{_datadir}/man/man1/kst*
 
 %{_libdir}/kst2/plugins/libkst2_datasource_ascii.so
-#%{_datadir}/services/kst/kstdata_ascii.desktop
 
 %{_libdir}/kst2/plugins/libkst2_datasource_qimagesource.so
-#%{_datadir}/services/kst/kstdata_qimagesource.desktop
 
 %{_libdir}/kst2/plugins/libkst2_datasource_matlab.so
-#%{_datadir}/services/kst/kstdata_matlab.desktop
 
 %{_libdir}/kst2/plugins/libkst2_datasource_sampledatasource.so
-#%{_datadir}/services/kst/kstdata_sampledatasource.desktop
 
 %{_libdir}/kst2/plugins/libkst2_datasource_sourcelist.so
-
-#%{_datadir}/config/colors/IDL*
 
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
@@ -162,17 +152,17 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 
 %files fits
 %{_libdir}/kst2/plugins/libkst2_datasource_fitsimage.so
-#%{_datadir}/services/kst/kstdata_fitsimage.desktop
 
 %files netcdf
 %{_libdir}/kst2/plugins/libkst2_datasource_netcdf.so
-#%{_datadir}/services/kst/kstdata_netcdf.desktop
 
 %files getdata
 %{_libdir}/kst2/plugins/libkst2_datasource_dirfilesource.so
-#%{_datadir}/services/kst/kstdata_dirfilesource.desktop
 
 %changelog
+* Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-58
+- cmake fix
+
 * Fri Mar 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-57
 - cfitsio rebuild
 

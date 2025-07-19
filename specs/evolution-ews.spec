@@ -22,7 +22,6 @@ Requires: %{name}-langpacks = %{version}-%{release}
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: intltool
-BuildRequires: make
 BuildRequires: pkgconfig(camel-1.2) >= %{eds_evo_version}
 BuildRequires: pkgconfig(evolution-data-server-1.2) >= %{eds_evo_version}
 BuildRequires: pkgconfig(evolution-mail-3.0) >= %{eds_evo_version}
@@ -68,8 +67,7 @@ This package contains translations for %{name}.
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
-%cmake -G "Unix Makefiles" \
-	-DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+%cmake -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
 	-DLIB_INSTALL_DIR:PATH=%{_libdir} \
 	-DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
 	-DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \

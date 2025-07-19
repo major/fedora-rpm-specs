@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           build-helper-maven-plugin
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Build Helper Maven Plugin
 License:        MIT

@@ -3,7 +3,7 @@
 %global patch_version 7
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 5
+%global baserelease 6
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -22,7 +22,9 @@ Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%
 # Bump dotnet-sdk to 8.0
 #Patch:          credentials-fetcher-1.3.6-fix-dotnet-version.patch
 # Disable integ-tests for Fedora, for now
-Patch:          credentials-fetcher-1.3.7-disable-integ-tests-for-Fedora.patch
+Patch0:         credentials-fetcher-1.3.7-disable-integ-tests-for-Fedora.patch
+# Also disable integ-tests for EL targets, for now
+Patch1:         credentials-fetcher-1.3.7-no-api-tests-on-el.patch
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
@@ -79,6 +81,9 @@ ctest
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Jul 17 2025 Tom Callaway <spot@fedoraproject.org> - 1.3.7-6
+- disable tests on el targets too
+
 * Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.7-5
 - Rebuilt for abseil-cpp 20250512.0
 

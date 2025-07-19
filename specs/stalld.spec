@@ -1,6 +1,6 @@
 Name:		stalld
-Version:	1.19.8
-Release:	3%{?dist}
+Version:	1.20.2
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -23,9 +23,6 @@ BuildRequires:	libbpf-devel
 Requires:	libbpf
 %endif
 
-# Patches
-Patch1: stalld-sched_attr-Do-not-define-for-glibc-2.41.patch
-
 %define _hardened_build 1
 
 %description
@@ -40,10 +37,6 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %autosetup -p1
 
 %build
-%if 0%{?fedora} > 41 || 0%{?rhel} > 10
-# For patch 101; this can be removed once glibc 2.41 is released
-export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
-%endif
 %make_build RPMCFLAGS="%{optflags} %{build_cflags} -DVERSION="\\\"%{version}\\\"""  RPMLDFLAGS="%{build_ldflags}"
 
 %install
@@ -69,6 +62,27 @@ export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jul 17 2025 Clark Williams <williams@redhat.com> - 1.21.2-1
+- Makefile: bump version to v1.20.1
+- bpf: Improve task tracking in sched_switch
+- bpf/stalld: Introduce compute_ctxswc helper and update ctxswc on sched_switch
+
+* Wed Jul 16 2025 Clark Williams <williams@redhat.com> - 1.21.1-1
+- Makefile:  update version to 1.20.1
+- scripts:  add a script for running a local build for debuggin
+- stalld: Automatically switch to log-only mode if DL-server present
+- bpf/stalld: Implement and use find_queued_task helper in dequeue_task
+- bpf/stalld: Introduce and use for_each_task_entry/for_each_queued_task macros
+- build/debug: Control optimization and debug levels via DEBUG variable
+- stalld: sched_attr: Do not define for glibc >= 2.41
+- stalld: Refactor verbose logging with dedicated macros
+- stalld/queue_track: Consolidate print_queued_tasks verbosity control
+- gitignore: Add common build and tag files
+- build/debug: Allow DEBUG_STALLD to be controlled by 'DEBUG' Makefile variable
+- build/bpf/stalld: Pave way for DEBUG_STALLD command-line override
+- bpf/stalld: Introduce generic 'log' macro for BPF debug prints
+- bpf/stalld: Unify and generalize debug macro to DEBUG_STALLD
+
 * Thu May 22 2025 John Kacur <jkacur@redhat.com> - 1.19.8-3
 - Add patch to conditionally use glibc sched attar if available
 

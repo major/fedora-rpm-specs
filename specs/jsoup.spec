@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jsoup
-Version:        1.18.1
+Version:        1.21.1
 Release:        %autorelease
 Summary:        Java library for working with real-world HTML
 License:        MIT
@@ -57,8 +57,8 @@ tree.
 
 # Remove jspecify annotations which are used for static analysis only
 %pom_remove_dep :jspecify
-sed -i /org.jspecify/d src/main/java9/module-info.java
-%java_remove_annotations src/main/java -s \
+sed -i /org.jspecify/d src/main/java*/module-info.java
+%java_remove_annotations src/main/java src/main/java11 -s \
   -p org[.]jspecify[.]annotations[.] \
 
 %build

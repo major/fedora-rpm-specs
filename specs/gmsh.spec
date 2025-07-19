@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.14.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -61,7 +61,6 @@ BuildRequires: hdf5-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: liblbfgs-devel
 BuildRequires: libpng-devel
-BuildRequires: make
 BuildRequires: mathex-devel
 BuildRequires: med-devel
 BuildRequires: mesa-libGLU-devel
@@ -295,7 +294,7 @@ export CXX=mpicxx
 %endif
 
 # Built html documentation
-make -C %{_target_platform} html
+%cmake_build --target html
 
 # Fix to create correct debuginfo
 cp -a src/parser/Gmsh.* %{_target_platform}
@@ -403,6 +402,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 4.14.0-2
+- Use %%cmake_build instead of make
+
 * Fri Jul 04 2025 Sandro Mani <manisandro@gmail.com> - 4.14.0-1
 - Update to 4.14.0
 

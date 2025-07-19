@@ -96,7 +96,7 @@ export GOFLAGS="-mod=vendor"
 echo "Building butane..."
 %gobuild -o ./butane internal/main.go
 
-%global gocrossbuild go build -ldflags "${LDFLAGS:-} -s -w -B 0x$(head -c8 /dev/urandom|od -An -tx1|tr -d ' \\n')" -a -v -x 
+%global gocrossbuild go build -ldflags "${LDFLAGS:-} -B 0x$(head -c8 /dev/urandom|od -An -tx1|tr -d ' \\n')" -a -v -x 
 
 echo "Building Linux Butane with static linking..."
 CGO_ENABLED=0 GOARCH=arm64 GOOS=linux %gocrossbuild -o butane-aarch64-unknown-linux-gnu-static internal/main.go

@@ -77,6 +77,7 @@ sed -ibackup 's/\r$//' libwavformat/*
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -Wno-dev .
 %cmake_build
 

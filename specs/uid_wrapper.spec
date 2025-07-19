@@ -10,6 +10,8 @@ Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        uid_wrapper.keyring
 
+Patch0:         uwrap-fix-tests.patch
+
 BuildRequires:  gcc
 BuildRequires:  cmake
 BuildRequires:  gnupg2

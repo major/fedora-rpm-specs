@@ -3,7 +3,7 @@
 
 Name:           sirikali
 Version:        1.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI front end to encfs,cryfs,gocryptfs and securefs
 # generally GPLv2+, BSD for tasks and NetworkAccessManager folders
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -49,12 +49,10 @@ sed -i 's:3rdParty/json:json:' src/%{name}.cpp
 %cmake -DQT5=true -DNOKDESUPPORT=true -DNOSECRETSUPPORT=false \
  -DINTERNAL_LXQT_WALLET=false -DBUILD_WITH_QT6=true \
  -DJSON_HEADER_PATH=/usr/include/nlohmann/json.hpp ..
-pushd %{_vpath_builddir}
-%make_build
+%cmake_build
 
 %install
-pushd %{_vpath_builddir}
-%make_install
+%cmake_install
 %find_lang %{name} --with-qt --all-name
 
 %check
@@ -62,7 +60,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mhogomchungu.sirikali.desktop
 
 
-%files -f %{_vpath_builddir}/%{name}.lang
+%files -f %{name}.lang
 %license COPY* LICENSE* GPLv*
 %doc README.md ABOUT* changelog
 %{_bindir}/%{name}*
@@ -78,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mhogomchung
 
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.8.2-2
+- cmake fixes.
+
 * Mon Apr 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.8.2-1
 - 1.8.2
 

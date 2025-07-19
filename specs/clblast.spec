@@ -13,7 +13,7 @@
 
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=113330948
 %bcond_with check
-%bcond_without pocl
+%bcond_with pocl
 
 Name:           clblast
 Version:        1.6.3
@@ -32,8 +32,9 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(flexiblas)
 %if %{with pocl}
 BuildRequires:  pocl-devel
-BuildRequires:  ocl-icd-devel
 %endif
+BuildRequires:  ocl-icd-devel
+
 
 %description
 CLBlast is a modern, lightweight, performant and tunable OpenCL BLAS
@@ -78,6 +79,9 @@ sed -i 's,openblas/include,include/openblas,' cmake/Modules/FindCBLAS.cmake
 # Add paths for FlexiBLAS
 sed -i 's,include/openblas,include/openblas include/flexiblas,' cmake/Modules/FindCBLAS.cmake
 sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.cmake
+# For CMake 4
+sed -i 's@cmake_minimum_required(VERSION 2.8.11@cmake_minimum_required(VERSION 3.5@' CMakeLists.txt
+sed -i 's@cmake_minimum_required(VERSION 3.20@cmake_minimum_required(VERSION 3.5@' src/pyclblast/CMakeLists.txt
 
 %build
 # https://github.com/CNugteren/CLBlast/issues/529

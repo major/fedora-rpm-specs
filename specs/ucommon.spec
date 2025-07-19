@@ -10,18 +10,19 @@
 
 Name:          ucommon
 Version:       7.0.0
-Release:       24%{?dist}
+Release:       25%{?dist}
 Summary:       Portable C++ framework for threads and sockets
 
 License:       LGPL-3.0-or-later
 URL:           http://www.gnu.org/software/commoncpp
 Source0:       https://ftpmirror.gnu.org/commoncpp/ucommon-%{version}.tar.gz
+# Raise minimum cmake version to 3.5
+Patch0:        ucommon_cmakever.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: graphviz-gd
-BuildRequires: make
 BuildRequires: gnutls-devel
 
 
@@ -66,20 +67,18 @@ HTML format.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-%cmake
+export CXXFLAGS="-std=c++14 %{optflags}"
+%cmake -DBUILD_DOCS=ON
 %cmake_build
 %cmake_build --target doc
 
 
 %install
 %cmake_install
-
-%ldconfig_scriptlets
 
 
 %files
@@ -125,6 +124,9 @@ export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 7.0.0-25
+- Raise minimum cmake version, modernize spec
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

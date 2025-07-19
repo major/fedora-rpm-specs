@@ -5,7 +5,7 @@
 %global crate const-str-proc-macro
 
 Name:           rust-const-str-proc-macro
-Version:        0.6.2
+Version:        0.6.3
 Release:        %autorelease
 Summary:        Compile-time string operations
 

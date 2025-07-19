@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           extra-enforcer-rules
-Version:        1.8.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Extra rules for maven-enforcer-plugin
 License:        Apache-2.0

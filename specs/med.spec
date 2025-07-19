@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -10,6 +10,7 @@ Source0:        https://files.salome-platform.org/Salome/medfile/%{name}-%{versi
 # - Install headers in %%_includedir/med
 # - Install cmake config files to %%_libdir/cmake
 # - Install doc to %%_pkgdocdir
+# - Use GNUInstallDirs for libdir
 Patch0:         med_cmake.patch
 # Fix python3.13 build
 Patch1:         med-py3.13.patch
@@ -133,6 +134,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 5.0.0-5
+- Use GNUInstallDirs
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.0.0-4
 - Rebuilt for Python 3.14
 

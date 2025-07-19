@@ -26,7 +26,7 @@
 %global __requires_exclude ^(libAtlasUI.*\.so|libCollada.*\.so|libmozjs78.*\.so)
 
 Name:		0ad
-Version:	0.27.0
+Version:	0.27.1
 Release:	1%{?dist}
 # BSD License:
 #	build/premake/*
@@ -301,6 +301,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.1-1
+- 0.27.1
+
 * Mon Jul 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.0-1
 - 0.27.0, drop ppc64le, unsupported by premake.
 

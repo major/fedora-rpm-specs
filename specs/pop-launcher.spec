@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 %global cosmic_minver 1.0.0~alpha.7
 
 Name:           pop-launcher
-Version: 1.0.0~alpha.7^git%{commitdate}.%{shortcommit}
+Version: 1.2.4~alpha.7^git%{commitdate}.%{shortcommit}
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service
 

@@ -5,16 +5,16 @@
 %bcond manpages 1
 # Whether to build the scancode extra
 %bcond scancode %[ %{defined fedora} && v"0%{?python3_version}" < v"3.14" ]
-# Only run scancode tests when arch is not i386
+# Only run scancode tests (and install scancode at buildtime) when arch is not i386
 %bcond scancode_tests %[ %{with scancode} && "%{_arch}" != "i386"]
 
 %global forgeurl https://gitlab.com/fedora/sigs/go/go-vendor-tools
 %define tag v%{version_no_tilde %{quote:%nil}}
 
 Name:           go-vendor-tools
-Version:        0.7.0
+Version:        0.8.0
 %forgemeta
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora [SEE NOTE IN DESCRIPTION]
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -34,7 +34,10 @@ BuildRequires:  trivy
 BuildRequires:  scdoc
 %endif
 
-Recommends:     (askalono-cli or trivy or go-vendor-tools+scancode)
+# First choice backend
+Recommends:     askalono-cli
+# Used by default for go_vendor_license report --autofill
+Recommends:     go-vendor-tools+scancode
 Recommends:     go-vendor-tools+all
 
 
@@ -137,6 +140,9 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 %pyproject_extras_subpkg -n go-vendor-tools all %{?with_scancode:scancode}
 
 %changelog
+* Thu Jul 17 2025 Maxwell G <maxwell@gtmx.me> - 0.8.0-1
+- Update to 0.8.0.
+
 * Tue Jun 10 2025 Maxwell G <maxwell@gtmx.me> - 0.7.0-2
 - Disable scancode on Python 3.14
 

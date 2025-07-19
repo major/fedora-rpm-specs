@@ -220,12 +220,12 @@
 %global chromium_major 138
 %global chromium_branch 7204
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 100
+%global chromium_minor 157
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 54811fe7cdd35827140cdc012acadf6527afa926
+%global cef_commit 251e1c197b14e37d3b8d8e210719c3aa59841e2e
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 21
+%global cef_patch 25
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -409,7 +409,7 @@ Patch406: fix-different-data-layouts.patch
 Patch407: 0002-Add-ppc64-trap-instructions.patch
 
 Patch408: fix-ppc64-linux-syscalls-headers.patch
-Patch409: use-sysconf-page-size-on-ppc64.patch
+Patch409: fix-page-allocator-overflow.patch
 Patch410: 0001-Enable-ppc64-pointer-compression.patch
 
 Patch411: dawn-fix-ppc64le-detection.patch

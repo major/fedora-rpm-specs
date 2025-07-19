@@ -12,13 +12,13 @@
 
 Name:          leptonica
 Version:       1.85.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
 URL:           https://github.com/danbloomberg/leptonica
 Source0:       https://github.com/DanBloomberg/leptonica/archive/%{version}/%{name}-%{version}.tar.gz
-# Honour LIB_SÙFFIX
+# Use CMAKE_INSTALL_LIBDIR
 # Fix library name on win32
 # Don't add _<CONFIG> suffix to pkgconfig filename
 Patch0:        leptonica_cmake.patch
@@ -196,6 +196,9 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.85.0-3
+- Use CMAKE_INSTALL_LIBDIR instead of LIB_SUFFIX
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.85.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -48,7 +48,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 19
-%global nodejs_patch 2
+%global nodejs_patch 4
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -93,7 +93,7 @@
 %global ngtcp2_version 1.1.0
 
 # ICU - from tools/icu/current_ver.dep
-%global icu_major 76
+%global icu_major 77
 %global icu_minor 1
 %global icu_version %{icu_major}.%{icu_minor}
 
@@ -102,7 +102,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 6.0.3
+%global simdutf_version 6.4.2
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -589,7 +589,8 @@ export PATH="${cwd}/.bin:$PATH"
            --with-intl=small-icu \
            --with-icu-default-data-dir=%{icudatadir} \
            --without-corepack \
-           --openssl-use-def-ca-store
+           --openssl-use-def-ca-store \
+           --use-prefix-to-find-headers
 
 %ninja_build -C out/Release
 
@@ -806,6 +807,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_pkg_
 
 # Make sure i18n support is working
 NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
+
 
 
 %files -n %{pkgname}

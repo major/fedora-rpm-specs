@@ -99,7 +99,6 @@ BuildRequires: gtk-doc
 BuildRequires: highlight
 BuildRequires: intltool >= %{intltool_version}
 BuildRequires: itstool
-BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: yelp-tools
 
@@ -311,8 +310,7 @@ fi
 CFLAGS="$RPM_OPT_FLAGS -fPIC -DLDAP_DEPRECATED -Wno-sign-compare -Wno-deprecated-declarations %temp_home"
 export CFLAGS
 
-%cmake -G "Unix Makefiles" \
-	-DENABLE_MAINTAINER_MODE=OFF \
+%cmake -DENABLE_MAINTAINER_MODE=OFF \
 	-DVERSION_SUBSTRING=" (%{version}-%{release})" \
 	%ldap_flags %ssl_flags %gtkdoc_flags %tests_flags %tnef_flags \
 	-DENABLE_PLUGINS=all \

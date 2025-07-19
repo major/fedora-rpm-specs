@@ -1,6 +1,6 @@
 Name:           tuxanci
 Version:        0.21.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        First Tux shooter multi-player network game
 # LICENCE:      GPLv2 text
 ## unused
@@ -20,7 +20,9 @@ Patch5:         tuxanci-0.21.0-Do-not-install-LICENSE.patch
 Patch6:         tuxanci-0.21.0-Unbundle-fonts.patch
 # Fix building with GCC 15, bug #2341467
 Patch7:         tuxanci-0.21.0-Port-to-ISO-C23.patch
-BuildRequires:  cmake >= 2.6.0
+# Adapt to CMake 4.0, bug #2381617
+Patch8:         tuxanci-0.21.0-Adapt-to-CMake-4.0.patch
+BuildRequires:  cmake >= 3.5.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  ImageMagick
@@ -76,6 +78,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/appdata/tuxanci.appdata.xml
 
 %changelog
+* Thu Jul 17 2025 Petr Pisar <ppisar@redhat.com> - 0.21.0-25
+- Adapt to CMake 4.0 (bug #2381617)
+
 * Tue Feb 18 2025 Petr Pisar <ppisar@redhat.com> - 0.21.0-24
 - Fix building with GCC 15 (bug #2341467)
 

@@ -1,6 +1,6 @@
 Name:           libbatch
 Version:        2.4.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Generic batch management library
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 2.4.5-17
+- Increase minimum CMake version, compute LIB_SUFFIX from CMAKE_INSTALL_LIBDIR
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.4.5-16
 - Rebuilt for Python 3.14
 

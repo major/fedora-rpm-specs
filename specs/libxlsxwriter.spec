@@ -1,6 +1,6 @@
 Name:           libxlsxwriter
 Version:        1.1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A C library for creating Excel XLSX files
 
 # BSD: Most files
@@ -11,6 +11,8 @@ URL:            https://github.com/jmcnamara/libxlsxwriter/
 Source0:        https://github.com/jmcnamara/libxlsxwriter/archive/RELEASE_%{version}/%{name}-%{version}.tar.gz
 # Fix zlib and minizip detection
 Patch0:         libxlsxwriter_minizip.patch
+# Increase minimum cmake version
+Patch1:         libxlsxwriter_cmakever.patch
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -74,6 +76,9 @@ rm test/functional/test_output_buffer.py
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.1.7-4
+- Increase minimum cmake version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

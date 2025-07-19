@@ -4,12 +4,11 @@
 
 Name:           wiiuse
 Version:        0.15.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        The wiiuse library is used to access and control multiple Nintendo Wiimotes
 License:        GPL-3.0-or-later
 URL:            https://github.com/rpavlik/wiiuse
 Source0:        https://github.com/rpavlik/wiiuse/archive/%{version}/%{name}-%{version}.tar.gz
-#Patch0:         wiiuse-freeglut.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -48,7 +47,7 @@ for i in example*/*; do dos2unix $i; done
 for i in src/*; do dos2unix $i; done
 
 %build
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -78,6 +77,9 @@ chrpath -d %{buildroot}%{_bindir}/wiiuseexample*
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.15.5-15
+- Cmake fix.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

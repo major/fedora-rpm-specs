@@ -31,6 +31,7 @@
 %bcond bundled_sqlite %{with bootstrap}
 %bcond bundled_cares %{with bootstrap}
 
+
 # LTO is currently broken on Node.js builds
 %define _lto_cflags %{nil}
 
@@ -54,7 +55,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 22
 %global nodejs_minor 17
-%global nodejs_patch 0
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -598,6 +599,7 @@ export PATH="${cwd}/.bin:$PATH"
            --ninja \
            --enable-lto \
            --prefix=%{_prefix} \
+           --use-prefix-to-find-headers \
            --shared \
            --libdir=%{_lib} \
            %{ssl_configure} \

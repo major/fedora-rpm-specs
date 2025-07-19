@@ -2,7 +2,7 @@
 %define tag v%{version}
 
 Name:           go2rpm
-Version:        1.16.0
+Version:        1.17.1
 %forgemeta
 Release:        %autorelease
 Summary:        Convert Go packages to RPM
@@ -16,6 +16,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 Requires:       askalono-cli
 Requires:       compiler(go-compiler)
+# Enforce a minimum version of go-vendor-tools
+Requires:       (go2rpm+vendor if go-vendor-tools)
 # Recommend go2rpm all extra that includes packages needed for the vendor
 # profile
 Recommends:     go2rpm+all

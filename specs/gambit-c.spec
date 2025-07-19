@@ -1,6 +1,6 @@
 Name:           gambit-c
-Version:        4.9.6
-Release:        2%{?dist}
+Version:        4.9.7
+Release:        1%{?dist}
 Summary:        Scheme programming system
 
 License:        Apache-2.0 OR LGPL-2.1-only
@@ -9,9 +9,6 @@ URL:            http://gambitscheme.org/
 Source0:        https://github.com/gambit/gambit/archive/v%{version}/gambit-%{version}.tar.gz
 Source1:        gambit-init.el
 Patch0:         gambc-v4_2_8-modtime.patch
-# Temporary fix for GCC 15
-# https://github.com/gambit/gambit/issues/949
-Patch1:         gccmusttail.patch
 
 BuildRequires:  gcc
 BuildRequires:  emacs
@@ -66,9 +63,18 @@ chmod -x lib/*.{c,h}
 %global disable_gcc_opts 1
 %endif
 %endif
+%ifnarch ppc64le
 %configure --enable-trust-c-tco \
+           --enable-dynamic-clib \
+           --enable-single-host \
 	   --bindir=%{_libdir}/%{name}/bin \
            --libdir=%{_libdir}/%{name}
+%else
+%configure --enable-dynamic-clib \
+           --enable-single-host \
+           --bindir=%{_libdir}/%{name}/bin \
+           --libdir=%{_libdir}/%{name}
+%endif
 
 make %{?_smp_mflags}
 	   
@@ -77,10 +83,7 @@ make %{?_smp_mflags}
 
 
 %check
-# Tests fail on i686
-%ifnarch i686
 make check
-%endif
 
 
 %install
@@ -129,6 +132,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}
 
 
 %changelog
+* Thu Jul 17 2025 Benson Muite <fed500@fedoraproject.org> - 4.9.7-1
+- Update to release 4.9.7
+
 * Tue Apr 08 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 4.9.6-2
 - Remove obsolete requirements for %%post/%%preun scriptlets
 

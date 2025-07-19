@@ -1,5 +1,5 @@
 Name:           python-krb5
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Kerberos API bindings for Python
 License:        MIT

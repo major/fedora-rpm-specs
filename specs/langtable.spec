@@ -1,5 +1,5 @@
 Name:           langtable
-Version:        0.0.68
+Version:        0.0.69
 Release:        %autorelease
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
@@ -9,14 +9,9 @@ Summary:        Guessing reasonable defaults for locale, keyboard layout, territ
 License:        GPL-3.0-or-later
 URL:            https://github.com/mike-fabian/langtable
 Source0:        https://github.com/mike-fabian/langtable/releases/download/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/mike-fabian/langtable/pull/24
-# https://bugzilla.redhat.com/show_bug.cgi?id=2336875
-# Prefer Georgian-capable console fonts for Georgian
-Patch:          0001-Georgian-add-georgian-console-fonts.patch
 BuildArch:      noarch
 BuildRequires:  perl-interpreter
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 langtable is used to guess reasonable defaults for locale, keyboard layout,
@@ -31,7 +26,6 @@ License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      %{name}-data < %{version}-%{release}
 Provides:       %{name}-data = %{version}-%{release}
-%{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-langtable
 This package contains a Python module to query the data
@@ -39,20 +33,23 @@ from langtable-data.
 
 %prep
 %setup -q
-gunzip langtable/data/languages.xml.gz
-%patch 0 -p1
-gzip langtable/data/languages.xml
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 perl -pi -e "s,_DATADIR = '(.*)',_DATADIR = '%{_datadir}/langtable'," langtable/langtable.py
 
-%py3_build
+%pyproject_wheel
 
 %install
 
-%py3_install
+%pyproject_install
+%pyproject_save_files langtable
 
 %check
+%pyproject_check_import
+
 (cd $RPM_BUILD_DIR/%{name}-%{version}/langtable; %{__python3} langtable.py)
 (cd $RPM_BUILD_DIR/%{name}-%{version}; %{__python3} test_cases.py)
 xmllint --noout --relaxng \
@@ -75,11 +72,7 @@ xmllint --noout --relaxng \
 %license COPYING unicode-license.txt
 %doc README* ChangeLog test_cases.py langtable/schemas/*.rng
 
-%files -n python3-langtable
-%dir %{python3_sitelib}/langtable
-%{python3_sitelib}/langtable/*
-%dir %{python3_sitelib}/langtable-*.egg-info
-%{python3_sitelib}/langtable-*.egg-info/*
+%files -n python3-langtable -f %{pyproject_files}
 
 %changelog
 %autochangelog

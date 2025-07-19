@@ -1,6 +1,6 @@
 Name:           pyhunspell
 Version:        0.5.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python bindings for hunspell
 
 License:        LGPL-3.0-or-later
@@ -11,7 +11,6 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  hunspell-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 # make it build with hunspell-1.7:
 Patch0: pyhunspell-fix-build.patch
@@ -24,7 +23,6 @@ in python.
 
 %package -n python3-pyhunspell
 Summary: %summary
-%{?python_provide:%python_provide python3-pyhunspell}
 
 %description -n python3-pyhunspell
 This package contains a Python3 module to use the hunspell library
@@ -34,17 +32,27 @@ from Python3.
 %setup -q -n pyhunspell-%{version}
 %patch -P0 -p1 -b .hunspell13
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files '*'
 
-%files -n python3-pyhunspell
+%check
+%pyproject_check_import
+
+%files -n python3-pyhunspell -f %{pyproject_files}
 %doc AUTHORS.md CHANGELOG.md COPYING COPYING.LESSER gpl-3.0.txt lgpl-3.0.txt PKG-INFO README.md
-%{python3_sitearch}/*
 
 %changelog
+* Thu Jul 17 2025 Mike FABIAN <mfabian@redhat.com> - 0.5.5-11
+- Stop using deprecated %py3_build/%py3_install macros
+  Resolves: rhbz#2377393
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.5-10
 - Rebuilt for Python 3.14
 

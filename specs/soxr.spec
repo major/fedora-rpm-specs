@@ -9,6 +9,10 @@ License:        LGPL-2.1-or-later
 URL:            https://sourceforge.net/p/soxr/wiki/Home/ 
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-Source.tar.xz
 
+# Don't use non-standard CMake variables
+# https://bugzilla.redhat.com/show_bug.cgi?id=2381660
+Patch0:         soxr-cmake.patch
+
 BuildRequires:  cmake gcc
 
 %description

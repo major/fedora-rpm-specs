@@ -1,6 +1,6 @@
 Name:          ktextaddons-qt5
 Version:       1.5.4
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -33,11 +33,15 @@ BuildRequires: cmake(KF5SyntaxHighlighting)
 
 %package        devel
 Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 %{summary}.
 
 %prep
 %autosetup -n ktextaddons-%{version} -p1
+# allow parallel installability with newer qt6-only ktextaddons
+sed -i -e '/DTRANSLATION_DOMAIN/s/libtext[[:alpha:]]\+/&5/' text*/CMakeLists.txt
+rename .po 5.po po/*/*.po
 
 %build
 %cmake_kf5 -DQT_MAJOR_VERSION=5
@@ -114,6 +118,9 @@ Summary:        Development files for %{name}
 %{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
 
 %changelog
+* Thu Jul 17 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.4-4
+- Fix conflicts with ktextaddons-qt6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

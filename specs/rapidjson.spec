@@ -1,36 +1,22 @@
+%global commitdate 20241222
+%global commit 24b5e7a8b27f42fa16b96fc70aade9106cf7102f
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global debug_package %{nil}
 
 Name:		rapidjson
-Version:	1.1.0
+Version:	1.1.0^%{commitdate}git%{shortcommit}
 Release:	%autorelease
 Summary:	Fast JSON parser and generator for C++
 
 # Most files are MIT, rapidjson/msinttypes/{stdint,inttypes}.h are BSD
 License:	MIT AND BSD-3-Clause
-URL:		http://rapidjson.org/
-Source0:	https://github.com/Tencent/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Tencent/rapidjson/pull/719
-Patch:          0001-Removed-non-compiling-assignment-operator.-Fixed-718.patch
-# https://github.com/Tencent/rapidjson/pull/719
-Patch:          0002-Explicitly-disable-copy-assignment-operator.patch
-# https://github.com/Tencent/rapidjson/pull/1137
-Patch:          0003-Three-way-comparison-for-CLang-10-fix-1679.patch
-# https://github.com/Tencent/rapidjson/pull/1679
-Patch:          0004-Fix-recursive-operator-call-in-C-20-1846.patch
-# https://github.com/Tencent/rapidjson/pull/1847
-Patch:          0005-gate-definition-of-symmetric-equality-operators-on-i.patch
-# https://github.com/Tencent/rapidjson/pull/2091
-Patch:          0006-do-not-define-operator-in-C-20.patch
-# Downstream-patch for gtest
-Patch:          0007-do-not-include-gtest_src_dir.patch
-# Make valgrind optional for riscv64
-# https://github.com/Tencent/rapidjson/pull/2263
-Patch:          0008-Make-valgrind-optional-for-riscv64.patch
-# https://github.com/Tencent/rapidjson/pull/1261
-# https://nvd.nist.gov/vuln/detail/CVE-2024-38517
-Patch:          0009-Prevent-int-underflow-when-parsing-exponents.patch
-# https://github.com/Tencent/rapidjson/pull/2250
-Patch:          0010-Increase-CMake-minimum-version-to-3.5-fixes-2159.patch
+URL:		https://rapidjson.org/
+Source0:	https://github.com/Tencent/rapidjson/archive/%{commit}/%{name}-%{commit}.tar.gz
+# https://github.com/Tencent/rapidjson/pull/2340
+Patch:          0001-CMake-improvements.patch
+# https://github.com/Tencent/rapidjson/pull/2337
+Patch:          0002-CMakeLists-fix-add_custom_command-warning.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -87,7 +73,7 @@ This package contains the documentation-files for %{name}.
 
 
 %prep
-%autosetup -p 1 -n %{name}-%{version}
+%autosetup -p 1 -n %{name}-%{commit}
 
 # Remove bundled code
 rm -rf thirdparty

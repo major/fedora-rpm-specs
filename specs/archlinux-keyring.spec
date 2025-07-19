@@ -1,5 +1,5 @@
 Name:           archlinux-keyring
-Version:        20250430.1
+Version:        20250716
 Release:        %autorelease
 Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz

@@ -1,5 +1,6 @@
-%global forgeurl  https://pagure.io/go-rpm-macros
-Version:   3.6.0
+%bcond tests 1
+%global forgeurl  https://gitlab.com/fedora/sigs/go/go-rpm-macros
+Version:   3.7.0
 %forgemeta
 
 %global debug_package %{nil}
@@ -30,6 +31,10 @@ Summary:   Build-stage rpm automation for Go packages
 License:   GPL-3.0-or-later
 URL:       %{forgeurl}
 Source:    %{forgesource}
+
+%if %{with tests}
+BuildRequires: pyproject-rpm-macros
+%endif
 
 Requires:  go-srpm-macros = %{version}-%{release}
 Requires:  go-filesystem  = %{version}-%{release}
@@ -105,6 +110,11 @@ for template in templates/rpm/*\.spec ; do
   touch -r "${template}" "${target}"
 done
 
+%if %{with tests}
+%generate_buildrequires
+%pyproject_buildrequires -g test -RN
+%endif
+
 %install
 install -m 0755 -vd   %{buildroot}%{rpmmacrodir}
 
@@ -150,6 +160,13 @@ install -m 0644 -vp   rpm/macros.d/macros.go-compilers-golang{,-pie} \
 %ifarch %{gccgo_arches}
 install -m 0644 -vp   rpm/macros.d/macros.go-compilers-gcc \
                       %{buildroot}%{_rpmconfigdir}/macros.d/
+%endif
+
+%check
+%if %{with tests}
+export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
+export MACRO_LUA_DIR="%{buildroot}%{_rpmluadir}"
+%pytest -v
 %endif
 
 %ifarch %{golang_arches} %{gccgo_arches}

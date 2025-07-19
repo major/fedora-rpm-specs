@@ -36,6 +36,7 @@ Source10:	20-grub.install
 Source11:	grub.patches
 Source12:	sbat.csv.in
 Source13:	gen_grub_cfgstub
+Source14:	55-set-boot-entry.install
 
 %include %{SOURCE1}
 
@@ -301,6 +302,7 @@ rm -vf ${RPM_BUILD_ROOT}/%{_sbindir}/grub2-macbless
 # Install kernel-install scripts
 install -d -m 0755 %{buildroot}%{_prefix}/lib/kernel/install.d/
 install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE10}
+install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE14}
 install -D -m 0755 -t %{buildroot}%{_prefix}/lib/kernel/install.d/ %{SOURCE3}
 install -d -m 0755 %{buildroot}%{_sysconfdir}/kernel/install.d/
 # Install systemd user service to set the boot_success flag
@@ -424,6 +426,7 @@ fi
 %dir %{_datarootdir}/grub/
 %attr(0700,root,root) %dir %{_sysconfdir}/grub.d
 %{_prefix}/lib/kernel/install.d/20-grub.install
+%{_prefix}/lib/kernel/install.d/55-set-boot-entry.install
 %{_prefix}/lib/kernel/install.d/99-grub-mkconfig.install
 %dir %{_datarootdir}/grub
 %exclude %{_datarootdir}/grub/*

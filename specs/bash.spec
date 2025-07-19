@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchlevel 37
-%define baseversion 5.2
+%define patchlevel 0
+%define baseversion 5.3
 %bcond_without tests
 
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -23,9 +23,9 @@ Source5: chet-gpgkey.asc
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-%{lua:for i=1,rpm.expand('%{patchlevel}') do
-    print(string.format('Patch%u: bash-%s-patch-%u.patch\n', i, rpm.expand('%{baseversion}'), i))
-end}
+#{lua:for i=1,rpm.expand('%{patchlevel}') do
+#    print(string.format('Patch%u: bash-%s-patch-%u.patch\n', i, rpm.expand('%{baseversion}'), i))
+#end}
 
 # Other patches
 # Non-interactive shells beginning with argv[0][0] == '-' should run the startup files when not in posix mode.
@@ -38,8 +38,7 @@ Patch104: bash-2.05b-debuginfo.patch
 Patch105: bash-2.05b-pgrp_sync.patch
 # Source bashrc file when bash is run under ssh.
 Patch107: bash-3.2-ssh_source_bash.patch
-# Use makeinfo to generate .texi file
-# Patch108: bash-infotags.patch
+
 # Try to pick up latest `--rpm-requires` patch from http://git.altlinux.org/gears/b/bash4.git
 Patch109: bash-requires.patch
 Patch110: bash-setlocale.patch
@@ -66,10 +65,6 @@ Patch120: bash-4.2-coverity.patch
 # This patch should be upstreamed.
 Patch122: bash-4.2-manpage_trap.patch
 
-# https://www.securecoding.cert.org/confluence/display/seccode/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
-# This patch should be upstreamed.
-Patch123: bash-4.2-size_type.patch
-
 # 1112710 - mention ulimit -c and -f POSIX block size
 # This patch should be upstreamed.
 Patch124: bash-4.3-man-ulimit.patch
@@ -87,13 +82,9 @@ Patch127: bash-4.4-no-loadable-builtins.patch
 # 2020528 - Add a runtime option to enable history logging to syslog
 # This option is undocumented in upstream and is documented by this patch
 Patch128: bash-5.0-syslog-history.patch
-Patch129: bash-configure-c99.patch
 
 # Enable audit logs
 Patch131: bash-4.3-audit.patch
-
-# Fixes for issues found by OpenScanHub
-Patch132: bash-5.3-sast.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -332,6 +323,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jul 15 2025 Siteshwar Vashisht <svashisht@redhat.com> - 5.3.0-1
+- Update to bash-5.3
+  Resolves: #2376213
+
 * Thu Feb 13 2025 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.37-3
 - Fix FTBFS in Fedora rawhide/f42
   Resolves: #2339923

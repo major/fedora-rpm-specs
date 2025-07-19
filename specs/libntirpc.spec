@@ -3,13 +3,15 @@
 
 Name:		libntirpc
 Version:	6.3
-Release:	3%{?dev:%{dev}}%{?dist}
+Release:	4%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
 
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
-Patch:		0001-CMakeLists.txt.patch
+
+# Add CMake 4.0 support
+Patch:		https://github.com/nfs-ganesha/ntirpc/pull/352.patch
 
 BuildRequires:	gcc cmake
 %ifarch x86_64 aarch64
@@ -86,7 +88,10 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
-* Wed Jul 16 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> 6.3-1
+* Thu Jul 17 2025 Cristian Le <git@lecris.dev> - 6.3-4
+- Fix CMake 4.0 patch
+
+* Wed Jul 16 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> 6.3-3
 - ntirpc-6.3, rhbz#2380748
 
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-2

@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.14
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -20,6 +20,13 @@ Patch1:        mingw-graphite2_pkgconfig.patch
 Patch2:        mingw-graphite2_staticbuild.patch
 # https://github.com/Alexpux/MINGW-packages/blob/master/mingw-w64-graphite2/004-graphite2-1.3.8-dllimport-fix.patch
 Patch3:        mingw-graphite2_dllimport-fix.patch
+# Drop use of LIB_SUFFIX
+Patch4:        graphite2_cmakelibsuffix.patch
+# Increase minimum cmake version
+Patch5:        graphite2_cmakever.patch
+# Fix build with gcc15
+Patch6:        graphite2_gcc15.patch
+
 
 BuildArch:     noarch
 
@@ -118,6 +125,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.3.14-15
+- Increase minimum cmake version, drop use of LIB_SUFFIX
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,13 +2,12 @@
 Summary:       Alternative to Python modules os, os.path and shutil
 Name:          python-unipath
 Version:       1.1
-Release:       29%{?dist}
+Release:       31%{?dist}
 License:       MIT
 URL:           https://pypi.python.org/pypi/Unipath/
 Source0:       https://files.pythonhosted.org/packages/source/U/%{oname}/%{oname}-%{version}.tar.gz
 BuildArch:     noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 %global _description\
 Unipath is a package for doing pathname calculations and filesystem\
 access in an object-oriented manner, an alternative to functions in\
@@ -38,19 +37,27 @@ Summary:        %summary
 %prep
 %setup -q -n %{oname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files unipath -L
 
-%files -n python3-unipath
+%files -n python3-unipath -f %{pyproject_files}
 %license CHANGES
 %doc BUGS.txt PKG-INFO README.html README.rst
-%{python3_sitelib}/unipath/
-%{python3_sitelib}/%{oname}-%{version}-py*.egg-info
 
 %changelog
+* Thu Jul 17 2025 David Auer <dreua@posteo.de> - 1.1-31
+- Fix build on rawhide/f43
+
+* Thu Jul 17 2025 David Auer <dreua@posteo.de> - 1.1-30
+- Use pyproject macros (Closes rhbz#2378306)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1-29
 - Rebuilt for Python 3.14
 

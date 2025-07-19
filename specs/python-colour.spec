@@ -2,11 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        23%{?dist}
+Release:        25%{?dist}
 Summary:        Python module to convert and manipulate color representations
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/vaab/colour
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -27,8 +26,6 @@ Converts and manipulates common color representation (RGB, HSL, web, etc.)
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-d2to1
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -46,20 +43,28 @@ Converts and manipulates common color representation (RGB, HSL, web, etc.)
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst TODO.rst
 %license LICENSE
-%{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/__pycache__/*
 
 %changelog
+* Thu Jul 17 2025 David Auer <dreua@posteo.de> - 0.1.5-25
+- Update license descriptor
+
+* Thu Jul 17 2025 David Auer <dreua@posteo.de> - 0.1.5-24
+- Use pyproject macros
+  Closes: rhbz#2377566
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.5-23
 - Rebuilt for Python 3.14
 

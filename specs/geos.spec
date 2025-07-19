@@ -8,7 +8,7 @@
 
 Name:          geos
 Version:       3.13.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GEOS is a C++ port of the Java Topology Suite
 
 License:       LGPL-2.1-only
@@ -80,6 +80,7 @@ MinGW Windows GEOS library.
 # Native build
 %cmake -DDISABLE_GEOS_INLINE=ON -DBUILD_DOCUMENTATION=ON
 %cmake_build
+%cmake_build --target docs
 
 %if %{with mingw}
 # MinGW build
@@ -90,7 +91,6 @@ MinGW Windows GEOS library.
 
 %install
 %cmake_install
-make docs -C %{__cmake_builddir}
 
 %if %{with mingw}
 %mingw_make_install
@@ -161,6 +161,9 @@ rm -f %{buildroot}%{mingw64_bindir}/geos-config
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 3.13.1-2
+- Use %%cmake_build also for docs
+
 * Wed Mar 05 2025 Sandro Mani <manisandro@gmail.com> - 3.13.1-1
 - Update to 3.13.1
 

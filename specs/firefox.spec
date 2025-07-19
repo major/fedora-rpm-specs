@@ -207,7 +207,7 @@ URL:            https://www.mozilla.org/firefox/
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20250715.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20250717.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -1282,7 +1282,7 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
-* Tue Jul 15 2025 Martin Stransky <stransky@redhat.com> - 141.0-1
+* Thu Jul 17 2025 Martin Stransky <stransky@redhat.com> - 141.0-1
 - Update to latest upstream (141.0)
 
 * Wed Jul 09 2025 Martin Stransky <stransky@redhat.com> - 140.0.4-1

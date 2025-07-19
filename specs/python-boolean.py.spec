@@ -54,7 +54,6 @@ rm -rf html/.{doctrees,buildinfo}
 %pytest
 
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
-%license LICENSE.txt
 %doc CHANGELOG.rst README.rst html/
 
 %changelog

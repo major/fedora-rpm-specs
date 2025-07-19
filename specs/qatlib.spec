@@ -3,19 +3,18 @@
 %global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          24.09.0
-Release:          7%{?dist}
+Version:          25.08.0
+Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
 License:          BSD-3-Clause AND ( BSD-3-Clause OR GPL-2.0-only )
 URL:              https://github.com/intel/%{name}
 Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:    systemd gcc make autoconf automake libtool systemd-devel openssl-devel zlib-devel nasm numactl-devel
+BuildRequires:    systemd gcc make autoconf autoconf-archive automake libtool systemd-devel openssl-devel zlib-devel nasm numactl-devel
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
 ExcludeArch:      %{arm} aarch64 %{power64} s390x i686
-Patch0:           fix-systemd-path.patch
 
 %description
 Intel QuickAssist Technology (Intel QAT) provides hardware acceleration
@@ -81,7 +80,6 @@ rm %{buildroot}/%{_libdir}/libusdm.a
 
 install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 
-
 %post          service
 %systemd_post qat.service
 
@@ -126,9 +124,11 @@ install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 %attr(0754,-,qat) %{_bindir}/hkdf_sample
 %attr(0754,-,qat) %{_bindir}/ec_montedwds_sample
 %attr(0754,-,qat) %{_bindir}/zuc_sample
+%attr(0754,-,qat) %{_bindir}/update_sample
 %{_datadir}/qat/calgary
 %{_datadir}/qat/calgary32
 %{_datadir}/qat/canterbury
+%{_mandir}/man7/cpa_sample_code.7*
 
 %files         service
 %{_sbindir}/qatmgr
@@ -138,6 +138,13 @@ install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Thu Jul 17 2025 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 25.08.0-1
+- Update to qatlib 25.08.0
+- Add autoconf-archive as a dependency
+- Remove fix-systemd-path.patch as fix is present on the upstream project
+- Add update_sample to qatlib-tests
+- Add manpage for cpa_sample_code
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 24.09.0-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -1,6 +1,6 @@
 Name:           mathex
 Version:        0.3b
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        C++ library to parse/evaluate mathematical expressions
 
 # Exceptions apply to static linking, see license.txt
@@ -54,6 +54,9 @@ sed -i 's|\r||g' changelog.txt license.txt lesser.txt
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 0.3b-30
+- Increase minimum cmake version, use GNUInstallDirs
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3b-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

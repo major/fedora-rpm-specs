@@ -1,6 +1,6 @@
 Name:           qtspell
-Version:        1.0.1
-Release:        14%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Spell checking for Qt text widgets
 
 License:        GPL-3.0-or-later
@@ -9,7 +9,6 @@ Source0:        https://github.com/manisandro/qtspell/archive/%{version}/%{name}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  qt6-qtbase-devel
@@ -159,7 +158,7 @@ MinGW Windows %{name}-Qt6 library.
 %cmake -DQT_VER=6
 %cmake_build
 
-make doc -C %{__cmake_builddir}
+%cmake_build --target doc
 
 export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
 export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
@@ -246,6 +245,9 @@ MINGW_BUILDDIR_SUFFIX=qt6 %mingw_make_install
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
+- Update to 1.0.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           podofo0.9
 Version:        0.9.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Podofo 0.9.x compatibility library
 
 # The library is licensed under the LGPL.
@@ -11,6 +11,8 @@ URL:            http://podofo.sourceforge.net
 Source0:        http://downloads.sourceforge.net/podofo/podofo-%{version}.tar.gz
 # Fix failure to detect FreeType
 Patch0:         podofo-0.9.4-freetype.patch
+# Raise minimum cmake version
+Patch1:         podofo_cmakever.patch
 
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
@@ -96,6 +98,9 @@ rm cmake/modules/FindZLIB.cmake
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 0.9.8-7
+- Raise minimum cmake version
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

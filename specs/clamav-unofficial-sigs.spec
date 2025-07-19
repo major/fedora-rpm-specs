@@ -9,7 +9,7 @@
 %endif
 Name:           clamav-unofficial-sigs
 Version:        7.2.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Scripts to download unofficial clamav signatures 
 Group:          Applications/System
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ install -p -m0644 clamav-unofficial-sigs.man8 %{buildroot}%{_mandir}/man8/clamav
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Thu Jul 17 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 7.2.5-14
+- Fix urlhaus typo too (bz#1949414)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

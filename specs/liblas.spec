@@ -3,7 +3,7 @@
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.22%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.23%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD-3-Clause AND BSL-1.0
@@ -19,19 +19,17 @@ Source0:        https://download.osgeo.org/%{name}/libLAS-%{version}.tar.bz2
 # From https://github.com/OSGeo/gdal/blob/master/gdal/MIGRATION_GUIDE.TXT:
 #  removal of OSRFixup() and OSRFixupOrdering(): no longer needed since objects constructed are always valid
 Patch1:         liblas_gdal3.patch
-
 # Fix incorrect libgeotiff pkgconfig require resulting in broken dependencies
 # Fix incorrect includedir and libdir paths
 Patch2:         liblas_pkgconfig.patch
-
 # Fix FTBFS with boost 1.73
 Patch3:         liblas_boost173.patch
-
 # Don't switch to std=c++11 if gdal is detected, liblas requires std=c++14 to build
 Patch4:         liblas_stdc++14.patch
-
 # Fix build with gcc15
 Patch5:         liblas-gcc15.patch
+# Increase minimum cmake version to 3.5
+Patch6:         liblas_cmakever.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  boost-devel >= 1.53
@@ -113,6 +111,9 @@ libLAS utility applications.
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.23.git62f3d57
+- Increase minimum cmake version
+
 * Thu Jan 23 2025 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.22.git62f3d57
 - Update to snapshot 62f3d57
 

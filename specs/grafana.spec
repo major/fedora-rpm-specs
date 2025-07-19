@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          15%{?dist}
+Release:          17%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -746,6 +746,7 @@ Graphite, InfluxDB & OpenTSDB.
 # SELinux package
 %package selinux
 Summary:             SELinux policy module supporting grafana
+BuildArch:           noarch
 Requires:	           selinux-policy-any
 Requires(post):      selinux-policy-any, /usr/sbin/semanage
 Requires(postun):    /usr/sbin/semanage
@@ -1024,10 +1025,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
-* Wed Jul 16 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-15
+* Wed Jul 16 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-17
 - Backport selinux policy changes
 - Backport selinux packaging changes in the spec file
-
 
 * Tue May 13 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-14
 - fix CVE-2025-4123

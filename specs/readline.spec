@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
-Version: 8.2
-Release: 13%{?dist}
+Version: 8.3
+Release: 1%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -13,25 +13,11 @@ Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-Patch1: readline-8.2-patch-1.patch
-Patch2: readline-8.2-patch-2.patch
-Patch3: readline-8.2-patch-3.patch
-Patch4: readline-8.2-patch-4.patch
-Patch5: readline-8.2-patch-5.patch
-Patch6: readline-8.2-patch-6.patch
-Patch7: readline-8.2-patch-7.patch
-Patch8: readline-8.2-patch-8.patch
-Patch9: readline-8.2-patch-9.patch
-Patch10: readline-8.2-patch-10.patch
-Patch11: readline-8.2-patch-11.patch
-Patch12: readline-8.2-patch-12.patch
-Patch13: readline-8.2-patch-13.patch
-Patch14: readline-8.3-sast.patch
+Patch1: readline-8.3-patch-1.patch
 
 # Other patches
 # Remove RPATH, use CFLAGS
 Patch101: readline-8.0-shlib.patch
-Patch102: readline-8.2-pre-c23.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -102,6 +88,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Tue Jul 15 2025 Siteshwar Vashisht <svashisht@redhat.com> - 8.3-1
+- Update to readline-8.3 patchlevel 1
+  Resolves: #2376216
+
 * Mon Mar 03 2025 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-13
 - Fix FTBFS for packages that are not compatible with C23
   Resolves: #2347347

@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -34,8 +34,6 @@ BuildRequires: libbsd-devel
 BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: python3-devel
-BuildRequires: python3-pip
-BuildRequires: python-setuptools
 BuildRequires: java-devel
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
@@ -154,7 +152,11 @@ rm %{_builddir}/%{name}-%{version}/bindings/cryptlib.jar
 cd %{_builddir}/%{name}-%{version}/bindings
 /usr/bin/tar xpzf %{SOURCE5}
 
+
+%generate_buildrequires
+cd %{name}-%{version}/bindings
 %pyproject_buildrequires 
+
 
 %build
 cd %{name}-%{version}
@@ -170,8 +172,18 @@ tools/rename.sh
 cp /etc/alternatives/java_sdk/include/jni.h .
 cp /etc/alternatives/java_sdk/include/linux/jni_md.h .
 
+# remove duplications in %{optflags}
+# -D_GLIBCXX_ASSERTIONS and -D_FORTIFY_SOURCE=3 must be removed from %{optflags},
+# because both are enabled later with -fhardened set by tools/ccopts.sh.
+# As -Wall is enabled, -fhardened will trigger unnecessary warnings, because
+# -fhardened cannot enable these flags if they are already set.
+
+FLAGS="%{optflags}"
+FLAGS=${FLAGS//"-Wp,-D_GLIBCXX_ASSERTIONS"/}
+FLAGS=${FLAGS//"-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3"/}
+
 make clean
-make shared  ADDFLAGS="%{optflags}"
+make shared  ADDFLAGS="${FLAGS}"
 ln -s libcl.so.3.4.8 libcl.so
 ln -s libcl.so libcl.so.3.4
 make stestlib  ADDFLAGS="%{optflags}"
@@ -332,7 +344,11 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
-* Tue Fri 11 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-11
+* Thu Jul 17 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-12
+- add a %generate_buildrequires section (PR#8)
+- remove duplications from %optflags
+
+* Fri Jul 11 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-11
 - Migration to pyproject macros and removal of python 2.7 build option (RHBZ 2378536)
 
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.4.8-10

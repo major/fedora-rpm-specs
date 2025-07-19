@@ -1,6 +1,6 @@
 Name:           libwebcam
 Version:        0.2.5
-Release:        20%{?dist}
+Release:        22%{?dist}
 Summary:        A library for user-space configuration of the uvcvideo driver
 License:        LGPL-3.0-or-later
 URL:            http://sourceforge.net/p/libwebcam/wiki/Home/
@@ -58,7 +58,17 @@ rm uvcdynctrl/data/046d/logitech.xml~
 
 
 %build
-%cmake
+# https://fedoraproject.org/wiki/Changes/CMake4.0
+# https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
+%cmake \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+  -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+  -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+  %if "%{?_lib}" == "lib64"
+    %{?_cmake_lib_suffix64} \
+  %endif
 %cmake_build
 
 
@@ -95,6 +105,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/libwebcam.a
 
 
 %changelog
+* Thu Jul 17 2025 Michael Cronenworth <mike@cchtml.com> - 0.2.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
+
+* Thu Jul 17 2025 Michael Cronenworth <mike@cchtml.com> - 0.2.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Changes/CMake4.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global crate cmd_lib_macros
 
 Name:           rust-cmd_lib_macros
-Version:        1.9.5
+Version:        1.9.6
 Release:        %autorelease
 Summary:        Common rust commandline macros and utils for shell script like tasks
 

@@ -9,7 +9,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.2.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       MinGW Windows GLEW library
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License:       LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -17,6 +17,7 @@ License:       LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
 BuildArch:     noarch
 URL:           https://github.com/nigels-com/glew
 Source0:       https://github.com/nigels-com/glew/releases/download/%{pkgname}-%{version}/%{pkgname}-%{version}.tgz
+# - Raise minimum cmake version to 3.5
 # - Install both static and shared libraries
 # - Remove glu requirement in pkgconfig file
 Patch0:        glew_cmake.patch
@@ -134,6 +135,9 @@ Tools for the MinGW Windows GLEW library.
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 2.2.0-11
+- Increase minimum cmake version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

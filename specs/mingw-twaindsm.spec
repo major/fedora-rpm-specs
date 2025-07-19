@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.5.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       TWAIN Data Source Manager
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -19,6 +19,7 @@ Source0:       https://github.com/twain/twain-dsm/archive/v%{version}/%{pkgname}
 # - sed -i 's/(TWNDSM_CMP == TWNDSM_CMP_GNUGPP)/(TWNDSM_OS == TWNDSM_OS_LINUX) || (TWNDSM_OS == TWNDSM_OS_MACOSX)/g' src/{*.cpp,*.h}
 Patch0:        twaindsm_defs.patch
 # Add MINGW support to the cmake file
+# Increase minimum cmake version to 3.5
 Patch1:        twaindsm_cmake.patch
 # Fix build failure due to invalid conversion
 Patch2:        twaindsm_build-errors.patch
@@ -94,6 +95,9 @@ popd
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 2.5.1-9
+- Increase minimum cmake version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

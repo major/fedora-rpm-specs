@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -107,9 +107,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %find_lang %{gettext_package}
 
 %check
-pushd %{__cmake_builddir}
-make check
-popd
+%ctest
 
 %files -f %{gettext_package}.lang
 %doc AUTHORS
@@ -132,6 +130,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Jul 17 2025 Parag Nemade <pnemade AT redhat DOT com> - 20230101-17
+- Update for https://fedoraproject.org/wiki/Changes/CMake_ninja_default (rh#2381004)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 20230101-16
 - Rebuilt for Python 3.14
 

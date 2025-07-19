@@ -10,6 +10,8 @@ Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        nss_wrapper.keyring
 
+Patch0:         nwrap-fix-tests.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gnupg2

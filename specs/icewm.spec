@@ -11,7 +11,7 @@
 %global awe_shortcommit %(c=%{awe_commit}; echo ${c:0:7})
 
 Name:           icewm
-Version:        3.8.0
+Version:        3.8.1
 %forgemeta
 Release:        %autorelease
 Summary:        Window manager designed for speed, usability, and consistency

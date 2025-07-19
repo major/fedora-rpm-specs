@@ -1,14 +1,14 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 8
-%global syslog_ng_patch_ver 2
+%global syslog_ng_minor_ver 9
+%global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 6%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,7 +52,7 @@ BuildRequires: librdkafka-devel
 BuildRequires: zlib-devel
 BuildRequires: paho-c-devel
 
-BuildRequires: python3-pip
+BuildRequires:  python3-pip
 BuildRequires:  python3-cachetools
 BuildRequires:  python3-certifi
 BuildRequires:  python3-charset-normalizer
@@ -72,6 +72,7 @@ BuildRequires:  python3-urllib3
 BuildRequires:  python3-websocket-client
 BuildRequires:  python3-boto3
 BuildRequires:  python3-botocore
+BuildRequires:  python3-tornado
 
 %ifarch i686
 %bcond_with bpf
@@ -243,6 +244,26 @@ Requires: %{name}-grpc
 This module adds Google BigQuery support.
 
 
+%package pubsub
+Summary: Google PubSub support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-grpc
+
+%description pubsub
+This module adds Google PubSub support.
+
+
+%package clickhouse
+Summary: ClickHouse support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-grpc
+
+%description clickhouse
+This module adds ClickHouse support.
+
+
 %package bpf
 Summary: Faster UDP log collection for %{name}
 Group: Development/Libraries
@@ -297,6 +318,9 @@ Requires:  python3-rsa
 Requires:  python3-six
 Requires:  python3-urllib3
 Requires:  python3-websocket-client
+Requires:  python3-boto3
+Requires:  python3-botocore
+Requires:  python3-tornado
 
 %description python-modules
 This package provides Python-based (Kubernetes, Hypr) drivers for syslog-ng.
@@ -488,6 +512,8 @@ fi
 %exclude %{_libdir}/syslog-ng/libloki.so
 %exclude %{_libdir}/syslog-ng/libbigquery.so
 %exclude %{_libdir}/syslog-ng/libcloud_auth.so
+%exclude %{_libdir}/syslog-ng/libclickhouse.so
+%exclude %{_libdir}/syslog-ng/libpubsub.so
 
 %dir %{_datadir}/%{name}
 
@@ -532,6 +558,13 @@ fi
 
 %files bigquery
 %{_libdir}/%{name}/libbigquery.so
+
+%files clickhouse
+%{_libdir}/%{name}/libclickhouse.so
+
+%files pubsub
+%{_libdir}/%{name}/libpubsub.so
+
 %endif
 
 %if %{with cloudauth}
@@ -611,10 +644,15 @@ fi
 
 
 %changelog
+* Thu Jul 17 2025 Peter Czanik <peter@czanik.hu> - 4.9.0-1
+- update to 4.9.0
+- add destination drivers for ClickHouse and PubSub
+- add missing Python dependencies
+
 * Tue Jun 10 2025 Python Maint <python-maint@redhat.com> - 4.8.2-6
 - Rebuilt for Python 3.14
 
-* Tue Jun 10 2024 Peter Czanik <peter@czanik.hu> - 4.8.2-5
+* Tue Jun 10 2025 Peter Czanik <peter@czanik.hu> - 4.8.2-5
 - really fix rhbz#2369650 this time
 
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 4.8.2-4

@@ -1,6 +1,6 @@
 Name:           litehtml
 Version:        0.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD-3-Clause
@@ -12,6 +12,8 @@ Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}
 Patch0:         litehtml_gumbo.patch
 # Add some stuff needed for qt-creator
 Patch1:         litehtml_qtcreator.patch
+# Port to GNUInstallDirs
+Patch2:         litehtml_gnuinstalldirs.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -77,6 +79,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 0.9-5
+- Port to GNUInstallDirs
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

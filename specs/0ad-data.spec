@@ -1,7 +1,7 @@
 # http://trac.wildfiregames.com/wiki/BuildInstructions#Linux
 
 Name:		0ad-data
-Version:	0.27.0
+Version:	0.27.1
 Release:	1%{?dist}
 Summary:	The Data Files for 0 AD
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -49,6 +49,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.1-1
+- 0.27.1
+
 * Fri Jul 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.0-1
 - 0.27.0
 

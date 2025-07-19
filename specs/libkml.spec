@@ -11,7 +11,7 @@
 
 Name:           libkml
 Version:        1.3.0
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
 License:        BSD-3-Clause
@@ -38,6 +38,8 @@ Patch7:         libkml-bundle-minizip.patch
 Patch8:         libkml_test_strcmp.patch
 # MinGW build fixes
 Patch9:         libkml_mingw.patch
+# Increase minimum cmake version
+Patch10:        libkml_cmakever.patch
 
 BuildRequires:  cmake
 BuildRequires:  curl-devel
@@ -184,6 +186,7 @@ popd
 %endif
   -DCMAKE_INSTALL_DIR=%{_libdir}/cmake/%{name} \
   -DINCLUDE_INSTALL_DIR=%{_includedir}/kml \
+  -DLIB_INSTALL_DIR=%{_libdir} \
   -DPYTHON_LIBRARY=%{_usr}/%{_lib}/libpython%{python3_version}$(python3-config --abiflags).so \
   -DPYTHON_INCLUDE_DIR=%{_usr}/include/python%{python3_version}$(python3-config --abiflags)/ \
   -DPYTHON_INSTALL_DIR=%{python3_sitearch} \
@@ -196,6 +199,7 @@ popd
 export MINGW32_CMAKE_ARGS="\
   -DCMAKE_INSTALL_DIR=%{mingw32_libdir}/cmake/%{name} \
   -DINCLUDE_INSTALL_DIR=%{mingw32_includedir}/kml \
+  -DLIB_INSTALL_DIR=%{mingw32_libdir} \
   -DPYTHON_LIBRARY=%{mingw32_libdir}/libpython%{mingw32_python3_version}.dll.a \
   -DPYTHON_INCLUDE_DIR=%{mingw32_includedir}/python%{mingw32_python3_version}/ \
   -DPYTHON_INSTALL_DIR=%{mingw32_python3_sitearch} \
@@ -204,6 +208,7 @@ export MINGW32_CMAKE_ARGS="\
 export MINGW64_CMAKE_ARGS="\
   -DCMAKE_INSTALL_DIR=%{mingw64_libdir}/cmake/%{name} \
   -DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/kml \
+  -DLIB_INSTALL_DIR=%{mingw64_libdir} \
   -DPYTHON_LIBRARY=%{mingw64_libdir}/libpython%{mingw64_python3_version}.dll.a \
   -DPYTHON_INCLUDE_DIR=%{mingw64_includedir}/python%{mingw64_python3_version}/ \
   -DPYTHON_INSTALL_DIR=%{mingw64_python3_sitearch} \
@@ -280,6 +285,9 @@ export MINGW64_CMAKE_ARGS="\
 %endif
 
 %changelog
+* Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.3.0-53
+- Increase minimum cmake version, explicitly pass LIB_INSTALL_DIR
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.0-52
 - Rebuilt for Python 3.14
 

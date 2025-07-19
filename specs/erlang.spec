@@ -68,8 +68,8 @@
 
 
 Name:		erlang
-Version:	26.2.5.13
-Release:	3%{?dist}
+Version:	26.2.5.14
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -426,6 +426,7 @@ FTP client.
 
 %package gdb-tools
 Summary: GDB plugin
+License: GPL-3.0-or-later
 Requires: gdb
 
 %description gdb-tools
@@ -1989,6 +1990,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Thu Jul 17 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.14-1
+- Ver. 26.2.5.14
+
 * Fri Jun 20 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.13-3
 - Add GDB tools
 

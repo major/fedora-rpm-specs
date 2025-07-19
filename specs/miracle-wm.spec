@@ -6,7 +6,7 @@
 
 
 Name:           miracle-wm
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
@@ -109,6 +109,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Thu Jul 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.6.2-1
+- Update to 0.6.2
+
 * Wed Jul 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.6.1-1
 - Update to 0.6.1
 
