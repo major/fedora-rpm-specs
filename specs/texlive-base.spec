@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 89%{?dist}
+Release: 90%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -522,6 +522,9 @@ Patch45: texlive-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts (thanks again to Debian)
 Patch46: texlive-base-20230311-fix-scripts.patch
+
+# Fix bundling option with perl-5.40.x
+Patch47: texdef-perl-option-5.40.x.patch
 
 # fix build error with gcc-14
 Patch48: texlive-base-20230311-typefixes.patch
@@ -8518,6 +8521,8 @@ patch -p1 < %{_sourcedir}/texlive-fedora-texmfcnf.lua.patch
 # Fix interpreter on perl scripts
 patch -p1 < %{_sourcedir}/texlive-base-20230311-fix-scripts.patch
 
+# Fix bundling option with perl-5.40.x
+patch -p1 < %{_sourcedir}/texdef-perl-option-5.40.x.patch
 popd
 
 # config files in /etc symlinked
@@ -11110,6 +11115,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Fri Jul 18 2025 Than Ngo <than@redhat.com> - 11:20230311-90
+- Fix rhbz#2354991 - bundling option for perl-5.40.x
+
 * Thu Jan 23 2025 Than Ngo <than@redhat.com> - 11:20230311-89
 - Fix rhbz#2341430, FTBFS with gcc15
 

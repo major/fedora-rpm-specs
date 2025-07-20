@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -127,6 +127,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make %{?_smp_mflags}
 
 # for missing providers
+%global _cmake_generator "Unix Makefiles"
 pushd missing-providers
   %{cmake}
   pushd redhat-linux-build
@@ -305,6 +306,10 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Fri Jul 18 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-40
+- Opt-out of the ninja generator, it's used just for missing providers build
+  Resolves: #2381122
+
 * Thu Mar 06 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-39
 - Update minimum required cmake version
 

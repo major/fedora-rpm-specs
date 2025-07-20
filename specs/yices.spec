@@ -1,7 +1,7 @@
 %global giturl  https://github.com/SRI-CSL/yices2
 
 Name:           yices
-Version:        2.6.5
+Version:        2.7.0
 Release:        %autorelease
 Summary:        SMT solver
 
@@ -9,7 +9,7 @@ Summary:        SMT solver
 License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            http://yices.csl.sri.com/
 VCS :           git:%{giturl}.git
-Source0:        %{giturl}/archive/Yices-%{version}.tar.gz
+Source0:        %{giturl}/archive/yices-%{version}.tar.gz
 # The CUDD web site disappeared in 2018.  The Fedora package was retired in 2019
 # when there were no more Fedora users.  Instead of resurrecting the package for
 # the sole use of yices, we bundle a snapshot of the last released version.
@@ -105,7 +105,7 @@ BuildArch:      noarch
 This package contains yices documentation.
 
 %prep
-%autosetup -n yices2-Yices-%{version} -a 1 -p1
+%autosetup -n yices2-yices-%{version} -a 1 -p1
 
 %conf
 # Do not try to avoid -fstack-protector
@@ -137,9 +137,6 @@ cd cudd-cudd-3.0.0
 %make_build
 cd -
 
-#bv64_interval_abstraction depends on wrapping for signed overflow
-export CFLAGS='%{build_cflags} -fwrapv'
-export CXXFLAGS='%{build_cxxflags} -fwrapv'
 export CPPFLAGS="-I$PWD/cudd-cudd-3.0.0/cudd -DHAVE_CADICAL -DHAVE_CRYPTOMINISAT -DHAVE_KISSAT"
 export LDFLAGS="%{build_ldflags} -L$PWD/cudd-cudd-3.0.0/cudd/.libs"
 export LIBS='-lcadical -lcryptominisat5 -lkissat'
@@ -172,7 +169,7 @@ make check MODE=debug
 %files
 %doc doc/SMT-LIB-LANGUAGE doc/YICES-LANGUAGE
 %license copyright.txt LICENSE.txt
-%{_libdir}/libyices.so.2*
+%{_libdir}/libyices.so.2.7*
 
 %files devel
 %{_includedir}/%{name}/

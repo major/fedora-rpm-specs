@@ -12,7 +12,6 @@ BuildRequires:  cmake >= 2.6.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
-
 %description
 RPly is a library that lets applications read and write PLY files.
 The PLY file format is widely used to store geometric information, such as 3D
@@ -26,6 +25,13 @@ efficient, and well tested. The highlights are:
 * Binary (big and little endian) and text modes are fully supported;
 * Input and output are buffered for efficiency;
 * Available under the MIT license for added freedom.
+
+%package	devel
+Summary:	Libraries and headers for rply
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Rply Library Header Files and Link Libraries
 
 %prep
 %autosetup -p1
@@ -52,24 +58,14 @@ iconv -f iso8859-1 -t utf-8 LICENSE > LICENSE.conv && mv -f LICENSE.conv LICENSE
 
 rm $RPM_BUILD_ROOT%{_datadir}/%{name}/rplyConfig.cmake
 
-
 %files
-%doc LICENSE
+%license LICENSE
 %doc manual/*
 %{_libdir}/*.so.*
 %{_bindir}/*
 
-
-%package        devel
-Summary:	Libraries and headers for rply
-Requires:	%{name} = %{version}-%{release}
-
-%description devel
-
-Rply Library Header Files and Link Libraries
-
 %files devel
-%doc LICENSE
+%license LICENSE
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*
 %{_libdir}/*.so

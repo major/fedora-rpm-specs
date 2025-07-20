@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        10.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -983,7 +983,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 %postun systemd
 if [ $1 -eq 0 ]; then
-/bin/systemctl try-restart systemd-binfmt.service
+/bin/systemctl try-restart systemd-binfmt.service || :
 fi
 
 %ldconfig_post core
@@ -1005,19 +1005,19 @@ rm -f %{_bindir}/wine-preloader
 %{_sbindir}/alternatives --install %{_bindir}/wineserver \
   wineserver %{_bindir}/wineserver32 10
 %endif
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/dxgi.dll \
-  'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-dxgi.dll 10
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/d3d8.dll \
-  'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d8.dll 10
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/d3d9.dll \
-  'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d9.dll 10
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/d3d10core.dll \
-  'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d10core.dll 10
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/d3d10.dll \
-  'wine-d3d10%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d10.dll 10 \
-  --slave  %{_libdir}/wine/%{winepedirs}/d3d10_1.dll 'wine-d3d10_1%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d10_1.dll
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedirs}/d3d11.dll \
-  'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d11.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/dxgi.dll \
+  'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-dxgi.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d8.dll \
+  'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d8.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d9.dll \
+  'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d9.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d10core.dll \
+  'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10core.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d10.dll \
+  'wine-d3d10%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10.dll 10 \
+  --slave  %{_libdir}/wine/%{winepedir}/d3d10_1.dll 'wine-d3d10_1%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10_1.dll
+%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d11.dll \
+  'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d11.dll 10 || :
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/dxgi.dll \
   'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-dxgi.dll 10
@@ -1028,7 +1028,7 @@ rm -f %{_bindir}/wine-preloader
   --slave  %{_libdir}/wine/i386-windows/d3d10_1.dll 'wine-d3d10_1(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10_1.dll \
   --slave  %{_libdir}/wine/i386-windows/d3d10core.dll 'wine-d3d10core(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10core.dll
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d11.dll \
-  'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll 10
+  'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll 10 || :
 %endif
 
 %postun core
@@ -1041,17 +1041,17 @@ if [ $1 -eq 0 ] ; then
   %{_sbindir}/alternatives --remove wine %{_bindir}/wine32
   %{_sbindir}/alternatives --remove wineserver %{_bindir}/wineserver32
 %endif
-  %{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-dxgi.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d8.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d9.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d10core.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d10%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d10.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedirs}/wine-d3d11.dll
+  %{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-dxgi.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d8.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d9.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10core.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d10%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d11.dll || :
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
   %{_sbindir}/alternatives --remove 'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-dxgi.dll
   %{_sbindir}/alternatives --remove 'wine-d3d9(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d9.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll || :
 %endif
 fi
 
@@ -2234,6 +2234,10 @@ fi
 %endif
 
 %changelog
+* Fri Jul 18 2025 Adam Williamson <awilliam@redhat.com> - 10.12-3
+- Fix alternatives scriptlets on x86_64
+- Ensure scriptlets always exit 0 per policy
+
 * Sat Jul 12 2025 Björn Esser <besser82@fedoraproject.org> - 10.12-2
 - Drop unneeded libOSMesa dependency
 - Use new wow64 mode for Fedora 43 and later, only

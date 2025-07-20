@@ -115,7 +115,9 @@ PCRE_LDFLAGS="-lpcre2-posix"
  -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} $PCRE_LDFLAGS" \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
-%make_build -C METIS-%{version}
+
+%define __cmake_builddir METIS-%{version}
+%cmake_build
 
 %if 0%{?arch64}
 %if 0%{?rhel} && 0%{?rhel} < 9
@@ -137,12 +139,14 @@ PCRE_LDFLAGS="-lpcre2-posix"
  -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} $PCRE_LDFLAGS" \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
-%make_build -C metis64
+
+%define __cmake_builddir metis64
+%cmake_build
 %endif
 
 %install
-pushd METIS-%{version}
-%make_install
+%define __cmake_builddir METIS-%{version}
+%cmake_install
 
 ## Generate manpages from binaries
 LD_PRELOAD=%{buildroot}%{_libdir}/lib%{name}.so.0 \
@@ -164,17 +168,15 @@ help2man --version-string="%{version}" -n "Converts a mesh into a graph that is 
 
 mkdir -p %{buildroot}%{_mandir}/man1
 mv *.1 %{buildroot}%{_mandir}/man1
-popd
 
 # Save metis.h with IDXTYPEWIDTH = 32
 mv %{buildroot}%{_includedir}/metis.h %{buildroot}%{_includedir}/metis32.h
 
 %if 0%{?arch64}
-pushd metis64
-%make_install
+%define __cmake_builddir metis64
+%cmake_install
 # Save metis.h with IDXTYPEWIDTH = 64
 mv %{buildroot}%{_includedir}/metis.h %{buildroot}%{_includedir}/metis64.h
-popd
 %endif
 
 # Save metis.h with IDXTYPEWIDTH = 32

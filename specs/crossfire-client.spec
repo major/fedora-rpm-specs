@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name: crossfire-client
-Version: 1.75.3
-Release: 3%{?dist}
+Version: 1.75.4
+Release: 1%{?dist}
 Summary: Client for connecting to crossfire servers
 License: GPL-2.0-or-later
 URL: http://crossfire.real-time.com
@@ -38,7 +38,7 @@ done
 %build
 # Disable sound for Fedora until it's working again.
 export  LDFLAGS+=" -lX11"
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -49,7 +49,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/icons/locolor/16x16/apps
 install -d $RPM_BUILD_ROOT%{_datadir}/icons/locolor/32x32/apps
 install -d $RPM_BUILD_ROOT%{_datadir}/icons/locolor/48x48/apps
 
-make install DESTDIR=%{buildroot}
+%cmake_install
 
 install -m 644 pixmaps/16x16.png \
         $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps/crossfire-client.png
@@ -123,10 +123,13 @@ cp common/libcfclient.so $RPM_BUILD_ROOT%{_libdir}/
 %{_datadir}/icons/locolor/32x32/apps/%{name}.png
 %{_datadir}/icons/locolor/48x48/apps/%{name}.png
 %{_datadir}/%{name}/
-%doc ChangeLog COPYING README* TODO
+%doc ChangeLog.md COPYING README* TODO
 %{_libdir}/libcfclient.so
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.75.4-1
+- Cmake fixes, 1.75.4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.75.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

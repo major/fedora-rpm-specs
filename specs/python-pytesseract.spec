@@ -15,8 +15,6 @@ BuildRequires:  tesseract-langpack-fra
 BuildRequires:  tesseract-langpack-eng
 BuildRequires:  tesseract-osd
 
-Requires:       tesseract
-
 %global _description %{expand:
 Python-tesseract is an optical character recognition (OCR) tool for python. That
 is, it will recognize and "read" the text embedded in images.
@@ -31,6 +29,7 @@ Python-tesseract will print the recognized text instead of writing it to a file.
 
 %package -n     python3-pytesseract
 Summary:        %{summary}
+Requires:       tesseract
 
 %description -n python3-pytesseract %_description
 
@@ -54,7 +53,8 @@ chmod +x %{buildroot}/%{python3_sitelib}/pytesseract/pytesseract.py
 %check
 %pyproject_check_import
 # https://github.com/madmaze/pytesseract/issues/419
-%pytest -k 'not test_image_to_string_with_image_type[jpeg2000]'
+# https://github.com/madmaze/pytesseract/pull/559
+%pytest -k 'not test_image_to_string_with_image_type[jpeg2000] and not test_get_languages[incorrect_tessdata_dir] and not test_get_languages[invalid_tessdata_dir]'
 
 %files -n python3-pytesseract -f %{pyproject_files}
 %{_bindir}/pytesseract

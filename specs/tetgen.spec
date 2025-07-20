@@ -1,12 +1,14 @@
 Name:           tetgen
 Version:        1.5.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A Quality Tetrahedral Mesh Generator
 
 License:        AGPL-3.0-or-later
 URL:            http://wias-berlin.de/software/tetgen/
 Source0:        http://www.tetgen.org/1.5/src/%{name}%{version}.tar.gz
 Source1:        http://www.tetgen.org/1.5/doc/manual/manual.pdf
+# - Raise minimum cmake version
+# - Use GNUInstallDirs
 # - Fix cmake file to build a shared library and support installation
 # - Don't compile the entire code twice, once for the library and once for the
 #   executable, but link the executable against the library instead
@@ -74,6 +76,9 @@ sed -i 's|\r||g' example.poly
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-29
+- Raise minimum CMake version, use GNUInstallDirs
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

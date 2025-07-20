@@ -1,15 +1,22 @@
 Name:           pam_abl
 Summary:        A Pluggable Authentication Module (PAM) for auto blacklisting
 Version:        0.6.0
-Release:        28%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Release:        29%{?dist}
 License:        GPL-2.0-or-later
-URL:            http://pam-abl.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/pam-abl/pam-abl-%{version}.tar.gz
+URL:            https://pam-abl.sourceforge.net/
+Source0:        https://downloads.sourceforge.net/pam-abl/pam-abl-%{version}.tar.gz
 Patch0:         pam_abl-0.6.0-whitelistroot.patch
+# Port to CMake 4, bug #2381354, proposed to upstream,
+# <https://sourceforge.net/p/pam-abl/code/merge-requests/2/>
+Patch1:         pam_abl-0.6.0-Port-to-CMake-4.patch
+BuildRequires:  asciidoc
+BuildRequires:  bash
+BuildRequires:  cmake >= 3.5.0
+BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libdb-devel pam-devel cmake asciidoc
+BuildRequires:  libdb-devel
+BuildRequires:  pam-devel
 
 %description
 Provides auto blacklisting of hosts and users responsible for repeated
@@ -19,8 +26,7 @@ fail to authenticate. A command line tool allows to query or purge the
 databases used by the pam_abl module.
 
 %prep
-%setup -q -c
-%patch -P0 -p 1 -b .whitelistroot
+%autosetup -p1 -c
 
 %build
 %cmake
@@ -53,9 +59,15 @@ install -D -m 644 doc/pam_abl.8      %{buildroot}%{_mandir}/man8/pam_abl.8
 %{_libdir}/security/pam_abl.so
 %{_bindir}/pam_abl
 %{_localstatedir}/lib/abl/
-%{_mandir}/man?/*
+%{_mandir}/man1/pam_abl.*
+%{_mandir}/man5/pam_abl.conf.*
+%{_mandir}/man8/pam_abl.*
 
 %changelog
+* Fri Jul 18 2025 Petr Pisar <ppisar@redhat.com> - 0.6.0-29
+- Port to CMake 4 (bug #2381354)
+- Update addresses to use https schema
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -47,7 +47,7 @@
 
 Name:          gdal
 Version:       3.10.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -71,6 +71,8 @@ Patch0:        gdal_utils.patch
 Patch1:        gdal_incompatible-pointer-types.patch
 # Add definitions of missing int16_t and int32_t
 Patch2:        gdal-3.10.2-integer-types.patch
+# Fix build against poppler 2025.05.0+
+Patch3:        https://github.com/OSGeo/gdal/commit/a689e2189ff0a464f3150ed8b2dd5a3cc1194012.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -784,6 +786,9 @@ done
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 3.10.3-5
+- Rebuild (poppler)
+
 * Thu Jul 10 2025 Stephen Gallagher <sgallagh@redhat.com> - 3.10.3-4
 - Rebuilt for libarrow 20
 

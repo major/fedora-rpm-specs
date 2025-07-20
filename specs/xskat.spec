@@ -5,7 +5,7 @@ Name:             xskat
 # Upstream License requires to alter the version number
 # for re-distribution
 Version:          %{upstream_version}.0
-Release:          36%{?dist}
+Release:          37%{?dist}
 # https://fedoraproject.org/wiki/Licensing/XSkat_License
 License:          XSkat
 Source0:          http://www.xskat.de/xskat-%{upstream_version}.tar.gz
@@ -14,12 +14,13 @@ Patch0:           xskat-c99.patch
 URL:              http://www.xskat.de/xskat.html
 # xskat requires an 10x20 font
 Requires:         xorg-x11-fonts-misc
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:    make
+BuildRequires:    gcc
 BuildRequires:    imake
 BuildRequires:    libX11-devel
 BuildRequires:    desktop-file-utils
 BuildRequires:    ImageMagick
+BuildRequires:    libappstream-glib
 
 
 %description
@@ -54,7 +55,7 @@ mv -f README.IRC-de.conv README.IRC-de
 
 %build
 %configure
-make CDEBUGFLAGS="%{optflags}"
+make CDEBUGFLAGS="-std=c99 %{optflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -80,18 +81,20 @@ touch -r icon.xbm $RPM_BUILD_ROOT%{_datadir}/pixmaps/xskat.xpm
 #
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
+
+mkdir -p $RPM_BUILD_ROOT%{_metainfodir}
+cat > $RPM_BUILD_ROOT%{_metainfodir}/xskat.appdata.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Ravi Srinivasan <ravishankar.srinivasan@gmail.com> -->
 <!--
 EmailAddress: m@il.xskat.de
 SentUpstream: 2014-09-25
 -->
-<application>
-  <id type="desktop">xskat.desktop</id>
+<component type="desktop">
+  <id>xskat.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <summary>A trick taking card game popular in Germany</summary>
+  <name>XSkat</name>
   <description>
     <p>
       XSkat is a trick taking card game that is popular in Germany.
@@ -99,20 +102,28 @@ SentUpstream: 2014-09-25
     </p>
   </description>
   <url type="homepage">http://www.xskat.de/xskat.html</url>
-</application>
+</component>
 EOF
+
+%check
+# Check the AppData add-on to comply with guidelines.
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.xml
 
 %files
 %doc README* CHANGES*
 %{_bindir}/xskat
 %{_mandir}/man6/xskat.6.gz
 %lang(de) %{_mandir}/de/man6/xskat.6.gz
-%{_datadir}/appdata/*.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/%{name}.xpm
 
 
 %changelog
+* Fri Jul 18 2025 Christian Krause <chkr@fedoraproject.org> - 4.0.0-37
+- Fix FTBFS (#2341586)
+- Use new directory for AppData files
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,3 +1,7 @@
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
 Summary: A DMARC milter and library
 Name: opendmarc
 Version: 1.4.2

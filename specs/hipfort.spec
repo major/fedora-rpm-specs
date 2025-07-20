@@ -15,7 +15,7 @@
 
 Name:           hipfort
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -60,6 +60,10 @@ The headers of libraries for %{name}.
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 sed -i -e 's/-o $@/-lrocfft -lrocrand -lrocblas -lrocsolver -lrocsparse -lhipfft -lhiprand -lhipblas -lhipsolver -lhipsparse -o $@/' test/Makefile.in
+
+# For CMake 4
+sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_required(VERSION 3.5@' bin/CMakeLists.txt
+
 
 %build
 
@@ -114,6 +118,9 @@ rm %{buildroot}%{_libdir}/cmake/%{name}/%{name}-config.cmake
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Fri Jul 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
+- Increase the minimum cmake version
+
 * Sun Apr 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1
 - Update to 6.4.0
 

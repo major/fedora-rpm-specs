@@ -1,6 +1,6 @@
 Name:    prboom-plus
 Version: 2.6.66
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Free enhanced DOOM engine
 URL:     https://github.com/coelckers/prboom-plus/tags
 License: BSD-3-Clause AND MIT AND LGPL-2.0-or-later
@@ -42,7 +42,7 @@ Bash command line completion support for %{name}.
 
 %build
 pushd prboom2
-%cmake -DDOOMWADDIR=%{_datadir}/doom -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS -std=gnu17 -fPIE"
+%cmake -DDiOOMWADDIR=%{_datadir}/doom -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS -std=gnu17 -fPIE" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -70,6 +70,9 @@ install -Dpm 644 ICONS/%{name}.bash %{buildroot}%{_datadir}/bash-completion/comp
 %{_datadir}/bash-completion/completions/%{name}.bash
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.6.66-9
+- CMake fixes
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.66-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

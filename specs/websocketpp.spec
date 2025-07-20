@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -34,6 +34,10 @@ Patch4: websocketpp-0.8.2-fix-cmake-find-boost.patch
 # https://github.com/zaphoyd/websocketpp/issues/991
 # https://github.com/zaphoyd/websocketpp/commit/3197a520eb4c1e4754860441918a5930160373eb
 Patch5: websocketpp-0.8.2-cpp20-fixes.patch
+
+# Update minimum required CMake version to comply with CMake 4.0
+# https://github.com/zaphoyd/websocketpp/commit/deb0a334471362608958ce59a6b0bcd3e5b73c24
+Patch6: websocketpp-0.8.2-cmake40.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -93,6 +97,10 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Fri Jul 18 2025 Wolfgang Stöggl <c72578@yahoo.de> - 0.8.2-18
+- Add patch: websocketpp-0.8.2-cmake40.patch
+- Fix CMake 4.0 FTBFS #2381633
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           hedgewars
 Version:        1.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
@@ -28,6 +28,8 @@ Patch3:        0a8921bf167481045830095c731eb3c67af913e4.patch
 # https://github.com/hedgewars/hw/pull/75
 Patch4:        https://patch-diff.githubusercontent.com/raw/hedgewars/hw/pull/75.patch
 Patch5:        hedgewars-mtl-2.3.patch
+
+Patch6:        cmake.patch
 
 BuildRequires:  cmake gcc-c++ fpc desktop-file-utils
 BuildRequires:  libatomic
@@ -124,9 +126,21 @@ done
 export CFLAGS="%{build_cflags} -DGL_GLEXT_PROTOTYPES"
 export CXXFLAGS="%{build_cxxflags} -DGL_GLEXT_PROTOTYPES"
 %ifarch %{arm}
-%cmake -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`" -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+%if "%{?_lib}" == "lib64"
+     %{?_cmake_lib_suffix64} \
+%endif
 %else
-%cmake -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DGHFLAGS=-dynamic -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DGHFLAGS=-dynamic -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`" -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+%if "%{?_lib}" == "lib64"
+     %{?_cmake_lib_suffix64} \
+ %endif
 %endif
 
 %cmake_build
@@ -210,6 +224,9 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-10
+- CMake fixes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

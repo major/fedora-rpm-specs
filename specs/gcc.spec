@@ -1,10 +1,10 @@
-%global DATE 20250707
-%global gitrev c138e88e24a87a165b741b7c6e3452a430aca820
+%global DATE 20250718
+%global gitrev ef203c5a397a3bcad27a7bb73210f3fbb48782b3
 %global gcc_version 15.1.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -305,7 +305,6 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
-Patch13: gcc15-pr120837.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3766,6 +3765,23 @@ end
 %endif
 
 %changelog
+* Fri Jul 18 Jakub Jelinek <jakub@redhat.com> 15.1.1-4
+- update from releases/gcc-15 branch
+  - PRs ada/121056, c++/87097, c++/120569, c++/120628, c++/120954,
+	fortran/104428, fortran/120637, fortran/120843, fortran/120847,
+	fortran/121060, ipa/121023, libstdc++/118681, libstdc++/119754,
+	libstdc++/120997, middle-end/120709, modula2/117203, modula2/119650,
+	modula2/120253, modula2/120389, modula2/120474, modula2/120497,
+	modula2/120542, modula2/120606, modula2/120673, modula2/120731,
+	modula2/120912, rtl-optimization/120242, rtl-optimization/120627,
+	rtl-optimization/120736, rtl-optimization/120813, target/118241,
+	target/120356, target/120807, target/120908, target/120995,
+	target/120999, tree-optimization/118669, tree-optimization/120358,
+	tree-optimization/120780, tree-optimization/120817,
+	tree-optimization/120924, tree-optimization/120944,
+	tree-optimization/121035, tree-optimization/121049,
+	tree-optimization/121059, tree-optimization/121131
+
 * Mon Jul  7 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-3
 - update from releases/gcc-15 branch
   - PRs ada/120665, ada/120705, ada/120854, c/120180, c++/116064, c++/120123,

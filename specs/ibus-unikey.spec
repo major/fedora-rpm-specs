@@ -12,6 +12,7 @@ URL:           https://github.com/vn-input/ibus-unikey/
 Source0:       https://github.com/vn-input/ibus-unikey/archive/refs/tags/%{source_version}.tar.gz#/%{name}-%{source_version}.tar.gz
 Patch1:        %{name}-2267853-super-space.patch
 Patch2:        %{name}-2257688-segv-load-config.patch
+Patch3:        %{name}-2380650-cmake-4.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        15.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Colored terminal output for Python's logging module
 
 License:        MIT
@@ -37,17 +37,11 @@ HTML documentation for the '%{srcname}' Python module.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+BuildRequires:  /usr/bin/script
 BuildRequires:  python%{python3_pkgversion}-capturer >= 2.4
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-humanfriendly >= 9.1
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-verboselogs >= 1.7
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-humanfriendly >= 9.1
-%endif
 
 %if !0%{?rhel} || 0%{?rhel} >= 8
 Suggests:       %{name}-doc = %{version}-%{release}
@@ -63,19 +57,24 @@ standard colors so it should work on any UNIX terminal.
 %prep
 %autosetup -p1
 
+# Don't install tests.py
+mv %{srcname}/tests.py ./tests.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
-
-# Don't install tests.py
-rm build/lib/%{srcname}/tests.py
+%pyproject_wheel
 
 sphinx-build-%{python3_version} -nb html -d docs/build/doctrees docs docs/build/html
 rm docs/build/html/.buildinfo
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 
 %check
@@ -90,23 +89,24 @@ PATH=%{buildroot}%{_bindir}:$PATH \
     PYTHONUSERBASE=%{buildroot}%{_prefix} \
     PYTHONUNBUFFERED=1 \
     py.test-%{python3_version} \
-    %{srcname}/tests.py
+    tests.py
 
 
 %files doc
 %license LICENSE.txt
 %doc docs/build/html
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE.txt
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG.rst README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/%{srcname}.pth
 %{_bindir}/%{srcname}
 
 
 %changelog
+* Fri Jul 18 2025 Scott K Logan <logans@cottsay.net> - 15.0.1-12
+- Add missing BuildRequires: /usr/bin/script (rhbz#2341136)
+- Switch to pyproject build macros (rhbz#2377563)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

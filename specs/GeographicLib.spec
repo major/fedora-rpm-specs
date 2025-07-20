@@ -1,35 +1,22 @@
-
-%global nativever 2.5
-%global baserelease 2
-%global pythonver 2.0
-%global pythonrelease %{nativever}.%{baserelease}
-
 Name:           GeographicLib
-Version:        %{nativever}
-Release:        %{baserelease}%{?dist}
+Version:        2.5
+Release:        3%{?dist}
 Summary:        Library for geographic coordinate transformations
 
 License:        MIT
 URL:            https://github.com/geographiclib/geographiclib
-Source0:        https://github.com/geographiclib/geographiclib/archive/v%{nativever}/%{name}-%{nativever}.tar.gz
-Source1:        %{pypi_source geographiclib %pythonver}
+Source0:        https://github.com/geographiclib/geographiclib/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
-BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
-BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-build
 
 %description
 GeographicLib is a small set of C++ classes for performing conversions 
@@ -46,7 +33,7 @@ Implementations in other languages.
 
 %package devel
 Summary:        Development files and libraries for %{name}
-Requires:       %{name}%{?_isa} = %{nativever}-%{baserelease}%{?dist}
+Requires:       %{name}%{?_isa} = %{version}-%{release}%{?dist}
 Requires:       cmake
 
 %description devel
@@ -64,32 +51,12 @@ This package contains doxygen-generated html API documentation for
 the %{name} library.
 
 
-%package -n python3-%{name}
-Summary:        Python 3 implementation of %{name}
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
-BuildArch:      noarch
-
-%description -n python3-%{name}
-A translation of the GeographicLib::Geodesic class to Python 3
-
-
 %package -n mingw32-%{name}
 Summary:        MinGW Windows %{name} library
 BuildArch:      noarch
 
 %description -n mingw32-%{name}
 MinGW Windows %{name} library.
-
-
-%package -n mingw32-python3-%{name}
-Summary:        MinGW Windows %{name} python 3 bindings
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
-BuildArch:      noarch
-
-%description -n mingw32-python3-%{name}
-MinGW Windows %{name} python 3 bindings.
 
 
 %package -n mingw64-%{name}
@@ -100,21 +67,11 @@ BuildArch:      noarch
 MinGW Windows %{name} library.
 
 
-%package -n mingw64-python3-%{name}
-Summary:        MinGW Windows %{name} python 3 bindings
-Version:        %{pythonver}
-Release:        %{pythonrelease}%{?dist}
-BuildArch:      noarch
-
-%description -n mingw64-python3-%{name}
-MinGW Windows %{name} python 3 bindings.
-
-
 %{?mingw_debug_package}
 
 
 %prep
-%autosetup -p1 -n geographiclib-%{nativever} -a1
+%autosetup -p1 -n geographiclib-%{version}
 
 
 %build
@@ -130,32 +87,12 @@ MinGW Windows %{name} python 3 bindings.
 %mingw_cmake -DDOCDIR= -DMANDIR= -DEXAMPLEDIR=
 %mingw_make_build
 
-pushd geographiclib-%{pythonver}
-# Native build
-%py3_build
-# MinGW build
-%mingw32_py3_build_wheel
-%mingw64_py3_build_wheel
-popd
-
 
 %install
 # Native build
 %cmake_install
 # MinGW build
-(
 %mingw_make_install
-)
-
-pushd geographiclib-%{pythonver}
-# Native build
-%py3_install
-# MinGW build
-(
-%mingw32_py3_install_wheel
-%mingw64_py3_install_wheel
-)
-popd
 
 %mingw_debug_install_post
 
@@ -197,11 +134,6 @@ popd
 %license LICENSE.txt
 %doc %{_defaultdocdir}/%{name}/
 
-%files -n python3-%{name}
-%license LICENSE.txt
-%{python3_sitelib}/geographiclib/
-%{python3_sitelib}/geographiclib-%{pythonver}-py%{python3_version}.egg-info
-
 %files -n mingw32-%{name}
 %license LICENSE.txt
 %{mingw32_bindir}/CartConvert.exe
@@ -221,11 +153,6 @@ popd
 %{mingw32_libdir}/libGeographicLib.dll.a
 %{mingw32_libdir}/cmake/GeographicLib/
 %{mingw32_libdir}/pkgconfig/geographiclib.pc
-
-%files -n mingw32-python3-%{name}
-%license LICENSE.txt
-%{mingw32_python3_sitearch}/geographiclib/
-%{mingw32_python3_sitearch}/geographiclib-%{pythonver}.dist-info/
 
 %files -n mingw64-%{name}
 %license LICENSE.txt
@@ -247,13 +174,11 @@ popd
 %{mingw64_libdir}/cmake/GeographicLib/
 %{mingw64_libdir}/pkgconfig/geographiclib.pc
 
-%files -n mingw64-python3-%{name}
-%license LICENSE.txt
-%{mingw64_python3_sitearch}/geographiclib/
-%{mingw64_python3_sitearch}/geographiclib-%{pythonver}.dist-info/
-
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 2.5-3
+- Drop python subpackages, they now live in python-geographiclib
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.5-2
 - Rebuilt for Python 3.14
 

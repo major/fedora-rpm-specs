@@ -12,7 +12,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.68
+Version:        1.69
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
@@ -27,6 +27,8 @@ Source:         %{giturl}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 Patch:          %{name}-imagemagick7.patch
 # Adapt to Singular 4.4
 Patch:          %{name}-singular4.4.patch
+# Version 1.69 updated the Bianchi code without also updating a test
+Patch:          %{name}-bianchi-test.patch
 
 BuildRequires:  asymptote
 BuildRequires:  gap-devel

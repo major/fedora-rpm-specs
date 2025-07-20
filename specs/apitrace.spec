@@ -7,7 +7,7 @@
 
 Name:           apitrace
 Version:        13.0
-Release:        2%{?commit:.git%{shortcommit}}%{?dist}
+Release:        3%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -31,6 +31,8 @@ Source3:        qapitrace.appdata.xml
 Patch0:         apitrace_nosubmodules.patch
 # Fix build with gcc15
 Patch1:         apitrace-gcc15.patch
+# Raise minimum cmake version, use GNUInstallDirs
+Patch2:         https://github.com/apitrace/apitrace/commit/6f8527625ad5cf636e04a65b035228da96d7e228.patch
 
 BuildRequires:  brotli-devel
 BuildRequires:  cmake
@@ -42,8 +44,7 @@ BuildRequires:  libdwarf-devel
 BuildRequires:  libpng-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  snappy-devel
-# For libbacktrace tests
-BuildRequires:  python3
+BuildRequires:  python3-devel
 
 Requires:       %{name}-libs%{_isa} = %{version}-%{release}
 # scripts/snapdiff.py
@@ -96,7 +97,7 @@ mv libbacktrace-%{libbacktrace_commit} thirdparty/libbacktrace
 
 
 %build
-%cmake -DENABLE_STATIC_SNAPPY=OFF -DENABLE_QT6=ON
+%cmake -DENABLE_STATIC_SNAPPY=OFF -DENABLE_QT6=ON -DSCRIPTS_INSTALL_DIR=%{_libdir}/%{name}/scripts
 %cmake_build
 
 
@@ -141,6 +142,9 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 13.0-3
+- Raise minimum CMake version, use GNUInstallDirs
+
 * Sat Jul 05 2025 Sandro Mani <manisandro@gmail.com> - 13.0-2
 - Add qapitrace icon
 

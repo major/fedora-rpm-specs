@@ -6,7 +6,7 @@
 Name:    lensfun
 Version: 0.3.4
 Summary: Library to rectify defects introduced by photographic lenses
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: LGPLv3 and CC-BY-SA
 URL: https://lensfun.github.io/
@@ -103,6 +103,8 @@ sed -i.shbang \
   apps/lensfun-update-data
 %endif
 
+# For CMake 4
+sed -i -e 's@CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR@CMAKE_MINIMUM_REQUIRED(VERSION 3.5@' CMakeLists.txt
 
 %build
 %cmake \
@@ -191,6 +193,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Fri Jul 18 2025 Tom Rix <Tom.Rix@amd.com> - 0.3.4-7
+- change the minimum cmake version
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.4-6
 - Rebuilt for Python 3.14
 

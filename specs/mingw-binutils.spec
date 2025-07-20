@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -119,6 +119,13 @@ Patch20: binutils-fix-ar-test.patch
 # Lifetime: Fixed in 2.45
 Patch21: binutils-aarch64-small-plt0.patch
 
+# Backport fix for CVE-2025-7546
+# https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;h=41461010eb7c79fee7a9d5f6209accdaac66cc6b
+Patch22: CVE-2025-7546.patch
+
+# Backport fix for CVE-2025-7545
+# https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;h=08c3cbe5926e4d355b5cb70bbec2b1eeb40c2944
+Patch23: CVE-2025-7545.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -451,6 +458,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 2.44-2
+- Backport fixes for CVE-2025-7545 and CVE-2025-7546
+
 * Sun Feb 16 2025 Sandro Mani <manisandro@gmail.com> - 2.44-1
 - Update to 2.44
 

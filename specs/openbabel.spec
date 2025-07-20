@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -211,14 +211,13 @@ done
 popd
 
 %build
-mkdir -p %{_target_platform}
 %if 0%{?fedora} || 0%{?rhel}
 # RHBZ #1996330
 %ifarch %{power64}
 export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
 %endif
-%cmake -B %{_target_platform} \
+%cmake \
  -Wno-dev \
  -DCMAKE_SKIP_RPATH:BOOL=ON \
  -DBUILD_GUI:BOOL=ON \
@@ -242,10 +241,10 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DOPTIMIZE_NATIVE=OFF \
  -DGLIBC_24_COMPATIBLE:BOOL=OFF
 
-%make_build -C %{_target_platform}
+%cmake_build
 
 %install
-%make_install -C %{_target_platform}
+%cmake_install
 
 rm -f %{buildroot}%{_libdir}/cmake/openbabel2/*.cmake
 
@@ -267,19 +266,13 @@ EOF
 
 %if 1
 %check
-%define _vpath_builddir %{_target_platform}
-
 # rm the built ruby bindings for testsuite to succeed (Red Hat bugzilla ticket #1191173)
 rm -f %{_vpath_builddir}/%{_lib}/openbabel.so
 
 export CTEST_OUTPUT_ON_FAILURE=1
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # See https://github.com/openbabel/openbabel/issues/2138, https://github.com/openbabel/openbabel/issues/2766
-%ifarch aarch64 %{arm} %{power64} s390x x86_64 riscv64
-%ctest --test-dir %{_vpath_builddir} -VV -E 'pybindtest_bindings|pybindtest_obconv_writers|test_align_4|test_align_5'
-%else
-%ctest
-%endif
+%ctest -E 'pybindtest_bindings|pybindtest_obconv_writers|test_align_4|test_align_5'
 %endif
 
 %files
@@ -335,6 +328,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Fri Jul 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-36
+- Fix rhbz#2381326
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.1.1-35
 - Perl 5.42 rebuild
 

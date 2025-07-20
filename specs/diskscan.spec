@@ -1,16 +1,16 @@
 Summary: Scan disk for bad or near failure sectors, performs disk diagnostics
 Name: diskscan
-Version: 0.20
-Release: 10%{?dist}
+Version: 0.21
+Release: 1%{?dist}
 URL: https://github.com/baruch/diskscan
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: %{name}-0.20-version.patch
+Patch0: %{name}-version.patch
+Patch1: %{name}-cmake-4.0.patch
 # hdrhistogram: CC0 or BSD (2-clause)
 # libscsicmd: ASL 2.0
 # progressbar: BSD (3-clause, no advertising)
 # the rest: GPLv3+
-# Automatically converted from old format: ASL 2.0 and BSD and (BSD or CC0) and GPLv3+ - review is highly recommended.
-License: Apache-2.0 AND LicenseRef-Callaway-BSD AND (LicenseRef-Callaway-BSD OR CC0-1.0) AND GPL-3.0-or-later
+License: Apache-2.0 AND BSD-3-Clause AND (BSD-2-Clause OR CC0-1.0) AND GPL-3.0-or-later
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: ncurses-devel
@@ -42,6 +42,11 @@ not pick up on such clues depending on the disk vendor decision making logic.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 18 2025 Dominik Mierzejewski <dominik@greysector.net> 0.21-1
+- update to 0.21
+- clarify BSD variants in the License tag
+- fix build with CMake 4.0 (resolves rhbz#2380542)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

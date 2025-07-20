@@ -8,7 +8,7 @@ Summary:        P(ortable) SIMD
 Name:           psimd
 License:        MIT
 Version:        %{date0}.%{shortcommit0}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 URL:            https://github.com/Maratyszcza
 Source0:        %{url}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -30,6 +30,9 @@ Portable 128-bit SIMD intrinsics
 %prep
 %autosetup -p1 -n %{name}-%{commit0}
 
+# For CMake 4
+sed -i -e 's@CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR@CMAKE_MINIMUM_REQUIRED(VERSION 3.5@' CMakeLists.txt
+
 %build
 %cmake 
 %cmake_build
@@ -43,6 +46,9 @@ Portable 128-bit SIMD intrinsics
 %{_includedir}/psimd.h
 
 %changelog
+* Fri Jul 18 2025 Tom Rix <Tom.Rix@amd.com> - 20200517.072586a-7
+- change minimal cmake version
+
 * Sun Mar 16 2025 Tom Rix <Tom.Rix@amd.com> - 20200517.072586a-6
 - Rebuild
 

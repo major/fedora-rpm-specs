@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        84%{?dist}
+Release:        85%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -574,6 +574,9 @@ fi
 
 
 %changelog
+* Fri Jul 18 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-85
+- Update tmpfiles.d to create /var/lib/Pegasus
+
 * Wed Jun 18 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-84
 - Update to better support post-quantum cryptography
 

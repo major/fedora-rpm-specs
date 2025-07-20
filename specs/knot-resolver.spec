@@ -6,7 +6,7 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.7.5
+Version:        5.7.6
 Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
@@ -53,7 +53,7 @@ Requires:       systemd
 Requires(post): systemd
 
 # dnstap module dependencies
-# SUSE is missing protoc-c protobuf compiler
+# SUSE is missing protoc protobuf compiler
 %if "x%{?suse_version}" == "x"
 BuildRequires:  pkgconfig(libfstrm)
 BuildRequires:  pkgconfig(libprotobuf-c)
@@ -380,6 +380,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 18 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.7.6-1
+- New upstream version 5.7.6
+
 * Thu Apr 24 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.7.5-1
 - New upstream version 5.7.5
 - Remove duplicate file listing

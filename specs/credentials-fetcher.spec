@@ -1,9 +1,9 @@
 %global major_version 1
 %global minor_version 3
-%global patch_version 7
+%global patch_version 8
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 6
+%global baserelease 1
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -22,7 +22,7 @@ Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%
 # Bump dotnet-sdk to 8.0
 #Patch:          credentials-fetcher-1.3.6-fix-dotnet-version.patch
 # Disable integ-tests for Fedora, for now
-Patch0:         credentials-fetcher-1.3.7-disable-integ-tests-for-Fedora.patch
+Patch0:         credentials-fetcher-1.3.8-disable-integ-tests-for-Fedora.patch
 # Also disable integ-tests for EL targets, for now
 Patch1:         credentials-fetcher-1.3.7-no-api-tests-on-el.patch
 
@@ -55,7 +55,11 @@ This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 
 %build
-%cmake3
+# Use the distributions optflags
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
+# We need to set ENABLE_DEBUGGING or else the binaries get stripped
+%cmake3 -DENABLE_DEBUGGING=ON
 %cmake_build
 %install
 
@@ -66,6 +70,9 @@ sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 # https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 ls -al %{buildroot}/usr/sbin/credentials-fetcherd
 chrpath --delete %{buildroot}/usr/sbin/credentials-fetcherd
+
+# We don't package this krb5.conf
+rm -rf %{buildroot}/usr/sbin/krb5.conf
 
 %check
 # TBD: Run tests from top-level directory
@@ -81,6 +88,9 @@ ctest
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Fri Jul 18 2025 Tom Callaway <spot@fedoraproject.org> - 1.3.8-1
+- update to 1.3.8
+
 * Thu Jul 17 2025 Tom Callaway <spot@fedoraproject.org> - 1.3.7-6
 - disable tests on el targets too
 

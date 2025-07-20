@@ -17,12 +17,14 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 Patch0:         0001-relax-test-for-RPM-5.patch
+Patch1:         0001-RPMTAG_PKGID-and-RPMTAG_HDRID-removed-in-RPM-6.patch
+Patch2:         0003-use-RPMTAG_SIGMD5-instead-of-RPMTAG_PKGID-RPMTAG_SHA.patch
 
 ExcludeArch:    %{ix86}
 
@@ -59,6 +61,8 @@ sed -e 's/role="test"/role="src"/' \
 
 cd %{sources}
 %patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RPMINFO_VERSION/{s/.* "//;s/".*$//;p}' php_rpminfo.h)
@@ -127,8 +131,14 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jul 18 2025 Remi Collet <remi@remirepo.net> - 1.2.0-5
+- add more upstream patch for RPM 5.99.91
+
+* Fri Jul 18 2025 Remi Collet <remi@remirepo.net> - 1.2.0-4
+- add upstream patch for RPM 5.99.91
+
 * Thu May 22 2025 Remi Collet <remi@remirepo.net> - 1.2.0-3
-- add upstream patch to relax test for RPM 5
+- add upstream patch to relax test for RPM 5.99.90
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

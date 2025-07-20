@@ -7,7 +7,7 @@ Name:           foxi
 License:        MIT
 # 1.4.1 comes from VERSION_NUMBER file
 Version:        1.4.1^git%{date0}.%{shortcommit0}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # Only for pytorch's arch
 ExclusiveArch:  x86_64 aarch64
@@ -47,6 +47,9 @@ sed -i -e 's/foxi foxi_dummy foxi_loader/foxi_loader/' CMakeLists.txt
 # version *.so
 echo "set_target_properties(foxi_loader PROPERTIES SOVERSION \"1.4.1\")" >> CMakeLists.txt
 
+# For CMake 4
+sed -i 's@cmake_minimum_required(VERSION 3.1@cmake_minimum_required(VERSION 3.5@' CMakeLists.txt
+
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DONNX_USE_LITE_PROTO=OFF
@@ -66,6 +69,9 @@ echo "set_target_properties(foxi_loader PROPERTIES SOVERSION \"1.4.1\")" >> CMak
 %{_libdir}/libfoxi_loader.so
 
 %changelog
+* Fri Jul 18 2025 Tom Rix <Tom.Rix@amd.com> - 1.4.1^git20210526.c278588-5
+- Change minimum cmake version
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1^git20210526.c278588-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

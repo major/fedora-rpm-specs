@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 21
+%global baserelease 23
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -339,6 +339,10 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+# https://bugs.winehq.org/show_bug.cgi?id=58523
+# revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
+# applied with PP powers as we really need to build wine to fix scriptlet problems
+Patch100: 0001-Revert-Linux-Keep-termios-ioctl-constants-strictly-i.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -1367,8 +1371,9 @@ build()
 		--disable-crypt \
 	        --disable-build-nscd \
 	        --disable-nscd \
-		--enable-fortify-source ||
-		{ cat config.log; false; }
+		--enable-fortify-source \
+		--disable-sframe \
+		|| { cat config.log; false; }
 
 	# We enable DT_GNU_HASH and DT_HASH for ld.so and DSOs to improve
 	# compatibility with applications that expect DT_HASH e.g. Epic Games
@@ -2381,6 +2386,12 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jul 18 2025 Adam Williamson <awilliam@redhat.com> - 2.41.9000-23
+- Revert "Linux: Keep termios ioctl constants strictly internal" to fix wine build
+
+* Fri Jul 18 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-22
+- Build without SFrame stack trace format information
+
 * Thu Jul 17 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-21
 - Auto-sync with upstream branch master,
   commit 0263528f8dd60cf58976e2d516b7c9edb16ae6f8:

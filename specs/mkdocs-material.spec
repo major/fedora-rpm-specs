@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global forgeurl https://github.com/squidfunk/mkdocs-material
 %bcond bootstrap 0
 

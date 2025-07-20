@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.37%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.38%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        LGPL-2.1-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -33,28 +33,30 @@ Source0:        https://github.com/%{qt_module}/%{qt_module}/archive/%{commit}/%
 Source0:        https://github.com/%{qt_module}/%{qt_module}/releases/download/%{qt_module}-%{version}%{?pre:-%pre}/%{qt_module}-%{version}%{?pre:-%pre}.tar.xz
 %endif
 
-# Patch for new CMake policy CMP0071 to explicitly use old behaviour.
-Patch1:         qtwebkit_cmake_cmp0071.patch
 # Don't override import lib suffix
-Patch2:         qtwebkit_libsuffix.patch
+Patch1:         qtwebkit_libsuffix.patch
 # Backport python 3.9 build fix
-Patch3:         qtwebkit_python.patch
+Patch2:         qtwebkit_python.patch
 # Fix build with bison 3.7
-Patch4:         qtwebkit-bison37.patch
+Patch3:         qtwebkit-bison37.patch
 # From https://github.com/WebKit/WebKit/commit/c7d19a492d97f9282a546831beb918e03315f6ef
 # Ruby 3.2 removes Object#=~ completely
-Patch5:         webkit-offlineasm-warnings-ruby27.patch
+Patch4:         webkit-offlineasm-warnings-ruby27.patch
 # Correctly test ICU return status with U_SUCCESS rather than comparing to U_ZERO_ERROR which fails on warnings
-Patch6:         qtwebkit_icu-success.patch
+Patch5:         qtwebkit_icu-success.patch
 # Fix gcc13 build
-Patch7:         qtwebkit_gcc13.patch
+Patch6:         qtwebkit_gcc13.patch
 # Fix build against recent libxml2
-Patch8:         qtwebkit_libxml.patch
+Patch7:         qtwebkit_libxml.patch
 # Fix gcc14 build
-Patch9:         qtwebkit-fix-build-gcc14.patch
+Patch8:         qtwebkit-fix-build-gcc14.patch
 # Switch to -std=c++17 (fixes build with recent icu)
 # Drop backported c++14 stl features om StdLibExtras.h
-Patch10:        qtwebkit-c++17.patch
+Patch9:         qtwebkit-c++17.patch
+# Raise cmake minimum version
+Patch10:        qtwebkit_cmakever.patch
+# Fix build against gcc15
+Patch11:        qtwebkit_gcc15.patch
 
 BuildArch:      noarch
 
@@ -262,6 +264,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.38.alpha4
+- Raise minimum cmake version, fix build
+
 * Wed Jan 22 2025 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.37.alpha4
 - Rebuild (qt5)
 

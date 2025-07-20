@@ -4,15 +4,17 @@
 
 Name:           libbtbb
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A Bluetooth baseband decoding library
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            https://github.com/greatscottgadgets/libbtbb
 Source0:        https://github.com/greatscottgadgets/libbtbb/archive/%{POSTYEAR}-%{POSTMONTH}-R%{POSTNUM}.tar.gz
 
+Patch0:         %{name}-0001-Update-CMake-version-requirement.patch
+
 BuildRequires:  cmake gcc-c++
-BuildRequires: make
+BuildRequires:  make
 
 %description
 This is the Bluetooth baseband decoding library, forked from the GR-Bluetooth
@@ -56,6 +58,10 @@ developing applications that use %{name}.
 
 
 %changelog
+
+* Fri Jul 18 2025 Sergey Avseyev <sergey.avseyev@gmail.com> - 2020.12.R1-13
+- Update CMake version requirements
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

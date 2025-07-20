@@ -1,6 +1,6 @@
 Name:           teeworlds
 Version:        0.7.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Online multi-player platform 2D shooter
 
 # zlib: src/engine/externals/md5/*
@@ -80,15 +80,16 @@ u teeworlds - '%{name} server daemon account' %{_sysconfdir}/%{name} -
 EOF
 
 %build
-%cmake . -B%{_vpath_builddir} -GNinja -DCMAKE_BUILD_TYPE=RELEASE \
+%cmake . -GNinja -DCMAKE_BUILD_TYPE=RELEASE \
   -DPREFER_BUNDLED_LIBS=OFF \
   -DSERVER_EXECUTABLE=%{name}-srv \
   -DPYTHON_EXECUTABLE=%{__python3} \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   %{nil}
-%ninja_build -C %{_vpath_builddir}
+%cmake_build
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 install -Dpm0644 -t %{buildroot}%{_datadir}/pixmaps/ %{S:3}
 install -Dpm0644 -t %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/ %{S:3}
 install -Dpm0644 -t %{buildroot}%{_metainfodir} other/%{name}.appdata.xml
@@ -138,6 +139,9 @@ install -m0644 -D teeworlds.sysusers.conf %{buildroot}%{_sysusersdir}/teeworlds.
 %{_sysusersdir}/teeworlds.conf
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.7.5-18
+- CMake fixes
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.7.5-17
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

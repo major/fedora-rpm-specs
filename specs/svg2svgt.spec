@@ -1,6 +1,6 @@
 Name:           svg2svgt
 Version:        0.9.6
-Release:        22%{?commit:.git%shortcommit}%{?dist}
+Release:        23%{?commit:.git%shortcommit}%{?dist}
 Summary:        SVG to SVG Tiny converter
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -10,6 +10,8 @@ Source0:        https://github.com/manisandro/svg2svgt/archive/v{%version}/%{nam
 
 # Add missing include
 Patch0:         svg2svgt_includes.patch
+# Raise minimum cmake version, use GNUInstallDirs
+Patch1:         svg2svgt_cmake.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -21,7 +23,7 @@ BuildRequires:  qt5-qtxmlpatterns-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-qt5-qtbase
 BuildRequires: mingw32-qt5-qttools
@@ -29,7 +31,7 @@ BuildRequires: mingw32-qt5-qttools-tools
 BuildRequires: mingw32-qt5-qtsvg
 BuildRequires: mingw32-qt5-qtxmlpatterns
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-qt5-qtbase
 BuildRequires: mingw64-qt5-qttools
@@ -144,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/{applications,icons,metainfo}/
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 0.9.6-23
+- Raise minimum cmake version, use GNUInstallDirs
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

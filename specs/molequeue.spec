@@ -1,22 +1,14 @@
-%global __cmake_in_source_build 1
-
-# Use devtoolset 8
-%if 0%{?rhel} && 0%{?rhel} == 7
-%global dts devtoolset-8-
-%endif
-
 Name:    molequeue
 Summary: Desktop integration of high performance computing resources
 Version: 0.9.0
-Release: 24%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+Release: 25%{?dist}
+License: BSD-3-Clause
 URL:     https://github.com/OpenChemistry/molequeue
 Source0: https://github.com/OpenChemistry/molequeue/archive/%{version}/%{name}-%{version}.tar.gz
 
 ## Main building
 BuildRequires: make
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel, qt5-rpm-macros
 BuildRequires: qt5-qtwebkit-devel
 %if 0%{?fedora}
@@ -28,7 +20,7 @@ BuildRequires: qt5-qtsvg-devel
 BuildRequires: qt5-qtxmlpatterns-devel
 BuildRequires: desktop-file-utils
 BuildRequires: %{?dts}gcc, %{?dts}gcc-c++, doxygen
-BuildRequires: python%{python3_pkgversion}-devel
+BuildRequires: python3-devel
 %if 0%{?rhel}
 BuildRequires: epel-rpm-macros
 %endif
@@ -81,11 +73,7 @@ rm -rf thirdparty/qt5json
 %endif
 
 %build
-mkdir build && cd build
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-8/enable}
-%endif
-%cmake3 -Wno-dev \
+%cmake -Wno-dev \
  -DENABLE_RPATH:BOOL=OFF \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
@@ -93,15 +81,15 @@ mkdir build && cd build
  -DBUILD_DOCUMENTATION:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DCMAKE_BUILD_TYPE:STRING=Release ..
-%make_build
+ -DCMAKE_BUILD_TYPE:STRING=Release
+%cmake_build
 
-pushd docs
+pushd %{__cmake_builddir}/docs
 doxygen
 popd
 
 %install
-%make_install -C build
+%cmake_install
 
 rm -rf %{buildroot}%{_datadir}/doc
 
@@ -118,22 +106,6 @@ EOF
 install -Dpm0644 molequeue/app/icons/%{name}.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 desktop-file-install %{name}.desktop --dir %{buildroot}%{_datadir}/applications
 
-%ldconfig_scriptlets libs
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
 %files
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -142,7 +114,7 @@ fi
 %files libs
 %doc README.md
 %license LICENSE
-%{_libdir}/*.so
+%{_libdir}/libMoleQueue*.so
 %{_libdir}/%{name}/
 
 %files devel
@@ -150,10 +122,13 @@ fi
 %{_includedir}/%{name}/
 
 %files doc
-%doc README.md build/docs/html
+%doc README.md %{__cmake_builddir}/docs/html
 %license LICENSE
 
 %changelog
+* Fri Jul 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 0.9.0-25
+- Fix rhbz#2380916
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

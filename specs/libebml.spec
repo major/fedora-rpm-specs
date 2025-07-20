@@ -1,11 +1,12 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
 Version:    1.4.5
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    LGPL-2.1-or-later
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
 Patch0:     %{name}-use-system-utf8cpp.patch
+Patch1:     %{name}-cmake-4.0.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: utf8cpp-devel
@@ -34,6 +35,7 @@ will use the Extensible Binary Meta Language library.
 %prep
 %setup -q
 %patch 0 -p1 -b .utf8cpp
+%patch 1 -p1 -b .cmake4
 rm -r src/lib/utf8-cpp
 
 
@@ -63,6 +65,9 @@ rm -r src/lib/utf8-cpp
 
 
 %changelog
+* Fri Jul 18 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.4.5-4
+- fix build with CMake 4.0 (resolves rhbz#2380716)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

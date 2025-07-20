@@ -124,7 +124,7 @@ if [ -n "\${BASH_VERSION-}" ]; then
   source %{_libexecdir}/atuin/atuin-init.bash
 
 # Check for zsh environment
-elif [ -n "\$ZSH_VERSION-}" ]; then
+elif [ -n "\${ZSH_VERSION-}" ]; then
   # Skip noninteractive shells.
   [[ \$- != *i* ]] && return
 

@@ -35,12 +35,11 @@ ExcludeArch:    %{ix86}
 
 Name:           libnuml
 Summary:        Numerical Markup Language
-Version:        1.1.4
-Release:        22%{?dist}
+Version:        1.1.7
+Release:        %autorelease
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 
 BuildRequires: cmake
 BuildRequires: gcc, gcc-c++
@@ -58,9 +57,6 @@ BuildRequires: check-devel
 
 Obsoletes:     python2-libnuml < 0:1.1.4
 Obsoletes:     java-%{octpkg} < 0:1.1.4
-
-Patch0: %{name}-porting_to_python310.patch
-Patch1: %{name}-fix_for_swig.patch
 
 %description
 LibNuML is a library for reading/writing documents describing numerical
@@ -175,25 +171,18 @@ of libNUML libraries.
 %endif
 
 %prep
-%autosetup -n NuML-%{version} -N
-
-%if 0%{?with_python}
-%if 0%{?python3_version_nodots} > 39
-%patch -P 0 -p1 -b .porting_to_python310
-%endif
-%endif
-%patch -P 1 -p1 -b .fix_for_swig
+%autosetup -n NuML-%{version}
 
 %build
-mkdir -p libnuml/build
-%cmake3 -B libnuml/build -S libnuml -Wno-dev \
+pushd libnuml
+%cmake -Wno-dev \
  -DEXTRA_INCLUDE_DIRS:STRING=%{_includedir}/minizip \
 %if 0%{?with_python}
  -DWITH_PYTHON:BOOL=ON \
  -DWITH_SWIG:BOOL=ON \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
- -DPYTHON_INCLUDE_DIR:PATH=%{_includedir}/python%{python3_version}$(python3-config --abiflags) \
- -DPYTHON_LIBRARY:FILEPATH=%{_libdir}/libpython%{python3_version}$(python3-config --abiflags).so \
+ -DPYTHON_INCLUDE_DIR:PATH=%{_includedir}/python%{python3_version} \
+ -DPYTHON_LIBRARY:FILEPATH=%{_libdir}/libpython%{python3_version}.so \
 %endif
 %if 0%{?with_java}
  -DWITH_JAVA:BOOL=ON \
@@ -234,19 +223,19 @@ mkdir -p libnuml/build
  -DCPACK_SOURCE_TBZ2:BOOL=OFF -DCPACK_SOURCE_TGZ:BOOL=OFF \
  -DCPACK_SOURCE_TZ:BOOL=OFF -DWITH_ZLIB:BOOL=ON -DWITH_CPP_NAMESPACE:BOOL=OFF \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
-
-%make_build -C libnuml/build
+%cmake_build
 
 %if 0%{?with_doc}
-pushd libnuml
 doxygen
-popd
 %endif
+popd
 
 ####################################################################################################
 
 %install
-%make_install -C libnuml/build
+pushd libnuml
+%cmake_install
+popd
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}
 
@@ -290,7 +279,8 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 %if 0%{?with_check}
 %check
-make test -C libnuml/build
+pushd libnuml
+%ctest
 %endif
 
 %files
@@ -300,8 +290,9 @@ make test -C libnuml/build
 
 %files devel
 %{_libdir}/%{name}.so
-%{_libdir}/cmake/numl-config*.cmake
+%{_libdir}/cmake/numl-*.cmake
 %{_includedir}/numl/
+%{_datadir}/cmake/Modules/FindLIBNUML.cmake
 
 %files static
 %doc libnuml/*.md
@@ -369,156 +360,4 @@ make test -C libnuml/build
 %endif
 
 %changelog
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.4-22
-- Rebuilt for Python 3.14
-
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.4-19
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.1.4-17
-- Rebuilt for Python 3.13
-
-* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-16
-- Exclude ix86 architectures
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.4-13
-- Rebuilt for minizip-ng transition Fedora change
-- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.4-11
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 1.1.4-9
-- Rebuild (minizip-ng)
-
-* Thu Oct 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-8
-- Switch to minizip-ng
-
-* Thu Sep 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-7
-- Patched for Swig-4.1.0 (rhbz#2127978)
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.4-5
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.4-2
-- Rebuilt for Python 3.10
-
-* Thu May 13 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-1
-- Release 1.1.4
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2.20201214git50815eb
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Jan 16 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.1.3-1.20201214git50815eb
-- Release 1.1.3
-
-* Fri Jan 15 2021 Than Ngo <than@redhat.com> - 1.1.1-25.20190327gite61f6d5
-- Workaround for doxygen crash
-
-* Wed Nov 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.1.1-24.20190327gite61f6d5
-- Patched for using Python-3.10 (rhbz#1900660)
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-23.20190327gite61f6d5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-22.20190327gite61f6d5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-21.20190327gite61f6d5
-- Rebuilt for Python 3.9
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-20.20190327gite61f6d5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-19.20190327gite61f6d5
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-18.20190327gite61f6d5
-- Rebuilt for Python 3.8
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-17.20190327gite61f6d5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 03 2019 Charalampos Stratakis <cstratak@redhat.com> - 1.1.1-16.20190327gite61f6d5
-- Don't hard-code python's abi flags
-
-* Sun May 05 2019 Antonio Trande <sagitter@fedoraproject.org> - 1.1.1-15.20190327gite61f6d5
-- Build commit #e61f6d5
-- Obsolete Python2-libnuml
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Sep 24 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.1.1-13
-- Bundle minizip on fedora 30+ (rhbz#1632187) (upstream bug #466)
-
-* Tue Sep 04 2018 Patrik Novotný <panovotn@redhat.com> - 1.1.1-12
-- change requires to minizip-compat(-devel), rhbz#1609830, rhbz#1615381
-
-* Sat Sep 01 2018 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-11
-- Deprecate Python2 on fedora 30+
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-9
-- Rebuilt for Python 3.7
-
-* Tue Jun 05 2018 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-8
-- Rebuild for libsbml-5.17.0
-- Add javapackages-tools
-
-* Thu Feb 22 2018 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-7
-- Add gcc gcc-c++ BR
-
-* Thu Feb 15 2018 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-6
-- Fix %%ldconfig_scriptlets for sub-package
-
-* Thu Feb 15 2018 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-5
-- Rebuild for libsbml-5.16.0
-- Use %%ldconfig_scriptlets
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Oct 03 2017 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-3
-- Created a static sub-package
-
-* Fri Sep 29 2017 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-2
-- Created a documentation sub-package
-- Java shared library moved into a private lib directory
-- Java shared library symlinked from /usr/lib/java
-
-* Thu Sep 28 2017 Antonio Trande <sagitterATfedoraproject.org> - 1.1.1-1
-- First package
+%autochangelog

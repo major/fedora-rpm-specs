@@ -1,6 +1,6 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.3.16
+Version: 3.3.17
 Release: 1%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -106,6 +106,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jul 18 2025 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.17-1
+- Update to 3.3.17
+
 * Sun Jun 01 2025 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.16-1
 - Update to 3.3.16
 

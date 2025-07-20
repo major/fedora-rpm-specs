@@ -2,12 +2,15 @@
 
 Name:           python-%{srcname}
 Version:        3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Easily capture stdout/stderr of the current process and subprocesses
 
 License:        MIT
 URL:            https://%{srcname}.readthedocs.io
 Source0:        https://github.com/xolox/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Submitted upstream as xolox/python-capturer#16
+Patch0:         prefer-multiprocessing-fork-start-method.patch
 
 BuildArch:      noarch
 
@@ -19,7 +22,6 @@ real time but is also available to the Python program for additional processing.
 
 %package doc
 Summary:        Documentation for the '%{srcname}' Python module
-BuildRequires:  python%{python3_pkgversion}-humanfriendly >= 8.0
 BuildRequires:  python%{python3_pkgversion}-sphinx
 
 %description doc
@@ -29,14 +31,7 @@ HTML documentation for the '%{srcname}' Python module.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-humanfriendly >= 8.0
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-humanfriendly >= 8.0
-%endif
 
 %if !0%{?rhel} || 0%{?rhel} >= 8
 Suggests:       %{name}-doc = %{version}-%{release}
@@ -51,37 +46,43 @@ real time but is also available to the Python program for additional processing.
 %prep
 %autosetup -p1
 
+# Don't install the tests.py
+mv capturer/tests.py ./tests.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
-
-# Don't install the tests.py
-rm build/lib/%{srcname}/tests.py
+%pyproject_wheel
 
 sphinx-build-%{python3_version} -nb html -d docs/build/doctrees docs docs/build/html
 rm docs/build/html/.buildinfo
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l capturer
 
 
 %check
-PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py
+%pytest tests.py
 
 
 %files doc
 %license LICENSE.txt
 %doc docs/build/html
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE.txt
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Fri Jul 18 2025 Scott K Logan <logans@cottsay.net> - 3.0-19
+- Add proposed patch to unblock Python 3.14 builds (rhbz#2328004)
+- Switch to pyproject build macros (rhbz#2377504)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0-18
 - Rebuilt for Python 3.14
 

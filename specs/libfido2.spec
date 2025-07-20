@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -106,6 +106,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Fri Jul 18 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.16.0-2
+- Rebuild for libcbor 0.12.0
+
 * Fri Jul 04 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.16.0-1
 - Update to 1.16.0 release ( resolves: rhbz#2364444 )
 - Document how to create the gpg releases keyfile for verification 

@@ -1,11 +1,11 @@
-%global commit ffbb2d559af42ddb38f315ce0f5f9f70204e1037
+%global commit 8aa8b706727a6a6a841be42ef35a629ed635db3e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250123
+%global date 20250718
 %global _hardened_build 1
 
 Name: odhcp6c
 Version: 0
-Release: 0.27.%{date}git%{shortcommit}%{?dist}
+Release: 0.28.%{date}git%{shortcommit}%{?dist}
 Summary: Embedded DHCPv6 and RA client
 # License is GPLv2 except:
 # ./src/md5.c: ISC
@@ -19,8 +19,8 @@ URL: https://git.openwrt.org/?p=project/odhcp6c.git
 # git archive --format=tar.gz --prefix=odhcp6c-%%{commit}/ %%{commit} > ../odhcp6c-%%{commit}.tar.gz
 Source0: %{name}-%{commit}.tar.gz
 Source1: odhcp6c@.service
-# https://github.com/openwrt/odhcp6c/pull/95
-Patch: %{name}-0-Use-GNUInstallDirs-macros.patch
+# https://github.com/openwrt/odhcp6c/pull/99
+Patch: %{name}-0-Add-compatibility-for-CMake-4.0.patch
 BuildRequires: cmake
 BuildRequires: gcc
 %if 0%{?rhel}
@@ -54,6 +54,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/odhcp6c@.service
 %{_unitdir}/odhcp6c@.service
 
 %changelog
+* Fri Jul 18 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.28.20250718git8aa8b70
+- Add support for CMake 4.0 (RHBZ#2380959)
+
 * Wed Feb 05 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.27.20250123gitffbb2d5
 - Improve patch to avoid hardcoded sbin dir
 

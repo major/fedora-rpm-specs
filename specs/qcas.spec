@@ -1,11 +1,12 @@
 # Architectures currently not supported
 # http://xcas.e.ujf-grenoble.fr/XCAS/viewtopic.php?f=19&t=1723
-ExcludeArch: aarch64 %{power64} s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: aarch64 %{ix86} %{power64} s390x
 
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
 Version:       0.5.3
-Release:       26%{?dist}
+Release:       27%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://webusers.imj-prg.fr/~frederic.han/qcas
@@ -165,6 +166,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 0.5.3-27
+- Stop building for 32-bit x86
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

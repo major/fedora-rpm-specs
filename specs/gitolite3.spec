@@ -8,8 +8,8 @@
 
 Name:           gitolite3
 Epoch:          1
-Version:        3.6.13
-Release:        7%{?dist}
+Version:        3.6.14
+Release:        1%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
 License:        GPL-2.0-only AND CC-BY-SA-1.0
@@ -92,6 +92,9 @@ install -m0644 -D gitolite3.sysusers.conf %{buildroot}%{_sysusersdir}/gitolite3.
 
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.14-1
+- 3.6.14
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:3.6.13-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

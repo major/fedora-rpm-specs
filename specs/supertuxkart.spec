@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -25,6 +25,7 @@ Patch3:         defaultgpu.patch
 Patch4:         c46e1ce457529cc575543eb9186702216913fccd.patch
 # https://github.com/supertuxkart/stk-code/pull/5310
 Patch5:         includes.patch
+Patch6:         cmake.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -85,8 +86,8 @@ mkdir build
 
 %build
 pushd build
-  %cmake ../ -DUSE_SYSTEM_ANGELSCRIPT=ON -DBUILD_RECORDER=FALSE
-  %make_build VERBOSE=1
+  %cmake ../ -DUSE_SYSTEM_ANGELSCRIPT=ON -DBUILD_RECORDER=FALSE -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  %cmake_build
 popd
 
 %install

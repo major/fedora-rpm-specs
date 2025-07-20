@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -272,8 +272,12 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Fri Jul 18 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-5
+- Stop assigning subids by default
+  Resolves: CVE-2024-56433 and #2334168
+
 * Tue Jul 15 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-4
-* FSWC: Migrate to lastlog2
+- FSWC: Migrate to lastlog2
   Link: <https://fedoraproject.org/wiki/Changes/Migrate_to_lastlog2>
   Resolves: #2361588
 

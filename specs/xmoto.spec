@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:		xmoto
 Version:	0.6.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Challenging 2D Motocross Platform Game
 
 License:	GPL-2.0-or-later
@@ -54,12 +54,11 @@ yourself and others, racing against the clock.
 mkdir build
 pushd build
 %cmake -DPREFER_SYSTEM_BZip2=ON -DPREFER_SYSTEM_Lua=ON -DPREFER_SYSTEM_ODE=ON -DPREFER_SYSTEM_XDG=ON ..
-%make_build
-popd
+%cmake_build
 
 %install
 pushd build
-%make_install
+%cmake_install
 
 # Install icon and desktop file
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
@@ -112,10 +111,11 @@ SentUpstream: 2014-09-25
   </screenshots>
 </application>
 EOF
-popd
 
 rm $RPM_BUILD_ROOT%{_datadir}/xmoto/Textures/Fonts/DejaVuSans.ttf 
 ln -s ../../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}/xmoto/Textures/Fonts/DejaVuSans.ttf 
+
+popd
 
 # Locale files
 %find_lang %{name} %{name}.lang
@@ -132,6 +132,9 @@ ln -s ../../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}
 %{_datadir}/pixmaps/xmoto.png
 
 %changelog
+* Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.6.3-2
+- CMake fixes
+
 * Mon Mar 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.6.3-1
 - 0.6.3
 

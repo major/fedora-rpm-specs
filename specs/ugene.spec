@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -211,7 +211,7 @@ install -cpm 0755 %{SOURCE10} ./%{_bindir}/%{name}
 # 1-1 data files
 mkdir -p ./%{_datadir}/%{name}/
 mv ./$LIBAPPDIR/data ./%{_datadir}/%{name}
-ln -sf ../../../%{_datadir}/%{name} ./$LIBAPPDIR/data
+ln -sf ../../..%{_datadir}/%{name}/data ./$LIBAPPDIR/data
 
 # 1-11 hicolor
 mkdir -p ./%{_datadir}/icons/hicolor/32x32/mimetypes/
@@ -269,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 52.1-2
+- Fix data files symlink
+
 * Thu May 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 52.1-1
 - 52.1
 
