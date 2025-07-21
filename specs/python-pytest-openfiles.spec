@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 # Note, this package is not actively developed
@@ -17,10 +17,6 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{up
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-psutil
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
 
 %description
 The pytest-openfiles plugin allows for the detection of open I/O resources at
@@ -29,12 +25,8 @@ manipulates file handles or other I/O resources. It allows developers to
 ensure that this kind of code properly cleans up I/O resources when they are
 no longer needed.
 
-
 %package -n python3-%{srcname}
 Summary:        %{sum}
-Requires:       python3-psutil
-Requires:       python3-pytest
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 The pytest-openfiles plugin allows for the detection of open I/O resources at
@@ -43,25 +35,32 @@ manipulates file handles or other I/O resources. It allows developers to
 ensure that this kind of code properly cleans up I/O resources when they are
 no longer needed.
 
-
 %prep
 %autosetup -n %{upname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-# Remove source tests directory installed by mistake
-rm -fr %{buildroot}%{python3_sitelib}/tests
+%pyproject_install
 
-# Note that there is no %%files section for the unversioned python module if we are building for several python runtimes
-%files -n python3-%{srcname}
+%pyproject_save_files pytest_openfiles
+
+%check
+%pyproject_check_import -t
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/*
 
 %changelog
+* Sat Jul 19 2025 Sergio Pascual <sergiopr@fedoraproyect.org> - 0.6.0-7
+- Updated python packaging macros rhbz #2378115 
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6.0-6
 - Rebuilt for Python 3.14
 

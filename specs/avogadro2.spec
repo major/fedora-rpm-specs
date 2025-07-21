@@ -1,19 +1,20 @@
 # Qt6 builds for testing
-%bcond_with qt6
+%bcond qt6 1
 
 # Package language files
-%bcond_without lang
+%bcond lang 1
+
+%global app_id org.openchemistry.Avogadro2
 
 Name:           avogadro2
-Version:        1.99.0
+Version:        1.100.0
 Release:        %autorelease
 Summary:        Advanced molecular editor
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://avogadro.openmolecules.net/
 Source0:        https://github.com/OpenChemistry/avogadroapp/archive/%{version}/avogadroapp-%{version}.tar.gz
-Source1:        %{name}.appdata.xml
-Source2:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-1.98.0.tar.gz
+Source2:        https://github.com/OpenChemistry/avogadro-i18n/archive/%{version}/avogadro-i18n-%{version}.tar.gz
 
 Patch0:         %{name}-avoid_i18n_download.patch
 
@@ -24,7 +25,6 @@ BuildRequires:  cmake3
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 BuildRequires:  avogadro2-libs-devel >= 0:%{version}
-BuildRequires:  molequeue-devel
 BuildRequires:  spglib-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -36,13 +36,12 @@ BuildRequires:  glew-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 %else
+BuildRequires:  molequeue-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 %endif
 BuildRequires:  make
-%if 0%{?fedora}
 BuildRequires:  libappstream-glib
-%endif
 
 Requires: python%{python3_pkgversion}
 Requires: openbabel%{?_isa} >= 3.1.1
@@ -81,8 +80,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %{2} language data for %{name}.\
 \
 %files          langpack-%{1}\
-/usr/share/%{name}/i18n/avogadroapp-%{1}.qm \
-/usr/share/%{name}/i18n/avogadrolibs-%{1}.qm
+%{_datadir}/%{name}/i18n/avogadroapp-%{1}.qm \
+%{_datadir}/%{name}/i18n/avogadrolibs-%{1}.qm
 
 %lang_subpkg af Afrikaans
 %lang_subpkg ar Arabic
@@ -147,7 +146,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %autopatch -p1
 
 %if %{with lang}
-cd avogadro-i18n-1.98.0
+cd avogadro-i18n-%{version}
 mv avogadroapp/avogadroapp-ca@valencia.qm avogadroapp/avogadroapp-ca_VA.qm
 mv avogadrolibs/avogadrolibs-ca@valencia.qm avogadrolibs/avogadrolibs-ca_VA.qm
 %endif
@@ -165,6 +164,8 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DENABLE_RPATH:BOOL=ON \
  -DENABLE_TESTING:BOOL=OFF \
  -DAvogadroLibs_DIR:PATH=%{_libdir} \
+ -DQT_VERSION:STRING=%{?with_qt6:6}%{!?with_qt6:5} \
+ %{?with_qt6:-DAvogadro_ENABLE_RPC=OFF} \
  -DBUILD_DOCUMENTATION:BOOL=ON \
  -DCMAKE_INSTALL_LOCALEDIR:PATH=%{_datadir}/%{name}/i18n
 %cmake_build
@@ -176,58 +177,27 @@ rm -rf %{buildroot}%{_datadir}/doc
 chrpath -d %{buildroot}%{_bindir}/%{name}
 
 desktop-file-edit --set-key=Exec --set-value='env QT_QPA_PLATFORM=wayland LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
- --set-key=Icon --set-value=%{_datadir}/icons/%{name}/avogadro2_128.png \
- %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-cp -p %{buildroot}%{_datadir}/applications/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}-x11.desktop
- desktop-file-edit --set-key=Exec --set-value='env QT_QPA_PLATFORM=xcb LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
-  --set-name='Avogadro2 for X11' \
- %{buildroot}%{_datadir}/applications/%{name}-x11.desktop
+ %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
 cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
 
 %if %{with lang}
 mkdir -p %{buildroot}%{_datadir}/%{name}/i18n
-install -pm 644 avogadro-i18n-1.98.0/avogadroapp/* %{buildroot}%{_datadir}/%{name}/i18n/
-install -pm 644 avogadro-i18n-1.98.0/avogadrolibs/* %{buildroot}%{_datadir}/%{name}/i18n/
-%endif
-
-%if 0%{?fedora}
-## Install appdata file
-mkdir -p %{buildroot}%{_metainfodir}
-install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
-%endif
-
-%if 0%{?rhel}
-%post
-/bin/touch --no-create %{_datadir}/icons/%{name} &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/%{name} &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/%{name} &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/%{name} &>/dev/null || :
+install -pm 644 avogadro-i18n-%{version}/avogadroapp/* %{buildroot}%{_datadir}/%{name}/i18n/
+install -pm 644 avogadro-i18n-%{version}/avogadrolibs/* %{buildroot}%{_datadir}/%{name}/i18n/
 %endif
 
 %check
-%if 0%{?fedora}
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/%{name}-x11.desktop
-%if 0%{?fedora}
-%{_metainfodir}/*.appdata.xml
-%endif
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{app_id}.desktop
+%{_metainfodir}/%{app_id}.metainfo.xml
+%{_datadir}/icons/hicolor/*/apps/%{app_id}.*
 %{_datadir}/icons/%{name}
 %if %{with lang}
 %dir %{_datadir}/%{name}

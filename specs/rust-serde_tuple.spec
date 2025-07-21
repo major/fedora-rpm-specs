@@ -5,7 +5,7 @@
 %global crate serde_tuple
 
 Name:           rust-serde_tuple
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        De/serialize structs with named fields as array of values
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/serde_tuple
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not disable default features for serde
+# * Drop dev-dependency on the obsolete derivative crate and affected tests
 Patch:          serde_tuple-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -47,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

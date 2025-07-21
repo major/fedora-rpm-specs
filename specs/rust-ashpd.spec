@@ -214,6 +214,54 @@ use the "tracing" feature of the "%{crate}" crate.
 %files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+wayland-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wayland-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wayland" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wayland-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wayland-backend-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wayland-backend-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wayland-backend" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wayland-backend-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wayland-client-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wayland-client-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wayland-client" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wayland-client-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wayland-protocols-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wayland-protocols-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wayland-protocols" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wayland-protocols-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

@@ -6,7 +6,7 @@
 %global crate tree-sitter-highlight
 
 Name:           rust-tree-sitter-highlight
-Version:        0.25.5
+Version:        0.25.8
 Release:        %autorelease
 Summary:        Library for performing syntax highlighting with Tree-sitter
 

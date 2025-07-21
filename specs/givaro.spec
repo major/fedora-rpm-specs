@@ -57,7 +57,11 @@ SourceLicense:  %{shrink:
                 }
 URL:            https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
 %global forgeurl https://github.com/linbox-team/givaro
+VCS:            git:%{forgeurl}.git
 Source:         %{forgeurl}/releases/download/v%{version}/givaro-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %if %{with autoreconf}
 BuildRequires:  autoconf
@@ -118,10 +122,6 @@ A static library for givaro.
 autoreconf --force --install --verbose
 %endif
 
-%ifarch %{ix86}
-# Excess precision leads to test failures
-%global optflags %optflags -ffloat-store
-%endif
 %ifarch s390x
 %global optflags %optflags -ffp-contract=off
 %endif

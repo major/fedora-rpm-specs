@@ -13,7 +13,6 @@ Summary:        Bootstrap-based Sphinx theme from the PyData community
 # This project is BSD-3-Clause.
 # The bundled bootstrap JavaScript library is MIT.
 License:        BSD-3-Clause AND MIT
-BuildArch:      noarch
 URL:            https://pydata-sphinx-theme.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/pydata-sphinx-theme-%{version}.tar.gz
@@ -33,6 +32,11 @@ Source3:        pydata-gallery.tar.xz
 # Fedora-only patch: unbundle the fontawesome fonts
 Patch:          %{name}-fontawesome.patch
 
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -L pydata_sphinx_theme
+BuildOption(generate_buildrequires): -x test%{?with_docs:,doc}
+
 BuildRequires:  babel
 BuildRequires:  fontawesome-fonts-all
 BuildRequires:  fontawesome-fonts-web
@@ -43,18 +47,12 @@ BuildRequires:  nodejs-npm
 BuildRequires:  python3-devel
 BuildRequires:  yarnpkg
 
-Provides:       bundled(js-bootstrap) = 5.3.3
-
-%if %{without docs}
-Obsoletes:      %{name}-doc < 0.13.0-1
-%endif
-
 %global _description %{expand:
 This package contains a Sphinx extension for creating document components
 optimized for HTML+CSS.
 
 - The panels directive creates panels of content in a grid layout,
-  utilizing both the Bootstrap 4 grid system, and cards layout.
+  utilizing both the Bootstrap 5 grid system, and cards layout.
 
 - The link-button directive creates a clickable button, linking to a URL
   or reference, and can also be used to make an entire panel clickable.
@@ -73,6 +71,11 @@ See https://pydata-sphinx-theme.readthedocs.io/ for documentation.}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 Requires:       fontawesome-fonts-all
 Requires:       fontawesome-fonts-web
+Provides:       bundled(js-bootstrap) = 5.3.7
+
+%if %{without docs}
+Obsoletes:      %{name}-doc < 0.13.0-1
+%endif
 
 %description -n python3-pydata-sphinx-theme %_description
 
@@ -86,6 +89,8 @@ Documentation for pydata-sphinx-theme.
 
 %prep
 %autosetup -n pydata-sphinx-theme-%{version} -p1 -a1
+
+%conf
 cp -p %{SOURCE2} .
 
 %if %{with docs}
@@ -98,24 +103,18 @@ sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.p
 # Substitute the installed nodejs version for the requested version
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
+%generate_buildrequires -p
 # The Fedora sphinx package does not provide sphinx[test]
 sed -i 's/\(sphinx\)\[test\]/\1/' pyproject.toml
 
-%generate_buildrequires
-%pyproject_buildrequires -x test%{?with_docs:,doc}
-
-%build
+%build -p
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
 yarn install --offline
 nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
-%pyproject_wheel
-
-%install
+%install -a
 %define instdir %{buildroot}%{python3_sitelib}/pydata_sphinx_theme
 %define themedir %{instdir}/theme/pydata_sphinx_theme/static
-%pyproject_install
-%pyproject_save_files -L pydata_sphinx_theme
 sed -i '/\.gitignore/d' %{pyproject_files}
 rm %{themedir}/.gitignore
 

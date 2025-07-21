@@ -5,7 +5,7 @@
 %global crate enumset
 
 Name:           rust-enumset
-Version:        1.1.6
+Version:        1.1.7
 Release:        %autorelease
 Summary:        Library for creating compact sets of enums
 

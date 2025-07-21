@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 3.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Fortran preprocessor
 License: BSD-2-Clause
 URL: https://github.com/aradi/fypp
@@ -23,35 +23,36 @@ emphasis on robustness and on neat integration into developing toolchains.
 %package -n python3-%{pname}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-%{?python_provide:%python_provide python3-%{pname}}
 
 %description -n python3-%{pname}
 %{desc}
 
 %prep
 %autosetup -p1 -n %{pname}-%{version}
-rm -rf src/%{pname}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pname}
 
 %check
+%pyproject_check_import
 test/runtests.sh %{__python3}
 
-%files -n python3-%{pname}
+%files -n python3-%{pname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc CHANGELOG.rst README.rst
 %{_bindir}/%{pname}
-%{python3_sitelib}/%{pname}.py
-%{python3_sitelib}/%{pname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/__pycache__/%{pname}.cpython-%{python3_version_nodots}.opt-1.pyc
-%{python3_sitelib}/__pycache__/%{pname}.cpython-%{python3_version_nodots}.pyc
 
 %changelog
+* Sat Jul 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.2-8
+- switch to modern python packaging macros (resolves rhbz#2377736)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2-7
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@
 %global crate quanta
 
 Name:           rust-quanta
-Version:        0.12.5
+Version:        0.12.6
 Release:        %autorelease
 Summary:        High-speed timing library
 

@@ -5,7 +5,7 @@
 %global crate schemars
 
 Name:           rust-schemars
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Generate JSON Schemas from Rust code
 

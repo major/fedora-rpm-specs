@@ -5,7 +5,7 @@
 %global crate tree-sitter-cli
 
 Name:           rust-tree-sitter-cli
-Version:        0.25.5
+Version:        0.25.8
 Release:        %autorelease
 Summary:        CLI tool for developing, testing, and using Tree-sitter parsers
 

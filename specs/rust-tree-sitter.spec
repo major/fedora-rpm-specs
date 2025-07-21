@@ -6,7 +6,7 @@
 %global crate tree-sitter
 
 Name:           rust-tree-sitter
-Version:        0.25.5
+Version:        0.25.8
 Release:        %autorelease
 Summary:        Rust bindings to the Tree-sitter parsing library
 

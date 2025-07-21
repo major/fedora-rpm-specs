@@ -1,10 +1,10 @@
-%global DATE 20250718
-%global gitrev ef203c5a397a3bcad27a7bb73210f3fbb48782b3
+%global DATE 20250719
+%global gitrev bb8f920b2f550ec98041230db4bae5837f749371
 %global gcc_version 15.1.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 4
+%global gcc_release 5
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -3765,7 +3765,11 @@ end
 %endif
 
 %changelog
-* Fri Jul 18 Jakub Jelinek <jakub@redhat.com> 15.1.1-4
+* Sat Jul 19 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-5
+- update from releases/gcc-15 branch
+  - PRs cobol/119818, middle-end/120935, modula2/121164, testsuite/119508
+
+* Fri Jul 18 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-4
 - update from releases/gcc-15 branch
   - PRs ada/121056, c++/87097, c++/120569, c++/120628, c++/120954,
 	fortran/104428, fortran/120637, fortran/120843, fortran/120847,

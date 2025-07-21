@@ -5,7 +5,7 @@
 %global crate rgb
 
 Name:           rust-rgb
-Version:        0.8.51
+Version:        0.8.52
 Release:        %autorelease
 Summary:        Struct RGB/RGBA/etc. for sharing pixels between crates
 

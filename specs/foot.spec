@@ -3,7 +3,7 @@
 %global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.22.3
+Version:        1.23.0
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -36,7 +36,7 @@ BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
 BuildRequires:  pkgconfig(wayland-scanner) 
-BuildRequires:  pkgconfig(xkbcommon) >= 1.8.0
+BuildRequires:  pkgconfig(xkbcommon)
 # require *-static for header-only library
 BuildRequires:  tllist-static
 
@@ -146,6 +146,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sat Jul 19 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.23.0-1
+- Update to 1.23.0 (#2380423)
+
 * Thu May 01 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.22.3-1
 - Update to 1.22.3 (#2363239)
 

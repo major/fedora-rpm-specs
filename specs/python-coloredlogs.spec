@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        15.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Colored terminal output for Python's logging module
 
 License:        MIT
@@ -103,6 +103,9 @@ PATH=%{buildroot}%{_bindir}:$PATH \
 
 
 %changelog
+* Sat Jul 19 2025 Python Maint <python-maint@redhat.com> - 15.0.1-13
+- Rebuilt for Python 3.14
+
 * Fri Jul 18 2025 Scott K Logan <logans@cottsay.net> - 15.0.1-12
 - Add missing BuildRequires: /usr/bin/script (rhbz#2341136)
 - Switch to pyproject build macros (rhbz#2377563)

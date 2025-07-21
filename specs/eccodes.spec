@@ -3,7 +3,7 @@
 %endif
 
 Name:           eccodes
-Version:        2.40.0
+Version:        2.42.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -60,7 +60,7 @@ Patch1:         eccodes-soversion.patch
 # https://jira.ecmwf.int/browse/SUP-2073
 # (and again, unfortunately this issue is not public)
 
-BuildRequires:  cmake3
+BuildRequires:  cmake3 >= 3.18
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  /usr/bin/git
@@ -356,6 +356,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sat Jul 19 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-1
+- Update to 2.42.0 (2.41.0 was skipped due to an upstream build bug)
+
 * Sat Mar 22 2025 Jos de Kloe <josdekloe@gmail.com> - 2.40.0-1
 - Update to 2.40.0
 

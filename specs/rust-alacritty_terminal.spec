@@ -14,6 +14,10 @@ URL:            https://crates.io/crates/alacritty_terminal
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          alacritty_terminal-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * bump dependencies to fix build with rustix v1:
+#   https://github.com/alacritty/alacritty/commit/9eb6803
+Patch:          alacritty_terminal-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,8 +1,8 @@
 # Qt6 builds for testing
-%bcond_with qt6
+%bcond qt6 1
 
 Name:           avogadro2-libs
-Version:        1.99.0
+Version:        1.100.0
 Release:        %autorelease
 Summary:        Avogadro2 libraries
 
@@ -10,15 +10,15 @@ Summary:        Avogadro2 libraries
 License: BSD-3-Clause AND (ASL-2.0 AND MIT) AND CDDL-1.0
 URL:     http://avogadro.openmolecules.net/
 Source0: https://github.com/OpenChemistry/avogadrolibs/archive/%{version}/avogadrolibs-%{version}.tar.gz
-Source1: https://github.com/OpenChemistry/avogenerators/archive/1.98.0/avogenerators-1.98.0.tar.gz
+Source1: https://github.com/OpenChemistry/avogenerators/archive/%{version}/avogenerators-%{version}.tar.gz
 
 # External sources for data files
-Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/1.98.0/molecules-1.98.0.tar.gz
-Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/1.98.0/crystals-1.98.0.tar.gz
-Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/1.99.0/fragments-%{version}.tar.gz
+Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/%{version}/molecules-%{version}.tar.gz
+Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/crystals-%{version}.tar.gz
+Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/%{version}/fragments-%{version}.tar.gz
 
-Patch1: avogadro2-libs-1.99.0-Fix_typo.patch
-Patch2: %{name}-1.98.1-use_upstream_cmake_config.patch
+# https://github.com/OpenChemistry/avogadrolibs/pull/2026
+Patch0:  avogadro2-libs-1.100.0-cmake.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -86,18 +86,18 @@ HTML documentation of %{name}.
 %prep
 %autosetup -p1 -n avogadrolibs-%{version}
 
-tar -xf %{SOURCE1} && mv avogenerators-1.98.0 avogadrogenerators
-tar -xf %{SOURCE2} && mv molecules-1.98.0 molecules
-tar -xf %{SOURCE3} && mv crystals-1.98.0 crystals
-tar -xf %{SOURCE4} && mv fragments-1.99.0 fragments
+tar -xf %{SOURCE1} && mv avogenerators-%{version} avogadrogenerators
+tar -xf %{SOURCE2} && mv molecules-%{version} molecules
+tar -xf %{SOURCE3} && mv crystals-%{version} crystals
+tar -xf %{SOURCE4} && mv fragments-%{version} fragments
 
 # Rename LICENSE file
 mv molecules/LICENSE molecules/LICENSE-molecules
 mv fragments/LICENSE fragments/LICENSE-fragments
 mv avogadrogenerators/README.md avogadrogenerators/README-avogenerators.md
-sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/insertfragment/CMakeLists.txt
-sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/quantuminput/CMakeLists.txt
-sed -e 's|${AvogadroLibs_SOURCE_DIR}/../|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/templatetool/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/insertfragment/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/quantuminput/CMakeLists.txt
+sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/templatetool/CMakeLists.txt
 #
 
 mv thirdparty/libgwavi/README.md thirdparty/libgwavi/README-libgwavi.md
@@ -124,6 +124,7 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DENABLE_TESTING:BOOL=OFF \
  -DUSE_MMTF:BOOL=ON \
  -DUSE_QT:BOOL=ON \
+ -DQT_VERSION:STRING=%{?with_qt6:6}%{!?with_qt6:5} \
  -DUSE_MOLEQUEUE:BOOL=ON \
  -DUSE_VTK:BOOL=OFF \
  -DUSE_HDF5:BOOL=ON \

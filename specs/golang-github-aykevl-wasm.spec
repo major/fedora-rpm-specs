@@ -5,7 +5,7 @@
 
 # https://github.com/aykevl/go-wasm
 %global goipath         github.com/aykevl/go-wasm
-%global commit          b76c3f9f09827db5a020cec8c9a99c2d68b38b82
+%global commit          42b86c49413943f0f64000fbb9ed4d4829e5e26f
 
 %gometa -L -f
 

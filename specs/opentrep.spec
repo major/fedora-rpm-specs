@@ -26,6 +26,7 @@ BuildRequires:  soci-sqlite3-devel
 BuildRequires:  xapian-core-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libicu-devel
+BuildRequires:  abseil-cpp-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  protobuf-compiler
 

@@ -29,7 +29,7 @@ Name:           python-%{pname}
 Version:        2.0.2
 Release:        %autorelease
 Summary:        Extensible periodic table of the elements
-License:        BSD-3-Clause AND/OR Public Domain
+License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://www.reflectometry.org/danse/elements.html
 Source0:        https://github.com/pkienzle/%{pname}/archive/v%{version}/%{pname}-%{version}.tar.gz
 BuildArch:      noarch

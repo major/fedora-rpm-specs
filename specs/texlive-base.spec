@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 90%{?dist}
+Release: 91%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -531,6 +531,9 @@ Patch48: texlive-base-20230311-typefixes.patch
 
 # fix buid error with gcc-15
 Patch49: texlive-2023-gcc15-ftbfs.patch
+
+# fix errors with python-3.1x
+Patch50: texlive-pythontex3-python-3.1x.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -8523,6 +8526,10 @@ patch -p1 < %{_sourcedir}/texlive-base-20230311-fix-scripts.patch
 
 # Fix bundling option with perl-5.40.x
 patch -p1 < %{_sourcedir}/texdef-perl-option-5.40.x.patch
+
+# Fix errors with python3.13 
+patch -p1 < %{_sourcedir}/texlive-pythontex3-python-3.1x.patch
+
 popd
 
 # config files in /etc symlinked
@@ -11115,6 +11122,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Sat Jul 19 2025 Than Ngo <than@redhat.com> - 11:20230311-91
+- Fix rhbz#2379729 - texlive-pythontex is not compatible with python3.13
+
 * Fri Jul 18 2025 Than Ngo <than@redhat.com> - 11:20230311-90
 - Fix rhbz#2354991 - bundling option for perl-5.40.x
 

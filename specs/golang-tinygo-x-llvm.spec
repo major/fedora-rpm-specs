@@ -4,16 +4,16 @@
 %global debug_package %{nil}
 
 %global min_llvm 14
-%if %{fedora} >= 40
-%global max_llvm 18
+%if %{fedora} >= 42
+%global max_llvm 20
 %else
-%global max_llvm 17
+%global max_llvm 19
 %endif
 
 # https://github.com/tinygo-org/go-llvm
 %global goipath         tinygo.org/x/go-llvm
 %global forgeurl        https://github.com/tinygo-org/go-llvm
-%global commit          aaff3eb751f0d40d1bc099e1aa3b5f5ce247e6d1
+%global commit          b8f170971e747fec20a03b25a4490f627140709a
 
 %gometa -L -f
 

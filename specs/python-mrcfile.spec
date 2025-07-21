@@ -31,11 +31,9 @@ Source: https://github.com/ccpem/%{pname}/archive/v%{version}/%{pname}-%{version
 %package -n python3-%{pname}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 %if %{with check}
 BuildRequires: python3-numpy
 %endif
-%{?python_provide:%python_provide python3-%{pname}}
 BuildArch: noarch
 
 %description -n python3-%{pname}
@@ -44,27 +42,30 @@ BuildArch: noarch
 %prep
 %autosetup -p1 -n %{pname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pname}
 
 %if %{with check}
 %check
+%pyproject_check_import
+
 PYTHONDONTWRITEBYTECODE=1 \
 PATH=%{buildroot}/usr/bin:${PATH} \
 PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 python3 -m unittest tests
 %endif
 
-%files -n python3-%{pname}
-%license LICENSE.txt
+%files -n python3-%{pname} -f %{pyproject_files}
 %doc CHANGELOG.txt README.rst
 %{_bindir}/mrcfile-header
 %{_bindir}/mrcfile-validate
-%{python3_sitelib}/%{pname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pname}
 
 %changelog
 %autochangelog

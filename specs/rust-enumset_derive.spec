@@ -5,7 +5,7 @@
 %global crate enumset_derive
 
 Name:           rust-enumset_derive
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Internal helper crate for enumset
 
@@ -60,16 +60,16 @@ use the "proc-macro-crate" feature of the "%{crate}" crate.
 %files       -n %{name}+proc-macro-crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+serde2_deprecation_warning-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+serde2_deprecation_warning-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "serde2_deprecation_warning" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+serde2_deprecation_warning-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std_deprecation_warning-devel

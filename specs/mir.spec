@@ -6,8 +6,11 @@
 %bcond lto 1
 %endif
 
+# Debug build with extra compile time checks
+%bcond debug 0
+
 # Disable ctest run by default
-# They take a long time and are generally broken in the build environment
+# The tests hang in the build environment
 %bcond run_tests 0
 
 # Track various library soversions
@@ -196,17 +199,19 @@ Mir unit and integration tests.
 %prep
 %autosetup -S git_am
 
-# Drop -Werror
-sed -e "s/-Werror//g" -i CMakeLists.txt
 
-
-%build
+%conf
 %cmake	-GNinja %{?with_lto:-DMIR_LINK_TIME_OPTIMIZATION=ON} \
+	%{?with_debug:-DCMAKE_BUILD_TYPE=Debug} \
+	%{!?with_debug:-DMIR_FATAL_COMPILE_WARNINGS=OFF} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
 	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
 	-DMIR_PLATFORM="gbm-kms;wayland;x11"
 
+
+%build
 %cmake_build
+
 
 %install
 %cmake_install
@@ -214,8 +219,9 @@ sed -e "s/-Werror//g" -i CMakeLists.txt
 
 %check
 %if %{with run_tests}
-# The tests are somewhat fiddly, so let's just run them but not block on them...
-( %ctest ) || :
+export XDG_RUNTIME_DIR=$(mktemp -d)
+%ctest
+rm -rf $XDG_RUNTIME_DIR
 %endif
 desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
@@ -228,7 +234,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %exclude %{_libdir}/pkgconfig/mir*internal.pc
 %{_includedir}/mir*/
 %exclude %{_includedir}/mir*internal/
-
 
 %files internal-devel
 %license COPYING.*

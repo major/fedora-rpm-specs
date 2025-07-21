@@ -1,4 +1,3 @@
-%bcond_without freetype
 %bcond_without openal
 
 %global fver v%{version}
@@ -7,7 +6,7 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.11
+Version: 3.6.2.12
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
 Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
@@ -25,12 +24,8 @@ Patch0: ags-use-system-libraries.patch
 # Plugins/AGSSpriteFont: CC0-1.0
 # libsrc/allegro: Giftware
 License: Artistic-2.0 AND LicenseRef-Fedora-UltraPermissive AND FTL AND MPEG-SSG AND Apache-2.0 AND MIT-Khronos-old AND Zlib AND MIT AND BSD-2-Clause AND CC0-1.0 AND Giftware
-%if %{with freetype}
-BuildRequires: freetype-devel
-%else
 # incorrect rendering with new FT: https://github.com/adventuregamestudio/ags/issues/1528
 Provides: bundled(freetype) = 2.1.3
-%endif
 %if %{with openal}
 BuildRequires: openal-soft-devel
 %else
@@ -84,9 +79,6 @@ rm -r theora
 rm -r vorbis
 popd
 pushd Common/libsrc
-%if %{with freetype}
-rm -r freetype-2.1.3
-%endif
 rmdir googletest
 popd
 pushd Engine/libsrc
@@ -120,9 +112,6 @@ mv Changes.txt.utf-8 Changes.txt
     -DAGS_USE_SYSTEM_GLM=TRUE \
     -DAGS_USE_SYSTEM_TINYXML2=TRUE \
     -DAGS_USE_SYSTEM_MINIZ=TRUE \
-%if %{with freetype}
-    -DAGS_USE_SYSTEM_FREETYPE=TRUE \
-%endif
 
 %cmake_build
 
@@ -135,6 +124,10 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Sat Jul 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.12-1
+- update to 3.6.2.12
+- switch back to bundled freetype per upstream recommendation
+
 * Sun Jul 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.11-1
 - update to 3.6.2.11
 

@@ -5,7 +5,7 @@
 %global crate proptest
 
 Name:           rust-proptest
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Hypothesis-like property-based testing and shrinking
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/proptest
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax trybuild dependency from =1.0.0 to ^1.0.0
+# * relax trybuild dependency from =1.90.0 to ^1.90.0
 # * drop files that are only useful for upstream development
 Patch:          proptest-fix-metadata.diff
 

@@ -4,7 +4,7 @@
 %global crate rpki
 
 Name:           rust-rpki
-Version:        0.18.5
+Version:        0.18.6
 Release:        %autorelease
 Summary:        Library for validating and creating RPKI data
 
@@ -21,19 +21,21 @@ A library for validating and creating RPKI data.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR MIT
 # BSD-3-Clause
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        %{shrink:
-                (Apache-2.0 OR MIT)
-                AND BSD-3-Clause AND
-                AND ISC AND MIT AND OpenSSL
-                AND (Unlicense OR MIT)
-                }
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    ISC AND
+    MIT AND
+    (Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

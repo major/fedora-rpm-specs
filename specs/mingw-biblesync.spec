@@ -5,13 +5,15 @@
 
 Name:		mingw-%{_pkg_name}
 Version:	2.1.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 Group:		System Environment/Libraries
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.xiphos.org
 Source0:	https://github.com/karlkleinpaste/%{_pkg_name}/releases/download/%{version}/%{_pkg_name}-%{version}.tar.gz
+# https://github.com/karlkleinpaste/biblesync/commit/4b00f9fd3d0c858947eee18206ef44f9f6bd2283.patch
+Patch0:		4b00f9fd3d0c858947eee18206ef44f9f6bd2283.patch
 
 BuildArch:		noarch
 
@@ -75,6 +77,7 @@ completely agnostic as to structure of layers above BibleSync.
 
 %prep
 %setup -q -n %{_pkg_name}-%{version}
+%autopatch
 
 
 %build
@@ -110,6 +113,9 @@ mv "%{buildroot}%{mingw64_libdir}/"*.dll "%{buildroot}%{mingw64_bindir}/"
 %{mingw64_libdir}/lib%{_pkg_name}.dll.a
 
 %changelog
+* Sat Jul 19 2025 Greg Hellings <greg.hellings@gmail.com> - 2.1.0-15
+- Add upstream patch for CMake 4.0 (rhbz#2380898)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

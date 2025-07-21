@@ -5,7 +5,7 @@
 %global crate type-map
 
 Name:           rust-type-map
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Typemap container with FxHashMap
 
@@ -13,10 +13,6 @@ Summary:        Typemap container with FxHashMap
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/type-map
 Source:         %{crates_source}
-# * https://github.com/kardeiz/type-map/issues/4
-Source1:        https://github.com/kardeiz/type-map/raw/3142958/LICENSE-APACHE
-# * https://github.com/kardeiz/type-map/issues/4
-Source2:        https://github.com/kardeiz/type-map/raw/3142958/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -55,7 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

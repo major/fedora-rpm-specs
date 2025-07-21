@@ -19,6 +19,9 @@ Source0:        %{url}/archive/%{gittag}/%{name}-%{version}.tar.gz
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %endif
 
+# Support build with Cmake 4.0
+Patch:          cmake4.patch
+
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++

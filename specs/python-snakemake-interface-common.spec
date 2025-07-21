@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-common
-Version:        1.20.1
+Version:        1.20.2
 Release:        %autorelease
 Summary:        Common functions and classes for Snakemake and its plugins
 

@@ -1,12 +1,12 @@
-%if %{?fedora}%{!?fedora:0} >= 38
+%if %{?fedora}%{!?fedora:0} >= 38 || %{?rhel}%{!?rhel:0} >= 10
 %global maketrace --debug=print
 %else
 %global maketrace .SHELLFLAGS=-xc
 %endif
 
 Name:		oidc-agent
-Version:	5.2.3
-Release:	3%{?dist}
+Version:	5.3.2
+Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -181,6 +181,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Sat Jul 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.2-1
+- Update to version 5.3.2
+
 * Mon Feb 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.3-3
 - Use webkit2gtk-4.1 (EPEL 10)
 

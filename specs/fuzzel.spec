@@ -1,13 +1,14 @@
 Name:           fuzzel
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Application launcher for wlroots based Wayland compositors
 
 License:        MIT
 URL:            https://codeberg.org/dnkl/fuzzel
-Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://codeberg.org/dnkl/fuzzel/issues/453#issuecomment-2544508
-Patch:          %{url}/pulls/437.patch
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
+# Daniel Eklöf (Git signing) <daniel@ekloef.se>
+Source2:        gpgkey-5BBD4992C116573F.asc
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58

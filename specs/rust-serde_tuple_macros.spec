@@ -5,7 +5,7 @@
 %global crate serde_tuple_macros
 
 Name:           rust-serde_tuple_macros
-Version:        1.0.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Internal proc-macro crate for serde_tuple
 

@@ -1,13 +1,12 @@
 Name:		grim
-Version:	1.4.1
-Release:	5%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 Summary:	Screenshot tool for Sway
 
 License:	MIT
-URL:		https://sr.ht/~emersion/grim/
-%global forgeurl https://git.sr.ht/~emersion/grim
-Source0:	%{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:	%{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.sig
+URL:		https://gitlab.freedesktop.org/emersion/grim
+Source0:	%{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz
+Source1:	%{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz.sig
 Source2:	dj3498u4hyyarh35rkjfnghbjxug6b19
 
 BuildRequires:	pkgconfig(bash-completion)
@@ -15,7 +14,7 @@ BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(pixman-1)
 BuildRequires:	pkgconfig(wayland-client)
-BuildRequires:	pkgconfig(wayland-protocols)
+BuildRequires:	pkgconfig(wayland-protocols) >= 1.37
 BuildRequires:	pkgconfig(wayland-scanner)
 BuildRequires:	scdoc
 BuildRequires:	meson >= 0.59.0
@@ -47,6 +46,10 @@ Grim is a command-line tool to grab images from Sway.
 %{fish_completions_dir}/grim*
 
 %changelog
+* Sat Jul 19 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.5.0-1
+- Update to 1.5.0 (#2379015)
+- Update upstream URL
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

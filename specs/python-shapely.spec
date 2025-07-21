@@ -1,10 +1,16 @@
 # Break a circular dependency on pyproj introduced by running doctests.
 %bcond boostrap 0
-# Dependency python-scipy-doctest is not yet packaged.
+# Many doctests fail with things like:
+#   Expected: 2 Got: np.int64(2)
+# or
+#   Expected: True Got: True_
+# We can’t reproduce this in a virtualenv and haven’t yet been able to
+# understand why it happens only in the package, so we leave the doctests
+# disabled for now.
 %bcond doctests %[ 0 && %{without boostrap} ]
 
 Name:           python-shapely
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 

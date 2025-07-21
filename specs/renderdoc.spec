@@ -1,7 +1,7 @@
 %global vswig   modified-7
 Name:           renderdoc
-Version:        1.35
-Release:        4%{?dist}
+Version:        1.39
+Release:        1%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
 License:        MIT
@@ -10,7 +10,6 @@ Source0:        https://github.com/baldurk/renderdoc/archive/v%{version}/%{name}
 Source1:        https://github.com/baldurk/swig/archive/renderdoc-%{vswig}/swig-%{vswig}.tar.gz
 Patch0:         renderdoc-swig-pcre2-1.patch
 Patch1:         renderdoc-swig-pcre2-2.patch
-Patch2:         renderdoc-1.35-gcc15.patch
 
 # renderdoc is officially only supported on x86_64.
 # however, it also builds on aarch64
@@ -59,7 +58,6 @@ renderdoc.
 %setup -q -b 1
 %patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 0
 %patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 1
-%patch -p1 2
 
 %build
 # renderdoc does not allow in-source builds. out-of-source builds
@@ -116,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jul 19 2025 kb1000 <fedora@kb1000.de> - 1.39-1
+- Update to 1.39 (#2333612, #2380802)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.35-4
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@
 %global crate ravif
 
 Name:           rust-ravif
-Version:        0.11.12
+Version:        0.11.20
 Release:        %autorelease
 Summary:        Rav1e-based pure Rust library for encoding images in AVIF format
 

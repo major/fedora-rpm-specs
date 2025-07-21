@@ -35,13 +35,11 @@ BuildArch: noarch
 %package -n python3-mmtf
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 %if %{with check}
 BuildRequires: python3-msgpack
 BuildRequires: python3-pytest
 BuildRequires: python3-numpy
 %endif
-%{?python_provide:%python_provide python3-mmtf}
 Requires: python3-msgpack
 
 %description -n python3-mmtf
@@ -50,22 +48,25 @@ Requires: python3-msgpack
 %prep
 %setup -q -n %{pname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mmtf
 
 %if %{with check}
 %check
+%pyproject_check_import
+
 %pytest mmtf/tests/codec_tests.py
 %endif
 
-%files -n python3-mmtf
-%license LICENSE.txt
+%files -n python3-mmtf -f %{pyproject_files}
 %doc CHANGELOG.md README.md
-%{python3_sitelib}/mmtf_python-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/mmtf
 
 %changelog
 %autochangelog

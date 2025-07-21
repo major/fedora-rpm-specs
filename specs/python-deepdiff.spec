@@ -4,7 +4,7 @@
 
 Name:           python-deepdiff
 Version:        8.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -74,6 +74,8 @@ find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 sed -i 's/==/~=/' pyproject.toml
 # Relax a bit the flit-core version for EPEL 10.
 sed -i '/flit_core/{s/>=3.11/>=3.9/}' pyproject.toml
+# Remove click's upper version bound
+sed -i 's/click~=8.1.0/click>=8.1.0/' pyproject.toml
 
 
 %generate_buildrequires
@@ -116,6 +118,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Tue Jul 08 2025 Charalampos Stratakis <cstratak@redhat.com> - 8.5.0-5
+- Remove click's upper version bound
+
 * Sun Jun 29 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.5.0-4
 - Fix tests with python 3.14 (rhbz#2374300).
 

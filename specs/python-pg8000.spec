@@ -1,8 +1,8 @@
 %global srcname pg8000
 
 Name:           python-%{srcname}
-Version:        1.31.2
-Release:        3%{?dist}
+Version:        1.31.3
+Release:        1%{?dist}
 Summary:        Pure Python PostgreSQL Driver
 
 License:        BSD-3-Clause
@@ -47,6 +47,9 @@ Frontend Protocol.
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Sat Jul 19 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.31.3-1
+- Update to 1.31.3 (#2382069)
+
 * Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1.31.2-3
 - Rebuilt for Python 3.14
 

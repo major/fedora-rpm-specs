@@ -2,7 +2,7 @@
 
 Name:           python-feedparser
 Version:        6.0.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Parse RSS and Atom feeds in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,7 +22,6 @@ modules, including Dublin Core and Apple's iTunes extensions.
 %package -n python3-%{pypi_name}
 Summary:        Parse RSS and Atom feeds in Python
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sgmllib3k
 
 ## TODO: Decide on these, also with regard to explicit "Requires".
@@ -38,7 +37,6 @@ BuildRequires:  python3-sgmllib3k
 ## TODO: python3-chardet BR and Req
 # fixes included in > 5.1.3
 
-%{?python_provide:%python_provide python3-feedparser}
 
 %description -n python3-%{pypi_name}
 Universal Feed Parser is a Python module for downloading and parsing
@@ -66,8 +64,12 @@ find -type f -exec sed -i 's/\r//' {} ';'
 find -type f -exec chmod 0644 {} ';'
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 # build documentation
 rm -rf __tmp_docs ; mkdir __tmp_docs
@@ -75,18 +77,18 @@ sphinx-build -b html -d __tmp_docs/ docs/ __tmp_docs/html/
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
+
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/runtests.py || :
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst NEWS
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %files doc
 %doc LICENSE __tmp_docs/html/
@@ -95,6 +97,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/runtests.py || :
 
 
 %changelog
+* Sat Jul 19 2025 Christiano Anderson <chris@christiano.dev> - 6.0.11-7
+- Removing deprecated py_build Fixes rhbz#2377701
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.0.11-6
 - Rebuilt for Python 3.14
 

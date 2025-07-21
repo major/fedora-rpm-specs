@@ -15,7 +15,7 @@ Obsoletes:  	libmml-qt6 < 0:2.4-14
 
 Name:           libmml
 Version:        2.4
-Release:        22.%{commitdate}git%{shortcommit}%{?dist}
+Release:        23.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        MML Widget
 License:        GPL-3.0-only OR LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:            https://github.com/copasi/copasi-dependencies/tree/master/src/mml
@@ -107,10 +107,9 @@ cp -a qt5 qt6
 ############### QT6 ######################
 %if %{with qt6}
 pushd qt6
-mkdir -p build
 SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
 export CXXFLAGS=$SETOPT_FLAGS
-%cmake -Wno-dev -S ./ -B build \
+%cmake -Wno-dev \
  -DSELECT_QT=Qt6 \
  -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt6 \
  -DQWT_VERSION_STRING:STRING=$(pkg-config --modversion qwt) \
@@ -120,17 +119,16 @@ export CXXFLAGS=$SETOPT_FLAGS
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt6_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt6_headerdir}/%{name}-qt6
-make -C build
+%cmake_build
 popd
 %endif
 
 ############### QT5 ######################
 pushd qt5
-mkdir -p build
 # -Werror=format-security/ flag prevents compilation
 SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
 export CXXFLAGS=$SETOPT_FLAGS
-%cmake -Wno-dev -S ./ -B build \
+%cmake -Wno-dev \
  -DSELECT_QT=Qt5 \
  -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt5 \
  -DQWT_VERSION_STRING:STRING=$(pkg-config --modversion qwt) \
@@ -140,15 +138,14 @@ export CXXFLAGS=$SETOPT_FLAGS
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt5_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt5_headerdir}/%{name}-qt5
-%make_build -C build
+%cmake_build
 popd
 
 ############### QT4 ######################
 pushd qt4
-mkdir -p build
 SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
 export CXXFLAGS=$SETOPT_FLAGS
-%cmake -Wno-dev -S ./ -B build \
+%cmake -Wno-dev \
  -DSELECT_QT=Qt4 \
  -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt4 \
  -DQWT_VERSION_STRING:STRING=$(pkg-config --modversion qwt5-qt4) \
@@ -158,20 +155,26 @@ export CXXFLAGS=$SETOPT_FLAGS
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt4_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt4_headerdir}/%{name}-qt4
-%make_build -C build
+%cmake_build
 popd
 
 %install
 ############### QT6 ######################
 %if %{with qt6}
-%make_install -C qt6/build
+pushd qt6
+%cmake_install
+popd
 %endif
 
 ############### QT5 ######################
-%make_install -C qt5/build
+pushd qt5
+%cmake_install
+popd
 
 ############### QT4 ######################
-%make_install -C qt4/build
+pushd qt4
+%cmake_install
+popd
 
 ############### QT6 ######################
 %if %{with qt6}
@@ -204,6 +207,9 @@ popd
 %{_qt4_libdir}/%{name}-qt4.so
 
 %changelog
+* Sat Jul 19 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.4-23.20210516git7ad58fac
+- Fix rhbz#2380735
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-22.20210516git7ad58fac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

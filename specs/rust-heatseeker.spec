@@ -4,7 +4,7 @@
 %global crate heatseeker
 
 Name:           rust-heatseeker
-Version:        1.7.2
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Fast, robust, and portable fuzzy finder
 
@@ -13,14 +13,6 @@ URL:            https://crates.io/crates/heatseeker
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          heatseeker-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * bump crossbeam from 0.7 to 0.8 and port from time v0.1 to chrono:
-#   https://github.com/rschmitt/heatseeker/commit/b774e37
-# * port from signal-hook v0.1 to v0.3:
-#   https://github.com/rschmitt/heatseeker/commit/b19e187
-Patch:          heatseeker-fix-metadata.diff
-Patch2:         0001-port-from-time-v0.1-to-chrono.patch
-Patch3:         0002-port-from-signal-hook-v0.1-to-v0.3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

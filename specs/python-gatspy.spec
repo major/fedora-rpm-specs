@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -11,10 +11,7 @@ URL:            https://www.astroml.org/gatspy/
 Source0:        https://pypi.python.org/packages/source/g/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-astroML
 BuildRequires:  python3-devel
-BuildRequires:  python3-supersmoother
 
 %description
 Gatspy contains efficient, well-documented implementations of several common
@@ -23,10 +20,13 @@ periodogram, the Supersmoother method, and others.
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
-Requires:       python3-astroML
-Requires:       python3-supersmoother
-Recommends:     python3-astroML-addons
+BuildRequires:  python3-numpy
+BuildRequires:  python3-scipy
+Requires:  python3-numpy
+Requires:  python3-scipy
+Requires:  python3-astroML
+Requires:  python3-supersmoother
+Recommends:python3-astroML-addons
 
 %description -n python3-%{srcname}
 Gatspy contains efficient, well-documented implementations of several common
@@ -36,22 +36,30 @@ periodogram, the Supersmoother method, and others.
 %prep
 %setup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files gatspy
 
 %check
 # Disabled for now as tests require online access
 #nosetests-%{python3_version} %{srcname}
+%pyproject_check_import -t
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGES.md README.md
-%{python3_sitelib}/*
 
 %changelog
+* Sat Jul 19 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 0.3-35
+- Update python packaging macros rhbz #2377738
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3-34
 - Rebuilt for Python 3.14
 

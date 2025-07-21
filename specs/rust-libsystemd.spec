@@ -5,7 +5,7 @@
 %global crate libsystemd
 
 Name:           rust-libsystemd
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Pure-Rust client library to interact with systemd
 

@@ -9,7 +9,7 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.11.1
+Version:        6.11.2
 Release:        1%{?dist}
 Summary:        A bridge from Glyphs source files to UFOs
 
@@ -127,6 +127,9 @@ ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %{_mandir}/man1/ufo2glyphs.1*
 
 %changelog
+* Sat Jul 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.11.2-1
+- Update to 6.11.2 (close RHBZ#2381951)
+
 * Mon Jul 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.11.1-1
 - Update to 6.11.1 (close RHBZ#2376210)
 

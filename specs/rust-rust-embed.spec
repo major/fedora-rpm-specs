@@ -5,7 +5,7 @@
 %global crate rust-embed
 
 Name:           rust-rust-embed
-Version:        8.7.0
+Version:        8.7.2
 Release:        %autorelease
 Summary:        Custom Derive Macro which loads files into the rust binary
 
@@ -34,9 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/license
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/changelog.md
-%doc %{crate_instdir}/readme.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.9.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -46,13 +46,13 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.56.0-1
+BuildRequires: libguestfs-devel >= 1:1.56
 BuildRequires: augeas-devel
 BuildRequires: bash-completion, bash-completion-devel
 BuildRequires: file
 BuildRequires: gettext-devel
 BuildRequires: json-c-devel
-BuildRequires: libnbd-devel >= 1.14
+BuildRequires: libnbd-devel >= 1.22
 BuildRequires: libosinfo-devel
 BuildRequires: libvirt-daemon-kvm
 BuildRequires: libvirt-devel
@@ -76,12 +76,10 @@ BuildRequires: glibc-utils
 BuildRequires: %{_bindir}/qemu-nbd
 BuildRequires: %{_bindir}/nbdcopy
 BuildRequires: %{_bindir}/nbdinfo
+BuildRequires: nbdkit-server >= 1.45.1
 BuildRequires: nbdkit-file-plugin
 BuildRequires: nbdkit-null-plugin
-%if !0%{?rhel}
-BuildRequires: nbdkit-python-plugin
-%endif
-BuildRequires: nbdkit-cow-filter >= 1.28.3-1.el9
+BuildRequires: nbdkit-cow-filter
 BuildRequires: mingw-srvany-redistributable >= 1.1-6
 %ifarch x86_64
 BuildRequires: glibc-static
@@ -91,8 +89,8 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.55.12-1
-Requires:      guestfs-tools >= 1.49.7-1
+Requires:      libguestfs%{?_isa} >= 1:1.56
+Requires:      guestfs-tools >= 1.54
 
 # XFS is the default filesystem in Fedora and RHEL.
 Requires:      libguestfs-xfs
@@ -126,11 +124,11 @@ Requires:      platform-python
 # Python is not needed by RHEL 10.
 %endif
 %endif
-Requires:      libnbd >= 1.10
+Requires:      libnbd >= 1.22
 Requires:      %{_bindir}/qemu-nbd
 Requires:      %{_bindir}/nbdcopy
 Requires:      %{_bindir}/nbdinfo
-Requires:      nbdkit-server >= 1.28.3-1.el9
+Requires:      nbdkit-server >= 1.45.1
 Requires:      nbdkit-curl-plugin
 Requires:      nbdkit-file-plugin
 Requires:      nbdkit-nbd-plugin
@@ -143,9 +141,9 @@ Requires:      nbdkit-ssh-plugin
 Requires:      nbdkit-vddk-plugin
 %endif
 Requires:      nbdkit-blocksize-filter
-Requires:      nbdkit-cow-filter >= 1.28.3-1.el9
+Requires:      nbdkit-count-filter
+Requires:      nbdkit-cow-filter
 Requires:      nbdkit-multi-conn-filter
-Requires:      nbdkit-noextents-filter
 Requires:      nbdkit-rate-filter
 Requires:      nbdkit-retry-filter
 
@@ -315,6 +313,15 @@ done
 
 
 %changelog
+* Sat Jul 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.2-2
+- Bump minimum version of nbdkit to 1.45.1, matching current Rawhide
+- Bump minimum version of nbdcopy to 1.22, matching current Fedora 42
+- Bump minimum version of libguestfs to 1.56
+- Bump minimum version of guestfs-tools to 1.54
+- Remove nbdkit-noextents-filter, option removed from virt-v2v 2.9.1
+- Add nbdkit-count-filter, added in nbdkit 1.45
+- Drop BR nbdkit-python-plugin, as it is not needed by our test
+
 * Wed Jul 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.2-1
 - New upstream development version 2.9.2
 

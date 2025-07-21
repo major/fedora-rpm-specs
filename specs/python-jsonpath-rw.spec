@@ -21,7 +21,6 @@ objects, easy to analyze, transform, parse, print, and extend.
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-ply
 BuildRequires:  python3-decorator
 BuildRequires:  python3-six
@@ -38,21 +37,24 @@ objects, easy to analyze, transform, parse, print, and extend.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l jsonpath_rw
 
 %check
+%pyproject_check_import
+
 %{pytest} -v
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
 %{_bindir}/jsonpath.py
-%{python3_sitelib}/jsonpath_rw/
-%{python3_sitelib}/jsonpath_rw-%{version}*-info/
 
 %changelog
 %autochangelog

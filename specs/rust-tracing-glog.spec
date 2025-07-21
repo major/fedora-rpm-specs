@@ -5,7 +5,7 @@
 %global crate tracing-glog
 
 Name:           rust-tracing-glog
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Glog-inspired formatter for tracing-subscriber
 
