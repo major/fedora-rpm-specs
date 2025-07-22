@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-readline
-Version:        8.2
-Release:        7%{?dist}
+Version:        8.3
+Release:        1%{?dist}
 Summary:        MinGW port of readline for editing typed command lines
 
 License:        GPL-2.0-or-later
@@ -107,6 +107,9 @@ rm -rf %{buildroot}%{mingw32_infodir}
 rm -rf %{buildroot}%{mingw64_mandir}
 rm -rf %{buildroot}%{mingw64_infodir}
 
+rm -rf %{buildroot}%{mingw32_docdir}
+rm -rf %{buildroot}%{mingw64_docdir}
+
 # The examples also duplicate the native package so they can be removed as well
 rm -f %{buildroot}%{mingw32_datadir}/readline/*.c
 rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
@@ -117,9 +120,6 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 %license COPYING
 %{mingw32_bindir}/libreadline8.dll
 %{mingw32_bindir}/libhistory8.dll
-%{mingw32_docdir}/readline/CHANGES
-%{mingw32_docdir}/readline/INSTALL
-%{mingw32_docdir}/readline/README
 %{mingw32_libdir}/libreadline.dll.a
 %{mingw32_libdir}/libhistory.dll.a
 %{mingw32_libdir}/pkgconfig/history.pc
@@ -135,9 +135,6 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 %license COPYING
 %{mingw64_bindir}/libreadline8.dll
 %{mingw64_bindir}/libhistory8.dll
-%{mingw64_docdir}/readline/CHANGES
-%{mingw64_docdir}/readline/INSTALL
-%{mingw64_docdir}/readline/README
 %{mingw64_libdir}/libreadline.dll.a
 %{mingw64_libdir}/libhistory.dll.a
 %{mingw64_libdir}/pkgconfig/history.pc
@@ -150,6 +147,9 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 
 
 %changelog
+* Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 8.3-1
+- Update to 8.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

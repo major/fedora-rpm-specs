@@ -1,6 +1,6 @@
 Name:           GeographicLib
 Version:        2.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for geographic coordinate transformations
 
 License:        MIT
@@ -33,7 +33,7 @@ Implementations in other languages.
 
 %package devel
 Summary:        Development files and libraries for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}%{?dist}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake
 
 %description devel
@@ -176,6 +176,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Sun Jul 20 2025 Sandro Mani <manisandro@gmail.com> - 2.5-5
+- Fix bad requires
+
 * Sat Jul 19 2025 Python Maint <python-maint@redhat.com> - 2.5-4
 - Rebuilt for Python 3.14
 

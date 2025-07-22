@@ -13,6 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/krates
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * add missing dev-dependency on serde/derive
 # * drop unused dev-dependencies (integration tests are not shipped)
 Patch:          krates-fix-metadata.diff
 

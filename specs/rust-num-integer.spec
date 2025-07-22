@@ -12,6 +12,8 @@ Summary:        Integer traits and functions
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/num-integer
 Source:         %{crates_source}
+# * include upstream patch to fix test compilation failures with Rust 1.87+
+Patch:          https://github.com/rust-num/num-integer/pull/69.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

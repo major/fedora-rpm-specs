@@ -1,7 +1,7 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.44.0
+Version:        3.44.1
 Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
@@ -305,6 +305,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sun Jul 20 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-1
+- Update to 3.44.1
+
 * Fri Jun 20 2025 Sandro Mani <manisandro@gmail.com> - 3.44.0-1
 - Update to 3.44.0
 

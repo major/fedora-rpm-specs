@@ -12,7 +12,7 @@
 %endif
 
 Name:           krita
-Version:        5.2.10
+Version:        5.2.11
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
@@ -29,6 +29,10 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Patch1: krita-5.2.6-appstream_validate.patch
 
 ## upstream patches
+
+# Fix for build with libheif 1.20+
+# https://invent.kde.org/graphics/krita/-/commit/6ad4fa68a9e1ce06fc884e34f3cedcdd4b9a2076
+Patch10: 6ad4fa68a9e1ce06fc884e34f3cedcdd4b9a2076.patch
 
 %if 0%{?fedora} > 39
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -222,6 +226,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 5.2.11-1
+- 5.2.11
+
 * Sun Jul 06 2025 Steve Cossette <farchord@gmail.com> - 5.2.10-1
 - 5.2.10
 

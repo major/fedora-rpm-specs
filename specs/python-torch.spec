@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.8.0-rc3
-%global commit0 3d53a53e504089a52a149791fd33d7fc898bd055
+# v2.8.0-rc6
+%global commit0 f2b69a083d15e3d0083bb304302a3fd0b5fb8705
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250625
+%global date0 20250718
 %global pypi_version 2.8.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
@@ -357,11 +357,9 @@ sed -i -e 's@list(APPEND Caffe2_DEPENDENCY_LIBS fmt::fmt-header-only)@#list(APPE
 sed -i -e 's@if(NOT TARGET fxdiv)@if(MSVC AND USE_XNNPACK)@' caffe2/CMakeLists.txt
 sed -i -e 's@TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@#TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)@' caffe2/CMakeLists.txt
 
-%if %{without gitcommit}
 # https://github.com/pytorch/pytorch/issues/149803
 # Tries to checkout nccl
-sed -i -e 's@    checkout_nccl()@#    checkout_nccl()@' tools/build_pytorch_libs.py
-%endif
+sed -i -e 's@    checkout_nccl()@    True@' tools/build_pytorch_libs.py
 
 # Disable the use of check_submodule's in the setup.py, we are a tarball, not a git repo
 sed -i -e 's@check_submodules()$@#check_submodules()@' setup.py
@@ -541,6 +539,7 @@ export USE_SYSTEM_EIGEN_INSTALL=ON
 export USE_SYSTEM_ONNX=ON
 export USE_SYSTEM_PYBIND11=OFF
 export USE_SYSTEM_LIBS=OFF
+export USE_SYSTEM_NCCL=OFF
 export USE_TENSORPIPE=OFF
 export USE_XNNPACK=OFF
 export USE_XPU=OFF

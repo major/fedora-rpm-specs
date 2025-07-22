@@ -5,7 +5,7 @@
 %global crate async-signal
 
 Name:           rust-async-signal
-Version:        0.2.11
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Async signal handling
 

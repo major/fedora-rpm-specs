@@ -6,17 +6,16 @@
 %bcond rocm 0
 %endif
 
+# build problems on aarch64
+ExcludeArch:    aarch64
+
 # Build the next version of ollama
 %bcond next 0
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
 %global forgeurl        https://github.com/ollama/ollama
-%if %{with next}
 Version:                0.9.4
-%else
-Version:                0.5.9
-%endif
 
 %gometa -L -f
 
@@ -25,15 +24,9 @@ Get up and running with Llama 3.2, Mistral, Gemma 2, and other large language
 models.}
 
 %global golicenses      LICENSE
-%if %{with next}
 %global godocs          docs examples CONTRIBUTING.md README.md SECURITY.md\\\
                         app-README.md integration-README.md llama-README.md\\\
                         macapp-README.md
-%else
-%global godocs          docs examples CONTRIBUTING.md README.md SECURITY.md\\\
-                        app-README.md integration-README.md llama-README.md\\\
-                        llama-runner-README.md macapp-README.md
-%endif
 
 Name:           ollama
 Release:        %autorelease
@@ -78,9 +71,6 @@ done
 mv app/README.md app-README.md
 mv integration/README.md integration-README.md
 mv llama/README.md llama-README.md
-%if %{without next}
-mv llama/runner/README.md llama-runner-README.md
-%endif
 mv macapp/README.md macapp-README.md
 
 # gcc 15 cstdint
@@ -91,12 +81,10 @@ sed -i -e 's@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ollama)@set(OLLA
 echo -e 'package discover\nvar LibOllamaPath string = "/usr/lib64/ollama"' > discover/path.go
 sed -i -e 's@"lib/ollama"@"lib64/ollama"@' ml/backend/ggml/ggml/src/ggml.go
 
-%if %{with next}
 # _build/src/github.com/ollama/ollama/model/bytepairencoding.go:25:43: undefined: regexp2.Unicode
 # https://src.fedoraproject.org/rpms/golang-github-dlclark-regexp2/pull-request/2
 # In the meantime, hack it out
 sed -i -e 's@regexp2.Unicode|regexp2.RE2@regexp2.RE2@' model/bytepairencoding.go
-%endif
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -152,9 +140,6 @@ popd
 %license LICENSE
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md macapp-README.md
-%if %{without next}
-%doc llama-runner-README.md
-%endif
 %dir %{_libdir}/ollama
 %{_libdir}/ollama/libggml-base.so
 %{_libdir}/ollama/libggml-cpu-alderlake.so
@@ -162,24 +147,15 @@ popd
 %{_libdir}/ollama/libggml-cpu-icelake.so
 %{_libdir}/ollama/libggml-cpu-sandybridge.so
 %{_libdir}/ollama/libggml-cpu-skylakex.so
-%if %{without next}
-%{_libdir}/ollama/libggml-cpu-sapphirerapids.so
-%else
 %{_libdir}/ollama/libggml-cpu-sse42.so
 %{_libdir}/ollama/libggml-cpu-x64.so
-%endif
 
 %dir %{_libdir}/ollama/bin
 %{_libdir}/ollama/bin/ollama
 %{_bindir}/ollama
 
 %if %{with rocm}
-%if %{without next}
-%dir %{_libdir}/ollama/rocm
-%{_libdir}/ollama/rocm/libggml-hip.so
-%else
 %{_libdir}/ollama/libggml-hip.so
-%endif
 %endif
 
 %changelog

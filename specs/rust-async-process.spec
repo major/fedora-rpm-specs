@@ -5,7 +5,7 @@
 %global crate async-process
 
 Name:           rust-async-process
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Async interface for working with processes
 
@@ -14,10 +14,6 @@ URL:            https://crates.io/crates/async-process
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          async-process-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * enable missing feature "rustix/process":
-#    https://github.com/smol-rs/async-process/pull/96
-Patch:          async-process-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

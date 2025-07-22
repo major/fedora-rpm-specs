@@ -94,7 +94,8 @@ chmod -x PHD_2.0_Architecture.docx
 %find_lang %{name}
 
 %check
-env CTEST_OUTPUT_ON_FAILURE=1 make test -C %{_vpath_builddir}
+%ctest
+#env CTEST_OUTPUT_ON_FAILURE=1 make test -C %%{_vpath_builddir}
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml

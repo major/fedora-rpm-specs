@@ -6,7 +6,7 @@
 %global crate async-io
 
 Name:           rust-async-io
-Version:        2.4.1
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Async I/O and timers
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

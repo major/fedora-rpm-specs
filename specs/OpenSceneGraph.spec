@@ -42,7 +42,7 @@
 
 Name:           OpenSceneGraph
 Version:        3.6.5
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        High performance real-time graphics toolkit
 
 # The OSGPL is just the wxWidgets license.
@@ -69,6 +69,10 @@ Patch7:         OpenSceneGraph_asio.patch
 Patch8:         OpenSceneGraph_mingw.patch
 # Fix linking against gta
 Patch9:         OpenSceneGraph_gta.patch
+# Increase minimum required cmake version
+Patch10:        OpenSceneGraph_cmakever.patch
+# Drop bogous extern C when including librsvg2
+Patch11:        OpenSceneGraph_externc.patch
 
 BuildRequires:  asio-devel
 BuildRequires:  cmake
@@ -88,7 +92,7 @@ BuildRequires:  libvncserver-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  libX11-devel
-BuildRequires:  make
+BuildRequires:  ninja-build
 BuildRequires:  openal-soft-devel
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gta)
@@ -334,21 +338,22 @@ doxygen -u doc/Doxyfiles/openthreads.doxyfile.cmake
 
 %build
 # Native build
-%cmake -DBUILD_OSG_EXAMPLES=ON -DBUILD_DOCUMENTATION=ON \
+%cmake -G Ninja -DBUILD_OSG_EXAMPLES=ON -DBUILD_DOCUMENTATION=ON \
   -DOSG_AGGRESSIVE_WARNING_FLAGS=OFF \
   -DLIB_POSTFIX=%(l=%{_lib}; echo ${l:3}) \
   %{?with_Collada:-DCOLLADA_INCLUDE_DIR=$(pkg-config collada-dom --variable=includedir)}
 %cmake_build
 
-make -C %{_vpath_builddir} doc_openscenegraph doc_openthreads
+%cmake_build --target doc_openscenegraph
+%cmake_build --target doc_openthreads
 
 # MinGW build
 # We are cross-compiling and TryRun fails
 %if %{with mingw}
-%mingw_cmake \
+%mingw_cmake -G Ninja \
   -DOSG_AGGRESSIVE_WARNING_FLAGS=OFF \
   -DOSG_DETERMINE_WIN_VERSION=OFF
-%mingw_make_build
+%mingw_ninja
 %endif
 
 
@@ -358,7 +363,7 @@ make -C %{_vpath_builddir} doc_openscenegraph doc_openthreads
 mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 
 %if %{with mingw}
-%mingw_make_install
+%mingw_ninja_install
 
 %mingw_debug_install_post
 
@@ -789,6 +794,9 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %endif
 
 %changelog
+* Sun Jul 20 2025 Sandro Mani <manisandro@gmail.com> - 3.6.5-33
+- Raise minimum cmake version, fix build
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

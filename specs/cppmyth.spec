@@ -3,8 +3,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           cppmyth
-Version:        2.17.4
-Release:        3%{?dist}
+Version:        2.17.6
+Release:        2%{?dist}
 Summary:        Client interface for the MythTV backend
 
 License:        GPL-2.0-or-later
@@ -35,7 +35,7 @@ applications that use %{name}.
 
 
 %build
-%cmake -DCMAKE_INSTALL_LIBDIR=%{_lib}
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_lib} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -55,6 +55,12 @@ applications that use %{name}.
 
 
 %changelog
+* Sun Jul 20 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.17.6-2
+- Fix RHBZ #2380519
+
+* Sun Jul 20 2025 Mohamed El Morabity - 2.17.6-1
+- Update to 2.17.6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

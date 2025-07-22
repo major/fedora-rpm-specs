@@ -13,6 +13,7 @@ Summary:        Easily bind to and load shared libraries
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/shared_library
 Source:         %{crates_source}
+Patch:          0001-Load-libm-for-the-cos-symbol-to-fix-tests.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -62,13 +63,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%ifarch aarch64 ppc64le
-# * skip tests that fail on aarch64 and ppc64le:
-#   https://github.com/tomaka/shared_library/issues/17
-%cargo_test -- -- --skip test_loading_cosine
-%else
 %cargo_test
-%endif
 %endif
 
 %changelog

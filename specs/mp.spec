@@ -40,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 12%{?dist}
+Release: 13%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -60,6 +60,8 @@ Patch5:  %{name}-enum-cast.patch
 Patch6:  %{name}-obj-name.patch
 # Fix FTBFS due to ambiguous names in expr-writer.h
 Patch7:  %{name}-expr-writer.patch
+# Fix for CMake-4.0
+Patch8: %{name}-rhbz2380479.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -244,6 +246,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Sun Jul 20 2025 Antonio Trande <sagitter@fedoraproject.org.com> - 20240319-13
+- Fix rhbz#2380920
+
 * Wed Jun 11 2025 Jerry James <loganjerry@gmail.com> - 20240319-12
 - Rebuild for coin-or-HiGHS 1.11.0
 

@@ -5,7 +5,7 @@
 %global crate cargo-config2
 
 Name:           rust-cargo-config2
-Version:        0.1.32
+Version:        0.1.34
 Release:        %autorelease
 Summary:        Load and resolve Cargo configuration
 
@@ -17,6 +17,8 @@ Patch:          cargo-config2-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop integration tests which can only be compiled in-tree
 Patch:          cargo-config2-fix-metadata.diff
+# * skip test that requires un-published test-helper crate
+Patch2:         0001-Skip-test-that-requires-un-published-test-helper-cra.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

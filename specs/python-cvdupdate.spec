@@ -1,9 +1,8 @@
 %global pypi_name cvdupdate
-%global pypi_version 1.1.2
 
 Name:           python-%{pypi_name}
-Version:        %{pypi_version}
-Release:        2%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        ClamAV Private Database Mirror Updater Tool
 
 License:        Apache-2.0
@@ -59,6 +58,9 @@ rm -r %{buildroot}%{python3_sitelib}/tests
 
 
 %changelog
+* Sun Jul 20 2025 Orion Poplawski <orion@nwra.com> - 1.1.3-1
+- Update to 1.1.3
+
 * Sat Jul 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-2
 - Rebuilt for Python 3.14
 

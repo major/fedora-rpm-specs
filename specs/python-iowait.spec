@@ -26,10 +26,8 @@ is that, on Windows, it only works for sockets.
 %package -n python3-%{modname}
 
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-%{modname} %{_description}
 
@@ -38,22 +36,25 @@ Python 3 version.
 %prep
 %autosetup -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 %check
+%pyproject_check_import
+
 %{__python3} test.py -v
 
-%files -n python3-%{modname}
-%license COPYING.LESSER
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc README
 
-%{python3_sitelib}/%{modname}-*.egg-info
-%{python3_sitelib}/%{modname}.py
-%{python3_sitelib}/__pycache__/%{modname}.*
+# %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
 %autochangelog

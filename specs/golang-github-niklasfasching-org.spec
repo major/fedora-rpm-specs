@@ -3,7 +3,7 @@
 
 # https://github.com/niklasfasching/go-org
 %global goipath         github.com/niklasfasching/go-org
-Version:                1.9.0
+Version:                1.9.1
 
 %gometa
 

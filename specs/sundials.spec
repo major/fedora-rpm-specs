@@ -384,7 +384,8 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DEXAMPLES_INSTALL:BOOL=OFF \
  -DSUNDIALS_BUILD_WITH_MONITORING:BOOL=ON -Wno-dev
 
-%make_build V=1 -C sundials-%{version}/build
+%define _vpath_builddir sundials-%{version}/build
+%cmake_build
 
 #############################################################################
 #######
@@ -518,7 +519,8 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DEXAMPLES_INSTALL:BOOL=OFF \
  -DSUNDIALS_BUILD_WITH_MONITORING:BOOL=ON -Wno-dev
 
-%make_build V=1 -C buildopenmpi_dir/build
+%define _vpath_builddir buildopenmpi_dir/build
+%cmake_build
 %{_openmpi_unload}
 %endif
 ######
@@ -654,7 +656,8 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DEXAMPLES_INSTALL:BOOL=OFF \
  -DSUNDIALS_BUILD_WITH_MONITORING:BOOL=ON -Wno-dev
 
-%make_build V=1 -C buildmpich_dir/build
+%define _vpath_builddir buildmpich_dir/build
+%cmake_build
 %{_mpich_unload}
 %endif
 ######
@@ -663,7 +666,8 @@ export FFLAGS="%{build_fflags} -fPIC"
 %install
 %if 0%{?with_openmpi}
 %{_openmpi_load}
-%make_install -C buildopenmpi_dir/build
+%define _vpath_builddir buildopenmpi_dir/build
+%cmake_install
 rm -f %{buildroot}$MPI_INCLUDE/sundials/LICENSE
 rm -f %{buildroot}$MPI_INCLUDE/sundials/NOTICE
 %{_openmpi_unload}
@@ -671,13 +675,15 @@ rm -f %{buildroot}$MPI_INCLUDE/sundials/NOTICE
 
 %if 0%{?with_mpich}
 %{_mpich_load}
-%make_install -C buildmpich_dir/build
+%define _vpath_builddir buildmpich_dir/build
+%cmake_install
 rm -f %{buildroot}$MPI_INCLUDE/sundials/LICENSE
 rm -f %{buildroot}$MPI_INCLUDE/sundials/NOTICE
 %{_mpich_unload}
 %endif
 
-%make_install -C sundials-%{version}/build
+%define _vpath_builddir sundials-%{version}/build
+%cmake_install
 
 # Remove files in bad position
 rm -f %{buildroot}%{_prefix}/LICENSE

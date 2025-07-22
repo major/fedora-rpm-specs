@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -58,24 +58,18 @@ sed -i "s|(INSTALL) -s|(INSTALL)|g" lib/Makefile src/Makefile client/Makefile
 sed -i "s/websockets_shared/websockets/" src/CMakeLists.txt
 
 %build
-mkdir build
-pushd build
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
        -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
        -DWITH_WEBSOCKETS=ON \
        -DWITH_SYSTEMD=ON \
        -DWITH_SRV=ON \
        -DWITH_TLS=ON \
-       ..
+       %nil
 
 %cmake_build
-popd
-
 
 %install
-pushd build
 %cmake_install
-popd
 
 mkdir -p %{buildroot}%{_unitdir}
 install -p -m 0644 service/systemd/%{name}.service.notify %{buildroot}%{_unitdir}/%{name}.service
@@ -112,6 +106,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Sun Jul 20 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-2
+- Minor spec cleanups
+
 * Mon Jul 14 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-1
 - Update to 2.0.22
 - Update for older releases to address sbin dir

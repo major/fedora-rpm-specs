@@ -1,5 +1,3 @@
-%global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
-
 # No more Java on i686
 %ifarch %{java_arches}
 %bcond_without java
@@ -19,6 +17,7 @@ URL: https://www.hdfgroup.org/solutions/hdf5/
 Source0: https://github.com/HDFGroup/hdf5/archive/hdf5_%{version}/hdf5-%{version}.tar.gz
 
 %global so_version 310
+%global plugin_dir %{_libdir}/hdf5/plugin
 
 Source1: h5comp
 # For man pages
@@ -244,7 +243,7 @@ ln -s ../configure .
 %if %{with java}
   --enable-java \
 %endif
-  --with-default-plugindir=%{_libdir}/hdf5/plugin \
+  --with-default-plugindir=%{plugin_dir} \
   --with-fmoddir=%{_fmoddir}
 sed -i -e 's| -shared | -Wl,--as-needed\0|g' libtool
 sed -r -i 's|^prefix=/usr|prefix=%{buildroot}/usr|' java/test/junit.sh
@@ -286,7 +285,7 @@ mkdir -p %{buildroot}%{_fmoddir}
 %make_install -C build
 rm %{buildroot}%{_libdir}/*.la
 # Plugin directory
-mkdir -p %{buildroot}%{_libdir}/hdf5/plugin
+mkdir -p %{buildroot}%{plugin_dir}
 for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
@@ -322,10 +321,11 @@ do
 done
 %endif
 # rpm macro for version checking
-mkdir -p %{buildroot}%{macrosdir}
-cat > %{buildroot}%{macrosdir}/macros.hdf5 <<EOF
+mkdir -p %{buildroot}%{_rpmmacrodir}
+cat >%{buildroot}%{_rpmmacrodir}/macros.hdf5 <<EOF
 # HDF5 compatble version is
 %%_hdf5_version %{_hdf5_compat_version}
+%%_hdf5_plugin_dir %{plugin_dir}
 EOF
 
 # Install man pages from debian
@@ -416,7 +416,7 @@ fi
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/plugin/
+%{plugin_dir}/
 %{_libdir}/libhdf5.so.%{so_version}*
 %{_libdir}/libhdf5_cpp.so.%{so_version}*
 %{_libdir}/libhdf5_fortran.so.%{so_version}*
@@ -437,7 +437,7 @@ fi
 %{_mandir}/man1/h5unjam.1*
 
 %files devel
-%{macrosdir}/macros.hdf5
+%{_rpmmacrodir}/macros.hdf5
 %{_bindir}/h5c++*
 %{_bindir}/h5cc*
 %{_bindir}/h5fc*

@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate instability
+%global crate assert2-macros
 
-Name:           rust-instability
-Version:        0.3.9
+Name:           rust-assert2-macros
+Version:        0.3.16
 Release:        %autorelease
-Summary:        Rust API stability attributes for the rest of us
+Summary:        Procedural macros for assert2
 
-License:        MIT
-URL:            https://crates.io/crates/instability
+License:        BSD-2-Clause
+URL:            https://crates.io/crates/assert2-macros
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Rust API stability attributes for the rest of us. A fork of the
-`stability` crate.}
+Procedural macros for assert2.}
 
 %description %{_description}
 
@@ -32,8 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.md
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
