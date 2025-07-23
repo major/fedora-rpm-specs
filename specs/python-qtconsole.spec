@@ -14,10 +14,10 @@ URL:		http://jupyter.org
 Source0:	https://files.pythonhosted.org/packages/source/q/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:	noarch
 
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 BuildRequires:	python3-ipython-sphinx
 BuildRequires:	python3-sphinx_rtd_theme
+BuildRequires:	python3-qt5
 
 BuildRequires:	desktop-file-utils
 
@@ -26,10 +26,8 @@ Qt-based console for Jupyter with support for rich media output
 
 %package -n     python3-%{pypi_name}
 Summary:	Jupyter Qt console
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-Provides:	python3-ipython-gui = %{version}-%{release}
-%{?python_provide:%python_provide python3-ipython-gui}
+%py_provides	python3-ipython-gui
 Obsoletes:	python3-ipython-gui < 4
  
 Requires:	python3-qt5
@@ -52,8 +50,11 @@ Documentation for qtconsole
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 # generate html docs 
 sphinx-build docs/source html
@@ -66,17 +67,17 @@ sed -i 's/\r$//' html/objects.inv
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications examples/jupyter-qtconsole.desktop
 
-%files -n python3-%{pypi_name} 
-%license LICENSE
+%check
+%pyproject_check_import -e 'qtconsole.tests*'
+
+%files -n python3-%{pypi_name}  -f %{pyproject_files}
 %doc README.md
 %{_bindir}/jupyter-qtconsole
 %{_datadir}/applications/jupyter-qtconsole.desktop
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}/*
-%dir %{python3_sitelib}/%{pypi_name}/
 
 %files -n python-%{pypi_name}-doc
 %doc html 

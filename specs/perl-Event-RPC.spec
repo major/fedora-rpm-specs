@@ -1,14 +1,14 @@
 Name:           perl-Event-RPC
-Version:        1.10
-Release:        22%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Event based transparent client/server RPC framework
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Event-RPC
 Source0:        https://cpan.metacpan.org/authors/id/J/JR/JRED/Event-RPC-%{version}.tar.gz
 # Normalize documenation encoding
 Patch0:         Event-RPC-1.08-Convert-to-UTF-8.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -22,7 +22,9 @@ BuildRequires:  perl(CBOR::XS)
 BuildRequires:  perl(Event)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Glib)
+BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(IO::Socket::INET)
+BuildRequires:  perl(IO::Socket::UNIX)
 BuildRequires:  perl(JSON::XS) >= 3
 BuildRequires:  perl(Sereal) >= 3
 BuildRequires:  perl(Socket)
@@ -43,9 +45,18 @@ BuildRequires:  perl(Test::More)
 # Sereal is recommended, Storable is backward-compatible but insecure.
 Requires:       %{name}-format = %{version}-%{release}
 Recommends:     perl(Event::RPC::Message::Sereal)
+Requires:       perl(IO::Socket::INET)
+Requires:       perl(IO::Socket::UNIX)
 
 # Filter documentation's dependencies
 %{?perl_default_filter}
+
+# Filter under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Sereal\\)$
+
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Event_RPC_Test2\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Event_RPC_Test
 
 %description
 Event::RPC supports you in developing Event based networking client/server
@@ -77,9 +88,6 @@ Requires:       perl(Event::RPC::Message)
 Requires:       perl(Sereal) >= 3
 Provides:       %{name}-format = %{version}-%{release}
 
-# Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Sereal\\)$
-
 %description Message-Sereal
 This implements Sereal message format for Event::RPC Perl RPC framework.
 
@@ -91,30 +99,64 @@ Provides:       %{name}-format = %{version}-%{release}
 %description Message-Storable
 This implements Storable message format for Event::RPC Perl RPC framework.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       coreutils
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Event-RPC-%{version}
 %patch -P0 -p1
-# Make it so that the .pl scripts in %%doc don't add bogus requirements
+# Normalize permissions
+chmod +x t/06.object2.t
 chmod -x examples/*.pl
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# t/Event_RPC_Test_Server.pm writed to CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+unset EVENT_RPC_LOOP
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset EVENT_RPC_LOOP
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes examples README
-%{perl_vendorlib}/Event/
+%dir %{perl_vendorlib}/Event/
+%{perl_vendorlib}/Event/RPC
+%{perl_vendorlib}/Event/RPC.pm
 %exclude %{perl_vendorlib}/Event/RPC/Message/CBOR.pm
 %exclude %{perl_vendorlib}/Event/RPC/Message/JSON.pm
 %exclude %{perl_vendorlib}/Event/RPC/Message/Sereal.pm
 %exclude %{perl_vendorlib}/Event/RPC/Message/Storable.pm
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Event::RPC.3*
+%{_mandir}/man3/Event::RPC::*.3*
 %exclude %{_mandir}/man3/Event::RPC::Message::CBOR.3*
 %exclude %{_mandir}/man3/Event::RPC::Message::JSON.3*
 %exclude %{_mandir}/man3/Event::RPC::Message::Sereal.3*
@@ -136,7 +178,14 @@ make test
 %{perl_vendorlib}/Event/RPC/Message/Storable.pm
 %{_mandir}/man3/Event::RPC::Message::Storable.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Jul 21 2025 Petr Pisar <ppisar@redhat.com> - 1.11-1
+- 1.11 bump
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

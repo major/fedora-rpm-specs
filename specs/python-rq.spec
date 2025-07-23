@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global srcname rq
 %bcond_without tests
 

@@ -1,11 +1,13 @@
 Name:       opencc
 Version:    1.1.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
 License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
 Source0:    https://github.com/BYVoid/OpenCC/archive/ver.%{version}.tar.gz#/OpenCC-ver.%{version}.tar.gz
 Patch0:     opencc-fixes-compile.patch
+Patch1:     opencc-fixes-crash.patch
+Patch2:     opencc-fixes-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -79,6 +81,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/opencc/OpenCC*.cmake
 
 %changelog
+* Thu Jul 17 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-2
+- Update for marisa 0.3.0
+
 * Thu Feb  6 2025 Peng Wu <pwu@redhat.com> - 1.1.9-1
 - Update to 1.1.9
 - Resolves: RHBZ#2340967

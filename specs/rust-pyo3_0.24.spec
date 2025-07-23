@@ -23,6 +23,7 @@ Patch:          pyo3-fix-metadata.diff
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
 # https://github.com/PyO3/pyo3/pull/5161
 Patch3:         0001-fix-FromPyObject-impl-for-uuid-Uuid-on-big-endian-ar.patch
+Patch:          0001-Fix-expected-error-message-for-one-test-for-Python-3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -519,7 +520,7 @@ rm -r emscripten/ newsfragments/
 # * unit tests require the "auto-initialize" feature
 # * run tests for all third-party crate integrations
 export LANG=C.utf8
-%cargo_test -f auto-initialize,full
+%cargo_test -f abi3,auto-initialize,full
 %endif
 
 %changelog

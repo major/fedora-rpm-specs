@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # This package serves both as a build backend and a tool for theme developers.
 # During the Python bootstrap we need the build functionality for python-furo.
 # cli extra, needed for the application usage, has got a long chain of

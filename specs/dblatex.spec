@@ -21,9 +21,10 @@ Patch2:     dblatex-0.3.11-replace-inkscape-by-rsvg.patch
 Patch3:     dblatex-0.3.12-replace-imp-by-importlib.patch
 # Patch4 sent upstream: https://sourceforge.net/p/dblatex/patches/13/
 Patch4:     dblatex-0.3.12-adjust-submodule-imports.patch
+# Upstreamable
+Patch5:     dblatex-0.3.12-remove-shebangs-from-non-scripts.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  libxslt
 BuildRequires:  texlive-base
 BuildRequires:  texlive-collection-latex
@@ -81,17 +82,23 @@ Authors:
 
 %prep
 %autosetup -n %{name}3-%{version} -p 1
+# build_scripts uses install command arguments
+sed -i -e "/if not(install.install_data)/i \        install.install_data = '%{_prefix}'" setup.py
+sed -i -e "s|self._install_lib = .*|self._install_lib = '%{python3_sitelib}'|" setup.py
 
+# We do not ship contrib parts:
 rm -rf lib/contrib
-%py3_shebang_fix .
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install --root $RPM_BUILD_ROOT
-%py3_shebang_fix $RPM_BUILD_ROOT%{_bindir}/dblatex
+%pyproject_install
+%pyproject_save_files -L dbtexmf
 
 # these are already in tetex-latex:
 for file in bibtopic.sty enumitem.sty ragged2e.sty passivetex/ xelatex/; do
@@ -118,12 +125,9 @@ sed -e 's/\r//' xsl/mathml2/README > README-xsltml
 touch -r xsl/mathml2/README README-xsltml
 cp -p %{SOURCE1} COPYING-docbook-xsl
 
-
-%files
+%files -f %{pyproject_files}
 %{_mandir}/man1/dblatex.1*
 %doc COPYRIGHT docs/manual.pdf COPYING-docbook-xsl README-xsltml
-%{python3_sitelib}/dbtexmf/
-%{python3_sitelib}/dblatex-*.egg-info
 %{_bindir}/dblatex
 %{_datadir}/dblatex/
 %{_datadir}/texlive/texmf-dist/tex/latex/dblatex/

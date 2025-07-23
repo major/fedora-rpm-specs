@@ -21,7 +21,7 @@
 
 Name:           mysql-connector-python
 Version:        8.0.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -36,6 +36,8 @@ URL:            http://dev.mysql.com/doc/connector-python/en/index.html
 # to modify the tarball to the desired form use the
 # generate-modified-sources.sh script available in this repo
 Source0:        %{name}-%{version}-src-without-fonts.tar.gz
+
+Patch0:         %{name}-rpath.patch
 
 BuildRequires:  python3-devel >= 3
 BuildRequires:  gcc-c++
@@ -83,6 +85,7 @@ Documentation: http://dev.mysql.com/doc/connector-python/en/index.html
 %prep
 %setup -q -n %{name}-%{version}-src
 chmod -x examples/*py
+%patch -P0 -p1
 
 %build
 export MYSQL_CAPI=%{_prefix}  # searches for bin/mysql_config in here, enables the extension module
@@ -144,6 +147,9 @@ rm -r docs/mysqlx
 %{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Mon Jul 21 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-3
+- Bump release for package rebuild
+
 * Tue Jul 15 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-2
 - Bump release for package rebuild
 

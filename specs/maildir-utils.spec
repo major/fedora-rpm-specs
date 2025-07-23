@@ -1,14 +1,15 @@
 Name:           maildir-utils
-Version:        1.12.8
+Version:        1.12.12
 Release:        %autorelease
 Summary:        A command-line mail organization utility
 
 License:        GPL-3.0-or-later
 URL:            http://www.djcbsoftware.nl/code/mu/index.html
 Source0:        https://github.com/djcb/mu/releases/download/v%{version}/mu-%{version}.tar.xz
-Patch0:         1.12.8-mu4e-docs-directory.patch
-Patch1:         1.12.8-mu-docs-directory.patch
-Patch2:         1.12.8-mu-guile-scripts-directory.patch
+Patch0:         1.12.12-mu4e-docs-directory.patch
+Patch1:         1.12.12-mu-docs-directory.patch
+Patch2:         1.12.12-mu-guile-scripts-directory.patch
+Patch3:         1.12.12-mu-scm-directory.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -67,10 +68,11 @@ This package contains the Guile bindings for mu
 
 %files
 %license COPYING
-%doc NEWS.org mu4e/mu4e-about.org
+%doc NEWS.org IDEAS.org mu4e/mu4e-about.org
 %{_bindir}/mu
 %{_emacs_sitelispdir}/mu4e
 %{_infodir}/mu4e.info.gz
+%{_infodir}/mu-scm.info.gz
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %{_mandir}/man7/*

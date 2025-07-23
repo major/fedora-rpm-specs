@@ -6,7 +6,7 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.26.1
+Version:        2.28.0
 Release:        %autorelease
 Summary:        Command line utility to show dependency tree of packages
 

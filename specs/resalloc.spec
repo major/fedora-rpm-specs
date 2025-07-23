@@ -50,7 +50,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    5.10
+Version:    5.11
 Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
@@ -407,6 +407,10 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Mon Jul 21 2025 Pavel Raiskup <praiskup@redhat.com> - 5.11-1
+- new upstream release, don't keep cleanup processes indefinitely:
+  https://github.com/praiskup/resalloc/releases/tag/v5.11
+
 * Thu Jun 12 2025 Pavel Raiskup <praiskup@redhat.com> - 5.10-1
 - new upstream release, packages use RPM built-in sysusers support:
   https://github.com/praiskup/resalloc/releases/tag/v5.10

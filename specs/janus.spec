@@ -15,7 +15,7 @@
 
 Name: janus
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: An open source WebRTC server designed and developed by Meetecho
 
 License: GPL-3.0-only AND MIT AND BSD-3-Clause
@@ -647,6 +647,9 @@ find %{buildroot} -type f -iname '*.la' -delete
 
 
 %changelog
+* Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.1-3
+- Rebuild for libwebsockets 4.4
+
 * Fri Jun 13 2025 Rénich Bon Ćirić <renich@woralelandia.com> - 1.3.1-2
 - Added janus-dtls patch explanation.
 - Removed patch's serial number 0004- for better readability.

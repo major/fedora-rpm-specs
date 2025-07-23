@@ -2,8 +2,8 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  6.13
-Release:  2%{?dist}
+Version:  6.14
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Mon Jul 21 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.14-1
+- new version 6.14
+
 * Wed Mar 12 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.13-2
 - Do not blame cache_peer for 4xx CONNECT responses
 

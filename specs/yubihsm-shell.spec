@@ -50,9 +50,7 @@ Development libraries for working with yubihsm 2.
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q
-%patch 1 -p1
 %patch 2 -p1
-%patch 3 -p1
 
 
 %build
@@ -65,7 +63,11 @@ export CFLAGS="$CFLAGS -Wno-error=format-overflow"
 %endif
 # OpenSSL 3.0 deprecates a lot of functions still widely used here
 export CFLAGS="$CFLAGS -Wno-error=deprecated-declarations"
-%cmake -DCMAKE_SKIP_INSTALL_RPATH=ON
+%cmake -DCMAKE_SKIP_INSTALL_RPATH=ON \
+   %if "%{?_lib}" == "lib64"
+     %{?_cmake_lib_suffix64}
+   %endif
+   %{nil}
 %cmake_build
 
 

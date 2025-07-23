@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Path-Tiny
-Version:	0.148
+Version:	0.150
 Release:	1%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
@@ -120,6 +120,10 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Mon Jul 21 2025 Paul Howarth <paul@city-fan.org> - 0.150-1
+- Update to 0.150
+  - Released with newest Dist::Zilla to avoid xattrs in the tarball
+
 * Mon Mar 17 2025 Paul Howarth <paul@city-fan.org> - 0.148-1
 - Update to 0.148
   - Invalid arguments when hash references are expected throw exceptions

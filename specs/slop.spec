@@ -1,15 +1,12 @@
 Name:       slop
-Version:    7.6
-Release:    17%{?dist}
+Version:    7.7
+Release:    1%{?dist}
 Summary:    Command line tool to perform region SeLect OPeration with mouse
 URL:        https://github.com/naelstrof/slop
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
 Source0:    https://github.com/naelstrof/slop/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# fix FTBFS BZ#2341360
-Patch0:  0001-Fix-build-failure-with-newer-icu.patch
 
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 7
 BuildRequires: libXext-devel
@@ -22,6 +19,7 @@ BuildRequires: libicu-devel
 BuildRequires: libXrender-devel
 BuildRequires: mesa-libEGL-devel
 
+Requires: libslopy = %{version}-%{release}
 %description
 slop (Select Operation) is an application that queries for a selection
 from the user and prints the region to stdout.
@@ -72,6 +70,9 @@ This sub-package contains development files for libslopy library.
 %{_includedir}/slop.hpp
 
 %changelog
+
+* Mon Jul 21 2025 Alois Mahdal <amahdal@redhat.com> - 7.7-1
+- Updated upstream to 7.7 (RHBZ#2375396)
 
 * Mon May 5 2025 Alois Mahdal <netvor@vornet.cz> - 7.6-17
 - Fix FTBFS due to outdated C++ standard (RHBZ#2341360)

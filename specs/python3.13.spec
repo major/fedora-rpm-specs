@@ -81,7 +81,7 @@ License: Python-2.0.1
 # We can only have this on Fedora 40+, where clang 18+ is available
 # And only on certain architectures: https://peps.python.org/pep-0744/#support
 # The freethreading build (when enabled) does not support JIT yet
-%bcond jit %[(0%{?fedora} >= 40 || 0%{?rhel} >= 10) && ("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64")]
+%bcond jit %[(0%{?fedora} >= 40 || 0%{?epel} >= 10) && ("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64")]
 %if %{with jit}
 # When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
 %global jit_flag --enable-experimental-jit=yes-off

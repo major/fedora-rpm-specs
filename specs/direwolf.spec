@@ -52,6 +52,7 @@ EOF
 rm -r external/{hidapi,misc,regex}
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DUNITTEST=1 -DENABLE_GENERIC=1 -DUSE_SYSTEM_HIDAPI=ON
 %cmake_build
 

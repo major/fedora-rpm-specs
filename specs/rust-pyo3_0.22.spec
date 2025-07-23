@@ -19,6 +19,7 @@ Patch:          pyo3-fix-metadata.diff
 # * make unsafe subinterpreter support available via cfg flag:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
+Patch3:         0001-Fix-expected-error-message-for-one-test-for-Python-3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -490,7 +491,7 @@ rm -r emscripten/ newsfragments/
 # * unit tests require an UTF-8 locale
 # * unit tests require the "auto-initialize" feature
 export LANG=C.utf8
-%cargo_test -f auto-initialize
+%cargo_test -f abi3,auto-initialize
 %endif
 
 %changelog

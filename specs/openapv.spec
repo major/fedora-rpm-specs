@@ -1,12 +1,10 @@
 Name:          openapv
 Release:       %autorelease
-Version:       0.1.13.1
+Version:       0.2.0.0
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/AcademySoftwareFoundation/openapv/issues/81
-Patch:         %{name}-fix-non-arm-x86-build.patch
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc
@@ -62,8 +60,8 @@ rm -v %{buildroot}%{_libdir}/oapv/liboapv.a
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/liboapv.so.0.1
-%{_libdir}/liboapv.so.1
+%{_libdir}/liboapv.so.2
+%{_libdir}/liboapv.so.2.0.0
 
 %changelog
 %autochangelog

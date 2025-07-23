@@ -1,8 +1,8 @@
 %global srcname pycollada
 
 Name:           python-collada
-Version:        0.8
-Release:        4%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        A python module for creating, editing and loading COLLADA
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -10,19 +10,15 @@ License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/pycollada/pycollada
 Source0:        https://github.com/pycollada/pycollada/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-# Patch for NumPy 2.x compatibility
-# https://github.com/pycollada/pycollada/pull/147
-Patch:          https://github.com/pycollada/pycollada/pull/147.patch
-
 BuildArch:      noarch
 
 # Python 3
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pip
 BuildRequires:  python3-wheel
 # unit test requirements
 BuildRequires:  python3-dateutil
+BuildRequires:  python3-lxml
 BuildRequires:  python3-six
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
@@ -58,25 +54,33 @@ as well as in-place editing.
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 %pyproject_wheel
 
 
 %install
 %pyproject_install
+%pyproject_save_files -l '*'
 
  
 %check
+%pyproject_check_import
+
 %pytest
 
 
-%files -n python%{python3_pkgversion}-collada
-%license COPYING
+%files -n python%{python3_pkgversion}-collada -f %{pyproject_files}
 %doc AUTHORS.md CHANGELOG.rst README.markdown
-%{python3_sitelib}/*
 
 
 %changelog
+* Mon Jul 21 2025 Richard Shaw <hobbes1069@gmail.com> - 0.9.2-1
+- Update to 0.9.2.
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.8-4
 - Rebuilt for Python 3.14
 

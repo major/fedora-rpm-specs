@@ -1,6 +1,6 @@
 Name:		qterminal
 Version:	2.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-only
 URL:		https://github.com/qterminal/qterminal
 Source0:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -29,7 +29,7 @@ BuildRequires:  devtoolset-7-gcc-c++
 %endif
 
 # Require qtermwidget to be the same version, as suggested by upstream
-Requires:       qtermwidget = %{version}
+Requires:       qtermwidget >= 2.2.0
 
 Provides:       %{name}-common = %{version}-%{release}
 Provides:       %{name}-qt5 = %{version}-%{release}
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %dir %{_datadir}/qterminal/translations
 
 %changelog
+* Tue Jul 22 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.2.1-2
+- Adjust Requires for qtermwidget
+
 * Mon May 05 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.1-1
 - 2.2.1
 

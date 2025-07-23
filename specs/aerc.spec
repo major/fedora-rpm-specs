@@ -41,8 +41,6 @@ BuildRequires:  gnupg
 BuildRequires:  notmuch-devel
 BuildRequires:  scdoc
 
-# for libnotmuch.so
-Requires:       notmuch
 # used in the builtin `html` filter
 Requires:       w3m
 # aerc is mainly targeted at developers using a git+email workflow

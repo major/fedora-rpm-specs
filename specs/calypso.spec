@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.20.%{date}git%{shortcommit}%{?dist}
+Release: 0.21.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -18,21 +18,17 @@ Source3: %{name}.pam
 Source4: %{name}.systemd
 # fix python-daemon dependency name
 Patch0: %{name}-daemon.patch
-BuildRequires: python3-daemon
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-iniparse
-BuildRequires: python3-vobject
 BuildRequires: systemd-rpm-macros
 %if %{with check}
 BuildRequires: git-core
+BuildRequires: python3-iniparse
 BuildRequires: python3-pytest
 %endif
 Requires(post): git-core
 Requires: git-core
 Requires: python3-lockfile
 Recommends: python3-kerberos
-Recommends: python3-PyPAM
 BuildArch: noarch
 
 %description
@@ -44,19 +40,22 @@ patches to Radicale but was eventually split off as a separate project.
 * Uses git to retain a history of the database
 
 %prep
-%setup -q -n %{name}-%{commit}
-%patch -P0 -p1 -b .daemon
+%autosetup -p1 -n %{name}-%{commit}
 
 # Create a sysusers.d config file
 cat >calypso.sysusers.conf <<EOF
 u calypso - 'CalDAV/CardDAV server with git storage' %{_sharedstatedir}/calypso -
 EOF
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l calypso
 mkdir -p %{buildroot}%{_sharedstatedir}/calypso
 install -Dpm644 calypso.1 %{buildroot}%{_mandir}/man1/calypso.1
 install -Dpm644 %{S:2} %{buildroot}%{_sysconfdir}/calypso/config
@@ -67,6 +66,7 @@ install -m0644 -D calypso.sysusers.conf %{buildroot}%{_sysusersdir}/calypso.conf
 
 %if %{with check}
 %check
+%pyproject_check_import -t
 %pytest
 %endif
 
@@ -91,8 +91,7 @@ fi
 %postun
 %systemd_postun_with_restart calypso.service
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc README collection-config config
 %dir %attr(0750,root,calypso) %{_sysconfdir}/calypso
 %config(noreplace) %{_sysconfdir}/calypso/config
@@ -100,12 +99,14 @@ fi
 %{_bindir}/calypso
 %{_mandir}/man1/calypso.1*
 %{_unitdir}/calypso.service
-%{python3_sitelib}/calypso-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/calypso
 %dir %attr(0750,calypso,calypso) %{_sharedstatedir}/calypso
 %{_sysusersdir}/calypso.conf
 
 %changelog
+* Mon Jul 21 2025 Dominik Mierzejewski <dominik@greysector.net> 2.0-0.21.20190429git7317d88
+- switch to modern python packaging macros (resolves rhbz#2377219)
+- drop nonexistent Recommends:
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0-0.20.20190429git7317d88
 - Rebuilt for Python 3.14
 

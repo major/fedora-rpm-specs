@@ -1,4 +1,4 @@
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 %global bundled_slf4j_version 1.7.36
 %global homedir %{_datadir}/maven%{?maven_version_suffix}
@@ -225,7 +225,7 @@ touch %{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}-unbound.conf
 update-alternatives --install %{_bindir}/mvn mvn %{homedir}/bin/mvn %{?maven_alternatives_priority}0 \
 --slave %{_bindir}/mvnDebug mvnDebug %{homedir}/bin/mvnDebug \
 --slave %{_mandir}/man1/mvn.1.gz mvn1 %{homedir}/bin/mvn.1.gz \
---slave %{_mandir}/man1/mvnDebug.1.gz mvnDebug1 %{homedir}/bin/mvn.1.gz \
+--slave %{_mandir}/man1/mvnDebug.1.gz mvnDebug1 %{homedir}/bin/mvn.1.gz
 
 %postun
 if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi

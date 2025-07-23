@@ -1,18 +1,16 @@
 Name:		diceware
-Version:	0.9.5
-Release:	24%{?dist}
+Version:	1.0.1
+Release:	1%{?dist}
 Summary:	Create passphrases which one can remember
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:	GPL-3.0-or-later
+# Code is GPL-3.0-or-later but then there are the wordlists:
+License:	GPL-3.0-or-later and MIT and CC-BY-3.0 and CC0-1.0 and CC-BY-4.0
 URL:		https://pypi.python.org/pypi/diceware
 Source0:	https://files.pythonhosted.org/packages/source/d/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
-BuildRequires:	python3-pytest-runner
 BuildRequires:	%{_bindir}/rst2man
 
 %description
@@ -36,12 +34,17 @@ This package provides documentation for Diceware.
 %autosetup
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l diceware
 mkdir -p %{buildroot}%{_mandir}/man1
 rst2man docs/manpage.rst %{buildroot}%{_mandir}/man1/diceware.1
 
@@ -56,21 +59,24 @@ rm -rf docs/_build/.doctrees
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version}
+%pytest
 
 %files doc
 %doc docs/_build/html
 
-%files
+%files -f %{pyproject_files}
 %doc README.rst COPYRIGHT
 %license LICENSE
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}*
 %{_mandir}/man1/diceware.1*
 
 
 
 %changelog
+* Mon Jul 21 2025 David Auer <dreua@posteo.de> - 1.0.1-1
+- Update to latest version 1.0.1 (rhbz#2329832, rhbz#2340075)
+- Use pyproject macros (rhbz#2377242)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.9.5-24
 - Rebuilt for Python 3.14
 

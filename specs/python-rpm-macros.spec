@@ -55,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 BuildArch:      noarch
 
@@ -167,6 +167,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Mon Jul 21 2025 Íñigo Huguet <ihuguet@riseup.net> - 3.14-3
+- pathfix.py: Don't fail on symbolic links
+
 * Sun Jun 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-2
 - Deprecate %%py3_build, %%py3_build_wheel, and %%py3_install
 - Deprecate %%py_build, %%py_build_wheel, and %%py_install

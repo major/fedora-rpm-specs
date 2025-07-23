@@ -17,7 +17,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pbr
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-setuptools
 
 %global common_desc \
 This package contains Sphinx extension for running sphinx-apidoc_ \
@@ -32,7 +31,6 @@ simply generates it.
 
 %package -n python3-%{pypi_name}
 Summary:    %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 Requires:   python3-pbr
 Requires:   python3-sphinx
 
@@ -42,26 +40,24 @@ Requires:   python3-sphinx
 
 %prep
 %autosetup -n sphinxcontrib_apidoc-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-
-%py3_build
+%pyproject_wheel
 
 %install
-
-%py3_install
+%pyproject_install
+%pyproject_save_files -l sphinxcontrib
 
 %check
+%pyproject_check_import
 %{pytest}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib_apidoc*nspkg.pth
-%{python3_sitelib}/sphinxcontrib/apidoc
-%{python3_sitelib}/sphinxcontrib_apidoc-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

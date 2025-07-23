@@ -22,13 +22,17 @@ Summary:        A lex/flex like (not fully POSIX lex compatible) utility
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
+# Fix build on Go 1.24.
+# Submitted upstream as https://gitlab.com/cznic/golex/-/merge_requests/16
+Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %description %{common_description}
 
 %gopkg
 
 %prep
-%goprep
+%goprep -A
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

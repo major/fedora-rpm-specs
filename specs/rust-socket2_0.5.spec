@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate notify-debouncer-mini
+%global crate socket2
 
-Name:           rust-notify-debouncer-mini
-Version:        0.6.0
+Name:           rust-socket2_0.5
+Version:        0.5.10
 Release:        %autorelease
-Summary:        Notify mini debouncer for events
+Summary:        Utilities for handling networking sockets
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/notify-debouncer-mini
+URL:            https://crates.io/crates/socket2
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove macOS-specific features
-Patch:          notify-debouncer-mini-fix-metadata.diff
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          socket2-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Notify mini debouncer for events.}
+Utilities for handling networking sockets with a maximal amount of
+configuration possible intended.}
 
 %description %{_description}
 
@@ -50,40 +50,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crossbeam-channel-devel
+%package     -n %{name}+all-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+crossbeam-channel-devel %{_description}
+%description -n %{name}+all-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "crossbeam-channel" feature of the "%{crate}" crate.
+use the "all" feature of the "%{crate}" crate.
 
-%files       -n %{name}+crossbeam-channel-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serialization-compat-6-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serialization-compat-6-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serialization-compat-6" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serialization-compat-6-devel
+%files       -n %{name}+all-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

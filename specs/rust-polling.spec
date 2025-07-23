@@ -5,7 +5,7 @@
 %global crate polling
 
 Name:           rust-polling
-Version:        3.8.0
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Portable interface to epoll, kqueue, event ports, and IOCP
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

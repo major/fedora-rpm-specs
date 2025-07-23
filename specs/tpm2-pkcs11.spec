@@ -25,19 +25,9 @@ BuildRequires:	tpm2-tss-devel
 BuildRequires:	tpm2-abrmd-devel
 # for tools
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-pip
-BuildRequires:	python3-pyasn1-modules
-BuildRequires:	python3-pyyaml
-BuildRequires:	python3-cryptography
-BuildRequires:	python3-tpm2-pytss
 # for tests
 BuildRequires:	libcmocka-devel
 BuildRequires:	dbus-daemon
-%if ! 0%{?rhel}
-# not available in RHEL
-BuildRequires:	python3-bcrypt
-%endif
 # for tarball signature verification
 BuildRequires:	gnupg2
 
@@ -57,11 +47,6 @@ use TPM2 for PKCS#11.
 
 %package tools
 Summary: The tools required to setup and configure TPM2 for PKCS#11
-# Automatic generator does not work for me even though the requires.txt is in place
-Requires:	python3-cryptography
-Requires:	python3-pyyaml
-Requires:	python3-pyasn1-modules
-Requires:	python3-tpm2-pytss
 
 %description tools
 The tools required to setup and configure TPM2 for PKCS#11.
@@ -70,8 +55,15 @@ The tools required to setup and configure TPM2 for PKCS#11.
 #gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
 %if 0%{?rhel}
+# not available in RHEL
 sed -i -e "/'bcrypt',/d" tools/setup.py
 %endif
+
+
+%generate_buildrequires
+pushd tools >&2
+%pyproject_buildrequires
+popd >&2
 
 
 %build
@@ -115,7 +107,7 @@ make check
 %files tools
 %{_bindir}/tpm2_ptool
 %{python3_sitelib}/tpm2_pkcs11/*
-%{python3_sitelib}/tpm2_pkcs11_tools-*/*
+%{python3_sitelib}/tpm2_pkcs11_tools-*.dist-info/
 
 
 %changelog

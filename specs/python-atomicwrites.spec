@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _without_tests 1
 %bcond_without tests
 %bcond_without docs
 

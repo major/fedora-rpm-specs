@@ -5,23 +5,24 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.1.0
-Release: 2%{?dist}
+Version: 8.0.1
+Release: 1%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rspec/rspec-rails.git && cd rspec-rails
-# git archive -v -o rspec-rails-7.1.0-tests.tar.gz v7.1.0 features/ spec/
+# git archive -v -o rspec-rails-8.0.1-tests.tar.gz v8.0.1 features/ spec/
 Source1: %{gem_name}-%{version}-tests.tar.gz
-# Fix Ruby 3.4 test errors
-# https://github.com/rspec/rspec-rails/pull/2821
-Patch0: rubygem-rspec-rails-7.1.0-Fixes-for-Ruby-3.4-new-Hash-inspect-syntax.patch
+# Fix Ruby on Rails 7.2+ compatibility. This mainly avoids additional
+# dependency on chromedriver.
+# https://github.com/rspec/rspec-rails/pull/2856
+Patch0: rubygem-rspec-rails-8.0.1-Drop-driven-by-selenium.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 %if %{without bootstrap}
-#BuildRequires: rubygem(cucumber)
+%dnl BuildRequires: rubygem(cucumber)
 BuildRequires: rubygem(actionmailbox)
 BuildRequires: rubygem(actionmailer)
 BuildRequires: rubygem(actioncable)
@@ -32,7 +33,6 @@ BuildRequires: rubygem(capybara)
 BuildRequires: rubygem(railties)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(sqlite3)
-BuildRequires: rubygem(selenium-webdriver)
 %endif
 BuildArch: noarch
 
@@ -73,8 +73,8 @@ cp -a .%{gem_dir}/* \
 %if %{without bootstrap}
 %check
 pushd .%{gem_instdir}
-cp -a %{_builddir}/features features
-cp -a %{_builddir}/spec spec
+ln -s %{builddir}/features features
+ln -s %{builddir}/spec spec
 
 # Bundler is used to execute two tests, so give him Gemfile.
 echo "gem 'rspec', :require => false" > Gemfile
@@ -90,7 +90,7 @@ rspec -rspec_helper -rbundler spec
 
 # Needs to generate a rails test application or ship pregenerated one (see
 # generate:app rake task). This would be quite fragile.
-# cucumber
+%dnl cucumber
 popd
 %endif
 
@@ -109,6 +109,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Jul 21 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.1-1
+- Update to rspec-rails 8.0.1.
+  Resolves: rhbz#2344188
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

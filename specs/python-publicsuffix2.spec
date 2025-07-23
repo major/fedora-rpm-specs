@@ -15,7 +15,7 @@ need to import publicsuffix2 instead.
 
 Name: python-%{pypi_name}
 Version: 2.20191221
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Get a public suffix for a domain name using the Public Suffix List
 License: MIT
 URL: https://github.com/nexb/python-publicsuffix2
@@ -28,31 +28,35 @@ BuildArch: noarch
 %package -n python3-%{pypi_name}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-requests
 Requires: publicsuffix-list
 
 %description -n python3-%{pypi_name}
 %{desc}
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 rm -r src/%{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -L %{pypi_name}
 rm %{buildroot}%{python3_sitelib}/%{pypi_name}/public_suffix_list.dat
 ln -s ../../../../share/publicsuffix/public_suffix_list.dat %{buildroot}%{python3_sitelib}/%{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%license %{pypi_name}.LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Jul 21 2025 Dominik Mierzejewski <dominik@greysector.net> 2.20191221-18
+- switch to modern python packaging macros (resolves rhbz#2378011)
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.20191221-17
 - Rebuilt for Python 3.14
 

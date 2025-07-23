@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global srcname geopandas
 
 # There is a build dependency loop when built with tests.

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        11.2.1
+Version:        11.3.2
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -156,6 +156,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Mon Jul 21 2025 Sandro Mani <manisandro@gmail.com> - 11.3.2-1
+- Update to 11.3.2
+
 * Fri May 16 2025 Sandro Mani <manisandro@gmail.com> - 11.2.1-1
 - Update to 11.2.1
 

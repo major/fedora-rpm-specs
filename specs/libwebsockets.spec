@@ -1,4 +1,3 @@
-%global _default_patch_fuzz 2
 # Absent libuv-devel on s390x at RHEL/CentOS 8
 %if 0%{?rhel} && 0%{?rhel} == 8 && "%{_arch}" == "s390x"
 %bcond_with libuv
@@ -7,7 +6,7 @@
 %endif
 
 Name:           libwebsockets
-Version:        4.3.5
+Version:        4.4.1
 Release:        1%{?dist}
 Summary:        Lightweight C library for Websockets
 
@@ -53,9 +52,6 @@ This package contains the header files needed for developing
 %autosetup -p1
 
 %build
-mkdir -p build
-cd build
-
 %cmake \
     -D LWS_WITH_HTTP2=ON \
     -D LWS_IPV6=ON \
@@ -88,16 +84,14 @@ cd build
     -D LWS_WITHOUT_TEST_SERVER_EXTPOLL=ON \
     -D LWS_WITHOUT_TEST_SERVER=ON \
     -D LWS_WITHOUT_TESTAPPS=ON \
-    ..
+    %nil
 
 %cmake_build
 
 %install
-cd build
 %cmake_install
 find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
-find %{buildroot} -name '*.cmake' -delete
 find %{buildroot} -name '*_static.pc' -delete
 
 %ldconfig_scriptlets
@@ -105,7 +99,7 @@ find %{buildroot} -name '*_static.pc' -delete
 %files
 %license LICENSE
 %doc README.md changelog
-%{_libdir}/%{name}.so.19
+%{_libdir}/%{name}.so.20
 %{_libdir}/%{name}-evlib_ev.so
 %if %{with libuv}
 %{_libdir}/%{name}-evlib_uv.so
@@ -117,9 +111,16 @@ find %{buildroot} -name '*_static.pc' -delete
 %{_includedir}/*.h
 %{_includedir}/%{name}/
 %{_libdir}/%{name}.so
+%{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4.1-1
+- Update to 4.4.1
+
+* Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.5-2
+- Minor spec modernisation, ship cmake build files
+
 * Fri Mar 21 2025 Fabian Affolter <mail@fabian-affolter.ch> - 4.3.5-1
 - Update to latest upstream release (closes rhbz#2347606)
 

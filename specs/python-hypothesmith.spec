@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Created by pyp2rpm-3.3.5
 %global pypi_name hypothesmith
 

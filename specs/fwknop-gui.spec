@@ -8,7 +8,9 @@ Release: 26%{?dist}
 License: GPL-3.0-or-later
 URL: https://incomsystems.biz/fwknop-gui/
 Source: %{url}/downloads/%{name}-%{version}.tar.gz
-BuildRequires: gcc-c++ make cmake
+Patch: fwknop-gui-cmake4.patch
+
+BuildRequires: gcc-c++ cmake
 BuildRequires: fwknop-devel
 BuildRequires: wxGTK-devel
 BuildRequires: libcurl-devel
@@ -23,14 +25,14 @@ Fwknop-gui is a cross platform gui that can save
 and send knocks to a server running fwknopd.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 %build
 %cmake . -DwxWidgets_CONFIG_EXECUTABLE=%{_bindir}/wx-config-3.2
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 install -p -m0644 -D %{name}.appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 %check

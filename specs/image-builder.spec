@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        25
+Version:        26
 
 %gometa
 
@@ -74,11 +74,11 @@ Provides: bundled(golang(github.com/docker/go-units)) = 0.5.0
 Provides: bundled(golang(github.com/fatih/color)) = 1.18.0
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
-Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.2
+Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
 Provides: bundled(golang(github.com/go-openapi/analysis)) = 0.23.0
 Provides: bundled(golang(github.com/go-openapi/errors)) = 0.22.1
-Provides: bundled(golang(github.com/go-openapi/jsonpointer)) = 0.21.0
+Provides: bundled(golang(github.com/go-openapi/jsonpointer)) = 0.21.1
 Provides: bundled(golang(github.com/go-openapi/jsonreference)) = 0.21.0
 Provides: bundled(golang(github.com/go-openapi/loads)) = 0.22.0
 Provides: bundled(golang(github.com/go-openapi/runtime)) = 0.28.0
@@ -124,7 +124,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.10.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.162.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.164.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
@@ -236,6 +236,19 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Mon Jul 21 2025 Packit <hello@packit.dev> - 26-1
+Changes with 26
+----------------
+  * deps: bump images to 0.164 (#252)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
+  * main: add `--ignore-warnings` cmdline option (#250)
+    * Author: Michael Vogt, Reviewers: Lukáš Zapletal, Sanne Raymaekers, Simon de Vlieger
+  * testutil: trivial cleanup/rename (#249)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-07-21
+
+
 * Wed Jul 16 2025 Packit <hello@packit.dev> - 25-1
 Changes with 25
 ----------------

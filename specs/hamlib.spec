@@ -8,8 +8,8 @@
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.6.1
-Release:        3%{?dist}
+Version:        4.6.4
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -243,6 +243,9 @@ make V=1 check
 
 
 %changelog
+* Tue Jul 22 2025 Richard Shaw <hobbes1069@gmail.com> - 4.6.4-1
+- Update to 4.6.4.
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.6.1-3
 - Perl 5.42 rebuild
 

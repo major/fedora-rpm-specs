@@ -19,6 +19,14 @@ Patch2:         https://github.com/pychess/pychess/pull/2005.patch
 # PR#2235 Python 3.13: Drop use of telnetlib
 # https://github.com/pychess/pychess/pull/2235
 Patch3:         0001-TimeSeal.py-make-IAC_WONT_ECHO-a-literal-as-telnetli.patch
+# PR#1964 Add GitHub Actions CI to prevent regressions + migrate off of distutils
+# This is just the distutils commit, to fix Python 3.14 compat
+# https://github.com/pychess/pychess/pull/1964
+Patch4:         0001-setup.py-Migrate-from-distutils-to-setuptools.patch
+# PR #2361 Adjust test usage of get_event_loop() for Python 3.14 changes
+# Backported to 1.0.3
+# https://github.com/pychess/pychess/pull/2361
+Patch5:         0001-Adjust-test-usage-of-get_event_loop-for-Python-3.14-.patch
 
 
 BuildArch:      noarch
@@ -165,7 +173,8 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
-* Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1.0.3-16
+* Mon Jul 21 2025 Adam Williamson <awilliam@redhat.com> - 1.0.3-16
+- Backport #1964 (partial) and #2361 (rebased) to fix build with Python 3.14
 - Rebuilt for Python 3.14
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15

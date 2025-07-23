@@ -1,15 +1,12 @@
 Name:			maim
-Version:		5.8.0
-Release:		5%{?dist}
+Version:		5.8.1
+Release:		1%{?dist}
 Summary:		Command-line screen capture tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:		GPL-3.0-only
 URL:			https://github.com/naelstrof/maim
 Source0:		https://github.com/naelstrof/maim/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# fix FTBFS BZ#2340812
-Patch0: 0001-Bump-C-Standard-version-to-17.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
@@ -51,6 +48,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Mon Jul 21 2025 Alois Mahdal <netvor@vornet.cz> - 5.8.1-1
+- Update to upstream release 5.8.1 (RHBZ#2375383)
+
 * Thu Feb 27 2025 Alois Mahdal <netvor@vornet.cz> - 5.8.0-5
 - Fix FTBFS due to outdated C++ standard (RHBZ#2340812)
 

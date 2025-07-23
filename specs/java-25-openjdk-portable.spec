@@ -36,10 +36,9 @@
 # Build with system libraries
 %bcond_with system_libs
 
-
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 # This is RHEL 7 specific as it doesn't seem to have the
 # __brp_strip_static_archive macro.
+%if 0%{?rhel} == 7
 %define __os_install_post %{nil}
 %endif
 
@@ -147,7 +146,7 @@
 # However, it does segfault on the Zero assembler port, so currently JIT only
 %global share_arches    %{jit_arches}
 # Set of architectures for which we build the Shenandoah garbage collector
-%global shenandoah_arches x86_64 %{aarch64}
+%global shenandoah_arches x86_64 %{aarch64} riscv64
 # Set of architectures for which we build the Z garbage collector
 %global zgc_arches x86_64 riscv64
 # Set of architectures for which alt-java has SSB mitigation
@@ -387,7 +386,6 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 75ffdc48eda
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -401,8 +399,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        26
-%global rpmrelease      2
+%global buildver        32
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -644,7 +642,6 @@ Source18: TestTranslations.java
 # RPM/distribution specific patches
 #
 ############################################
-
 # Crypto policy and FIPS support patches
 # Patch is generated from the fips-21u tree at https://github.com/rh-openjdk/jdk/tree/fips-21u
 # as follows: git diff %%{vcstag} src make test > fips-21u-$(git show -s --format=%h HEAD).patch
@@ -683,7 +680,6 @@ Source18: TestTranslations.java
 # test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
 # RH1940064: Enable XML Signature provider in FIPS mode
 # RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized [now part of JDK-8301553 upstream]
-#Patch1001: fips-%{featurever}u-%{fipsver}.patch
 
 #############################################
 #
@@ -784,19 +780,22 @@ BuildRequires: harfbuzz-devel
 BuildRequires: lcms2-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
+BuildRequires: zlib-devel
 %else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.13.0
+Provides: bundled(freetype) = 2.13.3
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
-Provides: bundled(giflib) = 5.2.1
+Provides: bundled(giflib) = 5.2.2
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 8.2.2
+Provides: bundled(harfbuzz) = 10.4.0
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
-Provides: bundled(lcms2) = 2.15.0
+Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.40
+Provides: bundled(libpng) = 1.6.47
+# Version in src/java.base/share/native/libzip/zlib/zlib.h
+Provides: bundled(zlib) = 1.3.1
 # We link statically against libstdc++ to increase portability
 BuildRequires: libstdc++-static
 %endif
@@ -975,6 +974,7 @@ echo "WARNING: The build of a fresh libjvm has been disabled due to a JDK versio
 echo "Build JDK version is %{buildjdkver}, feature JDK version is %{featurever}"
 %endif
 
+export XZ_OPT="-T0"
 %setup -q -c -n %{uniquesuffix ""} -T -a 0
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
@@ -1356,6 +1356,7 @@ packFullPatchedSources
 
 %if %{build_hotspot_first}
   # Build a fresh libjvm.so first and use it to bootstrap
+  echo "Building HotSpot only for the latest libjvm.so"
   cp -LR --preserve=mode,timestamps %{bootjdk} newboot
   systemjdk=$(pwd)/newboot
   buildjdk build/newboot ${systemjdk} %{hotspot_target} "release" "bundled" "internal"
@@ -1415,7 +1416,6 @@ for suffix in %{build_loop} ; do
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       installjdk ${builddir} ${installdir}
   fi
-
   packagejdk ${installdir} ${packagesdir} %{altjavaoutputdir}
 
 %if %{system_libs}

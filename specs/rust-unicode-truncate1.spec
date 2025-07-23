@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate notify-debouncer-mini
+%global crate unicode-truncate
 
-Name:           rust-notify-debouncer-mini
-Version:        0.6.0
+Name:           rust-unicode-truncate1
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Notify mini debouncer for events
+Summary:        Unicode-aware algorithm to pad or truncate str in terms of displayed width
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/notify-debouncer-mini
+URL:            https://crates.io/crates/unicode-truncate
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * remove macOS-specific features
-Patch:          notify-debouncer-mini-fix-metadata.diff
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          unicode-truncate-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Notify mini debouncer for events.}
+Unicode-aware algorithm to pad or truncate `str` in terms of displayed
+width.}
 
 %description %{_description}
 
@@ -33,8 +34,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/COPYRIGHT
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,40 +53,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crossbeam-channel-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+crossbeam-channel-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "crossbeam-channel" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+crossbeam-channel-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serialization-compat-6-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serialization-compat-6-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serialization-compat-6" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serialization-compat-6-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

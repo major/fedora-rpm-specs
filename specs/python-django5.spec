@@ -1,4 +1,3 @@
-%global _without_tests 1
 # Main Django, i.e. whether this is the main Django version in the distribution
 # that owns /usr/bin/django-admin and other unique paths
 # based on Python packaging, see e.g. python3.13
@@ -8,10 +7,17 @@
 %bcond_with main_django
 %endif
 
+%if 0%{?python3_version_nodots} >= 314
+# some tests currently fail
+%bcond_with all_tests
+%else
+%bcond_without all_tests
+%endif
+
 %global major_ver 5
 
 Name:           python-django%{major_ver}
-Version:        5.2.2
+Version:        5.2.4
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 
@@ -28,6 +34,20 @@ Source:         %{pypi_source django}
 Source:         %{name}.rpmlintrc
 
 Patch:          django-allow-setuptools-ge-61.diff
+
+# conditional patches: >= 1000
+# test_strip_tags() failing with Python 3.14
+# https://code.djangoproject.com/ticket/36499
+#
+# also test_parsing_errors()
+# https://code.djangoproject.com/ticket/36515
+# ======================================================================
+# FAIL: test_parsing_errors (test_utils.tests.HTMLEqualTests.test_parsing_errors)
+# ----------------------------------------------------------------------
+# AssertionError: &lt; div&gt; != <div>
+# - &lt; div&gt;   
+# + <div>
+Patch1000:      django-py314-skip-failing-tests.diff
 
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1
@@ -99,7 +119,11 @@ Conflicts:      python-django-impl
 %description -n %{pkgname} %_description
 
 %prep
-%autosetup -p1 -n django-%{version}
+%autosetup -N -n django-%{version}
+%autopatch -p1 -M 999
+%if %{without all_tests}
+%autopatch -p1 -m 1000
+%endif
 
 # hard-code python3 in django-admin
 pushd django

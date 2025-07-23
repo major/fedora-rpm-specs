@@ -12,7 +12,7 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
@@ -117,6 +117,9 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_sysusersdir}/kismet.conf
 
 %changelog
+* Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.0.2023.07.R1-10
+- Rebuild for libwebsockets 4.4
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.0.2023.07.R1-9
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

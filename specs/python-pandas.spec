@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # We need to break some cycles with optional dependencies for bootstrapping;
 # given that a conditional is needed, we take the opportunity to omit as many
 # optional dependencies as possible for bootstrapping.

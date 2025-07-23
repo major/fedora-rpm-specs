@@ -10,7 +10,7 @@ race conditions. Cleanup might not work on windows if files are still opened. \
 
 Name: python-%{pname}
 Version: 0.7.1
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Automatically manage temporary directories, based on tempfile.mkdtemp
 License: MIT
 URL: https://bitbucket.org/another_thomas/tempdir
@@ -23,30 +23,32 @@ BuildArch: noarch
 %package -n python3-%{pname}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-%{?python_provide:%python_provide python3-%{pname}}
 
 %description -n python3-%{pname}
 %{desc}
 
 %prep
-%setup -q -n %{pname}-%{version}
+%autosetup -p1 -n %{pname}-%{version}
 rm -r tempdir.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -L %{pname}
 
-%files -n python3-%{pname}
+%files -n python3-%{pname} -f %{pyproject_files}
 %license docs/license.rst
 %doc docs/use.rst
-%{python3_sitelib}/%{pname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/tempdir.py
 
 %changelog
+* Mon Jul 21 2025 Dominik Mierzejewski <dominik@greysector.net> 0.7.1-32
+- switch to modern python packaging macros (resolves rhbz#2378265)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.1-31
 - Rebuilt for Python 3.14
 

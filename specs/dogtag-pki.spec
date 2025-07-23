@@ -16,13 +16,13 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.1
+%global           release_number 0.2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase beta1
+%global           phase beta2
 
 %undefine         timestamp
 %undefine         commit_id
@@ -150,6 +150,8 @@ ExcludeArch: i686
 %define pki_groupname pkiuser
 %define pki_gid 17
 
+%define tomcat_groupname tomcat
+
 # Create a home directory for PKI user at /home/pkiuser
 # to store rootless Podman container.
 %define pki_homedir /home/%{pki_username}
@@ -200,12 +202,14 @@ BuildRequires:    javapackages-tools
 BuildRequires:    xmlstarlet
 %endif
 
-BuildRequires:     tomcat-jakartaee-migration
-BuildRequires:     pki-resteasy-core                 >= 3.0.26-33
-BuildRequires:     pki-resteasy-client               >= 3.0.26-33
-BuildRequires:     pki-resteasy-servlet-initializer  >= 3.0.26-33
-BuildRequires:     pki-resteasy-jackson2-provider    >= 3.0.26-33
-BuildRequires:     pki-resteasy                      >= 3.0.26-33
+BuildRequires:    tomcat-lib
+BuildRequires:    tomcat-jakartaee-migration
+
+BuildRequires:    pki-resteasy-core                 >= 3.0.26-33
+BuildRequires:    pki-resteasy-client               >= 3.0.26-33
+BuildRequires:    pki-resteasy-servlet-initializer  >= 3.0.26-33
+BuildRequires:    pki-resteasy-jackson2-provider    >= 3.0.26-33
+BuildRequires:    pki-resteasy                      >= 3.0.26-33
 
 
 BuildRequires:    mvn(commons-cli:commons-cli)
@@ -242,14 +246,14 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 %endif
 
-BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.33
-BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.33
-BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.33
-BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.33
-
 %if 0%{?rhel} && 0%{?rhel} >= 10
 BuildRequires:    tomcat9-lib
 %endif
+
+BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
+BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.36
+BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.36
+BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.36
 
 BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.8
 BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
@@ -666,7 +670,9 @@ Requires:         mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 Provides:         bundled(resteasy-servlet-initializer)
 %endif
 
-Requires:         tomcat >= 1:10.1.33
+Requires:         tomcat >= 1:10.1.36
+Requires:         tomcat-user-instance >= 1:10.1.36
+Requires:         tomcat-jakartaee-migration
 
 Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
 
@@ -1254,9 +1260,13 @@ fi
 %if 0%{?fedora}
 # Create a sysusers.d config file
 
+# Add pkiuser to the tomcat group for now to get things working
+# while we investigate the issue.
+
 cat > %{product_id}.sysusers.conf <<EOF
 g %{pki_username} %{pki_gid}
 u %{pki_groupname} %{pki_uid} 'Certificate System' %{pki_homedir} -
+m %{pki_username} %{tomcat_groupname}
 EOF
 
 %endif
@@ -1437,6 +1447,7 @@ xmlstarlet edit --inplace \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.module']" \
     -d "//_:dependency[_:groupId='com.fasterxml.jackson.jaxrs']" \
     -d "//_:dependency[_:groupId='org.jboss.spec.javax.ws.rs']" \
+    -d "//_:dependency[_:groupId='pki-local']" \
     -d "//_:dependency[_:groupId='org.jboss.logging']" \
     -d "//_:dependency[_:groupId='org.jboss.resteasy']" \
     %{buildroot}%{_datadir}/maven-metadata/%{name}-pki-java.xml
@@ -1599,7 +1610,9 @@ getent group %{pki_groupname} >/dev/null || groupadd -f -g %{pki_gid} -r %{pki_g
 if ! getent passwd %{pki_username} >/dev/null ; then
     useradd -r -u %{pki_uid} -g %{pki_groupname} -d %{pki_homedir} -s /sbin/nologin -c "Certificate System" %{pki_username}
 fi
-
+# Add pkiuser to the tomcat group for now to get things working
+# while we investigate the issue.
+usermod -a -G %{tomcat_groupname} %{pki_username}
 %endif
 
 # create PKI home directory if it doesn't exist
@@ -2064,6 +2077,9 @@ fi
 
 ################################################################################
 %changelog
+* Thu Jul 17 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.2.beta2
+- Rebase to PKI 11.8.0-beta2
+
 * Wed Jul 09 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.1.beta1
 - Rebase to PKI 11.8.0-beta1
 

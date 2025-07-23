@@ -2,24 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate socket2
+%global crate rename-item
 
-Name:           rust-socket2
-Version:        0.6.0
+Name:           rust-rename-item
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Utilities for handling networking sockets
+Summary:        Procedural macro to rename items on declaration
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/socket2
+URL:            https://crates.io/crates/rename-item
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          socket2-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utilities for handling networking sockets with a maximal amount of
-configuration possible intended.}
+Procedural macro to rename items on declaration, according to different
+case styles.}
 
 %description %{_description}
 
@@ -35,6 +33,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+all-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+all-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
-
-%files       -n %{name}+all-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

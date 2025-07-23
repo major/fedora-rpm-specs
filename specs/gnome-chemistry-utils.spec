@@ -1,6 +1,6 @@
 Name:           gnome-chemistry-utils
 Version:        0.14.17
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        A set of chemical utilities
 
 #openbabel/* is GPLv2+
@@ -21,7 +21,7 @@ BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  libtool
@@ -147,7 +147,8 @@ the GNOME Chemistry Utils.
 
 %prep
 %autosetup -p1
-autoreconf -ivf
+mkdir -p m4
+autoreconf -ivf -I %{_datadir}/gettext/m4
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
@@ -272,6 +273,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Jul 21 2025 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.14.17-50
+- Fix building with gettext 0.25
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.17-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

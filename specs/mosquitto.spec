@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-3
+- Rebuild for libwebsockets 4.4
+
 * Sun Jul 20 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-2
 - Minor spec cleanups
 

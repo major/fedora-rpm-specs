@@ -5,7 +5,7 @@
 %global crate tui-textarea
 
 Name:           rust-tui-textarea
-Version:        0.4.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Simple yet powerful text editor widget for ratatui and tui-rs
 
@@ -113,6 +113,18 @@ use the "search" feature of the "%{crate}" crate.
 %files       -n %{name}+search-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+termion-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -123,6 +135,18 @@ This package contains library source intended for building other packages which
 use the "termion" feature of the "%{crate}" crate.
 
 %files       -n %{name}+termion-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+termion-15-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+termion-15-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "termion-15" feature of the "%{crate}" crate.
+
+%files       -n %{name}+termion-15-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

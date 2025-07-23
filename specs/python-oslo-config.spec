@@ -1,4 +1,4 @@
-%global repo_bootstrap 1
+%global repo_bootstrap 0
 
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f

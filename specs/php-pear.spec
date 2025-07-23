@@ -9,7 +9,7 @@
 %global metadir %{_localstatedir}/lib/pear
 
 %global getoptver 1.4.3
-%global arctarver 1.5.0
+%global arctarver 1.6.0
 %global structver 1.2.0
 %global xmlutil   1.4.5
 %global manpages  1.10.0
@@ -25,7 +25,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
 Version: 1.10.16
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
@@ -332,6 +332,9 @@ fi
 
 
 %changelog
+* Mon Jul 21 2025 Remi Collet <remi@remirepo.net> - 1.10.16-2
+- update Archive_Tar to 1.6.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

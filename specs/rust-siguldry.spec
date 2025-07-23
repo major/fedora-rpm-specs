@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/siguldry
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * The binary is incomplete and may change its interface significantly
+# * Relax base64ct dev-dependency to allow all 1.x versions
 Patch:          siguldry-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # We must break a circular test dependency on python-capturer to bootstrap a
 # new Python version.
 %bcond bootstrap 0

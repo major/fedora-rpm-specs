@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.132.0
+Version:    1.133.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -16,10 +16,6 @@ Source2:    synapse.service
 Source3:    matrix-synapse.sysusers
 Patch1:     0001-pyo3-Disable-abi3-feature.patch
 Patch2:     0002-Build-RustExtension-with-debug-symbols.patch
-# https://github.com/element-hq/synapse/pull/17878
-Patch3:     0003-Fix-twisted.protocols.amp.TooLong-test-failure.patch
-# https://github.com/element-hq/synapse/pull/18578
-Patch4:     0004-Update-PyO3-to-version-0.25.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres

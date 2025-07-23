@@ -9,7 +9,7 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.4.0
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
@@ -66,6 +66,13 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Mon Jul 21 2025 Paul Howarth <paul@city-fan.org> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2382300)
+  - This is a major release of the community.libvirt collection
+  - Many changes for virt_volume: see CHANGELOG.rst for details
+  - New module community.libvirt.virt_install to provision new virtual machines
+    using the virt-install tool
+
 * Mon May 26 2025 Paul Howarth <paul@city-fan.org> - 1.4.0-1
 - Update to 1.4.0 (rhbz#2368572)
   - virt: implement basic check mode functionality (GH#98)

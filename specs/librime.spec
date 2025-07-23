@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -106,6 +106,9 @@ popd
 
 
 %changelog
+* Thu Jul 17 2025 Peng Wu  <pwu@redhat.com> - 1.13.1-2
+- Rebuild for marisa
+
 * Mon Feb 17 2025 Peng Wu <pwu@redhat.com> - 1.13.1-1
 - Update to 1.13.1
 - Resolves: RHBZ#2345966

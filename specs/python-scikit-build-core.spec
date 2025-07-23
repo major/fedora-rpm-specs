@@ -1,7 +1,11 @@
 %global debug_package %{nil}
 
+# On epel python hatch/trove classifier check may fail because of old package
+# Fedora checks should be sufficient though.
+%bcond no_classifier_check 0%{?rhel}
+
 Name:           python-scikit-build-core
-Version:        0.11.0
+Version:        0.11.5
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
@@ -32,6 +36,8 @@ Requires:       cmake
 Requires:       ninja-build
 BuildArch:      noarch
 
+Provides:       bundled(python3dist(pyproject-metadata)) = 0.9.1
+
 Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 
 %description -n python3-scikit-build-core %_description
@@ -41,17 +47,19 @@ Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 %autosetup -n scikit_build_core-%{version}
 # Rename the bundled license so that it can be installed together
 cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject-metadata
-# Avoid cattrs test dependency -- some tests are skipped for that
-# cattrs is not yet availbale for Python 3.14
-# https://bugzilla.redhat.com/2343916
-sed -i '/cattrs/d' pyproject.toml
 
 
 %generate_buildrequires
+%if %{with no_classifier_check}
+export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
+%endif
 %pyproject_buildrequires -x test,test-meta,test-numpy
 
 
 %build
+%if %{with no_classifier_check}
+export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
+%endif
 %pyproject_wheel
 
 
@@ -63,8 +71,7 @@ sed -i '/cattrs/d' pyproject.toml
 %check
 %pyproject_check_import
 %pytest \
-    -m "not network" \
-    --ignore tests/test_fileapi.py -k "not cattrs"
+    -m "not network"
 
 
 %files -n python3-scikit-build-core -f %{pyproject_files}

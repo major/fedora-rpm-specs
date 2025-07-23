@@ -1,33 +1,29 @@
-# python2 is not available on RHEL > 7 and not needed on Fedora > 28
-%if 0%{?rhel} > 7 || 0%{?fedora} > 28
-# disable python2 by default
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Name:          marisa
-Version:       0.2.6
-Release:       15%{?dist}
+Version:       0.3.0
+Release:       1%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
 URL:  https://github.com/s-yata/marisa-trie
 Source0: https://github.com/s-yata/marisa-trie/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1: requirements.txt
 
-BuildRequires: autoconf, automake, libtool
+Patch0: marisa-fix-python-setup.patch
+Patch1: marisa-fix-cmake.patch
+
+BuildRequires: cmake
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: swig
 BuildRequires: perl-devel
 BuildRequires: perl-generators
-%if %{with python2}
-BuildRequires: python2-devel
-%endif
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: ruby-devel
+BuildRequires: chrpath
+
+%generate_buildrequires
+%pyproject_buildrequires -N %{SOURCE1}
 
 %description
 Matching Algorithm with Recursively Implemented StorAge (MARISA) is a
@@ -66,25 +62,9 @@ Requires:      %{name} = %{version}-%{release}
 Perl language binding for marisa
 
 
-%if %{with python2}
-%package -n python2-%{name}
-Summary:       Python language binding for marisa
-Requires:      %{name} = %{version}-%{release}
-# Remove before F30
-Provides:      %{name}-python = %{version}-%{release}
-Provides:      %{name}-python%{?_isa} = %{version}-%{release}
-Obsoletes:     %{name}-python < %{version}-%{release}
-%{?python_provide:%python_provide python2-%{name}}
-
-%description -n python2-%{name}
-Python 2 language binding for marisa
-%endif
-
-
 %package -n python3-%{name}
 Summary:       Python 3 language binding for marisa
 Requires:      %{name} = %{version}-%{release}
-%{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
 Python 3 language binding for marisa
@@ -104,21 +84,18 @@ Ruby language binding for groonga
 
 
 %prep
-%autosetup -n %{name}-trie-%{version}
+%autosetup -p1 -n %{name}-trie-%{version}
 
 
 %build
 %set_build_flags
 
-autoreconf -i
-%configure --disable-static
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-%{make_build}
+%cmake -DENABLE_TOOLS=ON -DLIB_INSTALL_DIR=%{_libdir} -DBIN_INSTALL_DIR=%{_bindir}
+%cmake_build
 
 # build Perl bindings
 pushd bindings/perl
-%{__perl} Makefile.PL INC="-I%{_builddir}/%{name}-trie-%{version}/include" LIBS="-L%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs -lmarisa" INSTALLDIRS=vendor
+%{__perl} Makefile.PL INC="-I%{_builddir}/%{name}-trie-%{version}/include" LIBS="-L%{_builddir}/%{name}-trie-%{version}/redhat-linux-build -lmarisa" INSTALLDIRS=vendor
 %{make_build}
 popd
 
@@ -126,14 +103,8 @@ popd
 # Regenerate Python bindings
 %{make_build} --directory=bindings swig-python
 
-pushd bindings/python
-%if %{with python2}
-%{__python2} setup.py build_ext --include-dirs="%{_builddir}/%{name}-trie-%{version}/include" --library-dirs="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs"
-%py2_build
-%endif
-
-%{__python3} setup.py build_ext --include-dirs="%{_builddir}/%{name}-trie-%{version}/include" --library-dirs="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs"
-%py3_build
+pushd bindings/python3
+%pyproject_wheel
 popd
 
 # build Ruby bindings
@@ -143,12 +114,15 @@ pushd bindings
 popd
 
 pushd bindings/ruby
-ruby extconf.rb --with-opt-include="%{_builddir}/%{name}-trie-%{version}/include" --with-opt-lib="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs" --vendor
+ruby extconf.rb --with-opt-include="%{_builddir}/%{name}-trie-%{version}/include" --with-opt-lib="%{_builddir}/%{name}-trie-%{version}/redhat-linux-build" --vendor
 %{make_build}
 popd
 
 %install
-%make_install INSTALL="install -p"
+%cmake_install
+
+# work around some install issue
+chrpath --delete %{buildroot}/%{_bindir}/marisa-*
 
 # install Perl bindings
 pushd bindings/perl
@@ -159,29 +133,25 @@ rm -f %{buildroot}%{perl_vendorarch}/auto/marisa/.packlist
 popd
 
 # install Python bindings
-pushd bindings/python
-%if %{with python2}
-%py2_install
-%endif
-%py3_install
-rm -rf %{buildroot}/%{python3_sitearch}/marisa-0.0.0-py%{python3_version}.egg-info
+pushd bindings/python3
+%pyproject_install
+%pyproject_save_files '_marisa*' marisa
 popd
 
 # install Ruby bindings
 pushd bindings/ruby
-%if 0%{?fedora} || 0%{?rhel} > 7
 %make_install INSTALL="install -p"
-%else
-%make_install INSTALL="install -p" hdrdir=%{_includedir} arch_hdrdir="%{_includedir}/\$(arch)" rubyhdrdir=%{_includedir}
-%endif
 popd
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name 'perllocal.pod' -exec rm -f {} ';'
 rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 
-
-%ldconfig_scriptlets
+%check
+pushd bindings/python3
+export LD_LIBRARY_PATH="%{_builddir}/%{name}-trie-%{version}/redhat-linux-build"
+%pyproject_check_import
+popd
 
 
 %files
@@ -194,6 +164,7 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{_includedir}/marisa*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_libdir}/cmake/Marisa/Marisa*.cmake
 
 %files tools
 %{_bindir}/marisa-benchmark
@@ -209,22 +180,20 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{perl_vendorarch}/auto/marisa
 %{perl_vendorarch}/benchmark.pl
 
-%if %{with python2}
-%files -n python2-%{name}
-%{python2_sitearch}/_marisa.so
-%{python2_sitearch}/marisa.py*
-%{python2_sitearch}/marisa-0.0.0-py2.?.egg-info
-%endif
-
-%files -n python3-%{name}
-%{python3_sitearch}/__pycache__/marisa*
-%{python3_sitearch}/_marisa*.so
-%{python3_sitearch}/marisa.py
+%files -n python3-%{name} -f %{pyproject_files}
+%exclude %{python3_sitearch}/marisa-0.0.0.dist-info
 
 %files ruby
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Tue Jul 15 2025 Peng Wu  <pwu@redhat.com> - 0.3.0-1
+- Update to 0.3.0
+
+* Tue Jul 15 2025 Peng Wu  <pwu@redhat.com> - 0.2.6-16
+- Update for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+- Resolves: RHBZ#2377322
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.2.6-15
 - Perl 5.42 rebuild
 
