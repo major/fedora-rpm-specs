@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate btoi
+%global crate unicode-normalization-alignments
 
-Name:           rust-btoi
-Version:        0.4.4
+Name:           rust-unicode-normalization-alignments
+Version:        0.1.12
 Release:        %autorelease
-Summary:        Parse integers directly from ASCII byte slices
+Summary:        Unicode character composition and decomposition utilities with alignment
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/btoi
+URL:            https://crates.io/crates/unicode-normalization-alignments
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parse integers directly from ASCII byte slices.}
+This crate provides functions for normalization of Unicode strings,
+including Canonical and Compatible Decomposition and Recomposition, as
+described in Unicode Standard Annex #15.}
 
 %description %{_description}
 
@@ -30,10 +33,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/COPYRIGHT
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/usage.txt
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,21 +51,11 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+rm -r scripts/
+rm -r benches/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

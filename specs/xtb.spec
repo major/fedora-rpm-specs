@@ -8,6 +8,9 @@
 %global blasvar o
 %endif
 
+# avoid bash/tcsh dependencies from config_env scripts
+%global __requires_exclude_from ^%{_datadir}/xtb/.*$
+
 Name:           xtb
 Version:        6.7.1
 Release:        2%{?dist}
@@ -73,8 +76,8 @@ This package contains development headers for xtb.
 %patch 4 -p1 -b .env
 
 %build
-export FFLAGS="%{optflags} -I%{_fmoddir} -fPIC"
-export FCLAGS="%{optflags} -I%{_fmoddir} -fPIC"
+export FFLAGS="$FFLAGS -fPIC"
+export FCFLAGS="$FCFLAGS -fPIC"
 # TODO: tblite and cpcm-x support should ideally be turned on, but the packages are not yet in Fedora
 %meson -Dlapack=custom -Dcustom_libraries=%{blaslib}%{blasvar} -Dtblite=disabled -Dcpcmx=disabled
 date=$(date)

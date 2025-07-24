@@ -1,14 +1,16 @@
 %?mingw_package_header
 
 Name:           mingw-libssh2
-Version:        1.9.0
-Release:        17%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 Summary:        MinGW Windows library implementation of the SSH2 protocol
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            http://www.libssh2.org/
-Source0:        http://www.libssh2.org/download/libssh2-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://www.libssh2.org/
+Source0:        https://libssh2.org/download/libssh2-%{version}.tar.gz
+Source1:        https://libssh2.org/download/libssh2-%{version}.tar.gz.asc
+# Daniel Stenberg's GPG keys; linked from https://daniel.haxx.se/address.html
+Source2:        https://daniel.haxx.se/mykey.asc
 
 BuildArch:      noarch
 
@@ -74,7 +76,8 @@ Static version of the MinGW Windows SSH2 library.
 
 
 %prep
-%setup -q -n libssh2-%{version}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -n libssh2-%{version}
 
 
 %build
@@ -121,6 +124,9 @@ rm -r $RPM_BUILD_ROOT%{mingw64_mandir}/man3
 
 
 %changelog
+* Tue Jul 22 2025 Michael Cronenworth <mike@cchtml.com> - 1.11.1-1
+- Version update
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

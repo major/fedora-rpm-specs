@@ -4,7 +4,7 @@
 %global crate rbspy
 
 Name:           rust-rbspy
-Version:        0.31.0
+Version:        0.34.1
 Release:        %autorelease
 Summary:        Sampling CPU profiler for Ruby
 

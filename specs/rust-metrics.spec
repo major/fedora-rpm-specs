@@ -5,7 +5,7 @@
 %global crate metrics
 
 Name:           rust-metrics
-Version:        0.24.1
+Version:        0.24.2
 Release:        %autorelease
 Summary:        Lightweight metrics facade
 

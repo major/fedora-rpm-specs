@@ -30,7 +30,7 @@ BuildRequires:  git-core
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  python3-devel
-BuildRequires:  yasm
+BuildRequires:  nasm
 %if %{with jpegxl}
 BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libhwy)

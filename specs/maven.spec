@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 %global bundled_slf4j_version 1.7.36
 %global homedir %{_datadir}/maven%{?maven_version_suffix}

@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-Object-Pad
-Version:        0.820
-Release:        3%{dist}
+Version:        0.821
+Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -223,6 +223,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 0.821-1
+- 0.821 bump
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.820-3
 - Perl 5.42 re-rebuild of bootstrapped packages
 

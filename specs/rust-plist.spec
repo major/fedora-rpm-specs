@@ -5,7 +5,7 @@
 %global crate plist
 
 Name:           rust-plist
-Version:        1.7.2
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Rusty plist parser
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENCE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -1,12 +1,12 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.17.4
-Release: 5%{?dist}
+Version: 4.18.0
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
-Source0: https://github.com/shadow-maint/shadow/releases/download/4.17.4/shadow-4.17.4.tar.xz
-Source1: https://github.com/shadow-maint/shadow/releases/download/4.17.4/shadow-4.17.4.tar.xz.asc
+Source0: https://github.com/shadow-maint/shadow/releases/download/4.18.0/shadow-4.18.0.tar.xz
+Source1: https://github.com/shadow-maint/shadow/releases/download/4.18.0/shadow-4.18.0.tar.xz.asc
 Source2: shadow-utils.useradd
 Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
@@ -23,7 +23,7 @@ Source7: passwd.pamd
 # Misc manual page changes - non-upstreamable
 Patch0: shadow-4.15.0-manfix.patch
 # Probably non-upstreamable
-Patch1: shadow-4.17.4-account-tools-setuid.patch
+Patch1: shadow-4.18.0-account-tools-setuid.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -101,16 +101,13 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%autosetup -p 1 -S git -n shadow-4.17.4
+%autosetup -p 1 -S git -n shadow-4.18.0
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
 
 cp -a %{SOURCE4} %{SOURCE5} .
 cp -a %{SOURCE6} man/login.defs.d/HOME_MODE.xml
-
-# Force regeneration of getdate.c
-rm lib/getdate.c
 
 %build
 autoreconf
@@ -272,6 +269,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Jul 22 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.18.0-1
+- Rebase to version 4.18.0. Resolves: #2374710
+
 * Fri Jul 18 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-5
 - Stop assigning subids by default
   Resolves: CVE-2024-56433 and #2334168

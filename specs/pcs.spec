@@ -1,6 +1,6 @@
 Name: pcs
-Version: 0.12.0
-Release: 2%{?dist}
+Version: 0.12.1
+Release: 1%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -17,29 +17,29 @@ BuildArch: noarch
 # To build an official pcs release, comment out branch_or_commit
 # Use long commit hash or branch name to build an unreleased version
 # %%global branch_or_commit 1353dfbb3af82d77f4de17a3fa4cbde185bb2b2d
+%global version_or_commit %{clean_version}
 %if 0%{?branch_or_commit:1}
   %global version_or_commit %{branch_or_commit}
-%else
-  %global version_or_commit %{clean_version}
+  %global tarball_version %{clean_version}+%(echo %{branch_or_commit} | head -c 8)
 %endif
 %global pcs_source_name %{name}-%{version_or_commit}
 
 # To build an official pcs-web-ui release, comment out ui_branch_or_commit
 # Last tagged version, also used as fallback version for untagged tarballs
-%global ui_version 0.1.22
-%global ui_modules_version 0.1.22
+%global ui_version 0.1.23
+%global ui_modules_version 0.1.23
 # Use long commit hash or branch name to build an unreleased version
 # %%global ui_branch_or_commit 34372d1268f065ed186546f55216aaa2d7e76b54
+%global ui_version_or_commit %{ui_version}
 %if 0%{?ui_branch_or_commit:1}
   %global ui_version_or_commit %{ui_branch_or_commit}
-%else
-  %global ui_version_or_commit %{ui_version}
+  %global ui_tarball_version %{ui_version}-%(echo %{ui_branch_or_commit} | head -c 8)
 %endif
 %global ui_src_name pcs-web-ui-%{ui_version_or_commit}
 
 
 %global pyagentx_version  0.4.pcs.2
-%global dacite_version 1.8.1
+%global dacite_version 1.9.2
 
 %global required_pacemaker_version 3.0.0
 
@@ -73,12 +73,10 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_vers
 # pcs patches: <= 200
 # Patch1: name.patch
 Patch1: show-info-page-instead-of-webui.patch
-Patch2: ruby-3.4-compatibility.patch
-Patch3: fix-install-on-systems-with-merged-bin-and-sbin.patch
+Patch2: fix-pcsd-not-starting-with-older-rack.patch
 
 # ui patches: >200
 # Patch201: name-web-ui.patch
-Patch201: fix-filter-clones-by-agent-name-in-resource-tree.patch
 
 
 # Split pcs to pcs and pcs-web-ui, all packages that replace pcs must obsolete
@@ -124,7 +122,7 @@ BuildRequires: rubygem-ffi
 BuildRequires: rubygem-json
 BuildRequires: rubygem-mustermann
 BuildRequires: rubygem-puma
-BuildRequires: rubygem-rack
+BuildRequires: (rubygem(rack) < 3 or (rubygem(rack) >= 3 and rubygem(rackup)))
 BuildRequires: rubygem-rack-protection
 BuildRequires: rubygem-rack-test
 BuildRequires: rubygem-sinatra
@@ -177,7 +175,7 @@ Requires: rubygem-ffi
 Requires: rubygem-json
 Requires: rubygem-mustermann
 Requires: rubygem-puma
-Requires: rubygem-rack
+Requires: (rubygem(rack) < 3 or (rubygem(rack) >= 3 and rubygem(rackup)))
 Requires: rubygem-rack-protection
 Requires: rubygem-sinatra
 Requires: rubygem-tilt
@@ -231,7 +229,7 @@ Summary: Standalone web UI for Pacemaker/Corosync Configuration System
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
 License: GPL-2.0-only
-URL: https://github.com/ClusterLabs/pcs
+URL: https://github.com/ClusterLabs/pcs-web-ui
 
 # Split pcs to pcs and pcs-web-ui, all packages that replace pcs must obsolete
 # the old monolithic package
@@ -239,6 +237,8 @@ URL: https://github.com/ClusterLabs/pcs
 Obsoletes: pcs < 0.12.0
 
 Requires: pcs = %{version}-%{release}
+
+Provides: bundled(pcs-web-ui) = %{!?ui_tarball_version:%{ui_version}}%{?ui_tarball_version}
 
 # cockpit-ha-cluster subpackage definition
 %package -n %{pkg_cockpit_ha_cluster}
@@ -252,6 +252,8 @@ BuildRequires: nodejs-npm
 
 Requires: pcs = %{version}-%{release}
 Requires: cockpit-bridge
+
+Provides: bundled(pcs-web-ui) = %{!?ui_tarball_version:%{ui_version}}%{?ui_tarball_version}
 
 
 
@@ -329,7 +331,6 @@ update_times_patch(){
 %autosetup -T -b 100 -a 101 -N -n %{ui_src_name}
 %autopatch -p1 -m 201
 # update_times_patch %%{PATCH201}
-update_times_patch %{PATCH201}
 
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
@@ -337,16 +338,15 @@ update_times_patch %{PATCH201}
 # update_times_patch %%{PATCH1}
 update_times_patch %{PATCH1}
 update_times_patch %{PATCH2}
-update_times_patch %{PATCH3}
 
 # generate .tarball-version if building from an untagged commit, not a released version
 # autogen uses git-version-gen which uses .tarball-version for generating version number
-%if "%{clean_version}" != "%{version_or_commit}"
-  echo "%{clean_version}+$(echo "%{version_or_commit}" | head -c 8)" > %{_builddir}/%{pcs_source_name}/.tarball-version
+%if 0%{?tarball_version:1}
+  echo %{tarball_version} > %{_builddir}/%{pcs_source_name}/.tarball-version
 %endif
 
-%if "x%{?ui_branch_or_commit}" != "x"
-  echo "%{ui_version}+$(echo "%{ui_branch_or_commit}" | head -c 8)" > %{_builddir}/%{ui_src_name}/.tarball-version
+%if 0%{?ui_tarball_version:1}
+  echo %{ui_tarball_version} > %{_builddir}/%{ui_src_name}/.tarball-version
 %endif
 
 # prepare dirs/files necessary for building python bundles
@@ -386,6 +386,22 @@ pwd
 # Install cockpit pcs-web-ui
 cd ../%{ui_src_name}
 %make_install
+
+# prepare pcs-web-ui files (not needed for pcs as pcs installs them in Makefile)
+mkdir -p %{buildroot}/%{_defaultlicensedir}/%{pkg_cockpit_ha_cluster}
+mkdir -p %{buildroot}/%{_defaultlicensedir}/%{pkg_pcs_web_ui}
+
+cp COPYING %{buildroot}/%{_defaultlicensedir}/%{pkg_cockpit_ha_cluster}/COPYING_WUI.md
+mv COPYING %{buildroot}/%{_defaultlicensedir}/%{pkg_pcs_web_ui}/COPYING_WUI.md
+
+mkdir -p %{buildroot}/%{_docdir}/%{pkg_cockpit_ha_cluster}
+mkdir -p %{buildroot}/%{_docdir}/%{pkg_pcs_web_ui}
+
+cp CHANGELOG.md %{buildroot}/%{_docdir}/%{pkg_cockpit_ha_cluster}/CHANGELOG_WUI.md
+mv CHANGELOG.md %{buildroot}/%{_docdir}/%{pkg_pcs_web_ui}/CHANGELOG_WUI.md
+
+cp README.md %{buildroot}/%{_docdir}/%{pkg_cockpit_ha_cluster}/README_WUI.md
+mv README.md %{buildroot}/%{_docdir}/%{pkg_pcs_web_ui}/README_WUI.md
 
 # Install pcs
 cd ../%{pcs_source_name}
@@ -505,7 +521,10 @@ fi
 
 %files -n %{pkg_pcs_web_ui}
 %doc CHANGELOG.md
+%doc %{_docdir}/%{pkg_pcs_web_ui}/CHANGELOG_WUI.md
+%doc %{_docdir}/%{pkg_pcs_web_ui}/README_WUI.md
 %license COPYING
+%license %{_defaultlicensedir}/%{pkg_pcs_web_ui}/COPYING_WUI.md
 %{python3_sitelib}/pcs/daemon/app/webui
 %{pcsd_webui_dir}
 
@@ -523,12 +542,25 @@ fi
 %license pyagentx_LICENSE.txt
 
 %files -n %{pkg_cockpit_ha_cluster}
+%doc %{_docdir}/%{pkg_cockpit_ha_cluster}/CHANGELOG_WUI.md
+%doc %{_docdir}/%{pkg_cockpit_ha_cluster}/README_WUI.md
+%license %{_defaultlicensedir}/%{pkg_cockpit_ha_cluster}/COPYING_WUI.md
 %{cockpit_dir}
 %{ui_metainfo}
 
 
 
 %changelog
+* Fri Jul 18 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.1-1
+- Rebased pcs to the newest major version (see CHANGELOG.md)
+  Resolves: rhbz#2371770
+- Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.23 (see CHANGELOG_WUI.md)
+- There is now a changelog for the HA Cluster Management Cockpit application and the standalone web UI in both packages
+- The upstream version of pcs-web-ui can now be queried through RPM in both packages - see bundled(pcs-web-ui)
+- Updated bundled Python dependency dacite
+- Compatibility with rubygem-rack >= 3
+  Resolves: rhbz#2372462
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.12.0-2
 - Rebuilt for Python 3.14
 

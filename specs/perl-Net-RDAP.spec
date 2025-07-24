@@ -3,7 +3,7 @@
 %bcond_with network_tests
 
 Name:           perl-Net-RDAP
-Version:        0.38
+Version:        0.40
 Release:        1%{?dist}
 Summary:        Interface to the Registration Data Access Protocol (RDAP)
 # LICENSE:      BSD-2-Clause
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 0.40-1
+- 0.40 bump
+
 * Mon May 26 2025 Petr Pisar <ppisar@redhat.com> - 0.38-1
 - 0.38 bump
 

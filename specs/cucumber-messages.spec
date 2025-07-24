@@ -10,7 +10,7 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        28.0.0
+Version:        28.1.0
 %global cpp_soversion 28
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
@@ -18,10 +18,6 @@ Summary:        A message protocol for representing results and other informatio
 License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
-
-# Fix C++ version and ABI/SONAME version for 28.0.0
-# https://github.com/cucumber/messages/pull/306
-Patch:          %{url}/pull/306.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

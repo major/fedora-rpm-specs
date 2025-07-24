@@ -5,7 +5,7 @@
 %global crate devicemapper
 
 Name:           rust-devicemapper
-Version:        0.34.4
+Version:        0.34.5
 Release:        %autorelease
 Summary:        Library for using Linux device mapper
 
@@ -45,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+disable_cargo_metadata-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+disable_cargo_metadata-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "disable_cargo_metadata" feature of the "%{crate}" crate.
+
+%files       -n %{name}+disable_cargo_metadata-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

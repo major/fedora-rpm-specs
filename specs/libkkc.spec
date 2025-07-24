@@ -2,7 +2,7 @@
 
 Name:		libkkc
 Version:	0.3.5
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Japanese Kana Kanji conversion library
 
 License:	GPL-3.0-or-later
@@ -19,6 +19,7 @@ Patch3:         libkkc-pr40-int-conversion-fix.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2306455
 # Fix invalid escape on default.json
 Patch4:         libkkc-Fix-invalid-escape-on-json-file.patch
+Patch5:         libkkc-use-gettext.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	marisa-devel
@@ -26,11 +27,13 @@ BuildRequires:	vala
 BuildRequires:	pkgconfig(gee-0.8)
 BuildRequires:	json-glib-devel
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	intltool
+BuildRequires:	gettext-devel
+BuildRequires:	gnome-common
 BuildRequires:	python3-devel
 BuildRequires:	python3-marisa
-BuildRequires: make
-BuildRequires: chrpath
+BuildRequires:  make
+BuildRequires:  chrpath
+BuildRequires:  autoconf, autoconf-archive
 
 Requires:	skkdic
 Requires:	%{name}-data >= %{dataversion}
@@ -74,7 +77,7 @@ The %{name}-common package contains the arch-independent data that
 %autosetup -p1
 
 [ -f README.md ] || cp -p %SOURCE1 .
-autoreconf -f
+gnome-autogen.sh
 
 
 %build
@@ -95,9 +98,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/kkc
 
 %find_lang %{name}
-
-
-%ldconfig_scriptlets
 
 
 %files -f %{name}.lang
@@ -121,6 +121,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/kkc
 
 
 %changelog
+* Thu Jul 17 2025 Peng Wu  <pwu@redhat.com> - 0.3.5-32
+- Rebuild for marisa
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

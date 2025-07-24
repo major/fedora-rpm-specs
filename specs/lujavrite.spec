@@ -1,13 +1,14 @@
 Name:           lujavrite
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Lua library for calling Java code
 License:        Apache-2.0
 URL:            https://github.com/mizdebsk/lujavrite
 ExclusiveArch:  %{java_arches}
 
-Source:         https://github.com/mizdebsk/lujavrite/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         https://github.com/mizdebsk/lujavrite/releases/download/%{version}/lujavrite-%{version}.tar.zst
 
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  lua-devel
 BuildRequires:  java-25-openjdk-devel
@@ -22,17 +23,17 @@ and using JNI interface to invoke Java methods.
 %prep
 %autosetup -p1 -C
 
+%conf
+%cmake
+
 %build
-export LDFLAGS=-llua-5.4
-export JAVA_HOME=%{_jvmdir}/jre-25-openjdk
-./build.sh
+%cmake_build
 
 %install
-install -D -p -m 0755 lujavrite.so %{buildroot}%{lua_libdir}/%{name}.so
+%cmake_install
 
 %check
-export JAVA_HOME=%{_jvmdir}/jre-25-openjdk
-lua test.lua
+%ctest
 
 %files
 %{lua_libdir}/*

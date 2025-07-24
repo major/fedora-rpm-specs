@@ -1,6 +1,5 @@
 %define pkidir %{_sysconfdir}/pki
 %define catrustdir %{_sysconfdir}/pki/ca-trust
-%define classic_tls_bundle ca-bundle.crt
 %define p11_format_bundle ca-bundle.trust.p11-kit
 %define legacy_default_bundle ca-bundle.legacy.default.crt
 %define legacy_disable_bundle ca-bundle.legacy.disable.crt
@@ -37,7 +36,7 @@ Name: ca-certificates
 Version: 2024.2.69_v8.0.401
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -56,7 +55,6 @@ Source11: README.usr
 Source12: README.etc
 Source13: README.extr
 Source14: README.java
-Source15: README.openssl
 Source16: README.pem
 Source17: README.edk2
 Source18: README.src
@@ -191,7 +189,6 @@ mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/source/blocklist
 mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/extracted
 mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/extracted/pem
 mkdir -p -m 555 $RPM_BUILD_ROOT%{catrustdir}/extracted/pem/directory-hash
-mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/extracted/openssl
 mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/extracted/java
 mkdir -p -m 755 $RPM_BUILD_ROOT%{catrustdir}/extracted/edk2
 mkdir -p -m 755 $RPM_BUILD_ROOT%{_datadir}/pki/ca-trust-source
@@ -207,7 +204,6 @@ install -p -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{_datadir}/pki/ca-trust-source/REA
 install -p -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{catrustdir}/README
 install -p -m 644 %{SOURCE13} $RPM_BUILD_ROOT%{catrustdir}/extracted/README
 install -p -m 644 %{SOURCE14} $RPM_BUILD_ROOT%{catrustdir}/extracted/java/README
-install -p -m 644 %{SOURCE15} $RPM_BUILD_ROOT%{catrustdir}/extracted/openssl/README
 install -p -m 644 %{SOURCE16} $RPM_BUILD_ROOT%{catrustdir}/extracted/pem/README
 install -p -m 644 %{SOURCE17} $RPM_BUILD_ROOT%{catrustdir}/extracted/edk2/README
 install -p -m 644 %{SOURCE18} $RPM_BUILD_ROOT%{catrustdir}/source/README
@@ -295,21 +291,13 @@ sed -i "s|^$RPM_BUILD_ROOT|%ghost /|" .files.txt
 # expects it: https://bugzilla.redhat.com/show_bug.cgi?id=1053882
 ln -s %{pkidir}/tls/certs \
     $RPM_BUILD_ROOT%{_sysconfdir}/ssl/certs
-ln -s %{catrustdir}/extracted/pem/tls-ca-bundle.pem \
-    $RPM_BUILD_ROOT%{_sysconfdir}/ssl/cert.pem
 ln -s /etc/pki/tls/openssl.cnf \
     $RPM_BUILD_ROOT%{_sysconfdir}/ssl/openssl.cnf
 ln -s /etc/pki/tls/ct_log_list.cnf \
     $RPM_BUILD_ROOT%{_sysconfdir}/ssl/ct_log_list.cnf
 # legacy filenames
-ln -s %{catrustdir}/extracted/pem/tls-ca-bundle.pem \
-    $RPM_BUILD_ROOT%{pkidir}/tls/cert.pem
 ln -s %{catrustdir}/extracted/%{java_bundle} \
     $RPM_BUILD_ROOT%{pkidir}/%{java_bundle}
-ln -s %{catrustdir}/extracted/pem/tls-ca-bundle.pem \
-    $RPM_BUILD_ROOT%{pkidir}/tls/certs/%{classic_tls_bundle}
-ln -s %{catrustdir}/extracted/pem/tls-ca-bundle.pem \
-    $RPM_BUILD_ROOT%{pkidir}/tls/certs/ca-certificates.crt
 
 %clean
 /usr/bin/chmod u+w $RPM_BUILD_ROOT%{catrustdir}/extracted/pem/directory-hash
@@ -318,7 +306,11 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 if [ $1 -gt 1 ] ; then
   # Remove the old symlinks
+  rm -f %{pkidir}/tls/cert.pem
+  rm -f %{pkidir}/tls/certs/ca-bundle.crt
   rm -f %{pkidir}/tls/certs/ca-bundle.trust.crt
+  rm -f %{pkidir}/tls/certs/ca-certificates.crt
+
 
   # Upgrade or Downgrade.
   # If the classic filename is a regular file, then we are upgrading
@@ -337,17 +329,6 @@ if [ $1 -gt 1 ] ; then
         if ! test -L %{pkidir}/%{java_bundle}; then
         # it's an old regular file, not a link
         mv -f %{pkidir}/%{java_bundle} %{pkidir}/%{java_bundle}.rpmsave
-      fi
-    fi
-  fi
-
-  if ! test -e %{pkidir}/tls/certs/%{classic_tls_bundle}.rpmsave; then
-    # no backup yet
-    if test -e %{pkidir}/tls/certs/%{classic_tls_bundle}; then
-      # a file exists
-      if ! test -L %{pkidir}/tls/certs/%{classic_tls_bundle}; then
-        # it's an old regular file, not a link
-        mv -f %{pkidir}/tls/certs/%{classic_tls_bundle} %{pkidir}/tls/certs/%{classic_tls_bundle}.rpmsave
       fi
     fi
   fi
@@ -391,7 +372,6 @@ fi
 %dir %{catrustdir}/source/blocklist
 %dir %{catrustdir}/extracted
 %dir %{catrustdir}/extracted/pem
-%dir %{catrustdir}/extracted/openssl
 %dir %{catrustdir}/extracted/java
 %dir %{_datadir}/pki
 %dir %{_datadir}/pki/ca-trust-source
@@ -408,21 +388,16 @@ fi
 %{catrustdir}/README
 %{catrustdir}/extracted/README
 %{catrustdir}/extracted/java/README
-%{catrustdir}/extracted/openssl/README
 %{catrustdir}/extracted/pem/README
 %{catrustdir}/extracted/edk2/README
 %{catrustdir}/source/README
 
 # symlinks for old locations
-%{pkidir}/tls/cert.pem
-%{pkidir}/tls/certs/%{classic_tls_bundle}
-%{pkidir}/tls/certs/ca-certificates.crt
 %{pkidir}/%{java_bundle}
 # Hybrid hash directory with bundle file for Debian compatibility
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1053882
 %{_sysconfdir}/ssl/certs
 %{_sysconfdir}/ssl/README
-%{_sysconfdir}/ssl/cert.pem
 %{_sysconfdir}/ssl/openssl.cnf
 %{_sysconfdir}/ssl/ct_log_list.cnf
 
@@ -443,6 +418,21 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+* Wed Jul 9 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 2024.2.69_v8.0.401-6
+- Change: Dropping of cert.pem file (Resolves: rhbz#2360110)
+  https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+- Remove the following symlinks:
+-    # /etc/pki/tls/cert.pem
+-    # /etc/pki/tls/certs/ca-certificates.crt
+-    # /etc/pki/tls/certs/ca-bundle.trust.crt
+-    # /etc/pki/tls/certs/ca-bundle.crt
+-    # /etc/ssl/cert.pem
+-    # /etc/ssl/certs/ca-certificates.crt
+-    # /etc/ssl/certs/ca-bundle.trust.crt
+-    # /etc/ssl/certs/ca-bundle.crt
+- Directory /etc/pki/ca-trust/extracted/openssl is being deprecated,
+  it is removed upon updating unless there are files present inside it.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2.69_v8.0.401-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

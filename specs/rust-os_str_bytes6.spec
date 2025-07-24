@@ -4,10 +4,10 @@
 
 %global crate os_str_bytes
 
-Name:           rust-os_str_bytes
-Version:        7.1.1
+Name:           rust-os_str_bytes6
+Version:        6.6.1
 Release:        %autorelease
-Summary:        Lossless functionality for platform-native strings
+Summary:        Convert between byte sequences and platform-native strings
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/os_str_bytes
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Lossless functionality for platform-native strings.}
+Convert between byte sequences and platform-native strings.}
 
 %description %{_description}
 

@@ -20,7 +20,8 @@ Patch2:         https://github.com/pychess/pychess/pull/2005.patch
 # https://github.com/pychess/pychess/pull/2235
 Patch3:         0001-TimeSeal.py-make-IAC_WONT_ECHO-a-literal-as-telnetli.patch
 # PR#1964 Add GitHub Actions CI to prevent regressions + migrate off of distutils
-# This is just the distutils commit, to fix Python 3.14 compat
+# This is just the distutils commit, to fix setuptools 75+ compat
+# Mainly, the commit removes the register command class
 # https://github.com/pychess/pychess/pull/1964
 Patch4:         0001-setup.py-Migrate-from-distutils-to-setuptools.patch
 # PR #2361 Adjust test usage of get_event_loop() for Python 3.14 changes

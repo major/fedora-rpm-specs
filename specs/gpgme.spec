@@ -12,7 +12,7 @@
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        1.24.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -329,6 +329,10 @@ popd
 %{python3_sitearch}/gpg/
 
 %changelog
+* Tue Jul 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.3-2
+- drop %%autochangelog
+- restore and truncate changelog to +- last 2 years
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.24.3-2
 - Rebuilt for Python 3.14
 
@@ -344,4 +348,30 @@ popd
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-%autochangelog
+* Mon Nov 11 2024 Michal Hlavinka <mhlavink@redhat.com> - 1.24.0-1
+- local build
+
+* Tue Oct 22 2024 Michal Hlavinka <mhlavink@redhat.com> - 1.23.2-6
+- fix building with setuptools 74+ (rhbz#2319628)
+
+* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.23.2-4
+- Rebuilt for Python 3.13
+
+* Sat Jan 13 2024 Marie Loise Nolden <loise@kde.org> - 1.23.2-2
+- add signature file
+
+* Sat Jan 13 2024 Marie Loise Nolden <loise@kde.org> - 1.23.2-1
+- Update to 1.23.2
+
+* Wed Oct 11 2023 Michal Hlavinka <mhlavink@redhat.com> - 1.22.0-2
+- add tarball signature verification
+
+* Tue Oct 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 1.22.0-1
+- updated to 1.22.0
+
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+

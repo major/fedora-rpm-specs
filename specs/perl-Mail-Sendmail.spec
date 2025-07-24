@@ -1,25 +1,32 @@
 Name:           perl-Mail-Sendmail
-Version:        0.80
-Release:        23%{?dist}
+Version:        0.82
+Release:        1%{?dist}
 Summary:        Simple platform independent mailer for Perl
 
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Sendmail
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Mail-Sendmail-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(parent)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Sys::Hostname)
+BuildRequires:  perl(Sys::Hostname::Long)
+BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Not picked up automatically.
 Requires:       perl(MIME::QuotedPrint)
 Recommends:     perl(Digest::MD5)
 Recommends:     perl(MIME::Base64)
+
 
 %description
 Mail::Sendmail is a simple platform independent library for sending
@@ -34,13 +41,13 @@ easy to setup and use.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%make_build
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-chmod -R u+w $RPM_BUILD_ROOT/*
+%make_install
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
@@ -51,10 +58,13 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %license LICENSE
 %doc Changes README Todo
 %{perl_vendorlib}/Mail/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Mail::Sendmail.3pm*
 
 
 %changelog
+* Tue Jul 22 2025 Xavier Bachelot <xavier@bachelot.org> 0.82-1
+- Update to 0.82 (RHBZ#2382317)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

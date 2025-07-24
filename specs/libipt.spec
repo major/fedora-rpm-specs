@@ -5,12 +5,13 @@
 
 Name: libipt
 Version: 2.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
 Source0: https://github.com/intel/libipt/archive/v%{version}.tar.gz
 Source1: doc-v%{version}.tar.xz
+Patch1: libipt-cmake40-compat.patch
 # c++ is required only for -DPTUNIT test "ptunit-cpp".
 BuildRequires: gcc-c++ cmake
 %if 0%{?_with_docs:1}
@@ -38,6 +39,7 @@ develop programs that use the Intel Processor Trace (Intel PT) Decoder Library.
 
 %prep
 %setup -q -n libipt-%{version}
+%patch -P 1 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -47,10 +49,10 @@ develop programs that use the Intel Processor Trace (Intel PT) Decoder Library.
 %endif
        -DDEVBUILD:BOOL=ON \
        .
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 %global develdocs howto_libipt.md
 (cd doc;cp -p %{develdocs} ..)
 
@@ -79,6 +81,10 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Tue Jul 22 2025 Kevin Buettner <kevinb@redhat.com> - 2.1.2-2
+- Updates for CMake4.0 and use of ninja generator (RHBZ 2380726,
+  RHBZ 2381041).
+
 * Tue Jan 21 2025 Keith Seitz keiths@redhat.com> - 2.1.2-1
 - Update to 2.1.2.
 

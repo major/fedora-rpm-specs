@@ -1,6 +1,6 @@
 Name:           allegro
 Version:        4.4.3.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 Summary:        A game programming library
 Summary(es):    Una libreria de programacion de juegos
@@ -230,7 +230,11 @@ developing applications that use logg.
 
 %build
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake -DOpenGL_GL_PREFERENCE:STRING=LEGACY -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+%cmake \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
+ -DOpenGL_GL_PREFERENCE:STRING=LEGACY -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DDOCDIR:STRING=%{_pkgdocdir} -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
 %cmake_build
 
@@ -386,6 +390,9 @@ install -pm 644 addons/jpgalleg/readme.txt \
 
 
 %changelog
+* Thu Jul 17 2025 Cristian Le <git@lecris.dev> - 4.4.3.1-17
+- Add LIB_SUFFIX flag explicitly (rhbz#2381173)
+
 * Fri May 30 2025 Cristian Le <git@lecris.dev> - 4.4.3.1-16
 - Allow to build with CMake 4.0
 

@@ -1,5 +1,5 @@
 %global rocm_release 6.4
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -196,6 +196,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Wed Jun 18 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.1-4
 - update so that test subpackage builds cleanly in mock and runs outside of build environment
 

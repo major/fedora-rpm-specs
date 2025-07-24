@@ -16,6 +16,7 @@ Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/%{name}-%{
 Patch0:         myodbc-64bit.patch
 Patch1:         mysql-connector-odbc-c99.patch
 Patch2:         mysql-connector-odbc-pointer-type.patch
+Patch3:         mysql-connector-odbc-rpath.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -38,9 +39,11 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 %cmake \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_BUILD_TYPE=RelWithDebinfo \
         -DWITH_UNIXODBC=YES \
         -DRPM_BUILD=YES \

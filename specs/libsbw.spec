@@ -6,11 +6,11 @@ Version:        2.12.2
 Release:        18%{?dist}
 URL:            http://sourceforge.net/projects/sbw/
 Source0:        https://sourceforge.net/projects/sbw/files/sbw/%{version}/sbw-core-%{version}.tar.bz2
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 
 BuildRequires: cmake
-BuildRequires: gcc-c++, gcc
+BuildRequires: gcc-c++
+BuildRequires: gcc
 BuildRequires: zlib-devel
 BuildRequires: libxml2-devel
 BuildRequires: dos2unix
@@ -67,7 +67,6 @@ find ./SBWCore \( -name \*.cpp -o -name \*.h \) -print0 | xargs -0 chmod -x
 find ./include/SBW \( -name \*.h \) -print0 | xargs -0 chmod -x
 
 %build
-mkdir -p build && cd build
 export CXXFLAGS="-std=c++14 %{optflags} -Wl,-z,now -Wno-deprecated"
 export LDFLAGS="%{__global_ldflags} -Wl,-z,now -Wl,--as-needed"
 %cmake -Wno-cpp \
@@ -77,21 +76,18 @@ export LDFLAGS="%{__global_ldflags} -Wl,-z,now -Wl,--as-needed"
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON -DWITH_BUILD_STATIC:BOOL=ON \
  -DCPACK_BINARY_TZ:BOOL=OFF -DCPACK_BINARY_TGZ:BOOL=OFF -DCPACK_SOURCE_TBZ2:BOOL=OFF \
  -DCPACK_SOURCE_TGZ:BOOL=OFF -DCPACK_SOURCE_TZ:BOOL=OFF \
- -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES ..
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES
 
-%make_build
+%cmake_build
 
 %install
 export LIBDIR=%{_libdir}
-%make_install -C build
+%cmake_install
 
 ## Make Broker man page
-cd build/SBWBroker
-help2man ./Broker -o Broker.1 --version-string=%{version}
+help2man SBWBroker/Broker -o Broker.1 --version-string=%{version}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 install -pm 644 Broker.1 $RPM_BUILD_ROOT%{_mandir}/man1
-
-%ldconfig_scriptlets
 
 %files
 %doc ReadMe.txt VERSION
@@ -112,6 +108,9 @@ install -pm 644 Broker.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %{_libdir}/cmake/SBW-static-config.cmake
 
 %changelog
+* Tue Jul 22 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.12.2-19
+- Fix rhbz#2381052
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:      pykickstart
 Version:   3.66
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -17,7 +17,6 @@ Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/
 BuildArch: noarch
 
 BuildRequires: gettext
-BuildRequires: python3-build
 BuildRequires: python3-devel
 BuildRequires: python3-pip
 BuildRequires: python3-requests
@@ -77,6 +76,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Tue Jul 22 2025 Brian C. Lane <bcl@redhat.com> - 3.66-2
+- Drop python3-build, it is not needed to install the package
+
 * Tue Jul 15 2025 Brian C. Lane <bcl@redhat.com> - 3.66-1
 - workflows: Use py3.14 beta.4 (bcl)
 - pylint: Ignore files in .git (bcl)

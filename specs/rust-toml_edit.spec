@@ -6,7 +6,7 @@
 %global crate toml_edit
 
 Name:           rust-toml_edit
-Version:        0.22.26
+Version:        0.22.27
 Release:        %autorelease
 Summary:        Yet another format-preserving TOML parser
 
@@ -106,6 +106,18 @@ This package contains library source intended for building other packages which
 use the "unbounded" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unbounded-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-debug-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

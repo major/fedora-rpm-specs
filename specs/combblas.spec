@@ -25,18 +25,17 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       The Combinatorial BLAS Library
 
-# Main license for CombBLAS is BSD.
-# graph500-1.2/ under BSD license.
-# graph500-1.2/generator/ under Boost license.
-# include/Tommy/ under BSD license.
-# include/CombBLAS/ under MIT or Expat license.
-# psort-1.0/include/ under a mixed GPLv2+/MIT/BSD licenses.
-# usort/ under MIT or Expat license.
-# Automatically converted from old format: BSD and MIT and Boost and GPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND BSL-1.0 AND GPL-2.0-or-later
+# Main license for CombBLAS is BSD-3-Clause-LBNL
+# graph500-1.2/ under BSD license
+# graph500-1.2/generator/ under Boost license
+# include/Tommy/ under BSD license
+# include/CombBLAS/ under MIT or Expat license
+# psort-1.0/include/ under a mixed GPLv2+/MIT/BSD licenses
+# usort/ under MIT or Expat license
+License:       BSD-3-Clause-LBNL AND MIT AND BSL-1.0 AND GPL-2.0-or-later
 URL:           https://people.eecs.berkeley.edu/~aydin/%{truename}/html/index.html
 Source0:       https://github.com/PASSIONLab/%{truename}/archive/refs/tags/v%{version}/%{truename}-%{version}.tar.gz
 Source1:       http://eecs.berkeley.edu/~aydin/%{truename}_FILES/testdata_%{name}1.6.1.tgz
@@ -139,7 +138,8 @@ export CXX=$MPI_BIN/mpic++
  -DCMAKE_BUILD_TYPE:STRING=Release
 %endif
 
-%make_build -C build/openmpi
+%define _vpath_builddir build/openmpi
+%cmake_build
 %{_openmpi_unload}
 %endif
 
@@ -164,7 +164,8 @@ export CXX=$MPI_BIN/mpic++
  -DCMAKE_BUILD_TYPE:STRING=Release
 %endif
 
-%make_build -C build/mpich
+%define _vpath_builddir build/mpich
+%cmake_build
 %{_mpich_unload}
 %endif
 
@@ -172,7 +173,8 @@ export CXX=$MPI_BIN/mpic++
 
 %if %{with openmpi}
 %{_openmpi_load}
-%make_install -C build/openmpi
+%define _vpath_builddir build/openmpi
+%cmake_install
 
 mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
 install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
@@ -184,7 +186,8 @@ chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 
 %if %{with mpich}
 %{_mpich_load}
-%make_install -C build/mpich
+%define _vpath_builddir build/mpich
+%cmake_install
 
 mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
 install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
@@ -207,7 +210,8 @@ find %{buildroot} -type f -name "._CombBLAS.h" -exec rm -f '{}' \;
 %{_openmpi_load}
 cp -a TESTDATA build/openmpi/
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -- %{debug_flags} --test-dir build/openmpi -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
+%define _vpath_builddir build/openmpi
+%ctest %{debug_flags} -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 %{_openmpi_unload}
 %endif
 
@@ -215,7 +219,8 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %{_mpich_load}
 cp -a TESTDATA build/mpich/
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -- %{debug_flags} --test-dir build/mpich -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
+%define _vpath_builddir build/mpich
+%ctest %{debug_flags} -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 %{_mpich_unload}
 %endif
 %endif
@@ -261,6 +266,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Tue Jul 22 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-11
+- Fix rhbz#2380980
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

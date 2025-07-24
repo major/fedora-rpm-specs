@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.56
+Version:        2.57
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 

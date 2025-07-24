@@ -12,7 +12,9 @@ Name:		qtlockedfile
 Version:	2.4
 Release:	44.%{commitdate}git%{shortcommit0}%{?dist}
 
-License:	GPLv3 or LGPLv2 with exceptions
+# most files has BSD-3-Clause
+# project declared license is GPL-3.0-only OR LGPL-2.1-only WITH Digia-Qt-LGPL-exception-1.1
+License:	BSD-3-Clause AND (GPL-3.0-only OR LGPL-2.1-only WITH Digia-Qt-LGPL-exception-1.1)
 URL:		http://doc.qt.digia.com/solutions/4/qtlockedfile/qtlockedfile.html
 Source0:	https://github.com/qtproject/qt-solutions/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
 Source1:	qtlockedfile.prf.in

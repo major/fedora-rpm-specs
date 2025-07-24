@@ -99,7 +99,8 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test -f bytemuck,serde
+# * skip tests that fail due to slightly different error messages in Rust 1.87+
+%cargo_test -f bytemuck,serde -- -- --exact --skip test_compilation_errors
 %endif
 
 %changelog

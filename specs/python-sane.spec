@@ -1,18 +1,17 @@
 %global srcname sane
 
 Name:           python-%{srcname}
-Version:        2.9.1
-Release:        17%{?dist}
+Version:        2.9.2
+Release:        1%{?dist}
 Summary:        Python SANE interface
 
 License:        MIT
 URL:            https://github.com/python-pillow/Sane
 Source0:        https://github.com/python-pillow/Sane/archive/v%{version}/Sane-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  sane-backends-devel
-
+BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 
@@ -63,6 +62,9 @@ rm -f doc/_build_py3/html/.buildinfo
 
 
 %changelog
+* Tue Jul 22 2025 Sandro Mani <manisandro@gmail.com> - 2.9.2-1
+- Update to 2.9.2
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.9.1-17
 - Rebuilt for Python 3.14
 

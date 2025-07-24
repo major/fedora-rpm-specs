@@ -6,7 +6,7 @@
 %global comgr_full_api_ver %{comgr_maj_api_ver}.0.0
 # Upstream tags are based on rocm releases:
 %global rocm_release 6.4
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 19
@@ -49,7 +49,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        11.rocm%{rocm_version}%{?dist}
+Release:        12.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1032,6 +1032,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/lib/libc++experimental.a
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 19-12.rocm6.4.2
+- Update to 6.4.2
+
 * Mon Jun 30 2025 Tom Rix <Tom.Rix@amd.com> - 19-11.rocm6.4.1
 - Remove compat_gcc option
 - Remove suse check for ldconfig use

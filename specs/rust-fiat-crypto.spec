@@ -5,7 +5,7 @@
 %global crate fiat-crypto
 
 Name:           rust-fiat-crypto
-Version:        0.2.9
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Correct-by-Construction Code for Cryptographic Primitives
 

@@ -47,7 +47,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.12
+Version:   2.0.13
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -209,11 +209,6 @@ or server machines.
 %else
     -Dplugin_flashrom=disabled \
 %endif
-%if 0%{?have_uefi}
-    -Dplugin_uefi_capsule_splash=true \
-%else
-    -Dplugin_uefi_capsule_splash=false \
-%endif
 %if 0%{?have_modem_manager}
     -Dplugin_modem_manager=enabled \
 %else
@@ -268,7 +263,9 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %ifarch x86_64
 %{_libexecdir}/fwupd/fwupd-detect-cet
 %endif
+%if 0%{?have_uefi}
 %{_bindir}/dbxtool
+%endif
 %{_bindir}/fwupdmgr
 %{_bindir}/fwupdtool
 %dir %{_sysconfdir}/fwupd
@@ -300,7 +297,9 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %{_datadir}/polkit-1/rules.d/org.freedesktop.fwupd.rules
 %{_datadir}/dbus-1/system-services/org.freedesktop.fwupd.service
 %{_mandir}/man1/fwupdtool.1*
+%if 0%{?have_uefi}
 %{_mandir}/man1/dbxtool.*
+%endif
 %{_mandir}/man1/fwupdmgr.1*
 %{_mandir}/man5/*
 %{_mandir}/man8/*

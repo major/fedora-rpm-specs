@@ -2,14 +2,16 @@
 
 Name:           python-netifaces
 Version:        0.11.0
-Release:        13%{?dist}
-Summary:        Python library to retrieve information about network interfaces 
+Release:        14%{?dist}
+Summary:        Python library to retrieve information about network interfaces
 License:        MIT
 URL:            https://pypi.python.org/pypi/netifaces
 Source0:        https://files.pythonhosted.org/packages/source/n/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 This package provides a cross platform API for getting address information
@@ -31,19 +33,22 @@ from network interfaces.
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}-%{version}-*.egg-info/
+%{python3_sitearch}/%{pypi_name}-%{version}*.dist-info/
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Mon Jul 14 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 0.11.0-14
+- Migrate from py3 to pyproject macros
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11.0-13
 - Rebuilt for Python 3.14
 

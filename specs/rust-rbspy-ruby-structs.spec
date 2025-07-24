@@ -5,7 +5,7 @@
 %global crate rbspy-ruby-structs
 
 Name:           rust-rbspy-ruby-structs
-Version:        0.31.0
+Version:        0.34.1
 Release:        %autorelease
 Summary:        Helper crate for rbspy
 

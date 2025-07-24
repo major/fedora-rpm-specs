@@ -149,7 +149,7 @@ the editor.
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Requires:      (emacs-pgtk = %{epoch}:%{version}-%{release} or emacs-gtk+x11 = %{epoch}:%{version}-%{release} or emacs-lucid = %{epoch}:%{version}-%{release} or emacs-nw = %{epoch}:%{version}-%{release})
 
-Suggests:      (emacs-nw if fedora-release-basic)
+Suggests:      (emacs-nw if fedora-release-identity-basic)
 Suggests:      (emacs-nw if fedora-release-cloud)
 Suggests:      (emacs-nw if fedora-release-container)
 Suggests:      (emacs-nw if fedora-release-coreos)

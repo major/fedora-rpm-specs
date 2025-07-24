@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
-Version:        0.24
-Release:        4%{?dist}
+Version:        0.25
+Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -34,11 +34,13 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(IO::File)
 # Run-time:
+BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(bigrat)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(integer)
@@ -113,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 0.25-1
+- 0.25 bump
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.24-4
 - Perl 5.42 rebuild
 

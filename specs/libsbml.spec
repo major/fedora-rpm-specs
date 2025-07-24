@@ -210,12 +210,10 @@ sed -r -i 's|(set\(PERL_PACKAGE_INSTALL_DIR.*/perl5)/site_perl.*\)|\1/vendor_per
 sed -r -i 's|(set\(RUBY_PACKAGE_INSTALL_DIR.*/ruby)/site_ruby.*\)|\1/vendor_ruby)|' src/bindings/ruby/CMakeLists.txt
 
 %build
-mkdir -p build
-
 # silence some warnings which are only relevant to upstream developers
 export CXXFLAGS="$CXXFLAGS -Wno-overloaded-virtual -Wno-unused-variable -Wno-unused-but-set-variable -Wno-switch"
 
-%cmake3 -B build -DENABLE_{LAYOUT,QUAL,COMP,FBC,RENDER,GROUPS,MULTI}=ON \
+%cmake -DENABLE_{LAYOUT,QUAL,COMP,FBC,RENDER,GROUPS,MULTI}=ON \
        -DCSHARP_COMPILER:FILEPATH=%{_bindir}/mcs \
 %if %{with python}
        -DWITH_PYTHON:BOOL=ON \
@@ -268,8 +266,7 @@ export CXXFLAGS="$CXXFLAGS -Wno-overloaded-virtual -Wno-unused-variable -Wno-unu
        -DWITH_MATLAB:BOOL=OFF \
        -Wno-dev -DEXIT_ON_ERROR:BOOL=ON
 
-%make_build -C build
-%make_build -C build libsbml.pc
+%cmake_build
 
 %if %{with doc}
 pushd build-docs
@@ -284,13 +281,13 @@ pushd build-docs
 %endif
            --enable-layout --enable-comp --enable-fbc --enable-qual
 
-cp ../build/src/bindings/python/libsbml-doxygen.py src/bindings/python/
-# build is parallelized internally
+cp -p src/bindings/python/libsbml-doxygen.py src/bindings/python/
+# build is internally parallelized
 make docs
 %endif
 
 %install
-%make_install -C build
+%cmake_install
 
 ##This directory provides just some txt documentation files
 rm -rf %{buildroot}%{_datadir}/%{name}
@@ -309,7 +306,7 @@ mv %{buildroot}%{_libdir}/libsbmlj.so %{buildroot}%{_libdir}/%{name}/
 
 %if %{with r}
 mkdir -p %{buildroot}%{_libdir}/R/library
-R CMD INSTALL -l %{buildroot}%{_libdir}/R/library build/src/bindings/r/%{rpkg}_%{version}_R_*.tar.gz
+R CMD INSTALL -l %{buildroot}%{_libdir}/R/library %_vpath_builddir/src/bindings/r/%{rpkg}_%{version}_R_*.tar.gz
 rm -rf %{buildroot}%{_libdir}/R/library/%{rpkg}/R.css
 %endif
 
@@ -327,11 +324,8 @@ rm -fv %buildroot/%{_datadir}/cmake/Modules/Find{BZ2,LIBXML,ZLIB}.cmake
 
 %if %{with check}
 %check
-pushd build
 # See https://github.com/sbmlteam/libsbml/issues/234
-ctest --force-new-ctest-process -VV \
-        -E "test_ruby_binding|test_perl_binding"
-popd
+%ctest -E "test_ruby_binding|test_perl_binding"
 %endif
 
 %files

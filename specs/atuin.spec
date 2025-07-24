@@ -58,6 +58,10 @@ Patch13:        atuin-Update-tiny-bip39.patch
 # * Update tracing-tree to 0.4.0
 # * Cherry-picked https://github.com/atuinsh/atuin/pull/2259
 Patch14:        atuin-update-tracing-tree.patch
+# * Update indicatif to 0.18.0
+# * Cherry-picked https://github.com/atuinsh/atuin/pull/2833
+# * Adjusted to still allow 0.17.x
+Patch15:        atuin-update-indicatif.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  protobuf-devel

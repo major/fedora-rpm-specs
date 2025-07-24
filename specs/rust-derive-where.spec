@@ -5,7 +5,7 @@
 %global crate derive-where
 
 Name:           rust-derive-where
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Deriving with custom trait bounds
 
@@ -69,6 +69,18 @@ This package contains library source intended for building other packages which
 use the "safe" feature of the "%{crate}" crate.
 
 %files       -n %{name}+safe-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zeroize-devel

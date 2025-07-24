@@ -5,7 +5,7 @@
 %global crate fts-sys
 
 Name:           rust-fts-sys
-Version:        0.2.14
+Version:        0.2.16
 Release:        %autorelease
 Summary:        File hierarchy traversal functions (FTS)
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/fts-sys
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop links = "c"
-# * temporarily downgrade bindgen dependency from 0.71 to 0.69
 Patch:          fts-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

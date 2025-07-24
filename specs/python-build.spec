@@ -1,6 +1,8 @@
-# uv has many build dependencies, and will take some time to be available for
-# new EPEL major versions.
-%bcond uv %{undefined rhel}
+# not all test dependencies are included in RHEL: filelock, pytest-mock
+%bcond tests %{undefined rhel}
+# uv has many build dependencies which are not included in RHEL;
+# virtualenv is not included in RHEL
+%bcond extras %{undefined rhel}
 
 %global pypi_name build
 
@@ -15,6 +17,8 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 # downstream-only
 Patch:          0001-fedora-disable-some-build-requirements.patch
+# https://github.com/pypa/build/pull/911
+Patch:          0002-tests-optional-virtualenv.patch
 
 BuildArch:      noarch
 
@@ -32,7 +36,9 @@ Summary:        %{summary}
 A simple, correct PEP517 package builder.
 
 
-%pyproject_extras_subpkg -n python3-%{pypi_name} virtualenv %{?with_uv:uv}
+%if %{with extras}
+%pyproject_extras_subpkg -n python3-%{pypi_name} virtualenv uv
+%endif
 
 
 %prep
@@ -40,7 +46,7 @@ A simple, correct PEP517 package builder.
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test,virtualenv%{?with_uv:,uv}
+%pyproject_buildrequires %{?with_tests:-x test} %{?with_extras:-x virtualenv,uv}
 
 %build
 %pyproject_wheel
@@ -50,11 +56,14 @@ A simple, correct PEP517 package builder.
 %pyproject_save_files %{pypi_name}
 
 %check
+%pyproject_check_import
+%if %{with tests}
 # Upstream has integration tests that can be run with the --run-integration
 # flag, but currently that only includes one network test and one test that is
 # xfail when flit-core is installed (which it will be during our package
 # build), so including that flag doesn't run any additional tests.
 %pytest -v -m "not network"
+%endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

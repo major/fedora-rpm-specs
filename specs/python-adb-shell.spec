@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python implementation for ADB shell and file sync
 
 License:        Apache-2.0
@@ -17,7 +17,6 @@ Python package implements ADB shell and FileSync functionality.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description -n python3-%{pypi_name}
 Python package implements ADB shell and FileSync functionality.
@@ -28,19 +27,25 @@ rm -rf %{pypi_name}.egg-info
 # Conflict with crypto
 sed -i -e 's/pycryptodome/pycryptodomex/g' setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{pypi_name}
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/adb_shell/
-%{python3_sitelib}/adb_shell-%{version}-py*.egg-info/
+%{python3_sitelib}/*.dist-info
 
 %changelog
+* Tue Jul 22 2025 Federico Pellegrin <fede@evolware.org> - 0.4.4-4
+- Use new Python macros in spec file (rhbz#2377416)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.4-3
 - Rebuilt for Python 3.14
 

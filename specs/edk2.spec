@@ -497,6 +497,7 @@ done
 %if %{build_aarch64}
 %if %{defined rhel}
 ./edk2-build.py --config edk2-build.%{rhelcfg} %{?silent} --release-date "$RELEASE_DATE" -m armvirt
+cp DBXUpdate-%{DBXDATE}.aa64.bin %{RHELCFG}/aarch64
 %else
 ./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m armvirt
 ./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m aa64
@@ -504,6 +505,7 @@ virt-fw-vars --input   Fedora/aarch64/vars-template-pflash.raw \
              --output  Fedora/experimental/vars-template-secboot-testonly-pflash.raw \
              --set-dbx DBXUpdate-%{DBXDATE}.aa64.bin \
              --enroll-redhat --secure-boot --distro-keys rhel
+cp DBXUpdate-%{DBXDATE}.aa64.bin Fedora/aarch64
 %endif
 for raw in */aarch64/*.raw; do
     qcow2="${raw%.raw}.qcow2"
@@ -728,6 +730,8 @@ done
 %{_datadir}/%{name}/aarch64/QEMU_EFI.fd
 %{_datadir}/%{name}/aarch64/QEMU_EFI.silent.fd
 %{_datadir}/%{name}/aarch64/QEMU_VARS.fd
+%{_datadir}/%{name}/aarch64/Shell.efi
+%{_datadir}/%{name}/aarch64/DBXUpdate*.bin
 %if %{qemuvars}
 %{_datadir}/%{name}/aarch64/QEMU_EFI-qemuvars-pflash.*
 %{_datadir}/%{name}/aarch64/QEMU_EFI.qemuvars.fd
@@ -805,6 +809,7 @@ done
 %dir %{_datadir}/%{name}/riscv
 %{_datadir}/%{name}/riscv/*.fd
 %{_datadir}/%{name}/riscv/*.qcow2
+%{_datadir}/%{name}/riscv/Shell.efi
 %{_datadir}/qemu/firmware/50-edk2-riscv-qcow2.json
 %endif
 
@@ -813,6 +818,7 @@ done
 %common_files
 %dir %{_datadir}/%{name}/loongarch64
 %{_datadir}/%{name}/loongarch64/*.fd
+%{_datadir}/%{name}/loongarch64/Shell.efi
 %{_datadir}/qemu/firmware/50-edk2-loongarch64.json
 %endif
 

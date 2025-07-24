@@ -1,4 +1,3 @@
-
 # options
 #define examples 1
 
@@ -11,7 +10,7 @@ Summary: Qt Mobility Framework
 Version: 1.2.2
 Release: 0.49.%{snap}git%{git_short}%{?dist}
 
-License: LGPLv2 with exceptions
+License: LGPL-2.1-only WITH Digia-Qt-LGPL-exception-1.1
 URL:     https://code.qt.io/cgit/qt-mobility/qt-mobility.git
 %if 0%{?snap:1}
 # git clone https://code.qt.io/qt-mobility/qt-mobility.git

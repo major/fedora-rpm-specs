@@ -1,6 +1,6 @@
 Name:           perl-LaTeX-ToUnicode
-Version:        0.55
-Release:        2%{?dist}
+Version:        1.92
+Release:        1%{?dist}
 Summary:        Convert LaTeX commands to Unicode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LaTeX-ToUnicode
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 1.92-1
+- 1.92 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

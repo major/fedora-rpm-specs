@@ -2,7 +2,7 @@
 
 Name:           python-slugify
 Version:        6.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python module to deal with unicode slugs
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -19,7 +19,6 @@ A Python slugify application that handles Unicode.
 Summary:        %{sum}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-text-unidecode
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -29,11 +28,14 @@ A Python slugify application that handles Unicode.
 %prep
 %autosetup -n python-%{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %{__python3} test.py
@@ -43,9 +45,13 @@ A Python slugify application that handles Unicode.
 %license LICENSE
 %{_bindir}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/python_slugify-%{version}-py*.egg-info
+%{python3_sitelib}/*.dist-info
+
 
 %changelog
+* Tue Jul 22 2025 Federico Pellegrin <fede@evolware.org> - 6.1.2-12
+- Use new Python macros in spec file (rhbz#2378211)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.1.2-11
 - Rebuilt for Python 3.14
 

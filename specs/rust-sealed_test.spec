@@ -12,6 +12,7 @@ Summary:        Procmacro attribute to run your test in an isolated environment
 License:        MIT
 URL:            https://crates.io/crates/sealed_test
 Source:         %{crates_source}
+Patch:          0001-Fix-test-code-with-cmd_lib-1.9.6-PathBuf-does-not-im.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

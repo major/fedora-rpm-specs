@@ -2,14 +2,16 @@
 %bcond_without perl_BibTeX_Parser_enables_optional_test
 
 Name:           perl-BibTeX-Parser
-Version:        1.05
-Release:        2%{?dist}
+Version:        1.92
+Release:        1%{?dist}
 Summary:        Pure Perl BibTeX parser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BibTeX-Parser
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/BibTeX-Parser-%{version}.tar.gz
 # Remove a strayed debugging output, CPAN RT#134350, proposed to the upstream
 Patch0:         BibTeX-Parser-1.03-Remove-a-debugging-output-from-BibTeX-Parser-Entry-t.patch
+# Do not import nonexported functions, CPAN RT#168337, proposed to the upstream
+Patch1:         BibTeX-Parser-1.92-Do-not-import-_split_braced_string.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -106,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 1.92-1
+- 1.92 bump
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

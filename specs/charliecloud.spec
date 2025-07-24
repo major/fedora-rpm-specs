@@ -10,18 +10,19 @@
 %{?el7:%global __python %__python3}
 
 Name:          charliecloud
-Version:       0.38
-Release:       4%{?dist}
+Version:       0.40
+Release:       1%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
-URL:           https://hpc.github.io/%{name}/
-Source0:       https://github.com/hpc/%{name}/releases/downloads/v%{version}/%{name}-%{version}.tar.gz
+URL:           https://%{name}.io/v%{version}
+Source0:       https://gitlab.com/charliecloud/main/-/package_files/204172900/download#/charliecloud-%{version}.tar.gz
+Patch0:        macro-str.patch
+Patch1:        i686.patch
 BuildRequires: gcc rsync bash findutils
 %if 0%{?fedora} > 36
-Requires:      fuse3 squashfuse
-BuildRequires: fuse3-libs fuse3-devel squashfuse-devel
-Patch0:        no-squashfuse-rpath.patch
+Requires:      fuse3 squashfuse cjson
+BuildRequires: fuse3-libs fuse3-devel squashfuse-devel cjson-devel
 %endif
 
 %description
@@ -33,10 +34,21 @@ the performance and functionality already on offer.
 Container images can be built using Docker or anything else that can generate
 a standard Linux filesystem tree.
 
-For more information: https://hpc.github.io/charliecloud
+For more information: https://charliecloud.io
 
-%package builder
-Summary:       Charliecloud container image building tools
+%package       docs
+Summary:       Charliecloud man pages
+License:       BSD and ASL 2.0
+BuildArch:     noarch
+Obsoletes:     %{name}-docs < %{version}-%{release}
+BuildRequires: python%{python3_pkgversion}-sphinx
+BuildRequires: python%{python3_pkgversion}-sphinx_rtd_theme
+
+%description docs
+Html and man page documentation for %{name}.
+
+%package image
+Summary:       Charliecloud container image manipulation tools
 License:       ASL 2.0 and MIT
 BuildRequires: python3-devel
 BuildRequires: python%{python3_pkgversion}-requests
@@ -46,27 +58,15 @@ Requires:      python%{python3_pkgversion}-requests
 Requires:      git >= 2.28.1
 Provides:      bundled(python%{python3_pkgversion}-lark-parser) = 1.1.9
 
-%description builder
+%description image
 This package provides ch-image, Charliecloud's completely unprivileged container
 image manipulation tool.
-
-%package       doc
-Summary:       Charliecloud html documentation
-License:       BSD and ASL 2.0
-BuildArch:     noarch
-Obsoletes:     %{name}-doc < %{version}-%{release}
-BuildRequires: python%{python3_pkgversion}-sphinx
-BuildRequires: python%{python3_pkgversion}-sphinx_rtd_theme
-Requires:      python%{python3_pkgversion}-sphinx_rtd_theme
-
-%description doc
-Html and man page documentation for %{name}.
 
 %package   test
 Summary:   Charliecloud test suite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:   Apache-2.0
-Requires:  %{name} %{name}-builder
+Requires:  %{name} %{name}-image
 Requires:  bats
 Obsoletes: %{name}-test < %{version}-%{release}
 
@@ -75,10 +75,8 @@ Test fixtures for %{name}.
 
 %prep
 %setup -q
-
-%if 0%{?fedora} > 36
-%patch 0 -p1
-%endif
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 # Use old inlining behavior, see:
@@ -87,28 +85,14 @@ CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
 %configure --docdir=%{_pkgdocdir} \
            --libdir=%{_prefix}/lib \
            --with-python=/usr/bin/python3 \
-%if 0%{?fedora} > 36
-%if "%{_arch}" == "i686"
-           --with-libsquashfuse=/usr \
-%else
-%endif
+%if 0%{?fedora} < 37
+    --with-squashfuse=no \
 %else
 %endif
            --with-sphinx-build=%{_bindir}/sphinx-build
 
 %install
 %make_install
-
-# Remove bundled sphinx bits.
-%{__rm} -rf %{buildroot}%{_pkgdocdir}/html/_static/css
-%{__rm} -rf %{buildroot}%{_pkgdocdir}/html/_static/fonts
-%{__rm} -rf %{buildroot}%{_pkgdocdir}/html/_static/js
-
-# Use Fedora package sphinx bits.
-sphinxdir=%{python3_sitelib}/sphinx_rtd_theme/static
-ln -s "${sphinxdir}/css"   %{buildroot}%{_pkgdocdir}/html/_static/css
-ln -s "${sphinxdir}/fonts" %{buildroot}%{_pkgdocdir}/html/_static/fonts
-ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 
 # Remove bundled license and readme (prefer license and doc macros).
 %{__rm} -f %{buildroot}%{_pkgdocdir}/LICENSE
@@ -120,13 +104,13 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_bindir}/ch-checkns
 %{_bindir}/ch-convert
 %{_bindir}/ch-fromhost
-%{_bindir}/ch-run
 %{_bindir}/ch-run-oci
+%{_bindir}/ch-run
 %{_mandir}/man1/ch-checkns.1*
 %{_mandir}/man1/ch-convert.1*
 %{_mandir}/man1/ch-fromhost.1*
-%{_mandir}/man1/ch-run.1*
 %{_mandir}/man1/ch-run-oci.1*
+%{_mandir}/man1/ch-run.1*
 %{_mandir}/man7/ch-completion.bash.7*
 %{_mandir}/man7/charliecloud.7*
 %{_prefix}/lib/%{name}/base.sh
@@ -134,7 +118,7 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_prefix}/lib/%{name}/version.sh
 %{_prefix}/lib/%{name}/version.txt
 
-%files builder
+%files image
 %{_bindir}/ch-image
 %{_mandir}/man1/ch-image.1*
 %{_prefix}/lib/%{name}/build.py
@@ -143,15 +127,17 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_prefix}/lib/%{name}/filesystem.py
 %{_prefix}/lib/%{name}/force.py
 %{_prefix}/lib/%{name}/image.py
+%{_prefix}/lib/%{name}/irtree.py
+%{_prefix}/lib/%{name}/misc.py
+%{_prefix}/lib/%{name}/modify.py
 %{_prefix}/lib/%{name}/lark
 %{_prefix}/lib/%{name}/lark-1.1.9.dist-info
-%{_prefix}/lib/%{name}/misc.py
 %{_prefix}/lib/%{name}/pull.py
 %{_prefix}/lib/%{name}/push.py
 %{_prefix}/lib/%{name}/registry.py
 %{_prefix}/lib/%{name}/version.py
 
-%files doc
+%files docs
 %license LICENSE
 %{_pkgdocdir}/examples
 %{_pkgdocdir}/html
@@ -162,6 +148,11 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Mon Jul 21 2025 Jordan Ogas <jogas@lanl.gov> - 0.40-1
+- new version 0.40
+- rename builder package to image
+- add cdi support (cjson dependency)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           mingw-wine-gecko
 Version:        2.47.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Gecko library required for Wine
 
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
@@ -19,12 +19,20 @@ Patch1:       %{name}-gcc11.patch
 #Patch2:       %%{name}-python311.patch
 # bad hack for mingw header issue
 Patch3:       %{name}-header.patch
+# https://gitlab.winehq.org/wine/wine-gecko/-/merge_requests/22
+Patch4:       22.patch
+# https://gitlab.winehq.org/wine/wine-gecko/-/merge_requests/23
+Patch5:       23.patch
+# https://gitlab.winehq.org/wine/wine-gecko/-/merge_requests/30
+Patch6:       30.patch
+Patch7:       0001-Hacky-resolve-of-two-or-more-data-types-in-declarati.patch
+Patch8:       0001-Nuke-true-false-redefinitions.patch
 
 BuildArch:      noarch
 
 # This project is only useful with wine, and wine doesn't support PPC.
 # We will adopt the same arch support that wine does.
-ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64
+ExclusiveArch:  %{ix86} x86_64
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95
@@ -88,6 +96,11 @@ popd
 %patch -P 1 -p1
 #patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
 
 # fix nsprpub cross compile detection
 sed -i 's,cross_compiling=.*$,cross_compiling=yes,' nsprpub/configure
@@ -102,7 +115,7 @@ sed -i 's,$WINE cabarc.exe -r -m mszip N $cabfile msi/files,$WINE cabarc.exe -r 
 cd wine-gecko-%{version}
 # setup build options...
 echo "mk_add_options MOZ_MAKE_FLAGS=%{_smp_mflags}" >> wine/mozconfig-common
-echo "export CFLAGS=\"-DWINE_GECKO_SRC\"" >> wine/mozconfig-common
+echo "export CFLAGS=\"$CFLAGS -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -DWINE_GECKO_SRC\"" >> wine/mozconfig-common
 
 cp wine/mozconfig-common wine/mozconfig-common.build
 
@@ -140,6 +153,9 @@ install -p -m 0644 wine-gecko-%{version}-x86_64/dist/wine-gecko-%{version}-x86_6
 %{_datadir}/wine/gecko/wine-gecko-%{version}-x86_64.msi
 
 %changelog
+* Tue Jul 22 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.47.4-8
+- Build fixes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

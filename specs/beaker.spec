@@ -1,5 +1,5 @@
 %global upstream_name beaker
-%global with_docs 1
+%bcond_without docs
 
 Name:           %{upstream_name}
 Version:        29.2
@@ -16,7 +16,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
-%if 0%{with_docs}
+%if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-httpdomain
 %endif
@@ -59,7 +59,7 @@ can use it to submit Beaker jobs, fetch results, and perform many other tasks.
 
 %prep
 %setup -q -n %{upstream_name}-%{version}
-%if !0%{with_docs}
+%if %{with docs}
 rm -rf documentation
 %endif
 # The server relies on a great many packages which are intended to be bundled
@@ -73,11 +73,6 @@ export BKR_PY3=1
 make
 
 %install
-# RHEL 8 python3-nose removed unversioned executables
-%if 0%{?rhel} >= 8
-ln -sf %{_bindir}/nosetests-%{python3_version} %{buildroot}/nosetests-3
-%endif
-
 export BKR_PY3=1
 DESTDIR=%{buildroot} make install
 
@@ -110,7 +105,7 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{python3_sitelib}/%{name}_client-%{version}-py%{python3_version}.egg-info/
 %{_bindir}/%{name}-wizard
 %{_bindir}/bkr
-%if 0%{with_docs}
+%if %{without docs}
 %{_mandir}/man1/beaker-wizard.1.gz
 %{_mandir}/man1/bkr.1.gz
 %{_mandir}/man1/bkr-*.1.gz

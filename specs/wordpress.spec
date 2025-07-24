@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.8.1
+%global upstream_version 6.8.2
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -252,6 +252,9 @@ end
 
 
 %changelog
+* Tue Jul 22 2025 Remi Collet <remi@remirepo.net> - 6.8.2-1
+- WordPress 6.8.2 Maintenance Release
+
 * Mon May  5 2025 Remi Collet <remi@remirepo.net> - 6.8.1-1
 - WordPress 6.8.1 Maintenance Release
 

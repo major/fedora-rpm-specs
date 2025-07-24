@@ -1,10 +1,13 @@
 Name:       ddate   
 Version:    0.2.2
-Release:    21%{?dist}
+Release:    22%{?dist}
 Summary:    Convert Gregorian dates to Discordian dates
 License:    LicenseRef-Fedora-Public-Domain
 URL:        https://github.com/bo0ts/%{name}
 Source0:    %{url}/archive/v%{version}.tar.gz
+# Fix building with CMake 4, bug #2380534, proposed upstream,
+# <https://github.com/bo0ts/ddate/pull/25>
+Patch0:     ddate-0.2.2-Fix-building-with-CMake-4.patch
 BuildRequires:  cmake   
 BuildRequires:  gcc
 BuildRequires:  gzip
@@ -13,7 +16,7 @@ BuildRequires:  gzip
 This tool prints a date in the Discordian date format.
 
 %prep
-%setup -qn %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %{cmake}
@@ -27,10 +30,13 @@ This tool prints a date in the Discordian date format.
 
 %files
 %doc README.org
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/ddate
+%{_mandir}/man1/ddate.*
 
 %changelog
+* Tue Jul 22 2025 Petr Pisar <ppisar@redhat.com> - 0.2.2-22
+- Fix building with CMake 4 (bug #2380534)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

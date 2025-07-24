@@ -5,7 +5,7 @@
 %global crate v_frame
 
 Name:           rust-v_frame
-Version:        0.3.8
+Version:        0.3.9
 Release:        %autorelease
 Summary:        Video Frame data structures, originally part of rav1e
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          v_frame-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax aligned-vec dependency to allow building with both 0.5 and 0.6:
-#   https://github.com/rust-av/v_frame/commit/313b352
 # * drop unused, no-op tracing/profiling support
 # * drop WASM-specific wasm-bindgen dependency and wasm feature
 # * drop unused, benchmark-only criterion dev-dependency

@@ -16,7 +16,7 @@
 %{!?external_libpq:%global external_libpq 0}
 %{!?upgrade:%global upgrade 1}
 %{!?plpython3:%global plpython3 1}
-%{!?pltcl:%global pltcl 1}
+%{!?pltcl:%global pltcl 0}
 %{!?plperl:%global plperl 1}
 %{!?ssl:%global ssl 1}
 %{!?icu:%global icu 1}
@@ -29,10 +29,10 @@
 %{!?sdt:%global sdt 1}
 %{!?selinux:%global selinux 1}
 %{!?runselftest:%global runselftest 1}
-%{!?postgresql_default:%global postgresql_default 0}
+%{!?postgresql_default:%global postgresql_default 1}
 
 %global majorname postgresql
-%global majorversion 16
+%global majorversion 18
 
 # By default, patch(1) creates backup files when chunks apply with offsets.
 # Turn that off to ensure such files don't get included in RPMs.
@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.9
-Release: 6%{?dist}
+Version: %{majorversion}beta1
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -59,8 +59,8 @@ Url: http://www.postgresql.org/
 # in-place upgrade of an old database.  In most cases it will not be critical
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
-%global prevmajorversion 15
-%global prevversion %{prevmajorversion}.13
+%global prevmajorversion 17
+%global prevversion %{prevmajorversion}.2
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -112,6 +112,7 @@ BuildRequires: gcc
 BuildRequires: perl(ExtUtils::MakeMaker) glibc-devel bison flex gawk
 BuildRequires: perl(ExtUtils::Embed), perl-devel
 BuildRequires: perl(Opcode)
+BuildRequires: perl-FindBin
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: perl-generators
 %endif
@@ -542,11 +543,11 @@ find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\
 find . -type f -name .gitignore | xargs rm
 
 # Create a sysusers.d config file
-cat >postgresql16.sysusers.conf <<EOF
+cat > postgresql18.sysusers.conf <<EOF
 u postgres 26 'PostgreSQL Server' /var/lib/pgsql /bin/bash
 EOF
 
-cat > postgresql16.tmpfiles.conf <<EOF
+cat > postgresql18.tmpfiles.conf <<EOF
 d /var/lib/pgsql 0700 postgres postgres -
 EOF
 
@@ -627,7 +628,7 @@ common_configure_options='
 	--datadir=%_datadir/pgsql
 	--with-systemd
 	--with-lz4
-    --with-zstd
+	--with-zstd
 %if %icu
 	--with-icu
 %endif
@@ -715,7 +716,7 @@ upgrade_configure ()
 		--prefix=%prev_prefix \
 		--disable-rpath \
 		--with-lz4 \
-        --with-zstd \
+		--with-zstd \
 %if %icu
 		--with-icu \
 %endif
@@ -806,8 +807,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/pgsql/extension
 
 # multilib header hack
 for header in \
-	%{_includedir}/pgsql/server/pg_config.h \
-	%{_includedir}/pgsql/server/pg_config_ext.h
+	%{_includedir}/pgsql/server/pg_config.h
 do
 %multilib_fix_c_header --file "$header"
 done
@@ -935,7 +935,8 @@ find_lang_bins ()
 find_lang_bins devel.lst pg_server_config
 find_lang_bins server.lst \
 	initdb pg_basebackup pg_controldata pg_ctl pg_resetwal pg_rewind plpgsql \
-	postgres pg_checksums pg_verifybackup
+	postgres pg_checksums pg_verifybackup pg_combinebackup \
+    pg_walsummary
 find_lang_bins contrib.lst \
 	pg_amcheck pg_archivecleanup pg_test_fsync pg_test_timing pg_waldump
 find_lang_bins main.lst \
@@ -955,9 +956,8 @@ find_lang_bins pltcl.lst pltcl
 %endif
 %endif
 
-install -m0644 -D postgresql16.sysusers.conf %{buildroot}%{_sysusersdir}/postgresql16.conf
-install -m0644 -D postgresql16.tmpfiles.conf %{buildroot}%{_tmpfilesdir}/postgresql16.conf
-
+install -m0644 -D postgresql18.sysusers.conf %{buildroot}%{_sysusersdir}/postgresql18.conf
+install -m0644 -D postgresql18.tmpfiles.conf %{buildroot}%{_tmpfilesdir}/postgresql18.conf
 
 %post -n %{pkgname}-server
 %systemd_post %service_name
@@ -979,7 +979,7 @@ make -C postgresql-setup-%{setup_version} check
 # FILES sections.
 %files -f main.lst -n %{pkgname}
 %doc doc/KNOWN_BUGS doc/MISSING_FEATURES doc/TODO
-%doc COPYRIGHT README HISTORY
+%doc COPYRIGHT HISTORY
 %doc README.rpm-dist
 %{_bindir}/clusterdb
 %{_bindir}/createdb
@@ -1034,9 +1034,12 @@ make -C postgresql-setup-%{setup_version} check
 %{_bindir}/pg_test_fsync
 %{_bindir}/pg_test_timing
 %{_bindir}/pg_waldump
+
+%{_bindir}/pg_walsummary
+%{_bindir}/pg_combinebackup
+
 %{_bindir}/pgbench
 %{_bindir}/vacuumlo
-%{_datadir}/pgsql/extension/adminpack*
 %{_datadir}/pgsql/extension/amcheck*
 %{_datadir}/pgsql/extension/autoinc*
 %{_datadir}/pgsql/extension/bloom*
@@ -1062,9 +1065,9 @@ make -C postgresql-setup-%{setup_version} check
 %{_datadir}/pgsql/extension/jsonb_plpython3u*
 %endif
 %{_datadir}/pgsql/extension/lo*
+%{_datadir}/pgsql/extension/pg_logicalinspect*
 %{_datadir}/pgsql/extension/ltree*
 %{_datadir}/pgsql/extension/moddatetime*
-%{_datadir}/pgsql/extension/old_snapshot*
 %{_datadir}/pgsql/extension/pageinspect*
 %{_datadir}/pgsql/extension/pg_buffercache*
 %{_datadir}/pgsql/extension/pg_freespacemap*
@@ -1086,7 +1089,6 @@ make -C postgresql-setup-%{setup_version} check
 %{_datadir}/pgsql/extension/tsm_system_time*
 %{_datadir}/pgsql/extension/unaccent*
 %{_libdir}/pgsql/_int.so
-%{_libdir}/pgsql/adminpack.so
 %{_libdir}/pgsql/amcheck.so
 %{_libdir}/pgsql/auth_delay.so
 %{_libdir}/pgsql/auto_explain.so
@@ -1122,8 +1124,9 @@ make -C postgresql-setup-%{setup_version} check
 %if %plpython3
 %{_libdir}/pgsql/ltree_plpython3.so
 %endif
+%{_libdir}/pgsql/pg_logicalinspect.so
+%{_libdir}/pgsql/pg_overexplain.so
 %{_libdir}/pgsql/moddatetime.so
-%{_libdir}/pgsql/old_snapshot.so
 %{_libdir}/pgsql/pageinspect.so
 %{_libdir}/pgsql/passwordcheck.so
 %{_libdir}/pgsql/pg_buffercache.so
@@ -1177,6 +1180,7 @@ make -C postgresql-setup-%{setup_version} check
 %files -n %{pkgname}-server -f server.lst
 %{_bindir}/initdb
 %{_bindir}/pg_basebackup
+
 %{_bindir}/pg_controldata
 %{_bindir}/pg_ctl
 %{_bindir}/pg_receivewal
@@ -1185,6 +1189,9 @@ make -C postgresql-setup-%{setup_version} check
 %{_bindir}/pg_rewind
 %{_bindir}/pg_checksums
 %{_bindir}/pg_verifybackup
+
+%{_bindir}/pg_createsubscriber
+
 %{_bindir}/postgres
 %{_bindir}/postgresql-setup
 %{_bindir}/postgresql-upgrade
@@ -1200,7 +1207,6 @@ make -C postgresql-setup-%{setup_version} check
 %{_datadir}/pgsql/system_constraints.sql
 %{_datadir}/pgsql/system_functions.sql
 %{_datadir}/pgsql/system_views.sql
-%{_datadir}/pgsql/fix-CVE-2024-4317.sql
 %{_datadir}/pgsql/timezonesets/
 %{_datadir}/pgsql/tsearch_data/
 %dir %{_datadir}/postgresql-setup
@@ -1232,6 +1238,11 @@ make -C postgresql-setup-%{setup_version} check
 %{_mandir}/man1/postgresql-new-systemd-unit.*
 %{_mandir}/man1/postgresql-setup.*
 %{_mandir}/man1/postgresql-upgrade.*
+
+%{_mandir}/man1/pg_walsummary.*
+%{_mandir}/man1/pg_combinebackup.*
+%{_mandir}/man1/pg_createsubscriber.*
+
 %{_sbindir}/postgresql-new-systemd-unit
 %{_tmpfilesdir}/postgresql.conf
 %{_unitdir}/*postgresql*.service
@@ -1243,9 +1254,8 @@ make -C postgresql-setup-%{setup_version} check
 %if %pam
 %config(noreplace) /etc/pam.d/postgresql
 %endif
-%{_sysusersdir}/postgresql16.conf
-%{_tmpfilesdir}/postgresql16.conf
-
+%{_sysusersdir}/postgresql18.conf
+%{_tmpfilesdir}/postgresql18.conf
 
 %files -n %{pkgname}-server-devel -f devel.lst
 %{_bindir}/pg_server_config
@@ -1267,6 +1277,9 @@ make -C postgresql-setup-%{setup_version} check
 %{_includedir}/postgres_ext.h
 %{_includedir}/pgsql/internal/*.h
 %{_includedir}/pgsql/internal/libpq/pqcomm.h
+
+%{_includedir}/pgsql/internal/libpq/protocol.h
+
 %{_includedir}/libpq/*.h
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libpq.so
@@ -1342,8 +1355,8 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
-* Tue Jul 22 2025 Nikola Davidova <ndavidov@redhat.com> - 16.9-6
-- Make Postgresql16 non default
+* Wed Jul 16 2025 Nikola Davidova <ndavidov@redhat.com> - 18beta1-2
+- Update to version 18beta1
 
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 16.9-5
 - Perl 5.42 rebuild

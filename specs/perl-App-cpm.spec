@@ -1,7 +1,7 @@
-%global cpan_version 0.997023
+%global cpan_version 0.997024
 
 Name:           perl-App-cpm
-Version:        0.997.023
+Version:        0.997.024
 Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -156,6 +156,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.997.024-1
+- 0.997024 bump (rhbz#2382296)
+
 * Wed Apr 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.997.023-1
 - 0.997023 bump (rhbz#2357610)
 

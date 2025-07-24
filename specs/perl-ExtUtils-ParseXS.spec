@@ -1,9 +1,9 @@
-%global base_version 3.57
+%global base_version 3.58
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.57
-Release:        519%{?dist}
+Version:        3.58
+Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.58-1
+- 3.58 bump (rhbz#2382307)
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.57-519
 - Increase release to favour standalone package
 

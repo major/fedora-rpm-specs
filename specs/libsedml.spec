@@ -28,8 +28,7 @@ Release:        %autorelease
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML
 Source0:        https://github.com/fbergmann/libSEDML/archive/v%{version}/libSEDML-%{version}.tar.gz
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -189,12 +188,8 @@ sed -e 's| /usr/lib/cmake | %{_libdir}/cmake |g' -i CMakeModules/FindLIBSBML.cma
 %endif
 
 %build
-######################################################################################################
-## ----> Move to build directory ##
-
-mkdir -p build
 export LDFLAGS="$RPM_LD_FLAGS -lpthread"
-%cmake3 -B build -Wno-dev \
+%cmake -Wno-dev \
 %if 0%{?with_python}
  -DWITH_PYTHON:BOOL=ON \
  -DWITH_SWIG:BOOL=ON \
@@ -242,25 +237,17 @@ export LDFLAGS="$RPM_LD_FLAGS -lpthread"
  -DCPACK_SOURCE_TZ:BOOL=OFF -DWITH_ZLIB:BOOL=ON -DWITH_CPP_NAMESPACE:BOOL=OFF \
  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
 
-##'Parallel make' breaks Java library's building
-## And mono build seems no good on s390x with parallel build
-%if 0%{?with_java} || 0%{?with_mono}
-make -j1 -C build
-%else
-%make_build -C build
-%endif
-
-####################################################################################################
+%cmake_build
 
 %install
-%make_install -C build
+%cmake_install
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/libsedml
 
 ##Only for R library
 %if 0%{?with_r}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
-%{_bindir}/R CMD INSTALL -l $RPM_BUILD_ROOT%{_libdir}/R/library build/bindings/r/libSEDML_%{version}_R_*.tar.gz
+%{_bindir}/R CMD INSTALL -l $RPM_BUILD_ROOT%{_libdir}/R/library %_vpath_builddir/bindings/r/libSEDML_%{version}_R_*.tar.gz
 test -d %{octpkg}/src && (cd %{octpkg}/src; rm -f *.o *.so)
 rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/%{octpkg}/R.css
 
@@ -296,7 +283,7 @@ rm -rf %{buildroot}%{_datadir}/cmake
 
 %if 0%{?with_check}
 %check
-make test -C build
+%ctest
 %endif
 
 %files

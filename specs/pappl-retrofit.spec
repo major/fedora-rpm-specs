@@ -13,7 +13,7 @@
 
 Name: pappl-retrofit
 Version: 1.0b2
-Release: 7%{?dist}
+Release: 8%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -188,12 +188,16 @@ make check
 %dir %{_datadir}/legacy-printer-app
 %{_datadir}/legacy-printer-app/testpage.ps
 %{_datadir}/legacy-printer-app/testpage.pdf
+%dir %attr(0710,root,lp) %{_localstatedir}/spool/legacy-printer-app
 # this symlink is required if the app should use CUPS backends/filters
 # in /usr/lib/cups
 %{serverbin}/legacy-printer-app
 %{_mandir}/man1/legacy-printer-app.1.gz
 
 %changelog
+* Tue Jul 22 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-8
+- own spool directory
+
 * Wed Feb 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-7
 - fix memory leaks from CUPS array
 

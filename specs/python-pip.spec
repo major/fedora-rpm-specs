@@ -103,6 +103,10 @@ Patch:          nowarn-pip._internal.main.patch
 # https://github.com/pypa/pip/pull/13423
 Patch:          python3.14-file-urls.patch
 
+# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+# https://github.com/sethmlarson/truststore/pull/183
+Patch:          truststore-pem-path.patch
+
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s

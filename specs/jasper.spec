@@ -6,7 +6,7 @@
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
 Version: 4.2.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: JasPer-2.0
 URL:     http://www.ece.uvic.ca/~frodo/jasper/
@@ -80,17 +80,15 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %endif
 
 %build
-mkdir builder
 %cmake \
   -DJAS_ENABLE_DOC:BOOL=OFF \
   -DALLOW_IN_SOURCE_BUILD:BOOL=ON \
-  -B builder
 
-%make_build -C builder
+%cmake_build 
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C builder
+%cmake_install
 
 # Unpackaged files
 rm -f doc/README
@@ -98,7 +96,7 @@ rm -f %{buildroot}%{_libdir}/lib*.la
 
 
 %check
-make test -C builder
+%ctest 
 
 %ldconfig_scriptlets libs
 
@@ -127,6 +125,9 @@ make test -C builder
 
 
 %changelog
+* Tue Jul 22 2025 Josef Ridky <jridky@redhat.com> - 4.2.3-4
+- fix FTBFS (bz#2381025)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
