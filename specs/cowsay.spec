@@ -6,7 +6,7 @@
 
 Name:           cowsay
 Version:        3.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Configurable speaking/thinking cow
 License:        GPL-2.0-or-later
 URL:            https://github.com/cowsay-org/cowsay
@@ -80,6 +80,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %{compdir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           flnet
 Version:        7.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Amateur Radio Net Control Station
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

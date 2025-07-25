@@ -7,7 +7,7 @@
 
 %global rocm_major 6
 %global rocm_minor 4
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -68,8 +68,6 @@ Source0:        %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{versi
 # TODO: it would be nice to separate this into its own package:
 Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
 
-# See https://github.com/ROCm/clr/pull/158
-Patch1:         %{url}/pull/158/commits/d508111ec8fe3ef031685f1e424be62a4a075ddc.patch
 # a fix for building blender
 Patch8:         0001-add-long-variants-for-__ffsll.patch
 
@@ -123,6 +121,8 @@ BuildRequires:  python3-cppheaderparser
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-runtime-devel >= %{rocm_release}
+# TODO: drop this when we bump to 7.0, 6.4.2 added some API's that rocclr needs
+BuildRequires:  rocm-runtime-devel >= 6.4.2
 BuildRequires:  zlib-devel
 
 # ROCclr relies on some x86 intrinsics
@@ -385,6 +385,11 @@ fi
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+- Drop patch1 to fix comgr linking, as it's been applied in upstream 6.4.2
+- Make sure 6.4.2 or newer is used for building due to api requirements
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
 - Remove suse check for using ldconfig
 

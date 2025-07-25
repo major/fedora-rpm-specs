@@ -3,7 +3,7 @@
 
 Name:		deskflow
 Version:	1.22.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.22.0-1
 - Update to version 1.22.0
 - Resolves: rhbz#2369204

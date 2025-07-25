@@ -1,6 +1,6 @@
 Name:		coan
 Version:	6.0.1
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	A command line tool for simplifying the pre-processor conditionals in source code
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -79,6 +79,9 @@ autoreconf -vi
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

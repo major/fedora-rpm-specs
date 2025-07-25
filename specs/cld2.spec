@@ -12,7 +12,7 @@
 Name:           cld2
 # When upstream has never chosen a version, you MUST use Version: 0.
 Version:        0
-Release:        0.30%{?usesnapshot:.%{commitdate0}git%{shortcommit0}}%{?dist}
+Release:        0.31%{?usesnapshot:.%{commitdate0}git%{shortcommit0}}%{?dist}
 Summary:        A library to detect the natural language of text
 # Automatically converted from old format: ASL 2.0
 License:        Apache-2.0
@@ -99,6 +99,9 @@ echo "this is some english text" | ./compact_lang_det_dynamic_test_chrome --data
 %{_libdir}/libcld2_full.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.20150821gitb56fa78
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Wolfgang Stöggl <c72578@yahoo.de> - 0-0.30.20150821gitb56fa78
 - Fix CMake 4.0 FTBFS (#2380510)
 

@@ -7,7 +7,7 @@ Version:	7.1.1
 %gometa
 
 Name:		geoipupdate
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -107,6 +107,9 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Paul Howarth <paul@city-fan.org> - 7.1.1-1
 - Update to 7.1.1
   - Update dependencies and re-build binaries with new Go version; no

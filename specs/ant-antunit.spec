@@ -1,6 +1,6 @@
 Name:           ant-antunit
 Version:        1.4.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Unit Test Framework for Ant Tasks
 License:        Apache-2.0
 URL:            https://ant.apache.org/antlibs/antunit
@@ -72,6 +72,9 @@ java -cp target/classes:target/test-classes:$(build-classpath junit hamcrest ant
 %license common/LICENSE NOTICE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

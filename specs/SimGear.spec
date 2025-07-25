@@ -1,6 +1,6 @@
 Name:           SimGear
 Version:        2024.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
@@ -69,6 +69,9 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Feb 28 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.1-1
 - new upstream release
 

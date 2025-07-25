@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.5.3
 # can only be reset when subpkg bumped
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Modern and extensible testing framework
 
 License:        MIT
@@ -143,6 +143,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.5.3-25
 - Rebuild
 

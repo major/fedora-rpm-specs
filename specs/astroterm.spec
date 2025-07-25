@@ -1,6 +1,6 @@
 Name:           astroterm
 Version:        1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A planetarium for your terminal
 
 License:        MIT
@@ -47,6 +47,9 @@ gunzip -dc %{SOURCE1} > data/ybsc5
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.6-1
 - update to 1.0.6 rhbz#2341135
 - enable builds for s390x

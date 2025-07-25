@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          2.24.0
-Release:          17%{dist}
+Release:          18%{dist}
 Summary:          Q-value estimation for false discovery rate control
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -61,6 +61,9 @@ chmod -x %{buildroot}%{_datadir}/R/library/%{packname}/doc/*
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.24.0-17
 - R-maint-sig mass rebuild
 

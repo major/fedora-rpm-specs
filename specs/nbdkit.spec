@@ -54,8 +54,8 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.1
-Release:        5%{?dist}
+Version:        1.45.2
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -621,6 +621,8 @@ nbdkit-limit-filter        Limit nr clients that can connect concurrently.
 nbdkit-log-filter          Log all transactions to a file.
 
 nbdkit-luks-filter         Read and write LUKS-encrypted disks.
+
+nbdkit-map-filter          Remap disk blocks.
 
 nbdkit-multi-conn-filter   Enable, emulate or disable multi-conn.
 
@@ -1353,6 +1355,7 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-limit-filter.so
 %{_libdir}/%{name}/filters/nbdkit-log-filter.so
 %{_libdir}/%{name}/filters/nbdkit-luks-filter.so
+%{_libdir}/%{name}/filters/nbdkit-map-filter.so
 %{_libdir}/%{name}/filters/nbdkit-multi-conn-filter.so
 %{_libdir}/%{name}/filters/nbdkit-nocache-filter.so
 %{_libdir}/%{name}/filters/nbdkit-noextents-filter.so
@@ -1399,6 +1402,7 @@ fi
 %{_mandir}/man1/nbdkit-limit-filter.1*
 %{_mandir}/man1/nbdkit-log-filter.1*
 %{_mandir}/man1/nbdkit-luks-filter.1*
+%{_mandir}/man1/nbdkit-map-filter.1*
 %{_mandir}/man1/nbdkit-multi-conn-filter.1*
 %{_mandir}/man1/nbdkit-nocache-filter.1*
 %{_mandir}/man1/nbdkit-noextents-filter.1*
@@ -1540,6 +1544,10 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.2-1
+- New upstream version 1.45.2
+- New map filter.
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.45.1-5
 - Rebuild to fix OCaml dependencies
 

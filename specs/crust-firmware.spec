@@ -3,7 +3,7 @@
 
 Name:    crust-firmware
 Version: 0.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: An Open Source SCP firmware for AllWinner SoCs
 License: BSD-3-clause OR GPL-2.0-only
 URL:     https://github.com/crust-firmware/crust
@@ -54,6 +54,9 @@ done
 %{_datadir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A utility which provides statistics based on the output of diff
 Name: diffstat
 Version: 1.68
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: X11
 URL: https://invisible-island.net/diffstat
 Source0: https://invisible-island.net/archives/diffstat/%{name}-%{version}.tgz
@@ -41,6 +41,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Thomas E. Dickey <dickey@invisible-island.net> - 1.68-4
 - corrected SPDX license
 

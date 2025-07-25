@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.0
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Data from Gapminder
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:          CC0-1.0
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.0-12
 - R-maint-sig mass rebuild
 

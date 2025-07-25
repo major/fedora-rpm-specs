@@ -1,6 +1,6 @@
 Name:          crrcsim-addon-models
 Version:       0.2.0
-Release:       26%{?dist}
+Release:       27%{?dist}
 Summary:       Model-Airplane Flight Simulation Program addon models
 # Automatically converted from old format: CC-BY - review is highly recommended.
 License:       LicenseRef-Callaway-CC-BY
@@ -76,6 +76,9 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} .
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

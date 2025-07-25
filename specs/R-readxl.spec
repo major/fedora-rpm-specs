@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.4.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Read Excel Files
 
 License:          MIT
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.3-5
 - R-maint-sig mass rebuild
 

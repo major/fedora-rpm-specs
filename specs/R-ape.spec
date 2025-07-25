@@ -10,7 +10,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Analyses of Phylogenetics and Evolution
 
 License:          GPL-2.0-only OR GPL-3.0-only
@@ -107,6 +107,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 5.7.1-11
 - R-maint-sig mass rebuild
 

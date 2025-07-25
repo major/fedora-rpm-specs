@@ -13,7 +13,7 @@ ExclusiveArch:	x86_64 aarch64
 Summary:	Data Acquisition Library
 Name:		daq
 Version:	2.0.7
-Release:	8%{?dist}
+Release:	9%{?dist}
 # sfbpf is BSD (various versions)
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
 License:	GPL-2.0-only AND LicenseRef-Callaway-BSD
@@ -113,6 +113,9 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -delete -print
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

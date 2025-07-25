@@ -9,7 +9,7 @@
 
 Name:		acme-tiny
 Version:	5.0.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Tiny auditable script to issue, renew Let's Encrypt certificates
 
 License:	MIT
@@ -136,6 +136,9 @@ exit 0
 %{_sbindir}/acme_tiny
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.1-11
 - Add sysusers.d config file
 

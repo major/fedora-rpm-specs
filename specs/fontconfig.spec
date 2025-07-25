@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.17.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -204,6 +204,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Akira TAGOH <tagoh@redhat.com> - 2.17.0-2
 - Backport a patch to fix a crash with Graphite fonts
 - Drop 70-*bitmaps*.conf from /etc/fonts/conf.d so far.

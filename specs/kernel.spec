@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc7.58
+%define pkgrelease 0.rc7.60
 %define kversion 6
 %define tarfile_release 6.16-rc7
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.58%{?buildid}%{?dist}
+%define specrelease 0.rc7.60%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -4342,8 +4342,20 @@ fi\
 #
 #
 %changelog
-* Mon Jul 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.58]
+* Wed Jul 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.60]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Jul 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.59]
+- fedora: minor cleanups (Peter Robinson)
+- fedora: aarch64: enable a couple of brcmstb reset drivers (Peter Robinson)
+
+* Tue Jul 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.58]
+- rhel/aarch64: enable CONFIG_TCG_ARM_CRB_FFA as a module (Marcin Juszkiewicz)
+- redhat/configs: Move CONFIG_MITIGATION_TSA under common/generic/x86 (Waiman Long)
+- Set CONFIG_TEST_VMALLOC to off for s390 zfcpdump (Justin M. Forbes)
+- Revert "redhat/configs: automotive: Turn off ACPI Processor package for aarch64" (Enric Balletbo i Serra)
+- redhat/configs: automotive: Disable CONFIG_NUMA config (Dorinda Bassey)
+- Consolidate configs to common for 6.16 (Justin M. Forbes)
 
 * Mon Jul 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.57]
 - Linux v6.16.0-0.rc7

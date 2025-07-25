@@ -1,6 +1,6 @@
 Name:              dropbear
 Version:           2025.88
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -82,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.88-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 08 2025 Federico Pellegrin <fede@evolware.org> - 2025.88-1
 - Update to 2025.88 (rhbz#2364701)
 

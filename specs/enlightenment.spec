@@ -2,7 +2,7 @@
 
 Name:		enlightenment
 Version:	0.27.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Summary:	Enlightenment window manager
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/enlightenment
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 29 2025 Tom Callaway <spot@fedoraproject.org> - 0.27.1-1
 - update to 0.27.1
 

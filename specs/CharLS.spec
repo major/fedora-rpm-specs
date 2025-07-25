@@ -1,6 +1,6 @@
 Name:		CharLS
 Version:	2.4.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	An optimized implementation of the JPEG-LS standard
 License:	BSD-3-Clause
 URL:		https://github.com/team-charls/charls
@@ -67,6 +67,9 @@ rm CharLS*.sln* -v
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

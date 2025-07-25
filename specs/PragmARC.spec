@@ -1,6 +1,6 @@
 Name:           PragmARC
 Version:        20130728
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        PragmAda Reusable Components, a component library for Ada
 Summary(sv):    PragmAda Reusable Components, ett komponentbibliotek för ada
 
@@ -83,6 +83,9 @@ cp -p %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20130728-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20130728-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

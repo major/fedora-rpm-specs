@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -356,6 +356,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-1
 - Update to 2.42.0 (2.41.0 was skipped due to an upstream build bug)
 

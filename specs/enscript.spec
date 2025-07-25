@@ -1,7 +1,7 @@
 Summary: A plain ASCII to PostScript converter
 Name: enscript
 Version: 1.6.6
-Release: 36%{?dist}
+Release: 37%{?dist}
 # compat/regex.h,strerror.c,xalloc.{c,h} - GPL-2.0-or-later
 # states/gram.{c,h}, intl/plural.c - GPL-3.0-or-later WITH Bison-exception-2.2
 # intl/hash-string.c - LGPL-2.1-or-later
@@ -124,6 +124,9 @@ done
 %config(noreplace) %{_sysconfdir}/enscript.cfg
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 25 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.6-36
 - enscript: FTBFS in Fedora rawhide/f42 (fedora#2340127)
 

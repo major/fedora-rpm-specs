@@ -7,7 +7,7 @@
 Name:		globus-gram-job-manager-sge
 %global _name %(tr - _ <<< %{name})
 Version:	3.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Grid Engine Job Manager Support
 
 #		The sge.pm file is LGPL-2.1, the rest is Apache-2.0
@@ -185,6 +185,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/sge
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

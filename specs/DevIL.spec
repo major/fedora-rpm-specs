@@ -1,6 +1,6 @@
 Name:           DevIL
 Version:        1.7.8
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        A cross-platform image library
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -123,6 +123,9 @@ rm %{buildroot}%{_infodir}/dir
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

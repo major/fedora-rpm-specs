@@ -1,7 +1,7 @@
 Summary:   Firmware loader for Qualcomm Gobi WWAN devices 
 Name:      gobi_loader
 Version:   0.7
-Release:   35%{?dist}
+Release:   36%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
 Source0:   http://www.codon.org.uk/~mjg59/gobi_loader/download/%{name}-%{version}.tar.gz
@@ -37,6 +37,9 @@ make install prefix=%{buildroot}
 %doc README
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

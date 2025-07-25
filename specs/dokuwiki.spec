@@ -5,7 +5,7 @@ License:	GPL-2.0-only
 %global		releasenum 2024-02-06b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -235,6 +235,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240206b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 24 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20240206b-1
 - Update to version 2024-02-06b "Kaos"
 

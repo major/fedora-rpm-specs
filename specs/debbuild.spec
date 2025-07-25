@@ -3,7 +3,7 @@
 
 Name:           debbuild
 Version:        20.04.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Build Debian-compatible .deb packages from RPM .spec files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ make
 %dir %{_sysconfdir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

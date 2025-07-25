@@ -7,7 +7,7 @@
 %global upstreamname hipRAND
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -41,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -174,6 +174,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Remove suse check of ldconfig
 

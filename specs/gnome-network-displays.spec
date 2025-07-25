@@ -2,7 +2,7 @@
 
 Name:           gnome-network-displays
 Version:        0.97.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Screencasting for GNOME
 
 # The icon is licensed CC-BY-SA
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.97.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Packit <hello@packit.dev> - 0.97.0-1
 - Update to version 0.97.0
 - Resolves: rhbz#2367943

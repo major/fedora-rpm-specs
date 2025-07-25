@@ -1,6 +1,6 @@
 Name:           fedora-easy-karma
 Version:        0.56
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-2.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
@@ -44,6 +44,9 @@ updates that you have currently installed.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Lukas Ruzicka <lruzicka@redhat.com> - 0.56-1
 - release 0.56
 

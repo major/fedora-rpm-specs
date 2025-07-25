@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           MagicPoint
 Version:        1.13a
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        X based presentation software
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -71,6 +71,9 @@ rm sample/.cvsignore sample/*akefile*
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb  4 2025 Hans de Goede <hdegoede@redhat.com> - 1.13a-42
 - Fix FTBFS (rhbz#2336251, rhbz#2339853)
 

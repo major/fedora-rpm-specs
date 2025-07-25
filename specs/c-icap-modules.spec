@@ -4,7 +4,7 @@
 
 Name:       c-icap-modules
 Version:    0.5.7
-Release:    5.%{date}git%{shortcommit0}%{?dist}
+Release:    6.%{date}git%{shortcommit0}%{?dist}
 Summary:    Services for the c-icap server
 License:    LGPL-2.0-or-later
 URL:        http://c-icap.sourceforge.net/
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man8/c-icap-mktcb.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-6.20250117git36a6688
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.5.7-5.20250117git36a6688
 - Updated to latest repo commits.
 

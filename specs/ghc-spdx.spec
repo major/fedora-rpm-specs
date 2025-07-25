@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1
 # can only be reset when subpkg bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SPDX license expression language, Extras
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.1-2
 - Rebuild
 

@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.3.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -214,6 +214,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.4-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

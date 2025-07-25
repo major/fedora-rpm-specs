@@ -1,6 +1,6 @@
 Name: did
 Version: 0.22
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPL-2.0-or-later
@@ -60,6 +60,9 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.22-2
 - Rebuilt for Python 3.14
 

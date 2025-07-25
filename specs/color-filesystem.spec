@@ -1,6 +1,6 @@
 Name:           color-filesystem
 Version:        1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Color filesystem layout
 
 License:        LicenseRef-Not-Copyrightable
@@ -45,6 +45,9 @@ EOF
 %{_rpmconfigdir}/macros.d/macros.color
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

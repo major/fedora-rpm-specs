@@ -1,6 +1,6 @@
 Name:           d0_blind_id
 Version:        1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cryptographic library to perform identification
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ find %{buildroot}%{_libdir} -type f -name '*.la' -print -delete
 %{_libdir}/pkgconfig/d0_rijndael.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

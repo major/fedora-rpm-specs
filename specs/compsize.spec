@@ -4,7 +4,7 @@
 
 Name: compsize
 Version: 1.5^git%{date}.%{shortcommit}
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Utility for measuring compression ratio of files on btrfs
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -39,6 +39,9 @@ install -D -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5^git20250123.d79eacf-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Juan Orti Alcaine <jortialc@redhat.com> - 1.5^git20250123.d79eacf-12
 - Update to the latest git snapshot
 - Add patch to fix build errors

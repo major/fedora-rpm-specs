@@ -1,7 +1,7 @@
 Summary:   Backup over network to multiple incremental archives
 Name:      bontmia
 Version:   0.14
-Release:   36%{?dist}
+Release:   37%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
 URL:       http://folk.uio.no/johnen/bontmia/
@@ -37,6 +37,9 @@ install -D -p -m 0755 bontmia %{buildroot}%{_bindir}/bontmia
 %{_bindir}/bontmia
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

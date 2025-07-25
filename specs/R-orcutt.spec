@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          2.3
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          Estimate Procedure in Case of First Order Autocorrelation
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.3-24
 - R-maint-sig mass rebuild
 

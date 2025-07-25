@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -13,6 +13,7 @@ BuildRequires: make
 Patch1:  lftp-4.0.9-date_fmt.patch
 Patch2:  lftp-4.9.2-cdefs.patch
 Patch3:  lftp-4.9.2-tls-close.patch
+Patch4:  lftp-4.9.3-cert-pem-location.patch
 
 %description
 LFTP is a sophisticated ftp/http file transfer program. Like bash, it has job
@@ -36,6 +37,7 @@ Utility scripts for use with lftp.
 %patch -P2 -p1 -b .cdefs
 %endif
 %patch -P3 -p1 -b .tls-close
+%patch -P4 -p1 -b .cert-pem
 
 # Avoid trying to re-run autoconf
 touch -r aclocal.m4 configure m4/needtrio.m4
@@ -104,6 +106,9 @@ desktop-file-install	\
 
 
 %changelog
+* Wed Jul 23 2025 Michal Ruprich <mruprich@redhat.com> - 4.9.3-4
+- Resolves: #2380438 - Moving of off /etc/pki/tls/certs/ca-bundle.crt
+
 * Mon Jul 07 2025 Tomas Korbar <tkorbar@redhat.com> - 4.9.3-3
 - Do not wait for server close-notify on TLS close
 

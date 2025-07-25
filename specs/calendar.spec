@@ -3,7 +3,7 @@
 Summary: Reminder utility
 Name:    calendar
 Version: 1.37
-Release: 11.%{alphatag}%{?dist}
+Release: 12.%{alphatag}%{?dist}
 License: BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:     http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/calendar
 
@@ -53,6 +53,9 @@ done
 %{_datadir}/calendar
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-12.20250303cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 David Cantrell <dcantrell@redhat.com> - 1.37-11.20250303cvs
 - Upgrade to calendar(1) from OpenBSD 7.6
 

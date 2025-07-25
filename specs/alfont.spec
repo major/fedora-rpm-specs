@@ -1,6 +1,6 @@
 Name:           alfont
 Version:        2.0.9
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Font rendering library for the Allegro game library
 License:        FTL
 URL:            http://chernsha.sitesled.com/
@@ -72,6 +72,9 @@ install -m 644 include/%{name}*.h $RPM_BUILD_ROOT%{_includedir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: A process-transparent configuration system
 # COPYING:                                  GPL-2.0 text
 # defaults/gconf-defaults-main.c:           GPL-2.0-or-later
@@ -191,6 +191,9 @@ fi
 %{_datadir}/gir-1.0/GConf-2.0.gir
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 20 2025 Petr Pisar <ppisar@redhat.com> - 3.2.6-46
 - Adapt to gettext 0.25
 

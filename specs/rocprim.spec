@@ -1,6 +1,6 @@
 %global upstreamname rocPRIM
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
@@ -19,7 +19,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
@@ -145,6 +145,10 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+- Rebase patch0
+
 * Tue Jun 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - change to autosetup
 

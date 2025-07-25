@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.3
-Release:          16%{?dist}
+Release:          17%{?dist}
 Summary:          Application Directories: Determine Where to Save Data, Caches, and Logs
 
 License:          MIT
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.3-16
 - R-maint-sig mass rebuild
 

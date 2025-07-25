@@ -23,7 +23,7 @@ stack to build interoperable RPC clients and servers.}
 %global godocs          lib/go/README.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Thrift Go Software Library
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ rm -rf lib/go/test
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

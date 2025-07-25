@@ -7,7 +7,7 @@
 %global upstreamname rocFFT
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -98,7 +98,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -318,6 +318,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - Remove suse check for using ldconfig
 

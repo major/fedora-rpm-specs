@@ -7,7 +7,7 @@
 
 Name:           fpc
 Version:        3.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Free Pascal Compiler
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception
@@ -384,6 +384,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat May 10 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-18
 - Fix Patch9 causing internal compiler errors
 

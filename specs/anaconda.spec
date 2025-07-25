@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.30
-Release: 1%{?dist}
+Version: 43.31
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -513,6 +513,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Tue Jul 22 2025 Packit <hello@packit.dev> - 43.31-1
+- Fix unit tests for code running rsync by mocking it. (rvykydal)
+
 * Tue Jul 15 2025 Packit <hello@packit.dev> - 43.30-1
 - Bump the required version of dnf (pkratoch)
 - storage: Prevent accidental erasure of Live installation media (k.koukiou)

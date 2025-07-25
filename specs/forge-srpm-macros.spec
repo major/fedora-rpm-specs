@@ -5,7 +5,7 @@
 
 Name:           forge-srpm-macros
 Version:        0.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Macros to simplify packaging of forge-hosted projects
 
 License:        GPL-1.0-or-later
@@ -78,6 +78,9 @@ export MACRO_LUA_DIR="%{buildroot}%{_rpmluadir}"
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    adcli
 Version: 0.9.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Active Directory enrollment
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
@@ -91,6 +91,9 @@ documentation.
 %doc %{_datadir}/doc/adcli/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

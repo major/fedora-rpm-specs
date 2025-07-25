@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.9.1.0
 # can only be reset when subpkg bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Efficient algorithms for vector arrays
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.9.1.0-4
 - Rebuild
 

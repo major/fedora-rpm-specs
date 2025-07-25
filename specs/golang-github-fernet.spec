@@ -17,7 +17,7 @@ message in a form that can't be read or altered without the key.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Generate and verify HMAC-based authentication tokens
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

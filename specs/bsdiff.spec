@@ -1,7 +1,7 @@
 Summary:	Binary diff/patch utility
 Name:		bsdiff
 Version:	4.3
-Release:	36%{?dist}
+Release:	37%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Source0:	http://www.daemonology.net/bsdiff/bsdiff-%{version}.tar.gz
@@ -36,6 +36,9 @@ install -m 644 bsdiff.1 bspatch.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

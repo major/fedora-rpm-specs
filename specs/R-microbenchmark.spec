@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Accurate Timing Functions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.10-10
 - R-maint-sig mass rebuild
 

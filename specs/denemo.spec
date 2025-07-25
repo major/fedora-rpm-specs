@@ -1,6 +1,6 @@
 Name:		denemo
 Version:	2.6.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Graphical music notation program
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -162,6 +162,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

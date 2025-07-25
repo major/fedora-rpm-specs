@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	54%{?dist}
+Release:	55%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -204,6 +204,9 @@ install -m0644 -D ebnetd.sysusers.conf %{buildroot}%{_sysusersdir}/ebnetd.conf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0-54
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

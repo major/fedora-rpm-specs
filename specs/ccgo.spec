@@ -1,6 +1,6 @@
 Name:       ccgo
 Version:    0.3.6.5
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    An IGS (Internet Go Server) client written in C++
 # *.cc and *.hh:    GPL-3.0-or-later
 # COPYING:  GPL-3.0 text
@@ -106,6 +106,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
 %{_datadir}/pixmaps/ccgo.xpm
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Petr Pisar <ppisar@redhat.com> - 0.3.6.5-26
 - Modernize a spec file
 - Declare a source license

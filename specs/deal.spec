@@ -2,7 +2,7 @@
 
 Name: deal
 Version: 3.1.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Garry T. Williams <gtwilliams@gmail.com> 3.1.12-2
 - Fixed C23 compiler errors
 

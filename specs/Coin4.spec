@@ -1,6 +1,6 @@
 Name:           Coin4
 Version:        4.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-level 3D visualization library
 
 License:        BSD-3-Clause AND GPL-3.0-or-later
@@ -165,6 +165,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 15 2025 Cristian Le <git@lecris.dev> - 4.0.3-3
 - Allow to build with CMake 4.0
 

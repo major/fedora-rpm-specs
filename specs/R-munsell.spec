@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.5.0
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          Utilities for Using Munsell Colours
 
 License:          MIT
@@ -75,6 +75,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.5.0-24
 - R-maint-sig mass rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           git-up
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -56,6 +56,9 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 2.3.0-1
 - Update to 2.3.0 (fixes rhbz#2316732)
 - Fix build with termcolor 3 (fixes rhbz#2375192)

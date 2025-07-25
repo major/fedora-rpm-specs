@@ -12,7 +12,7 @@
 
 Name:           fedora-license-data
 Version:        1.68
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,6 +128,9 @@ make check-grammar
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Miroslav Suchý <msuchy@redhat.com> 1.68-1
 - add CC-SA-1.0 as allowed-content
 - allow golang-x-perf to use CC-BY-4.0 for code as an exception

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/crayon/index.html
@@ -53,6 +53,9 @@ install -p crayon/README.md $RPM_BUILD_ROOT%{_datadir}/R/library/%{packname}/
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.1-12
 - R-maint-sig mass rebuild
 

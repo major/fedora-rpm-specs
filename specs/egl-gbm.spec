@@ -6,7 +6,7 @@
 Name:           egl-gbm
 Epoch:          2
 Version:        1.1.2.1%{!?tag:^%{date}git%{shortcommit0}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Nvidia egl gbm libary
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -49,6 +49,9 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 %{_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Simone Caronni <negativo17@gmail.com> - 2:1.1.2.1-1
 - Update to 1.1.2.1.
 - Trim changelog.

@@ -48,7 +48,7 @@
 
 Name:       copr-frontend
 Version:    2.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -379,6 +379,9 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.2-1
 - fix FTBFS when using python below 3.12
 - Add sysusers.d config file to allow rpm to create users/groups automatically

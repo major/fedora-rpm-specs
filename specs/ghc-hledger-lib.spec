@@ -28,7 +28,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.40
 # can only be reset when all subpkgs bumped
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A library providing the core functionality of hledger
 
 # https://hledger.org/dev-README.html
@@ -405,6 +405,9 @@ cd %{pager}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 29 2025 Jens Petersen  <petersen@redhat.com> - 1.40-1
 - update to 1.40
 - add lucid from hledger

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.64.0
-Release:          13%{dist}
+Release:          14%{dist}
 Summary:          Infrastructure for Biostrings-based genome data packages
 License:          Artistic-2.0
 URL:              http://bioconductor.org/packages/release/bioc/html/BSgenome.html
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/pkgtemplates
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.64.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.64.0-13
 - R-maint-sig mass rebuild
 

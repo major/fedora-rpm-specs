@@ -7,8 +7,8 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.25
-Release: 1%{?dist}
+Version: 0.25.1
+Release: 2%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -405,6 +405,7 @@ make check LIBUNISTRING=-lunistring
 %{_datadir}/%{name}/*.h
 %{_datadir}/%{name}/msgunfmt.tcl
 %{_datadir}/%{name}/m4/*
+%{_datadir}/aclocal/nls.m4
 %{_includedir}/autosprintf.h
 %{_includedir}/gettext-po.h
 %{_infodir}/autosprintf*
@@ -451,6 +452,15 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Manish Tiwari <matiwari@redhat.com> - 0.25.1-1
+- update to 0.25.1 release
+- Bug fixes:
+- autopoint no longer fails if configure.ac contains no AM_GNU_GETTEXT_VERSION or AM_GNU_GETTEXT_REQUIRE_VERSION invocation.
+- nls.m4 is installed again under $PREFIX/share/aclocal/.
+
 * Mon May 12 2025 Manish Tiwari <matiwari@redhat.com> - 0.25-1
 - update to 0.25 release
 - https://savannah.gnu.org/news/?id=10769

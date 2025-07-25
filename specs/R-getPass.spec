@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.4
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Masked User Input
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -71,6 +71,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.4-6
 - R-maint-sig mass rebuild
 

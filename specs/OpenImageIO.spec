@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.5.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -208,6 +208,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Richard Shaw <hobbes1069@gmail.com> - 1:2.5.19.0-1
 - Udate to 2.5.19.0.
 - Rebuild for tbb 2022.0.0.

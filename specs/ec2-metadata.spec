@@ -1,6 +1,6 @@
 Name:           ec2-metadata
 Version:        0.1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        EC2 instance metadata query tool 
 
 # note web site says "Apache License 2.0", but code actually bears
@@ -36,6 +36,9 @@ install -p -m 755 %{SOURCE0} $RPM_BUILD_ROOT/%{_bindir}/
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

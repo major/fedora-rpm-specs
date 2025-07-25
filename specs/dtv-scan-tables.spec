@@ -8,7 +8,7 @@
 Version:	1
 Name:		dtv-scan-tables
 Summary:	Digital TV scan tables
-Release:	%{rel}.%(echo %{date} | tr -d -)git%{git}%{?dist}.1
+Release:	%{rel}.%(echo %{date} | tr -d -)git%{git}%{?dist}.2
 
 #2013-07-19: License discussed in: https://bugzilla.redhat.com/show_bug.cgi?id=986051#c4
 #and https://gitlab.com/fedora/legal/fedora-license-data/-/issues/580#note_2155500881
@@ -58,6 +58,9 @@ make DATADIR=%{buildroot}/%{_datadir} install install_v3
 %{_datadir}/dvbv5/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-11.20240324git7098bdd27548.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-11.20240324git7098bdd27548.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

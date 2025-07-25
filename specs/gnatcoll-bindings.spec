@@ -7,7 +7,7 @@
 Name:           gnatcoll-bindings
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The GNAT Components Collection – bindings
 Summary(sv):    GNAT Components Collection – bindningar
 
@@ -656,6 +656,9 @@ done
 ###############
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

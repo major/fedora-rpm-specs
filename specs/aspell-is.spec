@@ -5,7 +5,7 @@ Summary: Icelandic dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 0.51.1
-Release: 36%{?dist}
+Release: 37%{?dist}
 License: GPL-2.0-or-later
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -46,6 +46,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/aspell-%{aspellrelease}/*slenska.alias $RPM_BUILD_
 %{_libdir}/aspell-%{aspellrelease}/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.51.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.51.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

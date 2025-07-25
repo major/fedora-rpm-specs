@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Kernel Regression Smoothing with Local or Global Plug-in Bandwidth
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.10-11
 - R-maint-sig mass rebuild
 

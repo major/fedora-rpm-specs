@@ -7,7 +7,7 @@
 
 Name:      etckeeper
 Version:   1.18.22
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -247,6 +247,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.22-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.22-3
 - Fix conditional.
 

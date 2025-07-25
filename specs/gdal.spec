@@ -47,7 +47,7 @@
 
 Name:          gdal
 Version:       3.10.3
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -786,6 +786,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 3.10.3-5
 - Rebuild (poppler)
 

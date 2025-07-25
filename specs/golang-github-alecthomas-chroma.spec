@@ -15,7 +15,7 @@ lexers and styles.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose syntax highlighter in pure Go
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Athos Ribeiro <athoscr@fedoraproject.org> - 2.15.0-1
 - Update to latest revision. Thanks to Yaakov Selkowitz.
 

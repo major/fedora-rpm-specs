@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}.%{packrel}
-Release:          40%{?dist}
+Release:          41%{?dist}
 Summary:          R routines for combinatorics
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
@@ -44,6 +44,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.0.8-40
 - R-maint-sig mass rebuild
 

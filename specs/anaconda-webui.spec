@@ -1,6 +1,6 @@
 Name:           anaconda-webui
 Version:        44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -118,6 +118,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Packit <hello@packit.dev> - 44-1
 - logging: write error logs also to journal
 - error: when frontend crash prompt users to also attach anaconda-webui log file

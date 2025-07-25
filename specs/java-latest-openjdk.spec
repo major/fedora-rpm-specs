@@ -133,7 +133,7 @@
 # Set of architectures with  libsimdsort.so
 %global simdsort_arches x86_64
 # Set of architectures with  libsleef.so
-%global sleef_arches aarch64
+%global sleef_arches aarch64 riscv64
 # Set of architectures where we verify backtraces with gdb
 # s390x fails on RHEL 7 so we exclude it there
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -342,7 +342,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        12
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions

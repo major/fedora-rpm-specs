@@ -1,6 +1,6 @@
 Name: datovka
 Version: 4.26.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -57,6 +57,9 @@ cd tests
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.26.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.26.0-2
 - Added mising gnupg2-smime dependency
   Resolves: rhbz#2380422

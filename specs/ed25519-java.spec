@@ -1,6 +1,6 @@
 Name:          ed25519-java
 Version:       0.3.0
-Release:       24%{?dist}
+Release:       25%{?dist}
 Summary:       Implementation of EdDSA (Ed25519) in Java
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:       CC0-1.0
@@ -71,6 +71,9 @@ This package contains javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.2
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Connect to 'R-hub'
 
 License:          MIT
@@ -95,6 +95,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.2-11
 - R-maint-sig mass rebuild
 

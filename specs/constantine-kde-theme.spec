@@ -1,6 +1,6 @@
 Name:		constantine-kde-theme
 Version:	12.1.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Constantine KDE Theme
 
 License:	GPL-2.0-or-later AND CC-BY-SA-1.0
@@ -103,6 +103,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

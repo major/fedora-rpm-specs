@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.1
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          A Modern and Easy-to-Use Crypto Library
 
 License:          MIT
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.1-12
 - R-maint-sig mass rebuild
 

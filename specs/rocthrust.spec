@@ -1,7 +1,7 @@
 %global upstreamname rocThrust
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -27,7 +27,7 @@
 
 Name:           rocthrust
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Thrust libary
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -139,6 +139,9 @@ fi
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jun 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Improve testing on suse
 

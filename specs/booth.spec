@@ -40,7 +40,7 @@
 
 Name:           booth
 Version:        1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ticket Manager for Multi-site Clusters
 License:        GPL-2.0-or-later
 Url:            https://github.com/%{github_owner}/%{name}
@@ -286,6 +286,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

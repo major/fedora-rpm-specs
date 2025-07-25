@@ -4,7 +4,7 @@
 
 Name:           cairo
 Version:        1.18.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A 2D graphics library
 
 License:        LGPL-2.1-only OR MPL-1.1
@@ -156,6 +156,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Milan Crha <mcrha@redhat.com> - 1.18.4-1
 - Update to 1.18.4
 

@@ -1,6 +1,6 @@
 Name:		expatpp
 Version:	0
-Release:	31.20121019gitd8c1bf8%{?dist}
+Release:	32.20121019gitd8c1bf8%{?dist}
 Summary:	C++ layer for expat
 # Automatically converted from old format: MPLv1.1 - review is highly recommended.
 License:	LicenseRef-Callaway-MPLv1.1
@@ -76,6 +76,9 @@ develop code based on expatpp.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-32.20121019gitd8c1bf8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-31.20121019gitd8c1bf8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

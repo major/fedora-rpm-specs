@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    38%{?dist}
+Release:    39%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPL-2.0-only
@@ -181,6 +181,9 @@ rm examples/*.in
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.14-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.14.14-38
 - Don't ship /usr/bin/smtp, not used, conflicts with opensmtpd.
 

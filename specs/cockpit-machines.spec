@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-machines
-Version:        335
-Release:        1%{?dist}
+Version:        336
+Release:        2%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -68,69 +68,35 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.27.6
-Provides: bundled(npm(@emotion/is-prop-valid)) = 0.7.3
-Provides: bundled(npm(@emotion/memoize)) = 0.7.1
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
 Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
-Provides: bundled(npm(@patternfly/react-console)) = 6.0.0
 Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
-Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
-Provides: bundled(npm(css-jss)) = 10.10.0
-Provides: bundled(npm(css-vendor)) = 2.0.8
-Provides: bundled(npm(csstype)) = 3.1.3
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(file-saver)) = 1.3.8
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(hoist-non-react-statics)) = 3.3.2
-Provides: bundled(npm(hyphenate-style-name)) = 1.1.0
 Provides: bundled(npm(ipaddr.js)) = 2.2.0
-Provides: bundled(npm(is-in-browser)) = 1.1.3
 Provides: bundled(npm(js-tokens)) = 4.0.0
-Provides: bundled(npm(jss-plugin-camel-case)) = 10.10.0
-Provides: bundled(npm(jss-plugin-compose)) = 10.10.0
-Provides: bundled(npm(jss-plugin-default-unit)) = 10.10.0
-Provides: bundled(npm(jss-plugin-expand)) = 10.10.0
-Provides: bundled(npm(jss-plugin-extend)) = 10.10.0
-Provides: bundled(npm(jss-plugin-global)) = 10.10.0
-Provides: bundled(npm(jss-plugin-nested)) = 10.10.0
-Provides: bundled(npm(jss-plugin-props-sort)) = 10.10.0
-Provides: bundled(npm(jss-plugin-rule-value-function)) = 10.10.0
-Provides: bundled(npm(jss-plugin-rule-value-observable)) = 10.10.0
-Provides: bundled(npm(jss-plugin-template)) = 10.10.0
-Provides: bundled(npm(jss-plugin-vendor-prefixer)) = 10.10.0
-Provides: bundled(npm(jss-preset-default)) = 10.10.0
-Provides: bundled(npm(jss)) = 10.10.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
-Provides: bundled(npm(react-display-name)) = 0.2.5
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
-Provides: bundled(npm(react-jss)) = 10.10.0
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(redux-thunk)) = 3.1.0
 Provides: bundled(npm(redux)) = 5.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(shallow-equal)) = 1.2.1
-Provides: bundled(npm(symbol-observable)) = 1.2.0
 Provides: bundled(npm(tabbable)) = 6.2.0
-Provides: bundled(npm(theming)) = 3.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
-Provides: bundled(npm(tiny-warning)) = 1.0.3
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(xterm-addon-fit)) = 0.8.0
-Provides: bundled(npm(xterm)) = 5.3.0
 
 %description
 Cockpit component for managing libvirt virtual machines.
@@ -153,6 +119,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 336-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Packit <hello@packit.dev> - 336-1
+- Graphical VNC and serial consoles improvements
+- Control VNC console resizing and scaling
+- Bug fixes and translation updates
+
 * Wed Jul 09 2025 Packit <hello@packit.dev> - 335-1
 - Bug fixes and translation updates
 

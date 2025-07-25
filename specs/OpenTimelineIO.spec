@@ -12,7 +12,7 @@
 
 Name:           OpenTimelineIO
 Version:        0.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Editorial timeline information API
 # OpenTimelineIO is Apache-2.0, rapidjson is MIT
 License:        Apache-2.0 AND MIT
@@ -118,6 +118,9 @@ mv rapidjson-%{rjcommit} src/deps/rapidjson
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Steve Cossette <farchord@gmail.com> - 0.17.0-2
 - Fix dependancy install issue
 

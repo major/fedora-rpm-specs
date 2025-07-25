@@ -3,7 +3,7 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib1
 Version:        1.0.0
-Release:        46%{?dist}
+Release:        47%{?dist}
 License:        Zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-1.0/%{realname}-%{version}.tgz
@@ -95,6 +95,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb  3 2025 Hans de Goede <hdegoede@redhat.com> - 1.0.0-46
 - Fix FTBFS (rhbz#2336002, rhbz#2339440)
 - Drop quite old "Obsoletes: ClanLib"

@@ -1,6 +1,6 @@
 Name: anyremote
 Version: 6.7.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Remote control through Wi-Fi or bluetooth connection
 License: GPL-3.0-or-later
 URL: https://anyremote.sourceforge.net/
@@ -63,6 +63,9 @@ Documentation for anyRemote
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 25 2025 Sérgio Basto <sergio@serjux.com> - 6.7.3-15
 - (rhgz#2339892) Fix FTBFS
 

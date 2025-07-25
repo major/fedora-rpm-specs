@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary:        SQL relational database management system
 # Automatically converted from old format: Interbase - review is highly recommended.
@@ -382,6 +382,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4.3010-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.4.3010-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

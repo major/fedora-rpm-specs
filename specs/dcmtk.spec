@@ -18,7 +18,7 @@ Version: 3.6.9
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # see licenses-3.6.9.txt for license breakdown
 License: BSD-3-Clause and Apache-2.0 and BSD-2-Clause and (WTFPL or MIT) and GPL-3.0-or-later and ISC and MIT
@@ -263,6 +263,9 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libofstd.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 20 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 3.6.9-2
 - Update license to SPDX identifiers
 

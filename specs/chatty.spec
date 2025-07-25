@@ -23,7 +23,6 @@ ExcludeArch:    i686
 
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  dbus-daemon
 BuildRequires:  dbus-x11

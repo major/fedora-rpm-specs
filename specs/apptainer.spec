@@ -45,7 +45,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -483,6 +483,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 15 2025 Dave Dykstra <dwd@cern.ch> - 1.4.1
 - Update to upstream 1.4.1
 

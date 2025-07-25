@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.6.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        X.509 collection accessing and storing methods
 
 License:        BSD-3-Clause
@@ -141,6 +141,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 1.6.10-1
 - https://hackage.haskell.org/package/crypton-x509-store-1.6.10/changelog
 

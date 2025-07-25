@@ -1,6 +1,6 @@
 Name:           asymptote
 Version:        3.01
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -208,6 +208,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.01-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 José Expósito <jexposit@redhat.com> - 3.01-2
 - Use mesa-compat-libOSMesa on Fedora 42 and later
   Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2373991

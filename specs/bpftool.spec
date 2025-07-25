@@ -1,6 +1,6 @@
 Name:           bpftool
 Version:        7.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -46,6 +46,9 @@ mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 16 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 7.5.0-3
 - Move the binary to /usr/bin/
 

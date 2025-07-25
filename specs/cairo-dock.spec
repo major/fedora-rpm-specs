@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc6
 
 %undefine _ld_strict_symbol_defs
@@ -263,6 +263,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20250714gite852048-2.rc6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250714gite852048-1.rc6
 - Update to the latest git (20250714gite852048)
 

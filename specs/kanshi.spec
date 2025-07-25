@@ -1,8 +1,8 @@
 %global forgeurl https://git.sr.ht/~emersion/kanshi
 
 Name:           kanshi
-Version:        1.7.0
-Release:        3%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
 # Overall project license: MIT
@@ -12,9 +12,9 @@ Summary:        Dynamic display configuration for Wayland
 # files by the `wayland-scanner` binary during build and doesn't alter the main
 # license of the binary.
 License:        MIT
-URL:            https://sr.ht/~emersion/kanshi
-Source0:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.sig
+URL:            https://gitlab.freedesktop.org/emersion/kanshi
+Source0:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz
+Source1:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 Source3:        %{name}.service
@@ -74,6 +74,10 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Tue Jul 22 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.0-1
+- Update to 1.8.0 (#2382767)
+- Update upstream URL
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:          ccrtp
 Summary:       Common C++ class framework for RTP/RTCP
 Version:       2.1.2
-Release:       16%{?dist}
+Release:       17%{?dist}
 
 # some files has mif-exception
 License:       GPL-2.0-or-later AND GPL-2.0-or-later WITH mif-exception
@@ -68,6 +68,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} \;
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ccd2iso
 Version:        0.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        CloneCD image to ISO image file converter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/ccd2iso.1
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

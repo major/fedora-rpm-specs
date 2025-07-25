@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    74%{?dist}
+Release:    75%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -619,6 +619,9 @@ exit 0
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-75
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.11.23-74
 - Add explicit BR: libxcrypt-devel
 

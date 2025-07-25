@@ -12,7 +12,7 @@ Summary: Bookkeeping software for small and medium-size businesses
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Version: 2.051
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: https://www.eekboek.nl/dl/%{name}-%{version}.tar.gz
 URL: https://www.eekboek.nl
 
@@ -199,6 +199,9 @@ env EB_SKIPDBTESTS=1 make test
 %{ebshare}/lib/EB/DB/Postgres.pm
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.051-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.051-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

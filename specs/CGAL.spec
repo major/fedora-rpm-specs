@@ -12,7 +12,7 @@
 
 Name:           CGAL
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ and Boost - review is highly recommended.
@@ -157,6 +157,9 @@ ldd ./constrained_plus
 %exclude %{_datadir}/CGAL/*/*/skip_vcproj_auto_generation
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

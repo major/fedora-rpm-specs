@@ -13,7 +13,7 @@
 
 Name:           ccache
 Version:        4.11.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -236,6 +236,9 @@ done\
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 09 2025 Orion Poplawski <orion@nwra.com> - 4.11.3-1
 - Update to 4.11.3
 

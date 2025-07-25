@@ -5,7 +5,7 @@
 
 Name: docbook-dtds
 Version: 1.0
-Release: 88%{?dist}
+Release: 89%{?dist}
 
 Summary: SGML and XML document type definitions for DocBook
 
@@ -398,6 +398,9 @@ do
 done
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-89
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

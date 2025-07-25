@@ -3,7 +3,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 1.0.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -199,6 +199,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 14 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.4-2
 - Change appstream-data to a conditional Requires:
 

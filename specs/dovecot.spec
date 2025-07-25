@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.1
 %global prever -4
-Release: 2%{?dist}
+Release: 3%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -473,6 +473,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-2
 - fix dovecot 2.4 gssapi regression (rhbz#2374419)
 

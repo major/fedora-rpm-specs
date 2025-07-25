@@ -6,7 +6,7 @@
 
 Name:           boomaga
 Version:        3.3.0
-Release:        23.git%{shortcommit0}%{?dist}
+Release:        24.git%{shortcommit0}%{?dist}
 Summary:        A virtual printer for viewing a document before printing
 
 # Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
@@ -164,6 +164,9 @@ fi
 %{_datadir}/selinux/*/%{modulename}.pp
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-24.git7f7ad47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 17 2025 Marek Kasik <mkasik@redhat.com> - 3.3.0-23.git7f7ad47
 - Rebuild for poppler 25.02.0
 

@@ -1,6 +1,6 @@
 Name:           crystal-stacker-themes
 Version:        1.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Themes for the Crystal Stacker game
 # Automatically converted from old format: Crystal Stacker - review is highly recommended.
 License:        CrystalStacker
@@ -50,6 +50,9 @@ install -p -m 644 *.xm *.cth $RPM_BUILD_ROOT%{_datadir}/crystal-stacker
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

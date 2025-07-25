@@ -1,7 +1,7 @@
 Summary: User space tool to set up tables of ARP rules in kernel
 Name:    arptables
 Version: 0.0.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 
@@ -83,6 +83,9 @@ fi
 %ghost %attr(0644,root,root) %{_mandir}/man8/arptables{,-save,-restore}.8.gz
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 25 2025 Phil Sutter <psutter@redhat.com> - 0.0.5-17
 - Keep symlinks managed by alternatives under /usr/bin
 - Drop compat for updating from pre-alternatives version

@@ -77,7 +77,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -1042,6 +1042,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Jens Petersen <petersen@redhat.com> - 9.2.8-28
 - fix hp2ps failure with gcc15 C23
 - setup llvm compiler for all archs not just those defaulting to llvm backend

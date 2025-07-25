@@ -25,7 +25,7 @@
 Name:           %{pkg_name}
 Version:        2.8.0
 # can only be reset when all subpkgs bumped
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT AND BSD-3-Clause
@@ -417,6 +417,9 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 06 2025 Jens Petersen <petersen@redhat.com> - 2.8.0-55
 - https://hackage.haskell.org/package/Agda-2.8.0/changelog
 - many new deps

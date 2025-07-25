@@ -3,7 +3,7 @@
 Name:           ETL
 Epoch:          1
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extended Template Library
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

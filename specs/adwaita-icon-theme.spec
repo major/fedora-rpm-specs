@@ -4,7 +4,7 @@
 
 Name:           adwaita-icon-theme
 Version:        48.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
@@ -79,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Carlos Garnacho <cgarnach@redhat.com> - 48.1-1
 - Update to 48.1
 

@@ -1,6 +1,6 @@
 Name:          bcg729
 Version:       1.1.1
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Opensource implementation of the G.729 codec
 
 License:       GPL-3.0-or-later
@@ -68,6 +68,9 @@ Development files for %{name}.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 1.1.1-12
 - Increase minimum cmake version to 3.5
 

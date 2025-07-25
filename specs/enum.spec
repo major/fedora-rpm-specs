@@ -1,6 +1,6 @@
 Name: enum
 Version: 1.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Seq- and jot-like enumerator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -42,6 +42,9 @@ make check
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

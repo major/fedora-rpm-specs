@@ -1,6 +1,6 @@
 Name:           accountsservice
 Version:        23.13.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPL-3.0-or-later
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
@@ -116,6 +116,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.13.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 23.13.9-8
 - Add patch to use the reentrant interfaces of libxcrypt
 

@@ -2,7 +2,7 @@
 
 Name:		0ad-data
 Version:	0.27.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Data Files for 0 AD
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
@@ -49,6 +49,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.1-1
 - 0.27.1
 

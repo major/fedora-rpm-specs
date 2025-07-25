@@ -1,6 +1,6 @@
 Name: expected
 Version: 1.1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: CC0-1.0
 Summary: C++11/14/17 std::expected with functional-style extensions
@@ -54,6 +54,9 @@ coding with expected cleaner.
 %{_datadir}/cmake/tl-%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

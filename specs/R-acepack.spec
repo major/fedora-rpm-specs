@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          32%{?dist}
+Release:          33%{?dist}
 Summary:          ACE and AVAS methods for choosing regression transformations
 # Automatically converted from old format: Public Domain and MIT - review is highly recommended.
 License:          LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-MIT
@@ -55,6 +55,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.1-32
 - R-maint-sig mass rebuild
 

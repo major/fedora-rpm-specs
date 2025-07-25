@@ -3,7 +3,7 @@
 
 Name:           gfxstream
 Version:        0.1.2^%{gitdate}git%{gitversion}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Graphics Streaming Kit
 
@@ -88,6 +88,9 @@ gfxstream development files, used by QEMU to build against.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2^20240226git23d05703-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2^20240226git23d05703-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

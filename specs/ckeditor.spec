@@ -1,6 +1,6 @@
 Name:          ckeditor
 Version:       4.22.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       WYSIWYG text editor to be used inside web pages
 
 # Automatically converted from old format: GPLv2+ or LGPLv2+ or MPLv1.1 - review is highly recommended.
@@ -104,6 +104,9 @@ end
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.22.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.22.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

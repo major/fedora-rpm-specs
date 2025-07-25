@@ -7,7 +7,7 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	10
+%define		baserelease	11
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
@@ -359,6 +359,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

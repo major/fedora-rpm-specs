@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        3.2.5
 # can only be reset when subpkg bumped
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A fast logging system
 
 License:        BSD-3-Clause
@@ -162,6 +162,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 3.2.5-26
 - Rebuild
 

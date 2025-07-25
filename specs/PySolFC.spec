@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        3.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -91,6 +91,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Shlomi Fish <shlomif@shlomifish.org> 3.4.0-2
 - Remove unused / unavailable deps ( eg - python3-random2 )
 - Use pyprojectize/etc. to modernize the .spec

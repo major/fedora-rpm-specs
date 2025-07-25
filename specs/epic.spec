@@ -1,7 +1,7 @@
 Summary: An ircII chat client
 Name: epic
 Version: 3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 4
 License: BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 Source0: ftp://ftp.epicsol.org/pub/epic/EPIC4-PRODUCTION/epic4-%{version}.tar.xz
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4:3.0-4
 - Add explicit BR: libxcrypt-devel
 

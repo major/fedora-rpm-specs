@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -254,6 +254,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.18-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

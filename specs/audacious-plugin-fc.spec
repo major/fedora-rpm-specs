@@ -9,7 +9,7 @@
 Summary: Future Composer input plugin for Audacious
 Name: audacious-plugin-fc
 Version: 0.8.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: https://github.com/mschwendt/audacious-plugins-fc
 License: GPL-2.0-or-later
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 01 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.6-1
 - update to 0.8.6
 

@@ -1,6 +1,6 @@
 Name:           calcurse
 Version:        4.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Text-based personal organizer
 
 License:        BSD-2-Clause
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

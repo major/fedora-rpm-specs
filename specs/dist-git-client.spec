@@ -1,6 +1,6 @@
 Name:      dist-git-client
 Version:   1.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Get sources for RPM builds from DistGit repositories
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ PYTHON=python3 ./run_tests.sh -vv --no-coverage
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Add configuration for CentOS SIG packages
 

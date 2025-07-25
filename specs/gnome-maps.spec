@@ -8,7 +8,7 @@
 
 Name:           gnome-maps
 Version:        49~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -96,4 +96,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

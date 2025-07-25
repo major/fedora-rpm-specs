@@ -2,7 +2,7 @@
 
 Name:           cbios
 Version:        0.29a
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A third party BIOS compatible with the MSX BIOS
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -69,6 +69,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29a-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29a-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

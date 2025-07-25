@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.43
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.43-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.1.43-3
 - Rebuilt for Python 3.14
 

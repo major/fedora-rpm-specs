@@ -2,7 +2,7 @@
 
 Name:           atop
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.12.0-1
 - 2.12.0
 

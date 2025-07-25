@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.13.2.1
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Udunits-2 Bindings for R
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -64,6 +64,9 @@ UDUNITS2_XML_PATH=%{_datadir}/udunits/udunits2.xml %{_bindir}/R CMD check %{pack
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.13.2.1-12
 - R-maint-sig mass rebuild
 

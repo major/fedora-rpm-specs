@@ -1,6 +1,6 @@
 Name:		fsarchiver
 Version:	0.8.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Safe and flexible file-system backup/deployment tool
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -52,6 +52,9 @@ is corrupt, you just lose the current file, not the whole archive.
 %{_mandir}/man8/%{name}*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 12 2025 Joe Walker <grumpey0@gmail.com> - 0.8.7-1
 - update to 0.8.7
 

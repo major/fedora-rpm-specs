@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPL-2.0-or-later and MIT
@@ -341,6 +341,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.71.0-32
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

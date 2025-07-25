@@ -21,7 +21,7 @@
 
 Name:       csdiff
 Version:    3.5.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -169,6 +169,9 @@ make version.cc
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 03 2025 Kamil Dudka <kdudka@redhat.com> - 3.5.5-1
 - update to latest upstream release
 

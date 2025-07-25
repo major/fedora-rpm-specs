@@ -11,7 +11,7 @@
 
 Name:       copr-selinux
 Version:    1.56
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    SELinux module for COPR
 
 License:    GPL-2.0-or-later
@@ -110,6 +110,9 @@ done
 %{_mandir}/man8/%{name}-relabel.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.56-1
 - unify bindir and sbindir
 

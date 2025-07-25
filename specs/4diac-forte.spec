@@ -17,7 +17,7 @@
 
 Name:     4diac-forte
 Version:  2.0.1
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary:  IEC 61499 runtime environment
 License:  EPL-2.0
 URL:      http://eclipse.org/4diac
@@ -115,6 +115,9 @@ install -p systemd/4diac-forte-sysconfig %{buildroot}%{_sysconfdir}/sysconfig/4d
 %config(noreplace) %{_sysconfdir}/sysconfig/4diac-forte
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    cdrkit
 Version: 1.1.11
-Release: 59%{?dist}
+Release: 60%{?dist}
 Summary: A collection of CD/DVD utilities
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -290,6 +290,9 @@ fi
 %{_includedir}/usal
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 20 2025 Pavel Cahyna <pcahyna@redhat.com> - 1.1.11-59
 - Fix build for bin-sbin merge (fedora#2339960)
 

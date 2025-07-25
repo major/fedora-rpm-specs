@@ -2,7 +2,7 @@
 
 Name:           eglexternalplatform
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        EGL External Platform Interface headers
 License:        MIT
 URL:            https://github.com/NVIDIA
@@ -38,6 +38,9 @@ developing applications that use %{name}.
 %{_datadir}/pkgconfig/eglexternalplatform.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Simone Caronni <negativo17@gmail.com> - 1.2.1-1
 - Update to 1.2.1.
 - Trim changelog.

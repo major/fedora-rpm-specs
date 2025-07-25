@@ -25,7 +25,7 @@ Summary: Speedrun-oriented Doom source port
 License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
 Version: 0.29.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -122,6 +122,9 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 03 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.3-1
 - Update to v0.29.3
 

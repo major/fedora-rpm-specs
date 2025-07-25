@@ -1,7 +1,7 @@
 Name:    aisleriot
 Epoch:   1
 Version: 3.22.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A collection of card games
 
 # Automatically converted from old format: GPLv3+ and LGPLv3+ and GFDL - review is highly recommended.
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/sol.desktop
 %{_mandir}/man6/sol.6*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 nmontero <nmontero@redhat.com> - 1:3.22.35-1
 - Update to 3.22.35
 

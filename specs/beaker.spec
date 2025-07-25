@@ -1,9 +1,10 @@
 %global upstream_name beaker
-%bcond_without docs
+# No sphinxcontrib-httpdomain rpm on EPEL10
+%bcond docs %[ 0%{?fedora} || 0%{?rhel} < 10 ]
 
 Name:           %{upstream_name}
 Version:        29.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPL-2.0-or-later
 URL:            https://beaker-project.org/
@@ -15,8 +16,8 @@ BuildArch:      noarch
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-devel
-BuildRequires:  python3-docutils
 %if %{with docs}
+BuildRequires:  python3-docutils
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-httpdomain
 %endif
@@ -59,8 +60,9 @@ can use it to submit Beaker jobs, fetch results, and perform many other tasks.
 
 %prep
 %setup -q -n %{upstream_name}-%{version}
-%if %{with docs}
+%if %{without docs}
 rm -rf documentation
+sed -i '/SUBDIRS.*:=/s/\s*documentation\s*/ /g' Makefile
 %endif
 # The server relies on a great many packages which are intended to be bundled
 # source, and its documentation greatly inflates the number of BR packages
@@ -105,7 +107,7 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{python3_sitelib}/%{name}_client-%{version}-py%{python3_version}.egg-info/
 %{_bindir}/%{name}-wizard
 %{_bindir}/bkr
-%if %{without docs}
+%if %{with docs}
 %{_mandir}/man1/beaker-wizard.1.gz
 %{_mandir}/man1/bkr.1.gz
 %{_mandir}/man1/bkr-*.1.gz
@@ -113,6 +115,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 29.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 29.2-3
 - Rebuilt for Python 3.14
 

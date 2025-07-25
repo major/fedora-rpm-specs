@@ -14,7 +14,7 @@ Version: 2.37
 
 %global source_name dejavu-fonts
 
-Release: 25%{?dist}
+Release: 26%{?dist}
 # original bitstream glyphs are Bitstream Vera
 # glyphs modifications by dejavu project are Public Domain
 # glyphs imported from Arev fonts are under BitStream Vera compatible license
@@ -182,6 +182,9 @@ make check
 %doc *.txt.xz
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

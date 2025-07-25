@@ -15,7 +15,7 @@ An XPath 1.0 implementation written in the Go programming language.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        XPath 1.0 implementation
 
 License:        MIT
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

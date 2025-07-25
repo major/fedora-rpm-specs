@@ -244,8 +244,8 @@
 %endif
 
 Name:	chromium
-Version: 138.0.7204.157
-Release: 1%{?dist}
+Version: 138.0.7204.168
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1741,6 +1741,14 @@ fi
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 138.0.7204.168-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Than Ngo <than@redhat.com> - 138.0.7204.168-1
+- Update to 138.0.7204.168
+  * CVE-2025-8010: Type Confusion in V8
+  * CVE-2025-8011: Type Confusion in V8
+
 * Wed Jul 16 2025 Than Ngo <than@redhat.com> - 138.0.7204.157-1
 - Update to 138.0.7204.157
   * CVE-2025-7656: Integer overflow in V8

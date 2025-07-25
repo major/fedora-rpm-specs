@@ -3,7 +3,7 @@
 Summary: Library for accessing various audio file formats
 Name: audiofile
 Version: 0.3.6
-Release: 41%{?dist}
+Release: 42%{?dist}
 Epoch: 1
 # library is LGPL / the two programs GPL / see README
 License: LGPL-2.1-or-later and GPL-2.0-or-later
@@ -101,6 +101,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/sfinfo
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.6-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.3.6-41
 - Rebuilt for flac 1.5.0
 

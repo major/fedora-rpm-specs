@@ -1,6 +1,6 @@
 Name:           gnome-desktop-testing
 Version:        2018.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        GNOME test runner for installed tests
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -40,6 +40,9 @@ NOCONFIGURE=1 ./autogen.sh
 %{_bindir}/ginsttest-runner
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2018.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2018.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

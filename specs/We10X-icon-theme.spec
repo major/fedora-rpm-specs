@@ -7,7 +7,7 @@ License: GPL-3.0-only
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 Version: 0^%{git_date}git%{git_commit_short}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -157,6 +157,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20250627git4423fb9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250627git4423fb9-1
 - Update to latest git snaphot (2025-06-27)
 - Fix transaction error when updating the package (rhbz#2375285)

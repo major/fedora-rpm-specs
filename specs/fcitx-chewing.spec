@@ -1,6 +1,6 @@
 Name:		fcitx-chewing
 Version:	0.2.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Chewing Wrapper for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -44,6 +44,9 @@ Phonetic IME.
 %{_datadir}/icons/hicolor/48x48/apps/fcitx-chewing.png
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

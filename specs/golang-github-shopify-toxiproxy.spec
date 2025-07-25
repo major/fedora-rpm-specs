@@ -31,7 +31,7 @@ up your project.}
 %global godocs          CHANGELOG.md CREATING_TOXICS.md README.md README-client.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        TCP proxy to simulate network and system conditions for resiliency testing
 
 License:        MIT
@@ -131,6 +131,9 @@ install -m0644 -D golang-github-shopify-toxiproxy.sysusers.conf %{buildroot}%{_s
 %{_sysusersdir}/golang-github-shopify-toxiproxy.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.4-20
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

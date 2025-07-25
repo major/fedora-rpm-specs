@@ -2,7 +2,7 @@
 Summary: DocBook Slides document type and stylesheets
 Name: docbook-slides
 Version: 3.4.0
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: MIT
 URL: http://sourceforge.net/projects/docbook
 Source0: http://downloads.sourceforge.net/docbook/%{name}-%{version}.tar.gz
@@ -150,6 +150,9 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

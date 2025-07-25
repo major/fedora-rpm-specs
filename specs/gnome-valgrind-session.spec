@@ -1,7 +1,7 @@
 Summary:	Run an entire GNOME session under valgrind
 Name:		gnome-valgrind-session
 Version:	1.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://hp.cl.no/proj/gnome-valgrind-session/
 Source0:	http://hp.cl.no/proj/gnome-valgrind-session/src/%{name}-%{version}.tar.bz2
@@ -58,6 +58,9 @@ install -p -m0644 gnome-valgrind-leaks.desktop \
 %{_datadir}/xsessions/gnome-valgrind-leaks.desktop
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

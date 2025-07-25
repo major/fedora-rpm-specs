@@ -1,6 +1,6 @@
 Name:           dovecot-fts-xapian
 Version:        1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dovecot FTS plugin based on Xapian
 
 # From the source code it isn't clear whether this is -only or -or-later, so
@@ -48,6 +48,9 @@ rm %{buildroot}%{_libdir}/dovecot/lib21_fts_xapian_plugin.la
 %{_libdir}/dovecot/settings/lib21_fts_xapian_settings.so.0.0.0
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 20 2025 Arjen Heidinga <dexter@beetjevreemd.nl> - 1.9.1
 - Rebase to 1.9.1
 

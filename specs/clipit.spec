@@ -27,7 +27,7 @@
 
 Name:           clipit
 Version:        %{rpm_ver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
 # meson.build says:	 GPL-3.0-or-later
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5^20241103gitf35db54-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20241103gitf35db54-2
 - Remove debugging -std= option
 

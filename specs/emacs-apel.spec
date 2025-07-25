@@ -6,7 +6,7 @@
 
 Name:		emacs-%{pkg}
 Version:	%{ver}%{?snapver}
-Release:	0.5%{?dist}
+Release:	0.6%{?dist}
 Summary:	A Portable Emacs Library
 
 License:	GPL-2.0-or-later
@@ -49,6 +49,9 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 %dir %{_emacs_sitelispdir}/%{pkg}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.8^1.git82eb232-0.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.8^1.git82eb232-0.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

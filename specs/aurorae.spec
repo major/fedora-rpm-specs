@@ -1,7 +1,7 @@
 Name:           aurorae
 Summary:        Aurorae is a themeable window decoration for KWin
 Version:        6.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later AND MIT AND CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
 
@@ -83,6 +83,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/Aurorae/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
 - 6.4.3
 

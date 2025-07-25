@@ -1,6 +1,6 @@
 Name:           glyph-keeper
 Version:        0.32
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Library for text rendering
 License:        zlib
 URL:            http://www.allegro.cc/resource/Libraries/Text/GlyphKeeper
@@ -119,6 +119,9 @@ install -m 644 include/glyph.h $RPM_BUILD_ROOT%{_includedir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

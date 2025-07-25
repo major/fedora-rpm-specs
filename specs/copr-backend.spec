@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    2.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -241,6 +241,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Jakub Kadlcik <frostyx@email.cz> 2.6-1
 - Set pulp_labels at RPM upload time.
 - Wait on add_and_remove task to finish

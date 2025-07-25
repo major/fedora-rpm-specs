@@ -6,7 +6,7 @@
 
 Name:           OpenMesh
 Version:        %{pkg_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A generic and efficient polygon mesh data structure
 License:        BSD-3-Clause
 URL:            http://www.openmesh.org/
@@ -157,6 +157,9 @@ done
 %doc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 19 2025 Laurent Rineau <laurent.rineau@cgal.org> - 11.0.0-4
 - Fix ctest invocation to prevent parallel execution during I/O tests
 

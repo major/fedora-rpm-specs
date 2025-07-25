@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A RPC stack for Emacs Lisp
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -53,6 +53,9 @@ emacs --batch -q --no-site-file --no-splash \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

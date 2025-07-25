@@ -11,7 +11,7 @@
 
 Name:          charliecloud
 Version:       0.40
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -148,6 +148,9 @@ CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Jordan Ogas <jogas@lanl.gov> - 0.40-1
 - new version 0.40
 - rename builder package to image

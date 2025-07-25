@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Dynamic Generation of Scientific Reports
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -108,6 +108,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.45.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.45.0-12
 - R-maint-sig mass rebuild
 

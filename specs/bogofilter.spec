@@ -5,7 +5,7 @@
 Summary: Fast anti-spam filtering by Bayesian statistical analysis
 Name: bogofilter
 Version: 1.2.5
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-only
 URL: http://bogofilter.sourceforge.net/
 Source0: http://downloads.sourceforge.net/bogofilter/bogofilter-%{version}.tar.xz
@@ -160,6 +160,9 @@ make %{?_smp_mflags} check
 %exclude %{_mandir}/man1/bogoupgrade*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.2.5-19
 - Use cp -a to avoid triggering automake regen (FTBFS rhbz#2339939)
 

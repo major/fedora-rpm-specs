@@ -4,7 +4,7 @@
 Name:           %{target}-binutils-cs
 Epoch:          1
 Version:        2.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Binutils for cross-compilation for %{target} target
 # Most of the sources are licensed under GPLv3+ with these exceptions:
 # LGPLv2+ bfd/hosts/x86-64linux.h, include/demangle.h, include/xregex2.h,
@@ -106,6 +106,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.44-1
 - updated to 2.44
 

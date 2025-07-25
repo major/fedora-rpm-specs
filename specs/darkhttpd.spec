@@ -2,7 +2,7 @@
 
 Name:           darkhttpd
 Version:        1.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Secure, lightweight, fast, single-threaded HTTP/1.1 server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -73,6 +73,9 @@ install -pDm644 %{S:2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 %config %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

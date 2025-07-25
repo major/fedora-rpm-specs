@@ -9,7 +9,7 @@
 Name:    blogilo
 Summary: Blogging Client
 Version: 17.08.3
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
@@ -149,6 +149,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 06 2025 Cristian Le <git@lecris.dev> - 17.08.3-34
 - Allow CMake 4.0 build
 

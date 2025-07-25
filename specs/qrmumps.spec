@@ -1,9 +1,6 @@
 # Testing needs to be online
 %global with_check 0
 
-%global blaslib flexiblas
-%global cmake_blas_flags -DBLA_VENDOR=FlexiBLAS
-
 Name: qrmumps
 Version: 3.1
 Release: %autorelease
@@ -72,14 +69,15 @@ PDF documentation files of %{name}.
 rm -f aux/find/Find{BLAS,LAPACK}.cmake
 
 %build
-%cmake -Wno-dev -S . -DQRM_VERSION:STRING=%{version} \
+%cmake -Wno-dev -DQRM_VERSION:STRING=%{version} \
  -DARITH="d;s;z;c" -DCMAKE_BUILD_TYPE:STRING=Release \
  -DQRM_ORDERING_AMD:BOOL=ON -DQRM_ORDERING_METIS:BOOL=ON \
  -DQRM_ORDERING_SCOTCH:BOOL=ON -DQRM_WITH_STARPU:BOOL=OFF \
  -DQRM_WITH_CUDA:BOOL=OFF -DAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse \
- %{cmake_blas_flags} \
+ -DBLA_VENDOR=FlexiBLAS \
  -DBLAS_VERBOSE:BOOL=ON -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
- -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
+ -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+ -DINCLUDE_INSTALL_DIR:PATH=%{_includedir}/qrm -DLIB_INSTALL_DIR:PATH=%{_libdir}
 
 %cmake_build
 

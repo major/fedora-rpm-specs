@@ -7,7 +7,7 @@
 
 Name:           debootstrap
 Version:        1.0.140
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
@@ -63,6 +63,9 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.140-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 Sérgio Basto <sergio@serjux.com> - 1.0.140-3
 - Better fix for sbin move
 - Use Recommends instead Sugests (Suggests only should be used when is to choose between two or more options)

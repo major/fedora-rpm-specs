@@ -1,6 +1,6 @@
 Name:           foomuuri
 Version:        0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -122,6 +122,9 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 15 2025 Kim B. Heino <b@bbbs.net> - 0.28-1
 - Upgrade to 0.28
 

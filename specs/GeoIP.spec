@@ -3,7 +3,7 @@
 
 Name:		GeoIP
 Version:	1.6.12
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Library for country/city/organization to IP address or hostname mapping
 # Note: bundled GeoIP.dat data is CC-BY-SA-3.0 but we don't use or package it
 License:	LGPL-2.1-or-later
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/geoip.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

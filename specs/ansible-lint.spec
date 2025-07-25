@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        25.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -66,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:25.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Python Maint <python-maint@redhat.com> - 1:25.5.0-2
 - Rebuilt for Python 3.14
 

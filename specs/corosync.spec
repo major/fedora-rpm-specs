@@ -15,7 +15,7 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}.tar.gz
@@ -293,6 +293,9 @@ network splits)
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Jan Friesse <jfriesse@redhat.com> - 3.1.9-4
 - exec: Add support for env STATE_DIRECTORY
 - init: Use LogsDirectory in systemd unit file

@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -84,6 +84,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Stephen Gallagher <sgallagh@redhat.com> - 0.10.0-5
 - Switch to %%pyproject_* macros
 - Resolves: rhbz#2377223

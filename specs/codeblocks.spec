@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	25.03
-Release:	1%{?svnrelease}%{?dist}
+Release:	2%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -351,6 +351,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 01 2025 Dan Horák <dan[at]danny.cz> - 25.03-1
 - Code::Blocks release 25.03 (rhbz#2356294)
 

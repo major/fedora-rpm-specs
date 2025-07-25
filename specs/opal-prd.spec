@@ -2,7 +2,7 @@
 
 Name:		opal-prd
 Version:	7.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
 License:	Apache-2.0
@@ -119,6 +119,9 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Wed Jul 23 2025 Than Ngo <than@redhat.com> - 7.1-8
+- Fix rhbz#2382995 - convert STI test to TMT
+
 * Thu Jan 23 2025 Dan Horák <dan@danny.cz> - 7.1-7
 - update for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 - Resolves: rhbz#2340962

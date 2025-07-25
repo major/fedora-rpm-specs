@@ -1,6 +1,6 @@
 Name: CCfits
 Version: 2.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A C++ interface for cfitsio
 
 License: CFITSIO
@@ -61,6 +61,9 @@ rm %{buildroot}/usr/bin/cookbook
 %doc html
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 21 2025 Sergio Pascual <sergiopr@fedoraproject.org> 2.7-1
 - New upstream v2.7
 

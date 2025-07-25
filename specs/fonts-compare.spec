@@ -1,6 +1,6 @@
 Name:           fonts-compare
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 09 2025 Sudip Shil <sshil@redhat.com> - 1.6.0-1
 - Replace Gtk.AboutDialog with Adw.AboutWindow and add Ctrl+Q/E keybindings for quit/edit]
 - Port to AdwApplicationWindow and ToolbarView, enable label auto-wrap with screen-fit resizing

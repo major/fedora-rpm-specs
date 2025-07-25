@@ -1,16 +1,21 @@
-%global majorversion 16
+%global majorversion 18
 %global obsoletes_version %( echo $(( %majorversion + 1 )) )
+%global betaversion 18beta1
 
 Summary: PostgreSQL client library
 Name: libpq
-Version: %{majorversion}.4
-Release: 2%{?dist}
+Version: %{majorversion}.0
+Release: 1%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
 
-Source0: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2
-Source1: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2.sha256
+# Use this when 18.0 is released
+# Source0: https://ftp.postgresql.org/pub/source/v%%{version}/postgresql-%%{version}.tar.bz2
+# Source1: https://ftp.postgresql.org/pub/source/v%%{version}/postgresql-%%{version}.tar.bz2.sha256
+
+Source0: https://ftp.postgresql.org/pub/source/v%{betaversion}/postgresql-%{betaversion}.tar.bz2
+Source1: https://ftp.postgresql.org/pub/source/v%{betaversion}/postgresql-%{betaversion}.tar.bz2.sha256
 
 
 # Comments for these patches are in the patch files.
@@ -28,6 +33,7 @@ BuildRequires: gettext
 BuildRequires: multilib-rpm-config
 BuildRequires: make
 BuildRequires: libicu-devel
+BuildRequires: perl
 
 Obsoletes: postgresql-libs < %obsoletes_version
 Provides: postgresql-libs = %version-%release
@@ -58,7 +64,7 @@ package or any clients that need to connect to a PostgreSQL server.
 
 %prep
 ( cd "$(dirname "%SOURCE1")" ; sha256sum -c "%SOURCE1" )
-%autosetup -n postgresql-%version -p1
+%autosetup -n postgresql-%{betaversion} -p1
 
 # remove .gitignore files to ensure none get into the RPMs (bug #642210)
 find . -type f -name .gitignore | xargs rm
@@ -109,7 +115,6 @@ mv $RPM_BUILD_ROOT%{_includedir}/pgsql/errcodes.h \
 
 
 %multilib_fix_c_header --file "%_includedir/pg_config.h"
-%multilib_fix_c_header --file "%_includedir/pg_config_ext.h"
 
 find_lang_bins ()
 {
@@ -130,6 +135,8 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/libpq.so.5*
 %dir %_datadir/pgsql
 %doc %_datadir/pgsql/pg_service.conf.sample
+%_datadir/pgsql/postgres.bki
+%_datadir/pgsql/system_constraints.sql
 
 
 %files devel -f %name-devel.lst
@@ -139,6 +146,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Mon Jun 09 2025 Nikola Davidova <ndavidov@redhat.com> - 18.0-1
+- Rebase to upstream release 18.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

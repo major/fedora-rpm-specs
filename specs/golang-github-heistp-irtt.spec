@@ -14,7 +14,7 @@ Isochronous Round-Trip Tester.}
 %global godocs          CHANGES.md README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Isochronous Round-Trip Tester
 
 # Upstream license specification: GPL-2.0-only
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gosourcedir}/doc/*.1 %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           duperemove
 Version:        0.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_mandir}/man8/show-shared-extents*.8*
 %{_datadir}/zsh/site-functions/_duperemove
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun  7 2025 Jonathan Dieter <jonathan@dieter.ie> - 0.15.2-1
 - Update to version 0.15.2
 - Add missing requirement on libbsd

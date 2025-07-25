@@ -8,7 +8,7 @@ Summary:   NetworkManager VPN plugin for OpenVPN
 Name:      NetworkManager-openvpn
 Epoch:     1
 Version:   1.12.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 
@@ -112,6 +112,9 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.12.0-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

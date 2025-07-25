@@ -1,6 +1,6 @@
 Name:           perl-Statistics-CaseResampling
-Version:        0.16
-Release:        2%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Resampling and calculation of medians with confidence intervals
 # Mersenne Twister is somewhat bundled, CPAN RT#85284
 # _mt.c, mt.h:  BSD-3-Clause (license text copied in mt19937ar.license,
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Petr Pisar <ppisar@redhat.com> - 0.17-1
+- 0.17 bump
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-2
 - Perl 5.42 rebuild
 

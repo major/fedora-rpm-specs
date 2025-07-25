@@ -5,7 +5,7 @@
 
 Name:           baobab
 Version:        48.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical directory tree analyzer
 
 # Sources are under GPL-2.0-or-later, help is under CC-BY-SA-3.0, Appdata is
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 25 2025 Milan Crha <mcrha@redhat.com> - 48.0-2
 - Add a patch for a crash after start with mounted remote locations
 

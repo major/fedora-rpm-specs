@@ -1,6 +1,6 @@
 Name:           cpanspec
 Version:        1.78
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        RPM spec file generation utility
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://cpanspec.sourceforge.net/
@@ -56,6 +56,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

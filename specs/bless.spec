@@ -3,7 +3,7 @@
 
 Name: bless
 Version: 0.6.3
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: High quality, full featured hex editor    
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_metainfodir}/bless.met
 %{_metainfodir}/bless.metainfo.xml
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

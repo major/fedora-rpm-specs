@@ -12,7 +12,7 @@
 
 Name:		bdii
 Version:	6.0.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The Berkeley Database Information Index (BDII)
 
 License:	Apache-2.0
@@ -160,6 +160,9 @@ fi
 %license COPYRIGHT LICENSE.txt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.0.3-4
 - Work around hardcoded /usr/sbin in the Makefile
 

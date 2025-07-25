@@ -2,7 +2,7 @@ Name:          colorful
 %global rtld pl.suve.colorful
 
 Version:       2.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Side-view shooter game
 
 # The game itself is GPLv3.
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rtld}.m
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

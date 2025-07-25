@@ -1,6 +1,6 @@
 Name:           TurboGears2
 Version:        2.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
@@ -94,6 +94,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %doc README.rst
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-3
 - Migrate from py_build/py_install to pyproject macros (bz#2378483)
 

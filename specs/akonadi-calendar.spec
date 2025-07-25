@@ -1,6 +1,6 @@
 Name:    akonadi-calendar
 Version: 25.07.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -114,6 +114,9 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

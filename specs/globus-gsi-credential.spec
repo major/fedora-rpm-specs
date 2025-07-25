@@ -1,7 +1,7 @@
 Name:		globus-gsi-credential
 %global _name %(tr - _ <<< %{name})
 Version:	8.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Credential Library
 
 License:	Apache-2.0
@@ -110,6 +110,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.4-4
 - Fix incompatible pointer errors (gcc 15)
 

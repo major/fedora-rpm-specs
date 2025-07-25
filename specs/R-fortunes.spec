@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.4
-Release:          26%{?dist}
+Release:          27%{?dist}
 Summary:          R Fortunes
 
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.4-26
 - R-maint-sig mass rebuild
 

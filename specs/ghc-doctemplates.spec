@@ -17,7 +17,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.11.0.1
 # can only be reset when all subpkgs bumped
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Pandoc-style document templates
 
 License:        BSD-3-Clause
@@ -184,6 +184,9 @@ rm %{buildroot}%{_datadir}/%{doclayout}/README.md
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 24 2025 Jens Petersen <petersen@redhat.com> - 0.11.0.1-18
 - https://hackage.haskell.org/package/doctemplates-0.11.0.1/changelog
 

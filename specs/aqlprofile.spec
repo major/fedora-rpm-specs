@@ -21,7 +21,7 @@ Summary:        Architected Queuing Language Profiling Library
 Name:           aqlprofile
 License:        MIT
 Version:        0.0^git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -79,6 +79,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %{_libdir}/libhsa-amd-aqlprofile64.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0^git20250526.eebb229-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 1 2025 Tom Rix <Tom.Rix@amd.com> - 0.0^git20250526.eebb229-1
 - Initial package
 

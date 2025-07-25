@@ -3,7 +3,7 @@
 %define minor 10
 Name:           cpprest
 Version:        2.10.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
@@ -95,6 +95,9 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.19-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

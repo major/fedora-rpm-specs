@@ -1,6 +1,6 @@
 Name:           fastbit
 Version:        2.0.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        An Efficient Compressed Bitmap Index Technology
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -104,6 +104,9 @@ find %{buildroot} -name \*.la | xargs rm -f
 %{_libdir}/libfastbit.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

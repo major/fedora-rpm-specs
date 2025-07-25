@@ -1,6 +1,6 @@
 Name:           abcm2ps
 Version:        8.14.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A program to typeset ABC tunes into Postscript
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -58,6 +58,9 @@ make install \
 %doc abcplus_en*/* 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.14.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Apr 12 2025 Stuart Gathman <stuart@gathman.org> - 8.14.15-6
 - Update examples and pdf manual
 

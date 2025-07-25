@@ -24,7 +24,7 @@ Version:	2.49.95
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	4%{?dist}
+Release:	5%{?dist}
 URL:		http://www.clisp.org/
 VCS:		git:%{forgeurl}.git
 Source0:	%{forgesource}
@@ -460,6 +460,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.95-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Jerry James  <loganjerry@gmail.com> - 2.49.95-4
 - Update to latest git snapshot
 - Drop one upstreamed patch to fix undefined behavior

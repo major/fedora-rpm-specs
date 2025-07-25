@@ -8,7 +8,7 @@
 
 Name:      brasero
 Version:   3.12.3
-Release:   14%{?dist}
+Release:   15%{?dist}
 Summary:   Gnome CD/DVD burning application
 
 
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 3.12.3-14
 - Rebuild for the renaming of tracker to tinysparql
 

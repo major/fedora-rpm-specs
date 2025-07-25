@@ -1,6 +1,6 @@
 Name:           imhex
-Version:        1.36.2
-Release:        3%{?dist}
+Version:        1.37.4
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -11,8 +11,6 @@ URL:            https://imhex.werwolv.net/
 Source0:        https://github.com/WerWolv/%{name}/releases/download/v%{version}/Full.Sources.tar.gz#/%{name}-%{version}.tar.gz
 # default to including the same-version patterns as a suggested package
 Source1:        https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v%{version}.tar.gz#/%{name}-patterns-%{version}.tar.gz
-
-Patch:          lunasvg-cmake.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -35,18 +33,20 @@ BuildRequires:  llvm-devel
 BuildRequires:  mbedtls-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
-%if 0%{?rhel}
+BuildRequires:  lz4-devel
+%if 0%{?rhel} == 9
 BuildRequires:  gcc-toolset-13
 %endif
-%if 0%{?fedora} >= 40
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires:  capstone-devel
-BuildRequires:  lunasvg-devel
 %endif
+BuildRequires:  lunasvg-devel
+
 
 Recommends:     imhex-patterns = %{version}-%{release}
 
 Provides:       bundled(gnulib)
-%if 0%{?fedora} < 40
+%if 0%{?rhel} == 10
 Provides:       bundled(capstone) = 5.0.1
 %endif
 Provides:       bundled(imgui) = 1.90.8
@@ -60,6 +60,9 @@ Provides:       bundled(miniaudio) = 0.11.11
 # [7:02 PM] WerWolv: We're not supporting 32 bit anyways soooo
 # [11:38 AM] WerWolv: Officially supported are x86_64 and aarch64
 ExclusiveArch:  x86_64 %{arm64}
+
+# https://github.com/WerWolv/ImHex/commit/cc772b8581bcc7e161f085385dc527a117e4e940
+Patch:          0001-backport-metainfo-update-from-upstream.patch
 
 %description
 ImHex is a Hex Editor, a tool to display, decode and analyze binary data to
@@ -93,19 +96,34 @@ License:        GPL-2.0-only
 %autosetup -n ImHex -p1
 # remove bundled libs we aren't using
 rm -rf lib/third_party/{curl,fmt,llvm,nlohmann_json,yara}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 rm -rf lib/third_party/capstone
 %endif
 
 # the cmake scripts look for patterns to be in ImHex-Patterns
 mkdir -p ImHex-Patterns && tar -xf %{SOURCE1} -C ImHex-Patterns --strip-components=1
 
-%build
+# convert this to IMHEX_BUILD_HARDENING=OFF build flag in > 1.37.4
+# rhel buildroots already set fortify_source, doing it twice results in build errors
 %if 0%{?rhel}
+sed -i '/_FORTIFY_SOURCE/d' cmake/build_helpers.cmake
+%endif
+
+# rhel 9 doesn't support all of the new appstream metainfo tags
+%if 0%{?rhel} && 0%{?rhel} < 10
+sed -i -e '/url type="vcs-browser"/d' \
+	-e '/url type="contribute"/d' \
+	dist/net.werwolv.ImHex.metainfo.xml
+%endif
+
+%build
+%if 0%{?rhel} == 9
 . /opt/rh/gcc-toolset-13/enable
 %set_build_flags
 CXXFLAGS+=" -std=gnu++2b"
 %endif
+# should be removable in > 1.37.4 (fixed upstream)
+CXXFLAGS+=" -Wno-error=deprecated-declarations"
 %cmake \
  -D CMAKE_BUILD_TYPE=Release             \
  -D IMHEX_STRIP_RELEASE=OFF              \
@@ -113,14 +131,20 @@ CXXFLAGS+=" -std=gnu++2b"
  -D USE_SYSTEM_NLOHMANN_JSON=ON          \
  -D USE_SYSTEM_FMT=ON                    \
  -D USE_SYSTEM_CURL=ON                   \
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
  -D USE_SYSTEM_LLVM=ON                   \
  -D USE_SYSTEM_CAPSTONE=ON               \
- -D USE_SYSTEM_LUNASVG=ON                \
 %endif
+ -D USE_SYSTEM_LUNASVG=ON                \
  -D USE_SYSTEM_YARA=ON                   \
  -D USE_SYSTEM_NFD=ON                    \
- -D IMHEX_ENABLE_UNIT_TESTS=ON
+ -D IMHEX_ENABLE_UNIT_TESTS=ON           \
+%if 0%{?rhel}
+ -D IMHEX_BUILD_HARDENING=OFF
+%endif
+# disable built-in build hardening because it is already
+# done in rhel buildroots.  adding the flags again from
+# upstream generates build errors
 
 %cmake_build
 
@@ -137,13 +161,13 @@ CXXFLAGS+=" -std=gnu++2b"
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # this is a symlink for the old appdata name that we don't need
-rm -f %{buildroot}%{_metainfodir}/net.werwolv.%{name}.appdata.xml
+rm -f %{buildroot}%{_metainfodir}/net.werwolv.ImHex.appdata.xml
 
 # AppData
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/net.werwolv.%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/net.werwolv.ImHex.metainfo.xml
 
 # install licenses
-%if ! 0%{?fedora} >= 40
+%if 0%{?rhel} == 9
 cp -a lib/third_party/capstone/LICENSE.TXT                           %{buildroot}%{_datadir}/licenses/%{name}/capstone-LICENSE
 cp -a lib/third_party/capstone/suite/regress/LICENSE                 %{buildroot}%{_datadir}/licenses/%{name}/capstone-regress-LICENSE
 %endif
@@ -162,11 +186,11 @@ done
 %license %{_datadir}/licenses/%{name}/
 %doc README.md
 %{_bindir}/imhex
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}.*
 %{_datadir}/applications/%{name}.desktop
 %{_libdir}/libimhex.so.*
 %{_libdir}/%{name}/
-%{_metainfodir}/net.werwolv.%{name}.metainfo.xml
+%{_metainfodir}/net.werwolv.ImHex.metainfo.xml
 %exclude %{_bindir}/imhex-updater
 %{_datadir}/mime/packages/%{name}.xml
 
@@ -182,6 +206,12 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.37.4-2
+- backport metainfo updates
+
+* Wed Jul 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.37.4-1
+- update to 1.37.4 rhbz#2346010
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.36.2-3
 - Rebuild for mbedtls 3.6
 

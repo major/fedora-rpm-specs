@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python virtualenv API for Emacs Lisp
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -45,6 +45,9 @@ install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

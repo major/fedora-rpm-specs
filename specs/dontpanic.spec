@@ -1,6 +1,6 @@
 Name:       dontpanic   
 Version:    1.02
-Release:    20%{?dist}
+Release:    21%{?dist}
 Summary:    Very simple library and executable used in testing Alien::Base
 # LICENSE:              GPL-1.0 text
 # README.md:            GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -77,6 +77,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/dontpanic.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 04 2025 Petr Pisar <ppisar@redhat.com> - 1.02-20
 - Correct a source license declaration
 

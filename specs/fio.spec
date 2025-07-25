@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.40
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -289,6 +289,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Pavel Reichl <preichl@redhat.com> - 3.40-1
 - Update to upstream v3.40
 - Related: rhbz#2367663

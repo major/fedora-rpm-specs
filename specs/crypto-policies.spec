@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -289,6 +289,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250714-2.gitcd6043a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250714-1.gitcd6043a
 - FIPS: disable MLKEM768-X25519 for openssh (no-op)
 - python, policies, tests: alias X25519-MLKEM768 to MLKEM768-X25519

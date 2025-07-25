@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.11.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # readline uses GPL-3.0-only
 License: GPL-2.0-only AND GPL-3.0-only
@@ -237,6 +237,9 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 27 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.11.1-1
 - Update source to upstream staging branch for 0.11.1 plus additional
   stable branch patches.

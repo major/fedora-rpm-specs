@@ -1,6 +1,6 @@
 Name:           barrage
 Version:        1.0.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Kill and destroy as many targets as possible within 3 minutes
 
 License:        GPL-2.0-or-later
@@ -104,6 +104,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/icons/barrage48.png
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

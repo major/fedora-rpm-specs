@@ -3,7 +3,7 @@
 
 Name:           dnsconfd
 Version:        1.7.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
 URL:            https://github.com/InfrastructureServices/dnsconfd
@@ -242,6 +242,9 @@ fi
 %{_prefix}/lib/dracut/modules.d/99dnsconfd
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.7.3-2
 - Rebuilt for Python 3.14
 

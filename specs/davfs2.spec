@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -98,6 +98,9 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 %{_sysusersdir}/davfs2.conf
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.1-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
@@ -154,6 +154,9 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.6.6-3
 - Rebuilt for Python 3.14
 

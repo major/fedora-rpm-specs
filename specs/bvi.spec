@@ -1,6 +1,6 @@
 Name:           bvi
 Version:        1.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Display-oriented editor for binary files
 Summary(fr):    Afficheur orienté editeur pour fichiers binaires
 
@@ -54,6 +54,9 @@ export CFLAGS="%{optflags} -std=gnu17"
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Steven A. Falco <stevenfalco@gmail.com> - 1.4.2-7
 - Need to force gcc17 syntax
 

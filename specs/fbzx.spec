@@ -1,6 +1,6 @@
 Name:           fbzx
 Version:        4.8.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A ZX Spectrum emulator for FrameBuffer
 
 License:        GPL-3.0-or-later
@@ -86,6 +86,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 03 2025 Andrea Musuruane <musuruan@gmail.com> - 4.8.0-12
 - Fix FTBFS (BZ #2340154)
 

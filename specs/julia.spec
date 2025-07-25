@@ -49,7 +49,7 @@ Summary:        High-level, high-performance dynamic language for technical comp
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
 # LLVM is Apache-2.0 WITH LLVM-exception
-License:        MIT and Apache-2.0-WITH-LLVM-exception
+License:        MIT and Apache-2.0 WITH LLVM-exception
 URL:            http://julialang.org/
 Source0:        https://github.com/JuliaLang/julia/releases/download/v1.11.0-rc3/julia-1.11.0-rc3.tar.gz
 # Julia currently uses a custom version of libuv, patches are not yet upstream

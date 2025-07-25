@@ -14,7 +14,7 @@ Fast web fuzzer written in Go.}
 %global godocs          CONTRIBUTORS.md README.md CHANGELOG.md
 
 Name:           ffuf
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fast web fuzzer written in Go
 
 License:        MIT
@@ -50,6 +50,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

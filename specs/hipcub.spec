@@ -1,7 +1,7 @@
 %global upstreamname hipCUB
 
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -30,7 +30,7 @@
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCm
@@ -141,6 +141,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jun 24 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-3
 - add option to build test subpackage
 

@@ -9,7 +9,7 @@
 Summary: Modern asynchronous API to the DNS
 Name: getdns
 Version: 1.7.3
-Release: 8%{?extraver:.%{extraver}}%{?dist}
+Release: 9%{?extraver:.%{extraver}}%{?dist}
 License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
@@ -159,6 +159,9 @@ install -m0644 -D getdns.sysusers.conf %{buildroot}%{_sysusersdir}/getdns.conf
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.3-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

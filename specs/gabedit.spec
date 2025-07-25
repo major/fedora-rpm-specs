@@ -6,7 +6,7 @@
 Name:		gabedit
 Summary:	GUI for computational chemistry
 Version:	%{mainver}
-Release:	0.11%{?snap_digit:_snap%{snap_digit}}%{?dist}
+Release:	0.12%{?snap_digit:_snap%{snap_digit}}%{?dist}
 URL:		http://gabedit.sourceforge.net/home.html
 License:	MIT
 
@@ -128,6 +128,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/*.png
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-0.12_snap20220518
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-0.11_snap20220518
 - C23: avoid bool keyword usage
 - C23: support strict function prototype

@@ -17,7 +17,7 @@
 
 Name:           evince
 Version:        48.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
@@ -288,6 +288,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Marek Kasik <mkasik@redhat.com> - 48.0-2
 - Fix scaling in presentation mode with fractional scaling
 - Resolves: #2327479

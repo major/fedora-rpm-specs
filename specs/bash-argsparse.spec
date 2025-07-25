@@ -1,7 +1,7 @@
 Summary: An high level argument parsing library for bash
 Name: bash-argsparse
 Version: 1.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: WTFPL
 URL: https://github.com/Anvil/bash-argsparse
 Source0: http://argsparse.livna.org/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ ln -s argsparse.sh %{buildroot}/%{_bindir}/argsparse
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

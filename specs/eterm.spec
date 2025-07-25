@@ -1,7 +1,7 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       41%{?dist}
+Release:       42%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 09 2025 Terje Rosten <terjeros@gmail.com> - 0.9.6-41
 - Revert to C17
 

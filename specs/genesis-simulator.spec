@@ -15,7 +15,7 @@
 Name:       %{realname}-simulator
 Summary:    A general purpose simulation platform
 Version:    2.4
-Release:    25.20210608git%{shortcommit}%{?dist}
+Release:    26.20210608git%{shortcommit}%{?dist}
 Url:        http://www.genesis-sim.org/GENESIS/
 Source0:    https://github.com/genesis-sim/%{realname}-%{version}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # fix left over COPT
@@ -190,6 +190,9 @@ rm -rf %{buildroot}%{_libdir}/%{realname}/Tutorials
 %doc Doc Hyperdoc Tutorials
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-26.20210608git7b0a66b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 22 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 2.4-25.20210608git7b0a66b
 - Fix typo in package description
 

@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -130,6 +130,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Parag Nemade <pnemade AT redhat DOT com> - 20230101-17
 - Update for https://fedoraproject.org/wiki/Changes/CMake_ninja_default (rh#2381004)
 

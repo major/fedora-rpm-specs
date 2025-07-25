@@ -6,8 +6,8 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        11.1
-Release:        1%{?dist}
+Version:        11.2
+Release:        2%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -70,6 +70,7 @@ sed -i -e '/\(gtk_update_icon_cache\|glib_compile_schemas\|update_desktop_databa
 %meson_build
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%cargo_vendor_manifest
 
 
 %install
@@ -84,7 +85,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %files -f fractal.lang
-%license LICENSE LICENSE.dependencies
+%license LICENSE LICENSE.dependencies cargo-vendor.txt
 %doc README.md
 %{_bindir}/fractal
 %{_datadir}/applications/org.gnome.Fractal.desktop
@@ -97,6 +98,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Tue Jul 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 11.2-1
+- Update to 11.2
+- Generate vendor manifest
+
 * Thu Jun 05 2025 Michel Lind <salimma@fedoraproject.org> - 11.1-1
 - Update to 11.1
 - Fixes session verification

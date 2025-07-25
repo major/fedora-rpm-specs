@@ -12,7 +12,7 @@ Version:               0
 
 %forgemeta
 
-Release:               19%{?dist}
+Release:               20%{?dist}
 Summary:               Fixed point math header only library for C
 # Automatically converted from old format: BSD - review is highly recommended.
 License:               LicenseRef-Callaway-BSD
@@ -70,6 +70,9 @@ install -p -m 0644 -D %{name}.h %{buildroot}%{_includedir}/%{name}/%{name}.h
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

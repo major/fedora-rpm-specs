@@ -4,7 +4,7 @@
 
 Name:		glmark2
 Version:	2023.01^%{commitdate0}git%{shortcommit0}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Benchmark for OpenGL 2.0 and ES 2.0
 
 
@@ -227,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01^20250221gitcebbb63-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 2023.01^20250221gitcebbb63-1
 - update to 20250221 snapshot
 - regenerate glad2 sources

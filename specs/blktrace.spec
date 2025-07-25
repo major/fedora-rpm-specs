@@ -1,7 +1,7 @@
 Summary: Utilities for performing block layer IO tracing in the Linux kernel
 Name: blktrace
 Version: 1.3.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-2.0-or-later
 Source0: http://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2
 Source1: https://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2.asc
@@ -85,6 +85,9 @@ information about IO patterns.
 %{_mandir}/man1/iowatcher.*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

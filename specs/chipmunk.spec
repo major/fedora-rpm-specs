@@ -1,6 +1,6 @@
 Name:           chipmunk
 Version:        7.0.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Physics engine for 2D games
 
 License:        MIT
@@ -67,6 +67,9 @@ chipmunk library functions.  You'll also need to install the chipmunk package.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 30 2025 Cristian Le <git@lecris.dev> - 7.0.3-17
 - Allow to build with ninja
 - Use standard CMake macros

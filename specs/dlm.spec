@@ -1,6 +1,6 @@
 Name:           dlm
 Version:        4.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary:        dlm control daemon and tool
 URL:            https://pagure.io/dlm
@@ -94,6 +94,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 27 2025 David Teigland <teigland@redhat.com> - 4.3.0-5
 - more attempts to fix dir stuff
 

@@ -5,7 +5,7 @@
 Summary:        Firmware for several ALSA-supported sound cards
 Name:           alsa-firmware
 Version:        1.2.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 # See later in the spec for a breakdown of licensing
 License:        GPL-1.0-or-later and BSD-3-Clause and GPL-2.0-or-later and GPL-2.0-only and LGPL-2.1-or-later
 URL:            http://www.alsa-project.org/
@@ -200,6 +200,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

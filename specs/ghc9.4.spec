@@ -83,7 +83,7 @@ Version: 9.4.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -1049,6 +1049,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.8-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun May 04 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-34
 - use ld.bfd on all archs for epel10 and f43 rawhide (breaking)
 

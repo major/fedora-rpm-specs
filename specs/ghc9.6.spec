@@ -55,7 +55,7 @@ Version: 9.6.7
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -819,6 +819,9 @@ make test
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.7-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Jens Petersen  <petersen@redhat.com> - 9.6.7-24
 - update to 9.6.7
 - https://downloads.haskell.org/ghc/9.6.7/docs/users_guide/9.6.7-notes.html

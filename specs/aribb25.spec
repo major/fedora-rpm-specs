@@ -1,6 +1,6 @@
 Name:           aribb25
 Version:        0.2.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Basic implementation of the ARIB STD-B25 public standard
 License:        ISC
 URL:            https://code.videolan.org/videolan/aribb25
@@ -68,6 +68,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

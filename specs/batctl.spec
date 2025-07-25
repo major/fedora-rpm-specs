@@ -1,6 +1,6 @@
 Name:           batctl
 Version:        2025.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPL-2.0-only AND MIT AND ISC
@@ -57,6 +57,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 17 2025 Felix Kaechele <felix@kaechele.ca> - 2025.1-1
 - update to 2025.1
 - use gpgverify to verify sources against maintainer's key

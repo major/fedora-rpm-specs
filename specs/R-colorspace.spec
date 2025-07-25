@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          2.0.3
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          A Toolbox for Manipulating and Assessing Colors and Palettes
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -118,6 +118,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.3-13
 - R-maint-sig mass rebuild
 

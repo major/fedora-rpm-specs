@@ -47,7 +47,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.05.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -484,6 +484,9 @@ done
 # =============================================================================
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.05.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.1-4
 - rename tools-fonts to tools-fontutils to comply with font guidelines (fedora#2372646)
 

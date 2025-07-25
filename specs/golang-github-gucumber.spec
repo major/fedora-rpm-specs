@@ -24,7 +24,7 @@ An implementation of Cucumber BDD-style testing for Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.32%{?dist}
+Release:        0.33%{?dist}
 Summary:        Cucumber BDD-style testing for Go
 
 License:        MIT
@@ -77,6 +77,9 @@ end
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

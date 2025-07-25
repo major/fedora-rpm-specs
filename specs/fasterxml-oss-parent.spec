@@ -2,7 +2,7 @@
 
 Name:          fasterxml-oss-parent
 Version:       62
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
@@ -52,6 +52,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 62-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 62-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

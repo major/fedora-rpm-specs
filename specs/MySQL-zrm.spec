@@ -1,6 +1,6 @@
 Name:           MySQL-zrm
 Version:        3.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        MySQL backup manager
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -134,6 +134,9 @@ chmod 640 %{buildroot}%{_sysconfdir}/mysql-zrm/mysql-zrm.conf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

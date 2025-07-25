@@ -1,7 +1,7 @@
 Summary: A spam filter for Usenet news servers
 Name: cleanfeed
 Version: 20020501
-Release: 35%{?dist}
+Release: 36%{?dist}
 # Confirmed with upstream, website
 License: Artistic-2.0
 URL: http://www.bofh.it/~md/cleanfeed/
@@ -57,6 +57,9 @@ install -m0644 -D cleanfeed.sysusers.conf %{buildroot}%{_sysusersdir}/cleanfeed.
 %{_sysusersdir}/cleanfeed.conf
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20020501-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20020501-35
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

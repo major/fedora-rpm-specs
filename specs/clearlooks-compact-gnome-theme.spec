@@ -1,6 +1,6 @@
 Name:           clearlooks-compact-gnome-theme
 Version:        1.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        GNOME Desktop theme optimized for small displays
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -40,6 +40,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/themes/Clearlooks\ Compact/COPYING
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

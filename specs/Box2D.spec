@@ -1,6 +1,6 @@
 Name: Box2D
 Version:  2.4.2
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary: A 2D Physics Engine for Games
 
 License: Zlib
@@ -50,6 +50,9 @@ rm -r extern
 %{_libdir}/cmake/box2d/*.cmake
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 15 2025 Cristian Le <git@lecris.dev> - 2.4.2-4
 - Allow to build with ninja
 

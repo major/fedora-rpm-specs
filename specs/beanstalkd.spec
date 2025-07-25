@@ -7,7 +7,7 @@
 
 Name:           beanstalkd
 Version:        1.10
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A simple, fast work-queue service
 
 License:        MIT
@@ -98,6 +98,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.10-25
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

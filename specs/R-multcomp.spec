@@ -7,7 +7,7 @@
 Summary:        Simultaneous inference for general linear hypotheses R Package
 Name:           R-%{packname}
 Version:        %{packver}.%{packrel}
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-only
 Source0:        http://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 URL:            http://cran.r-project.org/web/packages/multcomp/index.html
@@ -69,6 +69,9 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.23-10
 - R-maint-sig mass rebuild
 

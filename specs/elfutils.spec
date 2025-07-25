@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.193
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -518,6 +518,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.193-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 28 2025 Aaron Merey <amerey@redhat.com> - 0.193-1
 - Upgrade to upstream elfutils 0.193
 - Drop upstreamed patches

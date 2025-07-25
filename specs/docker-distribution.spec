@@ -35,7 +35,7 @@
 
 Name:           %{project}-%{repo}
 Version:        2.8.1
-Release:        8.git%{shortcommit}%{?dist}
+Release:        9.git%{shortcommit}%{?dist}
 Summary:        Docker toolset to pack, ship, store, and deliver content
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -323,6 +323,9 @@ make test
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-9.gitb5ca020
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-8.gitb5ca020
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
 Version: 25.07.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -136,6 +136,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

@@ -2,7 +2,7 @@
 
 Name:           bluebird
 Version:        1.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A clean minimalistic theme for Xfce, GTK+ 2 and 3
 
 # Automatically converted from old format: GPLv2+ or CC-BY-SA - review is highly recommended.
@@ -94,6 +94,9 @@ cp -pr gtk-2.0/ gtk-3.0/ metacity-1/ xfwm4/ %{buildroot}%{_datadir}/themes/%{the
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

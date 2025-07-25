@@ -18,7 +18,7 @@ Version: 2.0.5
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   22%{?dist}
+Release:   23%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
 License:   GPL-3.0-or-later
@@ -168,6 +168,9 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:2.0.5-22
 - Update license to use SPDX license expression in spec file templates
   Resolves: rhbz#2253660

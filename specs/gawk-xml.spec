@@ -1,7 +1,7 @@
 Name:             gawk-xml
 Summary:          XML support for gawk
 Version:          1.1.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 # Automatically converted from old format: GPL+ and GPLv3+ - review is highly recommended.
 License:          GPL-1.0-or-later AND GPL-3.0-or-later
 
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{_infodir}/dir
 # =============================================================================
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.2-1
 - Upgrade to release 1.1.2 containing a minor packaging fix
 

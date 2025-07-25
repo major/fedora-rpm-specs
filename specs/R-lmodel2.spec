@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.3
-Release:          25%{?dist}
+Release:          26%{?dist}
 Summary:          Model II Regression
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.3-25
 - R-maint-sig mass rebuild
 

@@ -1,7 +1,7 @@
 Name:		globus-gsi-proxy-core
 %global _name %(tr - _ <<< %{name})
 Version:	9.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Proxy Core Library
 
 License:	Apache-2.0
@@ -113,6 +113,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

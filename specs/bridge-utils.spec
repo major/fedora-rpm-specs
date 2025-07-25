@@ -1,7 +1,7 @@
 Summary:        Utilities for configuring the linux ethernet bridge
 Name:           bridge-utils
 Version:        1.7.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://wiki.linuxfoundation.org/networking/bridge
 
@@ -41,6 +41,9 @@ autoconf
 %{_mandir}/man8/brctl.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

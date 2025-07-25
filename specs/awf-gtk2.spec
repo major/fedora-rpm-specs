@@ -1,6 +1,6 @@
 Name:          awf-gtk2
 Version:       3.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Theme preview application for GTK 2
 Summary(fr):   Application d'aperçu de thème pour GTK 2
 License:       GPL-3.0-or-later
@@ -75,6 +75,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Fabrice Creuzot <code@luigifab.fr> - 3.0.0-1
 - New upstream release
 - Add support for CSD window

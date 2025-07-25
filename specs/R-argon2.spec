@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          0.4.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Secure Password Hashing
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -88,6 +88,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.0-13
 - R-maint-sig mass rebuild
 

@@ -37,6 +37,14 @@
 
 %define __lib lib
 
+%if 0%{?suse_version} > 1500
+%define pamconfdir %{_pam_vendordir}
+%define pamconfig tools/cockpit.suse.pam
+%else
+%define pamconfdir %{_sysconfdir}/pam.d
+%define pamconfig tools/cockpit.pam
+%endif
+
 %if %{defined _pamdir}
 %define pamdir %{_pamdir}
 %else
@@ -49,8 +57,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        342
-Release:        1%{?dist}
+Version:        343
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -155,15 +163,20 @@ BuildRequires:  python3-pytest-timeout
 %check
 make -j$(nproc) check
 
-%if 0%{?rhel} == 0
+%if 0%{?rhel} == 0 && 0%{?suse_version} == 0
 export NO_QUNIT=1
 %pytest
 %endif
 
 %install
+%if 0%{?suse_version}
+export NO_BRP_STALE_LINK_ERROR="yes"
+%endif
 %make_install
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
-install -p -m 644 tools/cockpit.pam $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/cockpit
+
+mkdir -p $RPM_BUILD_ROOT%{pamconfdir}
+install -p -m 644 %{pamconfig} $RPM_BUILD_ROOT%{pamconfdir}/cockpit
+
 rm -f %{buildroot}/%{_libdir}/cockpit/*.so
 install -D -p -m 644 AUTHORS COPYING README.md %{buildroot}%{_docdir}/cockpit/
 
@@ -214,7 +227,12 @@ find %{buildroot}%{_datadir}/cockpit/static -type f >> static.list
 
 sed -i "s|%{buildroot}||" *.list
 
-%if ! 0%{?suse_version}
+%if 0%{?suse_version}
+# remove files of not installable packages
+rm -r %{buildroot}%{_datadir}/cockpit/sosreport
+rm -f %{buildroot}/%{_prefix}/share/metainfo/org.cockpit_project.cockpit_sosreport.metainfo.xml
+rm -f %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/cockpit-sosreport.png
+%else
 %global _debugsource_packages 1
 %global _debuginfo_subpackages 0
 
@@ -384,7 +402,8 @@ authentication via sssd/FreeIPA.
 %doc %{_mandir}/man8/pam_ssh_add.8.gz
 %dir %{_sysconfdir}/cockpit
 %config(noreplace) %{_sysconfdir}/cockpit/ws-certs.d
-%config(noreplace) %{_sysconfdir}/pam.d/cockpit
+%config(noreplace) %{pamconfdir}/cockpit
+
 # created in %post, so that users can rm the files
 %ghost %{_sysconfdir}/issue.d/cockpit.issue
 %ghost %{_sysconfdir}/motd.d/cockpit
@@ -504,7 +523,11 @@ SELinux policy module for the cockpit-ws package.
 Summary: Cockpit user interface for kernel crash dumping
 Requires: cockpit-bridge >= %{required_base}
 Requires: cockpit-shell >= %{required_base}
+%if 0%{?suse_version}
+Requires: kexec-tools
+%else
 Requires: /usr/bin/kdumpctl
+%endif
 BuildArch: noarch
 
 %description kdump
@@ -514,6 +537,8 @@ The Cockpit component for configuring kernel crash dumping.
 %license COPYING
 %{_datadir}/metainfo/org.cockpit_project.cockpit_kdump.metainfo.xml
 
+# sosreport is not supported on opensuse yet
+%if !0%{?suse_version}
 %package sosreport
 Summary: Cockpit user interface for diagnostic reports
 Requires: cockpit-bridge >= %{required_base}
@@ -529,6 +554,7 @@ sosreport tool.
 %license COPYING
 %{_datadir}/metainfo/org.cockpit_project.cockpit_sosreport.metainfo.xml
 %{_datadir}/icons/hicolor/64x64/apps/cockpit-sosreport.png
+%endif
 
 %package networkmanager
 Summary: Cockpit user interface for networking, using NetworkManager
@@ -554,7 +580,10 @@ The Cockpit component for managing networking.  This package uses NetworkManager
 Summary: Cockpit SELinux package
 Requires: cockpit-bridge >= %{required_base}
 Requires: cockpit-shell >= %{required_base}
-Requires: setroubleshoot-server >= 3.3.3
+# setroubleshoot is available on SLE Micro starting with 5.5
+%if !0%{?is_smo} || ( 0%{?is_smo} && 0%{?sle_version} >= 150500 )
+Requires:       setroubleshoot-server >= 3.3.3
+%endif
 BuildArch: noarch
 
 %description selinux
@@ -618,6 +647,12 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 343-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Packit <hello@packit.dev> - 343-1
+- Bug fixes and translation updates
+
 * Wed Jul 09 2025 Packit <hello@packit.dev> - 342-1
 - Bug fixes and translation updates
 

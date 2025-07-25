@@ -1,7 +1,7 @@
 Summary: Utilities for manipulating .desktop files
 Name: desktop-file-utils
 Version: 0.28
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.freedesktop.org/software/desktop-file-utils
 Source0: https://www.freedesktop.org/software/desktop-file-utils/releases/%{name}-%{version}.tar.xz
 Source1: desktop-entry-mode-init.el
@@ -58,6 +58,9 @@ update-desktop-database &> /dev/null || :
 %{_emacs_sitelispdir}/desktop-file-utils/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Sam Day <me@samcday.com> - 0.28-1
  - 0.28 update
  - Drop COSMIC patch, it landed upstream in 0.28

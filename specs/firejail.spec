@@ -6,7 +6,7 @@ Name: firejail
 Summary: Linux namespaces sandbox program
 
 Version: 0.9.74
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 BuildRequires: coreutils
 BuildRequires: gcc
@@ -94,6 +94,9 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.74-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.74-1
 - Upgrade to v0.9.74
 

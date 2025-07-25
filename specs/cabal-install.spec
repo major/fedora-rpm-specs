@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        3.10.3.0
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD-3-Clause
@@ -236,6 +236,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 3.10.3.0-3
 - Rebuild
 

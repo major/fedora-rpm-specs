@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        8.01
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A Greek typeface inspired by Alexander Wilson
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet \
 %doc Textfonts.pdf Textfonts.odt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

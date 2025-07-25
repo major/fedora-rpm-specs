@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -32,7 +32,6 @@ BuildRequires:  lz4-devel
 # See https://github.com/libarchive/libarchive/releases/tag/v3.3.0
 #BuildRequires:  lzo-devel
 BuildRequires:  openssl-devel
-BuildRequires:  sharutils
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 BuildRequires: make
@@ -241,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Wed Jul 23 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.8.1-2
+- Remove sharutils dependency, as it's not needed anymore
+
 * Mon Jun 02 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.8.1-1
 - Rebase to version 3.8.1
 

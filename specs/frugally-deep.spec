@@ -11,7 +11,7 @@ License:        MIT
 # Main license is MIT
 # BSD-2-Clause is only for cmake/HunterGate.cmake and that is not distributed
 Version:        0.15.30
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 URL:            https://github.com/Dobiasd/frugally-deep
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -118,6 +118,9 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.2)@cmake_minimum_required(VERSION 
 %_libdir/cmake/%{name}/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.30-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 0.15.30-8
 - cmake changed
 

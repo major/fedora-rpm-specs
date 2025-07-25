@@ -4,7 +4,7 @@ Summary:        Documentation for the Python 3 programming language
 # The Version should be in-sync with the python3 package:
 %global         pybasever 3.14
 %global         general_version %{pybasever}.0
-%global         prerel b4
+%global         prerel rc1
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
 Release:        %autorelease

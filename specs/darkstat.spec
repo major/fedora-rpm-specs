@@ -1,7 +1,7 @@
 Name:		darkstat
 Summary:	Network traffic analyzer
 Version:	3.0.721
-Release:	10%{?dist}
+Release:	11%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 
@@ -70,6 +70,9 @@ install -m0644 -D darkstat.sysusers.conf %{buildroot}%{_sysusersdir}/darkstat.co
 %{_sysusersdir}/darkstat.conf
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.721-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.721-10
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

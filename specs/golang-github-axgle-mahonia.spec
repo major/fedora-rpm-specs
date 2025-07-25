@@ -16,7 +16,7 @@ compiled into the executable; it doesn't need any external data files.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.23%{?dist}
+Release:        0.24%{?dist}
 Summary:        Character-set conversion library implemented in Go
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

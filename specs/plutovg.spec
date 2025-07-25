@@ -1,15 +1,15 @@
 Name:           plutovg
-Version:        1.1.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Tiny 2D vector graphics library in C
 License:        MIT AND FTL
 URL:            https://github.com/sammycage/plutovg
 
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{name}-samples.patch
-Patch1:         %{name}-system-stb.patch
+Patch0:         %{name}-system-stb.patch
+Patch1:         %{name}-soversion-cmake.patch
 
-BuildRequires:  meson >= 0.59.0
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  stb_image-devel
 BuildRequires:  stb_image_write-devel
@@ -38,18 +38,20 @@ Sample programs that use %{name}.
 rm -fv source/%{name}-stb-*.h
 
 %build
-%meson \
-  -D examples=enabled \
-  -D tests=enabled
-%meson_build
+%cmake \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DPLUTOVG_BUILD_EXAMPLES=ON
+%cmake_build
 
 %install
-%meson_install
+%cmake_install
+install -p -m 0755 -D %{_vpath_builddir}/examples/smiley %{buildroot}%{_bindir}/smiley
 
 %check
-%meson_test
+%ctest
 # At the moment there are no meson tests defined and the above command is a no-op,
 # so run the sample program as a test:
+export LD_LIBRARY_PATH=%{_vpath_builddir}
 %{_vpath_builddir}/examples/smiley
 
 %files
@@ -59,6 +61,7 @@ rm -fv source/%{name}-stb-*.h
 %{_libdir}/lib%{name}.so.%{version}
 
 %files devel
+%{_libdir}/cmake/%{name}
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc

@@ -1,6 +1,6 @@
 Name:		freedink
 Version:	109.6
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Humorous top-down adventure and role-playing game
 
 BuildRequires:	gcc-c++
@@ -112,6 +112,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}/LiberationSans-Regular.ttf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 109.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 109.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

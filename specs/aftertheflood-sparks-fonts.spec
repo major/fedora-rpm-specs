@@ -15,7 +15,7 @@ end points, e.g., 123{30,60,90}456 – Sparks has numerals built in.
 
 Name:       %{fontname}-fonts
 Version:    2.0
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    After the Flood Sparks, a font to display charts within text
 # Automatically converted from old format: OFL - review is highly recommended.
 License:    LicenseRef-Callaway-OFL
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

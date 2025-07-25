@@ -1,7 +1,7 @@
 Summary:        FrameBuffer Imageviewer
 Name:           fbida
 Version:        2.14
-Release:        21%{?dist}
+Release:        22%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.kraxel.org/blog/linux/fbida/
@@ -92,6 +92,9 @@ lib=%{_lib} prefix=%{_prefix} %{__make} DESTDIR=%{buildroot} STRIP= install
 %{_datadir}/X11/app-defaults/Ida
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           armadillo
 Version:        12.8.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast C++ matrix library with syntax similar to MATLAB and Octave
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -124,6 +124,9 @@ make -C "%{_vpath_builddir}"
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.8.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

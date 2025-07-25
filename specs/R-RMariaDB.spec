@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Database Interface and 'MariaDB' Driver
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.2-12
 - R-maint-sig mass rebuild
 

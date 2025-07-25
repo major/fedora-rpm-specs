@@ -1,6 +1,6 @@
 Name: gfs2-utils
 Version: 3.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Refer to doc/README.licence in the upstream tarball
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary: Utilities for managing the global file system (GFS2)
@@ -65,6 +65,9 @@ modifying, and correcting inconsistencies in GFS2 file systems.
 %{_prefix}/lib/udev/rules.d/82-gfs2-withdraw.rules
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 27 2025 Andrew Price <anprice@redhat.com> - 3.6.1-1
 - New upstream release
 

@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-kubernetes
-Version:        0.4.4
+Version:        0.5.0
 Release:        %autorelease
 Summary:        A snakemake executor plugin for submission of jobs to Kubernetes
 

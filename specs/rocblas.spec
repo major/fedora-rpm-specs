@@ -6,7 +6,7 @@
 
 %global upstreamname rocBLAS
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -128,7 +128,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -405,6 +405,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif # gfx950
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Wed Jun 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
 - Remove suse check for using ldconfig
 

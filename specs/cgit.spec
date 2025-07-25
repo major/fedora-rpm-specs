@@ -35,7 +35,7 @@
 
 Name:           cgit
 Version:        1.2.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A fast web interface for git
 
 License:        GPL-2.0-only
@@ -231,6 +231,9 @@ install -Dp -m0644 httpd.conf %{buildroot}%{httpdconfd}/%{name}.conf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -27,7 +27,7 @@
 Summary:	Small libc implementation
 Name:		dietlibc
 Version:	0.34
-Release:	19%{?dist}
+Release:	20%{?dist}
 License:	GPL-2.0-only
 URL:		http://www.fefe.de/dietlibc/
 %if !0%{?prerelease:1}
@@ -158,6 +158,9 @@ ulimit -m $[ 128*1024 ] -v $[ 256*1024 ] -d $[ 128*1024 ] -s 512
 %pkglibdir
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

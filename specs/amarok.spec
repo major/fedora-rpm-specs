@@ -3,7 +3,7 @@
 Name:    amarok
 Summary: Media player
 Version: 3.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -248,6 +248,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Than Ngo <than@redhat.com> - 3.2.2-2
 - Fix rhbz#2290341 - Directory is missing in RPM database
 

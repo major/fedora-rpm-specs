@@ -3,12 +3,13 @@
 
 Name:		biblesync
 Version:	2.1.0
-Release:	13%{?dist}
+Release:	15%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.xiphos.org
 Source0:	https://github.com/karlkleinpaste/biblesync/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:		4b00f9fd3d0c858947eee18206ef44f9f6bd2283.patch
 
 BuildRequires:	intltool
 BuildRequires:	libuuid-devel
@@ -39,6 +40,7 @@ that use %{name}.
 
 %prep
 %setup -q
+%autopatch
 
 
 %build
@@ -47,13 +49,13 @@ export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
 mkdir build
 pushd build
 %cmake -DLIBDIR=%{_libdir} .. -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed" -DBIBLESYNC_SOVERSION=%{__soversion}
-make %{?_smp_mflags}
+%cmake_build
 popd
 
 
 %install
 pushd build
-make install DESTDIR=%{buildroot}
+%cmake_install
 popd
 
 %files
@@ -68,6 +70,13 @@ popd
 %{_mandir}/man7/biblesync.7*
 
 %changelog
+* Wed Jul 23 2025 Greg Hellings <greg.hellings@gmail.com> - 2.1.0-15
+- Fix for ninja generator (rhbz#2380968)
+- Fix for FTBFS with CMake 4.0 (rhbz#2380477)
+
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

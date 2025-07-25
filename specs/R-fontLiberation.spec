@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.0
-Release:          26%{?dist}
+Release:          27%{?dist}
 Summary:          Liberation Fonts
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -79,6 +79,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.0-26
 - R-maint-sig mass rebuild
 

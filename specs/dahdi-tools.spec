@@ -3,7 +3,7 @@
 
 Name:           dahdi-tools
 Version:        %{tools_version}
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Userspace tools to configure the DAHDI kernel modules
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
@@ -224,6 +224,9 @@ install -m0644 -D dahdi-tools.sysusers.conf %{buildroot}%{_sysusersdir}/dahdi-to
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11.1-36
 - Stop using obsoleted %%setup usage
 

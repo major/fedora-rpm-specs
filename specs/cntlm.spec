@@ -3,7 +3,7 @@
 Summary:          Fast NTLM authentication proxy with tunneling
 Name:             cntlm
 Version:          0.92.3
-Release:          31%{?dist}
+Release:          32%{?dist}
 License:          GPL-2.0-or-later
 
 URL:              http://cntlm.sourceforge.net/
@@ -82,6 +82,9 @@ install -m0644 -D cntlm.sysusers.conf %{buildroot}%{_sysusersdir}/cntlm.conf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.92.3-31
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

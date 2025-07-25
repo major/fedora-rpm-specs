@@ -1,6 +1,6 @@
 Name:           gau2grid
 Version:        2.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast computation of a gaussian function and its derivative on a grid
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -46,6 +46,9 @@ This package contains the development headers for gau2grid.
 %{_libdir}/libgg.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

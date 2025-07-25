@@ -1,6 +1,6 @@
 Name:           abbayedesmorts-gpl
 Version:        2.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Platform game set in 13th century
 
 # Graphics and Sounds are licensed under
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/abbaye.app
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Andrea Musuruane <musuruan@gmail.com> - 2.0.5-1
 - Updated to new upstream release
 

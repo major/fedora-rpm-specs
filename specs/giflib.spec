@@ -1,7 +1,7 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
 Version:       5.2.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 
 License:       MIT
 URL:           http://www.sourceforge.net/projects/%{name}/
@@ -152,6 +152,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com> - 5.2.2-7
 - Increase minimum cmake version to 3.5
 - Use GnuInstallDirs

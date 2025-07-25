@@ -4,7 +4,7 @@
 
 Name:           emacs-rpm-spec-mode
 Version:        0.16
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Major GNU Emacs mode for editing RPM spec files
 
 %forgemeta
@@ -45,6 +45,9 @@ install -p -m 644 rpm-spec-mode-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitelispdir}/rpm-spec-mode.elc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 04 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.16-23
 - Update to latest upstream commit
 

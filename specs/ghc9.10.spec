@@ -66,7 +66,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -857,6 +857,9 @@ make test
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.10.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 29 2025 Jens Petersen <petersen@redhat.com> - 9.10.2-9
 - add openSUSE's backport of riscv64 NCG
 - add conflicts for other ghcX.Y-compiler-default packages

@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -158,6 +158,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Rob Crittenden <rcritten@redhat.com> - 0.18-4
 - Stop using deprecated python build/install macros (#2377261)
 

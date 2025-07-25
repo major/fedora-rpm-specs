@@ -1,6 +1,6 @@
 Name:           ddpt
 Version:        0.97
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Variant of the dd utility for SCSI/storage devices
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -43,6 +43,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

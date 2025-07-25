@@ -2,7 +2,7 @@
 
 Name:           batik
 Version:        1.14
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Scalable Vector Graphics for Java
 # Automatically converted from old format: ASL 2.0 and W3C - review is highly recommended.
 License:        Apache-2.0 AND W3C
@@ -230,6 +230,9 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}/
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

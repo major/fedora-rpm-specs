@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 Name:           git-remote-hg
 Version:        1.0.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 Summary:        Mercurial wrapper for git
 License:        GPL-2.0-or-later
@@ -46,6 +46,9 @@ make install-doc
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

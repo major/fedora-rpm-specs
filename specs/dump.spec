@@ -10,7 +10,7 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.60.%{PREVER}%{?dist}
+Release:       0.61.%{PREVER}%{?dist}
 License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
 Source:        https://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
@@ -122,6 +122,9 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.61.b52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Jeff Makey <jeff@makey.net> - 1:0.4-0.60.b52
 - Drop obsolete use of -fcommon
 - BuildRequires libblkid-devel & libuuid-devel to disable workarounds

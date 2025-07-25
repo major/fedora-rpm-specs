@@ -4,7 +4,7 @@
 
 Name:           ghex
 Version:        48~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binary editor for GNOME
 
 # Source code is under GPLv2+, help is under GFDL and icon is under CC-BY-SA.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
 - Update to 48.alpha
 

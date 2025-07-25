@@ -8,7 +8,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Web Application Framework for R
 
 # Mainly GPLv3, JavaScript files are a mix of BSD and MIT; see bundling list below.
@@ -191,6 +191,9 @@ end
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.2-12
 - R-maint-sig mass rebuild
 

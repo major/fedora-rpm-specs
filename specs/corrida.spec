@@ -3,7 +3,7 @@
 
 Name:           corrida
 Version:        %{version_major}.%{version_minor}
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Application for archivation of meteor observations
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -64,6 +64,9 @@ desktop-file-install %{SOURCE1} \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.11-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.11-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    gmm
 Version: 5.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A generic C++ template library for sparse, dense and skyline matrices
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -49,6 +49,9 @@ Provides: gmm++-devel = %{version}-%{release}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

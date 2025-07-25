@@ -14,7 +14,7 @@
 
 Name:           ocaml-dune
 Version:        3.19.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -585,6 +585,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Wed Jul 23 2025 Jerry James <loganjerry@gmail.com> - 3.19.1-2
+- Migrate tests from STI to TMT (rhbz#2382985)
+
 * Wed Jun 11 2025 Jerry James  <loganjerry@gmail.com> - 3.19.1-1
 - Version 3.19.1
 

@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.6.11
 # can only be reset when subpkg bumped
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Trie-based memo functions
 
 License:        BSD-3-Clause
@@ -135,6 +135,9 @@ dos2unix -k -n %{SOURCE2} %{newtypegenerics}/newtype-generics.cabal
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 0.6.11-8
 - Rebuild
 

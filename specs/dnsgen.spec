@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        1.0.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generates DNS names from existing domain names
 
 License:        MIT
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.4-17
 - Rebuilt for Python 3.14
 

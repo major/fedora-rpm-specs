@@ -1,6 +1,6 @@
 Name:           args4j
 Version:        2.33
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Java command line arguments parser
 License:        MIT
 URL:            https://args4j.kohsuke.org
@@ -78,6 +78,9 @@ find -name '*.jar' -exec rm -f '{}' \;
 %license %{name}/LICENSE.txt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.33-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.33-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

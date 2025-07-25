@@ -1,8 +1,8 @@
 %global pypi_name smbprotocol
 
 Name:           python-%{pypi_name}
-Version:        1.9.0
-Release:        11%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        Interact with a server using the SMB 2/3 Protocol
 
 License:        MIT
@@ -47,6 +47,7 @@ rm -rf %{pypi_name}.egg-info
 %pyproject_save_files %{pypi_name}
 
 %check
+%pyproject_check_import
 %pytest -v tests \
   -k "not reset_connection \
   and not config_domain \
@@ -59,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/smbclient/
 
 %changelog
+* Wed Jul 23 2025 Tom Rix <Tom.Rix@amd.com> - 1.15.0-1
+- Update to 1.15.0
+
 * Mon Jul 14 2025 Tom Rix <Tom.Rix@amd.com> - 1.9.0-11
 - Use pyproject macros
 

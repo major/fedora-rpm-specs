@@ -1,7 +1,7 @@
 Name:		globus-gass-copy
 %global _name %(tr - _ <<< %{name})
 Version:	10.13
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Grid Community Toolkit - Globus Gass Copy
 
 License:	Apache-2.0
@@ -151,6 +151,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

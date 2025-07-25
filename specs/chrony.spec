@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -205,6 +205,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.7-2
 - let systemd create /var/lib/chrony and /var/log/chrony (#2372944)
 - drop workaround for broken build on aarch64

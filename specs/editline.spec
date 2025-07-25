@@ -1,6 +1,6 @@
 Name:           editline
 Version:        1.17.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A small compatible replacement for readline
 
 # https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License
@@ -59,6 +59,9 @@ rm %{buildroot}/%{_mandir}/man3/editline.3
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

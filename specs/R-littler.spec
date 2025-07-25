@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	0.3.19
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
 License:	GPL-2.0-or-later
@@ -95,6 +95,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.19-8
 - R-maint-sig mass rebuild
 

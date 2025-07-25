@@ -7,7 +7,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.0.3.1
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	A Latin typeface inspired by feudal calligraphy
 # Automatically converted from old format: OFL - review is highly recommended.
 License:	LicenseRef-Callaway-OFL
@@ -59,6 +59,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %doc drehatlas-fonts-%{metapkgver}/Widelands-%{version}/LICENSE drehatlas-fonts-%{metapkgver}/Widelands-%{version}/FONTLOG
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

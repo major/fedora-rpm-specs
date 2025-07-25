@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     5
+%global         baserelease     6
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -443,6 +443,9 @@ install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6.20210228git4e459f1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11.0-5.20210228git4e459f1
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           dqlite
 Version:        1.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Embeddable, replicated and fault tolerant SQL engine
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -55,6 +55,9 @@ rm -f %{buildroot}%{_libdir}/libdqlite.la
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 1.17.1-1
 - Update to 1.17.1
 

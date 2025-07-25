@@ -1,7 +1,7 @@
 Summary: Utility to autorestart SSH tunnels
 Name: autossh
 Version: 1.4g
-Release: 18%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://www.harding.motd.ca/autossh/
@@ -83,6 +83,9 @@ fi
 %{_sysusersdir}/autossh.conf
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4g-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4g-18
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -6,7 +6,7 @@ BuildRequires:  fonts-rpm-macros
 BuildRequires:  fonts-rpm-templates
 
 Version: 49.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: OFL-1.1
 URL:     https://gitlab.gnome.org/GNOME/adwaita-fonts.git
 
@@ -66,4 +66,7 @@ Summary:    Adwaita fonts
 %fontfiles -a
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

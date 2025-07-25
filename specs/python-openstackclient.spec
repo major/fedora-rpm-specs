@@ -27,7 +27,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          7.1.2
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
@@ -193,6 +193,9 @@ export PYTHON=%{__python3}
 %license LICENSE
 
 %changelog
+* Wed Jul 23 2025 Python Maint <python-maint@redhat.com> - 7.1.2-6
+- Bootstrap for Python 3.14
+
 * Fri May 02 2025 Miro Hrončok <mhroncok@redhat.com> - 7.1.2-5
 - Exclude BuildRequires for python-designateclient, python-magnumclient, python-barbicanclient
 

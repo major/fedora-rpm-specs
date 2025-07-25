@@ -14,7 +14,7 @@ Go package for substituting environment variables.}
 %global godocs          _example README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Environment variables substitution for Go
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 10 2025 Julien Rische <jrische@redhat.com> - 1.4.3-1
 - Rebase to v1.4.3
   Resolves: rhbz#2168107

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{ver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source:           %{url}&version=%{version}#/%{packname}_%{ver}.tar.gz
@@ -54,6 +54,9 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/help
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-10
 - R-maint-sig mass rebuild
 

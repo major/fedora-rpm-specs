@@ -7,7 +7,7 @@
 
 Name:           codec2
 Version:        1.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Next-Generation Digital Voice for Two-Way Radio
 License:        LGPL-2.1-only
 
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

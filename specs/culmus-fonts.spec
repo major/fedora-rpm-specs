@@ -3,7 +3,7 @@ BuildRequires: /usr/bin/makeotfexe
 BuildRequires: fontforge
 
 Version:   0.133
-Release:   13%{?dist}
+Release:   14%{?dist}
 License:   GPL-2.0-only
 URL:       http://culmus.sourceforge.net
 
@@ -303,6 +303,9 @@ fontforge ./modify-font-metadata.pe
 %fontfiles -a
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.133-13
 - Fix FTBFS for F42
 

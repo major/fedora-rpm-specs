@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.6.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        TCP fuzzing tool to test for remote buffer overflows
 
 License:        MIT
@@ -57,6 +57,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           cockpit-image-builder
-Version:        71
-Release:        1%{?dist}
+Version:        72
+Release:        2%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
@@ -46,8 +46,74 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 72-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Jul 23 2025 Packit <hello@packit.dev> - 72-1
+Changes with 72
+----------------
+  * CreateImageWizard: Implement user-friendly error messages (HMS-8704) (#3219)
+    * Author: Florian Schüller, Reviewers: Klara Simickova
+  * ESLint: Deduplicate imports and sort within import groups (HMS-8809) (#3407)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Migrate ESLint to v 9.x (HMS-6277) (#3405)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Fix stuck page for package search (HMS-8863) (#3439)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Make the blueprint name unclickable after filtering (#3438)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * Wizard: Move org ID into a copy-able field (HMS-8821) (#3421)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Update activation keys dropdown (HMS-8825) (#3427)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * build(deps): bump @patternfly/patternfly from 6.1.0 to 6.3.0 (#3451)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @patternfly/react-table from 6.1.0 to 6.3.0 (#3452)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 3.5.0 to 3.6.1 (#3444)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump form-data from 4.0.1 to 4.0.4 (#3450)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump on-headers and compression (#3440)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @currents/playwright from 1.14.1 to 1.15.1 (#3415)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @redhat-cloud-services/tsc-transform-imports from 1.0.24 to 1.0.25 (#3414)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/parser from 8.36.0 to 8.37.0 (#3441)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @vitejs/plugin-react from 4.6.0 to 4.7.0 (#3445)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-import from 2.31.0 to 2.32.0 (#3410)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-testing-library from 7.5.3 to 7.5.4 (#3413)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-testing-library from 7.5.4 to 7.6.0 (#3432)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump stylelint from 16.21.1 to 16.22.0 (#3446)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * chore(deps): update konflux references (#3416)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * chore(deps): update konflux references (#3443)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * devDeps: Bump msw from 2.10.2 to 2.10.3 (#3411)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * devDeps: Bump msw from 2.10.3 to 2.10.4 (HMS-8864) (#3435)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * devDeps: Bump typecript deps (HMS-8881) (#3449)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * on-prem: cloud provider config modal (COMPOSER-2488) (#3103)
+    * Author: Gianluca Zuccarelli, Reviewers: Nobody
+  * src: Fix status text color (HMS-8865) (#3442)
+    * Author: Klara Simickova, Reviewers: Simon Steinbeiß
+  * src: Remove more `data-testid`s (HMS-6151) (#3204)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-07-23
+
 
 * Wed Jul 9 2025 Packit <hello@packit.dev> - 71-1
 Changes with 71

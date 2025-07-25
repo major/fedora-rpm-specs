@@ -7,7 +7,7 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 %global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
 %forgemeta
 
-Release:        0.5%{?dist}
+Release:        0.6%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -198,6 +198,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.5
 - Rebase our branch on top of Augeas
 - Use patches to make it clearer what we are adding on top of upstream.

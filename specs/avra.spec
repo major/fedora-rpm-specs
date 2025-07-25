@@ -1,6 +1,6 @@
 Name:           avra
 Version:        1.4.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Atmel AVR assembler
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,9 @@ popd
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

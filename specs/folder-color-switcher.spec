@@ -1,6 +1,6 @@
 Name:           folder-color-switcher
 Version:        1.6.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Change a folder colour
 
 License:        GPL-3.0-only
@@ -63,6 +63,9 @@ done
 %{_datadir}/caja-python/extensions/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

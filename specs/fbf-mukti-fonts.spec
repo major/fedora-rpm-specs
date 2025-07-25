@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
 Version:   3.4.3
-Release:   3%{?dist}
+Release:   4%{?dist}
 
 %forgemeta
 
@@ -48,6 +48,9 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Akira TAGOH <tagoh@redhat.com> - 3.4.3-3
 - Fix FTBFS issue
   Resolves: rhbz#2340152

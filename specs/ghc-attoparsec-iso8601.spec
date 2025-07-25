@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parsing of ISO 8601 dates, originally from aeson
 
 License:        BSD-3-Clause
@@ -141,6 +141,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 1.1.1.0-4
 - Rebuild
 

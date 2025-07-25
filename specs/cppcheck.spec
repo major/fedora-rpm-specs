@@ -2,7 +2,7 @@
 
 Name:           cppcheck
 Version:        2.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -109,6 +109,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 15 2025 Troy Dawson <tdawson@redhat.com> - 2.17.1-2
 - Change from qt5 to qt6
 

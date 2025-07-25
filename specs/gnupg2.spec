@@ -5,7 +5,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -427,6 +427,9 @@ make -k check
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 21 2025 Fabio Valentini <decathorpe@gmail.com> - 2.4.8-2
 - Split tools from monolithic gnupg2 package into subpackages
 

@@ -1,7 +1,7 @@
 Summary: DHCP relay agent
 Name: dhcp-forwarder
 Version: 0.11
-Release: 24%{?dist}
+Release: 25%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 URL: http://www.nongnu.org/dhcp-fwd/
@@ -80,6 +80,9 @@ make check
 %systemd_postun_with_restart dhcp-forwarder.service
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11-24
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

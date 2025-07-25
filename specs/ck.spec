@@ -1,6 +1,6 @@
 Name: ck
 Version: 0.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD-2-clause AND Apache-2.0 AND BSD-3-clause
@@ -106,6 +106,9 @@ time timeout -k $TIMEOUT_KILL $TIMEOUT \
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Ales Nezbeda <anezbeda@redhat.com> - 0.7.2-1
 - Update to 0.7.2
 - Disable long running test on s390x

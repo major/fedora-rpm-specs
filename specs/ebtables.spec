@@ -2,7 +2,7 @@
 
 Name:			ebtables
 Version:		2.0.11
-Release:		20%{?dist}
+Release:		21%{?dist}
 Summary:		Ethernet Bridge frame table administration tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:		GPL-2.0-or-later
@@ -135,6 +135,9 @@ update-alternatives --install \
 %ghost %attr(0644,root,root) %{_mandir}/man8/ebtables.8.gz
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 03 2025 Phil Sutter <psutter@redhat.com> - 2.0.11-20
 - Drop ebtables-services package
 - Add fixes/hooks for bin-sbin merge, analogous to iptables.spec

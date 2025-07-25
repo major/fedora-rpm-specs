@@ -11,7 +11,7 @@
 
 Name:           cube
 Version:        4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -348,6 +348,9 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 24 2025 Dave Love <loveshack@fedoraproject.org> - 4.9-1
 - Update to v4.9
 - Remove el7 support

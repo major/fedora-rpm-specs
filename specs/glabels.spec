@@ -1,6 +1,6 @@
 Name:		glabels
 Version:	3.4.1
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	A program for creating labels and business cards for GNOME
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later AND CC-BY-NC-SA-3.0 AND X11
 URL:		https://www.glabels.org
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/glabels-3.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

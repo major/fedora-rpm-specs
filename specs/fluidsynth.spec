@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.4.6
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -133,6 +133,9 @@ install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsy
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 14 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.6-1
 - Update to 2.4.6
 

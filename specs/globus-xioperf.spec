@@ -1,7 +1,7 @@
 Name:		globus-xioperf
 %global _name %(tr - _ <<< %{name})
 Version:	5.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Grid Community Toolkit - XIO Performance Tool
 
 License:	Apache-2.0
@@ -57,6 +57,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

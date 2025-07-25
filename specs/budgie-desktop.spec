@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.9.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -184,6 +184,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.9.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 01 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.2-7
 - Removed Materia as a dependency of Budgie Desktop
 - Fixes #2359050

@@ -25,7 +25,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD-3-Clause-LBNL
@@ -266,6 +266,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-11
 - Fix rhbz#2380980
 

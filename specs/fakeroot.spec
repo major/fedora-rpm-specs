@@ -5,7 +5,7 @@
 Summary: Gives a fake root environment
 Name: fakeroot
 Version: 1.37.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
@@ -172,6 +172,9 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Adam Williamson <awilliam@redhat.com> - 1.37.1-2
 - Disable a failing test on s390x
 - Ensure scriptlets always exit 0

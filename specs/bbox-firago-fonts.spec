@@ -1,5 +1,5 @@
 Version: 1.001
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     https://carrois.com/fira/
 
 %global version_nodots %{gsub %{version} %. %{quote:}}
@@ -42,6 +42,9 @@ cp %{SOURCE1} .
 %fontfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 14 2025 Mateus Rodrigues Costa <mateusrodcosta@gmail.com> - 1.001-3
 - Rename package with foundry prefix: bbox-firago-fonts
 - Change URLs to point to new foundry website: https://carrois.com/

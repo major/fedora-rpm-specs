@@ -7,7 +7,7 @@
 %global upstreamname rocRAND
 
 %global rocm_release 6.4
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -291,6 +291,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jun 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Remove suse check for using ldconfig
 

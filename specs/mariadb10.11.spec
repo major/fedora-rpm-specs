@@ -124,7 +124,14 @@
 
 # To avoid issues with a breaking change in FMT library, bundle it on systems where FMT wasn't fixed yet
 # See mariadb-libfmt.patch for detailed description.
+# As the breaking issues are no longer present in fedora 41
+# and higher, this issue only remains in rhel
+%if 0%{?rhel}
 %bcond bundled_fmt 1
+%else
+%bcond bundled_fmt 0
+%endif
+
 %if %{with bundled_fmt}
 %global fmt_bundled_version 11.0.2
 %endif
@@ -311,7 +318,7 @@ BuildRequires:    perl(warnings)
 # for running some openssl tests rhbz#1189180
 BuildRequires:    openssl openssl-devel
 
-%{!?with_bundled_fmt:BuildRequires: fmt-devel >= 10.2.1-4}
+%{!?with_bundled_fmt:BuildRequires: fmt-devel >= 11.0.2-2}
 
 Requires:         bash coreutils grep
 

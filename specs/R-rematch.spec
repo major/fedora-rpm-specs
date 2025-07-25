@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.1
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          Match Regular Expressions with a Nicer 'API'
 
 License:          MIT
@@ -66,6 +66,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/README.md
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-24
 - R-maint-sig mass rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
 License:        GPL-2.0-or-later
@@ -253,6 +253,9 @@ install -m0644 -D gnokii-smsd.sysusers.conf %{buildroot}%{_sysusersdir}/gnokii-s
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.31-45
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

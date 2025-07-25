@@ -36,7 +36,7 @@ Name: ca-certificates
 Version: 2024.2.69_v8.0.401
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -418,6 +418,9 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2.69_v8.0.401-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 9 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 2024.2.69_v8.0.401-6
 - Change: Dropping of cert.pem file (Resolves: rhbz#2360110)
   https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile

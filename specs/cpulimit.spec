@@ -14,7 +14,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	0.2^%{posttag}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 URL:		https://github.com/opsengine/cpulimit
 Source0:	https://github.com/opsengine/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -47,6 +47,9 @@ install -Dp -m 755 src/cpulimit %{buildroot}/%{_bindir}/cpulimit
 %license LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2^20151118gitf4d2682-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:0.2^20151118gitf4d2682-1
 - Fix build failure
 

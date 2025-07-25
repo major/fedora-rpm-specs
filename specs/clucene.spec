@@ -4,7 +4,7 @@
 %global snap 20130812
 
 # rpmdev-bumpspec / releng automation compatible
-%global baserelease 51
+%global baserelease 52
 
 Summary:	A C++ port of Lucene
 Name:		clucene
@@ -151,6 +151,9 @@ time make -C %{_target_platform} test ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3.4-52.20130812.e8e3d20git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3.4-51.20130812.e8e3d20git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

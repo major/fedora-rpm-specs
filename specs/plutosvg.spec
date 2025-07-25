@@ -8,13 +8,12 @@ URL:            https://github.com/sammycage/plutosvg
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix pluto header lookup:
 Patch0:         %{name}-plutovg-header.patch
-# Let meson install samples so runpath is removed:
-Patch1:         %{name}-samples.patch
+Patch1:         %{name}-soversion-cmake.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(freetype2) >= 2.12
 BuildRequires:  pkgconfig(plutovg) >= 1.0.0
-BuildRequires:  meson >= 0.64.0
+BuildRequires:  cmake
 
 %description
 PlutoSVG is a compact and efficient SVG rendering library written in C. It is
@@ -41,24 +40,24 @@ Sample programs that use %{name}.
 %autosetup -p1
 
 %build
-%meson \
-  -D examples=enabled \
-  -D freetype=enabled \
-  -D tests=enabled
-%meson_build
+%cmake \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DPLUTOSVG_BUILD_EXAMPLES=ON \
+    -DPLUTOSVG_ENABLE_FREETYPE=ON
+%cmake_build
 
 %install
-%meson_install
-
-# Rename sample binaries not to conflict with other packages:
-for bin in %{buildroot}%{_bindir}/*; do
-   mv $bin %{buildroot}%{_bindir}/%{name}_$(basename $bin)
-done
+%cmake_install
+# Rename sample binaries so they don't conflict with other packages:
+install -p -m 0755 -D %{_vpath_builddir}/examples/camera2png %{buildroot}%{_bindir}/%{name}_camera2png
+install -p -m 0755 -D %{_vpath_builddir}/examples/emoji2png %{buildroot}%{_bindir}/%{name}_emoji2png
+install -p -m 0755 -D %{_vpath_builddir}/examples/svg2png %{buildroot}%{_bindir}/%{name}_svg2png
 
 %check
-%meson_test
+%ctest
 # At the moment there are no meson tests defined and the above command is a no-op,
 # so run some sample programs as a test that do not require external files:
+export LD_LIBRARY_PATH=%{_vpath_builddir}
 %{_vpath_builddir}/examples/camera2png
 %{_vpath_builddir}/examples/svg2png camera.svg camera.png
 
@@ -69,6 +68,7 @@ done
 %{_libdir}/lib%{name}.so.%{version}
 
 %files devel
+%{_libdir}/cmake/%{name}
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc

@@ -1,6 +1,6 @@
 Name:           DSDP
 Version:        5.8
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Software for semidefinite programming
 
 # The content is DSDP.  The remaining licenses cover the various fonts embedded
@@ -128,6 +128,9 @@ done
 %{_mandir}/man1/dsdp*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

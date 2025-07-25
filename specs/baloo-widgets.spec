@@ -1,7 +1,7 @@
 Name:    baloo-widgets
 Summary: Widgets for Baloo
 Version: 25.07.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.0-only OR LGPL-3.0-only
@@ -62,6 +62,9 @@ Requires: kf6-kio-devel
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

@@ -1,6 +1,6 @@
 Name:           bwbasic
 Version:        3.20g
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bywater BASIC Interpreter
 
 # All files GPL-2.0-only except unixio.h which is public domain
@@ -76,6 +76,9 @@ cp -p -r DOCS %{buildroot}/%{_docdir}/bwbasic
 %{_docdir}/bwbasic/DOCS/*.HTM
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20g-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20g-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.1
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          Easy Pre and Post Assertions
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-24
 - R-maint-sig mass rebuild
 

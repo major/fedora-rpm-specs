@@ -24,7 +24,7 @@ AutoReqProv: no
 
 Name:          drupal7
 Version:       7.98
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       An open-source content-management platform
 
 # Automatically converted from old format: GPLv2+ and BSD and MIT - review is highly recommended.
@@ -262,6 +262,9 @@ install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.98-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.98-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

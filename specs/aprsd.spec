@@ -2,7 +2,7 @@
 Name: aprsd
 Summary: Internet gateway and client access to amateur radio APRS packet data
 Version: 2.2.5
-Release: %{uprel}.6%{?dist}.38
+Release: %{uprel}.6%{?dist}.39
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}-%{uprel}.tar.gz
@@ -121,6 +121,9 @@ fi
 %doc doc/qalgorithm.html
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-15.6.39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.2.5-15.6.38
 - Add explicit BR: libxcrypt-devel
 

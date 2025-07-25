@@ -5,7 +5,7 @@
 Name:		fontawesome4-fonts
 Epoch:		1
 Version:	4.7.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 
 Summary:	Iconic font set
 License:	OFL-1.1-RFN
@@ -85,6 +85,9 @@ cp -a css less scss %{buildroot}%{_datadir}/font-awesome-web/
 %{_fontdir}/fontawesome-webfont.eot
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

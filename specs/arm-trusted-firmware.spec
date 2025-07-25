@@ -14,7 +14,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.13.0
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Release: 3%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -132,6 +132,9 @@ done
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.13.0-2
 - Enable new rk3576 platform
 

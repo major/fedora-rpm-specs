@@ -1,6 +1,6 @@
 Name:           alchemyquest
 Version:        0.5.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Reflection game
 # Code is GPLv2+ and graphics are CC-BY-SA
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 Xavier Bachelot <xavier@bachelot.org> - 0.5.2-17
 - Fix build with F42+ (RHBZ#2339879)
 

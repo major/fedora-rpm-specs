@@ -5,7 +5,7 @@
 
 Name:           %{bgname}-backgrounds
 Version:        22.1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Fedora 22 default desktop background
 
 License:        CC-BY-SA-4.0
@@ -174,6 +174,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

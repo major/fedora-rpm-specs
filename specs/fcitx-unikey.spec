@@ -1,6 +1,6 @@
 Name:		fcitx-unikey
 Version:	0.2.7
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Vietnamese Engine for Fcitx
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -39,6 +39,9 @@ A Vietnamese engine for Fcitx that uses Unikey.
 %{_datadir}/icons/hicolor/256x256/apps/fcitx-unikey.png
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

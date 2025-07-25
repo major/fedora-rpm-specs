@@ -1,6 +1,6 @@
 Name:           SILLY
 Version:        0.1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Simple and easy to use library for image loading
 License:        MIT
 URL:            http://www.cegui.org.uk
@@ -91,6 +91,9 @@ chmod 0755 %{buildroot}%{_libdir}/*.so.*
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          2.4
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          Export R Objects to Several Markup Languages
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 2.4-19
 - R-maint-sig mass rebuild
 

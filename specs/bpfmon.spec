@@ -1,6 +1,6 @@
 Name:           bpfmon
 Version:        2.53
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Traffic monitor for BPF expression/iptables rule
 
 License:        GPL-2.0-or-later
@@ -46,6 +46,9 @@ install -TD -m 0644 bpfmon.8 $RPM_BUILD_ROOT/%{_mandir}/man8/bpfmon.8
 %{_mandir}/man8/bpfmon.8*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Boian Bonev <bbonev@ipacct.com> - 2.53-3
 - update for bin and sbin merge https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

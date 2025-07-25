@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.3.0
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          Username, Full Name, Email Address, 'GitHub' Username of the Current User
 
 License:          MIT
@@ -69,6 +69,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.0-22
 - R-maint-sig mass rebuild
 

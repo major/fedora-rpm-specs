@@ -7,7 +7,7 @@
 
 Name:		dnfdragora
 Version:	2.99.0^git%{commitdate}.1.%{shortcommit}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPL-3.0-or-later
@@ -134,6 +134,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.0^git20250421.1.2f707ee-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.99.0^git20250421.1.2f707ee-2
 - Rebuilt for Python 3.14
 

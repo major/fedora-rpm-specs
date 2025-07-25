@@ -12,7 +12,7 @@
 Version: 0.68.5.1
 Name: flow-tools
 Summary: Tool set for working with NetFlow data
-Release: 44%{?dist}
+Release: 45%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
 URL: http://code.google.com/p/%{name}/
@@ -236,6 +236,9 @@ install -m0644 -D flow-tools.sysusers.conf %{buildroot}%{_sysusersdir}/flow-tool
 %doc docs/*.html ChangeLog.old TODO INSTALL SECURITY
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.68.5.1-44
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

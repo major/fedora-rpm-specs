@@ -4,7 +4,7 @@
 
 Name:           chewing-editor
 Version:        0.1.1^%{snapdate}g%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross platform chewing user phrase editor
 Summary(zh_TW): 跨平台酷音詞庫編輯器
 
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/chewing-editor.deskt
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1^20240716g0c25a46-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1^20240716g0c25a46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

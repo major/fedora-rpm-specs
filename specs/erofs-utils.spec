@@ -11,7 +11,7 @@
 
 Name:           erofs-utils
 Version:        1.8.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
@@ -97,6 +97,9 @@ autoreconf -fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 David Michael <fedora.dm0@gmail.com> - 1.8.10-1
 - Update to the 1.8.10 release.
 

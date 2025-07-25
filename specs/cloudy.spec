@@ -1,6 +1,6 @@
 Name: cloudy
 Version: 17.03
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Spectral synthesis code to simulate conditions in interstellar matter
 
 
@@ -78,6 +78,9 @@ export CLOUDY_DATA_PATH="%{buildroot}/%{_datadir}/%{name}/data/"
 %doc docs/* 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.03-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.03-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

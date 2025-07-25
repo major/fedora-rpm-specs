@@ -1,6 +1,6 @@
 Name:           gcompris-qt
 Version:        25.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPL-3.0-only
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.gc
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 28 2025 Andrea Musuruane <musuruan@gmail.com> - 25.1.1-1
 - Updated to new upstream release
 

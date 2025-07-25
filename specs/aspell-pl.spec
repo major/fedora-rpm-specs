@@ -5,7 +5,7 @@ Summary: Polish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 6.0_20061121
-Release: 34%{?dist}
+Release: 35%{?dist}
 # List of all licences each with file containing the licence text, the list can be also found in the Copyright file
 # CC-SA-1.0             /doc/CC-SA-1.0
 # LGPL-2.0-or-later     /doc/GPL
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:6.0_20061121-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 13 2025 Nikola Davidova <ndavidov@redhat.com> - 50:6.0_20061121-34
 - Update license tag
 

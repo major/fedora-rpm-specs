@@ -1,6 +1,6 @@
 Name:		gimpfx-foundry
 Version:	2.6.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Additional GIMP plugins
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:		http://gimpfx-foundry.sourceforge.net/
@@ -50,6 +50,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.m
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

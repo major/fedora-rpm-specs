@@ -2,7 +2,7 @@ Summary:	Command-line ACPI client
 Summary(pl):	1lient ACPI działający z linii poleceń
 Name:		acpi
 Version:	1.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Source0:	http://downloads.sourceforge.net/project/acpiclient/acpiclient/%{version}/%{name}-%{version}.tar.gz
@@ -36,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/acpi.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 22 2025 Johan Swensson <kupo@kupo.se> - 1.8-1
 - new upstream release
 

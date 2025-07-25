@@ -138,6 +138,11 @@ sed -i 's/certifi.=.*$/certifi/' \
 # Remove the unnecessary secure extra from urllib3.
 sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
 
+# Remove the broker extra from msal because it would require the closed-source
+# pymsalruntime.
+sed -i 's/msal\[broker\]/msal/' src/azure-cli/setup.py
+sed -i 's/msal\[broker\]/msal/' src/azure-cli/requirements.py3.Linux.txt
+
 # Temporarily allow newer -core and -common versions in rawhide.
 sed -i 's/^azure-core==.*$/azure-core>=1.28.0,<2/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^azure-common==.*$/azure-common>=1.1.28,<2/' src/azure-cli/requirements.py3.Linux.txt

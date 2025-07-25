@@ -9,7 +9,7 @@
 Name:           gitolite3
 Epoch:          1
 Version:        3.6.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
 License:        GPL-2.0-only AND CC-BY-SA-1.0
@@ -92,6 +92,9 @@ install -m0644 -D gitolite3.sysusers.conf %{buildroot}%{_sysusersdir}/gitolite3.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.14-1
 - 3.6.14
 

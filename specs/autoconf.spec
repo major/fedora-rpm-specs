@@ -10,7 +10,7 @@
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.72
-Release:    5%{?dist}
+Release:    7%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -56,6 +56,11 @@ URL:        https://www.gnu.org/software/autoconf/
 # From upstream 9ff9c567b1a7a7e66fa6523d4ceff142b86bddaa
 Patch:      0001-Keep-lmingwex-and-lmoldname-in-linker-flags-for-MinG.patch
 
+# From https://savannah.gnu.org/support/index.php?111272
+Patch:      0001-autoreconf-Invoke-autopoint-in-more-situations.patch
+# From https://savannah.gnu.org/support/index.php?111273
+Patch:      0001-autoreconf-Adapt-to-the-on-disk-situation-after-auto.patch
+
 %if "%{name}" != "autoconf"
 # Set this to the sub-package base name, for "autoconf-latest"
 %global autoconf %(echo autoconf%{version} | tr -d .)
@@ -86,10 +91,10 @@ BuildArch:  noarch
 # run "make check" by default
 %bcond_without check
 
-# m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
 BuildRequires:      perl
 Requires:           perl(File::Compare)
 Requires:           perl-interpreter
+# m4 >= 1.4.6 is required, >= 1.4.14 is recommended:
 BuildRequires:      m4 >= 1.4.14
 Requires:           m4 >= 1.4.14
 %if %{with autoconf_enables_emacs}
@@ -108,6 +113,10 @@ BuildRequires:      perl(Text::ParseWords)
 # not installed
 BuildRequires:      help2man
 BuildRequires:      make
+
+# gettext-devel   0.23.2,  0.24.2 or 0.25.1 introduced behavior changes that
+# require autoreconf to execute autopoint, hence the new runtime dependency
+Requires:           gettext-devel
 
 %if %{with check}
 %if %{with autoconf_enables_optional_test}
@@ -225,6 +234,13 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Mon Jul 21 2025 Frédéric Bérat <fberat@redhat.com> - 2.72-6
+- Get upstream temporary fixes to deal with gettext 0.25+ (related to BZ#2376582)
+- Add gettext-devel new runtime dependency due to autopoint execution
+
 * Fri Jan 31 2025 Frédéric Bérat <fberat@redhat.com> - 2.72-5
 - Backport: Keep "-lmingwex" and "-lmoldname" in linker flags for MinGW (BZ#2341043)
 

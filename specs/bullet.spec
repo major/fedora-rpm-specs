@@ -2,7 +2,7 @@
 
 Name: bullet
 Version: 3.08
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: 3D Collision Detection and Rigid Body Dynamics Library
 # Automatically converted from old format: zlib and MIT and BSD and Boost - review is highly recommended.
 License: Zlib AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND BSL-1.0
@@ -195,6 +195,9 @@ doxygen Doxyfile
 %{_libdir}/libBulletXmlWorldImporter.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -9,7 +9,7 @@ Summary: %{summ_text}
 %global git_commit_short %(c='%{git_commit}'; echo "${c:0:8}")
 
 Version: 1.1^%{git_date}git%{git_commit_short}
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://drummyfish.gitlab.io/anarch/
 Source0: https://gitlab.com/drummyfish/%{name}/-/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -139,6 +139,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1^20230123giteeb04a07-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1^20230123giteeb04a07-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

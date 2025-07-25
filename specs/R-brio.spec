@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.3
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Basic R Input Output
 
 License:          MIT
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.3-12
 - R-maint-sig mass rebuild
 

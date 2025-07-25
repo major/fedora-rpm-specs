@@ -8,7 +8,7 @@ Epoch: 1
 Summary: Eclipse Compiler for Java
 Name: ecj
 Version: %{eclipse_ver}
-Release: 12%{?dist}
+Release: 13%{?dist}
 URL: https://www.eclipse.org
 License: EPL-2.0
 
@@ -71,6 +71,9 @@ install -m 644 -p ecj.1 $RPM_BUILD_ROOT%{_mandir}/man1/ecj.1
 %{_mandir}/man1/ecj*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.23-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.23-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

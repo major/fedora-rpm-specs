@@ -1,6 +1,6 @@
 Name:           entr
 Version:        5.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run arbitrary commands when files change
 
 # The entire source code is ISC except missing/sys/event.h which is BSD-2-Clause
@@ -45,6 +45,9 @@ make check
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 20 2025 Lubomír Sedlář <lsedlar@redhat.com> - 5.7-1
 - New upstream release 5.7
 - Enable tests again

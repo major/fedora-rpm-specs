@@ -6,7 +6,7 @@
 
 Name:		gnome-weather
 Version:	48.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A weather application for GNOME
 
 License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Weather.des
 %{_datadir}/org.gnome.Weather/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

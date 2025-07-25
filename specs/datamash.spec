@@ -8,7 +8,7 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ rm lib/error.*
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 03 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.8-9
 - Remove unnecessary %%post/%%preun scriptlets
 

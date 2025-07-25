@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-msal
-Version:        1.32.3
+Version:        1.33.0
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 
@@ -34,10 +34,18 @@ using industry standard OAuth2 and OpenID Connect protocols.}
 
 %package -n python3-msal
 Summary:        %{summary}
+
+# As of MSAL 1.33, the broker extra now requires the closed-source
+# https://pypi.org/project/pymsalruntime even on Linux. See:
+#
+# [Feature Request] Publish pymsalruntime's source distribution on PyPI
+# https://github.com/AzureAD/microsoft-authentication-library-for-python/issues/811
+#
+# Missing license file in pymsalruntime wheel
+# https://github.com/AzureAD/microsoft-authentication-library-for-python/issues/829
+Obsoletes:      python3-msal+broker < 1.33.0-1
+
 %description -n python3-msal %{_description}
-
-
-%pyproject_extras_subpkg -n python3-msal broker
 
 
 %prep
@@ -51,7 +59,7 @@ Summary:        %{summary}
 sed -r \
     -e 's/^\-e/# &/' \
     -e 's/^(pytest-benchmark|perf_baseline)\b/# &/' \
-%if %{without network_tests} || 0%{?fc37} || 0%{?el9}
+%if %{without network_tests} || 0%{?el9}
     -e 's/^(python-dotenv)\b/# &/' \
 %endif
     requirements.txt | tee requirements-filtered.txt
@@ -99,7 +107,7 @@ ignore="${ignore-} --ignore=tests/test_e2e.py"
 k="${k-}${k+ and }not (SshCertTestCase and test_ssh_cert_for_user_should_work_with_any_account)"
 # Obviously, the python-cryptography package may sometimes lag upstream.
 k="${k-}${k+ and }not (CryptographyTestCase and test_should_be_run_with_latest_version_of_cryptography)"
-%if 0%{?fc37} || 0%{?epel9}
+%if 0%{?epel9}
 # python-dotenv is too old
 ignore="${ignore-} --ignore=tests/test_e2e.py"
 %endif
@@ -111,9 +119,8 @@ ignore="${ignore-} --ignore=tests/test_benchmark.py"
 %pytest --disable-warnings tests ${ignore-} -k "${k-}" -v
 
 %else
-# The msal.broker module requires pymsalruntime, which is provided on Windows
-# when the broker extra is installed, but which is not available at all
-# otherwise.
+# The msal.broker module requires the broker extra; that requires
+# pymsalruntime, which we can’t package.
 %pyproject_check_import -e msal.broker
 %endif
 

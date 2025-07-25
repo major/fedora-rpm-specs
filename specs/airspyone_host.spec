@@ -6,7 +6,7 @@
 
 Name:           airspyone_host
 Version:        1.0.10
-Release:        12%{?git_suffix}%{?dist}
+Release:        13%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
 # following is LGPL-2.1-or-later
@@ -91,6 +91,9 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/52-airspy.rules %{buildroot}%{_udevru
 %{_libdir}/libairspy.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 30 2025 Cristian Le <git@lecris.dev> - 1.0.10-12
 - Allow to build with CMake 4.0
 - Use GNUInstallDirs

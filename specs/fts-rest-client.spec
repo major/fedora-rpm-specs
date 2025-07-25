@@ -1,6 +1,6 @@
 Name:           fts-rest-client
 Version:        3.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        Apache-2.0
@@ -42,6 +42,9 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 %{_bindir}/fts-rest-*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.14.2-1
 - New upstream release 3.14.2
 

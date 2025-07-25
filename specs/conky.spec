@@ -22,7 +22,7 @@
 
 Name:           conky
 Version:        1.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
@@ -125,6 +125,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1.22.0-1
 - update to 1.22.0
 - fix FTBFS with new gcc (#2339994)

@@ -1,7 +1,7 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 # upstream fixes
@@ -62,6 +62,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Than Ngo <than@redhat.com> - 3.12-2
 - Upstream patches
   * cross compile build of 3.12 diffutils fails

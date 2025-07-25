@@ -25,7 +25,7 @@
 
 Name:           clustershell
 Version:        1.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -234,6 +234,9 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.9.3-2
 - Rebuilt for Python 3.14
 

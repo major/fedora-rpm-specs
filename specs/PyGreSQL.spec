@@ -5,7 +5,7 @@
 
 Name:		%{srcname}
 Version:	6.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -100,6 +100,9 @@ EOF
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Nikola Davidova <ndavidov@redhat.com> - 6.1.0-1
 - Rebase to the latest upstream version
 - Stop using deprecated setup.py command (rhbz#2378584)

@@ -4,7 +4,7 @@
 
 Name:           crossguid
 Version:        0
-Release:        0.25.%{commit_date}git%{short_commit}%{?dist}
+Release:        0.26.%{commit_date}git%{short_commit}%{?dist}
 Summary:        Lightweight cross platform C++ GUID/UUID library
 
 License:        MIT
@@ -63,6 +63,9 @@ make test CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20160908gitfef89a4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20160908gitfef89a4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

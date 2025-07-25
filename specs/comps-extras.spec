@@ -1,6 +1,6 @@
 Name:		comps-extras
 Version:	24
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Images for package groups
 
 # while GPL isn't normal for images, it is the case here
@@ -46,6 +46,9 @@ This package contains images for the components included in this distribution.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

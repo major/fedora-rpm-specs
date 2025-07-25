@@ -2,7 +2,7 @@
 
 Name:           gnome-user-docs
 Version:        48.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 nmontero <nmontero@redhat.com> - 48.2-1
 - Update to 48.2
 

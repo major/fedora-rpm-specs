@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          R Wrapper of the JavaScript Library 'DataTables'
 
 # Main: GPLv3; JavaScript files: MIT or ASL 2.0, see below
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.25-13
 - R-maint-sig mass rebuild
 

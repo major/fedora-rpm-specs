@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          A New Format for Lossless and Lossy Image Compression
 
 License:          MIT
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-11
 - R-maint-sig mass rebuild
 

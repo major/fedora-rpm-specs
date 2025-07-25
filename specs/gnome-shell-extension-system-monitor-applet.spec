@@ -16,7 +16,7 @@
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        36%{?gitsnapinfo}%{?dist}
+Release:        37%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -89,6 +89,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-37.20250319git184bc34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 19 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-36.20250319git184bc34
 - Updated to last upstream commits
 - Add left-display feature and dynamic settings toggle

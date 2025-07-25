@@ -1,6 +1,6 @@
 Name:           deletemail
 Version:        0.5
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A non-interactive tool for deleting mails
 
 License:        MIT
@@ -40,6 +40,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%global git_commit 331e24a2c6a39ab20d399e6f0ee29a8516ebef4b
+%global git_commit 07da80880d36f260af51077d9a89867525a40468
 
-%global EXCLUDE_MODULES cachedb_cassandra %{!?_with_oracle:db_oracle} launch_darkly osp sngtc tls_wolfssl
+%global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.5.6
+Version:  3.6.0
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -14,11 +14,8 @@ Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
 Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
 Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
-Patch: opensips-0005-Add-support-for-upcoming-json-c-0.14.0.patch
-Patch: opensips-0006-libcouchbase-API-v3.patch
-Patch: opensips-0007-Guard-VERSIONTYPE.patch
-Patch: opensips-0008-A-new-string-transformation.patch
-Patch: opensips-0009-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
+Patch: opensips-0005-Guard-VERSIONTYPE.patch
+Patch: opensips-0006-Replace-distutils-completely.patch
 
 URL:      https://opensips.org
 
@@ -320,6 +317,7 @@ Event Interface triggers an event subscribed for.
 Summary:  Event RabbitMQ module
 Requires: %{name}%{?_isa} = %{version}-%{release}
 BuildRequires: librabbitmq-devel
+Obsoletes: %{name}-rabbitmq
 
 %description event_rabbitmq
 This module provides the implementation of a RabbitMQ client for the Event Interface.
@@ -763,16 +761,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description -n python3-opensips
 Helps implement your own OpenSIPS extensions in Python
 
-%package  rabbitmq
-Summary:  RabbitMQ module
-Requires: %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: librabbitmq-devel
-
-%description rabbitmq
-This module allows sending AMQP messages to a RabbitMQ server. Messages can be
-easily customized according to the AMQP specifications, as well the RabbitMQ
-extensions.
-
 %package  rabbitmq_consumer
 Summary:  RabbitMQ message receiver
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -913,13 +901,13 @@ clients.
 %autosetup -p1
 
 %build
-LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} \
+LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_with_oracle:ORAHOME="$ORACLE_HOME"} %{__make} all modules-readme %{?_smp_mflags} TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes \
   exclude_modules="%EXCLUDE_MODULES" \
   PYTHON=/usr/bin/python3 \
   cfg_target=%{_sysconfdir}/opensips/
 
 %install
-make install TLS=1 LIBDIR=%{_lib} \
+NICER=0 make install TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes LIBDIR=%{_lib} \
   exclude_modules="%EXCLUDE_MODULES" \
   basedir=%{buildroot} prefix=%{_prefix} \
   bin_dir=bin \
@@ -1021,6 +1009,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/callops.so
 %{_libdir}/opensips/modules/cfgutils.so
 %{_libdir}/opensips/modules/clusterer.so
+%{_libdir}/opensips/modules/config.so
 %{_libdir}/opensips/modules/db_cachedb.so
 %{_libdir}/opensips/modules/db_flatstore.so
 %{_libdir}/opensips/modules/db_text.so
@@ -1036,7 +1025,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/enum.so
 %{_libdir}/opensips/modules/event_datagram.so
 %{_libdir}/opensips/modules/event_flatstore.so
-%{_libdir}/opensips/modules/event_route.so
 %{_libdir}/opensips/modules/event_routing.so
 %{_libdir}/opensips/modules/event_stream.so
 %{_libdir}/opensips/modules/event_virtual.so
@@ -1048,6 +1036,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/gflags.so
 %{_libdir}/opensips/modules/group.so
 %{_libdir}/opensips/modules/imc.so
+%{_libdir}/opensips/modules/janus.so
 %{_libdir}/opensips/modules/jsonrpc.so
 %{_libdir}/opensips/modules/load_balancer.so
 %{_libdir}/opensips/modules/mangler.so
@@ -1085,6 +1074,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/sipcapture.so
 %{_libdir}/opensips/modules/sipmsgops.so
 %{_libdir}/opensips/modules/sl.so
+%{_libdir}/opensips/modules/sockets_mgm.so
 %{_libdir}/opensips/modules/speeddial.so
 %{_libdir}/opensips/modules/sql_cacher.so
 %{_libdir}/opensips/modules/sqlops.so
@@ -1097,6 +1087,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %{_libdir}/opensips/modules/tm.so
 %{_libdir}/opensips/modules/topology_hiding.so
 %{_libdir}/opensips/modules/tracer.so
+%{_libdir}/opensips/modules/trie.so
 %{_libdir}/opensips/modules/uac.so
 %{_libdir}/opensips/modules/uac_auth.so
 %{_libdir}/opensips/modules/uac_redirect.so
@@ -1116,6 +1107,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.callops
 %doc docdir/README.cfgutils
 %doc docdir/README.clusterer
+%doc docdir/README.config
 %doc docdir/README.db_cachedb
 %doc docdir/README.db_flatstore
 %doc docdir/README.db_text
@@ -1131,7 +1123,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.enum
 %doc docdir/README.event_datagram
 %doc docdir/README.event_flatstore
-%doc docdir/README.event_route
 %doc docdir/README.event_routing
 %doc docdir/README.event_stream
 %doc docdir/README.event_virtual
@@ -1143,6 +1134,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.gflags
 %doc docdir/README.group
 %doc docdir/README.imc
+%doc docdir/README.janus
 %doc docdir/README.jsonrpc
 %doc docdir/README.load_balancer
 %doc docdir/README.mangler
@@ -1180,6 +1172,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.sipcapture
 %doc docdir/README.sipmsgops
 %doc docdir/README.sl
+%doc docdir/README.sockets_mgm
 %doc docdir/README.speeddial
 %doc docdir/README.sql_cacher
 %doc docdir/README.sqlops
@@ -1192,6 +1185,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.tm
 %doc docdir/README.topology_hiding
 %doc docdir/README.tracer
+%doc docdir/README.trie
 %doc docdir/README.uac
 %doc docdir/README.uac_auth
 %doc docdir/README.uac_redirect
@@ -1514,10 +1508,6 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 
 %files -n python3-opensips
 %{_libdir}/opensips/modules/python.so
-
-%files rabbitmq
-%{_libdir}/opensips/modules/rabbitmq.so
-%doc docdir/README.rabbitmq
 
 %files rabbitmq_consumer
 %{_libdir}/opensips/modules/rabbitmq_consumer.so

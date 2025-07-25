@@ -3,7 +3,7 @@
 Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
-Release:           17%{?dist}
+Release:           18%{?dist}
 # BitlBee is GPL-2.0-or-later but uses other source codes, breakdown:
 # BSD-2-Clause: lib/json.[ch]
 # ISC: lib/ns_parse.c
@@ -141,6 +141,9 @@ mkdir -p $RPM_BUILD_ROOT{%{_localstatedir}/lib,%{_libdir}}/%{name}/
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

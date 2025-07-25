@@ -1,6 +1,6 @@
 Name:		f2fs-tools
 Version:	1.16.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Tools for Flash-Friendly File System (F2FS)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -88,6 +88,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/*.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 25 2025 Eduardo Echeverria <echevemaster@gmail.com> - 1.16.0-8
 - Rebuilt due to FTBFS in f42
 - The existing bool definition is broken for c23, where bool is now a keyword.

@@ -1,6 +1,6 @@
 Name:		ebview
 Version:	0.3.6.2
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	EPWING CD-ROM dictionary viewer
 
 # data/about.en.in	GPL-2.0-or-later
@@ -130,6 +130,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

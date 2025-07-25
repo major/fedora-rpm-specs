@@ -13,7 +13,7 @@
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -116,6 +116,9 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.5.1-24
 - Fix fpcalc could not create an audio converter isntance
 

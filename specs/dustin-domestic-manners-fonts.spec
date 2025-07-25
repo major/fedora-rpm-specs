@@ -3,7 +3,7 @@
 
 Name:          %{fontname}-fonts
 Version:       20030527
-Release:       33%{?dist}
+Release:       34%{?dist}
 Summary:       Handwriting font by Dustin Norlander
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %license license.txt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20030527-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20030527-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

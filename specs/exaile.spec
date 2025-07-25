@@ -1,6 +1,6 @@
 Name:           exaile
 Version:        4.1.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPL-2.0-or-later
 URL:            http://www.exaile.org
@@ -145,6 +145,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

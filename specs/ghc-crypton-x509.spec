@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.7.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        X509 reader and writer
 
 License:        BSD-3-Clause
@@ -141,6 +141,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 1.7.7-4
 - Rebuild
 

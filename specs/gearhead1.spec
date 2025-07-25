@@ -11,7 +11,7 @@ Summary: %{about_game}
 License: LicenseRef-Callaway-LGPLv2
 
 Version: 1.310
-Release: 17%{?dist}
+Release: 18%{?dist}
 
 URL: http://gearheadrpg.com
 Source0: https://github.com/jwvhewitt/%{reponame}/archive/v%{version}/%{reponame}-%{version}.tar.gz
@@ -202,6 +202,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-sdl.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.310-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.310-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

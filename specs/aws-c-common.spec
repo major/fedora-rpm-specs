@@ -4,7 +4,7 @@ configuration, data structures, and error handling.}
 
 Name:           aws-c-common
 Version:        0.12.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Core c99 package for AWS SDK for C
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 14 2025 Dominik Wombacher <dominik@wombacher.cc> - 0.12.2-2
 - Remove unused and obsolete .patch files to fix build issues
 - Simplify file definition of devel sub-package by using '*.cmake' instead of individual names

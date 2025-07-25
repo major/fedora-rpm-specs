@@ -1,6 +1,6 @@
 Name: daemonize
 Version: 1.7.8
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Run a command as a Unix daemon
 License: BSD-3-Clause AND MIT AND FSFUL
 URL: http://www.clapper.org/software/daemonize/
@@ -54,6 +54,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" INSTALL_SBIN=%{_sbindir} install
 %{_mandir}/man1/daemonize.1.gz
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 1.7.8-12
 - Resolves RHBZ#2340026
 - Fixes getopt.c too many arguments errors

@@ -1,6 +1,6 @@
 Name:           Hermes
 Version:        1.3.3
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Pixel format conversion library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 10 2025 Hans de Goede <hdegoede@redhat.com> - 1.3.3-49
 - Fix FTBFS (rhbz#2339848)
 

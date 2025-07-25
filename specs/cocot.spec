@@ -1,6 +1,6 @@
 Name:		cocot
 Version:	20080315
-Release:	33%{?dist}
+Release:	34%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		http://vmi.jp/software/cygwin/cocot.html
@@ -34,6 +34,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/cocot
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080315-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080315-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

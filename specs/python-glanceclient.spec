@@ -7,7 +7,7 @@
 # for bootstrapping and Python bumps: with functional tests there is a
 # dependency loop between os-client-config and glanceclient, turn this
 # off to disable the functional tests and drop os-client-config dep
-%global with_functional_tests 1
+%global with_functional_tests 0
 
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order tempest
@@ -158,6 +158,9 @@ unset https_proxy
 %endif
 
 %changelog
+* Wed Jul 23 2025 Alfredo Moralejo <amoralej@redhat.com> - 1:4.7.0-3
+- Bootstrap for python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

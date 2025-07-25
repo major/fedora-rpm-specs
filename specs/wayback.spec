@@ -1,22 +1,17 @@
-%global commit d7baac754450ccd389b834f337c85b677ced95a5
-%global commitdate 20250718
-%global shortcommit %{sub %{commit} 1 7}
-
-%global baserelease 1
-
 %global xwlver 24.1
 
 Name:           wayback
-Version:        0~git%{commitdate}.%{baserelease}.%{shortcommit}
+Version:        0.1
 Release:        %autorelease
 Summary:        X11 compatibility layer built on wlroots and Xwayland
 
 License:        MIT
 URL:            https://gitlab.freedesktop.org/wayback/wayback
-Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  meson
 BuildRequires:  gcc
+BuildRequires:  git-core
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
@@ -33,7 +28,7 @@ Requires:       xorg-x11-server-Xwayland%{?_isa} >= %{xwlver}
 %{summary}.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -S git_am
 
 
 %conf

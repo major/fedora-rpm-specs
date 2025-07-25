@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.74.0
-Release:          12%{dist}
+Release:          13%{dist}
 Summary:          Widgets to provide user interfaces from bioconductor
 License:          Artistic-2.0
 URL:              http://bioconductor.org/packages/release/bioc/html/tkWidgets.html
@@ -48,6 +48,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/testfiles
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.74.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 1.74.0-12
 - R-maint-sig mass rebuild
 

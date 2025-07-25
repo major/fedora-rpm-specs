@@ -1,7 +1,7 @@
 Name:       dib-utils
 Summary:    Pieces of diskimage-builder that are useful standalone
 Version:    0.0.11
-Release:    22%{?dist}
+Release:    23%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
 URL:        https://git.openstack.org/cgit/openstack/dib-utils
@@ -38,6 +38,9 @@ diskimage-builder and its dependencies.
 %{python3_sitelib}/dib_utils*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.11-22
 - Rebuilt for Python 3.14
 

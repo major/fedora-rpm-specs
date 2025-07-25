@@ -5,7 +5,7 @@
 Summary: Basic library for handling email messages for Emacs
 Name: flim
 Version: %{ver}%{?snapver}
-Release: 0.6%{?dist}
+Release: 0.7%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/wanderlust/flim
 BuildRequires: emacs, make
@@ -44,6 +44,9 @@ done
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.9^1.git80b8121-0.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.9^1.git80b8121-0.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

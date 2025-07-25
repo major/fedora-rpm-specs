@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -284,6 +284,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Michal Ruprich <mruprich@redhat.com> - 10.3
 - New version 10.3
 

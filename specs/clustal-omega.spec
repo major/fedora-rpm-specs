@@ -1,6 +1,6 @@
 Name:		clustal-omega
 Version:	1.2.4
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Clustal Omega is a command-line multiple sequence alignment tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_libdir}/libclustalo.la %{buildroot}%{_libdir}/libclustalo.a
 %{_includedir}/clustalo/
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

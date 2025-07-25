@@ -5,7 +5,7 @@
 
 Name: audacious
 Version: 4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -210,6 +210,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-1
 - update to 4.5
 

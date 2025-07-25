@@ -9,7 +9,7 @@
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
 Version:	13.25
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -254,6 +254,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.25-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.25-5
 - Fix incompatible pointer errors (gcc 15)
 

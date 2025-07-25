@@ -8,7 +8,7 @@
 Summary:    NetworkManager VPN plugin for Fortinet compatible SSLVPN
 Name:       NetworkManager-fortisslvpn
 Version:    1.4.1
-Release:    9.%{date}git%{shortcommit}%{?dist}
+Release:    10.%{date}git%{shortcommit}%{?dist}
 License:    GPL-2.0-or-later
 URL:        http://www.gnome.org/projects/NetworkManager/
 
@@ -101,6 +101,9 @@ install -m0644 -D networkmanager-fortisslvpn.sysusers.conf %{buildroot}%{_sysuse
 %{_datadir}/metainfo/network-manager-fortisslvpn.metainfo.xml
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-10.20231021gite201da5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.1-9.20231021gite201da5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

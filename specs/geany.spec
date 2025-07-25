@@ -5,7 +5,7 @@
 
 Name:      geany
 Version:   2.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A fast and lightweight IDE using GTK3
 
 # Automatically converted from old format: GPLv2+ and MIT - review is highly recommended.
@@ -157,6 +157,9 @@ EOF
 %{_libdir}/pkgconfig/geany.pc
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 2.1-2
 - New upstream release: Geany 2.1 (RHBZ#2376572)
 - Remove gcc15 patch

@@ -1,6 +1,6 @@
 Name:		endless-sky
 Version:	0.10.14
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -97,6 +97,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.14-1
 - 0.10.14
 

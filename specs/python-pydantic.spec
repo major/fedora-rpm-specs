@@ -1,7 +1,7 @@
 %bcond tests 1
 
-%global commit 9452e13c571db7d31051768c3b4d47a6e2ceea7d
-%global snapdate 20250710
+%global commit b0175de473823f6f6927b9ecdc8998059727a086
+%global snapdate 20250723
 
 Name:           python-pydantic
 Version:        2.11.7^%{snapdate}git%{sub %{commit} 1 7}

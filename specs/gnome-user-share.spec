@@ -2,7 +2,7 @@
 
 Name:           gnome-user-share
 Version:        48.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Gnome user file sharing
 
 # * gnome-tour source code is GPL-2.0-or-later
@@ -86,4 +86,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-user-share-w
 %{_userunitdir}/gnome-user-share-webdav.service
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

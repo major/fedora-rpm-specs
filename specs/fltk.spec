@@ -10,7 +10,7 @@
 
 Name:		    fltk
 Version:	    1.3.11
-Release:	    1%{?dist}
+Release:	    2%{?dist}
 Summary:	    C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -265,6 +265,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/fluid.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 22 2025 Richard Shaw <hobbes1069@gmail.com> - 1.3.11-1
 - Update to 1.3.11.
 

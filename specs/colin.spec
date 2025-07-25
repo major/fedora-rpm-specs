@@ -10,7 +10,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tool to check generic rules/best-practices for containers/images/dockerfiles.
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -78,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.3-13
 - Rebuilt for Python 3.14
 

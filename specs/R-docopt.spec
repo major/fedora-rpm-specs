@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Command-Line Interface Specification Language
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/spec
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.7.1-11
 - R-maint-sig mass rebuild
 

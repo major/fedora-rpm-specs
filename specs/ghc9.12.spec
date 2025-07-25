@@ -82,7 +82,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -902,6 +902,9 @@ make test
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.12.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 19 2025 Jens Petersen <petersen@redhat.com> - 9.12.2-7
 - enable debug_info for release builds
 - use 'release' flavor instead of 'perf'

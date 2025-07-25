@@ -2,40 +2,40 @@
 %bcond_without tests
 
 Name:           pychess
-Version:        1.0.3
-Release:        16%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Chess game for GNOME
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://pychess.github.io
 Source0:        https://github.com/pychess/pychess/archive/%{version}/%{name}-%{version}.tar.gz
-# PR#1897 Update metainfo to the latest spec
-Patch0:         https://github.com/pychess/pychess/pull/1897.patch
-# PR#1988 Remove unnecessary shebangs
-Patch1:         https://github.com/pychess/pychess/pull/1898.patch
-# PR#2005 Python 3.12: Use importlib instead of deprecated imp module
-Patch2:         https://github.com/pychess/pychess/pull/2005.patch
 # PR#2235 Python 3.13: Drop use of telnetlib
 # https://github.com/pychess/pychess/pull/2235
-Patch3:         0001-TimeSeal.py-make-IAC_WONT_ECHO-a-literal-as-telnetli.patch
-# PR#1964 Add GitHub Actions CI to prevent regressions + migrate off of distutils
-# This is just the distutils commit, to fix setuptools 75+ compat
-# Mainly, the commit removes the register command class
-# https://github.com/pychess/pychess/pull/1964
-Patch4:         0001-setup.py-Migrate-from-distutils-to-setuptools.patch
+Patch:          0001-TimeSeal.py-make-IAC_WONT_ECHO-a-literal-as-telnetli.patch
 # PR #2361 Adjust test usage of get_event_loop() for Python 3.14 changes
 # Backported to 1.0.3
 # https://github.com/pychess/pychess/pull/2361
-Patch5:         0001-Adjust-test-usage-of-get_event_loop-for-Python-3.14-.patch
-
+Patch:          0001-Adjust-test-usage-of-get_event_loop-for-Python-3.14-.patch
+# Fix run_tests.py so it exits 1 on failure
+# https://github.com/pychess/pychess/pull/2359
+Patch:          2359.patch
+# Fix some async test failures
+# https://github.com/pychess/pychess/pull/2362
+Patch:          2362.patch
+# Initial incorrect fix for FICS issues with Python 3.13+
+# https://github.com/pychess/pychess/pull/2364
+Patch:          2364.patch
+# Corrected fix for FICS issues with Python 3.13+
+# https://github.com/pychess/pychess/commit/65f609da762eded553d618d711f944fbfe39d2f5
+Patch:          65f609da762eded553d618d711f944fbfe39d2f5.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pexpect)
-BuildRequires:  python3dist(sqlalchemy) < 2
+BuildRequires:  python3dist(sqlalchemy) >= 2
 BuildRequires:  gtk3
 BuildRequires:  librsvg2
 BuildRequires:  gettext
@@ -62,7 +62,7 @@ BuildRequires:  stockfish
 %endif
 
 Requires:       python3dist(psutil)
-Requires:       python3dist(sqlalchemy) < 2
+Requires:       python3dist(sqlalchemy) >= 2
 Requires:       python3dist(websockets)
 # gnome-settings-daemon
 Requires:       python3-gobject
@@ -111,6 +111,8 @@ sed -r \
 %endif
 
 %build
+PYTHONPATH=${PWD}/lib %{python3} pgn2ecodb.py
+PYTHONPATH=${PWD}/lib %{python3} create_theme_preview.py
 %py3_build
 %if %{with docs}
 # generate html docs
@@ -120,8 +122,6 @@ PYTHONPATH=${PWD}/lib sphinx-build-3 docs html
 
 %install
 %py3_install
-# Remove Debian specific menu stuff
-rm -r %{buildroot}%{_datadir}/menu
 
 desktop-file-install --delete-original               \
         --dir=%{buildroot}%{_datadir}/applications   \
@@ -136,15 +136,9 @@ appstream-util validate-relax --nonet                \
 
 %if %{with tests}
 %check
-# remove tests requiring network access
-rm testing/remotegame.py
 # run tests
 pushd testing
-PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
-  --omit=../lib/pychess/external/* \
-  --source ../lib \
-  -m unittest discover \
-  -p "*.py"
+PYCHESS_UNITTEST=true PYTHONPATH=../lib xvfb-run -a %{python3} ./run_tests.py
 %endif
 
 
@@ -153,13 +147,12 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 %doc utilities
 %license LICENSE
 %{python3_sitelib}/%{name}
-%{python3_sitelib}/PyChess-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/gtksourceview-3.0/language-specs/pgn.lang
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/*/apps/*
-%{_datadir}/pixmaps/*
 %{_datadir}/mime/packages/%{name}.xml
 %{_mandir}/man?/*
 %{_metainfodir}/*.metainfo.xml
@@ -174,6 +167,11 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
+* Wed Jul 23 2025 Adam Williamson <awilliam@redhat.com> - 1.0.5-1
+- Update to 1.0.5
+- Drop patches merged upstream
+- Backport more patches to fix build/tests and a FICS bug with Python 3.13+
+
 * Mon Jul 21 2025 Adam Williamson <awilliam@redhat.com> - 1.0.3-16
 - Backport #1964 (partial) and #2361 (rebased) to fix build with Python 3.14
 - Rebuilt for Python 3.14

@@ -13,6 +13,9 @@ Source0:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz
 Patch0:         37fec38ff97604f964122cd2d33f5d503f319b10.patch
 # Fix compilation on GCC 15
 Patch1:         f765f0b312f2998498f629d93369babfb2c975b4.patch
+# Fixes vulnerability CVE-2024-50383
+Patch2:         0001-fix-make-additions-be-constant-time.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3

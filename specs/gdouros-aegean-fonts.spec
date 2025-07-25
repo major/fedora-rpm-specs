@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        9.81
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A font for ancient scripts in the greater Aegean vicinity
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet \
 %doc Aegean.pdf Aegean.odt
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.81-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.81-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

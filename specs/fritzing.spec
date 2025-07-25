@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            http://fritzing.org/
 
 Version:        1.0.5
-%global baserelease 1
+%global baserelease 2
 
 # The upstream developer no longer marks their releases with git tags.
 # The official website says that v1.0.5 was released on 2025-04-14.
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2.20250402
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.5-1.20250402
 - Update to v1.0.5
 

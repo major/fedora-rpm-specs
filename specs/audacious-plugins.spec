@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -394,6 +394,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-2
 - obsolete -freeworld package, since it's been a meta-package only
   and currently doesn't pull it any extra packages anymore

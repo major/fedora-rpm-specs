@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.9.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -316,6 +316,9 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.27-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.9.27-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

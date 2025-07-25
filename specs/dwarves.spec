@@ -3,7 +3,7 @@
 
 Name: dwarves
 Version: 1.30
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
@@ -131,6 +131,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.30-1
 - New release: 1.30
 - Better detection of abort during DWARF loader thread processing

@@ -58,7 +58,7 @@ Version: 9.8.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 148%{?dist}
+Release: 149%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -848,6 +848,9 @@ make test
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.4-149
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 03 2025 Jens Petersen  <petersen@redhat.com> - 9.8.4-148
 - revert Unique Word64 on i686 to avoid compilation crashes
   https://gitlab.haskell.org/ghc/ghc/-/issues/25904

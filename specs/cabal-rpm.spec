@@ -10,7 +10,7 @@
 Name:           cabal-rpm
 Version:        2.3.0
 # can only be reset when subpkg bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
 License:        GPL-3.0-or-later
@@ -156,6 +156,9 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/cblrpm.1
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 2.3.0-2
 - Rebuild
 

@@ -1,6 +1,6 @@
 Name:           constantine-backgrounds
 Version:        12.1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Constantine desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -106,6 +106,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

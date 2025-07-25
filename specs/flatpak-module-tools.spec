@@ -1,26 +1,19 @@
 %global srcname flatpak-module-tools
-%global project_version 1.1.1
 
 Name:		%{srcname}
-Version:	1.1.1
+Version:	1.1.2
 Release:	%autorelease
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
 License:	MIT
 URL:		https://pagure.io/flatpak-module-tools
-Source0:	https://releases.pagure.org/flatpak-module-tools/flatpak-module-tools-%{project_version}.tar.gz
+Source0:	https://pagure.io/flatpak-module-tools/archive/v%{version}/flatpak-module-tools-v%{version}.tar.gz
 
 BuildArch:	noarch
 # i386 is not supported by flatpak_module_tools.utils.Arch
 ExcludeArch:	%{ix86}
 
-BuildRequires: python3-build
 BuildRequires: python3-devel
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
-BuildRequires: python3-setuptools_scm+toml
-BuildRequires: python3-wheel
-BuildRequires: python3-zstandard
 
 # For tests
 BuildRequires: createrepo_c
@@ -30,25 +23,14 @@ BuildRequires: libappstream-glib
 BuildRequires: libmodulemd
 BuildRequires: librsvg2
 BuildRequires: ostree
-BuildRequires: python3-click
-BuildRequires: python3-gobject-base
-BuildRequires: python3-jinja2
-BuildRequires: python3-koji
 # GI overrides for Modulemd
 BuildRequires: python3-libmodulemd
-BuildRequires: python3-networkx
-BuildRequires: python3-pytest
-BuildRequires: python3-requests
-BuildRequires: python3-responses
-BuildRequires: python3-rpm
-BuildRequires: python3-yaml
+# FIXME: python3-solv does not provide python3dist(solv)
+BuildRequires: python3-solv
 BuildRequires: zstd
 
-Requires: python3-%{srcname} = %{version}-%{release}
-Requires: python3-jinja2
-Requires: python3-koji
-Requires: python3-networkx
-Requires: python3-requests-toolbelt
+Requires: python3-%{srcname}+cli = %{version}-%{release}
+# FIXME: python3-solv does not provide python3dist(solv)
 Requires: python3-solv
 
 %description
@@ -71,12 +53,6 @@ Requires: libappstream-glib
 # for SVG gdk-pixbuf loader
 Requires: librsvg2
 Requires: ostree
-Requires: python3-click
-Requires: python3-gobject-base
-Requires: python3-requests
-Requires: python3-rpm
-Requires: python3-yaml
-Requires: python3-zstandard
 Requires: zstd
 
 # Output changed from <nvr>.oci.tar.gz to <nvr>.oci.tar
@@ -85,14 +61,25 @@ Conflicts: koji-flatpak <= 0.2
 %description -n python3-%{srcname}
 Python3 library for Flatpak handling
 
+
+%pyproject_extras_subpkg -n python3-%{srcname} cli
+
+
 %prep
-%autosetup -p1 -n %{srcname}-%{project_version}
+%autosetup -p1 -n %{srcname}-v%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -i -e '/pytest-cov/d' -e '/addopts/s/--cov[^ "]*//g' pyproject.toml
+# FIXME: python3-solv does not provide python3dist(solv)
+sed -i -e '/"solv"/d' pyproject.toml
+
+
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires -x cli,tests
 
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 
@@ -103,6 +90,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 
 %install
 %pyproject_install
+%pyproject_save_files -l flatpak_module_tools
 
 
 %files
@@ -112,9 +100,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{_bindir}/flatpak-module-depchase
 
 
-%files -n python3-%{srcname}
-%license LICENSE
-%{python3_sitelib}/*
+%files -n python3-%{srcname} -f %{pyproject_files}
 
 
 %changelog

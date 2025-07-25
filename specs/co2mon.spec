@@ -4,7 +4,7 @@
 
 Name:           co2mon
 Version:        2.1.1
-Release:        17.%{date}git%{gitcommit}%{?dist}
+Release:        18.%{date}git%{gitcommit}%{?dist}
 Summary:        CO2 monitor software
 
 License:        GPL-3.0-or-later
@@ -60,6 +60,9 @@ cp -r graph %{buildroot}%{_datadir}/%{name}/
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-18.20221013gitf47ec3d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-17.20221013gitf47ec3d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

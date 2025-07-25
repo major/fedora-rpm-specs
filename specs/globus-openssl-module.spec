@@ -1,7 +1,7 @@
 Name:		globus-openssl-module
 %global _name %(tr - _ <<< %{name})
 Version:	5.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Grid Community Toolkit - Globus OpenSSL Module Wrapper
 
 License:	Apache-2.0
@@ -105,6 +105,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

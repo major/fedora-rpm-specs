@@ -1,17 +1,11 @@
 %bcond_with testcoverage
 
-# Only generate buildrequires or use PEP 518 style building on Fedora and new EPEL releases because
-# Poetry is missing elsewhere. Fall back to using setuptools instead.
+# Only use poetry-core on Fedora and new EPEL releases because
+# it is missing elsewhere. Fall back to using setuptools instead.
 %if ! 0%{?rhel} || 0%{?epel} >= 10
-%bcond_without genbrs
-%bcond_without pyproject_build
+%bcond_without poetry_core
 %else
-%bcond_with genbrs
-%bcond_with pyproject_build
-%endif
-
-%if 0%{undefined pyproject_files}
-%global pyproject_files %{_builddir}/%{name}-%{version}-%{release}.%{_arch}-pyproject-files
+%bcond_with poetry_core
 %endif
 
 %global srcname rpmautospec_core
@@ -34,14 +28,6 @@ BuildRequires: python3dist(pytest-cov)
 %endif
 BuildRequires: sed
 
-%if %{with genbrs}
-%generate_buildrequires
-%{pyproject_buildrequires}
-%else
-BuildRequires: python3dist(pip)
-BuildRequires: python3dist(setuptools)
-%endif
-
 %global _description %{expand:
 This package contains minimum functionality to determine if an RPM spec file
 uses rpmautospec features.}
@@ -58,6 +44,12 @@ Summary: %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version}
+%if %{without poetry_core}
+# by renaming the [build-system] section we fallback to setuptools (default per PEP 517)
+# this only works because there is also a setup.py file in the sdist
+test -f setup.py
+sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
+%endif
 
 %if %{without testcoverage}
 cat << PYTESTINI > pytest.ini
@@ -66,22 +58,18 @@ addopts =
 PYTESTINI
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%if %{with pyproject_build}
 %pyproject_wheel
-%else
-%py3_build
-%endif
 
 %install
-%if %{with pyproject_build}
 %pyproject_install
 %pyproject_save_files %{srcname}
+%if %{with poetry_core}
 # Work around poetry not listing license files as such in package metadata.
 sed -i -e 's|^\(.*/LICENSE\)|%%license \1|g' %{pyproject_files}
-%else
-%py3_install
-echo '%{python3_sitelib}/%{srcname}*' > %{pyproject_files}
 %endif
 
 %check
@@ -89,9 +77,6 @@ echo '%{python3_sitelib}/%{srcname}*' > %{pyproject_files}
 
 %files -n python3-%{canonicalname} -f %{pyproject_files}
 %doc README.md
-%if %{without pyproject_build}
-%license LICENSE
-%endif
 
 %changelog
 %autochangelog

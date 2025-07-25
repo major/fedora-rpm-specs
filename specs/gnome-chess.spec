@@ -4,7 +4,7 @@
 
 Name:           gnome-chess
 Version:        48.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Chess game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 14 2025 nmontero <nmontero@redhat.com> - 48.0-1
 - Update to 48.0
 

@@ -46,7 +46,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b4
+%global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -1436,7 +1436,6 @@ CheckPython freethreading
 %{1}/_ctypes.%{2}.so\
 %{1}/_curses.%{2}.so\
 %{1}/_curses_panel.%{2}.so\
-%{1}/_datetime.%{2}.so\
 %{1}/_dbm.%{2}.so\
 %{1}/_gdbm.%{2}.so\
 %{1}/_decimal.%{2}.so\
@@ -1737,6 +1736,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Jul 22 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~rc1-1
+- Update to Python 3.14.0rc1
+
 * Tue Jul 08 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~b4-1
 - Update to Python 3.14.0b4
 

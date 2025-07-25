@@ -1,6 +1,6 @@
 Name:           bibletime
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        An easy to use Bible study tool
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -44,12 +44,12 @@ the SWORD Bible Framework.
 %autosetup
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release -B %{_target_platform}
+%cmake -DCMAKE_BUILD_TYPE=Release
 
-make %{?_smp_mflags} -C %{_target_platform}
+%cmake_build
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 # rename wrongly-named locale
 mv %{buildroot}%{_docdir}/%{name}/handbook/html/{br,BR} || :
@@ -89,6 +89,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTim
 %{_datadir}/icons/hicolor/scalable/apps/info.%{name}.BibleTime.svg
 
 %changelog
+* Wed Jul 23 2025 Greg Hellings <greg.hellings@gmail.com> - 3.1.1-3
+- Use ninja build (rhbz#2380970)
+
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 22 2025 Greg Hellings <greg.hellings@gmail.com> - 3.1.1-1
 - New upstream release
 - Now builds against Qt6 instead of Qt5

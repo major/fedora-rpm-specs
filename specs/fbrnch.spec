@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.7.1
 # can only be reset when all subpkgs bumped
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -205,6 +205,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 05 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-30
 - add fish and zsh completions
 

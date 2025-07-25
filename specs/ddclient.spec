@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           4%{?dist}
+Release:           5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -143,6 +143,9 @@ fi
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 01 2025 Scott Talbert <swt@techie.net> - 4.0.0-4
 - Switch systemd service to use exec and remove pid file (#2355909)
 

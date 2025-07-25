@@ -3,7 +3,7 @@ Summary: Convert terminal output to HTML
 License: MPL-1.1 OR LGPL-2.0-or-later
 
 Version: 0.5.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 URL: https://github.com/theZiz/aha
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -47,6 +47,9 @@ cat aha.c | awk '1;/\*\//{exit}' > LICENSE
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

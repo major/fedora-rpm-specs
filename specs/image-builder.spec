@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        26
+Version:        27
 
 %gometa
 
@@ -211,7 +211,7 @@ export GOFLAGS+=" -mod=vendor"
 GOTAGS="exclude_graphdriver_btrfs"
 %endif
 
-export LDFLAGS="${LDFLAGS} -X 'main.BuildVersion=%{version}'"
+export LDFLAGS="${LDFLAGS} -X 'main.version=%{version}'"
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o %{gobuilddir}/bin/image-builder %{goipath}/cmd/image-builder
 
 %install
@@ -236,6 +236,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Jul 23 2025 Packit <hello@packit.dev> - 27-1
+Changes with 27
+----------------
+  * chore: set specfile version at build (#253)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+
+— Somewhere on the Internet, 2025-07-23
+
+
 * Mon Jul 21 2025 Packit <hello@packit.dev> - 26-1
 Changes with 26
 ----------------

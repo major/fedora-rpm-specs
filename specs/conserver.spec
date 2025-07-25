@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.2.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -119,6 +119,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 8.2.7-12
 - Add explicit BR: libxcrypt-devel
 

@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	42.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	LicenseRef-Fedora-Logos
@@ -394,6 +394,9 @@ hardlink -vv %{buildroot}/usr
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 20 2025 Kevin Fenzi <kevin@scrye.com> - 42.0.1-1
 - Update to 42.0.0.
 - Adds wsl logo

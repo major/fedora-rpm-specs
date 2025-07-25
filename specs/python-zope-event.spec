@@ -8,17 +8,13 @@
 %global _docdir_fmt %{name}
 
 Name:           python-zope-event
-Version:        5.0
-Release:        8%{?dist}
+Version:        5.1
+Release:        1%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
-Source0:        %pypi_source zope.event
+Source0:        %pypi_source zope_event
 BuildArch:      noarch
-# upstream fixes for doc build with sphinx 8.1
-# https://github.com/zopefoundation/zope.event/commit/cfcb34ea5c61d71c77529cbf2400738473e25bac
-# https://bugzilla.redhat.com/show_bug.cgi?id=2329899
-Patch:          python-zope-event-docs.patch
 
 %description
 The zope.event package provides a simple event system. It provides
@@ -53,7 +49,7 @@ Summary:        Documentation for zope.event
 Documentation for %{name}.
 
 %prep
-%autosetup -n zope.event-%{version} -p1
+%autosetup -n zope_event-%{version} -p1
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -99,6 +95,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Mon Jun 30 2025 Orion Poplawski <orion@nwra.com> - 5.1-1
+- Update to 5.1
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 5.0-8
 - Rebuilt for Python 3.14
 

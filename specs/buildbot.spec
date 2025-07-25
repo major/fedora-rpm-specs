@@ -20,7 +20,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -405,6 +405,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.3.0-2
 - Drop unneeded sqlalchemy-migrate dependency.
 

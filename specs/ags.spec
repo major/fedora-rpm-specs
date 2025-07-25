@@ -8,7 +8,7 @@ Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
 Version: 3.6.2.12
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 # https://github.com/richgel999/miniz/issues/249
 Source1: FindMiniz.cmake
@@ -124,6 +124,9 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.12-1
 - update to 3.6.2.12
 - switch back to bundled freetype per upstream recommendation

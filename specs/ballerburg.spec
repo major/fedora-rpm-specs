@@ -1,6 +1,6 @@
 Name:           ballerburg
 Version:        1.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Two players, two castles, and a hill in between
 
 License:        GPL-3.0-or-later
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 19 2025 Cristian Le <git@lecris.dev> - 1.2.3-2
 - Allow to build with ninja
 

@@ -1,6 +1,6 @@
 Name:           glimmer
 Version:        3.02b
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        System for finding genes in microbial DNA
 
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
@@ -54,6 +54,9 @@ ln -s ../libexec/glimmer3/glimmer3 $RPM_BUILD_ROOT/%{_bindir}/glimmer3
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.02b-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.02b-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

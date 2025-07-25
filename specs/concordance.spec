@@ -2,7 +2,7 @@
 
 Name: concordance
 Version: 1.5
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Software to program the Logitech Harmony remote control
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -131,6 +131,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %changelog
+* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Scott Talbert <swt@techie.net> - 1.5-14
 - Migrate to pyproject macros (#2377228)
 
